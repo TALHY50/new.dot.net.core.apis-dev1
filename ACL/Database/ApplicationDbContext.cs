@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ACL.Database.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ACL.Database
 {
@@ -12,6 +13,7 @@ namespace ACL.Database
             : base(options)
         {
         }
+        public virtual DbSet<AclCompanyModule> AclCompanyModules { get; set; } = null!;
     }
 
 }

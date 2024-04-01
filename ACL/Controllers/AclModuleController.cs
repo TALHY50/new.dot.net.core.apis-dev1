@@ -1,31 +1,27 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ACL.Database;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
 
 namespace ACL.Controllers
 {
-    public class AclModuleController : Controller
+    [ApiController]
+    [Route("[controller]")]
+    public class AclModuleController : ControllerBase
     {
-        public IActionResult Index()
-        {
-            return Ok();
-        } 
-        public IActionResult Create()
-        {
-            return View();
-        }
-        public IActionResult Edit()
-        {
-            return View();
-        }  
-        public IActionResult View(int Id)
-        {
-            return View();
-        }  
-        public IActionResult Destroy(int Id)
-        {
-            return View();
-        }
+        private readonly ApplicationDbContext _context;
 
+        public AclModuleController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+        [HttpGet(Name = "AclModule")]
+        public async Task<IActionResult> Get()
+        {
+            var _AclCompanyModules = await _context.AclCompanyModules.ToListAsync();
+
+            return Ok(_AclCompanyModules);
+        }
 
     }
 }
