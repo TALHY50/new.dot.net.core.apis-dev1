@@ -1,7 +1,10 @@
 ﻿using ACL.Database;
+using Craftgate.Response;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
+using SharedLibrary.Interfaces;
+using SharedLibrary.Services;
 
 namespace ACL.Controllers.V1
 {
@@ -10,7 +13,6 @@ namespace ACL.Controllers.V1
     public class AclModuleController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-
         public AclModuleController(ApplicationDbContext context)
         {
             _context = context;
@@ -20,7 +22,6 @@ namespace ACL.Controllers.V1
         public async Task<IActionResult> Index()
         {
             var _AclCompanyModules = await _context.AclCompanyModules.ToListAsync();
-
             return Ok(_AclCompanyModules);
         }
 

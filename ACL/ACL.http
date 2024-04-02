@@ -3,7 +3,4 @@
 GET {{ACL_HostAddress}}/weatherforecast
 Accept: application/json
 
-GET {{ACL_HostAddress}}/aclmodule/index
-Accept: application/json
-
 ###
