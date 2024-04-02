@@ -6,7 +6,7 @@ using Microsoft.VisualBasic;
 namespace ACL.Controllers.V1
 {
     [ApiController]
-    [Route("ACL/public/api/v1/company/modules")]
+    [Route("api/v1/company/")]
     public class AclModuleController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
@@ -15,7 +15,8 @@ namespace ACL.Controllers.V1
         {
             _context = context;
         }
-        [HttpGet(Name = "Index")]
+        [HttpGet]
+        [Route("module")]
         public async Task<IActionResult> Index()
         {
             var _AclCompanyModules = await _context.AclCompanyModules.ToListAsync();
