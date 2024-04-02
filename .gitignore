@@ -1,0 +1,12 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/SharedLibrary/obj/Debug/net8.0/SharedLibrary.AssemblyInfo.cs
+/SharedLibrary/obj/Debug/net8.0/SharedLibrary.AssemblyInfoInputs.cache
+/SharedLibrary/obj/Debug/net8.0/SharedLibrary.assets.cache
+/SharedLibrary/obj/project.assets.json
+/SharedLibrary/obj/project.nuget.cache
+/SharedLibrary/obj/SharedLibrary.csproj.nuget.dgspec.json
+/SharedLibrary/obj/SharedLibrary.csproj.nuget.g.props
+/SharedLibrary/obj/SharedLibrary.csproj.nuget.g.targets
