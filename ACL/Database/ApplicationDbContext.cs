@@ -47,6 +47,7 @@ public partial class ApplicationDbContext : DbContext
     public virtual DbSet<Migration> Migrations { get; set; }
 
     public virtual DbSet<PersonalAccessToken> PersonalAccessTokens { get; set; }
+    public object AclPage { get; internal set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
