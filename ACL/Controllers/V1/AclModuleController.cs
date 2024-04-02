@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
 
-namespace ACL.Controllers
+namespace ACL.Controllers.V1
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("ACL/public/api/v1/company/modules")]
     public class AclModuleController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
@@ -15,8 +15,8 @@ namespace ACL.Controllers
         {
             _context = context;
         }
-        [HttpGet(Name = "AclModule")]
-        public async Task<IActionResult> Get()
+        [HttpGet(Name = "Index")]
+        public async Task<IActionResult> Index()
         {
             var _AclCompanyModules = await _context.AclCompanyModules.ToListAsync();
 
