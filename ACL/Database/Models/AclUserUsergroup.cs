@@ -3,13 +3,15 @@ using System.Collections.Generic;
 
 namespace ACL.Database.Models;
 
-public partial class AclCompanyModule
+public partial class AclUserUsergroup
 {
     public ulong Id { get; set; }
 
-    public ulong CompanyId { get; set; }
+    public ulong UsergroupId { get; set; }
 
-    public ulong ModuleId { get; set; }
+    public ulong UserId { get; set; }
+
+    public ulong CompanyId { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 

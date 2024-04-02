@@ -3,13 +3,17 @@ using System.Collections.Generic;
 
 namespace ACL.Database.Models;
 
-public partial class AclCompanyModule
+public partial class AclModule
 {
     public ulong Id { get; set; }
 
-    public ulong CompanyId { get; set; }
+    public string Name { get; set; } = null!;
 
-    public ulong ModuleId { get; set; }
+    public string Icon { get; set; } = null!;
+
+    public int Sequence { get; set; }
+
+    public string DisplayName { get; set; } = null!;
 
     public DateTime? CreatedAt { get; set; }
 

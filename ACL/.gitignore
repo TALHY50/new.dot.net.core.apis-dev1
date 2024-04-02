@@ -32,5 +32,7 @@ msbuild.wrn
 .vs/
 
 # Ignore bin and obj folders for all dependent projects
-**/bin/
-**/obj/
+**/bin/.*
+**/obj/.*
+SharedLibrary/bin/.*
+SharedLibrary/obj/.*

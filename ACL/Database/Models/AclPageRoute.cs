@@ -3,13 +3,15 @@ using System.Collections.Generic;
 
 namespace ACL.Database.Models;
 
-public partial class AclCompanyModule
+public partial class AclPageRoute
 {
     public ulong Id { get; set; }
 
-    public ulong CompanyId { get; set; }
+    public ulong? PageId { get; set; }
 
-    public ulong ModuleId { get; set; }
+    public string? RouteName { get; set; }
+
+    public string? RouteUrl { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 
