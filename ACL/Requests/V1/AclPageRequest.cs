@@ -8,6 +8,10 @@ namespace ACL.Requests.V1
 
         [Required]
         [Range(1, ulong.MaxValue)]
+        public ulong id { get; set; }
+
+        [Required]
+        [Range(1, ulong.MaxValue)]
         public ulong module_id { get; set; }
 
         [Required]

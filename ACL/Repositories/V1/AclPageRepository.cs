@@ -3,57 +3,136 @@ using ACL.Database.Models;
 using ACL.Interfaces.Repositories.V1;
 using ACL.Interfaces;
 using ACL.Requests.V1;
+using ACL.Response.V1;
+using ACL.Requests;
+using Org.BouncyCastle.Asn1.Ocsp;
 
 namespace ACL.Repositories.V1
 {
-    public class AclPageRepository : GenericRepository<AclPage>, IAclPageRepository
+    public class AclPageRepository : IAclPageRepository
     {
 
-        public AclPageRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
-        {
-        }
+        private readonly IUnitOfWork _unitOfWork;
+        public AclResponse aclResponse;
+        public MessageResponse messageResponse;
+        private string modelName = "Page";
 
-        public AclPage FindById(ulong Id)
+        public AclPageRepository(IUnitOfWork unitOfWork)
         {
-            throw new NotImplementedException();
+            _unitOfWork = unitOfWork;
+            aclResponse = new AclResponse();
+            messageResponse = new MessageResponse(modelName);
         }
-
-        public AclPage FindByModuleId(ulong ModuleId)
+        public AclResponse GetAll()
         {
-            throw new NotImplementedException();
-        }
-
-        public AclPage FindBySubModuleId(ulong ModuleId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IList<AclPage> GetAll()
-        {
-            return UnitOfWork.ApplicationDbContext.AclPages.ToList();
-        }
-
-        public bool IsModuleIdExist(ulong ModuleId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool IsSubModuleIdExist(ulong SubModuleId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public AclPage PrepareInputData(AclPageRequest request, ulong? id)
-        {
-            AclPage AclPage = new AclPage();
-            if (id == null)
+            var aclPage = _unitOfWork.ApplicationDbContext.AclPages.ToList();
+            if (aclPage.Count > 0)
             {
-
+                aclResponse.Message = messageResponse.fetchMessage;
             }
-            return AclPage;
+            aclResponse.Data = aclPage;
+            aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+            aclResponse.Timestamp = DateTime.Now;
+
+            return aclResponse;
+        }
+        public AclResponse Add(AclPageRequest request)
+        {
+            try
+            {
+                var aclPage = prepareInputData(request);
+                _unitOfWork.ApplicationDbContext.Add(aclPage);
+                _unitOfWork.ApplicationDbContext.SaveChangesAsync();
+                aclResponse.Data = aclPage;
+                aclResponse.Message = messageResponse.createMessage;
+                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+            }
+            catch (Exception ex)
+            {
+                aclResponse.Message = ex.Message;
+                aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+            }
+            aclResponse.Timestamp = DateTime.Now;
+            return aclResponse;
         }
 
+        public AclResponse Edit(ulong id, AclPageRequest request)
+        {
+            try
+            {
+                var aclPage = prepareInputData(request);
+                _unitOfWork.ApplicationDbContext.Update(aclPage);
+                _unitOfWork.ApplicationDbContext.SaveChangesAsync();
+                _unitOfWork.ApplicationDbContext.Entry(aclPage).Reload();
+                aclResponse.Data = aclPage;
+                aclResponse.Message = messageResponse.editMessage;
+                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+            }
+            catch (Exception ex)
+            {
+                aclResponse.Message = ex.Message;
+                aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+            }
+            aclResponse.Timestamp = DateTime.Now;
+            return aclResponse;
+
+        }
+
+        public AclResponse findById(ulong id)
+        {
+            try
+            {
+                var aclPage = _unitOfWork.ApplicationDbContext.AclPages.Find(id);
+                aclResponse.Data = aclPage;
+                aclResponse.Message = messageResponse.fetchMessage;
+                if (aclPage == null)
+                {
+                    aclResponse.Message = messageResponse.noFoundMessage;
+                }
+
+                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+            }
+            catch (Exception ex)
+            {
+                aclResponse.Message = ex.Message;
+                aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+            }
+            aclResponse.Timestamp = DateTime.Now;
+            return aclResponse;
+
+        }
+        public AclResponse deleteById(ulong id)
+        {
+            var aclPage = _unitOfWork.ApplicationDbContext.AclPages.Find(id);
+
+            if (aclPage != null)
+            {
+                _unitOfWork.ApplicationDbContext.AclPages.Remove(aclPage);
+                _unitOfWork.ApplicationDbContext.SaveChanges();
+                aclResponse.Message = messageResponse.deleteMessage;
+                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+            }
+
+            return aclResponse;
+
+        }
+
+
+
+        private AclPage prepareInputData(AclPageRequest request)
+        {
+            return new AclPage
+            {
+                Id = request.id,
+                ModuleId = request.module_id,
+                SubModuleId = request.sub_module_id,
+                Name = request.name,
+                MethodName = request.method_name,
+                MethodType = request.method_type,
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now
+            };
+
+        }
     }
-
-
 }

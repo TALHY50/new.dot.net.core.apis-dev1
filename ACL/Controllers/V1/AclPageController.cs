@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using ACL.Database.Models;
 using ACL.Requests.V1;
 using ACL.Interfaces.Repositories.V1;
+using ACL.Response.V1;
+using ACL.Requests;
 
 namespace ACL.Controllers.V1
 {
@@ -14,65 +16,43 @@ namespace ACL.Controllers.V1
     {
         private readonly ApplicationDbContext _context;
 
-        private readonly IAclPageRepository _pageRepository;
+        private readonly IAclPageRepository _repository;
 
         public AclPageController(ApplicationDbContext context, IAclPageRepository AclPageRepository)
         {
             _context = context;
-            _pageRepository = AclPageRepository;
+            _repository = AclPageRepository;
         }
 
         [HttpGet("pages", Name = "acl.company.list")]
         public async Task<IActionResult> Index()
         {
-            return Ok(_pageRepository.GetAll());
+            return Ok(_repository.GetAll());
         }
 
         [HttpPost("pages/add", Name = "acl.page.add")]
-        public IActionResult Create(AclPageRequest request)
+        public async Task<AclResponse> Create(AclPageRequest request)
         {
-
-            //_pageRepository.Add(request);
-            //_context.SaveChanges();
-            //return Ok(AclPage);
-            return Ok("bad");
+            return _repository.Add(request);
         }
         [HttpPut("pages/edit/{id}", Name = "acl.page.edit")]
-        public async Task<IActionResult> Edit(ulong id, AclPage AclPage)
+        public async Task<AclResponse> Edit(ulong id, AclPageRequest request)
         {
-
-            if (ModelState.IsValid && id == AclPage.Id)
-            {
-                _context.Entry(AclPage).State = EntityState.Modified;
-                await _context.SaveChangesAsync();
-                return Ok(AclPage);
-            }
-            return BadRequest("Id is not valid.");
+            return _repository.Edit(id, request);
 
         }
 
         [HttpDelete("pages/delete/{id}", Name = "acl.page.destroy")]
-        public IActionResult Destroy(ulong id)
+        public async Task<AclResponse> Destroy(ulong id)
         {
-            var _AclPage = _context.AclPages.FirstOrDefault(p => p.Id == id);
-            if (_AclPage == null)
-            {
-                return Ok("Not found");
-            }
-            _context.AclPages.Remove(_AclPage);
-            var _acl_page = _context.SaveChanges();
-            return Ok("Remove page");
+            return _repository.deleteById(id);
         }
 
         [HttpDelete("pages/view/{id}", Name = "acl.page.view")]
-        public IActionResult Show(ulong id)
+        public async Task<AclResponse> View(ulong id)
         {
-            var _AclPage = _context.AclPages.FirstOrDefault(p => p.Id == id);
-            if (_AclPage == null)
-            {
-                return Ok("Not found");
-            }
-            return Ok(_AclPage);
+            return _repository.findById(id);
+
         }
     }
 }
