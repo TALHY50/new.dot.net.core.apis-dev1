@@ -62,6 +62,7 @@ namespace ACL.Repositories.V1
                 var aclSubModule = prepareInputData(request);
                 _unitOfWork.ApplicationDbContext.Update(aclSubModule);
                 _unitOfWork.ApplicationDbContext.SaveChangesAsync();
+                _unitOfWork.ApplicationDbContext.Entry(aclSubModule).Reload();
                 aclResponse.Data = aclSubModule;
                 aclResponse.Message = messageResponse.editMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
@@ -101,11 +102,11 @@ namespace ACL.Repositories.V1
         }
         public AclResponse deleteById(ulong id)
         {
-            var subModule = _unitOfWork.ApplicationDbContext.AclCompanyModules.Find(id);
+            var subModule = _unitOfWork.ApplicationDbContext.AclSubModules.Find(id);
 
             if (subModule != null)
             {
-                _unitOfWork.ApplicationDbContext.AclCompanyModules.Remove(subModule);
+                _unitOfWork.ApplicationDbContext.AclSubModules.Remove(subModule);
                 _unitOfWork.ApplicationDbContext.SaveChanges();
                 aclResponse.Message = messageResponse.deleteMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
