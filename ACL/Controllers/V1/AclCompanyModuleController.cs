@@ -1,7 +1,9 @@
 ﻿using ACL.Database;
 using ACL.Database.Models;
 using ACL.Interfaces.Repositories;
+using ACL.Requests;
 using ACL.Requests.V1;
+using ACL.Response.V1;
 using ACL.Services;
 using Craftgate.Response;
 using Microsoft.AspNetCore.Mvc;
@@ -24,64 +26,32 @@ namespace ACL.Controllers.V1
         }
 
         [HttpGet("modules", Name = "modules")]
-        public async Task<IActionResult> Index()
+        public async Task<AclResponse> Index()
         {
-            return Ok(_repository.GetAll());
+            return _repository.GetAll();
         }
 
         [HttpPost("modules/add", Name = "modules/add")]
-        public async Task<IActionResult> Create(AclCompanyModuleRequest request)
+        public async Task<AclResponse> Create(AclCompanyModuleRequest objSubModule)
         {
-            try
-            {
-                var result = _repository.AddAclCompanyModule(request);
-                return Ok(result);
-            }
-            catch (InvalidOperationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return _repository.AddAclCompanyModule(objSubModule);
         }
 
         [HttpPut("modules/edit/{Id}", Name = "modules/edit/{Id}")]
-        public async Task<IActionResult> Edit(ulong Id, [FromBody] AclCompanyModuleRequest request)
+        public async Task<AclResponse> Edit(ulong id, AclCompanyModuleRequest objSubModule)
         {
-            try
-            {
-                var result = _repository.EditAclCompanyModule(Id, request);
-                return Ok(result);
-            }
-            catch (InvalidOperationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return _repository.EditAclCompanyModule(id, objSubModule);
         }
         [HttpGet("modules/view/{Id}", Name = "modules/view/{Id}")]
-        public async Task<IActionResult> View(ulong Id)
+        public async Task<AclResponse> View(ulong id)
         {
-            try
-            {
-                var result = _repository.FindById(Id);
-                return Ok((result==null)?"AclCompanyModule with ID {Id} not found":result);
-            }
-            catch (InvalidOperationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        [HttpDelete("modules/delete/{Id}", Name = "modules/delete/{Id}")]
-        public async Task<IActionResult> Destroy(ulong Id)
-        {
-            try
-            {
-                var result = _repository.DeleteModule(Id);
-                return Ok(result);
-            }
-            catch (InvalidOperationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return _repository.FindById(id);
         }
 
+        [HttpDelete("modules/delete/{Id}", Name = "modules/delete/{Id}")]
+        public async Task<AclResponse> Destroy(ulong id)
+        {
+            return _repository.DeleteModule(id);
+        }
     }
 }

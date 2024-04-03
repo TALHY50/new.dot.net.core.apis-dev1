@@ -84,7 +84,7 @@ namespace ACL.Repositories
                 var aclSubModule = _unitOfWork.ApplicationDbContext.AclSubModules.Find(id);
                 aclResponse.Data = aclSubModule;
                 aclResponse.Message = messageResponse.fetchMessage;
-                if (aclSubModule != null)
+                if (aclSubModule == null)
                 {
                     aclResponse.Message = messageResponse.noFoundMessage;
                 }

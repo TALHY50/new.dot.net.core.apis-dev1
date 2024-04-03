@@ -2,107 +2,101 @@
 using ACL.Database.Models;
 using ACL.Interfaces;
 using ACL.Interfaces.Repositories;
+using ACL.Requests;
 using ACL.Requests.V1;
+using ACL.Response.V1;
 using Microsoft.EntityFrameworkCore;
 
 namespace ACL.Repositories
 {
     public class AclCompanyModuleRepository : GenericRepository<AclCompanyModule>, IAclCompanyModuleRepository
     {
+        public AclResponse aclResponse;
+        public MessageResponse messageResponse;
+        private string modelName = "CompanyModule";
         public AclCompanyModuleRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
+            aclResponse = new AclResponse();
+            messageResponse = new MessageResponse(modelName);
         }
-        public AclCompanyModule? FindByCompanyId(ulong id)
+        public AclResponse FindById(ulong id)
         {
-            return UnitOfWork.ApplicationDbContext.AclCompanyModules.FirstOrDefault(x => x.CompanyId == id);
-        }
-        public AclCompanyModule? FindById(ulong id)
-        {
-            var aclCompany = UnitOfWork.ApplicationDbContext.AclCompanyModules.FirstOrDefault(x => x.CompanyId == id);
-            return aclCompany;
-        }
-
-
-        public AclCompanyModule? FindByModuleId(ulong id)
-        {
-            return UnitOfWork.ApplicationDbContext.AclCompanyModules.FirstOrDefault(x => x.ModuleId == id);
-        }
-
-        public AclCompanyModule AddAclCompanyModule(AclCompanyModuleRequest request)
-        {
-            if (!IsValidForCreateOrUpdate(request.company_id, request.module_id))
-            {
-                throw new InvalidOperationException("Company ID and Module ID combination is not unique.");
-            }
-
-            var aclCompany = new AclCompanyModule
-            {
-                CompanyId = request.company_id,
-                ModuleId = request.module_id,
-                CreatedAt = DateTime.Now,
-                UpdatedAt = DateTime.Now
-            };
-
             try
             {
-                UnitOfWork.ApplicationDbContext.Add(aclCompany);
-                UnitOfWork.ApplicationDbContext.SaveChanges();
-                UnitOfWork.ApplicationDbContext.Entry(aclCompany).Reload();
-                return aclCompany;
-            }
-            catch (DbUpdateException ex)
-            {
-                throw new InvalidOperationException(ex.Message);
-            }
-        }
-        public AclCompanyModule EditAclCompanyModule(ulong Id, AclCompanyModuleRequest request)
-        {
-            var aclCompany = FindById(Id);
-            if (aclCompany == null)
-            {
-                throw new InvalidOperationException("Not found!");
-            }
-            else
-            {
-                if (!IsValidForCreateOrUpdate(request.company_id, request.module_id,Id))
+                var aclCompanyModule = UnitOfWork.ApplicationDbContext.AclCompanyModules.Find(id);
+                aclResponse.Data = aclCompanyModule;
+                aclResponse.Message = messageResponse.fetchMessage;
+                if (aclCompanyModule == null)
                 {
-                    throw new InvalidOperationException("Company ID and Module ID is not unique.");
+                    aclResponse.Message = messageResponse.noFoundMessage;
                 }
 
-                // Update the properties of the existing entity
-                aclCompany.CompanyId = request.company_id;
-                aclCompany.ModuleId = request.module_id;
-                aclCompany.UpdatedAt = DateTime.Now;
+                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
+            catch (Exception ex)
+            {
+                aclResponse.Message = ex.Message;
+                aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+            }
+            aclResponse.Timestamp = DateTime.Now;
+            return aclResponse;
+        }
 
-
+        public AclResponse AddAclCompanyModule(AclCompanyModuleRequest request)
+        {
             try
             {
-                // Update the entity in the database
-                UnitOfWork.ApplicationDbContext.Update(aclCompany);
-                UnitOfWork.ApplicationDbContext.SaveChanges();
-                return aclCompany;
+                var aclCompanyModule = prepareInputData(request);
+                UnitOfWork.ApplicationDbContext.Add(aclCompanyModule);
+                UnitOfWork.ApplicationDbContext.SaveChangesAsync();
+                UnitOfWork.ApplicationDbContext.Entry(aclCompanyModule).Reload();
+                aclResponse.Data = aclCompanyModule;
+                aclResponse.Message = messageResponse.createMessage;
+                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
-            catch (DbUpdateException ex)
+            catch (Exception ex)
             {
-                throw new InvalidOperationException(ex.Message);
+                aclResponse.Message = ex.Message;
+                aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
             }
+            aclResponse.Timestamp = DateTime.Now;
+            return aclResponse;
+        }
+        public AclResponse EditAclCompanyModule(ulong Id, AclCompanyModuleRequest request)
+        {
+            try
+            {
+                var aclCompany = UnitOfWork.ApplicationDbContext.AclCompanyModules.Find(Id);
+                var aclCompanyModule = prepareInputData(request, Id);
+                aclCompany = aclCompanyModule;
+                UnitOfWork.ApplicationDbContext.Update(aclCompany);
+                UnitOfWork.ApplicationDbContext.SaveChangesAsync();
+                UnitOfWork.ApplicationDbContext.Entry(aclCompany).Reload();
+                aclResponse.Data = aclCompany;
+                aclResponse.Message = messageResponse.editMessage;
+                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+            }
+            catch (Exception ex)
+            {
+                aclResponse.Message = ex.Message;
+                aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+            }
+            aclResponse.Timestamp = DateTime.Now;
+            return aclResponse;
         }
 
-
-        public IList<AclCompanyModule> GetAll()
+        public AclResponse GetAll()
         {
-            return UnitOfWork.ApplicationDbContext.AclCompanyModules.ToList();
-        }
+            var aclSubModules = UnitOfWork.ApplicationDbContext.AclCompanyModules.ToList();
+            if (aclSubModules.Count > 0)
+            {
+                aclResponse.Message = messageResponse.fetchMessage;
+            }
+            aclResponse.Data = aclSubModules;
+            aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+            aclResponse.Timestamp = DateTime.Now;
 
-        public bool IsExistCompanyId(ulong id)
-        {
-            return UnitOfWork.ApplicationDbContext.AclCompanyModules.Any(x => x.CompanyId == id);
-        }
-
-        public bool IsExistModuleId(ulong id)
-        {
-            return UnitOfWork.ApplicationDbContext.AclCompanyModules.Any(x => x.ModuleId == id);
+            return aclResponse;
         }
 
         public bool IsValidForCreateOrUpdate(ulong companyId, ulong moduleId, ulong id = 0)
@@ -119,38 +113,42 @@ namespace ACL.Repositories
             }
         }
 
-
-
-        public bool UpdateModule(ulong id, AclCompanyModule module)
+        public AclResponse DeleteModule(ulong id)
         {
-            var existingModule = UnitOfWork.ApplicationDbContext.AclCompanyModules.Find(id);
 
-            if (existingModule == null)
+            var aclCompanyModule = UnitOfWork.ApplicationDbContext.AclCompanyModules.Find(id);
+
+            if (aclCompanyModule != null)
             {
-                return false; // Entity not found, update failed
+                UnitOfWork.ApplicationDbContext.AclCompanyModules.Remove(aclCompanyModule);
+                UnitOfWork.ApplicationDbContext.SaveChanges();
+                aclResponse.Data = aclCompanyModule;
+                aclResponse.Message = messageResponse.deleteMessage;
+                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
 
-            existingModule.CompanyId = module.CompanyId;
-            existingModule.ModuleId = module.ModuleId;
-            existingModule.UpdatedAt = DateTime.Now;
-
-            UnitOfWork.ApplicationDbContext.SaveChanges();
-            return true; // Update successful
+            return aclResponse;
         }
 
-        public bool DeleteModule(ulong id)
+        public AclCompanyModule prepareInputData(AclCompanyModuleRequest request, ulong Id = 0)
         {
-            var module = UnitOfWork.ApplicationDbContext.AclCompanyModules.Find(id);
-
-            if (module == null)
+            bool valid = IsValidForCreateOrUpdate(request.company_id, request.company_id);
+            AclCompanyModule aclCompanyModule = new AclCompanyModule();
+            if (valid)
             {
-                return false; // Entity not found, deletion failed
+                aclCompanyModule.CompanyId = request.company_id;
+                aclCompanyModule.ModuleId = request.module_id;
+                aclCompanyModule.UpdatedAt = DateTime.Now;
+                if (Id == 0)
+                {
+                    aclCompanyModule.CreatedAt = DateTime.Now;
+                }
+                return aclCompanyModule;
             }
-
-            UnitOfWork.ApplicationDbContext.AclCompanyModules.Remove(module);
-            UnitOfWork.ApplicationDbContext.SaveChanges();
-
-            return true; // Deletion successful
+            else
+            {
+                throw new InvalidOperationException("Not valid data!");
+            }
         }
     }
 }
