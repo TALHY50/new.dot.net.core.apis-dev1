@@ -1,8 +1,11 @@
-*.swp
+﻿*.swp
 *.*~
 project.lock.json
 .DS_Store
 *.pyc
+################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
 
 # Visual Studio Code
 .vscode
@@ -40,3 +43,11 @@ msbuild.wrn
 
 ./SharedLibrary/obj/
 ./SharedLibrary/bin/
+/SharedLibrary/obj/Debug/net8.0/SharedLibrary.AssemblyInfo.cs
+/SharedLibrary/obj/Debug/net8.0/SharedLibrary.AssemblyInfoInputs.cache
+/SharedLibrary/obj/Debug/net8.0/SharedLibrary.assets.cache
+/SharedLibrary/obj/project.assets.json
+/SharedLibrary/obj/project.nuget.cache
+/SharedLibrary/obj/SharedLibrary.csproj.nuget.dgspec.json
+/SharedLibrary/obj/SharedLibrary.csproj.nuget.g.props
+/SharedLibrary/obj/SharedLibrary.csproj.nuget.g.targets

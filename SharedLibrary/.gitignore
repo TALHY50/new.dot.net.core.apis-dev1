@@ -36,3 +36,5 @@ msbuild.wrn
 **/obj/.*
 ./bin/.*
 ./obj/.*
+./obj/Debug/.*
+./obj/Debug/net8.0/.*
