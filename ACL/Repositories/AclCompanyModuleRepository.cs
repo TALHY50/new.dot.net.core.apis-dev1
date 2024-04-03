@@ -2,27 +2,61 @@
 using ACL.Database.Models;
 using ACL.Interfaces;
 using ACL.Interfaces.Repositories;
+using ACL.Requests.V1;
+using Microsoft.EntityFrameworkCore;
 
 namespace ACL.Repositories
 {
-    public class AclModuleRepository : GenericRepository<AclCompanyModule>, IAclModuleRepository
+    public class AclCompanyModuleRepository : GenericRepository<AclCompanyModule>, IAclCompanyModuleRepository
     {
-        public AclModuleRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
+        public AclCompanyModuleRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
-        public AclCompanyModule FindByCompanyId(ulong id)
+        public AclCompanyModule? FindByCompanyId(ulong id)
         {
             return UnitOfWork.ApplicationDbContext.AclCompanyModules.FirstOrDefault(x => x.CompanyId == id);
         }
-        public AclCompanyModule FindById(ulong id)
+        public AclCompanyModule? FindById(ulong id)
         {
             return UnitOfWork.ApplicationDbContext.AclCompanyModules.FirstOrDefault(x => x.CompanyId == id);
         }
 
-        public AclCompanyModule FindByModuleId(ulong id)
+        public AclCompanyModule? FindByModuleId(ulong id)
         {
             return UnitOfWork.ApplicationDbContext.AclCompanyModules.FirstOrDefault(x => x.ModuleId == id);
         }
+
+        public AclCompanyModule AddAclCompanyModule(AclCompanyModuleRequest request)
+        {
+            if (!IsValidForCreateOrUpdate(request.CompanyId, request.ModuleId))
+            {
+                throw new InvalidOperationException("Company ID and Module ID combination is not unique.");
+            }
+
+            var aclCompany = new AclCompanyModule
+            {
+                CompanyId = request.CompanyId,
+                ModuleId = request.ModuleId,
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now
+            };
+
+            try
+            {
+                UnitOfWork.ApplicationDbContext.Add(aclCompany);
+                UnitOfWork.ApplicationDbContext.SaveChanges();
+
+                // Reload the entity from the database to get its updated state
+                UnitOfWork.ApplicationDbContext.Entry(aclCompany).Reload();
+
+                return aclCompany;
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new InvalidOperationException(ex.Message);
+            }
+        }
+
 
         public IList<AclCompanyModule> GetAll()
         {
