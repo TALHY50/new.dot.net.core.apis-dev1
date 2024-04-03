@@ -35,7 +35,7 @@ namespace ACL.Controllers.V1
             //_pageRepository.Add(request);
             //_context.SaveChanges();
             //return Ok(AclPage);
-            return Ok('bad');
+            return Ok("bad");
         }
         [HttpPut("pages/edit/{id}", Name = "acl.page.edit")]
         public async Task<IActionResult> Edit(ulong id, AclPage AclPage)
