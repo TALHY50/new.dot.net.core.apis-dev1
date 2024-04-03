@@ -51,3 +51,14 @@ msbuild.wrn
 /SharedLibrary/obj/SharedLibrary.csproj.nuget.dgspec.json
 /SharedLibrary/obj/SharedLibrary.csproj.nuget.g.props
 /SharedLibrary/obj/SharedLibrary.csproj.nuget.g.targets
+/SharedLibrary/obj/Debug/net8.0/SharedLibrary.assets.cache
+/SharedLibrary/obj/project.assets.json
+/SharedLibrary/obj/project.nuget.cache
+/SharedLibrary/obj/SharedLibrary.csproj.nuget.dgspec.json
+/SharedLibrary/obj/SharedLibrary.csproj.nuget.g.props
+/SharedLibrary/obj/SharedLibrary.csproj.nuget.g.targets
+/SharedLibrary/obj/Debug/net8.0/.NETCoreApp,Version=v8.0.AssemblyAttributes.cs
+/SharedLibrary/obj/Debug/net8.0/SharedLibrary.AssemblyInfo.cs
+/SharedLibrary/obj/Debug/net8.0/SharedLibrary.AssemblyInfoInputs.cache
+/SharedLibrary/obj/Debug/net8.0/SharedLibrary.GeneratedMSBuildEditorConfig.editorconfig
+/SharedLibrary/obj/Debug/net8.0/SharedLibrary.GlobalUsings.g.cs

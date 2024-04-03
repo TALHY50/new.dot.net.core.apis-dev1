@@ -3,6 +3,7 @@ using ACL.Database.Models;
 using ACL.Interfaces;
 using ACL.Interfaces.Repositories;
 using ACL.Requests.V1;
+using Microsoft.EntityFrameworkCore;
 
 namespace ACL.Repositories
 {
@@ -27,23 +28,35 @@ namespace ACL.Repositories
 
         public AclCompanyModule AddAclCompanyModule(AclCompanyModuleRequest request)
         {
-            bool valid = IsValidForCreateOrUpdate(request.CompanyId, request.ModuleId);
-            if (valid)
-            {
-                var aclCompany = new AclCompanyModule
-                {
-                    CompanyId = request.CompanyId,
-                    ModuleId = request.ModuleId,
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = DateTime.Now
-                };
-                return UnitOfWork.ApplicationDbContext.AclCompanyModules.Add(aclCompany).Entity;
-            }
-            else
+            if (!IsValidForCreateOrUpdate(request.CompanyId, request.ModuleId))
             {
                 throw new InvalidOperationException("Company ID and Module ID combination is not unique.");
             }
+
+            var aclCompany = new AclCompanyModule
+            {
+                CompanyId = request.CompanyId,
+                ModuleId = request.ModuleId,
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now
+            };
+
+            try
+            {
+                UnitOfWork.ApplicationDbContext.Add(aclCompany);
+                UnitOfWork.ApplicationDbContext.SaveChanges();
+
+                // Reload the entity from the database to get its updated state
+                UnitOfWork.ApplicationDbContext.Entry(aclCompany).Reload();
+
+                return aclCompany;
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new InvalidOperationException(ex.Message);
+            }
         }
+
 
         public IList<AclCompanyModule> GetAll()
         {
