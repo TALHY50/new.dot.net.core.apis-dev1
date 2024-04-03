@@ -2,7 +2,7 @@
 using Org.BouncyCastle.Asn1.Ocsp;
 using System.ComponentModel.DataAnnotations;
 
-namespace ACL.Requests
+namespace ACL.Requests.V1
 {
     public class UniqueCompanyIdAttribute : ValidationAttribute
     {

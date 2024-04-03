@@ -1,5 +1,5 @@
 ﻿using ACL.Database.Models;
-using ACL.Requests;
+using ACL.Requests.V1;
 
 namespace ACL.Interfaces.Repositories
 {
