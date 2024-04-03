@@ -1,8 +1,9 @@
 ﻿using ACL.Database.Models;
+using ACL.Requests;
 
 namespace ACL.Interfaces.Repositories
 {
-    public interface IAclModuleRepository : IGenericRepository<AclCompanyModule>
+    public interface IAclCompanyModuleRepository : IGenericRepository<AclCompanyModule>
     {
         AclCompanyModule FindByCompanyId(ulong id);
         IList<AclCompanyModule> GetAll();
@@ -10,6 +11,7 @@ namespace ACL.Interfaces.Repositories
         bool IsExistCompanyId(ulong id);
         bool IsExistModuleId(ulong id);
         AclCompanyModule Add(AclCompanyModule module);
+        AclCompanyModule AddAclCompanyModule(AclCompanyModuleRequest module);
         AclCompanyModule FindById(ulong id);
         bool UpdateModule(ulong id, AclCompanyModule module);
         bool DeleteModule(ulong id);

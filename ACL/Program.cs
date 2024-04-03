@@ -33,7 +33,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped<IAclModuleRepository, AclModuleRepository>();
+builder.Services.AddScoped<IAclCompanyModuleRepository, AclCompanyModuleRepository>();
 
 var app = builder.Build();
 

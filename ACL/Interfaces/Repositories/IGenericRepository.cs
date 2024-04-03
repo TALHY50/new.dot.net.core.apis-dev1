@@ -9,7 +9,9 @@
         T Update(T entity);
         Task<T> UpdateAsync(T entity);
         Task<bool> DeleteAsync(T entity);
-
-
+        Task<IEnumerable<T>> ExecuteSqlQuery(string sqlQuery, params object[] parameters);
+        Task<IEnumerable<T>> ExecuteSqlQuery(string sqlQuery);
+        Task<IEnumerable<T>> AddAll(IEnumerable<T> entities);
+        Task<IEnumerable<T>> AddRange(params T[] entities);
     }
 }
