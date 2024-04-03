@@ -24,7 +24,6 @@
   <ItemGroup>
     <Folder Include="Data\" />
     <Folder Include="Repository\" />
-    <Folder Include="Requests\V1\" />
     <Folder Include="Services\Interface\" />
   </ItemGroup>
 

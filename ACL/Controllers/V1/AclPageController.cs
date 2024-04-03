@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ACL.Database.Models;
+using ACL.Requests.V1;
+using ACL.Interfaces.Repositories.V1;
 
 namespace ACL.Controllers.V1
 {
@@ -11,24 +13,29 @@ namespace ACL.Controllers.V1
     public class AclPageController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-        public AclPageController(ApplicationDbContext context)
+
+        private readonly IAclPageRepository _pageRepository;
+
+        public AclPageController(ApplicationDbContext context, IAclPageRepository AclPageRepository)
         {
             _context = context;
+            _pageRepository = AclPageRepository;
         }
 
         [HttpGet("pages", Name = "acl.company.list")]
         public async Task<IActionResult> Index()
         {
-            var AclPage = await _context.AclPages.ToListAsync();
-            return Ok(AclPage);
+            return Ok(_pageRepository.GetAll());
         }
 
         [HttpPost("pages/add", Name = "acl.page.add")]
-        public IActionResult Create(AclPage AclPage)
+        public IActionResult Create(AclPageRequest request)
         {
-            _context.AclPages.Add(AclPage);
-            _context.SaveChanges();
-            return Ok(AclPage);
+
+            //_pageRepository.Add(request);
+            //_context.SaveChanges();
+            //return Ok(AclPage);
+            return Ok('bad');
         }
         [HttpPut("pages/edit/{id}", Name = "acl.page.edit")]
         public async Task<IActionResult> Edit(ulong id, AclPage AclPage)

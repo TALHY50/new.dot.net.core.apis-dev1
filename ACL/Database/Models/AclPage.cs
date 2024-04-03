@@ -6,11 +6,11 @@ namespace ACL.Database.Models;
 public partial class AclPage
 {
     public ulong Id { get; set; }
-
+    
     public ulong ModuleId { get; set; }
 
     public ulong SubModuleId { get; set; }
-
+    
     public string Name { get; set; } = null!;
 
     public string MethodName { get; set; } = null!;
