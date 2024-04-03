@@ -16,10 +16,18 @@ namespace ACL.Repositories
         {
             return UnitOfWork.ApplicationDbContext.AclCompanyModules.FirstOrDefault(x => x.CompanyId == id);
         }
-        public AclCompanyModule? FindById(ulong id)
+        public AclCompanyModule FindById(ulong id)
         {
-            return UnitOfWork.ApplicationDbContext.AclCompanyModules.FirstOrDefault(x => x.CompanyId == id);
+            var aclCompany = UnitOfWork.ApplicationDbContext.AclCompanyModules.FirstOrDefault(x => x.CompanyId == id);
+
+            if (aclCompany == null)
+            {
+                throw new Exception($"AclCompanyModule with ID {id} not found.");
+            }
+
+            return aclCompany;
         }
+
 
         public AclCompanyModule? FindByModuleId(ulong id)
         {
@@ -45,10 +53,40 @@ namespace ACL.Repositories
             {
                 UnitOfWork.ApplicationDbContext.Add(aclCompany);
                 UnitOfWork.ApplicationDbContext.SaveChanges();
-
-                // Reload the entity from the database to get its updated state
                 UnitOfWork.ApplicationDbContext.Entry(aclCompany).Reload();
+                return aclCompany;
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new InvalidOperationException(ex.Message);
+            }
+        }
+        public AclCompanyModule EditAclCompanyModule(ulong Id, AclCompanyModuleRequest request)
+        {
+            var aclCompany = FindById(Id);
+            if (aclCompany == null)
+            {
+                throw new InvalidOperationException("Not found!");
+            }
+            else
+            {
+                if (!IsValidForCreateOrUpdate(request.CompanyId, request.ModuleId,Id))
+                {
+                    throw new InvalidOperationException("Company ID and Module ID is not unique.");
+                }
 
+                // Update the properties of the existing entity
+                aclCompany.CompanyId = request.CompanyId;
+                aclCompany.ModuleId = request.ModuleId;
+                aclCompany.UpdatedAt = DateTime.Now;
+            }
+
+
+            try
+            {
+                // Update the entity in the database
+                UnitOfWork.ApplicationDbContext.Update(aclCompany);
+                UnitOfWork.ApplicationDbContext.SaveChanges();
                 return aclCompany;
             }
             catch (DbUpdateException ex)
@@ -73,10 +111,21 @@ namespace ACL.Repositories
             return UnitOfWork.ApplicationDbContext.AclCompanyModules.Any(x => x.ModuleId == id);
         }
 
-        public bool IsValidForCreateOrUpdate(ulong companyId, ulong moduleId)
+        public bool IsValidForCreateOrUpdate(ulong companyId, ulong moduleId, ulong id = 0)
         {
-            return !UnitOfWork.ApplicationDbContext.AclCompanyModules.Any(x => x.CompanyId == companyId || x.ModuleId == moduleId);
+            if (id == 0)
+            {
+                return !UnitOfWork.ApplicationDbContext.AclCompanyModules
+                    .Any(x => x.CompanyId == companyId && x.ModuleId == moduleId);
+            }
+            else
+            {
+                return !UnitOfWork.ApplicationDbContext.AclCompanyModules
+               .Any(x => (x.CompanyId == companyId || x.ModuleId == moduleId) && x.Id != id);
+            }
         }
+
+
 
         public bool UpdateModule(ulong id, AclCompanyModule module)
         {

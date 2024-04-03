@@ -12,10 +12,11 @@ namespace ACL.Interfaces.Repositories
         bool IsExistModuleId(ulong id);
         AclCompanyModule Add(AclCompanyModule module);
         AclCompanyModule AddAclCompanyModule(AclCompanyModuleRequest module);
+        AclCompanyModule EditAclCompanyModule(ulong Id,AclCompanyModuleRequest module);
         AclCompanyModule FindById(ulong id);
         bool UpdateModule(ulong id, AclCompanyModule module);
         bool DeleteModule(ulong id);
-        bool IsValidForCreateOrUpdate(ulong companyId,ulong moduleId);
+        bool IsValidForCreateOrUpdate(ulong companyId,ulong moduleId,ulong id=0);
 
     }
 }

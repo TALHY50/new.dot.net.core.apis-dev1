@@ -43,5 +43,45 @@ namespace ACL.Controllers.V1
             }
         }
 
+        [HttpPut("module/edit/{Id}", Name = "module/edit/{Id}")]
+        public async Task<IActionResult> Edit(ulong Id, [FromBody] AclCompanyModuleRequest request)
+        {
+            try
+            {
+                var result = _repository.EditAclCompanyModule(Id, request);
+                return Ok(result);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpGet("module/view/{Id}", Name = "module/view/{Id}")]
+        public async Task<IActionResult> View(ulong Id)
+        {
+            try
+            {
+                var result = _repository.FindById(Id);
+                return Ok(result);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpDelete("module/delete/{Id}", Name = "module/delete/{Id}")]
+        public async Task<IActionResult> Destroy(ulong Id)
+        {
+            try
+            {
+                var result = _repository.DeleteModule(Id);
+                return Ok(result);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
 }
