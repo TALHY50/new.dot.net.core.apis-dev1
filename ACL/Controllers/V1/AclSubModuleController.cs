@@ -1,7 +1,8 @@
-﻿using ACL.Database;
-using ACL.Database.Models;
+﻿
+using ACL.Interfaces.Repositories;
+using ACL.Requests;
+using ACL.Response.V1;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace ACL.Controllers.V1
 {
@@ -9,68 +10,44 @@ namespace ACL.Controllers.V1
     [Route("api/v1")]
     public class AclSubModuleController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
-        public AclSubModuleController(ApplicationDbContext context)
+        private readonly IAclSubModuleRepository _repository;
+        public AclSubModuleController(IAclSubModuleRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
         [HttpGet("submodules", Name = "acl.submodule.list")]
-        public async Task<IActionResult> Index()
+        public async Task<AclResponse> Index()
         {
-            var _AclSubModules = await _context.AclSubModules.ToListAsync();
-            return Ok(_AclSubModules);
+            return _repository.GetAll();
         }
 
-
         [HttpPost("submodules/add",Name = "acl.submodule.add")]
-        public async Task<IActionResult> Create(AclSubModule objSubModule)
+        public async Task<AclResponse> Create(AclSubModuleRequest objSubModule)
         {
-            if (ModelState.IsValid)
-            {
-                _context.AclSubModules.Add(objSubModule);
-                await _context.SaveChangesAsync();
-                return Ok(objSubModule);
-            }
-            return BadRequest(ModelState);
-
+           return _repository.Add(objSubModule);
         }
 
         [HttpGet("submodules/view/{id}", Name = "acl.submodule.view")]
-        public async Task<IActionResult> View(ulong id)
+        public async Task<AclResponse> View(ulong id)
         {
-            var objSubModule = await _context.AclSubModules.FindAsync(id);
-            return Ok(objSubModule);
+            return _repository.findById(id);
 
         }
 
 
         [HttpPut("submodules/edit/{id}", Name = "acl.submodule.edit")]
-        public async Task<IActionResult> Edit(ulong id, AclSubModule objSubModule)
+        public async Task<AclResponse> Edit(ulong id, AclSubModuleRequest objSubModule)
         {
-            if (ModelState.IsValid && id == objSubModule.Id)
-            {
-                _context.Entry(objSubModule).State = EntityState.Modified;
-                await _context.SaveChangesAsync();
-                return Ok(objSubModule);
-            }
-            return BadRequest("Id is not valid.");
+            return _repository.Edit(id, objSubModule);
 
         }
 
 
         [HttpDelete("submodules/delete/{id}", Name = "acl.submodule.destroy")]
-        public async Task<IActionResult> Destroy(ulong ID)
+        public async Task<AclResponse> Destroy(ulong id)
         {
-            var subModule = _context.AclSubModules.Find(ID);
-            if (subModule != null)
-            {
-                _context.Entry(subModule).State = EntityState.Deleted;
-                await _context.SaveChangesAsync();
-                return  Ok("Sub Module Successfully Deleted.");
-            }
-
-            return BadRequest("Sub Module not found.");
+            return _repository.deleteById(id);
         }
 
 
