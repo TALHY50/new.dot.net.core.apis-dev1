@@ -1,4 +1,8 @@
 ﻿using ACL.Database;
+using ACL.Database.Models;
+using ACL.Interfaces.Repositories;
+using ACL.Requests;
+using ACL.Services;
 using Craftgate.Response;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,17 +16,35 @@ namespace ACL.Controllers.V1
     [Route("api/v1/company/")]
     public class AclModuleController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
-        public AclModuleController(ApplicationDbContext context)
+        private readonly IAclModuleRepository _repository;
+
+        public AclModuleController(IAclModuleRepository aclModuleRepository)
         {
-            _context = context;
+            _repository = aclModuleRepository;
         }
-        [HttpGet]
-        [Route("module")]
+
+         [HttpGet("module", Name = "module")]
         public async Task<IActionResult> Index()
         {
-            var _AclCompanyModules = await _context.AclCompanyModules.ToListAsync();
-            return Ok(_AclCompanyModules);
+            return Ok( _repository.GetAll());
+        }
+        
+        [HttpPost("module/add", Name = "module/add")]
+        public async Task<IActionResult> Create(AclCompanyModuleRequest request)
+        {
+            bool valid = _repository.IsValidForCreateOrUpdate(request.CompanyId,request.ModuleId);
+            var result = new AclCompanyModule();
+            if (valid)
+            {
+                AclCompanyModule aclCompany = new AclCompanyModule(){ 
+                    CompanyId = request.CompanyId,
+                    ModuleId = request.ModuleId,
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                    };
+               result = _repository.Add(aclCompany) ;
+            }
+            return Ok(result);
         }
 
     }
