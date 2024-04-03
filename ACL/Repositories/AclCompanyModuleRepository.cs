@@ -16,15 +16,9 @@ namespace ACL.Repositories
         {
             return UnitOfWork.ApplicationDbContext.AclCompanyModules.FirstOrDefault(x => x.CompanyId == id);
         }
-        public AclCompanyModule FindById(ulong id)
+        public AclCompanyModule? FindById(ulong id)
         {
             var aclCompany = UnitOfWork.ApplicationDbContext.AclCompanyModules.FirstOrDefault(x => x.CompanyId == id);
-
-            if (aclCompany == null)
-            {
-                throw new Exception($"AclCompanyModule with ID {id} not found.");
-            }
-
             return aclCompany;
         }
 
@@ -36,15 +30,15 @@ namespace ACL.Repositories
 
         public AclCompanyModule AddAclCompanyModule(AclCompanyModuleRequest request)
         {
-            if (!IsValidForCreateOrUpdate(request.CompanyId, request.ModuleId))
+            if (!IsValidForCreateOrUpdate(request.company_id, request.module_id))
             {
                 throw new InvalidOperationException("Company ID and Module ID combination is not unique.");
             }
 
             var aclCompany = new AclCompanyModule
             {
-                CompanyId = request.CompanyId,
-                ModuleId = request.ModuleId,
+                CompanyId = request.company_id,
+                ModuleId = request.module_id,
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now
             };
@@ -70,14 +64,14 @@ namespace ACL.Repositories
             }
             else
             {
-                if (!IsValidForCreateOrUpdate(request.CompanyId, request.ModuleId,Id))
+                if (!IsValidForCreateOrUpdate(request.company_id, request.module_id,Id))
                 {
                     throw new InvalidOperationException("Company ID and Module ID is not unique.");
                 }
 
                 // Update the properties of the existing entity
-                aclCompany.CompanyId = request.CompanyId;
-                aclCompany.ModuleId = request.ModuleId;
+                aclCompany.CompanyId = request.company_id;
+                aclCompany.ModuleId = request.module_id;
                 aclCompany.UpdatedAt = DateTime.Now;
             }
 

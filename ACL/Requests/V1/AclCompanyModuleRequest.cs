@@ -20,7 +20,7 @@ namespace ACL.Requests.V1
 
             // Check uniqueness constraint in the database
             bool isUnique = unitOfWork.ApplicationDbContext.AclCompanyModules
-                                .Any(a => a.CompanyId == request.CompanyId && a.ModuleId == request.ModuleId);
+                                .Any(a => a.CompanyId == request.company_id && a.ModuleId == request.module_id);
 
             if (!isUnique)
             {
@@ -35,12 +35,12 @@ namespace ACL.Requests.V1
         [Required]
         [Range(1, ulong.MaxValue)]
         [UniqueCompanyId]
-        public ulong CompanyId { get; set; }
+        public ulong company_id { get; set; }
 
         [Required]
         [Range(1, ulong.MaxValue)]
         [UniqueCompanyId]
-        public ulong ModuleId { get; set; }
+        public ulong module_id { get; set; }
     }
 
 

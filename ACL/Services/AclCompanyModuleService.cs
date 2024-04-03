@@ -16,7 +16,7 @@ namespace ACL.Services
         public ValidationResult ValidateAclCompanyModule(AclCompanyModuleRequest request)
         {
             bool isUnique = _unitOfWork.ApplicationDbContext.AclCompanyModules
-                                .Any(a => a.CompanyId == request.CompanyId && a.ModuleId == request.ModuleId);
+                                .Any(a => a.CompanyId == request.company_id && a.ModuleId == request.module_id);
 
             if (!isUnique)
             {

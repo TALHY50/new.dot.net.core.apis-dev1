@@ -23,13 +23,13 @@ namespace ACL.Controllers.V1
             _repository = aclModuleRepository;
         }
 
-        [HttpGet("module", Name = "module")]
+        [HttpGet("modules", Name = "modules")]
         public async Task<IActionResult> Index()
         {
             return Ok(_repository.GetAll());
         }
 
-        [HttpPost("module/add", Name = "module/add")]
+        [HttpPost("modules/add", Name = "modules/add")]
         public async Task<IActionResult> Create(AclCompanyModuleRequest request)
         {
             try
@@ -43,7 +43,7 @@ namespace ACL.Controllers.V1
             }
         }
 
-        [HttpPut("module/edit/{Id}", Name = "module/edit/{Id}")]
+        [HttpPut("modules/edit/{Id}", Name = "modules/edit/{Id}")]
         public async Task<IActionResult> Edit(ulong Id, [FromBody] AclCompanyModuleRequest request)
         {
             try
@@ -56,20 +56,20 @@ namespace ACL.Controllers.V1
                 return BadRequest(ex.Message);
             }
         }
-        [HttpGet("module/view/{Id}", Name = "module/view/{Id}")]
+        [HttpGet("modules/view/{Id}", Name = "modules/view/{Id}")]
         public async Task<IActionResult> View(ulong Id)
         {
             try
             {
                 var result = _repository.FindById(Id);
-                return Ok(result);
+                return Ok((result==null)?"AclCompanyModule with ID {Id} not found":result);
             }
             catch (InvalidOperationException ex)
             {
                 return BadRequest(ex.Message);
             }
         }
-        [HttpDelete("module/delete/{Id}", Name = "module/delete/{Id}")]
+        [HttpDelete("modules/delete/{Id}", Name = "modules/delete/{Id}")]
         public async Task<IActionResult> Destroy(ulong Id)
         {
             try
