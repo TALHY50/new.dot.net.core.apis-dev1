@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace ACL.Controllers.V1
 {
     [ApiController]
-    [Route("api/v1/company/")]
     public class AclModuleController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;

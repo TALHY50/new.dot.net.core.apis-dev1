@@ -6,18 +6,18 @@ namespace ACL.Route
 {
     public class AclRoutesUrl
     {
+        public const string Base = "api/v1/";
         public class AclModule
         {
-            public const string ModelName = "api/v1/modules";
-            public const string List = ModelName;
-            public const string Add = ModelName + "/add";
-            public const string Edit = ModelName + "/edit/{Id}";
-            public const string View = ModelName + "/view/{Id}";
-            public const string Destroy = ModelName + "/delete/{Id}";
+            public const string List = Base + "modules";
+            public const string Add = Base + "modules/add";
+            public const string Edit = Base + "modules/edit/{Id}";
+            public const string View = Base + "modules/view/{Id}";
+            public const string Destroy = Base + "modules/delete/{Id}";
         }
         public class AclSubModule
         {
-            public const string ModelName = "api/v1/submodules";
+            public const string ModelName =Base + "submodules";
             public const string List = ModelName;
             public const string Add = ModelName + "/add";
             public const string Edit = ModelName + "/edit/{Id}";
@@ -26,7 +26,7 @@ namespace ACL.Route
         }
         public class AclCompanyModule
         {
-            public const string ModelName = "api/v1/company/modules";
+            public const string ModelName = Base +"company/modules";
             public const string List = ModelName;
             public const string Add = ModelName + "/add";
             public const string Edit = ModelName + "/edit/{Id}";
