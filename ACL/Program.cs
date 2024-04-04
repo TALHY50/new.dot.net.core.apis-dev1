@@ -1,7 +1,7 @@
 using ACL.Database;
 using ACL.Interfaces;
-using ACL.Interfaces.Repositories;
-using ACL.Repositories;
+using ACL.Interfaces.Repositories.V1;
+using ACL.Repositories.V1;
 using ACL.Services;
 using DotNetEnv;
 using Microsoft.AspNetCore.Authentication;
@@ -33,7 +33,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped<IAclCompanyModuleRepository, AclCompanyModuleRepository>();
+
 
 var app = builder.Build();
 

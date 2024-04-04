@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace ACL.Controllers.V1
 {
     [ApiController]
-    [Route("api/v1/company/")]
     public class AclCompanyModuleController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -54,7 +53,7 @@ namespace ACL.Controllers.V1
         [Route(AclRoutesUrl.AclCompanyModule.Destroy)]
         public async Task<AclResponse> Destroy(ulong Id)
         {
-            return _unitOfWork.AclCompanyModuleRepository.DeleteModule(Id);
+            return _unitOfWork.AclCompanyModuleRepository.DeleteCompanyModule(Id);
         }
     }
 }
