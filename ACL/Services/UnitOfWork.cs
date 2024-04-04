@@ -1,10 +1,11 @@
 ﻿using ACL.Database;
 using ACL.Interfaces;
+using ACL.Interfaces.Repositories.V1;
+using ACL.Repositories;
+using ACL.Repositories.V1;
 using ACL.Interfaces.Repositories;
 using ACL.Repositories;
 using Microsoft.EntityFrameworkCore.Storage;
-using SharedLibrary.Interfaces.Repositories;
-using SharedLibrary.Repositories;
 using System.Data;
 
 namespace ACL.Services
@@ -84,6 +85,7 @@ namespace ACL.Services
             return this;
         }
 
+
         public async Task BeginTransactionAsync()
         {
             await this.ApplicationDbContext.Database.BeginTransactionAsync();
@@ -113,6 +115,11 @@ namespace ACL.Services
         public void RollbackTransaction()
         {
             this.ApplicationDbContext.Database.RollbackTransaction();
+        }
+
+        public IAclPageRepository AclPageRepository
+        {
+            get { return new AclPageRepository(this); }
         }
 
     }

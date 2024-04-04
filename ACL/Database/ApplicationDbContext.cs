@@ -48,6 +48,7 @@ public partial class ApplicationDbContext : DbContext
 
     public virtual DbSet<PersonalAccessToken> PersonalAccessTokens { get; set; }
 
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<AclCompany>(entity =>
