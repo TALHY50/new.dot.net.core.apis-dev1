@@ -7,6 +7,7 @@ using ACL.Repositories;
 using ACL.Repositories.V1;
 using Microsoft.EntityFrameworkCore.Storage;
 using System.Data;
+using ACL.Interfaces.Repositories;
 
 namespace ACL.Services
 {
@@ -62,6 +63,11 @@ namespace ACL.Services
         public IAclSubModuleRepository AclSubModuleRepository
         {
             get { return new AclSubModuleRepository(this); }
+
+        }
+        public IAclRoleRepository AclRoleRepository
+        {
+            get { return new AclRoleRepository(this); }
 
         }
 
