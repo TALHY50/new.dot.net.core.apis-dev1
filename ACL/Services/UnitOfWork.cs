@@ -50,6 +50,11 @@ namespace ACL.Services
             get { return new AclSubModuleRepository(this); }
 
         }
+        public IAclRoleRepository AclRoleRepository
+        {
+            get { return new AclRoleRepository(this); }
+
+        }
 
         public IHttpContextAccessor HttpContextAccessor
         {
