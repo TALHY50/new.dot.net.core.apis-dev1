@@ -47,9 +47,9 @@ namespace ACL.Repositories
             try
             {
                 var aclCompanyModule = PrepareInputData(request);
-                UnitOfWork.ApplicationDbContext.AddAsync(aclCompanyModule);
+                UnitOfWork.ApplicationDbContext.Add(aclCompanyModule);
                 UnitOfWork.ApplicationDbContext.SaveChangesAsync();
-                UnitOfWork.ApplicationDbContext.Entry(aclCompanyModule).Reload();
+                UnitOfWork.ApplicationDbContext.Entry(aclCompanyModule).ReloadAsync();
                 aclResponse.Data = aclCompanyModule;
                 aclResponse.Message = messageResponse.createMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;

@@ -5,6 +5,7 @@ using ACL.Interfaces.Repositories;
 using ACL.Requests;
 using ACL.Requests.V1;
 using ACL.Response.V1;
+using ACL.Route;
 using ACL.Services;
 using Craftgate.Response;
 using Microsoft.AspNetCore.Mvc;
@@ -22,30 +23,35 @@ namespace ACL.Controllers.V1
             _unitOfWork = unitOfWork;
         }
 
-        [HttpGet("modules", Name = "modules")]
+        [HttpGet]
+        [Route(AclRoutes.CompanyModules)]
         public async Task<AclResponse> Index()
         {
             return _unitOfWork.AclCompanyModuleRepository.GetAll();
         }
 
-        [HttpPost("modules/add", Name = "modules/add")]
+        [HttpPost]
+        [Route(AclRoutes.AddCompanyModules)]
         public async Task<AclResponse> Create(AclCompanyModuleRequest objSubModule)
         {
             return _unitOfWork.AclCompanyModuleRepository.AddAclCompanyModule(objSubModule);
         }
 
-        [HttpPut("modules/edit/{Id}", Name = "modules/edit/{Id}")]
+        [HttpPut]
+        [Route(AclRoutes.EditCompanyModules)]
         public async Task<AclResponse> Edit(ulong Id, AclCompanyModuleRequest objSubModule)
         {
             return _unitOfWork.AclCompanyModuleRepository.EditAclCompanyModule(Id, objSubModule);
         }
-        [HttpGet("modules/view/{Id}", Name = "modules/view/{Id}")]
+        [HttpGet]
+        [Route(AclRoutes.ViewCompanyModules)]
         public async Task<AclResponse> View(ulong Id)
         {
             return _unitOfWork.AclCompanyModuleRepository.FindById(Id);
         }
 
-        [HttpDelete("modules/delete/{Id}", Name = "modules/delete/{Id}")]
+        [HttpDelete]
+        [Route(AclRoutes.DeleteCompanyModules)]
         public async Task<AclResponse> Destroy(ulong Id)
         {
             return _unitOfWork.AclCompanyModuleRepository.DeleteModule(Id);
