@@ -54,7 +54,7 @@ namespace ACL.Controllers.V1
         [Route(AclRoutesUrl.AclCompanyModule.Destroy)]
         public async Task<AclResponse> Destroy(ulong Id)
         {
-            return _unitOfWork.AclCompanyModuleRepository.DeleteModule(Id);
+            return _unitOfWork.AclCompanyModuleRepository.DeleteCompanyModule(Id);
         }
     }
 }

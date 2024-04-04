@@ -112,7 +112,7 @@ namespace ACL.Repositories
             }
         }
 
-        public AclResponse DeleteModule(ulong id)
+        public AclResponse DeleteCompanyModule(ulong id)
         {
 
             var aclCompanyModule = UnitOfWork.ApplicationDbContext.AclCompanyModules.Find(id);
