@@ -1,11 +1,32 @@
-﻿namespace ACL.Route
+﻿using Google.Protobuf.WellKnownTypes;
+using SharedLibrary.Models;
+using System.Reflection.Metadata;
+
+namespace ACL.Route
 {
-    public class AclRoutes
+    public class AclRoutesUrl
     {
-        public const string CompanyModules = "api/v1/company/modules";
-        public const string AddCompanyModules = "api/v1/company/modules/add";
-        public const string EditCompanyModules = "api/v1/company/modules/edit/{Id}";
-        public const string ViewCompanyModules = "api/v1/company/modules/view/{Id}";
-        public const string DeleteCompanyModules = "api/v1/company/modules/delete/{Id}";
+        public class AclCompanyModule
+        {
+            public const string modelname = "api/v1/company/modules";
+            public const string List = modelname;
+            public const string Add = modelname + "/add";
+            public const string Edit = modelname + "/edit/{Id}";
+            public const string View = modelname + "/view/{Id}";
+            public const string Destroy = modelname + "/delete/{Id}";
+        }
+
+
+    }
+    public static class AclRoutesName
+    {
+        public static class SubmoduleRouteNames
+        {
+            public const string list = "acl.submodule.list";
+            public const string add = "acl.submodule.add";
+            public const string view = "acl.submodule.view";
+            public const string edit = "acl.submodule.edit";
+            public const string destroy = "acl.submodule.destroy";
+        }
     }
 }

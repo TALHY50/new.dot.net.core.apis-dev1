@@ -24,34 +24,34 @@ namespace ACL.Controllers.V1
         }
 
         [HttpGet]
-        [Route(AclRoutes.CompanyModules)]
+        [Route(AclRoutesUrl.AclCompanyModule.List)]
         public async Task<AclResponse> Index()
         {
             return _unitOfWork.AclCompanyModuleRepository.GetAll();
         }
 
         [HttpPost]
-        [Route(AclRoutes.AddCompanyModules)]
+        [Route(AclRoutesUrl.AclCompanyModule.Add)]
         public async Task<AclResponse> Create(AclCompanyModuleRequest objSubModule)
         {
             return _unitOfWork.AclCompanyModuleRepository.AddAclCompanyModule(objSubModule);
         }
 
         [HttpPut]
-        [Route(AclRoutes.EditCompanyModules)]
+        [Route(AclRoutesUrl.AclCompanyModule.Edit)]
         public async Task<AclResponse> Edit(ulong Id, AclCompanyModuleRequest objSubModule)
         {
             return _unitOfWork.AclCompanyModuleRepository.EditAclCompanyModule(Id, objSubModule);
         }
         [HttpGet]
-        [Route(AclRoutes.ViewCompanyModules)]
+        [Route(AclRoutesUrl.AclCompanyModule.View)]
         public async Task<AclResponse> View(ulong Id)
         {
             return _unitOfWork.AclCompanyModuleRepository.FindById(Id);
         }
 
         [HttpDelete]
-        [Route(AclRoutes.DeleteCompanyModules)]
+        [Route(AclRoutesUrl.AclCompanyModule.Destroy)]
         public async Task<AclResponse> Destroy(ulong Id)
         {
             return _unitOfWork.AclCompanyModuleRepository.DeleteModule(Id);
