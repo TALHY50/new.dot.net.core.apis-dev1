@@ -56,7 +56,24 @@ namespace ACL.Repositories
             _dbSet.Remove(entity);
             return true;
         }
+        public async Task<IEnumerable<T>> ExecuteSqlQuery(string sqlQuery, params object[] parameters)
+        {
+            return await _dbSet.FromSqlRaw<T>(sqlQuery, parameters).ToListAsync();
+        }
+        public async Task<IEnumerable<T>> ExecuteSqlQuery(string sqlQuery)
+        {
+            return await _dbSet.FromSqlRaw<T>(sqlQuery).ToListAsync();
+        }
+        public async Task<IEnumerable<T>> AddAll(IEnumerable<T> entities)
+        {
+            await _dbSet.AddRangeAsync(entities);
+            return entities;
+        }
 
-
+        public async Task<IEnumerable<T>> AddRange(params T[] entities)
+        {
+            await _dbSet.AddRangeAsync(entities);
+            return entities;
+        }
     }
 }
