@@ -35,10 +35,6 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped<IAclSubModuleRepository, AclSubModuleRepository>();
-builder.Services.AddScoped<IAclCompanyModuleRepository, AclCompanyModuleRepository>();
-builder.Services.AddScoped<IAclPageRepository, AclPageRepository>();
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
