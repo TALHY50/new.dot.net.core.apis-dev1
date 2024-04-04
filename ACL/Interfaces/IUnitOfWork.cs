@@ -18,8 +18,8 @@ namespace ACL.Interfaces
         public ILogService LogService { get; set; }
 
         IAclCompanyModuleRepository AclCompanyModuleRepository { get; }
+        IAclModuleRepository AclModuleRepository { get; }
         IAclSubModuleRepository AclSubModuleRepository { get; }
-
         public IHttpContextAccessor HttpContextAccessor { get; set; }
 
         IUnitOfWork GetService();

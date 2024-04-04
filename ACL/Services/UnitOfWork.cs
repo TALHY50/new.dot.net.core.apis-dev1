@@ -45,6 +45,13 @@ namespace ACL.Services
             get { return new AclCompanyModuleRepository(this); }
 
         }
+
+        public IAclModuleRepository AclModuleRepository
+        {
+            get { return new AclModuleRepository(this); }
+
+        }
+
         public IAclSubModuleRepository AclSubModuleRepository
         {
             get { return new AclSubModuleRepository(this); }

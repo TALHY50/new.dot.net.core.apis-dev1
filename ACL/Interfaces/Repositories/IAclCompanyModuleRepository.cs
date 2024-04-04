@@ -10,7 +10,7 @@ namespace ACL.Interfaces.Repositories
         AclResponse AddAclCompanyModule(AclCompanyModuleRequest module);
         AclResponse EditAclCompanyModule(ulong Id,AclCompanyModuleRequest module);
         AclResponse FindById(ulong id);
-        AclResponse DeleteModule(ulong id);
+        AclResponse DeleteCompanyModule(ulong id);
         bool IsValidForCreateOrUpdate(ulong companyId,ulong moduleId,ulong id=0);
         AclCompanyModule PrepareInputData(AclCompanyModuleRequest request,ulong Id =0,AclCompanyModule aclCompany=null);
 
