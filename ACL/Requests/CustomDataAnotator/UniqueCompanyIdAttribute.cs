@@ -13,14 +13,13 @@ namespace ACL.Requests.CustomDataAnotator
 
             if (unitOfWork == null)
             {
-                throw new InvalidOperationException("IUnitOfWork service not found.");
+                throw new InvalidOperationException("Not found.");
             }
 
             var request = (AclCompanyModuleRequest)validationContext.ObjectInstance;
 
-            // Check uniqueness constraint in the database
             bool isUnique = unitOfWork.ApplicationDbContext.AclCompanyModules
-                                .Any(a => a.CompanyId == request.company_id && a.ModuleId == request.module_id);
+                                .Any(a => a.CompanyId == request.company_id && a.ModuleId == request.module_id) && unitOfWork.ApplicationDbContext.AclCompanies.Any(x=>x.Id==request.company_id) && unitOfWork.ApplicationDbContext.AclModules.Any(x=>x.Id == request.module_id);
 
             if (!isUnique)
             {

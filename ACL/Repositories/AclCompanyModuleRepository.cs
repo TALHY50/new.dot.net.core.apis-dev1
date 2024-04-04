@@ -46,8 +46,8 @@ namespace ACL.Repositories
         {
             try
             {
-                var aclCompanyModule = prepareInputData(request);
-                UnitOfWork.ApplicationDbContext.Add(aclCompanyModule);
+                var aclCompanyModule = PrepareInputData(request);
+                UnitOfWork.ApplicationDbContext.AddAsync(aclCompanyModule);
                 UnitOfWork.ApplicationDbContext.SaveChangesAsync();
                 UnitOfWork.ApplicationDbContext.Entry(aclCompanyModule).Reload();
                 aclResponse.Data = aclCompanyModule;
@@ -67,11 +67,11 @@ namespace ACL.Repositories
             try
             {
                 var aclCompany = UnitOfWork.ApplicationDbContext.AclCompanyModules.Find(Id);
-                var aclCompanyModule = prepareInputData(request, Id);
+                var aclCompanyModule = PrepareInputData(request, Id,aclCompany);
                 aclCompany = aclCompanyModule;
                 UnitOfWork.ApplicationDbContext.Update(aclCompany);
                 UnitOfWork.ApplicationDbContext.SaveChangesAsync();
-                UnitOfWork.ApplicationDbContext.Entry(aclCompany).Reload();
+                UnitOfWork.ApplicationDbContext.Entry(aclCompany).ReloadAsync();
                 aclResponse.Data = aclCompany;
                 aclResponse.Message = messageResponse.editMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
@@ -104,12 +104,12 @@ namespace ACL.Repositories
             if (id == 0)
             {
                 return !UnitOfWork.ApplicationDbContext.AclCompanyModules
-                    .Any(x => x.CompanyId == companyId && x.ModuleId == moduleId);
+                    .Any(x => x.CompanyId == companyId && x.ModuleId == moduleId) && UnitOfWork.ApplicationDbContext.AclCompanies.Any(x => x.Id == companyId) && UnitOfWork.ApplicationDbContext.AclModules.Any(x => x.Id == moduleId);
             }
             else
             {
                 return !UnitOfWork.ApplicationDbContext.AclCompanyModules
-               .Any(x => (x.CompanyId == companyId || x.ModuleId == moduleId) && x.Id != id);
+               .Any(x => x.CompanyId == companyId && x.ModuleId == moduleId && x.Id != id) && UnitOfWork.ApplicationDbContext.AclCompanies.Any(x => x.Id == companyId) && UnitOfWork.ApplicationDbContext.AclModules.Any(x => x.Id == moduleId);
             }
         }
 
@@ -130,12 +130,16 @@ namespace ACL.Repositories
             return aclResponse;
         }
 
-        public AclCompanyModule prepareInputData(AclCompanyModuleRequest request, ulong Id = 0)
+        public AclCompanyModule PrepareInputData(AclCompanyModuleRequest request, ulong Id = 0,AclCompanyModule aclCompany=null)
         {
-            bool valid = IsValidForCreateOrUpdate(request.company_id, request.company_id);
+            bool valid = IsValidForCreateOrUpdate(request.company_id, request.module_id);
             AclCompanyModule aclCompanyModule = new AclCompanyModule();
             if (valid)
             {
+                if(aclCompany != null)
+                {
+                    aclCompanyModule = aclCompany;
+                }
                 aclCompanyModule.CompanyId = request.company_id;
                 aclCompanyModule.ModuleId = request.module_id;
                 aclCompanyModule.UpdatedAt = DateTime.Now;

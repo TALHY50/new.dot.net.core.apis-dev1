@@ -12,7 +12,7 @@ namespace ACL.Interfaces.Repositories
         AclResponse FindById(ulong id);
         AclResponse DeleteModule(ulong id);
         bool IsValidForCreateOrUpdate(ulong companyId,ulong moduleId,ulong id=0);
-        AclCompanyModule prepareInputData(AclCompanyModuleRequest request,ulong Id =0);
+        AclCompanyModule PrepareInputData(AclCompanyModuleRequest request,ulong Id =0,AclCompanyModule aclCompany=null);
 
     }
 }
