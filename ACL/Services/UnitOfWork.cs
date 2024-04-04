@@ -1,5 +1,9 @@
 ﻿using ACL.Database;
 using ACL.Interfaces;
+using ACL.Interfaces.Repositories;
+using ACL.Interfaces.Repositories.V1;
+using ACL.Repositories;
+using ACL.Repositories.V1;
 using Microsoft.EntityFrameworkCore.Storage;
 using System.Data;
 
@@ -12,7 +16,7 @@ namespace ACL.Services
         private ILogService logService;
         private IHttpContextAccessor _httpContextAccessor;
 
-        public UnitOfWork( ApplicationDbContext context, ILoggerFactory loggerFactory,IHttpContextAccessor httpContextAccessor)
+        public UnitOfWork(ApplicationDbContext context, ILoggerFactory loggerFactory, IHttpContextAccessor httpContextAccessor)
         {
             this.context = context;
             this.logger = loggerFactory.CreateLogger("Logs");
@@ -62,6 +66,7 @@ namespace ACL.Services
             return this;
         }
 
+
         public async Task BeginTransactionAsync()
         {
             await this.ApplicationDbContext.Database.BeginTransactionAsync();
@@ -91,6 +96,11 @@ namespace ACL.Services
         public void RollbackTransaction()
         {
             this.ApplicationDbContext.Database.RollbackTransaction();
+        }
+
+        public IAclPageRepository AclPageRepository
+        {
+            get { return new AclPageRepository(this); }
         }
 
     }

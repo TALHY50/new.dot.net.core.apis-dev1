@@ -13,7 +13,7 @@ namespace ACL.Repositories.V1
     {
 
         private readonly IUnitOfWork _unitOfWork;
-        public AclResponse aclResponse;
+        public AclResponse aclResponse; 
         public MessageResponse messageResponse;
         private string modelName = "Page";
 
@@ -41,8 +41,9 @@ namespace ACL.Repositories.V1
             try
             {
                 var aclPage = prepareInputData(request);
-                _unitOfWork.ApplicationDbContext.Add(aclPage);
+                _unitOfWork.ApplicationDbContext.AddAsync(aclPage);
                 _unitOfWork.ApplicationDbContext.SaveChangesAsync();
+                _unitOfWork.ApplicationDbContext.Entry(aclPage).Reload();
                 aclResponse.Data = aclPage;
                 aclResponse.Message = messageResponse.createMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
