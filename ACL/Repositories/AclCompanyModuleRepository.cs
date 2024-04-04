@@ -13,7 +13,7 @@ namespace ACL.Repositories
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
-        private string modelName = "CompanyModule";
+        private string modelName = "Company Module";
         public AclCompanyModuleRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
             aclResponse = new AclResponse();
@@ -66,13 +66,12 @@ namespace ACL.Repositories
         {
             try
             {
-                var aclCompany = UnitOfWork.ApplicationDbContext.AclCompanyModules.Find(Id);
-                var aclCompanyModule = PrepareInputData(request, Id,aclCompany);
-                aclCompany = aclCompanyModule;
-                UnitOfWork.ApplicationDbContext.Update(aclCompany);
+                var _aclCompanyModule = UnitOfWork.ApplicationDbContext.AclCompanyModules.Find(Id);
+                _aclCompanyModule = PrepareInputData(request, Id, _aclCompanyModule);
+                UnitOfWork.ApplicationDbContext.Update(_aclCompanyModule);
                 UnitOfWork.ApplicationDbContext.SaveChangesAsync();
-                UnitOfWork.ApplicationDbContext.Entry(aclCompany).ReloadAsync();
-                aclResponse.Data = aclCompany;
+                UnitOfWork.ApplicationDbContext.Entry(_aclCompanyModule).ReloadAsync();
+                aclResponse.Data = _aclCompanyModule;
                 aclResponse.Message = messageResponse.editMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
@@ -87,12 +86,12 @@ namespace ACL.Repositories
 
         public AclResponse GetAll()
         {
-            var aclSubModules = UnitOfWork.ApplicationDbContext.AclCompanyModules.ToList();
-            if (aclSubModules.Count > 0)
+            var aclCompanyModules = UnitOfWork.ApplicationDbContext.AclCompanyModules.ToList();
+            if (aclCompanyModules.Count > 0)
             {
                 aclResponse.Message = messageResponse.fetchMessage;
             }
-            aclResponse.Data = aclSubModules;
+            aclResponse.Data = aclCompanyModules;
             aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             aclResponse.Timestamp = DateTime.Now;
 
@@ -130,15 +129,15 @@ namespace ACL.Repositories
             return aclResponse;
         }
 
-        public AclCompanyModule PrepareInputData(AclCompanyModuleRequest request, ulong Id = 0,AclCompanyModule aclCompany=null)
+        public AclCompanyModule PrepareInputData(AclCompanyModuleRequest request, ulong Id = 0,AclCompanyModule _aclCompanyModule = null)
         {
             bool valid = IsValidForCreateOrUpdate(request.company_id, request.module_id);
             AclCompanyModule aclCompanyModule = new AclCompanyModule();
             if (valid)
             {
-                if(aclCompany != null)
+                if (_aclCompanyModule != null)
                 {
-                    aclCompanyModule = aclCompany;
+                    aclCompanyModule = _aclCompanyModule;
                 }
                 aclCompanyModule.CompanyId = request.company_id;
                 aclCompanyModule.ModuleId = request.module_id;
