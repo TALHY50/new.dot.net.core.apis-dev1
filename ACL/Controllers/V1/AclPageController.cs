@@ -51,5 +51,25 @@ namespace ACL.Controllers.V1
             return _unitOfWork.AclPageRepository.findById(id);
 
         }
+
+        [HttpPost("pages/routes/add", Name = "acl.page.route.add")]
+        public async Task<AclResponse> AddPageRoute(AclPageRouteRequest request)
+        {
+            return _unitOfWork.AclPageRepository.PageRouteCreate(request);
+        }
+
+        [HttpPut("pages/routes/edit/{id}", Name = "acl.page.route.edit")]
+        public async Task<AclResponse> EditPageRoute(ulong id, AclPageRouteRequest request)
+        {
+            return _unitOfWork.AclPageRepository.PageRouteEdit(id, request);
+        }
+
+        [HttpDelete("pages/routes/delete/{id}", Name = "acl.page.route.destroy")]
+        public async Task<AclResponse> DeletePageRoute(ulong id)
+        {
+            return _unitOfWork.AclPageRepository.PageRouteDelete(id);
+        }
+
+
     }
 }

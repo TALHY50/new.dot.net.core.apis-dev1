@@ -13,7 +13,7 @@ namespace ACL.Repositories.V1
     {
 
         private readonly IUnitOfWork _unitOfWork;
-        public AclResponse aclResponse; 
+        public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "Page";
 
@@ -40,7 +40,7 @@ namespace ACL.Repositories.V1
         {
             try
             {
-                var aclPage = prepareInputData(request);
+                var aclPage = PrepareInputData(request);
                 _unitOfWork.ApplicationDbContext.AddAsync(aclPage);
                 _unitOfWork.ApplicationDbContext.SaveChangesAsync();
                 _unitOfWork.ApplicationDbContext.Entry(aclPage).Reload();
@@ -61,10 +61,10 @@ namespace ACL.Repositories.V1
         {
             try
             {
-                var aclPage = prepareInputData(request);
+                var aclPage = PrepareInputData(request);
                 _unitOfWork.ApplicationDbContext.Update(aclPage);
                 _unitOfWork.ApplicationDbContext.SaveChangesAsync();
-                _unitOfWork.ApplicationDbContext.Entry(aclPage).Reload();
+                _unitOfWork.ApplicationDbContext.Entry(aclPage).ReloadAsync();
                 aclResponse.Data = aclPage;
                 aclResponse.Message = messageResponse.editMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
@@ -120,7 +120,7 @@ namespace ACL.Repositories.V1
 
 
 
-        private AclPage prepareInputData(AclPageRequest request)
+        private AclPage PrepareInputData(AclPageRequest request)
         {
             return new AclPage
             {
@@ -133,6 +133,103 @@ namespace ACL.Repositories.V1
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now
             };
+
+        }
+
+
+        public AclResponse PageRouteCreate(AclPageRouteRequest request)
+        {
+            messageResponse.createMessage = "Page Route Create Successfully";
+            try
+            {
+                var aclPageRoute = PreparePageRouteInputData(request);
+                _unitOfWork.ApplicationDbContext.AddAsync(aclPageRoute);
+                _unitOfWork.ApplicationDbContext.SaveChangesAsync();
+                _unitOfWork.ApplicationDbContext.Entry(aclPageRoute).ReloadAsync();
+                aclResponse.Data = aclPageRoute;
+                aclResponse.Message = messageResponse.createMessage;
+                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+            }
+            catch (Exception ex)
+            {
+                aclResponse.Message = ex.Message;
+                aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+            }
+            aclResponse.Timestamp = DateTime.Now;
+            return aclResponse;
+        }
+
+        public AclResponse PageRouteEdit(ulong id, AclPageRouteRequest request)
+        {
+            messageResponse.createMessage = "Page Route Update Successfully";
+            try
+            {
+                var aclPageRoute = _unitOfWork.ApplicationDbContext.AclPageRoutes.Find(id);
+                if (aclPageRoute != null)
+                {
+                    var aclPageRouteUpdateData = PreparePageRouteInputData(request, aclPageRoute);
+                    _unitOfWork.ApplicationDbContext.Update(aclPageRouteUpdateData);
+                    _unitOfWork.ApplicationDbContext.SaveChangesAsync();
+                    _unitOfWork.ApplicationDbContext.Entry(aclPageRouteUpdateData).ReloadAsync();
+                    aclResponse.Data = aclPageRouteUpdateData;
+                    aclResponse.Message = messageResponse.editMessage;
+                    aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                }
+                else
+                {
+                    aclResponse.Message = messageResponse.noFoundMessage;
+                    aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
+                    return aclResponse;
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                aclResponse.Message = ex.Message;
+                aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+            }
+            aclResponse.Timestamp = DateTime.Now;
+            return aclResponse;
+        }
+
+        public AclResponse PageRouteDelete(ulong id)
+        {
+            messageResponse.createMessage = "Page Route Deleted Successfully";
+            var aclPageRoute = _unitOfWork.ApplicationDbContext.AclPageRoutes.Find(id);
+            if (aclPageRoute != null)
+            {
+                _unitOfWork.ApplicationDbContext.AclPageRoutes.Remove(aclPageRoute);
+                _unitOfWork.ApplicationDbContext.SaveChanges();
+                _unitOfWork.ApplicationDbContext.Entry(aclPageRoute).Reload();
+                aclResponse.Message = messageResponse.deleteMessage;
+                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+            }
+            return aclResponse;
+
+        }
+
+        public AclPageRoute PreparePageRouteInputData(AclPageRouteRequest request, AclPageRoute aclPageRoute = null)
+        {
+            if (aclPageRoute == null)
+            {
+                return new AclPageRoute
+                {
+                    PageId = request.page_id,
+                    RouteName = request.route_name,
+                    RouteUrl = request.route_url,
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now
+                };
+            }
+            else
+            {
+                aclPageRoute.PageId = request.page_id;
+                aclPageRoute.RouteName = request.route_name;
+                aclPageRoute.RouteUrl = request.route_url;
+                aclPageRoute.UpdatedAt = DateTime.Now;
+                return aclPageRoute;
+            }
 
         }
     }
