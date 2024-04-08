@@ -162,7 +162,12 @@ namespace ACL.Route
             public const string Destroy = Base + "destroy";
         }
 
-
+        public class AclUserGroupRole
+        {
+            public const string modelname = "acl.usergroups.";
+            public const string List = modelname + "role.association";
+            public const string Update = modelname + "role.association.update";
+        }
 
     }
 }
