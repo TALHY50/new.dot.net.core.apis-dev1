@@ -15,7 +15,7 @@ namespace ACL.Interfaces
         public ApplicationDbContext ApplicationDbContext { get; set; }
         public ILogger Logger { get; set; }
 
-        public ILogService LogService { get; set; }
+        //public ILogService LogService { get; set; }
 
         IAclCompanyModuleRepository AclCompanyModuleRepository { get; }
         IAclModuleRepository AclModuleRepository { get; }
@@ -23,7 +23,6 @@ namespace ACL.Interfaces
         IAclRolePageRepository AclRolePageRepository { get; }
         IAclRoleRepository AclRoleRepository { get; }
         IAclUserGroupRoleRepository AclUserGroupRoleRepository { get; }
-
         public IHttpContextAccessor HttpContextAccessor { get; set; }
 
         public IAclPageRepository AclPageRepository { get; }
