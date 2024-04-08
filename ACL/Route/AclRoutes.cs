@@ -40,11 +40,11 @@ namespace ACL.Route
     {
         public static class SubmoduleRouteNames
         {
-            public const string list = "acl.submodule.list";
-            public const string add = "acl.submodule.add";
-            public const string view = "acl.submodule.view";
-            public const string edit = "acl.submodule.edit";
-            public const string destroy = "acl.submodule.destroy";
+            public const string List = "acl.submodule.list";
+            public const string Add = "acl.submodule.add";
+            public const string View = "acl.submodule.view";
+            public const string Edit = "acl.submodule.edit";
+            public const string Destroy = "acl.submodule.destroy";
         }
     }
 }
