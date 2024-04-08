@@ -52,6 +52,7 @@ namespace ACL.Repositories.V1
             var check = PrepareData(req);
             base.AddRange(check);
             await _unitOfWork.CompleteAsync();
+            res = await base.All();
             res = res.Where(x => x.RoleId == req.role_id);
             if (res.Any())
             {
@@ -78,7 +79,7 @@ namespace ACL.Repositories.V1
                 if (!exists)
                 {
                     Database.Models.AclRolePage aclRolePage = new Database.Models.AclRolePage();
-                    aclRolePage.Id = 0; 
+                    aclRolePage.Id = 0;
                     aclRolePage.RoleId = req.role_id;
                     aclRolePage.PageId = page;
                     aclRolePage.CreatedAt = DateTime.Now;
