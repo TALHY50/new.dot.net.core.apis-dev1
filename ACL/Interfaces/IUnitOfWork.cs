@@ -6,6 +6,7 @@ using ACL.Database;
 using SharedLibrary.Interfaces.Repositories;
 using ACL.Repositories;
 using ACL.Interfaces.Repositories.V1;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace ACL.Interfaces
 {
@@ -24,8 +25,13 @@ namespace ACL.Interfaces
         public IHttpContextAccessor HttpContextAccessor { get; set; }
 
         IUnitOfWork GetService();
-        public IDbTransaction BeginTransaction();
+        IDbTransaction BeginTransaction();
+        Task<IDbContextTransaction>  BeginTransactionAsync();
         Task CompleteAsync();
         public void Complete();
+        void RollbackTransaction();
+        Task RollbackTransactionAsync();
+        Task CommitTransactionAsync();
+        void CommitTransaction();
     }
 }

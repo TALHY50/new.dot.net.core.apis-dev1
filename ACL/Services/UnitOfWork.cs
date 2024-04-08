@@ -46,7 +46,7 @@ namespace ACL.Services
             get { return new AclCompanyModuleRepository(this); }
 
         }
-        
+
         public IAclRolePageRepository AclRolePageRepository
         {
             get { return new AclRolePageRepository(this); }
@@ -91,9 +91,9 @@ namespace ACL.Services
             return this;
         }
 
-        public async Task BeginTransactionAsync()
+        public async Task<IDbContextTransaction> BeginTransactionAsync()
         {
-            await this.ApplicationDbContext.Database.BeginTransactionAsync();
+            return await ApplicationDbContext.Database.BeginTransactionAsync();
         }
 
         public IDbTransaction BeginTransaction()

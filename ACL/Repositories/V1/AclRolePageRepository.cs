@@ -43,17 +43,27 @@ namespace ACL.Repositories.V1
         {
             var res = await base.All();
             res = res.Where(x => x.RoleId == req.role_id);
-            var removedEntities = await base.RemoveRange(res);
-            await _unitOfWork.CompleteAsync();
-            foreach (var entity in removedEntities)
+
+            using (var transaction = await _unitOfWork.BeginTransactionAsync())
             {
-                base.Detach(entity);
+                try
+                {
+                    var removedEntities = await base.RemoveRange(res);
+                    var check = PrepareData(req);
+                    await base.AddRange(check);
+                    await _unitOfWork.CommitTransactionAsync();
+                }
+                catch (Exception ex)
+                {
+                    await _unitOfWork.RollbackTransactionAsync();
+                    aclResponse.Message = ex.Message;
+                    aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                }
             }
-            var check = PrepareData(req);
-            base.AddRange(check);
             await _unitOfWork.CompleteAsync();
             res = await base.All();
             res = res.Where(x => x.RoleId == req.role_id);
+
             if (res.Any())
             {
                 aclResponse.Message = messageResponse.fetchMessage;
@@ -64,11 +74,13 @@ namespace ACL.Repositories.V1
                 aclResponse.Message = messageResponse.noFoundMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
             }
+
             aclResponse.Data = res;
             aclResponse.Timestamp = DateTime.Now;
 
             return aclResponse;
         }
+
 
         public Database.Models.AclRolePage[] PrepareData(AclRoleAndPageAssocUpdateRequest req)
         {
