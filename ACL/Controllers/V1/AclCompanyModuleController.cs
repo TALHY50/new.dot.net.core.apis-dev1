@@ -26,34 +26,34 @@ namespace ACL.Controllers.V1
         [Route(AclRoutesUrl.AclCompanyModule.List)]
         public async Task<AclResponse> Index()
         {
-            return _unitOfWork.AclCompanyModuleRepository.GetAll();
+            return await _unitOfWork.AclCompanyModuleRepository.GetAll();
         }
 
         [HttpPost]
         [Route(AclRoutesUrl.AclCompanyModule.Add)]
         public async Task<AclResponse> Create(AclCompanyModuleRequest objSubModule)
         {
-            return _unitOfWork.AclCompanyModuleRepository.AddAclCompanyModule(objSubModule);
+            return await _unitOfWork.AclCompanyModuleRepository.AddAclCompanyModule(objSubModule);
         }
 
         [HttpPut]
         [Route(AclRoutesUrl.AclCompanyModule.Edit)]
         public async Task<AclResponse> Edit(ulong Id, AclCompanyModuleRequest objSubModule)
         {
-            return _unitOfWork.AclCompanyModuleRepository.EditAclCompanyModule(Id, objSubModule);
+            return await _unitOfWork.AclCompanyModuleRepository.EditAclCompanyModule(Id, objSubModule);
         }
         [HttpGet]
         [Route(AclRoutesUrl.AclCompanyModule.View)]
         public async Task<AclResponse> View(ulong Id)
         {
-            return _unitOfWork.AclCompanyModuleRepository.FindById(Id);
+            return await _unitOfWork.AclCompanyModuleRepository.FindById(Id);
         }
 
         [HttpDelete]
         [Route(AclRoutesUrl.AclCompanyModule.Destroy)]
         public async Task<AclResponse> Destroy(ulong Id)
         {
-            return _unitOfWork.AclCompanyModuleRepository.DeleteCompanyModule(Id);
+            return await _unitOfWork.AclCompanyModuleRepository.DeleteCompanyModule(Id);
         }
     }
 }
