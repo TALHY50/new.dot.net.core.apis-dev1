@@ -3,7 +3,7 @@
     public interface IGenericRepository<T> where T : class
     {
         Task<IEnumerable<T>> All();
-        Task<T?> GetById(int id);
+        Task<T?> GetById(ulong id);
         Task<T> AddAsync(T entity);
         T Add(T entity);
         T Update(T entity);
@@ -13,5 +13,6 @@
         Task<IEnumerable<T>> ExecuteSqlQuery(string sqlQuery);
         Task<IEnumerable<T>> AddAll(IEnumerable<T> entities);
         Task<IEnumerable<T>> AddRange(params T[] entities);
+        Task ReloadAsync(T entity);
     }
 }

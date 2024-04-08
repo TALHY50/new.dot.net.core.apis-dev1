@@ -6,12 +6,12 @@ namespace ACL.Repositories
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        protected IUnitOfWork UnitOfWork;
+        protected IUnitOfWork _unitOfWork;
         internal DbSet<T> _dbSet;
 
         public GenericRepository(IUnitOfWork unitOfWork)
         {
-            UnitOfWork = unitOfWork;
+            _unitOfWork = unitOfWork;
             _dbSet = unitOfWork.ApplicationDbContext.Set<T>();
 
         }
@@ -21,7 +21,7 @@ namespace ACL.Repositories
             return await _dbSet.ToListAsync();
         }
 
-        public virtual async Task<T?> GetById(int id)
+        public virtual async Task<T?> GetById(ulong id)
         {
             return await _dbSet.FindAsync(id);
         }
@@ -74,6 +74,16 @@ namespace ACL.Repositories
         {
             await _dbSet.AddRangeAsync(entities);
             return entities;
+        }
+
+        public virtual async Task ReloadAsync(T entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
+            await _unitOfWork.ApplicationDbContext.Entry(entity).ReloadAsync();
         }
     }
 }

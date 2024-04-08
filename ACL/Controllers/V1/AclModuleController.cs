@@ -26,34 +26,34 @@ namespace ACL.Controllers.V1
         [Route(AclRoutesUrl.AclModule.List)]
         public async Task<AclResponse> Index()
         {
-            return _unitOfWork.AclModuleRepository.GetAll();
+            return await _unitOfWork.AclModuleRepository.GetAll();
         }
 
         [HttpPost]
         [Route(AclRoutesUrl.AclModule.Add)]
         public async Task<AclResponse> Create(AclModuleRequest moduleRequest)
         {
-            return _unitOfWork.AclModuleRepository.AddAclModule(moduleRequest);
+            return await _unitOfWork.AclModuleRepository.AddAclModule(moduleRequest);
         }
 
         [HttpPut]
         [Route(AclRoutesUrl.AclModule.Edit)]
         public async Task<AclResponse> Edit(ulong Id, AclModuleRequest moduleRequest)
         {
-            return _unitOfWork.AclModuleRepository.EditAclModule(Id, moduleRequest);
+            return await _unitOfWork.AclModuleRepository.EditAclModule(Id, moduleRequest);
         }
         [HttpGet]
         [Route(AclRoutesUrl.AclModule.View)]
         public async Task<AclResponse> View(ulong Id)
         {
-            return _unitOfWork.AclModuleRepository.FindById(Id);
+            return await _unitOfWork.AclModuleRepository.FindById(Id);
         }
 
         [HttpDelete]
         [Route(AclRoutesUrl.AclModule.Destroy)]
         public async Task<AclResponse> Destroy(ulong Id)
         {
-            return _unitOfWork.AclModuleRepository.DeleteModule(Id);
+            return await _unitOfWork.AclModuleRepository.DeleteModule(Id);
         }
     }
 }

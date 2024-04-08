@@ -25,11 +25,6 @@ namespace ACL.Interfaces
         IUnitOfWork GetService();
         public IDbTransaction BeginTransaction();
         Task CompleteAsync();
-
         public void Complete();
-
-
-
-
     }
 }

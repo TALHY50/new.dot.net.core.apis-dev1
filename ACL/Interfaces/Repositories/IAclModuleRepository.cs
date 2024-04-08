@@ -6,10 +6,10 @@ namespace ACL.Interfaces.Repositories
 {
     public interface IAclModuleRepository : IGenericRepository<AclModule>
     {
-        AclResponse GetAll();
-        AclResponse FindById(ulong id);
-        AclResponse AddAclModule(AclModuleRequest request);
-        AclResponse EditAclModule(ulong Id, AclModuleRequest request);
-        AclResponse DeleteModule(ulong id);
+        Task<AclResponse> GetAll();
+        Task<AclResponse> FindById(ulong id);
+        Task<AclResponse> AddAclModule(AclModuleRequest request);
+        Task<AclResponse> EditAclModule(ulong Id, AclModuleRequest request);
+        Task<AclResponse> DeleteModule(ulong id);
     }
 }

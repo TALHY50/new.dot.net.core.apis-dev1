@@ -16,11 +16,11 @@ namespace ACL.Repositories
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName);
         }
-        public AclResponse FindById(ulong id)
+        public async Task<AclResponse> FindById(ulong id)
         {
             try
             {
-                var aclModule = UnitOfWork.ApplicationDbContext.AclModules.Find(id);
+                var aclModule = await _unitOfWork.AclModuleRepository.GetById(id);
                 aclResponse.Data = aclModule;
                 aclResponse.Message = messageResponse.fetchMessage;
                 if (aclModule == null)
@@ -39,17 +39,27 @@ namespace ACL.Repositories
             return aclResponse;
         }
 
-        public AclResponse AddAclModule(AclModuleRequest request)
+        public async Task<AclResponse> AddAclModule(AclModuleRequest request)
         {
             try
             {
-                var aclModule = PrepareInputData(request);
-                UnitOfWork.ApplicationDbContext.Add(aclModule);
-                UnitOfWork.ApplicationDbContext.SaveChangesAsync();
-                UnitOfWork.ApplicationDbContext.Entry(aclModule).ReloadAsync();
-                aclResponse.Data = aclModule;
-                aclResponse.Message = messageResponse.createMessage;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                var check = await base.GetById(request.id);
+                if (check == null)
+                {
+                    var aclModule = PrepareInputData(request);
+                    _unitOfWork.AclModuleRepository.Add(aclModule);
+                    await _unitOfWork.CompleteAsync();
+                    await _unitOfWork.AclModuleRepository.ReloadAsync(aclModule);
+                    aclResponse.Data = aclModule;
+                    aclResponse.Message = messageResponse.createMessage;
+                    aclResponse.StatusCode = System.Net.HttpStatusCode.Created;
+                }
+                else
+                {
+                    aclResponse.Message = messageResponse.existMessage;
+                    aclResponse.StatusCode=System.Net.HttpStatusCode.Conflict;
+                }
+                aclResponse.Timestamp = DateTime.Now;
             }
             catch (Exception ex)
             {
@@ -59,18 +69,26 @@ namespace ACL.Repositories
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
         }
-        public AclResponse EditAclModule(ulong Id, AclModuleRequest request)
+        public async Task<AclResponse> EditAclModule(ulong Id, AclModuleRequest request)
         {
             try
             {
-                var aclModule = UnitOfWork.ApplicationDbContext.AclModules.Find(Id);
-                aclModule = PrepareInputData(request, Id, aclModule);
-                UnitOfWork.ApplicationDbContext.Update(aclModule);
-                UnitOfWork.ApplicationDbContext.SaveChangesAsync();
-                UnitOfWork.ApplicationDbContext.Entry(aclModule).ReloadAsync();
-                aclResponse.Data = aclModule;
-                aclResponse.Message = messageResponse.editMessage;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                var aclModule = await _unitOfWork.AclModuleRepository.GetById(Id);
+                if (aclModule != null)
+                {
+                    aclModule = PrepareInputData(request, Id, aclModule);
+                    await base.UpdateAsync(aclModule);
+                    await _unitOfWork.CompleteAsync();
+                    await _unitOfWork.AclModuleRepository.ReloadAsync(aclModule);
+                    aclResponse.Data = aclModule;
+                    aclResponse.Message = messageResponse.editMessage;
+                    aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                }
+                else
+                {
+                    aclResponse.Message = messageResponse.noFoundMessage;
+                    aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
+                }
             }
             catch (Exception ex)
             {
@@ -81,34 +99,44 @@ namespace ACL.Repositories
             return aclResponse;
         }
 
-        public AclResponse GetAll()
+        public async Task<AclResponse> GetAll()
         {
-            var aclModules = UnitOfWork.ApplicationDbContext.AclModules.ToList();
-            if (aclModules.Count > 0)
+            var aclModules = await base.All();
+            if (aclModules.Any())
             {
                 aclResponse.Message = messageResponse.fetchMessage;
+                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+            }
+            else
+            {
+                aclResponse.Message = messageResponse.noFoundMessage;
+                aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
             }
             aclResponse.Data = aclModules;
-            aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             aclResponse.Timestamp = DateTime.Now;
 
             return aclResponse;
         }
 
-        public AclResponse DeleteModule(ulong id)
+        public async Task<AclResponse> DeleteModule(ulong id)
         {
 
-            var aclModule = UnitOfWork.ApplicationDbContext.AclModules.Find(id);
+            var aclModule = await _unitOfWork.AclModuleRepository.GetById(id);
 
             if (aclModule != null)
             {
-                UnitOfWork.ApplicationDbContext.AclModules.Remove(aclModule);
-                UnitOfWork.ApplicationDbContext.SaveChanges();
+                await base.DeleteAsync(aclModule);
+                await _unitOfWork.CompleteAsync();
                 aclResponse.Data = aclModule;
                 aclResponse.Message = messageResponse.deleteMessage;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                aclResponse.StatusCode = System.Net.HttpStatusCode.Continue;
             }
-
+            else
+            {
+                aclResponse.Message = messageResponse.noFoundMessage;
+                aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
+            }
+            aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
         }
 
