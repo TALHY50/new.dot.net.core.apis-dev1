@@ -51,6 +51,17 @@ namespace ACL.Route
             public const string Destroy = ModelName + "/delete/{id}";
         }
 
+        public class AclUser
+        {
+            public const string ModelName = Base + "users";
+            public const string List = ModelName;
+            public const string Add = ModelName + "/add";
+            public const string Edit = ModelName + "/edit/{id}";
+            public const string View = ModelName + "/view/{id}";
+            public const string Destroy = ModelName + "/delete/{id}";
+        }
+
+
 
     }
     public static class AclRoutesName
@@ -80,5 +91,17 @@ namespace ACL.Route
             public const string Edit = Base + "edit";
             public const string Destroy = Base + "destroy";
         }
+
+        public static class AclUserNames
+        {
+            public const string Base = "acl.user.";
+            public const string List = Base + "list";
+            public const string Add = Base + "add";
+            public const string View = Base + "view";
+            public const string Edit = Base + "edit";
+            public const string Destroy = Base + "destroy";
+        }
+
+
     }
 }

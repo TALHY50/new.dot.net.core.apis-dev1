@@ -120,7 +120,11 @@ namespace ACL.Services
         public IAclPageRepository AclPageRepository
         {
             get { return new AclPageRepository(this); }
+        }        
+        
+        public IAclUserRepository AclUserRepository
+        {
+            get { return new AclUserRepository(this); }
         }
-
     }
 }
