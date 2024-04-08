@@ -19,5 +19,6 @@ namespace ACL.Interfaces.Repositories
         Task ReloadAsync(T entity);
         void Detach<T>(T entity);
         IQueryable<T> Where(Expression<Func<T, bool>> predicate);
+        Task ReloadEntitiesAsync(IEnumerable<T> entities);
     }
 }

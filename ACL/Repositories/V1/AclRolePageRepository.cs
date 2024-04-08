@@ -42,13 +42,12 @@ namespace ACL.Repositories.V1
         public async Task<AclResponse> UpdateAll(AclRoleAndPageAssocUpdateRequest req)
         {
             var res = await base.Where(x => x.RoleId == req.role_id).ToListAsync();
-
-            using (var transaction = await _unitOfWork.BeginTransactionAsync())
+            var check = PrepareData(req);
+            using (var transaction = _unitOfWork.BeginTransaction())
             {
                 try
                 {
                     var removedEntities = await base.RemoveRange(res);
-                    var check = PrepareData(req);
                     await base.AddRange(check);
                     await _unitOfWork.CommitTransactionAsync();
                 }
@@ -60,7 +59,8 @@ namespace ACL.Repositories.V1
                 }
             }
             await _unitOfWork.CompleteAsync();
-            res = await base.Where(x => x.RoleId == req.role_id).ToListAsync();
+            await ReloadEntitiesAsync(check);
+            res = check.ToList();
             if (res.Any())
             {
                 aclResponse.Message = messageResponse.fetchMessage;

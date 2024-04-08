@@ -91,7 +91,7 @@ namespace ACL.Repositories
                 throw new ArgumentNullException(nameof(entity));
             }
 
-            await _unitOfWork.ApplicationDbContext.Entry(entity).ReloadAsync();
+            await _dbSet.Entry(entity).ReloadAsync();
         }
 
         public void Detach<T>(T entity)
@@ -100,7 +100,6 @@ namespace ACL.Repositories
             {
                 throw new ArgumentNullException(nameof(entity));
             }
-
             var entry = _unitOfWork.ApplicationDbContext.Entry(entity);
             if (entry != null)
             {
@@ -111,6 +110,12 @@ namespace ACL.Repositories
         {
             return _unitOfWork.ApplicationDbContext.Set<T>().Where(predicate);
         }
-
+        public async Task ReloadEntitiesAsync(IEnumerable<T> entities)
+        {
+            foreach (var entity in entities)
+            {
+                await _unitOfWork.ApplicationDbContext.Entry(entity).ReloadAsync();
+            }
+        }
     }
 }
