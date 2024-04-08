@@ -1,7 +1,7 @@
-﻿
-using ACL.Interfaces.Repositories;
+﻿using ACL.Interfaces.Repositories.V1;
 using ACL.Requests;
 using ACL.Response.V1;
+using ACL.Route;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ACL.Controllers.V1
@@ -16,19 +16,19 @@ namespace ACL.Controllers.V1
             _repository = repository;
         }
 
-        [HttpGet("submodules", Name = "acl.submodule.list")]
+        [HttpGet(AclRoutesUrl.AclSubModule.List , Name = AclRoutesName.SubmoduleRouteNames.List)]
         public async Task<AclResponse> Index()
         {
             return _repository.GetAll();
         }
 
-        [HttpPost("submodules/add",Name = "acl.submodule.add")]
+        [HttpPost(AclRoutesUrl.AclSubModule.Add , Name = AclRoutesName.SubmoduleRouteNames.Add)]
         public async Task<AclResponse> Create(AclSubModuleRequest objSubModule)
         {
            return _repository.Add(objSubModule);
         }
 
-        [HttpGet("submodules/view/{id}", Name = "acl.submodule.view")]
+        [HttpGet(AclRoutesUrl.AclSubModule.View , Name = AclRoutesName.SubmoduleRouteNames.View)]
         public async Task<AclResponse> View(ulong id)
         {
             return _repository.findById(id);
@@ -36,7 +36,7 @@ namespace ACL.Controllers.V1
         }
 
 
-        [HttpPut("submodules/edit/{id}", Name = "acl.submodule.edit")]
+        [HttpPut(AclRoutesUrl.AclSubModule.Edit , Name = AclRoutesName.SubmoduleRouteNames.Edit)]
         public async Task<AclResponse> Edit(ulong id, AclSubModuleRequest objSubModule)
         {
             return _repository.Edit(id, objSubModule);
@@ -44,7 +44,7 @@ namespace ACL.Controllers.V1
         }
 
 
-        [HttpDelete("submodules/delete/{id}", Name = "acl.submodule.destroy")]
+        [HttpDelete(AclRoutesUrl.AclSubModule.Destroy , Name = AclRoutesName.SubmoduleRouteNames.Destroy)]
         public async Task<AclResponse> Destroy(ulong id)
         {
             return _repository.deleteById(id);

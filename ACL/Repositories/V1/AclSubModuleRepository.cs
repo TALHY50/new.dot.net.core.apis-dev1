@@ -1,21 +1,20 @@
-﻿
-using ACL.Database.Models;
+﻿using ACL.Database.Models;
 using ACL.Interfaces;
-using ACL.Interfaces.Repositories;
+using ACL.Interfaces.Repositories.V1;
 using ACL.Requests;
 using ACL.Response.V1;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
-namespace ACL.Repositories
+namespace ACL.Repositories.V1
 {
-    public class AclSubModuleRepository: IAclSubModuleRepository
+    public class AclSubModuleRepository : IAclSubModuleRepository
     {
         private readonly IUnitOfWork _unitOfWork;
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "SubModule";
-        public AclSubModuleRepository(IUnitOfWork unitOfWork) 
+        public AclSubModuleRepository(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
             aclResponse = new AclResponse();
@@ -43,7 +42,7 @@ namespace ACL.Repositories
                 _unitOfWork.ApplicationDbContext.Add(aclSubModule);
                 _unitOfWork.ApplicationDbContext.SaveChangesAsync();
                 aclResponse.Data = aclSubModule;
-                aclResponse.Message = messageResponse.createMessage; 
+                aclResponse.Message = messageResponse.createMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
             catch (Exception ex)
@@ -53,10 +52,10 @@ namespace ACL.Repositories
             }
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
-           
+
 
         }
-        public AclResponse Edit(ulong id,AclSubModuleRequest request)
+        public AclResponse Edit(ulong id, AclSubModuleRequest request)
         {
             try
             {
@@ -64,7 +63,7 @@ namespace ACL.Repositories
                 _unitOfWork.ApplicationDbContext.Update(aclSubModule);
                 _unitOfWork.ApplicationDbContext.SaveChangesAsync();
                 aclResponse.Data = aclSubModule;
-                aclResponse.Message = messageResponse.editMessage; 
+                aclResponse.Message = messageResponse.editMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
             catch (Exception ex)
@@ -88,7 +87,7 @@ namespace ACL.Repositories
                 {
                     aclResponse.Message = messageResponse.noFoundMessage;
                 }
-                
+
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
             catch (Exception ex)
@@ -118,13 +117,19 @@ namespace ACL.Repositories
 
         private AclSubModule prepareInputData(AclSubModuleRequest request)
         {
-           return new AclSubModule { 
-                        Id = request.id, ModuleId = request.module_id, 
-                        Name= request.name, ControllerName = request.controller_name,
-                        DefaultMethod = request.default_method, DisplayName = request.display_name,
-                        Icon = request.icon, Sequence = request.sequence, CreatedAt = DateTime.Now, 
-                        UpdatedAt = DateTime.Now
-                     };
+            return new AclSubModule
+            {
+                Id = request.id,
+                ModuleId = request.module_id,
+                Name = request.name,
+                ControllerName = request.controller_name,
+                DefaultMethod = request.default_method,
+                DisplayName = request.display_name,
+                Icon = request.icon,
+                Sequence = request.sequence,
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now
+            };
 
         }
     }

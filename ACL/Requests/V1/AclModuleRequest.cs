@@ -5,7 +5,7 @@ namespace ACL.Requests.V1
 {
     public class AclModuleRequest
     {
-       // [UniqueValue("AclModules", "Id", ErrorMessage = "Id must be unique.")]
+        //[UniqueValue("AclModules", "Id", ErrorMessage = "Id must be unique.")]
         public ulong id { get; set; }
         public string name { get; set; }
         public string icon { get; set; }

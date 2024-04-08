@@ -1,13 +1,12 @@
-﻿
-using ACL.Database.Models;
+﻿using ACL.Database.Models;
 using ACL.Interfaces;
-using ACL.Interfaces.Repositories;
+using ACL.Interfaces.Repositories.V1;
 using ACL.Requests;
 using ACL.Requests.V1;
 using ACL.Response.V1;
 using Microsoft.EntityFrameworkCore;
 
-namespace ACL.Repositories
+namespace ACL.Repositories.V1
 {
     public class AclCompanyModuleRepository : GenericRepository<AclCompanyModule>, IAclCompanyModuleRepository
     {
@@ -19,11 +18,11 @@ namespace ACL.Repositories
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName);
         }
-        public AclResponse FindById(ulong id)
+        public async Task<AclResponse> FindById(ulong id)
         {
             try
             {
-                var aclCompanyModule = UnitOfWork.ApplicationDbContext.AclCompanyModules.Find(id);
+                var aclCompanyModule = await base.GetById(id);
                 aclResponse.Data = aclCompanyModule;
                 aclResponse.Message = messageResponse.fetchMessage;
                 if (aclCompanyModule == null)
@@ -42,14 +41,14 @@ namespace ACL.Repositories
             return aclResponse;
         }
 
-        public AclResponse AddAclCompanyModule(AclCompanyModuleRequest request)
+        public async Task<AclResponse> AddAclCompanyModule(AclCompanyModuleRequest request)
         {
             try
             {
                 var aclCompanyModule = PrepareInputData(request);
-                UnitOfWork.ApplicationDbContext.Add(aclCompanyModule);
-                UnitOfWork.ApplicationDbContext.SaveChangesAsync();
-                UnitOfWork.ApplicationDbContext.Entry(aclCompanyModule).ReloadAsync();
+                Add(aclCompanyModule);
+                await _unitOfWork.CompleteAsync();
+                await base.ReloadAsync(aclCompanyModule);
                 aclResponse.Data = aclCompanyModule;
                 aclResponse.Message = messageResponse.createMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
@@ -62,18 +61,26 @@ namespace ACL.Repositories
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
         }
-        public AclResponse EditAclCompanyModule(ulong Id, AclCompanyModuleRequest request)
+        public async Task<AclResponse> EditAclCompanyModule(ulong Id, AclCompanyModuleRequest request)
         {
             try
             {
-                var _aclCompanyModule = UnitOfWork.ApplicationDbContext.AclCompanyModules.Find(Id);
-                _aclCompanyModule = PrepareInputData(request, Id, _aclCompanyModule);
-                UnitOfWork.ApplicationDbContext.Update(_aclCompanyModule);
-                UnitOfWork.ApplicationDbContext.SaveChangesAsync();
-                UnitOfWork.ApplicationDbContext.Entry(_aclCompanyModule).ReloadAsync();
-                aclResponse.Data = _aclCompanyModule;
-                aclResponse.Message = messageResponse.editMessage;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                var _aclCompanyModule = await base.GetById(Id);
+                if (_aclCompanyModule != null)
+                {
+                    _aclCompanyModule = PrepareInputData(request, Id, _aclCompanyModule);
+                    await base.UpdateAsync(_aclCompanyModule);
+                    await _unitOfWork.CompleteAsync();
+                    await base.ReloadAsync(_aclCompanyModule);
+                    aclResponse.Data = _aclCompanyModule;
+                    aclResponse.Message = messageResponse.editMessage;
+                    aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                }
+                else
+                {
+                    aclResponse.Message = messageResponse.noFoundMessage;
+                    aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
+                }
             }
             catch (Exception ex)
             {
@@ -84,15 +91,20 @@ namespace ACL.Repositories
             return aclResponse;
         }
 
-        public AclResponse GetAll()
+        public async Task<AclResponse> GetAll()
         {
-            var aclCompanyModules = UnitOfWork.ApplicationDbContext.AclCompanyModules.ToList();
-            if (aclCompanyModules.Count > 0)
+            var aclCompanyModules = await base.All();
+            if (aclCompanyModules.Any())
             {
                 aclResponse.Message = messageResponse.fetchMessage;
+                aclResponse.Data = aclCompanyModules;
+                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
-            aclResponse.Data = aclCompanyModules;
-            aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+            else
+            {
+                aclResponse.Message = messageResponse.noFoundMessage;
+                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+            }
             aclResponse.Timestamp = DateTime.Now;
 
             return aclResponse;
@@ -102,34 +114,40 @@ namespace ACL.Repositories
         {
             if (id == 0)
             {
-                return !UnitOfWork.ApplicationDbContext.AclCompanyModules
-                    .Any(x => x.CompanyId == companyId && x.ModuleId == moduleId) && UnitOfWork.ApplicationDbContext.AclCompanies.Any(x => x.Id == companyId) && UnitOfWork.ApplicationDbContext.AclModules.Any(x => x.Id == moduleId);
+                return !_unitOfWork.ApplicationDbContext.AclCompanyModules
+                    .Any(x => x.CompanyId == companyId && x.ModuleId == moduleId) && _unitOfWork.ApplicationDbContext.AclCompanies.Any(x => x.Id == companyId) && _unitOfWork.ApplicationDbContext.AclModules.Any(x => x.Id == moduleId);
             }
             else
             {
-                return !UnitOfWork.ApplicationDbContext.AclCompanyModules
-               .Any(x => x.CompanyId == companyId && x.ModuleId == moduleId && x.Id != id) && UnitOfWork.ApplicationDbContext.AclCompanies.Any(x => x.Id == companyId) && UnitOfWork.ApplicationDbContext.AclModules.Any(x => x.Id == moduleId);
+                return !_unitOfWork.ApplicationDbContext.AclCompanyModules
+               .Any(x => x.CompanyId == companyId && x.ModuleId == moduleId && x.Id != id) && _unitOfWork.ApplicationDbContext.AclCompanies.Any(x => x.Id == companyId) && _unitOfWork.ApplicationDbContext.AclModules.Any(x => x.Id == moduleId);
             }
         }
 
-        public AclResponse DeleteCompanyModule(ulong id)
+        public async Task<AclResponse> DeleteCompanyModule(ulong id)
         {
 
-            var aclCompanyModule = UnitOfWork.ApplicationDbContext.AclCompanyModules.Find(id);
+            var aclCompanyModule = await base.GetById(id);
 
             if (aclCompanyModule != null)
             {
-                UnitOfWork.ApplicationDbContext.AclCompanyModules.Remove(aclCompanyModule);
-                UnitOfWork.ApplicationDbContext.SaveChanges();
+                await base.DeleteAsync(aclCompanyModule);
+                await _unitOfWork.CompleteAsync();
                 aclResponse.Data = aclCompanyModule;
                 aclResponse.Message = messageResponse.deleteMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
+            else
+            {
+                aclResponse.Message = messageResponse.noFoundMessage;
+                aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
+            }
+            aclResponse.Timestamp = DateTime.Now;
 
             return aclResponse;
         }
 
-        public AclCompanyModule PrepareInputData(AclCompanyModuleRequest request, ulong Id = 0,AclCompanyModule _aclCompanyModule = null)
+        public AclCompanyModule PrepareInputData(AclCompanyModuleRequest request, ulong Id = 0, AclCompanyModule _aclCompanyModule = null)
         {
             bool valid = IsValidForCreateOrUpdate(request.company_id, request.module_id);
             AclCompanyModule aclCompanyModule = new AclCompanyModule();

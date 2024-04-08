@@ -22,38 +22,33 @@ namespace ACL.Controllers.V1
             _unitOfWork = unitOfWork;
         }
 
-        [HttpGet]
-        [Route(AclRoutesUrl.AclModule.List)]
+        [HttpGet(AclRoutesUrl.AclModule.List, Name = AclRoutesName.AclModuleRouteNames.List)]
         public async Task<AclResponse> Index()
         {
-            return _unitOfWork.AclModuleRepository.GetAll();
+            return await _unitOfWork.AclModuleRepository.GetAll();
         }
 
-        [HttpPost]
-        [Route(AclRoutesUrl.AclModule.Add)]
+        [HttpPost(AclRoutesUrl.AclModule.Add, Name = AclRoutesName.AclModuleRouteNames.Add)]
         public async Task<AclResponse> Create(AclModuleRequest moduleRequest)
         {
-            return _unitOfWork.AclModuleRepository.AddAclModule(moduleRequest);
+            return await _unitOfWork.AclModuleRepository.AddAclModule(moduleRequest);
         }
 
-        [HttpPut]
-        [Route(AclRoutesUrl.AclModule.Edit)]
-        public async Task<AclResponse> Edit(ulong Id, AclModuleRequest moduleRequest)
+        [HttpPut(AclRoutesUrl.AclModule.Edit, Name = AclRoutesName.AclModuleRouteNames.Edit)]
+        public async Task<AclResponse> Edit(ulong id, AclModuleRequest moduleRequest)
         {
-            return _unitOfWork.AclModuleRepository.EditAclModule(Id, moduleRequest);
+            return await _unitOfWork.AclModuleRepository.EditAclModule(id, moduleRequest);
         }
-        [HttpGet]
-        [Route(AclRoutesUrl.AclModule.View)]
-        public async Task<AclResponse> View(ulong Id)
+        [HttpGet(AclRoutesUrl.AclModule.View, Name = AclRoutesName.AclModuleRouteNames.View)]
+        public async Task<AclResponse> View(ulong id)
         {
-            return _unitOfWork.AclModuleRepository.FindById(Id);
+            return await _unitOfWork.AclModuleRepository.FindById(id);
         }
 
-        [HttpDelete]
-        [Route(AclRoutesUrl.AclModule.Destroy)]
-        public async Task<AclResponse> Destroy(ulong Id)
+        [HttpDelete(AclRoutesUrl.AclModule.Destroy, Name = AclRoutesName.AclModuleRouteNames.Destroy)]
+        public async Task<AclResponse> Destroy(ulong id)
         {
-            return _unitOfWork.AclModuleRepository.DeleteModule(Id);
+            return await _unitOfWork.AclModuleRepository.DeleteModule(id);
         }
     }
 }

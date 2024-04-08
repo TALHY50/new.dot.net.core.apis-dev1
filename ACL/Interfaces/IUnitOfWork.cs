@@ -7,6 +7,8 @@ using ACL.Interfaces.Repositories;
 using ACL.Interfaces.Repositories.V1;
 using ACL.Interfaces.Repositories;
 using ACL.Repositories;
+using ACL.Interfaces.Repositories.V1;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace ACL.Interfaces
 {
@@ -21,18 +23,19 @@ namespace ACL.Interfaces
         IAclCompanyModuleRepository AclCompanyModuleRepository { get; }
         IAclModuleRepository AclModuleRepository { get; }
         IAclSubModuleRepository AclSubModuleRepository { get; }
+        IAclRolePageRepository AclRolePageRepository { get; }
         public IHttpContextAccessor HttpContextAccessor { get; set; }
 
         public IAclPageRepository AclPageRepository { get; }
 
         IUnitOfWork GetService();
-        public IDbTransaction BeginTransaction();
+        IDbTransaction BeginTransaction();
+        Task<IDbContextTransaction>  BeginTransactionAsync();
         Task CompleteAsync();
-
         public void Complete();
-
-
-
-
+        void RollbackTransaction();
+        Task RollbackTransactionAsync();
+        Task CommitTransactionAsync();
+        void CommitTransaction();
     }
 }
