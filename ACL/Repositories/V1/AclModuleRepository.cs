@@ -11,7 +11,7 @@ namespace ACL.Repositories.V1
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "Module";
-        public AclModuleRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
+        public AclModuleRepository(IUnitOfWork _unitOfWork) : base(_unitOfWork)
         {
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName);
