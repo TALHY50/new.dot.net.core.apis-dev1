@@ -1,10 +1,10 @@
 ﻿using ACL.Database.Models;
 using ACL.Interfaces;
-using ACL.Interfaces.Repositories;
+using ACL.Interfaces.Repositories.V1;
 using ACL.Requests.V1;
 using ACL.Response.V1;
 
-namespace ACL.Repositories
+namespace ACL.Repositories.V1
 {
     public class AclModuleRepository : GenericRepository<AclModule>, IAclModuleRepository
     {
@@ -57,7 +57,7 @@ namespace ACL.Repositories
                 else
                 {
                     aclResponse.Message = messageResponse.existMessage;
-                    aclResponse.StatusCode=System.Net.HttpStatusCode.Conflict;
+                    aclResponse.StatusCode = System.Net.HttpStatusCode.Conflict;
                 }
                 aclResponse.Timestamp = DateTime.Now;
             }
@@ -69,14 +69,14 @@ namespace ACL.Repositories
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
         }
-        public async Task<AclResponse> EditAclModule(ulong Id, AclModuleRequest request)
+        public async Task<AclResponse> EditAclModule(ulong id, AclModuleRequest request)
         {
             try
             {
-                var aclModule = await _unitOfWork.AclModuleRepository.GetById(Id);
+                var aclModule = await _unitOfWork.AclModuleRepository.GetById(id);
                 if (aclModule != null)
                 {
-                    aclModule = PrepareInputData(request, Id, aclModule);
+                    aclModule = PrepareInputData(request, aclModule);
                     await base.UpdateAsync(aclModule);
                     await _unitOfWork.CompleteAsync();
                     await _unitOfWork.AclModuleRepository.ReloadAsync(aclModule);
@@ -140,7 +140,7 @@ namespace ACL.Repositories
             return aclResponse;
         }
 
-        public AclModule PrepareInputData(AclModuleRequest request, ulong Id = 0, AclModule _aclModule = null)
+        public AclModule PrepareInputData(AclModuleRequest request, AclModule _aclModule = null)
         {
             AclModule aclModule = new AclModule();
             if (_aclModule != null)

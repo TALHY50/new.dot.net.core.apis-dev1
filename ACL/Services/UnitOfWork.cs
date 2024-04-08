@@ -1,7 +1,8 @@
 ﻿using ACL.Database;
 using ACL.Interfaces;
-using ACL.Interfaces.Repositories;
+using ACL.Interfaces.Repositories.V1;
 using ACL.Repositories;
+using ACL.Repositories.V1;
 using Microsoft.EntityFrameworkCore.Storage;
 using SharedLibrary.Interfaces.Repositories;
 using SharedLibrary.Repositories;
@@ -43,6 +44,12 @@ namespace ACL.Services
         public IAclCompanyModuleRepository AclCompanyModuleRepository
         {
             get { return new AclCompanyModuleRepository(this); }
+
+        }
+        
+        public IAclRolePageRepository AclRolePageRepository
+        {
+            get { return new AclRolePageRepository(this); }
 
         }
 

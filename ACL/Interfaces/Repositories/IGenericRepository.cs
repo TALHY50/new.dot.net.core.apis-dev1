@@ -12,7 +12,9 @@
         Task<IEnumerable<T>> ExecuteSqlQuery(string sqlQuery, params object[] parameters);
         Task<IEnumerable<T>> ExecuteSqlQuery(string sqlQuery);
         Task<IEnumerable<T>> AddAll(IEnumerable<T> entities);
+        Task<IEnumerable<T>> RemoveRange(IEnumerable<T> entities);
         Task<IEnumerable<T>> AddRange(params T[] entities);
         Task ReloadAsync(T entity);
+        void Detach<T>(T entity);
     }
 }

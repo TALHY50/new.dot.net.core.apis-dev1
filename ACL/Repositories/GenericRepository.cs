@@ -70,6 +70,13 @@ namespace ACL.Repositories
             return entities;
         }
 
+        public async Task<IEnumerable<T>> RemoveRange(IEnumerable<T> entities)
+        {
+            _dbSet.RemoveRange(entities);
+            return entities;
+        }
+
+
         public async Task<IEnumerable<T>> AddRange(params T[] entities)
         {
             await _dbSet.AddRangeAsync(entities);
@@ -84,6 +91,20 @@ namespace ACL.Repositories
             }
 
             await _unitOfWork.ApplicationDbContext.Entry(entity).ReloadAsync();
+        }
+
+        public void Detach<T>(T entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
+            var entry = _unitOfWork.ApplicationDbContext.Entry(entity);
+            if (entry != null)
+            {
+                entry.State = EntityState.Detached;
+            }
         }
     }
 }

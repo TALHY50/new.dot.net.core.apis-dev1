@@ -1,13 +1,12 @@
-﻿
-using ACL.Database.Models;
+﻿using ACL.Database.Models;
 using ACL.Interfaces;
-using ACL.Interfaces.Repositories;
+using ACL.Interfaces.Repositories.V1;
 using ACL.Requests;
 using ACL.Requests.V1;
 using ACL.Response.V1;
 using Microsoft.EntityFrameworkCore;
 
-namespace ACL.Repositories
+namespace ACL.Repositories.V1
 {
     public class AclCompanyModuleRepository : GenericRepository<AclCompanyModule>, IAclCompanyModuleRepository
     {
@@ -19,7 +18,7 @@ namespace ACL.Repositories
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName);
         }
-        public async  Task<AclResponse> FindById(ulong id)
+        public async Task<AclResponse> FindById(ulong id)
         {
             try
             {
@@ -47,7 +46,7 @@ namespace ACL.Repositories
             try
             {
                 var aclCompanyModule = PrepareInputData(request);
-                base.Add(aclCompanyModule);
+                Add(aclCompanyModule);
                 await _unitOfWork.CompleteAsync();
                 await base.ReloadAsync(aclCompanyModule);
                 aclResponse.Data = aclCompanyModule;
@@ -141,7 +140,7 @@ namespace ACL.Repositories
             else
             {
                 aclResponse.Message = messageResponse.noFoundMessage;
-                aclResponse.StatusCode= System.Net.HttpStatusCode.NotFound;
+                aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
             }
             aclResponse.Timestamp = DateTime.Now;
 

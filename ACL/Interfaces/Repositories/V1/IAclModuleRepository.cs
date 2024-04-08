@@ -2,7 +2,7 @@
 using ACL.Requests.V1;
 using ACL.Response.V1;
 
-namespace ACL.Interfaces.Repositories
+namespace ACL.Interfaces.Repositories.V1
 {
     public interface IAclModuleRepository : IGenericRepository<AclModule>
     {
