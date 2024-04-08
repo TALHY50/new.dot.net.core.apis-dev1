@@ -3,8 +3,6 @@ using ACL.Interfaces;
 using ACL.Interfaces.Repositories.V1;
 using ACL.Requests;
 using ACL.Response.V1;
-using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
 
 namespace ACL.Repositories.V1
 {

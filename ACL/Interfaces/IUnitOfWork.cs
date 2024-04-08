@@ -22,6 +22,7 @@ namespace ACL.Interfaces
         IAclSubModuleRepository AclSubModuleRepository { get; }
         IAclRolePageRepository AclRolePageRepository { get; }
         IAclRoleRepository AclRoleRepository { get; }
+        IAclUserGroupRoleRepository AclUserGroupRoleRepository { get; }
 
         public IHttpContextAccessor HttpContextAccessor { get; set; }
 

@@ -74,6 +74,12 @@ namespace ACL.Route
             public const string View = modelname + "/view/{id}";
             public const string Destroy = modelname + "/delete/{id}";
         }
+        public class AclUserGroupRole
+        {
+            public const string modelname = "usergroups/roles";
+            public const string List = modelname + "/{userGroupId}";
+            public const string Update = modelname + "/update";
+        }
 
 
         public class AclUser

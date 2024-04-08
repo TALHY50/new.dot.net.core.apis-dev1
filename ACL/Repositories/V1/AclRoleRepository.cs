@@ -1,14 +1,14 @@
 ﻿
 using ACL.Database.Models;
 using ACL.Interfaces;
-using ACL.Interfaces.Repositories;
+using ACL.Interfaces.Repositories.V1;
 using ACL.Requests;
 using ACL.Response.V1;
 using Craftgate.Model;
 using Microsoft.AspNetCore.Http.HttpResults;
 
 
-namespace ACL.Repositories
+namespace ACL.Repositories.V1
 {
     public class AclRoleRepository : IAclRoleRepository
     {
