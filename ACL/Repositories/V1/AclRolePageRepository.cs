@@ -3,6 +3,7 @@ using ACL.Interfaces;
 using ACL.Interfaces.Repositories.V1;
 using ACL.Requests;
 using ACL.Response.V1;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using static ACL.Route.AclRoutesUrl;
 
@@ -21,8 +22,7 @@ namespace ACL.Repositories.V1
 
         public async Task<AclResponse> GetAllById(ulong id)
         {
-            var res = await base.All();
-            res = res.Where(x => x.RoleId == id);
+            var res = await base.Where(x => x.RoleId == id).ToListAsync();
             if (res.Any())
             {
                 aclResponse.Message = messageResponse.fetchMessage;
@@ -41,8 +41,7 @@ namespace ACL.Repositories.V1
 
         public async Task<AclResponse> UpdateAll(AclRoleAndPageAssocUpdateRequest req)
         {
-            var res = await base.All();
-            res = res.Where(x => x.RoleId == req.role_id);
+            var res = await base.Where(x => x.RoleId == req.role_id).ToListAsync();
 
             using (var transaction = await _unitOfWork.BeginTransactionAsync())
             {
@@ -61,9 +60,7 @@ namespace ACL.Repositories.V1
                 }
             }
             await _unitOfWork.CompleteAsync();
-            res = await base.All();
-            res = res.Where(x => x.RoleId == req.role_id);
-
+            res = await base.Where(x => x.RoleId == req.role_id).ToListAsync();
             if (res.Any())
             {
                 aclResponse.Message = messageResponse.fetchMessage;

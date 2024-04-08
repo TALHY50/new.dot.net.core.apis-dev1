@@ -1,4 +1,6 @@
-﻿namespace ACL.Interfaces.Repositories
+﻿using System.Linq.Expressions;
+
+namespace ACL.Interfaces.Repositories
 {
     public interface IGenericRepository<T> where T : class
     {
@@ -16,5 +18,6 @@
         Task<IEnumerable<T>> AddRange(params T[] entities);
         Task ReloadAsync(T entity);
         void Detach<T>(T entity);
+        IQueryable<T> Where(Expression<Func<T, bool>> predicate);
     }
 }

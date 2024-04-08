@@ -1,6 +1,7 @@
 ﻿using ACL.Interfaces;
 using ACL.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace ACL.Repositories
 {
@@ -106,5 +107,10 @@ namespace ACL.Repositories
                 entry.State = EntityState.Detached;
             }
         }
+        public IQueryable<T> Where(Expression<Func<T, bool>> predicate)
+        {
+            return _unitOfWork.ApplicationDbContext.Set<T>().Where(predicate);
+        }
+
     }
 }
