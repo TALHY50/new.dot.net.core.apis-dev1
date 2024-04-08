@@ -9,21 +9,20 @@ using SharedLibrary.Models;
 using Org.BouncyCastle.Asn1.Ocsp;
 using Microsoft.AspNetCore.Http.HttpResults;
 using System.ComponentModel.Design;
+using Org.BouncyCastle.Ocsp;
 
 namespace ACL.Repositories.V1
 {
-    public class AclUserGroupRoleRepository : IAclUserGroupRoleRepository
+    public class AclUserGroupRoleRepository : GenericRepository<AclUsergroupRole>, IAclUserGroupRoleRepository
     {
 
-        private readonly IUnitOfWork _unitOfWork;
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "User Group Role";
         private ulong companyId = 2;
 
-        public AclUserGroupRoleRepository(IUnitOfWork unitOfWork)
+        public AclUserGroupRoleRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
-            _unitOfWork = unitOfWork;
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName);
         }
@@ -53,32 +52,33 @@ namespace ACL.Repositories.V1
         }
         public async Task<AclResponse> Update(AclUserGroupRoleRequest request)
         {
-            using (var transaction = _unitOfWork.BeginTransaction())
+            var aclUserGroupRole = await base.Where(x => x.UsergroupId == request.user_group_id).ToListAsync();;
+            var userGroupRoles = GetUserGroupRoles(request);
+            using (var transaction = _unitOfWork.BeginTransactionAsync())
             {
                 try
                 {
-                    UserGroupRoleDelete(request.user_group_id);
-
-                    var userGroupRoles = GetUserGroupRoles(request);
-                    await _unitOfWork.ApplicationDbContext.AclUsergroupRoles.AddRangeAsync(userGroupRoles);
-                    await _unitOfWork.ApplicationDbContext.SaveChangesAsync();
+                    if (aclUserGroupRole.Any())
+                    {
+                        await base.RemoveRange(aclUserGroupRole);
+                    }
+                    await base.AddRange(userGroupRoles);
+                    await _unitOfWork.CommitTransactionAsync();
                     await ReloadEntitiesAsync(userGroupRoles);
-
-
-                    transaction.Commit();
-
+                    aclResponse.Data = userGroupRoles;
                     aclResponse.Message = messageResponse.createMessage;
                     aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
                 }
                 catch (Exception ex)
                 {
-                    transaction.Rollback();
+                    await _unitOfWork.RollbackTransactionAsync();
                     aclResponse.Message = ex.Message;
                     aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
                 }
-                return aclResponse;
+
             }
-           
+            await _unitOfWork.CompleteAsync();
+            return aclResponse;
         }
 
         private AclResponse UserGroupRoleDelete(ulong userGroupId)
@@ -89,7 +89,7 @@ namespace ACL.Repositories.V1
             if (aclUserGroupRole.Any())
             {
                 _unitOfWork.ApplicationDbContext.AclUsergroupRoles.RemoveRange(aclUserGroupRole);
-                _unitOfWork.ApplicationDbContext.SaveChanges();
+                _unitOfWork.ApplicationDbContext.SaveChangesAsync();
                 aclResponse.Message = messageResponse.deleteMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
@@ -98,7 +98,7 @@ namespace ACL.Repositories.V1
 
         }
 
-        private IEnumerable<AclUsergroupRole> GetUserGroupRoles(AclUserGroupRoleRequest request)
+        private AclUsergroupRole[] GetUserGroupRoles(AclUserGroupRoleRequest request)
         {
 
             var userGroupRoles = request.role_ids.Select(roleId => new AclUsergroupRole
@@ -108,7 +108,7 @@ namespace ACL.Repositories.V1
                 CompanyId = companyId,
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now,
-            }).ToList();
+            }).ToArray();
 
             return userGroupRoles;
         }
