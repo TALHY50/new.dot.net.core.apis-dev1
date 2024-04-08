@@ -63,6 +63,11 @@ namespace ACL.Services
             get { return new AclRoleRepository(this); }
 
         }
+        public IAclUserGroupRoleRepository AclUserGroupRoleRepository
+        {
+            get { return new AclUserGroupRoleRepository(this); }
+
+        }
 
         public IHttpContextAccessor HttpContextAccessor
         {

@@ -17,10 +17,10 @@ namespace ACL.Route
             public const string View = Base + "modules/view/{Id}";
             public const string Destroy = Base + "modules/delete/{Id}";
         }
-      
+
         public class AclCompanyModule
         {
-            public const string ModelName = Base +"company/modules";
+            public const string ModelName = Base + "company/modules";
             public const string List = ModelName;
             public const string Add = ModelName + "/add";
             public const string Edit = ModelName + "/edit/{Id}";
@@ -44,6 +44,12 @@ namespace ACL.Route
             public const string Edit = modelname + "/edit/{id}";
             public const string View = modelname + "/view/{id}";
             public const string Destroy = modelname + "/delete/{id}";
+        }
+        public class AclUserGroupRole
+        {
+            public const string modelname = "usergroups/roles";
+            public const string List = modelname + "/{userGroupId}";
+            public const string Update = modelname + "/update";
         }
 
 
@@ -69,5 +75,12 @@ namespace ACL.Route
             public const string Destroy = "acl.role.destroy";
 
         }
+        public static class AclUserGroupRole
+        {
+            public const string List = "acl.usergroups.role.association";
+            public const string Update = "acl.usergroups.role.association.update";
+        }
+        
+            
     }
 }

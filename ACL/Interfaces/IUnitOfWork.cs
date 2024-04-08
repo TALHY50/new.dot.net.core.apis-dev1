@@ -1,12 +1,8 @@
-﻿//using ACL.Interfaces.Repositories;
-using ACL.Interfaces;
-using ACL.Services;
+﻿
 using System.Data;
 using ACL.Database;
 using ACL.Interfaces.Repositories;
 using ACL.Interfaces.Repositories.V1;
-using ACL.Interfaces.Repositories;
-using ACL.Repositories;
 
 namespace ACL.Interfaces
 {
@@ -22,6 +18,7 @@ namespace ACL.Interfaces
         IAclModuleRepository AclModuleRepository { get; }
         IAclSubModuleRepository AclSubModuleRepository { get; }
         IAclRoleRepository AclRoleRepository { get; }
+        IAclUserGroupRoleRepository AclUserGroupRoleRepository { get; }
 
 
         public IHttpContextAccessor HttpContextAccessor { get; set; }

@@ -1,21 +1,22 @@
 ﻿
 using ACL.Database.Models;
 using ACL.Interfaces;
-using ACL.Interfaces.Repositories;
+using ACL.Interfaces.Repositories.V1;
 using ACL.Requests;
 using ACL.Response.V1;
-using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
+using Craftgate.Model;
+using Microsoft.AspNetCore.Http.HttpResults;
 
-namespace ACL.Repositories
+
+namespace ACL.Repositories.V1
 {
-    public class AclSubModuleRepository : IAclSubModuleRepository
+    public class AclRoleRepository : IAclRoleRepository
     {
         private readonly IUnitOfWork _unitOfWork;
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
-        private string modelName = "SubModule";
-        public AclSubModuleRepository(IUnitOfWork unitOfWork)
+        private string modelName = "Role";
+        public AclRoleRepository(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
             aclResponse = new AclResponse();
@@ -24,26 +25,25 @@ namespace ACL.Repositories
 
         public AclResponse GetAll()
         {
-            var aclSubModules = _unitOfWork.ApplicationDbContext.AclSubModules.ToList();
-            if (aclSubModules.Count > 0)
+            var aclRoles = _unitOfWork.ApplicationDbContext.AclRoles.ToList();
+            if (aclRoles.Count > 0)
             {
                 aclResponse.Message = messageResponse.fetchMessage;
             }
-            aclResponse.Data = aclSubModules;
+            aclResponse.Data = aclRoles;
             aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
-            aclResponse.Timestamp = DateTime.Now;
 
             return aclResponse;
         }
-        public AclResponse Add(AclSubModuleRequest request)
+        public AclResponse Add(AclRoleRequest request)
         {
             try
             {
-                var aclSubModule = prepareInputData(request);
-                _unitOfWork.ApplicationDbContext.AddAsync(aclSubModule);
+                var aclRole = prepareInputData(request);
+                _unitOfWork.ApplicationDbContext.AddAsync(aclRole);
                 _unitOfWork.ApplicationDbContext.SaveChangesAsync();
-                _unitOfWork.ApplicationDbContext.Entry(aclSubModule).ReloadAsync();
-                aclResponse.Data = aclSubModule;
+                _unitOfWork.ApplicationDbContext.Entry(aclRole).ReloadAsync();
+                aclResponse.Data = aclRole;
                 aclResponse.Message = messageResponse.createMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
@@ -52,20 +52,24 @@ namespace ACL.Repositories
                 aclResponse.Message = ex.Message;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
             }
-            aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
 
 
         }
-        public AclResponse Edit(ulong id, AclSubModuleRequest request)
+        public AclResponse Edit(ulong id, AclRoleRequest request)
         {
+            var aclRole = _unitOfWork.ApplicationDbContext.AclRoles.Find(id);
+            if (aclRole == null)
+            {
+                aclResponse.Message = messageResponse.noFoundMessage;
+                return aclResponse;
+            }
             try
             {
-                var aclSubModule = prepareInputData(request);
-                _unitOfWork.ApplicationDbContext.Update(aclSubModule);
+                aclRole = prepareInputData(request, aclRole);
                 _unitOfWork.ApplicationDbContext.SaveChangesAsync();
-                _unitOfWork.ApplicationDbContext.Entry(aclSubModule).ReloadAsync();
-                aclResponse.Data = aclSubModule;
+                _unitOfWork.ApplicationDbContext.Entry(aclRole).Reload();
+                aclResponse.Data = aclRole;
                 aclResponse.Message = messageResponse.editMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
@@ -74,7 +78,6 @@ namespace ACL.Repositories
                 aclResponse.Message = ex.Message;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
             }
-            aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
 
         }
@@ -83,10 +86,10 @@ namespace ACL.Repositories
         {
             try
             {
-                var aclSubModule = _unitOfWork.ApplicationDbContext.AclSubModules.FindAsync(id);
-                aclResponse.Data = aclSubModule;
+                var aclRole = _unitOfWork.ApplicationDbContext.AclRoles.Find(id);
+                aclResponse.Data = aclRole;
                 aclResponse.Message = messageResponse.fetchMessage;
-                if (aclSubModule == null)
+                if (aclRole == null)
                 {
                     aclResponse.Message = messageResponse.noFoundMessage;
                 }
@@ -98,17 +101,16 @@ namespace ACL.Repositories
                 aclResponse.Message = ex.Message;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
             }
-            aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
 
         }
         public AclResponse deleteById(ulong id)
         {
-            var subModule = _unitOfWork.ApplicationDbContext.AclSubModules.Find(id);
+            var aclRole = _unitOfWork.ApplicationDbContext.AclRoles.Find(id);
 
-            if (subModule != null)
+            if (aclRole != null)
             {
-                _unitOfWork.ApplicationDbContext.AclSubModules.Remove(subModule);
+                _unitOfWork.ApplicationDbContext.AclRoles.Remove(aclRole);
                 _unitOfWork.ApplicationDbContext.SaveChanges();
                 aclResponse.Message = messageResponse.deleteMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
@@ -118,22 +120,23 @@ namespace ACL.Repositories
 
         }
 
-        private AclSubModule prepareInputData(AclSubModuleRequest request)
+        private AclRole prepareInputData(AclRoleRequest request, AclRole aclRole = null)
         {
-            return new AclSubModule
+            aclRole.Title = request.title;
+            aclRole.Name = request.name;
+            aclRole.Status = request.status;
+            aclRole.CompanyId = 1;
+            if (aclRole == null)
             {
-                Id = request.id,
-                ModuleId = request.module_id,
-                Name = request.name,
-                ControllerName = request.controller_name,
-                DefaultMethod = request.default_method,
-                DisplayName = request.display_name,
-                Icon = request.icon,
-                Sequence = request.sequence,
-                CreatedAt = DateTime.Now,
-                UpdatedAt = DateTime.Now
-            };
+                aclRole.CreatedById = 0;
+                aclRole.CreatedAt = DateTime.Now;
+            }
+            aclRole.UpdatedById = 0;
+            aclRole.UpdatedAt = DateTime.Now;
 
+            return aclRole;
         }
+
+
     }
 }
