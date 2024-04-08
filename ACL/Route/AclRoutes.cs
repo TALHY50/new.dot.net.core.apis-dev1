@@ -56,6 +56,31 @@ namespace ACL.Route
             public const string Edit = ModelName + "/edit/{id}";
             public const string Destroy = ModelName + "/delete/{id}";
         }
+        public class AclSubmodule
+        {
+            public const string modelname = "submodules";
+            public const string List = modelname;
+            public const string Add = modelname + "/add";
+            public const string Edit = modelname + "/edit/{id}";
+            public const string View = modelname + "/view/{id}";
+            public const string Destroy = modelname + "/delete/{id}";
+        }
+        public class AclRole
+        {
+            public const string modelname = "roles";
+            public const string List = modelname;
+            public const string Add = modelname + "/add";
+            public const string Edit = modelname + "/edit/{id}";
+            public const string View = modelname + "/view/{id}";
+            public const string Destroy = modelname + "/delete/{id}";
+        }
+        public class AclUserGroupRole
+        {
+            public const string modelname = "usergroups/roles";
+            public const string List = modelname + "/{userGroupId}";
+            public const string Update = modelname + "/update";
+        }
+
 
         public class AclUser
         {
@@ -93,6 +118,16 @@ namespace ACL.Route
             public const string View = "acl.submodule.view";
             public const string Edit = "acl.submodule.edit";
             public const string Destroy = "acl.submodule.destroy";
+
+        }
+        public static class AclRole
+        {
+            public const string List = "acl.role.list";
+            public const string Add = "acl.role.add";
+            public const string View = "acl.role.view";
+            public const string Edit = "acl.role.edit";
+            public const string Destroy = "acl.role.destroy";
+
         }
         public static class AclRolePageRouteNames
         {
@@ -127,7 +162,12 @@ namespace ACL.Route
             public const string Destroy = Base + "destroy";
         }
 
-
+        public class AclUserGroupRole
+        {
+            public const string modelname = "acl.usergroups.";
+            public const string List = modelname + "role.association";
+            public const string Update = modelname + "role.association.update";
+        }
 
     }
 }

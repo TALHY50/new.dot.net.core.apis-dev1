@@ -1,4 +1,5 @@
-﻿using ACL.Interfaces.Repositories.V1;
+using ACL.Interfaces;
+using ACL.Interfaces.Repositories.V1;
 using ACL.Requests;
 using ACL.Response.V1;
 using ACL.Route;
@@ -7,47 +8,47 @@ using Microsoft.AspNetCore.Mvc;
 namespace ACL.Controllers.V1
 {
     [ApiController]
-    [Route("api/v1")]
+    [Route(Route.AclRoutesUrl.Base)]
     public class AclSubModuleController : ControllerBase
     {
-        private readonly IAclSubModuleRepository _repository;
-        public AclSubModuleController(IAclSubModuleRepository repository)
+        private readonly IUnitOfWork _repository;
+        public AclSubModuleController(IUnitOfWork repository)
         {
             _repository = repository;
         }
 
-        [HttpGet(AclRoutesUrl.AclSubModule.List , Name = AclRoutesName.SubmoduleRouteNames.List)]
-        public async Task<AclResponse> Index()
+        [HttpGet(AclRoutesUrl.AclSubModule.List, Name = AclRoutesName.SubmoduleRouteNames.List)]
+        public AclResponse Index()
         {
-            return _repository.GetAll();
+            return _repository.AclSubModuleRepository.GetAll();
         }
 
-        [HttpPost(AclRoutesUrl.AclSubModule.Add , Name = AclRoutesName.SubmoduleRouteNames.Add)]
-        public async Task<AclResponse> Create(AclSubModuleRequest objSubModule)
+        [HttpPost(AclRoutesUrl.AclSubModule.Add, Name = AclRoutesName.SubmoduleRouteNames.Add)]
+        public AclResponse Create(AclSubModuleRequest objSubModule)
         {
-           return _repository.Add(objSubModule);
+            return _repository.AclSubModuleRepository.Add(objSubModule);
         }
 
-        [HttpGet(AclRoutesUrl.AclSubModule.View , Name = AclRoutesName.SubmoduleRouteNames.View)]
-        public async Task<AclResponse> View(ulong id)
+        [HttpGet(AclRoutesUrl.AclSubModule.View, Name = AclRoutesName.SubmoduleRouteNames.View)]
+        public AclResponse View(ulong id)
         {
-            return _repository.findById(id);
-
-        }
-
-
-        [HttpPut(AclRoutesUrl.AclSubModule.Edit , Name = AclRoutesName.SubmoduleRouteNames.Edit)]
-        public async Task<AclResponse> Edit(ulong id, AclSubModuleRequest objSubModule)
-        {
-            return _repository.Edit(id, objSubModule);
+            return _repository.AclSubModuleRepository.findById(id);
 
         }
 
 
-        [HttpDelete(AclRoutesUrl.AclSubModule.Destroy , Name = AclRoutesName.SubmoduleRouteNames.Destroy)]
-        public async Task<AclResponse> Destroy(ulong id)
+        [HttpPut(AclRoutesUrl.AclSubModule.Edit, Name = AclRoutesName.SubmoduleRouteNames.Edit)]
+        public AclResponse Edit(ulong id, AclSubModuleRequest objSubModule)
         {
-            return _repository.deleteById(id);
+            return _repository.AclSubModuleRepository.Edit(id, objSubModule);
+
+        }
+
+
+        [HttpDelete(AclRoutesUrl.AclSubModule.Destroy, Name = AclRoutesName.SubmoduleRouteNames.Destroy)]
+        public AclResponse Destroy(ulong id)
+        {
+            return _repository.AclSubModuleRepository.deleteById(id);
         }
 
 

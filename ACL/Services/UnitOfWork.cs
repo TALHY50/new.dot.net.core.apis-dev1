@@ -1,8 +1,7 @@
 ﻿using ACL.Database;
 using ACL.Interfaces;
+using ACL.Interfaces.Repositories;
 using ACL.Interfaces.Repositories.V1;
-using ACL.Repositories;
-using ACL.Repositories.V1;
 using ACL.Repositories;
 using ACL.Repositories.V1;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -14,7 +13,7 @@ namespace ACL.Services
     {
         private ApplicationDbContext context;
         private ILogger logger;
-        private ILogService logService;
+       // private ILogService logService;
         private IHttpContextAccessor _httpContextAccessor;
 
         public UnitOfWork(ApplicationDbContext context, ILoggerFactory loggerFactory, IHttpContextAccessor httpContextAccessor)
@@ -35,11 +34,11 @@ namespace ACL.Services
             get { return this.logger; }
             set { this.logger = value; }
         }
-        public ILogService LogService
-        {
-            get { return this.logService; }
-            set { this.logService = value; }
-        }
+        // public ILogService LogService
+        // {
+        //     get { return this.logService; }
+        //     set { this.logService = value; }
+        // }
 
         public IAclCompanyModuleRepository AclCompanyModuleRepository
         {
@@ -64,7 +63,17 @@ namespace ACL.Services
             get { return new AclSubModuleRepository(this); }
 
         }
+        public IAclRoleRepository AclRoleRepository
+        {
+            get { return new AclRoleRepository(this); }
 
+        }
+      
+        public IAclUserGroupRoleRepository AclUserGroupRoleRepository
+        {
+            get { return new AclUserGroupRoleRepository(this); }
+        }
+       
         public IHttpContextAccessor HttpContextAccessor
         {
             get { return this._httpContextAccessor; }
