@@ -39,6 +39,33 @@ namespace ACL.Route
             public const string List = ModelName + "/{id}";
             public const string Edit = ModelName + "/update";
         }
+        public class AclPage
+        {
+            public const string ModelName = Base + "pages";
+            public const string List = ModelName;
+            public const string Add = ModelName + "/add";
+            public const string Edit = ModelName + "/edit/{id}";
+            public const string View = ModelName + "/view/{id}";
+            public const string Destroy = ModelName + "/delete/{id}";
+        }
+        public class AclPageRoute
+        {
+            public const string ModelName = Base + "page/routes";
+            public const string List = ModelName;
+            public const string Add = ModelName + "/add";
+            public const string Edit = ModelName + "/edit/{id}";
+            public const string Destroy = ModelName + "/delete/{id}";
+        }
+
+        public class AclUser
+        {
+            public const string ModelName = Base + "users";
+            public const string List = ModelName;
+            public const string Add = ModelName + "/add";
+            public const string Edit = ModelName + "/edit/{id}";
+            public const string View = ModelName + "/view/{id}";
+            public const string Destroy = ModelName + "/delete/{id}";
+        }
 
     }
     public static class AclRoutesName
@@ -72,6 +99,35 @@ namespace ACL.Route
             public const string List = "acl.role&page.association";
             public const string Edit = "acl.role&page.association.update";
         }
+
+        public static class AclPageNames
+        {
+            public const string Base = "acl.page.";
+            public const string List = Base + "list";
+            public const string Add = Base + "add";
+            public const string View = Base + "view";
+            public const string Edit = Base + "edit";
+            public const string Destroy = Base + "destroy";
+        }
+        public static class AclPageRouteNames
+        {
+            public const string Base = "acl.page.route.";
+            public const string Add = Base + "add";
+            public const string Edit = Base + "edit";
+            public const string Destroy = Base + "destroy";
+        }
+
+        public static class AclUserNames
+        {
+            public const string Base = "acl.user.";
+            public const string List = Base + "list";
+            public const string Add = Base + "add";
+            public const string View = Base + "view";
+            public const string Edit = Base + "edit";
+            public const string Destroy = Base + "destroy";
+        }
+
+
 
     }
 }

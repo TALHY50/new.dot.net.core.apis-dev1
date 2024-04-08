@@ -27,6 +27,7 @@ namespace ACL.Interfaces
         public IHttpContextAccessor HttpContextAccessor { get; set; }
 
         public IAclPageRepository AclPageRepository { get; }
+        public IAclUserRepository AclUserRepository { get; }
 
         IUnitOfWork GetService();
         IDbTransaction BeginTransaction();
