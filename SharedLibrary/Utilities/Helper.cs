@@ -6,7 +6,7 @@ namespace SharedLibrary.Utilities
 {
     public static class Helper
     {
-        
+
         public static string GetLanguage(string inputLanguage, string currencyCode)
         {
             string language = "tr";
@@ -33,6 +33,9 @@ namespace SharedLibrary.Utilities
             return language;
         }
 
- 
+        public static string __(string Text)
+        {
+            return Text;
+        }
     }
 }
