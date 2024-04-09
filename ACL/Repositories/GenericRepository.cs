@@ -94,28 +94,27 @@ namespace ACL.Repositories
             await _dbSet.Entry(entity).ReloadAsync();
         }
 
-        public void Detach<T>(T entity)
+        public void Detach(T entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException(nameof(entity));
             }
-            var entry = _unitOfWork.ApplicationDbContext.Entry(entity);
+            var entry = _dbSet.Entry(entity);
             if (entry != null)
             {
                 entry.State = EntityState.Detached;
             }
         }
+
+
         public IQueryable<T> Where(Expression<Func<T, bool>> predicate)
         {
-            return _unitOfWork.ApplicationDbContext.Set<T>().Where(predicate);
+            return _dbSet.Where(predicate);
         }
         public async Task ReloadEntitiesAsync(IEnumerable<T> entities)
         {
-            foreach (var entity in entities)
-            {
-                await _unitOfWork.ApplicationDbContext.Entry(entity).ReloadAsync();
-            }
+            await Task.WhenAll(entities.Select(entity => ReloadAsync(entity)));
         }
     }
 }
