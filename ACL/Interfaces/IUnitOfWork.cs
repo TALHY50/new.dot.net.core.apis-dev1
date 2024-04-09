@@ -34,12 +34,13 @@ namespace ACL.Interfaces
 
         IUnitOfWork GetService();
         IDbTransaction BeginTransaction();
-        Task<IDbContextTransaction>  BeginTransactionAsync();
+        Task<IDbContextTransaction> BeginTransactionAsync();
         Task CompleteAsync();
         public void Complete();
         void RollbackTransaction();
         Task RollbackTransactionAsync();
         Task CommitTransactionAsync();
         void CommitTransaction();
+        IExecutionStrategy CreateExecutionStrategy();
     }
 }
