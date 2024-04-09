@@ -7,6 +7,7 @@ using ACL.Interfaces.Repositories.V1;
 using Microsoft.EntityFrameworkCore.Storage;
 using ACL.Interfaces.Repositories;
 
+
 namespace ACL.Interfaces
 {
     public interface IUnitOfWork
@@ -20,9 +21,10 @@ namespace ACL.Interfaces
         IAclCompanyModuleRepository AclCompanyModuleRepository { get; }
         IAclModuleRepository AclModuleRepository { get; }
         IAclSubModuleRepository AclSubModuleRepository { get; }
-        IAclRolePageRepository AclRolePageRepository { get; }
         IAclRoleRepository AclRoleRepository { get; }
         IAclUserGroupRoleRepository AclUserGroupRoleRepository { get; }
+        IAclRolePageRepository AclRolePageRepository { get; }
+
         public IHttpContextAccessor HttpContextAccessor { get; set; }
 
         public IAclPageRepository AclPageRepository { get; }

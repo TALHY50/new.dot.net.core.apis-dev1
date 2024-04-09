@@ -11,18 +11,21 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using System.ComponentModel.Design;
 using Org.BouncyCastle.Ocsp;
 
+
 namespace ACL.Repositories.V1
 {
-    public class AclUserGroupRoleRepository : GenericRepository<AclUsergroupRole>, IAclUserGroupRoleRepository
+    public class AclUserGroupRoleRepository : IAclUserGroupRoleRepository
     {
 
+        private readonly IUnitOfWork _unitOfWork;
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "User Group Role";
         private ulong companyId = 2;
 
-        public AclUserGroupRoleRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
+        public AclUserGroupRoleRepository(IUnitOfWork unitOfWork)
         {
+            _unitOfWork = unitOfWork;
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName);
         }
@@ -52,7 +55,8 @@ namespace ACL.Repositories.V1
         }
         public async Task<AclResponse> Update(AclUserGroupRoleRequest request)
         {
-            var aclUserGroupRole = await base.Where(x => x.UsergroupId == request.user_group_id).ToListAsync();;
+
+            var aclUserGroupRole = await _unitOfWork.ApplicationDbContext.AclUsergroupRoles.Where(x => x.UsergroupId == request.user_group_id).ToListAsync();
             var userGroupRoles = GetUserGroupRoles(request);
             using (var transaction = _unitOfWork.BeginTransactionAsync())
             {
@@ -60,9 +64,9 @@ namespace ACL.Repositories.V1
                 {
                     if (aclUserGroupRole.Any())
                     {
-                        await base.RemoveRange(aclUserGroupRole);
+                        _unitOfWork.ApplicationDbContext.AclUsergroupRoles.RemoveRange(aclUserGroupRole);
                     }
-                    await base.AddRange(userGroupRoles);
+                     _unitOfWork.ApplicationDbContext.AclUsergroupRoles.AddRange(userGroupRoles);
                     await _unitOfWork.CommitTransactionAsync();
                     await ReloadEntitiesAsync(userGroupRoles);
                     aclResponse.Data = userGroupRoles;
@@ -81,22 +85,6 @@ namespace ACL.Repositories.V1
             return aclResponse;
         }
 
-        private AclResponse UserGroupRoleDelete(ulong userGroupId)
-        {
-
-            var aclUserGroupRole = _unitOfWork.ApplicationDbContext.AclUsergroupRoles.Where(x => x.UsergroupId == userGroupId).ToList();
-
-            if (aclUserGroupRole.Any())
-            {
-                _unitOfWork.ApplicationDbContext.AclUsergroupRoles.RemoveRange(aclUserGroupRole);
-                _unitOfWork.ApplicationDbContext.SaveChangesAsync();
-                aclResponse.Message = messageResponse.deleteMessage;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
-            }
-
-            return aclResponse;
-
-        }
 
         private AclUsergroupRole[] GetUserGroupRoles(AclUserGroupRoleRequest request)
         {
