@@ -17,7 +17,7 @@ namespace ACL.Interfaces.Repositories
         Task<IEnumerable<T>> RemoveRange(IEnumerable<T> entities);
         Task<IEnumerable<T>> AddRange(params T[] entities);
         Task ReloadAsync(T entity);
-        void Detach<T>(T entity);
+        void Detach(T entity);
         IQueryable<T> Where(Expression<Func<T, bool>> predicate);
         Task ReloadEntitiesAsync(IEnumerable<T> entities);
     }
