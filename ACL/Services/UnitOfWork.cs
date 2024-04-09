@@ -1,10 +1,9 @@
 ﻿using ACL.Database;
 using ACL.Interfaces;
+using ACL.Interfaces.Repositories;
 using ACL.Interfaces.Repositories.V1;
 using ACL.Repositories;
 using ACL.Repositories.V1;
-using ACL.Interfaces.Repositories;
-using ACL.Repositories;
 using Microsoft.EntityFrameworkCore.Storage;
 using System.Data;
 
@@ -14,7 +13,7 @@ namespace ACL.Services
     {
         private ApplicationDbContext context;
         private ILogger logger;
-        private ILogService logService;
+       // private ILogService logService;
         private IHttpContextAccessor _httpContextAccessor;
 
         public UnitOfWork(ApplicationDbContext context, ILoggerFactory loggerFactory, IHttpContextAccessor httpContextAccessor)
@@ -35,15 +34,21 @@ namespace ACL.Services
             get { return this.logger; }
             set { this.logger = value; }
         }
-        public ILogService LogService
-        {
-            get { return this.logService; }
-            set { this.logService = value; }
-        }
+        // public ILogService LogService
+        // {
+        //     get { return this.logService; }
+        //     set { this.logService = value; }
+        // }
 
         public IAclCompanyModuleRepository AclCompanyModuleRepository
         {
             get { return new AclCompanyModuleRepository(this); }
+
+        }
+
+        public IAclRolePageRepository AclRolePageRepository
+        {
+            get { return new AclRolePageRepository(this); }
 
         }
 
@@ -63,12 +68,12 @@ namespace ACL.Services
             get { return new AclRoleRepository(this); }
 
         }
+
         public IAclUserGroupRoleRepository AclUserGroupRoleRepository
         {
             get { return new AclUserGroupRoleRepository(this); }
-
         }
-
+       
         public IHttpContextAccessor HttpContextAccessor
         {
             get { return this._httpContextAccessor; }
@@ -95,10 +100,9 @@ namespace ACL.Services
             return this;
         }
 
-
-        public async Task BeginTransactionAsync()
+        public async Task<IDbContextTransaction> BeginTransactionAsync()
         {
-            await this.ApplicationDbContext.Database.BeginTransactionAsync();
+            return await ApplicationDbContext.Database.BeginTransactionAsync();
         }
 
         public IDbTransaction BeginTransaction()
@@ -121,7 +125,6 @@ namespace ACL.Services
         {
             await this.ApplicationDbContext.Database.RollbackTransactionAsync();
         }
-
         public void RollbackTransaction()
         {
             this.ApplicationDbContext.Database.RollbackTransaction();
@@ -130,7 +133,11 @@ namespace ACL.Services
         public IAclPageRepository AclPageRepository
         {
             get { return new AclPageRepository(this); }
+        }        
+        
+        public IAclUserRepository AclUserRepository
+        {
+            get { return new AclUserRepository(this); }
         }
-
     }
 }

@@ -10,6 +10,7 @@ namespace ACL.Response.V1
         public string createMessage = " created succesfully.";
         public string deleteMessage = " deleted succesfully.";
         public string noFoundMessage = "No data found.";
+        public string existMessage = "Data already exists.";
         public MessageResponse(string model) {
             fetchMessage = model + fetchMessage;
             editMessage = model+ editMessage;

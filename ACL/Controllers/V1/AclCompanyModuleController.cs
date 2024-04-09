@@ -22,38 +22,33 @@ namespace ACL.Controllers.V1
             _unitOfWork = unitOfWork;
         }
 
-        [HttpGet]
-        [Route(AclRoutesUrl.AclCompanyModule.List)]
+        [HttpGet(AclRoutesUrl.AclCompanyModule.List, Name = AclRoutesName.AclCompanyModuleRouteNames.List)]
         public async Task<AclResponse> Index()
         {
-            return _unitOfWork.AclCompanyModuleRepository.GetAll();
+            return await _unitOfWork.AclCompanyModuleRepository.GetAll();
         }
 
-        [HttpPost]
-        [Route(AclRoutesUrl.AclCompanyModule.Add)]
-        public async Task<AclResponse> Create(AclCompanyModuleRequest objSubModule)
+        [HttpPost(AclRoutesUrl.AclCompanyModule.Add, Name = AclRoutesName.AclCompanyModuleRouteNames.Add)]
+        public async Task<AclResponse> Create(AclCompanyModuleRequest request)
         {
-            return _unitOfWork.AclCompanyModuleRepository.AddAclCompanyModule(objSubModule);
+            return await _unitOfWork.AclCompanyModuleRepository.AddAclCompanyModule(request);
         }
 
-        [HttpPut]
-        [Route(AclRoutesUrl.AclCompanyModule.Edit)]
-        public async Task<AclResponse> Edit(ulong Id, AclCompanyModuleRequest objSubModule)
+        [HttpPut(AclRoutesUrl.AclCompanyModule.Edit, Name = AclRoutesName.AclCompanyModuleRouteNames.Edit)]
+        public async Task<AclResponse> Edit(ulong id, AclCompanyModuleRequest request)
         {
-            return _unitOfWork.AclCompanyModuleRepository.EditAclCompanyModule(Id, objSubModule);
+            return await _unitOfWork.AclCompanyModuleRepository.EditAclCompanyModule(id, request);
         }
-        [HttpGet]
-        [Route(AclRoutesUrl.AclCompanyModule.View)]
-        public async Task<AclResponse> View(ulong Id)
+        [HttpGet(AclRoutesUrl.AclCompanyModule.View, Name = AclRoutesName.AclCompanyModuleRouteNames.View)]
+        public async Task<AclResponse> View(ulong id)
         {
-            return _unitOfWork.AclCompanyModuleRepository.FindById(Id);
+            return await _unitOfWork.AclCompanyModuleRepository.FindById(id);
         }
 
-        [HttpDelete]
-        [Route(AclRoutesUrl.AclCompanyModule.Destroy)]
-        public async Task<AclResponse> Destroy(ulong Id)
+        [HttpDelete(AclRoutesUrl.AclCompanyModule.Destroy, Name = AclRoutesName.AclCompanyModuleRouteNames.Destroy)]
+        public async Task<AclResponse> Destroy(ulong id)
         {
-            return _unitOfWork.AclCompanyModuleRepository.DeleteCompanyModule(Id);
+            return await _unitOfWork.AclCompanyModuleRepository.DeleteCompanyModule(id);
         }
     }
 }

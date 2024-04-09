@@ -6,6 +6,7 @@ using ACL.Requests.V1;
 using ACL.Response.V1;
 using ACL.Requests;
 using Org.BouncyCastle.Asn1.Ocsp;
+using SharedLibrary.Utilities;
 
 namespace ACL.Repositories.V1
 {
@@ -28,7 +29,7 @@ namespace ACL.Repositories.V1
             var aclPage = _unitOfWork.ApplicationDbContext.AclPages.ToList();
             if (aclPage.Count > 0)
             {
-                aclResponse.Message = messageResponse.fetchMessage;
+                aclResponse.Message = Helper.__(messageResponse.fetchMessage);
             }
             aclResponse.Data = aclPage;
             aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
@@ -45,7 +46,7 @@ namespace ACL.Repositories.V1
                 _unitOfWork.ApplicationDbContext.SaveChangesAsync();
                 _unitOfWork.ApplicationDbContext.Entry(aclPage).Reload();
                 aclResponse.Data = aclPage;
-                aclResponse.Message = messageResponse.createMessage;
+                aclResponse.Message = Helper.__(messageResponse.createMessage);
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
             catch (Exception ex)
@@ -66,7 +67,7 @@ namespace ACL.Repositories.V1
                 _unitOfWork.ApplicationDbContext.SaveChangesAsync();
                 _unitOfWork.ApplicationDbContext.Entry(aclPage).ReloadAsync();
                 aclResponse.Data = aclPage;
-                aclResponse.Message = messageResponse.editMessage;
+                aclResponse.Message = Helper.__(messageResponse.editMessage);
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
             catch (Exception ex)
@@ -85,10 +86,10 @@ namespace ACL.Repositories.V1
             {
                 var aclPage = _unitOfWork.ApplicationDbContext.AclPages.Find(id);
                 aclResponse.Data = aclPage;
-                aclResponse.Message = messageResponse.fetchMessage;
+                aclResponse.Message = Helper.__(messageResponse.fetchMessage);
                 if (aclPage == null)
                 {
-                    aclResponse.Message = messageResponse.noFoundMessage;
+                    aclResponse.Message = Helper.__(messageResponse.noFoundMessage);
                 }
 
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
@@ -110,7 +111,7 @@ namespace ACL.Repositories.V1
             {
                 _unitOfWork.ApplicationDbContext.AclPages.Remove(aclPage);
                 _unitOfWork.ApplicationDbContext.SaveChanges();
-                aclResponse.Message = messageResponse.deleteMessage;
+                aclResponse.Message = Helper.__(messageResponse.deleteMessage);
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
 
@@ -147,7 +148,7 @@ namespace ACL.Repositories.V1
                 _unitOfWork.ApplicationDbContext.SaveChangesAsync();
                 _unitOfWork.ApplicationDbContext.Entry(aclPageRoute).ReloadAsync();
                 aclResponse.Data = aclPageRoute;
-                aclResponse.Message = messageResponse.createMessage;
+                aclResponse.Message = Helper.__(messageResponse.createMessage);
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
             catch (Exception ex)
@@ -161,7 +162,7 @@ namespace ACL.Repositories.V1
 
         public AclResponse PageRouteEdit(ulong id, AclPageRouteRequest request)
         {
-            messageResponse.createMessage = "Page Route Update Successfully";
+            messageResponse.editMessage = "Page Route Update Successfully";
             try
             {
                 var aclPageRoute = _unitOfWork.ApplicationDbContext.AclPageRoutes.Find(id);
@@ -172,12 +173,12 @@ namespace ACL.Repositories.V1
                     _unitOfWork.ApplicationDbContext.SaveChangesAsync();
                     _unitOfWork.ApplicationDbContext.Entry(aclPageRouteUpdateData).ReloadAsync();
                     aclResponse.Data = aclPageRouteUpdateData;
-                    aclResponse.Message = messageResponse.editMessage;
+                    aclResponse.Message = Helper.__(messageResponse.editMessage);
                     aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
                 }
                 else
                 {
-                    aclResponse.Message = messageResponse.noFoundMessage;
+                    aclResponse.Message = Helper.__(messageResponse.noFoundMessage);
                     aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
                     return aclResponse;
                 }
@@ -195,14 +196,14 @@ namespace ACL.Repositories.V1
 
         public AclResponse PageRouteDelete(ulong id)
         {
-            messageResponse.createMessage = "Page Route Deleted Successfully";
+            messageResponse.deleteMessage = "Page Route Deleted Successfully";
             var aclPageRoute = _unitOfWork.ApplicationDbContext.AclPageRoutes.Find(id);
             if (aclPageRoute != null)
             {
                 _unitOfWork.ApplicationDbContext.AclPageRoutes.Remove(aclPageRoute);
                 _unitOfWork.ApplicationDbContext.SaveChanges();
                 _unitOfWork.ApplicationDbContext.Entry(aclPageRoute).Reload();
-                aclResponse.Message = messageResponse.deleteMessage;
+                aclResponse.Message = Helper.__(messageResponse.deleteMessage);
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
             return aclResponse;

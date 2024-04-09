@@ -1,17 +1,18 @@
 ﻿using ACL.Interfaces;
 using ACL.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace ACL.Repositories
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        protected IUnitOfWork UnitOfWork;
+        protected IUnitOfWork _unitOfWork;
         internal DbSet<T> _dbSet;
 
         public GenericRepository(IUnitOfWork unitOfWork)
         {
-            UnitOfWork = unitOfWork;
+            _unitOfWork = unitOfWork;
             _dbSet = unitOfWork.ApplicationDbContext.Set<T>();
 
         }
@@ -21,7 +22,7 @@ namespace ACL.Repositories
             return await _dbSet.ToListAsync();
         }
 
-        public virtual async Task<T?> GetById(int id)
+        public virtual async Task<T?> GetById(ulong id)
         {
             return await _dbSet.FindAsync(id);
         }
@@ -70,10 +71,51 @@ namespace ACL.Repositories
             return entities;
         }
 
+        public async Task<IEnumerable<T>> RemoveRange(IEnumerable<T> entities)
+        {
+            _dbSet.RemoveRange(entities);
+            return entities;
+        }
+
+
         public async Task<IEnumerable<T>> AddRange(params T[] entities)
         {
             await _dbSet.AddRangeAsync(entities);
             return entities;
+        }
+
+        public virtual async Task ReloadAsync(T entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
+            await _dbSet.Entry(entity).ReloadAsync();
+        }
+
+        public void Detach<T>(T entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+            var entry = _unitOfWork.ApplicationDbContext.Entry(entity);
+            if (entry != null)
+            {
+                entry.State = EntityState.Detached;
+            }
+        }
+        public IQueryable<T> Where(Expression<Func<T, bool>> predicate)
+        {
+            return _unitOfWork.ApplicationDbContext.Set<T>().Where(predicate);
+        }
+        public async Task ReloadEntitiesAsync(IEnumerable<T> entities)
+        {
+            foreach (var entity in entities)
+            {
+                await _unitOfWork.ApplicationDbContext.Entry(entity).ReloadAsync();
+            }
         }
     }
 }

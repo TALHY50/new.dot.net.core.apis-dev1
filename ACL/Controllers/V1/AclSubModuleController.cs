@@ -1,15 +1,13 @@
 ﻿
 using ACL.Interfaces;
-using ACL.Interfaces.Repositories;
 using ACL.Requests;
 using ACL.Response.V1;
-using ACL.Route;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ACL.Controllers.V1
 {
     [ApiController]
-    [Route(Route.AclRoutesUrl.Root)]
+    [Route(Route.AclRoutesUrl.Base)]
     public class AclSubModuleController : ControllerBase
     {
         private readonly IUnitOfWork _repository;
@@ -19,7 +17,7 @@ namespace ACL.Controllers.V1
         }
 
         [HttpGet(Route.AclRoutesUrl.AclSubmodule.List, Name = Route.AclRoutesName.AclSubmodule.List)]
-        public async Task<AclResponse> Index()
+        public AclResponse Index()
         {
             return _repository.AclSubModuleRepository.GetAll();
         }

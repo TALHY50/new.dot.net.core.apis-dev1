@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace ACL.Database.Models;
 
@@ -15,6 +16,7 @@ public partial class AclUser
 
     public string? Avatar { get; set; }
 
+    [JsonIgnore]
     public string? Password { get; set; }
 
     public DateTime? Dob { get; set; }
