@@ -13,7 +13,7 @@ namespace ACL.Services
     {
         private ApplicationDbContext context;
         private ILogger logger;
-       // private ILogService logService;
+        // private ILogService logService;
         private IHttpContextAccessor _httpContextAccessor;
 
         public UnitOfWork(ApplicationDbContext context, ILoggerFactory loggerFactory, IHttpContextAccessor httpContextAccessor)
@@ -73,7 +73,7 @@ namespace ACL.Services
         {
             get { return new AclUserGroupRoleRepository(this); }
         }
-       
+
         public IHttpContextAccessor HttpContextAccessor
         {
             get { return this._httpContextAccessor; }
@@ -133,11 +133,20 @@ namespace ACL.Services
         public IAclPageRepository AclPageRepository
         {
             get { return new AclPageRepository(this); }
-        }        
-        
+        }
+
         public IAclUserRepository AclUserRepository
         {
             get { return new AclUserRepository(this); }
+        }
+
+        public IAclUserGroupRepository AclUserGroupRepository
+        {
+            get { return new AclUserGroupRepository(this); }
+        }
+        public IExecutionStrategy CreateExecutionStrategy()
+        {
+            return ApplicationDbContext.Database.CreateExecutionStrategy();
         }
     }
 }

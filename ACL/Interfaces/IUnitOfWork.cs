@@ -39,5 +39,6 @@ namespace ACL.Interfaces
         Task RollbackTransactionAsync();
         Task CommitTransactionAsync();
         void CommitTransaction();
+        IExecutionStrategy CreateExecutionStrategy();
     }
 }
