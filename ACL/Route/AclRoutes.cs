@@ -7,8 +7,6 @@ namespace ACL.Route
 {
     public class AclRoutesUrl
     {
-
-        public const string Root = "api/v1";
         public const string Base = "api/v1/";
         public class AclModule
         {
