@@ -74,7 +74,7 @@ namespace ACL.Route
             public const string Update = ModelName + "/update";
         }
 
-        public class AclUser
+        public class AclUserUrl
         {
             public const string ModelName = Base + "users";
             public const string List = ModelName;
