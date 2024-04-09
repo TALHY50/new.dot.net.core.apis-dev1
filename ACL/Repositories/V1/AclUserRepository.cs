@@ -7,6 +7,7 @@ using ACL.Response.V1;
 using Craftgate.Model;
 using Google.Protobuf.WellKnownTypes;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Models;
 using SharedLibrary.Services;
 using SharedLibrary.Utilities;
@@ -44,37 +45,43 @@ namespace ACL.Repositories.V1
         public async Task<AclResponse> Add(AclUserRequest request)
         {
 
-            //using (_unitOfWork.BeginTransactionAsync())
-            //{
-            try
+            var executionStrategy = _unitOfWork.ApplicationDbContext.Database.CreateExecutionStrategy();
+
+            await executionStrategy.ExecuteAsync(async () =>
             {
-                var aclUser = PrepareInputData(request);
-                await _unitOfWork.ApplicationDbContext.AddAsync(aclUser);
-                await _unitOfWork.ApplicationDbContext.SaveChangesAsync();
-                await _unitOfWork.ApplicationDbContext.Entry(aclUser).ReloadAsync();
+                using (var transaction = await _unitOfWork.BeginTransactionAsync())
+                {
+                    try
+                    {
+                        var aclUser = PrepareInputData(request);
+                        await _unitOfWork.ApplicationDbContext.AddAsync(aclUser);
+                        await _unitOfWork.ApplicationDbContext.SaveChangesAsync();
+                        await _unitOfWork.ApplicationDbContext.Entry(aclUser).ReloadAsync();
 
-                // need to insert user user group
-                var UserGroupPrepareData = PrepareDataForUserUserGroups(request, aclUser.Id);
-                await _unitOfWork.ApplicationDbContext.AddRangeAsync(UserGroupPrepareData);
-                await _unitOfWork.ApplicationDbContext.SaveChangesAsync();
+                        //  need to insert user user group
+                        var userGroupPrepareData = PrepareDataForUserUserGroups(request, aclUser.Id);
+                        await _unitOfWork.ApplicationDbContext.AddRangeAsync(userGroupPrepareData);
+                        await _unitOfWork.ApplicationDbContext.SaveChangesAsync();
 
-                aclResponse.Data = aclUser;
-                aclResponse.Message = Helper.__(messageResponse.createMessage);
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                        aclResponse.Data = aclUser;
+                        aclResponse.Message = Helper.__(messageResponse.createMessage);
+                        aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
 
-                await _unitOfWork.CommitTransactionAsync();
-            }
-            catch (Exception ex)
-            {
-                //await _unitOfWork.RollbackTransactionAsync();
-                aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
-            }
-            //}
-            //await _unitOfWork.CompleteAsync();
+                        await transaction.CommitAsync();
+                    }
+                    catch (Exception ex)
+                    {
+                        await transaction.RollbackAsync();
+                        aclResponse.Message = ex.Message;
+                        aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                    }
+                }
+            });
+
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
         }
+
 
         public AclResponse Edit(ulong id, AclUserRequest request)
         {
