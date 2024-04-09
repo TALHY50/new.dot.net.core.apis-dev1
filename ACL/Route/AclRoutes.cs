@@ -7,6 +7,24 @@ namespace ACL.Route
     public class AclRoutesUrl
     {
         public const string Base = "api/v1/";
+        public class AclCompany
+        {
+            public const string ModelName = Base + "companies";
+            public const string List = ModelName;
+            public const string Add = ModelName + "/add";
+            public const string Edit = ModelName + "/edit/{id}";
+            public const string View = ModelName + "/view/{id}";
+            public const string Destroy = ModelName + "/delete/{id}";
+        }
+        public class AclCompanyModule
+        {
+            public const string ModelName = Base + "company/modules";
+            public const string List = ModelName;
+            public const string Add = ModelName + "/add";
+            public const string Edit = ModelName + "/edit/{id}";
+            public const string View = ModelName + "/view/{id}";
+            public const string Destroy = ModelName + "/delete/{id}";
+        }
         public class AclModule
         {
             public const string List = Base + "modules";
@@ -18,15 +36,6 @@ namespace ACL.Route
         public class AclSubModule
         {
             public const string ModelName = Base + "submodules";
-            public const string List = ModelName;
-            public const string Add = ModelName + "/add";
-            public const string Edit = ModelName + "/edit/{id}";
-            public const string View = ModelName + "/view/{id}";
-            public const string Destroy = ModelName + "/delete/{id}";
-        }
-        public class AclCompanyModule
-        {
-            public const string ModelName = Base + "company/modules";
             public const string List = ModelName;
             public const string Add = ModelName + "/add";
             public const string Edit = ModelName + "/edit/{id}";
@@ -95,6 +104,14 @@ namespace ACL.Route
     }
     public static class AclRoutesName
     {
+        public static class AclCompanyRouteNames
+        {
+            public const string List = "acl.company.list";
+            public const string Add = "acl.company.add";
+            public const string View = "acl.company.show";
+            public const string Edit = "acl.company.edit";
+            public const string Destroy = "acl.company.destroy";
+        }
         public static class AclCompanyModuleRouteNames
         {
             public const string List = "acl.company_module.list";
