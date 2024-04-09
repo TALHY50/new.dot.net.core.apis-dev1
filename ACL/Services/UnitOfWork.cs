@@ -1,4 +1,5 @@
-﻿using ACL.Database;
+﻿using ACL.Controllers.V1;
+using ACL.Database;
 using ACL.Interfaces;
 using ACL.Interfaces.Repositories;
 using ACL.Interfaces.Repositories.V1;
@@ -139,5 +140,11 @@ namespace ACL.Services
         {
             get { return new AclUserRepository(this); }
         }
+
+        public IAclUserGroupRepository AclUserGroupRepository
+        {
+            get { return new AclUserGroupRepository(this); }
+        }
+
     }
 }
