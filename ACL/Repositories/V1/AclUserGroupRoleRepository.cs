@@ -85,22 +85,6 @@ namespace ACL.Repositories.V1
             return aclResponse;
         }
 
-        private AclResponse UserGroupRoleDelete(ulong userGroupId)
-        {
-
-            var aclUserGroupRole = _unitOfWork.ApplicationDbContext.AclUsergroupRoles.Where(x => x.UsergroupId == userGroupId).ToList();
-
-            if (aclUserGroupRole.Any())
-            {
-                _unitOfWork.ApplicationDbContext.AclUsergroupRoles.RemoveRange(aclUserGroupRole);
-                _unitOfWork.ApplicationDbContext.SaveChangesAsync();
-                aclResponse.Message = messageResponse.deleteMessage;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
-            }
-            await _unitOfWork.CompleteAsync();
-            return aclResponse;
-
-        }
 
         private AclUsergroupRole[] GetUserGroupRoles(AclUserGroupRoleRequest request)
         {
