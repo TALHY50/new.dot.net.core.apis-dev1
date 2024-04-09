@@ -90,7 +90,15 @@ namespace ACL.Route
             public const string View = ModelName + "/view/{id}";
             public const string Destroy = ModelName + "/delete/{id}";
         }
-
+        public class AclUserGroupRoutesUrl
+        {
+            public const string ModelName = Base + "usergroups";
+            public const string List = ModelName;
+            public const string Add = ModelName + "/add";
+            public const string View = ModelName + "/view/{id}";
+            public const string Edit = ModelName + "/edit/{id}";
+            public const string Destroy = ModelName + "/destroy/{id}";
+        }
     }
     public static class AclRoutesName
     {
@@ -175,6 +183,15 @@ namespace ACL.Route
             public const string ModelName = "acl.usergroups.";
             public const string List = ModelName + "role.association";
             public const string Update = ModelName + "role.association.update";
+        }
+        public class AclUserGroupRouteNames
+        {
+            public const string ModelName = "acl.usergroups.";
+            public const string List = ModelName + "list";
+            public const string Add = ModelName + "add";
+            public const string View = ModelName + "view";
+            public const string Edit = ModelName + "edit";
+            public const string Destroy = ModelName + "destroy";
         }
 
     }
