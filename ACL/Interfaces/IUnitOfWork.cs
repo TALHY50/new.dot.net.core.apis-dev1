@@ -29,6 +29,7 @@ namespace ACL.Interfaces
 
         public IAclPageRepository AclPageRepository { get; }
         public IAclUserRepository AclUserRepository { get; }
+        public IAclPasswordRepository AclPasswordRepository { get; }
 
         IUnitOfWork GetService();
         IDbTransaction BeginTransaction();

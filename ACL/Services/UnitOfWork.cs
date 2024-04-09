@@ -139,5 +139,9 @@ namespace ACL.Services
         {
             get { return new AclUserRepository(this); }
         }
+        public IAclPasswordRepository AclPasswordRepository
+        {
+            get { return new AclPasswordRepository(this); }
+        }
     }
 }
