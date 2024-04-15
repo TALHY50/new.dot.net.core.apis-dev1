@@ -331,8 +331,8 @@ namespace SharedLibrary.Services
 
        public static string AppEncrypt(string msg)
        {
-           return Encrypt(msg, Constants.Constants.BRAND_SECRET_KEY);
-       }
+            return Encrypt(msg, Constants.Constants.BRAND_SECRET_KEY);
+        }
        
        
        
