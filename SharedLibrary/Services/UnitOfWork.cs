@@ -279,13 +279,13 @@ public class UnitOfWork : IUnitOfWork
 
 
 
-    public ISettlementRepository SettlementRepository
-    {
-        get
-        {
-            return new SettlementRepository(this);
-        }
-    }
+    //public ISettlementRepository SettlementRepository
+    //{
+    //    get
+    //    {
+    //        return new SettlementRepository(this);
+    //    }
+    //}
 
     public IHolidaySettingRepository HolidaySettingRepository
     {
