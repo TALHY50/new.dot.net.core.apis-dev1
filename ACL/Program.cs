@@ -3,6 +3,7 @@ using ACL.Interfaces;
 using ACL.Interfaces.Repositories.V1;
 using ACL.Repositories.V1;
 using ACL.Services;
+using ACL.Services.Interface;
 using DotNetEnv;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
@@ -32,8 +33,9 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+builder.Services.AddMemoryCache();
+builder.Services.AddScoped<ICacheService, CacheService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-
 
 var app = builder.Build();
 
