@@ -12,7 +12,7 @@ namespace ACL.Repositories.V1
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
-        private string modelName = "Company Module";
+        private string modelName = "Company";
         public AclCompanyRepository(IUnitOfWork _unitOfWork) : base(_unitOfWork)
         {
             aclResponse = new AclResponse();
@@ -22,10 +22,10 @@ namespace ACL.Repositories.V1
         {
             try
             {
-                var aclCompanyModule = await base.GetById(id);
-                aclResponse.Data = aclCompanyModule;
+                var aclCompany = await base.GetById(id);
+                aclResponse.Data = aclCompany;
                 aclResponse.Message = messageResponse.fetchMessage;
-                if (aclCompanyModule == null)
+                if (aclCompany == null)
                 {
                     aclResponse.Message = messageResponse.noFoundMessage;
                 }
@@ -41,15 +41,15 @@ namespace ACL.Repositories.V1
             return aclResponse;
         }
 
-        public async Task<AclResponse> AddAclCompanyModule(AclCompanyModuleRequest request)
+        public async Task<AclResponse> AddAclCompany(AclCompanyCreateRequest request)
         {
             try
             {
-                var aclCompanyModule = PrepareInputData(request);
-                Add(aclCompanyModule);
+                var aclCompany = PrepareInputData(request);
+                Add(aclCompany);
                 await _unitOfWork.CompleteAsync();
-                await base.ReloadAsync(aclCompanyModule);
-                aclResponse.Data = aclCompanyModule;
+                await base.ReloadAsync(aclCompany);
+                aclResponse.Data = aclCompany;
                 aclResponse.Message = messageResponse.createMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
@@ -61,18 +61,18 @@ namespace ACL.Repositories.V1
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
         }
-        public async Task<AclResponse> EditAclCompanyModule(ulong Id, AclCompanyModuleRequest request)
+        public async Task<AclResponse> EditAclCompany(ulong Id, AclCompanyEditRequest request)
         {
             try
             {
-                var _aclCompanyModule = await base.GetById(Id);
-                if (_aclCompanyModule != null)
+                var _aclCompany = await base.GetById(Id);
+                if (_aclCompany != null)
                 {
-                    _aclCompanyModule = PrepareInputData(request, Id, _aclCompanyModule);
-                    await base.UpdateAsync(_aclCompanyModule);
+                    _aclCompany = PrepareInputData(null, request, _aclCompany);
+                    await base.UpdateAsync(_aclCompany);
                     await _unitOfWork.CompleteAsync();
-                    await base.ReloadAsync(_aclCompanyModule);
-                    aclResponse.Data = _aclCompanyModule;
+                    await base.ReloadAsync(_aclCompany);
+                    aclResponse.Data = _aclCompany;
                     aclResponse.Message = messageResponse.editMessage;
                     aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
                 }
@@ -93,11 +93,11 @@ namespace ACL.Repositories.V1
 
         public async Task<AclResponse> GetAll()
         {
-            var aclCompanyModules = await base.All();
-            if (aclCompanyModules.Any())
+            var aclCompany = await base.All();
+            if (aclCompany.Any())
             {
                 aclResponse.Message = messageResponse.fetchMessage;
-                aclResponse.Data = aclCompanyModules;
+                aclResponse.Data = aclCompany;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
             else
@@ -110,30 +110,16 @@ namespace ACL.Repositories.V1
             return aclResponse;
         }
 
-        public bool IsValidForCreateOrUpdate(ulong companyId, ulong moduleId, ulong id = 0)
-        {
-            if (id == 0)
-            {
-                return !_unitOfWork.ApplicationDbContext.AclCompanyModules
-                    .Any(x => x.CompanyId == companyId && x.ModuleId == moduleId) && _unitOfWork.ApplicationDbContext.AclCompanies.Any(x => x.Id == companyId) && _unitOfWork.ApplicationDbContext.AclModules.Any(x => x.Id == moduleId);
-            }
-            else
-            {
-                return !_unitOfWork.ApplicationDbContext.AclCompanyModules
-               .Any(x => x.CompanyId == companyId && x.ModuleId == moduleId && x.Id != id) && _unitOfWork.ApplicationDbContext.AclCompanies.Any(x => x.Id == companyId) && _unitOfWork.ApplicationDbContext.AclModules.Any(x => x.Id == moduleId);
-            }
-        }
-
-        public async Task<AclResponse> DeleteCompanyModule(ulong id)
+        public async Task<AclResponse> DeleteCompany(ulong id)
         {
 
-            var aclCompanyModule = await base.GetById(id);
+            var aclCompany = await base.GetById(id);
 
-            if (aclCompanyModule != null)
+            if (aclCompany != null)
             {
-                await base.DeleteAsync(aclCompanyModule);
+                await base.DeleteAsync(aclCompany);
                 await _unitOfWork.CompleteAsync();
-                aclResponse.Data = aclCompanyModule;
+                aclResponse.Data = aclCompany;
                 aclResponse.Message = messageResponse.deleteMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
@@ -147,29 +133,65 @@ namespace ACL.Repositories.V1
             return aclResponse;
         }
 
-        public AclCompanyModule PrepareInputData(AclCompanyModuleRequest request, ulong Id = 0, AclCompanyModule _aclCompanyModule = null)
+        public AclCompany PrepareInputData(AclCompanyCreateRequest requ = null, AclCompanyEditRequest req = null, AclCompany _aclCompany = null)
         {
-            bool valid = IsValidForCreateOrUpdate(request.company_id, request.module_id);
-            AclCompanyModule aclCompanyModule = new AclCompanyModule();
-            if (valid)
+            AclCompany aclCompany = _aclCompany == null ? new AclCompany() : _aclCompany;
+            if (requ == null && req != null)
             {
-                if (_aclCompanyModule != null)
-                {
-                    aclCompanyModule = _aclCompanyModule;
-                }
-                aclCompanyModule.CompanyId = request.company_id;
-                aclCompanyModule.ModuleId = request.module_id;
-                aclCompanyModule.UpdatedAt = DateTime.Now;
-                if (Id == 0)
-                {
-                    aclCompanyModule.CreatedAt = DateTime.Now;
-                }
-                return aclCompanyModule;
+                aclCompany.Name = req.name;
+                aclCompany.Cname = req.cname;
+                aclCompany.Cemail = req.cemail;
+                aclCompany.Address1 = req.address1;
+                aclCompany.Address2 = req.address2;
+                aclCompany.Postcode = req.postcode;
+                aclCompany.Phone = req.phone;
+                aclCompany.Fax = req.fax;
+                aclCompany.City = req.city;
+                aclCompany.State = req.state;
+                aclCompany.Country = req.country;
+                aclCompany.Logo = req.logo;
+                aclCompany.RegistrationNo = req.registration_no;
+                aclCompany.Timezone = req.timezone;
+                aclCompany.TimezoneValue = req.timezone_value;
+                aclCompany.TaxNo = req.tax_no;
+                aclCompany.Status = req.status;
             }
-            else
+            if (requ != null && req == null)
             {
-                throw new InvalidOperationException("Not valid data!");
+                aclCompany.Name = requ.name;
+                aclCompany.Cname = requ.cname;
+                aclCompany.Cemail = requ.cemail;
+                aclCompany.Address1 = requ.address1;
+                aclCompany.Address2 = requ.address2;
+                aclCompany.Postcode = requ.postcode;
+                aclCompany.Phone = requ.phone;
+                aclCompany.Email = requ.email;
+                aclCompany.Fax = requ.fax;
+                aclCompany.City = requ.city;
+                aclCompany.State = requ.state;
+                aclCompany.Country = requ.country;
+                aclCompany.Logo = requ.logo;
+                aclCompany.RegistrationNo = requ.registration_no;
+                aclCompany.Timezone = requ.timezone;
+                aclCompany.TimezoneValue = requ.timezone_value;
+                aclCompany.TaxNo = requ.tax_no;
+                aclCompany.UniqueColumnName = requ.unique_column_name;
             }
+            aclCompany.UpdatedAt = DateTime.Now;
+            if (aclCompany.Id == 0)
+            {
+                aclCompany.CreatedAt = DateTime.Now;
+            }
+
+            return aclCompany;
+        }
+
+        private int GetAuthUserId()
+        {
+            // Implement logic to get the authenticated user's ID
+            // For example:
+            // return AppAuth.getAuthInfo().user_id;
+            return 1;
         }
     }
 }

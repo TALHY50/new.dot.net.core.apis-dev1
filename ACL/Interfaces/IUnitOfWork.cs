@@ -19,6 +19,7 @@ namespace ACL.Interfaces
 
         public ILogService LogService { get; set; }
 
+        IAclCompanyRepository AclCompanyRepository { get; }
         IAclCompanyModuleRepository AclCompanyModuleRepository { get; }
         IAclModuleRepository AclModuleRepository { get; }
         IAclSubModuleRepository AclSubModuleRepository { get; }

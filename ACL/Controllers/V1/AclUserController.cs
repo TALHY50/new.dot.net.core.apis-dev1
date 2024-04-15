@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ACL.Controllers.V1
 {
+    [Tags("User")]
     [ApiController]
-    [Route("api/v1/")]
     public class AclUserController : ControllerBase
     {
 

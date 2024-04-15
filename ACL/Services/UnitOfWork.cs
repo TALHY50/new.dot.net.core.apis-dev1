@@ -60,6 +60,11 @@ namespace ACL.Services
             get { return new AclCompanyModuleRepository(this); }
 
         }
+        public IAclCompanyRepository AclCompanyRepository
+        {
+            get { return new AclCompanyRepository(this); }
+
+        }
 
         public IAclRolePageRepository AclRolePageRepository
         {
