@@ -15,6 +15,15 @@ namespace ACL.Route
             public const string View = Base + "modules/view/{id}";
             public const string Destroy = Base + "modules/delete/{id}";
         }
+        public class AclCompanyRouteUrl
+        {
+            public const string ModelName = Base + "companies";
+            public const string List = ModelName;
+            public const string Add = ModelName + "/add";
+            public const string Edit = ModelName + "/edit/{id}";
+            public const string View = ModelName + "/view/{id}";
+            public const string Destroy = ModelName + "/delete/{id}";
+        }
         public class AclCompanyModule
         {
             public const string ModelName = Base + "company/modules";
