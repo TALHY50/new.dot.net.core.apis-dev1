@@ -51,7 +51,7 @@ public interface IUnitOfWork
     public IPurchaseRequestRepository PurchaseRequestRepository { get; }
    
     public ISaleRepository SaleRepository { get; }
-    public ISettlementRepository SettlementRepository { get; }
+
     public ICcBlockListsRepository CcBlockListsRepository { get; }
     public IHolidaySettingRepository HolidaySettingRepository { get; }
     
