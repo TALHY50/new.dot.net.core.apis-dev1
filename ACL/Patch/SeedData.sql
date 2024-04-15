@@ -1,3 +1,66 @@
+INSERT INTO acl.acl_companies (name,cname,cemail,address1,address2,postcode,phone,email,fax,city,state,country,logo,registration_no,timezone,unique_column_name,timezone_value,tax_no,tax_office,sector,average_turnover,no_of_employees,cmmi_level,yearly_revenue,hourly_rate,daily_rate,status,added_by,created_at,updated_at) VALUES
+	 ('Default','Admin','ssadmin@softrobotics.com','A','A2','4100','031','ssadmin@softrobotics.com','','C','s','BD','','',254,1,'','','','',0.0,6,0,0.0,0.0,0.0,1,1,'2015-11-04 01:52:01','2019-03-28 13:29:33'),
+	 ('Porosh','Testing Company','porosh@gmail.com','asdfag sdfasdf','asdfg asdfsadf','1230','01672896992','siddique@gmail.com','asdfasdf','Dahka','Dhaka','Bangladesh','asdfasdfasdf.png','asdfasdf',-11,1,'asdfasdf','asdfasdf',NULL,NULL,0.0,0,0,0.0,0.0,0.0,1,1,'2024-03-07 13:25:44','2024-03-07 13:25:44'),
+	 ('Mahmud','Test Company','mahmud@gmail.com','asdfa sdfasdf','asdf asdfsadf','1229','01521497833','korim@gmail.com','asdfasdf','Dahka','Dhaka','Bangladesh','asdfasdfasdf.png','asdfasdf',-11,1,'asdfasdf','asdfasdf',NULL,NULL,0.0,0,0,0.0,0.0,0.0,1,1,'2024-03-07 13:25:44','2024-03-07 13:25:44');
+
+	 INSERT INTO acl.acl_company_modules (company_id,module_id,created_at,updated_at) VALUES
+	 (2,1002,'2024-03-12 04:27:20','2024-03-12 04:27:20');
+
+	 INSERT INTO acl.acl_modules (id,name,icon,sequence,display_name,created_at,updated_at) VALUES
+	 (1001,'Company','<i class="fa fa-list-ul"></i>',6,'Company','2015-12-09 12:10:46','2019-03-20 21:52:50'),
+	 (1002,'Master Data','<i class="fa fa-list-ul"></i>',2,'Master Data','2015-12-09 12:10:46','2019-03-26 22:38:37'),
+	 (1003,'Access Control','<img src="adminca/assets/img/icons/access-control.svg" />',1099,'Access Control','2015-12-09 12:10:47','2016-08-06 16:24:34');
+
+	 INSERT INTO acl.acl_page_routes (page_id,route_name,route_url,created_at,updated_at) VALUES
+	 (3001,'acl.company.list','companies',NULL,NULL),
+	 (3002,'acl.company.add','companies/add',NULL,NULL),
+	 (3003,'acl.company.edit','companies/edit/{id}',NULL,NULL),
+	 (3004,'acl.company.destroy','companies/delete/{id}',NULL,NULL),
+	 (3005,'acl.company.show','companies/view/{id}',NULL,NULL),
+	 (3015,'acl.module.list','modules',NULL,NULL),
+	 (3016,'acl.module.add','modules/add',NULL,NULL),
+	 (3017,'acl.module.edit','modules/edit/{id}',NULL,NULL),
+	 (3018,'acl.module.destroy','modules/delete/{id}',NULL,NULL),
+	 (3019,'acl.module.view','modules/view/{id}',NULL,NULL),
+	 (3080,'acl.company_module.list','company/modules',NULL,NULL),
+	 (3081,'acl.company_module.add','company/modules/add',NULL,NULL),
+	 (3082,'acl.company_module.edit','company/modules/edit/{id}',NULL,NULL),
+	 (3083,'acl.company_module.destroy','company/modules/delete/{id}',NULL,NULL),
+	 (3084,'acl.company_module.view','company/modules/view/{id}',NULL,NULL),
+	 (3025,'acl.submodule.list','submodules',NULL,NULL),
+	 (3026,'acl.submodule.add','submodules/add',NULL,NULL),
+	 (3027,'acl.submodule.edit','submodules/edit/{id}',NULL,NULL),
+	 (3028,'acl.submodule.destroy','submodules/delete/{id}',NULL,NULL),
+	 (3029,'acl.submodule.view','submodules/view/{id}',NULL,NULL),
+	 (3035,'acl.page.list','pages',NULL,NULL),
+	 (3036,'acl.page.add','pages/add',NULL,NULL),
+	 (3037,'acl.page.edit','pages/edit/{id}',NULL,NULL),
+	 (3038,'acl.page.destroy','pages/delete/{id}',NULL,NULL),
+	 (3039,'acl.page.view','pages/view/{id}',NULL,NULL),
+	 (3045,'acl.user.list','users',NULL,NULL),
+	 (3046,'acl.user.add','users/add',NULL,NULL),
+	 (3047,'acl.user.edit','users/edit/{id}',NULL,NULL),
+	 (3048,'acl.user.destroy','users/delete/{id}',NULL,NULL),
+	 (3049,'acl.user.view','users/view/{id}',NULL,NULL),
+	 (3055,'acl.role.list','roles',NULL,NULL),
+	 (3056,'acl.role.add','roles/add',NULL,NULL),
+	 (3057,'acl.role.edit','roles/edit/{id}',NULL,NULL),
+	 (3058,'acl.role.destroy','roles/delete/{id}',NULL,NULL),
+	 (3059,'acl.role.view','roles/view/{id}',NULL,NULL),
+	 (3065,'acl.usergroups.list','usergroups',NULL,NULL),
+	 (3066,'acl.usergroups.add','usergroups/add',NULL,NULL),
+	 (3067,'acl.usergroups.edit','usergroups/edit/{id}',NULL,NULL),
+	 (3068,'acl.usergroups.destroy','usergroups/delete/{id}',NULL,NULL),
+	 (3069,'acl.usergroups.view','usergroups/view/{id}',NULL,NULL),
+	 (3075,'acl.usergroups.role.association','usergroups/roles/{user_group_id}',NULL,NULL),
+	 (3076,'acl.usergroups.role.association.update','usergroups/roles/update',NULL,NULL),
+	 (3078,'acl.role&page.association','permissions/associations/{role_id}',NULL,NULL),
+	 (3079,'acl.role&page.association.update','permissions/associations/update',NULL,NULL),
+	 (3036,'acl.page.route.add','pages/routes/add',NULL,NULL),
+	 (3037,'acl.page.route.edit','pages/routes/edit/{id}',NULL,NULL),
+	 (3038,'acl.page.route.destroy','pages/routes/delete/{id}',NULL,NULL);
+
+
 INSERT INTO acl.acl_pages (id,module_id,sub_module_id,name,method_name,method_type,available_to_company,created_at,updated_at) VALUES
 	 (3001,1001,2001,'Company List','index',0,0,'2015-12-09 12:10:51','2015-12-09 12:10:51'),
 	 (3002,1001,2001,'Add New Company','create',0,0,'2015-12-09 12:10:52','2015-12-09 12:10:52'),

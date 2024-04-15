@@ -5,6 +5,7 @@ using ACL.Requests;
 using ACL.Requests.V1;
 using ACL.Response.V1;
 using Microsoft.EntityFrameworkCore;
+using SharedLibrary.Utilities;
 
 namespace ACL.Repositories.V1
 {
@@ -46,12 +47,52 @@ namespace ACL.Repositories.V1
             try
             {
                 var aclCompany = PrepareInputData(request);
-                Add(aclCompany);
-                await _unitOfWork.CompleteAsync();
-                await base.ReloadAsync(aclCompany);
-                aclResponse.Data = aclCompany;
-                aclResponse.Message = messageResponse.createMessage;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                var executionStrategy = _unitOfWork.CreateExecutionStrategy();
+
+                await executionStrategy.ExecuteAsync(async () =>
+                {
+                    using (var transaction = await _unitOfWork.BeginTransactionAsync())
+                    {
+                        try
+                        {
+                            var aclCompany = PrepareInputData(request);
+                            await _unitOfWork.AclCompanyRepository.AddAsync(aclCompany);
+                            await _unitOfWork.CompleteAsync();
+                            await base.ReloadAsync(aclCompany);
+                            if (aclCompany.Id != 0)
+                            {
+                                AclUsergroup userGroupRequest = new AclUsergroup()
+                                {
+                                    GroupName = aclCompany.Name,
+                                    CompanyId = aclCompany.Id,
+                                    Status = 1
+                                };
+                                await _unitOfWork.AclUserGroupRepository.AddAsync(userGroupRequest);
+                                await _unitOfWork.CompleteAsync();
+                                aclResponse.Data = aclCompany;
+                            }
+
+
+                            
+                            aclResponse.Message = messageResponse.createMessage;
+                            aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+
+                            await transaction.CommitAsync();
+                        }
+                        catch (Exception ex)
+                        {
+                            await transaction.RollbackAsync();
+                            aclResponse.Message = ex.Message;
+                            aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                        }
+                    }
+                });
+                //Add(aclCompany);
+                //await _unitOfWork.CompleteAsync();
+                //await base.ReloadAsync(aclCompany);
+                //aclResponse.Data = aclCompany;
+                //aclResponse.Message = messageResponse.createMessage;
+                //aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
             catch (Exception ex)
             {
@@ -182,7 +223,7 @@ namespace ACL.Repositories.V1
             {
                 aclCompany.CreatedAt = DateTime.Now;
             }
-
+            aclCompany.AddedBy = GetAuthUserId(); //to do get user id from auth
             return aclCompany;
         }
 
