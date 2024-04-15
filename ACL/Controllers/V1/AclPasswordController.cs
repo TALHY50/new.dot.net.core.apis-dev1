@@ -1,4 +1,5 @@
 ﻿
+using System.ComponentModel;
 using ACL.Interfaces;
 using ACL.Requests.V1;
 using ACL.Response.V1;
@@ -6,8 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ACL.Controllers.V1
 {
+    [Tags("Password")]
     [ApiController]
-
     [Route(Route.AclRoutesUrl.Base)]
     public class AclPasswordController : ControllerBase
     {

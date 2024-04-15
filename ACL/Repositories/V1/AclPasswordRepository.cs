@@ -1,17 +1,13 @@
-﻿using ACL.Database.Models;
-using ACL.Interfaces;
+﻿using ACL.Interfaces;
 using ACL.Interfaces.Repositories.V1;
-using ACL.Requests;
 using ACL.Requests.V1;
 using ACL.Response.V1;
-using Microsoft.EntityFrameworkCore;
-using SharedLibrary.Models;
+using Org.BouncyCastle.Asn1.Ocsp;
 using SharedLibrary.Services;
-using System.Linq;
+using System.Runtime.Caching;
 using System.Security.Cryptography;
 using System.Text;
-using static ACL.Route.AclRoutesName;
-using static ACL.Route.AclRoutesUrl;
+
 
 namespace ACL.Repositories.V1
 {
@@ -21,7 +17,8 @@ namespace ACL.Repositories.V1
         public AclResponse aclResponse;
         private string modelName = "Password";
         private ulong authUser = 2;
-        private int token_expiry_time = 60;
+        private int tokenExpiryMinutes = 60;
+
         public AclPasswordRepository(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
@@ -44,9 +41,10 @@ namespace ACL.Repositories.V1
             if (aclUser != null)
             {
                 // password checking
-                var currentPassword = Cryptographer.AppEncrypt(request.current_password);
+                var password = Cryptographer.AppDecrypt(aclUser.Password);
 
-                if(currentPassword != aclUser.Password)
+
+                if (request.current_password != password)
                 {
                     aclResponse.Message = "Password Mismatch";
                     aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
@@ -58,7 +56,7 @@ namespace ACL.Repositories.V1
                 {
                     aclUser.Password = Cryptographer.AppEncrypt(request.new_password); 
                     _unitOfWork.ApplicationDbContext.SaveChangesAsync();
-                    _unitOfWork.ApplicationDbContext.Entry(aclUser).Reload();
+                    _unitOfWork.ApplicationDbContext.Entry(aclUser).ReloadAsync();
 
                     aclResponse.Message = "Password Reset Succesfully.";
                     aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
@@ -83,11 +81,12 @@ namespace ACL.Repositories.V1
                 var uniqueKey = GenerateUniqueKey(aclUser.Email);
 
                 // add to cache
-                //AppCache::add(uniqueKey, request.email, token_expiry_time * 60);
+                MemoryCaches(uniqueKey, request.email, tokenExpiryMinutes * 60);
 
                 //Send Notification to email. Not implemented yet
 
                 aclResponse.Message = "Password Reset Notification email is sent to user email";
+                aclResponse.Data = uniqueKey;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
 
@@ -96,9 +95,38 @@ namespace ACL.Repositories.V1
 
         public AclResponse VerifyToken(AclForgetPasswordTokenVerifyRequest request)
         {
-            throw new NotImplementedException();
+            if (!MemoryCacheExist(request.token))
+            {
+                aclResponse.Message = "Invalid Token";
+                aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
+                return aclResponse;
+            }
+
+            // get email from cache by token
+            string email = GetValueFromMemoryCache(request.token);
+
+            // password update
+            try
+            {
+                var aclUser = _unitOfWork.ApplicationDbContext.AclUsers.FirstOrDefault(x => x.Email == email);
+                aclUser.Password = Cryptographer.AppEncrypt(request.new_password);
+                _unitOfWork.ApplicationDbContext.SaveChangesAsync();
+                _unitOfWork.ApplicationDbContext.Entry(aclUser).ReloadAsync();
+
+                RemoveMemoryCacheByKey(request.token);
+                aclResponse.Message = "Password Reset Succesfully.";
+                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+            }
+            catch (Exception ex)
+            {
+                aclResponse.Message = ex.Message;
+                aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+            }
+
+            return aclResponse;
+
         }
-        private static string GenerateUniqueKey(string email)
+        private string GenerateUniqueKey(string email)
         {
             // Hash the email address using SHA256
             using (SHA256 sha256 = SHA256.Create())
@@ -115,5 +143,32 @@ namespace ACL.Repositories.V1
                 return builder.ToString();
             }
         }
+
+        private void MemoryCaches(string uniqueKey,string email,int tokenExpiryMinutes)
+        {
+          
+            DateTimeOffset expiryTime = DateTimeOffset.Now.AddMinutes(tokenExpiryMinutes);
+            MemoryCache cache = MemoryCache.Default;
+            cache.Add(uniqueKey, email, new CacheItemPolicy { AbsoluteExpiration = expiryTime });
+         
+        }
+
+        private bool MemoryCacheExist(string uniqueKey)
+        {
+            MemoryCache cache = MemoryCache.Default; 
+            return cache.Contains(uniqueKey);
+        }
+
+        private string GetValueFromMemoryCache(string token)
+        {
+            MemoryCache cache = MemoryCache.Default;
+            return cache.Get(token) as string;
+        }
+        private void RemoveMemoryCacheByKey(string key)
+        {
+            MemoryCache cache = MemoryCache.Default;
+            cache.Remove(key); ;
+        }
+
     }
 }
