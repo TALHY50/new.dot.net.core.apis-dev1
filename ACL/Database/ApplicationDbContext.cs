@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection.Emit;
 using ACL.Database.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -793,16 +794,697 @@ public partial class ApplicationDbContext : DbContext
                 {
                     new AclPage
                     {
-                        
+                        Id = 3001,
+                        ModuleId = 1001,
+                        SubModuleId = 2001,
+                        Name = "Company List",
+                        MethodName = "index",
+                        MethodType = 0,
+                        AvailableToCompany = 0,
+                        CreatedAt = DateTime.Parse("2015-12-09 12:10:51"),
+                        UpdatedAt = DateTime.Parse("2015-12-09 12:10:51")
+                    },
+                    new AclPage
+                    {
+                        Id = 3002,
+                        ModuleId = 1001,
+                        SubModuleId = 2001,
+                        Name = "Add New Company",
+                        MethodName = "create",
+                        MethodType = 0,
+                        AvailableToCompany = 0,
+                        CreatedAt = DateTime.Parse("2015-12-09 12:10:52"),
+                        UpdatedAt = DateTime.Parse("2015-12-09 12:10:52")
+                    },
+                    new AclPage
+                    {
+                        Id = 3003,
+                        ModuleId = 1001,
+                        SubModuleId = 2001,
+                        Name = "Modify Company",
+                        MethodName = "edit",
+                        MethodType = 2,
+                        AvailableToCompany = 0,
+                        CreatedAt = DateTime.Parse("2015-12-09 12:10:52"),
+                        UpdatedAt = DateTime.Parse("2019-03-27 15:03:28")
+                    },
+                    new AclPage
+                    {
+                        Id = 3004,
+                        ModuleId = 1001,
+                        SubModuleId = 2001,
+                        Name = "Delete Company",
+                        MethodName = "destroy",
+                        MethodType = 2,
+                        AvailableToCompany = 0,
+                        CreatedAt = DateTime.Parse("2015-12-09 12:10:52"),
+                        UpdatedAt = DateTime.Parse("2019-03-26 22:42:31")
+                    },
+                    new AclPage
+                    {
+                        Id = 3005,
+                        ModuleId = 1001,
+                        SubModuleId = 2001,
+                        Name = "View Company",
+                        MethodName = "show",
+                        MethodType = 0,
+                        AvailableToCompany = 0,
+                        CreatedAt = DateTime.Parse("2015-12-09 12:10:52"),
+                        UpdatedAt = DateTime.Parse("2015-12-09 12:10:52")
+                    },
+                    new AclPage
+                    {
+                        Id = 3015,
+                        ModuleId = 1002,
+                        SubModuleId = 2020,
+                        Name = "Module List",
+                        MethodName = "index",
+                        MethodType = 0,
+                        AvailableToCompany = 0,
+                        CreatedAt = DateTime.Parse("2015-12-09 12:10:53"),
+                        UpdatedAt = DateTime.Parse("2015-12-09 12:10:53")
+                    },
+                    new AclPage
+                    {
+                        Id = 3016,
+                        ModuleId = 1002,
+                        SubModuleId = 2020,
+                        Name = "Add New Module",
+                        MethodName = "create",
+                        MethodType = 0,
+                        AvailableToCompany = 0,
+                        CreatedAt = DateTime.Parse("2015-12-09 12:10:53"),
+                        UpdatedAt = DateTime.Parse("2015-12-09 12:10:53")
+                    },
+                    new AclPage
+                    {
+                        Id = 3017,
+                        ModuleId = 1002,
+                        SubModuleId = 2020,
+                        Name = "Modify Module",
+                        MethodName = "edit",
+                        MethodType = 0,
+                        AvailableToCompany = 0,
+                        CreatedAt = DateTime.Parse("2015-12-09 12:10:53"),
+                        UpdatedAt = DateTime.Parse("2015-12-09 12:10:53")
+                    },
+                    new AclPage
+                    {
+                        Id = 3018,
+                        ModuleId = 1002,
+                        SubModuleId = 2020,
+                        Name = "Delete Module",
+                        MethodName = "destroy",
+                        MethodType = 0,
+                        AvailableToCompany = 0,
+                        CreatedAt = DateTime.Parse("2015-12-09 12:10:54"),
+                        UpdatedAt = DateTime.Parse("2015-12-09 12:10:54")
+                    },
+                    new AclPage
+                    {
+                        Id = 3019,
+                        ModuleId = 1002,
+                        SubModuleId = 2020,
+                        Name = "View Module",
+                        MethodName = "view",
+                        MethodType = 0,
+                        AvailableToCompany = 0,
+                        CreatedAt = DateTime.Parse("2015-12-09 12:10:54"),
+                        UpdatedAt = DateTime.Parse("2015-12-09 12:10:54")
+                    },
+                    new AclPage
+                    {
+                        Id = 3025,
+                        ModuleId = 1002,
+                        SubModuleId = 2021,
+                        Name = "Submodule List",
+                        MethodName = "index",
+                        MethodType = 0,
+                        AvailableToCompany = 0,
+                        CreatedAt = DateTime.Parse("2015-12-09 12:10:54"),
+                        UpdatedAt = DateTime.Parse("2015-12-09 12:10:54")
+                    },
+                    new AclPage
+                    {
+                        Id = 3026,
+                        ModuleId = 1002,
+                        SubModuleId = 2021,
+                        Name = "Add New Submodule",
+                        MethodName = "create",
+                        MethodType = 0,
+                        AvailableToCompany = 0,
+                        CreatedAt = DateTime.Parse("2015-12-09 12:10:54"),
+                        UpdatedAt = DateTime.Parse("2015-12-09 12:10:54")
+                    },
+                    new AclPage
+                    {
+                        Id = 3027,
+                        ModuleId = 1002,
+                        SubModuleId = 2021,
+                        Name = "Modify Submodule",
+                        MethodName = "edit",
+                        MethodType = 0,
+                        AvailableToCompany = 0,
+                        CreatedAt = DateTime.Parse("2015-12-09 12:10:54"),
+                        UpdatedAt = DateTime.Parse("2015-12-09 12:10:54")
+                    },
+                    new AclPage
+                    {
+                        Id = 3028,
+                        ModuleId = 1002,
+                        SubModuleId = 2021,
+                        Name = "Delete Submodule",
+                        MethodName = "destroy",
+                        MethodType = 0,
+                        AvailableToCompany = 0,
+                        CreatedAt = DateTime.Parse("2015-12-09 12:10:55"),
+                        UpdatedAt = DateTime.Parse("2015-12-09 12:10:55")
+                    },
+                    new AclPage
+                    {
+                        Id = 3029,
+                        ModuleId = 1002,
+                        SubModuleId = 2021,
+                        Name = "View Submodule",
+                        MethodName = "view",
+                        MethodType = 0,
+                        AvailableToCompany = 0,
+                        CreatedAt = DateTime.Parse("2015-12-09 12:10:55"),
+                        UpdatedAt = DateTime.Parse("2015-12-09 12:10:55")
+                    },
+                    new AclPage
+                    {
+                        Id = 3035,
+                        ModuleId = 1002,
+                        SubModuleId = 2022,
+                        Name = "Page List",
+                        MethodName = "index",
+                        MethodType = 0,
+                        AvailableToCompany = 0,
+                        CreatedAt = DateTime.Parse("2015-12-09 12:10:55"),
+                        UpdatedAt = DateTime.Parse("2015-12-09 12:10:55")
+                    },
+                    new AclPage
+                    {
+                        Id = 3036,
+                        ModuleId = 1002,
+                        SubModuleId = 2022,
+                        Name = "Add New Page",
+                        MethodName = "create",
+                        MethodType = 0,
+                        AvailableToCompany = 0,
+                        CreatedAt = DateTime.Parse("2015-12-09 12:10:55"),
+                        UpdatedAt = DateTime.Parse("2016-01-21 10:44:25")
+                    },
+                    new AclPage
+                    {
+                        Id = 3037,
+                        ModuleId = 1002,
+                        SubModuleId = 2022,
+                        Name = "Modify Page",
+                        MethodName = "edit",
+                        MethodType = 0,
+                        AvailableToCompany = 0,
+                        CreatedAt = DateTime.Parse("2015-12-09 12:10:56"),
+                        UpdatedAt = DateTime.Parse("2015-12-09 12:10:56")
+                    },
+                    new AclPage
+                    {
+                        Id = 3038,
+                        ModuleId = 1002,
+                        SubModuleId = 2022,
+                        Name = "Delete Page",
+                        MethodName = "destroy",
+                        MethodType = 0,
+                        AvailableToCompany = 0,
+                        CreatedAt = DateTime.Parse("2015-12-09 12:10:56"),
+                        UpdatedAt = DateTime.Parse("2015-12-09 12:10:56")
+                    },
+                    new AclPage
+                    {
+                        Id = 3039,
+                        ModuleId = 1002,
+                        SubModuleId = 2022,
+                        Name = "View Page",
+                        MethodName = "view",
+                        MethodType = 0,
+                        AvailableToCompany = 0,
+                        CreatedAt = DateTime.Parse("2015-12-09 12:10:56"),
+                        UpdatedAt = DateTime.Parse("2015-12-09 12:10:56")
+                    },
+                    new AclPage
+                    {
+                        Id = 3045,
+                        ModuleId = 1003,
+                        SubModuleId = 2050,
+                        Name = "User List",
+                        MethodName = "index",
+                        MethodType = 0,
+                        AvailableToCompany = 1,
+                        CreatedAt = DateTime.Parse("2015-12-09 12:10:56"),
+                        UpdatedAt = DateTime.Parse("2015-12-09 12:10:56")
+                    },
+                    new AclPage
+                    {
+                        Id = 3046,
+                        ModuleId = 1003,
+                        SubModuleId = 2050,
+                        Name = "User Add",
+                        MethodName = "create",
+                        MethodType = 0,
+                        AvailableToCompany = 1,
+                        CreatedAt = DateTime.Parse("2015-12-09 12:10:57"),
+                        UpdatedAt = DateTime.Parse("2015-12-09 12:10:57")
+                    },
+                    new AclPage
+                    {
+                        Id = 3047,
+                        ModuleId = 1003,
+                        SubModuleId = 2050,
+                        Name = "User Edit",
+                        MethodName = "edit",
+                        MethodType = 0,
+                        AvailableToCompany = 1,
+                        CreatedAt = DateTime.Parse("2015-12-09 12:10:57"),
+                        UpdatedAt = DateTime.Parse("2015-12-09 12:10:57")
+                    },
+                    new AclPage
+                    {
+                        Id = 3048,
+                        ModuleId = 1003,
+                        SubModuleId = 2050,
+                        Name = "User Delete",
+                        MethodName = "destroy",
+                        MethodType = 0,
+                        AvailableToCompany = 1,
+                        CreatedAt = DateTime.Parse("2015-12-09 12:10:57"),
+                        UpdatedAt = DateTime.Parse("2015-12-09 12:10:57")
+                    },
+                    new AclPage
+                    {
+                        Id = 3049,
+                        ModuleId = 1003,
+                        SubModuleId = 2050,
+                        Name = "User View",
+                        MethodName = "view",
+                        MethodType = 0,
+                        AvailableToCompany = 0,
+                        CreatedAt = DateTime.Parse("2015-11-22 23:13:47"),
+                        UpdatedAt = DateTime.Parse("2015-11-22 23:13:47")
+                    },
+                    new AclPage
+                    {
+                        Id = 3055,
+                        ModuleId = 1003,
+                        SubModuleId = 2051,
+                        Name = "Role List",
+                        MethodName = "index",
+                        MethodType = 0,
+                        AvailableToCompany = 1,
+                        CreatedAt = DateTime.Parse("2015-12-09 12:12:02"),
+                        UpdatedAt = DateTime.Parse("2015-12-09 12:12:02")
+                    },
+                    new AclPage
+                    {
+                        Id = 3056,
+                        ModuleId = 1003,
+                        SubModuleId = 2051,
+                        Name = "Role Add",
+                        MethodName = "create",
+                        MethodType = 0,
+                        AvailableToCompany = 1,
+                        CreatedAt = DateTime.Parse("2015-12-09 12:12:02"),
+                        UpdatedAt = DateTime.Parse("2015-12-09 12:12:02")
+                    },
+                    new AclPage
+                    {
+                        Id = 3057,
+                        ModuleId = 1003,
+                        SubModuleId = 2051,
+                        Name = "Role Edit",
+                        MethodName = "edit",
+                        MethodType = 0,
+                        AvailableToCompany = 1,
+                        CreatedAt = DateTime.Parse("2015-12-09 12:12:03"),
+                        UpdatedAt = DateTime.Parse("2015-12-09 12:12:03")
+                    },
+                    new AclPage
+                    {
+                        Id = 3058,
+                        ModuleId = 1003,
+                        SubModuleId = 2051,
+                        Name = "Role Delete",
+                        MethodName = "destroy",
+                        MethodType = 0,
+                        AvailableToCompany = 1,
+                        CreatedAt = DateTime.Parse("2015-12-09 12:12:03"),
+                        UpdatedAt = DateTime.Parse("2015-12-09 12:12:03")
+                    },
+                    new AclPage
+                    {
+                        Id = 3059,
+                        ModuleId = 1003,
+                        SubModuleId = 2051,
+                        Name = "Role View",
+                        MethodName = "view",
+                        MethodType = 0,
+                        AvailableToCompany = 1,
+                        CreatedAt = DateTime.Parse("2015-12-09 12:12:03"),
+                        UpdatedAt = DateTime.Parse("2015-12-09 12:12:03")
+                    },
+                    new AclPage
+                    {
+                        Id = 3065,
+                        ModuleId = 1003,
+                        SubModuleId = 2052,
+                        Name = "UserGroup List",
+                        MethodName = "index",
+                        MethodType = 0,
+                        AvailableToCompany = 1,
+                        CreatedAt = DateTime.Parse("2015-12-09 12:12:03"),
+                        UpdatedAt = DateTime.Parse("2015-12-09 12:12:03")
+                    },
+                    new AclPage
+                    {
+                        Id = 3066,
+                        ModuleId = 1003,
+                        SubModuleId = 2052,
+                        Name = "UserGroup Add",
+                        MethodName = "create",
+                        MethodType = 0,
+                        AvailableToCompany = 1,
+                        CreatedAt = DateTime.Parse("2015-12-09 12:12:04"),
+                        UpdatedAt = DateTime.Parse("2015-12-09 12:12:04")
+                    },
+                    new AclPage
+                    {
+                        Id = 3067,
+                        ModuleId = 1003,
+                        SubModuleId = 2052,
+                        Name = "UserGroup Edit",
+                        MethodName = "edit",
+                        MethodType = 0,
+                        AvailableToCompany = 1,
+                        CreatedAt = DateTime.Parse("2015-12-09 12:12:04"),
+                        UpdatedAt = DateTime.Parse("2015-12-09 12:12:04")
+                    },
+                    new AclPage
+                    {
+                        Id = 3068,
+                        ModuleId = 1003,
+                        SubModuleId = 2052,
+                        Name = "UserGroup Delete",
+                        MethodName = "destroy",
+                        MethodType = 0,
+                        AvailableToCompany = 1,
+                        CreatedAt = DateTime.Parse("2015-12-09 12:12:04"),
+                        UpdatedAt = DateTime.Parse("2015-12-09 12:12:04")
+                    },
+                    new AclPage
+                    {
+                        Id = 3069,
+                        ModuleId = 1003,
+                        SubModuleId = 2052,
+                        Name = "UserGroup View",
+                        MethodName = "view",
+                        MethodType = 0,
+                        AvailableToCompany = 1,
+                        CreatedAt = DateTime.Parse("2015-12-09 12:12:04"),
+                        UpdatedAt = DateTime.Parse("2015-12-09 12:12:04")
+                    },
+                    new AclPage
+                    {
+                        Id = 3075,
+                        ModuleId = 1003,
+                        SubModuleId = 2053,
+                        Name = "Usergroup Role Association",
+                        MethodName = "index",
+                        MethodType = 0,
+                        AvailableToCompany = 1,
+                        CreatedAt = DateTime.Parse("2015-12-09 12:12:05"),
+                        UpdatedAt = DateTime.Parse("2015-12-09 12:12:05")
+                    },
+                    new AclPage
+                    {
+                        Id = 3076,
+                        ModuleId = 1003,
+                        SubModuleId = 2053,
+                        Name = "Usergroup & Role Association Update",
+                        MethodName = "edit",
+                        MethodType = 0,
+                        AvailableToCompany = 1,
+                        CreatedAt = DateTime.Parse("2021-12-09 15:10:51"),
+                        UpdatedAt = DateTime.Parse("2021-12-09 15:10:51")
+                    },
+                    new AclPage
+                    {
+                        Id = 3078,
+                        ModuleId = 1003,
+                        SubModuleId = 2054,
+                        Name = "Role & Page Association",
+                        MethodName = "index",
+                        MethodType = 0,
+                        AvailableToCompany = 1,
+                        CreatedAt = DateTime.Parse("2015-12-09 12:12:05"),
+                        UpdatedAt = DateTime.Parse("2015-12-09 12:12:05")
+                    },
+                    new AclPage
+                    {
+                        Id = 3079,
+                        ModuleId = 1003,
+                        SubModuleId = 2054,
+                        Name = "Role & Page Association Update",
+                        MethodName = "edit",
+                        MethodType = 0,
+                        AvailableToCompany = 1,
+                        CreatedAt = DateTime.Parse("2021-12-09 15:10:51"),
+                        UpdatedAt = DateTime.Parse("2021-12-09 15:10:51")
+                    },
+                    new AclPage
+                    {
+                        Id = 3080,
+                        ModuleId = 1003,
+                        SubModuleId = 2055,
+                        Name = "Company Module List",
+                        MethodName = "index",
+                        MethodType = 0,
+                        AvailableToCompany = 0,
+                        CreatedAt = DateTime.Parse("2015-12-09 12:10:51"),
+                        UpdatedAt = DateTime.Parse("2015-12-09 12:10:51")
+                    },
+                    new AclPage
+                    {
+                        Id = 3081,
+                        ModuleId = 1003,
+                        SubModuleId = 2055,
+                        Name = "Add New Company Module",
+                        MethodName = "create",
+                        MethodType = 0,
+                        AvailableToCompany = 0,
+                        CreatedAt = DateTime.Parse("2015-12-09 12:10:52"),
+                        UpdatedAt = DateTime.Parse("2015-12-09 12:10:52")
+                    },
+                    new AclPage
+                    {
+                        Id = 3082,
+                        ModuleId = 1003,
+                        SubModuleId = 2055,
+                        Name = "Modify Company Module",
+                        MethodName = "edit",
+                        MethodType = 2,
+                        AvailableToCompany = 0,
+                        CreatedAt = DateTime.Parse("2015-12-09 12:10:52"),
+                        UpdatedAt = DateTime.Parse("2019-03-27 15:03:28")
+                    },
+                    new AclPage
+                    {
+                        Id = 3083,
+                        ModuleId = 1003,
+                        SubModuleId = 2055,
+                        Name = "Delete Company Module",
+                        MethodName = "destroy",
+                        MethodType = 2,
+                        AvailableToCompany = 0,
+                        CreatedAt = DateTime.Parse("2015-12-09 12:10:52"),
+                        UpdatedAt = DateTime.Parse("2019-03-26 22:42:31")
+                    },
+                    new AclPage
+                    {
+                        Id = 3084,
+                        ModuleId = 1003,
+                        SubModuleId = 2055,
+                        Name = "View Company Module",
+                        MethodName = "show",
+                        MethodType = 0,
+                        AvailableToCompany = 0,
+                        CreatedAt = DateTime.Parse("2015-12-09 12:10:52"),
+                        UpdatedAt = DateTime.Parse("2015-12-09 12:10:52")
                     }
                 }
+            );
 
+        modelBuilder.Entity<AclPageRoute>().HasData(
+                new AclPageRoute[]
+                {
+                    new AclPageRoute { PageId = 3001, RouteName = "acl.company.list", RouteUrl = "companies" },
+                    new AclPageRoute { PageId = 3002, RouteName = "acl.company.add", RouteUrl = "companies/add" },
+                    new AclPageRoute { PageId = 3003, RouteName = "acl.company.edit", RouteUrl = "companies/edit/{id}" },
+                    new AclPageRoute { PageId = 3004, RouteName = "acl.company.destroy", RouteUrl = "companies/delete/{id}" },
+                    new AclPageRoute { PageId = 3005, RouteName = "acl.company.show", RouteUrl = "companies/view/{id}" },
+                    new AclPageRoute { PageId = 3015, RouteName = "acl.module.list", RouteUrl = "modules" },
+                    new AclPageRoute { PageId = 3016, RouteName = "acl.module.add", RouteUrl = "modules/add" },
+                    new AclPageRoute { PageId = 3017, RouteName = "acl.module.edit", RouteUrl = "modules/edit/{id}" },
+                    new AclPageRoute { PageId = 3018, RouteName = "acl.module.destroy", RouteUrl = "modules/delete/{id}" },
+                    new AclPageRoute { PageId = 3019, RouteName = "acl.module.view", RouteUrl = "modules/view/{id}" },
+                    new AclPageRoute { PageId = 3080, RouteName = "acl.company_module.list", RouteUrl = "company/modules" },
+                    new AclPageRoute { PageId = 3081, RouteName = "acl.company_module.add", RouteUrl = "company/modules/add" },
+                    new AclPageRoute { PageId = 3082, RouteName = "acl.company_module.edit", RouteUrl = "company/modules/edit/{id}" },
+                    new AclPageRoute { PageId = 3083, RouteName = "acl.company_module.destroy", RouteUrl = "company/modules/delete/{id}" },
+                    new AclPageRoute { PageId = 3084, RouteName = "acl.company_module.view", RouteUrl = "company/modules/view/{id}" },
+                    new AclPageRoute { PageId = 3025, RouteName = "acl.submodule.list", RouteUrl = "submodules" },
+                    new AclPageRoute { PageId = 3026, RouteName = "acl.submodule.add", RouteUrl = "submodules/add" },
+                    new AclPageRoute { PageId = 3027, RouteName = "acl.submodule.edit", RouteUrl = "submodules/edit/{id}" },
+                    new AclPageRoute { PageId = 3028, RouteName = "acl.submodule.destroy", RouteUrl = "submodules/delete/{id}" },
+                    new AclPageRoute { PageId = 3029, RouteName = "acl.submodule.view", RouteUrl = "submodules/view/{id}" },
+                    new AclPageRoute { PageId = 3035, RouteName = "acl.page.list", RouteUrl = "pages" },
+                    new AclPageRoute { PageId = 3036, RouteName = "acl.page.add", RouteUrl = "pages/add" },
+                    new AclPageRoute { PageId = 3037, RouteName = "acl.page.edit", RouteUrl = "pages/edit/{id}" },
+                    new AclPageRoute { PageId = 3038, RouteName = "acl.page.destroy", RouteUrl = "pages/delete/{id}" },
+                    new AclPageRoute { PageId = 3039, RouteName = "acl.page.view", RouteUrl = "pages/view/{id}" },
+                    new AclPageRoute { PageId = 3045, RouteName = "acl.user.list", RouteUrl = "users" },
+                    new AclPageRoute { PageId = 3046, RouteName = "acl.user.add", RouteUrl = "users/add" },
+                    new AclPageRoute { PageId = 3047, RouteName = "acl.user.edit", RouteUrl = "users/edit/{id}" },
+                    new AclPageRoute { PageId = 3048, RouteName = "acl.user.destroy", RouteUrl = "users/delete/{id}" },
+                    new AclPageRoute { PageId = 3049, RouteName = "acl.user.view", RouteUrl = "users/view/{id}" },
+                    new AclPageRoute { PageId = 3055, RouteName = "acl.role.list", RouteUrl = "roles" },
+                    new AclPageRoute { PageId = 3056, RouteName = "acl.role.add", RouteUrl = "roles/add" },
+                    new AclPageRoute { PageId = 3057, RouteName = "acl.role.edit", RouteUrl = "roles/edit/{id}" },
+                    new AclPageRoute { PageId = 3058, RouteName = "acl.role.destroy", RouteUrl = "roles/delete/{id}" },
+                    new AclPageRoute { PageId = 3059, RouteName = "acl.role.view", RouteUrl = "roles/view/{id}" },
+                    new AclPageRoute { PageId = 3065, RouteName = "acl.usergroups.list", RouteUrl = "usergroups" },
+                    new AclPageRoute { PageId = 3066, RouteName = "acl.usergroups.add", RouteUrl = "usergroups/add" },
+                    new AclPageRoute { PageId = 3067, RouteName = "acl.usergroups.edit", RouteUrl = "usergroups/edit/{id}" },
+                    new AclPageRoute { PageId = 3068, RouteName = "acl.usergroups.destroy", RouteUrl = "usergroups/delete/{id}" },
+                    new AclPageRoute { PageId = 3069, RouteName = "acl.usergroups.view", RouteUrl = "usergroups/view/{id}" },
+                    new AclPageRoute { PageId = 3075, RouteName = "acl.usergroups.role.association", RouteUrl = "usergroups/roles/{user_group_id}" },
+                    new AclPageRoute { PageId = 3076, RouteName = "acl.usergroups.role.association.update", RouteUrl = "usergroups/roles/update" },
+                    new AclPageRoute { PageId = 3078, RouteName = "acl.role&page.association", RouteUrl = "permissions/associations/{role_id}" },
+                    new AclPageRoute { PageId = 3079, RouteName = "acl.role&page.association.update", RouteUrl = "permissions/associations/update" },
+                    new AclPageRoute { PageId = 3036, RouteName = "acl.page.route.add", RouteUrl = "pages/routes/add" },
+                    new AclPageRoute { PageId = 3037, RouteName = "acl.page.route.edit", RouteUrl = "pages/routes/edit/{id}" },
+                    new AclPageRoute { PageId = 3038, RouteName = "acl.page.route.destroy", RouteUrl = "pages/routes/delete/{id}" }
+
+                }
             );
 
 
+        modelBuilder.Entity<AclRole>().HasData(
+                new AclRole[]
+                {
+                    new AclRole
+                    {
+                        Id = 1,
+                        CreatedById = null,
+                        UpdatedById = null,
+                        Title = "super-super-admin",
+                        Name = "",
+                        Status = 1,
+                        CompanyId = 1,
+                        CreatedAt = DateTime.Parse("2019-03-21 20:38:30"),
+                        UpdatedAt = DateTime.Parse("2015-11-09 07:17:00")
+                    }
+                }
+            );
+        modelBuilder.Entity<AclRolePage>().HasData(
+                new AclRolePage[]
+                {
+                    new AclRolePage { RoleId = 1, PageId = 3001 },
+                    new AclRolePage { RoleId = 1, PageId = 3002 },
+                    new AclRolePage { RoleId = 1, PageId = 3003 },
+                    new AclRolePage { RoleId = 1, PageId = 3004 },
+                    new AclRolePage { RoleId = 1, PageId = 3005 },
+                    new AclRolePage { RoleId = 1, PageId = 3015 },
+                    new AclRolePage { RoleId = 1, PageId = 3016 },
+                    new AclRolePage { RoleId = 1, PageId = 3017 },
+                    new AclRolePage { RoleId = 1, PageId = 3018 },
+                    new AclRolePage { RoleId = 1, PageId = 3019 },
+                    new AclRolePage { RoleId = 1, PageId = 3025 },
+                    new AclRolePage { RoleId = 1, PageId = 3026 },
+                    new AclRolePage { RoleId = 1, PageId = 3027 },
+                    new AclRolePage { RoleId = 1, PageId = 3028 },
+                    new AclRolePage { RoleId = 1, PageId = 3029 },
+                    new AclRolePage { RoleId = 1, PageId = 3035 },
+                    new AclRolePage { RoleId = 1, PageId = 3036 },
+                    new AclRolePage { RoleId = 1, PageId = 3037 },
+                    new AclRolePage { RoleId = 1, PageId = 3038 },
+                    new AclRolePage { RoleId = 1, PageId = 3039 },
+                    new AclRolePage { RoleId = 1, PageId = 3080 },
+                    new AclRolePage { RoleId = 1, PageId = 3081 },
+                    new AclRolePage { RoleId = 1, PageId = 3082 },
+                    new AclRolePage { RoleId = 1, PageId = 3083 },
+                    new AclRolePage { RoleId = 1, PageId = 3084 }
+                }
+            );
 
+        modelBuilder.Entity<AclUsergroup>().HasData(
+                new AclUsergroup[]
+                {
+                    new AclUsergroup
+                    {
+                        Id = 1,
+                        GroupName = "super-super-admin-group",
+                        Category = 0,
+                        DashboardUrl = null,
+                        Status = 1,
+                        CompanyId = 1,
+                        CreatedAt = DateTime.Parse("2019-03-22 08:38:12"),
+                        UpdatedAt = DateTime.Parse("2023-11-01 19:17:00")
+                    }
+                }
+            );
 
+        modelBuilder.Entity<AclUsergroupRole>().HasData(
+                new AclUsergroupRole[]
+                {
+                    new AclUsergroupRole
+                    {
+                        Id = 1,
+                        UsergroupId = 1,
+                        RoleId = 1,
+                        CompanyId = 1
+                    }
+                }
+            );
 
+        modelBuilder.Entity<AclUserUsergroup>().HasData(
+                new AclUserUsergroup[]
+                {
+                    new AclUserUsergroup
+                    {
+                        Id = 1,
+                        UsergroupId = 1,
+                        UserId = 1,
+                        CompanyId = 1,
+                        CreatedAt = DateTime.Parse("2024-01-24 07:23:21"),
+                        UpdatedAt = DateTime.Parse("2024-01-24 07:23:23")
+                    }
+                }
+            );
+
+        modelBuilder.Entity<AclUsertypeSubmodule>().HasData(
+                new AclUsertypeSubmodule[]
+                {
+                    new AclUsertypeSubmodule { UserTypeId = 0, SubModuleId = 2001 },
+                    new AclUsertypeSubmodule { UserTypeId = 0, SubModuleId = 2020 },
+                    new AclUsertypeSubmodule { UserTypeId = 0, SubModuleId = 2021 },
+                    new AclUsertypeSubmodule { UserTypeId = 0, SubModuleId = 2022 },
+                    new AclUsertypeSubmodule { UserTypeId = 1, SubModuleId = 2050 },
+                    new AclUsertypeSubmodule { UserTypeId = 1, SubModuleId = 2051 },
+                    new AclUsertypeSubmodule { UserTypeId = 1, SubModuleId = 2052 },
+                    new AclUsertypeSubmodule { UserTypeId = 1, SubModuleId = 2053 },
+                    new AclUsertypeSubmodule { UserTypeId = 1, SubModuleId = 2054 }
+                }
+            );
 
         OnModelCreatingPartial(modelBuilder);
 
