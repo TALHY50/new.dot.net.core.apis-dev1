@@ -560,7 +560,252 @@ public partial class ApplicationDbContext : DbContext
                 .HasColumnName("updated_at");
         });
 
+
+        modelBuilder.Entity<AclCompany>().HasData(
+            new AclCompany
+            {
+                Id = 1,
+                Name = "Default",
+                Cname = "Admin",
+                Cemail = "ssadmin@softrobotics.com",
+                Address1 = "A",
+                Address2 = "A2",
+                Postcode = "4100",
+                Phone = "031",
+                Email = "ssadmin@softrobotics.com",
+                City = "C",
+                State = "s",
+                Country = "BD",
+                Timezone = 254,
+                UniqueColumnName = 1,
+                NoOfEmployees = 6,
+                Status = 1,
+                AddedBy = 1,
+                CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+            }
+         );
+
+        modelBuilder.Entity<AclUser>().HasData(
+             new AclUser
+             {
+                 Id = 1,
+                 FirstName = "admin1",
+                 LastName = "admin1",
+                 Email = "ssadmin@sipay.com.tr",
+                 Avatar = "users/admin/c41353d1c1fcbdbd39f96ea46a3f769136952e79.png",
+                 Password = "Nop@ss1234", // Hashing should be done before storing in actual code
+                 Dob = DateTime.Parse("1994-02-22"),
+                 Gender = 1,
+                 Address = "Dhaka",
+                 City = "19",
+                 Phone = "+8801788343704",
+                 IsAdminVerified = 1,
+                 UserType = 0,
+                 RememberToken = "",
+                 CreatedAt = DateTime.Parse("2018-07-10 16:21:24"),
+                 UpdatedAt = DateTime.Parse("2021-08-25 05:46:27"),
+                 Language = "en",
+                 Username = "rajibecbb",
+                 ImgPath = "storage/users/1/2019-04-18-07-49-28-ba4fe9be59df7b82f8243d2126070d76f5305b3e.png",
+                 Status = 1,
+                 CompanyId = 1,
+                 PermissionVersion = 1,
+                 OtpChannel = 0,
+                 CreatedById = 1
+             }
+        );
+
+        modelBuilder.Entity<AclModule>().HasData(
+            new AclModule[]
+            {
+                new AclModule
+                {
+                    Id = 1001,
+                    Name = "Company",
+                    Icon = "<i class=\"fa fa-list-ul\"></i>",
+                    Sequence = 6,
+                    CreatedAt = DateTime.Parse("2015-12-09 12:10:46"),
+                    UpdatedAt = DateTime.Parse("2019-03-20 21:52:50"),
+                    DisplayName = "Company"
+                },
+                new AclModule
+                {
+                    Id = 1002,
+                    Name = "Master Data",
+                    Icon = "<i class=\"fa fa-list-ul\"></i>",
+                    Sequence = 2,
+                    CreatedAt = DateTime.Parse("2015-12-09 12:10:46"),
+                    UpdatedAt = DateTime.Parse("2019-03-26 22:38:37"),
+                    DisplayName = "Master Data"
+                },
+                new AclModule
+                {
+                    Id = 1003,
+                    Name = "Access Control",
+                    Icon = "<img src=\"adminca/assets/img/icons/access-control.svg\" />",
+                    Sequence = 1099,
+                    CreatedAt = DateTime.Parse("2015-12-09 12:10:47"),
+                    UpdatedAt = DateTime.Parse("2016-08-06 16:24:34"),
+                    DisplayName = "Access Control"
+                }
+            }
+        );
+
+        modelBuilder.Entity<AclSubModule>().HasData(
+            new AclSubModule[]
+            {
+                new AclSubModule
+                {
+                    Id = 2001,
+                    ModuleId = 1001,
+                    Name = "Company Management",
+                    ControllerName = "CompanyController",
+                    Icon = "<i class=\"fa fa-angle-double-right\"></i>",
+                    Sequence = 100,
+                    CreatedAt = DateTime.Parse("2015-12-09 12:10:47"),
+                    UpdatedAt = DateTime.Parse("2015-12-09 12:10:47"),
+                    DefaultMethod = "index",
+                    DisplayName = "Company Management"
+                },
+                new AclSubModule
+                {
+                    Id = 2020,
+                    ModuleId = 1002,
+                    Name = "Module Management",
+                    ControllerName = "ModuleController",
+                    Icon = "<i class=\"fa fa-angle-double-right\"></i>",
+                    Sequence = 100,
+                    CreatedAt = DateTime.Parse("2015-12-09 12:10:48"),
+                    UpdatedAt = DateTime.Parse("2015-12-09 12:10:48"),
+                    DefaultMethod = "index",
+                    DisplayName = "Module Management"
+                },
+                new AclSubModule
+                {
+                    Id = 2021,
+                    ModuleId = 1002,
+                    Name = "Sub Module Management",
+                    ControllerName = "SubModuleController",
+                    Icon = "<i class=\"fa fa-angle-double-right\"></i>",
+                    Sequence = 101,
+                    CreatedAt = DateTime.Parse("2015-12-09 12:10:48"),
+                    UpdatedAt = DateTime.Parse("2015-12-09 12:10:48"),
+                    DefaultMethod = "index",
+                    DisplayName = "Sub Module Management"
+                },
+                new AclSubModule
+                {
+                    Id = 2022,
+                    ModuleId = 1002,
+                    Name = "Page Management",
+                    ControllerName = "PageController",
+                    Icon = "<i class=\"fa fa-angle-double-right\"></i>",
+                    Sequence = 102,
+                    CreatedAt = DateTime.Parse("2015-12-09 12:10:48"),
+                    UpdatedAt = DateTime.Parse("2015-12-09 12:10:48"),
+                    DefaultMethod = "index",
+                    DisplayName = "Page Management"
+                },
+                new AclSubModule
+                {
+                    Id = 2050,
+                    ModuleId = 1003,
+                    Name = "User Management",
+                    ControllerName = "UserController",
+                    Icon = "<i class=\"fa fa-angle-double-right\"></i>",
+                    Sequence = 18,
+                    CreatedAt = DateTime.Parse("2015-12-09 12:10:49"),
+                    UpdatedAt = DateTime.Parse("2015-12-09 12:10:49"),
+                    DefaultMethod = "index",
+                    DisplayName = "User Management"
+                },
+                new AclSubModule
+                {
+                    Id = 2051,
+                    ModuleId = 1003,
+                    Name = "Role Management",
+                    ControllerName = "RoleController",
+                    Icon = "<i class=\"fa fa-angle-double-right\"></i>",
+                    Sequence = 101,
+                    CreatedAt = DateTime.Parse("2015-12-09 12:10:49"),
+                    UpdatedAt = DateTime.Parse("2015-12-23 14:35:45"),
+                    DefaultMethod = "index",
+                    DisplayName = "Role Management"
+                },
+                new AclSubModule
+                {
+                    Id = 2052,
+                    ModuleId = 1003,
+                    Name = "User Group Management",
+                    ControllerName = "UsergroupController",
+                    Icon = "<i class=\"fa fa-angle-double-right\"></i>",
+                    Sequence = 102,
+                    CreatedAt = DateTime.Parse("2015-12-09 12:10:49"),
+                    UpdatedAt = DateTime.Parse("2015-12-09 12:10:49"),
+                    DefaultMethod = "index",
+                    DisplayName = "User Group Management"
+                },
+                new AclSubModule
+                {
+                    Id = 2053,
+                    ModuleId = 1003,
+                    Name = "Usergroup & Role Association",
+                    ControllerName = "UsergroupRoleController",
+                    Icon = "<i class=\"fa fa-angle-double-right\"></i>",
+                    Sequence = 103,
+                    CreatedAt = DateTime.Parse("2015-12-09 12:10:49"),
+                    UpdatedAt = DateTime.Parse("2015-12-09 12:10:49"),
+                    DefaultMethod = "index",
+                    DisplayName = "Usergroup & Role Association"
+                },
+                new AclSubModule
+                {
+                    Id = 2054,
+                    ModuleId = 1003,
+                    Name = "Role & Page Association",
+                    ControllerName = "RolePageController",
+                    Icon = "<i class=\"fa fa-angle-double-right\"></i>",
+                    Sequence = 104,
+                    CreatedAt = DateTime.Parse("2015-12-09 12:10:50"),
+                    UpdatedAt = DateTime.Parse("2015-12-09 12:10:50"),
+                    DefaultMethod = "index",
+                    DisplayName = "Role & Page Association"
+                },
+                new AclSubModule
+                {
+                    Id = 2055,
+                    ModuleId = 1003,
+                    Name = "Company Module Management",
+                    ControllerName = "CompanyModuleController",
+                    Icon = "<i class=\"fa fa-angle-double-right\"></i>",
+                    Sequence = 105,
+                    CreatedAt = DateTime.Parse("2015-12-09 12:10:48"),
+                    UpdatedAt = DateTime.Parse("2015-12-09 12:10:48"),
+                    DefaultMethod = "index",
+                    DisplayName = "Company Module Management"
+                }
+            }
+        );
+
+        modelBuilder.Entity<AclPage>().HasData(
+                new AclPage[]
+                {
+                    new AclPage
+                    {
+                        
+                    }
+                }
+
+            );
+
+
+
+
+
+
         OnModelCreatingPartial(modelBuilder);
+
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
