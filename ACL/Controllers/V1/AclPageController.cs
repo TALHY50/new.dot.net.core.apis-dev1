@@ -13,7 +13,6 @@ namespace ACL.Controllers.V1
 {
 
     [ApiController]
-    [Route("api/v1/")]
     public class AclPageController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;

@@ -25,6 +25,15 @@ namespace ACL.Route
             public const string View = ModelName + "/view/{id}";
             public const string Destroy = ModelName + "/delete/{id}";
         }
+        public class AclSubModule
+        {
+            public const string ModelName = Base + "submodules";
+            public const string List = ModelName;
+            public const string Add = ModelName + "/add";
+            public const string Edit = ModelName + "/edit/{id}";
+            public const string View = ModelName + "/view/{id}";
+            public const string Destroy = ModelName + "/delete/{id}";
+        }
         public class AclRolePage
         {
             public const string ModelName = Base + "roles/pages";
@@ -82,6 +91,15 @@ namespace ACL.Route
             public const string View = ModelName + "/view/{id}";
             public const string Destroy = ModelName + "/delete/{id}";
         }
+        public class AclUserGroupRoutesUrl
+        {
+            public const string ModelName = Base + "usergroups";
+            public const string List = ModelName;
+            public const string Add = ModelName + "/add";
+            public const string View = ModelName + "/view/{id}";
+            public const string Edit = ModelName + "/edit/{id}";
+            public const string Destroy = ModelName + "/destroy/{id}";
+        }
         public class AclPassword
         {
             public const string ModelName = "password";
@@ -94,6 +112,14 @@ namespace ACL.Route
     }
     public static class AclRoutesName
     {
+        public static class AclCompanyRouteNames
+        {
+            public const string List = "acl.company.list";
+            public const string Add = "acl.company.add";
+            public const string View = "acl.company.show";
+            public const string Edit = "acl.company.edit";
+            public const string Destroy = "acl.company.destroy";
+        }
 
         public static class AclCompanyModuleRouteNames
         {
@@ -167,6 +193,15 @@ namespace ACL.Route
             public const string ModelName = "acl.usergroups.";
             public const string List = ModelName + "role.association";
             public const string Update = ModelName + "role.association.update";
+        }
+        public class AclUserGroupRouteNames
+        {
+            public const string ModelName = "acl.usergroups.";
+            public const string List = ModelName + "list";
+            public const string Add = ModelName + "add";
+            public const string View = ModelName + "view";
+            public const string Edit = ModelName + "edit";
+            public const string Destroy = ModelName + "destroy";
         }
 
         public class AclPassword

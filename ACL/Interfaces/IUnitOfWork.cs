@@ -6,6 +6,7 @@ using ACL.Database;
 using ACL.Interfaces.Repositories.V1;
 using Microsoft.EntityFrameworkCore.Storage;
 using ACL.Interfaces.Repositories;
+using ACL.Controllers.V1;
 
 
 namespace ACL.Interfaces
@@ -30,15 +31,17 @@ namespace ACL.Interfaces
         public IAclPageRepository AclPageRepository { get; }
         public IAclUserRepository AclUserRepository { get; }
         public IAclPasswordRepository AclPasswordRepository { get; }
+        public IAclUserGroupRepository AclUserGroupRepository { get; }
 
         IUnitOfWork GetService();
         IDbTransaction BeginTransaction();
-        Task<IDbContextTransaction>  BeginTransactionAsync();
+        Task<IDbContextTransaction> BeginTransactionAsync();
         Task CompleteAsync();
         public void Complete();
         void RollbackTransaction();
         Task RollbackTransactionAsync();
         Task CommitTransactionAsync();
         void CommitTransaction();
+        IExecutionStrategy CreateExecutionStrategy();
     }
 }
