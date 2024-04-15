@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace ACL.Controllers.V1
 {
     [ApiController]
-    [Route("api/v1/")]
     public class AclUserController : ControllerBase
     {
 
@@ -17,31 +16,30 @@ namespace ACL.Controllers.V1
             _unitOfWork = unitOfWork;
         }
 
-        [HttpGet(AclRoutesUrl.AclUser.List, Name = AclRoutesName.AclUserNames.List)]
+        [HttpGet(AclRoutesUrl.AclUserUrl.List, Name = AclRoutesName.AclUserNames.List)]
         public async Task<IActionResult> Index()
         {
             return Ok(_unitOfWork.AclUserRepository.GetAll());
         }
 
-        [HttpPost(AclRoutesUrl.AclUser.Add, Name = AclRoutesName.AclUserNames.Add)]
+        [HttpPost(AclRoutesUrl.AclUserUrl.Add, Name = AclRoutesName.AclUserNames.Add)]
         public async Task<AclResponse> Create(AclUserRequest request)
         {
-            return _unitOfWork.AclUserRepository.Add(request);
+            return await _unitOfWork.AclUserRepository.Add(request);
         }
-        [HttpPut(AclRoutesUrl.AclUser.Edit, Name = AclRoutesName.AclUserNames.Edit)]
+        [HttpPut(AclRoutesUrl.AclUserUrl.Edit, Name = AclRoutesName.AclUserNames.Edit)]
         public async Task<AclResponse> Edit(ulong id, AclUserRequest request)
         {
             return _unitOfWork.AclUserRepository.Edit(id, request);
-
         }
 
-        [HttpDelete(AclRoutesUrl.AclUser.Destroy, Name = AclRoutesName.AclUserNames.Destroy)]
+        [HttpDelete(AclRoutesUrl.AclUserUrl.Destroy, Name = AclRoutesName.AclUserNames.Destroy)]
         public async Task<AclResponse> Destroy(ulong id)
         {
             return _unitOfWork.AclUserRepository.deleteById(id);
         }
 
-        [HttpGet(AclRoutesUrl.AclUser.View, Name = AclRoutesName.AclUserNames.View)]
+        [HttpGet(AclRoutesUrl.AclUserUrl.View, Name = AclRoutesName.AclUserNames.View)]
         public async Task<AclResponse> View(ulong id)
         {
             return _unitOfWork.AclUserRepository.findById(id);
