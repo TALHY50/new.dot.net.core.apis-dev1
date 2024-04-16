@@ -11,24 +11,26 @@ using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Models;
 using SharedLibrary.Services;
 using SharedLibrary.Utilities;
+using System.ComponentModel.Design;
 using System.Reflection;
 using static ACL.Route.AclRoutesUrl;
 
 namespace ACL.Repositories.V1
 {
-    public class AclUserRepository : IAclUserRepository
+    public class AclUserRepository : GenericRepository<AclUser>, IAclUserRepository
     {
-        private readonly IUnitOfWork _unitOfWork;
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "User";
-
-        public AclUserRepository(IUnitOfWork unitOfWork)
+        private uint _companyId = 0;
+        private uint _userType = 0;
+        private bool is_user_type_created_by_company = false;
+        public AclUserRepository(IUnitOfWork _unitOfWork) : base(_unitOfWork)
         {
-            _unitOfWork = unitOfWork;
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName);
         }
+
         public AclResponse GetAll()
         {
             var aclUser = _unitOfWork.ApplicationDbContext.AclUsers.ToList();
@@ -176,25 +178,28 @@ namespace ACL.Repositories.V1
         {
             if (AclUser == null)
             {
-                return new AclUser
-                {
-                    FirstName = request.first_name,
-                    LastName = request.last_name,
-                    Email = request.email,
-                    Password = Helper.Bcrypt(request.password),
-                    Avatar = request.avatar,
-                    Dob = request.dob,
-                    Gender = request.gender,
-                    Address = request.address,
-                    City = request.city,
-                    Country = request.country,
-                    Phone = request.phone,
-                    Username = request.username,
-                    ImgPath = request.img_path,
-                    Status = request.status,
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = DateTime.Now
-                };
+                if (_companyId == 0)
+                    return new AclUser
+                    {
+                        FirstName = request.first_name,
+                        LastName = request.last_name,
+                        Email = request.email,
+                        Password = Helper.Bcrypt(request.password),
+                        Avatar = request.avatar,
+                        Dob = request.dob,
+                        Gender = request.gender,
+                        Address = request.address,
+                        City = request.city,
+                        Country = request.country,
+                        Phone = request.phone,
+                        Username = request.username,
+                        ImgPath = request.img_path,
+                        Status = request.status,
+                        CreatedAt = DateTime.Now,
+                        UpdatedAt = DateTime.Now,
+                        CompanyId = (_companyId == 0) ? _companyId : 0,
+                        UserType = (_userType == 0) ? _userType : 0
+                    };
             }
             else
             {
@@ -213,8 +218,10 @@ namespace ACL.Repositories.V1
                 AclUser.ImgPath = request.img_path;
                 AclUser.Status = request.status;
                 AclUser.UpdatedAt = DateTime.Now;
-                return AclUser;
+                AclUser.CompanyId = (_companyId == 0) ? _companyId : 0;
+                AclUser.UserType = (_userType == 0) ? _userType : 0;
             }
+            return AclUser;
         }
 
 
@@ -234,6 +241,14 @@ namespace ACL.Repositories.V1
             return res.ToArray();
         }
 
-
+        public uint SetCompanyId(uint companyId)
+        {
+            _companyId = companyId;
+            return _companyId;
+        }
+        public uint SetUserType(bool is_user_type_created_by_company)
+        {
+            return _userType = is_user_type_created_by_company ? (uint)1 : (uint)2;
+        }
     }
 }

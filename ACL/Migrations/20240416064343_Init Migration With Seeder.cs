@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ACL.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class InitMigrationWithSeeder : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -59,21 +59,71 @@ namespace ACL.Repositories.V1
                             await _unitOfWork.AclCompanyRepository.AddAsync(aclCompany);
                             await _unitOfWork.CompleteAsync();
                             await base.ReloadAsync(aclCompany);
+
                             if (aclCompany.Id != 0)
                             {
-                                AclUsergroup userGroupRequest = new AclUsergroup()
+                                UserGroupRequest userGroupRequest = new UserGroupRequest()
                                 {
-                                    GroupName = aclCompany.Name,
-                                    CompanyId = aclCompany.Id,
-                                    Status = 1
+                                    group_name = "ADMIN_USERGROUP",
+                                    status = 1
                                 };
-                                await _unitOfWork.AclUserGroupRepository.AddAsync(userGroupRequest);
+                                _unitOfWork.AclUserGroupRepository.SetCompanyId(aclCompany.Id);
+                                var userGroup = await _unitOfWork.AclUserGroupRepository.AddUserGroup(userGroupRequest);
                                 await _unitOfWork.CompleteAsync();
+                                var createdUserGroup = (AclUsergroup)userGroup.Data;
+                                await _unitOfWork.AclUserGroupRepository.ReloadAsync(createdUserGroup);
+
+                                string[] nameArr = request.name.Split(' ');
+                                string fname = (nameArr.Length > 0) ? nameArr[0] : "";
+                                string lname = (nameArr.Length > 1) ? nameArr[1] : fname;
+                                AclUserRequest user = new AclUserRequest()
+                                {
+                                    email = aclCompany.Email,
+                                    password = request.password,
+                                    first_name = fname,
+                                    last_name = lname
+                                };
+                                _unitOfWork.AclUserRepository.SetCompanyId((uint)aclCompany.Id);
+                                _unitOfWork.AclUserRepository.SetUserType(true);
+                                var useradd = await _unitOfWork.AclUserRepository.Add(user);
+                                await _unitOfWork.CompleteAsync();
+                                AclUser createdUser = (AclUser)useradd.Data;
+                                await _unitOfWork.AclUserRepository.ReloadAsync(createdUser);
+
+                                AclRoleRequest role = new AclRoleRequest()
+                                {
+                                    name = aclCompany.Name,
+                                    status = 1
+                                };
+
+                                _unitOfWork.AclRoleRepository.SetCompanyId((uint)aclCompany.Id);
+                                var roleAdd = _unitOfWork.AclRoleRepository.Add(role);
+                                await _unitOfWork.CompleteAsync();
+                                AclRole createdRole = (AclRole)roleAdd.Data;
+                                await _unitOfWork.AclRoleRepository.ReloadAsync(createdRole);
+
+                                AclUsergroupRole userGroupRole = new AclUsergroupRole()
+                                {
+                                    UsergroupId = aclCompany.Id,
+                                    RoleId =  createdRole.Id ,
+                                    CompanyId = aclCompany.Id,
+                                    CreatedAt = DateTime.UtcNow,
+                                    UpdatedAt = DateTime.UtcNow
+                                };
+                                var createdUserGroupRole = _unitOfWork.AclUserGroupRoleRepository.Add(userGroupRole);
+                                await _unitOfWork.CompleteAsync();
+                                
+                                // var result =  _unitOfWork.AclRolePageRepository.Where(x => x.RoleId == 1003).ToListAsync();
+                                //IEnumerable<int> pageIds = _unitOfWork.AclRolePageRepository.Where(x => x.RoleId == 1003).ToListAsync();
+                                AclRolePage aclRolePage = new AclRolePage()
+                                {
+                                    RoleId = createdRole.Id,
+                                };
                                 aclResponse.Data = aclCompany;
                             }
 
 
-                            
+
                             aclResponse.Message = messageResponse.createMessage;
                             aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
 
@@ -158,7 +208,8 @@ namespace ACL.Repositories.V1
 
             if (aclCompany != null)
             {
-                await base.DeleteAsync(aclCompany);
+                aclCompany.Status = 0;
+                await base.UpdateAsync(aclCompany);
                 await _unitOfWork.CompleteAsync();
                 aclResponse.Data = aclCompany;
                 aclResponse.Message = messageResponse.deleteMessage;

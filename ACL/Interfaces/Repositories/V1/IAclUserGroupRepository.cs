@@ -12,5 +12,6 @@ namespace ACL.Interfaces.Repositories.V1
         Task<AclResponse> FindById(ulong id);
         Task<AclResponse> Delete(ulong id);
         AclUsergroup PrepareInputData(UserGroupRequest request, AclUsergroup aclCompany = null);
+        ulong SetCompanyId(ulong companyId);
     }
 }

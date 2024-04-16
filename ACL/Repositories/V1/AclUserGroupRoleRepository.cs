@@ -14,18 +14,15 @@ using Org.BouncyCastle.Ocsp;
 
 namespace ACL.Repositories.V1
 {
-    public class AclUserGroupRoleRepository : IAclUserGroupRoleRepository
+    public class AclUserGroupRoleRepository :GenericRepository<AclUsergroupRole>, IAclUserGroupRoleRepository
     {
-
-        private readonly IUnitOfWork _unitOfWork;
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "User Group Role";
         private ulong companyId = 2;
 
-        public AclUserGroupRoleRepository(IUnitOfWork unitOfWork)
+        public AclUserGroupRoleRepository(IUnitOfWork _unitOfWork):base(_unitOfWork)
         {
-            _unitOfWork = unitOfWork;
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName);
         }
