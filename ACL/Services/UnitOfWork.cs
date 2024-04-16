@@ -164,6 +164,12 @@ namespace ACL.Services
         {
             get { return new AclUserGroupRepository(this); }
         }
+
+        public IAclPasswordRepository AclPasswordRepository
+        {
+            get { return new AclPasswordRepository(this); }
+        }
+
         public IExecutionStrategy CreateExecutionStrategy()
         {
             return ApplicationDbContext.Database.CreateExecutionStrategy();
