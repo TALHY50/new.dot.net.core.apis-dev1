@@ -1,4 +1,5 @@
 ﻿using Google.Protobuf.WellKnownTypes;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using SharedLibrary.Models;
 using System.Reflection.Metadata;
 
@@ -90,7 +91,7 @@ namespace ACL.Route
             public const string Update = ModelName + "/update";
         }
 
-        public class AclUser
+        public class AclUserUrl
         {
             public const string ModelName = Base + "users";
             public const string List = ModelName;
@@ -108,6 +109,15 @@ namespace ACL.Route
             public const string Edit = ModelName + "/edit/{id}";
             public const string Destroy = ModelName + "/destroy/{id}";
         }
+        public class AclPassword
+        {
+            public const string ModelName = "password";
+            public const string Reset = ModelName + "/reset";
+            public const string Forget = ModelName + "/forget";
+            public const string VerifyToken = ModelName + "/forget/verify";
+
+        }
+
     }
     public static class AclRoutesName
     {
@@ -201,6 +211,14 @@ namespace ACL.Route
             public const string View = ModelName + "view";
             public const string Edit = ModelName + "edit";
             public const string Destroy = ModelName + "destroy";
+        }
+
+        public class AclPassword
+        {
+            public const string Reset = "acl.reset.password";
+            public const string Forget = "acl.forget.password";
+            public const string VerifyToken = "acl.verify.token.and.update.password";
+
         }
 
     }

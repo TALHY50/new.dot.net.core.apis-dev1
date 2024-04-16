@@ -31,11 +31,12 @@ namespace ACL.Interfaces
 
         public IAclPageRepository AclPageRepository { get; }
         public IAclUserRepository AclUserRepository { get; }
+        public IAclPasswordRepository AclPasswordRepository { get; }
         public IAclUserGroupRepository AclUserGroupRepository { get; }
 
         IUnitOfWork GetService();
         IDbTransaction BeginTransaction();
-        Task<IDbContextTransaction>  BeginTransactionAsync();
+        Task<IDbContextTransaction> BeginTransactionAsync();
         Task CompleteAsync();
         public void Complete();
         void RollbackTransaction();
