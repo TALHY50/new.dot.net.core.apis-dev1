@@ -9,7 +9,7 @@ namespace ACL.Interfaces.Repositories.V1
     {
         AclResponse GetAll();
         AclResponse Add(AclSubModuleRequest subModule);
-        AclResponse Edit(ulong id, AclSubModuleRequest subModule);
+        AclResponse Edit(ulong id, AclSubModuleEditRequest subModule);
         AclResponse findById(ulong id);
         AclResponse deleteById(ulong id);
 

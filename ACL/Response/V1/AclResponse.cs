@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using System.Net;
-using ACL.Database.Models;
 
 namespace ACL.Response.V1
 {

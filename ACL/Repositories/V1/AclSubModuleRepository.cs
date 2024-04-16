@@ -4,6 +4,10 @@ using ACL.Interfaces.Repositories.V1;
 using ACL.Interfaces;
 using ACL.Requests;
 using ACL.Response.V1;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Xml.Linq;
 
 namespace ACL.Repositories.V1
 {
@@ -55,12 +59,18 @@ namespace ACL.Repositories.V1
 
 
         }
-        public AclResponse Edit(ulong id, AclSubModuleRequest request)
+        public AclResponse Edit(ulong id, AclSubModuleEditRequest request)
         {
+            var aclSubModule = _unitOfWork.ApplicationDbContext.AclSubModules.Find(id);
+            if (aclSubModule == null)
+            {
+                aclResponse.Message = messageResponse.noFoundMessage;
+                return aclResponse;
+            }
             try
             {
-                var aclSubModule = prepareInputData(request);
-                _unitOfWork.ApplicationDbContext.Update(aclSubModule);
+                aclSubModule = prepareEditInputData(request, aclSubModule);
+
                 _unitOfWork.ApplicationDbContext.SaveChangesAsync();
                 _unitOfWork.ApplicationDbContext.Entry(aclSubModule).ReloadAsync();
                 aclResponse.Data = aclSubModule;
@@ -132,6 +142,20 @@ namespace ACL.Repositories.V1
                 UpdatedAt = DateTime.Now
             };
 
+        }
+
+        private AclSubModule prepareEditInputData(AclSubModuleEditRequest request,AclSubModule aclSubModule = null)
+        {
+            aclSubModule.ModuleId = request.module_id;
+            aclSubModule.Name = request.name;
+            aclSubModule.ControllerName = request.controller_name;
+            aclSubModule.DefaultMethod = request.default_method;
+            aclSubModule.DisplayName = request.display_name;
+            aclSubModule.Icon = request.icon;
+            aclSubModule.Sequence = request.sequence;
+            aclSubModule.UpdatedAt = DateTime.Now;
+
+            return aclSubModule;
         }
     }
 }

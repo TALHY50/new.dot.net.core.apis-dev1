@@ -6,13 +6,9 @@ using ACL.Requests.CustomDataAnotaTor;
 
 namespace ACL.Requests;
 
-public partial class AclSubModuleRequest
+public partial class AclSubModuleEditRequest
 {
-    [DefaultValue("2055")]
-    [Required(ErrorMessage = "id is required.")]
-    [UniqueValue("AclSubModule", "Id")]
-    [Range(1, ulong.MaxValue, ErrorMessage = "id is required.")]
-    public ulong id { get; set; }
+
 
     [DefaultValue("1004")]
     [Required(ErrorMessage = "module_id is required.")]

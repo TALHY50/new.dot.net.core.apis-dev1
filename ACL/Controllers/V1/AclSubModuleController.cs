@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ACL.Controllers.V1
 {
+    [Tags("Sub Module")]
     [ApiController]
     [Route(Route.AclRoutesUrl.Base)]
     public class AclSubModuleController : ControllerBase
@@ -37,7 +38,7 @@ namespace ACL.Controllers.V1
 
 
         [HttpPut(Route.AclRoutesUrl.AclSubmodule.Edit, Name = Route.AclRoutesName.AclSubmodule.Edit)]
-        public async Task<AclResponse> Edit(ulong id, AclSubModuleRequest objSubModule)
+        public async Task<AclResponse> Edit(ulong id, AclSubModuleEditRequest objSubModule)
         {
             return _repository.AclSubModuleRepository.Edit(id, objSubModule);
 

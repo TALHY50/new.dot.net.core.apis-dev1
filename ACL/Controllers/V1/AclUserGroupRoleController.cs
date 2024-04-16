@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ACL.Controllers.V1
 {
+    [Tags("UserGroup Role")]
     [ApiController]
-
     [Route(Route.AclRoutesUrl.Base)]
     public class AclUserGroupRoleController : ControllerBase
     {
