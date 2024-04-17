@@ -11,7 +11,7 @@ using ACL.Route;
 
 namespace ACL.Controllers.V1
 {
-
+    [Tags("Page")]
     [ApiController]
     public class AclPageController : ControllerBase
     {

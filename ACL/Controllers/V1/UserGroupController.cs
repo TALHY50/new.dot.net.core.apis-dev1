@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ACL.Controllers.V1
 {
+    [Tags("User Group")]
     [ApiController]
     public class UserGroupController : Controller
     {

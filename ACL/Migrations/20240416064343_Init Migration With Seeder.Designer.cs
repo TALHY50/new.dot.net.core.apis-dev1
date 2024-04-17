@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ACL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240416063108_init")]
-    partial class init
+    [Migration("20240416064343_Init Migration With Seeder")]
+    partial class InitMigrationWithSeeder
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

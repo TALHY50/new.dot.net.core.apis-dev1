@@ -1,5 +1,4 @@
 ﻿
-using ACL.Interfaces;
 using ACL.Services;
 using System.Data;
 using ACL.Database;
@@ -7,6 +6,7 @@ using ACL.Interfaces.Repositories.V1;
 using Microsoft.EntityFrameworkCore.Storage;
 using ACL.Interfaces.Repositories;
 using ACL.Controllers.V1;
+using ACL.Services.Interface;
 
 
 namespace ACL.Interfaces
@@ -17,8 +17,9 @@ namespace ACL.Interfaces
         public ApplicationDbContext ApplicationDbContext { get; set; }
         public ILogger Logger { get; set; }
 
-        //public ILogService LogService { get; set; }
+        public ILogService LogService { get; set; }
 
+        IAclCompanyRepository AclCompanyRepository { get; }
         IAclCompanyModuleRepository AclCompanyModuleRepository { get; }
         IAclModuleRepository AclModuleRepository { get; }
         IAclSubModuleRepository AclSubModuleRepository { get; }

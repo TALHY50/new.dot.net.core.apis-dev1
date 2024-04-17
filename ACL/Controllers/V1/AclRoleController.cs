@@ -8,7 +8,6 @@ namespace ACL.Controllers.V1
 {
     [Tags("Role")]
     [ApiController]
-    [Route(Route.AclRoutesUrl.Base)]
     public class AclRoleController : ControllerBase
     {
         private readonly IUnitOfWork _repository;

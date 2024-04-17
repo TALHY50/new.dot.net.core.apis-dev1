@@ -6,23 +6,32 @@ using ACL.Interfaces.Repositories.V1;
 using ACL.Repositories;
 using ACL.Repositories.V1;
 using Microsoft.EntityFrameworkCore.Storage;
+using ACL.Services;
 using System.Data;
+using ACL.Services.Interface;
+using Microsoft.Extensions.Logging;
 
 namespace ACL.Services
 {
     public class UnitOfWork : IUnitOfWork
     {
         private ApplicationDbContext context;
-        private ILogger logger;
-        // private ILogService logService;
+        private ILogger _logger;
+        private ILogService _logService;
+        private ICacheService _cacheService;
         private IHttpContextAccessor _httpContextAccessor;
+        private IConfiguration _config;
 
-        public UnitOfWork(ApplicationDbContext context, ILoggerFactory loggerFactory, IHttpContextAccessor httpContextAccessor)
+        public UnitOfWork(ApplicationDbContext context, ILoggerFactory loggerFactory, IHttpContextAccessor httpContextAccessor, ICacheService cacheService, IConfiguration config)
         {
             this.context = context;
-            this.logger = loggerFactory.CreateLogger("Logs");
+            this._logger = loggerFactory.CreateLogger("Logs");
             this._httpContextAccessor = httpContextAccessor;
+            this._cacheService = cacheService;
+            this._logService = new LogService(this._logger, loggerFactory);
+            this._config = config; 
         }
+
 
         public ApplicationDbContext ApplicationDbContext
         {
@@ -32,18 +41,36 @@ namespace ACL.Services
 
         public ILogger Logger
         {
-            get { return this.logger; }
-            set { this.logger = value; }
+            get { return this._logger; }
+            set { this._logger = value; }
         }
-        // public ILogService LogService
-        // {
-        //     get { return this.logService; }
-        //     set { this.logService = value; }
-        // }
+        public IConfiguration Config
+        {
+            get { return this._config; }
+            set { this._config = value; }
+        }
+
+        public ILogService LogService
+        {
+            get { return this._logService; }
+            set { this._logService = value; }
+        }
+
+        public ICacheService CacheService
+        {
+            get
+            { return this._cacheService; }
+            set { this._cacheService = value; }
+        }
 
         public IAclCompanyModuleRepository AclCompanyModuleRepository
         {
             get { return new AclCompanyModuleRepository(this); }
+
+        }
+        public IAclCompanyRepository AclCompanyRepository
+        {
+            get { return new AclCompanyRepository(this, _config); }
 
         }
 
@@ -138,20 +165,22 @@ namespace ACL.Services
 
         public IAclUserRepository AclUserRepository
         {
-            get { return new AclUserRepository(this); }
+            get { return new AclUserRepository(this,_config); }
         }
 
         public IAclUserGroupRepository AclUserGroupRepository
         {
             get { return new AclUserGroupRepository(this); }
         }
-        public IExecutionStrategy CreateExecutionStrategy()
-        {
-            return ApplicationDbContext.Database.CreateExecutionStrategy();
-        }
+
         public IAclPasswordRepository AclPasswordRepository
         {
             get { return new AclPasswordRepository(this); }
+        }
+
+        public IExecutionStrategy CreateExecutionStrategy()
+        {
+            return ApplicationDbContext.Database.CreateExecutionStrategy();
         }
     }
 }
