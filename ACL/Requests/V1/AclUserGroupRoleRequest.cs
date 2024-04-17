@@ -7,7 +7,7 @@ namespace ACL.Requests.V1
     {
         [Required(ErrorMessage = "User group ID is required")]
         [Range(1, int.MaxValue, ErrorMessage = "User group ID must be a valid integer greater than 0")]
-        [AclUserGroupExists]
+        [ExistsInDatabase("AclUserGroup", "Id")]
         public ulong user_group_id { get; set; }
 
         [Required(ErrorMessage = "Role IDs are required")]
