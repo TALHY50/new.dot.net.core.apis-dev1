@@ -194,7 +194,7 @@ namespace ACL.Repositories.V1
             if (aclCompany.Any())
             {
                 aclResponse.Message = messageResponse.fetchMessage;
-                aclResponse.Data = aclCompany;
+                aclResponse.Data = aclCompany.Where(b => b.Status == 1).ToList();
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
             else
