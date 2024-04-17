@@ -20,6 +20,7 @@ namespace ACL.Services
         private ILogService _logService;
         private ICacheService _cacheService;
         private IHttpContextAccessor _httpContextAccessor;
+        private IConfiguration _config;
 
         public UnitOfWork(ApplicationDbContext context, ILoggerFactory loggerFactory, IHttpContextAccessor httpContextAccessor, ICacheService cacheService)
         {
@@ -40,6 +41,11 @@ namespace ACL.Services
         {
             get { return this._logger; }
             set { this._logger = value; }
+        }
+        public IConfiguration Config
+        {
+            get { return this._config; }
+            set { this._config = value; }
         }
 
         public ILogService LogService
@@ -62,7 +68,7 @@ namespace ACL.Services
         }
         public IAclCompanyRepository AclCompanyRepository
         {
-            get { return new AclCompanyRepository(this); }
+            get { return new AclCompanyRepository(this,_config); }
 
         }
 
