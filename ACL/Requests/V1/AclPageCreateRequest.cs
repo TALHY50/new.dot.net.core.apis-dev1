@@ -15,7 +15,6 @@ namespace ACL.Requests.V1
         [DefaultValue(2001)]
         [Required]
         [Range(1, ulong.MaxValue)]
-        [ExistsInDatabase()]
         public ulong sub_module_id { get; set; }
 
         [DefaultValue("Company List")]

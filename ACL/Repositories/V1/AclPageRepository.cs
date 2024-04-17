@@ -7,6 +7,7 @@ using ACL.Response.V1;
 using ACL.Requests;
 using Org.BouncyCastle.Asn1.Ocsp;
 using SharedLibrary.Utilities;
+using Microsoft.EntityFrameworkCore;
 
 namespace ACL.Repositories.V1
 {
@@ -26,7 +27,7 @@ namespace ACL.Repositories.V1
         }
         public async Task<AclResponse> GetAll()
         {
-            var aclPage =  _unitOfWork.ApplicationDbContext.AclPages.ToList();
+            var aclPage = await _unitOfWork.ApplicationDbContext.AclPages.ToListAsync();
             if (aclPage.Count > 0)
             {
                 aclResponse.Message = Helper.__(messageResponse.fetchMessage);
@@ -35,15 +36,15 @@ namespace ACL.Repositories.V1
             aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             aclResponse.Timestamp = DateTime.Now;
 
-            return  aclResponse;
+            return aclResponse;
         }
-        public async Task<AclResponse> Add(AclPageRequest request)
+        public async Task<AclResponse> Add(AclPageCreateRequest request)
         {
             try
             {
                 var aclPage = PrepareInputData(request);
-                _unitOfWork.ApplicationDbContext.AddAsync(aclPage);
-                _unitOfWork.ApplicationDbContext.SaveChangesAsync();
+                await _unitOfWork.ApplicationDbContext.AddAsync(aclPage);
+                await _unitOfWork.ApplicationDbContext.SaveChangesAsync();
                 _unitOfWork.ApplicationDbContext.Entry(aclPage).Reload();
                 aclResponse.Data = aclPage;
                 aclResponse.Message = Helper.__(messageResponse.createMessage);
@@ -58,14 +59,14 @@ namespace ACL.Repositories.V1
             return aclResponse;
         }
 
-        public async Task<AclResponse> Edit(ulong id, AclPageRequest request)
+        public async Task<AclResponse> Edit(ulong id, AclPageEditRequest request)
         {
             try
             {
-                var aclPage = PrepareInputData(request);
+                var aclPage = PrepareInputData(null, request);
                 _unitOfWork.ApplicationDbContext.Update(aclPage);
-                _unitOfWork.ApplicationDbContext.SaveChangesAsync();
-                _unitOfWork.ApplicationDbContext.Entry(aclPage).ReloadAsync();
+                await _unitOfWork.ApplicationDbContext.SaveChangesAsync();
+                await _unitOfWork.ApplicationDbContext.Entry(aclPage).ReloadAsync();
                 aclResponse.Data = aclPage;
                 aclResponse.Message = Helper.__(messageResponse.editMessage);
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
@@ -121,19 +122,35 @@ namespace ACL.Repositories.V1
 
 
 
-        private AclPage PrepareInputData(AclPageRequest request)
+        private AclPage PrepareInputData(AclPageCreateRequest request = null, AclPageEditRequest editRequest = null)
         {
-            return new AclPage
+            if (request == null)
             {
-                Id = request.id,
-                ModuleId = request.module_id,
-                SubModuleId = request.sub_module_id,
-                Name = request.name,
-                MethodName = request.method_name,
-                MethodType = request.method_type,
-                CreatedAt = DateTime.Now,
-                UpdatedAt = DateTime.Now
-            };
+                return new AclPage
+                {
+                    ModuleId = request.module_id,
+                    SubModuleId = request.sub_module_id,
+                    Name = request.name,
+                    MethodName = request.method_name,
+                    MethodType = request.method_type,
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now
+                };
+
+            }
+            else
+            {
+                return new AclPage
+                {
+                    ModuleId = editRequest.module_id,
+                    SubModuleId = editRequest.sub_module_id,
+                    Name = editRequest.name,
+                    MethodName = editRequest.method_name,
+                    MethodType = editRequest.method_type,
+                    UpdatedAt = DateTime.Now
+                };
+            }
+
 
         }
 
