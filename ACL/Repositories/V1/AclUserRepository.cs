@@ -14,6 +14,7 @@ using SharedLibrary.Utilities;
 using System.ComponentModel.Design;
 using System.Reflection;
 using static ACL.Route.AclRoutesUrl;
+using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace ACL.Repositories.V1
 {
@@ -25,8 +26,10 @@ namespace ACL.Repositories.V1
         private uint _companyId = 0;
         private uint _userType = 0;
         private bool is_user_type_created_by_company = false;
-        public AclUserRepository(IUnitOfWork _unitOfWork) : base(_unitOfWork)
+        private IConfiguration _config;
+        public AclUserRepository(IUnitOfWork _unitOfWork,IConfiguration config) : base(_unitOfWork)
         {
+            _config = config;
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName);
         }
@@ -44,7 +47,7 @@ namespace ACL.Repositories.V1
 
             return aclResponse;
         }
-        public async Task<AclResponse> Add(AclUserRequest request)
+        public async Task<AclResponse> AddUser(AclUserRequest request)
         {
 
             var executionStrategy = _unitOfWork.ApplicationDbContext.Database.CreateExecutionStrategy();
@@ -218,8 +221,8 @@ namespace ACL.Repositories.V1
                 AclUser.ImgPath = request.img_path;
                 AclUser.Status = request.status;
                 AclUser.UpdatedAt = DateTime.Now;
-                AclUser.CompanyId = (_companyId == 0) ? _companyId : 0;
-                AclUser.UserType = (_userType == 0) ? _userType : 0;
+                AclUser.CompanyId = (_companyId != 0) ? _companyId : 0;
+                AclUser.UserType = (_userType != 0) ? _userType : 0;
             }
             return AclUser;
         }
@@ -248,7 +251,7 @@ namespace ACL.Repositories.V1
         }
         public uint SetUserType(bool is_user_type_created_by_company)
         {
-            return _userType = is_user_type_created_by_company ? (uint)1 : (uint)2;
+            return _userType = is_user_type_created_by_company ? uint.Parse(_config["USER_TYPE_S_ADMIN"]) : uint.Parse(_config["USER_TYPE_USER"]);
         }
     }
 }

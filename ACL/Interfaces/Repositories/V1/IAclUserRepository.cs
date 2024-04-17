@@ -7,7 +7,7 @@ namespace ACL.Interfaces.Repositories.V1
     public interface IAclUserRepository : IGenericRepository<AclUser>
     {
         AclResponse GetAll();
-        Task<AclResponse> Add(AclUserRequest request);
+        Task<AclResponse> AddUser(AclUserRequest request);
         AclResponse Edit(ulong id, AclUserRequest request);
         AclResponse findById(ulong id);
         AclResponse deleteById(ulong id);

@@ -79,36 +79,43 @@ namespace ACL.Repositories.V1
                                 string[] nameArr = request.name.Split(' ');
                                 string fname = (nameArr.Length > 0) ? nameArr[0] : "";
                                 string lname = (nameArr.Length > 1) ? nameArr[1] : fname;
-                                AclUserRequest user = new AclUserRequest()
+                                AclUser user = new AclUser()
                                 {
-                                    email = aclCompany.Email,
-                                    password = request.password,
-                                    first_name = fname,
-                                    last_name = lname
+                                    Email = aclCompany.Email,
+                                    Password = request.password,
+                                    UserType =_unitOfWork.AclUserRepository.SetUserType(true),
+                                    FirstName = fname,
+                                    LastName = lname,
+                                    Username = aclCompany.Email,
+                                    CreatedById = 0,
+                                    CreatedAt =DateTime.Now,
+                                    UpdatedAt =DateTime.Now,
                                 };
                                 _unitOfWork.AclUserRepository.SetCompanyId((uint)aclCompany.Id);
                                 _unitOfWork.AclUserRepository.SetUserType(true);
-                                var useradd = await _unitOfWork.AclUserRepository.Add(user);
+                                await _unitOfWork.AclUserRepository.AddAsync(user);
                                 await _unitOfWork.CompleteAsync();
-                                AclUser createdUser = (AclUser)useradd.Data;
-                                await _unitOfWork.AclUserRepository.ReloadAsync(createdUser);
+                                await _unitOfWork.AclUserRepository.ReloadAsync(user);
 
-                                AclRoleRequest role = new AclRoleRequest()
+                                AclRole role = new AclRole()
                                 {
-                                    name = aclCompany.Name,
-                                    status = 1
+                                    Name = aclCompany.Name,
+                                    Title = _config["ROLE_TITLE"],
+                                    CompanyId = (uint)aclCompany.Id,
+                                    CreatedById=0,
+                                    UpdatedById = 0, 
+                                    CreatedAt = DateTime.Now,
+                                    UpdatedAt = DateTime.Now,
+                                    Status = 1
                                 };
-
-                                _unitOfWork.AclRoleRepository.SetCompanyId((uint)aclCompany.Id);
-                                var roleAdd = _unitOfWork.AclRoleRepository.Add(role);
+                                var roleAdd = await _unitOfWork.AclRoleRepository.AddAsync(role);
                                 await _unitOfWork.CompleteAsync();
-                                AclRole createdRole = (AclRole)roleAdd.Data;
-                                await _unitOfWork.AclRoleRepository.ReloadAsync(createdRole);
+                                await _unitOfWork.AclRoleRepository.ReloadAsync(role);
 
                                 AclUsergroupRole userGroupRole = new AclUsergroupRole()
                                 {
                                     UsergroupId = aclCompany.Id,
-                                    RoleId = createdRole.Id,
+                                    RoleId = role.Id,
                                     CompanyId = aclCompany.Id,
                                     CreatedAt = DateTime.UtcNow,
                                     UpdatedAt = DateTime.UtcNow
@@ -119,7 +126,7 @@ namespace ACL.Repositories.V1
                                 List<ulong> pageIds = aclRolePagesById.Select(page => page.Id).ToList();
                                 List<AclRolePage> aclRolePages = pageIds.Select(pageId => new AclRolePage
                                 {
-                                    RoleId = createdRole.Id,
+                                    RoleId = role.Id,
                                     PageId = pageId,
                                     CreatedAt = DateTime.UtcNow,
                                     UpdatedAt = DateTime.UtcNow

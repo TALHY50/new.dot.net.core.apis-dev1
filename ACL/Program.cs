@@ -34,6 +34,12 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddMemoryCache();
+IConfiguration configuration = new ConfigurationBuilder()
+       .SetBasePath(Directory.GetCurrentDirectory())
+       .AddJsonFile("appsettings.json")
+       .Build();
+
+builder.Services.AddSingleton<IConfiguration>(configuration);
 builder.Services.AddScoped<ICacheService, CacheService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 

@@ -26,7 +26,7 @@ namespace ACL.Controllers.V1
         [HttpPost(AclRoutesUrl.AclUserUrl.Add, Name = AclRoutesName.AclUserNames.Add)]
         public async Task<AclResponse> Create(AclUserRequest request)
         {
-            return await _unitOfWork.AclUserRepository.Add(request);
+            return await _unitOfWork.AclUserRepository.AddUser(request);
         }
         [HttpPut(AclRoutesUrl.AclUserUrl.Edit, Name = AclRoutesName.AclUserNames.Edit)]
         public async Task<AclResponse> Edit(ulong id, AclUserRequest request)
