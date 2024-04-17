@@ -17,7 +17,7 @@ public partial class AclSubModuleRequest
     [DefaultValue("1004")]
     [Required(ErrorMessage = "module_id is required.")]
     [Range(1, ulong.MaxValue, ErrorMessage = "module_id is required.")]
-    [ModuleIdExists]
+    [ExistsInDatabase("AclModule", "Id")]
     public ulong module_id { get; set; }
 
     [DefaultValue("Company")]

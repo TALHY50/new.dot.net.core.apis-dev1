@@ -10,7 +10,7 @@ public partial class AclForgetPasswordRequest
     [DefaultValue("admin@gmail.com")]
     [Required(ErrorMessage = "Email is required")]
     [EmailAddress(ErrorMessage = "Invalid email format")]
-    [UserEmailExists]
+    [ExistsInDatabase("AclUser","Email")]
     public string email { get; set; }
 
 
