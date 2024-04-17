@@ -6,6 +6,7 @@ using ACL.Requests.V1;
 using ACL.Response.V1;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Utilities;
+using System.Threading.Tasks;
 
 namespace ACL.Repositories.V1
 {
@@ -14,10 +15,12 @@ namespace ACL.Repositories.V1
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "Company";
-        public AclCompanyRepository(IUnitOfWork _unitOfWork) : base(_unitOfWork)
+        private IConfiguration _config;
+        public AclCompanyRepository(IUnitOfWork _unitOfWork, IConfiguration config) : base(_unitOfWork)
         {
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName);
+            _config = config;
         }
         public async Task<AclResponse> FindById(ulong id)
         {
@@ -64,7 +67,7 @@ namespace ACL.Repositories.V1
                             {
                                 UserGroupRequest userGroupRequest = new UserGroupRequest()
                                 {
-                                    group_name = "ADMIN_USERGROUP",
+                                    group_name = _config["USER_GROUP_NAME"],
                                     status = 1
                                 };
                                 _unitOfWork.AclUserGroupRepository.SetCompanyId(aclCompany.Id);
@@ -105,25 +108,27 @@ namespace ACL.Repositories.V1
                                 AclUsergroupRole userGroupRole = new AclUsergroupRole()
                                 {
                                     UsergroupId = aclCompany.Id,
-                                    RoleId =  createdRole.Id ,
+                                    RoleId = createdRole.Id,
                                     CompanyId = aclCompany.Id,
                                     CreatedAt = DateTime.UtcNow,
                                     UpdatedAt = DateTime.UtcNow
                                 };
                                 var createdUserGroupRole = _unitOfWork.AclUserGroupRoleRepository.Add(userGroupRole);
                                 await _unitOfWork.CompleteAsync();
-                                
-                                // var result =  _unitOfWork.AclRolePageRepository.Where(x => x.RoleId == 1003).ToListAsync();
-                                //IEnumerable<int> pageIds = _unitOfWork.AclRolePageRepository.Where(x => x.RoleId == 1003).ToListAsync();
-                                AclRolePage aclRolePage = new AclRolePage()
+                                List<AclRolePage> aclRolePagesById = await _unitOfWork.AclRolePageRepository.Where(x => x.RoleId == ulong.Parse(_config["S_ADMIN_DEFAULT_MODULE_ID"])).ToListAsync();
+                                List<ulong> pageIds = aclRolePagesById.Select(page => page.Id).ToList();
+                                List<AclRolePage> aclRolePages = pageIds.Select(pageId => new AclRolePage
                                 {
                                     RoleId = createdRole.Id,
-                                };
-                                aclResponse.Data = aclCompany;
+                                    PageId = pageId,
+                                    CreatedAt = DateTime.UtcNow,
+                                    UpdatedAt = DateTime.UtcNow
+                                }).ToList();
+                                await _unitOfWork.AclRolePageRepository.AddRange(aclRolePages.ToArray());
+                                await _unitOfWork.CompleteAsync();
                             }
 
-
-
+                            aclResponse.Data = aclCompany;
                             aclResponse.Message = messageResponse.createMessage;
                             aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
 
@@ -137,12 +142,6 @@ namespace ACL.Repositories.V1
                         }
                     }
                 });
-                //Add(aclCompany);
-                //await _unitOfWork.CompleteAsync();
-                //await base.ReloadAsync(aclCompany);
-                //aclResponse.Data = aclCompany;
-                //aclResponse.Message = messageResponse.createMessage;
-                //aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
             catch (Exception ex)
             {
