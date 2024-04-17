@@ -24,9 +24,9 @@ namespace ACL.Repositories.V1
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName);
         }
-        public AclResponse GetAll()
+        public async Task<AclResponse> GetAll()
         {
-            var aclPage = _unitOfWork.ApplicationDbContext.AclPages.ToList();
+            var aclPage =  _unitOfWork.ApplicationDbContext.AclPages.ToList();
             if (aclPage.Count > 0)
             {
                 aclResponse.Message = Helper.__(messageResponse.fetchMessage);
@@ -35,9 +35,9 @@ namespace ACL.Repositories.V1
             aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             aclResponse.Timestamp = DateTime.Now;
 
-            return aclResponse;
+            return  aclResponse;
         }
-        public AclResponse Add(AclPageRequest request)
+        public async Task<AclResponse> Add(AclPageRequest request)
         {
             try
             {
@@ -58,7 +58,7 @@ namespace ACL.Repositories.V1
             return aclResponse;
         }
 
-        public AclResponse Edit(ulong id, AclPageRequest request)
+        public async Task<AclResponse> Edit(ulong id, AclPageRequest request)
         {
             try
             {
@@ -80,7 +80,7 @@ namespace ACL.Repositories.V1
 
         }
 
-        public AclResponse findById(ulong id)
+        public async Task<AclResponse> findById(ulong id)
         {
             try
             {
@@ -103,7 +103,7 @@ namespace ACL.Repositories.V1
             return aclResponse;
 
         }
-        public AclResponse deleteById(ulong id)
+        public async Task<AclResponse> deleteById(ulong id)
         {
             var aclPage = _unitOfWork.ApplicationDbContext.AclPages.Find(id);
 
@@ -138,7 +138,7 @@ namespace ACL.Repositories.V1
         }
 
 
-        public AclResponse PageRouteCreate(AclPageRouteRequest request)
+        public async Task<AclResponse> PageRouteCreate(AclPageRouteRequest request)
         {
             messageResponse.createMessage = "Page Route Create Successfully";
             try
@@ -160,7 +160,7 @@ namespace ACL.Repositories.V1
             return aclResponse;
         }
 
-        public AclResponse PageRouteEdit(ulong id, AclPageRouteRequest request)
+        public async Task<AclResponse> PageRouteEdit(ulong id, AclPageRouteRequest request)
         {
             messageResponse.editMessage = "Page Route Update Successfully";
             try
@@ -194,7 +194,7 @@ namespace ACL.Repositories.V1
             return aclResponse;
         }
 
-        public AclResponse PageRouteDelete(ulong id)
+        public async Task<AclResponse> PageRouteDelete(ulong id)
         {
             messageResponse.deleteMessage = "Page Route Deleted Successfully";
             var aclPageRoute = _unitOfWork.ApplicationDbContext.AclPageRoutes.Find(id);
