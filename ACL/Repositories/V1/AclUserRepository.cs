@@ -1,20 +1,10 @@
 ﻿using ACL.Database.Models;
 using ACL.Interfaces;
 using ACL.Interfaces.Repositories.V1;
-using ACL.Requests;
 using ACL.Requests.V1;
 using ACL.Response.V1;
-using Craftgate.Model;
-using Google.Protobuf.WellKnownTypes;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
-using SharedLibrary.Models;
-using SharedLibrary.Services;
 using SharedLibrary.Utilities;
-using System.ComponentModel.Design;
-using System.Reflection;
-using static ACL.Route.AclRoutesUrl;
-using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace ACL.Repositories.V1
 {
