@@ -33,10 +33,10 @@ namespace ACL.Repositories
             return entity;
         }
 
-        public virtual async Task<T> UpdateAsync(T entity)
+        public virtual  Task<T> UpdateAsync(T entity)
         {
             _dbSet.Update(entity);
-            return entity;
+            return Task.FromResult(entity);
         }
 
         public T Add(T entity)
@@ -52,10 +52,10 @@ namespace ACL.Repositories
             return entity;
         }
 
-        public virtual async Task<bool> DeleteAsync(T entity)
+        public virtual Task<bool> DeleteAsync(T entity)
         {
             _dbSet.Remove(entity);
-            return true;
+            return Task.FromResult(true);
         }
         public async Task<IEnumerable<T>> ExecuteSqlQuery(string sqlQuery, params object[] parameters)
         {
@@ -71,10 +71,10 @@ namespace ACL.Repositories
             return entities;
         }
 
-        public async Task<IEnumerable<T>> RemoveRange(IEnumerable<T> entities)
+        public Task<IEnumerable<T>> RemoveRange(IEnumerable<T> entities)
         {
             _dbSet.RemoveRange(entities);
-            return entities;
+            return (Task<IEnumerable<T>>)entities;
         }
 
 
