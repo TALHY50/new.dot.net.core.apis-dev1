@@ -1,9 +1,4 @@
-﻿using Google.Protobuf.WellKnownTypes;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using SharedLibrary.Models;
-using System.Reflection.Metadata;
-
-namespace ACL.Route
+﻿namespace ACL.Route
 {
     public class AclRoutesUrl
     {

@@ -1,12 +1,20 @@
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Serilog;
+using Serilog.Events;
+using System;
+using System.IO;
 using ACL.Database;
-using ACL.Interfaces;
-using ACL.Interfaces.Repositories.V1;
-using ACL.Repositories.V1;
 using ACL.Services;
 using ACL.Services.Interface;
 using DotNetEnv;
+using ACL.Interfaces;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.EntityFrameworkCore;
+using Serilog.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,6 +47,32 @@ IConfiguration configuration = new ConfigurationBuilder()
        .AddJsonFile("appsettings.json")
        .Build();
 
+// Configure Serilog
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Debug()
+    .WriteTo.File(GetLogFilePath("log.txt"), restrictedToMinimumLevel: LogEventLevel.Error) // Log exceptions to log.txt
+    .WriteTo.File(GetLogFilePath("querylog.txt"), restrictedToMinimumLevel: LogEventLevel.Information) // Log queries to query.txt
+    .CreateLogger();
+
+builder.Host.UseSerilog((hostingContext, loggerConfiguration) =>
+{
+    loggerConfiguration
+        .ReadFrom.Configuration(hostingContext.Configuration)
+        // Additional Serilog configuration here, if needed
+        .WriteTo.Console(); // Example sink, replace with your desired sink
+});
+
+builder.Services.AddSerilog();
+
+static string GetLogFilePath(string fileName)
+{
+    var logDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Logs");
+    Directory.CreateDirectory(logDirectory); // Ensure the directory exists
+    var datePrefix = DateTime.Now.ToString("yyyy-MM-dd");
+    return Path.Combine(logDirectory, $"{datePrefix}_{fileName}");
+}
+
+
 builder.Services.AddSingleton<IConfiguration>(configuration);
 builder.Services.AddScoped<ICacheService, CacheService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -52,10 +86,29 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// Use Serilog request logging middleware
+app.UseSerilogRequestLogging();
+
+// Enable CORS
+app.UseCors(builder =>
+{
+    builder.AllowAnyOrigin()
+           .AllowAnyMethod()
+           .AllowAnyHeader();
+});
+app.UseFileServer();
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseCors(builder =>
+{
+    builder.AllowAnyOrigin()
+           .AllowAnyMethod()
+           .AllowAnyHeader();
+});
 
 app.Run();

@@ -5,11 +5,6 @@ using ACL.Requests.V1;
 using ACL.Response.V1;
 using ACL.Interfaces.Repositories.V1;
 using Microsoft.EntityFrameworkCore;
-using SharedLibrary.Models;
-using Org.BouncyCastle.Asn1.Ocsp;
-using Microsoft.AspNetCore.Http.HttpResults;
-using System.ComponentModel.Design;
-using Org.BouncyCastle.Ocsp;
 
 
 namespace ACL.Repositories.V1
