@@ -6,8 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ACL.Controllers.V1
 {
+    [Tags("Role & Page Association")]
     [ApiController]
-    public class AclRoleAndPageAssocController : Controller
+    public class AclRoleAndPageAssocController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
 

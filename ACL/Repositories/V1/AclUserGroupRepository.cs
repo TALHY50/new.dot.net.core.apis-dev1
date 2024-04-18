@@ -12,7 +12,7 @@ namespace ACL.Repositories.V1
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "User Group";
-        private ulong CompanyId = 0;
+        public static ulong CompanyId = 0;
         public AclUserGroupRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
             aclResponse = new AclResponse();
@@ -136,5 +136,10 @@ namespace ACL.Repositories.V1
             return _aclInstance;
         }
 
+        public ulong SetCompanyId(ulong companyId)
+        {
+             CompanyId = companyId;
+            return CompanyId;
+        }
     }
 }

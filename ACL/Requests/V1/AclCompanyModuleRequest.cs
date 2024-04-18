@@ -9,12 +9,12 @@ namespace ACL.Requests.V1
     {
         [Required]
         [Range(1, ulong.MaxValue)]
-        [UniqueCompanyId]
+        [UniqueCompanyModule]
         public ulong company_id { get; set; }
 
         [Required]
         [Range(1, ulong.MaxValue)]
-        [UniqueCompanyId]
+        [UniqueCompanyModule]
         public ulong module_id { get; set; }
     }
 

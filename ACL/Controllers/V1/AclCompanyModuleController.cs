@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ACL.Controllers.V1
 {
+    [Tags("Company Module")]
     [ApiController]
     public class AclCompanyModuleController : ControllerBase
     {

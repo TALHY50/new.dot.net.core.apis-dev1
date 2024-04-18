@@ -1,4 +1,4 @@
-﻿namespace ACL.Interfaces
+﻿namespace ACL.Services.Interface
 {
     public interface ILogService
     {

@@ -8,7 +8,6 @@ namespace ACL.Controllers.V1
 {
     [Tags("Sub Module")]
     [ApiController]
-    [Route(Route.AclRoutesUrl.Base)]
     public class AclSubModuleController : ControllerBase
     {
         private readonly IUnitOfWork _repository;

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ACL.Requests.CustomDataAnotator
 {
-    public class UniqueCompanyIdAttribute : ValidationAttribute
+    public class UniqueCompanyModuleAttribute : ValidationAttribute
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {

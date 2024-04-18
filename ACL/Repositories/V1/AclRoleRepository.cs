@@ -7,15 +7,14 @@ using ACL.Response.V1;
 
 namespace ACL.Repositories.V1
 {
-    public class AclRoleRepository : IAclRoleRepository
+    public class AclRoleRepository :GenericRepository<AclRole>, IAclRoleRepository
     {
-        private readonly IUnitOfWork _unitOfWork;
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "Role";
-        public AclRoleRepository(IUnitOfWork unitOfWork)
+        private uint _companyId = 0;
+        public AclRoleRepository(IUnitOfWork _unitOfWork) : base(_unitOfWork)
         {
-            _unitOfWork = unitOfWork;
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName);
         }
@@ -126,13 +125,16 @@ namespace ACL.Repositories.V1
             aclRole.Title = request.title;
             aclRole.Name = request.name;
             aclRole.Status = request.status;
-            aclRole.CompanyId = 1;
+            aclRole.CompanyId = (_companyId!=0)?_companyId:0; // if _companyId == 0 get companyid from auth after rifat vai give the authentication
             aclRole.UpdatedById = 0;
             aclRole.UpdatedAt = DateTime.Now;
 
             return aclRole;
         }
 
-
+        public uint SetCompanyId(uint companyId)
+        {
+           return _companyId = companyId;
+        }
     }
 }
