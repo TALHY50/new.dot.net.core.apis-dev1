@@ -8,6 +8,8 @@ namespace ACL.Database;
 
 public partial class ApplicationDbContext : DbContext
 {
+    private readonly ILoggerFactory _loggerFactory;
+
     public ApplicationDbContext()
     {
     }
@@ -15,6 +17,12 @@ public partial class ApplicationDbContext : DbContext
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
     {
+    }
+    
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, ILoggerFactory loggerFactory)
+        : base(options)
+    {
+        _loggerFactory = loggerFactory;
     }
 
     public virtual DbSet<AclCompany> AclCompanies { get; set; }
@@ -1494,6 +1502,10 @@ public partial class ApplicationDbContext : DbContext
         OnModelCreatingPartial(modelBuilder);
 
     }
-
+    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //{
+    //    optionsBuilder.UseLoggerFactory(_loggerFactory); // Enable EF Core logging
+    //    base.OnConfiguring(optionsBuilder);
+    //}
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }

@@ -38,6 +38,7 @@ namespace ACL.Repositories.V1
             }
             catch (Exception ex)
             {
+                _unitOfWork.Logger.LogError(ex, "Error at COMPANY_FIND", new { data = id, message = ex.Message, });
                 aclResponse.Message = ex.Message;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
             }
@@ -83,17 +84,18 @@ namespace ACL.Repositories.V1
                                 {
                                     Email = aclCompany.Email,
                                     Password = request.password,
-                                    UserType =_unitOfWork.AclUserRepository.SetUserType(true),
+                                    UserType = _unitOfWork.AclUserRepository.SetUserType(true),
                                     FirstName = fname,
                                     LastName = lname,
                                     Username = aclCompany.Email,
                                     CreatedById = 0,
-                                    CreatedAt =DateTime.Now,
-                                    UpdatedAt =DateTime.Now,
+                                    CreatedAt = DateTime.Now,
+                                    UpdatedAt = DateTime.Now,
                                 };
+
                                 _unitOfWork.AclUserRepository.SetCompanyId((uint)aclCompany.Id);
                                 _unitOfWork.AclUserRepository.SetUserType(true);
-                                await _unitOfWork.AclUserRepository.AddAsync(user);
+                                 _unitOfWork.AclUserRepository.Add(user);
                                 await _unitOfWork.CompleteAsync();
                                 await _unitOfWork.AclUserRepository.ReloadAsync(user);
 
@@ -102,8 +104,8 @@ namespace ACL.Repositories.V1
                                     Name = aclCompany.Name,
                                     Title = _config["ROLE_TITLE"],
                                     CompanyId = (uint)aclCompany.Id,
-                                    CreatedById=0,
-                                    UpdatedById = 0, 
+                                    CreatedById = 0,
+                                    UpdatedById = 0,
                                     CreatedAt = DateTime.Now,
                                     UpdatedAt = DateTime.Now,
                                     Status = 1
@@ -143,6 +145,8 @@ namespace ACL.Repositories.V1
                         }
                         catch (Exception ex)
                         {
+                            _unitOfWork.Logger.LogError(ex, "Error at COMPANY_CREATE", new { data = request, message = ex.Message, });
+
                             await transaction.RollbackAsync();
                             aclResponse.Message = ex.Message;
                             aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
@@ -152,6 +156,7 @@ namespace ACL.Repositories.V1
             }
             catch (Exception ex)
             {
+                _unitOfWork.Logger.LogError(ex, "Error at COMPANY_CREATE", new { data = request, message = ex.Message, });
                 aclResponse.Message = ex.Message;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
             }
@@ -181,6 +186,7 @@ namespace ACL.Repositories.V1
             }
             catch (Exception ex)
             {
+                _unitOfWork.Logger.LogError(ex, "Error at COMPANY_EDIT", new { data = request, message = ex.Message, });
                 aclResponse.Message = ex.Message;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
             }
