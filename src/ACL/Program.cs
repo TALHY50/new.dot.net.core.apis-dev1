@@ -54,6 +54,16 @@ Log.Logger = new LoggerConfiguration()
     .WriteTo.File(GetLogFilePath("querylog.txt"), restrictedToMinimumLevel: LogEventLevel.Information) // Log queries to query.txt
     .CreateLogger();
 
+builder.Host.UseSerilog((hostingContext, loggerConfiguration) =>
+{
+    loggerConfiguration
+        .ReadFrom.Configuration(hostingContext.Configuration)
+        // Additional Serilog configuration here, if needed
+        .WriteTo.Console(); // Example sink, replace with your desired sink
+});
+
+builder.Services.AddSerilog();
+
 static string GetLogFilePath(string fileName)
 {
     var logDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Logs");
