@@ -4,6 +4,7 @@ using ACL.Interfaces;
 using ACL.Interfaces.Repositories.V1;
 using ACL.Requests;
 using ACL.Response.V1;
+using ACL.Utilities;
 
 namespace ACL.Repositories.V1
 {
@@ -12,11 +13,13 @@ namespace ACL.Repositories.V1
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "Role";
-        private uint _companyId = 0;
+        AuthInfoModel authInfo = new AuthInfoModel(123, 456, "user@example.com","test","12345678",1,"1,2");
+        
         public AclRoleRepository(IUnitOfWork _unitOfWork) : base(_unitOfWork)
         {
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName);
+            AppAuth.SetAuthInfo(authInfo);
         }
 
         public AclResponse GetAll()
@@ -119,22 +122,18 @@ namespace ACL.Repositories.V1
             if (aclRole == null)
             {
                 aclRole = new AclRole();
-                aclRole.CreatedById = 0;
+                aclRole.CreatedById = AppAuth.GetAuthInfo().UserId;
                 aclRole.CreatedAt = DateTime.Now;
             }
             aclRole.Title = request.title;
             aclRole.Name = request.name;
             aclRole.Status = request.status;
-            aclRole.CompanyId = (_companyId!=0)?_companyId:0; // if _companyId == 0 get companyid from auth after rifat vai give the authentication
-            aclRole.UpdatedById = 0;
+            aclRole.CompanyId = AppAuth.GetAuthInfo().CompanyId; 
+            aclRole.UpdatedById = AppAuth.GetAuthInfo().UserId;
             aclRole.UpdatedAt = DateTime.Now;
 
             return aclRole;
         }
 
-        public uint SetCompanyId(uint companyId)
-        {
-           return _companyId = companyId;
-        }
     }
 }

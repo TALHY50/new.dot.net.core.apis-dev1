@@ -13,6 +13,5 @@ namespace ACL.Interfaces.Repositories.V1
         AclResponse Edit(ulong id, AclRoleRequest subModule);
         AclResponse findById(ulong id);
         AclResponse deleteById(ulong id);
-        uint SetCompanyId(uint companyId);
     }
 }
