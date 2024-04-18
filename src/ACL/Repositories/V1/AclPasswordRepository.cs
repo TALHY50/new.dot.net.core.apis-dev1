@@ -1,7 +1,9 @@
-﻿using ACL.Interfaces;
+﻿using ACL.Database.Models;
+using ACL.Interfaces;
 using ACL.Interfaces.Repositories.V1;
 using ACL.Requests.V1;
 using ACL.Response.V1;
+using Microsoft.Extensions.Localization;
 using SharedLibrary.Services;
 using System.Runtime.Caching;
 using System.Security.Cryptography;
@@ -10,18 +12,19 @@ using System.Text;
 
 namespace ACL.Repositories.V1
 {
-    public class AclPasswordRepository : IAclPasswordRepository
+    public class AclPasswordRepository : GenericRepository<AclUser>, IAclPasswordRepository
     {
         private readonly IUnitOfWork _unitOfWork;
         public AclResponse aclResponse;
         private string modelName = "Password";
         private ulong authUser = 2;
         private int tokenExpiryMinutes = 60;
-
-        public AclPasswordRepository(IUnitOfWork unitOfWork)
+        public MessageResponse messageResponse;
+        IStringLocalizer<AclUser> _localizer;
+        public AclPasswordRepository(IUnitOfWork _unitOfWork) : base(_unitOfWork)
         {
-            _unitOfWork = unitOfWork;
             aclResponse = new AclResponse();
+            messageResponse = new MessageResponse(modelName);
         }
 
         public AclResponse Reset(AclPasswordResetRequest request)
@@ -35,7 +38,7 @@ namespace ACL.Repositories.V1
             }
 
 
-            var aclUser =  _unitOfWork.ApplicationDbContext.AclUsers.FirstOrDefault(x=>x.Id == request.user_id && x.Status == 1);
+            var aclUser = _unitOfWork.ApplicationDbContext.AclUsers.FirstOrDefault(x => x.Id == request.user_id && x.Status == 1);
 
             if (aclUser != null)
             {
@@ -53,7 +56,7 @@ namespace ACL.Repositories.V1
                 // password update
                 try
                 {
-                    aclUser.Password = Cryptographer.AppEncrypt(request.new_password); 
+                    aclUser.Password = Cryptographer.AppEncrypt(request.new_password);
                     _unitOfWork.ApplicationDbContext.SaveChangesAsync();
                     _unitOfWork.ApplicationDbContext.Entry(aclUser).ReloadAsync();
 
@@ -143,18 +146,18 @@ namespace ACL.Repositories.V1
             }
         }
 
-        private void MemoryCaches(string uniqueKey,string email,int tokenExpiryMinutes)
+        private void MemoryCaches(string uniqueKey, string email, int tokenExpiryMinutes)
         {
-          
+
             DateTimeOffset expiryTime = DateTimeOffset.Now.AddMinutes(tokenExpiryMinutes);
             MemoryCache cache = MemoryCache.Default;
             cache.Add(uniqueKey, email, new CacheItemPolicy { AbsoluteExpiration = expiryTime });
-         
+
         }
 
         private bool MemoryCacheExist(string uniqueKey)
         {
-            MemoryCache cache = MemoryCache.Default; 
+            MemoryCache cache = MemoryCache.Default;
             return cache.Contains(uniqueKey);
         }
 

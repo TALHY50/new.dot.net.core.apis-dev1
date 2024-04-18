@@ -5,16 +5,16 @@ using ACL.Interfaces.Repositories.V1;
 using ACL.Requests;
 using ACL.Response.V1;
 using ACL.Utilities;
+using Microsoft.Extensions.Localization;
 
 namespace ACL.Repositories.V1
 {
-    public class AclRoleRepository :GenericRepository<AclRole>, IAclRoleRepository
+    public class AclRoleRepository : GenericRepository<AclRole>, IAclRoleRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "Role";
-        AuthInfoModel authInfo = new AuthInfoModel(123, 456, "user@example.com","test","12345678",1,"1,2");
-        
+        AuthInfoModel authInfo = new AuthInfoModel(123, 456, "user@example.com", "test", "12345678", 1, "1,2");
         public AclRoleRepository(IUnitOfWork _unitOfWork) : base(_unitOfWork)
         {
             aclResponse = new AclResponse();
@@ -128,7 +128,7 @@ namespace ACL.Repositories.V1
             aclRole.Title = request.title;
             aclRole.Name = request.name;
             aclRole.Status = request.status;
-            aclRole.CompanyId = AppAuth.GetAuthInfo().CompanyId; 
+            aclRole.CompanyId = AppAuth.GetAuthInfo().CompanyId;
             aclRole.UpdatedById = AppAuth.GetAuthInfo().UserId;
             aclRole.UpdatedAt = DateTime.Now;
 

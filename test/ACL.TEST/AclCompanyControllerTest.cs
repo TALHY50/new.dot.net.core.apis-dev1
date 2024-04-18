@@ -14,18 +14,18 @@ namespace ACL.Tests
             //Arrange
             int count = 3;
             var dataStore = A.Fake<IUnitOfWork>();
-            var fakeCompanies = A.CollectionOfDummy<AclCompany>(0).AsEnumerable();
+            var fakeCompanies = A.CollectionOfDummy<AclCompany>(count).AsEnumerable();
             A.CallTo(() => dataStore.AclCompanyRepository.GetAll());
 
             var controller = new AclCompanyController(dataStore);
 
             //Act
-            var aclResponse = await controller.Index();
+            var aclResponse =  await controller.Index();
             
             //Assert
             var result = aclResponse;
-            List<AclCompany> returnCompanies = (List<AclCompany>)aclResponse.Data;
-            Assert.Equal(count,returnCompanies.Count);
+            var returnCompanies = aclResponse.Data as AclCompany[];
+            Assert.Equal(count,returnCompanies.Count());
         }
     }
 }

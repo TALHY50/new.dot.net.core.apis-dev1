@@ -1,6 +1,8 @@
 ﻿using ACL.Interfaces;
 using ACL.Interfaces.Repositories;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 using System.Linq.Expressions;
 
 namespace ACL.Repositories
@@ -9,12 +11,10 @@ namespace ACL.Repositories
     {
         protected IUnitOfWork _unitOfWork;
         internal DbSet<T> _dbSet;
-
         public GenericRepository(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
             _dbSet = unitOfWork.ApplicationDbContext.Set<T>();
-
         }
 
         public virtual async Task<IEnumerable<T>> All()

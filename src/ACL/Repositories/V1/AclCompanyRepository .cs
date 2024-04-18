@@ -1,10 +1,13 @@
-﻿using ACL.Database.Models;
+﻿using ACL.Controllers.V1;
+using ACL.Database.Models;
 using ACL.Interfaces;
 using ACL.Interfaces.Repositories.V1;
 using ACL.Requests;
 using ACL.Requests.V1;
 using ACL.Response.V1;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 using SharedLibrary.Utilities;
 using System.Threading.Tasks;
 
@@ -16,6 +19,7 @@ namespace ACL.Repositories.V1
         public MessageResponse messageResponse;
         private string modelName = "Company";
         private IConfiguration _config;
+
         public AclCompanyRepository(IUnitOfWork _unitOfWork, IConfiguration config) : base(_unitOfWork)
         {
             aclResponse = new AclResponse();

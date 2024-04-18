@@ -16,9 +16,40 @@ using ACL.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Serilog.AspNetCore;
 using ACL.Services.CustomMiddleWare;
+using Microsoft.AspNetCore.Localization;
+using System.Globalization;
+using Microsoft.Extensions.Localization;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddLocalization(o => o.ResourcesPath = "Resources");
+
+
+ static IHostBuilder CreateHostBuilder(string[] args) =>
+    Host.CreateDefaultBuilder(args)
+        .ConfigureServices((hostContext, services) =>
+        {
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                var supportedCultures = new[]
+                {
+                    new CultureInfo("en-US"),
+                    new CultureInfo("tr-TR"),
+                };
+
+                options.DefaultRequestCulture = new RequestCulture("en-US");
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
+            });
+            
+        })
+        .ConfigureWebHostDefaults(webBuilder =>
+        {
+            webBuilder.UseStartup<Program>();
+        });
 
 Env.NoClobber().TraversePath().Load();
 
@@ -48,16 +79,12 @@ IConfiguration configuration = new ConfigurationBuilder()
        .AddJsonFile("appsettings.json")
        .Build();
 
-// Configure Serilog
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Debug()
-    // Log exceptions to log.txt
     .WriteTo.File(GetLogFilePath("log.txt"), restrictedToMinimumLevel: LogEventLevel.Error)
-    // Log application events (excluding requests and responses) to log.txt
     .WriteTo.Logger(lc => lc
         .Filter.ByExcluding(e => e.Properties.ContainsKey("RequestPath") || e.Properties.ContainsKey("RequestBody") || e.Properties.ContainsKey("ResponseBody"))
         .WriteTo.File(GetLogFilePath("log.txt"), restrictedToMinimumLevel: LogEventLevel.Information))
-    // Log queries to querylog.txt
     .WriteTo.File(GetLogFilePath("querylog.txt"), restrictedToMinimumLevel: LogEventLevel.Information)
     .CreateLogger();
 
@@ -65,8 +92,7 @@ builder.Host.UseSerilog((hostingContext, loggerConfiguration) =>
 {
     loggerConfiguration
         .ReadFrom.Configuration(hostingContext.Configuration)
-        // Additional Serilog configuration here, if needed
-        .WriteTo.Console(); // Example sink, replace with your desired sink
+        .WriteTo.Console();
 });
 
 builder.Services.AddSerilog();
@@ -74,7 +100,7 @@ builder.Services.AddSerilog();
 static string GetLogFilePath(string fileName)
 {
     var logDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Logs");
-    Directory.CreateDirectory(logDirectory); // Ensure the directory exists
+    Directory.CreateDirectory(logDirectory);
     var datePrefix = DateTime.Now.ToString("yyyy-MM-dd");
     return Path.Combine(logDirectory, $"{datePrefix}_{fileName}");
 }
@@ -86,7 +112,6 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -94,10 +119,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseMiddleware<RequestResponseLoggingMiddleware>();
-// Use Serilog request logging middleware
 app.UseSerilogRequestLogging();
 
-// Enable CORS
 app.UseCors(builder =>
 {
     builder.AllowAnyOrigin()

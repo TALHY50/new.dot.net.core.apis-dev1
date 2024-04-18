@@ -5,29 +5,29 @@ using ACL.Interfaces;
 using ACL.Requests.V1;
 using ACL.Response.V1;
 using SharedLibrary.Utilities;
+using Microsoft.Extensions.Localization;
 
 namespace ACL.Repositories.V1
 {
-    public class AclPageRepository : IAclPageRepository
+    public class AclPageRepository : GenericRepository<AclPage>, IAclPageRepository
     {
 
-        private readonly IUnitOfWork _unitOfWork;
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "Page";
-
-        public AclPageRepository(IUnitOfWork unitOfWork)
+        public AclPageRepository(IUnitOfWork _unitOfWork) : base(_unitOfWork)
         {
-            _unitOfWork = unitOfWork;
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName);
+            
         }
-        public AclResponse GetAll()
+        public  AclResponse GetAll()
         {
-            var aclPage = _unitOfWork.ApplicationDbContext.AclPages.ToList();
-            if (aclPage.Count > 0)
+            var aclPage =  base.All().Result;
+            if (aclPage.Any())
             {
-                aclResponse.Message = Helper.__(messageResponse.fetchMessage);
+                //aclResponse.Message = _unitOfWork._localizer["fetchMessage"];
+               // aclResponse.Message = _unitOfWork._localizer["fetchMessage"];
             }
             aclResponse.Data = aclPage;
             aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
