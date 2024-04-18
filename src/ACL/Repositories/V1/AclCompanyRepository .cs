@@ -196,11 +196,11 @@ namespace ACL.Repositories.V1
 
         public async Task<AclResponse> GetAll()
         {
-            var aclCompany = await base.All();
+            var aclCompany = await base.Where(b=>b.Status == 1).ToListAsync();
             if (aclCompany.Any())
             {
                 aclResponse.Message = messageResponse.fetchMessage;
-                aclResponse.Data = aclCompany.Where(b => b.Status == 1).ToList();
+                aclResponse.Data = aclCompany;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
             else
