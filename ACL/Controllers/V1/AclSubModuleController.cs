@@ -38,7 +38,7 @@ namespace ACL.Controllers.V1
 
 
         [HttpPut(Route.AclRoutesUrl.AclSubmodule.Edit, Name = Route.AclRoutesName.AclSubmodule.Edit)]
-        public async Task<AclResponse> Edit(ulong id, AclSubModuleEditRequest objSubModule)
+        public async Task<AclResponse> Edit(ulong id, AclSubModuleRequest objSubModule)
         {
             return _repository.AclSubModuleRepository.Edit(id, objSubModule);
 

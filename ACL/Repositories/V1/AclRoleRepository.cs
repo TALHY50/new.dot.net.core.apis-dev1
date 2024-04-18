@@ -4,9 +4,6 @@ using ACL.Interfaces;
 using ACL.Interfaces.Repositories.V1;
 using ACL.Requests;
 using ACL.Response.V1;
-using Craftgate.Model;
-using Microsoft.AspNetCore.Http.HttpResults;
-
 
 namespace ACL.Repositories.V1
 {
@@ -39,7 +36,7 @@ namespace ACL.Repositories.V1
         {
             try
             {
-                var aclRole = prepareInputData(request);
+                var aclRole = PrepareInputData(request);
                 _unitOfWork.ApplicationDbContext.AddAsync(aclRole);
                 _unitOfWork.ApplicationDbContext.SaveChangesAsync();
                 _unitOfWork.ApplicationDbContext.Entry(aclRole).ReloadAsync();
@@ -66,7 +63,7 @@ namespace ACL.Repositories.V1
             }
             try
             {
-                aclRole = prepareInputData(request, aclRole);
+                aclRole = PrepareInputData(request, aclRole);
                 _unitOfWork.ApplicationDbContext.SaveChangesAsync();
                 _unitOfWork.ApplicationDbContext.Entry(aclRole).Reload();
                 aclResponse.Data = aclRole;
@@ -81,7 +78,6 @@ namespace ACL.Repositories.V1
             return aclResponse;
 
         }
-
         public AclResponse findById(ulong id)
         {
             try
@@ -119,18 +115,18 @@ namespace ACL.Repositories.V1
             return aclResponse;
 
         }
-
-        private AclRole prepareInputData(AclRoleRequest request, AclRole aclRole = null)
+        private AclRole PrepareInputData(AclRoleRequest request, AclRole aclRole = null)
         {
+            if (aclRole == null)
+            {
+                aclRole = new AclRole();
+                aclRole.CreatedById = 0;
+                aclRole.CreatedAt = DateTime.Now;
+            }
             aclRole.Title = request.title;
             aclRole.Name = request.name;
             aclRole.Status = request.status;
             aclRole.CompanyId = 1;
-            if (aclRole == null)
-            {
-                aclRole.CreatedById = 0;
-                aclRole.CreatedAt = DateTime.Now;
-            }
             aclRole.UpdatedById = 0;
             aclRole.UpdatedAt = DateTime.Now;
 

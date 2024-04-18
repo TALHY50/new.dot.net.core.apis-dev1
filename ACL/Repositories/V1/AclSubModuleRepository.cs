@@ -4,10 +4,6 @@ using ACL.Interfaces.Repositories.V1;
 using ACL.Interfaces;
 using ACL.Requests;
 using ACL.Response.V1;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.Xml.Linq;
 
 namespace ACL.Repositories.V1
 {
@@ -41,7 +37,7 @@ namespace ACL.Repositories.V1
         {
             try
             {
-                var aclSubModule = prepareInputData(request);
+                var aclSubModule = PrepareInputData(request);
                 _unitOfWork.ApplicationDbContext.AddAsync(aclSubModule);
                 _unitOfWork.ApplicationDbContext.SaveChangesAsync();
                 _unitOfWork.ApplicationDbContext.Entry(aclSubModule).ReloadAsync();
@@ -59,7 +55,7 @@ namespace ACL.Repositories.V1
 
 
         }
-        public AclResponse Edit(ulong id, AclSubModuleEditRequest request)
+        public AclResponse Edit(ulong id, AclSubModuleRequest request)
         {
             var aclSubModule = _unitOfWork.ApplicationDbContext.AclSubModules.Find(id);
             if (aclSubModule == null)
@@ -69,7 +65,7 @@ namespace ACL.Repositories.V1
             }
             try
             {
-                aclSubModule = prepareEditInputData(request, aclSubModule);
+                aclSubModule = PrepareInputData(request, aclSubModule);
 
                 _unitOfWork.ApplicationDbContext.SaveChangesAsync();
                 _unitOfWork.ApplicationDbContext.Entry(aclSubModule).ReloadAsync();
@@ -126,26 +122,14 @@ namespace ACL.Repositories.V1
 
         }
 
-        private AclSubModule prepareInputData(AclSubModuleRequest request)
+        private AclSubModule PrepareInputData(AclSubModuleRequest request,AclSubModule aclSubModule = null)
         {
-            return new AclSubModule
+            if(aclSubModule == null)
             {
-                Id = request.id,
-                ModuleId = request.module_id,
-                Name = request.name,
-                ControllerName = request.controller_name,
-                DefaultMethod = request.default_method,
-                DisplayName = request.display_name,
-                Icon = request.icon,
-                Sequence = request.sequence,
-                CreatedAt = DateTime.Now,
-                UpdatedAt = DateTime.Now
-            };
-
-        }
-
-        private AclSubModule prepareEditInputData(AclSubModuleEditRequest request,AclSubModule aclSubModule = null)
-        {
+                aclSubModule = new AclSubModule();
+                aclSubModule.Id = request.id;
+                aclSubModule.CreatedAt = DateTime.Now;
+            }
             aclSubModule.ModuleId = request.module_id;
             aclSubModule.Name = request.name;
             aclSubModule.ControllerName = request.controller_name;

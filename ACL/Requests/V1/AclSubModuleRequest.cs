@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using ACL.Requests.CustomDataAnotator;
-using ACL.Requests.CustomDataAnotaTor;
 
 namespace ACL.Requests;
 
@@ -38,7 +37,7 @@ public partial class AclSubModuleRequest
 
     [DefaultValue("100")]
     [Required(ErrorMessage = "sequence is required.")]
-    [NonZero(ErrorMessage = "sequence is required.")]
+    [Range(1, ulong.MaxValue, ErrorMessage = "sequence is required.")]
     public int sequence { get; set; }
 
     [DefaultValue("index")]
