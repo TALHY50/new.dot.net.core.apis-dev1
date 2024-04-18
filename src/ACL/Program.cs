@@ -15,6 +15,7 @@ using DotNetEnv;
 using ACL.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Serilog.AspNetCore;
+using ACL.Services.CustomMiddleWare;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -50,8 +51,14 @@ IConfiguration configuration = new ConfigurationBuilder()
 // Configure Serilog
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Debug()
-    .WriteTo.File(GetLogFilePath("log.txt"), restrictedToMinimumLevel: LogEventLevel.Error) // Log exceptions to log.txt
-    .WriteTo.File(GetLogFilePath("querylog.txt"), restrictedToMinimumLevel: LogEventLevel.Information) // Log queries to query.txt
+    // Log exceptions to log.txt
+    .WriteTo.File(GetLogFilePath("log.txt"), restrictedToMinimumLevel: LogEventLevel.Error)
+    // Log application events (excluding requests and responses) to log.txt
+    .WriteTo.Logger(lc => lc
+        .Filter.ByExcluding(e => e.Properties.ContainsKey("RequestPath") || e.Properties.ContainsKey("RequestBody") || e.Properties.ContainsKey("ResponseBody"))
+        .WriteTo.File(GetLogFilePath("log.txt"), restrictedToMinimumLevel: LogEventLevel.Information))
+    // Log queries to querylog.txt
+    .WriteTo.File(GetLogFilePath("querylog.txt"), restrictedToMinimumLevel: LogEventLevel.Information)
     .CreateLogger();
 
 builder.Host.UseSerilog((hostingContext, loggerConfiguration) =>
@@ -86,6 +93,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseMiddleware<RequestResponseLoggingMiddleware>();
 // Use Serilog request logging middleware
 app.UseSerilogRequestLogging();
 
