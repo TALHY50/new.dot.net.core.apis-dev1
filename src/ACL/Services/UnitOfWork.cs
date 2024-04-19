@@ -27,8 +27,8 @@ namespace ACL.Services
         private IStringLocalizer<UnitOfWork> _localizer;
         private IViewLocalizer _viewLocalizer;
         private ApplicationDbContext dbContext;
-
-        public UnitOfWork(ApplicationDbContext context, ILoggerFactory loggerFactory, IHttpContextAccessor httpContextAccessor, ICacheService cacheService, IConfiguration config, IStringLocalizer<UnitOfWork> localizer, IViewLocalizer viewLocalizer)
+        public ILocalizationService LocalizationService { get; private set; }
+        public UnitOfWork(ApplicationDbContext context, ILoggerFactory loggerFactory, IHttpContextAccessor httpContextAccessor, ICacheService cacheService, IConfiguration config, IStringLocalizer<UnitOfWork> localizer, IViewLocalizer viewLocalizer, ILocalizationService localizationService)
         {
             this._localizer = localizer;
             _viewLocalizer = viewLocalizer;
@@ -38,6 +38,7 @@ namespace ACL.Services
             this._cacheService = cacheService;
             this._logService = new LogService(this._logger, loggerFactory);
             this._config = config;
+            LocalizationService = localizationService;
         }
 
         public UnitOfWork(ApplicationDbContext dbContext)
@@ -95,7 +96,7 @@ namespace ACL.Services
         }
         public IAclCompanyRepository AclCompanyRepository
         {
-            get { return new AclCompanyRepository(this, _config, _localizer); }
+            get { return new AclCompanyRepository(this, _config, LocalizationService); }
 
         }
 

@@ -4,6 +4,8 @@ using ACL.Response.V1;
 using ACL.Route;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
+using System.Globalization;
+using System.Resources;
 
 namespace ACL.Controllers.V1
 {
@@ -12,23 +14,16 @@ namespace ACL.Controllers.V1
     public class AclCompanyController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IStringLocalizer _localizer;
 
-        public AclCompanyController(IUnitOfWork unitOfWork/*,IStringLocalizer<AclCompanyController> localizer*/)
+        public AclCompanyController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            //_localizer = localizer;
         }
 
         [HttpGet(AclRoutesUrl.AclCompanyRouteUrl.List, Name = AclRoutesName.AclCompanyRouteNames.List)]
         public async Task<ActionResult> Index()
         {
-            //var companies = await _unitOfWork.AclCompanyRepository.All();
-            //return Ok(companies);
-            return Ok(await _unitOfWork.AclCompanyRepository.GetAll());
-            //IActionResult check = await _unitOfWork.AclCompanyRepository.GetAll();
-            //check.Message = _localizer["fetchMessage"];
-            //return check;
+           return Ok(await _unitOfWork.AclCompanyRepository.GetAll());
         }
 
         [HttpPost(AclRoutesUrl.AclCompanyRouteUrl.Add, Name = AclRoutesName.AclCompanyRouteNames.Add)]
