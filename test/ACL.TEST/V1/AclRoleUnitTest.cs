@@ -1,5 +1,6 @@
 using ACL.Interfaces;
 using ACL.Requests;
+using ACL.Tests;
 using Bogus;
 using NUnit.Framework;
 using RestSharp;
@@ -9,11 +10,6 @@ namespace UnitTestProject
     [TestFixture]
     public class AclRoleUnitTest
     {
-        private  IUnitOfWork _unitOfWork;
-        public AclRoleUnitTest(IUnitOfWork unitOfWork) 
-        {
-            _unitOfWork = unitOfWork;
-        }
 
         [Fact]
         public async void GetAllRolesTest()
@@ -54,7 +50,10 @@ namespace UnitTestProject
 
         private ulong getRandomID()
         {
-            return _unitOfWork.ApplicationDbContext.AclRoles.FirstOrDefault().Id;
+            DatabaseConnector con = new DatabaseConnector();
+            var roles = con.ConnectAndQueryDatabase();
+            //return _unitOfWork.ApplicationDbContext.AclRoles.FirstOrDefault().Id;
+            return 0;
 
         }
     }
