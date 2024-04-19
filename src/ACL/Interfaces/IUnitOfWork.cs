@@ -22,7 +22,7 @@ namespace ACL.Interfaces
         IStringLocalizer<UnitOfWork> Localizer { get; set; }
         IViewLocalizer ViewLocalizer { get; set; }
         ILogService LogService { get; set; }
-
+        ILocalizationService LocalizationService { get; }
         IAclCompanyRepository AclCompanyRepository { get; }
         IAclCompanyModuleRepository AclCompanyModuleRepository { get; }
         IAclModuleRepository AclModuleRepository { get; }

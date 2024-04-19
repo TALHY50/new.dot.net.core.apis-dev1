@@ -46,4 +46,19 @@
     <ProjectReference Include="..\..\SharedLibrary\SharedLibrary.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\bn-BD.resx">
+      <CustomToolNamespace>bn-BD</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\en-US.resx">
+      <CustomToolNamespace>en-US</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Resources.bn-BD.resx">
+      <CustomToolNamespace>Resources.bn-BD</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Resources.en-US.resx">
+      <CustomToolNamespace>ACL.Resources.Controllers.V1.AclCompanyController</CustomToolNamespace>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

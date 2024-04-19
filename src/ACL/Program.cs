@@ -42,10 +42,10 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
 builder.Services.AddTransient<IStringLocalizerFactory, ResourceManagerStringLocalizerFactory>();
 builder.Services.AddSingleton<ResourceManager>(sp =>
 {
-    var baseNameEnUs = "Resources.en-US";
-    var baseNameBnBd = "Resources.bn-BD";
+    var baseNameEnUs = "ACL.Resources.en-US";
+    var baseNameBnBd = "ACL.Resources.bn-BD";
     var assembly = typeof(Program).Assembly;
-    return new ResourceManager(baseNameBnBd, assembly);
+    return new ResourceManager(baseNameEnUs, assembly);
 });
 
 builder.Services.AddTransient<IStringLocalizer>(sp =>
@@ -55,50 +55,7 @@ builder.Services.AddTransient<IStringLocalizer>(sp =>
     return localizer;
 });
 builder.Services.AddTransient<IStringLocalizerFactory, ResourceManagerStringLocalizerFactory>();
-
-// Add MVC services with specific culture and no suffix
-builder.Services.AddMvc()
-        .AddViewLocalization(options => options.ResourcesPath = "Resources")
-        .AddDataAnnotationsLocalization(options =>
-        {
-            options.DataAnnotationLocalizerProvider = (type, factory) =>
-                factory.Create(typeof(FileResource)); // Replace SharedResources with your actual resource type
-        });
-
-// Add the ViewLocalization services
-builder.Services.AddScoped<IViewLocalizer, ViewLocalizer>();
-
-//builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
-//builder.Services.Configure<RequestLocalizationOptions>(options =>
-//{
-//    var supportedCultures = new[]
-//    {
-//        new CultureInfo("en-US"),
-//        new CultureInfo("bn-BD")
-//    };
-
-//    options.DefaultRequestCulture = new RequestCulture("en-US");
-//    options.SupportedCultures = supportedCultures;
-//    options.SupportedUICultures = supportedCultures;
-//});
-//builder.Services.AddTransient<ResourceManager>(sp =>
-//{
-//    var baseNameEnUs = "Resources.en-US";
-//    var assembly = typeof(Program).Assembly;
-//    return new ResourceManager(baseNameEnUs, assembly);
-//});
-
-//builder.Services.AddTransient<ResourceManager>(sp =>
-//{
-//    var baseNameBnBd = "Resources.bn-BD";
-//    var assembly = typeof(Program).Assembly;
-//    return new ResourceManager(baseNameBnBd, assembly);
-//});
-
-//// Uncomment the following line if you want to use ResourceManagerStringLocalizer
-////builder.Services.AddTransient<IStringLocalizer, ResourceManagerStringLocalizer>();
-
-
+builder.Services.AddSingleton<ILocalizationService>(new LocalizationService("ACL.Resources.en-US", typeof(Program).Assembly, "en-US"));
 Env.NoClobber().TraversePath().Load();
 
 var server = Env.GetString("DB_HOST");
@@ -114,7 +71,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     }));
 builder.Services.AddAntiforgery(options => options.HeaderName = "X-CSRF-TOKEN");
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+.AddDataAnnotationsLocalization();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

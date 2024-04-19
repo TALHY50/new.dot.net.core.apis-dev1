@@ -5,6 +5,7 @@ using ACL.Response.V1;
 using ACL.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 
 public class AclCompanyControllerIntegrationTest
 {
