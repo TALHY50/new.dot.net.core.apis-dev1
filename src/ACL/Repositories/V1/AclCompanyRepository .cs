@@ -32,7 +32,7 @@ namespace ACL.Repositories.V1
             {
                 var aclCompany = await base.GetById(id);
                 aclResponse.Data = aclCompany;
-                aclResponse.Message = messageResponse.fetchMessage;
+                aclResponse.Message = _unitOfWork.Localizer["fetchMessage"];
                 if (aclCompany == null)
                 {
                     aclResponse.Message = messageResponse.noFoundMessage;

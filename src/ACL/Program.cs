@@ -37,6 +37,7 @@ builder.Services.AddLocalization(o => o.ResourcesPath = "Resources");
                 var supportedCultures = new[]
                 {
                     new CultureInfo("en-US"),
+                    new CultureInfo("bn-BD"),
                     new CultureInfo("tr-TR"),
                 };
 

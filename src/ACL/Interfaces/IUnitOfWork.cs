@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using ACL.Interfaces.Repositories;
 using ACL.Controllers.V1;
 using ACL.Services.Interface;
+using Microsoft.Extensions.Localization;
 
 
 namespace ACL.Interfaces
@@ -16,7 +17,7 @@ namespace ACL.Interfaces
 
         public ApplicationDbContext ApplicationDbContext { get; set; }
         public ILogger Logger { get; set; }
-
+        IStringLocalizer Localizer { get; set; }
         public ILogService LogService { get; set; }
 
         IAclCompanyRepository AclCompanyRepository { get; }
