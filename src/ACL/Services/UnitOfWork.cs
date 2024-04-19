@@ -10,6 +10,8 @@ using ACL.Services;
 using System.Data;
 using ACL.Services.Interface;
 using Microsoft.Extensions.Logging;
+using ACL.Database.Models;
+using Microsoft.Extensions.Localization;
 
 namespace ACL.Services
 {
@@ -24,6 +26,7 @@ namespace ACL.Services
         private IStringLocalizer<UnitOfWork> _localizer;
         public UnitOfWork(ApplicationDbContext context, ILoggerFactory loggerFactory, IHttpContextAccessor httpContextAccessor, ICacheService cacheService, IConfiguration config,IStringLocalizer<UnitOfWork> localizer)
         {
+            this._localizer = localizer;
             this.context = context;
             this._logger = loggerFactory.CreateLogger("Logs");
             this._httpContextAccessor = httpContextAccessor;

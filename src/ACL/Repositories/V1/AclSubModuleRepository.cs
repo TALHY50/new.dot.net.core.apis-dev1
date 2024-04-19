@@ -4,18 +4,18 @@ using ACL.Interfaces.Repositories.V1;
 using ACL.Interfaces;
 using ACL.Requests;
 using ACL.Response.V1;
+using Microsoft.Extensions.Localization;
 
 namespace ACL.Repositories.V1
 {
-    public class AclSubModuleRepository : IAclSubModuleRepository
+    public class AclSubModuleRepository : GenericRepository<AclSubModule>, IAclSubModuleRepository
     {
         private readonly IUnitOfWork _unitOfWork;
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "SubModule";
-        public AclSubModuleRepository(IUnitOfWork unitOfWork)
+        public AclSubModuleRepository(IUnitOfWork _unitOfWork) : base(_unitOfWork)
         {
-            _unitOfWork = unitOfWork;
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName);
         }
@@ -122,9 +122,9 @@ namespace ACL.Repositories.V1
 
         }
 
-        private AclSubModule PrepareInputData(AclSubModuleRequest request,AclSubModule aclSubModule = null)
+        private AclSubModule PrepareInputData(AclSubModuleRequest request, AclSubModule aclSubModule = null)
         {
-            if(aclSubModule == null)
+            if (aclSubModule == null)
             {
                 aclSubModule = new AclSubModule();
                 aclSubModule.Id = request.id;

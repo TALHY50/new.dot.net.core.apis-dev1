@@ -21,6 +21,7 @@ using System.Globalization;
 using Microsoft.Extensions.Localization;
 using System.Resources;
 
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddLocalization(o => o.ResourcesPath = "Resources");
 builder.Services.Configure<RequestLocalizationOptions>(options =>
@@ -132,7 +133,7 @@ builder.Services.AddSerilog();
 static string GetLogFilePath(string fileName)
 {
     var logDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Logs");
-    Directory.CreateDirectory(logDirectory); // Ensure the directory exists
+    Directory.CreateDirectory(logDirectory);
     var datePrefix = DateTime.Now.ToString("yyyy-MM-dd");
     return Path.Combine(logDirectory, $"{datePrefix}_{fileName}");
 }

@@ -4,6 +4,7 @@ using ACL.Interfaces.Repositories.V1;
 using ACL.Requests;
 using ACL.Response.V1;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 using System.Linq;
 using static ACL.Route.AclRoutesUrl;
 
@@ -14,7 +15,7 @@ namespace ACL.Repositories.V1
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "Role Page";
-        public AclRolePageRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
+        public AclRolePageRepository(IUnitOfWork _unitOfWork) : base(_unitOfWork)
         {
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName);

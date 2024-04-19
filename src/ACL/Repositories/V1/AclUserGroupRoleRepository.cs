@@ -5,18 +5,19 @@ using ACL.Requests.V1;
 using ACL.Response.V1;
 using ACL.Interfaces.Repositories.V1;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 
 
 namespace ACL.Repositories.V1
 {
-    public class AclUserGroupRoleRepository :GenericRepository<AclUsergroupRole>, IAclUserGroupRoleRepository
+    public class AclUserGroupRoleRepository : GenericRepository<AclUsergroupRole>, IAclUserGroupRoleRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "User Group Role";
         private ulong companyId = 2;
-
-        public AclUserGroupRoleRepository(IUnitOfWork _unitOfWork):base(_unitOfWork)
+        IStringLocalizer<AclUsergroupRole> _localizer;
+        public AclUserGroupRoleRepository(IUnitOfWork _unitOfWork) : base(_unitOfWork)
         {
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName);
@@ -58,7 +59,7 @@ namespace ACL.Repositories.V1
                     {
                         _unitOfWork.ApplicationDbContext.AclUsergroupRoles.RemoveRange(aclUserGroupRole);
                     }
-                     _unitOfWork.ApplicationDbContext.AclUsergroupRoles.AddRange(userGroupRoles);
+                    _unitOfWork.ApplicationDbContext.AclUsergroupRoles.AddRange(userGroupRoles);
                     await _unitOfWork.CommitTransactionAsync();
                     await ReloadEntitiesAsync(userGroupRoles);
                     aclResponse.Data = userGroupRoles;

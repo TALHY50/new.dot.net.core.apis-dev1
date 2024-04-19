@@ -4,6 +4,7 @@ using ACL.Interfaces.Repositories.V1;
 using ACL.Requests.V1;
 using ACL.Response.V1;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 using SharedLibrary.Utilities;
 
 namespace ACL.Repositories.V1

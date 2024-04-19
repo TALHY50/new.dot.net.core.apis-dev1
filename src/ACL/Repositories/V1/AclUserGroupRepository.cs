@@ -4,6 +4,7 @@ using ACL.Interfaces.Repositories.V1;
 using ACL.Requests.V1;
 using ACL.Response.V1;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 
 namespace ACL.Repositories.V1
 {
@@ -13,7 +14,7 @@ namespace ACL.Repositories.V1
         public MessageResponse messageResponse;
         private string modelName = "User Group";
         public static ulong CompanyId = 0;
-        public AclUserGroupRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
+        public AclUserGroupRepository(IUnitOfWork _unitOfWork) : base(_unitOfWork)
         {
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName);
@@ -138,7 +139,7 @@ namespace ACL.Repositories.V1
 
         public ulong SetCompanyId(ulong companyId)
         {
-             CompanyId = companyId;
+            CompanyId = companyId;
             return CompanyId;
         }
     }
