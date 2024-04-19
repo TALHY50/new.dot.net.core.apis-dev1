@@ -21,8 +21,8 @@ namespace ACL.Services
         private ICacheService _cacheService;
         private IHttpContextAccessor _httpContextAccessor;
         private IConfiguration _config;
-
-        public UnitOfWork(ApplicationDbContext context, ILoggerFactory loggerFactory, IHttpContextAccessor httpContextAccessor, ICacheService cacheService, IConfiguration config)
+        private IStringLocalizer<UnitOfWork> _localizer;
+        public UnitOfWork(ApplicationDbContext context, ILoggerFactory loggerFactory, IHttpContextAccessor httpContextAccessor, ICacheService cacheService, IConfiguration config,IStringLocalizer<UnitOfWork> localizer)
         {
             this.context = context;
             this._logger = loggerFactory.CreateLogger("Logs");
@@ -43,6 +43,10 @@ namespace ACL.Services
         {
             get { return this._logger; }
             set { this._logger = value; }
+        }
+        public IStringLocalizer<UnitOfWork> Localizer
+        {
+            get { return this._localizer; }
         }
         public IConfiguration Config
         {
@@ -70,7 +74,7 @@ namespace ACL.Services
         }
         public IAclCompanyRepository AclCompanyRepository
         {
-            get { return new AclCompanyRepository(this, _config); }
+            get { return new AclCompanyRepository(this, _config,_localizer); }
 
         }
 
@@ -176,6 +180,7 @@ namespace ACL.Services
         {
             get { return new AclPasswordRepository(this); }
         }
+        
 
         public IExecutionStrategy CreateExecutionStrategy()
         {

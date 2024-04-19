@@ -16,8 +16,72 @@ using ACL.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Serilog.AspNetCore;
 using ACL.Services.CustomMiddleWare;
+using Microsoft.AspNetCore.Localization;
+using System.Globalization;
+using Microsoft.Extensions.Localization;
+using System.Resources;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddLocalization(o => o.ResourcesPath = "Resources");
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    var supportedCultures = new[]
+    {
+        new CultureInfo("en-US"),
+        new CultureInfo("bn-BD")
+    };
+
+    options.DefaultRequestCulture = new RequestCulture("en-US");
+    options.SupportedCultures = supportedCultures;
+    options.SupportedUICultures = supportedCultures;
+});
+builder.Services.AddTransient<IStringLocalizerFactory, ResourceManagerStringLocalizerFactory>();
+builder.Services.AddSingleton<ResourceManager>(sp =>
+{
+    var baseNameEnUs = "Resources.en-US";
+    var baseNameBnBd = "Resources.bn-BD";
+    var assembly = typeof(Program).Assembly;
+    return new ResourceManager(baseNameBnBd, assembly);
+});
+
+builder.Services.AddTransient<IStringLocalizer>(sp =>
+{
+    var factory = sp.GetRequiredService<IStringLocalizerFactory>();
+    var localizer = factory.Create(typeof(Program));
+    return localizer;
+});
+builder.Services.AddTransient<IStringLocalizerFactory, ResourceManagerStringLocalizerFactory>();
+
+
+//builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+//builder.Services.Configure<RequestLocalizationOptions>(options =>
+//{
+//    var supportedCultures = new[]
+//    {
+//        new CultureInfo("en-US"),
+//        new CultureInfo("bn-BD")
+//    };
+
+//    options.DefaultRequestCulture = new RequestCulture("en-US");
+//    options.SupportedCultures = supportedCultures;
+//    options.SupportedUICultures = supportedCultures;
+//});
+//builder.Services.AddTransient<ResourceManager>(sp =>
+//{
+//    var baseNameEnUs = "Resources.en-US";
+//    var assembly = typeof(Program).Assembly;
+//    return new ResourceManager(baseNameEnUs, assembly);
+//});
+
+//builder.Services.AddTransient<ResourceManager>(sp =>
+//{
+//    var baseNameBnBd = "Resources.bn-BD";
+//    var assembly = typeof(Program).Assembly;
+//    return new ResourceManager(baseNameBnBd, assembly);
+//});
+
+//// Uncomment the following line if you want to use ResourceManagerStringLocalizer
+////builder.Services.AddTransient<IStringLocalizer, ResourceManagerStringLocalizer>();
 
 
 Env.NoClobber().TraversePath().Load();
@@ -47,17 +111,12 @@ IConfiguration configuration = new ConfigurationBuilder()
        .SetBasePath(Directory.GetCurrentDirectory())
        .AddJsonFile("appsettings.json")
        .Build();
-
-// Configure Serilog
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Debug()
-    // Log exceptions to log.txt
     .WriteTo.File(GetLogFilePath("log.txt"), restrictedToMinimumLevel: LogEventLevel.Error)
-    // Log application events (excluding requests and responses) to log.txt
     .WriteTo.Logger(lc => lc
         .Filter.ByExcluding(e => e.Properties.ContainsKey("RequestPath") || e.Properties.ContainsKey("RequestBody") || e.Properties.ContainsKey("ResponseBody"))
         .WriteTo.File(GetLogFilePath("log.txt"), restrictedToMinimumLevel: LogEventLevel.Information))
-    // Log queries to querylog.txt
     .WriteTo.File(GetLogFilePath("querylog.txt"), restrictedToMinimumLevel: LogEventLevel.Information)
     .CreateLogger();
 
@@ -65,8 +124,7 @@ builder.Host.UseSerilog((hostingContext, loggerConfiguration) =>
 {
     loggerConfiguration
         .ReadFrom.Configuration(hostingContext.Configuration)
-        // Additional Serilog configuration here, if needed
-        .WriteTo.Console(); // Example sink, replace with your desired sink
+        .WriteTo.Console();
 });
 
 builder.Services.AddSerilog();
@@ -86,7 +144,8 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+app.UseRequestLocalization();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -94,10 +153,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseMiddleware<RequestResponseLoggingMiddleware>();
-// Use Serilog request logging middleware
 app.UseSerilogRequestLogging();
 
-// Enable CORS
 app.UseCors(builder =>
 {
     builder.AllowAnyOrigin()

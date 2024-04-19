@@ -16,11 +16,14 @@ namespace ACL.Repositories.V1
         public MessageResponse messageResponse;
         private string modelName = "Company";
         private IConfiguration _config;
-        public AclCompanyRepository(IUnitOfWork _unitOfWork, IConfiguration config) : base(_unitOfWork)
+        private readonly IStringLocalizer _localizer;
+
+        public AclCompanyRepository(IUnitOfWork _unitOfWork, IConfiguration config, IStringLocalizer localizer) : base(_unitOfWork)
         {
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName);
             _config = config;
+            this._localizer = localizer;
         }
         public async Task<AclResponse> FindById(ulong id)
         {
@@ -28,7 +31,7 @@ namespace ACL.Repositories.V1
             {
                 var aclCompany = await base.GetById(id);
                 aclResponse.Data = aclCompany;
-                aclResponse.Message = messageResponse.fetchMessage;
+                aclResponse.Message = _localizer["fetchMessage"];
                 if (aclCompany == null)
                 {
                     aclResponse.Message = messageResponse.noFoundMessage;

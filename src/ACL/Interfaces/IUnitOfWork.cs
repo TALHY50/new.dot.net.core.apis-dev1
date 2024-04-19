@@ -16,7 +16,7 @@ namespace ACL.Interfaces
 
         public ApplicationDbContext ApplicationDbContext { get; set; }
         public ILogger Logger { get; set; }
-
+        public IStringLocalizer<UnitOfWork> Localizer { get;}
         public ILogService LogService { get; set; }
 
         IAclCompanyRepository AclCompanyRepository { get; }
