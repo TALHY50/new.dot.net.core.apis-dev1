@@ -8,10 +8,10 @@ namespace ACL.Interfaces.Repositories.V1
 {
     public interface IAclRoleRepository : IGenericRepository<AclRole>
     {
-        AclResponse GetAll();
-        AclResponse Add(AclRoleRequest subModule);
-        AclResponse Edit(ulong id, AclRoleRequest subModule);
-        AclResponse findById(ulong id);
-        AclResponse deleteById(ulong id);
+        Task<AclResponse> GetAll();
+        Task<AclResponse> Add(AclRoleRequest subModule);
+        Task<AclResponse> Edit(ulong id, AclRoleRequest subModule);
+        Task<AclResponse> FindById(ulong id);
+        Task<AclResponse> DeleteById(ulong id);
     }
 }

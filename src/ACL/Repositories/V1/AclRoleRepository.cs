@@ -5,7 +5,6 @@ using ACL.Interfaces.Repositories.V1;
 using ACL.Requests;
 using ACL.Response.V1;
 using ACL.Utilities;
-using Microsoft.Extensions.Localization;
 
 namespace ACL.Repositories.V1
 {
@@ -14,18 +13,17 @@ namespace ACL.Repositories.V1
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "Role";
-        AuthInfoModel authInfo = new AuthInfoModel(123, 456, "user@example.com", "test", "12345678", 1, "1,2");
         public AclRoleRepository(IUnitOfWork _unitOfWork) : base(_unitOfWork)
         {
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName);
-            AppAuth.SetAuthInfo(authInfo);
+            AppAuth.SetAuthInfo(); // sent object to this class when auth is found
         }
 
-        public AclResponse GetAll()
+        public async Task<AclResponse> GetAll()
         {
-            var aclRoles = _unitOfWork.ApplicationDbContext.AclRoles.ToList();
-            if (aclRoles.Count > 0)
+            var aclRoles = await base.All();
+            if (aclRoles.Any())
             {
                 aclResponse.Message = messageResponse.fetchMessage;
             }
@@ -34,14 +32,14 @@ namespace ACL.Repositories.V1
 
             return aclResponse;
         }
-        public AclResponse Add(AclRoleRequest request)
+        public async Task<AclResponse> Add(AclRoleRequest request)
         {
             try
             {
                 var aclRole = PrepareInputData(request);
-                _unitOfWork.ApplicationDbContext.AddAsync(aclRole);
-                _unitOfWork.ApplicationDbContext.SaveChangesAsync();
-                _unitOfWork.ApplicationDbContext.Entry(aclRole).ReloadAsync();
+                await base.AddAsync(aclRole);
+                await _unitOfWork.CompleteAsync();
+                await _unitOfWork.AclRoleRepository.ReloadAsync(aclRole);
                 aclResponse.Data = aclRole;
                 aclResponse.Message = messageResponse.createMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
@@ -55,9 +53,9 @@ namespace ACL.Repositories.V1
 
 
         }
-        public AclResponse Edit(ulong id, AclRoleRequest request)
+        public async Task<AclResponse> Edit(ulong id, AclRoleRequest request)
         {
-            var aclRole = _unitOfWork.ApplicationDbContext.AclRoles.Find(id);
+            var aclRole = await base.GetById(id);
             if (aclRole == null)
             {
                 aclResponse.Message = messageResponse.noFoundMessage;
@@ -66,8 +64,9 @@ namespace ACL.Repositories.V1
             try
             {
                 aclRole = PrepareInputData(request, aclRole);
-                _unitOfWork.ApplicationDbContext.SaveChangesAsync();
-                _unitOfWork.ApplicationDbContext.Entry(aclRole).Reload();
+                await base.UpdateAsync(aclRole);
+                await _unitOfWork.CompleteAsync();
+                await _unitOfWork.AclRoleRepository.ReloadAsync(aclRole);
                 aclResponse.Data = aclRole;
                 aclResponse.Message = messageResponse.editMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
@@ -80,11 +79,11 @@ namespace ACL.Repositories.V1
             return aclResponse;
 
         }
-        public AclResponse findById(ulong id)
+        public async Task<AclResponse> FindById(ulong id)
         {
             try
             {
-                var aclRole = _unitOfWork.ApplicationDbContext.AclRoles.Find(id);
+                var aclRole = await base.GetById(id);
                 aclResponse.Data = aclRole;
                 aclResponse.Message = messageResponse.fetchMessage;
                 if (aclRole == null)
@@ -102,14 +101,14 @@ namespace ACL.Repositories.V1
             return aclResponse;
 
         }
-        public AclResponse deleteById(ulong id)
+        public async Task<AclResponse> DeleteById(ulong id)
         {
-            var aclRole = _unitOfWork.ApplicationDbContext.AclRoles.Find(id);
+            var aclRole = await base.GetById(id);
 
             if (aclRole != null)
             {
-                _unitOfWork.ApplicationDbContext.AclRoles.Remove(aclRole);
-                _unitOfWork.ApplicationDbContext.SaveChanges();
+                await base.DeleteAsync(aclRole);
+                await _unitOfWork.CompleteAsync();
                 aclResponse.Message = messageResponse.deleteMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
@@ -135,5 +134,6 @@ namespace ACL.Repositories.V1
             return aclRole;
         }
 
+       
     }
 }

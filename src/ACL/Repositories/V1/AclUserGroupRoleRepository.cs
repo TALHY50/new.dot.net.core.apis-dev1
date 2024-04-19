@@ -6,27 +6,29 @@ using ACL.Response.V1;
 using ACL.Interfaces.Repositories.V1;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
+using ACL.Utilities;
 
 
 namespace ACL.Repositories.V1
 {
-    public class AclUserGroupRoleRepository : GenericRepository<AclUsergroupRole>, IAclUserGroupRoleRepository
+    public class AclUserGroupRoleRepository :GenericRepository<AclUsergroupRole>, IAclUserGroupRoleRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "User Group Role";
-        private ulong companyId = 2;
         IStringLocalizer<AclUsergroupRole> _localizer;
-        public AclUserGroupRoleRepository(IUnitOfWork _unitOfWork) : base(_unitOfWork)
+        public AclUserGroupRoleRepository(IUnitOfWork _unitOfWork) :base(_unitOfWork) 
         {
+            AppAuth.SetAuthInfo();
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName);
+           
         }
 
-        public AclResponse GetRolesByUserGroupId(ulong userGroupId)
+        public async Task<AclResponse> GetRolesByUserGroupId(ulong userGroupId)
         {
-            var roles = _unitOfWork.ApplicationDbContext.AclRoles.Select(role => new { role.Id, role.Title }).ToList();
-            var associatedRoles = _unitOfWork.ApplicationDbContext.AclUsergroupRoles
+            var roles = await _unitOfWork.ApplicationDbContext.AclRoles.Select(role => new { role.Id, role.Title }).ToListAsync();
+            var associatedRoles =  _unitOfWork.ApplicationDbContext.AclUsergroupRoles
                                    .Where(usergroupRole => usergroupRole.UsergroupId == userGroupId)
                                    .Join(_unitOfWork.ApplicationDbContext.AclRoles,
                                           usergroupRole => usergroupRole.RoleId,
@@ -57,9 +59,9 @@ namespace ACL.Repositories.V1
                 {
                     if (aclUserGroupRole.Any())
                     {
-                        _unitOfWork.ApplicationDbContext.AclUsergroupRoles.RemoveRange(aclUserGroupRole);
+                        await _unitOfWork.AclUserGroupRoleRepository.RemoveRange(aclUserGroupRole);
                     }
-                    _unitOfWork.ApplicationDbContext.AclUsergroupRoles.AddRange(userGroupRoles);
+                    await _unitOfWork.AclUserGroupRoleRepository.AddRange(userGroupRoles);
                     await _unitOfWork.CommitTransactionAsync();
                     await ReloadEntitiesAsync(userGroupRoles);
                     aclResponse.Data = userGroupRoles;
@@ -86,7 +88,7 @@ namespace ACL.Repositories.V1
             {
                 UsergroupId = request.user_group_id,
                 RoleId = roleId,
-                CompanyId = companyId,
+                CompanyId = AppAuth.GetAuthInfo().CompanyId,
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now,
             }).ToArray();

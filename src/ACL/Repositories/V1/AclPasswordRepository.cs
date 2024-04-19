@@ -3,6 +3,7 @@ using ACL.Interfaces;
 using ACL.Interfaces.Repositories.V1;
 using ACL.Requests.V1;
 using ACL.Response.V1;
+using ACL.Utilities;
 using Microsoft.Extensions.Localization;
 using SharedLibrary.Services;
 using System.Runtime.Caching;
@@ -14,10 +15,8 @@ namespace ACL.Repositories.V1
 {
     public class AclPasswordRepository : GenericRepository<AclUser>, IAclPasswordRepository
     {
-        private readonly IUnitOfWork _unitOfWork;
         public AclResponse aclResponse;
         private string modelName = "Password";
-        private ulong authUser = 2;
         private int tokenExpiryMinutes = 60;
         public MessageResponse messageResponse;
         IStringLocalizer<AclUser> _localizer;
@@ -25,12 +24,13 @@ namespace ACL.Repositories.V1
         {
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName);
+            AppAuth.SetAuthInfo(); // sent object to this class when auth is found
         }
 
-        public AclResponse Reset(AclPasswordResetRequest request)
+        public async Task<AclResponse> Reset(AclPasswordResetRequest request)
         {
             //Auth User Id Checking
-            if (authUser != request.user_id)
+            if (AppAuth.GetAuthInfo().UserId != request.user_id)
             {
                 aclResponse.Message = "Invalid User";
                 aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
@@ -57,9 +57,10 @@ namespace ACL.Repositories.V1
                 try
                 {
                     aclUser.Password = Cryptographer.AppEncrypt(request.new_password);
-                    _unitOfWork.ApplicationDbContext.SaveChangesAsync();
-                    _unitOfWork.ApplicationDbContext.Entry(aclUser).ReloadAsync();
-
+                    await base.UpdateAsync(aclUser);
+                    await _unitOfWork.CompleteAsync();
+                    await _unitOfWork.AclUserRepository.ReloadAsync(aclUser);
+                  
                     aclResponse.Message = "Password Reset Succesfully.";
                     aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
                 }
@@ -73,7 +74,7 @@ namespace ACL.Repositories.V1
             return aclResponse;
         }
 
-        public AclResponse Forget(AclForgetPasswordRequest request)
+        public async Task<AclResponse> Forget(AclForgetPasswordRequest request)
         {
             var aclUser = _unitOfWork.ApplicationDbContext.AclUsers.FirstOrDefault(x => x.Email == request.email);
 
@@ -95,7 +96,7 @@ namespace ACL.Repositories.V1
             return aclResponse;
         }
 
-        public AclResponse VerifyToken(AclForgetPasswordTokenVerifyRequest request)
+        public async Task<AclResponse> VerifyToken(AclForgetPasswordTokenVerifyRequest request)
         {
             if (!MemoryCacheExist(request.token))
             {
@@ -112,8 +113,9 @@ namespace ACL.Repositories.V1
             {
                 var aclUser = _unitOfWork.ApplicationDbContext.AclUsers.FirstOrDefault(x => x.Email == email);
                 aclUser.Password = Cryptographer.AppEncrypt(request.new_password);
-                _unitOfWork.ApplicationDbContext.SaveChangesAsync();
-                _unitOfWork.ApplicationDbContext.Entry(aclUser).ReloadAsync();
+                await base.UpdateAsync(aclUser);
+                await _unitOfWork.CompleteAsync();
+                await _unitOfWork.AclUserRepository.ReloadAsync(aclUser);
 
                 RemoveMemoryCacheByKey(request.token);
                 aclResponse.Message = "Password Reset Succesfully.";

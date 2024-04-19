@@ -4,13 +4,11 @@ using ACL.Interfaces.Repositories.V1;
 using ACL.Interfaces;
 using ACL.Requests;
 using ACL.Response.V1;
-using Microsoft.Extensions.Localization;
 
 namespace ACL.Repositories.V1
 {
     public class AclSubModuleRepository : GenericRepository<AclSubModule>, IAclSubModuleRepository
     {
-        private readonly IUnitOfWork _unitOfWork;
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "SubModule";
@@ -20,10 +18,10 @@ namespace ACL.Repositories.V1
             messageResponse = new MessageResponse(modelName);
         }
 
-        public AclResponse GetAll()
+        public async Task<AclResponse> GetAll()
         {
-            var aclSubModules = _unitOfWork.ApplicationDbContext.AclSubModules.ToList();
-            if (aclSubModules.Count > 0)
+            var aclSubModules = await base.All();
+            if (aclSubModules.Any())
             {
                 aclResponse.Message = messageResponse.fetchMessage;
             }
@@ -33,14 +31,14 @@ namespace ACL.Repositories.V1
 
             return aclResponse;
         }
-        public AclResponse Add(AclSubModuleRequest request)
+        public async Task<AclResponse> Add(AclSubModuleRequest request)
         {
             try
             {
                 var aclSubModule = PrepareInputData(request);
-                _unitOfWork.ApplicationDbContext.AddAsync(aclSubModule);
-                _unitOfWork.ApplicationDbContext.SaveChangesAsync();
-                _unitOfWork.ApplicationDbContext.Entry(aclSubModule).ReloadAsync();
+                await base.AddAsync(aclSubModule);
+                await _unitOfWork.CompleteAsync();
+                await _unitOfWork.AclSubModuleRepository.ReloadAsync(aclSubModule);
                 aclResponse.Data = aclSubModule;
                 aclResponse.Message = messageResponse.createMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
@@ -55,9 +53,9 @@ namespace ACL.Repositories.V1
 
 
         }
-        public AclResponse Edit(ulong id, AclSubModuleRequest request)
+        public async Task<AclResponse> Edit(ulong id, AclSubModuleRequest request)
         {
-            var aclSubModule = _unitOfWork.ApplicationDbContext.AclSubModules.Find(id);
+            var aclSubModule = await base.GetById(id);
             if (aclSubModule == null)
             {
                 aclResponse.Message = messageResponse.noFoundMessage;
@@ -66,9 +64,9 @@ namespace ACL.Repositories.V1
             try
             {
                 aclSubModule = PrepareInputData(request, aclSubModule);
-
-                _unitOfWork.ApplicationDbContext.SaveChangesAsync();
-                _unitOfWork.ApplicationDbContext.Entry(aclSubModule).ReloadAsync();
+                await base.UpdateAsync(aclSubModule);
+                await _unitOfWork.CompleteAsync();
+                await _unitOfWork.AclSubModuleRepository.ReloadAsync(aclSubModule);
                 aclResponse.Data = aclSubModule;
                 aclResponse.Message = messageResponse.editMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
@@ -83,11 +81,11 @@ namespace ACL.Repositories.V1
 
         }
 
-        public AclResponse findById(ulong id)
+        public async Task<AclResponse> FindById(ulong id)
         {
             try
             {
-                var aclSubModule = _unitOfWork.ApplicationDbContext.AclSubModules.FindAsync(id);
+                var aclSubModule = await base.GetById(id);
                 aclResponse.Data = aclSubModule;
                 aclResponse.Message = messageResponse.fetchMessage;
                 if (aclSubModule == null)
@@ -106,14 +104,14 @@ namespace ACL.Repositories.V1
             return aclResponse;
 
         }
-        public AclResponse deleteById(ulong id)
+        public async Task<AclResponse> DeleteById(ulong id)
         {
-            var subModule = _unitOfWork.ApplicationDbContext.AclSubModules.Find(id);
+            var subModule = await base.GetById(id);
 
             if (subModule != null)
             {
-                _unitOfWork.ApplicationDbContext.AclSubModules.Remove(subModule);
-                _unitOfWork.ApplicationDbContext.SaveChanges();
+                await base.DeleteAsync(subModule);
+                await _unitOfWork.CompleteAsync();
                 aclResponse.Message = messageResponse.deleteMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }

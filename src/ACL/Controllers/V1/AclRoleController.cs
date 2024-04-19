@@ -19,33 +19,33 @@ namespace ACL.Controllers.V1
         [HttpGet(Route.AclRoutesUrl.AclRole.List, Name = Route.AclRoutesName.AclRole.List)]
         public async Task<AclResponse> Index()
         {
-            return _repository.AclRoleRepository.GetAll();
+            return await _repository.AclRoleRepository.GetAll();
         }
 
         [HttpPost(Route.AclRoutesUrl.AclRole.Add, Name = Route.AclRoutesName.AclRole.Add)]
         public async Task<AclResponse> Create(AclRoleRequest objRole)
         {
-            return _repository.AclRoleRepository.Add(objRole);
+            return await _repository.AclRoleRepository.Add(objRole);
         }
 
         [HttpGet(Route.AclRoutesUrl.AclRole.View, Name = Route.AclRoutesName.AclRole.View)]
         public async Task<AclResponse> View(ulong id)
         {
-            return _repository.AclRoleRepository.findById(id);
+            return await _repository.AclRoleRepository.FindById(id);
 
         }
 
         [HttpPut(Route.AclRoutesUrl.AclRole.Edit, Name = Route.AclRoutesName.AclRole.Edit)]
         public async Task<AclResponse> Edit(ulong id, AclRoleRequest objRole)
         {
-            return _repository.AclRoleRepository.Edit(id, objRole);
+            return await _repository.AclRoleRepository.Edit(id, objRole);
 
         }
 
         [HttpDelete(Route.AclRoutesUrl.AclRole.Destroy, Name = Route.AclRoutesName.AclRole.Destroy)]
         public async Task<AclResponse> Destroy(ulong id)
         {
-            return _repository.AclRoleRepository.deleteById(id);
+            return await _repository.AclRoleRepository.DeleteById(id);
         }
 
     }
