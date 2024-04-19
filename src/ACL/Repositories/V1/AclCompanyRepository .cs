@@ -6,10 +6,13 @@ using ACL.Requests;
 using ACL.Requests.V1;
 using ACL.Response.V1;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
-using SharedLibrary.Utilities;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.DependencyInjection;
+
 
 namespace ACL.Repositories.V1
 {
@@ -19,20 +22,26 @@ namespace ACL.Repositories.V1
         public MessageResponse messageResponse;
         private string modelName = "Company";
         private IConfiguration _config;
+        private readonly IStringLocalizer _localizer;
+        
 
-        public AclCompanyRepository(IUnitOfWork _unitOfWork, IConfiguration config) : base(_unitOfWork)
+        public AclCompanyRepository(IUnitOfWork _unitOfWork, IConfiguration config, IStringLocalizer localizer/*, IViewLocalizer viewLocalizer*/) : base(_unitOfWork)
         {
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName);
             _config = config;
+            this._localizer = localizer;
+            //_viewLocalizer = viewLocalizer;
         }
+
         public async Task<AclResponse> FindById(ulong id)
         {
             try
             {
                 var aclCompany = await base.GetById(id);
                 aclResponse.Data = aclCompany;
-                aclResponse.Message = _unitOfWork.Localizer["fetchMessage"];
+                aclResponse.Message = _localizer["fetchMessage"]??messageResponse.fetchMessage;
+                //aclResponse.Message = _unitOfWork.ViewLocalizer["fetchMessage"].ToString();
                 if (aclCompany == null)
                 {
                     aclResponse.Message = messageResponse.noFoundMessage;
@@ -99,7 +108,7 @@ namespace ACL.Repositories.V1
 
                                 _unitOfWork.AclUserRepository.SetCompanyId((uint)aclCompany.Id);
                                 _unitOfWork.AclUserRepository.SetUserType(true);
-                                 _unitOfWork.AclUserRepository.Add(user);
+                                _unitOfWork.AclUserRepository.Add(user);
                                 await _unitOfWork.CompleteAsync();
                                 await _unitOfWork.AclUserRepository.ReloadAsync(user);
 
@@ -200,7 +209,7 @@ namespace ACL.Repositories.V1
 
         public async Task<AclResponse> GetAll()
         {
-            var aclCompany = await base.Where(b=>b.Status == 1).ToListAsync();
+            var aclCompany = await base.Where(b => b.Status == 1).ToListAsync();
             if (aclCompany.Any())
             {
                 aclResponse.Message = messageResponse.fetchMessage;

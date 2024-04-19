@@ -1,13 +1,811 @@
-2024-04-19 11:42:50.202 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
-2024-04-19 11:42:50.287 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
-2024-04-19 11:42:50.312 +06:00 [INF] Application started. Press Ctrl+C to shut down.
-2024-04-19 11:42:50.312 +06:00 [INF] Hosting environment: Development
-2024-04-19 11:42:50.312 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
-2024-04-19 11:42:50.352 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/index.html - null null
-2024-04-19 11:42:50.572 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/index.html - 200 null text/html;charset=utf-8 223.8835ms
-2024-04-19 11:42:50.635 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - null null
-2024-04-19 11:42:50.649 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 6.3414ms
-2024-04-19 11:42:50.649 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_vs/browserLink - null null
-2024-04-19 11:42:50.691 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_vs/browserLink - 200 null text/javascript; charset=UTF-8 41.9525ms
-2024-04-19 11:42:51.267 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - null null
-2024-04-19 11:42:51.431 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 164.6346ms
+2024-04-19 13:15:45.838 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-19 13:15:45.958 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-19 13:15:45.991 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-19 13:15:45.991 +06:00 [INF] Hosting environment: Development
+2024-04-19 13:15:45.991 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-19 13:15:46.029 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/index.html - null null
+2024-04-19 13:15:46.291 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/index.html - 200 null text/html;charset=utf-8 265.7309ms
+2024-04-19 13:15:46.347 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-19 13:15:46.353 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 3.4492ms
+2024-04-19 13:15:46.369 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_vs/browserLink - null null
+2024-04-19 13:15:46.410 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_vs/browserLink - 200 null text/javascript; charset=UTF-8 41.0607ms
+2024-04-19 13:15:46.845 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - null null
+2024-04-19 13:15:46.988 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 149.9318ms
+2024-04-19 13:15:55.672 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/api/v1/companies/view/2 - null null
+2024-04-19 13:15:55.687 +06:00 [INF] [Request] GET: /api/v1/companies/view/2
+[Request Body] 
+
+2024-04-19 13:15:55.691 +06:00 [INF] Executing endpoint 'ACL.Controllers.V1.AclCompanyController.View (ACL)'
+2024-04-19 13:15:55.720 +06:00 [INF] Route matched with {action = "View", controller = "AclCompany"}. Executing controller action with signature System.Threading.Tasks.Task`1[ACL.Response.V1.AclResponse] View(UInt64) on controller ACL.Controllers.V1.AclCompanyController (ACL).
+2024-04-19 13:15:56.222 +06:00 [INF] Executing action method ACL.Controllers.V1.AclCompanyController.View (ACL) - Validation state: "Valid"
+2024-04-19 13:16:01.356 +06:00 [INF] Executed DbCommand (53ms) [Parameters=[@__p_0='?' (DbType = UInt64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`added_by`, `a`.`address1`, `a`.`address2`, `a`.`average_turnover`, `a`.`cemail`, `a`.`city`, `a`.`cmmi_level`, `a`.`cname`, `a`.`country`, `a`.`created_at`, `a`.`daily_rate`, `a`.`email`, `a`.`fax`, `a`.`hourly_rate`, `a`.`logo`, `a`.`name`, `a`.`no_of_employees`, `a`.`phone`, `a`.`postcode`, `a`.`registration_no`, `a`.`sector`, `a`.`state`, `a`.`status`, `a`.`tax_no`, `a`.`tax_office`, `a`.`timezone`, `a`.`timezone_value`, `a`.`unique_column_name`, `a`.`updated_at`, `a`.`yearly_revenue`
+FROM `acl_companies` AS `a`
+WHERE `a`.`id` = @__p_0
+LIMIT 1
+2024-04-19 13:16:06.435 +06:00 [INF] Executed action method ACL.Controllers.V1.AclCompanyController.View (ACL), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 10210.6413ms.
+2024-04-19 13:16:06.441 +06:00 [INF] Executing ObjectResult, writing value of type 'ACL.Response.V1.AclResponse'.
+2024-04-19 13:16:06.462 +06:00 [INF] Executed action ACL.Controllers.V1.AclCompanyController.View (ACL) in 10739.2476ms
+2024-04-19 13:16:06.463 +06:00 [INF] Executed endpoint 'ACL.Controllers.V1.AclCompanyController.View (ACL)'
+2024-04-19 13:16:06.464 +06:00 [INF] HTTP GET /api/v1/companies/view/2 responded 200 in 10774.6935 ms
+2024-04-19 13:16:06.465 +06:00 [INF] [Response] GET: /api/v1/companies/view/2
+[Response Body] {"statusCode":200,"message":"fetchMessage","data":{"id":2,"name":"string","cname":"Updated","cemail":"user@example.com","address1":"string","address2":"string","postcode":"string","phone":"string","email":"korim@gmail.com","fax":"string","city":"string","state":"string","country":"string","logo":"string","registrationNo":"string","timezone":0,"uniqueColumnName":1,"timezoneValue":"string","taxNo":"string","taxOffice":null,"sector":null,"averageTurnover":0,"noOfEmployees":0,"cmmiLevel":0,"yearlyRevenue":0,"hourlyRate":0,"dailyRate":0,"status":1,"addedBy":1,"createdAt":"2024-03-07T13:25:44","updatedAt":"2024-04-17T18:53:19"},"timestamp":"2024-04-19T13:16:06.4323931+06:00"}
+
+2024-04-19 13:16:06.472 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/api/v1/companies/view/2 - 200 null application/json; charset=utf-8 10799.81ms
+2024-04-19 13:16:16.502 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/index.html - null null
+2024-04-19 13:16:16.535 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/index.html - 200 null text/html;charset=utf-8 32.5275ms
+2024-04-19 13:16:16.565 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-19 13:16:16.565 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_vs/browserLink - null null
+2024-04-19 13:16:16.569 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 1.0416ms
+2024-04-19 13:16:16.589 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_vs/browserLink - 200 null text/javascript; charset=UTF-8 23.7454ms
+2024-04-19 13:16:16.900 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - null null
+2024-04-19 13:16:16.929 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 28.1716ms
+2024-04-19 13:20:46.031 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-19 13:20:46.108 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-19 13:20:46.129 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-19 13:20:46.129 +06:00 [INF] Hosting environment: Development
+2024-04-19 13:20:46.129 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-19 13:20:46.162 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/index.html - null null
+2024-04-19 13:20:46.371 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/index.html - 200 null text/html;charset=utf-8 212.9116ms
+2024-04-19 13:20:46.413 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-19 13:20:46.417 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 2.4755ms
+2024-04-19 13:20:46.432 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_vs/browserLink - null null
+2024-04-19 13:20:46.466 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_vs/browserLink - 200 null text/javascript; charset=UTF-8 34.3559ms
+2024-04-19 13:20:46.876 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - null null
+2024-04-19 13:20:47.023 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 147.2953ms
+2024-04-19 13:23:47.757 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-19 13:23:47.837 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-19 13:23:47.860 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-19 13:23:47.860 +06:00 [INF] Hosting environment: Development
+2024-04-19 13:23:47.860 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-19 13:23:47.894 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/index.html - null null
+2024-04-19 13:23:48.105 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/index.html - 200 null text/html;charset=utf-8 213.2064ms
+2024-04-19 13:23:48.155 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-19 13:23:48.159 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 2.5211ms
+2024-04-19 13:23:48.170 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_vs/browserLink - null null
+2024-04-19 13:23:48.202 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_vs/browserLink - 200 null text/javascript; charset=UTF-8 32.2259ms
+2024-04-19 13:23:48.520 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - null null
+2024-04-19 13:23:48.650 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 130.7164ms
+2024-04-19 13:23:57.379 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/api/v1/companies/view/2 - null null
+2024-04-19 13:23:57.394 +06:00 [INF] [Request] GET: /api/v1/companies/view/2
+[Request Body] 
+
+2024-04-19 13:23:57.398 +06:00 [INF] Executing endpoint 'ACL.Controllers.V1.AclCompanyController.View (ACL)'
+2024-04-19 13:23:57.414 +06:00 [INF] Route matched with {action = "View", controller = "AclCompany"}. Executing controller action with signature System.Threading.Tasks.Task`1[ACL.Response.V1.AclResponse] View(UInt64) on controller ACL.Controllers.V1.AclCompanyController (ACL).
+2024-04-19 13:23:57.830 +06:00 [INF] Executing action method ACL.Controllers.V1.AclCompanyController.View (ACL) - Validation state: "Valid"
+2024-04-19 13:24:26.962 +06:00 [INF] Executed DbCommand (26ms) [Parameters=[@__p_0='?' (DbType = UInt64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`added_by`, `a`.`address1`, `a`.`address2`, `a`.`average_turnover`, `a`.`cemail`, `a`.`city`, `a`.`cmmi_level`, `a`.`cname`, `a`.`country`, `a`.`created_at`, `a`.`daily_rate`, `a`.`email`, `a`.`fax`, `a`.`hourly_rate`, `a`.`logo`, `a`.`name`, `a`.`no_of_employees`, `a`.`phone`, `a`.`postcode`, `a`.`registration_no`, `a`.`sector`, `a`.`state`, `a`.`status`, `a`.`tax_no`, `a`.`tax_office`, `a`.`timezone`, `a`.`timezone_value`, `a`.`unique_column_name`, `a`.`updated_at`, `a`.`yearly_revenue`
+FROM `acl_companies` AS `a`
+WHERE `a`.`id` = @__p_0
+LIMIT 1
+2024-04-19 13:24:41.014 +06:00 [INF] Executed action method ACL.Controllers.V1.AclCompanyController.View (ACL), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 43180.4691ms.
+2024-04-19 13:24:41.019 +06:00 [INF] Executing ObjectResult, writing value of type 'ACL.Response.V1.AclResponse'.
+2024-04-19 13:24:41.037 +06:00 [INF] Executed action ACL.Controllers.V1.AclCompanyController.View (ACL) in 43620.1825ms
+2024-04-19 13:24:41.038 +06:00 [INF] Executed endpoint 'ACL.Controllers.V1.AclCompanyController.View (ACL)'
+2024-04-19 13:24:41.039 +06:00 [INF] HTTP GET /api/v1/companies/view/2 responded 200 in 43642.4735 ms
+2024-04-19 13:24:41.040 +06:00 [INF] [Response] GET: /api/v1/companies/view/2
+[Response Body] {"statusCode":200,"message":"fetchMessage","data":{"id":2,"name":"string","cname":"Updated","cemail":"user@example.com","address1":"string","address2":"string","postcode":"string","phone":"string","email":"korim@gmail.com","fax":"string","city":"string","state":"string","country":"string","logo":"string","registrationNo":"string","timezone":0,"uniqueColumnName":1,"timezoneValue":"string","taxNo":"string","taxOffice":null,"sector":null,"averageTurnover":0,"noOfEmployees":0,"cmmiLevel":0,"yearlyRevenue":0,"hourlyRate":0,"dailyRate":0,"status":1,"addedBy":1,"createdAt":"2024-03-07T13:25:44","updatedAt":"2024-04-17T18:53:19"},"timestamp":"2024-04-19T13:24:41.0115947+06:00"}
+
+2024-04-19 13:24:41.052 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/api/v1/companies/view/2 - 200 null application/json; charset=utf-8 43673.1763ms
+2024-04-19 13:26:58.232 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-19 13:26:58.312 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-19 13:26:58.334 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-19 13:26:58.334 +06:00 [INF] Hosting environment: Development
+2024-04-19 13:26:58.334 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-19 13:26:58.374 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/index.html - null null
+2024-04-19 13:26:58.590 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/index.html - 200 null text/html;charset=utf-8 219.8361ms
+2024-04-19 13:26:58.630 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-19 13:26:58.658 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_vs/browserLink - null null
+2024-04-19 13:26:58.658 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 2.3879ms
+2024-04-19 13:26:58.690 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_vs/browserLink - 200 null text/javascript; charset=UTF-8 32.2991ms
+2024-04-19 13:26:59.049 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - null null
+2024-04-19 13:26:59.178 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 128.3238ms
+2024-04-19 13:27:12.679 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/api/v1/companies/view/2 - null null
+2024-04-19 13:27:12.696 +06:00 [INF] [Request] GET: /api/v1/companies/view/2
+[Request Body] 
+
+2024-04-19 13:27:12.700 +06:00 [INF] Executing endpoint 'ACL.Controllers.V1.AclCompanyController.View (ACL)'
+2024-04-19 13:27:12.716 +06:00 [INF] Route matched with {action = "View", controller = "AclCompany"}. Executing controller action with signature System.Threading.Tasks.Task`1[ACL.Response.V1.AclResponse] View(UInt64) on controller ACL.Controllers.V1.AclCompanyController (ACL).
+2024-04-19 13:27:13.189 +06:00 [INF] Executing action method ACL.Controllers.V1.AclCompanyController.View (ACL) - Validation state: "Valid"
+2024-04-19 13:27:18.181 +06:00 [INF] Executed DbCommand (47ms) [Parameters=[@__p_0='?' (DbType = UInt64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`added_by`, `a`.`address1`, `a`.`address2`, `a`.`average_turnover`, `a`.`cemail`, `a`.`city`, `a`.`cmmi_level`, `a`.`cname`, `a`.`country`, `a`.`created_at`, `a`.`daily_rate`, `a`.`email`, `a`.`fax`, `a`.`hourly_rate`, `a`.`logo`, `a`.`name`, `a`.`no_of_employees`, `a`.`phone`, `a`.`postcode`, `a`.`registration_no`, `a`.`sector`, `a`.`state`, `a`.`status`, `a`.`tax_no`, `a`.`tax_office`, `a`.`timezone`, `a`.`timezone_value`, `a`.`unique_column_name`, `a`.`updated_at`, `a`.`yearly_revenue`
+FROM `acl_companies` AS `a`
+WHERE `a`.`id` = @__p_0
+LIMIT 1
+2024-04-19 13:44:38.658 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-19 13:44:38.731 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-19 13:44:38.754 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-19 13:44:38.754 +06:00 [INF] Hosting environment: Development
+2024-04-19 13:44:38.754 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-19 13:44:38.790 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/index.html - null null
+2024-04-19 13:44:39.003 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/index.html - 200 null text/html;charset=utf-8 214.7407ms
+2024-04-19 13:44:39.057 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-19 13:44:39.061 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 3.1527ms
+2024-04-19 13:44:39.074 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_vs/browserLink - null null
+2024-04-19 13:44:39.108 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_vs/browserLink - 200 null text/javascript; charset=UTF-8 34.1716ms
+2024-04-19 13:44:39.512 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - null null
+2024-04-19 13:44:39.646 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 133.8205ms
+2024-04-19 13:44:48.640 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/api/v1/companies/view/2 - null null
+2024-04-19 13:44:48.655 +06:00 [INF] [Request] GET: /api/v1/companies/view/2
+[Request Body] 
+
+2024-04-19 13:44:48.658 +06:00 [INF] Executing endpoint 'ACL.Controllers.V1.AclCompanyController.View (ACL)'
+2024-04-19 13:44:48.678 +06:00 [INF] Route matched with {action = "View", controller = "AclCompany"}. Executing controller action with signature System.Threading.Tasks.Task`1[ACL.Response.V1.AclResponse] View(UInt64) on controller ACL.Controllers.V1.AclCompanyController (ACL).
+2024-04-19 13:44:49.080 +06:00 [INF] Executing action method ACL.Controllers.V1.AclCompanyController.View (ACL) - Validation state: "Valid"
+2024-04-19 13:44:52.478 +06:00 [INF] Executed DbCommand (45ms) [Parameters=[@__p_0='?' (DbType = UInt64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`added_by`, `a`.`address1`, `a`.`address2`, `a`.`average_turnover`, `a`.`cemail`, `a`.`city`, `a`.`cmmi_level`, `a`.`cname`, `a`.`country`, `a`.`created_at`, `a`.`daily_rate`, `a`.`email`, `a`.`fax`, `a`.`hourly_rate`, `a`.`logo`, `a`.`name`, `a`.`no_of_employees`, `a`.`phone`, `a`.`postcode`, `a`.`registration_no`, `a`.`sector`, `a`.`state`, `a`.`status`, `a`.`tax_no`, `a`.`tax_office`, `a`.`timezone`, `a`.`timezone_value`, `a`.`unique_column_name`, `a`.`updated_at`, `a`.`yearly_revenue`
+FROM `acl_companies` AS `a`
+WHERE `a`.`id` = @__p_0
+LIMIT 1
+2024-04-19 13:45:01.460 +06:00 [INF] Executed action method ACL.Controllers.V1.AclCompanyController.View (ACL), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 12377.0256ms.
+2024-04-19 13:45:01.465 +06:00 [INF] Executing ObjectResult, writing value of type 'ACL.Response.V1.AclResponse'.
+2024-04-19 13:45:01.484 +06:00 [INF] Executed action ACL.Controllers.V1.AclCompanyController.View (ACL) in 12803.1286ms
+2024-04-19 13:45:01.485 +06:00 [INF] Executed endpoint 'ACL.Controllers.V1.AclCompanyController.View (ACL)'
+2024-04-19 13:45:01.486 +06:00 [INF] HTTP GET /api/v1/companies/view/2 responded 200 in 12828.4208 ms
+2024-04-19 13:45:01.486 +06:00 [INF] [Response] GET: /api/v1/companies/view/2
+[Response Body] {"statusCode":200,"message":"fetchMessage","data":{"id":2,"name":"string","cname":"Updated","cemail":"user@example.com","address1":"string","address2":"string","postcode":"string","phone":"string","email":"korim@gmail.com","fax":"string","city":"string","state":"string","country":"string","logo":"string","registrationNo":"string","timezone":0,"uniqueColumnName":1,"timezoneValue":"string","taxNo":"string","taxOffice":null,"sector":null,"averageTurnover":0,"noOfEmployees":0,"cmmiLevel":0,"yearlyRevenue":0,"hourlyRate":0,"dailyRate":0,"status":1,"addedBy":1,"createdAt":"2024-03-07T13:25:44","updatedAt":"2024-04-17T18:53:19"},"timestamp":"2024-04-19T13:45:01.453475+06:00"}
+
+2024-04-19 13:45:01.493 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/api/v1/companies/view/2 - 200 null application/json; charset=utf-8 12853.2523ms
+2024-04-19 13:52:35.476 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-19 13:52:35.583 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-19 13:52:35.613 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-19 13:52:35.613 +06:00 [INF] Hosting environment: Development
+2024-04-19 13:52:35.613 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-19 13:52:35.661 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/index.html - null null
+2024-04-19 13:52:35.905 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/index.html - 200 null text/html;charset=utf-8 247.3399ms
+2024-04-19 13:52:35.948 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-19 13:52:35.952 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 3.3194ms
+2024-04-19 13:52:35.971 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_vs/browserLink - null null
+2024-04-19 13:52:36.005 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_vs/browserLink - 200 null text/javascript; charset=UTF-8 33.8703ms
+2024-04-19 13:52:36.381 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - null null
+2024-04-19 13:52:36.535 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 154.7546ms
+2024-04-19 13:52:54.994 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/api/v1/companies/view/2 - null null
+2024-04-19 13:52:55.012 +06:00 [INF] [Request] GET: /api/v1/companies/view/2
+[Request Body] 
+
+2024-04-19 13:52:55.017 +06:00 [INF] Executing endpoint 'ACL.Controllers.V1.AclCompanyController.View (ACL)'
+2024-04-19 13:52:55.034 +06:00 [INF] Route matched with {action = "View", controller = "AclCompany"}. Executing controller action with signature System.Threading.Tasks.Task`1[ACL.Response.V1.AclResponse] View(UInt64) on controller ACL.Controllers.V1.AclCompanyController (ACL).
+2024-04-19 13:52:55.493 +06:00 [INF] Executing action method ACL.Controllers.V1.AclCompanyController.View (ACL) - Validation state: "Valid"
+2024-04-19 13:53:13.404 +06:00 [INF] Executed DbCommand (29ms) [Parameters=[@__p_0='?' (DbType = UInt64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`added_by`, `a`.`address1`, `a`.`address2`, `a`.`average_turnover`, `a`.`cemail`, `a`.`city`, `a`.`cmmi_level`, `a`.`cname`, `a`.`country`, `a`.`created_at`, `a`.`daily_rate`, `a`.`email`, `a`.`fax`, `a`.`hourly_rate`, `a`.`logo`, `a`.`name`, `a`.`no_of_employees`, `a`.`phone`, `a`.`postcode`, `a`.`registration_no`, `a`.`sector`, `a`.`state`, `a`.`status`, `a`.`tax_no`, `a`.`tax_office`, `a`.`timezone`, `a`.`timezone_value`, `a`.`unique_column_name`, `a`.`updated_at`, `a`.`yearly_revenue`
+FROM `acl_companies` AS `a`
+WHERE `a`.`id` = @__p_0
+LIMIT 1
+2024-04-19 13:53:22.235 +06:00 [INF] Executed action method ACL.Controllers.V1.AclCompanyController.View (ACL), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 26739.3165ms.
+2024-04-19 13:53:22.240 +06:00 [INF] Executing ObjectResult, writing value of type 'ACL.Response.V1.AclResponse'.
+2024-04-19 13:53:22.259 +06:00 [INF] Executed action ACL.Controllers.V1.AclCompanyController.View (ACL) in 27222.6519ms
+2024-04-19 13:53:22.260 +06:00 [INF] Executed endpoint 'ACL.Controllers.V1.AclCompanyController.View (ACL)'
+2024-04-19 13:53:22.261 +06:00 [INF] HTTP GET /api/v1/companies/view/2 responded 200 in 27246.3404 ms
+2024-04-19 13:53:22.262 +06:00 [INF] [Response] GET: /api/v1/companies/view/2
+[Response Body] {"statusCode":200,"message":"fetchMessage","data":{"id":2,"name":"string","cname":"Updated","cemail":"user@example.com","address1":"string","address2":"string","postcode":"string","phone":"string","email":"korim@gmail.com","fax":"string","city":"string","state":"string","country":"string","logo":"string","registrationNo":"string","timezone":0,"uniqueColumnName":1,"timezoneValue":"string","taxNo":"string","taxOffice":null,"sector":null,"averageTurnover":0,"noOfEmployees":0,"cmmiLevel":0,"yearlyRevenue":0,"hourlyRate":0,"dailyRate":0,"status":1,"addedBy":1,"createdAt":"2024-03-07T13:25:44","updatedAt":"2024-04-17T18:53:19"},"timestamp":"2024-04-19T13:53:22.232182+06:00"}
+
+2024-04-19 13:53:22.275 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/api/v1/companies/view/2 - 200 null application/json; charset=utf-8 27280.7199ms
+2024-04-19 13:54:34.701 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/index.html - null null
+2024-04-19 13:54:34.739 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/index.html - 200 null text/html;charset=utf-8 37.7953ms
+2024-04-19 13:54:34.782 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_vs/browserLink - null null
+2024-04-19 13:54:34.786 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-19 13:54:34.788 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 2.01ms
+2024-04-19 13:54:34.801 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_vs/browserLink - 200 null text/javascript; charset=UTF-8 19.9025ms
+2024-04-19 13:54:41.518 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-19 13:54:41.594 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-19 13:54:41.618 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-19 13:54:41.618 +06:00 [INF] Hosting environment: Development
+2024-04-19 13:54:41.618 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-19 13:54:41.651 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/index.html - null null
+2024-04-19 13:54:41.856 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/index.html - 200 null text/html;charset=utf-8 207.7986ms
+2024-04-19 13:54:41.906 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-19 13:54:41.910 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 3.8416ms
+2024-04-19 13:54:41.927 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_vs/browserLink - null null
+2024-04-19 13:54:41.968 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_vs/browserLink - 200 null text/javascript; charset=UTF-8 40.6523ms
+2024-04-19 13:54:42.315 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - null null
+2024-04-19 13:54:42.446 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 130.3487ms
+2024-04-19 13:54:50.684 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/api/v1/companies/view/2 - null null
+2024-04-19 13:54:50.699 +06:00 [INF] [Request] GET: /api/v1/companies/view/2
+[Request Body] 
+
+2024-04-19 13:54:50.703 +06:00 [INF] Executing endpoint 'ACL.Controllers.V1.AclCompanyController.View (ACL)'
+2024-04-19 13:54:50.720 +06:00 [INF] Route matched with {action = "View", controller = "AclCompany"}. Executing controller action with signature System.Threading.Tasks.Task`1[ACL.Response.V1.AclResponse] View(UInt64) on controller ACL.Controllers.V1.AclCompanyController (ACL).
+2024-04-19 13:54:51.073 +06:00 [INF] Executing action method ACL.Controllers.V1.AclCompanyController.View (ACL) - Validation state: "Valid"
+2024-04-19 13:54:55.163 +06:00 [INF] Executed DbCommand (42ms) [Parameters=[@__p_0='?' (DbType = UInt64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`added_by`, `a`.`address1`, `a`.`address2`, `a`.`average_turnover`, `a`.`cemail`, `a`.`city`, `a`.`cmmi_level`, `a`.`cname`, `a`.`country`, `a`.`created_at`, `a`.`daily_rate`, `a`.`email`, `a`.`fax`, `a`.`hourly_rate`, `a`.`logo`, `a`.`name`, `a`.`no_of_employees`, `a`.`phone`, `a`.`postcode`, `a`.`registration_no`, `a`.`sector`, `a`.`state`, `a`.`status`, `a`.`tax_no`, `a`.`tax_office`, `a`.`timezone`, `a`.`timezone_value`, `a`.`unique_column_name`, `a`.`updated_at`, `a`.`yearly_revenue`
+FROM `acl_companies` AS `a`
+WHERE `a`.`id` = @__p_0
+LIMIT 1
+2024-04-19 13:54:59.543 +06:00 [INF] Executed action method ACL.Controllers.V1.AclCompanyController.View (ACL), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 8466.6417ms.
+2024-04-19 13:54:59.547 +06:00 [INF] Executing ObjectResult, writing value of type 'ACL.Response.V1.AclResponse'.
+2024-04-19 13:54:59.565 +06:00 [INF] Executed action ACL.Controllers.V1.AclCompanyController.View (ACL) in 8841.8799ms
+2024-04-19 13:54:59.566 +06:00 [INF] Executed endpoint 'ACL.Controllers.V1.AclCompanyController.View (ACL)'
+2024-04-19 13:54:59.567 +06:00 [INF] HTTP GET /api/v1/companies/view/2 responded 200 in 8865.9824 ms
+2024-04-19 13:54:59.568 +06:00 [INF] [Response] GET: /api/v1/companies/view/2
+[Response Body] {"statusCode":200,"message":"fetchMessage","data":{"id":2,"name":"string","cname":"Updated","cemail":"user@example.com","address1":"string","address2":"string","postcode":"string","phone":"string","email":"korim@gmail.com","fax":"string","city":"string","state":"string","country":"string","logo":"string","registrationNo":"string","timezone":0,"uniqueColumnName":1,"timezoneValue":"string","taxNo":"string","taxOffice":null,"sector":null,"averageTurnover":0,"noOfEmployees":0,"cmmiLevel":0,"yearlyRevenue":0,"hourlyRate":0,"dailyRate":0,"status":1,"addedBy":1,"createdAt":"2024-03-07T13:25:44","updatedAt":"2024-04-17T18:53:19"},"timestamp":"2024-04-19T13:54:59.5388319+06:00"}
+
+2024-04-19 13:54:59.579 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/api/v1/companies/view/2 - 200 null application/json; charset=utf-8 8895.239ms
+2024-04-19 13:59:09.249 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-19 13:59:09.337 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-19 13:59:09.359 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-19 13:59:09.359 +06:00 [INF] Hosting environment: Development
+2024-04-19 13:59:09.359 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-19 13:59:09.394 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/index.html - null null
+2024-04-19 13:59:09.625 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/index.html - 200 null text/html;charset=utf-8 233.7113ms
+2024-04-19 13:59:09.744 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-19 13:59:09.753 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 3.2751ms
+2024-04-19 13:59:09.756 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_vs/browserLink - null null
+2024-04-19 13:59:09.794 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_vs/browserLink - 200 null text/javascript; charset=UTF-8 37.7649ms
+2024-04-19 13:59:10.593 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - null null
+2024-04-19 13:59:10.725 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 132.7334ms
+2024-04-19 13:59:17.115 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/api/v1/companies - null null
+2024-04-19 13:59:17.125 +06:00 [INF] [Request] GET: /api/v1/companies
+[Request Body] 
+
+2024-04-19 13:59:17.127 +06:00 [INF] Executing endpoint 'ACL.Controllers.V1.AclCompanyController.Index (ACL)'
+2024-04-19 13:59:17.138 +06:00 [INF] Route matched with {action = "Index", controller = "AclCompany"}. Executing controller action with signature System.Threading.Tasks.Task`1[ACL.Response.V1.AclResponse] Index() on controller ACL.Controllers.V1.AclCompanyController (ACL).
+2024-04-19 13:59:17.425 +06:00 [INF] Executing action method ACL.Controllers.V1.AclCompanyController.Index (ACL) - Validation state: "Valid"
+2024-04-19 13:59:18.378 +06:00 [INF] Executed DbCommand (32ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`added_by`, `a`.`address1`, `a`.`address2`, `a`.`average_turnover`, `a`.`cemail`, `a`.`city`, `a`.`cmmi_level`, `a`.`cname`, `a`.`country`, `a`.`created_at`, `a`.`daily_rate`, `a`.`email`, `a`.`fax`, `a`.`hourly_rate`, `a`.`logo`, `a`.`name`, `a`.`no_of_employees`, `a`.`phone`, `a`.`postcode`, `a`.`registration_no`, `a`.`sector`, `a`.`state`, `a`.`status`, `a`.`tax_no`, `a`.`tax_office`, `a`.`timezone`, `a`.`timezone_value`, `a`.`unique_column_name`, `a`.`updated_at`, `a`.`yearly_revenue`
+FROM `acl_companies` AS `a`
+WHERE `a`.`status` = 1
+2024-04-19 13:59:37.418 +06:00 [INF] Executed action method ACL.Controllers.V1.AclCompanyController.Index (ACL), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 19990.7535ms.
+2024-04-19 13:59:37.423 +06:00 [INF] Executing ObjectResult, writing value of type 'ACL.Response.V1.AclResponse'.
+2024-04-19 13:59:37.442 +06:00 [INF] Executed action ACL.Controllers.V1.AclCompanyController.Index (ACL) in 20302.0282ms
+2024-04-19 13:59:37.443 +06:00 [INF] Executed endpoint 'ACL.Controllers.V1.AclCompanyController.Index (ACL)'
+2024-04-19 13:59:37.444 +06:00 [INF] HTTP GET /api/v1/companies responded 200 in 20317.3339 ms
+2024-04-19 13:59:37.445 +06:00 [INF] [Response] GET: /api/v1/companies
+[Response Body] {"statusCode":200,"message":"fetchMessage","data":[{"id":1,"name":"Default","cname":"Admin","cemail":"ssadmin@softrobotics.com","address1":"A","address2":"A2","postcode":"4100","phone":"031","email":"ssadmin@softrobotics.com","fax":"","city":"C","state":"s","country":"BD","logo":"","registrationNo":"","timezone":254,"uniqueColumnName":1,"timezoneValue":"","taxNo":"","taxOffice":"","sector":"","averageTurnover":0,"noOfEmployees":6,"cmmiLevel":0,"yearlyRevenue":0,"hourlyRate":0,"dailyRate":0,"status":1,"addedBy":1,"createdAt":"2015-11-04T01:52:01","updatedAt":"2019-03-28T13:29:33"},{"id":2,"name":"string","cname":"Updated","cemail":"user@example.com","address1":"string","address2":"string","postcode":"string","phone":"string","email":"korim@gmail.com","fax":"string","city":"string","state":"string","country":"string","logo":"string","registrationNo":"string","timezone":0,"uniqueColumnName":1,"timezoneValue":"string","taxNo":"string","taxOffice":null,"sector":null,"averageTurnover":0,"noOfEmployees":0,"cmmiLevel":0,"yearlyRevenue":0,"hourlyRate":0,"dailyRate":0,"status":1,"addedBy":1,"createdAt":"2024-03-07T13:25:44","updatedAt":"2024-04-17T18:53:19"},{"id":12,"name":"Porosh","cname":"string","cemail":"user@example.com","address1":"string","address2":"string","postcode":"string","phone":"string","email":"user@example.com","fax":"string","city":"string","state":"string","country":"string","logo":"string","registrationNo":"string","timezone":0,"uniqueColumnName":1,"timezoneValue":"string","taxNo":"string","taxOffice":null,"sector":null,"averageTurnover":0,"noOfEmployees":0,"cmmiLevel":0,"yearlyRevenue":0,"hourlyRate":0,"dailyRate":0,"status":1,"addedBy":1,"createdAt":"2024-04-17T13:46:16","updatedAt":"2024-04-17T13:46:16"}],"timestamp":"2024-04-19T13:59:18.5078596+06:00"}
+
+2024-04-19 13:59:37.456 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/api/v1/companies - 200 null application/json; charset=utf-8 20341.2001ms
+2024-04-19 14:22:12.636 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-19 14:22:12.715 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-19 14:22:12.741 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-19 14:22:12.741 +06:00 [INF] Hosting environment: Development
+2024-04-19 14:22:12.741 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-19 14:22:12.783 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/index.html - null null
+2024-04-19 14:22:13.030 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/index.html - 200 null text/html;charset=utf-8 250.501ms
+2024-04-19 14:22:13.098 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-19 14:22:13.101 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 3.0896ms
+2024-04-19 14:22:13.115 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_vs/browserLink - null null
+2024-04-19 14:22:13.157 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_vs/browserLink - 200 null text/javascript; charset=UTF-8 42.6606ms
+2024-04-19 14:22:13.506 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - null null
+2024-04-19 14:22:13.648 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 141.6272ms
+2024-04-19 14:24:53.366 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-19 14:24:53.442 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-19 14:24:53.463 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-19 14:24:53.464 +06:00 [INF] Hosting environment: Development
+2024-04-19 14:24:53.464 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-19 14:24:53.496 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/index.html - null null
+2024-04-19 14:24:53.694 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/index.html - 200 null text/html;charset=utf-8 201.1706ms
+2024-04-19 14:24:53.743 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-19 14:24:53.749 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 5.1314ms
+2024-04-19 14:24:53.750 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_vs/browserLink - null null
+2024-04-19 14:24:53.794 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_vs/browserLink - 200 null text/javascript; charset=UTF-8 43.8298ms
+2024-04-19 14:24:54.032 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - null null
+2024-04-19 14:24:54.160 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 127.8103ms
+2024-04-19 14:36:04.382 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-19 14:36:04.480 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-19 14:36:04.639 +06:00 [INF] Now listening on: https://localhost:7125
+2024-04-19 14:36:04.639 +06:00 [INF] Now listening on: http://localhost:5229
+2024-04-19 14:36:04.639 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-19 14:36:04.639 +06:00 [INF] Hosting environment: Development
+2024-04-19 14:36:04.639 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-19 14:36:04.943 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/index.html - null null
+2024-04-19 14:36:05.154 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/index.html - 200 null text/html;charset=utf-8 214.5881ms
+2024-04-19 14:36:05.217 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-19 14:36:05.222 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 5.0736ms
+2024-04-19 14:36:05.231 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_vs/browserLink - null null
+2024-04-19 14:36:05.271 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_vs/browserLink - 200 null text/javascript; charset=UTF-8 39.7541ms
+2024-04-19 14:36:05.773 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - null null
+2024-04-19 14:36:05.920 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 147.515ms
+2024-04-19 14:36:11.967 +06:00 [INF] Request starting HTTP/1.1 GET https://localhost:7125/api/v1/companies - application/json null
+2024-04-19 14:36:11.990 +06:00 [INF] [Request] GET: /api/v1/companies
+[Request Body] 
+
+2024-04-19 14:36:11.993 +06:00 [INF] Executing endpoint 'ACL.Controllers.V1.AclCompanyController.Index (ACL)'
+2024-04-19 14:36:12.006 +06:00 [INF] Route matched with {action = "Index", controller = "AclCompany"}. Executing controller action with signature System.Threading.Tasks.Task`1[ACL.Response.V1.AclResponse] Index() on controller ACL.Controllers.V1.AclCompanyController (ACL).
+2024-04-19 14:36:12.235 +06:00 [INF] Executing action method ACL.Controllers.V1.AclCompanyController.Index (ACL) - Validation state: "Valid"
+2024-04-19 14:36:21.770 +06:00 [INF] Executed DbCommand (15ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`added_by`, `a`.`address1`, `a`.`address2`, `a`.`average_turnover`, `a`.`cemail`, `a`.`city`, `a`.`cmmi_level`, `a`.`cname`, `a`.`country`, `a`.`created_at`, `a`.`daily_rate`, `a`.`email`, `a`.`fax`, `a`.`hourly_rate`, `a`.`logo`, `a`.`name`, `a`.`no_of_employees`, `a`.`phone`, `a`.`postcode`, `a`.`registration_no`, `a`.`sector`, `a`.`state`, `a`.`status`, `a`.`tax_no`, `a`.`tax_office`, `a`.`timezone`, `a`.`timezone_value`, `a`.`unique_column_name`, `a`.`updated_at`, `a`.`yearly_revenue`
+FROM `acl_companies` AS `a`
+WHERE `a`.`status` = 1
+2024-04-19 14:36:48.503 +06:00 [INF] Executed action method ACL.Controllers.V1.AclCompanyController.Index (ACL), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 36264.4892ms.
+2024-04-19 14:36:48.508 +06:00 [INF] Executing ObjectResult, writing value of type 'ACL.Response.V1.AclResponse'.
+2024-04-19 14:36:48.528 +06:00 [INF] Executed action ACL.Controllers.V1.AclCompanyController.Index (ACL) in 36516.5718ms
+2024-04-19 14:36:48.529 +06:00 [INF] Executed endpoint 'ACL.Controllers.V1.AclCompanyController.Index (ACL)'
+2024-04-19 14:36:48.531 +06:00 [INF] HTTP GET /api/v1/companies responded 200 in 36537.8603 ms
+2024-04-19 14:36:48.532 +06:00 [INF] [Response] GET: /api/v1/companies
+[Response Body] {"statusCode":200,"message":"fetchMessage","data":[{"id":1,"name":"Default","cname":"Admin","cemail":"ssadmin@softrobotics.com","address1":"A","address2":"A2","postcode":"4100","phone":"031","email":"ssadmin@softrobotics.com","fax":"","city":"C","state":"s","country":"BD","logo":"","registrationNo":"","timezone":254,"uniqueColumnName":1,"timezoneValue":"","taxNo":"","taxOffice":"","sector":"","averageTurnover":0,"noOfEmployees":6,"cmmiLevel":0,"yearlyRevenue":0,"hourlyRate":0,"dailyRate":0,"status":1,"addedBy":1,"createdAt":"2015-11-04T01:52:01","updatedAt":"2019-03-28T13:29:33"},{"id":2,"name":"string","cname":"Updated","cemail":"user@example.com","address1":"string","address2":"string","postcode":"string","phone":"string","email":"korim@gmail.com","fax":"string","city":"string","state":"string","country":"string","logo":"string","registrationNo":"string","timezone":0,"uniqueColumnName":1,"timezoneValue":"string","taxNo":"string","taxOffice":null,"sector":null,"averageTurnover":0,"noOfEmployees":0,"cmmiLevel":0,"yearlyRevenue":0,"hourlyRate":0,"dailyRate":0,"status":1,"addedBy":1,"createdAt":"2024-03-07T13:25:44","updatedAt":"2024-04-17T18:53:19"},{"id":12,"name":"Porosh","cname":"string","cemail":"user@example.com","address1":"string","address2":"string","postcode":"string","phone":"string","email":"user@example.com","fax":"string","city":"string","state":"string","country":"string","logo":"string","registrationNo":"string","timezone":0,"uniqueColumnName":1,"timezoneValue":"string","taxNo":"string","taxOffice":null,"sector":null,"averageTurnover":0,"noOfEmployees":0,"cmmiLevel":0,"yearlyRevenue":0,"hourlyRate":0,"dailyRate":0,"status":1,"addedBy":1,"createdAt":"2024-04-17T13:46:16","updatedAt":"2024-04-17T13:46:16"}],"timestamp":"2024-04-19T14:36:21.8536444+06:00"}
+
+2024-04-19 14:36:48.538 +06:00 [INF] Request finished HTTP/1.1 GET https://localhost:7125/api/v1/companies - 200 null application/json; charset=utf-8 36571.0547ms
+2024-04-19 14:37:48.248 +06:00 [INF] Request starting HTTP/1.1 GET https://localhost:7125/api/v1/companies/view/1 - application/json null
+2024-04-19 14:37:48.256 +06:00 [INF] [Request] GET: /api/v1/companies/view/1
+[Request Body] 
+
+2024-04-19 14:37:48.257 +06:00 [INF] Executing endpoint 'ACL.Controllers.V1.AclCompanyController.View (ACL)'
+2024-04-19 14:37:48.263 +06:00 [INF] Route matched with {action = "View", controller = "AclCompany"}. Executing controller action with signature System.Threading.Tasks.Task`1[ACL.Response.V1.AclResponse] View(UInt64) on controller ACL.Controllers.V1.AclCompanyController (ACL).
+2024-04-19 14:37:48.325 +06:00 [INF] Executing action method ACL.Controllers.V1.AclCompanyController.View (ACL) - Validation state: "Valid"
+2024-04-19 14:37:52.045 +06:00 [INF] Executed DbCommand (20ms) [Parameters=[@__p_0='?' (DbType = UInt64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`added_by`, `a`.`address1`, `a`.`address2`, `a`.`average_turnover`, `a`.`cemail`, `a`.`city`, `a`.`cmmi_level`, `a`.`cname`, `a`.`country`, `a`.`created_at`, `a`.`daily_rate`, `a`.`email`, `a`.`fax`, `a`.`hourly_rate`, `a`.`logo`, `a`.`name`, `a`.`no_of_employees`, `a`.`phone`, `a`.`postcode`, `a`.`registration_no`, `a`.`sector`, `a`.`state`, `a`.`status`, `a`.`tax_no`, `a`.`tax_office`, `a`.`timezone`, `a`.`timezone_value`, `a`.`unique_column_name`, `a`.`updated_at`, `a`.`yearly_revenue`
+FROM `acl_companies` AS `a`
+WHERE `a`.`id` = @__p_0
+LIMIT 1
+2024-04-19 14:38:30.633 +06:00 [INF] Executed action method ACL.Controllers.V1.AclCompanyController.View (ACL), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 42307.3757ms.
+2024-04-19 14:38:30.641 +06:00 [INF] Executing ObjectResult, writing value of type 'ACL.Response.V1.AclResponse'.
+2024-04-19 14:38:30.641 +06:00 [INF] Executed action ACL.Controllers.V1.AclCompanyController.View (ACL) in 42377.9584ms
+2024-04-19 14:38:30.641 +06:00 [INF] Executed endpoint 'ACL.Controllers.V1.AclCompanyController.View (ACL)'
+2024-04-19 14:38:30.641 +06:00 [INF] HTTP GET /api/v1/companies/view/1 responded 200 in 42385.0639 ms
+2024-04-19 14:38:30.642 +06:00 [INF] [Response] GET: /api/v1/companies/view/1
+[Response Body] {"statusCode":200,"message":"fetchMessage","data":{"id":1,"name":"Default","cname":"Admin","cemail":"ssadmin@softrobotics.com","address1":"A","address2":"A2","postcode":"4100","phone":"031","email":"ssadmin@softrobotics.com","fax":"","city":"C","state":"s","country":"BD","logo":"","registrationNo":"","timezone":254,"uniqueColumnName":1,"timezoneValue":"","taxNo":"","taxOffice":"","sector":"","averageTurnover":0,"noOfEmployees":6,"cmmiLevel":0,"yearlyRevenue":0,"hourlyRate":0,"dailyRate":0,"status":1,"addedBy":1,"createdAt":"2015-11-04T01:52:01","updatedAt":"2019-03-28T13:29:33"},"timestamp":"2024-04-19T14:38:30.6331919+06:00"}
+
+2024-04-19 14:38:30.642 +06:00 [INF] Request finished HTTP/1.1 GET https://localhost:7125/api/v1/companies/view/1 - 200 null application/json; charset=utf-8 42395.7252ms
+2024-04-19 14:50:18.780 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-19 14:50:18.877 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-19 14:50:18.966 +06:00 [INF] Now listening on: https://localhost:7125
+2024-04-19 14:50:18.966 +06:00 [INF] Now listening on: http://localhost:5229
+2024-04-19 14:50:18.966 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-19 14:50:18.966 +06:00 [INF] Hosting environment: Development
+2024-04-19 14:50:18.966 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-19 14:50:19.714 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/index.html - null null
+2024-04-19 14:50:20.617 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/index.html - 200 null text/html;charset=utf-8 906.3724ms
+2024-04-19 14:50:20.694 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-19 14:50:20.697 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 3.285ms
+2024-04-19 14:50:20.710 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_vs/browserLink - null null
+2024-04-19 14:50:20.743 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_vs/browserLink - 200 null text/javascript; charset=UTF-8 33.0082ms
+2024-04-19 14:50:21.101 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - null null
+2024-04-19 14:50:21.225 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 123.8742ms
+2024-04-19 14:50:27.995 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/api/v1/companies - null null
+2024-04-19 14:50:28.015 +06:00 [INF] [Request] GET: /api/v1/companies
+[Request Body] 
+
+2024-04-19 14:50:28.018 +06:00 [INF] Executing endpoint 'ACL.Controllers.V1.AclCompanyController.Index (ACL)'
+2024-04-19 14:50:28.029 +06:00 [INF] Route matched with {action = "Index", controller = "AclCompany"}. Executing controller action with signature System.Threading.Tasks.Task`1[ACL.Response.V1.AclResponse] Index() on controller ACL.Controllers.V1.AclCompanyController (ACL).
+2024-04-19 14:50:28.244 +06:00 [INF] Executing action method ACL.Controllers.V1.AclCompanyController.Index (ACL) - Validation state: "Valid"
+2024-04-19 14:50:46.903 +06:00 [INF] Executed DbCommand (13ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`added_by`, `a`.`address1`, `a`.`address2`, `a`.`average_turnover`, `a`.`cemail`, `a`.`city`, `a`.`cmmi_level`, `a`.`cname`, `a`.`country`, `a`.`created_at`, `a`.`daily_rate`, `a`.`email`, `a`.`fax`, `a`.`hourly_rate`, `a`.`logo`, `a`.`name`, `a`.`no_of_employees`, `a`.`phone`, `a`.`postcode`, `a`.`registration_no`, `a`.`sector`, `a`.`state`, `a`.`status`, `a`.`tax_no`, `a`.`tax_office`, `a`.`timezone`, `a`.`timezone_value`, `a`.`unique_column_name`, `a`.`updated_at`, `a`.`yearly_revenue`
+FROM `acl_companies` AS `a`
+WHERE `a`.`status` = 1
+2024-04-19 14:50:56.941 +06:00 [INF] Executed action method ACL.Controllers.V1.AclCompanyController.Index (ACL), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 28694.0556ms.
+2024-04-19 14:50:56.947 +06:00 [INF] Executing ObjectResult, writing value of type 'ACL.Response.V1.AclResponse'.
+2024-04-19 14:50:56.966 +06:00 [INF] Executed action ACL.Controllers.V1.AclCompanyController.Index (ACL) in 28934.5281ms
+2024-04-19 14:50:56.967 +06:00 [INF] Executed endpoint 'ACL.Controllers.V1.AclCompanyController.Index (ACL)'
+2024-04-19 14:50:56.968 +06:00 [INF] HTTP GET /api/v1/companies responded 200 in 28950.9230 ms
+2024-04-19 14:50:56.969 +06:00 [INF] [Response] GET: /api/v1/companies
+[Response Body] {"statusCode":200,"message":"fetchMessage","data":[{"id":1,"name":"Default","cname":"Admin","cemail":"ssadmin@softrobotics.com","address1":"A","address2":"A2","postcode":"4100","phone":"031","email":"ssadmin@softrobotics.com","fax":"","city":"C","state":"s","country":"BD","logo":"","registrationNo":"","timezone":254,"uniqueColumnName":1,"timezoneValue":"","taxNo":"","taxOffice":"","sector":"","averageTurnover":0,"noOfEmployees":6,"cmmiLevel":0,"yearlyRevenue":0,"hourlyRate":0,"dailyRate":0,"status":1,"addedBy":1,"createdAt":"2015-11-04T01:52:01","updatedAt":"2019-03-28T13:29:33"},{"id":2,"name":"string","cname":"Updated","cemail":"user@example.com","address1":"string","address2":"string","postcode":"string","phone":"string","email":"korim@gmail.com","fax":"string","city":"string","state":"string","country":"string","logo":"string","registrationNo":"string","timezone":0,"uniqueColumnName":1,"timezoneValue":"string","taxNo":"string","taxOffice":null,"sector":null,"averageTurnover":0,"noOfEmployees":0,"cmmiLevel":0,"yearlyRevenue":0,"hourlyRate":0,"dailyRate":0,"status":1,"addedBy":1,"createdAt":"2024-03-07T13:25:44","updatedAt":"2024-04-17T18:53:19"},{"id":12,"name":"Porosh","cname":"string","cemail":"user@example.com","address1":"string","address2":"string","postcode":"string","phone":"string","email":"user@example.com","fax":"string","city":"string","state":"string","country":"string","logo":"string","registrationNo":"string","timezone":0,"uniqueColumnName":1,"timezoneValue":"string","taxNo":"string","taxOffice":null,"sector":null,"averageTurnover":0,"noOfEmployees":0,"cmmiLevel":0,"yearlyRevenue":0,"hourlyRate":0,"dailyRate":0,"status":1,"addedBy":1,"createdAt":"2024-04-17T13:46:16","updatedAt":"2024-04-17T13:46:16"}],"timestamp":"2024-04-19T14:50:46.9923215+06:00"}
+
+2024-04-19 14:50:56.973 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/api/v1/companies - 200 null application/json; charset=utf-8 28977.8777ms
+2024-04-19 15:17:01.241 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-19 15:17:01.399 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-19 15:17:01.489 +06:00 [INF] Now listening on: https://localhost:7125
+2024-04-19 15:17:01.489 +06:00 [INF] Now listening on: http://localhost:5229
+2024-04-19 15:17:01.489 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-19 15:17:01.489 +06:00 [INF] Hosting environment: Development
+2024-04-19 15:17:01.489 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-19 15:17:02.251 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/index.html - null null
+2024-04-19 15:17:02.551 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/index.html - 200 null text/html;charset=utf-8 304.2827ms
+2024-04-19 15:17:02.595 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-19 15:17:02.601 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 6.8067ms
+2024-04-19 15:17:02.610 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_vs/browserLink - null null
+2024-04-19 15:17:02.653 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_vs/browserLink - 200 null text/javascript; charset=UTF-8 43.2513ms
+2024-04-19 15:17:03.028 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - null null
+2024-04-19 15:17:03.202 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 173.6894ms
+2024-04-19 15:17:08.229 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/api/v1/companies - null null
+2024-04-19 15:17:08.246 +06:00 [INF] [Request] GET: /api/v1/companies
+[Request Body] 
+
+2024-04-19 15:17:08.249 +06:00 [INF] Executing endpoint 'ACL.Controllers.V1.AclCompanyController.Index (ACL)'
+2024-04-19 15:17:08.260 +06:00 [INF] Route matched with {action = "Index", controller = "AclCompany"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] Index() on controller ACL.Controllers.V1.AclCompanyController (ACL).
+2024-04-19 15:17:08.470 +06:00 [INF] Executing action method ACL.Controllers.V1.AclCompanyController.Index (ACL) - Validation state: "Valid"
+2024-04-19 15:17:09.075 +06:00 [INF] Executed DbCommand (15ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`added_by`, `a`.`address1`, `a`.`address2`, `a`.`average_turnover`, `a`.`cemail`, `a`.`city`, `a`.`cmmi_level`, `a`.`cname`, `a`.`country`, `a`.`created_at`, `a`.`daily_rate`, `a`.`email`, `a`.`fax`, `a`.`hourly_rate`, `a`.`logo`, `a`.`name`, `a`.`no_of_employees`, `a`.`phone`, `a`.`postcode`, `a`.`registration_no`, `a`.`sector`, `a`.`state`, `a`.`status`, `a`.`tax_no`, `a`.`tax_office`, `a`.`timezone`, `a`.`timezone_value`, `a`.`unique_column_name`, `a`.`updated_at`, `a`.`yearly_revenue`
+FROM `acl_companies` AS `a`
+WHERE `a`.`status` = 1
+2024-04-19 15:17:13.391 +06:00 [INF] Executed action method ACL.Controllers.V1.AclCompanyController.Index (ACL), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 4918.4507ms.
+2024-04-19 15:17:13.396 +06:00 [INF] Executing OkObjectResult, writing value of type 'ACL.Response.V1.AclResponse'.
+2024-04-19 15:17:13.415 +06:00 [INF] Executed action ACL.Controllers.V1.AclCompanyController.Index (ACL) in 5152.7225ms
+2024-04-19 15:17:13.416 +06:00 [INF] Executed endpoint 'ACL.Controllers.V1.AclCompanyController.Index (ACL)'
+2024-04-19 15:17:13.417 +06:00 [INF] HTTP GET /api/v1/companies responded 200 in 5168.3116 ms
+2024-04-19 15:17:13.418 +06:00 [INF] [Response] GET: /api/v1/companies
+[Response Body] {"statusCode":200,"message":"Company fetched succesfully","data":[{"id":1,"name":"Default","cname":"Admin","cemail":"ssadmin@softrobotics.com","address1":"A","address2":"A2","postcode":"4100","phone":"031","email":"ssadmin@softrobotics.com","fax":"","city":"C","state":"s","country":"BD","logo":"","registrationNo":"","timezone":254,"uniqueColumnName":1,"timezoneValue":"","taxNo":"","taxOffice":"","sector":"","averageTurnover":0,"noOfEmployees":6,"cmmiLevel":0,"yearlyRevenue":0,"hourlyRate":0,"dailyRate":0,"status":1,"addedBy":1,"createdAt":"2015-11-04T01:52:01","updatedAt":"2019-03-28T13:29:33"},{"id":2,"name":"string","cname":"Updated","cemail":"user@example.com","address1":"string","address2":"string","postcode":"string","phone":"string","email":"korim@gmail.com","fax":"string","city":"string","state":"string","country":"string","logo":"string","registrationNo":"string","timezone":0,"uniqueColumnName":1,"timezoneValue":"string","taxNo":"string","taxOffice":null,"sector":null,"averageTurnover":0,"noOfEmployees":0,"cmmiLevel":0,"yearlyRevenue":0,"hourlyRate":0,"dailyRate":0,"status":1,"addedBy":1,"createdAt":"2024-03-07T13:25:44","updatedAt":"2024-04-17T18:53:19"},{"id":12,"name":"Porosh","cname":"string","cemail":"user@example.com","address1":"string","address2":"string","postcode":"string","phone":"string","email":"user@example.com","fax":"string","city":"string","state":"string","country":"string","logo":"string","registrationNo":"string","timezone":0,"uniqueColumnName":1,"timezoneValue":"string","taxNo":"string","taxOffice":null,"sector":null,"averageTurnover":0,"noOfEmployees":0,"cmmiLevel":0,"yearlyRevenue":0,"hourlyRate":0,"dailyRate":0,"status":1,"addedBy":1,"createdAt":"2024-04-17T13:46:16","updatedAt":"2024-04-17T13:46:16"}],"timestamp":"2024-04-19T15:17:09.1594005+06:00"}
+
+2024-04-19 15:17:13.424 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/api/v1/companies - 200 null application/json; charset=utf-8 5195.4016ms
+2024-04-19 15:17:33.644 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/api/v1/companies/view/2 - null null
+2024-04-19 15:17:33.646 +06:00 [INF] [Request] GET: /api/v1/companies/view/2
+[Request Body] 
+
+2024-04-19 15:17:33.647 +06:00 [INF] Executing endpoint 'ACL.Controllers.V1.AclCompanyController.View (ACL)'
+2024-04-19 15:17:33.653 +06:00 [INF] Route matched with {action = "View", controller = "AclCompany"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] View(UInt64) on controller ACL.Controllers.V1.AclCompanyController (ACL).
+2024-04-19 15:17:33.681 +06:00 [INF] Executing action method ACL.Controllers.V1.AclCompanyController.View (ACL) - Validation state: "Valid"
+2024-04-19 15:17:37.885 +06:00 [INF] Executed DbCommand (20ms) [Parameters=[@__p_0='?' (DbType = UInt64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`added_by`, `a`.`address1`, `a`.`address2`, `a`.`average_turnover`, `a`.`cemail`, `a`.`city`, `a`.`cmmi_level`, `a`.`cname`, `a`.`country`, `a`.`created_at`, `a`.`daily_rate`, `a`.`email`, `a`.`fax`, `a`.`hourly_rate`, `a`.`logo`, `a`.`name`, `a`.`no_of_employees`, `a`.`phone`, `a`.`postcode`, `a`.`registration_no`, `a`.`sector`, `a`.`state`, `a`.`status`, `a`.`tax_no`, `a`.`tax_office`, `a`.`timezone`, `a`.`timezone_value`, `a`.`unique_column_name`, `a`.`updated_at`, `a`.`yearly_revenue`
+FROM `acl_companies` AS `a`
+WHERE `a`.`id` = @__p_0
+LIMIT 1
+2024-04-19 15:17:42.801 +06:00 [INF] Executed action method ACL.Controllers.V1.AclCompanyController.View (ACL), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 9119.1433ms.
+2024-04-19 15:17:42.801 +06:00 [INF] Executing OkObjectResult, writing value of type 'ACL.Response.V1.AclResponse'.
+2024-04-19 15:17:42.802 +06:00 [INF] Executed action ACL.Controllers.V1.AclCompanyController.View (ACL) in 9148.4803ms
+2024-04-19 15:17:42.802 +06:00 [INF] Executed endpoint 'ACL.Controllers.V1.AclCompanyController.View (ACL)'
+2024-04-19 15:17:42.802 +06:00 [INF] HTTP GET /api/v1/companies/view/2 responded 200 in 9155.4087 ms
+2024-04-19 15:17:42.802 +06:00 [INF] [Response] GET: /api/v1/companies/view/2
+[Response Body] {"statusCode":200,"message":"fetchMessage","data":{"id":2,"name":"string","cname":"Updated","cemail":"user@example.com","address1":"string","address2":"string","postcode":"string","phone":"string","email":"korim@gmail.com","fax":"string","city":"string","state":"string","country":"string","logo":"string","registrationNo":"string","timezone":0,"uniqueColumnName":1,"timezoneValue":"string","taxNo":"string","taxOffice":null,"sector":null,"averageTurnover":0,"noOfEmployees":0,"cmmiLevel":0,"yearlyRevenue":0,"hourlyRate":0,"dailyRate":0,"status":1,"addedBy":1,"createdAt":"2024-03-07T13:25:44","updatedAt":"2024-04-17T18:53:19"},"timestamp":"2024-04-19T15:17:42.8005043+06:00"}
+
+2024-04-19 15:17:42.802 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/api/v1/companies/view/2 - 200 null application/json; charset=utf-8 9158.7225ms
+2024-04-19 15:24:45.181 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-19 15:24:45.300 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-19 15:24:45.439 +06:00 [INF] Now listening on: https://localhost:7125
+2024-04-19 15:24:45.439 +06:00 [INF] Now listening on: http://localhost:5229
+2024-04-19 15:24:45.440 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-19 15:24:45.440 +06:00 [INF] Hosting environment: Development
+2024-04-19 15:24:45.440 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-19 15:24:45.779 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/index.html - null null
+2024-04-19 15:24:45.987 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/index.html - 200 null text/html;charset=utf-8 211.535ms
+2024-04-19 15:24:46.046 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-19 15:24:46.049 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 3.6117ms
+2024-04-19 15:24:46.064 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_vs/browserLink - null null
+2024-04-19 15:24:46.105 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_vs/browserLink - 200 null text/javascript; charset=UTF-8 40.9088ms
+2024-04-19 15:24:46.606 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - null null
+2024-04-19 15:24:46.740 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 134.01ms
+2024-04-19 15:25:01.307 +06:00 [INF] Request starting HTTP/1.1 GET https://localhost:7125/api/v1/companies/view/1 - application/json null
+2024-04-19 15:25:01.344 +06:00 [INF] [Request] GET: /api/v1/companies/view/1
+[Request Body] 
+
+2024-04-19 15:25:01.348 +06:00 [INF] Executing endpoint 'ACL.Controllers.V1.AclCompanyController.View (ACL)'
+2024-04-19 15:25:01.367 +06:00 [INF] Route matched with {action = "View", controller = "AclCompany"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] View(UInt64) on controller ACL.Controllers.V1.AclCompanyController (ACL).
+2024-04-19 15:25:01.639 +06:00 [INF] Executing action method ACL.Controllers.V1.AclCompanyController.View (ACL) - Validation state: "Valid"
+2024-04-19 15:25:05.422 +06:00 [INF] Executed DbCommand (36ms) [Parameters=[@__p_0='?' (DbType = UInt64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`added_by`, `a`.`address1`, `a`.`address2`, `a`.`average_turnover`, `a`.`cemail`, `a`.`city`, `a`.`cmmi_level`, `a`.`cname`, `a`.`country`, `a`.`created_at`, `a`.`daily_rate`, `a`.`email`, `a`.`fax`, `a`.`hourly_rate`, `a`.`logo`, `a`.`name`, `a`.`no_of_employees`, `a`.`phone`, `a`.`postcode`, `a`.`registration_no`, `a`.`sector`, `a`.`state`, `a`.`status`, `a`.`tax_no`, `a`.`tax_office`, `a`.`timezone`, `a`.`timezone_value`, `a`.`unique_column_name`, `a`.`updated_at`, `a`.`yearly_revenue`
+FROM `acl_companies` AS `a`
+WHERE `a`.`id` = @__p_0
+LIMIT 1
+2024-04-19 15:28:48.661 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-19 15:28:48.799 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-19 15:28:48.979 +06:00 [INF] Now listening on: https://localhost:7125
+2024-04-19 15:28:48.979 +06:00 [INF] Now listening on: http://localhost:5229
+2024-04-19 15:28:48.980 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-19 15:28:48.980 +06:00 [INF] Hosting environment: Development
+2024-04-19 15:28:48.980 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-19 15:28:49.588 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/index.html - null null
+2024-04-19 15:28:49.937 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/index.html - 200 null text/html;charset=utf-8 356.6093ms
+2024-04-19 15:28:49.989 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-19 15:28:49.999 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_vs/browserLink - null null
+2024-04-19 15:28:49.999 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 9.944ms
+2024-04-19 15:28:50.062 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_vs/browserLink - 200 null text/javascript; charset=UTF-8 64.0277ms
+2024-04-19 15:28:50.464 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - null null
+2024-04-19 15:28:50.636 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 172.7209ms
+2024-04-19 15:29:01.044 +06:00 [INF] Request starting HTTP/1.1 GET https://localhost:7125/api/v1/companies/view/1 - application/json null
+2024-04-19 15:29:01.075 +06:00 [INF] [Request] GET: /api/v1/companies/view/1
+[Request Body] 
+
+2024-04-19 15:29:01.079 +06:00 [INF] Executing endpoint 'ACL.Controllers.V1.AclCompanyController.View (ACL)'
+2024-04-19 15:29:01.098 +06:00 [INF] Route matched with {action = "View", controller = "AclCompany"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] View(UInt64) on controller ACL.Controllers.V1.AclCompanyController (ACL).
+2024-04-19 15:29:01.369 +06:00 [INF] Executing action method ACL.Controllers.V1.AclCompanyController.View (ACL) - Validation state: "Valid"
+2024-04-19 15:29:06.119 +06:00 [INF] Executed DbCommand (33ms) [Parameters=[@__p_0='?' (DbType = UInt64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`added_by`, `a`.`address1`, `a`.`address2`, `a`.`average_turnover`, `a`.`cemail`, `a`.`city`, `a`.`cmmi_level`, `a`.`cname`, `a`.`country`, `a`.`created_at`, `a`.`daily_rate`, `a`.`email`, `a`.`fax`, `a`.`hourly_rate`, `a`.`logo`, `a`.`name`, `a`.`no_of_employees`, `a`.`phone`, `a`.`postcode`, `a`.`registration_no`, `a`.`sector`, `a`.`state`, `a`.`status`, `a`.`tax_no`, `a`.`tax_office`, `a`.`timezone`, `a`.`timezone_value`, `a`.`unique_column_name`, `a`.`updated_at`, `a`.`yearly_revenue`
+FROM `acl_companies` AS `a`
+WHERE `a`.`id` = @__p_0
+LIMIT 1
+2024-04-19 15:44:28.406 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-19 15:44:28.629 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-19 15:44:28.739 +06:00 [INF] Now listening on: https://localhost:7125
+2024-04-19 15:44:28.739 +06:00 [INF] Now listening on: http://localhost:5229
+2024-04-19 15:44:28.739 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-19 15:44:28.739 +06:00 [INF] Hosting environment: Development
+2024-04-19 15:44:28.739 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-19 15:44:29.263 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/index.html - null null
+2024-04-19 15:44:29.496 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/index.html - 200 null text/html;charset=utf-8 235.7612ms
+2024-04-19 15:44:29.553 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-19 15:44:29.560 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 6.7629ms
+2024-04-19 15:44:29.569 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_vs/browserLink - null null
+2024-04-19 15:44:29.605 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_vs/browserLink - 200 null text/javascript; charset=UTF-8 35.6984ms
+2024-04-19 15:44:30.023 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - null null
+2024-04-19 15:44:30.171 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 147.8518ms
+2024-04-19 15:44:35.467 +06:00 [INF] Request starting HTTP/1.1 GET https://localhost:7125/api/v1/companies/view/1 - application/json null
+2024-04-19 15:44:35.485 +06:00 [INF] [Request] GET: /api/v1/companies/view/1
+[Request Body] 
+
+2024-04-19 15:44:35.488 +06:00 [INF] Executing endpoint 'ACL.Controllers.V1.AclCompanyController.View (ACL)'
+2024-04-19 15:44:35.504 +06:00 [INF] Route matched with {action = "View", controller = "AclCompany"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] View(UInt64) on controller ACL.Controllers.V1.AclCompanyController (ACL).
+2024-04-19 15:44:35.743 +06:00 [INF] Executing action method ACL.Controllers.V1.AclCompanyController.View (ACL) - Validation state: "Valid"
+2024-04-19 15:44:41.480 +06:00 [INF] Executed DbCommand (27ms) [Parameters=[@__p_0='?' (DbType = UInt64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`added_by`, `a`.`address1`, `a`.`address2`, `a`.`average_turnover`, `a`.`cemail`, `a`.`city`, `a`.`cmmi_level`, `a`.`cname`, `a`.`country`, `a`.`created_at`, `a`.`daily_rate`, `a`.`email`, `a`.`fax`, `a`.`hourly_rate`, `a`.`logo`, `a`.`name`, `a`.`no_of_employees`, `a`.`phone`, `a`.`postcode`, `a`.`registration_no`, `a`.`sector`, `a`.`state`, `a`.`status`, `a`.`tax_no`, `a`.`tax_office`, `a`.`timezone`, `a`.`timezone_value`, `a`.`unique_column_name`, `a`.`updated_at`, `a`.`yearly_revenue`
+FROM `acl_companies` AS `a`
+WHERE `a`.`id` = @__p_0
+LIMIT 1
+2024-04-19 15:52:08.464 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-19 15:52:08.699 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-19 15:52:08.815 +06:00 [INF] Now listening on: https://localhost:7125
+2024-04-19 15:52:08.815 +06:00 [INF] Now listening on: http://localhost:5229
+2024-04-19 15:52:08.816 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-19 15:52:08.816 +06:00 [INF] Hosting environment: Development
+2024-04-19 15:52:08.816 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-19 15:52:09.345 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/index.html - null null
+2024-04-19 15:52:09.556 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/index.html - 200 null text/html;charset=utf-8 214.9318ms
+2024-04-19 15:52:09.631 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-19 15:52:09.636 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 4.2581ms
+2024-04-19 15:52:09.644 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_vs/browserLink - null null
+2024-04-19 15:52:09.684 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_vs/browserLink - 200 null text/javascript; charset=UTF-8 40.0487ms
+2024-04-19 15:52:10.070 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - null null
+2024-04-19 15:52:10.220 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 150.0974ms
+2024-04-19 15:52:15.842 +06:00 [INF] Request starting HTTP/1.1 GET https://localhost:7125/api/v1/companies/view/1 - application/json null
+2024-04-19 15:52:15.875 +06:00 [INF] [Request] GET: /api/v1/companies/view/1
+[Request Body] 
+
+2024-04-19 15:52:15.878 +06:00 [INF] Executing endpoint 'ACL.Controllers.V1.AclCompanyController.View (ACL)'
+2024-04-19 15:52:15.892 +06:00 [INF] Route matched with {action = "View", controller = "AclCompany"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] View(UInt64) on controller ACL.Controllers.V1.AclCompanyController (ACL).
+2024-04-19 15:52:16.143 +06:00 [INF] Executing action method ACL.Controllers.V1.AclCompanyController.View (ACL) - Validation state: "Valid"
+2024-04-19 15:52:18.992 +06:00 [INF] Executed DbCommand (26ms) [Parameters=[@__p_0='?' (DbType = UInt64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`added_by`, `a`.`address1`, `a`.`address2`, `a`.`average_turnover`, `a`.`cemail`, `a`.`city`, `a`.`cmmi_level`, `a`.`cname`, `a`.`country`, `a`.`created_at`, `a`.`daily_rate`, `a`.`email`, `a`.`fax`, `a`.`hourly_rate`, `a`.`logo`, `a`.`name`, `a`.`no_of_employees`, `a`.`phone`, `a`.`postcode`, `a`.`registration_no`, `a`.`sector`, `a`.`state`, `a`.`status`, `a`.`tax_no`, `a`.`tax_office`, `a`.`timezone`, `a`.`timezone_value`, `a`.`unique_column_name`, `a`.`updated_at`, `a`.`yearly_revenue`
+FROM `acl_companies` AS `a`
+WHERE `a`.`id` = @__p_0
+LIMIT 1
+2024-04-19 15:52:59.142 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-19 15:52:59.453 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-19 15:52:59.572 +06:00 [INF] Now listening on: https://localhost:7125
+2024-04-19 15:52:59.572 +06:00 [INF] Now listening on: http://localhost:5229
+2024-04-19 15:52:59.573 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-19 15:52:59.573 +06:00 [INF] Hosting environment: Development
+2024-04-19 15:52:59.573 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-19 15:53:00.124 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/index.html - null null
+2024-04-19 15:53:00.312 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/index.html - 200 null text/html;charset=utf-8 190.1953ms
+2024-04-19 15:53:00.369 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-19 15:53:00.373 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 3.7265ms
+2024-04-19 15:53:00.379 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_vs/browserLink - null null
+2024-04-19 15:53:00.412 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_vs/browserLink - 200 null text/javascript; charset=UTF-8 33.5725ms
+2024-04-19 15:53:00.747 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - null null
+2024-04-19 15:53:00.875 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 127.5715ms
+2024-04-19 15:53:08.490 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/api/v1/companies - null null
+2024-04-19 15:53:08.511 +06:00 [INF] [Request] GET: /api/v1/companies
+[Request Body] 
+
+2024-04-19 15:53:08.514 +06:00 [INF] Executing endpoint 'ACL.Controllers.V1.AclCompanyController.Index (ACL)'
+2024-04-19 15:53:08.524 +06:00 [INF] Route matched with {action = "Index", controller = "AclCompany"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] Index() on controller ACL.Controllers.V1.AclCompanyController (ACL).
+2024-04-19 15:53:56.043 +06:00 [INF] Executing action method ACL.Controllers.V1.AclCompanyController.Index (ACL) - Validation state: "Valid"
+2024-04-19 15:53:56.687 +06:00 [INF] Executed DbCommand (16ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`added_by`, `a`.`address1`, `a`.`address2`, `a`.`average_turnover`, `a`.`cemail`, `a`.`city`, `a`.`cmmi_level`, `a`.`cname`, `a`.`country`, `a`.`created_at`, `a`.`daily_rate`, `a`.`email`, `a`.`fax`, `a`.`hourly_rate`, `a`.`logo`, `a`.`name`, `a`.`no_of_employees`, `a`.`phone`, `a`.`postcode`, `a`.`registration_no`, `a`.`sector`, `a`.`state`, `a`.`status`, `a`.`tax_no`, `a`.`tax_office`, `a`.`timezone`, `a`.`timezone_value`, `a`.`unique_column_name`, `a`.`updated_at`, `a`.`yearly_revenue`
+FROM `acl_companies` AS `a`
+WHERE `a`.`status` = 1
+2024-04-19 15:54:25.550 +06:00 [INF] Executed action method ACL.Controllers.V1.AclCompanyController.Index (ACL), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 29483.6869ms.
+2024-04-19 15:54:25.555 +06:00 [INF] Executing OkObjectResult, writing value of type 'ACL.Response.V1.AclResponse'.
+2024-04-19 15:54:25.576 +06:00 [INF] Executed action ACL.Controllers.V1.AclCompanyController.Index (ACL) in 77049.7915ms
+2024-04-19 15:54:25.577 +06:00 [INF] Executed endpoint 'ACL.Controllers.V1.AclCompanyController.Index (ACL)'
+2024-04-19 15:54:25.578 +06:00 [INF] HTTP GET /api/v1/companies responded 200 in 77064.6872 ms
+2024-04-19 15:54:25.579 +06:00 [INF] [Response] GET: /api/v1/companies
+[Response Body] {"statusCode":200,"message":"Company fetched succesfully","data":[{"id":1,"name":"Default","cname":"Admin","cemail":"ssadmin@softrobotics.com","address1":"A","address2":"A2","postcode":"4100","phone":"031","email":"ssadmin@softrobotics.com","fax":"","city":"C","state":"s","country":"BD","logo":"","registrationNo":"","timezone":254,"uniqueColumnName":1,"timezoneValue":"","taxNo":"","taxOffice":"","sector":"","averageTurnover":0,"noOfEmployees":6,"cmmiLevel":0,"yearlyRevenue":0,"hourlyRate":0,"dailyRate":0,"status":1,"addedBy":1,"createdAt":"2015-11-04T01:52:01","updatedAt":"2019-03-28T13:29:33"},{"id":2,"name":"string","cname":"Updated","cemail":"user@example.com","address1":"string","address2":"string","postcode":"string","phone":"string","email":"korim@gmail.com","fax":"string","city":"string","state":"string","country":"string","logo":"string","registrationNo":"string","timezone":0,"uniqueColumnName":1,"timezoneValue":"string","taxNo":"string","taxOffice":null,"sector":null,"averageTurnover":0,"noOfEmployees":0,"cmmiLevel":0,"yearlyRevenue":0,"hourlyRate":0,"dailyRate":0,"status":1,"addedBy":1,"createdAt":"2024-03-07T13:25:44","updatedAt":"2024-04-17T18:53:19"},{"id":12,"name":"Porosh","cname":"string","cemail":"user@example.com","address1":"string","address2":"string","postcode":"string","phone":"string","email":"user@example.com","fax":"string","city":"string","state":"string","country":"string","logo":"string","registrationNo":"string","timezone":0,"uniqueColumnName":1,"timezoneValue":"string","taxNo":"string","taxOffice":null,"sector":null,"averageTurnover":0,"noOfEmployees":0,"cmmiLevel":0,"yearlyRevenue":0,"hourlyRate":0,"dailyRate":0,"status":1,"addedBy":1,"createdAt":"2024-04-17T13:46:16","updatedAt":"2024-04-17T13:46:16"}],"timestamp":"2024-04-19T15:53:56.7672767+06:00"}
+
+2024-04-19 15:54:25.584 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/api/v1/companies - 200 null application/json; charset=utf-8 77094.1862ms
+2024-04-19 15:54:39.734 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/api/v1/companies/view/2 - null null
+2024-04-19 15:54:39.737 +06:00 [INF] [Request] GET: /api/v1/companies/view/2
+[Request Body] 
+
+2024-04-19 15:54:39.738 +06:00 [INF] Executing endpoint 'ACL.Controllers.V1.AclCompanyController.View (ACL)'
+2024-04-19 15:54:39.744 +06:00 [INF] Route matched with {action = "View", controller = "AclCompany"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] View(UInt64) on controller ACL.Controllers.V1.AclCompanyController (ACL).
+2024-04-19 15:54:45.286 +06:00 [INF] Executing action method ACL.Controllers.V1.AclCompanyController.View (ACL) - Validation state: "Valid"
+2024-04-19 15:54:46.835 +06:00 [INF] Executed DbCommand (19ms) [Parameters=[@__p_0='?' (DbType = UInt64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`added_by`, `a`.`address1`, `a`.`address2`, `a`.`average_turnover`, `a`.`cemail`, `a`.`city`, `a`.`cmmi_level`, `a`.`cname`, `a`.`country`, `a`.`created_at`, `a`.`daily_rate`, `a`.`email`, `a`.`fax`, `a`.`hourly_rate`, `a`.`logo`, `a`.`name`, `a`.`no_of_employees`, `a`.`phone`, `a`.`postcode`, `a`.`registration_no`, `a`.`sector`, `a`.`state`, `a`.`status`, `a`.`tax_no`, `a`.`tax_office`, `a`.`timezone`, `a`.`timezone_value`, `a`.`unique_column_name`, `a`.`updated_at`, `a`.`yearly_revenue`
+FROM `acl_companies` AS `a`
+WHERE `a`.`id` = @__p_0
+LIMIT 1
+2024-04-19 15:59:14.302 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-19 15:59:14.519 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-19 15:59:14.616 +06:00 [INF] Now listening on: https://localhost:7125
+2024-04-19 15:59:14.616 +06:00 [INF] Now listening on: http://localhost:5229
+2024-04-19 15:59:14.617 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-19 15:59:14.617 +06:00 [INF] Hosting environment: Development
+2024-04-19 15:59:14.617 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-19 15:59:15.319 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/index.html - null null
+2024-04-19 15:59:15.544 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/index.html - 200 null text/html;charset=utf-8 226.3143ms
+2024-04-19 15:59:15.603 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-19 15:59:15.609 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 4.7516ms
+2024-04-19 15:59:15.617 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_vs/browserLink - null null
+2024-04-19 15:59:15.659 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_vs/browserLink - 200 null text/javascript; charset=UTF-8 42.3775ms
+2024-04-19 15:59:15.992 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - null null
+2024-04-19 15:59:16.141 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 149.3067ms
+2024-04-19 16:35:39.222 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-19 16:35:39.648 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-19 16:35:39.797 +06:00 [INF] Now listening on: https://localhost:7125
+2024-04-19 16:35:39.798 +06:00 [INF] Now listening on: http://localhost:5229
+2024-04-19 16:35:39.798 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-19 16:35:39.798 +06:00 [INF] Hosting environment: Development
+2024-04-19 16:35:39.798 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-19 16:35:40.034 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/index.html - null null
+2024-04-19 16:35:40.262 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/index.html - 200 null text/html;charset=utf-8 230.376ms
+2024-04-19 16:35:40.316 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-19 16:35:40.320 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 3.6455ms
+2024-04-19 16:35:40.329 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_vs/browserLink - null null
+2024-04-19 16:35:40.365 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_vs/browserLink - 200 null text/javascript; charset=UTF-8 35.6353ms
+2024-04-19 16:35:40.785 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - null null
+2024-04-19 16:35:40.964 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 179.0894ms
+2024-04-19 16:36:26.989 +06:00 [INF] Request starting HTTP/1.1 GET https://localhost:7125/api/v1/companies/view/1 - application/json null
+2024-04-19 16:36:27.013 +06:00 [INF] [Request] GET: /api/v1/companies/view/1
+[Request Body] 
+
+2024-04-19 16:36:27.016 +06:00 [INF] Executing endpoint 'ACL.Controllers.V1.AclCompanyController.View (ACL)'
+2024-04-19 16:36:27.031 +06:00 [INF] Route matched with {action = "View", controller = "AclCompany"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] View(UInt64) on controller ACL.Controllers.V1.AclCompanyController (ACL).
+2024-04-19 16:36:30.825 +06:00 [INF] Executing action method ACL.Controllers.V1.AclCompanyController.View (ACL) - Validation state: "Valid"
+2024-04-19 16:36:32.661 +06:00 [INF] Executed DbCommand (31ms) [Parameters=[@__p_0='?' (DbType = UInt64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`added_by`, `a`.`address1`, `a`.`address2`, `a`.`average_turnover`, `a`.`cemail`, `a`.`city`, `a`.`cmmi_level`, `a`.`cname`, `a`.`country`, `a`.`created_at`, `a`.`daily_rate`, `a`.`email`, `a`.`fax`, `a`.`hourly_rate`, `a`.`logo`, `a`.`name`, `a`.`no_of_employees`, `a`.`phone`, `a`.`postcode`, `a`.`registration_no`, `a`.`sector`, `a`.`state`, `a`.`status`, `a`.`tax_no`, `a`.`tax_office`, `a`.`timezone`, `a`.`timezone_value`, `a`.`unique_column_name`, `a`.`updated_at`, `a`.`yearly_revenue`
+FROM `acl_companies` AS `a`
+WHERE `a`.`id` = @__p_0
+LIMIT 1
+2024-04-19 16:38:09.493 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-19 16:38:09.744 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-19 16:38:09.855 +06:00 [INF] Now listening on: https://localhost:7125
+2024-04-19 16:38:09.855 +06:00 [INF] Now listening on: http://localhost:5229
+2024-04-19 16:38:09.856 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-19 16:38:09.856 +06:00 [INF] Hosting environment: Development
+2024-04-19 16:38:09.856 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-19 16:38:10.673 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/index.html - null null
+2024-04-19 16:38:10.892 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/index.html - 200 null text/html;charset=utf-8 222.0444ms
+2024-04-19 16:38:10.947 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-19 16:38:10.950 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 3.2712ms
+2024-04-19 16:38:10.960 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_vs/browserLink - null null
+2024-04-19 16:38:10.996 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_vs/browserLink - 200 null text/javascript; charset=UTF-8 36.0749ms
+2024-04-19 16:38:11.353 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - null null
+2024-04-19 16:38:11.507 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 154.0933ms
+2024-04-19 16:38:17.338 +06:00 [INF] Request starting HTTP/1.1 GET https://localhost:7125/api/v1/companies/view/1 - application/json null
+2024-04-19 16:38:17.368 +06:00 [INF] [Request] GET: /api/v1/companies/view/1
+[Request Body] 
+
+2024-04-19 16:38:17.371 +06:00 [INF] Executing endpoint 'ACL.Controllers.V1.AclCompanyController.View (ACL)'
+2024-04-19 16:38:17.385 +06:00 [INF] Route matched with {action = "View", controller = "AclCompany"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] View(UInt64) on controller ACL.Controllers.V1.AclCompanyController (ACL).
+2024-04-19 16:38:21.189 +06:00 [INF] Executing action method ACL.Controllers.V1.AclCompanyController.View (ACL) - Validation state: "Valid"
+2024-04-19 16:38:23.095 +06:00 [INF] Executed DbCommand (29ms) [Parameters=[@__p_0='?' (DbType = UInt64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`added_by`, `a`.`address1`, `a`.`address2`, `a`.`average_turnover`, `a`.`cemail`, `a`.`city`, `a`.`cmmi_level`, `a`.`cname`, `a`.`country`, `a`.`created_at`, `a`.`daily_rate`, `a`.`email`, `a`.`fax`, `a`.`hourly_rate`, `a`.`logo`, `a`.`name`, `a`.`no_of_employees`, `a`.`phone`, `a`.`postcode`, `a`.`registration_no`, `a`.`sector`, `a`.`state`, `a`.`status`, `a`.`tax_no`, `a`.`tax_office`, `a`.`timezone`, `a`.`timezone_value`, `a`.`unique_column_name`, `a`.`updated_at`, `a`.`yearly_revenue`
+FROM `acl_companies` AS `a`
+WHERE `a`.`id` = @__p_0
+LIMIT 1
+2024-04-19 17:36:40.695 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-19 17:36:41.145 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-19 17:36:41.237 +06:00 [INF] Now listening on: https://localhost:7125
+2024-04-19 17:36:41.237 +06:00 [INF] Now listening on: http://localhost:5229
+2024-04-19 17:36:41.237 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-19 17:36:41.237 +06:00 [INF] Hosting environment: Development
+2024-04-19 17:36:41.237 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-19 17:36:41.829 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/index.html - null null
+2024-04-19 17:36:42.035 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/index.html - 200 null text/html;charset=utf-8 210.133ms
+2024-04-19 17:36:42.054 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-19 17:36:42.059 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 5.3865ms
+2024-04-19 17:36:42.109 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_vs/browserLink - null null
+2024-04-19 17:36:42.141 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_vs/browserLink - 200 null text/javascript; charset=UTF-8 31.8008ms
+2024-04-19 17:36:42.555 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - null null
+2024-04-19 17:36:42.692 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 136.9176ms
+2024-04-19 17:36:46.349 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/api/v1/companies - null null
+2024-04-19 17:36:46.368 +06:00 [INF] [Request] GET: /api/v1/companies
+[Request Body] 
+
+2024-04-19 17:36:46.371 +06:00 [INF] Executing endpoint 'ACL.Controllers.V1.AclCompanyController.Index (ACL)'
+2024-04-19 17:36:46.381 +06:00 [INF] Route matched with {action = "Index", controller = "AclCompany"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] Index() on controller ACL.Controllers.V1.AclCompanyController (ACL).
+2024-04-19 17:36:50.199 +06:00 [INF] Executing action method ACL.Controllers.V1.AclCompanyController.Index (ACL) - Validation state: "Valid"
+2024-04-19 17:36:51.234 +06:00 [INF] Executed action ACL.Controllers.V1.AclCompanyController.Index (ACL) in 4850.0128ms
+2024-04-19 17:36:51.283 +06:00 [INF] Executed endpoint 'ACL.Controllers.V1.AclCompanyController.Index (ACL)'
+2024-04-19 17:36:51.317 +06:00 [ERR] HTTP GET /api/v1/companies responded 500 in 4946.2339 ms
+System.InvalidOperationException: The source 'IQueryable' doesn't implement 'IAsyncEnumerable<ACL.Database.Models.AclCompany>'. Only sources that implement 'IAsyncEnumerable' can be used for Entity Framework asynchronous operations.
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.AsAsyncEnumerable[TSource](IQueryable`1 source)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at ACL.Repositories.GenericRepository`1.All() in D:\Porosh\ACL\src\ACL\Repositories\GenericRepository.cs:line 22
+   at ACL.Controllers.V1.AclCompanyController.Index() in D:\Porosh\ACL\src\ACL\Controllers\V1\AclCompanyController.cs:line 26
+   at lambda_method7(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2024-04-19 17:36:51.451 +06:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: The source 'IQueryable' doesn't implement 'IAsyncEnumerable<ACL.Database.Models.AclCompany>'. Only sources that implement 'IAsyncEnumerable' can be used for Entity Framework asynchronous operations.
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.AsAsyncEnumerable[TSource](IQueryable`1 source)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at ACL.Repositories.GenericRepository`1.All() in D:\Porosh\ACL\src\ACL\Repositories\GenericRepository.cs:line 22
+   at ACL.Controllers.V1.AclCompanyController.Index() in D:\Porosh\ACL\src\ACL\Controllers\V1\AclCompanyController.cs:line 26
+   at lambda_method7(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at ACL.Services.CustomMiddleWare.RequestResponseLoggingMiddleware.Invoke(HttpContext context) in D:\Porosh\ACL\src\ACL\Services\CustomMiddleWare\RequestResponseLoggingMiddleware.cs:line 29
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Localization.RequestLocalizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-04-19 17:36:51.539 +06:00 [ERR] An exception was thrown attempting to display the error page.
+System.ObjectDisposedException: Cannot access a closed Stream.
+   at System.IO.MemoryStream.Write(Byte[] buffer, Int32 offset, Int32 count)
+   at System.IO.MemoryStream.WriteAsync(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at System.IO.Pipelines.StreamPipeWriter.FlushAsyncInternal(Boolean writeToStream, ReadOnlyMemory`1 data, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Threading.Tasks.ValueTask`1.GetTaskForValueTaskSource(IValueTaskSource`1 t)
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.DisplayExceptionContent(ErrorContext errorContext)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-04-19 17:36:51.596 +06:00 [ERR] Connection id "0HN30CJTR01A0", Request id "0HN30CJTR01A0:00000009": An unhandled exception was thrown by the application.
+System.InvalidOperationException: The source 'IQueryable' doesn't implement 'IAsyncEnumerable<ACL.Database.Models.AclCompany>'. Only sources that implement 'IAsyncEnumerable' can be used for Entity Framework asynchronous operations.
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.AsAsyncEnumerable[TSource](IQueryable`1 source)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at ACL.Repositories.GenericRepository`1.All() in D:\Porosh\ACL\src\ACL\Repositories\GenericRepository.cs:line 22
+   at ACL.Controllers.V1.AclCompanyController.Index() in D:\Porosh\ACL\src\ACL\Controllers\V1\AclCompanyController.cs:line 26
+   at lambda_method7(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at ACL.Services.CustomMiddleWare.RequestResponseLoggingMiddleware.Invoke(HttpContext context) in D:\Porosh\ACL\src\ACL\Services\CustomMiddleWare\RequestResponseLoggingMiddleware.cs:line 29
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Localization.RequestLocalizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+   at Microsoft.WebTools.BrowserLink.Net.BrowserLinkMiddleware.InvokeAsync(HttpContext context)
+   at Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserRefreshMiddleware.InvokeAsync(HttpContext context)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpProtocol.ProcessRequests[TContext](IHttpApplication`1 application)
+2024-04-19 17:36:51.612 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/api/v1/companies - 500 0 null 5265.1584ms
+2024-04-19 17:43:02.839 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-19 17:43:03.099 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-19 17:43:03.227 +06:00 [INF] Now listening on: https://localhost:7125
+2024-04-19 17:43:03.227 +06:00 [INF] Now listening on: http://localhost:5229
+2024-04-19 17:43:03.227 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-19 17:43:03.228 +06:00 [INF] Hosting environment: Development
+2024-04-19 17:43:03.228 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-19 17:43:03.763 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/index.html - null null
+2024-04-19 17:43:03.951 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/index.html - 200 null text/html;charset=utf-8 191.1451ms
+2024-04-19 17:43:03.999 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-19 17:43:04.003 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 3.8221ms
+2024-04-19 17:43:04.013 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_vs/browserLink - null null
+2024-04-19 17:43:04.046 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_vs/browserLink - 200 null text/javascript; charset=UTF-8 33.215ms
+2024-04-19 17:43:04.438 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - null null
+2024-04-19 17:43:04.558 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 119.3243ms
+2024-04-19 17:43:10.029 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/api/v1/companies - null null
+2024-04-19 17:43:10.047 +06:00 [INF] [Request] GET: /api/v1/companies
+[Request Body] 
+
+2024-04-19 17:43:10.051 +06:00 [INF] Executing endpoint 'ACL.Controllers.V1.AclCompanyController.Index (ACL)'
+2024-04-19 17:43:10.062 +06:00 [INF] Route matched with {action = "Index", controller = "AclCompany"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] Index() on controller ACL.Controllers.V1.AclCompanyController (ACL).
+2024-04-19 17:43:13.422 +06:00 [INF] Executing action method ACL.Controllers.V1.AclCompanyController.Index (ACL) - Validation state: "Valid"
+2024-04-19 17:43:32.710 +06:00 [INF] Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`added_by`, `a`.`address1`, `a`.`address2`, `a`.`average_turnover`, `a`.`cemail`, `a`.`city`, `a`.`cmmi_level`, `a`.`cname`, `a`.`country`, `a`.`created_at`, `a`.`daily_rate`, `a`.`email`, `a`.`fax`, `a`.`hourly_rate`, `a`.`logo`, `a`.`name`, `a`.`no_of_employees`, `a`.`phone`, `a`.`postcode`, `a`.`registration_no`, `a`.`sector`, `a`.`state`, `a`.`status`, `a`.`tax_no`, `a`.`tax_office`, `a`.`timezone`, `a`.`timezone_value`, `a`.`unique_column_name`, `a`.`updated_at`, `a`.`yearly_revenue`
+FROM `acl_companies` AS `a`
+WHERE `a`.`status` = 1
+2024-04-19 17:43:39.327 +06:00 [INF] Executed action method ACL.Controllers.V1.AclCompanyController.Index (ACL), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 25902.6281ms.
+2024-04-19 17:43:39.332 +06:00 [INF] Executing OkObjectResult, writing value of type 'ACL.Response.V1.AclResponse'.
+2024-04-19 17:43:39.355 +06:00 [INF] Executed action ACL.Controllers.V1.AclCompanyController.Index (ACL) in 29289.86ms
+2024-04-19 17:43:39.355 +06:00 [INF] Executed endpoint 'ACL.Controllers.V1.AclCompanyController.Index (ACL)'
+2024-04-19 17:43:39.357 +06:00 [INF] HTTP GET /api/v1/companies responded 200 in 29306.6884 ms
+2024-04-19 17:43:39.358 +06:00 [INF] [Response] GET: /api/v1/companies
+[Response Body] {"statusCode":200,"message":"Company fetched succesfully","data":[{"id":1,"name":"Default","cname":"Admin","cemail":"ssadmin@softrobotics.com","address1":"A","address2":"A2","postcode":"4100","phone":"031","email":"ssadmin@softrobotics.com","fax":"","city":"C","state":"s","country":"BD","logo":"","registrationNo":"","timezone":254,"uniqueColumnName":1,"timezoneValue":"","taxNo":"","taxOffice":"","sector":"","averageTurnover":0,"noOfEmployees":6,"cmmiLevel":0,"yearlyRevenue":0,"hourlyRate":0,"dailyRate":0,"status":1,"addedBy":1,"createdAt":"2015-11-04T01:52:01","updatedAt":"2019-03-28T13:29:33"},{"id":2,"name":"string","cname":"Updated","cemail":"user@example.com","address1":"string","address2":"string","postcode":"string","phone":"string","email":"korim@gmail.com","fax":"string","city":"string","state":"string","country":"string","logo":"string","registrationNo":"string","timezone":0,"uniqueColumnName":1,"timezoneValue":"string","taxNo":"string","taxOffice":null,"sector":null,"averageTurnover":0,"noOfEmployees":0,"cmmiLevel":0,"yearlyRevenue":0,"hourlyRate":0,"dailyRate":0,"status":1,"addedBy":1,"createdAt":"2024-03-07T13:25:44","updatedAt":"2024-04-17T18:53:19"},{"id":12,"name":"Porosh","cname":"string","cemail":"user@example.com","address1":"string","address2":"string","postcode":"string","phone":"string","email":"user@example.com","fax":"string","city":"string","state":"string","country":"string","logo":"string","registrationNo":"string","timezone":0,"uniqueColumnName":1,"timezoneValue":"string","taxNo":"string","taxOffice":null,"sector":null,"averageTurnover":0,"noOfEmployees":0,"cmmiLevel":0,"yearlyRevenue":0,"hourlyRate":0,"dailyRate":0,"status":1,"addedBy":1,"createdAt":"2024-04-17T13:46:16","updatedAt":"2024-04-17T13:46:16"}],"timestamp":"2024-04-19T17:43:32.8028223+06:00"}
+
+2024-04-19 17:43:39.364 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/api/v1/companies - 200 null application/json; charset=utf-8 29334.6365ms

@@ -1,11 +1,12 @@
 using ACL.Interfaces;
 using ACL.Requests;
 using ACL.Tests;
+using ACL.Services;
 using Bogus;
 using NUnit.Framework;
 using RestSharp;
 
-namespace UnitTestProject
+namespace ACL.Tests
 {
     [TestFixture]
     public class AclRoleUnitTest
@@ -15,7 +16,7 @@ namespace UnitTestProject
         public async void GetAllRolesTest()
         {
             var data = GetRole();
-            var id = getRandomID();
+            //var id = getRandomID();
             // Create RestClient
             var client = new RestSharp.RestClient("https://localhost:7125/api/v1");
 
@@ -54,7 +55,6 @@ namespace UnitTestProject
             var roles = con.ConnectAndQueryDatabase();
             //return _unitOfWork.ApplicationDbContext.AclRoles.FirstOrDefault().Id;
             return 0;
-
         }
     }
 }

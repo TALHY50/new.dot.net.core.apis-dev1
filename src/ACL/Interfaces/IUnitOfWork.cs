@@ -8,6 +8,7 @@ using ACL.Interfaces.Repositories;
 using ACL.Controllers.V1;
 using ACL.Services.Interface;
 using Microsoft.Extensions.Localization;
+using Microsoft.AspNetCore.Mvc.Localization;
 
 
 namespace ACL.Interfaces
@@ -15,10 +16,12 @@ namespace ACL.Interfaces
     public interface IUnitOfWork
     {
 
-        public ApplicationDbContext ApplicationDbContext { get; set; }
-        public ILogger Logger { get; set; }
-        IStringLocalizer Localizer { get; set; }
-        public ILogService LogService { get; set; }
+        ApplicationDbContext ApplicationDbContext { get; set; }
+        ILogger Logger { get; set; }
+        IGenericRepository<T> GenericRepository<T>() where T : class;
+        IStringLocalizer<UnitOfWork> Localizer { get; set; }
+        IViewLocalizer ViewLocalizer { get; set; }
+        ILogService LogService { get; set; }
 
         IAclCompanyRepository AclCompanyRepository { get; }
         IAclCompanyModuleRepository AclCompanyModuleRepository { get; }
@@ -28,12 +31,12 @@ namespace ACL.Interfaces
         IAclUserGroupRoleRepository AclUserGroupRoleRepository { get; }
         IAclRolePageRepository AclRolePageRepository { get; }
 
-        public IHttpContextAccessor HttpContextAccessor { get; set; }
+        IHttpContextAccessor HttpContextAccessor { get; set; }
 
-        public IAclPageRepository AclPageRepository { get; }
-        public IAclUserRepository AclUserRepository { get; }
-        public IAclPasswordRepository AclPasswordRepository { get; }
-        public IAclUserGroupRepository AclUserGroupRepository { get; }
+        IAclPageRepository AclPageRepository { get; }
+        IAclUserRepository AclUserRepository { get; }
+        IAclPasswordRepository AclPasswordRepository { get; }
+        IAclUserGroupRepository AclUserGroupRepository { get; }
 
         IUnitOfWork GetService();
         IDbTransaction BeginTransaction();

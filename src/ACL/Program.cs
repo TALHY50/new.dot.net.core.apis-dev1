@@ -19,38 +19,85 @@ using ACL.Services.CustomMiddleWare;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
 using Microsoft.Extensions.Localization;
+using System.Resources;
+using Microsoft.AspNetCore.Mvc.Localization;
+using Microsoft.AspNetCore.Mvc.Razor;
+using Castle.Core.Resource;
 
 
 var builder = WebApplication.CreateBuilder(args);
-
 builder.Services.AddLocalization(o => o.ResourcesPath = "Resources");
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    var supportedCultures = new[]
+    {
+        new CultureInfo("en-US"),
+        new CultureInfo("bn-BD")
+    };
 
+    options.DefaultRequestCulture = new RequestCulture("en-US");
+    options.SupportedCultures = supportedCultures;
+    options.SupportedUICultures = supportedCultures;
+});
+builder.Services.AddTransient<IStringLocalizerFactory, ResourceManagerStringLocalizerFactory>();
+builder.Services.AddSingleton<ResourceManager>(sp =>
+{
+    var baseNameEnUs = "Resources.en-US";
+    var baseNameBnBd = "Resources.bn-BD";
+    var assembly = typeof(Program).Assembly;
+    return new ResourceManager(baseNameBnBd, assembly);
+});
 
- static IHostBuilder CreateHostBuilder(string[] args) =>
-    Host.CreateDefaultBuilder(args)
-        .ConfigureServices((hostContext, services) =>
+builder.Services.AddTransient<IStringLocalizer>(sp =>
+{
+    var factory = sp.GetRequiredService<IStringLocalizerFactory>();
+    var localizer = factory.Create(typeof(Program));
+    return localizer;
+});
+builder.Services.AddTransient<IStringLocalizerFactory, ResourceManagerStringLocalizerFactory>();
+
+// Add MVC services with specific culture and no suffix
+builder.Services.AddMvc()
+        .AddViewLocalization(options => options.ResourcesPath = "Resources")
+        .AddDataAnnotationsLocalization(options =>
         {
-            services.AddLocalization(options => options.ResourcesPath = "Resources");
-
-            services.Configure<RequestLocalizationOptions>(options =>
-            {
-                var supportedCultures = new[]
-                {
-                    new CultureInfo("en-US"),
-                    new CultureInfo("bn-BD"),
-                    new CultureInfo("tr-TR"),
-                };
-
-                options.DefaultRequestCulture = new RequestCulture("en-US");
-                options.SupportedCultures = supportedCultures;
-                options.SupportedUICultures = supportedCultures;
-            });
-            
-        })
-        .ConfigureWebHostDefaults(webBuilder =>
-        {
-            webBuilder.UseStartup<Program>();
+            options.DataAnnotationLocalizerProvider = (type, factory) =>
+                factory.Create(typeof(FileResource)); // Replace SharedResources with your actual resource type
         });
+
+// Add the ViewLocalization services
+builder.Services.AddScoped<IViewLocalizer, ViewLocalizer>();
+
+//builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+//builder.Services.Configure<RequestLocalizationOptions>(options =>
+//{
+//    var supportedCultures = new[]
+//    {
+//        new CultureInfo("en-US"),
+//        new CultureInfo("bn-BD")
+//    };
+
+//    options.DefaultRequestCulture = new RequestCulture("en-US");
+//    options.SupportedCultures = supportedCultures;
+//    options.SupportedUICultures = supportedCultures;
+//});
+//builder.Services.AddTransient<ResourceManager>(sp =>
+//{
+//    var baseNameEnUs = "Resources.en-US";
+//    var assembly = typeof(Program).Assembly;
+//    return new ResourceManager(baseNameEnUs, assembly);
+//});
+
+//builder.Services.AddTransient<ResourceManager>(sp =>
+//{
+//    var baseNameBnBd = "Resources.bn-BD";
+//    var assembly = typeof(Program).Assembly;
+//    return new ResourceManager(baseNameBnBd, assembly);
+//});
+
+//// Uncomment the following line if you want to use ResourceManagerStringLocalizer
+////builder.Services.AddTransient<IStringLocalizer, ResourceManagerStringLocalizer>();
+
 
 Env.NoClobber().TraversePath().Load();
 
@@ -79,7 +126,6 @@ IConfiguration configuration = new ConfigurationBuilder()
        .SetBasePath(Directory.GetCurrentDirectory())
        .AddJsonFile("appsettings.json")
        .Build();
-
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Debug()
     .WriteTo.File(GetLogFilePath("log.txt"), restrictedToMinimumLevel: LogEventLevel.Error)
@@ -112,6 +158,8 @@ builder.Services.AddScoped<ICacheService, CacheService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
+
+app.UseRequestLocalization();
 
 if (app.Environment.IsDevelopment())
 {

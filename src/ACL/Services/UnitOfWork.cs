@@ -12,6 +12,7 @@ using ACL.Services.Interface;
 using Microsoft.Extensions.Logging;
 using ACL.Database.Models;
 using Microsoft.Extensions.Localization;
+using Microsoft.AspNetCore.Mvc.Localization;
 
 namespace ACL.Services
 {
@@ -23,34 +24,50 @@ namespace ACL.Services
         private ICacheService _cacheService;
         private IHttpContextAccessor _httpContextAccessor;
         private IConfiguration _config;
-        private IStringLocalizer _localizer;
-        public UnitOfWork(ApplicationDbContext context, ILoggerFactory loggerFactory, IHttpContextAccessor httpContextAccessor, ICacheService cacheService, IConfiguration config,IStringLocalizer<UnitOfWork> localizer)
+        private IStringLocalizer<UnitOfWork> _localizer;
+        private IViewLocalizer _viewLocalizer;
+        private ApplicationDbContext dbContext;
+
+        public UnitOfWork(ApplicationDbContext context, ILoggerFactory loggerFactory, IHttpContextAccessor httpContextAccessor, ICacheService cacheService, IConfiguration config, IStringLocalizer<UnitOfWork> localizer, IViewLocalizer viewLocalizer)
         {
             this._localizer = localizer;
+            _viewLocalizer = viewLocalizer;
             this.context = context;
             this._logger = loggerFactory.CreateLogger("Logs");
             this._httpContextAccessor = httpContextAccessor;
             this._cacheService = cacheService;
             this._logService = new LogService(this._logger, loggerFactory);
-            this._config = config; 
+            this._config = config;
         }
 
+        public UnitOfWork(ApplicationDbContext dbContext)
+        {
+            this.dbContext = dbContext;
+        }
 
         public ApplicationDbContext ApplicationDbContext
         {
             get { return this.context; }
             set { this.context = value; }
         }
-
+        public IGenericRepository<T> GenericRepository<T>() where T : class
+        {
+            return new GenericRepository<T>(this);
+        }
         public ILogger Logger
         {
             get { return this._logger; }
             set { this._logger = value; }
         }
-        public IStringLocalizer Localizer
+        public IStringLocalizer<UnitOfWork> Localizer
         {
             get { return this._localizer; }
             set { this._localizer = value; }
+        }
+        public IViewLocalizer ViewLocalizer
+        {
+            get { return this._viewLocalizer; }
+            set { _viewLocalizer = value; }
         }
         public IConfiguration Config
         {
@@ -78,7 +95,7 @@ namespace ACL.Services
         }
         public IAclCompanyRepository AclCompanyRepository
         {
-            get { return new AclCompanyRepository(this, _config); }
+            get { return new AclCompanyRepository(this, _config, _localizer); }
 
         }
 
@@ -172,7 +189,7 @@ namespace ACL.Services
 
         public IAclUserRepository AclUserRepository
         {
-            get { return new AclUserRepository(this,_config); }
+            get { return new AclUserRepository(this, _config); }
         }
 
         public IAclUserGroupRepository AclUserGroupRepository
