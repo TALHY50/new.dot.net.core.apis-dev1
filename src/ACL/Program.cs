@@ -20,6 +20,9 @@ using Microsoft.AspNetCore.Localization;
 using System.Globalization;
 using Microsoft.Extensions.Localization;
 using System.Resources;
+using Microsoft.AspNetCore.Mvc.Localization;
+using Microsoft.AspNetCore.Mvc.Razor;
+using Castle.Core.Resource;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -53,6 +56,17 @@ builder.Services.AddTransient<IStringLocalizer>(sp =>
 });
 builder.Services.AddTransient<IStringLocalizerFactory, ResourceManagerStringLocalizerFactory>();
 
+// Add MVC services with specific culture and no suffix
+builder.Services.AddMvc()
+        .AddViewLocalization(options => options.ResourcesPath = "Resources")
+        .AddDataAnnotationsLocalization(options =>
+        {
+            options.DataAnnotationLocalizerProvider = (type, factory) =>
+                factory.Create(typeof(FileResource)); // Replace SharedResources with your actual resource type
+        });
+
+// Add the ViewLocalization services
+builder.Services.AddScoped<IViewLocalizer, ViewLocalizer>();
 
 //builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 //builder.Services.Configure<RequestLocalizationOptions>(options =>

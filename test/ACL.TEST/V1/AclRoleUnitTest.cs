@@ -5,7 +5,7 @@ using Bogus;
 using NUnit.Framework;
 using RestSharp;
 
-namespace UnitTestProject
+namespace ACL.Tests
 {
     [TestFixture]
     public class AclRoleUnitTest
