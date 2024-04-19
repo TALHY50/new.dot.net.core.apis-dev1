@@ -42,8 +42,8 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
 builder.Services.AddTransient<IStringLocalizerFactory, ResourceManagerStringLocalizerFactory>();
 builder.Services.AddSingleton<ResourceManager>(sp =>
 {
-    var baseNameEnUs = "Resources.en-US";
-    //var baseNameBnBd = "Resources.bn-BD";
+    var baseNameEnUs = "ACL.Resources.en-US";
+    var baseNameBnBd = "ACL.Resources.bn-BD";
     var assembly = typeof(Program).Assembly;
     return new ResourceManager(baseNameEnUs, assembly);
 });

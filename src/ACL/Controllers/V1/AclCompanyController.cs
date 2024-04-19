@@ -39,9 +39,10 @@ namespace ACL.Controllers.V1
             //return Ok(companies);
             // return Ok(await _unitOfWork.AclCompanyRepository.GetAll());
             var check = await _unitOfWork.AclCompanyRepository.GetAll();
-            check.Message = _localizer["Company fetched succesfully"];
+            check.Message = _localizer["fetchMessage"];
             var cultureInfo = new CultureInfo("en-US");
-            var resourceManager = new ResourceManager("ACL.Resources.bn-BD", typeof(Program).Assembly);
+            //var resourceManager = new ResourceManager("ACL.Resources.bn-BD", typeof(Program).Assembly);
+            var resourceManager = new ResourceManager("ACL.Resources.en-US", typeof(Program).Assembly);
             try
             {
                 var fetchMessageValue = resourceManager.GetString("fetchMessage", cultureInfo);
