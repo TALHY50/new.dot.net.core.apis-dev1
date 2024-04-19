@@ -14,47 +14,16 @@ namespace ACL.Controllers.V1
     public class AclCompanyController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        //private readonly IStringLocalizer _localizer;
-        private readonly IStringLocalizer<AclCompanyController> _localizer;
 
-        //public AclCompanyController(IStringLocalizer<AclCompanyController> localizer)
-        //{
-        //    _localizer = localizer;
-        //}
-        //public AclCompanyController(IUnitOfWork unitOfWork/*,IStringLocalizer<AclCompanyController> localizer*/)
-        //{
-        //    _unitOfWork = unitOfWork;
-        //    //_localizer = localizer;
-        //}
-        public AclCompanyController(IUnitOfWork unitOfWork, IStringLocalizer<AclCompanyController> localizer)
+        public AclCompanyController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _localizer = localizer;
         }
 
         [HttpGet(AclRoutesUrl.AclCompanyRouteUrl.List, Name = AclRoutesName.AclCompanyRouteNames.List)]
         public async Task<ActionResult> Index()
         {
-            //var companies = await _unitOfWork.AclCompanyRepository.All();
-            //return Ok(companies);
-            // return Ok(await _unitOfWork.AclCompanyRepository.GetAll());
-            var check = await _unitOfWork.AclCompanyRepository.GetAll();
-            check.Message = _localizer["fetchMessage"];
-            var cultureInfo = new CultureInfo("en-US");
-            //var resourceManager = new ResourceManager("ACL.Resources.bn-BD", typeof(Program).Assembly);
-            var resourceManager = new ResourceManager("ACL.Resources.en-US", typeof(Program).Assembly);
-            try
-            {
-                var fetchMessageValue = resourceManager.GetString("fetchMessage", cultureInfo);
-                 Console.WriteLine(fetchMessageValue); // This should output the value from your Resources.en-US.resx file
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-           
-            return Ok(check);
+           return Ok(await _unitOfWork.AclCompanyRepository.GetAll());
         }
 
         [HttpPost(AclRoutesUrl.AclCompanyRouteUrl.Add, Name = AclRoutesName.AclCompanyRouteNames.Add)]

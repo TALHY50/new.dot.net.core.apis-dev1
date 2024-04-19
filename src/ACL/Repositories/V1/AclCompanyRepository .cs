@@ -12,6 +12,8 @@ using Microsoft.Extensions.Localization;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.DependencyInjection;
+using ACL.Services.Interface;
+using ACL.Services;
 
 
 namespace ACL.Repositories.V1
@@ -22,16 +24,15 @@ namespace ACL.Repositories.V1
         public MessageResponse messageResponse;
         private string modelName = "Company";
         private IConfiguration _config;
-        private readonly IStringLocalizer _localizer;
-        
+        private readonly ILocalizationService _localizationService;
 
-        public AclCompanyRepository(IUnitOfWork _unitOfWork, IConfiguration config, IStringLocalizer localizer/*, IViewLocalizer viewLocalizer*/) : base(_unitOfWork)
+
+        public AclCompanyRepository(IUnitOfWork _unitOfWork, IConfiguration config, ILocalizationService localizationService) : base(_unitOfWork)
         {
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName);
             _config = config;
-            this._localizer = localizer;
-            //_viewLocalizer = viewLocalizer;
+            _localizationService = localizationService;
         }
 
         public async Task<AclResponse> FindById(ulong id)
@@ -40,8 +41,7 @@ namespace ACL.Repositories.V1
             {
                 var aclCompany = await base.GetById(id);
                 aclResponse.Data = aclCompany;
-                aclResponse.Message = _localizer["fetchMessage"]??messageResponse.fetchMessage;
-                //aclResponse.Message = _unitOfWork.ViewLocalizer["fetchMessage"].ToString();
+                aclResponse.Message =  _unitOfWork.LocalizationService.GetLocalizedString("fetchMessage");
                 if (aclCompany == null)
                 {
                     aclResponse.Message = messageResponse.noFoundMessage;
@@ -310,5 +310,6 @@ namespace ACL.Repositories.V1
             // return AppAuth.getAuthInfo().user_id;
             return 1;
         }
+
     }
 }
