@@ -43,9 +43,9 @@ builder.Services.AddTransient<IStringLocalizerFactory, ResourceManagerStringLoca
 builder.Services.AddSingleton<ResourceManager>(sp =>
 {
     var baseNameEnUs = "Resources.en-US";
-    var baseNameBnBd = "Resources.bn-BD";
+    //var baseNameBnBd = "Resources.bn-BD";
     var assembly = typeof(Program).Assembly;
-    return new ResourceManager(baseNameBnBd, assembly);
+    return new ResourceManager(baseNameEnUs, assembly);
 });
 
 builder.Services.AddTransient<IStringLocalizer>(sp =>
@@ -114,7 +114,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     }));
 builder.Services.AddAntiforgery(options => options.HeaderName = "X-CSRF-TOKEN");
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+.AddDataAnnotationsLocalization();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

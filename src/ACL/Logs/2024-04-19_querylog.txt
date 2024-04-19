@@ -809,3 +809,1184 @@ WHERE `a`.`status` = 1
 [Response Body] {"statusCode":200,"message":"Company fetched succesfully","data":[{"id":1,"name":"Default","cname":"Admin","cemail":"ssadmin@softrobotics.com","address1":"A","address2":"A2","postcode":"4100","phone":"031","email":"ssadmin@softrobotics.com","fax":"","city":"C","state":"s","country":"BD","logo":"","registrationNo":"","timezone":254,"uniqueColumnName":1,"timezoneValue":"","taxNo":"","taxOffice":"","sector":"","averageTurnover":0,"noOfEmployees":6,"cmmiLevel":0,"yearlyRevenue":0,"hourlyRate":0,"dailyRate":0,"status":1,"addedBy":1,"createdAt":"2015-11-04T01:52:01","updatedAt":"2019-03-28T13:29:33"},{"id":2,"name":"string","cname":"Updated","cemail":"user@example.com","address1":"string","address2":"string","postcode":"string","phone":"string","email":"korim@gmail.com","fax":"string","city":"string","state":"string","country":"string","logo":"string","registrationNo":"string","timezone":0,"uniqueColumnName":1,"timezoneValue":"string","taxNo":"string","taxOffice":null,"sector":null,"averageTurnover":0,"noOfEmployees":0,"cmmiLevel":0,"yearlyRevenue":0,"hourlyRate":0,"dailyRate":0,"status":1,"addedBy":1,"createdAt":"2024-03-07T13:25:44","updatedAt":"2024-04-17T18:53:19"},{"id":12,"name":"Porosh","cname":"string","cemail":"user@example.com","address1":"string","address2":"string","postcode":"string","phone":"string","email":"user@example.com","fax":"string","city":"string","state":"string","country":"string","logo":"string","registrationNo":"string","timezone":0,"uniqueColumnName":1,"timezoneValue":"string","taxNo":"string","taxOffice":null,"sector":null,"averageTurnover":0,"noOfEmployees":0,"cmmiLevel":0,"yearlyRevenue":0,"hourlyRate":0,"dailyRate":0,"status":1,"addedBy":1,"createdAt":"2024-04-17T13:46:16","updatedAt":"2024-04-17T13:46:16"}],"timestamp":"2024-04-19T17:43:32.8028223+06:00"}
 
 2024-04-19 17:43:39.364 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/api/v1/companies - 200 null application/json; charset=utf-8 29334.6365ms
+2024-04-19 18:30:44.992 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-19 18:30:45.300 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-19 18:30:45.614 +06:00 [INF] Now listening on: https://localhost:7125
+2024-04-19 18:30:45.614 +06:00 [INF] Now listening on: http://localhost:5229
+2024-04-19 18:30:45.614 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-19 18:30:45.614 +06:00 [INF] Hosting environment: Development
+2024-04-19 18:30:45.614 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-19 18:30:46.395 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/index.html - null null
+2024-04-19 18:30:46.690 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/index.html - 200 null text/html;charset=utf-8 300.9204ms
+2024-04-19 18:30:46.750 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-19 18:30:46.756 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 5.6059ms
+2024-04-19 18:30:46.763 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_vs/browserLink - null null
+2024-04-19 18:30:46.824 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_vs/browserLink - 200 null text/javascript; charset=UTF-8 62.0646ms
+2024-04-19 18:30:47.100 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - null null
+2024-04-19 18:30:47.240 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 139.963ms
+2024-04-19 18:30:52.158 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/api/v1/companies - null null
+2024-04-19 18:30:52.178 +06:00 [INF] [Request] GET: /api/v1/companies
+[Request Body] 
+
+2024-04-19 18:30:52.180 +06:00 [INF] Executing endpoint 'ACL.Controllers.V1.AclCompanyController.Index (ACL)'
+2024-04-19 18:30:52.231 +06:00 [INF] Executed endpoint 'ACL.Controllers.V1.AclCompanyController.Index (ACL)'
+2024-04-19 18:30:52.288 +06:00 [ERR] HTTP GET /api/v1/companies responded 500 in 107.5682 ms
+System.InvalidOperationException: Multiple constructors accepting all given argument types have been found in type 'ACL.Controllers.V1.AclCompanyController'. There should only be one applicable constructor.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.TryFindMatchingConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& parameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.FindApplicableConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& matchingParameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactoryInternal(Type instanceType, Type[] argumentTypes, ParameterExpression& provider, ParameterExpression& argumentArray, Expression& factoryExpressionBody)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactory(Type instanceType, Type[] argumentTypes)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerActivatorProvider.CreateActivator(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.CreateControllerFactory(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvokerCache.GetCachedResult(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Routing.ControllerRequestDelegateFactory.<>c__DisplayClass12_0.<CreateRequestDelegate>b__0(HttpContext context)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2024-04-19 18:30:52.451 +06:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: Multiple constructors accepting all given argument types have been found in type 'ACL.Controllers.V1.AclCompanyController'. There should only be one applicable constructor.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.TryFindMatchingConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& parameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.FindApplicableConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& matchingParameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactoryInternal(Type instanceType, Type[] argumentTypes, ParameterExpression& provider, ParameterExpression& argumentArray, Expression& factoryExpressionBody)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactory(Type instanceType, Type[] argumentTypes)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerActivatorProvider.CreateActivator(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.CreateControllerFactory(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvokerCache.GetCachedResult(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Routing.ControllerRequestDelegateFactory.<>c__DisplayClass12_0.<CreateRequestDelegate>b__0(HttpContext context)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at ACL.Services.CustomMiddleWare.RequestResponseLoggingMiddleware.Invoke(HttpContext context) in D:\Porosh\ACL\src\ACL\Services\CustomMiddleWare\RequestResponseLoggingMiddleware.cs:line 29
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Localization.RequestLocalizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-04-19 18:30:52.559 +06:00 [ERR] An exception was thrown attempting to display the error page.
+System.ObjectDisposedException: Cannot access a closed Stream.
+   at System.IO.MemoryStream.Write(Byte[] buffer, Int32 offset, Int32 count)
+   at System.IO.MemoryStream.WriteAsync(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at System.IO.Pipelines.StreamPipeWriter.FlushAsyncInternal(Boolean writeToStream, ReadOnlyMemory`1 data, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Threading.Tasks.ValueTask`1.GetTaskForValueTaskSource(IValueTaskSource`1 t)
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.DisplayExceptionContent(ErrorContext errorContext)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-04-19 18:30:52.620 +06:00 [ERR] Connection id "0HN30DI4P2LBD", Request id "0HN30DI4P2LBD:00000009": An unhandled exception was thrown by the application.
+System.InvalidOperationException: Multiple constructors accepting all given argument types have been found in type 'ACL.Controllers.V1.AclCompanyController'. There should only be one applicable constructor.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.TryFindMatchingConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& parameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.FindApplicableConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& matchingParameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactoryInternal(Type instanceType, Type[] argumentTypes, ParameterExpression& provider, ParameterExpression& argumentArray, Expression& factoryExpressionBody)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactory(Type instanceType, Type[] argumentTypes)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerActivatorProvider.CreateActivator(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.CreateControllerFactory(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvokerCache.GetCachedResult(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Routing.ControllerRequestDelegateFactory.<>c__DisplayClass12_0.<CreateRequestDelegate>b__0(HttpContext context)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at ACL.Services.CustomMiddleWare.RequestResponseLoggingMiddleware.Invoke(HttpContext context) in D:\Porosh\ACL\src\ACL\Services\CustomMiddleWare\RequestResponseLoggingMiddleware.cs:line 29
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Localization.RequestLocalizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+   at Microsoft.WebTools.BrowserLink.Net.BrowserLinkMiddleware.InvokeAsync(HttpContext context)
+   at Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserRefreshMiddleware.InvokeAsync(HttpContext context)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpProtocol.ProcessRequests[TContext](IHttpApplication`1 application)
+2024-04-19 18:30:52.622 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/api/v1/companies - 500 0 null 465.9422ms
+2024-04-19 18:31:00.355 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/api/v1/companies - null null
+2024-04-19 18:31:00.356 +06:00 [INF] [Request] GET: /api/v1/companies
+[Request Body] 
+
+2024-04-19 18:31:00.357 +06:00 [INF] Executing endpoint 'ACL.Controllers.V1.AclCompanyController.Index (ACL)'
+2024-04-19 18:31:00.387 +06:00 [INF] Executed endpoint 'ACL.Controllers.V1.AclCompanyController.Index (ACL)'
+2024-04-19 18:31:00.431 +06:00 [ERR] HTTP GET /api/v1/companies responded 500 in 74.5077 ms
+System.InvalidOperationException: Multiple constructors accepting all given argument types have been found in type 'ACL.Controllers.V1.AclCompanyController'. There should only be one applicable constructor.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.TryFindMatchingConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& parameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.FindApplicableConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& matchingParameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactoryInternal(Type instanceType, Type[] argumentTypes, ParameterExpression& provider, ParameterExpression& argumentArray, Expression& factoryExpressionBody)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactory(Type instanceType, Type[] argumentTypes)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerActivatorProvider.CreateActivator(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.CreateControllerFactory(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvokerCache.GetCachedResult(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Routing.ControllerRequestDelegateFactory.<>c__DisplayClass12_0.<CreateRequestDelegate>b__0(HttpContext context)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2024-04-19 18:31:00.590 +06:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: Multiple constructors accepting all given argument types have been found in type 'ACL.Controllers.V1.AclCompanyController'. There should only be one applicable constructor.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.TryFindMatchingConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& parameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.FindApplicableConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& matchingParameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactoryInternal(Type instanceType, Type[] argumentTypes, ParameterExpression& provider, ParameterExpression& argumentArray, Expression& factoryExpressionBody)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactory(Type instanceType, Type[] argumentTypes)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerActivatorProvider.CreateActivator(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.CreateControllerFactory(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvokerCache.GetCachedResult(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Routing.ControllerRequestDelegateFactory.<>c__DisplayClass12_0.<CreateRequestDelegate>b__0(HttpContext context)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at ACL.Services.CustomMiddleWare.RequestResponseLoggingMiddleware.Invoke(HttpContext context) in D:\Porosh\ACL\src\ACL\Services\CustomMiddleWare\RequestResponseLoggingMiddleware.cs:line 29
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Localization.RequestLocalizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-04-19 18:31:00.677 +06:00 [ERR] An exception was thrown attempting to display the error page.
+System.ObjectDisposedException: Cannot access a closed Stream.
+   at System.IO.MemoryStream.Write(Byte[] buffer, Int32 offset, Int32 count)
+   at System.IO.MemoryStream.WriteAsync(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at System.IO.Pipelines.StreamPipeWriter.FlushAsyncInternal(Boolean writeToStream, ReadOnlyMemory`1 data, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Threading.Tasks.ValueTask`1.GetTaskForValueTaskSource(IValueTaskSource`1 t)
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.DisplayExceptionContent(ErrorContext errorContext)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-04-19 18:31:00.729 +06:00 [ERR] Connection id "0HN30DI4P2LBD", Request id "0HN30DI4P2LBD:0000000B": An unhandled exception was thrown by the application.
+System.InvalidOperationException: Multiple constructors accepting all given argument types have been found in type 'ACL.Controllers.V1.AclCompanyController'. There should only be one applicable constructor.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.TryFindMatchingConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& parameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.FindApplicableConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& matchingParameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactoryInternal(Type instanceType, Type[] argumentTypes, ParameterExpression& provider, ParameterExpression& argumentArray, Expression& factoryExpressionBody)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactory(Type instanceType, Type[] argumentTypes)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerActivatorProvider.CreateActivator(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.CreateControllerFactory(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvokerCache.GetCachedResult(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Routing.ControllerRequestDelegateFactory.<>c__DisplayClass12_0.<CreateRequestDelegate>b__0(HttpContext context)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at ACL.Services.CustomMiddleWare.RequestResponseLoggingMiddleware.Invoke(HttpContext context) in D:\Porosh\ACL\src\ACL\Services\CustomMiddleWare\RequestResponseLoggingMiddleware.cs:line 29
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Localization.RequestLocalizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+   at Microsoft.WebTools.BrowserLink.Net.BrowserLinkMiddleware.InvokeAsync(HttpContext context)
+   at Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserRefreshMiddleware.InvokeAsync(HttpContext context)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpProtocol.ProcessRequests[TContext](IHttpApplication`1 application)
+2024-04-19 18:31:00.730 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/api/v1/companies - 500 0 null 375.5339ms
+2024-04-19 18:31:58.819 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/index.html - null null
+2024-04-19 18:31:58.852 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/index.html - 200 null text/html;charset=utf-8 32.6121ms
+2024-04-19 18:31:58.887 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_vs/browserLink - null null
+2024-04-19 18:31:58.887 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-19 18:31:58.888 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 1.3106ms
+2024-04-19 18:31:58.896 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_vs/browserLink - 200 null text/javascript; charset=UTF-8 10.0136ms
+2024-04-19 18:31:59.594 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - null null
+2024-04-19 18:31:59.625 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 31.06ms
+2024-04-19 18:32:13.927 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/index.html - null null
+2024-04-19 18:32:13.954 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/index.html - 200 null text/html;charset=utf-8 26.7393ms
+2024-04-19 18:32:13.969 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_vs/browserLink - null null
+2024-04-19 18:32:13.976 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-19 18:32:13.977 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 1.2695ms
+2024-04-19 18:32:13.991 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_vs/browserLink - 200 null text/javascript; charset=UTF-8 22.3769ms
+2024-04-19 18:32:14.378 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - null null
+2024-04-19 18:32:14.403 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 25.4303ms
+2024-04-19 18:32:24.091 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-19 18:32:24.282 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-19 18:32:24.379 +06:00 [INF] Now listening on: https://localhost:7125
+2024-04-19 18:32:24.379 +06:00 [INF] Now listening on: http://localhost:5229
+2024-04-19 18:32:24.380 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-19 18:32:24.380 +06:00 [INF] Hosting environment: Development
+2024-04-19 18:32:24.380 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-19 18:32:25.023 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/index.html - null null
+2024-04-19 18:32:25.220 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/index.html - 200 null text/html;charset=utf-8 200.153ms
+2024-04-19 18:32:25.282 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-19 18:32:25.285 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 3.8147ms
+2024-04-19 18:32:25.296 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_vs/browserLink - null null
+2024-04-19 18:32:25.334 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_vs/browserLink - 200 null text/javascript; charset=UTF-8 38.7387ms
+2024-04-19 18:32:25.712 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - null null
+2024-04-19 18:32:25.878 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 166.514ms
+2024-04-19 18:32:31.498 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/api/v1/companies - null null
+2024-04-19 18:32:31.516 +06:00 [INF] [Request] GET: /api/v1/companies
+[Request Body] 
+
+2024-04-19 18:32:31.519 +06:00 [INF] Executing endpoint 'ACL.Controllers.V1.AclCompanyController.Index (ACL)'
+2024-04-19 18:32:31.529 +06:00 [INF] Route matched with {action = "Index", controller = "AclCompany"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] Index() on controller ACL.Controllers.V1.AclCompanyController (ACL).
+2024-04-19 18:32:39.481 +06:00 [INF] Executing action method ACL.Controllers.V1.AclCompanyController.Index (ACL) - Validation state: "Valid"
+2024-04-19 18:32:46.415 +06:00 [INF] Executed DbCommand (19ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`added_by`, `a`.`address1`, `a`.`address2`, `a`.`average_turnover`, `a`.`cemail`, `a`.`city`, `a`.`cmmi_level`, `a`.`cname`, `a`.`country`, `a`.`created_at`, `a`.`daily_rate`, `a`.`email`, `a`.`fax`, `a`.`hourly_rate`, `a`.`logo`, `a`.`name`, `a`.`no_of_employees`, `a`.`phone`, `a`.`postcode`, `a`.`registration_no`, `a`.`sector`, `a`.`state`, `a`.`status`, `a`.`tax_no`, `a`.`tax_office`, `a`.`timezone`, `a`.`timezone_value`, `a`.`unique_column_name`, `a`.`updated_at`, `a`.`yearly_revenue`
+FROM `acl_companies` AS `a`
+WHERE `a`.`status` = 1
+2024-04-19 18:46:47.903 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-19 18:46:48.078 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-19 18:46:48.174 +06:00 [INF] Now listening on: https://localhost:7125
+2024-04-19 18:46:48.174 +06:00 [INF] Now listening on: http://localhost:5229
+2024-04-19 18:46:48.174 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-19 18:46:48.174 +06:00 [INF] Hosting environment: Development
+2024-04-19 18:46:48.174 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-19 18:46:48.961 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/index.html - null null
+2024-04-19 18:46:49.157 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/index.html - 200 null text/html;charset=utf-8 200.3015ms
+2024-04-19 18:46:49.216 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-19 18:46:49.220 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 4.7068ms
+2024-04-19 18:46:49.229 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_vs/browserLink - null null
+2024-04-19 18:46:49.268 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_vs/browserLink - 200 null text/javascript; charset=UTF-8 39.2525ms
+2024-04-19 18:46:49.537 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - null null
+2024-04-19 18:46:49.658 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 120.9822ms
+2024-04-19 18:46:54.726 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/api/v1/companies - null null
+2024-04-19 18:46:54.744 +06:00 [INF] [Request] GET: /api/v1/companies
+[Request Body] 
+
+2024-04-19 18:46:54.748 +06:00 [INF] Executing endpoint 'ACL.Controllers.V1.AclCompanyController.Index (ACL)'
+2024-04-19 18:46:54.758 +06:00 [INF] Route matched with {action = "Index", controller = "AclCompany"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] Index() on controller ACL.Controllers.V1.AclCompanyController (ACL).
+2024-04-19 18:47:05.620 +06:00 [INF] Executing action method ACL.Controllers.V1.AclCompanyController.Index (ACL) - Validation state: "Valid"
+2024-04-19 18:47:15.282 +06:00 [INF] Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`added_by`, `a`.`address1`, `a`.`address2`, `a`.`average_turnover`, `a`.`cemail`, `a`.`city`, `a`.`cmmi_level`, `a`.`cname`, `a`.`country`, `a`.`created_at`, `a`.`daily_rate`, `a`.`email`, `a`.`fax`, `a`.`hourly_rate`, `a`.`logo`, `a`.`name`, `a`.`no_of_employees`, `a`.`phone`, `a`.`postcode`, `a`.`registration_no`, `a`.`sector`, `a`.`state`, `a`.`status`, `a`.`tax_no`, `a`.`tax_office`, `a`.`timezone`, `a`.`timezone_value`, `a`.`unique_column_name`, `a`.`updated_at`, `a`.`yearly_revenue`
+FROM `acl_companies` AS `a`
+WHERE `a`.`status` = 1
+2024-04-19 18:49:13.060 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-19 18:49:13.239 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-19 18:49:13.325 +06:00 [INF] Now listening on: https://localhost:7125
+2024-04-19 18:49:13.325 +06:00 [INF] Now listening on: http://localhost:5229
+2024-04-19 18:49:13.325 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-19 18:49:13.325 +06:00 [INF] Hosting environment: Development
+2024-04-19 18:49:13.325 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-19 18:49:14.012 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/index.html - null null
+2024-04-19 18:49:14.235 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/index.html - 200 null text/html;charset=utf-8 226.7804ms
+2024-04-19 18:49:14.292 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-19 18:49:14.296 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 4.152ms
+2024-04-19 18:49:14.307 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_vs/browserLink - null null
+2024-04-19 18:49:14.342 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_vs/browserLink - 200 null text/javascript; charset=UTF-8 35.5697ms
+2024-04-19 18:49:14.752 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - null null
+2024-04-19 18:49:14.898 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 146.6845ms
+2024-04-19 18:49:24.630 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/api/v1/companies - null null
+2024-04-19 18:49:24.652 +06:00 [INF] [Request] GET: /api/v1/companies
+[Request Body] 
+
+2024-04-19 18:49:24.656 +06:00 [INF] Executing endpoint 'ACL.Controllers.V1.AclCompanyController.Index (ACL)'
+2024-04-19 18:49:24.667 +06:00 [INF] Route matched with {action = "Index", controller = "AclCompany"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] Index() on controller ACL.Controllers.V1.AclCompanyController (ACL).
+2024-04-19 18:50:40.188 +06:00 [INF] Executing action method ACL.Controllers.V1.AclCompanyController.Index (ACL) - Validation state: "Valid"
+2024-04-19 18:50:54.761 +06:00 [INF] Executed DbCommand (17ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`added_by`, `a`.`address1`, `a`.`address2`, `a`.`average_turnover`, `a`.`cemail`, `a`.`city`, `a`.`cmmi_level`, `a`.`cname`, `a`.`country`, `a`.`created_at`, `a`.`daily_rate`, `a`.`email`, `a`.`fax`, `a`.`hourly_rate`, `a`.`logo`, `a`.`name`, `a`.`no_of_employees`, `a`.`phone`, `a`.`postcode`, `a`.`registration_no`, `a`.`sector`, `a`.`state`, `a`.`status`, `a`.`tax_no`, `a`.`tax_office`, `a`.`timezone`, `a`.`timezone_value`, `a`.`unique_column_name`, `a`.`updated_at`, `a`.`yearly_revenue`
+FROM `acl_companies` AS `a`
+WHERE `a`.`status` = 1
+2024-04-19 18:51:12.030 +06:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`added_by`, `a`.`address1`, `a`.`address2`, `a`.`average_turnover`, `a`.`cemail`, `a`.`city`, `a`.`cmmi_level`, `a`.`cname`, `a`.`country`, `a`.`created_at`, `a`.`daily_rate`, `a`.`email`, `a`.`fax`, `a`.`hourly_rate`, `a`.`logo`, `a`.`name`, `a`.`no_of_employees`, `a`.`phone`, `a`.`postcode`, `a`.`registration_no`, `a`.`sector`, `a`.`state`, `a`.`status`, `a`.`tax_no`, `a`.`tax_office`, `a`.`timezone`, `a`.`timezone_value`, `a`.`unique_column_name`, `a`.`updated_at`, `a`.`yearly_revenue`
+FROM `acl_companies` AS `a`
+WHERE `a`.`status` = 1
+2024-04-19 18:52:21.719 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-19 18:52:21.891 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-19 18:52:21.974 +06:00 [INF] Now listening on: https://localhost:7125
+2024-04-19 18:52:21.974 +06:00 [INF] Now listening on: http://localhost:5229
+2024-04-19 18:52:21.974 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-19 18:52:21.974 +06:00 [INF] Hosting environment: Development
+2024-04-19 18:52:21.974 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-19 18:52:22.580 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/index.html - null null
+2024-04-19 18:52:22.774 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/index.html - 200 null text/html;charset=utf-8 197.3764ms
+2024-04-19 18:52:22.824 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-19 18:52:22.827 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 3.2283ms
+2024-04-19 18:52:22.836 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_vs/browserLink - null null
+2024-04-19 18:52:22.867 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_vs/browserLink - 200 null text/javascript; charset=UTF-8 31.1439ms
+2024-04-19 18:52:23.286 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - null null
+2024-04-19 18:52:23.420 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 133.6795ms
+2024-04-19 18:55:12.466 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/index.html - null null
+2024-04-19 18:55:12.509 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/index.html - 200 null text/html;charset=utf-8 43.2992ms
+2024-04-19 18:55:12.523 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-19 18:55:12.523 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_vs/browserLink - null null
+2024-04-19 18:55:12.524 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 1.3366ms
+2024-04-19 18:55:12.540 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_vs/browserLink - 200 null text/javascript; charset=UTF-8 17.0413ms
+2024-04-19 18:55:13.564 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - null null
+2024-04-19 18:55:13.592 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 27.359ms
+2024-04-19 18:56:25.141 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-19 18:56:25.308 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-19 18:56:25.331 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-19 18:56:25.331 +06:00 [INF] Hosting environment: Development
+2024-04-19 18:56:25.331 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-19 18:56:25.363 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/index.html - null null
+2024-04-19 18:56:25.570 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/index.html - 200 null text/html;charset=utf-8 210.0445ms
+2024-04-19 18:56:25.616 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-19 18:56:25.618 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 2.3524ms
+2024-04-19 18:56:25.628 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_vs/browserLink - null null
+2024-04-19 18:56:25.664 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_vs/browserLink - 200 null text/javascript; charset=UTF-8 36.0489ms
+2024-04-19 18:56:25.905 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - null null
+2024-04-19 18:56:26.038 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 133.5558ms
+2024-04-19 18:56:32.882 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/api/v1/companies - null null
+2024-04-19 18:56:32.907 +06:00 [INF] [Request] GET: /api/v1/companies
+[Request Body] 
+
+2024-04-19 18:56:32.910 +06:00 [INF] Executing endpoint 'ACL.Controllers.V1.AclCompanyController.Index (ACL)'
+2024-04-19 18:56:32.924 +06:00 [INF] Route matched with {action = "Index", controller = "AclCompany"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] Index() on controller ACL.Controllers.V1.AclCompanyController (ACL).
+2024-04-19 18:56:33.344 +06:00 [INF] Executing action method ACL.Controllers.V1.AclCompanyController.Index (ACL) - Validation state: "Valid"
+2024-04-19 18:56:36.534 +06:00 [INF] Executed DbCommand (25ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`added_by`, `a`.`address1`, `a`.`address2`, `a`.`average_turnover`, `a`.`cemail`, `a`.`city`, `a`.`cmmi_level`, `a`.`cname`, `a`.`country`, `a`.`created_at`, `a`.`daily_rate`, `a`.`email`, `a`.`fax`, `a`.`hourly_rate`, `a`.`logo`, `a`.`name`, `a`.`no_of_employees`, `a`.`phone`, `a`.`postcode`, `a`.`registration_no`, `a`.`sector`, `a`.`state`, `a`.`status`, `a`.`tax_no`, `a`.`tax_office`, `a`.`timezone`, `a`.`timezone_value`, `a`.`unique_column_name`, `a`.`updated_at`, `a`.`yearly_revenue`
+FROM `acl_companies` AS `a`
+WHERE `a`.`status` = 1
+2024-04-19 18:58:36.087 +06:00 [INF] Executed action ACL.Controllers.V1.AclCompanyController.Index (ACL) in 123160.6274ms
+2024-04-19 18:58:36.175 +06:00 [INF] Executed endpoint 'ACL.Controllers.V1.AclCompanyController.Index (ACL)'
+2024-04-19 18:58:36.243 +06:00 [ERR] HTTP GET /api/v1/companies responded 500 in 123333.3270 ms
+System.Resources.MissingManifestResourceException: Could not find the resource "ACL.Resources.resources" among the resources "ACL.Resources.bn-BD.resources", "ACL.Resources.en-US.resources" embedded in the assembly "ACL", nor among the resources in any satellite assemblies for the specified culture. Perhaps the resources were embedded with an incorrect name.
+   at System.Resources.ManifestBasedResourceGroveler.HandleResourceStreamMissing(String fileName)
+   at System.Resources.ManifestBasedResourceGroveler.GrovelForResourceSet(CultureInfo culture, Dictionary`2 localResourceSets, Boolean tryParents, Boolean createIfNotExists)
+   at System.Resources.ResourceManager.InternalGetResourceSet(CultureInfo culture, Boolean createIfNotExists, Boolean tryParents)
+   at System.Resources.ResourceManager.GetString(String name, CultureInfo culture)
+   at ACL.Controllers.V1.AclCompanyController.Index() in D:\Porosh\ACL\src\ACL\Controllers\V1\AclCompanyController.cs:line 45
+   at lambda_method7(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2024-04-19 18:58:36.599 +06:00 [ERR] An unhandled exception has occurred while executing the request.
+System.Resources.MissingManifestResourceException: Could not find the resource "ACL.Resources.resources" among the resources "ACL.Resources.bn-BD.resources", "ACL.Resources.en-US.resources" embedded in the assembly "ACL", nor among the resources in any satellite assemblies for the specified culture. Perhaps the resources were embedded with an incorrect name.
+   at System.Resources.ManifestBasedResourceGroveler.HandleResourceStreamMissing(String fileName)
+   at System.Resources.ManifestBasedResourceGroveler.GrovelForResourceSet(CultureInfo culture, Dictionary`2 localResourceSets, Boolean tryParents, Boolean createIfNotExists)
+   at System.Resources.ResourceManager.InternalGetResourceSet(CultureInfo culture, Boolean createIfNotExists, Boolean tryParents)
+   at System.Resources.ResourceManager.GetString(String name, CultureInfo culture)
+   at ACL.Controllers.V1.AclCompanyController.Index() in D:\Porosh\ACL\src\ACL\Controllers\V1\AclCompanyController.cs:line 45
+   at lambda_method7(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at ACL.Services.CustomMiddleWare.RequestResponseLoggingMiddleware.Invoke(HttpContext context) in D:\Porosh\ACL\src\ACL\Services\CustomMiddleWare\RequestResponseLoggingMiddleware.cs:line 29
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Localization.RequestLocalizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-04-19 18:58:36.908 +06:00 [ERR] An exception was thrown attempting to display the error page.
+System.ObjectDisposedException: Cannot access a closed Stream.
+   at System.IO.MemoryStream.Write(Byte[] buffer, Int32 offset, Int32 count)
+   at System.IO.MemoryStream.WriteAsync(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at System.IO.Pipelines.StreamPipeWriter.FlushAsyncInternal(Boolean writeToStream, ReadOnlyMemory`1 data, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Threading.Tasks.ValueTask`1.GetTaskForValueTaskSource(IValueTaskSource`1 t)
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.DisplayExceptionContent(ErrorContext errorContext)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-04-19 18:58:37.132 +06:00 [ERR] Connection ID "18230571300991008801", Request ID "40000022-0002-fd00-b63f-84710c7967bb": An unhandled exception was thrown by the application.
+System.Resources.MissingManifestResourceException: Could not find the resource "ACL.Resources.resources" among the resources "ACL.Resources.bn-BD.resources", "ACL.Resources.en-US.resources" embedded in the assembly "ACL", nor among the resources in any satellite assemblies for the specified culture. Perhaps the resources were embedded with an incorrect name.
+   at System.Resources.ManifestBasedResourceGroveler.HandleResourceStreamMissing(String fileName)
+   at System.Resources.ManifestBasedResourceGroveler.GrovelForResourceSet(CultureInfo culture, Dictionary`2 localResourceSets, Boolean tryParents, Boolean createIfNotExists)
+   at System.Resources.ResourceManager.InternalGetResourceSet(CultureInfo culture, Boolean createIfNotExists, Boolean tryParents)
+   at System.Resources.ResourceManager.GetString(String name, CultureInfo culture)
+   at ACL.Controllers.V1.AclCompanyController.Index() in D:\Porosh\ACL\src\ACL\Controllers\V1\AclCompanyController.cs:line 45
+   at lambda_method7(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at ACL.Services.CustomMiddleWare.RequestResponseLoggingMiddleware.Invoke(HttpContext context) in D:\Porosh\ACL\src\ACL\Services\CustomMiddleWare\RequestResponseLoggingMiddleware.cs:line 29
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Localization.RequestLocalizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+   at Microsoft.WebTools.BrowserLink.Net.BrowserLinkMiddleware.InvokeAsync(HttpContext context)
+   at Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserRefreshMiddleware.InvokeAsync(HttpContext context)
+   at Microsoft.AspNetCore.Server.IIS.Core.IISHttpContextOfT`1.ProcessRequestAsync()
+2024-04-19 18:58:37.156 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/api/v1/companies - 500 null null 124273.6125ms
+2024-04-19 18:59:18.875 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/api/v1/companies - null null
+2024-04-19 18:59:18.888 +06:00 [INF] [Request] GET: /api/v1/companies
+[Request Body] 
+
+2024-04-19 18:59:18.889 +06:00 [INF] Executing endpoint 'ACL.Controllers.V1.AclCompanyController.Index (ACL)'
+2024-04-19 18:59:18.889 +06:00 [INF] Route matched with {action = "Index", controller = "AclCompany"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] Index() on controller ACL.Controllers.V1.AclCompanyController (ACL).
+2024-04-19 18:59:18.917 +06:00 [INF] Executing action method ACL.Controllers.V1.AclCompanyController.Index (ACL) - Validation state: "Valid"
+2024-04-19 18:59:21.484 +06:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`added_by`, `a`.`address1`, `a`.`address2`, `a`.`average_turnover`, `a`.`cemail`, `a`.`city`, `a`.`cmmi_level`, `a`.`cname`, `a`.`country`, `a`.`created_at`, `a`.`daily_rate`, `a`.`email`, `a`.`fax`, `a`.`hourly_rate`, `a`.`logo`, `a`.`name`, `a`.`no_of_employees`, `a`.`phone`, `a`.`postcode`, `a`.`registration_no`, `a`.`sector`, `a`.`state`, `a`.`status`, `a`.`tax_no`, `a`.`tax_office`, `a`.`timezone`, `a`.`timezone_value`, `a`.`unique_column_name`, `a`.`updated_at`, `a`.`yearly_revenue`
+FROM `acl_companies` AS `a`
+WHERE `a`.`status` = 1
+2024-04-19 18:59:27.283 +06:00 [INF] Executed action ACL.Controllers.V1.AclCompanyController.Index (ACL) in 8393.0252ms
+2024-04-19 18:59:27.367 +06:00 [INF] Executed endpoint 'ACL.Controllers.V1.AclCompanyController.Index (ACL)'
+2024-04-19 18:59:27.435 +06:00 [ERR] HTTP GET /api/v1/companies responded 500 in 8546.4934 ms
+System.Resources.MissingManifestResourceException: Could not find the resource "ACL.Resources.resources" among the resources "ACL.Resources.bn-BD.resources", "ACL.Resources.en-US.resources" embedded in the assembly "ACL", nor among the resources in any satellite assemblies for the specified culture. Perhaps the resources were embedded with an incorrect name.
+   at System.Resources.ManifestBasedResourceGroveler.HandleResourceStreamMissing(String fileName)
+   at System.Resources.ManifestBasedResourceGroveler.GrovelForResourceSet(CultureInfo culture, Dictionary`2 localResourceSets, Boolean tryParents, Boolean createIfNotExists)
+   at System.Resources.ResourceManager.InternalGetResourceSet(CultureInfo culture, Boolean createIfNotExists, Boolean tryParents)
+   at System.Resources.ResourceManager.GetString(String name, CultureInfo culture)
+   at ACL.Controllers.V1.AclCompanyController.Index() in D:\Porosh\ACL\src\ACL\Controllers\V1\AclCompanyController.cs:line 45
+   at lambda_method7(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2024-04-19 18:59:27.759 +06:00 [ERR] An unhandled exception has occurred while executing the request.
+System.Resources.MissingManifestResourceException: Could not find the resource "ACL.Resources.resources" among the resources "ACL.Resources.bn-BD.resources", "ACL.Resources.en-US.resources" embedded in the assembly "ACL", nor among the resources in any satellite assemblies for the specified culture. Perhaps the resources were embedded with an incorrect name.
+   at System.Resources.ManifestBasedResourceGroveler.HandleResourceStreamMissing(String fileName)
+   at System.Resources.ManifestBasedResourceGroveler.GrovelForResourceSet(CultureInfo culture, Dictionary`2 localResourceSets, Boolean tryParents, Boolean createIfNotExists)
+   at System.Resources.ResourceManager.InternalGetResourceSet(CultureInfo culture, Boolean createIfNotExists, Boolean tryParents)
+   at System.Resources.ResourceManager.GetString(String name, CultureInfo culture)
+   at ACL.Controllers.V1.AclCompanyController.Index() in D:\Porosh\ACL\src\ACL\Controllers\V1\AclCompanyController.cs:line 45
+   at lambda_method7(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at ACL.Services.CustomMiddleWare.RequestResponseLoggingMiddleware.Invoke(HttpContext context) in D:\Porosh\ACL\src\ACL\Services\CustomMiddleWare\RequestResponseLoggingMiddleware.cs:line 29
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Localization.RequestLocalizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-04-19 18:59:28.061 +06:00 [ERR] An exception was thrown attempting to display the error page.
+System.ObjectDisposedException: Cannot access a closed Stream.
+   at System.IO.MemoryStream.Write(Byte[] buffer, Int32 offset, Int32 count)
+   at System.IO.MemoryStream.WriteAsync(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at System.IO.Pipelines.StreamPipeWriter.FlushAsyncInternal(Boolean writeToStream, ReadOnlyMemory`1 data, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Threading.Tasks.ValueTask`1.GetTaskForValueTaskSource(IValueTaskSource`1 t)
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.DisplayExceptionContent(ErrorContext errorContext)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-04-19 18:59:28.279 +06:00 [ERR] Connection ID "18230571322465845276", Request ID "4000001d-0007-fd00-b63f-84710c7967bb": An unhandled exception was thrown by the application.
+System.Resources.MissingManifestResourceException: Could not find the resource "ACL.Resources.resources" among the resources "ACL.Resources.bn-BD.resources", "ACL.Resources.en-US.resources" embedded in the assembly "ACL", nor among the resources in any satellite assemblies for the specified culture. Perhaps the resources were embedded with an incorrect name.
+   at System.Resources.ManifestBasedResourceGroveler.HandleResourceStreamMissing(String fileName)
+   at System.Resources.ManifestBasedResourceGroveler.GrovelForResourceSet(CultureInfo culture, Dictionary`2 localResourceSets, Boolean tryParents, Boolean createIfNotExists)
+   at System.Resources.ResourceManager.InternalGetResourceSet(CultureInfo culture, Boolean createIfNotExists, Boolean tryParents)
+   at System.Resources.ResourceManager.GetString(String name, CultureInfo culture)
+   at ACL.Controllers.V1.AclCompanyController.Index() in D:\Porosh\ACL\src\ACL\Controllers\V1\AclCompanyController.cs:line 45
+   at lambda_method7(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at ACL.Services.CustomMiddleWare.RequestResponseLoggingMiddleware.Invoke(HttpContext context) in D:\Porosh\ACL\src\ACL\Services\CustomMiddleWare\RequestResponseLoggingMiddleware.cs:line 29
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Localization.RequestLocalizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+   at Microsoft.WebTools.BrowserLink.Net.BrowserLinkMiddleware.InvokeAsync(HttpContext context)
+   at Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserRefreshMiddleware.InvokeAsync(HttpContext context)
+   at Microsoft.AspNetCore.Server.IIS.Core.IISHttpContextOfT`1.ProcessRequestAsync()
+2024-04-19 18:59:28.281 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/api/v1/companies - 500 null null 9406.4604ms
+2024-04-19 19:00:15.675 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-19 19:00:15.850 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-19 19:00:15.878 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-19 19:00:15.878 +06:00 [INF] Hosting environment: Development
+2024-04-19 19:00:15.879 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-19 19:00:15.913 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/index.html - null null
+2024-04-19 19:00:16.137 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/index.html - 200 null text/html;charset=utf-8 226.5227ms
+2024-04-19 19:00:16.191 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-19 19:00:16.194 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 2.9531ms
+2024-04-19 19:00:16.200 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_vs/browserLink - null null
+2024-04-19 19:00:16.235 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_vs/browserLink - 200 null text/javascript; charset=UTF-8 34.974ms
+2024-04-19 19:00:16.691 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - null null
+2024-04-19 19:00:16.830 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 139.2464ms
+2024-04-19 19:00:18.578 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/api/v1/companies - null null
+2024-04-19 19:00:18.595 +06:00 [INF] [Request] GET: /api/v1/companies
+[Request Body] 
+
+2024-04-19 19:00:18.600 +06:00 [INF] Executing endpoint 'ACL.Controllers.V1.AclCompanyController.Index (ACL)'
+2024-04-19 19:00:18.618 +06:00 [INF] Route matched with {action = "Index", controller = "AclCompany"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] Index() on controller ACL.Controllers.V1.AclCompanyController (ACL).
+2024-04-19 19:00:18.993 +06:00 [INF] Executing action method ACL.Controllers.V1.AclCompanyController.Index (ACL) - Validation state: "Valid"
+2024-04-19 19:00:23.001 +06:00 [INF] Executed DbCommand (22ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`added_by`, `a`.`address1`, `a`.`address2`, `a`.`average_turnover`, `a`.`cemail`, `a`.`city`, `a`.`cmmi_level`, `a`.`cname`, `a`.`country`, `a`.`created_at`, `a`.`daily_rate`, `a`.`email`, `a`.`fax`, `a`.`hourly_rate`, `a`.`logo`, `a`.`name`, `a`.`no_of_employees`, `a`.`phone`, `a`.`postcode`, `a`.`registration_no`, `a`.`sector`, `a`.`state`, `a`.`status`, `a`.`tax_no`, `a`.`tax_office`, `a`.`timezone`, `a`.`timezone_value`, `a`.`unique_column_name`, `a`.`updated_at`, `a`.`yearly_revenue`
+FROM `acl_companies` AS `a`
+WHERE `a`.`status` = 1
+2024-04-19 19:00:44.209 +06:00 [INF] Executed action ACL.Controllers.V1.AclCompanyController.Index (ACL) in 25586.5263ms
+2024-04-19 19:00:44.301 +06:00 [INF] Executed endpoint 'ACL.Controllers.V1.AclCompanyController.Index (ACL)'
+2024-04-19 19:00:44.371 +06:00 [ERR] HTTP GET /api/v1/companies responded 500 in 25772.9833 ms
+System.Resources.MissingManifestResourceException: Could not find the resource "ACL.Resources.resources" among the resources "ACL.Resources.bn-BD.resources", "ACL.Resources.en-US.resources" embedded in the assembly "ACL", nor among the resources in any satellite assemblies for the specified culture. Perhaps the resources were embedded with an incorrect name.
+   at System.Resources.ManifestBasedResourceGroveler.HandleResourceStreamMissing(String fileName)
+   at System.Resources.ManifestBasedResourceGroveler.GrovelForResourceSet(CultureInfo culture, Dictionary`2 localResourceSets, Boolean tryParents, Boolean createIfNotExists)
+   at System.Resources.ResourceManager.InternalGetResourceSet(CultureInfo culture, Boolean createIfNotExists, Boolean tryParents)
+   at System.Resources.ResourceManager.GetString(String name, CultureInfo culture)
+   at ACL.Controllers.V1.AclCompanyController.Index() in D:\Porosh\ACL\src\ACL\Controllers\V1\AclCompanyController.cs:line 45
+   at lambda_method7(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2024-04-19 19:00:44.737 +06:00 [ERR] An unhandled exception has occurred while executing the request.
+System.Resources.MissingManifestResourceException: Could not find the resource "ACL.Resources.resources" among the resources "ACL.Resources.bn-BD.resources", "ACL.Resources.en-US.resources" embedded in the assembly "ACL", nor among the resources in any satellite assemblies for the specified culture. Perhaps the resources were embedded with an incorrect name.
+   at System.Resources.ManifestBasedResourceGroveler.HandleResourceStreamMissing(String fileName)
+   at System.Resources.ManifestBasedResourceGroveler.GrovelForResourceSet(CultureInfo culture, Dictionary`2 localResourceSets, Boolean tryParents, Boolean createIfNotExists)
+   at System.Resources.ResourceManager.InternalGetResourceSet(CultureInfo culture, Boolean createIfNotExists, Boolean tryParents)
+   at System.Resources.ResourceManager.GetString(String name, CultureInfo culture)
+   at ACL.Controllers.V1.AclCompanyController.Index() in D:\Porosh\ACL\src\ACL\Controllers\V1\AclCompanyController.cs:line 45
+   at lambda_method7(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at ACL.Services.CustomMiddleWare.RequestResponseLoggingMiddleware.Invoke(HttpContext context) in D:\Porosh\ACL\src\ACL\Services\CustomMiddleWare\RequestResponseLoggingMiddleware.cs:line 29
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Localization.RequestLocalizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-04-19 19:00:45.028 +06:00 [ERR] An exception was thrown attempting to display the error page.
+System.ObjectDisposedException: Cannot access a closed Stream.
+   at System.IO.MemoryStream.Write(Byte[] buffer, Int32 offset, Int32 count)
+   at System.IO.MemoryStream.WriteAsync(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at System.IO.Pipelines.StreamPipeWriter.FlushAsyncInternal(Boolean writeToStream, ReadOnlyMemory`1 data, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Threading.Tasks.ValueTask`1.GetTaskForValueTaskSource(IValueTaskSource`1 t)
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.DisplayExceptionContent(ErrorContext errorContext)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-04-19 19:00:45.249 +06:00 [ERR] Connection ID "18230571313875910661", Request ID "40000006-0005-fd00-b63f-84710c7967bb": An unhandled exception was thrown by the application.
+System.Resources.MissingManifestResourceException: Could not find the resource "ACL.Resources.resources" among the resources "ACL.Resources.bn-BD.resources", "ACL.Resources.en-US.resources" embedded in the assembly "ACL", nor among the resources in any satellite assemblies for the specified culture. Perhaps the resources were embedded with an incorrect name.
+   at System.Resources.ManifestBasedResourceGroveler.HandleResourceStreamMissing(String fileName)
+   at System.Resources.ManifestBasedResourceGroveler.GrovelForResourceSet(CultureInfo culture, Dictionary`2 localResourceSets, Boolean tryParents, Boolean createIfNotExists)
+   at System.Resources.ResourceManager.InternalGetResourceSet(CultureInfo culture, Boolean createIfNotExists, Boolean tryParents)
+   at System.Resources.ResourceManager.GetString(String name, CultureInfo culture)
+   at ACL.Controllers.V1.AclCompanyController.Index() in D:\Porosh\ACL\src\ACL\Controllers\V1\AclCompanyController.cs:line 45
+   at lambda_method7(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at ACL.Services.CustomMiddleWare.RequestResponseLoggingMiddleware.Invoke(HttpContext context) in D:\Porosh\ACL\src\ACL\Services\CustomMiddleWare\RequestResponseLoggingMiddleware.cs:line 29
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Localization.RequestLocalizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+   at Microsoft.WebTools.BrowserLink.Net.BrowserLinkMiddleware.InvokeAsync(HttpContext context)
+   at Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserRefreshMiddleware.InvokeAsync(HttpContext context)
+   at Microsoft.AspNetCore.Server.IIS.Core.IISHttpContextOfT`1.ProcessRequestAsync()
+2024-04-19 19:00:45.258 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/api/v1/companies - 500 null null 26679.4842ms
+2024-04-19 19:07:20.958 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-19 19:07:21.130 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-19 19:07:21.157 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-19 19:07:21.157 +06:00 [INF] Hosting environment: Development
+2024-04-19 19:07:21.157 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-19 19:07:21.198 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/index.html - null null
+2024-04-19 19:07:21.411 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/index.html - 200 null text/html;charset=utf-8 216.1265ms
+2024-04-19 19:07:21.467 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-19 19:07:21.471 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 3.2529ms
+2024-04-19 19:07:21.484 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_vs/browserLink - null null
+2024-04-19 19:07:21.521 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_vs/browserLink - 200 null text/javascript; charset=UTF-8 38.3201ms
+2024-04-19 19:07:21.887 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - null null
+2024-04-19 19:07:22.020 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 132.7081ms
+2024-04-19 19:07:28.171 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/api/v1/companies - null null
+2024-04-19 19:07:28.184 +06:00 [INF] [Request] GET: /api/v1/companies
+[Request Body] 
+
+2024-04-19 19:07:28.188 +06:00 [INF] Executing endpoint 'ACL.Controllers.V1.AclCompanyController.Index (ACL)'
+2024-04-19 19:07:28.226 +06:00 [INF] Executed endpoint 'ACL.Controllers.V1.AclCompanyController.Index (ACL)'
+2024-04-19 19:07:28.259 +06:00 [ERR] HTTP GET /api/v1/companies responded 500 in 72.8831 ms
+System.InvalidOperationException: Multiple constructors accepting all given argument types have been found in type 'ACL.Controllers.V1.AclCompanyController'. There should only be one applicable constructor.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.TryFindMatchingConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& parameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.FindApplicableConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& matchingParameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactoryInternal(Type instanceType, Type[] argumentTypes, ParameterExpression& provider, ParameterExpression& argumentArray, Expression& factoryExpressionBody)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactory(Type instanceType, Type[] argumentTypes)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerActivatorProvider.CreateActivator(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.CreateControllerFactory(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvokerCache.GetCachedResult(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Routing.ControllerRequestDelegateFactory.<>c__DisplayClass12_0.<CreateRequestDelegate>b__0(HttpContext context)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2024-04-19 19:07:28.409 +06:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: Multiple constructors accepting all given argument types have been found in type 'ACL.Controllers.V1.AclCompanyController'. There should only be one applicable constructor.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.TryFindMatchingConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& parameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.FindApplicableConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& matchingParameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactoryInternal(Type instanceType, Type[] argumentTypes, ParameterExpression& provider, ParameterExpression& argumentArray, Expression& factoryExpressionBody)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactory(Type instanceType, Type[] argumentTypes)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerActivatorProvider.CreateActivator(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.CreateControllerFactory(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvokerCache.GetCachedResult(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Routing.ControllerRequestDelegateFactory.<>c__DisplayClass12_0.<CreateRequestDelegate>b__0(HttpContext context)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at ACL.Services.CustomMiddleWare.RequestResponseLoggingMiddleware.Invoke(HttpContext context) in D:\Porosh\ACL\src\ACL\Services\CustomMiddleWare\RequestResponseLoggingMiddleware.cs:line 29
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Localization.RequestLocalizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-04-19 19:07:28.509 +06:00 [ERR] An exception was thrown attempting to display the error page.
+System.ObjectDisposedException: Cannot access a closed Stream.
+   at System.IO.MemoryStream.Write(Byte[] buffer, Int32 offset, Int32 count)
+   at System.IO.MemoryStream.WriteAsync(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at System.IO.Pipelines.StreamPipeWriter.FlushAsyncInternal(Boolean writeToStream, ReadOnlyMemory`1 data, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Threading.Tasks.ValueTask`1.GetTaskForValueTaskSource(IValueTaskSource`1 t)
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.DisplayExceptionContent(ErrorContext errorContext)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-04-19 19:07:28.558 +06:00 [ERR] Connection ID "17798225753943310339", Request ID "40000004-0006-f700-b63f-84710c7967bb": An unhandled exception was thrown by the application.
+System.InvalidOperationException: Multiple constructors accepting all given argument types have been found in type 'ACL.Controllers.V1.AclCompanyController'. There should only be one applicable constructor.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.TryFindMatchingConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& parameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.FindApplicableConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& matchingParameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactoryInternal(Type instanceType, Type[] argumentTypes, ParameterExpression& provider, ParameterExpression& argumentArray, Expression& factoryExpressionBody)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactory(Type instanceType, Type[] argumentTypes)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerActivatorProvider.CreateActivator(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.CreateControllerFactory(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvokerCache.GetCachedResult(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Routing.ControllerRequestDelegateFactory.<>c__DisplayClass12_0.<CreateRequestDelegate>b__0(HttpContext context)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at ACL.Services.CustomMiddleWare.RequestResponseLoggingMiddleware.Invoke(HttpContext context) in D:\Porosh\ACL\src\ACL\Services\CustomMiddleWare\RequestResponseLoggingMiddleware.cs:line 29
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Localization.RequestLocalizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+   at Microsoft.WebTools.BrowserLink.Net.BrowserLinkMiddleware.InvokeAsync(HttpContext context)
+   at Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserRefreshMiddleware.InvokeAsync(HttpContext context)
+   at Microsoft.AspNetCore.Server.IIS.Core.IISHttpContextOfT`1.ProcessRequestAsync()
+2024-04-19 19:07:28.562 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/api/v1/companies - 500 null null 390.47ms
+2024-04-19 19:07:37.660 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/api/v1/companies - null null
+2024-04-19 19:07:37.662 +06:00 [INF] [Request] GET: /api/v1/companies
+[Request Body] 
+
+2024-04-19 19:07:37.663 +06:00 [INF] Executing endpoint 'ACL.Controllers.V1.AclCompanyController.Index (ACL)'
+2024-04-19 19:07:37.697 +06:00 [INF] Executed endpoint 'ACL.Controllers.V1.AclCompanyController.Index (ACL)'
+2024-04-19 19:07:37.767 +06:00 [ERR] HTTP GET /api/v1/companies responded 500 in 105.0825 ms
+System.InvalidOperationException: Multiple constructors accepting all given argument types have been found in type 'ACL.Controllers.V1.AclCompanyController'. There should only be one applicable constructor.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.TryFindMatchingConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& parameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.FindApplicableConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& matchingParameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactoryInternal(Type instanceType, Type[] argumentTypes, ParameterExpression& provider, ParameterExpression& argumentArray, Expression& factoryExpressionBody)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactory(Type instanceType, Type[] argumentTypes)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerActivatorProvider.CreateActivator(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.CreateControllerFactory(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvokerCache.GetCachedResult(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Routing.ControllerRequestDelegateFactory.<>c__DisplayClass12_0.<CreateRequestDelegate>b__0(HttpContext context)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2024-04-19 19:07:37.986 +06:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: Multiple constructors accepting all given argument types have been found in type 'ACL.Controllers.V1.AclCompanyController'. There should only be one applicable constructor.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.TryFindMatchingConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& parameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.FindApplicableConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& matchingParameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactoryInternal(Type instanceType, Type[] argumentTypes, ParameterExpression& provider, ParameterExpression& argumentArray, Expression& factoryExpressionBody)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactory(Type instanceType, Type[] argumentTypes)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerActivatorProvider.CreateActivator(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.CreateControllerFactory(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvokerCache.GetCachedResult(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Routing.ControllerRequestDelegateFactory.<>c__DisplayClass12_0.<CreateRequestDelegate>b__0(HttpContext context)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at ACL.Services.CustomMiddleWare.RequestResponseLoggingMiddleware.Invoke(HttpContext context) in D:\Porosh\ACL\src\ACL\Services\CustomMiddleWare\RequestResponseLoggingMiddleware.cs:line 29
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Localization.RequestLocalizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-04-19 19:07:38.147 +06:00 [ERR] An exception was thrown attempting to display the error page.
+System.ObjectDisposedException: Cannot access a closed Stream.
+   at System.IO.MemoryStream.Write(Byte[] buffer, Int32 offset, Int32 count)
+   at System.IO.MemoryStream.WriteAsync(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at System.IO.Pipelines.StreamPipeWriter.FlushAsyncInternal(Boolean writeToStream, ReadOnlyMemory`1 data, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Threading.Tasks.ValueTask`1.GetTaskForValueTaskSource(IValueTaskSource`1 t)
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.DisplayExceptionContent(ErrorContext errorContext)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-04-19 19:07:38.270 +06:00 [ERR] Connection ID "18086456112915152920", Request ID "40000019-0002-fb00-b63f-84710c7967bb": An unhandled exception was thrown by the application.
+System.InvalidOperationException: Multiple constructors accepting all given argument types have been found in type 'ACL.Controllers.V1.AclCompanyController'. There should only be one applicable constructor.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.TryFindMatchingConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& parameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.FindApplicableConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& matchingParameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactoryInternal(Type instanceType, Type[] argumentTypes, ParameterExpression& provider, ParameterExpression& argumentArray, Expression& factoryExpressionBody)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactory(Type instanceType, Type[] argumentTypes)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerActivatorProvider.CreateActivator(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.CreateControllerFactory(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvokerCache.GetCachedResult(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Routing.ControllerRequestDelegateFactory.<>c__DisplayClass12_0.<CreateRequestDelegate>b__0(HttpContext context)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at ACL.Services.CustomMiddleWare.RequestResponseLoggingMiddleware.Invoke(HttpContext context) in D:\Porosh\ACL\src\ACL\Services\CustomMiddleWare\RequestResponseLoggingMiddleware.cs:line 29
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Localization.RequestLocalizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+   at Microsoft.WebTools.BrowserLink.Net.BrowserLinkMiddleware.InvokeAsync(HttpContext context)
+   at Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserRefreshMiddleware.InvokeAsync(HttpContext context)
+   at Microsoft.AspNetCore.Server.IIS.Core.IISHttpContextOfT`1.ProcessRequestAsync()
+2024-04-19 19:07:38.272 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/api/v1/companies - 500 null null 612.0456ms
+2024-04-19 19:08:26.534 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/api/v1/companies - null null
+2024-04-19 19:08:26.535 +06:00 [INF] [Request] GET: /api/v1/companies
+[Request Body] 
+
+2024-04-19 19:08:26.535 +06:00 [INF] Executing endpoint 'ACL.Controllers.V1.AclCompanyController.Index (ACL)'
+2024-04-19 19:08:26.571 +06:00 [INF] Executed endpoint 'ACL.Controllers.V1.AclCompanyController.Index (ACL)'
+2024-04-19 19:08:26.639 +06:00 [ERR] HTTP GET /api/v1/companies responded 500 in 103.4973 ms
+System.InvalidOperationException: Multiple constructors accepting all given argument types have been found in type 'ACL.Controllers.V1.AclCompanyController'. There should only be one applicable constructor.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.TryFindMatchingConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& parameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.FindApplicableConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& matchingParameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactoryInternal(Type instanceType, Type[] argumentTypes, ParameterExpression& provider, ParameterExpression& argumentArray, Expression& factoryExpressionBody)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactory(Type instanceType, Type[] argumentTypes)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerActivatorProvider.CreateActivator(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.CreateControllerFactory(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvokerCache.GetCachedResult(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Routing.ControllerRequestDelegateFactory.<>c__DisplayClass12_0.<CreateRequestDelegate>b__0(HttpContext context)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2024-04-19 19:08:26.867 +06:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: Multiple constructors accepting all given argument types have been found in type 'ACL.Controllers.V1.AclCompanyController'. There should only be one applicable constructor.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.TryFindMatchingConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& parameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.FindApplicableConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& matchingParameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactoryInternal(Type instanceType, Type[] argumentTypes, ParameterExpression& provider, ParameterExpression& argumentArray, Expression& factoryExpressionBody)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactory(Type instanceType, Type[] argumentTypes)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerActivatorProvider.CreateActivator(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.CreateControllerFactory(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvokerCache.GetCachedResult(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Routing.ControllerRequestDelegateFactory.<>c__DisplayClass12_0.<CreateRequestDelegate>b__0(HttpContext context)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at ACL.Services.CustomMiddleWare.RequestResponseLoggingMiddleware.Invoke(HttpContext context) in D:\Porosh\ACL\src\ACL\Services\CustomMiddleWare\RequestResponseLoggingMiddleware.cs:line 29
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Localization.RequestLocalizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-04-19 19:08:26.996 +06:00 [ERR] An exception was thrown attempting to display the error page.
+System.ObjectDisposedException: Cannot access a closed Stream.
+   at System.IO.MemoryStream.Write(Byte[] buffer, Int32 offset, Int32 count)
+   at System.IO.MemoryStream.WriteAsync(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at System.IO.Pipelines.StreamPipeWriter.FlushAsyncInternal(Boolean writeToStream, ReadOnlyMemory`1 data, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Threading.Tasks.ValueTask`1.GetTaskForValueTaskSource(IValueTaskSource`1 t)
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.DisplayExceptionContent(ErrorContext errorContext)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-04-19 19:08:27.075 +06:00 [ERR] Connection ID "18086456121505087524", Request ID "40000025-0004-fb00-b63f-84710c7967bb": An unhandled exception was thrown by the application.
+System.InvalidOperationException: Multiple constructors accepting all given argument types have been found in type 'ACL.Controllers.V1.AclCompanyController'. There should only be one applicable constructor.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.TryFindMatchingConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& parameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.FindApplicableConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& matchingParameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactoryInternal(Type instanceType, Type[] argumentTypes, ParameterExpression& provider, ParameterExpression& argumentArray, Expression& factoryExpressionBody)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactory(Type instanceType, Type[] argumentTypes)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerActivatorProvider.CreateActivator(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.CreateControllerFactory(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvokerCache.GetCachedResult(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Routing.ControllerRequestDelegateFactory.<>c__DisplayClass12_0.<CreateRequestDelegate>b__0(HttpContext context)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at ACL.Services.CustomMiddleWare.RequestResponseLoggingMiddleware.Invoke(HttpContext context) in D:\Porosh\ACL\src\ACL\Services\CustomMiddleWare\RequestResponseLoggingMiddleware.cs:line 29
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Localization.RequestLocalizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+   at Microsoft.WebTools.BrowserLink.Net.BrowserLinkMiddleware.InvokeAsync(HttpContext context)
+   at Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserRefreshMiddleware.InvokeAsync(HttpContext context)
+   at Microsoft.AspNetCore.Server.IIS.Core.IISHttpContextOfT`1.ProcessRequestAsync()
+2024-04-19 19:08:27.077 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/api/v1/companies - 500 null null 542.806ms
+2024-04-19 19:09:26.418 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-19 19:09:26.605 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-19 19:09:26.663 +06:00 [INF] Now listening on: http://localhost:5229
+2024-04-19 19:09:26.663 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-19 19:09:26.663 +06:00 [INF] Hosting environment: Development
+2024-04-19 19:09:26.663 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-19 19:09:46.888 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-19 19:09:47.116 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-19 19:09:47.178 +06:00 [INF] Now listening on: http://localhost:5229
+2024-04-19 19:09:47.178 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-19 19:09:47.178 +06:00 [INF] Hosting environment: Development
+2024-04-19 19:09:47.178 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-19 19:10:13.846 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-19 19:10:14.072 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-19 19:10:14.135 +06:00 [INF] Now listening on: http://localhost:5229
+2024-04-19 19:10:14.136 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-19 19:10:14.136 +06:00 [INF] Hosting environment: Development
+2024-04-19 19:10:14.136 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-19 19:10:39.404 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-19 19:10:39.730 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-19 19:10:39.846 +06:00 [INF] Now listening on: https://localhost:7125
+2024-04-19 19:10:39.846 +06:00 [INF] Now listening on: http://localhost:5229
+2024-04-19 19:10:39.846 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-19 19:10:39.846 +06:00 [INF] Hosting environment: Development
+2024-04-19 19:10:39.846 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-19 19:10:40.263 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/index.html - null null
+2024-04-19 19:10:40.463 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/index.html - 200 null text/html;charset=utf-8 205.3362ms
+2024-04-19 19:10:40.517 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-19 19:10:40.522 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 5.2957ms
+2024-04-19 19:10:40.532 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_vs/browserLink - null null
+2024-04-19 19:10:40.568 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_vs/browserLink - 200 null text/javascript; charset=UTF-8 36.2878ms
+2024-04-19 19:10:41.072 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - null null
+2024-04-19 19:10:41.199 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 126.9222ms
+2024-04-19 19:10:48.432 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/api/v1/companies - null null
+2024-04-19 19:10:48.449 +06:00 [INF] [Request] GET: /api/v1/companies
+[Request Body] 
+
+2024-04-19 19:10:48.453 +06:00 [INF] Executing endpoint 'ACL.Controllers.V1.AclCompanyController.Index (ACL)'
+2024-04-19 19:10:48.499 +06:00 [INF] Executed endpoint 'ACL.Controllers.V1.AclCompanyController.Index (ACL)'
+2024-04-19 19:10:48.549 +06:00 [ERR] HTTP GET /api/v1/companies responded 500 in 97.5694 ms
+System.InvalidOperationException: Multiple constructors accepting all given argument types have been found in type 'ACL.Controllers.V1.AclCompanyController'. There should only be one applicable constructor.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.TryFindMatchingConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& parameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.FindApplicableConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& matchingParameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactoryInternal(Type instanceType, Type[] argumentTypes, ParameterExpression& provider, ParameterExpression& argumentArray, Expression& factoryExpressionBody)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactory(Type instanceType, Type[] argumentTypes)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerActivatorProvider.CreateActivator(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.CreateControllerFactory(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvokerCache.GetCachedResult(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Routing.ControllerRequestDelegateFactory.<>c__DisplayClass12_0.<CreateRequestDelegate>b__0(HttpContext context)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2024-04-19 19:10:48.731 +06:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: Multiple constructors accepting all given argument types have been found in type 'ACL.Controllers.V1.AclCompanyController'. There should only be one applicable constructor.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.TryFindMatchingConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& parameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.FindApplicableConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& matchingParameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactoryInternal(Type instanceType, Type[] argumentTypes, ParameterExpression& provider, ParameterExpression& argumentArray, Expression& factoryExpressionBody)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactory(Type instanceType, Type[] argumentTypes)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerActivatorProvider.CreateActivator(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.CreateControllerFactory(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvokerCache.GetCachedResult(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Routing.ControllerRequestDelegateFactory.<>c__DisplayClass12_0.<CreateRequestDelegate>b__0(HttpContext context)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at ACL.Services.CustomMiddleWare.RequestResponseLoggingMiddleware.Invoke(HttpContext context) in D:\Porosh\ACL\src\ACL\Services\CustomMiddleWare\RequestResponseLoggingMiddleware.cs:line 29
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Localization.RequestLocalizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-04-19 19:10:48.873 +06:00 [ERR] An exception was thrown attempting to display the error page.
+System.ObjectDisposedException: Cannot access a closed Stream.
+   at System.IO.MemoryStream.Write(Byte[] buffer, Int32 offset, Int32 count)
+   at System.IO.MemoryStream.WriteAsync(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at System.IO.Pipelines.StreamPipeWriter.FlushAsyncInternal(Boolean writeToStream, ReadOnlyMemory`1 data, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Threading.Tasks.ValueTask`1.GetTaskForValueTaskSource(IValueTaskSource`1 t)
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.DisplayExceptionContent(ErrorContext errorContext)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-04-19 19:10:48.932 +06:00 [ERR] Connection id "0HN30E8E7FV32", Request id "0HN30E8E7FV32:00000009": An unhandled exception was thrown by the application.
+System.InvalidOperationException: Multiple constructors accepting all given argument types have been found in type 'ACL.Controllers.V1.AclCompanyController'. There should only be one applicable constructor.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.TryFindMatchingConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& parameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.FindApplicableConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& matchingParameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactoryInternal(Type instanceType, Type[] argumentTypes, ParameterExpression& provider, ParameterExpression& argumentArray, Expression& factoryExpressionBody)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactory(Type instanceType, Type[] argumentTypes)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerActivatorProvider.CreateActivator(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.CreateControllerFactory(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvokerCache.GetCachedResult(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Routing.ControllerRequestDelegateFactory.<>c__DisplayClass12_0.<CreateRequestDelegate>b__0(HttpContext context)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at ACL.Services.CustomMiddleWare.RequestResponseLoggingMiddleware.Invoke(HttpContext context) in D:\Porosh\ACL\src\ACL\Services\CustomMiddleWare\RequestResponseLoggingMiddleware.cs:line 29
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Localization.RequestLocalizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+   at Microsoft.WebTools.BrowserLink.Net.BrowserLinkMiddleware.InvokeAsync(HttpContext context)
+   at Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserRefreshMiddleware.InvokeAsync(HttpContext context)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpProtocol.ProcessRequests[TContext](IHttpApplication`1 application)
+2024-04-19 19:10:48.936 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/api/v1/companies - 500 0 null 503.8082ms
+2024-04-19 19:10:55.559 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/api/v1/companies - null null
+2024-04-19 19:10:55.560 +06:00 [INF] [Request] GET: /api/v1/companies
+[Request Body] 
+
+2024-04-19 19:10:55.561 +06:00 [INF] Executing endpoint 'ACL.Controllers.V1.AclCompanyController.Index (ACL)'
+2024-04-19 19:10:55.591 +06:00 [INF] Executed endpoint 'ACL.Controllers.V1.AclCompanyController.Index (ACL)'
+2024-04-19 19:10:55.637 +06:00 [ERR] HTTP GET /api/v1/companies responded 500 in 76.2319 ms
+System.InvalidOperationException: Multiple constructors accepting all given argument types have been found in type 'ACL.Controllers.V1.AclCompanyController'. There should only be one applicable constructor.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.TryFindMatchingConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& parameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.FindApplicableConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& matchingParameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactoryInternal(Type instanceType, Type[] argumentTypes, ParameterExpression& provider, ParameterExpression& argumentArray, Expression& factoryExpressionBody)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactory(Type instanceType, Type[] argumentTypes)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerActivatorProvider.CreateActivator(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.CreateControllerFactory(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvokerCache.GetCachedResult(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Routing.ControllerRequestDelegateFactory.<>c__DisplayClass12_0.<CreateRequestDelegate>b__0(HttpContext context)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2024-04-19 19:10:55.778 +06:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: Multiple constructors accepting all given argument types have been found in type 'ACL.Controllers.V1.AclCompanyController'. There should only be one applicable constructor.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.TryFindMatchingConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& parameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.FindApplicableConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& matchingParameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactoryInternal(Type instanceType, Type[] argumentTypes, ParameterExpression& provider, ParameterExpression& argumentArray, Expression& factoryExpressionBody)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactory(Type instanceType, Type[] argumentTypes)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerActivatorProvider.CreateActivator(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.CreateControllerFactory(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvokerCache.GetCachedResult(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Routing.ControllerRequestDelegateFactory.<>c__DisplayClass12_0.<CreateRequestDelegate>b__0(HttpContext context)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at ACL.Services.CustomMiddleWare.RequestResponseLoggingMiddleware.Invoke(HttpContext context) in D:\Porosh\ACL\src\ACL\Services\CustomMiddleWare\RequestResponseLoggingMiddleware.cs:line 29
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Localization.RequestLocalizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-04-19 19:10:55.888 +06:00 [ERR] An exception was thrown attempting to display the error page.
+System.ObjectDisposedException: Cannot access a closed Stream.
+   at System.IO.MemoryStream.Write(Byte[] buffer, Int32 offset, Int32 count)
+   at System.IO.MemoryStream.WriteAsync(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at System.IO.Pipelines.StreamPipeWriter.FlushAsyncInternal(Boolean writeToStream, ReadOnlyMemory`1 data, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Threading.Tasks.ValueTask`1.GetTaskForValueTaskSource(IValueTaskSource`1 t)
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.DisplayExceptionContent(ErrorContext errorContext)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-04-19 19:10:55.952 +06:00 [ERR] Connection id "0HN30E8E7FV32", Request id "0HN30E8E7FV32:0000000B": An unhandled exception was thrown by the application.
+System.InvalidOperationException: Multiple constructors accepting all given argument types have been found in type 'ACL.Controllers.V1.AclCompanyController'. There should only be one applicable constructor.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.TryFindMatchingConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& parameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.FindApplicableConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& matchingParameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactoryInternal(Type instanceType, Type[] argumentTypes, ParameterExpression& provider, ParameterExpression& argumentArray, Expression& factoryExpressionBody)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactory(Type instanceType, Type[] argumentTypes)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerActivatorProvider.CreateActivator(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.CreateControllerFactory(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvokerCache.GetCachedResult(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Routing.ControllerRequestDelegateFactory.<>c__DisplayClass12_0.<CreateRequestDelegate>b__0(HttpContext context)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at ACL.Services.CustomMiddleWare.RequestResponseLoggingMiddleware.Invoke(HttpContext context) in D:\Porosh\ACL\src\ACL\Services\CustomMiddleWare\RequestResponseLoggingMiddleware.cs:line 29
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Localization.RequestLocalizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+   at Microsoft.WebTools.BrowserLink.Net.BrowserLinkMiddleware.InvokeAsync(HttpContext context)
+   at Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserRefreshMiddleware.InvokeAsync(HttpContext context)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpProtocol.ProcessRequests[TContext](IHttpApplication`1 application)
+2024-04-19 19:10:55.953 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/api/v1/companies - 500 0 null 394.3947ms
+2024-04-19 19:10:56.730 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/api/v1/companies - null null
+2024-04-19 19:10:56.730 +06:00 [INF] [Request] GET: /api/v1/companies
+[Request Body] 
+
+2024-04-19 19:10:56.730 +06:00 [INF] Executing endpoint 'ACL.Controllers.V1.AclCompanyController.Index (ACL)'
+2024-04-19 19:10:56.760 +06:00 [INF] Executed endpoint 'ACL.Controllers.V1.AclCompanyController.Index (ACL)'
+2024-04-19 19:10:56.811 +06:00 [ERR] HTTP GET /api/v1/companies responded 500 in 80.2111 ms
+System.InvalidOperationException: Multiple constructors accepting all given argument types have been found in type 'ACL.Controllers.V1.AclCompanyController'. There should only be one applicable constructor.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.TryFindMatchingConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& parameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.FindApplicableConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& matchingParameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactoryInternal(Type instanceType, Type[] argumentTypes, ParameterExpression& provider, ParameterExpression& argumentArray, Expression& factoryExpressionBody)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactory(Type instanceType, Type[] argumentTypes)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerActivatorProvider.CreateActivator(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.CreateControllerFactory(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvokerCache.GetCachedResult(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Routing.ControllerRequestDelegateFactory.<>c__DisplayClass12_0.<CreateRequestDelegate>b__0(HttpContext context)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2024-04-19 19:10:56.946 +06:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: Multiple constructors accepting all given argument types have been found in type 'ACL.Controllers.V1.AclCompanyController'. There should only be one applicable constructor.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.TryFindMatchingConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& parameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.FindApplicableConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& matchingParameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactoryInternal(Type instanceType, Type[] argumentTypes, ParameterExpression& provider, ParameterExpression& argumentArray, Expression& factoryExpressionBody)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactory(Type instanceType, Type[] argumentTypes)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerActivatorProvider.CreateActivator(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.CreateControllerFactory(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvokerCache.GetCachedResult(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Routing.ControllerRequestDelegateFactory.<>c__DisplayClass12_0.<CreateRequestDelegate>b__0(HttpContext context)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at ACL.Services.CustomMiddleWare.RequestResponseLoggingMiddleware.Invoke(HttpContext context) in D:\Porosh\ACL\src\ACL\Services\CustomMiddleWare\RequestResponseLoggingMiddleware.cs:line 29
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Localization.RequestLocalizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-04-19 19:10:57.028 +06:00 [ERR] An exception was thrown attempting to display the error page.
+System.ObjectDisposedException: Cannot access a closed Stream.
+   at System.IO.MemoryStream.Write(Byte[] buffer, Int32 offset, Int32 count)
+   at System.IO.MemoryStream.WriteAsync(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at System.IO.Pipelines.StreamPipeWriter.FlushAsyncInternal(Boolean writeToStream, ReadOnlyMemory`1 data, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Threading.Tasks.ValueTask`1.GetTaskForValueTaskSource(IValueTaskSource`1 t)
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.DisplayExceptionContent(ErrorContext errorContext)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-04-19 19:10:57.085 +06:00 [ERR] Connection id "0HN30E8E7FV32", Request id "0HN30E8E7FV32:0000000D": An unhandled exception was thrown by the application.
+System.InvalidOperationException: Multiple constructors accepting all given argument types have been found in type 'ACL.Controllers.V1.AclCompanyController'. There should only be one applicable constructor.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.TryFindMatchingConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& parameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.FindApplicableConstructor(Type instanceType, Type[] argumentTypes, ConstructorInfo& matchingConstructor, Nullable`1[]& matchingParameterMap)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactoryInternal(Type instanceType, Type[] argumentTypes, ParameterExpression& provider, ParameterExpression& argumentArray, Expression& factoryExpressionBody)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactory(Type instanceType, Type[] argumentTypes)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerActivatorProvider.CreateActivator(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.CreateControllerFactory(ControllerActionDescriptor descriptor)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvokerCache.GetCachedResult(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Routing.ControllerRequestDelegateFactory.<>c__DisplayClass12_0.<CreateRequestDelegate>b__0(HttpContext context)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at ACL.Services.CustomMiddleWare.RequestResponseLoggingMiddleware.Invoke(HttpContext context) in D:\Porosh\ACL\src\ACL\Services\CustomMiddleWare\RequestResponseLoggingMiddleware.cs:line 29
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Localization.RequestLocalizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+   at Microsoft.WebTools.BrowserLink.Net.BrowserLinkMiddleware.InvokeAsync(HttpContext context)
+   at Microsoft.AspNetCore.Watch.BrowserRefresh.BrowserRefreshMiddleware.InvokeAsync(HttpContext context)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpProtocol.ProcessRequests[TContext](IHttpApplication`1 application)
+2024-04-19 19:10:57.086 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/api/v1/companies - 500 0 null 356.4425ms
+2024-04-19 19:11:05.589 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/index.html - null null
+2024-04-19 19:11:05.612 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/index.html - 200 null text/html;charset=utf-8 23.5265ms
+2024-04-19 19:11:05.643 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_vs/browserLink - null null
+2024-04-19 19:11:05.644 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-19 19:11:05.645 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 1.8807ms
+2024-04-19 19:11:05.658 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_vs/browserLink - 200 null text/javascript; charset=UTF-8 15.9022ms
+2024-04-19 19:11:05.881 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - null null
+2024-04-19 19:11:12.671 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-19 19:11:12.921 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-19 19:11:13.023 +06:00 [INF] Now listening on: https://localhost:7125
+2024-04-19 19:11:13.023 +06:00 [INF] Now listening on: http://localhost:5229
+2024-04-19 19:11:13.024 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-19 19:11:13.024 +06:00 [INF] Hosting environment: Development
+2024-04-19 19:11:13.024 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-19 19:11:13.429 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/index.html - null null
+2024-04-19 19:11:13.621 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/index.html - 200 null text/html;charset=utf-8 194.6602ms
+2024-04-19 19:11:13.679 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-19 19:11:13.683 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 4.0459ms
+2024-04-19 19:11:13.689 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_vs/browserLink - null null
+2024-04-19 19:11:13.722 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_vs/browserLink - 200 null text/javascript; charset=UTF-8 33.377ms
+2024-04-19 19:11:14.177 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - null null
+2024-04-19 19:11:14.293 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 115.5884ms
+2024-04-19 19:11:19.016 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/api/v1/companies - null null
+2024-04-19 19:11:19.034 +06:00 [INF] [Request] GET: /api/v1/companies
+[Request Body] 
+
+2024-04-19 19:11:19.037 +06:00 [INF] Executing endpoint 'ACL.Controllers.V1.AclCompanyController.Index (ACL)'
+2024-04-19 19:11:19.047 +06:00 [INF] Route matched with {action = "Index", controller = "AclCompany"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] Index() on controller ACL.Controllers.V1.AclCompanyController (ACL).
+2024-04-19 19:11:25.755 +06:00 [INF] Executing action method ACL.Controllers.V1.AclCompanyController.Index (ACL) - Validation state: "Valid"
+2024-04-19 19:11:27.810 +06:00 [INF] Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`added_by`, `a`.`address1`, `a`.`address2`, `a`.`average_turnover`, `a`.`cemail`, `a`.`city`, `a`.`cmmi_level`, `a`.`cname`, `a`.`country`, `a`.`created_at`, `a`.`daily_rate`, `a`.`email`, `a`.`fax`, `a`.`hourly_rate`, `a`.`logo`, `a`.`name`, `a`.`no_of_employees`, `a`.`phone`, `a`.`postcode`, `a`.`registration_no`, `a`.`sector`, `a`.`state`, `a`.`status`, `a`.`tax_no`, `a`.`tax_office`, `a`.`timezone`, `a`.`timezone_value`, `a`.`unique_column_name`, `a`.`updated_at`, `a`.`yearly_revenue`
+FROM `acl_companies` AS `a`
+WHERE `a`.`status` = 1
+2024-04-19 19:13:22.083 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-19 19:13:22.317 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-19 19:13:22.430 +06:00 [INF] Now listening on: https://localhost:7125
+2024-04-19 19:13:22.430 +06:00 [INF] Now listening on: http://localhost:5229
+2024-04-19 19:13:22.430 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-19 19:13:22.430 +06:00 [INF] Hosting environment: Development
+2024-04-19 19:13:22.430 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-19 19:13:22.875 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/index.html - null null
+2024-04-19 19:13:23.072 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/index.html - 200 null text/html;charset=utf-8 201.8164ms
+2024-04-19 19:13:23.145 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-19 19:13:23.148 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 3.592ms
+2024-04-19 19:13:23.161 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_vs/browserLink - null null
+2024-04-19 19:13:23.189 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_vs/browserLink - 200 null text/javascript; charset=UTF-8 27.7433ms
+2024-04-19 19:13:23.587 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - null null
+2024-04-19 19:13:23.719 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 132.3758ms
+2024-04-19 19:13:30.689 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/api/v1/companies - null null
+2024-04-19 19:13:30.706 +06:00 [INF] [Request] GET: /api/v1/companies
+[Request Body] 
+
+2024-04-19 19:13:30.709 +06:00 [INF] Executing endpoint 'ACL.Controllers.V1.AclCompanyController.Index (ACL)'
+2024-04-19 19:13:30.720 +06:00 [INF] Route matched with {action = "Index", controller = "AclCompany"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] Index() on controller ACL.Controllers.V1.AclCompanyController (ACL).
+2024-04-19 19:13:36.072 +06:00 [INF] Executing action method ACL.Controllers.V1.AclCompanyController.Index (ACL) - Validation state: "Valid"
+2024-04-19 19:13:37.732 +06:00 [INF] Executed DbCommand (18ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`added_by`, `a`.`address1`, `a`.`address2`, `a`.`average_turnover`, `a`.`cemail`, `a`.`city`, `a`.`cmmi_level`, `a`.`cname`, `a`.`country`, `a`.`created_at`, `a`.`daily_rate`, `a`.`email`, `a`.`fax`, `a`.`hourly_rate`, `a`.`logo`, `a`.`name`, `a`.`no_of_employees`, `a`.`phone`, `a`.`postcode`, `a`.`registration_no`, `a`.`sector`, `a`.`state`, `a`.`status`, `a`.`tax_no`, `a`.`tax_office`, `a`.`timezone`, `a`.`timezone_value`, `a`.`unique_column_name`, `a`.`updated_at`, `a`.`yearly_revenue`
+FROM `acl_companies` AS `a`
+WHERE `a`.`status` = 1
