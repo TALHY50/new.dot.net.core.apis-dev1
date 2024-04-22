@@ -16,9 +16,22 @@ namespace ACL.Repositories
             _unitOfWork = unitOfWork;
             _dbSet = unitOfWork.ApplicationDbContext.Set<T>();
         }
-        public virtual async  Task<T> FirstOrDefault()
+        public virtual async Task<T> FirstOrDefault()
         {
             return await this._dbSet.FirstOrDefaultAsync();
+        }
+        public async Task<T> LastOrDefault()
+        {
+            var allEntities = await _dbSet.ToListAsync();
+            try
+            {
+                return allEntities.LastOrDefault();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
         public virtual async Task<IEnumerable<T>> All()
         {
@@ -36,7 +49,7 @@ namespace ACL.Repositories
             return entity;
         }
 
-        public virtual  Task<T> UpdateAsync(T entity)
+        public virtual Task<T> UpdateAsync(T entity)
         {
             _dbSet.Update(entity);
             return Task.FromResult(entity);

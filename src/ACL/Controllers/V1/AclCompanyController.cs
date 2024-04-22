@@ -12,7 +12,7 @@ namespace ACL.Controllers.V1
     [ApiController]
     public class AclCompanyController : Controller
     {
-        private readonly IUnitOfWork _unitOfWork;
+        public readonly IUnitOfWork _unitOfWork;
 
         public AclCompanyController(IUnitOfWork unitOfWork)
         {

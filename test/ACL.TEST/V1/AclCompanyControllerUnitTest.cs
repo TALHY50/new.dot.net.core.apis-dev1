@@ -1,10 +1,14 @@
-﻿using ACL.Database;
+﻿using ACL.Controllers.V1;
+using ACL.Database;
 using ACL.Database.Models;
 using ACL.Interfaces;
 using ACL.Requests;
 using ACL.Requests.V1;
+using ACL.Response.V1;
 using ACL.Services;
+using ACL.Tests;
 using Bogus;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -16,71 +20,41 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ACL.TEST.V1
+namespace ACL.Tests
 {
     public class AclCompanyControllerUnitTest
     {
-        private IUnitOfWork _unitOfWork;
-        private DbContextOptions<ApplicationDbContext> _inMemoryDbContext;
-        private ApplicationDbContext _dbContext;
-        public AclCompanyControllerUnitTest(IUnitOfWork unitOfWork)
+        DatabaseConnector dbConnector;
+        UnitOfWork unitOfWork;
+        RestClient restClient;
+        DbContextOptions<ApplicationDbContext> _inMemoryDbContext;
+        public AclCompanyControllerUnitTest()
         {
+            dbConnector = new DatabaseConnector(true);
             _inMemoryDbContext = new DbContextOptionsBuilder<ApplicationDbContext>()
-                         .UseInMemoryDatabase(databaseName: "acl")
-                         .Options;
-            _dbContext = new ApplicationDbContext(_inMemoryDbContext);
-            _unitOfWork = unitOfWork = new UnitOfWork(_dbContext);
+      .UseInMemoryDatabase(databaseName: "acl")
+      .Options;
+            //unitOfWork = new UnitOfWork(new ApplicationDbContext(_inMemoryDbContext));
+            unitOfWork = new UnitOfWork(dbConnector.dbContext);
+            restClient = new RestClient(dbConnector.baseUrl);
         }
-
-
-
-        public async Task Get_All_Returns_The_Correct_Number_Of_Acompanies()
+        [Fact]
+        public async Task Get_All_Companies()
         {
             #region  Arrange
-            var data = GetCompanyCreateRequest();
-            var id = getRandomID();
-            // Create RestClient
-            var client = new RestSharp.RestClient("https://localhost:7125/api/v1");
-
-            using (var dbContext = new ApplicationDbContext(_inMemoryDbContext))
-            {
-                // Populate the in-memory database with test data
-                dbContext.AclCompanies.AddRange(new List<AclCompany>
-            {
-                new AclCompany{ Id = 1,AddedBy = 1,Address1 ="A",Address2 ="B",AverageTurnover=2.0,Cemail ="",City ="Dhaka",CmmiLevel = 1,Cname ="Porosh",Country="BD",Email="porosh@gmail.com",Fax="",Logo="",Name="Porosh",Phone="01672896992" ,Postcode ="1312",RegistrationNo="1234",State = "1",TaxNo="123456789",Timezone =1,TimezoneValue ="1",Status=1}
-            });
-                dbContext.SaveChanges();
-            }
 
             AclCompanyCreateRequest createReq = GetCompanyCreateRequest();
 
             #endregion
             #region Act
-            //// Create request
-            var req = new RestRequest("/companies/add", Method.Post);
-            //Add request body
-            req.AddBody(createReq);
-
-            //// Add headers
-            //request.AddHeader("Authorization", "Bearer YOUR_TOKEN_HERE");
-
-            //// Execute request
-            var respons = client.Execute(req);
-
-            //// Convert actual status code to enum
-            int actualCreateStatusCode = (int)respons.StatusCode;
-            //// Assert for create
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, actualCreateStatusCode);
-            #endregion
-            #region Assert
-            //// Create request
             var request = new RestRequest("/companies", Method.Get);
 
-            //// Add headers
             //request.AddHeader("Authorization", "Bearer YOUR_TOKEN_HERE");
 
-            //// Execute request
-            var response = client.Execute(request);
+            var response = restClient.Execute(request);
+            #endregion
+            #region Assert
+
 
             //// Convert actual status code to enum
             int actualStatusCode = (int)response.StatusCode;
@@ -90,23 +64,24 @@ namespace ACL.TEST.V1
             #endregion Assert
 
         }
+        [Fact]
         public async Task Post_Add_Acl_Company()
         {
             #region  Arrange
             var data = GetCompanyCreateRequest();
-            var id = getRandomID();
-            // Create RestClient
-            var client = new RestSharp.RestClient("https://localhost:7125/api/v1");
+            //var id = getRandomID();
+            //// Create RestClient
+            //var client = new RestSharp.RestClient("https://localhost:7125/api/v1");
 
-            using (var dbContext = new ApplicationDbContext(_inMemoryDbContext))
-            {
-                // Populate the in-memory database with test data
-                dbContext.AclCompanies.AddRange(new List<AclCompany>
-            {
-                new AclCompany{ Id = 1,AddedBy = 1,Address1 ="A",Address2 ="B",AverageTurnover=2.0,Cemail ="",City ="Dhaka",CmmiLevel = 1,Cname ="Porosh",Country="BD",Email="porosh@gmail.com",Fax="",Logo="",Name="Porosh",Phone="01672896992" ,Postcode ="1312",RegistrationNo="1234",State = "1",TaxNo="123456789",Timezone =1,TimezoneValue ="1",Status=1}
-            });
-                dbContext.SaveChanges();
-            }
+            ////using (var dbContext = new ApplicationDbContext(_inMemoryDbContext))
+            ////{
+            ////    // Populate the in-memory database with test data
+            ////    dbContext.AclCompanies.AddRange(new List<AclCompany>
+            ////{
+            ////    new AclCompany{ Id = 1,AddedBy = 1,Address1 ="A",Address2 ="B",AverageTurnover=2.0,Cemail ="",City ="Dhaka",CmmiLevel = 1,Cname ="Porosh",Country="BD",Email="porosh@gmail.com",Fax="",Logo="",Name="Porosh",Phone="01672896992" ,Postcode ="1312",RegistrationNo="1234",State = "1",TaxNo="123456789",Timezone =1,TimezoneValue ="1",Status=1}
+            ////});
+            ////    dbContext.SaveChanges();
+            ////}
 
             AclCompanyCreateRequest createReq = GetCompanyCreateRequest();
 
@@ -121,7 +96,7 @@ namespace ACL.TEST.V1
             //request.AddHeader("Authorization", "Bearer YOUR_TOKEN_HERE");
 
             //// Execute request
-            var respons = client.Execute(req);
+            var respons = restClient.Execute(req);
 
             //// Convert actual status code to enum
             int actualCreateStatusCode = (int)respons.StatusCode;
@@ -132,80 +107,37 @@ namespace ACL.TEST.V1
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, actualCreateStatusCode);
             #endregion Assert
         }
-        
-        public async Task Delete_Delete_Acl_Company()
+        [Fact]
+
+        public async Task Delete_Acl_Company()
         {
             #region  Arrange
-            AclCompanyEditRequest data = GetCompanyEditRequest();
             var id = getRandomID();
-            // Create RestClient
-            var client = new RestSharp.RestClient("https://localhost:7125/api/v1");
+            //// Create RestClient
+            //var client = new RestSharp.RestClient("https://localhost:7125/api/v1");
 
-            using (var dbContext = new ApplicationDbContext(_inMemoryDbContext))
-            {
-                // Populate the in-memory database with test data
-                dbContext.AclCompanies.AddRange(new List<AclCompany>
-            {
-                new AclCompany{ Id = 1,AddedBy = 1,Address1 ="A",Address2 ="B",AverageTurnover=2.0,Cemail ="",City ="Dhaka",CmmiLevel = 1,Cname ="Porosh",Country="BD",Email="porosh@gmail.com",Fax="",Logo="",Name="Porosh",Phone="01672896992" ,Postcode ="1312",RegistrationNo="1234",State = "1",TaxNo="123456789",Timezone =1,TimezoneValue ="1",Status=1}
-            });
-                dbContext.SaveChanges();
-            }
+            ////using (var dbContext = new ApplicationDbContext(_inMemoryDbContext))
+            ////{
+            ////    // Populate the in-memory database with test data
+            ////    dbContext.AclCompanies.AddRange(new List<AclCompany>
+            ////{
+            ////    new AclCompany{ Id = 1,AddedBy = 1,Address1 ="A",Address2 ="B",AverageTurnover=2.0,Cemail ="",City ="Dhaka",CmmiLevel = 1,Cname ="Porosh",Country="BD",Email="porosh@gmail.com",Fax="",Logo="",Name="Porosh",Phone="01672896992" ,Postcode ="1312",RegistrationNo="1234",State = "1",TaxNo="123456789",Timezone =1,TimezoneValue ="1",Status=1}
+            ////});
+            ////    dbContext.SaveChanges();
+            ////}
 
-            AclCompanyEditRequest editReq = GetCompanyEditRequest();
 
             #endregion
             #region Act
             //// Create request
-            var req = new RestRequest("/companies/edit/{id}", Method.Put);
+            var req = new RestRequest("/companies/delete/"+id, Method.Delete);
             //Add request body
-            req.AddBody(editReq);
 
             //// Add headers
             //request.AddHeader("Authorization", "Bearer YOUR_TOKEN_HERE");
 
             //// Execute request
-            var respons = client.Execute(req);
-
-            //// Convert actual status code to enum
-            int actualEditStatusCode = (int)respons.StatusCode;
-            //// Assert for create
-
-            #endregion
-            #region Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, actualEditStatusCode);
-            #endregion Assert
-        } public async Task Put_Edit_Acl_Company()
-        {
-            #region  Arrange
-            AclCompanyEditRequest data = GetCompanyEditRequest();
-            var id = getRandomID();
-            // Create RestClient
-            var client = new RestSharp.RestClient("https://localhost:7125/api/v1");
-
-            using (var dbContext = new ApplicationDbContext(_inMemoryDbContext))
-            {
-                // Populate the in-memory database with test data
-                dbContext.AclCompanies.AddRange(new List<AclCompany>
-            {
-                new AclCompany{ Id = 1,AddedBy = 1,Address1 ="A",Address2 ="B",AverageTurnover=2.0,Cemail ="",City ="Dhaka",CmmiLevel = 1,Cname ="Porosh",Country="BD",Email="porosh@gmail.com",Fax="",Logo="",Name="Porosh",Phone="01672896992" ,Postcode ="1312",RegistrationNo="1234",State = "1",TaxNo="123456789",Timezone =1,TimezoneValue ="1",Status=1}
-            });
-                dbContext.SaveChanges();
-            }
-
-            AclCompanyEditRequest editReq = GetCompanyEditRequest();
-
-            #endregion
-            #region Act
-            //// Create request
-            var req = new RestRequest("/companies/edit/{id}", Method.Put);
-            //Add request body
-            req.AddBody(editReq);
-
-            //// Add headers
-            //request.AddHeader("Authorization", "Bearer YOUR_TOKEN_HERE");
-
-            //// Execute request
-            var respons = client.Execute(req);
+            var respons = restClient.Execute(req);
 
             //// Convert actual status code to enum
             int actualEditStatusCode = (int)respons.StatusCode;
@@ -216,7 +148,68 @@ namespace ACL.TEST.V1
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, actualEditStatusCode);
             #endregion Assert
         }
+        [Fact]
+        public async Task Put_Edit_Acl_Company()
+        {
+            #region  Arrange
+            AclCompanyEditRequest editReq = GetCompanyEditRequest();
+            var id = getRandomID();
+            //// Create RestClient
+            //var client = new RestSharp.RestClient("https://localhost:7125/api/v1");
 
+
+           
+
+            #endregion
+            #region Act
+            //// Create request
+            var req = new RestRequest("/companies/edit/"+id, Method.Put);
+            //Add request body
+            req.AddBody(editReq);
+
+            //// Add headers
+            //request.AddHeader("Authorization", "Bearer YOUR_TOKEN_HERE");
+
+            //// Execute request
+            var respons = restClient.Execute(req);
+
+            //// Convert actual status code to enum
+            int actualEditStatusCode = (int)respons.StatusCode;
+            //// Assert for create
+
+            #endregion
+            #region Assert
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, actualEditStatusCode);
+            #endregion Assert
+        }
+        [Fact]
+
+        public async Task Get_View_Companies()
+        {
+            #region  Arrange
+            var id = getRandomID();
+            // AclCompanyCreateRequest createReq = GetCompanyCreateRequest();
+
+            #endregion
+            #region Act
+            var request = new RestRequest("/companies/view/"+id, Method.Get);
+
+            //request.AddHeader("Authorization", "Bearer YOUR_TOKEN_HERE");
+
+            var response = restClient.Execute(request);
+            #endregion
+            #region Assert
+
+
+            //// Convert actual status code to enum
+            int actualStatusCode = (int)response.StatusCode;
+
+            //// Assert
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, actualStatusCode);
+            #endregion Assert
+
+        }
+        [Fact]
         private AclCompanyCreateRequest GetCompanyCreateRequest()
         {
             var faker = new Faker();
@@ -247,13 +240,14 @@ namespace ACL.TEST.V1
 
 
         }
+        [Fact]
         private AclCompanyEditRequest GetCompanyEditRequest()
         {
             var faker = new Faker();
             string json = @"
         {
             ""name"": ""Mahmud1"",
-            ""cname"": ""Test Company1"",
+            ""cname"": ""Test Company1 Updated"",
             ""cemail"": ""mahmud@gmail.com"",
             ""address1"": ""asdfa sdfasdf"",
             ""address2"": ""asdf asdfsadf"",
@@ -278,7 +272,19 @@ namespace ACL.TEST.V1
 
         private ulong getRandomID()
         {
-            return _unitOfWork.AclCompanyRepository.FirstOrDefault().Result.Id;
+           // return (ulong)unitOfWork.AclCompanyRepository.FirstOrDefault().Id;
+            using (var dbContext = (dbConnector.dbContext))
+            {
+                // Use a genuine instance of UnitOfWork
+                var unitOfWork = new UnitOfWork(dbContext);
+                unitOfWork.ApplicationDbContext = dbContext;
+                // unitOfWork.LocalizationService = 
+                var controller = new AclCompanyController(unitOfWork);
+                #region Act
+                // Act
+                return (ulong)controller._unitOfWork.AclCompanyRepository.FirstOrDefault().Id;
+                #endregion
+            }
 
         }
     }
