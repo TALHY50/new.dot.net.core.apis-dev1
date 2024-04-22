@@ -19,8 +19,6 @@ namespace ACL.Interfaces
         ApplicationDbContext ApplicationDbContext { get; set; }
         ILogger Logger { get; set; }
         IGenericRepository<T> GenericRepository<T>() where T : class;
-        IStringLocalizer<UnitOfWork> Localizer { get; set; }
-        IViewLocalizer ViewLocalizer { get; set; }
         ILogService LogService { get; set; }
         ILocalizationService LocalizationService { get; }
         IAclCompanyRepository AclCompanyRepository { get; }
