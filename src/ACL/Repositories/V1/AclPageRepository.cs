@@ -150,9 +150,9 @@ namespace ACL.Repositories.V1
             try
             {
                 var aclPageRoute = PreparePageRouteInputData(request);
-                _unitOfWork.ApplicationDbContext.AddAsync(aclPageRoute);
-                _unitOfWork.ApplicationDbContext.SaveChangesAsync();
-                _unitOfWork.ApplicationDbContext.Entry(aclPageRoute).ReloadAsync();
+                await _unitOfWork.ApplicationDbContext.AddAsync(aclPageRoute);
+                await _unitOfWork.ApplicationDbContext.SaveChangesAsync();
+                await _unitOfWork.ApplicationDbContext.Entry(aclPageRoute).ReloadAsync();
                 aclResponse.Data = aclPageRoute;
                 aclResponse.Message = Helper.__(messageResponse.createMessage);
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
@@ -176,8 +176,8 @@ namespace ACL.Repositories.V1
                 {
                     var aclPageRouteUpdateData = PreparePageRouteInputData(request, aclPageRoute);
                     _unitOfWork.ApplicationDbContext.Update(aclPageRouteUpdateData);
-                    _unitOfWork.ApplicationDbContext.SaveChangesAsync();
-                    _unitOfWork.ApplicationDbContext.Entry(aclPageRouteUpdateData).ReloadAsync();
+                    await _unitOfWork.ApplicationDbContext.SaveChangesAsync();
+                    await _unitOfWork.ApplicationDbContext.Entry(aclPageRouteUpdateData).ReloadAsync();
                     aclResponse.Data = aclPageRouteUpdateData;
                     aclResponse.Message = Helper.__(messageResponse.editMessage);
                     aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
@@ -207,7 +207,7 @@ namespace ACL.Repositories.V1
             if (aclPageRoute != null)
             {
                 _unitOfWork.ApplicationDbContext.AclPageRoutes.Remove(aclPageRoute);
-                _unitOfWork.ApplicationDbContext.SaveChanges();
+                await _unitOfWork.ApplicationDbContext.SaveChangesAsync();
                 _unitOfWork.ApplicationDbContext.Entry(aclPageRoute).Reload();
                 aclResponse.Message = Helper.__(messageResponse.deleteMessage);
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
