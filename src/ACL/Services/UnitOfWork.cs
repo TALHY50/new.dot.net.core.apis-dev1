@@ -24,14 +24,10 @@ namespace ACL.Services
         private ICacheService _cacheService;
         private IHttpContextAccessor _httpContextAccessor;
         private IConfiguration _config;
-        private IStringLocalizer<UnitOfWork> _localizer;
-        private IViewLocalizer _viewLocalizer;
         private ApplicationDbContext dbContext;
         public ILocalizationService LocalizationService { get; private set; }
-        public UnitOfWork(ApplicationDbContext context, ILoggerFactory loggerFactory, IHttpContextAccessor httpContextAccessor, ICacheService cacheService, IConfiguration config, IStringLocalizer<UnitOfWork> localizer, IViewLocalizer viewLocalizer, ILocalizationService localizationService)
+        public UnitOfWork(ApplicationDbContext context, ILoggerFactory loggerFactory, IHttpContextAccessor httpContextAccessor, ICacheService cacheService, IConfiguration config, ILocalizationService localizationService)
         {
-            this._localizer = localizer;
-            _viewLocalizer = viewLocalizer;
             this.context = context;
             this._logger = loggerFactory.CreateLogger("Logs");
             this._httpContextAccessor = httpContextAccessor;
@@ -60,16 +56,7 @@ namespace ACL.Services
             get { return this._logger; }
             set { this._logger = value; }
         }
-        public IStringLocalizer<UnitOfWork> Localizer
-        {
-            get { return this._localizer; }
-            set { this._localizer = value; }
-        }
-        public IViewLocalizer ViewLocalizer
-        {
-            get { return this._viewLocalizer; }
-            set { _viewLocalizer = value; }
-        }
+
         public IConfiguration Config
         {
             get { return this._config; }
