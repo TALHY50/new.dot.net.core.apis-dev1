@@ -1,0 +1,271 @@
+2024-04-18 18:24:50.419 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-18 18:24:50.524 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-18 18:24:50.552 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-18 18:24:50.552 +06:00 [INF] Hosting environment: Development
+2024-04-18 18:24:50.552 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-18 18:24:50.598 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger - null null
+2024-04-18 18:24:51.430 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/index.html - null null
+2024-04-18 18:24:51.463 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger - 301 null null 869.6829ms
+2024-04-18 18:24:51.518 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/index.html - 200 null text/html;charset=utf-8 88.6347ms
+2024-04-18 18:24:51.552 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/swagger-ui-bundle.js - null null
+2024-04-18 18:24:51.553 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/swagger-ui-standalone-preset.js - null null
+2024-04-18 18:24:51.559 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_vs/browserLink - null null
+2024-04-18 18:24:51.559 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/swagger-ui.css - null null
+2024-04-18 18:24:51.560 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-18 18:24:51.571 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 10.5835ms
+2024-04-18 18:24:51.595 +06:00 [INF] Sending file. Request path: '/swagger-ui.css'. Physical path: 'N/A'
+2024-04-18 18:24:51.597 +06:00 [INF] Sending file. Request path: '/swagger-ui-standalone-preset.js'. Physical path: 'N/A'
+2024-04-18 18:24:51.601 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/swagger-ui.css - 200 144929 text/css 41.7844ms
+2024-04-18 18:24:51.626 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/swagger-ui-standalone-preset.js - 200 312163 text/javascript 73.1299ms
+2024-04-18 18:24:51.629 +06:00 [INF] Sending file. Request path: '/swagger-ui-bundle.js'. Physical path: 'N/A'
+2024-04-18 18:24:51.653 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/swagger-ui-bundle.js - 200 1061536 text/javascript 100.3345ms
+2024-04-18 18:24:52.102 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_vs/browserLink - 200 null text/javascript; charset=UTF-8 542.9069ms
+2024-04-18 18:24:52.188 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - null null
+2024-04-18 18:24:52.224 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/favicon-32x32.png - null null
+2024-04-18 18:24:52.225 +06:00 [INF] Sending file. Request path: '/favicon-32x32.png'. Physical path: 'N/A'
+2024-04-18 18:24:52.225 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/favicon-32x32.png - 200 628 image/png 1.4933ms
+2024-04-18 18:24:52.503 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 314.6574ms
+2024-04-18 18:26:48.998 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-18 18:26:49.144 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-18 18:26:49.178 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-18 18:26:49.178 +06:00 [INF] Hosting environment: Development
+2024-04-18 18:26:49.178 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-18 18:26:49.230 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/index.html - null null
+2024-04-18 18:26:49.553 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/index.html - 200 null text/html;charset=utf-8 328.83ms
+2024-04-18 18:26:50.112 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-18 18:26:50.122 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 4.4616ms
+2024-04-18 18:26:50.133 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_vs/browserLink - null null
+2024-04-18 18:26:50.188 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_vs/browserLink - 200 null text/javascript; charset=UTF-8 54.9094ms
+2024-04-18 18:26:50.488 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - null null
+2024-04-18 18:26:50.630 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 142.5826ms
+2024-04-18 18:29:13.073 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-18 18:29:13.216 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-18 18:29:13.317 +06:00 [INF] Now listening on: https://localhost:7125
+2024-04-18 18:29:13.317 +06:00 [INF] Now listening on: http://localhost:5229
+2024-04-18 18:29:13.317 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-18 18:29:13.317 +06:00 [INF] Hosting environment: Development
+2024-04-18 18:29:13.317 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-18 18:29:14.022 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/index.html - null null
+2024-04-18 18:29:14.271 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/index.html - 200 null text/html;charset=utf-8 255.3836ms
+2024-04-18 18:29:14.362 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-18 18:29:14.362 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_vs/browserLink - null null
+2024-04-18 18:29:14.367 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 5.1274ms
+2024-04-18 18:29:14.402 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_vs/browserLink - 200 null text/javascript; charset=UTF-8 40.2774ms
+2024-04-18 18:29:14.816 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - null null
+2024-04-18 18:29:15.020 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 204.2661ms
+2024-04-18 18:32:39.965 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-18 18:32:40.080 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-18 18:32:40.110 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-18 18:32:40.110 +06:00 [INF] Hosting environment: Development
+2024-04-18 18:32:40.110 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-18 18:32:40.162 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/index.html - null null
+2024-04-18 18:32:40.408 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/index.html - 200 null text/html;charset=utf-8 250.3919ms
+2024-04-18 18:32:40.462 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-18 18:32:40.472 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 3.5456ms
+2024-04-18 18:32:40.482 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_vs/browserLink - null null
+2024-04-18 18:32:40.521 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_vs/browserLink - 200 null text/javascript; charset=UTF-8 38.9923ms
+2024-04-18 18:32:40.954 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - null null
+2024-04-18 18:32:41.101 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 146.6511ms
+2024-04-18 18:50:53.385 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-18 18:50:53.489 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-18 18:50:53.520 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-18 18:50:53.520 +06:00 [INF] Hosting environment: Development
+2024-04-18 18:50:53.520 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-18 18:50:53.572 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/index.html - null null
+2024-04-18 18:50:53.887 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/index.html - 200 null text/html;charset=utf-8 318.5668ms
+2024-04-18 18:50:53.940 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-18 18:50:53.954 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 5.197ms
+2024-04-18 18:50:54.028 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_vs/browserLink - null null
+2024-04-18 18:50:54.069 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_vs/browserLink - 200 null text/javascript; charset=UTF-8 40.3489ms
+2024-04-18 18:50:54.365 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - null null
+2024-04-18 18:50:54.528 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 163.0801ms
+2024-04-18 18:51:04.493 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/ - null null
+2024-04-18 18:51:04.698 +06:00 [INF] [Request] GET: /
+[Request Body] 
+
+2024-04-18 18:51:04.706 +06:00 [INF] HTTP GET / responded 404 in 4.0671 ms
+2024-04-18 18:51:04.707 +06:00 [INF] [Response] GET: /
+[Response Body] 
+
+2024-04-18 18:51:04.710 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/ - 404 null null 216.628ms
+2024-04-18 18:51:04.711 +06:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:44374/, Response status code: 404
+2024-04-18 18:51:09.634 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/ - null null
+2024-04-18 18:51:09.657 +06:00 [INF] [Request] GET: /
+[Request Body] 
+
+2024-04-18 18:51:09.658 +06:00 [INF] HTTP GET / responded 404 in 0.4519 ms
+2024-04-18 18:51:09.658 +06:00 [INF] [Response] GET: /
+[Response Body] 
+
+2024-04-18 18:51:09.658 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/ - 404 null null 24.9003ms
+2024-04-18 18:51:09.658 +06:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:44374/, Response status code: 404
+2024-04-18 18:51:18.782 +06:00 [INF] Request starting HTTP/1.1 GET http://localhost:9751/ - null null
+2024-04-18 18:51:19.002 +06:00 [INF] [Request] GET: /
+[Request Body] 
+
+2024-04-18 18:51:19.008 +06:00 [INF] HTTP GET / responded 307 in 5.9513 ms
+2024-04-18 18:51:19.008 +06:00 [INF] [Response] GET: /
+[Response Body] 
+
+2024-04-18 18:51:19.008 +06:00 [INF] Request finished HTTP/1.1 GET http://localhost:9751/ - 307 null null 226.9031ms
+2024-04-18 18:51:19.016 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/ - null null
+2024-04-18 18:51:19.036 +06:00 [INF] [Request] GET: /
+[Request Body] 
+
+2024-04-18 18:51:19.037 +06:00 [INF] HTTP GET / responded 404 in 0.0985 ms
+2024-04-18 18:51:19.037 +06:00 [INF] [Response] GET: /
+[Response Body] 
+
+2024-04-18 18:51:19.037 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/ - 404 null null 21.7627ms
+2024-04-18 18:51:19.037 +06:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:44374/, Response status code: 404
+2024-04-18 18:51:30.037 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-18 18:51:30.125 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-18 18:51:30.145 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-18 18:51:30.146 +06:00 [INF] Hosting environment: Development
+2024-04-18 18:51:30.146 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-18 18:51:30.179 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/index.html - null null
+2024-04-18 18:51:30.423 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/index.html - 200 null text/html;charset=utf-8 247.7255ms
+2024-04-18 18:51:30.452 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-18 18:51:30.461 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 3.6195ms
+2024-04-18 18:51:30.539 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_vs/browserLink - null null
+2024-04-18 18:51:30.585 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_vs/browserLink - 200 null text/javascript; charset=UTF-8 46.1206ms
+2024-04-18 18:51:30.925 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - null null
+2024-04-18 18:51:31.084 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 159.3759ms
+2024-04-18 18:51:41.959 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/ - null null
+2024-04-18 18:51:42.096 +06:00 [INF] [Request] GET: /
+[Request Body] 
+
+2024-04-18 18:51:42.108 +06:00 [INF] HTTP GET / responded 404 in 6.7372 ms
+2024-04-18 18:51:42.110 +06:00 [INF] [Response] GET: /
+[Response Body] 
+
+2024-04-18 18:51:42.114 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/ - 404 null null 154.9157ms
+2024-04-18 18:51:42.130 +06:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:44374/, Response status code: 404
+2024-04-18 18:51:47.956 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/index.html - null null
+2024-04-18 18:51:47.983 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/index.html - 200 null text/html;charset=utf-8 27.0115ms
+2024-04-18 18:51:48.026 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-18 18:51:48.027 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 1.0098ms
+2024-04-18 18:51:48.065 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_vs/browserLink - null null
+2024-04-18 18:51:48.082 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_vs/browserLink - 200 null text/javascript; charset=UTF-8 16.6293ms
+2024-04-18 18:51:48.359 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - null null
+2024-04-18 18:51:48.395 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 36.0225ms
+2024-04-18 18:51:52.256 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagge - null null
+2024-04-18 18:51:52.276 +06:00 [INF] [Request] GET: /swagge
+[Request Body] 
+
+2024-04-18 18:51:52.276 +06:00 [INF] HTTP GET /swagge responded 404 in 0.3461 ms
+2024-04-18 18:51:52.277 +06:00 [INF] [Response] GET: /swagge
+[Response Body] 
+
+2024-04-18 18:51:52.277 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagge - 404 null null 21.2824ms
+2024-04-18 18:51:52.277 +06:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:44374/swagge, Response status code: 404
+2024-04-18 18:51:58.582 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/index.html - null null
+2024-04-18 18:51:58.604 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/index.html - 200 null text/html;charset=utf-8 21.5232ms
+2024-04-18 18:51:58.636 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-18 18:51:58.636 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 0.8798ms
+2024-04-18 18:51:58.683 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_vs/browserLink - null null
+2024-04-18 18:51:58.691 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_vs/browserLink - 200 null text/javascript; charset=UTF-8 8.994ms
+2024-04-18 18:51:58.948 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - null null
+2024-04-18 18:51:58.961 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 12.648ms
+2024-04-18 18:52:03.017 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - null null
+2024-04-18 18:52:03.054 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 37.1699ms
+2024-04-18 18:52:03.448 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/favicon.ico - null null
+2024-04-18 18:52:03.449 +06:00 [INF] [Request] GET: /favicon.ico
+[Request Body] 
+
+2024-04-18 18:52:03.449 +06:00 [INF] HTTP GET /favicon.ico responded 404 in 0.5181 ms
+2024-04-18 18:52:03.449 +06:00 [INF] [Response] GET: /favicon.ico
+[Response Body] 
+
+2024-04-18 18:52:03.450 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/favicon.ico - 404 null null 1.5366ms
+2024-04-18 18:52:03.450 +06:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:44374/favicon.ico, Response status code: 404
+2024-04-18 19:00:49.965 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-18 19:00:50.050 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-18 19:00:50.072 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-18 19:00:50.072 +06:00 [INF] Hosting environment: Development
+2024-04-18 19:00:50.073 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-18 19:00:50.108 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/index.html - null null
+2024-04-18 19:00:50.333 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/index.html - 200 null text/html;charset=utf-8 228.6286ms
+2024-04-18 19:00:50.368 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-18 19:00:50.373 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 4.1471ms
+2024-04-18 19:00:50.448 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_vs/browserLink - null null
+2024-04-18 19:00:50.485 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_vs/browserLink - 200 null text/javascript; charset=UTF-8 36.8173ms
+2024-04-18 19:00:50.907 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - null null
+2024-04-18 19:00:51.054 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 146.445ms
+2024-04-18 19:01:11.207 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-18 19:01:11.305 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-18 19:01:11.396 +06:00 [INF] Now listening on: https://localhost:7125
+2024-04-18 19:01:11.396 +06:00 [INF] Now listening on: http://localhost:5229
+2024-04-18 19:01:11.397 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-18 19:01:11.397 +06:00 [INF] Hosting environment: Development
+2024-04-18 19:01:11.397 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-18 19:01:11.804 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/index.html - null null
+2024-04-18 19:01:12.007 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/index.html - 200 null text/html;charset=utf-8 207.1561ms
+2024-04-18 19:01:12.084 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-18 19:01:12.088 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 4.715ms
+2024-04-18 19:01:12.096 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_vs/browserLink - null null
+2024-04-18 19:01:12.135 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_vs/browserLink - 200 null text/javascript; charset=UTF-8 38.9286ms
+2024-04-18 19:01:12.670 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - null null
+2024-04-18 19:01:12.796 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 126.4143ms
+2024-04-18 19:01:37.041 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-18 19:01:37.137 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-18 19:01:37.243 +06:00 [INF] Now listening on: https://localhost:7125
+2024-04-18 19:01:37.243 +06:00 [INF] Now listening on: http://localhost:5229
+2024-04-18 19:01:37.244 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-18 19:01:37.244 +06:00 [INF] Hosting environment: Development
+2024-04-18 19:01:37.244 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-18 19:01:37.858 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/index.html - null null
+2024-04-18 19:01:38.057 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/index.html - 200 null text/html;charset=utf-8 200.9172ms
+2024-04-18 19:01:38.122 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-18 19:01:38.129 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 7.5013ms
+2024-04-18 19:01:38.144 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_vs/browserLink - null null
+2024-04-18 19:01:38.184 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_vs/browserLink - 200 null text/javascript; charset=UTF-8 40.2574ms
+2024-04-18 19:01:38.589 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - null null
+2024-04-18 19:01:38.728 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 138.5568ms
+2024-04-18 19:02:30.520 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-18 19:02:30.693 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-18 19:02:30.883 +06:00 [INF] Now listening on: https://localhost:7125
+2024-04-18 19:02:30.883 +06:00 [INF] Now listening on: http://localhost:5229
+2024-04-18 19:02:30.884 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-18 19:02:30.884 +06:00 [INF] Hosting environment: Development
+2024-04-18 19:02:30.884 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-18 19:02:31.415 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/index.html - null null
+2024-04-18 19:02:31.643 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/index.html - 200 null text/html;charset=utf-8 234.7792ms
+2024-04-18 19:02:31.716 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-18 19:02:31.730 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 14.037ms
+2024-04-18 19:02:32.327 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - null null
+2024-04-18 19:02:32.686 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 359.2973ms
+2024-04-18 19:03:29.406 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-18 19:03:29.485 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-18 19:03:29.588 +06:00 [INF] Now listening on: https://localhost:7125
+2024-04-18 19:03:29.588 +06:00 [INF] Now listening on: http://localhost:5229
+2024-04-18 19:03:29.589 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-18 19:03:29.589 +06:00 [INF] Hosting environment: Development
+2024-04-18 19:03:29.589 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-18 19:03:30.170 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/index.html - null null
+2024-04-18 19:03:30.430 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/index.html - 200 null text/html;charset=utf-8 265.6461ms
+2024-04-18 19:03:30.483 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-18 19:03:30.488 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 4.9376ms
+2024-04-18 19:03:30.500 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_vs/browserLink - null null
+2024-04-18 19:03:30.565 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_vs/browserLink - 200 null text/javascript; charset=UTF-8 65.7011ms
+2024-04-18 19:03:31.009 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - null null
+2024-04-18 19:03:31.124 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 115.0579ms
+2024-04-18 19:03:47.373 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-18 19:03:47.447 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-18 19:03:47.501 +06:00 [INF] Now listening on: http://localhost:5229
+2024-04-18 19:03:47.502 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-18 19:03:47.502 +06:00 [INF] Hosting environment: Development
+2024-04-18 19:03:47.502 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-18 19:04:10.610 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-18 19:04:10.688 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\src\ACL\wwwroot. Static files may be unavailable.
+2024-04-18 19:04:10.710 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-18 19:04:10.710 +06:00 [INF] Hosting environment: Development
+2024-04-18 19:04:10.710 +06:00 [INF] Content root path: D:\Porosh\ACL\src\ACL
+2024-04-18 19:04:10.746 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/index.html - null null
+2024-04-18 19:04:10.985 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/index.html - 200 null text/html;charset=utf-8 242.1997ms
+2024-04-18 19:04:11.038 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-18 19:04:11.046 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_framework/aspnetcore-browser-refresh.js - 200 13742 application/javascript; charset=utf-8 2.2908ms
+2024-04-18 19:04:11.048 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/_vs/browserLink - null null
+2024-04-18 19:04:11.083 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/_vs/browserLink - 200 null text/javascript; charset=UTF-8 34.749ms
+2024-04-18 19:04:11.475 +06:00 [INF] Request starting HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - null null
+2024-04-18 19:04:11.616 +06:00 [INF] Request finished HTTP/2 GET https://localhost:44374/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 140.3113ms
