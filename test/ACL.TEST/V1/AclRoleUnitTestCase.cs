@@ -19,7 +19,7 @@ namespace ACL.Tests
             restClient = new RestClient(dbConnector.baseUrl);
         }
         [Fact]
-        public async void TestRoleList()
+        public void TestRoleList()
         {
 
             //Arrange
@@ -36,7 +36,7 @@ namespace ACL.Tests
 
         }
         [Fact]
-        public async void AddRoleTest()
+        public void AddRoleTest()
         {
             //Arrange
             var data = GetRole();
@@ -55,7 +55,7 @@ namespace ACL.Tests
         }
 
         [Fact]
-        public async void GetByIdRoleTest()
+        public void GetByIdRoleTest()
         {
             //Arrange
             var id = getRandomID();
@@ -73,7 +73,7 @@ namespace ACL.Tests
 
         }
         [Fact]
-        public async void EditByIdRoleTest()
+        public void EditByIdRoleTest()
         {
             //Arrange
 
@@ -93,7 +93,7 @@ namespace ACL.Tests
 
         }
         [Fact]
-        public async void DeleteByIdRoleTest()
+        public void DeleteByIdRoleTest()
         {
 
             var id = getRandomID();

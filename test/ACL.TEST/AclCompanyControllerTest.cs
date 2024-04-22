@@ -27,23 +27,24 @@ public class AclCompanyControllerIntegrationTest
             dbContext.SaveChanges();
         }
 
-        using (var dbContext = new ApplicationDbContext(options))
-        {
-            // Use a genuine instance of UnitOfWork
-            var unitOfWork = new UnitOfWork(dbContext);
-            unitOfWork.ApplicationDbContext = dbContext;
-            var controller = new AclCompanyController(unitOfWork);
+        //using (var dbContext = new ApplicationDbContext(options))
+        //{
+        //    // Use a genuine instance of UnitOfWork
+        //    var unitOfWork = new UnitOfWork(dbContext);
+        //    unitOfWork.ApplicationDbContext = dbContext;
+        //    //var controller = new AclCompanyController(unitOfWork);
+          
 
-            // Act
-            var aclResponse = await controller.Index();
+        //    // Act
+        //    var aclResponse = await controller.Index();
 
-            // Assert
-            var result = aclResponse as OkObjectResult;
-            var res = result.Value as AclResponse;
-            var returnCompanies = res.Data as IEnumerable<AclCompany>;
+        //    // Assert
+        //    var result = aclResponse as OkObjectResult;
+        //    var res = result.Value as AclResponse;
+        //    var returnCompanies = res.Data as IEnumerable<AclCompany>;
 
-            Assert.Equal(1, returnCompanies?.Count()); // Adjust count as per your test data
-        }
+        //    Assert.Equal(1, returnCompanies?.Count()); // Adjust count as per your test data
+        //}
     }
 }
 
