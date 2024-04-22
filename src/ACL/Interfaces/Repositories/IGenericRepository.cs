@@ -8,6 +8,8 @@ namespace ACL.Interfaces.Repositories
         Task<T?> GetById(ulong id);
         Task<T> AddAsync(T entity);
         T Add(T entity);
+        Task<T> FirstOrDefault();
+        Task<T> LastOrDefault();
         T Update(T entity);
         Task<T> UpdateAsync(T entity);
         Task<bool> DeleteAsync(T entity);
