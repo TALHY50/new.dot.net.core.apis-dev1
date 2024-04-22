@@ -29,12 +29,12 @@ namespace ACL.Controllers.V1
         }
 
         [HttpPost(AclRoutesUrl.AclPage.Add, Name = AclRoutesName.AclPageNames.Add)]
-        public async Task<AclResponse> Create(AclPageCreateRequest request)
+        public async Task<AclResponse> Create(AclPageRequest request)
         {
             return await _unitOfWork.AclPageRepository.Add(request);
         }
         [HttpPut(AclRoutesUrl.AclPage.Edit, Name = AclRoutesName.AclPageNames.Edit)]
-        public async Task<AclResponse> Edit(ulong id, AclPageEditRequest request)
+        public async Task<AclResponse> Edit(ulong id, AclPageRequest request)
         {
             return await _unitOfWork.AclPageRepository.Edit(id, request);
 

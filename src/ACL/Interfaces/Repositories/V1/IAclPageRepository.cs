@@ -4,11 +4,11 @@ using ACL.Response.V1;
 
 namespace ACL.Interfaces.Repositories.V1
 {
-    public interface IAclPageRepository
+    public interface IAclPageRepository : IGenericRepository<AclPage>
     {
         Task<AclResponse> GetAll();
-        Task<AclResponse> Add(AclPageCreateRequest request);
-        Task<AclResponse> Edit(ulong id, AclPageEditRequest request);
+        Task<AclResponse> Add(AclPageRequest request);
+        Task<AclResponse> Edit(ulong id, AclPageRequest request);
         Task<AclResponse> findById(ulong id);
         Task<AclResponse> deleteById(ulong id);
         Task<AclResponse> PageRouteCreate(AclPageRouteRequest request);

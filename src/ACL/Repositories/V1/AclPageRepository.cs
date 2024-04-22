@@ -20,11 +20,11 @@ namespace ACL.Repositories.V1
         {
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName);
-            
+
         }
-        public  AclResponse GetAll()
+        public async Task<AclResponse> GetAll()
         {
-            var aclPage =  base.All().Result;
+            var aclPage = await base.All();
             if (aclPage.Any())
             {
                 aclResponse.Message = _unitOfWork.LocalizationService.GetLocalizedString("fetchMessage");
@@ -35,7 +35,7 @@ namespace ACL.Repositories.V1
 
             return aclResponse;
         }
-        public async Task<AclResponse> Add(AclPageCreateRequest request)
+        public async Task<AclResponse> Add(AclPageRequest request)
         {
             try
             {
@@ -56,11 +56,18 @@ namespace ACL.Repositories.V1
             return aclResponse;
         }
 
-        public async Task<AclResponse> Edit(ulong id, AclPageEditRequest request)
+        public async Task<AclResponse> Edit(ulong id, AclPageRequest request)
         {
+            var aclPage = await base.GetById(id);
+            if (aclPage == null)
+            {
+                aclResponse.Message = messageResponse.noFoundMessage;
+                return aclResponse;
+            }
+
             try
             {
-                var aclPage = PrepareInputData(null, request);
+                aclPage = PrepareInputData(request, aclPage);
                 _unitOfWork.ApplicationDbContext.Update(aclPage);
                 await _unitOfWork.ApplicationDbContext.SaveChangesAsync();
                 await _unitOfWork.ApplicationDbContext.Entry(aclPage).ReloadAsync();
@@ -119,36 +126,21 @@ namespace ACL.Repositories.V1
 
 
 
-        private AclPage PrepareInputData(AclPageCreateRequest request = null, AclPageEditRequest editRequest = null)
+        private AclPage PrepareInputData(AclPageRequest request, AclPage AclPage = null)
         {
-            if (request == null)
+            if (AclPage == null)
             {
-                return new AclPage
-                {
-                    ModuleId = request.module_id,
-                    SubModuleId = request.sub_module_id,
-                    Name = request.name,
-                    MethodName = request.method_name,
-                    MethodType = request.method_type,
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = DateTime.Now
-                };
-
+                AclPage = new AclPage();
+                AclPage.CreatedAt = DateTime.Now;
             }
-            else
-            {
-                return new AclPage
-                {
-                    ModuleId = editRequest.module_id,
-                    SubModuleId = editRequest.sub_module_id,
-                    Name = editRequest.name,
-                    MethodName = editRequest.method_name,
-                    MethodType = editRequest.method_type,
-                    UpdatedAt = DateTime.Now
-                };
-            }
-
-
+            AclPage.ModuleId = request.module_id;
+            AclPage.SubModuleId = request.sub_module_id;
+            AclPage.Name = request.name;
+            AclPage.MethodName = request.method_name;
+            AclPage.MethodType = request.method_type;
+            AclPage.CreatedAt = DateTime.Now;
+            AclPage.UpdatedAt = DateTime.Now;
+            return AclPage;
         }
 
 
