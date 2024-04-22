@@ -26,7 +26,7 @@ namespace ACL.Repositories.V1
             var aclPage =  base.All().Result;
             if (aclPage.Any())
             {
-                aclResponse.Message = _unitOfWork.Localizer["fetchMessage"];
+                aclResponse.Message = _unitOfWork.LocalizationService.GetLocalizedString("fetchMessage");
             }
             aclResponse.Data = aclPage;
             aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
