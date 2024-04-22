@@ -19,7 +19,7 @@ namespace ACL.Controllers.V1
         [HttpGet(Route.AclRoutesUrl.AclUserGroupRole.List, Name = Route.AclRoutesName.AclUserGroupRole.List)]
         public async Task<AclResponse> Index(ulong userGroupId)
         {
-            return _repository.AclUserGroupRoleRepository.GetRolesByUserGroupId(userGroupId);
+            return await _repository.AclUserGroupRoleRepository.GetRolesByUserGroupId(userGroupId);
         }
 
         [HttpPost(Route.AclRoutesUrl.AclUserGroupRole.Update, Name = Route.AclRoutesName.AclUserGroupRole.Update)]

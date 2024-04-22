@@ -106,7 +106,7 @@
         }
         public class AclPassword
         {
-            public const string ModelName = "password";
+            public const string ModelName = Base + "password";
             public const string Reset = ModelName + "/reset";
             public const string Forget = ModelName + "/forget";
             public const string VerifyToken = ModelName + "/forget/verify";
