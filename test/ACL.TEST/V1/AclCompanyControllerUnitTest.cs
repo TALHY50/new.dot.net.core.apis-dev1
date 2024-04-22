@@ -30,12 +30,13 @@ namespace ACL.Tests
         DbContextOptions<ApplicationDbContext> _inMemoryDbContext;
         public AclCompanyControllerUnitTest()
         {
-            dbConnector = new DatabaseConnector(true);
+            dbConnector = new DatabaseConnector();
             _inMemoryDbContext = new DbContextOptionsBuilder<ApplicationDbContext>()
       .UseInMemoryDatabase(databaseName: "acl")
       .Options;
             //unitOfWork = new UnitOfWork(new ApplicationDbContext(_inMemoryDbContext));
             unitOfWork = new UnitOfWork(dbConnector.dbContext);
+            unitOfWork.ApplicationDbContext = dbConnector.dbContext;
             restClient = new RestClient(dbConnector.baseUrl);
         }
         [Fact]
@@ -130,7 +131,7 @@ namespace ACL.Tests
             #endregion
             #region Act
             //// Create request
-            var req = new RestRequest("/companies/delete/"+id, Method.Delete);
+            var req = new RestRequest("/companies/delete/" + id, Method.Delete);
             //Add request body
 
             //// Add headers
@@ -158,12 +159,12 @@ namespace ACL.Tests
             //var client = new RestSharp.RestClient("https://localhost:7125/api/v1");
 
 
-           
+
 
             #endregion
             #region Act
             //// Create request
-            var req = new RestRequest("/companies/edit/"+id, Method.Put);
+            var req = new RestRequest("/companies/edit/" + id, Method.Put);
             //Add request body
             req.AddBody(editReq);
 
@@ -192,7 +193,7 @@ namespace ACL.Tests
 
             #endregion
             #region Act
-            var request = new RestRequest("/companies/view/"+id, Method.Get);
+            var request = new RestRequest("/companies/view/" + id, Method.Get);
 
             //request.AddHeader("Authorization", "Bearer YOUR_TOKEN_HERE");
 
@@ -213,28 +214,28 @@ namespace ACL.Tests
         private AclCompanyCreateRequest GetCompanyCreateRequest()
         {
             var faker = new Faker();
-            string json = @"
-        {
-            ""name"": ""Mahmud"",
-            ""cname"": ""Test Company"",
-            ""cemail"": ""mahmud@gmail.com"",
-            ""address1"": ""asdfa sdfasdf"",
-            ""address2"": ""asdf asdfsadf"",
-            ""city"": ""Dahka"",
-            ""state"": ""Dhaka"",
-            ""country"": ""Bangladesh"",
-            ""postcode"": ""1229"",
-            ""phone"": ""01521497833"",
-            ""timezone"": -11,
-            ""timezone_value"": ""asdfasdf"",
-            ""logo"": ""asdfasdfasdf.png"",
-            ""fax"": ""asdfasdf"",
-            ""registration_no"": ""asdfasdf"",
-            ""tax_no"": ""asdfasdf"",
-            ""unique_column_name"": 1,
-            ""email"": ""korim@gmail.com"",
-            ""password"": ""secret""
-        }";
+            return new AclCompanyCreateRequest
+            {
+                name = faker.Company.CompanyName(),
+                cname = faker.Company.CompanyName(),
+                cemail = faker.Internet.Email(),
+                address1 = faker.Address.StreetAddress(),
+                address2 = faker.Address.SecondaryAddress(),
+                city = faker.Address.City(),
+                state = faker.Address.State(),
+                country = faker.Address.Country(),
+                postcode = faker.Address.ZipCode(),
+                phone = faker.Phone.PhoneNumber(),
+                timezone = faker.Random.Number(-12, 12), // Example for timezone
+                timezone_value = faker.Random.Word(),
+                logo = faker.Image.PicsumUrl(),
+                fax = faker.Phone.PhoneNumber(),
+                registration_no = faker.Random.AlphaNumeric(10),
+                tax_no = faker.Random.AlphaNumeric(10),
+                unique_column_name = (sbyte)faker.Random.Byte(), // Example for unique_column_name
+                email = faker.Internet.Email(),
+                password = faker.Internet.Password()
+            };
 
             return JsonConvert.DeserializeObject<AclCompanyCreateRequest>(json);
 
@@ -244,48 +245,48 @@ namespace ACL.Tests
         private AclCompanyEditRequest GetCompanyEditRequest()
         {
             var faker = new Faker();
-            string json = @"
-        {
-            ""name"": ""Mahmud1"",
-            ""cname"": ""Test Company1 Updated"",
-            ""cemail"": ""mahmud@gmail.com"",
-            ""address1"": ""asdfa sdfasdf"",
-            ""address2"": ""asdf asdfsadf"",
-            ""city"": ""Dahka"",
-            ""state"": ""Dhaka"",
-            ""country"": ""Bangladesh"",
-            ""postcode"": ""1229"",
-            ""phone"": ""01521497833"",
-            ""timezone"": 12,
-            ""unique_column_name"": 1,
-            ""timezone_value"": ""UTC+"",
-            ""logo"": ""asdfasdfasdf.png"",
-            ""fax"": ""asdfasdf"",
-            ""registration_no"": ""asdfasdf"",
-            ""tax_no"": ""asdfasdf"",
-            ""status"": 1
-        }";
-
-            return JsonConvert.DeserializeObject<AclCompanyEditRequest>(json);
+            return new AclCompanyEditRequest
+            {
+                name = faker.Company.CompanyName(),
+                cname = faker.Company.CompanyName(),
+                cemail = faker.Internet.Email(),
+                address1 = faker.Address.StreetAddress(),
+                address2 = faker.Address.SecondaryAddress(),
+                city = faker.Address.City(),
+                state = faker.Address.State(),
+                country = faker.Address.Country(),
+                postcode = faker.Address.ZipCode(),
+                phone = faker.Phone.PhoneNumber(),
+                timezone = faker.Random.Number(0, 24), // Example for timezone
+                unique_column_name = faker.Random.Number(1, 100), // Example for unique_column_name
+                timezone_value = faker.Random.Word(),
+                logo = faker.Image.PicsumUrl(),
+                fax = faker.Phone.PhoneNumber(),
+                registration_no = faker.Random.AlphaNumeric(10),
+                tax_no = faker.Random.AlphaNumeric(10),
+                status = (sbyte)faker.Random.Number(0, 1) // Example for status
+            };
 
         }
 
         private ulong getRandomID()
         {
-           // return (ulong)unitOfWork.AclCompanyRepository.FirstOrDefault().Id;
-            using (var dbContext = (dbConnector.dbContext))
-            {
-                // Use a genuine instance of UnitOfWork
-                var unitOfWork = new UnitOfWork(dbContext);
-                unitOfWork.ApplicationDbContext = dbContext;
-                // unitOfWork.LocalizationService = 
-                var controller = new AclCompanyController(unitOfWork);
+
+            //using (var dbContext = (dbConnector.dbContext))
+            //{
+            //    // Use a genuine instance of UnitOfWork
+            //    var unitOfWork = new UnitOfWork(dbContext);
+            //    unitOfWork.ApplicationDbContext = dbContext;
+            //    // unitOfWork.LocalizationService = 
+            //    var controller = new AclCompanyController(unitOfWork);
                 #region Act
-                // Act
-                return (ulong)controller._unitOfWork.AclCompanyRepository.FirstOrDefault().Id;
+            //    // Act
+            //    return (ulong)controller._unitOfWork.AclCompanyRepository.FirstOrDefault().Id;
+            return unitOfWork.ApplicationDbContext.AclCompanies.FirstOrDefault().Id;
                 #endregion
-            }
+           // }
 
         }
     }
 }
+

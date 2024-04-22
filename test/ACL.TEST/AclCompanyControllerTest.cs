@@ -44,8 +44,7 @@ public class AclCompanyControllerIntegrationTest
             #region Assert
             // Assert
 
-            var result = aclResponse as OkObjectResult;
-            var res = result.Value as AclResponse;
+            var res = aclResponse as AclResponse;
             var returnCompanies = res.Data as IEnumerable<AclCompany>;
 
             Assert.Equal(1, returnCompanies?.Count()); // Adjust count as per your test data
