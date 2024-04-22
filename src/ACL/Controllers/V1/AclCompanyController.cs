@@ -20,9 +20,9 @@ namespace ACL.Controllers.V1
         }
 
         [HttpGet(AclRoutesUrl.AclCompanyRouteUrl.List, Name = AclRoutesName.AclCompanyRouteNames.List)]
-        public async Task<ActionResult> Index()
+        public async Task<AclResponse> Index()
         {
-            return Ok(await _unitOfWork.AclCompanyRepository.GetAll());
+            return await _unitOfWork.AclCompanyRepository.GetAll();
         }
 
         [HttpPost(AclRoutesUrl.AclCompanyRouteUrl.Add, Name = AclRoutesName.AclCompanyRouteNames.Add)]
