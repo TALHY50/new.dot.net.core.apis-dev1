@@ -41,7 +41,7 @@ namespace ACL.Repositories.V1
             {
                 var aclCompany = await base.GetById(id);
                 aclResponse.Data = aclCompany;
-                aclResponse.Message =  _unitOfWork.LocalizationService.GetLocalizedString("fetchMessage");
+                aclResponse.Message = _unitOfWork.LocalizationService.GetLocalizedString(modelName) + " " + _unitOfWork.LocalizationService.GetLocalizedString("fetchMessage");
                 if (aclCompany == null)
                 {
                     aclResponse.Message = messageResponse.noFoundMessage;
@@ -151,7 +151,7 @@ namespace ACL.Repositories.V1
                             }
 
                             aclResponse.Data = aclCompany;
-                            aclResponse.Message = messageResponse.createMessage;
+                            aclResponse.Message = _unitOfWork.LocalizationService.GetLocalizedString(modelName) + " " + _unitOfWork.LocalizationService.GetLocalizedString("createMessage");
                             aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
 
                             await transaction.CommitAsync();
@@ -188,7 +188,7 @@ namespace ACL.Repositories.V1
                     await _unitOfWork.CompleteAsync();
                     await base.ReloadAsync(_aclCompany);
                     aclResponse.Data = _aclCompany;
-                    aclResponse.Message = messageResponse.editMessage;
+                    aclResponse.Message = _unitOfWork.LocalizationService.GetLocalizedString(modelName) + " " + _unitOfWork.LocalizationService.GetLocalizedString("editMessage");
                     aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
                 }
                 else
@@ -212,13 +212,13 @@ namespace ACL.Repositories.V1
             var aclCompany = await base.Where(b => b.Status == 1).ToListAsync();
             if (aclCompany.Any())
             {
-                aclResponse.Message = messageResponse.fetchMessage;
+                 aclResponse.Message =_unitOfWork.LocalizationService.GetLocalizedString(modelName) +" "+  _unitOfWork.LocalizationService.GetLocalizedString("fetchMessage");
                 aclResponse.Data = aclCompany;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
             else
             {
-                aclResponse.Message = messageResponse.noFoundMessage;
+                aclResponse.Message =_unitOfWork.LocalizationService.GetLocalizedString("noFoundMessage");
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
             aclResponse.Timestamp = DateTime.Now;

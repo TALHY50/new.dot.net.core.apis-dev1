@@ -1,27 +1,36 @@
+using ACL.Database;
 using ACL.Interfaces;
 using ACL.Requests;
 using ACL.Services;
 using Bogus;
+using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using RestSharp;
+using System.Data.Common;
 
 namespace ACL.Tests
 {
     [TestFixture]
     public class AclRoleUnitTest
     {
-        //private  IUnitOfWork _unitOfWork;
+        private IUnitOfWork _unitOfWork;
+        private DbContextOptions<ApplicationDbContext> _inMemoryDbContext;
 
-        //public AclRoleUnitTest(IUnitOfWork unitOfWork) 
-        //{
-        //    _unitOfWork = unitOfWork;
-        //}
+        public AclRoleUnitTest(IUnitOfWork unitOfWork)
+        {
+            _inMemoryDbContext = new DbContextOptionsBuilder<ApplicationDbContext>()
+                         .UseInMemoryDatabase(databaseName: "acl")
+                         .Options;
+            var dbContext = new ApplicationDbContext(_inMemoryDbContext);
+            _unitOfWork = unitOfWork = new UnitOfWork(dbContext);
+        }
+
 
         [Fact]
         public async void GetAllRolesTest()
         {
             var data = GetRole();
-            //var id = getRandomID();
+            var id = getRandomID();
             // Create RestClient
             var client = new RestSharp.RestClient("https://localhost:7125/api/v1");
 
@@ -54,10 +63,10 @@ namespace ACL.Tests
 
         }
 
-        //private ulong getRandomID()
-        //{
-        //    return _unitOfWork.ApplicationDbContext.AclRoles.FirstOrDefault().Id;
+        private ulong getRandomID()
+        {
+            return _unitOfWork.ApplicationDbContext.AclRoles.FirstOrDefault().Id;
 
-        //}
+        }
     }
 }

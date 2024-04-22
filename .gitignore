@@ -39,7 +39,7 @@ msbuild.wrn
 **/obj/.*
 ./bin/
 ./obj/
-
+./Logs/.*
 
 ./SharedLibrary/obj/
 ./SharedLibrary/bin/
@@ -51,3 +51,4 @@ msbuild.wrn
 /SharedLibrary/obj/SharedLibrary.csproj.nuget.dgspec.json
 /SharedLibrary/obj/SharedLibrary.csproj.nuget.g.props
 /SharedLibrary/obj/SharedLibrary.csproj.nuget.g.targets
+

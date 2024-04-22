@@ -16,7 +16,10 @@ namespace ACL.Repositories
             _unitOfWork = unitOfWork;
             _dbSet = unitOfWork.ApplicationDbContext.Set<T>();
         }
-
+        public virtual async  Task<T> FirstOrDefault()
+        {
+            return await this._dbSet.FirstOrDefaultAsync();
+        }
         public virtual async Task<IEnumerable<T>> All()
         {
             return await _dbSet.ToListAsync();
