@@ -18,7 +18,6 @@ using System.Threading.Tasks;
 
 namespace ACL.TEST.V1
 {
-    [TestFixture]
     public class AclCompanyControllerUnitTest
     {
         private IUnitOfWork _unitOfWork;

@@ -35,8 +35,7 @@ public class AclCompanyControllerIntegrationTest
             var unitOfWork = new UnitOfWork(dbContext);
             unitOfWork.ApplicationDbContext = dbContext;
             // unitOfWork.LocalizationService = 
-            IStringLocalizer<AclCompanyController> _localizer = null;
-            var controller = new AclCompanyController(unitOfWork, _localizer);
+            var controller = new AclCompanyController(unitOfWork);
             #region Act
             // Act
             var aclResponse = await controller.Index();
