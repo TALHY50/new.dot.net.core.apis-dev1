@@ -39,7 +39,7 @@ msbuild.wrn
 **/obj/.*
 ./bin/
 ./obj/
-
+./Logs/.*
 
 ./SharedLibrary/obj/
 ./SharedLibrary/bin/

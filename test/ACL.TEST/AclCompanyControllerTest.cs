@@ -10,8 +10,10 @@ using Microsoft.Extensions.Localization;
 public class AclCompanyControllerIntegrationTest
 {
     [Fact]
-    public async Task Get_All_Returns_The_Correct_Number_Of_Acompanies()
+    public async Task Get_All_Returns_The_Correct_Number_Of_Acompanies_Test()
     {
+        #region arrange
+
         // Arrange
         var options = new DbContextOptionsBuilder<ApplicationDbContext>()
             .UseInMemoryDatabase(databaseName: "acl")
@@ -26,25 +28,29 @@ public class AclCompanyControllerIntegrationTest
             });
             dbContext.SaveChanges();
         }
+        #endregion
+        using (var dbContext = new ApplicationDbContext(options))
+        {
+            // Use a genuine instance of UnitOfWork
+            var unitOfWork = new UnitOfWork(dbContext);
+            unitOfWork.ApplicationDbContext = dbContext;
+            // unitOfWork.LocalizationService = 
+            var controller = new AclCompanyController(unitOfWork);
+            #region Act
+            // Act
+            var aclResponse = await controller.Index();
+            #endregion
 
-        //using (var dbContext = new ApplicationDbContext(options))
-        //{
-        //    // Use a genuine instance of UnitOfWork
-        //    var unitOfWork = new UnitOfWork(dbContext);
-        //    unitOfWork.ApplicationDbContext = dbContext;
-        //    //var controller = new AclCompanyController(unitOfWork);
-          
+            #region Assert
+            // Assert
 
-        //    // Act
-        //    var aclResponse = await controller.Index();
+            var result = aclResponse as OkObjectResult;
+            var res = result.Value as AclResponse;
+            var returnCompanies = res.Data as IEnumerable<AclCompany>;
 
-        //    // Assert
-        //    var result = aclResponse as OkObjectResult;
-        //    var res = result.Value as AclResponse;
-        //    var returnCompanies = res.Data as IEnumerable<AclCompany>;
-
-        //    Assert.Equal(1, returnCompanies?.Count()); // Adjust count as per your test data
-        //}
+            Assert.Equal(1, returnCompanies?.Count()); // Adjust count as per your test data
+            #endregion
+        }
     }
 }
 
