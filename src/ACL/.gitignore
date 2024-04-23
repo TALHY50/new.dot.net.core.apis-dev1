@@ -33,6 +33,7 @@ msbuild.wrn
 
 # Ignore bin and obj folders for all dependent projects
 **/bin/.*
+./Logs/.*
 **/obj/.*
 SharedLibrary/bin/.*
 SharedLibrary/obj/.*

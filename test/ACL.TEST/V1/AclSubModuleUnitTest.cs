@@ -3,15 +3,14 @@ using ACL.Services;
 using Microsoft.EntityFrameworkCore;
 using RestSharp;
 using Bogus;
-
 namespace ACL.Tests.V1
 {
-    public class AclRoleUnitTest
+    public class AclSubModuleUnitTest
     {
         DatabaseConnector dbConnector;
         UnitOfWork unitOfWork;
         RestClient restClient;
-        public AclRoleUnitTest()
+        public AclSubModuleUnitTest()
         {
             dbConnector = new DatabaseConnector();
             unitOfWork = new UnitOfWork(dbConnector.dbContext);
@@ -19,13 +18,13 @@ namespace ACL.Tests.V1
             restClient = new RestClient(dbConnector.baseUrl);
         }
         [Fact]
-        public void TestRoleList()
+        public void TestSubModuleList()
         {
 
             //Arrange
 
             // Act
-            var request = new RestRequest("roles", Method.Get);
+            var request = new RestRequest("submodules", Method.Get);
             //request.AddHeader("Authorization", "Bearer desc");
 
             RestResponse response = restClient.Execute(request);
@@ -36,13 +35,13 @@ namespace ACL.Tests.V1
 
         }
         [Fact]
-        public void AddRoleTest()
+        public void AddSubModuleTest()
         {
             //Arrange
-            var data = GetRole();
+            var data = GetSubModule();
 
             // Act
-            var request = new RestRequest("roles/add", Method.Post);
+            var request = new RestRequest("submodules/add", Method.Post);
             //request.AddHeader("Authorization", "Bearer desc");
             request.AddJsonBody(data);
 
@@ -55,13 +54,13 @@ namespace ACL.Tests.V1
         }
 
         [Fact]
-        public void GetByIdRoleTest()
+        public void GetByIdSubModuleTest()
         {
             //Arrange
             var id = getRandomID();
 
             // Act
-            var request = new RestRequest($"roles/view/{id}", Method.Get);
+            var request = new RestRequest($"submodules/view/{id}", Method.Get);
             //request.AddHeader("Authorization", "Bearer desc");
            
 
@@ -73,15 +72,15 @@ namespace ACL.Tests.V1
 
         }
         [Fact]
-        public void EditByIdRoleTest()
+        public void EditByIdSubModuleTest()
         {
             //Arrange
 
-            var data = GetRole();
+            var data = GetSubModule();
             var id = getRandomID();
 
             // Act
-            var request = new RestRequest($"roles/edit/{id}", Method.Put);
+            var request = new RestRequest($"submodules/edit/{id}", Method.Put);
             //request.AddHeader("Authorization", "Bearer desc");
             request.AddJsonBody(data);
 
@@ -93,13 +92,13 @@ namespace ACL.Tests.V1
 
         }
         [Fact]
-        public void DeleteByIdRoleTest()
+        public void DeleteByIdSubModuleTest()
         {
 
             var id = getRandomID();
 
             // Act
-            var request = new RestRequest($"roles/delete/{id}", Method.Delete);
+            var request = new RestRequest($"submodules/delete/{id}", Method.Delete);
             //request.AddHeader("Authorization", "Bearer desc");
 
             RestResponse response = restClient.Execute(request);
@@ -109,23 +108,33 @@ namespace ACL.Tests.V1
 
         }
 
-        private AclRoleRequest GetRole()
+        private AclSubModuleRequest GetSubModule()
         {
             var faker = new Faker();
-            return new AclRoleRequest
+            return new AclSubModuleRequest
             {
-                name = faker.Random.String2(10, 50),
-                status = (sbyte)faker.Random.Number(1, 2),
-                title = faker.Random.String2(10, 50),
+                id = (ulong)faker.Random.Number(1,int.MaxValue),
+                module_id = getRandomModuleID(),
+                name = faker.Random.String2(10,50),
+                controller_name = faker.Random.String2(10, 50),
+                default_method = faker.Random.String2(10, 50),
+                display_name = faker.Random.String2(10, 50),
+                sequence = faker.Random.Number(1,int.MaxValue),
+                icon = faker.Random.String2(10, 100)
 
-			};
+            };
 
         }
 
         private ulong getRandomID()
         {
+            return unitOfWork.ApplicationDbContext.AclSubModules.Max(x=>x.Id);
 
-            return unitOfWork.ApplicationDbContext.AclRoles.Max(x=>x.Id);
+        }
+        private ulong getRandomModuleID()
+        {
+
+            return unitOfWork.ApplicationDbContext.AclModules.FirstOrDefault().Id;
 
         }
 
