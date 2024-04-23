@@ -55,7 +55,7 @@ builder.Services.AddTransient<IStringLocalizer>(sp =>
     return localizer;
 });
 builder.Services.AddTransient<IStringLocalizerFactory, ResourceManagerStringLocalizerFactory>();
-builder.Services.AddSingleton<ILocalizationService>(new LocalizationService("ACL.Resources.en-US", typeof(Program).Assembly, "en-US"));
+//builder.Services.AddSingleton<ILocalizationService>(new LocalizationService("ACL.Resources.en-US", typeof(Program).Assembly, "en-US"));
 Env.NoClobber().TraversePath().Load();
 
 var server = Env.GetString("DB_HOST");
