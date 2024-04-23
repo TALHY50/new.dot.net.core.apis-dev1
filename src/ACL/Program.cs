@@ -119,12 +119,13 @@ var app = builder.Build();
 
 app.UseRequestLocalization();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
+//if (app.Environment.IsDevelopment())
+//{
+//    app.UseSwagger();
+//    app.UseSwaggerUI();
+//}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 
 app.UseMiddleware<RequestResponseLoggingMiddleware>();
