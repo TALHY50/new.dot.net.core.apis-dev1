@@ -85,5 +85,23 @@ namespace SharedLibrary.Utilities
             }
         }
 
+        public static string GenerateUniqueKey(string email)
+        {
+            // Hash the email address using SHA256
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(email));
+
+                // Convert the byte array to a hexadecimal string
+                StringBuilder builder = new StringBuilder();
+                foreach (byte b in hashedBytes)
+                {
+                    builder.Append(b.ToString("x2"));
+                }
+
+                return builder.ToString();
+            }
+        }
+
     }
 }
