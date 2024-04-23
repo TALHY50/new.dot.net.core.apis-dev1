@@ -70,6 +70,6 @@ namespace ACL.Requests.V1
         public sbyte status { get; set; }
 
         public string name { get; set; }
-        public string prop { get; set; }
+        //public string prop { get; set; }
     }
 }

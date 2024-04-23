@@ -55,7 +55,7 @@ builder.Services.AddTransient<IStringLocalizer>(sp =>
     return localizer;
 });
 builder.Services.AddTransient<IStringLocalizerFactory, ResourceManagerStringLocalizerFactory>();
-builder.Services.AddSingleton<ILocalizationService>(new LocalizationService("ACL.Resources.en-US", typeof(Program).Assembly, "en-US"));
+//builder.Services.AddSingleton<ILocalizationService>(new LocalizationService("ACL.Resources.en-US", typeof(Program).Assembly, "en-US"));
 Env.NoClobber().TraversePath().Load();
 
 var server = Env.GetString("DB_HOST");
@@ -84,14 +84,20 @@ IConfiguration configuration = new ConfigurationBuilder()
        .SetBasePath(Directory.GetCurrentDirectory())
        .AddJsonFile("appsettings.json")
        .Build();
+
+
+
+builder.Services.AddSingleton<IConfiguration>(configuration);
+builder.Services.AddScoped<ICacheService, CacheService>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 Log.Logger = new LoggerConfiguration()
-    .MinimumLevel.Debug()
-    .WriteTo.File(GetLogFilePath("log.txt"), restrictedToMinimumLevel: LogEventLevel.Error)
-    .WriteTo.Logger(lc => lc
-        .Filter.ByExcluding(e => e.Properties.ContainsKey("RequestPath") || e.Properties.ContainsKey("RequestBody") || e.Properties.ContainsKey("ResponseBody"))
-        .WriteTo.File(GetLogFilePath("log.txt"), restrictedToMinimumLevel: LogEventLevel.Information))
-    .WriteTo.File(GetLogFilePath("querylog.txt"), restrictedToMinimumLevel: LogEventLevel.Information)
-    .CreateLogger();
+   .MinimumLevel.Debug()
+   .WriteTo.File(GetLogFilePath("log.txt"), restrictedToMinimumLevel: LogEventLevel.Error)
+   .WriteTo.Logger(lc => lc
+       .Filter.ByExcluding(e => e.Properties.ContainsKey("RequestPath") || e.Properties.ContainsKey("RequestBody") || e.Properties.ContainsKey("ResponseBody"))
+       .WriteTo.File(GetLogFilePath("log.txt"), restrictedToMinimumLevel: LogEventLevel.Information))
+   .WriteTo.File(GetLogFilePath("querylog.txt"), restrictedToMinimumLevel: LogEventLevel.Information)
+   .CreateLogger();
 
 builder.Host.UseSerilog((hostingContext, loggerConfiguration) =>
 {
@@ -109,21 +115,18 @@ static string GetLogFilePath(string fileName)
     var datePrefix = DateTime.Now.ToString("yyyy-MM-dd");
     return Path.Combine(logDirectory, $"{datePrefix}_{fileName}");
 }
-
-
-builder.Services.AddSingleton<IConfiguration>(configuration);
-builder.Services.AddScoped<ICacheService, CacheService>();
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-
 var app = builder.Build();
 
 app.UseRequestLocalization();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+//if (app.Environment.IsDevelopment())
+//{
+//    app.UseSwagger();
+//    app.UseSwaggerUI();
+//}
+app.UseSwagger();
+app.UseSwaggerUI();
+
 
 app.UseMiddleware<RequestResponseLoggingMiddleware>();
 app.UseSerilogRequestLogging();

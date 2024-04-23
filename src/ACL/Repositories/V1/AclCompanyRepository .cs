@@ -14,6 +14,7 @@ using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.DependencyInjection;
 using ACL.Services.Interface;
 using ACL.Services;
+using System.Globalization;
 
 
 namespace ACL.Repositories.V1
@@ -41,7 +42,15 @@ namespace ACL.Repositories.V1
             {
                 var aclCompany = await base.GetById(id);
                 aclResponse.Data = aclCompany;
-                aclResponse.Message =  _unitOfWork.LocalizationService.GetLocalizedString("fetchMessage");
+
+                try
+                {
+                    aclResponse.Message = _unitOfWork.LocalizationService.GetLocalizedString(modelName) + " " + _unitOfWork.LocalizationService.GetLocalizedString("fetchMessage");
+                }
+                catch (Exception)
+                {
+                    aclResponse.Message = messageResponse.fetchMessage;
+                }
                 if (aclCompany == null)
                 {
                     aclResponse.Message = messageResponse.noFoundMessage;
@@ -151,7 +160,15 @@ namespace ACL.Repositories.V1
                             }
 
                             aclResponse.Data = aclCompany;
-                            aclResponse.Message = messageResponse.createMessage;
+
+                            try
+                            {
+                                aclResponse.Message = _unitOfWork.LocalizationService.GetLocalizedString(modelName) + " " + _unitOfWork.LocalizationService.GetLocalizedString("createMessage");
+                            }
+                            catch (Exception)
+                            {
+                                aclResponse.Message = messageResponse.fetchMessage;
+                            }
                             aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
 
                             await transaction.CommitAsync();
@@ -188,7 +205,15 @@ namespace ACL.Repositories.V1
                     await _unitOfWork.CompleteAsync();
                     await base.ReloadAsync(_aclCompany);
                     aclResponse.Data = _aclCompany;
-                    aclResponse.Message = messageResponse.editMessage;
+                    try
+                    {
+                        aclResponse.Message = _unitOfWork.LocalizationService.GetLocalizedString(modelName) + " " + _unitOfWork.LocalizationService.GetLocalizedString("editMessage");
+                    }
+                    catch (Exception)
+                    {
+                        aclResponse.Message = messageResponse.fetchMessage;
+                    }
+
                     aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
                 }
                 else
@@ -212,13 +237,28 @@ namespace ACL.Repositories.V1
             var aclCompany = await base.Where(b => b.Status == 1).ToListAsync();
             if (aclCompany.Any())
             {
-                aclResponse.Message = messageResponse.fetchMessage;
+                try
+                {
+                    //aclResponse.Message = _unitOfWork.GetLocalizedString(modelName) + " " + _unitOfWork.GetLocalizedStringWithCulture("fetchMessage",new CultureInfo("bn-BD")); 
+                    aclResponse.Message = _unitOfWork.GetLocalizedString(modelName) + " " + _unitOfWork.GetLocalizedString("fetchMessage");
+                }
+                catch (Exception)
+                {
+                    aclResponse.Message = messageResponse.fetchMessage;
+                }
                 aclResponse.Data = aclCompany;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
             else
             {
-                aclResponse.Message = messageResponse.noFoundMessage;
+                try
+                {
+                    aclResponse.Message = _unitOfWork.LocalizationService.GetLocalizedString("noFoundMessage");
+                }
+                catch (Exception)
+                {
+                    aclResponse.Message = messageResponse.noFoundMessage;
+                }
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
             aclResponse.Timestamp = DateTime.Now;
@@ -237,12 +277,28 @@ namespace ACL.Repositories.V1
                 await base.UpdateAsync(aclCompany);
                 await _unitOfWork.CompleteAsync();
                 aclResponse.Data = aclCompany;
-                aclResponse.Message = messageResponse.deleteMessage;
+                try
+                {
+                    aclResponse.Message = _unitOfWork.LocalizationService.GetLocalizedString(modelName) + " " + _unitOfWork.LocalizationService.GetLocalizedString("deleteMessage");
+                }
+                catch (Exception)
+                {
+
+                    aclResponse.Message = messageResponse.deleteMessage;
+
+                }
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
             else
             {
-                aclResponse.Message = messageResponse.noFoundMessage;
+                try
+                {
+                    aclResponse.Message = _unitOfWork.LocalizationService.GetLocalizedString("noFoundMessage");
+                }
+                catch (Exception)
+                {
+                    aclResponse.Message = messageResponse.noFoundMessage;
+                }
                 aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
             }
             aclResponse.Timestamp = DateTime.Now;
