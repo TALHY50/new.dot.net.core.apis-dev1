@@ -239,7 +239,8 @@ namespace ACL.Repositories.V1
             {
                 try
                 {
-                    aclResponse.Message = _unitOfWork.GetLocalizedString(modelName) + " " + _unitOfWork.GetLocalizedStringWithCulture("fetchMessage",new CultureInfo("bn-BD"));
+                    //aclResponse.Message = _unitOfWork.GetLocalizedString(modelName) + " " + _unitOfWork.GetLocalizedStringWithCulture("fetchMessage",new CultureInfo("bn-BD")); 
+                    aclResponse.Message = _unitOfWork.GetLocalizedString(modelName) + " " + _unitOfWork.GetLocalizedString("fetchMessage");
                 }
                 catch (Exception)
                 {
