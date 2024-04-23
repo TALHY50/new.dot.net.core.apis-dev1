@@ -40,6 +40,7 @@ msbuild.wrn
 ./bin/
 ./obj/
 ./Logs/.*
+src/ACL/Logs/
 
 ./SharedLibrary/obj/
 ./SharedLibrary/bin/
@@ -53,3 +54,5 @@ msbuild.wrn
 /SharedLibrary/obj/SharedLibrary.csproj.nuget.g.targets
 /src/ACL/Logs/2024-04-22_log.txt
 /src/ACL/Logs/2024-04-22_querylog.txt
+/src/ACL/Logs/2024-04-23_querylog.txt
+/src/ACL/Logs/2024-04-23_log.txt
