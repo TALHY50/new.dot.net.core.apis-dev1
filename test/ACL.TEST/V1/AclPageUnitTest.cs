@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using RestSharp;
 using Bogus;
 using ACL.Database.Models;
+using ACL.Requests.V1;
 
 namespace ACL.Tests.V1
 {
@@ -110,18 +111,16 @@ namespace ACL.Tests.V1
 
         }
 
-        private AclPage GetPage()
+        private AclPageRequest GetPage()
         {
             var faker = new Faker();
-            return new AclPage
+            return new AclPageRequest
             {
-                ModuleId = (ulong)faker.Random.Number(1001, 1002),
-                SubModuleId = (ulong)faker.Random.Number(1001, 1002),
-                Name = faker.Random.String(1, 80),
-                MethodName = faker.Random.String(1, 5),
-                MethodType = faker.Random.Number(1, 3),
-                CreatedAt = DateTime.Now,
-                UpdatedAt = DateTime.Now,
+                module_id = (ulong)faker.Random.Number(1001, 1002),
+                sub_module_id = (ulong)faker.Random.Number(2052, 2054),
+                name = faker.Random.String2(10, 50),
+                method_name = faker.Random.String2(1, 5),
+                method_type = faker.Random.Number(1, 3),
             };
 
         }
