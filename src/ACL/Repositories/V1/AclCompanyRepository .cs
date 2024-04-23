@@ -14,6 +14,7 @@ using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.DependencyInjection;
 using ACL.Services.Interface;
 using ACL.Services;
+using System.Globalization;
 
 
 namespace ACL.Repositories.V1
@@ -238,7 +239,7 @@ namespace ACL.Repositories.V1
             {
                 try
                 {
-                    aclResponse.Message = _unitOfWork.LocalizationService.GetLocalizedString(modelName) + " " + _unitOfWork.LocalizationService.GetLocalizedString("fetchMessage");
+                    aclResponse.Message = _unitOfWork.GetLocalizedString(modelName) + " " + _unitOfWork.GetLocalizedStringWithCulture("fetchMessage",new CultureInfo("bn-BD"));
                 }
                 catch (Exception)
                 {

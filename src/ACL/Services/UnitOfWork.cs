@@ -13,6 +13,9 @@ using Microsoft.Extensions.Logging;
 using ACL.Database.Models;
 using Microsoft.Extensions.Localization;
 using Microsoft.AspNetCore.Mvc.Localization;
+using System.Globalization;
+using System.Resources;
+using System.Reflection;
 
 namespace ACL.Services
 {
@@ -24,9 +27,12 @@ namespace ACL.Services
         private ICacheService _cacheService;
         private IHttpContextAccessor _httpContextAccessor;
         private IConfiguration _config;
-        private ApplicationDbContext dbContext;
+        private IServiceCollection _services;
+        private ResourceManager _resourceManager;
+        private CultureInfo _cultureInfo;
+        private Assembly _assembly;
         public ILocalizationService LocalizationService { get; private set; }
-        public UnitOfWork(ApplicationDbContext context, ILoggerFactory loggerFactory, IHttpContextAccessor httpContextAccessor, ICacheService cacheService, IConfiguration config, ILocalizationService localizationService)
+        public UnitOfWork(ApplicationDbContext context, ILoggerFactory loggerFactory, IHttpContextAccessor httpContextAccessor, ICacheService cacheService, IConfiguration config, ILocalizationService localizationService, IServiceCollection services)
         {
             this.context = context;
             this._logger = loggerFactory.CreateLogger("Logs");
@@ -35,13 +41,36 @@ namespace ACL.Services
             this._logService = new LogService(this._logger, loggerFactory);
             this._config = config;
             LocalizationService = localizationService;
+            _services = services;
+            _services.AddSingleton(this);
+            _cultureInfo = SetCulture("en-US");
+            _assembly = SetAssembly(typeof(Program).Assembly);
+            _resourceManager = SetReourceManager(_cultureInfo, _assembly);
+            _services.AddSingleton<ILocalizationService>(new LocalizationService("ACL.Resources." + _cultureInfo.Name, _assembly, _cultureInfo.Name));
         }
 
         public UnitOfWork(ApplicationDbContext dbContext)
         {
-            this.dbContext = dbContext;
+            this.context = dbContext;
         }
-
+        public CultureInfo SetCulture(string culture)
+        {
+            return LocalizationService.SetCulture(culture);
+        }
+        public string GetLocalizedString(string key)
+        {
+            _cultureInfo = _cultureInfo ?? new CultureInfo("en-US");
+            _assembly = _assembly ?? typeof(Program).Assembly;
+            _resourceManager = _resourceManager ?? new ResourceManager("ACL.Resources." + _cultureInfo.Name, _assembly);
+            return _resourceManager.GetString(key, _cultureInfo);
+        }
+        public string GetLocalizedStringWithCulture(string key, CultureInfo culture)
+        {
+            _cultureInfo = culture;
+            _assembly = _assembly ?? typeof(Program).Assembly;
+            _resourceManager = new ResourceManager("ACL.Resources." + _cultureInfo.Name, _assembly);
+            return _resourceManager.GetString(key, _cultureInfo);
+        }
         public ApplicationDbContext ApplicationDbContext
         {
             get { return this.context; }
@@ -193,6 +222,15 @@ namespace ACL.Services
         public IExecutionStrategy CreateExecutionStrategy()
         {
             return ApplicationDbContext.Database.CreateExecutionStrategy();
+        }
+        public Assembly SetAssembly(Assembly assembly)
+        {
+            return LocalizationService.SetAssembly(assembly);
+        }
+        public ResourceManager SetReourceManager(CultureInfo resource, Assembly assembly)
+        {
+            assembly ??= Assembly.GetEntryAssembly();
+            return LocalizationService.SetReourceManager(resource, _assembly ?? assembly);
         }
     }
 }
