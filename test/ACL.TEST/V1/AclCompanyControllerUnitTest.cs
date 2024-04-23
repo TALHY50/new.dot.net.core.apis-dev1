@@ -210,10 +210,12 @@ namespace ACL.Tests
             #endregion Assert
 
         }
-        [Fact]
-        private AclCompanyCreateRequest GetCompanyCreateRequest()
+      
+        public AclCompanyCreateRequest GetCompanyCreateRequest()
         {
             var faker = new Faker();
+
+            // Generate random data for the company creation request
             return new AclCompanyCreateRequest
             {
                 name = faker.Company.CompanyName(),
@@ -226,22 +228,18 @@ namespace ACL.Tests
                 country = faker.Address.Country(),
                 postcode = faker.Address.ZipCode(),
                 phone = faker.Phone.PhoneNumber(),
-                timezone = faker.Random.Number(-12, 12), // Example for timezone
+                timezone = faker.Random.Number(-12, 12), // Convert to string if 'timezone' is a string
                 timezone_value = faker.Random.Word(),
                 logo = faker.Image.PicsumUrl(),
                 fax = faker.Phone.PhoneNumber(),
                 registration_no = faker.Random.AlphaNumeric(10),
                 tax_no = faker.Random.AlphaNumeric(10),
-                unique_column_name = (sbyte)faker.Random.Byte(), // Example for unique_column_name
+                unique_column_name = (sbyte)faker.Random.Byte(), // Ensure 'unique_column_name' is of correct type
                 email = faker.Internet.Email(),
                 password = faker.Internet.Password()
             };
-
-            return JsonConvert.DeserializeObject<AclCompanyCreateRequest>(json);
-
-
         }
-        [Fact]
+
         private AclCompanyEditRequest GetCompanyEditRequest()
         {
             var faker = new Faker();
@@ -279,12 +277,12 @@ namespace ACL.Tests
             //    unitOfWork.ApplicationDbContext = dbContext;
             //    // unitOfWork.LocalizationService = 
             //    var controller = new AclCompanyController(unitOfWork);
-                #region Act
+            #region Act
             //    // Act
             //    return (ulong)controller._unitOfWork.AclCompanyRepository.FirstOrDefault().Id;
             return unitOfWork.ApplicationDbContext.AclCompanies.FirstOrDefault().Id;
-                #endregion
-           // }
+            #endregion
+            // }
 
         }
     }
