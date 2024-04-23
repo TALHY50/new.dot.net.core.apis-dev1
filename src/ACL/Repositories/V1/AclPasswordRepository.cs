@@ -6,7 +6,7 @@ using ACL.Response.V1;
 using ACL.Utilities;
 using Microsoft.Extensions.Localization;
 using SharedLibrary.Services;
-using System.Runtime.Caching;
+using SharedLibrary.Utilities;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -84,7 +84,8 @@ namespace ACL.Repositories.V1
                 var uniqueKey = GenerateUniqueKey(aclUser.Email);
 
                 // add to cache
-                MemoryCaches(uniqueKey, request.email, tokenExpiryMinutes * 60);
+                //MemoryCaches(uniqueKey, request.email, tokenExpiryMinutes * 60);
+                CacheHelper.Set(uniqueKey, aclResponse.Data, tokenExpiryMinutes * 60);
 
                 //Send Notification to email. Not implemented yet
 
@@ -98,7 +99,7 @@ namespace ACL.Repositories.V1
 
         public async Task<AclResponse> VerifyToken(AclForgetPasswordTokenVerifyRequest request)
         {
-            if (!MemoryCacheExist(request.token))
+            if (!CacheHelper.Exist(request.token))
             {
                 aclResponse.Message = "Invalid Token";
                 aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
@@ -106,7 +107,7 @@ namespace ACL.Repositories.V1
             }
 
             // get email from cache by token
-            string email = GetValueFromMemoryCache(request.token);
+            string email = (string)CacheHelper.Get(request.token);
 
             // password update
             try
@@ -117,7 +118,7 @@ namespace ACL.Repositories.V1
                 await _unitOfWork.CompleteAsync();
                 await _unitOfWork.AclUserRepository.ReloadAsync(aclUser);
 
-                RemoveMemoryCacheByKey(request.token);
+                CacheHelper.Remove(request.token);
                 aclResponse.Message = "Password Reset Succesfully.";
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
@@ -148,31 +149,7 @@ namespace ACL.Repositories.V1
             }
         }
 
-        private void MemoryCaches(string uniqueKey, string email, int tokenExpiryMinutes)
-        {
-
-            DateTimeOffset expiryTime = DateTimeOffset.Now.AddMinutes(tokenExpiryMinutes);
-            MemoryCache cache = MemoryCache.Default;
-            cache.Add(uniqueKey, email, new CacheItemPolicy { AbsoluteExpiration = expiryTime });
-
-        }
-
-        private bool MemoryCacheExist(string uniqueKey)
-        {
-            MemoryCache cache = MemoryCache.Default;
-            return cache.Contains(uniqueKey);
-        }
-
-        private string GetValueFromMemoryCache(string token)
-        {
-            MemoryCache cache = MemoryCache.Default;
-            return cache.Get(token) as string;
-        }
-        private void RemoveMemoryCacheByKey(string key)
-        {
-            MemoryCache cache = MemoryCache.Default;
-            cache.Remove(key); ;
-        }
+       
 
     }
 }
