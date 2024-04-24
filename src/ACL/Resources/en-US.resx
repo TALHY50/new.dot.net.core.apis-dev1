@@ -138,7 +138,16 @@
   <data name="notFoundMessage" xml:space="preserve">
     <value>No data found.</value>
   </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
   <data name="Role" xml:space="preserve">
     <value>Role</value>
+  </data>
+  <data name="SubModule" xml:space="preserve">
+    <value>SubModule</value>
+  </data>
+  <data name="UserGroupRole" xml:space="preserve">
+    <value>User Group Role</value>
   </data>
 </root>
