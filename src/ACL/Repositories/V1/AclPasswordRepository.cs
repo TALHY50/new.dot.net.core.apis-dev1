@@ -4,7 +4,6 @@ using ACL.Interfaces.Repositories.V1;
 using ACL.Requests.V1;
 using ACL.Response.V1;
 using ACL.Utilities;
-using Microsoft.Extensions.Localization;
 using SharedLibrary.Services;
 using SharedLibrary.Utilities;
 
@@ -18,7 +17,6 @@ namespace ACL.Repositories.V1
         private string modelName = "Password";
         private int tokenExpiryMinutes = 60;
         public MessageResponse messageResponse;
-        IStringLocalizer<AclUser> _localizer;
         public AclPasswordRepository(IUnitOfWork _unitOfWork) : base(_unitOfWork)
         {
             aclResponse = new AclResponse();

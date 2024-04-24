@@ -5,7 +5,6 @@ using ACL.Requests.V1;
 using ACL.Response.V1;
 using ACL.Interfaces.Repositories.V1;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Localization;
 using ACL.Utilities;
 
 
@@ -15,8 +14,7 @@ namespace ACL.Repositories.V1
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
-        private string modelName = "User Group Role";
-        IStringLocalizer<AclUsergroupRole> _localizer;
+        private string modelName = "UserGroupRole";
         public AclUserGroupRoleRepository(IUnitOfWork _unitOfWork) :base(_unitOfWork) 
         {
             AppAuth.SetAuthInfo();

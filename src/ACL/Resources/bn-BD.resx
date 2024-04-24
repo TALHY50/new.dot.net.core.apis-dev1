@@ -138,7 +138,16 @@
   <data name="notFoundMessage" xml:space="preserve">
     <value>কোন তথ্য পাওয়া যায়নি।</value>
   </data>
+  <data name="Password" xml:space="preserve">
+    <value>পাসওয়ার্ড</value>
+  </data>
   <data name="Role" xml:space="preserve">
     <value>ভূমিকা</value>
+  </data>
+  <data name="SubModule" xml:space="preserve">
+    <value>উপমডিউল</value>
+  </data>
+  <data name="UserGroupRole" xml:space="preserve">
+    <value>ইউজার গ্রুপ ভূমিকা</value>
   </data>
 </root>
