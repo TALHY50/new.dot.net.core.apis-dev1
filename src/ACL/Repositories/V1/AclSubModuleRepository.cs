@@ -15,7 +15,7 @@ namespace ACL.Repositories.V1
         public AclSubModuleRepository(IUnitOfWork _unitOfWork) : base(_unitOfWork)
         {
             aclResponse = new AclResponse();
-            messageResponse = new MessageResponse(modelName);
+            messageResponse = new MessageResponse(modelName, _unitOfWork);
         }
 
         public async Task<AclResponse> GetAll()
@@ -58,7 +58,7 @@ namespace ACL.Repositories.V1
             var aclSubModule = await base.GetById(id);
             if (aclSubModule == null)
             {
-                aclResponse.Message = messageResponse.noFoundMessage;
+                aclResponse.Message = messageResponse.notFoundMessage;
                 return aclResponse;
             }
             try
@@ -90,7 +90,7 @@ namespace ACL.Repositories.V1
                 aclResponse.Message = messageResponse.fetchMessage;
                 if (aclSubModule == null)
                 {
-                    aclResponse.Message = messageResponse.noFoundMessage;
+                    aclResponse.Message = messageResponse.notFoundMessage;
                 }
 
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;

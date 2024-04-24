@@ -31,7 +31,7 @@ namespace ACL.Repositories.V1
         public AclCompanyRepository(IUnitOfWork _unitOfWork, IConfiguration config) : base(_unitOfWork)
         {
             aclResponse = new AclResponse();
-            messageResponse = new MessageResponse(modelName);
+            messageResponse = new MessageResponse(modelName, _unitOfWork);
             _config = config;
         }
 

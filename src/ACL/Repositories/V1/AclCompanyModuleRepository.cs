@@ -18,7 +18,7 @@ namespace ACL.Repositories.V1
         public AclCompanyModuleRepository(IUnitOfWork _unitOfWork) : base(_unitOfWork)
         {
             aclResponse = new AclResponse();
-            messageResponse = new MessageResponse(modelName);
+            messageResponse = new MessageResponse(modelName, _unitOfWork);
         }
         public async Task<AclResponse> FindById(ulong id)
         {
@@ -29,7 +29,7 @@ namespace ACL.Repositories.V1
                 aclResponse.Message = messageResponse.fetchMessage;
                 if (aclCompanyModule == null)
                 {
-                    aclResponse.Message = messageResponse.noFoundMessage;
+                    aclResponse.Message = messageResponse.notFoundMessage;
                 }
 
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
@@ -80,7 +80,7 @@ namespace ACL.Repositories.V1
                 }
                 else
                 {
-                    aclResponse.Message = messageResponse.noFoundMessage;
+                    aclResponse.Message = messageResponse.notFoundMessage;
                     aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
                 }
             }
@@ -104,7 +104,7 @@ namespace ACL.Repositories.V1
             }
             else
             {
-                aclResponse.Message = messageResponse.noFoundMessage;
+                aclResponse.Message = messageResponse.notFoundMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
             aclResponse.Timestamp = DateTime.Now;
@@ -141,7 +141,7 @@ namespace ACL.Repositories.V1
             }
             else
             {
-                aclResponse.Message = messageResponse.noFoundMessage;
+                aclResponse.Message = messageResponse.notFoundMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
             }
             aclResponse.Timestamp = DateTime.Now;

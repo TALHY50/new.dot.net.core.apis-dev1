@@ -7,8 +7,7 @@ using ACL.Utilities;
 using Microsoft.Extensions.Localization;
 using SharedLibrary.Services;
 using SharedLibrary.Utilities;
-using System.Security.Cryptography;
-using System.Text;
+
 
 
 namespace ACL.Repositories.V1
@@ -23,7 +22,7 @@ namespace ACL.Repositories.V1
         public AclPasswordRepository(IUnitOfWork _unitOfWork) : base(_unitOfWork)
         {
             aclResponse = new AclResponse();
-            messageResponse = new MessageResponse(modelName);
+            messageResponse = new MessageResponse(modelName, _unitOfWork);
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
         }
 
@@ -81,10 +80,9 @@ namespace ACL.Repositories.V1
             if (aclUser != null)
             {
                 // generate unique key
-                var uniqueKey = GenerateUniqueKey(aclUser.Email);
+                var uniqueKey = Helper.GenerateUniqueKey(aclUser.Email);
 
                 // add to cache
-                //MemoryCaches(uniqueKey, request.email, tokenExpiryMinutes * 60);
                 CacheHelper.Set(uniqueKey, aclResponse.Data, tokenExpiryMinutes * 60);
 
                 //Send Notification to email. Not implemented yet
@@ -131,23 +129,7 @@ namespace ACL.Repositories.V1
             return aclResponse;
 
         }
-        private string GenerateUniqueKey(string email)
-        {
-            // Hash the email address using SHA256
-            using (SHA256 sha256 = SHA256.Create())
-            {
-                byte[] hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(email));
-
-                // Convert the byte array to a hexadecimal string
-                StringBuilder builder = new StringBuilder();
-                foreach (byte b in hashedBytes)
-                {
-                    builder.Append(b.ToString("x2"));
-                }
-
-                return builder.ToString();
-            }
-        }
+        
 
        
 
