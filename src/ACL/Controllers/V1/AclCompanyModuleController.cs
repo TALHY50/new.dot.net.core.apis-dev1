@@ -23,30 +23,30 @@ namespace ACL.Controllers.V1
             _unitOfWork = unitOfWork;
         }
 
-        [HttpGet(AclRoutesUrl.AclCompanyModule.List, Name = AclRoutesName.AclCompanyModuleRouteNames.List)]
+        [HttpGet(AclRoutesUrl.AclCompanyModuleRouteUrl.List, Name = AclRoutesName.AclCompanyModuleRouteNames.List)]
         public async Task<AclResponse> Index()
         {
             return await _unitOfWork.AclCompanyModuleRepository.GetAll();
         }
 
-        [HttpPost(AclRoutesUrl.AclCompanyModule.Add, Name = AclRoutesName.AclCompanyModuleRouteNames.Add)]
+        [HttpPost(AclRoutesUrl.AclCompanyModuleRouteUrl.Add, Name = AclRoutesName.AclCompanyModuleRouteNames.Add)]
         public async Task<AclResponse> Create(AclCompanyModuleRequest request)
         {
             return await _unitOfWork.AclCompanyModuleRepository.AddAclCompanyModule(request);
         }
 
-        [HttpPut(AclRoutesUrl.AclCompanyModule.Edit, Name = AclRoutesName.AclCompanyModuleRouteNames.Edit)]
+        [HttpPut(AclRoutesUrl.AclCompanyModuleRouteUrl.Edit, Name = AclRoutesName.AclCompanyModuleRouteNames.Edit)]
         public async Task<AclResponse> Edit(ulong id, AclCompanyModuleRequest request)
         {
             return await _unitOfWork.AclCompanyModuleRepository.EditAclCompanyModule(id, request);
         }
-        [HttpGet(AclRoutesUrl.AclCompanyModule.View, Name = AclRoutesName.AclCompanyModuleRouteNames.View)]
+        [HttpGet(AclRoutesUrl.AclCompanyModuleRouteUrl.View, Name = AclRoutesName.AclCompanyModuleRouteNames.View)]
         public async Task<AclResponse> View(ulong id)
         {
             return await _unitOfWork.AclCompanyModuleRepository.FindById(id);
         }
 
-        [HttpDelete(AclRoutesUrl.AclCompanyModule.Destroy, Name = AclRoutesName.AclCompanyModuleRouteNames.Destroy)]
+        [HttpDelete(AclRoutesUrl.AclCompanyModuleRouteUrl.Destroy, Name = AclRoutesName.AclCompanyModuleRouteNames.Destroy)]
         public async Task<AclResponse> Destroy(ulong id)
         {
             return await _unitOfWork.AclCompanyModuleRepository.DeleteCompanyModule(id);

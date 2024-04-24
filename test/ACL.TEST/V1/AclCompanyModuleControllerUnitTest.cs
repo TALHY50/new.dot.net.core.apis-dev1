@@ -5,6 +5,7 @@ using ACL.Interfaces;
 using ACL.Requests;
 using ACL.Requests.V1;
 using ACL.Response.V1;
+using ACL.Route;
 using ACL.Services;
 using ACL.Tests;
 using Bogus;
@@ -19,6 +20,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static ACL.Route.AclRoutesUrl;
 
 namespace ACL.Tests.V1
 {
@@ -48,7 +50,7 @@ namespace ACL.Tests.V1
 
             #endregion
             #region Act
-            var request = new RestRequest("/company/modules", Method.Get);
+            var request = new RestRequest(AclRoutesUrl.AclCompanyModuleRouteUrl.List, Method.Get);
 
             //request.AddHeader("Authorization", "Bearer YOUR_TOKEN_HERE");
 
@@ -69,26 +71,12 @@ namespace ACL.Tests.V1
         public async Task Post_Add_Acl_Company()
         {
             #region  Arrange
-            //var id = getRandomID();
-            //// Create RestClient
-            //var client = new RestSharp.RestClient("https://localhost:7125/api/v1");
-
-            ////using (var dbContext = new ApplicationDbContext(_inMemoryDbContext))
-            ////{
-            ////    // Populate the in-memory database with test data
-            ////    dbContext.AclCompanies.AddRange(new List<AclCompany>
-            ////{
-            ////    new AclCompany{ Id = 1,AddedBy = 1,Address1 ="A",Address2 ="B",AverageTurnover=2.0,Cemail ="",City ="Dhaka",CmmiLevel = 1,Cname ="Porosh",Country="BD",Email="porosh@gmail.com",Fax="",Logo="",Name="Porosh",Phone="01672896992" ,Postcode ="1312",RegistrationNo="1234",State = "1",TaxNo="123456789",Timezone =1,TimezoneValue ="1",Status=1}
-            ////});
-            ////    dbContext.SaveChanges();
-            ////}
-
             AclCompanyModuleRequest createReq = GetCompanyModuleRequest();
 
             #endregion
             #region Act
             //// Create request
-            var req = new RestRequest("/company/modules/add", Method.Post);
+            var req = new RestRequest(AclRoutesUrl.AclCompanyModuleRouteUrl.Add, Method.Post);
             //Add request body
             req.AddBody(createReq);
 
@@ -130,7 +118,7 @@ namespace ACL.Tests.V1
             #endregion
             #region Act
             //// Create request
-            var req = new RestRequest("/company/modules/delete/" + id, Method.Delete);
+            var req = new RestRequest(AclCompanyModuleRouteUrl.Destroy.Replace("{id}", id.ToString()), Method.Delete);
             //Add request body
 
             //// Add headers
@@ -154,16 +142,10 @@ namespace ACL.Tests.V1
             #region  Arrange
             AclCompanyModuleRequest editReq = GetCompanyModuleRequest();
             var id = getRandomID();
-            //// Create RestClient
-            //var client = new RestSharp.RestClient("https://localhost:7125/api/v1");
-
-
-
-
             #endregion
             #region Act
             //// Create request
-            var req = new RestRequest("/company/modules/edit/" + id, Method.Put);
+            var req = new RestRequest(AclCompanyModuleRouteUrl.Edit.Replace("{id}", id.ToString()), Method.Put);
             //Add request body
             req.AddBody(editReq);
 
@@ -188,11 +170,9 @@ namespace ACL.Tests.V1
         {
             #region  Arrange
             var id = getRandomID();
-            // AclCompanyCreateRequest createReq = GetCompanyCreateRequest();
-
             #endregion
             #region Act
-            var request = new RestRequest("/company/modules/view/" + id, Method.Get);
+            var request = new RestRequest(AclCompanyModuleRouteUrl.View.Replace("{id}", id.ToString()), Method.Get);
 
             //request.AddHeader("Authorization", "Bearer YOUR_TOKEN_HERE");
 
@@ -234,17 +214,8 @@ namespace ACL.Tests.V1
 
         private ulong getRandomID()
         {
-
-            //using (var dbContext = (dbConnector.dbContext))
-            //{
-            //    // Use a genuine instance of UnitOfWork
-            //    var unitOfWork = new UnitOfWork(dbContext);
-            //    unitOfWork.ApplicationDbContext = dbContext;
-            //    // unitOfWork.LocalizationService = 
-            //    var controller = new AclCompanyController(unitOfWork);
             #region Act
             //    // Act
-            //    return (ulong)controller._unitOfWork.AclCompanyRepository.FirstOrDefault().Id;
             return unitOfWork.ApplicationDbContext.AclCompanyModules.Last().Id;
             #endregion
             // }

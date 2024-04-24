@@ -20,7 +20,7 @@
             public const string View = ModelName + "/view/{id}";
             public const string Destroy = ModelName + "/delete/{id}";
         }
-        public class AclCompanyModule
+        public class AclCompanyModuleRouteUrl
         {
             public const string ModelName = Base + "company/modules";
             public const string List = ModelName;
@@ -38,7 +38,7 @@
             public const string View = ModelName + "/view/{id}";
             public const string Destroy = ModelName + "/delete/{id}";
         }
-        public class AclRolePage
+        public class AclRolePageRouteUrl
         {
             public const string ModelName = Base + "roles/pages";
             public const string List = ModelName + "/{id}";
