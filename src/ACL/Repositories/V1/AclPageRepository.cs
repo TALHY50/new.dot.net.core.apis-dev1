@@ -18,7 +18,7 @@ namespace ACL.Repositories.V1
         public AclPageRepository(IUnitOfWork _unitOfWork) : base(_unitOfWork)
         {
             aclResponse = new AclResponse();
-            messageResponse = new MessageResponse(modelName);
+            messageResponse = new MessageResponse(modelName, _unitOfWork);
             
         }
         public  AclResponse GetAll()
@@ -86,7 +86,7 @@ namespace ACL.Repositories.V1
                 aclResponse.Message = Helper.__(messageResponse.fetchMessage);
                 if (aclPage == null)
                 {
-                    aclResponse.Message = Helper.__(messageResponse.noFoundMessage);
+                    aclResponse.Message = Helper.__(messageResponse.notFoundMessage);
                 }
 
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
@@ -175,7 +175,7 @@ namespace ACL.Repositories.V1
                 }
                 else
                 {
-                    aclResponse.Message = Helper.__(messageResponse.noFoundMessage);
+                    aclResponse.Message = Helper.__(messageResponse.notFoundMessage);
                     aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
                     return aclResponse;
                 }

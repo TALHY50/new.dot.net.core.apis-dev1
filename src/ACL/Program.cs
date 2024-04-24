@@ -125,8 +125,10 @@ app.UseRequestLocalization();
 //    app.UseSwaggerUI();
 //}
 app.UseSwagger();
-app.UseSwaggerUI();
-
+app.UseSwaggerUI(options =>
+{
+    options.DefaultModelsExpandDepth(-1);
+});
 
 app.UseMiddleware<RequestResponseLoggingMiddleware>();
 app.UseSerilogRequestLogging();

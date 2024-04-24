@@ -21,7 +21,7 @@ namespace ACL.Repositories.V1
         {
             AppAuth.SetAuthInfo();
             aclResponse = new AclResponse();
-            messageResponse = new MessageResponse(modelName);
+            messageResponse = new MessageResponse(modelName, _unitOfWork);
            
         }
 

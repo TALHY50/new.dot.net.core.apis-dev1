@@ -18,7 +18,7 @@ namespace ACL.Repositories.V1
         public AclRolePageRepository(IUnitOfWork _unitOfWork) : base(_unitOfWork)
         {
             aclResponse = new AclResponse();
-            messageResponse = new MessageResponse(modelName);
+            messageResponse = new MessageResponse(modelName, _unitOfWork);
         }
 
         public async Task<AclResponse> GetAllById(ulong id)
@@ -31,7 +31,7 @@ namespace ACL.Repositories.V1
             }
             else
             {
-                aclResponse.Message = messageResponse.noFoundMessage;
+                aclResponse.Message = messageResponse.notFoundMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
             }
             aclResponse.Data = res;
@@ -69,7 +69,7 @@ namespace ACL.Repositories.V1
             }
             else
             {
-                aclResponse.Message = messageResponse.noFoundMessage;
+                aclResponse.Message = messageResponse.notFoundMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
             }
 

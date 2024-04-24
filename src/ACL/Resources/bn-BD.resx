@@ -135,7 +135,10 @@
   <data name="fetchMessage" xml:space="preserve">
     <value>সফলভাবে আনা হয়েছে।</value>
   </data>
-  <data name="noFoundMessage" xml:space="preserve">
+  <data name="notFoundMessage" xml:space="preserve">
     <value>কোন তথ্য পাওয়া যায়নি।</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>ভূমিকা</value>
   </data>
 </root>
