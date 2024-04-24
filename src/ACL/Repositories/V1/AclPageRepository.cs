@@ -61,7 +61,7 @@ namespace ACL.Repositories.V1
             var aclPage = await base.GetById(id);
             if (aclPage == null)
             {
-                aclResponse.Message = messageResponse.noFoundMessage;
+                aclResponse.Message = messageResponse.notFoundMessage;
                 return aclResponse;
             }
 
