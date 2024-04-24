@@ -135,7 +135,10 @@
   <data name="fetchMessage" xml:space="preserve">
     <value>fetched succesfully</value>
   </data>
-  <data name="noFoundMessage" xml:space="preserve">
+  <data name="notFoundMessage" xml:space="preserve">
     <value>No data found.</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>Role</value>
   </data>
 </root>

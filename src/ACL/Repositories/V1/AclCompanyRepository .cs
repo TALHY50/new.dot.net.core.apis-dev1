@@ -14,6 +14,7 @@ using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.DependencyInjection;
 using ACL.Services.Interface;
 using ACL.Services;
+using System.Globalization;
 
 
 namespace ACL.Repositories.V1
@@ -30,7 +31,7 @@ namespace ACL.Repositories.V1
         public AclCompanyRepository(IUnitOfWork _unitOfWork, IConfiguration config, ILocalizationService localizationService) : base(_unitOfWork)
         {
             aclResponse = new AclResponse();
-            messageResponse = new MessageResponse(modelName);
+            messageResponse = new MessageResponse(modelName, _unitOfWork);
             _config = config;
             _localizationService = localizationService;
         }
@@ -52,7 +53,7 @@ namespace ACL.Repositories.V1
                 }
                 if (aclCompany == null)
                 {
-                    aclResponse.Message = messageResponse.noFoundMessage;
+                    aclResponse.Message = messageResponse.notFoundMessage;
                 }
 
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
@@ -217,7 +218,7 @@ namespace ACL.Repositories.V1
                 }
                 else
                 {
-                    aclResponse.Message = messageResponse.noFoundMessage;
+                    aclResponse.Message = messageResponse.notFoundMessage;
                     aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
                 }
             }
@@ -238,7 +239,8 @@ namespace ACL.Repositories.V1
             {
                 try
                 {
-                    aclResponse.Message = _unitOfWork.LocalizationService.GetLocalizedString(modelName) + " " + _unitOfWork.LocalizationService.GetLocalizedString("fetchMessage");
+                    //aclResponse.Message = _unitOfWork.GetLocalizedString(modelName) + " " + _unitOfWork.GetLocalizedStringWithCulture("fetchMessage",new CultureInfo("bn-BD")); 
+                    aclResponse.Message = _unitOfWork.GetLocalizedString(modelName) + " " + _unitOfWork.GetLocalizedString("fetchMessage");
                 }
                 catch (Exception)
                 {
@@ -251,11 +253,11 @@ namespace ACL.Repositories.V1
             {
                 try
                 {
-                    aclResponse.Message = _unitOfWork.LocalizationService.GetLocalizedString("noFoundMessage");
+                    aclResponse.Message = messageResponse.notFoundMessage; 
                 }
                 catch (Exception)
                 {
-                    aclResponse.Message = messageResponse.noFoundMessage;
+                    aclResponse.Message = messageResponse.notFoundMessage;
                 }
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
@@ -291,11 +293,11 @@ namespace ACL.Repositories.V1
             {
                 try
                 {
-                    aclResponse.Message = _unitOfWork.LocalizationService.GetLocalizedString("noFoundMessage");
+                    aclResponse.Message = messageResponse.notFoundMessage; 
                 }
                 catch (Exception)
                 {
-                    aclResponse.Message = messageResponse.noFoundMessage;
+                    aclResponse.Message = messageResponse.notFoundMessage;
                 }
                 aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
             }

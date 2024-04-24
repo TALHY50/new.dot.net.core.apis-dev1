@@ -16,7 +16,7 @@ namespace ACL.Repositories.V1
         public AclRoleRepository(IUnitOfWork _unitOfWork) : base(_unitOfWork)
         {
             aclResponse = new AclResponse();
-            messageResponse = new MessageResponse(modelName);
+            messageResponse = new MessageResponse(modelName, _unitOfWork);
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
         }
 
@@ -58,7 +58,7 @@ namespace ACL.Repositories.V1
             var aclRole = await base.GetById(id);
             if (aclRole == null)
             {
-                aclResponse.Message = messageResponse.noFoundMessage;
+                aclResponse.Message = messageResponse.notFoundMessage;
                 return aclResponse;
             }
             try
@@ -88,7 +88,7 @@ namespace ACL.Repositories.V1
                 aclResponse.Message = messageResponse.fetchMessage;
                 if (aclRole == null)
                 {
-                    aclResponse.Message = messageResponse.noFoundMessage;
+                    aclResponse.Message = messageResponse.notFoundMessage;
                 }
 
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;

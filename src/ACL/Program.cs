@@ -55,7 +55,7 @@ builder.Services.AddTransient<IStringLocalizer>(sp =>
     return localizer;
 });
 builder.Services.AddTransient<IStringLocalizerFactory, ResourceManagerStringLocalizerFactory>();
-builder.Services.AddSingleton<ILocalizationService>(new LocalizationService("ACL.Resources.en-US", typeof(Program).Assembly, "en-US"));
+//builder.Services.AddSingleton<ILocalizationService>(new LocalizationService("ACL.Resources.en-US", typeof(Program).Assembly, "en-US"));
 Env.NoClobber().TraversePath().Load();
 
 var server = Env.GetString("DB_HOST");
@@ -119,13 +119,16 @@ var app = builder.Build();
 
 app.UseRequestLocalization();
 
-if (app.Environment.IsDevelopment())
+//if (app.Environment.IsDevelopment())
+//{
+//    app.UseSwagger();
+//    app.UseSwaggerUI();
+//}
+app.UseSwagger();
+app.UseSwaggerUI(options =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-
+    options.DefaultModelsExpandDepth(-1);
+});
 
 app.UseMiddleware<RequestResponseLoggingMiddleware>();
 app.UseSerilogRequestLogging();

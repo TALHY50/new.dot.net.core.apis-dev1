@@ -6,9 +6,8 @@ using ACL.Response.V1;
 using ACL.Utilities;
 using Microsoft.Extensions.Localization;
 using SharedLibrary.Services;
-using System.Runtime.Caching;
-using System.Security.Cryptography;
-using System.Text;
+using SharedLibrary.Utilities;
+
 
 
 namespace ACL.Repositories.V1
@@ -23,7 +22,7 @@ namespace ACL.Repositories.V1
         public AclPasswordRepository(IUnitOfWork _unitOfWork) : base(_unitOfWork)
         {
             aclResponse = new AclResponse();
-            messageResponse = new MessageResponse(modelName);
+            messageResponse = new MessageResponse(modelName, _unitOfWork);
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
         }
 
@@ -81,10 +80,10 @@ namespace ACL.Repositories.V1
             if (aclUser != null)
             {
                 // generate unique key
-                var uniqueKey = GenerateUniqueKey(aclUser.Email);
+                var uniqueKey = Helper.GenerateUniqueKey(aclUser.Email);
 
                 // add to cache
-                MemoryCaches(uniqueKey, request.email, tokenExpiryMinutes * 60);
+                CacheHelper.Set(uniqueKey, aclResponse.Data, tokenExpiryMinutes * 60);
 
                 //Send Notification to email. Not implemented yet
 
@@ -98,7 +97,7 @@ namespace ACL.Repositories.V1
 
         public async Task<AclResponse> VerifyToken(AclForgetPasswordTokenVerifyRequest request)
         {
-            if (!MemoryCacheExist(request.token))
+            if (!CacheHelper.Exist(request.token))
             {
                 aclResponse.Message = "Invalid Token";
                 aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
@@ -106,7 +105,7 @@ namespace ACL.Repositories.V1
             }
 
             // get email from cache by token
-            string email = GetValueFromMemoryCache(request.token);
+            string email = (string)CacheHelper.Get(request.token);
 
             // password update
             try
@@ -117,7 +116,7 @@ namespace ACL.Repositories.V1
                 await _unitOfWork.CompleteAsync();
                 await _unitOfWork.AclUserRepository.ReloadAsync(aclUser);
 
-                RemoveMemoryCacheByKey(request.token);
+                CacheHelper.Remove(request.token);
                 aclResponse.Message = "Password Reset Succesfully.";
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
@@ -130,49 +129,9 @@ namespace ACL.Repositories.V1
             return aclResponse;
 
         }
-        private string GenerateUniqueKey(string email)
-        {
-            // Hash the email address using SHA256
-            using (SHA256 sha256 = SHA256.Create())
-            {
-                byte[] hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(email));
+        
 
-                // Convert the byte array to a hexadecimal string
-                StringBuilder builder = new StringBuilder();
-                foreach (byte b in hashedBytes)
-                {
-                    builder.Append(b.ToString("x2"));
-                }
-
-                return builder.ToString();
-            }
-        }
-
-        private void MemoryCaches(string uniqueKey, string email, int tokenExpiryMinutes)
-        {
-
-            DateTimeOffset expiryTime = DateTimeOffset.Now.AddMinutes(tokenExpiryMinutes);
-            MemoryCache cache = MemoryCache.Default;
-            cache.Add(uniqueKey, email, new CacheItemPolicy { AbsoluteExpiration = expiryTime });
-
-        }
-
-        private bool MemoryCacheExist(string uniqueKey)
-        {
-            MemoryCache cache = MemoryCache.Default;
-            return cache.Contains(uniqueKey);
-        }
-
-        private string GetValueFromMemoryCache(string token)
-        {
-            MemoryCache cache = MemoryCache.Default;
-            return cache.Get(token) as string;
-        }
-        private void RemoveMemoryCacheByKey(string key)
-        {
-            MemoryCache cache = MemoryCache.Default;
-            cache.Remove(key); ;
-        }
+       
 
     }
 }
