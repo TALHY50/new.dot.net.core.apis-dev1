@@ -1,5 +1,4 @@
-﻿
-using ACL.Services;
+﻿using ACL.Services;
 using System.Data;
 using ACL.Database;
 using ACL.Interfaces.Repositories.V1;
@@ -25,6 +24,7 @@ namespace ACL.Interfaces
         ILogService LogService { get; set; }
         ILocalizationService LocalizationService { get; }
         IAclCompanyRepository AclCompanyRepository { get; }
+        IConfiguration Config { get; }
         IAclCompanyModuleRepository AclCompanyModuleRepository { get; }
         IAclModuleRepository AclModuleRepository { get; }
         IAclSubModuleRepository AclSubModuleRepository { get; }
@@ -54,5 +54,6 @@ namespace ACL.Interfaces
         CultureInfo SetCulture(string culture);
         ResourceManager SetReourceManager(CultureInfo resource, Assembly assembly);
         Assembly SetAssembly(Assembly assembly);
+       
     }
 }

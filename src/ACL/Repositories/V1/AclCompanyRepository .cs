@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using ACL.Services.Interface;
 using ACL.Services;
 using System.Globalization;
+using System.Net;
 
 
 namespace ACL.Repositories.V1
@@ -25,48 +26,38 @@ namespace ACL.Repositories.V1
         public MessageResponse messageResponse;
         private string modelName = "Company";
         private IConfiguration _config;
-        private readonly ILocalizationService _localizationService;
 
 
-        public AclCompanyRepository(IUnitOfWork _unitOfWork, IConfiguration config, ILocalizationService localizationService) : base(_unitOfWork)
+        public AclCompanyRepository(IUnitOfWork _unitOfWork, IConfiguration config) : base(_unitOfWork)
         {
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName);
             _config = config;
-            _localizationService = localizationService;
         }
 
         public async Task<AclResponse> FindById(ulong id)
         {
+            var aclResponse = new AclResponse();
+
             try
             {
                 var aclCompany = await base.GetById(id);
+
                 aclResponse.Data = aclCompany;
-
-                try
-                {
-                    aclResponse.Message = _unitOfWork.LocalizationService.GetLocalizedString(modelName) + " " + _unitOfWork.LocalizationService.GetLocalizedString("fetchMessage");
-                }
-                catch (Exception)
-                {
-                    aclResponse.Message = messageResponse.fetchMessage;
-                }
-                if (aclCompany == null)
-                {
-                    aclResponse.Message = messageResponse.noFoundMessage;
-                }
-
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                aclResponse.Message = aclCompany != null ? messageResponse.fetchMessage : messageResponse.noFoundMessage;
+                aclResponse.StatusCode = aclCompany != null ? HttpStatusCode.OK : HttpStatusCode.NotFound;
             }
             catch (Exception ex)
             {
-                _unitOfWork.Logger.LogError(ex, "Error at COMPANY_FIND", new { data = id, message = ex.Message, });
+                _unitOfWork.Logger.LogError(ex, "Error at COMPANY_FIND", new { data = id, message = ex.Message });
                 aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                aclResponse.StatusCode = HttpStatusCode.BadRequest;
             }
+
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
         }
+
 
         public async Task<AclResponse> AddAclCompany(AclCompanyCreateRequest request)
         {
@@ -88,7 +79,7 @@ namespace ACL.Repositories.V1
 
                             if (aclCompany.Id != 0)
                             {
-                                UserGroupRequest userGroupRequest = new UserGroupRequest()
+                                AclUserGroupRequest userGroupRequest = new AclUserGroupRequest()
                                 {
                                     group_name = _config["USER_GROUP_NAME"],
                                     status = 1
@@ -161,15 +152,9 @@ namespace ACL.Repositories.V1
 
                             aclResponse.Data = aclCompany;
 
-                            try
-                            {
-                                aclResponse.Message = _unitOfWork.LocalizationService.GetLocalizedString(modelName) + " " + _unitOfWork.LocalizationService.GetLocalizedString("createMessage");
-                            }
-                            catch (Exception)
-                            {
-                                aclResponse.Message = messageResponse.fetchMessage;
-                            }
-                            aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                            aclResponse.Message = aclCompany != null ? messageResponse.createMessage : messageResponse.noFoundMessage;
+
+                            aclResponse.StatusCode = aclCompany != null ? HttpStatusCode.OK : HttpStatusCode.BadRequest;
 
                             await transaction.CommitAsync();
                         }
@@ -198,29 +183,14 @@ namespace ACL.Repositories.V1
             try
             {
                 var _aclCompany = await base.GetById(Id);
-                if (_aclCompany != null)
-                {
-                    _aclCompany = PrepareInputData(null, request, _aclCompany);
-                    await base.UpdateAsync(_aclCompany);
-                    await _unitOfWork.CompleteAsync();
-                    await base.ReloadAsync(_aclCompany);
-                    aclResponse.Data = _aclCompany;
-                    try
-                    {
-                        aclResponse.Message = _unitOfWork.LocalizationService.GetLocalizedString(modelName) + " " + _unitOfWork.LocalizationService.GetLocalizedString("editMessage");
-                    }
-                    catch (Exception)
-                    {
-                        aclResponse.Message = messageResponse.fetchMessage;
-                    }
+                _aclCompany = PrepareInputData(null, request, _aclCompany);
+                await base.UpdateAsync(_aclCompany);
+                await _unitOfWork.CompleteAsync();
+                await base.ReloadAsync(_aclCompany);
+                aclResponse.Data = _aclCompany;
+                aclResponse.Message = _aclCompany != null ? messageResponse.createMessage : messageResponse.noFoundMessage;
 
-                    aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
-                }
-                else
-                {
-                    aclResponse.Message = messageResponse.noFoundMessage;
-                    aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
-                }
+                aclResponse.StatusCode = _aclCompany != null ? HttpStatusCode.OK : HttpStatusCode.BadRequest;
             }
             catch (Exception ex)
             {
@@ -237,30 +207,12 @@ namespace ACL.Repositories.V1
             var aclCompany = await base.Where(b => b.Status == 1).ToListAsync();
             if (aclCompany.Any())
             {
-                try
-                {
-                    //aclResponse.Message = _unitOfWork.GetLocalizedString(modelName) + " " + _unitOfWork.GetLocalizedStringWithCulture("fetchMessage",new CultureInfo("bn-BD")); 
-                    aclResponse.Message = _unitOfWork.GetLocalizedString(modelName) + " " + _unitOfWork.GetLocalizedString("fetchMessage");
-                }
-                catch (Exception)
-                {
-                    aclResponse.Message = messageResponse.fetchMessage;
-                }
+
                 aclResponse.Data = aclCompany;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
-            else
-            {
-                try
-                {
-                    aclResponse.Message = _unitOfWork.LocalizationService.GetLocalizedString("noFoundMessage");
-                }
-                catch (Exception)
-                {
-                    aclResponse.Message = messageResponse.noFoundMessage;
-                }
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
-            }
+            aclResponse.Message = aclCompany != null ? messageResponse.fetchMessage : messageResponse.noFoundMessage;
+            aclResponse.StatusCode = aclCompany != null ? HttpStatusCode.OK : HttpStatusCode.NotFound;
             aclResponse.Timestamp = DateTime.Now;
 
             return aclResponse;
@@ -277,30 +229,9 @@ namespace ACL.Repositories.V1
                 await base.UpdateAsync(aclCompany);
                 await _unitOfWork.CompleteAsync();
                 aclResponse.Data = aclCompany;
-                try
-                {
-                    aclResponse.Message = _unitOfWork.LocalizationService.GetLocalizedString(modelName) + " " + _unitOfWork.LocalizationService.GetLocalizedString("deleteMessage");
-                }
-                catch (Exception)
-                {
-
-                    aclResponse.Message = messageResponse.deleteMessage;
-
-                }
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
-            else
-            {
-                try
-                {
-                    aclResponse.Message = _unitOfWork.LocalizationService.GetLocalizedString("noFoundMessage");
-                }
-                catch (Exception)
-                {
-                    aclResponse.Message = messageResponse.noFoundMessage;
-                }
-                aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
-            }
+            aclResponse.Message = aclCompany != null ? messageResponse.fetchMessage : messageResponse.noFoundMessage;
+            aclResponse.StatusCode = aclCompany != null ? HttpStatusCode.OK : HttpStatusCode.NotFound;
             aclResponse.Timestamp = DateTime.Now;
 
             return aclResponse;

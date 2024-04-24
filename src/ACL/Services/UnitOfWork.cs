@@ -26,7 +26,6 @@ namespace ACL.Services
         private ILogService _logService;
         private ICacheService _cacheService;
         private IHttpContextAccessor _httpContextAccessor;
-        private IConfiguration _config;
         private IServiceCollection _services;
         private ResourceManager _resourceManager;
         private CultureInfo _cultureInfo;
@@ -39,7 +38,6 @@ namespace ACL.Services
             this._httpContextAccessor = httpContextAccessor;
             this._cacheService = cacheService;
             this._logService = new LogService(this._logger, loggerFactory);
-            this._config = config;
             LocalizationService = localizationService;
             _services = services;
             _services.AddSingleton(this);
@@ -86,11 +84,6 @@ namespace ACL.Services
             set { this._logger = value; }
         }
 
-        public IConfiguration Config
-        {
-            get { return this._config; }
-            set { this._config = value; }
-        }
 
         public ILogService LogService
         {
@@ -105,6 +98,17 @@ namespace ACL.Services
             set { this._cacheService = value; }
         }
 
+        public IConfiguration Config
+        {
+            get
+            {
+                return new ConfigurationBuilder()
+.SetBasePath(Directory.GetCurrentDirectory())
+.AddJsonFile("appsettings.json")
+.Build();
+            }
+
+        }
         public IAclCompanyModuleRepository AclCompanyModuleRepository
         {
             get { return new AclCompanyModuleRepository(this); }
@@ -112,7 +116,7 @@ namespace ACL.Services
         }
         public IAclCompanyRepository AclCompanyRepository
         {
-            get { return new AclCompanyRepository(this, _config, LocalizationService); }
+            get { return new AclCompanyRepository(this, Config); }
 
         }
 
@@ -206,7 +210,7 @@ namespace ACL.Services
 
         public IAclUserRepository AclUserRepository
         {
-            get { return new AclUserRepository(this, _config); }
+            get { return new AclUserRepository(this, Config); }
         }
 
         public IAclUserGroupRepository AclUserGroupRepository

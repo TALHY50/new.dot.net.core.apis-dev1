@@ -37,7 +37,7 @@ namespace ACL.Repositories.V1
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
         }
-        public async Task<AclResponse> AddUserGroup(UserGroupRequest usergroup)
+        public async Task<AclResponse> AddUserGroup(AclUserGroupRequest usergroup)
         {
             try
             {
@@ -58,7 +58,7 @@ namespace ACL.Repositories.V1
             return aclResponse;
         }
 
-        public async Task<AclResponse> UpdateUserGroup(ulong id, UserGroupRequest usergroup)
+        public async Task<AclResponse> UpdateUserGroup(ulong id, AclUserGroupRequest usergroup)
         {
             var result = await _dbSet.FindAsync(id);
             if (result != null)
@@ -117,7 +117,7 @@ namespace ACL.Repositories.V1
             return aclResponse;
         }
 
-        public AclUsergroup PrepareInputData(UserGroupRequest request, AclUsergroup aclUsergroup = null)
+        public AclUsergroup PrepareInputData(AclUserGroupRequest request, AclUsergroup aclUsergroup = null)
         {
             var _aclInstance = aclUsergroup ?? new AclUsergroup();
 

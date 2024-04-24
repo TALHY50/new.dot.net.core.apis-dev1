@@ -18,7 +18,7 @@ namespace ACL.Repositories.V1
         private uint _userType = 0;
         private bool is_user_type_created_by_company = false;
         private IConfiguration _config;
-        public AclUserRepository(IUnitOfWork _unitOfWork,IConfiguration config) : base(_unitOfWork)
+        public AclUserRepository(IUnitOfWork _unitOfWork, IConfiguration config) : base(_unitOfWork)
         {
             _config = config;
             aclResponse = new AclResponse();
@@ -242,7 +242,9 @@ namespace ACL.Repositories.V1
         }
         public uint SetUserType(bool is_user_type_created_by_company)
         {
+
             return _userType = is_user_type_created_by_company ? uint.Parse(_config["USER_TYPE_S_ADMIN"]) : uint.Parse(_config["USER_TYPE_USER"]);
         }
+
     }
 }

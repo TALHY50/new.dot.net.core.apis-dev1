@@ -8,11 +8,11 @@ namespace ACL.Controllers.V1
 {
     [Tags("User Group")]
     [ApiController]
-    public class UserGroupController : Controller
+    public class AclUserGroupController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public UserGroupController(IUnitOfWork unitOfWork)
+        public AclUserGroupController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
@@ -23,13 +23,13 @@ namespace ACL.Controllers.V1
         }
 
         [HttpPost(AclRoutesUrl.AclUserGroupRoutesUrl.Add, Name = AclRoutesName.AclUserGroupRouteNames.Add)]
-        public async Task<AclResponse> Create(UserGroupRequest request)
+        public async Task<AclResponse> Create(AclUserGroupRequest request)
         {
             return await _unitOfWork.AclUserGroupRepository.AddUserGroup(request);
         }
 
         [HttpPut(AclRoutesUrl.AclUserGroupRoutesUrl.Edit, Name = AclRoutesName.AclUserGroupRouteNames.Edit)]
-        public async Task<AclResponse> Edit(ulong id, UserGroupRequest request)
+        public async Task<AclResponse> Edit(ulong id, AclUserGroupRequest request)
         {
             return await _unitOfWork.AclUserGroupRepository.UpdateUserGroup(id, request);
         }
