@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ACL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240425061749_init Migration With Seeded Country,State And Branch Added")]
-    partial class initMigrationWithSeededCountryStateAndBranchAdded
+    [Migration("20240425135849_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

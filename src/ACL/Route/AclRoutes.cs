@@ -63,7 +63,7 @@
         }
         public class AclSubmodule
         {
-            public const string ModelName = Base +"submodules";
+            public const string ModelName = Base + "submodules";
             public const string List = ModelName;
             public const string Add = ModelName + "/add";
             public const string Edit = ModelName + "/edit/{id}";
@@ -72,7 +72,7 @@
         }
         public class AclRole
         {
-            public const string ModelName = Base +"roles";
+            public const string ModelName = Base + "roles";
             public const string List = ModelName;
             public const string Add = ModelName + "/add";
             public const string Edit = ModelName + "/edit/{id}";
@@ -111,6 +111,16 @@
             public const string Forget = ModelName + "/forget";
             public const string VerifyToken = ModelName + "/forget/verify";
 
+        }
+
+        public class AclCountry
+        {
+            public const string ModelName = Base + "countries";
+            public const string List = ModelName;
+            public const string Add = ModelName + "/add";
+            public const string Edit = ModelName + "/edit/{id}";
+            public const string View = ModelName + "/view/{id}";
+            public const string Destroy = ModelName + "/delete/{id}";
         }
 
     }
@@ -214,6 +224,16 @@
             public const string Forget = "acl.forget.password";
             public const string VerifyToken = "acl.verify.token.and.update.password";
 
+        }
+
+        public class AclCountryNames
+        {
+            public const string ModelName = "acl.countries.";
+            public const string List = ModelName + "list";
+            public const string Add = ModelName + "add";
+            public const string View = ModelName + "view";
+            public const string Edit = ModelName + "edit";
+            public const string Destroy = ModelName + "destroy";
         }
 
     }

@@ -124,6 +124,11 @@ namespace ACL.Services
         {
             get { return new AclRolePageRepository(this); }
 
+        }       
+        public IAclCountryRepository AclCountryRepository
+        {
+            get { return new AclCountryRepository(this); }
+
         }
 
         public IAclModuleRepository AclModuleRepository
