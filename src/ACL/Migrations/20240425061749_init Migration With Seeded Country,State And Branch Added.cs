@@ -9,12 +9,38 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ACL.Migrations
 {
     /// <inheritdoc />
-    public partial class InitMigrationWithSeeder : Migration
+    public partial class initMigrationWithSeededCountryStateAndBranchAdded : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterDatabase()
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "acl_branches",
+                columns: table => new
+                {
+                    id = table.Column<ulong>(type: "bigint unsigned", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    company_id = table.Column<ulong>(type: "bigint unsigned", nullable: false),
+                    name = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    address = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    status = table.Column<byte>(type: "tinyint unsigned", nullable: false),
+                    sequence = table.Column<ulong>(type: "bigint unsigned", nullable: false),
+                    created_by_id = table.Column<ulong>(type: "bigint unsigned", nullable: false),
+                    updated_by_id = table.Column<ulong>(type: "bigint unsigned", nullable: false),
+                    created_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    updated_at = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_acl_branches", x => x.id);
+                })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
@@ -92,6 +118,32 @@ namespace ACL.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PRIMARY", x => x.id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "acl_countries",
+                columns: table => new
+                {
+                    id = table.Column<ulong>(type: "bigint unsigned", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    company_id = table.Column<ulong>(type: "bigint unsigned", nullable: false),
+                    name = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    code = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    status = table.Column<byte>(type: "tinyint unsigned", nullable: false),
+                    sequence = table.Column<ulong>(type: "bigint unsigned", nullable: false),
+                    created_by_id = table.Column<ulong>(type: "bigint unsigned", nullable: false),
+                    updated_by_id = table.Column<ulong>(type: "bigint unsigned", nullable: false),
+                    created_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    updated_at = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_acl_countries", x => x.id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -197,6 +249,31 @@ namespace ACL.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PRIMARY", x => x.id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "acl_states",
+                columns: table => new
+                {
+                    id = table.Column<ulong>(type: "bigint unsigned", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    company_id = table.Column<ulong>(type: "bigint unsigned", nullable: false),
+                    country_id = table.Column<ulong>(type: "bigint unsigned", nullable: false),
+                    name = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    status = table.Column<byte>(type: "tinyint unsigned", nullable: false),
+                    sequence = table.Column<ulong>(type: "bigint unsigned", nullable: false),
+                    created_by_id = table.Column<ulong>(type: "bigint unsigned", nullable: false),
+                    updated_by_id = table.Column<ulong>(type: "bigint unsigned", nullable: false),
+                    created_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    updated_at = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_acl_states", x => x.id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -664,10 +741,16 @@ namespace ACL.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "acl_branches");
+
+            migrationBuilder.DropTable(
                 name: "acl_companies");
 
             migrationBuilder.DropTable(
                 name: "acl_company_modules");
+
+            migrationBuilder.DropTable(
+                name: "acl_countries");
 
             migrationBuilder.DropTable(
                 name: "acl_modules");
@@ -683,6 +766,9 @@ namespace ACL.Migrations
 
             migrationBuilder.DropTable(
                 name: "acl_roles");
+
+            migrationBuilder.DropTable(
+                name: "acl_states");
 
             migrationBuilder.DropTable(
                 name: "acl_sub_modules");

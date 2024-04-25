@@ -12,18 +12,78 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ACL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240416064343_Init Migration With Seeder")]
-    partial class InitMigrationWithSeeder
+    [Migration("20240425061749_init Migration With Seeded Country,State And Branch Added")]
+    partial class initMigrationWithSeededCountryStateAndBranchAdded
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.4")
+                .HasAnnotation("ProductVersion", "8.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
+
+            modelBuilder.Entity("ACL.Database.Models.AclBranch", b =>
+                {
+                    b.Property<ulong>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint unsigned")
+                        .HasColumnName("id");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<ulong>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("address");
+
+                    b.Property<ulong>("CompanyId")
+                        .HasColumnType("bigint unsigned")
+                        .HasColumnName("company_id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("created_at");
+
+                    b.Property<ulong>("CreatedById")
+                        .HasColumnType("bigint unsigned")
+                        .HasColumnName("created_by_id");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("description");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("name");
+
+                    b.Property<ulong>("Sequence")
+                        .HasColumnType("bigint unsigned")
+                        .HasColumnName("sequence");
+
+                    b.Property<byte>("Status")
+                        .HasColumnType("tinyint unsigned")
+                        .HasColumnName("status");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("updated_at");
+
+                    b.Property<ulong>("UpdatedById")
+                        .HasColumnType("bigint unsigned")
+                        .HasColumnName("updated_by_id");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("acl_branches");
+                });
 
             modelBuilder.Entity("ACL.Database.Models.AclCompany", b =>
                 {
@@ -265,6 +325,66 @@ namespace ACL.Migrations
                         .HasName("PRIMARY");
 
                     b.ToTable("acl_company_modules", (string)null);
+                });
+
+            modelBuilder.Entity("ACL.Database.Models.AclCountry", b =>
+                {
+                    b.Property<ulong>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint unsigned")
+                        .HasColumnName("id");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<ulong>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("code");
+
+                    b.Property<ulong>("CompanyId")
+                        .HasColumnType("bigint unsigned")
+                        .HasColumnName("company_id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("created_at");
+
+                    b.Property<ulong>("CreatedById")
+                        .HasColumnType("bigint unsigned")
+                        .HasColumnName("created_by_id");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("description");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("name");
+
+                    b.Property<ulong>("Sequence")
+                        .HasColumnType("bigint unsigned")
+                        .HasColumnName("sequence");
+
+                    b.Property<byte>("Status")
+                        .HasColumnType("tinyint unsigned")
+                        .HasColumnName("status");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("updated_at");
+
+                    b.Property<ulong>("UpdatedById")
+                        .HasColumnType("bigint unsigned")
+                        .HasColumnName("updated_by_id");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("acl_countries");
                 });
 
             modelBuilder.Entity("ACL.Database.Models.AclModule", b =>
@@ -1545,6 +1665,64 @@ namespace ACL.Migrations
                             PageId = 3084ul,
                             RoleId = 1ul
                         });
+                });
+
+            modelBuilder.Entity("ACL.Database.Models.AclState", b =>
+                {
+                    b.Property<ulong>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint unsigned")
+                        .HasColumnName("id");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<ulong>("Id"));
+
+                    b.Property<ulong>("CompanyId")
+                        .HasColumnType("bigint unsigned")
+                        .HasColumnName("company_id");
+
+                    b.Property<ulong>("CountryId")
+                        .HasColumnType("bigint unsigned")
+                        .HasColumnName("country_id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("created_at");
+
+                    b.Property<ulong>("CreatedById")
+                        .HasColumnType("bigint unsigned")
+                        .HasColumnName("created_by_id");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("description");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("name");
+
+                    b.Property<ulong>("Sequence")
+                        .HasColumnType("bigint unsigned")
+                        .HasColumnName("sequence");
+
+                    b.Property<byte>("Status")
+                        .HasColumnType("tinyint unsigned")
+                        .HasColumnName("status");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("updated_at");
+
+                    b.Property<ulong>("UpdatedById")
+                        .HasColumnType("bigint unsigned")
+                        .HasColumnName("updated_by_id");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("acl_states");
                 });
 
             modelBuilder.Entity("ACL.Database.Models.AclSubModule", b =>

@@ -40,7 +40,7 @@ namespace ACL.Tests.V1
             unitOfWork = new UnitOfWork(_inMemoryDbContext);
             restClient = new RestClient(dbConnector.baseUrl);
             unitOfWork = new UnitOfWork(dbConnector.dbContext);
-           // unitOfWork.ApplicationDbContext = _inMemoryDbContext;
+            // unitOfWork.ApplicationDbContext = _inMemoryDbContext;
         }
         [Fact]
         public async Task Get_All_AclRolePageAssociation()
@@ -128,11 +128,12 @@ namespace ACL.Tests.V1
             //    // Act
             try
             {
-                return unitOfWork.ApplicationDbContext.AclRolePages.Last().RoleId;
+                return (ulong)(unitOfWork.ApplicationDbContext.AclRolePages.OrderByDescending(rp => rp.Id).LastOrDefault()?.RoleId); 
+
             }
             catch (Exception ex)
             {
-               return dbConnector.dbContext.AclRolePages.Last().RoleId;
+                return (ulong)dbConnector.dbContext.AclRolePages.OrderByDescending(rp => rp.Id).LastOrDefault()?.RoleId;
             }
             #endregion
 
