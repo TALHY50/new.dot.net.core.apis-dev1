@@ -32,7 +32,7 @@ namespace ACL.Tests.V1
         ApplicationDbContext _inMemoryDbContext;
         public AclCompanyControllerUnitTest()
         {
-            dbConnector = new DatabaseConnector();
+            dbConnector = new DatabaseConnector(true);
             _inMemoryDbContextOptions = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase(databaseName: "acl")
                 .Options;
@@ -40,7 +40,7 @@ namespace ACL.Tests.V1
             unitOfWork = new UnitOfWork(_inMemoryDbContext);
             restClient = new RestClient(dbConnector.baseUrl);
             //unitOfWork = new UnitOfWork(dbConnector.dbContext);
-            //unitOfWork.ApplicationDbContext = dbConnector.dbContext;
+            unitOfWork.ApplicationDbContext = dbConnector.dbContext;
         }
 
         [Fact]
@@ -48,22 +48,8 @@ namespace ACL.Tests.V1
         {
             #region  Arrange
 
-            AclCompanyCreateRequest createReq = GetCompanyCreateRequest();
-            using (var dbContext = new ApplicationDbContext(_inMemoryDbContextOptions))
-            {
-                // Populate the in-memory database with test data
-                dbContext.AclCompanies.AddRange(new List<AclCompany>
-            {
-                new AclCompany{ Id = 1,AddedBy = 1,Address1 ="A",Address2 ="B",AverageTurnover=2.0,Cemail ="",City ="Dhaka",CmmiLevel = 1,Cname ="Porosh",Country="BD",Email="porosh@gmail.com",Fax="",Logo="",Name="Porosh",Phone="01672896992" ,Postcode ="1312",RegistrationNo="1234",State = "1",TaxNo="123456789",Timezone =1,TimezoneValue ="1",Status=1}
-            });
-                dbContext.SaveChanges();
-            }
-            var controller = new AclCompanyController(unitOfWork);
-            // Act
-            var aclResponse = await controller.Index();
             #region Act
             var request = new RestRequest(AclRoutesUrl.AclCompanyRouteUrl.List, Method.Get);
-            //  var request = new RestRequest("companies", Method.Get);
 
             //request.AddHeader("Authorization", "Bearer YOUR_TOKEN_HERE");
 
@@ -116,7 +102,7 @@ namespace ACL.Tests.V1
             #endregion
             #region Act
             //// Create request
-            var req = new RestRequest(AclRoutesUrl.AclCompanyRouteUrl.Destroy + id, Method.Delete);
+            var req = new RestRequest(AclRoutesUrl.AclCompanyRouteUrl.Destroy.Replace("{id}", id.ToString()), Method.Delete);
             //Add request body
 
             //// Add headers

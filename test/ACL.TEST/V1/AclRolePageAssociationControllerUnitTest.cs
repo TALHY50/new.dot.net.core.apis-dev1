@@ -5,6 +5,7 @@ using ACL.Interfaces;
 using ACL.Requests;
 using ACL.Requests.V1;
 using ACL.Response.V1;
+using ACL.Route;
 using ACL.Services;
 using ACL.Tests;
 using Bogus;
@@ -27,28 +28,28 @@ namespace ACL.Tests.V1
         DatabaseConnector dbConnector;
         UnitOfWork unitOfWork;
         RestClient restClient;
-        DbContextOptions<ApplicationDbContext> _inMemoryDbContext;
+        DbContextOptions<ApplicationDbContext> _inMemoryDbContextOptions;
+        ApplicationDbContext _inMemoryDbContext;
         public AclRolePageAssociationControllerUnitTest()
         {
             dbConnector = new DatabaseConnector();
-            _inMemoryDbContext = new DbContextOptionsBuilder<ApplicationDbContext>()
-      .UseInMemoryDatabase(databaseName: "acl")
-      .Options;
-            //unitOfWork = new UnitOfWork(new ApplicationDbContext(_inMemoryDbContext));
-            unitOfWork = new UnitOfWork(dbConnector.dbContext);
-            unitOfWork.ApplicationDbContext = dbConnector.dbContext;
+            _inMemoryDbContextOptions = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(databaseName: "acl")
+                .Options;
+            _inMemoryDbContext = new ApplicationDbContext(_inMemoryDbContextOptions);
+            unitOfWork = new UnitOfWork(_inMemoryDbContext);
             restClient = new RestClient(dbConnector.baseUrl);
+            unitOfWork = new UnitOfWork(dbConnector.dbContext);
+            // unitOfWork.ApplicationDbContext = _inMemoryDbContext;
         }
         [Fact]
-        public async Task Get_All_CompanyModules()
+        public async Task Get_All_AclRolePageAssociation()
         {
             #region  Arrange
-
-            AclCompanyModuleRequest createReq = GetCompanyModuleRequest();
-
+            var id = getRandomID();
             #endregion
             #region Act
-            var request = new RestRequest("/company/modules", Method.Get);
+            var request = new RestRequest(AclRoutesUrl.AclRolePageRouteUrl.List.Replace("{id}", id.ToString()), Method.Get);
 
             //request.AddHeader("Authorization", "Bearer YOUR_TOKEN_HERE");
 
@@ -65,105 +66,18 @@ namespace ACL.Tests.V1
             #endregion Assert
 
         }
+
         [Fact]
-        public async Task Post_Add_Acl_Company()
-        {
-            #region  Arrange
-            //var id = getRandomID();
-            //// Create RestClient
-            //var client = new RestSharp.RestClient("https://localhost:7125/api/v1");
-
-            ////using (var dbContext = new ApplicationDbContext(_inMemoryDbContext))
-            ////{
-            ////    // Populate the in-memory database with test data
-            ////    dbContext.AclCompanies.AddRange(new List<AclCompany>
-            ////{
-            ////    new AclCompany{ Id = 1,AddedBy = 1,Address1 ="A",Address2 ="B",AverageTurnover=2.0,Cemail ="",City ="Dhaka",CmmiLevel = 1,Cname ="Porosh",Country="BD",Email="porosh@gmail.com",Fax="",Logo="",Name="Porosh",Phone="01672896992" ,Postcode ="1312",RegistrationNo="1234",State = "1",TaxNo="123456789",Timezone =1,TimezoneValue ="1",Status=1}
-            ////});
-            ////    dbContext.SaveChanges();
-            ////}
-
-            AclCompanyModuleRequest createReq = GetCompanyModuleRequest();
-
-            #endregion
-            #region Act
-            //// Create request
-            var req = new RestRequest("/company/modules/add", Method.Post);
-            //Add request body
-            req.AddBody(createReq);
-
-            //// Add headers
-            //request.AddHeader("Authorization", "Bearer YOUR_TOKEN_HERE");
-
-            //// Execute request
-            var respons = restClient.Execute(req);
-
-            //// Convert actual status code to enum
-            int actualCreateStatusCode = (int)respons.StatusCode;
-            //// Assert for create
-
-            #endregion
-            #region Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, actualCreateStatusCode);
-            #endregion Assert
-        }
-        [Fact]
-
-        public async Task Delete_Acl_Company()
+        public async Task Put_Edit_Acl_AclRolePageAssociation()
         {
             #region  Arrange
             var id = getRandomID();
-            //// Create RestClient
-            //var client = new RestSharp.RestClient("https://localhost:7125/api/v1");
-
-            ////using (var dbContext = new ApplicationDbContext(_inMemoryDbContext))
-            ////{
-            ////    // Populate the in-memory database with test data
-            ////    dbContext.AclCompanies.AddRange(new List<AclCompany>
-            ////{
-            ////    new AclCompany{ Id = 1,AddedBy = 1,Address1 ="A",Address2 ="B",AverageTurnover=2.0,Cemail ="",City ="Dhaka",CmmiLevel = 1,Cname ="Porosh",Country="BD",Email="porosh@gmail.com",Fax="",Logo="",Name="Porosh",Phone="01672896992" ,Postcode ="1312",RegistrationNo="1234",State = "1",TaxNo="123456789",Timezone =1,TimezoneValue ="1",Status=1}
-            ////});
-            ////    dbContext.SaveChanges();
-            ////}
-
+            AclRoleAndPageAssocUpdateRequest editReq = GetRoleAndPageAssocUpdateRequest(id);
 
             #endregion
             #region Act
             //// Create request
-            var req = new RestRequest("/company/modules/delete/" + id, Method.Delete);
-            //Add request body
-
-            //// Add headers
-            //request.AddHeader("Authorization", "Bearer YOUR_TOKEN_HERE");
-
-            //// Execute request
-            var respons = restClient.Execute(req);
-
-            //// Convert actual status code to enum
-            int actualEditStatusCode = (int)respons.StatusCode;
-            //// Assert for create
-
-            #endregion
-            #region Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, actualEditStatusCode);
-            #endregion Assert
-        }
-        [Fact]
-        public async Task Put_Edit_Acl_CompanyModule()
-        {
-            #region  Arrange
-            AclCompanyModuleRequest editReq = GetCompanyModuleRequest();
-            var id = getRandomID();
-            //// Create RestClient
-            //var client = new RestSharp.RestClient("https://localhost:7125/api/v1");
-
-
-
-
-            #endregion
-            #region Act
-            //// Create request
-            var req = new RestRequest("/company/modules/edit/" + id, Method.Put);
+            var req = new RestRequest(AclRoutesUrl.AclRolePageRouteUrl.Edit, Method.Put);
             //Add request body
             req.AddBody(editReq);
 
@@ -182,72 +96,46 @@ namespace ACL.Tests.V1
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, actualEditStatusCode);
             #endregion Assert
         }
-        [Fact]
 
-        public async Task Get_View_CompanyModule()
-        {
-            #region  Arrange
-            var id = getRandomID();
-            // AclCompanyCreateRequest createReq = GetCompanyCreateRequest();
-
-            #endregion
-            #region Act
-            var request = new RestRequest("/company/modules/view/" + id, Method.Get);
-
-            //request.AddHeader("Authorization", "Bearer YOUR_TOKEN_HERE");
-
-            var response = restClient.Execute(request);
-            #endregion
-            #region Assert
-
-
-            //// Convert actual status code to enum
-            int actualStatusCode = (int)response.StatusCode;
-
-            //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, actualStatusCode);
-            #endregion Assert
-
-        }
-
-        public AclCompanyModuleRequest GetCompanyModuleRequest()
+        public AclRoleAndPageAssocUpdateRequest GetRoleAndPageAssocUpdateRequest(ulong id)
         {
             var faker = new Faker();
-            var random = new Random();
 
-            // Generate random ulong values within the valid range
-            ulong GenerateRandomUlong()
+            // Generate a random role ID
+            ulong roleId = (ulong)faker.Random.Int(1, int.MaxValue);
+
+            // Generate a random number of page IDs (between 1 and 10)
+            int numberOfPages = faker.Random.Int(1, 10);
+            int[] pageIds = new int[numberOfPages];
+            for (int i = 0; i < numberOfPages; i++)
             {
-                var buffer = new byte[sizeof(ulong)];
-                random.NextBytes(buffer);
-                return BitConverter.ToUInt64(buffer, 0);
+                pageIds[i] = faker.Random.Int(1, int.MaxValue);
             }
 
-            // Generate random data for the company module request
-            return new AclCompanyModuleRequest
+            // Create and return the request object
+            return new AclRoleAndPageAssocUpdateRequest
             {
-                company_id = GenerateRandomUlong(),
-                module_id = GenerateRandomUlong()
+                role_id = roleId,
+                PageIds = pageIds
             };
         }
 
 
+
         private ulong getRandomID()
         {
-
-            //using (var dbContext = (dbConnector.dbContext))
-            //{
-            //    // Use a genuine instance of UnitOfWork
-            //    var unitOfWork = new UnitOfWork(dbContext);
-            //    unitOfWork.ApplicationDbContext = dbContext;
-            //    // unitOfWork.LocalizationService = 
-            //    var controller = new AclCompanyController(unitOfWork);
             #region Act
             //    // Act
-            //    return (ulong)controller._unitOfWork.AclCompanyRepository.FirstOrDefault().Id;
-            return unitOfWork.ApplicationDbContext.AclCompanyModules.Last().Id;
+            try
+            {
+                return (ulong)(unitOfWork.ApplicationDbContext.AclRolePages.OrderByDescending(rp => rp.Id).LastOrDefault()?.RoleId); 
+
+            }
+            catch (Exception ex)
+            {
+                return (ulong)dbConnector.dbContext.AclRolePages.OrderByDescending(rp => rp.Id).LastOrDefault()?.RoleId;
+            }
             #endregion
-            // }
 
         }
     }

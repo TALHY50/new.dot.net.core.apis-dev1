@@ -17,12 +17,12 @@ namespace ACL.Controllers.V1
             _unitOfWork = unitOfWork;
         }
 
-        [HttpGet(AclRoutesUrl.AclRolePage.List, Name = AclRoutesName.AclRolePageRouteNames.List)]
+        [HttpGet(AclRoutesUrl.AclRolePageRouteUrl.List, Name = AclRoutesName.AclRolePageRouteNames.List)]
         public async Task<AclResponse> Index(ulong id)
         {
             return await _unitOfWork.AclRolePageRepository.GetAllById(id);
         }
-        [HttpPut(AclRoutesUrl.AclRolePage.Edit, Name = AclRoutesName.AclRolePageRouteNames.Edit)]
+        [HttpPut(AclRoutesUrl.AclRolePageRouteUrl.Edit, Name = AclRoutesName.AclRolePageRouteNames.Edit)]
         public async Task<AclResponse> Update(AclRoleAndPageAssocUpdateRequest req)
         {
             return await _unitOfWork.AclRolePageRepository.UpdateAll(req);

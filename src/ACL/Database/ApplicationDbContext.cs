@@ -56,6 +56,9 @@ public partial class ApplicationDbContext : DbContext
     public virtual DbSet<Migration> Migrations { get; set; }
 
     public virtual DbSet<PersonalAccessToken> PersonalAccessTokens { get; set; }
+    public virtual DbSet<AclCountry> AclCountries { get; set; }
+    public virtual DbSet<AclState> AclStates { get; set; }
+    public virtual DbSet<AclBranch> AclBranches { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

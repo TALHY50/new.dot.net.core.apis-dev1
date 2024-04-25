@@ -42,10 +42,10 @@ var connectionString = $"server={server};database={database};User ID={userName};
 //    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString), options =>
 //    {
 //        options.EnableRetryOnFailure();
-//    }));
+    }));
 #if UNIT_TEST
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseInMemoryDatabase("UnitTestDb"));
+    options.UseInMemoryDatabase("acl"));
 #else
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString), options =>
