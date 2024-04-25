@@ -144,6 +144,9 @@
   <data name="Role" xml:space="preserve">
     <value>ভূমিকা</value>
   </data>
+  <data name="State" xml:space="preserve">
+    <value>রাজ্য</value>
+  </data>
   <data name="SubModule" xml:space="preserve">
     <value>উপমডিউল</value>
   </data>

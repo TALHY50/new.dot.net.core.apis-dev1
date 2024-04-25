@@ -87,10 +87,10 @@ namespace ACL.Repositories
             return entities;
         }
 
-        public Task<IEnumerable<T>> RemoveRange(IEnumerable<T> entities)
+        public async Task<IEnumerable<T>> RemoveRange(IEnumerable<T> entities)
         {
             _dbSet.RemoveRange(entities);
-            return (Task<IEnumerable<T>>)entities;
+            return entities;
         }
 
 
