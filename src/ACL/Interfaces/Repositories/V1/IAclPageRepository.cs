@@ -4,16 +4,16 @@ using ACL.Response.V1;
 
 namespace ACL.Interfaces.Repositories.V1
 {
-    public interface IAclPageRepository
+    public interface IAclPageRepository : IGenericRepository<AclPage>
     {
-        AclResponse GetAll();
-        AclResponse Add(AclPageRequest request);
-        AclResponse Edit(ulong id, AclPageRequest request);
-        AclResponse findById(ulong id);
-        AclResponse deleteById(ulong id);
-        AclResponse PageRouteCreate(AclPageRouteRequest request);
-        AclResponse PageRouteEdit(ulong id, AclPageRouteRequest request);
-        AclResponse PageRouteDelete(ulong id);
+        Task<AclResponse> GetAll();
+        Task<AclResponse> Add(AclPageRequest request);
+        Task<AclResponse> Edit(ulong id, AclPageRequest request);
+        Task<AclResponse> findById(ulong id);
+        Task<AclResponse> deleteById(ulong id);
+        Task<AclResponse> PageRouteCreate(AclPageRouteRequest request);
+        Task<AclResponse> PageRouteEdit(ulong id, AclPageRouteRequest request);
+        Task<AclResponse> PageRouteDelete(ulong id);
         AclPageRoute PreparePageRouteInputData(AclPageRouteRequest request, AclPageRoute aclPageRoute = null);
 
     }
