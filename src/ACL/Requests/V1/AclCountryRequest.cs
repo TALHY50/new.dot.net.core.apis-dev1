@@ -9,6 +9,7 @@ public partial class AclCountryRequest
     [DefaultValue("Bangladesh")]
     [Required]
     [StringLength(50)]
+    [UniqueValue("AclCountry", "Name")]
     public string name { get; set; }
 
     [DefaultValue("This is beautiful country")]
@@ -19,6 +20,7 @@ public partial class AclCountryRequest
     [DefaultValue("bn")]
     [Required]
     [StringLength(50)]
+    [UniqueValue("AclCountry", "Code")]
     public string code { get; set; }
 
     [DefaultValue(1)]
