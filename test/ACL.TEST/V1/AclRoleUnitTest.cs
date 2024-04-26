@@ -1,32 +1,31 @@
 using ACL.Requests;
-using ACL.Services;
 using Microsoft.EntityFrameworkCore;
 using RestSharp;
 using Bogus;
+using ACL.Route;
+using ACL.Database.Models;
 
 namespace ACL.Tests.V1
 {
     public class AclRoleUnitTest
     {
-        DatabaseConnector dbConnector;
-        UnitOfWork unitOfWork;
         RestClient restClient;
+        private string authToken;
         public AclRoleUnitTest()
         {
-            dbConnector = new DatabaseConnector();
-            unitOfWork = new UnitOfWork(dbConnector.dbContext);
-            unitOfWork.ApplicationDbContext = dbConnector.dbContext;
-            restClient = new RestClient(dbConnector.baseUrl);
+            DataCollectors.SetDatabase();
+            authToken = DataCollectors.GetAuthorization();
+            restClient = new RestClient(DataCollectors.baseUrl);
         }
         [Fact]
         public void TestRoleList()
         {
-
+           
             //Arrange
 
             // Act
-            var request = new RestRequest("roles", Method.Get);
-            //request.AddHeader("Authorization", "Bearer desc");
+            var request = new RestRequest(AclRoutesUrl.AclRole.List, Method.Get);
+            request.AddHeader("Authorization", authToken);
 
             RestResponse response = restClient.Execute(request);
 
@@ -42,8 +41,8 @@ namespace ACL.Tests.V1
             var data = GetRole();
 
             // Act
-            var request = new RestRequest("roles/add", Method.Post);
-            //request.AddHeader("Authorization", "Bearer desc");
+            var request = new RestRequest(AclRoutesUrl.AclRole.Add, Method.Post);
+            request.AddHeader("Authorization", authToken);
             request.AddJsonBody(data);
 
             RestResponse response = restClient.Execute(request);
@@ -58,13 +57,11 @@ namespace ACL.Tests.V1
         public void GetByIdRoleTest()
         {
             //Arrange
-            var id = getRandomID();
+            var id = DataCollectors.GetMaxId<AclRole>(x => x.Id);
 
             // Act
-            var request = new RestRequest($"roles/view/{id}", Method.Get);
-            //request.AddHeader("Authorization", "Bearer desc");
-           
-
+            var request = new RestRequest(AclRoutesUrl.AclRole.View.Replace("{id}", id.ToString()), Method.Get);
+            request.AddHeader("Authorization", authToken);
             RestResponse response = restClient.Execute(request);
 
 
@@ -78,11 +75,11 @@ namespace ACL.Tests.V1
             //Arrange
 
             var data = GetRole();
-            var id = getRandomID();
+            var id = DataCollectors.GetMaxId<AclRole>(x => x.Id);
 
             // Act
-            var request = new RestRequest($"roles/edit/{id}", Method.Put);
-            //request.AddHeader("Authorization", "Bearer desc");
+            var request = new RestRequest(AclRoutesUrl.AclRole.Edit.Replace("{id}", id.ToString()), Method.Put);
+            request.AddHeader("Authorization", authToken);
             request.AddJsonBody(data);
 
             RestResponse response = restClient.Execute(request);
@@ -96,11 +93,11 @@ namespace ACL.Tests.V1
         public void DeleteByIdRoleTest()
         {
 
-            var id = getRandomID();
+            var id = DataCollectors.GetMaxId<AclRole>(x => x.Id);
 
             // Act
-            var request = new RestRequest($"roles/delete/{id}", Method.Delete);
-            //request.AddHeader("Authorization", "Bearer desc");
+            var request = new RestRequest(AclRoutesUrl.AclRole.Destroy.Replace("{id}", id.ToString()), Method.Delete);
+            request.AddHeader("Authorization", authToken);
 
             RestResponse response = restClient.Execute(request);
 
@@ -119,13 +116,6 @@ namespace ACL.Tests.V1
                 title = faker.Random.String2(10, 50),
 
 			};
-
-        }
-
-        private ulong getRandomID()
-        {
-
-            return unitOfWork.ApplicationDbContext.AclRoles.Max(x=>x.Id);
 
         }
 
