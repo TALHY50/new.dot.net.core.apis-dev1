@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ACL.Migrations
 {
     /// <inheritdoc />
-    public partial class initMigrationWithSeededCountryStateAndBranchAdded : Migration
+    public partial class InitMigrationWithCountriesToverifyMahmudvaisProblem : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

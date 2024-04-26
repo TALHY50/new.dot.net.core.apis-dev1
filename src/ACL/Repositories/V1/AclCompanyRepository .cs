@@ -16,6 +16,8 @@ using ACL.Services.Interface;
 using ACL.Services;
 using System.Globalization;
 using System.Net;
+using Microsoft.Extensions.Logging;
+using Castle.Core.Logging;
 
 
 namespace ACL.Repositories.V1
@@ -100,6 +102,7 @@ namespace ACL.Repositories.V1
                                     UserType = _unitOfWork.AclUserRepository.SetUserType(true),
                                     FirstName = fname,
                                     LastName = lname,
+                                    Language = "en-US",
                                     Username = aclCompany.Email,
                                     CreatedById = 0,
                                     CreatedAt = DateTime.Now,
@@ -160,6 +163,10 @@ namespace ACL.Repositories.V1
                         }
                         catch (Exception ex)
                         {
+                            if(_unitOfWork.Logger == null)
+                            {
+                                 
+                            }
                             _unitOfWork.Logger.LogError(ex, "Error at COMPANY_CREATE", new { data = request, message = ex.Message, });
 
                             await transaction.RollbackAsync();
@@ -171,7 +178,7 @@ namespace ACL.Repositories.V1
             }
             catch (Exception ex)
             {
-                _unitOfWork.Logger.LogError(ex, "Error at COMPANY_CREATE", new { data = request, message = ex.Message, });
+                _unitOfWork.Logger.LogError( null, "Error at COMPANY_CREATE", new { data = request, message = ex.Message, });
                 aclResponse.Message = ex.Message;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
             }
@@ -188,7 +195,7 @@ namespace ACL.Repositories.V1
                 await _unitOfWork.CompleteAsync();
                 await base.ReloadAsync(_aclCompany);
                 aclResponse.Data = _aclCompany;
-                aclResponse.Message = _aclCompany != null ? messageResponse.createMessage : messageResponse.notFoundMessage;
+                aclResponse.Message = _aclCompany != null ? messageResponse.editMessage : messageResponse.notFoundMessage;
 
                 aclResponse.StatusCode = _aclCompany != null ? HttpStatusCode.OK : HttpStatusCode.BadRequest;
             }

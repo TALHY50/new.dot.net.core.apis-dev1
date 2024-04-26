@@ -30,25 +30,25 @@ namespace ACL.Controllers.V1
         [HttpPost(AclRoutesUrl.AclPage.Add, Name = AclRoutesName.AclPageNames.Add)]
         public async Task<AclResponse> Create(AclPageRequest request)
         {
-            return _unitOfWork.AclPageRepository.Add(request);
+            return _unitOfWork.AclPageRepository.AddAclPage(request);
         }
         [HttpPut(AclRoutesUrl.AclPage.Edit, Name = AclRoutesName.AclPageNames.Edit)]
         public async Task<AclResponse> Edit(ulong id, AclPageRequest request)
         {
-            return _unitOfWork.AclPageRepository.Edit(id, request);
+            return _unitOfWork.AclPageRepository.EditAclPage(id, request);
 
         }
 
         [HttpDelete(AclRoutesUrl.AclPage.Destroy, Name = AclRoutesName.AclPageNames.Destroy)]
         public async Task<AclResponse> Destroy(ulong id)
         {
-            return _unitOfWork.AclPageRepository.deleteById(id);
+            return _unitOfWork.AclPageRepository.DeleteById(id);
         }
 
         [HttpGet(AclRoutesUrl.AclPage.View, Name = AclRoutesName.AclPageNames.View)]
         public async Task<AclResponse> View(ulong id)
         {
-            return _unitOfWork.AclPageRepository.findById(id);
+            return _unitOfWork.AclPageRepository.FindById(id);
 
         }
 

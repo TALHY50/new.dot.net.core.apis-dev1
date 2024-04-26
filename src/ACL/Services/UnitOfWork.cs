@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Mvc.Localization;
 using System.Globalization;
 using System.Resources;
 using System.Reflection;
+using Serilog.Core;
 
 namespace ACL.Services
 {
@@ -25,31 +26,42 @@ namespace ACL.Services
         private ILogger _logger;
         private ILogService _logService;
         private ICacheService _cacheService;
-        private IHttpContextAccessor _httpContextAccessor;
         private IServiceCollection _services;
         private ResourceManager _resourceManager;
         private CultureInfo _cultureInfo;
         private Assembly _assembly;
         public ILocalizationService LocalizationService { get; private set; }
-        public UnitOfWork(ApplicationDbContext context, ILoggerFactory loggerFactory, IHttpContextAccessor httpContextAccessor, ICacheService cacheService, IConfiguration config, ILocalizationService localizationService, IServiceCollection services)
+        public UnitOfWork(ApplicationDbContext context, ILogger<UnitOfWork> logger, ILogService logService, ICacheService cacheService, IServiceCollection services)
         {
-            this.context = context;
-            this._logger = loggerFactory.CreateLogger("Logs");
-            this._httpContextAccessor = httpContextAccessor;
-            this._cacheService = cacheService;
-            this._logService = new LogService(this._logger, loggerFactory);
-            LocalizationService = localizationService;
-            _services = services;
-            _services.AddSingleton(this);
-            _cultureInfo = SetCulture("en-US");
-            _assembly = SetAssembly(typeof(Program).Assembly);
-            _resourceManager = SetReourceManager(_cultureInfo, _assembly);
-            _services.AddSingleton<ILocalizationService>(new LocalizationService("ACL.Resources." + _cultureInfo.Name, _assembly, _cultureInfo.Name));
+            Initialize(context, logger, logService, cacheService, services);
         }
 
+        // Constructor with only ApplicationDbContext
         public UnitOfWork(ApplicationDbContext dbContext)
         {
-            this.context = dbContext;
+            var services = new ServiceCollection();
+            services.AddMemoryCache();
+            services.AddSingleton<ILogService, LogService>(); // Register LogService as singleton
+            services.AddSingleton<ICacheService, CacheService>(); // Register CacheService as singleton
+            services.AddLogging(); // Register logging services
+            var serviceProvider = services.BuildServiceProvider();
+            var logger = serviceProvider.GetRequiredService<ILogger<UnitOfWork>>();
+            var logService = serviceProvider.GetRequiredService<ILogService>();
+            var cacheService = serviceProvider.GetRequiredService<ICacheService>();
+
+            Initialize(dbContext, logger, logService, cacheService, services);
+        }
+
+
+        private void Initialize(ApplicationDbContext context, ILogger<UnitOfWork> logger, ILogService logService, ICacheService cacheService, IServiceCollection services)
+        {
+            this.context = context;
+            this._logger = logger;
+            this._logService = logService;
+            this._cacheService = cacheService;
+            this._services = services;
+
+            // Add other initialization logic here
         }
         public CultureInfo SetCulture(string culture)
         {
@@ -147,11 +159,11 @@ namespace ACL.Services
             get { return new AclUserGroupRoleRepository(this); }
         }
 
-        public IHttpContextAccessor HttpContextAccessor
-        {
-            get { return this._httpContextAccessor; }
-            set { this._httpContextAccessor = value; }
-        }
+        //public IHttpContextAccessor HttpContextAccessor
+        //{
+        //    get { return this._httpContextAccessor; }
+        //    set { this._httpContextAccessor = value; }
+        //}
 
         public async Task CompleteAsync()
         {

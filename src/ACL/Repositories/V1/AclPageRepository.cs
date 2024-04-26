@@ -26,7 +26,7 @@ namespace ACL.Repositories.V1
             var aclPage =  base.All().Result;
             if (aclPage.Any())
             {
-                aclResponse.Message = _unitOfWork.LocalizationService.GetLocalizedString("fetchMessage");
+                aclResponse.Message = messageResponse.fetchMessage;
             }
             aclResponse.Data = aclPage;
             aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
@@ -34,7 +34,7 @@ namespace ACL.Repositories.V1
 
             return aclResponse;
         }
-        public AclResponse Add(AclPageRequest request)
+        public AclResponse AddAclPage(AclPageRequest request)
         {
             try
             {
@@ -55,7 +55,7 @@ namespace ACL.Repositories.V1
             return aclResponse;
         }
 
-        public AclResponse Edit(ulong id, AclPageRequest request)
+        public AclResponse EditAclPage(ulong id, AclPageRequest request)
         {
             try
             {
@@ -77,7 +77,7 @@ namespace ACL.Repositories.V1
 
         }
 
-        public AclResponse findById(ulong id)
+        public AclResponse FindById(ulong id)
         {
             try
             {
@@ -100,7 +100,7 @@ namespace ACL.Repositories.V1
             return aclResponse;
 
         }
-        public AclResponse deleteById(ulong id)
+        public AclResponse DeleteById(ulong id)
         {
             var aclPage = _unitOfWork.ApplicationDbContext.AclPages.Find(id);
 

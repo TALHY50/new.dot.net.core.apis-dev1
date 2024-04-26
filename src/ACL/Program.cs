@@ -23,9 +23,17 @@ using System.Resources;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Castle.Core.Resource;
+using Microsoft.Extensions.Options;
+using Sprache;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddLogging(loggingBuilder =>
+{
+    loggingBuilder.AddSerilog(dispose: true);
+});
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization(); // Add authorization services
 builder.Services.AddControllers();
@@ -42,10 +50,13 @@ var connectionString = $"server={server};database={database};User ID={userName};
 //    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString), options =>
 //    {
 //        options.EnableRetryOnFailure();
-//   }));
+//    }));
 #if UNIT_TEST
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseInMemoryDatabase("acl"));
+    options.UseInMemoryDatabase("acl").ConfigureWarnings(warnings =>
+    {
+        warnings.Ignore(InMemoryEventId.TransactionIgnoredWarning);
+    }));
 #else
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString), options =>
@@ -65,10 +76,16 @@ IConfiguration configuration = new ConfigurationBuilder()
        .SetBasePath(Directory.GetCurrentDirectory())
        .AddJsonFile("appsettings.json")
        .Build();
-
 builder.Services.AddSingleton<IConfiguration>(configuration);
 builder.Services.AddScoped<ICacheService, CacheService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddLogging(loggingBuilder =>
+{
+    loggingBuilder.AddSerilog(dispose: true);
+});
+
+builder.Services.AddSingleton<Serilog.ILogger>(_ => Log.Logger);
+builder.Services.AddScoped<ILogService, LogService>();
 Log.Logger = new LoggerConfiguration()
    .MinimumLevel.Debug()
    .WriteTo.File(GetLogFilePath("log.txt"), restrictedToMinimumLevel: LogEventLevel.Error)
