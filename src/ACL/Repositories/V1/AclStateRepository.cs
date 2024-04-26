@@ -5,15 +5,20 @@ using ACL.Interfaces;
 using ACL.Requests;
 using ACL.Response.V1;
 using ACL.Utilities;
+using SharedLibrary.Interfaces;
+using SharedLibrary.Services;
+using ACL.Database;
 
 namespace ACL.Repositories.V1
 {
-    public class AclStateRepository : GenericRepository<AclState>, IAclStateRepository
+    public class AclStateRepository : GenericRepository<AclState,ApplicationDbContext>, IAclStateRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "State";
-        public AclStateRepository(IUnitOfWork _unitOfWork) : base(_unitOfWork)
+        private ICustomUnitOfWork _customUnitOfWork;
+
+        public AclStateRepository(IUnitOfWork<ApplicationDbContext> _unitOfWork) : base(_unitOfWork)
         {
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName, _unitOfWork);
@@ -40,7 +45,7 @@ namespace ACL.Repositories.V1
                 var aclState = PrepareInputData(request);
                 await base.AddAsync(aclState);
                 await _unitOfWork.CompleteAsync();
-                await _unitOfWork.AclStateRepository.ReloadAsync(aclState);
+                await _customUnitOfWork.AclStateRepository.ReloadAsync(aclState);
                 aclResponse.Data = aclState;
                 aclResponse.Message = messageResponse.createMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
@@ -68,7 +73,7 @@ namespace ACL.Repositories.V1
                 aclState = PrepareInputData(request, aclState);
                 await base.UpdateAsync(aclState);
                 await _unitOfWork.CompleteAsync();
-                await _unitOfWork.AclStateRepository.ReloadAsync(aclState);
+                await _customUnitOfWork.AclStateRepository.ReloadAsync(aclState);
                 aclResponse.Data = aclState;
                 aclResponse.Message = messageResponse.editMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;

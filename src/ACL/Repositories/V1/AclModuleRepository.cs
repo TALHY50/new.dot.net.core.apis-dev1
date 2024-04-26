@@ -4,15 +4,21 @@ using ACL.Interfaces.Repositories.V1;
 using ACL.Requests.V1;
 using ACL.Response.V1;
 using Microsoft.Extensions.Localization;
+using SharedLibrary.Interfaces;
+using SharedLibrary.Services;
+using ACL.Database;
+using ACL.Services;
 
 namespace ACL.Repositories.V1
 {
-    public class AclModuleRepository : GenericRepository<AclModule>, IAclModuleRepository
+    public class AclModuleRepository : GenericRepository<AclModule,ApplicationDbContext>, IAclModuleRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "Module";
-        public AclModuleRepository(IUnitOfWork _unitOfWork) : base(_unitOfWork)
+        private ICustomUnitOfWork _customUnitOfWork;
+
+        public AclModuleRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork)
         {
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName, _unitOfWork);
@@ -21,7 +27,7 @@ namespace ACL.Repositories.V1
         {
             try
             {
-                var aclModule = await _unitOfWork.AclModuleRepository.GetById(id);
+                var aclModule = await _customUnitOfWork.AclModuleRepository.GetById(id);
                 aclResponse.Data = aclModule;
                 aclResponse.Message = messageResponse.fetchMessage;
                 if (aclModule == null)
@@ -48,9 +54,9 @@ namespace ACL.Repositories.V1
                 if (check == null)
                 {
                     var aclModule = PrepareInputData(request);
-                    _unitOfWork.AclModuleRepository.Add(aclModule);
+                    _customUnitOfWork.AclModuleRepository.Add(aclModule);
                     await _unitOfWork.CompleteAsync();
-                    await _unitOfWork.AclModuleRepository.ReloadAsync(aclModule);
+                    await _customUnitOfWork.AclModuleRepository.ReloadAsync(aclModule);
                     aclResponse.Data = aclModule;
                     aclResponse.Message = messageResponse.createMessage;
                     aclResponse.StatusCode = System.Net.HttpStatusCode.Created;
@@ -74,13 +80,13 @@ namespace ACL.Repositories.V1
         {
             try
             {
-                var aclModule = await _unitOfWork.AclModuleRepository.GetById(id);
+                var aclModule = await _customUnitOfWork.AclModuleRepository.GetById(id);
                 if (aclModule != null)
                 {
                     aclModule = PrepareInputData(request, aclModule);
                     await base.UpdateAsync(aclModule);
                     await _unitOfWork.CompleteAsync();
-                    await _unitOfWork.AclModuleRepository.ReloadAsync(aclModule);
+                    await _customUnitOfWork.AclModuleRepository.ReloadAsync(aclModule);
                     aclResponse.Data = aclModule;
                     aclResponse.Message = messageResponse.editMessage;
                     aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
@@ -122,7 +128,7 @@ namespace ACL.Repositories.V1
         public async Task<AclResponse> DeleteModule(ulong id)
         {
 
-            var aclModule = await _unitOfWork.AclModuleRepository.GetById(id);
+            var aclModule = await _customUnitOfWork.AclModuleRepository.GetById(id);
 
             if (aclModule != null)
             {

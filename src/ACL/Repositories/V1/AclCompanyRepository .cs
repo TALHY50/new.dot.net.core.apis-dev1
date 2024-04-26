@@ -12,25 +12,29 @@ using Microsoft.Extensions.Localization;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.DependencyInjection;
-using ACL.Services.Interface;
 using ACL.Services;
 using System.Globalization;
 using System.Net;
+using SharedLibrary.Services;
 using Microsoft.Extensions.Logging;
 using Castle.Core.Logging;
-
+using SharedLibrary.Interfaces;
+using ACL.Migrations;
+using ACL.Database;
+using ACL.Utilities;
 
 namespace ACL.Repositories.V1
 {
-    public class AclCompanyRepository : GenericRepository<AclCompany>, IAclCompanyRepository
+    public class AclCompanyRepository : GenericRepository<AclCompany,ApplicationDbContext>, IAclCompanyRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "Company";
         private IConfiguration _config;
+        private ICustomUnitOfWork _customUnitOfWork;
 
 
-        public AclCompanyRepository(IUnitOfWork _unitOfWork, IConfiguration config) : base(_unitOfWork)
+        public AclCompanyRepository(IUnitOfWork<ApplicationDbContext> _unitOfWork, IConfiguration config) : base(_unitOfWork)
         {
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName, _unitOfWork);
@@ -75,7 +79,7 @@ namespace ACL.Repositories.V1
                         try
                         {
                             var aclCompany = PrepareInputData(request);
-                            await _unitOfWork.AclCompanyRepository.AddAsync(aclCompany);
+                            await base.AddAsync(aclCompany);
                             await _unitOfWork.CompleteAsync();
                             await base.ReloadAsync(aclCompany);
 
@@ -86,11 +90,11 @@ namespace ACL.Repositories.V1
                                     group_name = _config["USER_GROUP_NAME"],
                                     status = 1
                                 };
-                                _unitOfWork.AclUserGroupRepository.SetCompanyId(aclCompany.Id);
-                                var userGroup = await _unitOfWork.AclUserGroupRepository.AddUserGroup(userGroupRequest);
+                                _customUnitOfWork.AclUserGroupRepository.SetCompanyId(aclCompany.Id);
+                                var userGroup = await _customUnitOfWork.AclUserGroupRepository.AddUserGroup(userGroupRequest);
                                 await _unitOfWork.CompleteAsync();
                                 var createdUserGroup = (AclUsergroup)userGroup.Data;
-                                await _unitOfWork.AclUserGroupRepository.ReloadAsync(createdUserGroup);
+                                await _customUnitOfWork.AclUserGroupRepository.ReloadAsync(createdUserGroup);
 
                                 string[] nameArr = request.name.Split(' ');
                                 string fname = (nameArr.Length > 0) ? nameArr[0] : "";
@@ -99,7 +103,7 @@ namespace ACL.Repositories.V1
                                 {
                                     Email = aclCompany.Email,
                                     Password = request.password,
-                                    UserType = _unitOfWork.AclUserRepository.SetUserType(true),
+                                    UserType = _customUnitOfWork.AclUserRepository.SetUserType(true),
                                     FirstName = fname,
                                     LastName = lname,
                                     Language = "en-US",
@@ -109,11 +113,11 @@ namespace ACL.Repositories.V1
                                     UpdatedAt = DateTime.Now,
                                 };
 
-                                _unitOfWork.AclUserRepository.SetCompanyId((uint)aclCompany.Id);
-                                _unitOfWork.AclUserRepository.SetUserType(true);
-                                _unitOfWork.AclUserRepository.Add(user);
+                                _customUnitOfWork.AclUserRepository.SetCompanyId((uint)aclCompany.Id);
+                                _customUnitOfWork.AclUserRepository.SetUserType(true);
+                                _customUnitOfWork.AclUserRepository.Add(user);
                                 await _unitOfWork.CompleteAsync();
-                                await _unitOfWork.AclUserRepository.ReloadAsync(user);
+                                await _customUnitOfWork.AclUserRepository.ReloadAsync(user);
 
                                 AclRole role = new AclRole()
                                 {
@@ -126,9 +130,9 @@ namespace ACL.Repositories.V1
                                     UpdatedAt = DateTime.Now,
                                     Status = 1
                                 };
-                                var roleAdd = await _unitOfWork.AclRoleRepository.AddAsync(role);
+                                var roleAdd = await _customUnitOfWork.AclRoleRepository.AddAsync(role);
                                 await _unitOfWork.CompleteAsync();
-                                await _unitOfWork.AclRoleRepository.ReloadAsync(role);
+                                await _customUnitOfWork.AclRoleRepository.ReloadAsync(role);
 
                                 AclUsergroupRole userGroupRole = new AclUsergroupRole()
                                 {
@@ -138,9 +142,9 @@ namespace ACL.Repositories.V1
                                     CreatedAt = DateTime.UtcNow,
                                     UpdatedAt = DateTime.UtcNow
                                 };
-                                var createdUserGroupRole = _unitOfWork.AclUserGroupRoleRepository.Add(userGroupRole);
+                                var createdUserGroupRole = _customUnitOfWork.AclUserGroupRoleRepository.Add(userGroupRole);
                                 await _unitOfWork.CompleteAsync();
-                                List<AclRolePage> aclRolePagesById = await _unitOfWork.AclRolePageRepository.Where(x => x.RoleId == ulong.Parse(_config["S_ADMIN_DEFAULT_MODULE_ID"])).ToListAsync();
+                                List<AclRolePage> aclRolePagesById = await _customUnitOfWork.AclRolePageRepository.Where(x => x.RoleId == ulong.Parse(_config["S_ADMIN_DEFAULT_MODULE_ID"])).ToListAsync();
                                 List<ulong> pageIds = aclRolePagesById.Select(page => page.Id).ToList();
                                 List<AclRolePage> aclRolePages = pageIds.Select(pageId => new AclRolePage
                                 {
@@ -149,7 +153,7 @@ namespace ACL.Repositories.V1
                                     CreatedAt = DateTime.UtcNow,
                                     UpdatedAt = DateTime.UtcNow
                                 }).ToList();
-                                await _unitOfWork.AclRolePageRepository.AddRange(aclRolePages.ToArray());
+                                await _customUnitOfWork.AclRolePageRepository.AddRange(aclRolePages.ToArray());
                                 await _unitOfWork.CompleteAsync();
                             }
 
@@ -299,10 +303,7 @@ namespace ACL.Repositories.V1
 
         private int GetAuthUserId()
         {
-            // Implement logic to get the authenticated user's ID
-            // For example:
-            // return AppAuth.getAuthInfo().user_id;
-            return 1;
+            return (int)AppAuth.GetAuthInfo().UserId;
         }
 
     }

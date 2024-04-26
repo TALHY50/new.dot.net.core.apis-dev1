@@ -1,9 +1,11 @@
-﻿using ACL.Database.Models;
+﻿using ACL.Database;
+using ACL.Database.Models;
 using ACL.Interfaces;
 using ACL.Interfaces.Repositories.V1;
 using ACL.Requests.V1;
 using ACL.Response.V1;
 using ACL.Utilities;
+using SharedLibrary.Interfaces;
 using SharedLibrary.Services;
 using SharedLibrary.Utilities;
 
@@ -11,13 +13,14 @@ using SharedLibrary.Utilities;
 
 namespace ACL.Repositories.V1
 {
-    public class AclPasswordRepository : GenericRepository<AclUser>, IAclPasswordRepository
+    public class AclPasswordRepository : GenericRepository<AclUser,ApplicationDbContext>, IAclPasswordRepository
     {
         public AclResponse aclResponse;
         private string modelName = "Password";
         private int tokenExpiryMinutes = 60;
         public MessageResponse messageResponse;
-        public AclPasswordRepository(IUnitOfWork _unitOfWork) : base(_unitOfWork)
+        private ICustomUnitOfWork _customUnitOfWork;
+        public AclPasswordRepository(IUnitOfWork<ApplicationDbContext> _unitOfWork) : base(_unitOfWork)
         {
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName, _unitOfWork);
@@ -35,13 +38,12 @@ namespace ACL.Repositories.V1
             }
 
 
-            var aclUser = _unitOfWork.ApplicationDbContext.AclUsers.FirstOrDefault(x => x.Id == request.user_id && x.Status == 1);
+            var aclUser =  (AclUser)_customUnitOfWork.AclUserRepository.Where(x => x.Id == request.user_id && x.Status == 1);
 
             if (aclUser != null)
             {
                 // password checking
                 var password = Cryptographer.AppDecrypt(aclUser.Password);
-
 
                 if (request.current_password != password)
                 {
@@ -56,7 +58,7 @@ namespace ACL.Repositories.V1
                     aclUser.Password = Cryptographer.AppEncrypt(request.new_password);
                     await base.UpdateAsync(aclUser);
                     await _unitOfWork.CompleteAsync();
-                    await _unitOfWork.AclUserRepository.ReloadAsync(aclUser);
+                    await _customUnitOfWork.AclUserRepository.ReloadAsync(aclUser);
                   
                     aclResponse.Message = "Password Reset Succesfully.";
                     aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
@@ -73,7 +75,7 @@ namespace ACL.Repositories.V1
 
         public async Task<AclResponse> Forget(AclForgetPasswordRequest request)
         {
-            var aclUser = _unitOfWork.ApplicationDbContext.AclUsers.FirstOrDefault(x => x.Email == request.email);
+            var aclUser = (AclUser)_customUnitOfWork.AclUserRepository.Where(x => x.Email == request.email);
 
             if (aclUser != null)
             {
@@ -112,7 +114,7 @@ namespace ACL.Repositories.V1
                 aclUser.Password = Cryptographer.AppEncrypt(request.new_password);
                 await base.UpdateAsync(aclUser);
                 await _unitOfWork.CompleteAsync();
-                await _unitOfWork.AclUserRepository.ReloadAsync(aclUser);
+                await _customUnitOfWork.AclUserRepository.ReloadAsync(aclUser);
 
                 CacheHelper.Remove(request.token);
                 aclResponse.Message = "Password Reset Succesfully.";
@@ -123,13 +125,8 @@ namespace ACL.Repositories.V1
                 aclResponse.Message = ex.Message;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
             }
-
             return aclResponse;
-
         }
-        
-
-       
 
     }
 }

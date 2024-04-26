@@ -10,9 +10,9 @@ namespace ACL.Controllers.V1
     [ApiController]
     public class AclUserGroupController : Controller
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly ICustomUnitOfWork _unitOfWork;
 
-        public AclUserGroupController(IUnitOfWork unitOfWork)
+        public AclUserGroupController(ICustomUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }

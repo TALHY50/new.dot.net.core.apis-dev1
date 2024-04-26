@@ -7,15 +7,19 @@ using ACL.Response.V1;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
+using SharedLibrary.Interfaces;
+using SharedLibrary.Services;
+using ACL.Database;
+
 
 namespace ACL.Repositories.V1
 {
-    public class AclCompanyModuleRepository : GenericRepository<AclCompanyModule>, IAclCompanyModuleRepository
+    public class AclCompanyModuleRepository : GenericRepository<AclCompanyModule,ApplicationDbContext>, IAclCompanyModuleRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "Company Module";
-        public AclCompanyModuleRepository(IUnitOfWork _unitOfWork) : base(_unitOfWork)
+        public AclCompanyModuleRepository(IUnitOfWork<ApplicationDbContext> _unitOfWork) : base(_unitOfWork)
         {
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName, _unitOfWork);

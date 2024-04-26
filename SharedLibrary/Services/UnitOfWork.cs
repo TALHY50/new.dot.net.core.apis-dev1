@@ -1,456 +1,193 @@
-using System.Data;
-using System.Diagnostics;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
 using SharedLibrary.Interfaces;
-using SharedLibrary.Interfaces.Repositories;
-using SharedLibrary.Models;
-using SharedLibrary.Repositories;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Globalization;
+using System.Linq;
+using System.Reflection;
+using System.Resources;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace SharedLibrary.Services;
-
-public class UnitOfWork : IUnitOfWork
+namespace SharedLibrary.Services
 {
-    private ApplicationDbContext context;
-    private ILogger logger;
-    private ICacheService cacheService;
-    private IIpAddressService ipAddressService;
-    private ILogService logService;
-    private IHttpContextAccessor _httpContextAccessor;
 
-    public UnitOfWork(IIpAddressService ipAddressService, ApplicationDbContext context, ILoggerFactory loggerFactory, ICacheService cacheService,
-         IHttpContextAccessor httpContextAccessor)
+    public class UnitOfWork<TDbContext> : IUnitOfWork<TDbContext> where TDbContext : DbContext
     {
-        this.context = context;
-        this.cacheService = cacheService;
-        this.logger = loggerFactory.CreateLogger("Logs");
-        this.ipAddressService = ipAddressService;
-        this._httpContextAccessor = httpContextAccessor;
-        this.logService = new LogService(this.logger, loggerFactory);
-    }
-
-
-    public ApplicationDbContext ApplicationDbContext
-    {
-        get{return this.context;}
-        set{this.context = value;}
-    }
-
-    public ILogger Logger
-    {
-        get{return this.logger;}
-        set{this.logger = value;}
-    }
-
-    public ICacheService CacheService
-    {
-        get
-        {return this.cacheService;}
-        set{this.cacheService = value;}
-    }
-
-    
-
-    public IIpAddressService IpAddressService
-    {
-        get { return this.ipAddressService; }
-        set { this.ipAddressService = value; }
-    }
-
-    public ILogService LogService
-    {
-        get { return this.logService; }
-        set { this.logService = value; }
-    }
-    
-
-    public IHttpContextAccessor HttpContextAccessor
-    {
-        get { return this._httpContextAccessor;}
-        set { this._httpContextAccessor = value; }
-    }
-    
-    
-    public IMerchantRepository MerchantRepository
-    {
-        get { return new MerchantRepository(this); }
-
-    }
-    
-    
-    public IMerchantSettingRepository MerchantSettingRepository
-    {
-        get
+        private ILogger _logger;
+        private ILogService _logService;
+        private ICacheService _cacheService;
+        private IServiceCollection _services;
+        private ResourceManager _resourceManager;
+        private CultureInfo _cultureInfo;
+        private Assembly _assembly;
+        private TDbContext context;
+        private IHttpContextAccessor _httpContextAccessor;
+        public ILocalizationService LocalizationService { get; private set; }
+        public UnitOfWork(TDbContext context, ILogger<UnitOfWork<TDbContext>> logger, ILogService logService, ICacheService cacheService, IServiceCollection services, Assembly programAssembly)
         {
-            return new MerchantSettingRepository(this);
+            Initialize(context, logger, logService, cacheService, services);
         }
-    }
 
-    public IPosInstallmentRepository PosInstallmentRepository
-    {
-        get { return new PosInstallmentRepository(this); }
-    }
-
-    public IPosCampaignRepository PosCampaignRepository
-    {
-        get { return new PosCampaignRepository(this); }
-    }
-
-    public IPosRedirectionRepository PosRedirectionRepository
-    {
-        get
+        public UnitOfWork(TDbContext dbContext)
         {
-            return new PosRedirectionRepository(this);
+            var services = new ServiceCollection();
+            services.AddMemoryCache();
+            services.AddSingleton<ILogService, LogService>();
+            services.AddSingleton<ICacheService, CacheService>();
+            services.AddLogging();
+            var serviceProvider = services.BuildServiceProvider();
+            var logger = serviceProvider.GetRequiredService<ILogger<UnitOfWork<TDbContext>>>();
+            var logService = serviceProvider.GetRequiredService<ILogService>();
+            var cacheService = serviceProvider.GetRequiredService<ICacheService>();
+            context = dbContext;
+            Initialize(context, logger, logService, cacheService, services);
+            //Initialize(context, null, null, null, services);
         }
-    }
 
-    public IPosRiskyCountryRepository PosRiskyCountryRepository
-    {
-        get
+
+        private void Initialize(TDbContext context, ILogger<UnitOfWork<TDbContext>> logger, ILogService logService, ICacheService cacheService, IServiceCollection services)
         {
-            return new PosRiskyCountryRepository(this);
+            this.context = context;
+            this._logger = logger;
+            this._logService = logService;
+            this._cacheService = cacheService;
+            this._services = services;
+
         }
-    }
-
-    public IPosRepository PosRepository
-    {
-        get
+        public CultureInfo SetCulture(string culture)
         {
-            return new PosRepository(this);
+            return LocalizationService.SetCulture(culture);
         }
-    }
-
-    public IBankRepository BankRepository
-    {
-        get
+        public string GetLocalizedString(string key)
         {
-            return new BankRepository(this);
+            _cultureInfo = _cultureInfo ?? new CultureInfo("en-US");
+            _assembly = _assembly ?? Assembly.GetExecutingAssembly();
+            _resourceManager = _resourceManager ?? new ResourceManager("ACL.Resources." + _cultureInfo.Name, _assembly);
+            return _resourceManager.GetString(key, _cultureInfo);
         }
-    }
-    
-    
-    public IBankReferenceInformationRepository BankReferenceInformationRepository
-    {
-        get
+        public string GetLocalizedStringWithCulture(string key, CultureInfo culture)
         {
-            return new BankReferenceInformationRepository(this);
+            _cultureInfo = culture;
+            _assembly = _assembly ?? Assembly.GetExecutingAssembly();
+            _resourceManager = new ResourceManager("ACL.Resources." + _cultureInfo.Name, _assembly);
+            return _resourceManager.GetString(key, _cultureInfo);
         }
-    }
-
-    public ICurrencyRepository CurrencyRepository
-    {
-        get
+        public TDbContext ApplicationDbContext
         {
-            return new CurrencyRepository(this);
+            get { return this.context; }
+            set { this.context = value; }
         }
-    }
-
-    public IMerchantsCommissionRepository MerchantsCommissionRepository
-    {
-        get
+        public IGenericRepository<T> GenericRepository<T>() where T : class
         {
-            return new MerchantsCommissionRepository(this);
+            return new GenericRepository<T,TDbContext>(this);
         }
-    }
-
-    public IMerchantPosCommissionRepository MerchantPosCommissionRepository
-    {
-        get
+        public ILogger Logger
         {
-            return new MerchantPosCommissionsRepository(this);
+            get { return this._logger; }
+            set { this._logger = value; }
         }
-    }
 
-    public ICommercialCardCommissionRepository CommercialCardCommissionRepository
-    {
-        get
+
+        public ILogService LogService
         {
-            return new CommercialCardCommissionRepository(this);
+            get { return this._logService; }
+            set { this._logService = value; }
         }
-    }
 
-    public ISinglePaymentMerchantCommissionRepository SinglePaymentMerchantCommissionRepository
-    {
-        get
+        public ICacheService CacheService
         {
-            return new SinglePaymentMerchantCommissionRepository(this);
+            get
+            { return this._cacheService; }
+            set { this._cacheService = value; }
         }
-    }
 
-    public IPurchaseRequestRepository PurchaseRequestRepository
-    {
-        get
+        public IConfiguration Config
         {
-            return new PurchaseRequestRepository(this);
-        }
-    }
-    
-    public IArchivedRequestRepository ArchivedRequestRepository
-    {
-        get
-        {
-            return new ArchivedRequestRepository(this);
-        }
-    }
-
-    public ITmpPaymentRecordRepository TmpPaymentRecordRepository
-    {
-        get
-        {
-            return new TmpPaymentRecordRepository(this);
-        }
-    }
-
-
-    public IRollingReserveRepository RollingReserveRepository
-    {
-        get
-        {
-            return new RollingReserveRepository(this);
-        }
-    }
-
-    public IMerchantSaleRepository MerchantSaleRepository
-    {
-        get
-        {
-            return new MerchantSaleRepository(this);
-        }
-        
-    }
-
-    public IWalletRepository WalletRepository
-    {
-        get
-        {
-            return new WalletRepository(this);
-        }
-    }
-
-    public IRollingBalanceRepository RollingBalanceRepository
-    {
-        get
-        {
-            return new RollingBalanceRepository(this);
-        }
-    }
-
-    public async Task CompleteAsync()
-    {
-        await this.ApplicationDbContext.SaveChangesAsync();
-    }
-
-
-    public void Complete()
-    {
-        ApplicationDbContext.SaveChanges();
-    }
-
-    public void Dispose()
-    {
-        this.ApplicationDbContext.Dispose();
-    }
-
-    public IUnitOfWork GetService()
-    {
-        return this;
-    }
-
-
-
-
-
-
-    public ITmpObjectStorageRepository TmpObjectStorageRepository
-    {
-        get
-        {
-            return new TmpObjectStorageRepository(this);
-        }
-    }
-
-    public ISaleRepository SaleRepository
-    {
-        get { return new SaleRepository(this); }
-    }
-
-
-
-    //public ISettlementRepository SettlementRepository
-    //{
-    //    get
-    //    {
-    //        return new SettlementRepository(this);
-    //    }
-    //}
-
-    public IHolidaySettingRepository HolidaySettingRepository
-    {
-        get
-        {
-            return new HolidaySettingRepository(this);
-        }
-    }
-
-    public ITransactionRepository TransactionRepository
-    {
-        get
-        {
-            return new TransactionRepository(this);
-        }
-    }
-
-    public ICcBlockListsRepository CcBlockListsRepository
-    {
-        get
-        {
-            return new CCBlockListsRepository(this);
-        }
-    }
-    
-    public ISaleReportRepository SaleReportRepository
-    {
-        get
-        {
-            return new SaleReportRepository(this);
-        }
-    }
-    
-    
-    public IRefundHistoryRepository RefundHistoryRepository
-    {
-        get
-        {
-            return new RefundHistoryRepository(this);
-        }
-    }
-
-    public IMerchantWebHookKeysRepository MerchantWebHookKeysRepository
-    {
-        get
-        {
-            return new MerchantWebHookKeysRepository(this);
-        }
-    }
-
-
-    public ISaveCardsRepository SaveCardsRepository
-    {
-        get
-        {
-            return new SaveCardsRepository(this);
-        } 
-        
-    }
-
-    public ITmpBankResponseRepository TmpBankResponseRepository
-    {
-        get
-        {
-            return new TmpBankResponseRepository(this);
-        }
-    }
-
-    public ICurrencyConversionRateRepository CurrencyConversionRateRepository
-    {
-        get
-        {
-            return new CurrencyConversionRateRepository(this);
-        }
-    }
-
-    public IDirectPaymentLinkRepository DirectPaymentLinkRepository
-    {
-        get
-        {
-            return new DirectPaymentLinkRepository(this);
-        }
-    }
-
-
-    public ISaleRecurringRepository SaleRecurringRepository
-    {
-        
             get
             {
-                return new SaleRecurringRepository(this);
+                return new ConfigurationBuilder()
+.SetBasePath(Directory.GetCurrentDirectory())
+.AddJsonFile("appsettings.json")
+.Build();
             }
-        
-    }
-    
-    public ISaleRecurringPaymentScheduleRepository SaleRecurringPaymentScheduleRepository
-    {
-        
-        get
-        {
-            return new SaleRecurringPaymentScheduleRepository(this);
+
         }
-        
-    }
-    
-    
-    public ISaleRecurringHistoryRepository SaleRecurringHistoryRepository
-    {
-        
-        get
+
+        public IHttpContextAccessor HttpContextAccessor
         {
-            return new SaleRecurringHistoryRepository(this);
+            get { return this._httpContextAccessor; }
+            set { this._httpContextAccessor = value; }
         }
-        
+
+        public async Task CompleteAsync()
+        {
+            await this.ApplicationDbContext.SaveChangesAsync();
+        }
+
+        public void Complete()
+        {
+            ApplicationDbContext.SaveChanges();
+        }
+
+        public void Dispose()
+        {
+            this.ApplicationDbContext.Dispose();
+        }
+
+        public IUnitOfWork<TDbContext> GetService()
+        {
+            return this;
+        }
+
+        public async Task<IDbContextTransaction> BeginTransactionAsync()
+        {
+            return await ApplicationDbContext.Database.BeginTransactionAsync();
+        }
+
+        public IDbTransaction BeginTransaction()
+        {
+            var transaction = ApplicationDbContext.Database.BeginTransaction();
+            return transaction.GetDbTransaction();
+        }
+
+        public async Task CommitTransactionAsync()
+        {
+            await this.ApplicationDbContext.Database.CommitTransactionAsync();
+        }
+
+        public void CommitTransaction()
+        {
+            this.ApplicationDbContext.Database.CommitTransaction();
+        }
+
+        public async Task RollbackTransactionAsync()
+        {
+            await this.ApplicationDbContext.Database.RollbackTransactionAsync();
+        }
+        public void RollbackTransaction()
+        {
+            this.ApplicationDbContext.Database.RollbackTransaction();
+        }
+
+        public IExecutionStrategy CreateExecutionStrategy()
+        {
+            return ApplicationDbContext.Database.CreateExecutionStrategy();
+        }
+        public Assembly SetAssembly(Assembly assembly)
+        {
+            return LocalizationService.SetAssembly(assembly);
+        }
+        public ResourceManager SetReourceManager(CultureInfo resource, Assembly assembly)
+        {
+            assembly ??= Assembly.GetEntryAssembly();
+            return LocalizationService.SetReourceManager(resource, _assembly ?? assembly);
+        }
     }
-
-
-    public ISaleRecurringCardRepository SaleRecurringCardRepository
-    {
-        get { return new SaleRecurringCardRepository(this); }
-    }
-
-    public async Task BeginTransactionAsync()
-    {
-        await this.ApplicationDbContext.Database.BeginTransactionAsync();
-    }
-    
-    
-    public IDbTransaction BeginTransaction()
-    {
-        var transaction = ApplicationDbContext.Database.BeginTransaction();
-        return transaction.GetDbTransaction();
-    }
-    
-    
-    public async Task CommitTransactionAsync()
-    {
-        await this.ApplicationDbContext.Database.CommitTransactionAsync();
-    }
-
-
-    public void CommitTransaction()
-    {
-        this.ApplicationDbContext.Database.CommitTransaction();
-    }
-    
-    
-    public async Task RollbackTransactionAsync()
-    {
-        await this.ApplicationDbContext.Database.RollbackTransactionAsync();
-    }
-    
-    
-    
-    public void RollbackTransaction()
-    {
-        this.ApplicationDbContext.Database.RollbackTransaction();
-    }
-    
-    
-
-
-
-
-    
-    
-    
 }

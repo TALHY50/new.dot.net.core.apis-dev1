@@ -27,7 +27,7 @@ namespace ACL.Tests.V1
     public class AclRolePageAssociationControllerUnitTest
     {
         DatabaseConnector dbConnector;
-        UnitOfWork unitOfWork;
+        CustomUnitOfWork unitOfWork;
         RestClient restClient;
         DbContextOptions<ApplicationDbContext> _inMemoryDbContextOptions;
         ApplicationDbContext _inMemoryDbContext;
@@ -39,7 +39,7 @@ namespace ACL.Tests.V1
                 .UseInMemoryDatabase(databaseName: "acl")
                 .Options;
             _inMemoryDbContext = new ApplicationDbContext(_inMemoryDbContextOptions);
-            unitOfWork = new UnitOfWork(_inMemoryDbContext);
+            unitOfWork = new CustomUnitOfWork(_inMemoryDbContext);
             restClient = new RestClient(dbConnector.baseUrl);
             //  unitOfWork = new UnitOfWork(dbConnector.dbContext);
             unitOfWork.ApplicationDbContext = _inMemoryDbContext;
@@ -149,7 +149,7 @@ namespace ACL.Tests.V1
             }
 
             ulong roleId = unitOfWork.AclRoleRepository.FirstOrDefault().Result.Id;
-            List<AclPage> gotfromDb = (List<AclPage>)unitOfWork.AclPageRepository.GetAll().Data;
+            List<AclPage> gotfromDb = (List<AclPage>)unitOfWork.AclPageRepository.GetAll().Result.Data;
             if (gotfromDb.Count == 0)
             {
                 await unitOfWork.AclPageRepository.AddRange(new AclPage[]
@@ -163,7 +163,7 @@ namespace ACL.Tests.V1
                 await unitOfWork.CompleteAsync();
 
             }
-            gotfromDb = (List<AclPage>)unitOfWork.AclPageRepository.GetAll().Data;
+            gotfromDb = (List<AclPage>)unitOfWork.AclPageRepository.GetAll().Result.Data;
             Random random = new Random();
 
             List<AclPage> shuffledList = gotfromDb.OrderBy(x => random.Next()).ToList();

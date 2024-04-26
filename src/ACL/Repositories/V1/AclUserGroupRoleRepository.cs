@@ -6,16 +6,21 @@ using ACL.Response.V1;
 using ACL.Interfaces.Repositories.V1;
 using Microsoft.EntityFrameworkCore;
 using ACL.Utilities;
+using SharedLibrary.Interfaces;
+using SharedLibrary.Services;
+using ACL.Database;
 
 
 namespace ACL.Repositories.V1
 {
-    public class AclUserGroupRoleRepository : GenericRepository<AclUsergroupRole>, IAclUserGroupRoleRepository
+    public class AclUserGroupRoleRepository : GenericRepository<AclUsergroupRole, ApplicationDbContext>, IAclUserGroupRoleRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "UserGroupRole";
-        public AclUserGroupRoleRepository(IUnitOfWork _unitOfWork) : base(_unitOfWork)
+        private ICustomUnitOfWork _customUnitOfWork;
+
+        public AclUserGroupRoleRepository(IUnitOfWork<ApplicationDbContext> _unitOfWork) : base(_unitOfWork)
         {
             AppAuth.SetAuthInfo();
             aclResponse = new AclResponse();
@@ -25,19 +30,23 @@ namespace ACL.Repositories.V1
 
         public async Task<AclResponse> GetRolesByUserGroupId(ulong userGroupId)
         {
-            var roles = await _unitOfWork.ApplicationDbContext.AclRoles.Select(role => new { role.Id, role.Title }).ToListAsync();
-            var associatedRoles = _unitOfWork.ApplicationDbContext.AclUsergroupRoles
-                                   .Where(usergroupRole => usergroupRole.UsergroupId == userGroupId)
-                                   .Join(_unitOfWork.ApplicationDbContext.AclRoles,
-                                          usergroupRole => usergroupRole.RoleId,
-                                          role => role.Id,
-                                          (usergroupRole, role) => new
-                                          {
-                                              UsergroupId = usergroupRole.UsergroupId,
-                                              RoleTitle = role.Title,
-                                              RoleId = usergroupRole.RoleId
-                                          })
-                                   .ToList();
+            var roles = await _customUnitOfWork.AclRoleRepository
+        .Where(role => true) // Replace 'true' with your actual filter condition
+        .Select(role => new { role.Id, role.Title }) // Project the selected properties
+        .ToListAsync();
+            var associatedRoles = await _customUnitOfWork.AclUserGroupRoleRepository
+        .Where(usergroupRole => usergroupRole.UsergroupId == userGroupId)
+        .Join(
+            _customUnitOfWork.AclRoleRepository.Where(role => true), // Replace 'true' with your actual filter condition
+            usergroupRole => usergroupRole.RoleId,
+            role => role.Id,
+            (usergroupRole, role) => new
+            {
+                UsergroupId = usergroupRole.UsergroupId,
+                RoleTitle = role.Title,
+                RoleId = usergroupRole.RoleId
+            })
+        .ToListAsync();
 
 
             aclResponse.Message = messageResponse.fetchMessage;
@@ -48,26 +57,29 @@ namespace ACL.Repositories.V1
         }
         public async Task<AclResponse> Update(AclUserGroupRoleRequest request)
         {
+            var aclUserGroupRole = await _customUnitOfWork.AclUserGroupRoleRepository
+                .Where(x => x.UsergroupId == request.user_group_id)
+                .ToListAsync();
 
-            var aclUserGroupRole = await _unitOfWork.ApplicationDbContext.AclUsergroupRoles.Where(x => x.UsergroupId == request.user_group_id).ToListAsync();
             var userGroupRoles = GetUserGroupRoles(request);
-            var executionStrategy = _unitOfWork.CreateExecutionStrategy();
+            var executionStrategy = _customUnitOfWork.CreateExecutionStrategy();
+
+            var aclResponse = new AclResponse(); // Assuming aclResponse is already defined
 
             await executionStrategy.ExecuteAsync(async () =>
             {
-                using (var transaction = await _unitOfWork.BeginTransactionAsync())
+                using (var transaction = await _customUnitOfWork.BeginTransactionAsync())
                 {
-
                     try
                     {
                         if (aclUserGroupRole.Any())
                         {
-                            await base.RemoveRange(aclUserGroupRole);
-                            await _unitOfWork.CompleteAsync();
+                            await _customUnitOfWork.AclUserGroupRoleRepository.RemoveRange(aclUserGroupRole);
+                            await _customUnitOfWork.CompleteAsync();
                         }
-                        await base.AddRange(userGroupRoles);
-                        await _unitOfWork.CompleteAsync();
-                        await base.ReloadEntitiesAsync(userGroupRoles);
+                        await _customUnitOfWork.AclUserGroupRoleRepository.AddRange(userGroupRoles);
+                        await _customUnitOfWork.CompleteAsync();
+                        await _customUnitOfWork.AclUserGroupRoleRepository.ReloadEntitiesAsync(userGroupRoles);
                         aclResponse.Data = userGroupRoles;
                         aclResponse.Message = messageResponse.createMessage;
                         aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
@@ -79,11 +91,12 @@ namespace ACL.Repositories.V1
                         aclResponse.Message = ex.Message;
                         aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
                     }
-
                 }
             });
+
             return aclResponse;
         }
+
 
 
         private AclUsergroupRole[] GetUserGroupRoles(AclUserGroupRoleRequest request)
@@ -101,6 +114,6 @@ namespace ACL.Repositories.V1
             return userGroupRoles;
         }
 
-     
+
     }
 }

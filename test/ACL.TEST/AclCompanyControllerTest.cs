@@ -32,7 +32,7 @@ public class AclCompanyControllerIntegrationTest
         using (var dbContext = new ApplicationDbContext(options))
         {
             // Use a genuine instance of UnitOfWork
-            var unitOfWork = new UnitOfWork(dbContext);
+            var unitOfWork = new CustomUnitOfWork(dbContext);
             unitOfWork.ApplicationDbContext = dbContext;
             // unitOfWork.LocalizationService = 
             var controller = new AclCompanyController(unitOfWork);

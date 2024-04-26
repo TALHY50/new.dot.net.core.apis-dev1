@@ -4,10 +4,11 @@ using System.Reflection.Emit;
 using ACL.Database.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using SharedLibrary.Interfaces;
 
 namespace ACL.Database;
 
-public partial class ApplicationDbContext : DbContext
+public partial class ApplicationDbContext : DbContext,IApplicationDbContext
 {
     private readonly ILoggerFactory _loggerFactory;
 

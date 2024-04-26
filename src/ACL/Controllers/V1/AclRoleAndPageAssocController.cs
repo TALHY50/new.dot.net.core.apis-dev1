@@ -10,9 +10,9 @@ namespace ACL.Controllers.V1
     [ApiController]
     public class AclRoleAndPageAssocController : ControllerBase
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly ICustomUnitOfWork _unitOfWork;
 
-        public AclRoleAndPageAssocController(IUnitOfWork unitOfWork)
+        public AclRoleAndPageAssocController(ICustomUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }

@@ -26,7 +26,7 @@ namespace ACL.Tests.V1
     public class AclCompanyControllerUnitTest
     {
         DatabaseConnector dbConnector;
-        UnitOfWork unitOfWork;
+        CustomUnitOfWork unitOfWork;
         RestClient restClient;
         DbContextOptions<ApplicationDbContext> _inMemoryDbContextOptions;
         ApplicationDbContext _inMemoryDbContext;
@@ -38,7 +38,7 @@ namespace ACL.Tests.V1
                 .UseInMemoryDatabase(databaseName: "acl")
                 .Options;
             _inMemoryDbContext = new ApplicationDbContext(_inMemoryDbContextOptions);
-            unitOfWork = new UnitOfWork(_inMemoryDbContext);
+            unitOfWork = new CustomUnitOfWork(_inMemoryDbContext);
             restClient = new RestClient(dbConnector.baseUrl);
             unitOfWork.ApplicationDbContext = _inMemoryDbContext;
            controller = new AclCompanyController(unitOfWork);

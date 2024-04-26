@@ -20,7 +20,7 @@ public class UniqueValueAttribute : ValidationAttribute
         var idValue = httpContext?.Request.RouteValues["id"]?.ToString();
 
         var serviceProvider = validationContext.GetService(typeof(IServiceProvider)) as IServiceProvider;
-        var unitOfWork = serviceProvider.GetService(typeof(IUnitOfWork)) as IUnitOfWork;
+        var unitOfWork = serviceProvider.GetService(typeof(ICustomUnitOfWork)) as ICustomUnitOfWork;
         var dbContext = unitOfWork.ApplicationDbContext;
 
         // Get the DbSet property dynamically based on the table name
