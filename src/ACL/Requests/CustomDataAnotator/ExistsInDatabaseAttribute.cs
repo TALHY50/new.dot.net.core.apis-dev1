@@ -43,7 +43,7 @@ namespace ACL.Requests.CustomDataAnotator
                 // If there exists any record with the same value in the specified column
                 if (!query.Any())
                 {
-                    return new ValidationResult($"The value '{value}' is not exist in {_tableName}.");
+                    return new ValidationResult($"The '{value}' is not exist.");
                 }
           
 

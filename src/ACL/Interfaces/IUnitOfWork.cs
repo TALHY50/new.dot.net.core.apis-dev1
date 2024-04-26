@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc.Localization;
 using System.Globalization;
 using System.Reflection;
 using System.Resources;
+using ACL.Repositories.V1;
 
 
 namespace ACL.Interfaces
@@ -38,6 +39,8 @@ namespace ACL.Interfaces
         IAclUserRepository AclUserRepository { get; }
         IAclPasswordRepository AclPasswordRepository { get; }
         IAclUserGroupRepository AclUserGroupRepository { get; }
+        IAclStateRepository AclStateRepository { get; }
+
 
         IUnitOfWork GetService();
         IDbTransaction BeginTransaction();

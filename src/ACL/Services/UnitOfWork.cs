@@ -233,8 +233,13 @@ namespace ACL.Services
         public IAclPasswordRepository AclPasswordRepository
         {
             get { return new AclPasswordRepository(this); }
+        } 
+        
+        public IAclStateRepository AclStateRepository
+        {
+            get { return new AclStateRepository(this); }
         }
-
+        
         public IExecutionStrategy CreateExecutionStrategy()
         {
             return ApplicationDbContext.Database.CreateExecutionStrategy();
