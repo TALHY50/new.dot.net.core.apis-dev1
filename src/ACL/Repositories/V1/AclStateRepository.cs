@@ -8,18 +8,20 @@ using ACL.Utilities;
 using SharedLibrary.Interfaces;
 using SharedLibrary.Services;
 using ACL.Database;
+using ACL.Services;
 
 namespace ACL.Repositories.V1
 {
-    public class AclStateRepository : GenericRepository<AclState,ApplicationDbContext>, IAclStateRepository
+    public class AclStateRepository : GenericRepository<AclState,ApplicationDbContext,ICustomUnitOfWork>, IAclStateRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "State";
         private ICustomUnitOfWork _customUnitOfWork;
 
-        public AclStateRepository(IUnitOfWork<ApplicationDbContext> _unitOfWork) : base(_unitOfWork)
+        public AclStateRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork,_unitOfWork.ApplicationDbContext)
         {
+            AppAuth.SetAuthInfo();
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName, _unitOfWork);
             AppAuth.SetAuthInfo();

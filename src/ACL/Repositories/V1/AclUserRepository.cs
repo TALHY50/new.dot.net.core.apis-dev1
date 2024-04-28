@@ -10,10 +10,11 @@ using SharedLibrary.Interfaces;
 using SharedLibrary.Services;
 using ACL.Database;
 using ACL.Utilities;
+using ACL.Services;
 
 namespace ACL.Repositories.V1
 {
-    public class AclUserRepository : GenericRepository<AclUser, ApplicationDbContext>, IAclUserRepository
+    public class AclUserRepository : GenericRepository<AclUser, ApplicationDbContext,ICustomUnitOfWork>, IAclUserRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
@@ -24,7 +25,7 @@ namespace ACL.Repositories.V1
         private IConfiguration _config;
         private ICustomUnitOfWork _customUnitOfWork;
 
-        public AclUserRepository(IUnitOfWork<ApplicationDbContext> _unitOfWork, IConfiguration config) : base(_unitOfWork)
+        public AclUserRepository(ICustomUnitOfWork _unitOfWork, IConfiguration config) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
             AppAuth.SetAuthInfo();
             _config = config;

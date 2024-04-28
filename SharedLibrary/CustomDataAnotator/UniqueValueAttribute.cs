@@ -85,7 +85,7 @@ using SharedLibrary.Interfaces;
 
 namespace ACL.Requests.CustomDataAnotator
 {
-    public class UniqueValueAttribute<TDbContext> : ValidationAttribute where TDbContext : DbContext
+    public class UniqueValueAttribute<TDbContext,TUnitOfWork> : ValidationAttribute where TDbContext : DbContext where TUnitOfWork : class
     {
         private readonly string _tableName;
         private readonly string _columnName;
@@ -102,7 +102,7 @@ namespace ACL.Requests.CustomDataAnotator
             var httpContext = (serviceProvider.GetService(typeof(IHttpContextAccessor)) as IHttpContextAccessor)?.HttpContext;
             var idValue = httpContext?.Request.RouteValues["id"]?.ToString();
 
-            var unitOfWork = serviceProvider.GetService(typeof(IUnitOfWork<TDbContext>)) as IUnitOfWork<TDbContext>;
+            var unitOfWork = serviceProvider.GetService(typeof(IUnitOfWork<TDbContext,TUnitOfWork>)) as IUnitOfWork<TDbContext,TUnitOfWork>;
             var dbContext = unitOfWork.ApplicationDbContext;
 
             // Get the DbSet property dynamically based on the table name

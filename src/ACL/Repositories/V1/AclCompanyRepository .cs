@@ -25,7 +25,7 @@ using ACL.Utilities;
 
 namespace ACL.Repositories.V1
 {
-    public class AclCompanyRepository : GenericRepository<AclCompany,ApplicationDbContext>, IAclCompanyRepository
+    public class AclCompanyRepository : GenericRepository<AclCompany,ApplicationDbContext,ICustomUnitOfWork>, IAclCompanyRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
@@ -34,11 +34,19 @@ namespace ACL.Repositories.V1
         private ICustomUnitOfWork _customUnitOfWork;
 
 
-        public AclCompanyRepository(IUnitOfWork<ApplicationDbContext> _unitOfWork, IConfiguration config) : base(_unitOfWork)
+        //public AclCompanyRepository(ICustomUnitOfWork _unitOfWork, IConfiguration config) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
+        //{
+        //    aclResponse = new AclResponse();
+        //    messageResponse = new MessageResponse(modelName, _unitOfWork);
+        //    _config = config;
+        //    AppAuth.SetAuthInfo(); // sent object to this class when auth is found
+        //} 
+        public AclCompanyRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
             aclResponse = new AclResponse();
-            messageResponse = new MessageResponse(modelName, _unitOfWork);
-            _config = config;
+           // messageResponse = new MessageResponse(modelName, _unitOfWork);
+           // _config = config;
+            AppAuth.SetAuthInfo(); // sent object to this class when auth is found
         }
 
         public async Task<AclResponse> FindById(ulong id)

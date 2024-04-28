@@ -15,16 +15,17 @@ using System.Threading.Tasks;
 
 namespace SharedLibrary.Interfaces
 {
-    public interface IUnitOfWork<TDbContext> where TDbContext : DbContext
+    public interface IUnitOfWork<TDbContext,TUnitOfWork> where TDbContext : DbContext where TUnitOfWork : class
     {
         TDbContext ApplicationDbContext { get; set; }
+        IUnitOfWork<TDbContext, TUnitOfWork> UnitOfWork { get; set; }
         ILogger Logger { get; set; }
         IHttpContextAccessor HttpContextAccessor { get; }
         IGenericRepository<T> GenericRepository<T>() where T : class;
         ILogService LogService { get; set; }
         ILocalizationService LocalizationService { get; }
         IConfiguration Config { get; }
-        IUnitOfWork<TDbContext> GetService();
+        IUnitOfWork<TDbContext, TUnitOfWork> GetService();
         IDbTransaction BeginTransaction();
         Task<IDbContextTransaction> BeginTransactionAsync();
         Task CompleteAsync();

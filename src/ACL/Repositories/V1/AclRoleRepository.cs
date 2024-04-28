@@ -8,16 +8,17 @@ using ACL.Utilities;
 using SharedLibrary.Interfaces;
 using SharedLibrary.Services;
 using ACL.Database;
+using ACL.Services;
 
 namespace ACL.Repositories.V1
 {
-    public class AclRoleRepository : GenericRepository<AclRole,ApplicationDbContext>, IAclRoleRepository
+    public class AclRoleRepository : GenericRepository<AclRole,ApplicationDbContext,ICustomUnitOfWork>, IAclRoleRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "Role";
         private ICustomUnitOfWork _customUnitOfWork;
-        public AclRoleRepository(IUnitOfWork<ApplicationDbContext> _unitOfWork) : base(_unitOfWork)
+        public AclRoleRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName, _unitOfWork);

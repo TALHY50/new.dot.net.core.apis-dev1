@@ -16,7 +16,7 @@ using SharedLibrary.Interfaces;
 
 namespace ACL.Interfaces
 {
-    public interface ICustomUnitOfWork : IDisposable, IUnitOfWork<ApplicationDbContext>
+    public interface ICustomUnitOfWork : IDisposable, IUnitOfWork<ApplicationDbContext, CustomUnitOfWork>
     {
         ICustomUnitOfWork _unitOfWork { get; }
         IAclCompanyRepository AclCompanyRepository { get; }

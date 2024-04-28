@@ -2,6 +2,7 @@
 using System.Globalization;
 using ACL.Database;
 using ACL.Interfaces;
+using ACL.Services;
 using SharedLibrary.Interfaces;
 
 namespace ACL.Response.V1
@@ -15,7 +16,7 @@ namespace ACL.Response.V1
         public string notFoundMessage = "notFoundMessage";
         public string existMessage = "existMessage";
         CultureInfo cultureInfo;
-        public MessageResponse(string model,IUnitOfWork<ApplicationDbContext> _unitOfWork,string language = "en-US"){
+        public MessageResponse(string model,ICustomUnitOfWork _unitOfWork,string language = "en-US"){
             this.cultureInfo = new CultureInfo(language);
             fetchMessage = _unitOfWork.GetLocalizedStringWithCulture(model, cultureInfo) + " " + _unitOfWork.GetLocalizedStringWithCulture(fetchMessage, cultureInfo);
             editMessage = _unitOfWork.GetLocalizedStringWithCulture(model, cultureInfo) + " " + _unitOfWork.GetLocalizedStringWithCulture(editMessage, cultureInfo); 

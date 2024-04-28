@@ -10,18 +10,20 @@ using static ACL.Route.AclRoutesUrl;
 using SharedLibrary.Interfaces;
 using SharedLibrary.Services;
 using ACL.Database;
+using ACL.Utilities;
 
 namespace ACL.Repositories.V1
 {
-    public class AclRolePageRepository : GenericRepository<AclRolePage,ApplicationDbContext>, IAclRolePageRepository
+    public class AclRolePageRepository : GenericRepository<AclRolePage,ApplicationDbContext,ICustomUnitOfWork>, IAclRolePageRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "Role Page";
-        public AclRolePageRepository(IUnitOfWork<ApplicationDbContext> _unitOfWork) : base(_unitOfWork)
+        public AclRolePageRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName, _unitOfWork);
+              AppAuth.SetAuthInfo(); // sent object to this class when auth is found
         }
 
         public async Task<AclResponse> GetAllById(ulong id)

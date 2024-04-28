@@ -8,20 +8,22 @@ using SharedLibrary.Interfaces;
 using SharedLibrary.Services;
 using ACL.Database;
 using ACL.Services;
+using ACL.Utilities;
 
 namespace ACL.Repositories.V1
 {
-    public class AclModuleRepository : GenericRepository<AclModule,ApplicationDbContext>, IAclModuleRepository
+    public class AclModuleRepository : GenericRepository<AclModule,ApplicationDbContext,ICustomUnitOfWork>, IAclModuleRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "Module";
         private ICustomUnitOfWork _customUnitOfWork;
 
-        public AclModuleRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork)
+        public AclModuleRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName, _unitOfWork);
+            AppAuth.SetAuthInfo(); // sent object to this class when auth is found
         }
         public async Task<AclResponse> FindById(ulong id)
         {

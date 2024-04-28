@@ -18,22 +18,29 @@ using System.Reflection;
 using Serilog.Core;
 using SharedLibrary.Interfaces;
 using SharedLibrary.Services;
+using Microsoft.EntityFrameworkCore;
+using HtmlAgilityPack;
 
 namespace ACL.Services
 {
-    public class CustomUnitOfWork :UnitOfWork<ApplicationDbContext>, ICustomUnitOfWork
+    public class CustomUnitOfWork : UnitOfWork<ApplicationDbContext,ICustomUnitOfWork>, ICustomUnitOfWork
     {
         private ApplicationDbContext context;
         private Assembly _assembly;
-        IUnitOfWork<ApplicationDbContext> _baseunitOfWork;
+        IUnitOfWork<ApplicationDbContext,ICustomUnitOfWork> _baseunitOfWork;
         ICustomUnitOfWork _unitOfWork;
- public CustomUnitOfWork(ApplicationDbContext context, ILogger<UnitOfWork<ApplicationDbContext>> logger, ILogService logService, ICacheService cacheService, IServiceCollection services, Assembly programAssembly)
-            : base(context, logger, logService, cacheService, services, programAssembly)
+        public CustomUnitOfWork(ApplicationDbContext context, ILogger<UnitOfWork<ApplicationDbContext,ICustomUnitOfWork>> logger, ILogService logService, ICacheService cacheService, IServiceCollection services, Assembly programAssembly)
+                   : base(context, logger, logService, cacheService, services, programAssembly)
         {
+            this.context = context;
+            _baseunitOfWork = base.unitOfWork;
+            _unitOfWork = this;
         }
-        public CustomUnitOfWork(ApplicationDbContext context):base(context)
+        public CustomUnitOfWork(ApplicationDbContext context) : base(context)
         {
-            
+            this.context = context;
+            _baseunitOfWork = base.unitOfWork;
+            _unitOfWork = this;
         }
 
         public ApplicationDbContext ApplicationDbContext
@@ -59,7 +66,8 @@ namespace ACL.Services
         }
         public IAclCompanyRepository AclCompanyRepository
         {
-            get { return new AclCompanyRepository(this, Config); }
+          //  get { return new AclCompanyRepository(_unitOfWork, Config); }
+            get { return new AclCompanyRepository(this); }
 
         }
 
@@ -99,7 +107,7 @@ namespace ACL.Services
         {
             get { return new AclPageRepository(this); }
         }
-        
+
         public IAclPageRouteRepository AclPageRouteRepository
         {
             get { return new AclPageRouteRepository(this); }
@@ -109,7 +117,7 @@ namespace ACL.Services
         {
             get { return new AclUserRepository(this, Config); }
         }
-        
+
         public IAclUserUserGroupRepository AclUserUserGroupRepository
         {
             get { return new AclUserUserGroupRepository(this); }
@@ -123,23 +131,20 @@ namespace ACL.Services
         public IAclPasswordRepository AclPasswordRepository
         {
             get { return new AclPasswordRepository(this); }
-        } 
-        
+        }
+
         public IAclStateRepository AclStateRepository
         {
             get { return new AclStateRepository(this); }
         }
 
-        ICustomUnitOfWork ICustomUnitOfWork._unitOfWork => new CustomUnitOfWork(ApplicationDbContext);
+        ICustomUnitOfWork ICustomUnitOfWork._unitOfWork => this;
 
-        IGenericRepository<T> IUnitOfWork<ApplicationDbContext>.GenericRepository<T>()
-        {
-            return GenericRepository<T>();
-        }
+        IUnitOfWork<ApplicationDbContext, CustomUnitOfWork> IUnitOfWork<ApplicationDbContext, CustomUnitOfWork>.UnitOfWork { get{return this._unitOfWork; } set => throw new NotImplementedException(); }
 
-        IUnitOfWork<ApplicationDbContext> IUnitOfWork<ApplicationDbContext>.GetService()
+        IUnitOfWork<ApplicationDbContext, CustomUnitOfWork> IUnitOfWork<ApplicationDbContext, CustomUnitOfWork>.GetService()
         {
-            return this;
+            return this._unitOfWork;
         }
     }
 }

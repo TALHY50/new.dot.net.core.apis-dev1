@@ -13,14 +13,14 @@ using SharedLibrary.Utilities;
 
 namespace ACL.Repositories.V1
 {
-    public class AclPasswordRepository : GenericRepository<AclUser,ApplicationDbContext>, IAclPasswordRepository
+    public class AclPasswordRepository : GenericRepository<AclUser,ApplicationDbContext,ICustomUnitOfWork>, IAclPasswordRepository
     {
         public AclResponse aclResponse;
         private string modelName = "Password";
         private int tokenExpiryMinutes = 60;
         public MessageResponse messageResponse;
         private ICustomUnitOfWork _customUnitOfWork;
-        public AclPasswordRepository(IUnitOfWork<ApplicationDbContext> _unitOfWork) : base(_unitOfWork)
+        public AclPasswordRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName, _unitOfWork);

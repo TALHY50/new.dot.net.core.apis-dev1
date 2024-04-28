@@ -7,7 +7,7 @@ using SharedLibrary.Interfaces;
 
 namespace ACL.Requests.CustomDataAnotator
 {
-    public class ExistsInDatabaseAttribute<TDbContext> : ValidationAttribute where TDbContext : DbContext
+    public class ExistsInDatabaseAttribute<TDbContext,TUnitOfWork> : ValidationAttribute where TDbContext : DbContext where TUnitOfWork : class
     {
         private readonly string _tableName;
         private readonly string _columnName;
@@ -26,7 +26,7 @@ namespace ACL.Requests.CustomDataAnotator
                 throw new InvalidOperationException("Could not obtain the IServiceProvider.");
             }
 
-            var unitOfWork = serviceProvider.GetRequiredService<IUnitOfWork<TDbContext>>();
+            var unitOfWork = serviceProvider.GetRequiredService<IUnitOfWork<TDbContext,TUnitOfWork>>();
             var dbContext = unitOfWork.ApplicationDbContext;
 
             var dbSet = dbContext.Set<object>().AsQueryable();

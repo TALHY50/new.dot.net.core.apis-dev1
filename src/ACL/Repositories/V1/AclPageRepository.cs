@@ -12,20 +12,22 @@ using SharedLibrary.Services;
 using ACL.Database;
 using SharedLibrary.Interfaces;
 using ACL.Services;
+using ACL.Utilities;
 
 namespace ACL.Repositories.V1
 {
-    public class AclPageRepository : GenericRepository<AclPage,ApplicationDbContext>, IAclPageRepository
+    public class AclPageRepository : GenericRepository<AclPage,ApplicationDbContext,ICustomUnitOfWork>, IAclPageRepository
     {
 
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "Page";
         private ICustomUnitOfWork _customUnitOfWork;
-        public AclPageRepository(IUnitOfWork<ApplicationDbContext> _unitOfWork) : base(_unitOfWork)
+        public AclPageRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName, _unitOfWork);
+            AppAuth.SetAuthInfo(); // sent object to this class when auth is found
             
         }
         public async Task<AclResponse> GetAll()

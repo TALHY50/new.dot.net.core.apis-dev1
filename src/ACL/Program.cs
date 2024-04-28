@@ -27,14 +27,18 @@ using Sprache;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using SharedLibrary.Interfaces;
 using SharedLibrary.Services;
+using ACL.Interfaces.Repositories.V1;
+using ACL.Repositories.V1;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
-//builder.Services.AddLogging(loggingBuilder =>
-//{
-//    loggingBuilder.AddSerilog(dispose: true);
-//});
+builder.Services.AddLogging(loggingBuilder =>
+{
+    // Add console logger
+    loggingBuilder.AddConsole();
+    loggingBuilder.AddSerilog(dispose: true);
+});
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization(); // Add authorization services
 builder.Services.AddControllers();
@@ -77,42 +81,44 @@ IConfiguration configuration = new ConfigurationBuilder()
        .SetBasePath(Directory.GetCurrentDirectory())
        .AddJsonFile("appsettings.json")
        .Build();
-builder.Services.AddScoped<IUnitOfWork<ApplicationDbContext>, CustomUnitOfWork>();
+//builder.Services.AddScoped<IAclCompanyRepository, AclCompanyRepository>();
 builder.Services.AddScoped<ICustomUnitOfWork, CustomUnitOfWork>();
+builder.Services.AddScoped<IUnitOfWork<ApplicationDbContext,ICustomUnitOfWork>, UnitOfWork<ApplicationDbContext,ICustomUnitOfWork>>();
 builder.Services.AddSingleton<IConfiguration>(configuration);
-//builder.Services.AddScoped<ICacheService, CacheService>();
-//builder.Services.AddLogging(loggingBuilder =>
-//{
-//    loggingBuilder.AddSerilog(dispose: true);
-//});
+builder.Services.AddScoped<ICacheService, CacheService>();
+builder.Services.AddLogging(loggingBuilder =>
+{
+    loggingBuilder.AddConsole();
+    loggingBuilder.AddSerilog(dispose: true);
+});
 
-//builder.Services.AddSingleton<Serilog.ILogger>(_ => Log.Logger);
+builder.Services.AddSingleton<Serilog.ILogger>(_ => Log.Logger);
 //builder.Services.AddScoped<ILogService, LogService>();
-//Log.Logger = new LoggerConfiguration()
-//   .MinimumLevel.Debug()
-//   .WriteTo.File(GetLogFilePath("log.txt"), restrictedToMinimumLevel: LogEventLevel.Error, rollingInterval: RollingInterval.Day, buffered: false)
-//   .WriteTo.Logger(lc => lc
-//       .Filter.ByExcluding(e => e.Properties.ContainsKey("RequestPath") || e.Properties.ContainsKey("RequestBody") || e.Properties.ContainsKey("ResponseBody"))
-//       .WriteTo.File(GetLogFilePath("log.txt"), restrictedToMinimumLevel: LogEventLevel.Information))
-//   .WriteTo.File(GetLogFilePath("querylog.txt"), restrictedToMinimumLevel: LogEventLevel.Information, rollingInterval: RollingInterval.Day, buffered: false)
-//   .CreateLogger();
+Log.Logger = new LoggerConfiguration()
+   .MinimumLevel.Debug()
+   .WriteTo.File(GetLogFilePath("log.txt"), restrictedToMinimumLevel: LogEventLevel.Error, rollingInterval: RollingInterval.Day, buffered: false)
+   .WriteTo.Logger(lc => lc
+       .Filter.ByExcluding(e => e.Properties.ContainsKey("RequestPath") || e.Properties.ContainsKey("RequestBody") || e.Properties.ContainsKey("ResponseBody"))
+       .WriteTo.File(GetLogFilePath("log.txt"), restrictedToMinimumLevel: LogEventLevel.Information))
+   .WriteTo.File(GetLogFilePath("querylog.txt"), restrictedToMinimumLevel: LogEventLevel.Information, rollingInterval: RollingInterval.Day, buffered: false)
+   .CreateLogger();
 
-//builder.Host.UseSerilog((hostingContext, loggerConfiguration) =>
-//{
-//    loggerConfiguration
-//        .ReadFrom.Configuration(hostingContext.Configuration)
-//        .WriteTo.Console();
-//});
+builder.Host.UseSerilog((hostingContext, loggerConfiguration) =>
+{
+    loggerConfiguration
+        .ReadFrom.Configuration(hostingContext.Configuration)
+        .WriteTo.Console();
+});
 
-//builder.Services.AddSerilog();
+builder.Services.AddSerilog();
 
-//static string GetLogFilePath(string fileName)
-//{
-//    var logDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Logs");
-//    Directory.CreateDirectory(logDirectory);
-//    var datePrefix = DateTime.Now.ToString("yyyy-MM-dd");
-//    return Path.Combine(logDirectory, $"{datePrefix}_{fileName}");
-//}
+static string GetLogFilePath(string fileName)
+{
+    var logDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Logs");
+    Directory.CreateDirectory(logDirectory);
+    var datePrefix = DateTime.Now.ToString("yyyy-MM-dd");
+    return Path.Combine(logDirectory, $"{datePrefix}_{fileName}");
+}
 var app = builder.Build();
 
 
@@ -122,8 +128,8 @@ app.UseSwaggerUI(options =>
     options.DefaultModelsExpandDepth(-1);
 });
 
-//app.UseMiddleware<RequestResponseLoggingMiddleware>();
-//app.UseSerilogRequestLogging();
+app.UseMiddleware<RequestResponseLoggingMiddleware>();
+app.UseSerilogRequestLogging();
 
 app.UseCors(builder =>
 {

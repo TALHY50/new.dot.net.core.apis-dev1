@@ -9,18 +9,19 @@ using ACL.Utilities;
 using SharedLibrary.Interfaces;
 using SharedLibrary.Services;
 using ACL.Database;
+using ACL.Services;
 
 
 namespace ACL.Repositories.V1
 {
-    public class AclUserGroupRoleRepository : GenericRepository<AclUsergroupRole, ApplicationDbContext>, IAclUserGroupRoleRepository
+    public class AclUserGroupRoleRepository : GenericRepository<AclUsergroupRole, ApplicationDbContext,ICustomUnitOfWork>, IAclUserGroupRoleRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "UserGroupRole";
         private ICustomUnitOfWork _customUnitOfWork;
 
-        public AclUserGroupRoleRepository(IUnitOfWork<ApplicationDbContext> _unitOfWork) : base(_unitOfWork)
+        public AclUserGroupRoleRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
             AppAuth.SetAuthInfo();
             aclResponse = new AclResponse();

@@ -14,13 +14,21 @@ using System.Reflection;
 using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using Serilog;
+using Serilog.Events;
+using ILogger = Microsoft.Extensions.Logging.ILogger;
+using Microsoft.Extensions.Hosting;
 
 namespace SharedLibrary.Services
 {
 
-    public class UnitOfWork<TDbContext> : IUnitOfWork<TDbContext> where TDbContext : DbContext
+    public class UnitOfWork<TDbContext, TUnitOfWork> : IUnitOfWork<TDbContext, TUnitOfWork>
+        where TDbContext : DbContext
+        where TUnitOfWork : class
     {
-        private ILogger _logger;
+        private Microsoft.Extensions.Logging.ILogger _logger;
+        private TUnitOfWork _customUnitOfWork;
         private ILogService _logService;
         private ICacheService _cacheService;
         private IServiceCollection _services;
@@ -29,30 +37,65 @@ namespace SharedLibrary.Services
         private Assembly _assembly;
         private TDbContext context;
         private IHttpContextAccessor _httpContextAccessor;
+        public IUnitOfWork<TDbContext,TUnitOfWork> unitOfWork;
         public ILocalizationService LocalizationService { get; private set; }
-        public UnitOfWork(TDbContext context, ILogger<UnitOfWork<TDbContext>> logger, ILogService logService, ICacheService cacheService, IServiceCollection services, Assembly programAssembly)
+        public UnitOfWork(TDbContext context, ILogger<UnitOfWork<TDbContext,TUnitOfWork>> logger, ILogService logService, ICacheService cacheService, IServiceCollection services, Assembly programAssembly)
         {
-            Initialize(context, logger, logService, cacheService, services);
+            Initialize(context, logger, logService, cacheService, services, programAssembly);
         }
 
         public UnitOfWork(TDbContext dbContext)
         {
             var services = new ServiceCollection();
             services.AddMemoryCache();
-            services.AddSingleton<ILogService, LogService>();
+            services.AddSingleton<Serilog.ILogger>(_ => Serilog.Log.Logger);
+            services.AddScoped<ILogService, LogService>();
+            Serilog.Log.Logger = new Serilog.LoggerConfiguration()
+               .MinimumLevel.Debug()
+               .WriteTo.File(GetLogFilePath("log.txt"), restrictedToMinimumLevel: LogEventLevel.Error, rollingInterval: RollingInterval.Day, buffered: false)
+               .WriteTo.Logger(lc => lc
+                   .Filter.ByExcluding(e => e.Properties.ContainsKey("RequestPath") || e.Properties.ContainsKey("RequestBody") || e.Properties.ContainsKey("ResponseBody"))
+                   .WriteTo.File(GetLogFilePath("log.txt"), restrictedToMinimumLevel: LogEventLevel.Information))
+               .WriteTo.File(GetLogFilePath("querylog.txt"), restrictedToMinimumLevel: LogEventLevel.Information, rollingInterval: RollingInterval.Day, buffered: false)
+               .CreateLogger();
+            var hostProvider = Host.CreateApplicationBuilder();
+            //Host.UseSerilog((hostingContext, loggerConfiguration) =>
+            //{
+            //    loggerConfiguration
+            //        .ReadFrom.Configuration(hostingContext.Configuration)
+            //        .WriteTo.Console();
+            //});
+
+            //services.AddSerilog();
             services.AddSingleton<ICacheService, CacheService>();
+            services.AddLogging(loggingBuilder =>
+                {
+                    loggingBuilder.AddConsole();
+                    loggingBuilder.AddSerilog(dispose: true);
+                });
             services.AddLogging();
+            IConfiguration configuration = new ConfigurationBuilder()
+       .SetBasePath(Directory.GetCurrentDirectory())
+       .AddJsonFile("appsettings.json")
+       .Build();
             var serviceProvider = services.BuildServiceProvider();
-            var logger = serviceProvider.GetRequiredService<ILogger<UnitOfWork<TDbContext>>>();
-            var logService = serviceProvider.GetRequiredService<ILogService>();
+
+            var logger = serviceProvider.GetRequiredService<ILogger<UnitOfWork<TDbContext,TUnitOfWork>>>();
+            //var logService = serviceProvider.GetRequiredService<ILogService>();
             var cacheService = serviceProvider.GetRequiredService<ICacheService>();
             context = dbContext;
-            Initialize(context, logger, logService, cacheService, services);
+            services.AddSingleton<IConfiguration>(configuration);
+            Initialize(context, logger, null, cacheService, services);
             //Initialize(context, null, null, null, services);
         }
-
-
-        private void Initialize(TDbContext context, ILogger<UnitOfWork<TDbContext>> logger, ILogService logService, ICacheService cacheService, IServiceCollection services)
+        static string GetLogFilePath(string fileName)
+        {
+            var logDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Logs");
+            Directory.CreateDirectory(logDirectory);
+            var datePrefix = DateTime.Now.ToString("yyyy-MM-dd");
+            return Path.Combine(logDirectory, $"{datePrefix}_{fileName}");
+        }
+        private void Initialize(TDbContext context, ILogger<UnitOfWork<TDbContext,TUnitOfWork>> logger, ILogService logService, ICacheService cacheService, IServiceCollection services)
         {
             this.context = context;
             this._logger = logger;
@@ -60,6 +103,15 @@ namespace SharedLibrary.Services
             this._cacheService = cacheService;
             this._services = services;
 
+        }
+        private void Initialize(TDbContext context, ILogger<UnitOfWork<TDbContext,TUnitOfWork>> logger, ILogService logService, ICacheService cacheService, IServiceCollection services, Assembly assembly)
+        {
+            this.context = context;
+            this._logger = logger;
+            this._logService = logService;
+            this._cacheService = cacheService;
+            this._services = services;
+            _assembly = assembly;
         }
         public CultureInfo SetCulture(string culture)
         {
@@ -86,7 +138,7 @@ namespace SharedLibrary.Services
         }
         public IGenericRepository<T> GenericRepository<T>() where T : class
         {
-            return new GenericRepository<T,TDbContext>(this);
+            return new GenericRepository<T, TDbContext, TUnitOfWork>(_customUnitOfWork,ApplicationDbContext);
         }
         public ILogger Logger
         {
@@ -126,6 +178,10 @@ namespace SharedLibrary.Services
             set { this._httpContextAccessor = value; }
         }
 
+        Microsoft.Extensions.Logging.ILogger IUnitOfWork<TDbContext,TUnitOfWork>.Logger { get => this.Logger; set => this.Logger = value; }
+
+        IUnitOfWork<TDbContext, TUnitOfWork> IUnitOfWork<TDbContext, TUnitOfWork>.UnitOfWork { get => this; set => this.unitOfWork = value; }
+
         public async Task CompleteAsync()
         {
             await this.ApplicationDbContext.SaveChangesAsync();
@@ -141,7 +197,7 @@ namespace SharedLibrary.Services
             this.ApplicationDbContext.Dispose();
         }
 
-        public IUnitOfWork<TDbContext> GetService()
+        public IUnitOfWork<TDbContext, TUnitOfWork> GetService()
         {
             return this;
         }
@@ -188,6 +244,11 @@ namespace SharedLibrary.Services
         {
             assembly ??= Assembly.GetEntryAssembly();
             return LocalizationService.SetReourceManager(resource, _assembly ?? assembly);
+        }
+
+        IUnitOfWork<TDbContext, TUnitOfWork> IUnitOfWork<TDbContext, TUnitOfWork>.GetService()
+        {
+            throw new NotImplementedException();
         }
     }
 }

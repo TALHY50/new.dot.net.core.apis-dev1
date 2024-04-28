@@ -9,10 +9,11 @@ using SharedLibrary.Interfaces;
 using SharedLibrary.Services;
 using ACL.Database;
 using ACL.Utilities;
+using ACL.Services;
 
 namespace ACL.Repositories.V1
 {
-    public class AclUserGroupRepository : GenericRepository<AclUsergroup, ApplicationDbContext>, IAclUserGroupRepository
+    public class AclUserGroupRepository : GenericRepository<AclUsergroup, ApplicationDbContext,ICustomUnitOfWork>, IAclUserGroupRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
@@ -21,8 +22,9 @@ namespace ACL.Repositories.V1
         private ICustomUnitOfWork _customUnitOfWork;
 
 
-        public AclUserGroupRepository(IUnitOfWork<ApplicationDbContext> _unitOfWork) : base(_unitOfWork)
+        public AclUserGroupRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
+            AppAuth.SetAuthInfo();
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName, _unitOfWork);
         }
@@ -50,7 +52,7 @@ namespace ACL.Repositories.V1
             {
                 var result = PrepareInputData(usergroup);
                 await _customUnitOfWork.AclUserGroupRepository.AddAsync(result);
-                await _unitOfWork.CompleteAsync();
+                await _customUnitOfWork.CompleteAsync();
                 await _customUnitOfWork.AclUserGroupRepository.ReloadAsync(result);
                 aclResponse.Data = result;
                 aclResponse.Message = messageResponse.createMessage;
@@ -72,7 +74,7 @@ namespace ACL.Repositories.V1
             {
                 result = PrepareInputData(usergroup, result);
                 await _customUnitOfWork.AclUserGroupRepository.UpdateAsync(result);
-                await _unitOfWork.CompleteAsync();
+                await _customUnitOfWork.CompleteAsync();
                 await _customUnitOfWork.AclUserGroupRepository.ReloadAsync(result);
                 aclResponse.Data = result;
                 aclResponse.Message = messageResponse.editMessage;
@@ -109,7 +111,7 @@ namespace ACL.Repositories.V1
             if (result != null)
             {
                 await base.DeleteAsync(result);
-                await _unitOfWork.CompleteAsync();
+                await _customUnitOfWork.CompleteAsync();
                 await base.ReloadAsync(result);
                 aclResponse.Data = result;
                 aclResponse.Message = messageResponse.deleteMessage;

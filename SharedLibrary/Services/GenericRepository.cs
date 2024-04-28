@@ -6,14 +6,29 @@ using System.Linq.Expressions;
 
 namespace SharedLibrary.Services
 {
-    public class GenericRepository<T, TDbContext> : IGenericRepository<T> where T : class where TDbContext : DbContext
+    //public class GenericRepository<T, TDbContext,TUnitOfWork> : IGenericRepository<T> where T : class where TDbContext : DbContext where TUnitOfWork: class
+    //{
+    //    protected IUnitOfWork<TDbContext> _unitOfWork;
+    //    protected TUnitOfWork _customUnitOfWork;
+    //    internal DbSet<T> _dbSet;
+    //    public GenericRepository(IUnitOfWork<TDbContext> unitOfWork, TUnitOfWork customUnitOfWork)
+    //    {
+    //        _unitOfWork = unitOfWork;
+    //        _customUnitOfWork = customUnitOfWork;
+    //        _dbSet = unitOfWork.ApplicationDbContext.Set<T>();
+
+    //    }
+    public class GenericRepository<T, TDbContext,TUnitOfWork> : IGenericRepository<T> where T : class where TDbContext : DbContext where TUnitOfWork: class
     {
-        protected IUnitOfWork<TDbContext> _unitOfWork;
-        internal DbSet<T> _dbSet;
-        public GenericRepository(IUnitOfWork<TDbContext> unitOfWork)
+        protected TUnitOfWork _unitOfWork;
+        protected DbSet<T> _dbSet;
+        protected TDbContext _dbContext;
+        public GenericRepository(TUnitOfWork unitOfWork,TDbContext dbContext)
         {
             _unitOfWork = unitOfWork;
-            _dbSet = unitOfWork.ApplicationDbContext.Set<T>();
+            _dbContext = dbContext;
+            _dbSet = dbContext.Set<T>();
+
         }
         public virtual async Task<T> FirstOrDefault()
         {
