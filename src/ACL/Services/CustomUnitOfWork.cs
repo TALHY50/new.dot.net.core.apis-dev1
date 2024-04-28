@@ -52,10 +52,10 @@ namespace ACL.Services
         {
             get
             {
-                return new ConfigurationBuilder()
-.SetBasePath(Directory.GetCurrentDirectory())
-.AddJsonFile("appsettings.json")
-.Build();
+                 return new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json")
+                .Build();
             }
 
         }
@@ -66,8 +66,8 @@ namespace ACL.Services
         }
         public IAclCompanyRepository AclCompanyRepository
         {
-          //  get { return new AclCompanyRepository(_unitOfWork, Config); }
-            get { return new AclCompanyRepository(this); }
+            get { return new AclCompanyRepository(_unitOfWork, Config); }
+            //get { return new AclCompanyRepository(this); }
 
         }
 

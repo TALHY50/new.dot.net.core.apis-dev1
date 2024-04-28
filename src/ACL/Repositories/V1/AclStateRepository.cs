@@ -12,15 +12,16 @@ using ACL.Services;
 
 namespace ACL.Repositories.V1
 {
-    public class AclStateRepository : GenericRepository<AclState,ApplicationDbContext,ICustomUnitOfWork>, IAclStateRepository
+    public class AclStateRepository : GenericRepository<AclState, ApplicationDbContext, ICustomUnitOfWork>, IAclStateRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "State";
         private ICustomUnitOfWork _customUnitOfWork;
 
-        public AclStateRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork,_unitOfWork.ApplicationDbContext)
+        public AclStateRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
+            _customUnitOfWork = _unitOfWork;
             AppAuth.SetAuthInfo();
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName, _unitOfWork);

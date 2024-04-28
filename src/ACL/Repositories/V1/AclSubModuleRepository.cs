@@ -13,15 +13,16 @@ using Castle.Components.DictionaryAdapter.Xml;
 
 namespace ACL.Repositories.V1
 {
-    public class AclSubModuleRepository : GenericRepository<AclSubModule,ApplicationDbContext,ICustomUnitOfWork>, IAclSubModuleRepository
+    public class AclSubModuleRepository : GenericRepository<AclSubModule, ApplicationDbContext, ICustomUnitOfWork>, IAclSubModuleRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "Sub Module";
-         private ICustomUnitOfWork _customUnitOfWork;
+        private ICustomUnitOfWork _customUnitOfWork;
 
         public AclSubModuleRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
+            _customUnitOfWork = _unitOfWork;
             AppAuth.SetAuthInfo();
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName, _unitOfWork);

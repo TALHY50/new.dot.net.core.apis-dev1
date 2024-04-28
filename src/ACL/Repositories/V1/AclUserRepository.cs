@@ -27,6 +27,7 @@ namespace ACL.Repositories.V1
 
         public AclUserRepository(ICustomUnitOfWork _unitOfWork, IConfiguration config) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
+             _customUnitOfWork = _unitOfWork;
             AppAuth.SetAuthInfo();
             _config = config;
             aclResponse = new AclResponse();

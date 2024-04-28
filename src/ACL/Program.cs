@@ -84,7 +84,7 @@ IConfiguration configuration = new ConfigurationBuilder()
 //builder.Services.AddScoped<IAclCompanyRepository, AclCompanyRepository>();
 builder.Services.AddScoped<ICustomUnitOfWork, CustomUnitOfWork>();
 builder.Services.AddScoped<IUnitOfWork<ApplicationDbContext,ICustomUnitOfWork>, UnitOfWork<ApplicationDbContext,ICustomUnitOfWork>>();
-builder.Services.AddSingleton<IConfiguration>(configuration);
+builder.Services.AddSingleton(configuration);
 builder.Services.AddScoped<ICacheService, CacheService>();
 builder.Services.AddLogging(loggingBuilder =>
 {

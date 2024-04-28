@@ -12,7 +12,7 @@ using ACL.Services;
 
 namespace ACL.Repositories.V1
 {
-    public class AclRoleRepository : GenericRepository<AclRole,ApplicationDbContext,ICustomUnitOfWork>, IAclRoleRepository
+    public class AclRoleRepository : GenericRepository<AclRole, ApplicationDbContext, ICustomUnitOfWork>, IAclRoleRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
@@ -20,6 +20,7 @@ namespace ACL.Repositories.V1
         private ICustomUnitOfWork _customUnitOfWork;
         public AclRoleRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
+            _customUnitOfWork = _unitOfWork;
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName, _unitOfWork);
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
@@ -139,6 +140,6 @@ namespace ACL.Repositories.V1
             return aclRole;
         }
 
-       
+
     }
 }

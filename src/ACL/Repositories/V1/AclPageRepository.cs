@@ -25,6 +25,7 @@ namespace ACL.Repositories.V1
         private ICustomUnitOfWork _customUnitOfWork;
         public AclPageRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
+             _customUnitOfWork = _unitOfWork;
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName, _unitOfWork);
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found

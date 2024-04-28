@@ -14,7 +14,7 @@ using ACL.Services;
 
 namespace ACL.Repositories.V1
 {
-    public class AclUserGroupRoleRepository : GenericRepository<AclUsergroupRole, ApplicationDbContext,ICustomUnitOfWork>, IAclUserGroupRoleRepository
+    public class AclUserGroupRoleRepository : GenericRepository<AclUsergroupRole, ApplicationDbContext, ICustomUnitOfWork>, IAclUserGroupRoleRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
@@ -23,6 +23,7 @@ namespace ACL.Repositories.V1
 
         public AclUserGroupRoleRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
+            _customUnitOfWork = _unitOfWork;
             AppAuth.SetAuthInfo();
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName, _unitOfWork);
