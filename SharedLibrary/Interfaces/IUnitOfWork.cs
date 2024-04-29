@@ -40,6 +40,7 @@ namespace SharedLibrary.Interfaces
         CultureInfo SetCulture(string culture);
         ResourceManager SetReourceManager(CultureInfo resource, Assembly assembly);
         Assembly SetAssembly(Assembly assembly);
-
+        ILocalizationService SetLocalizationService (ILocalizationService service);
+        TUnitOfWork SetCustomUnitOfWork (TUnitOfWork customUnitOfWork);
     }
 }
