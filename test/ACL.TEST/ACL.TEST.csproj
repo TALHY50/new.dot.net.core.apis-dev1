@@ -39,6 +39,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\SharedLibrary\SharedLibrary.csproj" />
+    <ProjectReference Include="..\..\src\ACL\ACL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Using Include="Xunit" />
   </ItemGroup>
 
