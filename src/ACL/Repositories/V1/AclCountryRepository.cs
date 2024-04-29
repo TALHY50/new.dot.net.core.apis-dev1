@@ -1,20 +1,25 @@
 ﻿
+using ACL.Database;
 using ACL.Database.Models;
 using ACL.Interfaces;
 using ACL.Interfaces.Repositories.V1;
 using ACL.Requests;
 using ACL.Response.V1;
+using ACL.Services;
 using ACL.Utilities;
+using SharedLibrary.Services;
 
 namespace ACL.Repositories.V1
 {
-    public class AclCountryRepository : GenericRepository<AclCountry>, IAclCountryRepository
+    public class AclCountryRepository : GenericRepository<AclCountry,ApplicationDbContext,ICustomUnitOfWork>, IAclCountryRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "Country";
-        public AclCountryRepository(IUnitOfWork _unitOfWork) : base(_unitOfWork)
+        ICustomUnitOfWork _customUnitOfWork;
+        public AclCountryRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork,_unitOfWork.ApplicationDbContext)
         {
+            _customUnitOfWork = _unitOfWork;
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName, _unitOfWork);
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
@@ -39,7 +44,7 @@ namespace ACL.Repositories.V1
                 var aclCountry = PrepareInputData(request);
                 await base.AddAsync(aclCountry);
                 await _unitOfWork.CompleteAsync();
-                await _unitOfWork.AclCountryRepository.ReloadAsync(aclCountry);
+                await _customUnitOfWork.AclCountryRepository.ReloadAsync(aclCountry);
                 aclResponse.Data = aclCountry;
                 aclResponse.Message = messageResponse.createMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;

@@ -2,6 +2,7 @@
 using ACL.Database.Models;
 using ACL.Requests;
 using ACL.Response.V1;
+using SharedLibrary.Interfaces;
 
 namespace ACL.Interfaces.Repositories.V1
 

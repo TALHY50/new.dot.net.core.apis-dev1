@@ -77,7 +77,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 //    {
 //        options.EnableRetryOnFailure();
 //    }));
-//#endif
+#endif
 builder.Services.AddAntiforgery(options => options.HeaderName = "X-CSRF-TOKEN");
 
 builder.Services.AddEndpointsApiExplorer();
