@@ -1,21 +1,21 @@
 using ACL.Requests;
-using ACL.Services;
 using Microsoft.EntityFrameworkCore;
 using RestSharp;
 using Bogus;
+using ACL.Route;
+using ACL.Database.Models;
+
 namespace ACL.Tests.V1
 {
     public class AclStateUnitTest
     {
-        DatabaseConnector dbConnector;
-        CustomUnitOfWork unitOfWork;
         RestClient restClient;
+        private string authToken;
         public AclStateUnitTest()
         {
-            dbConnector = new DatabaseConnector();
-            unitOfWork = new CustomUnitOfWork(dbConnector.dbContext);
-            unitOfWork.ApplicationDbContext = dbConnector.dbContext;
-            restClient = new RestClient(dbConnector.baseUrl);
+            authToken = DataCollectors.GetAuthorization();
+            DataCollectors.SetDatabase();
+            restClient = new RestClient(DataCollectors.baseUrl);
         }
         [Fact]
         public void TestStateList()
@@ -24,9 +24,8 @@ namespace ACL.Tests.V1
             //Arrange
 
             // Act
-            var request = new RestRequest("states", Method.Get);
-            //request.AddHeader("Authorization", "Bearer desc");
-
+            var request = new RestRequest(AclRoutesUrl.AclState.List, Method.Get);
+            request.AddHeader("Authorization", authToken);
             RestResponse response = restClient.Execute(request);
 
 
@@ -41,8 +40,8 @@ namespace ACL.Tests.V1
             var data = GetState();
 
             // Act
-            var request = new RestRequest("states/add", Method.Post);
-            //request.AddHeader("Authorization", "Bearer desc");
+            var request = new RestRequest(AclRoutesUrl.AclState.Add, Method.Post);
+            request.AddHeader("Authorization", authToken);
             request.AddJsonBody(data);
 
             RestResponse response = restClient.Execute(request);
@@ -57,13 +56,11 @@ namespace ACL.Tests.V1
         public void GetByIdStateTest()
         {
             //Arrange
-            var id = getRandomID();
+            var id = DataCollectors.GetMaxId<AclState>(x => x.Id); 
 
             // Act
-            var request = new RestRequest($"states/view/{id}", Method.Get);
-            //request.AddHeader("Authorization", "Bearer desc");
-
-
+            var request = new RestRequest(AclRoutesUrl.AclState.View.Replace("{id}", id.ToString()), Method.Get);
+            request.AddHeader("Authorization", authToken);
             RestResponse response = restClient.Execute(request);
 
 
@@ -77,11 +74,11 @@ namespace ACL.Tests.V1
             //Arrange
 
             var data = GetState();
-            var id = getRandomID();
+            var id = DataCollectors.GetMaxId<AclState>(x => x.Id);
 
             // Act
-            var request = new RestRequest($"states/edit/{id}", Method.Put);
-            //request.AddHeader("Authorization", "Bearer desc");
+            var request = new RestRequest(AclRoutesUrl.AclState.Edit.Replace("{id}", id.ToString()), Method.Put);
+            request.AddHeader("Authorization", authToken);
             request.AddJsonBody(data);
 
             RestResponse response = restClient.Execute(request);
@@ -95,12 +92,11 @@ namespace ACL.Tests.V1
         public void DeleteByIdStateTest()
         {
 
-            var id = getRandomID();
+            var id = DataCollectors.GetMaxId<AclState>(x => x.Id);
 
             // Act
-            var request = new RestRequest($"states/delete/{id}", Method.Delete);
-            //request.AddHeader("Authorization", "Bearer desc");
-
+            var request = new RestRequest(AclRoutesUrl.AclState.Destroy.Replace("{id}", id.ToString()), Method.Delete);
+            request.AddHeader("Authorization", authToken);
             RestResponse response = restClient.Execute(request);
 
             // Assert
@@ -113,8 +109,8 @@ namespace ACL.Tests.V1
             var faker = new Faker();
             return new AclStateRequest
             {
-                company_id = getRandomCompanyID(),
-                country_id = getRandomCountryID(),
+                company_id = DataCollectors.GetMaxId<AclCompany>(x => x.Id),
+                country_id = DataCollectors.GetMaxId<AclCountry>(x => x.Id),
                 name = faker.Random.String2(10, 50),
                 description = faker.Random.String2(10, 255),
                 sequence = (ulong)faker.Random.Number(1, int.MaxValue),
@@ -124,38 +120,6 @@ namespace ACL.Tests.V1
 
         }
 
-        private ulong getRandomID()
-        {
-            ulong id = 0;
-            var states = unitOfWork.ApplicationDbContext.AclStates;
-            if (states.Any())
-            {
-                id = states.Max(x => x.Id);
-            }
-            return id;
-
-        }
-        private ulong getRandomCompanyID()
-        {
-            ulong id = 0;
-            var aclCompanies = unitOfWork.ApplicationDbContext.AclCompanies;
-            if (aclCompanies.Any())
-            {
-                id = aclCompanies.Max(x => x.Id);
-            }
-            return id;
-           
-        }
-        private ulong getRandomCountryID()
-        {
-            ulong id = 0;
-            var aclCountries = unitOfWork.ApplicationDbContext.AclCountries;
-            if (aclCountries.Any())
-            {
-                id = aclCountries.Max(x => x.Id);
-            }
-            return id;
-        }
-
+       
     }
 }
