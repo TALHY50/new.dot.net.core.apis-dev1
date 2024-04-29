@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Reflection.Emit;
 using ACL.Database.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using SharedLibrary.Interfaces;
 
 namespace ACL.Database;
 
-public partial class ApplicationDbContext : DbContext
+public partial class ApplicationDbContext : DbContext,IApplicationDbContext
 {
     private readonly ILoggerFactory _loggerFactory;
 
@@ -18,7 +20,7 @@ public partial class ApplicationDbContext : DbContext
         : base(options)
     {
     }
-    
+
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, ILoggerFactory loggerFactory)
         : base(options)
     {
@@ -1505,10 +1507,14 @@ public partial class ApplicationDbContext : DbContext
         OnModelCreatingPartial(modelBuilder);
 
     }
-    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    //{
-    //    optionsBuilder.UseLoggerFactory(_loggerFactory); // Enable EF Core logging
-    //    base.OnConfiguring(optionsBuilder);
-    //}
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseLoggerFactory(_loggerFactory); // Enable EF Core logging
+        base.OnConfiguring(optionsBuilder);
+             optionsBuilder.ConfigureWarnings(warnings =>
+             {
+                 warnings.Ignore(InMemoryEventId.TransactionIgnoredWarning);
+             });
+    }
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }

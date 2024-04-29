@@ -12,9 +12,9 @@ namespace ACL.Controllers.V1
     [ApiController]
     public class AclCompanyController : Controller
     {
-        public readonly IUnitOfWork _unitOfWork;
+        public readonly ICustomUnitOfWork _unitOfWork;
 
-        public AclCompanyController(IUnitOfWork unitOfWork)
+        public AclCompanyController(ICustomUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
@@ -22,7 +22,7 @@ namespace ACL.Controllers.V1
         [HttpGet(AclRoutesUrl.AclCompanyRouteUrl.List, Name = AclRoutesName.AclCompanyRouteNames.List)]
         public async Task<AclResponse> Index()
         {
-            return await _unitOfWork.AclCompanyRepository.GetAll();
+            return (AclResponse)await _unitOfWork.AclCompanyRepository.GetAll();
         }
 
         [HttpPost(AclRoutesUrl.AclCompanyRouteUrl.Add, Name = AclRoutesName.AclCompanyRouteNames.Add)]

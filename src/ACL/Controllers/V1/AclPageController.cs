@@ -11,63 +11,64 @@ using ACL.Route;
 
 namespace ACL.Controllers.V1
 {
+
     [Tags("Page")]
     [ApiController]
     public class AclPageController : ControllerBase
     {
-        private readonly IUnitOfWork _unitOfWork;
-        public AclPageController(IUnitOfWork unitOfWork)
+        private readonly ICustomUnitOfWork _unitOfWork;
+        public AclPageController(ICustomUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
         [HttpGet(AclRoutesUrl.AclPage.List, Name = AclRoutesName.AclPageNames.List)]
-        public async Task<IActionResult> Index()
+        public async Task<AclResponse> Index()
         {
-            return Ok(_unitOfWork.AclPageRepository.GetAll());
+            return await _unitOfWork.AclPageRepository.GetAll();
         }
 
         [HttpPost(AclRoutesUrl.AclPage.Add, Name = AclRoutesName.AclPageNames.Add)]
         public async Task<AclResponse> Create(AclPageRequest request)
         {
-            return _unitOfWork.AclPageRepository.Add(request);
+            return await _unitOfWork.AclPageRepository.AddAclPage(request);
         }
         [HttpPut(AclRoutesUrl.AclPage.Edit, Name = AclRoutesName.AclPageNames.Edit)]
         public async Task<AclResponse> Edit(ulong id, AclPageRequest request)
         {
-            return _unitOfWork.AclPageRepository.Edit(id, request);
+            return await _unitOfWork.AclPageRepository.EditAclPage(id, request);
 
         }
 
         [HttpDelete(AclRoutesUrl.AclPage.Destroy, Name = AclRoutesName.AclPageNames.Destroy)]
         public async Task<AclResponse> Destroy(ulong id)
         {
-            return _unitOfWork.AclPageRepository.deleteById(id);
+            return await _unitOfWork.AclPageRepository.DeleteById(id);
         }
 
         [HttpGet(AclRoutesUrl.AclPage.View, Name = AclRoutesName.AclPageNames.View)]
         public async Task<AclResponse> View(ulong id)
         {
-            return _unitOfWork.AclPageRepository.findById(id);
+            return _unitOfWork.AclPageRepository.FindById(id);
 
         }
 
         [HttpPost(AclRoutesUrl.AclPageRoute.Add, Name = AclRoutesName.AclPageRouteNames.Add)]
         public async Task<AclResponse> AddPageRoute(AclPageRouteRequest request)
         {
-            return _unitOfWork.AclPageRepository.PageRouteCreate(request);
+            return await _unitOfWork.AclPageRepository.PageRouteCreate(request);
         }
 
         [HttpPut(AclRoutesUrl.AclPageRoute.Edit, Name = AclRoutesName.AclPageRouteNames.Edit)]
         public async Task<AclResponse> EditPageRoute(ulong id, AclPageRouteRequest request)
         {
-            return _unitOfWork.AclPageRepository.PageRouteEdit(id, request);
+            return await _unitOfWork.AclPageRepository.PageRouteEdit(id, request);
         }
 
         [HttpDelete(AclRoutesUrl.AclPageRoute.Destroy, Name = AclRoutesName.AclPageRouteNames.Destroy)]
         public async Task<AclResponse> DeletePageRoute(ulong id)
         {
-            return _unitOfWork.AclPageRepository.PageRouteDelete(id);
+            return await _unitOfWork.AclPageRepository.PageRouteDelete(id);
         }
 
 

@@ -16,9 +16,9 @@ namespace ACL.Controllers.V1
     [ApiController]
     public class AclModuleController : ControllerBase
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly ICustomUnitOfWork _unitOfWork;
 
-        public AclModuleController(IUnitOfWork unitOfWork)
+        public AclModuleController(ICustomUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }

@@ -11,7 +11,7 @@ namespace ACL.Tests
         public static string baseUrl;
         private static string connectionString;
         public static ApplicationDbContext dbContext;
-        public static UnitOfWork unitOfWork;
+        public static CustomUnitOfWork unitOfWork;
         public static string Authorization;
 
         public static void SetDatabase(bool isLocalDb = false)
@@ -35,7 +35,7 @@ namespace ACL.Tests
             }
 
             dbContext = new ApplicationDbContext(options);
-            unitOfWork = new UnitOfWork(dbContext);
+            unitOfWork = new CustomUnitOfWork(dbContext);
             unitOfWork.ApplicationDbContext = dbContext;
 
         }

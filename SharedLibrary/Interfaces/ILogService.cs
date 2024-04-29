@@ -1,23 +1,24 @@
 using Microsoft.Extensions.Logging;
 
-namespace SharedLibrary.Interfaces;
-
-public interface ILogService
+namespace SharedLibrary.Interfaces
 {
+    public interface ILogService
+    {
 
-    public Dictionary<string, object> NewLog(string action = null);
+        public Dictionary<string, object> NewLog(string action = null);
 
-    public void LogSync(Dictionary<string, object> log);
-    public Task<bool> LogAsync(Dictionary<string, object> log);
-    
-    public Task<bool> LogAsync(Exception log);
+        public void LogSync(Dictionary<string, object> log);
+        public Task<bool> LogAsync(Dictionary<string, object> log);
 
-    public Task<bool> LogAsync<T>(T any);
+        public Task<bool> LogAsync(Exception log);
 
-    public ILogger Logger(Type t = null);
+        public Task<bool> LogAsync<T>(T any);
 
-    public ILoggerFactory LoggerFactory();
+        public ILogger Logger(Type t = null);
 
-    public void LogWrite(string fileName, string logMessage, bool shouldDelete = false);
+        public ILoggerFactory LoggerFactory();
 
+        public void LogWrite(string fileName, string logMessage, bool shouldDelete = false);
+
+    }
 }

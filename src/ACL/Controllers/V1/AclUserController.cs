@@ -11,8 +11,8 @@ namespace ACL.Controllers.V1
     public class AclUserController : ControllerBase
     {
 
-        private readonly IUnitOfWork _unitOfWork;
-        public AclUserController(IUnitOfWork unitOfWork)
+        private readonly ICustomUnitOfWork _unitOfWork;
+        public AclUserController(ICustomUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
@@ -31,19 +31,19 @@ namespace ACL.Controllers.V1
         [HttpPut(AclRoutesUrl.AclUserUrl.Edit, Name = AclRoutesName.AclUserNames.Edit)]
         public async Task<AclResponse> Edit(ulong id, AclUserRequest request)
         {
-            return _unitOfWork.AclUserRepository.Edit(id, request);
+            return await _unitOfWork.AclUserRepository.Edit(id, request);
         }
 
         [HttpDelete(AclRoutesUrl.AclUserUrl.Destroy, Name = AclRoutesName.AclUserNames.Destroy)]
         public async Task<AclResponse> Destroy(ulong id)
         {
-            return _unitOfWork.AclUserRepository.deleteById(id);
+            return await _unitOfWork.AclUserRepository.DeleteById(id);
         }
 
         [HttpGet(AclRoutesUrl.AclUserUrl.View, Name = AclRoutesName.AclUserNames.View)]
         public async Task<AclResponse> View(ulong id)
         {
-            return _unitOfWork.AclUserRepository.findById(id);
+            return await _unitOfWork.AclUserRepository.FindById(id);
 
         }
 

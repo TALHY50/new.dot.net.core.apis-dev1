@@ -6,31 +6,40 @@ using ACL.Response.V1;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using SharedLibrary.Utilities;
+using SharedLibrary.Interfaces;
+using SharedLibrary.Services;
+using ACL.Database;
+using ACL.Utilities;
+using ACL.Services;
 
 namespace ACL.Repositories.V1
 {
-    public class AclUserRepository : GenericRepository<AclUser>, IAclUserRepository
+    public class AclUserRepository : GenericRepository<AclUser, ApplicationDbContext,ICustomUnitOfWork>, IAclUserRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "User";
-        private uint _companyId = 0;
-        private uint _userType = 0;
+        private uint _companyId = (uint)AppAuth.GetAuthInfo().CompanyId;
+        private uint _userType = (uint)AppAuth.GetAuthInfo().UserType;
         private bool is_user_type_created_by_company = false;
         private IConfiguration _config;
-        public AclUserRepository(IUnitOfWork _unitOfWork, IConfiguration config) : base(_unitOfWork)
+        private ICustomUnitOfWork _customUnitOfWork;
+
+        public AclUserRepository(ICustomUnitOfWork _unitOfWork, IConfiguration config) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
+             _customUnitOfWork = _unitOfWork;
+            AppAuth.SetAuthInfo();
             _config = config;
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName, _unitOfWork);
         }
 
-        public AclResponse GetAll()
+        public async Task<AclResponse> GetAll()
         {
-            var aclUser = _unitOfWork.ApplicationDbContext.AclUsers.ToList();
-            if (aclUser.Count > 0)
+            var aclUser = await base.All();
+            if (aclUser.Any())
             {
-                aclResponse.Message = Helper.__(messageResponse.fetchMessage);
+                aclResponse.Message = messageResponse.fetchMessage;
             }
             aclResponse.Data = aclUser;
             aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
@@ -41,7 +50,7 @@ namespace ACL.Repositories.V1
         public async Task<AclResponse> AddUser(AclUserRequest request)
         {
 
-            var executionStrategy = _unitOfWork.ApplicationDbContext.Database.CreateExecutionStrategy();
+            var executionStrategy = _unitOfWork.CreateExecutionStrategy();
 
             await executionStrategy.ExecuteAsync(async () =>
             {
@@ -50,17 +59,17 @@ namespace ACL.Repositories.V1
                     try
                     {
                         var aclUser = PrepareInputData(request);
-                        await _unitOfWork.ApplicationDbContext.AddAsync(aclUser);
-                        await _unitOfWork.ApplicationDbContext.SaveChangesAsync();
-                        await _unitOfWork.ApplicationDbContext.Entry(aclUser).ReloadAsync();
+                        await base.AddAsync(aclUser);
+                        await _unitOfWork.CompleteAsync();
+                        await base.ReloadAsync(aclUser);
 
                         //  need to insert user user group
                         var userGroupPrepareData = PrepareDataForUserUserGroups(request, aclUser.Id);
                         await _unitOfWork.ApplicationDbContext.AddRangeAsync(userGroupPrepareData);
-                        await _unitOfWork.ApplicationDbContext.SaveChangesAsync();
+                        await _unitOfWork.CompleteAsync();
 
                         aclResponse.Data = aclUser;
-                        aclResponse.Message = Helper.__(messageResponse.createMessage);
+                        aclResponse.Message = messageResponse.createMessage;
                         aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
 
                         await transaction.CommitAsync();
@@ -79,7 +88,7 @@ namespace ACL.Repositories.V1
         }
 
 
-        public AclResponse Edit(ulong id, AclUserRequest request)
+        public async Task<AclResponse> Edit(ulong id, AclUserRequest request)
         {
             try
             {
@@ -88,27 +97,27 @@ namespace ACL.Repositories.V1
                 if (aclUser != null)
                 {
                     aclUser = PrepareInputData(request, aclUser);
-                    _unitOfWork.ApplicationDbContext.Update(aclUser);
-                    _unitOfWork.ApplicationDbContext.SaveChangesAsync();
-                    _unitOfWork.ApplicationDbContext.Entry(aclUser).ReloadAsync();
+                    base.Update(aclUser);
+                    _unitOfWork.Complete();
+                    await base.ReloadAsync(aclUser);
 
                     // first delete all user user group
-                    var UserUserGroups = _unitOfWork.ApplicationDbContext.AclUserUsergroups.Where(x => x.UserId == id).ToArray();
-                    _unitOfWork.ApplicationDbContext.RemoveRange(UserUserGroups);
-                    _unitOfWork.ApplicationDbContext.SaveChangesAsync();
+                    var UserUserGroups = _customUnitOfWork.AclUserUserGroupRepository.Where(x => x.UserId == id).ToArray();
+                    await _customUnitOfWork.AclUserUserGroupRepository.RemoveRange(UserUserGroups);
+                    _unitOfWork.Complete();
 
                     // need to insert user user group
                     var UserGroupPrepareData = PrepareDataForUserUserGroups(request, aclUser.Id);
-                    _unitOfWork.ApplicationDbContext.AddRangeAsync(UserGroupPrepareData);
-                    _unitOfWork.ApplicationDbContext.SaveChangesAsync();
+                    await _customUnitOfWork.AclUserUserGroupRepository.AddRange(UserGroupPrepareData);
+                    _unitOfWork.Complete();
 
                     aclResponse.Data = aclUser;
-                    aclResponse.Message = Helper.__(messageResponse.editMessage);
+                    aclResponse.Message = messageResponse.editMessage;
                     aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
                 }
                 else
                 {
-                    aclResponse.Message = Helper.__(messageResponse.notFoundMessage);
+                    aclResponse.Message = messageResponse.notFoundMessage;
                     aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
                     return aclResponse;
                 }
@@ -124,16 +133,16 @@ namespace ACL.Repositories.V1
 
         }
 
-        public AclResponse findById(ulong id)
+        public async Task<AclResponse> FindById(ulong id)
         {
             try
             {
-                var aclUser = _unitOfWork.ApplicationDbContext.AclUsers.Find(id);
+                var aclUser = await _customUnitOfWork.AclUserRepository.GetById(id);
                 aclResponse.Data = aclUser;
-                aclResponse.Message = Helper.__(messageResponse.fetchMessage);
+                aclResponse.Message = messageResponse.fetchMessage;
                 if (aclUser == null)
                 {
-                    aclResponse.Message = Helper.__(messageResponse.notFoundMessage);
+                    aclResponse.Message = messageResponse.notFoundMessage;
                 }
 
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
@@ -147,22 +156,22 @@ namespace ACL.Repositories.V1
             return aclResponse;
 
         }
-        public AclResponse deleteById(ulong id)
+        public async Task<AclResponse> DeleteById(ulong id)
         {
-            var aclUser = _unitOfWork.ApplicationDbContext.AclUsers.Find(id);
+            AclUser? aclUser = await _customUnitOfWork.AclUserRepository.GetById(id);
 
             if (aclUser != null)
             {
-                _unitOfWork.ApplicationDbContext.AclUsers.Remove(aclUser);
+                await base.DeleteAsync(aclUser);
                 _unitOfWork.ApplicationDbContext.SaveChanges();
 
                 // delete all item for user user group
                 var UserUserGroups = _unitOfWork.ApplicationDbContext.AclUserUsergroups.Where(x => x.UserId == id).ToArray();
                 _unitOfWork.ApplicationDbContext.RemoveRange(UserUserGroups);
-                _unitOfWork.ApplicationDbContext.SaveChangesAsync();
+                _unitOfWork.Complete();
 
 
-                aclResponse.Message = Helper.__(messageResponse.deleteMessage);
+                aclResponse.Message = messageResponse.deleteMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
             return aclResponse;
@@ -178,7 +187,7 @@ namespace ACL.Repositories.V1
                         FirstName = request.first_name,
                         LastName = request.last_name,
                         Email = request.email,
-                        Password = Helper.Bcrypt(request.password),
+                        Password = Cryptographer.AppEncrypt(request.password),
                         Avatar = request.avatar,
                         Dob = request.dob,
                         Gender = request.gender,
@@ -200,7 +209,7 @@ namespace ACL.Repositories.V1
                 AclUser.FirstName = request.first_name;
                 AclUser.LastName = request.last_name;
                 AclUser.Email = request.email;
-                AclUser.Password = Helper.Bcrypt(request.password);
+                AclUser.Password = Cryptographer.AppEncrypt(request.password);
                 AclUser.Avatar = request.avatar;
                 AclUser.Dob = request.dob;
                 AclUser.Gender = request.gender;
@@ -219,13 +228,13 @@ namespace ACL.Repositories.V1
         }
 
 
-        public Database.Models.AclUserUsergroup[] PrepareDataForUserUserGroups(AclUserRequest request, ulong user_id)
+        public AclUserUsergroup[] PrepareDataForUserUserGroups(AclUserRequest request, ulong user_id)
         {
-            IList<Database.Models.AclUserUsergroup> res = new List<Database.Models.AclUserUsergroup>();
+            IList<AclUserUsergroup> res = new List<AclUserUsergroup>();
 
             foreach (ulong user_group in request.usergroup)
             {
-                Database.Models.AclUserUsergroup aclUserUserGroup = new Database.Models.AclUserUsergroup();
+                AclUserUsergroup aclUserUserGroup = new AclUserUsergroup();
                 aclUserUserGroup.UserId = user_id;
                 aclUserUserGroup.UsergroupId = user_group;
                 aclUserUserGroup.CreatedAt = DateTime.Now;

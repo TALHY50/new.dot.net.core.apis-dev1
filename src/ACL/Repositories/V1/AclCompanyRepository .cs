@@ -12,27 +12,42 @@ using Microsoft.Extensions.Localization;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.DependencyInjection;
-using ACL.Services.Interface;
 using ACL.Services;
 using System.Globalization;
 using System.Net;
-
+using SharedLibrary.Services;
+using Microsoft.Extensions.Logging;
+using Castle.Core.Logging;
+using SharedLibrary.Interfaces;
+using ACL.Migrations;
+using ACL.Database;
+using ACL.Utilities;
 
 namespace ACL.Repositories.V1
 {
-    public class AclCompanyRepository : GenericRepository<AclCompany>, IAclCompanyRepository
+    public class AclCompanyRepository : GenericRepository<AclCompany,ApplicationDbContext,ICustomUnitOfWork>, IAclCompanyRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "Company";
         private IConfiguration _config;
+        private ICustomUnitOfWork _customUnitOfWork;
 
 
-        public AclCompanyRepository(IUnitOfWork _unitOfWork, IConfiguration config) : base(_unitOfWork)
+        public AclCompanyRepository(ICustomUnitOfWork _unitOfWork, IConfiguration config) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
             aclResponse = new AclResponse();
+            _customUnitOfWork = _unitOfWork;
             messageResponse = new MessageResponse(modelName, _unitOfWork);
             _config = config;
+            AppAuth.SetAuthInfo(); // sent object to this class when auth is found
+        }
+        public AclCompanyRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
+        {
+            aclResponse = new AclResponse();
+           // messageResponse = new MessageResponse(modelName, _unitOfWork);
+            //_config = config;
+            AppAuth.SetAuthInfo(); // sent object to this class when auth is found
         }
 
         public async Task<AclResponse> FindById(ulong id)
@@ -73,7 +88,7 @@ namespace ACL.Repositories.V1
                         try
                         {
                             var aclCompany = PrepareInputData(request);
-                            await _unitOfWork.AclCompanyRepository.AddAsync(aclCompany);
+                            await base.AddAsync(aclCompany);
                             await _unitOfWork.CompleteAsync();
                             await base.ReloadAsync(aclCompany);
 
@@ -88,7 +103,7 @@ namespace ACL.Repositories.V1
                                 var userGroup = await _unitOfWork.AclUserGroupRepository.AddUserGroup(userGroupRequest);
                                 await _unitOfWork.CompleteAsync();
                                 var createdUserGroup = (AclUsergroup)userGroup.Data;
-                                await _unitOfWork.AclUserGroupRepository.ReloadAsync(createdUserGroup);
+                                await _customUnitOfWork.AclUserGroupRepository.ReloadAsync(createdUserGroup);
 
                                 string[] nameArr = request.name.Split(' ');
                                 string fname = (nameArr.Length > 0) ? nameArr[0] : "";
@@ -97,9 +112,10 @@ namespace ACL.Repositories.V1
                                 {
                                     Email = aclCompany.Email,
                                     Password = request.password,
-                                    UserType = _unitOfWork.AclUserRepository.SetUserType(true),
+                                    UserType = _customUnitOfWork.AclUserRepository.SetUserType(true),
                                     FirstName = fname,
                                     LastName = lname,
+                                    Language = "en-US",
                                     Username = aclCompany.Email,
                                     CreatedById = 0,
                                     CreatedAt = DateTime.Now,
@@ -137,7 +153,7 @@ namespace ACL.Repositories.V1
                                 };
                                 var createdUserGroupRole = _unitOfWork.AclUserGroupRoleRepository.Add(userGroupRole);
                                 await _unitOfWork.CompleteAsync();
-                                List<AclRolePage> aclRolePagesById = await _unitOfWork.AclRolePageRepository.Where(x => x.RoleId == ulong.Parse(_config["S_ADMIN_DEFAULT_MODULE_ID"])).ToListAsync();
+                                List<AclRolePage> aclRolePagesById = await _customUnitOfWork.AclRolePageRepository.Where(x => x.RoleId == ulong.Parse(_config["S_ADMIN_DEFAULT_MODULE_ID"])).ToListAsync();
                                 List<ulong> pageIds = aclRolePagesById.Select(page => page.Id).ToList();
                                 List<AclRolePage> aclRolePages = pageIds.Select(pageId => new AclRolePage
                                 {
@@ -160,6 +176,10 @@ namespace ACL.Repositories.V1
                         }
                         catch (Exception ex)
                         {
+                            if(_unitOfWork.Logger == null)
+                            {
+                                 
+                            }
                             _unitOfWork.Logger.LogError(ex, "Error at COMPANY_CREATE", new { data = request, message = ex.Message, });
 
                             await transaction.RollbackAsync();
@@ -171,7 +191,7 @@ namespace ACL.Repositories.V1
             }
             catch (Exception ex)
             {
-                _unitOfWork.Logger.LogError(ex, "Error at COMPANY_CREATE", new { data = request, message = ex.Message, });
+                _unitOfWork.Logger.LogError( null, "Error at COMPANY_CREATE", new { data = request, message = ex.Message, });
                 aclResponse.Message = ex.Message;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
             }
@@ -188,7 +208,7 @@ namespace ACL.Repositories.V1
                 await _unitOfWork.CompleteAsync();
                 await base.ReloadAsync(_aclCompany);
                 aclResponse.Data = _aclCompany;
-                aclResponse.Message = _aclCompany != null ? messageResponse.createMessage : messageResponse.notFoundMessage;
+                aclResponse.Message = _aclCompany != null ? messageResponse.editMessage : messageResponse.notFoundMessage;
 
                 aclResponse.StatusCode = _aclCompany != null ? HttpStatusCode.OK : HttpStatusCode.BadRequest;
             }
@@ -292,10 +312,7 @@ namespace ACL.Repositories.V1
 
         private int GetAuthUserId()
         {
-            // Implement logic to get the authenticated user's ID
-            // For example:
-            // return AppAuth.getAuthInfo().user_id;
-            return 1;
+            return (int)AppAuth.GetAuthInfo().UserId;
         }
 
     }
