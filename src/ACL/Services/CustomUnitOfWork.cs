@@ -23,39 +23,44 @@ using HtmlAgilityPack;
 
 namespace ACL.Services
 {
-    public class CustomUnitOfWork : UnitOfWork<ApplicationDbContext,ICustomUnitOfWork>, ICustomUnitOfWork
+    public class CustomUnitOfWork : UnitOfWork<ApplicationDbContext, ICustomUnitOfWork>, ICustomUnitOfWork
     {
         private ApplicationDbContext context;
         private Assembly _assembly;
-        IUnitOfWork<ApplicationDbContext,ICustomUnitOfWork> _baseunitOfWork;
+        IUnitOfWork<ApplicationDbContext, ICustomUnitOfWork> _baseunitOfWork;
         ICustomUnitOfWork _unitOfWork;
-        public CustomUnitOfWork(ApplicationDbContext context, ILogger<UnitOfWork<ApplicationDbContext,ICustomUnitOfWork>> logger, ILogService logService, ICacheService cacheService, IServiceCollection services, Assembly programAssembly)
+        public CustomUnitOfWork(ApplicationDbContext context, ILogger<UnitOfWork<ApplicationDbContext, ICustomUnitOfWork>> logger, ILogService logService, ICacheService cacheService, IServiceCollection services, Assembly programAssembly)
                    : base(context, logger, logService, cacheService, services, programAssembly)
         {
             this.context = context;
             _baseunitOfWork = base.unitOfWork;
             _unitOfWork = this;
+            _assembly = programAssembly;
+            //_baseunitOfWork.SetAssembly(_assembly);
         }
         public CustomUnitOfWork(ApplicationDbContext context) : base(context)
         {
             this.context = context;
-            _baseunitOfWork = base.unitOfWork;
             _unitOfWork = this;
+            _baseunitOfWork = base.unitOfWork;
+            _assembly = Assembly.GetExecutingAssembly() ?? Assembly.GetEntryAssembly() ?? Assembly.GetCallingAssembly();
+            _unitOfWork.SetAssembly(_assembly);
         }
 
-        public ApplicationDbContext ApplicationDbContext
+        public new ApplicationDbContext ApplicationDbContext
         {
             get { return this.context; }
             set { this.context = value; }
         }
-        public IConfiguration Config
+
+        public override IConfiguration Config
         {
             get
             {
-                 return new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
-                .Build();
+                return new ConfigurationBuilder()
+               .SetBasePath(Directory.GetCurrentDirectory())
+               .AddJsonFile("appsettings.json")
+               .Build();
             }
 
         }
@@ -67,8 +72,6 @@ namespace ACL.Services
         public IAclCompanyRepository AclCompanyRepository
         {
             get { return new AclCompanyRepository(_unitOfWork, Config); }
-            //get { return new AclCompanyRepository(this); }
-
         }
 
         public IAclRolePageRepository AclRolePageRepository
@@ -98,7 +101,23 @@ namespace ACL.Services
             get { return new AclUserGroupRoleRepository(this); }
         }
 
-        public ICustomUnitOfWork GetService()
+        public override ResourceManager SetReourceManager(CultureInfo resource = null, Assembly assembly = null)
+        {
+            resource ??= new CultureInfo("en-US");
+            assembly ??= _assembly;
+            return base.SetReourceManager(resource, assembly);
+        }
+
+        public override ILocalizationService SetLocalizationService(ILocalizationService service = null)
+        {
+            if (service == null)
+            {
+                service = new LocalizationService("ACL.Resources.en-US", typeof(Program).Assembly, "en-US");
+            }
+            return base.SetLocalizationService(service);
+        }
+        public override ILogService LogService { get => base.LogService; set => base.LogService = value; }
+        public new ICustomUnitOfWork GetService()
         {
             return this;
         }
@@ -140,7 +159,7 @@ namespace ACL.Services
 
         ICustomUnitOfWork ICustomUnitOfWork._unitOfWork => this;
 
-        IUnitOfWork<ApplicationDbContext, CustomUnitOfWork> IUnitOfWork<ApplicationDbContext, CustomUnitOfWork>.UnitOfWork { get{return this._unitOfWork; } set => throw new NotImplementedException(); }
+        IUnitOfWork<ApplicationDbContext, CustomUnitOfWork> IUnitOfWork<ApplicationDbContext, CustomUnitOfWork>.UnitOfWork { get { return this._unitOfWork; } set => unitOfWork = (IUnitOfWork<ApplicationDbContext, ICustomUnitOfWork>)this._unitOfWork; }
 
         IUnitOfWork<ApplicationDbContext, CustomUnitOfWork> IUnitOfWork<ApplicationDbContext, CustomUnitOfWork>.GetService()
         {

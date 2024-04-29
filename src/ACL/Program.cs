@@ -81,9 +81,8 @@ IConfiguration configuration = new ConfigurationBuilder()
        .SetBasePath(Directory.GetCurrentDirectory())
        .AddJsonFile("appsettings.json")
        .Build();
-//builder.Services.AddScoped<IAclCompanyRepository, AclCompanyRepository>();
 builder.Services.AddScoped<ICustomUnitOfWork, CustomUnitOfWork>();
-builder.Services.AddScoped<IUnitOfWork<ApplicationDbContext,ICustomUnitOfWork>, UnitOfWork<ApplicationDbContext,ICustomUnitOfWork>>();
+builder.Services.AddScoped<IUnitOfWork<ApplicationDbContext, ICustomUnitOfWork>, UnitOfWork<ApplicationDbContext, ICustomUnitOfWork>>();
 builder.Services.AddSingleton(configuration);
 builder.Services.AddScoped<ICacheService, CacheService>();
 builder.Services.AddLogging(loggingBuilder =>
@@ -93,7 +92,9 @@ builder.Services.AddLogging(loggingBuilder =>
 });
 
 builder.Services.AddSingleton<Serilog.ILogger>(_ => Log.Logger);
+builder.Services.AddSingleton<ILocalizationService>(new LocalizationService("ACL.Resources.en-US", typeof(Program).Assembly, "en-US"));
 //builder.Services.AddScoped<ILogService, LogService>();
+
 Log.Logger = new LoggerConfiguration()
    .MinimumLevel.Debug()
    .WriteTo.File(GetLogFilePath("log.txt"), restrictedToMinimumLevel: LogEventLevel.Error, rollingInterval: RollingInterval.Day, buffered: false)

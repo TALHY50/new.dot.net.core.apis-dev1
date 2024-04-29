@@ -27,7 +27,7 @@ namespace SharedLibrary.Services
         where TDbContext : DbContext
         where TUnitOfWork : class
     {
-        private Microsoft.Extensions.Logging.ILogger _logger;
+        private ILogger _logger;
         private TUnitOfWork _customUnitOfWork;
         private ILogService _logService;
         private ICacheService _cacheService;
@@ -37,19 +37,20 @@ namespace SharedLibrary.Services
         private Assembly _assembly;
         private TDbContext context;
         private IHttpContextAccessor _httpContextAccessor;
-        public IUnitOfWork<TDbContext,TUnitOfWork> unitOfWork;
+        public IUnitOfWork<TDbContext, TUnitOfWork> unitOfWork;
         public ILocalizationService LocalizationService { get; private set; }
-        public UnitOfWork(TDbContext context, ILogger<UnitOfWork<TDbContext,TUnitOfWork>> logger, ILogService logService, ICacheService cacheService, IServiceCollection services, Assembly programAssembly)
+        public UnitOfWork(TDbContext context, ILogger<UnitOfWork<TDbContext, TUnitOfWork>> logger, ILogService logService, ICacheService cacheService, IServiceCollection services, Assembly programAssembly)
         {
+            _services = services;
             Initialize(context, logger, logService, cacheService, services, programAssembly);
         }
 
         public UnitOfWork(TDbContext dbContext)
         {
-            var services = new ServiceCollection();
-            services.AddMemoryCache();
-            services.AddSingleton<Serilog.ILogger>(_ => Serilog.Log.Logger);
-            services.AddScoped<ILogService, LogService>();
+            _services = new ServiceCollection();
+            _services.AddMemoryCache();
+            _services.AddSingleton<Serilog.ILogger>(_ => Serilog.Log.Logger);
+            _services.AddScoped<ILogService, LogService>();
             Serilog.Log.Logger = new Serilog.LoggerConfiguration()
                .MinimumLevel.Debug()
                .WriteTo.File(GetLogFilePath("log.txt"), restrictedToMinimumLevel: LogEventLevel.Error, rollingInterval: RollingInterval.Day, buffered: false)
@@ -67,26 +68,26 @@ namespace SharedLibrary.Services
             //});
 
             //services.AddSerilog();
-            services.AddSingleton<ICacheService, CacheService>();
-            services.AddLogging(loggingBuilder =>
+            _services.AddSingleton<ICacheService, CacheService>();
+            _services.AddLogging(loggingBuilder =>
                 {
                     loggingBuilder.AddConsole();
                     loggingBuilder.AddSerilog(dispose: true);
                 });
-            services.AddLogging();
+            _services.AddLogging();
             IConfiguration configuration = new ConfigurationBuilder()
        .SetBasePath(Directory.GetCurrentDirectory())
        .AddJsonFile("appsettings.json")
        .Build();
-            var serviceProvider = services.BuildServiceProvider();
-
-            var logger = serviceProvider.GetRequiredService<ILogger<UnitOfWork<TDbContext,TUnitOfWork>>>();
-            //var logService = serviceProvider.GetRequiredService<ILogService>();
+            var serviceProvider = _services.BuildServiceProvider();
+#pragma warning disable CS8601 // Possible null reference assignment.
+            //  _logService = serviceProvider.GetRequiredService<ILogService>() ?? null;
+#pragma warning restore CS8601 // Possible null reference assignment.
+            var logger = serviceProvider.GetRequiredService<ILogger<UnitOfWork<TDbContext, TUnitOfWork>>>();
             var cacheService = serviceProvider.GetRequiredService<ICacheService>();
             context = dbContext;
-            services.AddSingleton<IConfiguration>(configuration);
-            Initialize(context, logger, null, cacheService, services);
-            //Initialize(context, null, null, null, services);
+            _services.AddSingleton<IConfiguration>(configuration);
+            Initialize(context, logger, null, cacheService, _services);
         }
         static string GetLogFilePath(string fileName)
         {
@@ -95,7 +96,7 @@ namespace SharedLibrary.Services
             var datePrefix = DateTime.Now.ToString("yyyy-MM-dd");
             return Path.Combine(logDirectory, $"{datePrefix}_{fileName}");
         }
-        private void Initialize(TDbContext context, ILogger<UnitOfWork<TDbContext,TUnitOfWork>> logger, ILogService logService, ICacheService cacheService, IServiceCollection services)
+        private void Initialize(TDbContext context, ILogger<UnitOfWork<TDbContext, TUnitOfWork>> logger, ILogService logService, ICacheService cacheService, IServiceCollection services)
         {
             this.context = context;
             this._logger = logger;
@@ -104,7 +105,7 @@ namespace SharedLibrary.Services
             this._services = services;
 
         }
-        private void Initialize(TDbContext context, ILogger<UnitOfWork<TDbContext,TUnitOfWork>> logger, ILogService logService, ICacheService cacheService, IServiceCollection services, Assembly assembly)
+        private void Initialize(TDbContext context, ILogger<UnitOfWork<TDbContext, TUnitOfWork>> logger, ILogService logService, ICacheService cacheService, IServiceCollection services, Assembly assembly)
         {
             this.context = context;
             this._logger = logger;
@@ -113,61 +114,62 @@ namespace SharedLibrary.Services
             this._services = services;
             _assembly = assembly;
         }
-        public CultureInfo SetCulture(string culture)
+        public virtual CultureInfo SetCulture(string culture)
         {
+            // LocalizationService?? new Loca
             return LocalizationService.SetCulture(culture);
         }
-        public string GetLocalizedString(string key)
+        public virtual string GetLocalizedString(string key)
         {
             _cultureInfo = _cultureInfo ?? new CultureInfo("en-US");
             _assembly = _assembly ?? Assembly.GetExecutingAssembly();
-            _resourceManager = _resourceManager ?? new ResourceManager("ACL.Resources." + _cultureInfo.Name, _assembly);
+            _resourceManager = _resourceManager ?? new ResourceManager("SharedLibrary.Resources." + _cultureInfo.Name, _assembly);
             return _resourceManager.GetString(key, _cultureInfo);
         }
-        public string GetLocalizedStringWithCulture(string key, CultureInfo culture)
+        public virtual string GetLocalizedStringWithCulture(string key, CultureInfo culture)
         {
             _cultureInfo = culture;
             _assembly = _assembly ?? Assembly.GetExecutingAssembly();
-            _resourceManager = new ResourceManager("ACL.Resources." + _cultureInfo.Name, _assembly);
+            _resourceManager = new ResourceManager("SharedLibrary.Resources." + _cultureInfo.Name, _assembly);
             return _resourceManager.GetString(key, _cultureInfo);
         }
-        public TDbContext ApplicationDbContext
+        public virtual TDbContext ApplicationDbContext
         {
             get { return this.context; }
             set { this.context = value; }
         }
         public IGenericRepository<T> GenericRepository<T>() where T : class
         {
-            return new GenericRepository<T, TDbContext, TUnitOfWork>(_customUnitOfWork,ApplicationDbContext);
+            return new GenericRepository<T, TDbContext, TUnitOfWork>(_customUnitOfWork, ApplicationDbContext);
         }
-        public ILogger Logger
+        public virtual ILogger Logger
         {
             get { return this._logger; }
             set { this._logger = value; }
         }
 
 
-        public ILogService LogService
+        public virtual ILogService LogService
         {
             get { return this._logService; }
             set { this._logService = value; }
         }
 
-        public ICacheService CacheService
+        public virtual ICacheService CacheService
         {
             get
             { return this._cacheService; }
             set { this._cacheService = value; }
         }
 
-        public IConfiguration Config
+        public virtual IConfiguration Config
         {
             get
             {
                 return new ConfigurationBuilder()
-.SetBasePath(Directory.GetCurrentDirectory())
-.AddJsonFile("appsettings.json")
-.Build();
+               .SetBasePath(Directory.GetCurrentDirectory())
+               .AddJsonFile("appsettings.json")
+               .Build();
             }
 
         }
@@ -178,7 +180,7 @@ namespace SharedLibrary.Services
             set { this._httpContextAccessor = value; }
         }
 
-        Microsoft.Extensions.Logging.ILogger IUnitOfWork<TDbContext,TUnitOfWork>.Logger { get => this.Logger; set => this.Logger = value; }
+        Microsoft.Extensions.Logging.ILogger IUnitOfWork<TDbContext, TUnitOfWork>.Logger { get => this.Logger; set => this.Logger = value; }
 
         IUnitOfWork<TDbContext, TUnitOfWork> IUnitOfWork<TDbContext, TUnitOfWork>.UnitOfWork { get => this; set => this.unitOfWork = value; }
 
@@ -236,19 +238,36 @@ namespace SharedLibrary.Services
         {
             return ApplicationDbContext.Database.CreateExecutionStrategy();
         }
-        public Assembly SetAssembly(Assembly assembly)
+        public virtual Assembly SetAssembly(Assembly assembly)
         {
+            if (LocalizationService == null)
+            {
+                LocalizationService = new LocalizationService("ACL.Resources.en-US", assembly, "en-US");
+            }
             return LocalizationService.SetAssembly(assembly);
         }
-        public ResourceManager SetReourceManager(CultureInfo resource, Assembly assembly)
+        public virtual ResourceManager SetReourceManager(CultureInfo resource, Assembly assembly)
         {
-            assembly ??= Assembly.GetEntryAssembly();
+            if (LocalizationService == null)
+            {
+                LocalizationService = new LocalizationService("ACL.Resources.en-US", _assembly, "en-US");
+            }
+            //assembly ??= Assembly.GetEntryAssembly();
+            assembly = Assembly.GetExecutingAssembly();
             return LocalizationService.SetReourceManager(resource, _assembly ?? assembly);
         }
 
         IUnitOfWork<TDbContext, TUnitOfWork> IUnitOfWork<TDbContext, TUnitOfWork>.GetService()
         {
-            throw new NotImplementedException();
+            return this;
+        }
+        public virtual ILocalizationService SetLocalizationService(ILocalizationService service)
+        {
+            if (service == null)
+            {
+                service = new LocalizationService("SharedLibrary.Resources.en-US", Assembly.GetExecutingAssembly(), "en-US");
+            }
+            return LocalizationService = service;
         }
     }
 }

@@ -11,16 +11,18 @@ using SharedLibrary.Interfaces;
 using SharedLibrary.Services;
 using ACL.Database;
 using ACL.Utilities;
+using System.Net;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 namespace ACL.Repositories.V1
 {
-    public class AclCompanyModuleRepository : GenericRepository<AclCompanyModule,ApplicationDbContext,ICustomUnitOfWork>, IAclCompanyModuleRepository
+    public class AclCompanyModuleRepository : GenericRepository<AclCompanyModule, ApplicationDbContext, ICustomUnitOfWork>, IAclCompanyModuleRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "Company Module";
-        public AclCompanyModuleRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork,_unitOfWork.ApplicationDbContext)
+        public AclCompanyModuleRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName, _unitOfWork);
@@ -31,23 +33,21 @@ namespace ACL.Repositories.V1
             try
             {
                 var aclCompanyModule = await base.GetById(id);
+                var message = aclCompanyModule != null ? messageResponse.fetchMessage : messageResponse.notFoundMessage;
                 aclResponse.Data = aclCompanyModule;
-                aclResponse.Message = messageResponse.fetchMessage;
-                if (aclCompanyModule == null)
-                {
-                    aclResponse.Message = messageResponse.notFoundMessage;
-                }
-
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                aclResponse.Message = message;
+                aclResponse.StatusCode = aclCompanyModule != null ? System.Net.HttpStatusCode.OK : System.Net.HttpStatusCode.NotFound;
+                aclResponse.Timestamp = DateTime.Now;
             }
             catch (Exception ex)
             {
                 aclResponse.Message = ex.Message;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                aclResponse.Timestamp = DateTime.Now;
             }
-            aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
         }
+
 
         public async Task<AclResponse> AddAclCompanyModule(AclCompanyModuleRequest request)
         {
@@ -74,6 +74,8 @@ namespace ACL.Repositories.V1
             try
             {
                 var _aclCompanyModule = await base.GetById(Id);
+                aclResponse.Message = (_aclCompanyModule != null) ? messageResponse.editMessage : messageResponse.notFoundMessage;
+                aclResponse.StatusCode = (_aclCompanyModule != null) ? HttpStatusCode.OK : HttpStatusCode.BadRequest;
                 if (_aclCompanyModule != null)
                 {
                     _aclCompanyModule = PrepareInputData(request, Id, _aclCompanyModule);
@@ -81,19 +83,11 @@ namespace ACL.Repositories.V1
                     await _unitOfWork.CompleteAsync();
                     await base.ReloadAsync(_aclCompanyModule);
                     aclResponse.Data = _aclCompanyModule;
-                    aclResponse.Message = messageResponse.editMessage;
-                    aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
-                }
-                else
-                {
-                    aclResponse.Message = messageResponse.notFoundMessage;
-                    aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
                 }
             }
             catch (Exception ex)
             {
                 aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
             }
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
@@ -102,21 +96,13 @@ namespace ACL.Repositories.V1
         public async Task<AclResponse> GetAll()
         {
             var aclCompanyModules = await base.All();
-            if (aclCompanyModules.Any())
-            {
-                aclResponse.Message = messageResponse.fetchMessage;
-                aclResponse.Data = aclCompanyModules;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
-            }
-            else
-            {
-                aclResponse.Message = messageResponse.notFoundMessage;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
-            }
+            aclResponse.Message = aclCompanyModules.Any() ? messageResponse.fetchMessage : messageResponse.notFoundMessage;
+            aclResponse.Data = aclCompanyModules;
+            aclResponse.StatusCode = aclCompanyModules.Any() ? System.Net.HttpStatusCode.OK : System.Net.HttpStatusCode.NotFound;
             aclResponse.Timestamp = DateTime.Now;
-
             return aclResponse;
         }
+
 
         public bool IsValidForCreateOrUpdate(ulong companyId, ulong moduleId, ulong id = 0)
         {
@@ -134,24 +120,15 @@ namespace ACL.Repositories.V1
 
         public async Task<AclResponse> DeleteCompanyModule(ulong id)
         {
-
             var aclCompanyModule = await base.GetById(id);
-
+            aclResponse.StatusCode = aclCompanyModule != null ? HttpStatusCode.OK : HttpStatusCode.NotFound;
+            aclResponse.Message = aclCompanyModule != null ? messageResponse.deleteMessage : messageResponse.notFoundMessage;
+            aclResponse.Data = aclCompanyModule;
             if (aclCompanyModule != null)
             {
                 await base.DeleteAsync(aclCompanyModule);
                 await _unitOfWork.CompleteAsync();
-                aclResponse.Data = aclCompanyModule;
-                aclResponse.Message = messageResponse.deleteMessage;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
-            else
-            {
-                aclResponse.Message = messageResponse.notFoundMessage;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
-            }
-            aclResponse.Timestamp = DateTime.Now;
-
             return aclResponse;
         }
 
