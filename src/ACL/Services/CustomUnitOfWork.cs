@@ -23,15 +23,16 @@ using HtmlAgilityPack;
 
 namespace ACL.Services
 {
-    public class CustomUnitOfWork : UnitOfWork<ApplicationDbContext,ICustomUnitOfWork>, ICustomUnitOfWork
+    public class CustomUnitOfWork : UnitOfWork<ApplicationDbContext, ICustomUnitOfWork>, ICustomUnitOfWork
     {
         private ApplicationDbContext context;
         private Assembly _assembly;
-        IUnitOfWork<ApplicationDbContext,ICustomUnitOfWork> _baseunitOfWork;
+        IUnitOfWork<ApplicationDbContext, ICustomUnitOfWork> _baseunitOfWork;
         ICustomUnitOfWork _unitOfWork;
-        public CustomUnitOfWork(ApplicationDbContext context, ILogger<UnitOfWork<ApplicationDbContext,ICustomUnitOfWork>> logger, ILogService logService, ICacheService cacheService, IServiceCollection services, Assembly programAssembly)
+        public CustomUnitOfWork(ApplicationDbContext context, ILogger<UnitOfWork<ApplicationDbContext, ICustomUnitOfWork>> logger, ILogService logService, ICacheService cacheService, IServiceCollection services, Assembly programAssembly)
                    : base(context, logger, logService, cacheService, services, programAssembly)
         {
+            _assembly = programAssembly;
             this.context = context;
             _baseunitOfWork = base.unitOfWork;
             _unitOfWork = this;
@@ -43,19 +44,19 @@ namespace ACL.Services
             _unitOfWork = this;
         }
 
-        public ApplicationDbContext ApplicationDbContext
+        public new ApplicationDbContext ApplicationDbContext
         {
             get { return this.context; }
             set { this.context = value; }
         }
-        public IConfiguration Config
+        public new IConfiguration Config
         {
             get
             {
-                 return new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
-                .Build();
+                return new ConfigurationBuilder()
+               .SetBasePath(Directory.GetCurrentDirectory())
+               .AddJsonFile("appsettings.json")
+               .Build();
             }
 
         }
@@ -67,7 +68,6 @@ namespace ACL.Services
         public IAclCompanyRepository AclCompanyRepository
         {
             get { return new AclCompanyRepository(_unitOfWork, Config); }
-            //get { return new AclCompanyRepository(this); }
 
         }
 
@@ -98,7 +98,7 @@ namespace ACL.Services
             get { return new AclUserGroupRoleRepository(this); }
         }
 
-        public ICustomUnitOfWork GetService()
+        public new ICustomUnitOfWork GetService()
         {
             return this;
         }
@@ -132,6 +132,10 @@ namespace ACL.Services
         {
             get { return new AclPasswordRepository(this); }
         }
+        public IAclCountryRepository AclCountryRepository
+        {
+            get { return new AclCountryRepository(this); }
+        }
 
         public IAclStateRepository AclStateRepository
         {
@@ -140,7 +144,7 @@ namespace ACL.Services
 
         ICustomUnitOfWork ICustomUnitOfWork._unitOfWork => this;
 
-        IUnitOfWork<ApplicationDbContext, CustomUnitOfWork> IUnitOfWork<ApplicationDbContext, CustomUnitOfWork>.UnitOfWork { get{return this._unitOfWork; } set => throw new NotImplementedException(); }
+        IUnitOfWork<ApplicationDbContext, CustomUnitOfWork> IUnitOfWork<ApplicationDbContext, CustomUnitOfWork>.UnitOfWork { get { return this._unitOfWork; } set => throw new NotImplementedException(); }
 
         IUnitOfWork<ApplicationDbContext, CustomUnitOfWork> IUnitOfWork<ApplicationDbContext, CustomUnitOfWork>.GetService()
         {

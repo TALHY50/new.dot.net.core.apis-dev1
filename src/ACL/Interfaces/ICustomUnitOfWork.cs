@@ -20,6 +20,7 @@ namespace ACL.Interfaces
     {
         ICustomUnitOfWork _unitOfWork { get; }
         IAclCompanyRepository AclCompanyRepository { get; }
+        IAclCountryRepository AclCountryRepository { get; }
         IAclCompanyModuleRepository AclCompanyModuleRepository { get; }
         IAclModuleRepository AclModuleRepository { get; }
         IAclSubModuleRepository AclSubModuleRepository { get; }
