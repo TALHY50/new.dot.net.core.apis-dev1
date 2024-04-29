@@ -132,7 +132,7 @@
 
         }
 
-        public class AclCountry
+        public class AclCountryRouteUrl
         {
             public const string ModelName = Base + "countries";
             public const string List = ModelName;
@@ -262,7 +262,7 @@
             public const string Destroy = Base + "destroy";
         }
 
-        public class AclCountryNames
+        public class AclCountryRouteNames
         {
             public const string ModelName = "acl.countries.";
             public const string List = ModelName + "list";
