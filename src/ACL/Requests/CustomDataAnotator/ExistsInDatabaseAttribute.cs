@@ -19,7 +19,7 @@ namespace ACL.Requests.CustomDataAnotator
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             var serviceProvider = validationContext.GetService(typeof(IServiceProvider)) as IServiceProvider;
-            var unitOfWork = serviceProvider.GetService(typeof(IUnitOfWork)) as IUnitOfWork;
+            var unitOfWork = serviceProvider.GetService(typeof(ICustomUnitOfWork)) as ICustomUnitOfWork;
             var dbContext = unitOfWork.ApplicationDbContext;
 
             // Get the DbSet property dynamically based on the table name
@@ -43,7 +43,7 @@ namespace ACL.Requests.CustomDataAnotator
                 // If there exists any record with the same value in the specified column
                 if (!query.Any())
                 {
-                    return new ValidationResult($"The value '{value}' is not exist in {_tableName}.");
+                    return new ValidationResult($"The '{value}' is not exist.");
                 }
           
 

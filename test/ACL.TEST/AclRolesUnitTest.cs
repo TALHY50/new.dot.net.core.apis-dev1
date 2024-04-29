@@ -10,12 +10,12 @@ namespace ACL.TEST
     public class AclRolesUnitTest
     {
         DatabaseConnector dbConnector;
-        UnitOfWork unitOfWork;
+        CustomUnitOfWork unitOfWork;
         AclRoleController controller;
         public AclRolesUnitTest()
         {
             dbConnector = new DatabaseConnector();
-            unitOfWork = new UnitOfWork(dbConnector.dbContext);
+            unitOfWork = new CustomUnitOfWork(dbConnector.dbContext);
             unitOfWork.ApplicationDbContext = dbConnector.dbContext;
             controller = new AclRoleController(unitOfWork);
         }

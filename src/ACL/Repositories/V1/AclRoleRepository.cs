@@ -5,16 +5,22 @@ using ACL.Interfaces.Repositories.V1;
 using ACL.Requests;
 using ACL.Response.V1;
 using ACL.Utilities;
+using SharedLibrary.Interfaces;
+using SharedLibrary.Services;
+using ACL.Database;
+using ACL.Services;
 
 namespace ACL.Repositories.V1
 {
-    public class AclRoleRepository : GenericRepository<AclRole>, IAclRoleRepository
+    public class AclRoleRepository : GenericRepository<AclRole, ApplicationDbContext, ICustomUnitOfWork>, IAclRoleRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "Role";
-        public AclRoleRepository(IUnitOfWork _unitOfWork) : base(_unitOfWork)
+        private ICustomUnitOfWork _customUnitOfWork;
+        public AclRoleRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
+            _customUnitOfWork = _unitOfWork;
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName, _unitOfWork);
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
@@ -39,7 +45,7 @@ namespace ACL.Repositories.V1
                 var aclRole = PrepareInputData(request);
                 await base.AddAsync(aclRole);
                 await _unitOfWork.CompleteAsync();
-                await _unitOfWork.AclRoleRepository.ReloadAsync(aclRole);
+                await _customUnitOfWork.AclRoleRepository.ReloadAsync(aclRole);
                 aclResponse.Data = aclRole;
                 aclResponse.Message = messageResponse.createMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
@@ -66,7 +72,7 @@ namespace ACL.Repositories.V1
                 aclRole = PrepareInputData(request, aclRole);
                 await base.UpdateAsync(aclRole);
                 await _unitOfWork.CompleteAsync();
-                await _unitOfWork.AclRoleRepository.ReloadAsync(aclRole);
+                await _customUnitOfWork.AclRoleRepository.ReloadAsync(aclRole);
                 aclResponse.Data = aclRole;
                 aclResponse.Message = messageResponse.editMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
@@ -134,6 +140,6 @@ namespace ACL.Repositories.V1
             return aclRole;
         }
 
-       
+
     }
 }

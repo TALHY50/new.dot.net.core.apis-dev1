@@ -16,8 +16,8 @@ namespace ACL.Controllers.V1
     [ApiController]
     public class AclPageController : ControllerBase
     {
-        private readonly IUnitOfWork _unitOfWork;
-        public AclPageController(IUnitOfWork unitOfWork)
+        private readonly ICustomUnitOfWork _unitOfWork;
+        public AclPageController(ICustomUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
@@ -31,25 +31,25 @@ namespace ACL.Controllers.V1
         [HttpPost(AclRoutesUrl.AclPage.Add, Name = AclRoutesName.AclPageNames.Add)]
         public async Task<AclResponse> Create(AclPageRequest request)
         {
-            return await _unitOfWork.AclPageRepository.Add(request);
+            return await _unitOfWork.AclPageRepository.AddAclPage(request);
         }
         [HttpPut(AclRoutesUrl.AclPage.Edit, Name = AclRoutesName.AclPageNames.Edit)]
         public async Task<AclResponse> Edit(ulong id, AclPageRequest request)
         {
-            return await _unitOfWork.AclPageRepository.Edit(id, request);
+            return await _unitOfWork.AclPageRepository.EditAclPage(id, request);
 
         }
 
         [HttpDelete(AclRoutesUrl.AclPage.Destroy, Name = AclRoutesName.AclPageNames.Destroy)]
         public async Task<AclResponse> Destroy(ulong id)
         {
-            return await _unitOfWork.AclPageRepository.deleteById(id);
+            return await _unitOfWork.AclPageRepository.DeleteById(id);
         }
 
         [HttpGet(AclRoutesUrl.AclPage.View, Name = AclRoutesName.AclPageNames.View)]
         public async Task<AclResponse> View(ulong id)
         {
-            return await _unitOfWork.AclPageRepository.findById(id);
+            return _unitOfWork.AclPageRepository.FindById(id);
 
         }
 

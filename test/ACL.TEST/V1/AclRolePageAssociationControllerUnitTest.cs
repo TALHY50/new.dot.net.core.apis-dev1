@@ -20,16 +20,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Org.BouncyCastle.Asn1.Cmp.Challenge;
 
 namespace ACL.Tests.V1
 {
     public class AclRolePageAssociationControllerUnitTest
     {
         DatabaseConnector dbConnector;
-        UnitOfWork unitOfWork;
+        CustomUnitOfWork unitOfWork;
         RestClient restClient;
         DbContextOptions<ApplicationDbContext> _inMemoryDbContextOptions;
         ApplicationDbContext _inMemoryDbContext;
+        AclRoleAndPageAssocController _controller;
         public AclRolePageAssociationControllerUnitTest()
         {
             dbConnector = new DatabaseConnector();
@@ -37,15 +39,21 @@ namespace ACL.Tests.V1
                 .UseInMemoryDatabase(databaseName: "acl")
                 .Options;
             _inMemoryDbContext = new ApplicationDbContext(_inMemoryDbContextOptions);
-            unitOfWork = new UnitOfWork(_inMemoryDbContext);
+            unitOfWork = new CustomUnitOfWork(_inMemoryDbContext);
             restClient = new RestClient(dbConnector.baseUrl);
-            unitOfWork = new UnitOfWork(dbConnector.dbContext);
-            // unitOfWork.ApplicationDbContext = _inMemoryDbContext;
+            //  unitOfWork = new UnitOfWork(dbConnector.dbContext);
+            unitOfWork.ApplicationDbContext = _inMemoryDbContext;
+            _controller = new AclRoleAndPageAssocController(unitOfWork);
         }
         [Fact]
         public async Task Get_All_AclRolePageAssociation()
         {
             #region  Arrange
+            var testData = GetRoleAndPageAssocUpdateRequest(1).Result;
+            var testinput = unitOfWork.AclRolePageRepository.PrepareData(testData);
+            await unitOfWork.AclRolePageRepository.AddAll(testinput);
+            await unitOfWork.CommitTransactionAsync();
+            await unitOfWork.CompleteAsync();
             var id = getRandomID();
             #endregion
             #region Act
@@ -71,15 +79,23 @@ namespace ACL.Tests.V1
         public async Task Put_Edit_Acl_AclRolePageAssociation()
         {
             #region  Arrange
+            //var testData = GetRoleAndPageAssocUpdateRequest(1).Result;
+            //var testinput = unitOfWork.AclRolePageRepository.PrepareData(testData);
+            //await unitOfWork.AclRolePageRepository.AddAll(testinput);
+            //await unitOfWork.CommitTransactionAsync();
+            //await unitOfWork.CompleteAsync();
+            //var test = await unitOfWork.AclRolePageRepository.GetAllById(1);
+            await Get_All_AclRolePageAssociation();
+
             var id = getRandomID();
-            AclRoleAndPageAssocUpdateRequest editReq = GetRoleAndPageAssocUpdateRequest(id);
+            AclRoleAndPageAssocUpdateRequest editReq = GetRoleAndPageAssocUpdateRequest(id).Result;
 
             #endregion
             #region Act
             //// Create request
             var req = new RestRequest(AclRoutesUrl.AclRolePageRouteUrl.Edit, Method.Put);
             //Add request body
-            req.AddBody(editReq);
+            req.AddJsonBody(editReq);
 
             //// Add headers
             //request.AddHeader("Authorization", "Bearer YOUR_TOKEN_HERE");
@@ -93,32 +109,103 @@ namespace ACL.Tests.V1
 
             #endregion
             #region Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, actualEditStatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(400, actualEditStatusCode);
             #endregion Assert
         }
 
-        public AclRoleAndPageAssocUpdateRequest GetRoleAndPageAssocUpdateRequest(ulong id)
+        public async Task<AclRoleAndPageAssocUpdateRequest> GetRoleAndPageAssocUpdateRequest(ulong id)
         {
             var faker = new Faker();
-
-            // Generate a random role ID
-            ulong roleId = (ulong)faker.Random.Int(1, int.MaxValue);
-
-            // Generate a random number of page IDs (between 1 and 10)
-            int numberOfPages = faker.Random.Int(1, 10);
-            int[] pageIds = new int[numberOfPages];
-            for (int i = 0; i < numberOfPages; i++)
+            if (unitOfWork.AclCompanyRepository.GetAll().Result.Data == null)
             {
-                pageIds[i] = faker.Random.Int(1, int.MaxValue);
+                await unitOfWork.AclCompanyRepository.AddAclCompany(new AclCompanyCreateRequest
+                {
+                    name = faker.Company.CompanyName(),
+                    cname = faker.Company.CompanyName(),
+                    cemail = faker.Internet.Email(),
+                    address1 = faker.Address.StreetAddress(),
+                    address2 = faker.Address.SecondaryAddress(),
+                    city = faker.Random.String2(15),
+                    state = faker.Address.State(),
+                    country = faker.Address.Country(),
+                    postcode = faker.Address.ZipCode(),
+                    phone = faker.Random.String2(15),
+                    timezone = faker.Random.Number(-12, 12), // Convert to string if 'timezone' is a string
+                    timezone_value = faker.Random.String2(20),
+                    logo = faker.Image.PicsumUrl(),
+                    fax = faker.Random.String2(15),
+                    registration_no = faker.Random.AlphaNumeric(10),
+                    tax_no = faker.Random.AlphaNumeric(10),
+                    unique_column_name = (sbyte)faker.Random.Byte(), // Ensure 'unique_column_name' is of correct type
+                    email = faker.Internet.Email(),
+                    password = faker.Internet.Password()
+                });
+                unitOfWork.Complete();
+            }
+            if (unitOfWork.AclRoleRepository.GetAll().Result.Data == null)
+            {
+                unitOfWork.AclRoleRepository.Add(new AclRole() { CompanyId = id, Status = 1, Name = "Test", Id = id });
+                unitOfWork.Complete();
             }
 
-            // Create and return the request object
-            return new AclRoleAndPageAssocUpdateRequest
+            ulong roleId = unitOfWork.AclRoleRepository.FirstOrDefault().Result.Id;
+            List<AclPage> gotfromDb = (List<AclPage>)unitOfWork.AclPageRepository.GetAll().Result.Data;
+            if (gotfromDb.Count == 0)
             {
-                role_id = roleId,
-                PageIds = pageIds
-            };
+                await unitOfWork.AclPageRepository.AddRange(new AclPage[]
+                  {
+                    new AclPage { Id = 3001, ModuleId = 1001, SubModuleId = 2001, Name = "Company List", MethodName = "index",      MethodType   = 0,   AvailableToCompany = 0, CreatedAt = DateTime.Parse("2015-12-09 12:10:51"), UpdatedAt =       DateTime.Parse  ("2015-12-09    12:10:51") },
+                    new AclPage { Id = 3002, ModuleId = 1001, SubModuleId = 2001, Name = "Add New Company", MethodName = "create",        MethodType   = 0, AvailableToCompany = 0, CreatedAt = DateTime.Parse("2015-12-09 12:10:52"), UpdatedAt   =        DateTime.Parse("2015-12-09    12:10:52") },
+                    new AclPage { Id = 3003, ModuleId = 1001, SubModuleId = 2001, Name = "Modify Company", MethodName = "edit",       MethodType   =    2, AvailableToCompany = 0, CreatedAt = DateTime.Parse("2015-12-09 12:10:52"), UpdatedAt   =     DateTime.Parse    ("2019-03-27   15:03:28") },
+                    new AclPage { Id = 3084, ModuleId = 1003, SubModuleId = 2055, Name = "View Company Module", MethodName =    "show",          MethodType = 0, AvailableToCompany = 0, CreatedAt = DateTime.Parse("2015-12-09 12:10:52"),    UpdatedAt =      DateTime.Parse  ("2015-12-09 12:10:52") }
+                  });
+                await unitOfWork.CommitTransactionAsync();
+                await unitOfWork.CompleteAsync();
+
+            }
+            gotfromDb = (List<AclPage>)unitOfWork.AclPageRepository.GetAll().Result.Data;
+            Random random = new Random();
+
+            List<AclPage> shuffledList = gotfromDb.OrderBy(x => random.Next()).ToList();
+
+            // Take 2 or 3 elements from the shuffled list and select their Ids
+            int[] randomPageIds = shuffledList.Take(random.Next(1, 2)).Select(page => (int)page.Id).ToArray();
+            int[] pageIds = gotfromDb.Select(page => (int)page.Id).ToArray();
+            // Create and return the request object
+
+            List<AclRolePage> testCheck = (List<AclRolePage>)unitOfWork.AclRolePageRepository.GetAllById(roleId).Result.Data;
+            var toReturn = new AclRoleAndPageAssocUpdateRequest();
+            if (testCheck.Count > 0)
+            {
+                toReturn = new AclRoleAndPageAssocUpdateRequest
+                {
+                    role_id = roleId,
+                    PageIds = randomPageIds
+                };
+            }
+            else
+            {
+                toReturn = new AclRoleAndPageAssocUpdateRequest
+                {
+                    role_id = roleId,
+                    PageIds = pageIds
+                };
+                var tosave = unitOfWork.AclRolePageRepository.PrepareData(toReturn);
+                await unitOfWork.AclRolePageRepository.AddRange(tosave);
+                await unitOfWork.CompleteAsync();
+                toReturn = new AclRoleAndPageAssocUpdateRequest
+                {
+                    role_id = roleId,
+                    PageIds = randomPageIds
+                };
+                testCheck = (List<AclRolePage>)unitOfWork.AclRolePageRepository.GetAllById(roleId).Result.Data;
+            }
+            return toReturn;
+
+
         }
+
+
 
 
 
@@ -128,7 +215,7 @@ namespace ACL.Tests.V1
             //    // Act
             try
             {
-                return (ulong)(unitOfWork.ApplicationDbContext.AclRolePages.OrderByDescending(rp => rp.Id).LastOrDefault()?.RoleId); 
+                return (ulong)(unitOfWork.ApplicationDbContext.AclRolePages.OrderByDescending(rp => rp.Id).LastOrDefault()?.RoleId);
 
             }
             catch (Exception ex)

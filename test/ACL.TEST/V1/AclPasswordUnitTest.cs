@@ -13,7 +13,7 @@ namespace ACL.Tests.V1
     public class AclPasswordUnitTest
     {
         DatabaseConnector dbConnector;
-        UnitOfWork unitOfWork;
+        CustomUnitOfWork unitOfWork;
         RestSharp.RestClient restClient;
         private ulong user_id = 2;
         private string userPassword = "Nop@ss1234";
@@ -23,7 +23,7 @@ namespace ACL.Tests.V1
         public AclPasswordUnitTest()
         {
             dbConnector = new DatabaseConnector();
-            unitOfWork = new UnitOfWork(dbConnector.dbContext);
+            unitOfWork = new CustomUnitOfWork(dbConnector.dbContext);
             unitOfWork.ApplicationDbContext = dbConnector.dbContext;
             restClient = new RestSharp.RestClient(dbConnector.baseUrl);
         }

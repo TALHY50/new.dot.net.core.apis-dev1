@@ -11,26 +11,26 @@ namespace ACL.Controllers.V1
     [ApiController]
     public class AclPasswordController : ControllerBase
     {
-        private readonly IUnitOfWork _repository;
-        public AclPasswordController(IUnitOfWork repository)
+        private readonly ICustomUnitOfWork _unitOfWork;
+        public AclPasswordController(ICustomUnitOfWork unitOfWork)
         {
-            _repository = repository;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpPost(Route.AclRoutesUrl.AclPassword.Reset, Name = Route.AclRoutesName.AclPassword.Reset)]
         public async Task<AclResponse> ResetPassword(AclPasswordResetRequest request)
         {
-            return await _repository.AclPasswordRepository.Reset(request);
+            return await _unitOfWork.AclPasswordRepository.Reset(request);
         }
         [HttpPost(Route.AclRoutesUrl.AclPassword.Forget, Name = Route.AclRoutesName.AclPassword.Forget)]
         public async Task<AclResponse> ForgetPassword(AclForgetPasswordRequest request)
         {
-            return await _repository.AclPasswordRepository.Forget(request);
+            return await _unitOfWork.AclPasswordRepository.Forget(request);
         }
         [HttpPost(Route.AclRoutesUrl.AclPassword.VerifyToken, Name = Route.AclRoutesName.AclPassword.VerifyToken)]
         public async Task<AclResponse>VerifyTokenAndUpdatePassword(AclForgetPasswordTokenVerifyRequest request)
         {
-            return await _repository.AclPasswordRepository.VerifyToken(request);
+            return await _unitOfWork.AclPasswordRepository.VerifyToken(request);
         }
 
 

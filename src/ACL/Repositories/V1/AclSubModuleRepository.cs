@@ -4,16 +4,26 @@ using ACL.Interfaces.Repositories.V1;
 using ACL.Interfaces;
 using ACL.Requests;
 using ACL.Response.V1;
+using SharedLibrary.Interfaces;
+using SharedLibrary.Services;
+using ACL.Database;
+using ACL.Services;
+using ACL.Utilities;
+using Castle.Components.DictionaryAdapter.Xml;
 
 namespace ACL.Repositories.V1
 {
-    public class AclSubModuleRepository : GenericRepository<AclSubModule>, IAclSubModuleRepository
+    public class AclSubModuleRepository : GenericRepository<AclSubModule, ApplicationDbContext, ICustomUnitOfWork>, IAclSubModuleRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
-        private string modelName = "SubModule";
-        public AclSubModuleRepository(IUnitOfWork _unitOfWork) : base(_unitOfWork)
+        private string modelName = "Sub Module";
+        private ICustomUnitOfWork _customUnitOfWork;
+
+        public AclSubModuleRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
+            _customUnitOfWork = _unitOfWork;
+            AppAuth.SetAuthInfo();
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName, _unitOfWork);
         }
@@ -37,8 +47,8 @@ namespace ACL.Repositories.V1
             {
                 var aclSubModule = PrepareInputData(request);
                 await base.AddAsync(aclSubModule);
-                await _unitOfWork.CompleteAsync();
-                await _unitOfWork.AclSubModuleRepository.ReloadAsync(aclSubModule);
+                await _customUnitOfWork.CompleteAsync();
+                await _customUnitOfWork.AclSubModuleRepository.ReloadAsync(aclSubModule);
                 aclResponse.Data = aclSubModule;
                 aclResponse.Message = messageResponse.createMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
@@ -65,8 +75,8 @@ namespace ACL.Repositories.V1
             {
                 aclSubModule = PrepareInputData(request, aclSubModule);
                 await base.UpdateAsync(aclSubModule);
-                await _unitOfWork.CompleteAsync();
-                await _unitOfWork.AclSubModuleRepository.ReloadAsync(aclSubModule);
+                await _customUnitOfWork.CompleteAsync();
+                await _customUnitOfWork.AclSubModuleRepository.ReloadAsync(aclSubModule);
                 aclResponse.Data = aclSubModule;
                 aclResponse.Message = messageResponse.editMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
@@ -111,7 +121,7 @@ namespace ACL.Repositories.V1
             if (subModule != null)
             {
                 await base.DeleteAsync(subModule);
-                await _unitOfWork.CompleteAsync();
+                await _customUnitOfWork.CompleteAsync();
                 aclResponse.Message = messageResponse.deleteMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }

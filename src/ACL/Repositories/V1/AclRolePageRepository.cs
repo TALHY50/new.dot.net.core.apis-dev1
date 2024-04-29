@@ -7,18 +7,23 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using System.Linq;
 using static ACL.Route.AclRoutesUrl;
+using SharedLibrary.Interfaces;
+using SharedLibrary.Services;
+using ACL.Database;
+using ACL.Utilities;
 
 namespace ACL.Repositories.V1
 {
-    public class AclRolePageRepository : GenericRepository<Database.Models.AclRolePage>, IAclRolePageRepository
+    public class AclRolePageRepository : GenericRepository<AclRolePage,ApplicationDbContext,ICustomUnitOfWork>, IAclRolePageRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "Role Page";
-        public AclRolePageRepository(IUnitOfWork _unitOfWork) : base(_unitOfWork)
+        public AclRolePageRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName, _unitOfWork);
+              AppAuth.SetAuthInfo(); // sent object to this class when auth is found
         }
 
         public async Task<AclResponse> GetAllById(ulong id)
@@ -80,15 +85,15 @@ namespace ACL.Repositories.V1
         }
 
 
-        public Database.Models.AclRolePage[] PrepareData(AclRoleAndPageAssocUpdateRequest req)
+        public AclRolePage[] PrepareData(AclRoleAndPageAssocUpdateRequest req)
         {
-            IList<Database.Models.AclRolePage> res = new List<Database.Models.AclRolePage>();
+            IList<AclRolePage> res = new List<AclRolePage>();
             foreach (ulong page in req.PageIds)
             {
                 bool exists = res.Any(r => r.RoleId == page);
                 if (!exists)
                 {
-                    Database.Models.AclRolePage aclRolePage = new Database.Models.AclRolePage();
+                    AclRolePage aclRolePage = new AclRolePage();
                     aclRolePage.Id = 0;
                     aclRolePage.RoleId = req.role_id;
                     aclRolePage.PageId = page;

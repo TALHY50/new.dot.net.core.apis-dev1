@@ -112,6 +112,16 @@
             public const string VerifyToken = ModelName + "/forget/verify";
 
         }
+        public class AclState
+        {
+            public const string ModelName = Base + "states";
+            public const string List = ModelName;
+            public const string Add = ModelName + "/add";
+            public const string View = ModelName + "/view/{id}";
+            public const string Edit = ModelName + "/edit/{id}";
+            public const string Destroy = ModelName + "/delete/{id}";
+
+        }
 
         public class AclCountry
         {
@@ -224,6 +234,15 @@
             public const string Forget = "acl.forget.password";
             public const string VerifyToken = "acl.verify.token.and.update.password";
 
+        }
+        public static class AclState
+        {
+            public const string Base = "acl.state.";
+            public const string List = Base + "list";
+            public const string Add = Base + "add";
+            public const string View = Base + "view";
+            public const string Edit = Base + "edit";
+            public const string Destroy = Base + "destroy";
         }
 
         public class AclCountryNames

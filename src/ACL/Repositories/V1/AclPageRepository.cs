@@ -7,19 +7,28 @@ using ACL.Response.V1;
 using SharedLibrary.Utilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
+using System.Threading.Tasks;
+using SharedLibrary.Services;
+using ACL.Database;
+using SharedLibrary.Interfaces;
+using ACL.Services;
+using ACL.Utilities;
 
 namespace ACL.Repositories.V1
 {
-    public class AclPageRepository : GenericRepository<AclPage>, IAclPageRepository
+    public class AclPageRepository : GenericRepository<AclPage,ApplicationDbContext,ICustomUnitOfWork>, IAclPageRepository
     {
 
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "Page";
-        public AclPageRepository(IUnitOfWork _unitOfWork) : base(_unitOfWork)
+        private ICustomUnitOfWork _customUnitOfWork;
+        public AclPageRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
+             _customUnitOfWork = _unitOfWork;
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName, _unitOfWork);
+            AppAuth.SetAuthInfo(); // sent object to this class when auth is found
             
         }
         public async Task<AclResponse> GetAll()
@@ -27,7 +36,7 @@ namespace ACL.Repositories.V1
             var aclPage = await base.All();
             if (aclPage.Any())
             {
-                aclResponse.Message = _unitOfWork.LocalizationService.GetLocalizedString("fetchMessage");
+                aclResponse.Message = messageResponse.fetchMessage;
             }
             aclResponse.Data = aclPage;
             aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
@@ -35,16 +44,16 @@ namespace ACL.Repositories.V1
 
             return aclResponse;
         }
-        public async Task<AclResponse> Add(AclPageRequest request)
+        public async Task<AclResponse> AddAclPage(AclPageRequest request)
         {
             try
             {
                 var aclPage = PrepareInputData(request);
-                await _unitOfWork.ApplicationDbContext.AddAsync(aclPage);
-                await _unitOfWork.ApplicationDbContext.SaveChangesAsync();
-                _unitOfWork.ApplicationDbContext.Entry(aclPage).Reload();
+                await base.AddAsync(aclPage);
+                await _unitOfWork.CompleteAsync();
+                await _customUnitOfWork.AclPageRepository.ReloadAsync(aclPage);
                 aclResponse.Data = aclPage;
-                aclResponse.Message = Helper.__(messageResponse.createMessage);
+                aclResponse.Message = messageResponse.createMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
             catch (Exception ex)
@@ -56,7 +65,7 @@ namespace ACL.Repositories.V1
             return aclResponse;
         }
 
-        public async Task<AclResponse> Edit(ulong id, AclPageRequest request)
+        public async Task<AclResponse> EditAclPage(ulong id, AclPageRequest request)
         {
             var aclPage = await base.GetById(id);
             if (aclPage == null)
@@ -68,11 +77,11 @@ namespace ACL.Repositories.V1
             try
             {
                 aclPage = PrepareInputData(request, aclPage);
-                _unitOfWork.ApplicationDbContext.Update(aclPage);
-                await _unitOfWork.ApplicationDbContext.SaveChangesAsync();
-                await _unitOfWork.ApplicationDbContext.Entry(aclPage).ReloadAsync();
+                base.Update(aclPage);
+                await _unitOfWork.CompleteAsync();
+                await _customUnitOfWork.AclPageRepository.ReloadAsync(aclPage);
                 aclResponse.Data = aclPage;
-                aclResponse.Message = Helper.__(messageResponse.editMessage);
+                aclResponse.Message = messageResponse.editMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
             catch (Exception ex)
@@ -82,19 +91,18 @@ namespace ACL.Repositories.V1
             }
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
-
         }
 
-        public async Task<AclResponse> findById(ulong id)
+        public AclResponse FindById(ulong id)
         {
             try
             {
-                var aclPage = _unitOfWork.ApplicationDbContext.AclPages.Find(id);
+                var aclPage = _customUnitOfWork.AclPageRepository.GetById(id);
                 aclResponse.Data = aclPage;
-                aclResponse.Message = Helper.__(messageResponse.fetchMessage);
+                aclResponse.Message = messageResponse.fetchMessage;
                 if (aclPage == null)
                 {
-                    aclResponse.Message = Helper.__(messageResponse.notFoundMessage);
+                    aclResponse.Message = messageResponse.notFoundMessage;
                 }
 
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
@@ -108,15 +116,14 @@ namespace ACL.Repositories.V1
             return aclResponse;
 
         }
-        public async Task<AclResponse> deleteById(ulong id)
+        public async Task<AclResponse> DeleteById(ulong id)
         {
-            var aclPage = _unitOfWork.ApplicationDbContext.AclPages.Find(id);
 
-            if (aclPage != null)
+            if (await base.GetById(id) != null)
             {
-                _unitOfWork.ApplicationDbContext.AclPages.Remove(aclPage);
-                _unitOfWork.ApplicationDbContext.SaveChanges();
-                aclResponse.Message = Helper.__(messageResponse.deleteMessage);
+                 await base.DeleteAsync(await base.GetById(id));
+                _unitOfWork.Complete();
+                aclResponse.Message = messageResponse.deleteMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
 
@@ -150,11 +157,11 @@ namespace ACL.Repositories.V1
             try
             {
                 var aclPageRoute = PreparePageRouteInputData(request);
-                await _unitOfWork.ApplicationDbContext.AddAsync(aclPageRoute);
-                await _unitOfWork.ApplicationDbContext.SaveChangesAsync();
-                await _unitOfWork.ApplicationDbContext.Entry(aclPageRoute).ReloadAsync();
+                await _customUnitOfWork.AclPageRouteRepository.AddAsync(aclPageRoute);
+                await _unitOfWork.CompleteAsync();
+                await _customUnitOfWork.AclPageRouteRepository.ReloadAsync(aclPageRoute);
                 aclResponse.Data = aclPageRoute;
-                aclResponse.Message = Helper.__(messageResponse.createMessage);
+                aclResponse.Message =messageResponse.createMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
             catch (Exception ex)
@@ -175,16 +182,16 @@ namespace ACL.Repositories.V1
                 if (aclPageRoute != null)
                 {
                     var aclPageRouteUpdateData = PreparePageRouteInputData(request, aclPageRoute);
-                    _unitOfWork.ApplicationDbContext.Update(aclPageRouteUpdateData);
-                    await _unitOfWork.ApplicationDbContext.SaveChangesAsync();
-                    await _unitOfWork.ApplicationDbContext.Entry(aclPageRouteUpdateData).ReloadAsync();
+                    _customUnitOfWork.AclPageRouteRepository.Update(aclPageRouteUpdateData);
+                    await _unitOfWork.CompleteAsync();
+                    await _customUnitOfWork.AclPageRouteRepository.ReloadAsync(aclPageRouteUpdateData);
                     aclResponse.Data = aclPageRouteUpdateData;
-                    aclResponse.Message = Helper.__(messageResponse.editMessage);
+                    aclResponse.Message = messageResponse.editMessage;
                     aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
                 }
                 else
                 {
-                    aclResponse.Message = Helper.__(messageResponse.notFoundMessage);
+                    aclResponse.Message = messageResponse.notFoundMessage;
                     aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
                     return aclResponse;
                 }
@@ -203,13 +210,13 @@ namespace ACL.Repositories.V1
         public async Task<AclResponse> PageRouteDelete(ulong id)
         {
             messageResponse.deleteMessage = "Page Route Deleted Successfully";
-            var aclPageRoute = _unitOfWork.ApplicationDbContext.AclPageRoutes.Find(id);
+            AclPageRoute? aclPageRoute =  await _customUnitOfWork.AclPageRouteRepository.GetById(id);
             if (aclPageRoute != null)
             {
-                _unitOfWork.ApplicationDbContext.AclPageRoutes.Remove(aclPageRoute);
+                await _customUnitOfWork.AclPageRouteRepository.DeleteAsync(aclPageRoute);
                 await _unitOfWork.ApplicationDbContext.SaveChangesAsync();
                 _unitOfWork.ApplicationDbContext.Entry(aclPageRoute).Reload();
-                aclResponse.Message = Helper.__(messageResponse.deleteMessage);
+                aclResponse.Message = messageResponse.deleteMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
             return aclResponse;
