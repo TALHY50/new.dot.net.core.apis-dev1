@@ -20,6 +20,7 @@ using SharedLibrary.Interfaces;
 using SharedLibrary.Services;
 using Microsoft.EntityFrameworkCore;
 using HtmlAgilityPack;
+using System.Runtime.CompilerServices;
 
 namespace ACL.Services
 {
@@ -36,7 +37,7 @@ namespace ACL.Services
             _baseunitOfWork = base.unitOfWork;
             _unitOfWork = this;
             _assembly = programAssembly;
-            //_baseunitOfWork.SetAssembly(_assembly);
+            _unitOfWork.SetAssembly(_assembly);
         }
         public CustomUnitOfWork(ApplicationDbContext context) : base(context)
         {
@@ -45,6 +46,7 @@ namespace ACL.Services
             _baseunitOfWork = base.unitOfWork;
             _assembly = Assembly.GetExecutingAssembly() ?? Assembly.GetEntryAssembly() ?? Assembly.GetCallingAssembly();
             _unitOfWork.SetAssembly(_assembly);
+            _unitOfWork.SetLocalizationService( new LocalizationService("ACL.Resources.en-US", typeof(Program).Assembly, "en-US"));
         }
 
         public new ApplicationDbContext ApplicationDbContext
@@ -161,9 +163,17 @@ namespace ACL.Services
 
         IUnitOfWork<ApplicationDbContext, CustomUnitOfWork> IUnitOfWork<ApplicationDbContext, CustomUnitOfWork>.UnitOfWork { get { return this._unitOfWork; } set => unitOfWork = (IUnitOfWork<ApplicationDbContext, ICustomUnitOfWork>)this._unitOfWork; }
 
+        IUnitOfWork<ApplicationDbContext, CustomUnitOfWork> ICustomUnitOfWork._baseUnitOfWork =>  this._unitOfWork;
+
         IUnitOfWork<ApplicationDbContext, CustomUnitOfWork> IUnitOfWork<ApplicationDbContext, CustomUnitOfWork>.GetService()
         {
             return this._unitOfWork;
+        }
+
+        CustomUnitOfWork IUnitOfWork<ApplicationDbContext, CustomUnitOfWork>.SetCustomUnitOfWork(CustomUnitOfWork customUnitOfWork)
+        {
+            base.SetCustomUnitOfWork(this);
+            return this;
         }
     }
 }

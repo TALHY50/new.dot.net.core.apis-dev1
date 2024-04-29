@@ -27,7 +27,8 @@ namespace SharedLibrary.Services
         where TDbContext : DbContext
         where TUnitOfWork : class
     {
-        private ILogger _logger;
+        public ILogger<UnitOfWork<TDbContext, TUnitOfWork>> _logger;
+        //private ILogger _logger;
         private TUnitOfWork _customUnitOfWork;
         private ILogService _logService;
         private ICacheService _cacheService;
@@ -36,21 +37,42 @@ namespace SharedLibrary.Services
         private CultureInfo _cultureInfo;
         private Assembly _assembly;
         private TDbContext context;
-        private IHttpContextAccessor _httpContextAccessor;
+        public IHttpContextAccessor _httpContextAccessor;
         public IUnitOfWork<TDbContext, TUnitOfWork> unitOfWork;
-        public ILocalizationService LocalizationService { get; private set; }
+        public virtual ILocalizationService LocalizationService { get; set; }
         public UnitOfWork(TDbContext context, ILogger<UnitOfWork<TDbContext, TUnitOfWork>> logger, ILogService logService, ICacheService cacheService, IServiceCollection services, Assembly programAssembly)
         {
             _services = services;
+            _logger = logger;
+            _assembly = programAssembly;
+            _logService = logService;
+            _cacheService = cacheService;
+            _services = services;
+            this.context = context;
+            _customUnitOfWork = null;
+            _cultureInfo = new CultureInfo("en-US");
+            unitOfWork = this;
+            _resourceManager = new ResourceManager("SharedLibrary.Resources." + _cultureInfo.Name, _assembly);
+            _httpContextAccessor = new HttpContextAccessor();
+            LocalizationService = new LocalizationService("SharedLibrary.Resources.en-US", _assembly, "en-US");
             Initialize(context, logger, logService, cacheService, services, programAssembly);
         }
 
         public UnitOfWork(TDbContext dbContext)
         {
+
+            this.context = dbContext;
+            _customUnitOfWork = null;
+            _cultureInfo = new CultureInfo("en-US");
+            unitOfWork = this;
+            _assembly = Assembly.GetExecutingAssembly();
+            _resourceManager = new ResourceManager("SharedLibrary.Resources." + _cultureInfo.Name, _assembly);
+            _httpContextAccessor = new HttpContextAccessor();
+            LocalizationService = new LocalizationService("SharedLibrary.Resources.en-US", _assembly, "en-US");
             _services = new ServiceCollection();
             _services.AddMemoryCache();
             _services.AddSingleton<Serilog.ILogger>(_ => Serilog.Log.Logger);
-            _services.AddScoped<ILogService, LogService>();
+            _services.AddSingleton<ILogService, LogService>();
             Serilog.Log.Logger = new Serilog.LoggerConfiguration()
                .MinimumLevel.Debug()
                .WriteTo.File(GetLogFilePath("log.txt"), restrictedToMinimumLevel: LogEventLevel.Error, rollingInterval: RollingInterval.Day, buffered: false)
@@ -59,13 +81,13 @@ namespace SharedLibrary.Services
                    .WriteTo.File(GetLogFilePath("log.txt"), restrictedToMinimumLevel: LogEventLevel.Information))
                .WriteTo.File(GetLogFilePath("querylog.txt"), restrictedToMinimumLevel: LogEventLevel.Information, rollingInterval: RollingInterval.Day, buffered: false)
                .CreateLogger();
-            var hostProvider = Host.CreateApplicationBuilder();
-            //Host.UseSerilog((hostingContext, loggerConfiguration) =>
-            //{
-            //    loggerConfiguration
-            //        .ReadFrom.Configuration(hostingContext.Configuration)
-            //        .WriteTo.Console();
-            //});
+            //var hostProvider = Host.CreateApplicationBuilder();
+            ////Host.UseSerilog((hostingContext, loggerConfiguration) =>
+            ////{
+            ////    loggerConfiguration
+            ////        .ReadFrom.Configuration(hostingContext.Configuration)
+            ////        .WriteTo.Console();
+            ////});
 
             //services.AddSerilog();
             _services.AddSingleton<ICacheService, CacheService>();
@@ -80,14 +102,12 @@ namespace SharedLibrary.Services
        .AddJsonFile("appsettings.json")
        .Build();
             var serviceProvider = _services.BuildServiceProvider();
-#pragma warning disable CS8601 // Possible null reference assignment.
-            //  _logService = serviceProvider.GetRequiredService<ILogService>() ?? null;
-#pragma warning restore CS8601 // Possible null reference assignment.
-            var logger = serviceProvider.GetRequiredService<ILogger<UnitOfWork<TDbContext, TUnitOfWork>>>();
-            var cacheService = serviceProvider.GetRequiredService<ICacheService>();
+            //_logService = _services.BuildServiceProvider().GetRequiredService<ILogService>() ?? null;
+            _logger = serviceProvider.GetRequiredService<ILogger<UnitOfWork<TDbContext, TUnitOfWork>>>();
+            _cacheService = serviceProvider.GetRequiredService<ICacheService>();
             context = dbContext;
             _services.AddSingleton<IConfiguration>(configuration);
-            Initialize(context, logger, null, cacheService, _services);
+            Initialize(context, _logger, _cacheService, _services);
         }
         static string GetLogFilePath(string fileName)
         {
@@ -105,6 +125,14 @@ namespace SharedLibrary.Services
             this._services = services;
 
         }
+        private void Initialize(TDbContext context, ILogger<UnitOfWork<TDbContext, TUnitOfWork>> logger, ICacheService cacheService, IServiceCollection services)
+        {
+            this.context = context;
+            this._logger = logger;
+            this._cacheService = cacheService;
+            this._services = services;
+
+        }
         private void Initialize(TDbContext context, ILogger<UnitOfWork<TDbContext, TUnitOfWork>> logger, ILogService logService, ICacheService cacheService, IServiceCollection services, Assembly assembly)
         {
             this.context = context;
@@ -116,7 +144,6 @@ namespace SharedLibrary.Services
         }
         public virtual CultureInfo SetCulture(string culture)
         {
-            // LocalizationService?? new Loca
             return LocalizationService.SetCulture(culture);
         }
         public virtual string GetLocalizedString(string key)
@@ -142,10 +169,15 @@ namespace SharedLibrary.Services
         {
             return new GenericRepository<T, TDbContext, TUnitOfWork>(_customUnitOfWork, ApplicationDbContext);
         }
+        //public virtual ILogger Logger
+        //{
+        //    get { return this._logger; }
+        //    set { this._logger = value; }
+        //}
         public virtual ILogger Logger
         {
             get { return this._logger; }
-            set { this._logger = value; }
+            set { this._logger = (ILogger<UnitOfWork<TDbContext, TUnitOfWork>>)value; }
         }
 
 
@@ -268,6 +300,12 @@ namespace SharedLibrary.Services
                 service = new LocalizationService("SharedLibrary.Resources.en-US", Assembly.GetExecutingAssembly(), "en-US");
             }
             return LocalizationService = service;
+        }
+
+        public TUnitOfWork SetCustomUnitOfWork(TUnitOfWork customUnitOfWork)
+        {
+            _customUnitOfWork = customUnitOfWork;
+            return ((IUnitOfWork<TDbContext, TUnitOfWork>)this).UnitOfWork.SetCustomUnitOfWork(customUnitOfWork);
         }
     }
 }

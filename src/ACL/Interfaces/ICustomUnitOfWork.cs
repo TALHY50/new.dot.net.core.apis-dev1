@@ -19,6 +19,7 @@ namespace ACL.Interfaces
     public interface ICustomUnitOfWork : IDisposable, IUnitOfWork<ApplicationDbContext, CustomUnitOfWork>
     {
         ICustomUnitOfWork _unitOfWork { get; }
+        IUnitOfWork<ApplicationDbContext,CustomUnitOfWork> _baseUnitOfWork { get; }
         IAclCompanyRepository AclCompanyRepository { get; }
         IAclCompanyModuleRepository AclCompanyModuleRepository { get; }
         IAclModuleRepository AclModuleRepository { get; }
