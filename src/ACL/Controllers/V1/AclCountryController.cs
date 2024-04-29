@@ -16,33 +16,33 @@ namespace ACL.Controllers.V1
             _customUnitOfWork = repository;
         }
 
-        [HttpGet(Route.AclRoutesUrl.AclCountry.List, Name = Route.AclRoutesName.AclCountryNames.List)]
+        [HttpGet(Route.AclRoutesUrl.AclCountryRouteUrl.List, Name = Route.AclRoutesName.AclCountryRouteNames.List)]
         public async Task<AclResponse> Index()
         {
             return await _customUnitOfWork.AclCountryRepository.GetAll();
         }
 
-        [HttpPost(Route.AclRoutesUrl.AclCountry.Add, Name = Route.AclRoutesName.AclCountryNames.Add)]
+        [HttpPost(Route.AclRoutesUrl.AclCountryRouteUrl.Add, Name = Route.AclRoutesName.AclCountryRouteNames.Add)]
         public async Task<AclResponse> Create(AclCountryRequest request)
         {
             return await _customUnitOfWork.AclCountryRepository.Add(request);
         }
 
-        [HttpGet(Route.AclRoutesUrl.AclCountry.View, Name = Route.AclRoutesName.AclCountryNames.View)]
+        [HttpGet(Route.AclRoutesUrl.AclCountryRouteUrl.View, Name = Route.AclRoutesName.AclCountryRouteNames.View)]
         public async Task<AclResponse> View(ulong id)
         {
             return await _customUnitOfWork.AclCountryRepository.FindById(id);
 
         }
 
-        [HttpPut(Route.AclRoutesUrl.AclCountry.Edit, Name = Route.AclRoutesName.AclCountryNames.Edit)]
+        [HttpPut(Route.AclRoutesUrl.AclCountryRouteUrl.Edit, Name = Route.AclRoutesName.AclCountryRouteNames.Edit)]
         public async Task<AclResponse> Edit(ulong id, AclCountryRequest request)
         {
             return await _customUnitOfWork.AclCountryRepository.Edit(id, request);
 
         }
 
-        [HttpDelete(Route.AclRoutesUrl.AclCountry.Destroy, Name = Route.AclRoutesName.AclCountryNames.Destroy)]
+        [HttpDelete(Route.AclRoutesUrl.AclCountryRouteUrl.Destroy, Name = Route.AclRoutesName.AclCountryRouteNames.Destroy)]
         public async Task<AclResponse> Destroy(ulong id)
         {
             return await _customUnitOfWork.AclCountryRepository.DeleteById(id);
