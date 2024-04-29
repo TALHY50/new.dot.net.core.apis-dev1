@@ -33,6 +33,7 @@ namespace ACL.Services
         public CustomUnitOfWork(ApplicationDbContext context, ILogger<UnitOfWork<ApplicationDbContext, ICustomUnitOfWork>> logger, ILogService logService, ICacheService cacheService, IServiceCollection services, Assembly programAssembly)
                    : base(context, logger, logService, cacheService, services, programAssembly)
         {
+            _assembly = programAssembly;
             this.context = context;
             _baseunitOfWork = base.unitOfWork;
             _unitOfWork = this;
@@ -152,6 +153,10 @@ namespace ACL.Services
         public IAclPasswordRepository AclPasswordRepository
         {
             get { return new AclPasswordRepository(this); }
+        }
+        public IAclCountryRepository AclCountryRepository
+        {
+            get { return new AclCountryRepository(this); }
         }
 
         public IAclStateRepository AclStateRepository

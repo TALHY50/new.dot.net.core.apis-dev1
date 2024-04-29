@@ -68,6 +68,15 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     {
         options.EnableRetryOnFailure();
     }));
+//#if UNIT_TEST
+//builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//    options.UseInMemoryDatabase("acl"));
+//#else
+//builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString), options =>
+//    {
+//        options.EnableRetryOnFailure();
+//    }));
 #endif
 builder.Services.AddAntiforgery(options => options.HeaderName = "X-CSRF-TOKEN");
 

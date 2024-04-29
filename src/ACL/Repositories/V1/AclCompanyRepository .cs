@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.DependencyInjection;
 using ACL.Services;
 using System.Globalization;
@@ -19,7 +18,6 @@ using SharedLibrary.Services;
 using Microsoft.Extensions.Logging;
 using Castle.Core.Logging;
 using SharedLibrary.Interfaces;
-using ACL.Migrations;
 using ACL.Database;
 using ACL.Utilities;
 
