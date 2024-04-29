@@ -42,13 +42,6 @@ namespace ACL.Repositories.V1
             _config = config;
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
         }
-        public AclCompanyRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
-        {
-            aclResponse = new AclResponse();
-           // messageResponse = new MessageResponse(modelName, _unitOfWork);
-            //_config = config;
-            AppAuth.SetAuthInfo(); // sent object to this class when auth is found
-        }
 
         public async Task<AclResponse> FindById(ulong id)
         {

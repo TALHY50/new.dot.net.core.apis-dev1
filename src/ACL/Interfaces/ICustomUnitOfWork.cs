@@ -35,5 +35,6 @@ namespace ACL.Interfaces
         IAclPasswordRepository AclPasswordRepository { get; }
         IAclUserGroupRepository AclUserGroupRepository { get; }
         IAclStateRepository AclStateRepository { get; }
+        IAclBranchRepository AclBranchRepository { get; }
     }
 }

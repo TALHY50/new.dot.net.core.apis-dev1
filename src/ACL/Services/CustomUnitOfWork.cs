@@ -158,6 +158,10 @@ namespace ACL.Services
         {
             get { return new AclStateRepository(this); }
         }
+        public IAclBranchRepository AclBranchRepository
+        {
+            get { return new AclBranchRepository(this); }
+        }
 
         ICustomUnitOfWork ICustomUnitOfWork._unitOfWork => this;
 
