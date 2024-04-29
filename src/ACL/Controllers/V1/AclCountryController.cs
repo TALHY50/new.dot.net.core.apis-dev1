@@ -10,42 +10,42 @@ namespace ACL.Controllers.V1
     [ApiController]
     public class AclCountryController : ControllerBase
     {
-        private readonly IUnitOfWork _repository;
-        public AclCountryController(IUnitOfWork repository)
+        private readonly ICustomUnitOfWork _customUnitOfWork;
+        public AclCountryController(ICustomUnitOfWork repository)
         {
-            _repository = repository;
+            _customUnitOfWork = repository;
         }
 
         [HttpGet(Route.AclRoutesUrl.AclCountry.List, Name = Route.AclRoutesName.AclCountryNames.List)]
         public async Task<AclResponse> Index()
         {
-            return await _repository.AclCountryRepository.GetAll();
+            return await _customUnitOfWork.AclCountryRepository.GetAll();
         }
 
         [HttpPost(Route.AclRoutesUrl.AclCountry.Add, Name = Route.AclRoutesName.AclCountryNames.Add)]
         public async Task<AclResponse> Create(AclCountryRequest request)
         {
-            return await _repository.AclCountryRepository.Add(request);
+            return await _customUnitOfWork.AclCountryRepository.Add(request);
         }
 
         [HttpGet(Route.AclRoutesUrl.AclCountry.View, Name = Route.AclRoutesName.AclCountryNames.View)]
         public async Task<AclResponse> View(ulong id)
         {
-            return await _repository.AclCountryRepository.FindById(id);
+            return await _customUnitOfWork.AclCountryRepository.FindById(id);
 
         }
 
         [HttpPut(Route.AclRoutesUrl.AclCountry.Edit, Name = Route.AclRoutesName.AclCountryNames.Edit)]
         public async Task<AclResponse> Edit(ulong id, AclCountryRequest request)
         {
-            return await _repository.AclCountryRepository.Edit(id, request);
+            return await _customUnitOfWork.AclCountryRepository.Edit(id, request);
 
         }
 
         [HttpDelete(Route.AclRoutesUrl.AclCountry.Destroy, Name = Route.AclRoutesName.AclCountryNames.Destroy)]
         public async Task<AclResponse> Destroy(ulong id)
         {
-            return await _repository.AclCountryRepository.DeleteById(id);
+            return await _customUnitOfWork.AclCountryRepository.DeleteById(id);
         }
 
     }
