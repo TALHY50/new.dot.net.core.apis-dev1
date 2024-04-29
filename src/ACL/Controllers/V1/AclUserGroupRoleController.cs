@@ -16,13 +16,13 @@ namespace ACL.Controllers.V1
             _unitOfWork = unitOfWork;
         }
 
-        [HttpGet(Route.AclRoutesUrl.AclUserGroupRole.List, Name = Route.AclRoutesName.AclUserGroupRole.List)]
+        [HttpGet(Route.AclRoutesUrl.AclUserGroupRoleRouteUrl.List, Name = Route.AclRoutesName.AclUserGroupRoleRouteNames.List)]
         public async Task<AclResponse> Index(ulong userGroupId)
         {
             return await _unitOfWork.AclUserGroupRoleRepository.GetRolesByUserGroupId(userGroupId);
         }
 
-        [HttpPost(Route.AclRoutesUrl.AclUserGroupRole.Update, Name = Route.AclRoutesName.AclUserGroupRole.Update)]
+        [HttpPost(Route.AclRoutesUrl.AclUserGroupRoleRouteUrl.Update, Name = Route.AclRoutesName.AclUserGroupRoleRouteNames.Update)]
         public async Task<AclResponse> Update(AclUserGroupRoleRequest objUserGroupRole)
         {
             return await _unitOfWork.AclUserGroupRoleRepository.Update(objUserGroupRole);

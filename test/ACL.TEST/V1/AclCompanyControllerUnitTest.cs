@@ -47,7 +47,7 @@ namespace ACL.Tests.V1
            
             #endregion
             #region Act
-            var request = new RestRequest(AclRoutesUrl.AclCompanyRouteUrl.List, Method.Get);
+            var request = new RestRequest(AclRoutesUrl.AclBranchRouteUrl.List, Method.Get);
 
             //request.AddHeader("Authorization", "Bearer YOUR_TOKEN_HERE");
 
@@ -73,7 +73,7 @@ namespace ACL.Tests.V1
 
             #region Act
             //// Create request
-            var req = new RestRequest(AclRoutesUrl.AclCompanyRouteUrl.Add, Method.Post);
+            var req = new RestRequest(AclRoutesUrl.AclBranchRouteUrl.Add, Method.Post);
 
             //// Serialize the request body
             req.AddJsonBody(createReq);
@@ -100,7 +100,7 @@ namespace ACL.Tests.V1
             #endregion
             #region Act
             //// Create request
-            var req = new RestRequest(AclRoutesUrl.AclCompanyRouteUrl.Destroy.Replace("{id}", id.ToString()), Method.Delete);
+            var req = new RestRequest(AclRoutesUrl.AclBranchRouteUrl.Destroy.Replace("{id}", id.ToString()), Method.Delete);
             //Add request body
 
             //// Add headers
@@ -127,7 +127,7 @@ namespace ACL.Tests.V1
             #endregion
             #region Act
             //// Create request
-            var req = new RestRequest(AclRoutesUrl.AclCompanyRouteUrl.Edit.Replace("{id}", id.ToString()), Method.Put);
+            var req = new RestRequest(AclRoutesUrl.AclBranchRouteUrl.Edit.Replace("{id}", id.ToString()), Method.Put);
             //Add request body
             req.AddJsonBody(editReq);
 
@@ -154,7 +154,7 @@ namespace ACL.Tests.V1
             #endregion
 
             #region Act
-            var request = new RestRequest($"{AclRoutesUrl.AclCompanyRouteUrl.View.Replace("{id}", id.ToString())}", Method.Get);
+            var request = new RestRequest($"{AclRoutesUrl.AclBranchRouteUrl.View.Replace("{id}", id.ToString())}", Method.Get);
 
             // request.AddHeader("Authorization", "Bearer YOUR_TOKEN_HERE");
 

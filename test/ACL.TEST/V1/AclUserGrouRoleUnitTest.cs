@@ -1,34 +1,32 @@
 
-using ACL.Services;
 using Microsoft.EntityFrameworkCore;
 using RestSharp;
-
 using ACL.Requests.V1;
+using ACL.Route;
+using ACL.Database.Models;
 
 namespace ACL.Tests.V1
 {
     public class AclUserGrouRoleUnitTest
     {
-        DatabaseConnector dbConnector;
-        CustomUnitOfWork unitOfWork;
         RestClient restClient;
+        private string authToken;
         public AclUserGrouRoleUnitTest()
         {
-            dbConnector = new DatabaseConnector();
-            unitOfWork = new CustomUnitOfWork(dbConnector.dbContext);
-            unitOfWork.ApplicationDbContext = dbConnector.dbContext;
-            restClient = new RestClient(dbConnector.baseUrl);
+            DataCollectors.SetDatabase();
+            authToken = DataCollectors.GetAuthorization();
+            restClient = new RestClient(DataCollectors.baseUrl);
         }
         [Fact]
         public void GetUserGroupRoleTest()
         {
-          
+
             //Arrange
-            var userGroupId = getRandomID();
+            var userGroupId = DataCollectors.GetMaxId<AclUsergroup>(x => x.Id);
 
             // Act
-            var request = new RestRequest($"usergroups/roles/{userGroupId}", Method.Get);
-            //request.AddHeader("Authorization", "Bearer desc");
+            var request = new RestRequest(AclRoutesUrl.AclUserGroupRole.List.Replace("{userGroupId}", userGroupId.ToString()), Method.Get);
+            request.AddHeader("Authorization", authToken);
 
             RestResponse response = restClient.Execute(request);
 
@@ -44,8 +42,8 @@ namespace ACL.Tests.V1
             var data = GetUserGroupRole();
 
             // Act
-            var request = new RestRequest($"usergroups/roles/update", Method.Post);
-            //request.AddHeader("Authorization", "Bearer desc");
+            var request = new RestRequest(AclRoutesUrl.AclUserGroupRole.Update, Method.Post);
+            request.AddHeader("Authorization", authToken);
             request.AddJsonBody(data);
 
             RestResponse response = restClient.Execute(request);
@@ -61,21 +59,13 @@ namespace ACL.Tests.V1
         {
             return new AclUserGroupRoleRequest
             {
-                user_group_id = getRandomID(),
-                role_ids = new ulong[]  { getRandomRoleID() }
+                user_group_id = DataCollectors.GetMaxId<AclUsergroup>(x => x.Id),
+                role_ids = new ulong[]  { DataCollectors.GetMaxId<AclRole>(x => x.Id)}
             };
 
         }
 
-        private ulong getRandomID()
-        {
-            return unitOfWork.ApplicationDbContext.AclUsergroups.Max(x=>x.Id);
-        }
-        private ulong getRandomRoleID()
-        {
-            return unitOfWork.ApplicationDbContext.AclRoles.Max(x => x.Id);
-        }
-
+       
 
     }
 }

@@ -17,17 +17,17 @@ namespace ACL.Controllers.V1
             _unitOfWork = unitOfWork;
         }
 
-        [HttpPost(Route.AclRoutesUrl.AclPassword.Reset, Name = Route.AclRoutesName.AclPassword.Reset)]
+        [HttpPost(Route.AclRoutesUrl.AclPasswordRouteUrl.Reset, Name = Route.AclRoutesName.AclPasswordRouteNames.Reset)]
         public async Task<AclResponse> ResetPassword(AclPasswordResetRequest request)
         {
             return await _unitOfWork.AclPasswordRepository.Reset(request);
         }
-        [HttpPost(Route.AclRoutesUrl.AclPassword.Forget, Name = Route.AclRoutesName.AclPassword.Forget)]
+        [HttpPost(Route.AclRoutesUrl.AclPasswordRouteUrl.Forget, Name = Route.AclRoutesName.AclPasswordRouteNames.Forget)]
         public async Task<AclResponse> ForgetPassword(AclForgetPasswordRequest request)
         {
             return await _unitOfWork.AclPasswordRepository.Forget(request);
         }
-        [HttpPost(Route.AclRoutesUrl.AclPassword.VerifyToken, Name = Route.AclRoutesName.AclPassword.VerifyToken)]
+        [HttpPost(Route.AclRoutesUrl.AclPasswordRouteUrl.VerifyToken, Name = Route.AclRoutesName.AclPasswordRouteNames.VerifyToken)]
         public async Task<AclResponse>VerifyTokenAndUpdatePassword(AclForgetPasswordTokenVerifyRequest request)
         {
             return await _unitOfWork.AclPasswordRepository.VerifyToken(request);

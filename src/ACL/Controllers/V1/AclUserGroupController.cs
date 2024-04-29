@@ -16,30 +16,30 @@ namespace ACL.Controllers.V1
         {
             _unitOfWork = unitOfWork;
         }
-        [HttpGet(AclRoutesUrl.AclUserGroupRoutesUrl.List, Name = AclRoutesName.AclUserGroupRouteNames.List)]
+        [HttpGet(AclRoutesUrl.AclUserGroupRouteUrl.List, Name = AclRoutesName.AclUserGroupRouteNames.List)]
         public async Task<AclResponse> Index()
         {
             return await _unitOfWork.AclUserGroupRepository.GetAll();
         }
 
-        [HttpPost(AclRoutesUrl.AclUserGroupRoutesUrl.Add, Name = AclRoutesName.AclUserGroupRouteNames.Add)]
+        [HttpPost(AclRoutesUrl.AclUserGroupRouteUrl.Add, Name = AclRoutesName.AclUserGroupRouteNames.Add)]
         public async Task<AclResponse> Create(AclUserGroupRequest request)
         {
             return await _unitOfWork.AclUserGroupRepository.AddUserGroup(request);
         }
 
-        [HttpPut(AclRoutesUrl.AclUserGroupRoutesUrl.Edit, Name = AclRoutesName.AclUserGroupRouteNames.Edit)]
+        [HttpPut(AclRoutesUrl.AclUserGroupRouteUrl.Edit, Name = AclRoutesName.AclUserGroupRouteNames.Edit)]
         public async Task<AclResponse> Edit(ulong id, AclUserGroupRequest request)
         {
             return await _unitOfWork.AclUserGroupRepository.UpdateUserGroup(id, request);
         }
-        [HttpGet(AclRoutesUrl.AclUserGroupRoutesUrl.View, Name = AclRoutesName.AclUserGroupRouteNames.View)]
+        [HttpGet(AclRoutesUrl.AclUserGroupRouteUrl.View, Name = AclRoutesName.AclUserGroupRouteNames.View)]
         public async Task<AclResponse> View(ulong id)
         {
             return await _unitOfWork.AclUserGroupRepository.FindById(id);
         }
 
-        [HttpDelete(AclRoutesUrl.AclUserGroupRoutesUrl.Destroy, Name = AclRoutesName.AclUserGroupRouteNames.Destroy)]
+        [HttpDelete(AclRoutesUrl.AclUserGroupRouteUrl.Destroy, Name = AclRoutesName.AclUserGroupRouteNames.Destroy)]
         public async Task<AclResponse> Destroy(ulong id)
         {
             return await _unitOfWork.AclUserGroupRepository.Delete(id);

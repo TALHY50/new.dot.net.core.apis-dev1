@@ -7,6 +7,7 @@ using ACL.Response.V1;
 using ACL.Utilities;
 using ACL.Requests.V1;
 using System.Net;
+using Castle.Components.DictionaryAdapter.Xml;
 
 namespace ACL.Repositories.V1
 {
@@ -22,9 +23,27 @@ namespace ACL.Repositories.V1
             messageResponse = new MessageResponse(modelName, _unitOfWork);
         }
 
-        Task<AclResponse> IAclBranchRepository.AddBranch(AclBranchRequest request)
+        async Task<AclResponse> IAclBranchRepository.AddBranch(AclBranchRequest request)
         {
-            throw new NotImplementedException();
+            try
+            {
+                AclBranch _aclBranch = PrepareInputData(request);
+                await base.AddAsync(_aclBranch);
+                await _unitOfWork.CompleteAsync();
+                await base.ReloadAsync(_aclBranch);
+                aclResponse.Data = _aclBranch;
+                aclResponse.Message = _aclBranch != null ? messageResponse.createMessage : messageResponse.notFoundMessage;
+
+                aclResponse.StatusCode = _aclBranch != null ? HttpStatusCode.OK : HttpStatusCode.BadRequest;
+            }
+            catch (Exception ex)
+            {
+                _unitOfWork.Logger.LogError(ex, "Error at BRANCH_ADD", new { data = request, message = ex.Message, });
+                aclResponse.Message = ex.Message;
+                aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+            }
+            aclResponse.Timestamp = DateTime.Now;
+            return aclResponse;
         }
 
         async Task<AclResponse> IAclBranchRepository.DeleteById(ulong id)
@@ -41,9 +60,28 @@ namespace ACL.Repositories.V1
             return aclResponse;
         }
 
-        Task<AclResponse> IAclBranchRepository.EditBranch(ulong id, AclBranchRequest request)
+        async Task<AclResponse> IAclBranchRepository.EditBranch(ulong id, AclBranchRequest request)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var _aclBranch = await base.GetById(id);
+                _aclBranch = PrepareInputData(request, _aclBranch);
+                await base.UpdateAsync(_aclBranch);
+                await _unitOfWork.CompleteAsync();
+                await base.ReloadAsync(_aclBranch);
+                aclResponse.Data = _aclBranch;
+                aclResponse.Message = _aclBranch != null ? messageResponse.editMessage : messageResponse.notFoundMessage;
+
+                aclResponse.StatusCode = _aclBranch != null ? HttpStatusCode.OK : HttpStatusCode.BadRequest;
+            }
+            catch (Exception ex)
+            {
+                _unitOfWork.Logger.LogError(ex, "Error at BRANCH_EDIT", new { data = request, message = ex.Message, });
+                aclResponse.Message = ex.Message;
+                aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+            }
+            aclResponse.Timestamp = DateTime.Now;
+            return aclResponse;
         }
 
         async Task<AclResponse> IAclBranchRepository.FindById(ulong id)
@@ -76,6 +114,25 @@ namespace ACL.Repositories.V1
             aclResponse.Timestamp = DateTime.Now;
 
             return aclResponse;
+        }
+
+        private AclBranch PrepareInputData(AclBranchRequest request, AclBranch aclBranch=null)
+        {
+            AclBranch _aclBranch = aclBranch ?? new AclBranch();
+            _aclBranch.Name = request.Name;
+            _aclBranch.Address = request.Address;
+            _aclBranch.Description = request.Description;
+            _aclBranch.Sequence = request.Sequence;
+            _aclBranch.Status = (byte)(request.Status ?? 1);
+            _aclBranch.UpdatedAt = DateTime.Now;
+            _aclBranch.UpdatedById = AppAuth.GetAuthInfo().UserId;
+            _aclBranch.CompanyId = AppAuth.GetAuthInfo().CompanyId;
+            if(aclBranch == null)
+            {
+                _aclBranch.CreatedAt = DateTime.Now;
+                _aclBranch.CreatedById = AppAuth.GetAuthInfo().UserId;
+            }
+            return _aclBranch;
         }
     }
 }

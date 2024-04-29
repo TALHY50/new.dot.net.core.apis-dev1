@@ -16,33 +16,33 @@ namespace ACL.Controllers.V1
             _unitOfWork = unitOfWork;
         }
 
-        [HttpGet(Route.AclRoutesUrl.AclRole.List, Name = Route.AclRoutesName.AclRole.List)]
+        [HttpGet(Route.AclRoutesUrl.AclRoleRouteUrl.List, Name = Route.AclRoutesName.AclRoleRouteNames.List)]
         public async Task<AclResponse> Index()
         {
             return await _unitOfWork.AclRoleRepository.GetAll();
         }
 
-        [HttpPost(Route.AclRoutesUrl.AclRole.Add, Name = Route.AclRoutesName.AclRole.Add)]
+        [HttpPost(Route.AclRoutesUrl.AclRoleRouteUrl.Add, Name = Route.AclRoutesName.AclRoleRouteNames.Add)]
         public async Task<AclResponse> Create(AclRoleRequest objRole)
         {
             return await _unitOfWork.AclRoleRepository.Add(objRole);
         }
 
-        [HttpGet(Route.AclRoutesUrl.AclRole.View, Name = Route.AclRoutesName.AclRole.View)]
+        [HttpGet(Route.AclRoutesUrl.AclRoleRouteUrl.View, Name = Route.AclRoutesName.AclRoleRouteNames.View)]
         public async Task<AclResponse> View(ulong id)
         {
             return await _unitOfWork.AclRoleRepository.FindById(id);
 
         }
 
-        [HttpPut(Route.AclRoutesUrl.AclRole.Edit, Name = Route.AclRoutesName.AclRole.Edit)]
+        [HttpPut(Route.AclRoutesUrl.AclRoleRouteUrl.Edit, Name = Route.AclRoutesName.AclRoleRouteNames.Edit)]
         public async Task<AclResponse> Edit(ulong id, AclRoleRequest objRole)
         {
             return await _unitOfWork.AclRoleRepository.Edit(id, objRole);
 
         }
 
-        [HttpDelete(Route.AclRoutesUrl.AclRole.Destroy, Name = Route.AclRoutesName.AclRole.Destroy)]
+        [HttpDelete(Route.AclRoutesUrl.AclRoleRouteUrl.Destroy, Name = Route.AclRoutesName.AclRoleRouteNames.Destroy)]
         public async Task<AclResponse> Destroy(ulong id)
         {
             return await _unitOfWork.AclRoleRepository.DeleteById(id);

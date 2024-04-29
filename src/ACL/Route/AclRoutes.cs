@@ -3,7 +3,7 @@
     public class AclRoutesUrl
     {
         public const string Base = "api/v1/";
-        public class AclModule
+        public class AclModuleRouteUrl
         {
             public const string List = Base + "modules";
             public const string Add = Base + "modules/add";
@@ -20,6 +20,15 @@
             public const string View = ModelName + "/view/{id}";
             public const string Destroy = ModelName + "/delete/{id}";
         }
+        public class AclBranchRouteUrl
+        {
+            public const string ModelName = Base + "branches";
+            public const string List = ModelName;
+            public const string Add = ModelName + "/add";
+            public const string Edit = ModelName + "/edit/{id}";
+            public const string View = ModelName + "/view/{id}";
+            public const string Destroy = ModelName + "/delete/{id}";
+        }
         public class AclCompanyModuleRouteUrl
         {
             public const string ModelName = Base + "company/modules";
@@ -29,7 +38,7 @@
             public const string View = ModelName + "/view/{id}";
             public const string Destroy = ModelName + "/delete/{id}";
         }
-        public class AclSubModule
+        public class AclSubModuleRouteUrl
         {
             public const string ModelName = Base + "submodules";
             public const string List = ModelName;
@@ -44,7 +53,7 @@
             public const string List = ModelName + "/{id}";
             public const string Edit = ModelName + "/update";
         }
-        public class AclPage
+        public class AclPageRouteUrl
         {
             public const string ModelName = Base + "pages";
             public const string List = ModelName;
@@ -53,7 +62,7 @@
             public const string View = ModelName + "/view/{id}";
             public const string Destroy = ModelName + "/delete/{id}";
         }
-        public class AclPageRoute
+        public class AclPageRouteRouteUrl
         {
             public const string ModelName = Base + "page/routes";
             public const string List = ModelName;
@@ -61,32 +70,32 @@
             public const string Edit = ModelName + "/edit/{id}";
             public const string Destroy = ModelName + "/delete/{id}";
         }
-        public class AclSubmodule
+        public class AclSubmoduleRouteUrl
         {
-            public const string ModelName = Base +"submodules";
+            public const string ModelName = Base + "submodules";
             public const string List = ModelName;
             public const string Add = ModelName + "/add";
             public const string Edit = ModelName + "/edit/{id}";
             public const string View = ModelName + "/view/{id}";
             public const string Destroy = ModelName + "/delete/{id}";
         }
-        public class AclRole
+        public class AclRoleRouteUrl
         {
-            public const string ModelName = Base +"roles";
+            public const string ModelName = Base + "roles";
             public const string List = ModelName;
             public const string Add = ModelName + "/add";
             public const string Edit = ModelName + "/edit/{id}";
             public const string View = ModelName + "/view/{id}";
             public const string Destroy = ModelName + "/delete/{id}";
         }
-        public class AclUserGroupRole
+        public class AclUserGroupRoleRouteUrl
         {
             public const string ModelName = Base + "usergroups/roles";
             public const string List = ModelName + "/{userGroupId}";
             public const string Update = ModelName + "/update";
         }
 
-        public class AclUserUrl
+        public class AclUserRouteUrl
         {
             public const string ModelName = Base + "users";
             public const string List = ModelName;
@@ -95,7 +104,7 @@
             public const string View = ModelName + "/view/{id}";
             public const string Destroy = ModelName + "/delete/{id}";
         }
-        public class AclUserGroupRoutesUrl
+        public class AclUserGroupRouteUrl
         {
             public const string ModelName = Base + "usergroups";
             public const string List = ModelName;
@@ -104,7 +113,7 @@
             public const string Edit = ModelName + "/edit/{id}";
             public const string Destroy = ModelName + "/destroy/{id}";
         }
-        public class AclPassword
+        public class AclPasswordRouteUrl
         {
             public const string ModelName = Base + "password";
             public const string Reset = ModelName + "/reset";
@@ -112,7 +121,7 @@
             public const string VerifyToken = ModelName + "/forget/verify";
 
         }
-        public class AclState
+        public class AclStateRouteUrl
         {
             public const string ModelName = Base + "states";
             public const string List = ModelName;
@@ -121,6 +130,16 @@
             public const string Edit = ModelName + "/edit/{id}";
             public const string Destroy = ModelName + "/delete/{id}";
 
+        }
+
+        public class AclCountryRouteUrl
+        {
+            public const string ModelName = Base + "countries";
+            public const string List = ModelName;
+            public const string Add = ModelName + "/add";
+            public const string Edit = ModelName + "/edit/{id}";
+            public const string View = ModelName + "/view/{id}";
+            public const string Destroy = ModelName + "/delete/{id}";
         }
 
     }
@@ -133,6 +152,14 @@
             public const string View = "acl.company.show";
             public const string Edit = "acl.company.edit";
             public const string Destroy = "acl.company.destroy";
+        }
+        public static class AclBranchRouteNames
+        {
+            public const string List = "acl.branch.list";
+            public const string Add = "acl.branch.add";
+            public const string View = "acl.branch.show";
+            public const string Edit = "acl.branch.edit";
+            public const string Destroy = "acl.branch.destroy";
         }
 
         public static class AclCompanyModuleRouteNames
@@ -151,7 +178,7 @@
             public const string Edit = "acl.module.edit";
             public const string Destroy = "acl.module.destroy";
         }
-        public static class AclSubmodule
+        public static class AclSubmoduleRouteNames
         {
             public const string List = "acl.submodule.list";
             public const string Add = "acl.submodule.add";
@@ -160,7 +187,7 @@
             public const string Destroy = "acl.submodule.destroy";
 
         }
-        public static class AclRole
+        public static class AclRoleRouteNames
         {
             public const string List = "acl.role.list";
             public const string Add = "acl.role.add";
@@ -175,7 +202,7 @@
             public const string Edit = "acl.role&page.association.update";
         }
 
-        public static class AclPageNames
+        public static class AclPageNamesRouteNames
         {
             public const string Base = "acl.page.";
             public const string List = Base + "list";
@@ -184,7 +211,7 @@
             public const string Edit = Base + "edit";
             public const string Destroy = Base + "destroy";
         }
-        public static class AclPageRouteNames
+        public static class AclPageRouteRouteNames
         {
             public const string Base = "acl.page.route.";
             public const string Add = Base + "add";
@@ -192,7 +219,7 @@
             public const string Destroy = Base + "destroy";
         }
 
-        public static class AclUserNames
+        public static class AclUserRouteNames
         {
             public const string Base = "acl.user.";
             public const string List = Base + "list";
@@ -202,7 +229,7 @@
             public const string Destroy = Base + "destroy";
         }
 
-        public class AclUserGroupRole
+        public class AclUserGroupRoleRouteNames
         {
             public const string ModelName = "acl.usergroups.";
             public const string List = ModelName + "role.association";
@@ -218,14 +245,14 @@
             public const string Destroy = ModelName + "destroy";
         }
 
-        public class AclPassword
+        public class AclPasswordRouteNames
         {
             public const string Reset = "acl.reset.password";
             public const string Forget = "acl.forget.password";
             public const string VerifyToken = "acl.verify.token.and.update.password";
 
         }
-        public static class AclState
+        public static class AclStateRouteNames
         {
             public const string Base = "acl.state.";
             public const string List = Base + "list";
@@ -233,6 +260,16 @@
             public const string View = Base + "view";
             public const string Edit = Base + "edit";
             public const string Destroy = Base + "destroy";
+        }
+
+        public class AclCountryRouteNames
+        {
+            public const string ModelName = "acl.countries.";
+            public const string List = ModelName + "list";
+            public const string Add = ModelName + "add";
+            public const string View = ModelName + "view";
+            public const string Edit = ModelName + "edit";
+            public const string Destroy = ModelName + "destroy";
         }
 
     }

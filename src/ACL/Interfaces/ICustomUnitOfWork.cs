@@ -21,6 +21,7 @@ namespace ACL.Interfaces
         ICustomUnitOfWork _unitOfWork { get; }
         IUnitOfWork<ApplicationDbContext,CustomUnitOfWork> _baseUnitOfWork { get; }
         IAclCompanyRepository AclCompanyRepository { get; }
+        IAclCountryRepository AclCountryRepository { get; }
         IAclCompanyModuleRepository AclCompanyModuleRepository { get; }
         IAclModuleRepository AclModuleRepository { get; }
         IAclSubModuleRepository AclSubModuleRepository { get; }
@@ -35,5 +36,6 @@ namespace ACL.Interfaces
         IAclPasswordRepository AclPasswordRepository { get; }
         IAclUserGroupRepository AclUserGroupRepository { get; }
         IAclStateRepository AclStateRepository { get; }
+        IAclBranchRepository AclBranchRepository { get; }
     }
 }
