@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using ACL.Database.Models;
+using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
 using Pomelo.EntityFrameworkCore.MySql.Scaffolding.Internal;
+using SharedLibrary.Interfaces;
 
 namespace ACL.Database;
 
-public partial class ApplicationDbContext : DbContext
+public partial class ApplicationDbContext : DbContext, IApplicationDbContext
 {
     public ApplicationDbContext()
     {
@@ -49,7 +51,7 @@ public partial class ApplicationDbContext : DbContext
 
     public virtual DbSet<AclUsertypeSubmodule> AclUsertypeSubmodules { get; set; }
 
-    public virtual DbSet<Efmigrationshistory> Efmigrationshistories { get; set; }
+    //public virtual DbSet<Efmigrationshistory> Efmigrationshistories { get; set; }
 
     public virtual DbSet<FailedJob> FailedJobs { get; set; }
 
@@ -57,9 +59,16 @@ public partial class ApplicationDbContext : DbContext
 
     public virtual DbSet<PersonalAccessToken> PersonalAccessTokens { get; set; }
 
+    static string server = Environment.GetEnvironmentVariable("DB_HOST") ?? throw new InvalidOperationException("DB_HOST environment variable not found.");
+    static string database = Environment.GetEnvironmentVariable("DB_DATABASE") ?? throw new InvalidOperationException("DB_DATABASE environment variable not found.");
+    static string userName = Environment.GetEnvironmentVariable("DB_USERNAME") ?? throw new InvalidOperationException("DB_USERNAME environment variable not found.");
+    static string password = Environment.GetEnvironmentVariable("DB_PASSWORD") ?? null;
+
+    string connectionString = $"server={server};database={database};User ID={userName};Password={password};CharSet=utf8mb4;";
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseMySql("server=127.0.0.1;database=acl;user id=root;charset=utf8mb4", Microsoft.EntityFrameworkCore.ServerVersion.Parse("10.4.22-mariadb"));
+
+        => optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
