@@ -57,19 +57,19 @@ var connectionString = $"server={server};database={database};User ID={userName};
 //    {
 //        options.EnableRetryOnFailure();
 //    }));
-#if UNIT_TEST
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseInMemoryDatabase("acl").ConfigureWarnings(warnings =>
-    {
-        warnings.Ignore(InMemoryEventId.TransactionIgnoredWarning);
-    }));
-#else
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString), options =>
-    {
-        options.EnableRetryOnFailure();
-    }));
-#endif
+//#if UNIT_TEST
+//builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//    options.UseInMemoryDatabase("acl").ConfigureWarnings(warnings =>
+//    {
+//        warnings.Ignore(InMemoryEventId.TransactionIgnoredWarning);
+//    }));
+//#else
+//builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString), options =>
+//    {
+//        options.EnableRetryOnFailure();
+//    }));
+//#endif
 builder.Services.AddAntiforgery(options => options.HeaderName = "X-CSRF-TOKEN");
 
 builder.Services.AddEndpointsApiExplorer();
