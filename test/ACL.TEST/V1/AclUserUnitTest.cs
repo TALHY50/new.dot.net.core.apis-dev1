@@ -121,7 +121,7 @@ namespace ACL.Tests.V1
                 email = faker.Internet.Email(),
                 password = faker.Random.String2(1, 5),
                 avatar = faker.Random.String2(1, 50),
-                dob = new DateTime(),
+                dob = new DateOnly(),
                 gender = 1,
                 address = faker.Random.String2(1, 30),
                 city = faker.Random.String2(1, 10),

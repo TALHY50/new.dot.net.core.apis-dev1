@@ -38,15 +38,6 @@
             public const string View = ModelName + "/view/{id}";
             public const string Destroy = ModelName + "/delete/{id}";
         }
-        public class AclSubModuleRouteUrl
-        {
-            public const string ModelName = Base + "submodules";
-            public const string List = ModelName;
-            public const string Add = ModelName + "/add";
-            public const string Edit = ModelName + "/edit/{id}";
-            public const string View = ModelName + "/view/{id}";
-            public const string Destroy = ModelName + "/delete/{id}";
-        }
         public class AclRolePageRouteUrl
         {
             public const string ModelName = Base + "roles/pages";

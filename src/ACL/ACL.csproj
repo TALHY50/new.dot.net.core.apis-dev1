@@ -13,6 +13,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\**" />
+    <Content Remove="Migrations\**" />
+    <EmbeddedResource Remove="Migrations\**" />
+    <None Remove="Migrations\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Requests\RoleAndPageAssocUpdateRequest.cs" />
   </ItemGroup>
 
@@ -43,7 +50,6 @@
   <ItemGroup>
     <Folder Include="Data\" />
     <Folder Include="Logs\" />
-    <Folder Include="Migrations\" />
     <Folder Include="Database\" />
     <Folder Include="Repository\" />
   </ItemGroup>

@@ -57,19 +57,19 @@ var connectionString = $"server={server};database={database};User ID={userName};
 //    {
 //        options.EnableRetryOnFailure();
 //    }));
-//#if UNIT_TEST
-//builder.Services.AddDbContext<ApplicationDbContext>(options =>
-//    options.UseInMemoryDatabase("acl").ConfigureWarnings(warnings =>
-//    {
-//        warnings.Ignore(InMemoryEventId.TransactionIgnoredWarning);
-//    }));
-//#else
-//builder.Services.AddDbContext<ApplicationDbContext>(options =>
-//    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString), options =>
-//    {
-//        options.EnableRetryOnFailure();
-//    }));
-//#endif
+#if UNIT_TEST
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseInMemoryDatabase("acl").ConfigureWarnings(warnings =>
+    {
+        warnings.Ignore(InMemoryEventId.TransactionIgnoredWarning);
+    }));
+#else
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString), options =>
+    {
+        options.EnableRetryOnFailure();
+    }));
+#endif
 builder.Services.AddAntiforgery(options => options.HeaderName = "X-CSRF-TOKEN");
 
 builder.Services.AddEndpointsApiExplorer();
@@ -94,7 +94,8 @@ builder.Services.AddLogging(loggingBuilder =>
 
 builder.Services.AddSingleton<Serilog.ILogger>(_ => Log.Logger);
 builder.Services.AddSingleton<ILocalizationService>(new LocalizationService("ACL.Resources.en-US", typeof(Program).Assembly, "en-US"));
-//builder.Services.AddScoped<ILogService, LogService>();
+builder.Services.AddSingleton<Microsoft.Extensions.Logging.ILogger>(_ => (Microsoft.Extensions.Logging.ILogger)Log.Logger);
+builder.Services.AddScoped<ILogService, LogService>();
 
 Log.Logger = new LoggerConfiguration()
    .MinimumLevel.Debug()

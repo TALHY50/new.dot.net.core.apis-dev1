@@ -24,7 +24,7 @@ namespace ACL.Tests.V1
             //Arrange
 
             // Act
-            var request = new RestRequest(AclRoutesUrl.AclRole.List, Method.Get);
+            var request = new RestRequest(AclRoutesUrl.AclRoleRouteUrl.List, Method.Get);
             request.AddHeader("Authorization", authToken);
 
             RestResponse response = restClient.Execute(request);
@@ -41,7 +41,7 @@ namespace ACL.Tests.V1
             var data = GetRole();
 
             // Act
-            var request = new RestRequest(AclRoutesUrl.AclRole.Add, Method.Post);
+            var request = new RestRequest(AclRoutesUrl.AclRoleRouteUrl.Add, Method.Post);
             request.AddHeader("Authorization", authToken);
             request.AddJsonBody(data);
 
@@ -60,7 +60,7 @@ namespace ACL.Tests.V1
             var id = DataCollectors.GetMaxId<AclRole>(x => x.Id);
 
             // Act
-            var request = new RestRequest(AclRoutesUrl.AclRole.View.Replace("{id}", id.ToString()), Method.Get);
+            var request = new RestRequest(AclRoutesUrl.AclRoleRouteUrl.View.Replace("{id}", id.ToString()), Method.Get);
             request.AddHeader("Authorization", authToken);
             RestResponse response = restClient.Execute(request);
 
@@ -78,7 +78,7 @@ namespace ACL.Tests.V1
             var id = DataCollectors.GetMaxId<AclRole>(x => x.Id);
 
             // Act
-            var request = new RestRequest(AclRoutesUrl.AclRole.Edit.Replace("{id}", id.ToString()), Method.Put);
+            var request = new RestRequest(AclRoutesUrl.AclRoleRouteUrl.Edit.Replace("{id}", id.ToString()), Method.Put);
             request.AddHeader("Authorization", authToken);
             request.AddJsonBody(data);
 
@@ -96,7 +96,7 @@ namespace ACL.Tests.V1
             var id = DataCollectors.GetMaxId<AclRole>(x => x.Id);
 
             // Act
-            var request = new RestRequest(AclRoutesUrl.AclRole.Destroy.Replace("{id}", id.ToString()), Method.Delete);
+            var request = new RestRequest(AclRoutesUrl.AclRoleRouteUrl.Destroy.Replace("{id}", id.ToString()), Method.Delete);
             request.AddHeader("Authorization", authToken);
 
             RestResponse response = restClient.Execute(request);

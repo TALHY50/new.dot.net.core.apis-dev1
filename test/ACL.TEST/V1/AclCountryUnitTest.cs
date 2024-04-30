@@ -5,18 +5,19 @@ using RestSharp;
 using Bogus;
 using ACL.Database.Models;
 using ACL.Requests.V1;
+using SharedLibrary.Services;
 
 namespace ACL.Tests.V1
 {
     public class AclCountryUnitTest
     {
         DatabaseConnector dbConnector;
-        UnitOfWork unitOfWork;
+        CustomUnitOfWork unitOfWork;
         RestClient restClient;
         public AclCountryUnitTest()
         {
             dbConnector = new DatabaseConnector();
-            unitOfWork = new UnitOfWork(dbConnector.dbContext);
+            unitOfWork = new CustomUnitOfWork(dbConnector.dbContext);
             unitOfWork.ApplicationDbContext = dbConnector.dbContext;
             restClient = new RestClient(dbConnector.baseUrl);
         }

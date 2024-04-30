@@ -25,7 +25,7 @@ namespace ACL.Tests.V1
             var userGroupId = DataCollectors.GetMaxId<AclUsergroup>(x => x.Id);
 
             // Act
-            var request = new RestRequest(AclRoutesUrl.AclUserGroupRole.List.Replace("{userGroupId}", userGroupId.ToString()), Method.Get);
+            var request = new RestRequest(AclRoutesUrl.AclUserGroupRoleRouteUrl.List.Replace("{userGroupId}", userGroupId.ToString()), Method.Get);
             request.AddHeader("Authorization", authToken);
 
             RestResponse response = restClient.Execute(request);
@@ -42,7 +42,7 @@ namespace ACL.Tests.V1
             var data = GetUserGroupRole();
 
             // Act
-            var request = new RestRequest(AclRoutesUrl.AclUserGroupRole.Update, Method.Post);
+            var request = new RestRequest(AclRoutesUrl.AclUserGroupRoleRouteUrl.Update, Method.Post);
             request.AddHeader("Authorization", authToken);
             request.AddJsonBody(data);
 
