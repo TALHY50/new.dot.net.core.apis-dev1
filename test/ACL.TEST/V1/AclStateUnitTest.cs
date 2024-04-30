@@ -24,7 +24,7 @@ namespace ACL.Tests.V1
             //Arrange
 
             // Act
-            var request = new RestRequest(AclRoutesUrl.AclState.List, Method.Get);
+            var request = new RestRequest(AclRoutesUrl.AclStateRouteUrl.List, Method.Get);
             request.AddHeader("Authorization", authToken);
             RestResponse response = restClient.Execute(request);
 
@@ -40,7 +40,7 @@ namespace ACL.Tests.V1
             var data = GetState();
 
             // Act
-            var request = new RestRequest(AclRoutesUrl.AclState.Add, Method.Post);
+            var request = new RestRequest(AclRoutesUrl.AclStateRouteUrl.Add, Method.Post);
             request.AddHeader("Authorization", authToken);
             request.AddJsonBody(data);
 
@@ -59,7 +59,7 @@ namespace ACL.Tests.V1
             var id = DataCollectors.GetMaxId<AclState>(x => x.Id); 
 
             // Act
-            var request = new RestRequest(AclRoutesUrl.AclState.View.Replace("{id}", id.ToString()), Method.Get);
+            var request = new RestRequest(AclRoutesUrl.AclStateRouteUrl.View.Replace("{id}", id.ToString()), Method.Get);
             request.AddHeader("Authorization", authToken);
             RestResponse response = restClient.Execute(request);
 
@@ -77,7 +77,7 @@ namespace ACL.Tests.V1
             var id = DataCollectors.GetMaxId<AclState>(x => x.Id);
 
             // Act
-            var request = new RestRequest(AclRoutesUrl.AclState.Edit.Replace("{id}", id.ToString()), Method.Put);
+            var request = new RestRequest(AclRoutesUrl.AclStateRouteUrl.Edit.Replace("{id}", id.ToString()), Method.Put);
             request.AddHeader("Authorization", authToken);
             request.AddJsonBody(data);
 
@@ -95,7 +95,7 @@ namespace ACL.Tests.V1
             var id = DataCollectors.GetMaxId<AclState>(x => x.Id);
 
             // Act
-            var request = new RestRequest(AclRoutesUrl.AclState.Destroy.Replace("{id}", id.ToString()), Method.Delete);
+            var request = new RestRequest(AclRoutesUrl.AclStateRouteUrl.Destroy.Replace("{id}", id.ToString()), Method.Delete);
             request.AddHeader("Authorization", authToken);
             RestResponse response = restClient.Execute(request);
 
