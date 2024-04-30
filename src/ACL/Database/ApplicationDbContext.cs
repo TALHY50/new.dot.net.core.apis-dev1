@@ -822,6 +822,22 @@ public partial class ApplicationDbContext : DbContext, IApplicationDbContext
                 .HasColumnName("updated_at");
         });
 
+        modelBuilder.Entity<AclBranch>().HasData(
+          new AclBranch
+          {
+              Id = 1,
+              CompanyId = 1,
+              Name = "Test",
+              Address = "Dhaka",
+              Description = "Test",
+              Status = 1,
+              Sequence = 1,
+              CreatedById = 1,
+              UpdatedById = 1,
+              CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+              UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+          }
+       );
 
         modelBuilder.Entity<AclCompany>().HasData(
             new AclCompany
@@ -852,7 +868,32 @@ public partial class ApplicationDbContext : DbContext, IApplicationDbContext
                 UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
             }
          );
-
+        modelBuilder.Entity<AclCompanyModule>().HasData(
+         new AclCompanyModule
+         {
+             Id = 1,
+             CompanyId = 1,
+             ModuleId = 1001,
+             CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+             UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+         }
+      );
+        modelBuilder.Entity<AclCountry>().HasData(
+         new AclCountry
+         {
+             Id = 1,
+             CompanyId = 1,
+             Name = "Bangladesh",
+             Description = "This is beautiful country",
+             Code = "BD",
+             Status = 1,
+             Sequence = 0,
+             CreatedById = 2,
+             UpdatedById = 2,
+             CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+             UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+         }
+      );
         modelBuilder.Entity<AclUser>().HasData(
              new AclUser
              {
@@ -1751,7 +1792,25 @@ public partial class ApplicationDbContext : DbContext, IApplicationDbContext
                     new AclUsertypeSubmodule { Id=9, UserTypeId = 1, SubModuleId = 2054 }
                 }
             );
-
+        modelBuilder.Entity<AclState>().HasData(
+                new AclState[]
+                {
+                    new AclState
+                    {
+                        Id = 1,
+                        CompanyId = 1,
+                        CountryId =1 ,
+                        Name ="Dhaka",
+                        Description ="Dhaka city of BD",
+                        CreatedById = 1,
+                        UpdatedById = 1,
+                        Sequence = 100,
+                        Status = 1,
+                        CreatedAt = DateTime.Parse("2019-03-22 08:38:12"),
+                        UpdatedAt = DateTime.Parse("2023-11-01 19:17:00")
+                    }
+                }
+            );
 
         OnModelCreatingPartial(modelBuilder);
     }

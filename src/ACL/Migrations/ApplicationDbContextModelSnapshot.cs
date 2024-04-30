@@ -80,6 +80,22 @@ namespace ACL.Migrations
                         .HasName("PRIMARY");
 
                     b.ToTable("acl_branches", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Address = "Dhaka",
+                            CompanyId = 1L,
+                            CreatedAt = new DateTime(2015, 11, 4, 1, 52, 1, 0, DateTimeKind.Unspecified),
+                            CreatedById = 1L,
+                            Description = "Test",
+                            Name = "Test",
+                            Sequence = 1L,
+                            Status = (sbyte)1,
+                            UpdatedAt = new DateTime(2019, 3, 28, 13, 29, 33, 0, DateTimeKind.Unspecified),
+                            UpdatedById = 1L
+                        });
                 });
 
             modelBuilder.Entity("ACL.Database.Models.AclCompany", b =>
@@ -318,6 +334,16 @@ namespace ACL.Migrations
                         .HasName("PRIMARY");
 
                     b.ToTable("acl_company_modules", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CompanyId = 1L,
+                            CreatedAt = new DateTime(2015, 11, 4, 1, 52, 1, 0, DateTimeKind.Unspecified),
+                            ModuleId = 1001L,
+                            UpdatedAt = new DateTime(2019, 3, 28, 13, 29, 33, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("ACL.Database.Models.AclCountry", b =>
@@ -379,6 +405,22 @@ namespace ACL.Migrations
                         .HasName("PRIMARY");
 
                     b.ToTable("acl_countries", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Code = "BD",
+                            CompanyId = 1L,
+                            CreatedAt = new DateTime(2015, 11, 4, 1, 52, 1, 0, DateTimeKind.Unspecified),
+                            CreatedById = 2L,
+                            Description = "This is beautiful country",
+                            Name = "Bangladesh",
+                            Sequence = 0L,
+                            Status = (sbyte)1,
+                            UpdatedAt = new DateTime(2019, 3, 28, 13, 29, 33, 0, DateTimeKind.Unspecified),
+                            UpdatedById = 2L
+                        });
                 });
 
             modelBuilder.Entity("ACL.Database.Models.AclModule", b =>
@@ -1708,6 +1750,22 @@ namespace ACL.Migrations
                         .HasName("PRIMARY");
 
                     b.ToTable("acl_states", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CompanyId = 1L,
+                            CountryId = 1L,
+                            CreatedAt = new DateTime(2019, 3, 22, 8, 38, 12, 0, DateTimeKind.Unspecified),
+                            CreatedById = 1L,
+                            Description = "Dhaka city of BD",
+                            Name = "Dhaka",
+                            Sequence = 100L,
+                            Status = (sbyte)1,
+                            UpdatedAt = new DateTime(2023, 11, 1, 19, 17, 0, 0, DateTimeKind.Unspecified),
+                            UpdatedById = 1L
+                        });
                 });
 
             modelBuilder.Entity("ACL.Database.Models.AclSubModule", b =>
@@ -1948,8 +2006,8 @@ namespace ACL.Migrations
                         .HasColumnType("int(10) unsigned")
                         .HasColumnName("created_by_id");
 
-                    b.Property<DateOnly?>("Dob")
-                        .HasColumnType("date")
+                    b.Property<DateTime?>("Dob")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("dob");
 
                     b.Property<string>("Email")
@@ -2056,7 +2114,7 @@ namespace ACL.Migrations
                             Country = 0,
                             CreatedAt = new DateTime(2018, 7, 10, 16, 21, 24, 0, DateTimeKind.Unspecified),
                             CreatedById = 1,
-                            Dob = new DateOnly(1994, 2, 22),
+                            Dob = new DateTime(1994, 2, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "ssadmin@sipay.com.tr",
                             FirstName = "admin1",
                             Gender = (sbyte)1,

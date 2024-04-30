@@ -9,7 +9,7 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace ACL.Migrations
 {
     /// <inheritdoc />
-    public partial class InitMigration : Migration
+    public partial class Initmigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -328,7 +328,7 @@ namespace ACL.Migrations
                     email = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
                     avatar = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
                     password = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
-                    dob = table.Column<DateOnly>(type: "date", nullable: true),
+                    dob = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     gender = table.Column<sbyte>(type: "tinyint(4)", nullable: true, comment: "1=Male, 2=Female"),
                     address = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
                     city = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true),
@@ -431,9 +431,24 @@ namespace ACL.Migrations
                 .Annotation("Relational:Collation", "utf8mb4_general_ci");
 
             migrationBuilder.InsertData(
+                table: "acl_branches",
+                columns: new[] { "id", "address", "company_id", "created_at", "created_by_id", "description", "name", "sequence", "status", "updated_at", "updated_by_id" },
+                values: new object[] { 1L, "Dhaka", 1L, new DateTime(2015, 11, 4, 1, 52, 1, 0, DateTimeKind.Unspecified), 1L, "Test", "Test", 1L, (sbyte)1, new DateTime(2019, 3, 28, 13, 29, 33, 0, DateTimeKind.Unspecified), 1L });
+
+            migrationBuilder.InsertData(
                 table: "acl_companies",
                 columns: new[] { "id", "added_by", "address1", "address2", "average_turnover", "cemail", "city", "cmmi_level", "cname", "country", "created_at", "daily_rate", "email", "fax", "hourly_rate", "logo", "name", "no_of_employees", "phone", "postcode", "registration_no", "sector", "state", "status", "tax_no", "tax_office", "timezone", "timezone_value", "unique_column_name", "updated_at", "yearly_revenue" },
                 values: new object[] { 1L, 1, "A", "A2", 0.0, "ssadmin@softrobotics.com", "C", (sbyte)0, "Admin", "BD", new DateTime(2015, 11, 4, 1, 52, 1, 0, DateTimeKind.Unspecified), 0.0, "ssadmin@softrobotics.com", "Fax", 0.0, "logo", "Default", 6, "031", "4100", "420", null, "s", (sbyte)1, "tax", null, 254, "TimeZone", (sbyte)1, new DateTime(2019, 3, 28, 13, 29, 33, 0, DateTimeKind.Unspecified), 0.0 });
+
+            migrationBuilder.InsertData(
+                table: "acl_company_modules",
+                columns: new[] { "id", "company_id", "created_at", "module_id", "updated_at" },
+                values: new object[] { 1L, 1L, new DateTime(2015, 11, 4, 1, 52, 1, 0, DateTimeKind.Unspecified), 1001L, new DateTime(2019, 3, 28, 13, 29, 33, 0, DateTimeKind.Unspecified) });
+
+            migrationBuilder.InsertData(
+                table: "acl_countries",
+                columns: new[] { "id", "code", "company_id", "created_at", "created_by_id", "description", "name", "sequence", "status", "updated_at", "updated_by_id" },
+                values: new object[] { 1L, "BD", 1L, new DateTime(2015, 11, 4, 1, 52, 1, 0, DateTimeKind.Unspecified), 2L, "This is beautiful country", "Bangladesh", 0L, (sbyte)1, new DateTime(2019, 3, 28, 13, 29, 33, 0, DateTimeKind.Unspecified), 2L });
 
             migrationBuilder.InsertData(
                 table: "acl_modules",
@@ -588,6 +603,11 @@ namespace ACL.Migrations
                 values: new object[] { 1L, 1L, new DateTime(2019, 3, 21, 20, 38, 30, 0, DateTimeKind.Unspecified), null, "", (sbyte)1, "super-super-admin", new DateTime(2015, 11, 9, 7, 17, 0, 0, DateTimeKind.Unspecified), null });
 
             migrationBuilder.InsertData(
+                table: "acl_states",
+                columns: new[] { "id", "company_id", "country_id", "created_at", "created_by_id", "description", "name", "sequence", "status", "updated_at", "updated_by_id" },
+                values: new object[] { 1L, 1L, 1L, new DateTime(2019, 3, 22, 8, 38, 12, 0, DateTimeKind.Unspecified), 1L, "Dhaka city of BD", "Dhaka", 100L, (sbyte)1, new DateTime(2023, 11, 1, 19, 17, 0, 0, DateTimeKind.Unspecified), 1L });
+
+            migrationBuilder.InsertData(
                 table: "acl_sub_modules",
                 columns: new[] { "id", "controller_name", "created_at", "default_method", "display_name", "icon", "module_id", "name", "sequence", "updated_at" },
                 values: new object[,]
@@ -622,7 +642,7 @@ namespace ACL.Migrations
             migrationBuilder.InsertData(
                 table: "acl_users",
                 columns: new[] { "id", "activated_at", "address", "auth_identifier", "avatar", "city", "company_id", "country", "created_at", "created_by_id", "dob", "email", "first_name", "gender", "img_path", "is_admin_verified", "language", "last_name", "login_at", "otp_channel", "password", "permission_version", "phone", "remember_token", "status", "updated_at", "user_type", "username" },
-                values: new object[] { 1L, null, "Dhaka", null, "users/admin/c41353d1c1fcbdbd39f96ea46a3f769136952e79.png", "19", 1, 0, new DateTime(2018, 7, 10, 16, 21, 24, 0, DateTimeKind.Unspecified), 1, new DateOnly(1994, 2, 22), "ssadmin@sipay.com.tr", "admin1", (sbyte)1, "storage/users/1/2019-04-18-07-49-28-ba4fe9be59df7b82f8243d2126070d76f5305b3e.png", (sbyte)1, "en", "admin1", null, (sbyte)0, "Nop@ss1234", 1, "+8801788343704", "", (sbyte)1, new DateTime(2021, 8, 25, 5, 46, 27, 0, DateTimeKind.Unspecified), 0, "rajibecbb" });
+                values: new object[] { 1L, null, "Dhaka", null, "users/admin/c41353d1c1fcbdbd39f96ea46a3f769136952e79.png", "19", 1, 0, new DateTime(2018, 7, 10, 16, 21, 24, 0, DateTimeKind.Unspecified), 1, new DateTime(1994, 2, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), "ssadmin@sipay.com.tr", "admin1", (sbyte)1, "storage/users/1/2019-04-18-07-49-28-ba4fe9be59df7b82f8243d2126070d76f5305b3e.png", (sbyte)1, "en", "admin1", null, (sbyte)0, "Nop@ss1234", 1, "+8801788343704", "", (sbyte)1, new DateTime(2021, 8, 25, 5, 46, 27, 0, DateTimeKind.Unspecified), 0, "rajibecbb" });
 
             migrationBuilder.InsertData(
                 table: "acl_usertype_submodules",
