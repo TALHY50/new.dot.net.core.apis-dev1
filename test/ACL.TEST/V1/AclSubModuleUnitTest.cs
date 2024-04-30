@@ -1,21 +1,21 @@
 using ACL.Requests;
-using ACL.Services;
 using Microsoft.EntityFrameworkCore;
 using RestSharp;
 using Bogus;
+using ACL.Route;
+using ACL.Database.Models;
+
 namespace ACL.Tests.V1
 {
     public class AclSubModuleUnitTest
     {
-        DatabaseConnector dbConnector;
-        UnitOfWork unitOfWork;
         RestClient restClient;
+        string authToken;
         public AclSubModuleUnitTest()
         {
-            dbConnector = new DatabaseConnector();
-            unitOfWork = new UnitOfWork(dbConnector.dbContext);
-            unitOfWork.ApplicationDbContext = dbConnector.dbContext;
-            restClient = new RestClient(dbConnector.baseUrl);
+            DataCollectors.SetDatabase();
+            authToken = DataCollectors.GetAuthorization();
+            restClient = new RestClient(DataCollectors.baseUrl);
         }
         [Fact]
         public void TestSubModuleList()
@@ -24,12 +24,11 @@ namespace ACL.Tests.V1
             //Arrange
 
             // Act
-            var request = new RestRequest("submodules", Method.Get);
-            //request.AddHeader("Authorization", "Bearer desc");
-
+            var request = new RestRequest(AclRoutesUrl.AclSubmoduleRouteUrl.List, Method.Get);
+            request.AddHeader("Authorization", authToken);
             RestResponse response = restClient.Execute(request);
 
-          
+
             //// Assert
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, (int)response.StatusCode);
 
@@ -41,8 +40,8 @@ namespace ACL.Tests.V1
             var data = GetSubModule();
 
             // Act
-            var request = new RestRequest("submodules/add", Method.Post);
-            //request.AddHeader("Authorization", "Bearer desc");
+            var request = new RestRequest(AclRoutesUrl.AclSubmoduleRouteUrl.Add, Method.Post);
+            request.AddHeader("Authorization", authToken);
             request.AddJsonBody(data);
 
             RestResponse response = restClient.Execute(request);
@@ -57,13 +56,11 @@ namespace ACL.Tests.V1
         public void GetByIdSubModuleTest()
         {
             //Arrange
-            var id = getRandomID();
+            var id = DataCollectors.GetMaxId<AclSubModule>(x => x.Id);
 
             // Act
-            var request = new RestRequest($"submodules/view/{id}", Method.Get);
-            //request.AddHeader("Authorization", "Bearer desc");
-           
-
+            var request = new RestRequest(AclRoutesUrl.AclSubmoduleRouteUrl.View.Replace("{id}", id.ToString()), Method.Get);
+            request.AddHeader("Authorization", authToken);
             RestResponse response = restClient.Execute(request);
 
 
@@ -77,11 +74,11 @@ namespace ACL.Tests.V1
             //Arrange
 
             var data = GetSubModule();
-            var id = getRandomID();
+            var id = DataCollectors.GetMaxId<AclSubModule>(x => x.Id);
 
             // Act
-            var request = new RestRequest($"submodules/edit/{id}", Method.Put);
-            //request.AddHeader("Authorization", "Bearer desc");
+            var request = new RestRequest(AclRoutesUrl.AclSubmoduleRouteUrl.Edit.Replace("{id}", id.ToString()), Method.Put);
+            request.AddHeader("Authorization", authToken);
             request.AddJsonBody(data);
 
             RestResponse response = restClient.Execute(request);
@@ -95,11 +92,11 @@ namespace ACL.Tests.V1
         public void DeleteByIdSubModuleTest()
         {
 
-            var id = getRandomID();
+            var id = DataCollectors.GetMaxId<AclSubModule>(x => x.Id);
 
             // Act
-            var request = new RestRequest($"submodules/delete/{id}", Method.Delete);
-            //request.AddHeader("Authorization", "Bearer desc");
+            var request = new RestRequest(AclRoutesUrl.AclSubmoduleRouteUrl.Destroy.Replace("{id}", id.ToString()), Method.Delete);
+            request.AddHeader("Authorization", authToken);
 
             RestResponse response = restClient.Execute(request);
 
@@ -113,30 +110,20 @@ namespace ACL.Tests.V1
             var faker = new Faker();
             return new AclSubModuleRequest
             {
-                id = (ulong)faker.Random.Number(1,int.MaxValue),
-                module_id = getRandomModuleID(),
-                name = faker.Random.String2(10,50),
+                id = (ulong)faker.Random.Number(1, int.MaxValue),
+                module_id = DataCollectors.GetMaxId<AclModule>(x => x.Id),
+                name = faker.Random.String2(10, 50),
                 controller_name = faker.Random.String2(10, 50),
                 default_method = faker.Random.String2(10, 50),
                 display_name = faker.Random.String2(10, 50),
-                sequence = faker.Random.Number(1,int.MaxValue),
+                sequence = faker.Random.Number(1, int.MaxValue),
                 icon = faker.Random.String2(10, 100)
 
             };
 
         }
 
-        private ulong getRandomID()
-        {
-            return unitOfWork.ApplicationDbContext.AclSubModules.Max(x=>x.Id);
 
-        }
-        private ulong getRandomModuleID()
-        {
-
-            return unitOfWork.ApplicationDbContext.AclModules.FirstOrDefault().Id;
-
-        }
 
     }
 }

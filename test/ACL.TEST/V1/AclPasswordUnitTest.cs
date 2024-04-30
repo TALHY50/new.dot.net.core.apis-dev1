@@ -1,20 +1,19 @@
 
-using ACL.Services;
 using Microsoft.EntityFrameworkCore;
 using RestSharp;
-using ACL.Requests.V1;
 using Newtonsoft.Json;
 using ACL.Response.V1;
-//using System.Runtime.Caching;
+using ACL.Route;
+using ACL.Requests.V1;
 using SharedLibrary.Utilities;
+
 
 namespace ACL.Tests.V1
 {
     public class AclPasswordUnitTest
     {
-        DatabaseConnector dbConnector;
-        UnitOfWork unitOfWork;
         RestSharp.RestClient restClient;
+        private string authToken;
         private ulong user_id = 2;
         private string userPassword = "Nop@ss1234";
         private string resetPassword = "Nop@ss4321";
@@ -22,10 +21,9 @@ namespace ACL.Tests.V1
         AclResponse aclResponse = new AclResponse();
         public AclPasswordUnitTest()
         {
-            dbConnector = new DatabaseConnector();
-            unitOfWork = new UnitOfWork(dbConnector.dbContext);
-            unitOfWork.ApplicationDbContext = dbConnector.dbContext;
-            restClient = new RestSharp.RestClient(dbConnector.baseUrl);
+            DataCollectors.SetDatabase();
+            authToken = DataCollectors.GetAuthorization();
+            restClient = new RestSharp.RestClient(DataCollectors.baseUrl);
         }
         [Fact]
         public void PasswordResetTest()
@@ -35,11 +33,11 @@ namespace ACL.Tests.V1
             var data = GetPasswordReset();
 
             // Act
-            var request = new RestRequest($"password/reset", Method.Post);
-            //request.AddHeader("Authorization", "Bearer desc");
+            var request = new RestRequest(AclRoutesUrl.AclPasswordRouteUrl.Reset, Method.Post);
+            request.AddHeader("Authorization", authToken);
             request.AddJsonBody(data);
             RestResponse response = restClient.Execute(request);
-
+           
             //// Assert
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, (int)response.StatusCode);
 
@@ -48,11 +46,11 @@ namespace ACL.Tests.V1
         public void PasswordForgetTest()
         {
             //Arrange
-            var data = new AclForgetPasswordRequest { email = getRandomEmail() };
+            var data = new AclForgetPasswordRequest { email = DataCollectors.getRandomEmail() };
 
             // Act
-            var request = new RestRequest($"password/forget", Method.Post);
-            //request.AddHeader("Authorization", "Bearer desc");
+            var request = new RestRequest(AclRoutesUrl.AclPasswordRouteUrl.Forget, Method.Post);
+            request.AddHeader("Authorization", authToken);
             request.AddJsonBody(data);
 
             RestResponse response = restClient.Execute(request);
@@ -74,8 +72,8 @@ namespace ACL.Tests.V1
         }; 
 
             // Act
-            var request = new RestRequest($"password/forget/verify", Method.Post);
-            //request.AddHeader("Authorization", "Bearer desc");
+            var request = new RestRequest(AclRoutesUrl.AclPasswordRouteUrl.VerifyToken, Method.Post);
+            request.AddHeader("Authorization", authToken);
             request.AddJsonBody(data);
 
             RestResponse response = restClient.Execute(request);
@@ -98,13 +96,6 @@ namespace ACL.Tests.V1
             };
         }
 
-        private string getRandomEmail()
-        {
-            return unitOfWork.ApplicationDbContext.AclUsers.FirstOrDefault().Email;
-        }
-
-      
-
-
+    
     }
 }

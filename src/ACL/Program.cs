@@ -10,7 +10,6 @@ using System;
 using System.IO;
 using ACL.Database;
 using ACL.Services;
-using ACL.Services.Interface;
 using DotNetEnv;
 using ACL.Interfaces;
 using Microsoft.AspNetCore.Authentication;
@@ -23,56 +22,56 @@ using System.Resources;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Castle.Core.Resource;
+using Microsoft.Extensions.Options;
+using Sprache;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using SharedLibrary.Interfaces;
+using SharedLibrary.Services;
+using ACL.Interfaces.Repositories.V1;
+using ACL.Repositories.V1;
+using ACL.Data;
 
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddLocalization(o => o.ResourcesPath = "Resources");
-builder.Services.Configure<RequestLocalizationOptions>(options =>
-{
-    var supportedCultures = new[]
-    {
-        new CultureInfo("en-US"),
-        new CultureInfo("bn-BD")
-    };
 
-    options.DefaultRequestCulture = new RequestCulture("en-US");
-    options.SupportedCultures = supportedCultures;
-    options.SupportedUICultures = supportedCultures;
-});
-builder.Services.AddTransient<IStringLocalizerFactory, ResourceManagerStringLocalizerFactory>();
-builder.Services.AddSingleton<ResourceManager>(sp =>
+builder.Services.AddLogging(loggingBuilder =>
 {
-    var baseNameEnUs = "ACL.Resources.en-US";
-    var baseNameBnBd = "ACL.Resources.bn-BD";
-    var assembly = typeof(Program).Assembly;
-    return new ResourceManager(baseNameEnUs, assembly);
+    // Add console logger
+    loggingBuilder.AddConsole();
+    loggingBuilder.AddSerilog(dispose: true);
 });
+builder.Services.AddAuthentication();
+builder.Services.AddAuthorization(); // Add authorization services
+builder.Services.AddControllers();
 
-builder.Services.AddTransient<IStringLocalizer>(sp =>
-{
-    var factory = sp.GetRequiredService<IStringLocalizerFactory>();
-    var localizer = factory.Create(typeof(Program));
-    return localizer;
-});
-builder.Services.AddTransient<IStringLocalizerFactory, ResourceManagerStringLocalizerFactory>();
-//builder.Services.AddSingleton<ILocalizationService>(new LocalizationService("ACL.Resources.en-US", typeof(Program).Assembly, "en-US"));
 Env.NoClobber().TraversePath().Load();
 
 var server = Env.GetString("DB_HOST");
 var database = Env.GetString("DB_DATABASE");
 var userName = Env.GetString("DB_USERNAME");
 var password = Env.GetString("DB_PASSWORD");
+var port = Env.GetString("DB_PORT");
 
-var connectionString = $"server={server};database={database};User ID={userName};Password={password};CharSet=utf8mb4;" ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+var connectionString = $"server={server};port={port};database={database};User ID={userName};Password={password};CharSet=utf8mb4;" ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+//builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//    options.UseMySQL(connectionString, options =>
+//    {
+//        options.EnableRetryOnFailure();
+//    }));
+#if UNIT_TEST
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString), options =>
+    options.UseInMemoryDatabase("acl").ConfigureWarnings(warnings =>
+    {
+        warnings.Ignore(InMemoryEventId.TransactionIgnoredWarning);
+    }));
+#else
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseMySQL(connectionString, options =>
     {
         options.EnableRetryOnFailure();
     }));
+#endif
 builder.Services.AddAntiforgery(options => options.HeaderName = "X-CSRF-TOKEN");
-
-builder.Services.AddControllers().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
-.AddDataAnnotationsLocalization();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -84,19 +83,28 @@ IConfiguration configuration = new ConfigurationBuilder()
        .SetBasePath(Directory.GetCurrentDirectory())
        .AddJsonFile("appsettings.json")
        .Build();
-
-
-
-builder.Services.AddSingleton<IConfiguration>(configuration);
+builder.Services.AddScoped<ICustomUnitOfWork, CustomUnitOfWork>();
+builder.Services.AddScoped<IUnitOfWork<ApplicationDbContext, ICustomUnitOfWork>, UnitOfWork<ApplicationDbContext, ICustomUnitOfWork>>();
+builder.Services.AddSingleton(configuration);
 builder.Services.AddScoped<ICacheService, CacheService>();
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddLogging(loggingBuilder =>
+{
+    loggingBuilder.AddConsole();
+    loggingBuilder.AddSerilog(dispose: true);
+});
+
+builder.Services.AddSingleton<Serilog.ILogger>(_ => Log.Logger);
+builder.Services.AddSingleton<ILocalizationService>(new LocalizationService("ACL.Resources.en-US", typeof(Program).Assembly, "en-US"));
+builder.Services.AddSingleton<Microsoft.Extensions.Logging.ILogger>(_ => (Microsoft.Extensions.Logging.ILogger)Log.Logger);
+builder.Services.AddScoped<ILogService, LogService>();
+
 Log.Logger = new LoggerConfiguration()
    .MinimumLevel.Debug()
-   .WriteTo.File(GetLogFilePath("log.txt"), restrictedToMinimumLevel: LogEventLevel.Error)
+   .WriteTo.File(GetLogFilePath("log.txt"), restrictedToMinimumLevel: LogEventLevel.Error, rollingInterval: RollingInterval.Day, buffered: false)
    .WriteTo.Logger(lc => lc
        .Filter.ByExcluding(e => e.Properties.ContainsKey("RequestPath") || e.Properties.ContainsKey("RequestBody") || e.Properties.ContainsKey("ResponseBody"))
        .WriteTo.File(GetLogFilePath("log.txt"), restrictedToMinimumLevel: LogEventLevel.Information))
-   .WriteTo.File(GetLogFilePath("querylog.txt"), restrictedToMinimumLevel: LogEventLevel.Information)
+   .WriteTo.File(GetLogFilePath("querylog.txt"), restrictedToMinimumLevel: LogEventLevel.Information, rollingInterval: RollingInterval.Day, buffered: false)
    .CreateLogger();
 
 builder.Host.UseSerilog((hostingContext, loggerConfiguration) =>
@@ -117,16 +125,24 @@ static string GetLogFilePath(string fileName)
 }
 var app = builder.Build();
 
-app.UseRequestLocalization();
+// Seeding Data
+using (var serviceScope = app.Services.CreateScope())
+{
+    var services = serviceScope.ServiceProvider;
+    var dbContext = services.GetRequiredService<ApplicationDbContext>();
 
-//if (app.Environment.IsDevelopment())
-//{
-//    app.UseSwagger();
-//    app.UseSwaggerUI();
-//}
+    // Ensure the database is created
+    dbContext.Database.EnsureCreated();
+
+    // Perform the seeding
+    SeedData.Initialize(services);
+}
+
 app.UseSwagger();
-app.UseSwaggerUI();
-
+app.UseSwaggerUI(options =>
+{
+     options.DefaultModelsExpandDepth(-1);
+});
 
 app.UseMiddleware<RequestResponseLoggingMiddleware>();
 app.UseSerilogRequestLogging();

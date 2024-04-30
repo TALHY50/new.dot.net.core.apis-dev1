@@ -1,16 +1,10 @@
-﻿using System.ComponentModel;
+﻿using SharedLibrary.Response;
+using System.ComponentModel;
 using System.Net;
 
 namespace ACL.Response.V1
 {
-    public class AclResponse
+    public class AclResponse : BaseResponse
     {
-        public HttpStatusCode StatusCode { get; set; }
-        [DefaultValue("Data Not Found")]
-        public string Message { get; set; } = "Data Not Found";
-        [DefaultValue(null)]
-        public object Data { get; set; }
-        public DateTime Timestamp { get; set; } = DateTime.Now;
-
     }
 }

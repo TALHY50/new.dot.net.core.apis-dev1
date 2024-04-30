@@ -1,17 +1,16 @@
-﻿
-using ACL.Services;
+﻿using ACL.Services;
 using System.Data;
 using ACL.Database;
 using ACL.Interfaces.Repositories.V1;
 using Microsoft.EntityFrameworkCore.Storage;
 using ACL.Interfaces.Repositories;
 using ACL.Controllers.V1;
-using ACL.Services.Interface;
 using Microsoft.Extensions.Localization;
 using Microsoft.AspNetCore.Mvc.Localization;
 using System.Globalization;
 using System.Reflection;
 using System.Resources;
+using SharedLibrary.Interfaces;
 
 
 namespace ACL.Interfaces
@@ -25,12 +24,14 @@ namespace ACL.Interfaces
         ILogService LogService { get; set; }
         ILocalizationService LocalizationService { get; }
         IAclCompanyRepository AclCompanyRepository { get; }
+        IConfiguration Config { get; }
         IAclCompanyModuleRepository AclCompanyModuleRepository { get; }
         IAclModuleRepository AclModuleRepository { get; }
         IAclSubModuleRepository AclSubModuleRepository { get; }
         IAclRoleRepository AclRoleRepository { get; }
         IAclUserGroupRoleRepository AclUserGroupRoleRepository { get; }
         IAclRolePageRepository AclRolePageRepository { get; }
+        IAclCountryRepository AclCountryRepository { get; }
 
         IHttpContextAccessor HttpContextAccessor { get; set; }
 
@@ -54,5 +55,6 @@ namespace ACL.Interfaces
         CultureInfo SetCulture(string culture);
         ResourceManager SetReourceManager(CultureInfo resource, Assembly assembly);
         Assembly SetAssembly(Assembly assembly);
+       
     }
 }

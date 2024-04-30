@@ -10,22 +10,22 @@ namespace ACL.Controllers.V1
     [ApiController]
     public class AclUserGroupRoleController : ControllerBase
     {
-        private readonly IUnitOfWork _repository;
-        public AclUserGroupRoleController(IUnitOfWork repository)
+        private readonly ICustomUnitOfWork _unitOfWork;
+        public AclUserGroupRoleController(ICustomUnitOfWork unitOfWork)
         {
-            _repository = repository;
+            _unitOfWork = unitOfWork;
         }
 
-        [HttpGet(Route.AclRoutesUrl.AclUserGroupRole.List, Name = Route.AclRoutesName.AclUserGroupRole.List)]
+        [HttpGet(Route.AclRoutesUrl.AclUserGroupRoleRouteUrl.List, Name = Route.AclRoutesName.AclUserGroupRoleRouteNames.List)]
         public async Task<AclResponse> Index(ulong userGroupId)
         {
-            return await _repository.AclUserGroupRoleRepository.GetRolesByUserGroupId(userGroupId);
+            return await _unitOfWork.AclUserGroupRoleRepository.GetRolesByUserGroupId(userGroupId);
         }
 
-        [HttpPost(Route.AclRoutesUrl.AclUserGroupRole.Update, Name = Route.AclRoutesName.AclUserGroupRole.Update)]
+        [HttpPost(Route.AclRoutesUrl.AclUserGroupRoleRouteUrl.Update, Name = Route.AclRoutesName.AclUserGroupRoleRouteNames.Update)]
         public async Task<AclResponse> Update(AclUserGroupRoleRequest objUserGroupRole)
         {
-            return await _repository.AclUserGroupRoleRepository.Update(objUserGroupRole);
+            return await _unitOfWork.AclUserGroupRoleRepository.Update(objUserGroupRole);
         }
 
       

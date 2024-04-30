@@ -1,29 +1,30 @@
-﻿using ACL.Database.Models;
+﻿using ACL.Database;
+using ACL.Database.Models;
 using ACL.Interfaces;
 using ACL.Interfaces.Repositories.V1;
 using ACL.Requests.V1;
 using ACL.Response.V1;
 using ACL.Utilities;
-using Microsoft.Extensions.Localization;
+using SharedLibrary.Interfaces;
 using SharedLibrary.Services;
 using SharedLibrary.Utilities;
-using System.Security.Cryptography;
-using System.Text;
+
 
 
 namespace ACL.Repositories.V1
 {
-    public class AclPasswordRepository : GenericRepository<AclUser>, IAclPasswordRepository
+    public class AclPasswordRepository : GenericRepository<AclUser, ApplicationDbContext, ICustomUnitOfWork>, IAclPasswordRepository
     {
         public AclResponse aclResponse;
         private string modelName = "Password";
         private int tokenExpiryMinutes = 60;
         public MessageResponse messageResponse;
-        IStringLocalizer<AclUser> _localizer;
-        public AclPasswordRepository(IUnitOfWork _unitOfWork) : base(_unitOfWork)
+        private ICustomUnitOfWork _customUnitOfWork;
+        public AclPasswordRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
+            _customUnitOfWork = _unitOfWork;
             aclResponse = new AclResponse();
-            messageResponse = new MessageResponse(modelName);
+            messageResponse = new MessageResponse(modelName, _unitOfWork);
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
         }
 
@@ -38,13 +39,12 @@ namespace ACL.Repositories.V1
             }
 
 
-            var aclUser = _unitOfWork.ApplicationDbContext.AclUsers.FirstOrDefault(x => x.Id == request.user_id && x.Status == 1);
+            var aclUser = (AclUser)_customUnitOfWork.AclUserRepository.Where(x => x.Id == request.user_id && x.Status == 1);
 
             if (aclUser != null)
             {
                 // password checking
                 var password = Cryptographer.AppDecrypt(aclUser.Password);
-
 
                 if (request.current_password != password)
                 {
@@ -59,8 +59,8 @@ namespace ACL.Repositories.V1
                     aclUser.Password = Cryptographer.AppEncrypt(request.new_password);
                     await base.UpdateAsync(aclUser);
                     await _unitOfWork.CompleteAsync();
-                    await _unitOfWork.AclUserRepository.ReloadAsync(aclUser);
-                  
+                    await _customUnitOfWork.AclUserRepository.ReloadAsync(aclUser);
+
                     aclResponse.Message = "Password Reset Succesfully.";
                     aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
                 }
@@ -76,15 +76,14 @@ namespace ACL.Repositories.V1
 
         public async Task<AclResponse> Forget(AclForgetPasswordRequest request)
         {
-            var aclUser = _unitOfWork.ApplicationDbContext.AclUsers.FirstOrDefault(x => x.Email == request.email);
+            var aclUser = (AclUser)_customUnitOfWork.AclUserRepository.Where(x => x.Email == request.email);
 
             if (aclUser != null)
             {
                 // generate unique key
-                var uniqueKey = GenerateUniqueKey(aclUser.Email);
+                var uniqueKey = Helper.GenerateUniqueKey(aclUser.Email);
 
                 // add to cache
-                //MemoryCaches(uniqueKey, request.email, tokenExpiryMinutes * 60);
                 CacheHelper.Set(uniqueKey, aclResponse.Data, tokenExpiryMinutes * 60);
 
                 //Send Notification to email. Not implemented yet
@@ -116,7 +115,7 @@ namespace ACL.Repositories.V1
                 aclUser.Password = Cryptographer.AppEncrypt(request.new_password);
                 await base.UpdateAsync(aclUser);
                 await _unitOfWork.CompleteAsync();
-                await _unitOfWork.AclUserRepository.ReloadAsync(aclUser);
+                await _customUnitOfWork.AclUserRepository.ReloadAsync(aclUser);
 
                 CacheHelper.Remove(request.token);
                 aclResponse.Message = "Password Reset Succesfully.";
@@ -127,29 +126,8 @@ namespace ACL.Repositories.V1
                 aclResponse.Message = ex.Message;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
             }
-
             return aclResponse;
-
         }
-        private string GenerateUniqueKey(string email)
-        {
-            // Hash the email address using SHA256
-            using (SHA256 sha256 = SHA256.Create())
-            {
-                byte[] hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(email));
-
-                // Convert the byte array to a hexadecimal string
-                StringBuilder builder = new StringBuilder();
-                foreach (byte b in hashedBytes)
-                {
-                    builder.Append(b.ToString("x2"));
-                }
-
-                return builder.ToString();
-            }
-        }
-
-       
 
     }
 }

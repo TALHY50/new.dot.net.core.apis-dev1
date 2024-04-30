@@ -2,45 +2,13 @@
 using System.Security.Cryptography;
 using System.Text;
 using SharedLibrary.Attributes;
-using SharedLibrary.Constants;
-using SharedLibrary.DTOs;
 using SharedLibrary.Utilities;
 
 namespace SharedLibrary.Services
 {
     public static class Cryptographer
     {
-        public static string GeneratePaymentHashKey(PaymentHashContent content, string secretKey)
-        {
-
-            string data = content.total + "|" + content.installment + "|" + content.currencyCode + "|" + content.merchantKey + "|" + content.invoiceId;
-
-            Random mt_rand = new Random();
-
-            string iv = Sha1Hash(mt_rand.Next().ToString()).Substring(0, 16);
-
-            string password = Sha1Hash(secretKey);
-
-            string salt = Sha1Hash(mt_rand.Next().ToString()).Substring(0, 4);
-
-            string saltWithPassword = "";
-            using (SHA256 sha256Hash = SHA256.Create())
-            {
-                saltWithPassword = GetHash(sha256Hash, password + salt);
-            }
-
-
-
-            string encrypted = Encryptor(data, saltWithPassword.Substring(0, 32), iv);
-
-            string msg_encrypted_bundle = iv + ":" + salt + ":" + encrypted;
-            msg_encrypted_bundle = msg_encrypted_bundle.Replace("/", "__");
-            return msg_encrypted_bundle;
-
-
-        }
-       
-        
+ 
         public static bool IsValidHashKey<T>(T targetContent, string hashKey, string appSecret) where T : new()
         {
             bool isValid = false;

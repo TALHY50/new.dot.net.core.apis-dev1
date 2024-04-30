@@ -5,19 +5,29 @@ using ACL.Requests.V1;
 using ACL.Response.V1;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
+using SharedLibrary.Interfaces;
+using SharedLibrary.Services;
+using ACL.Database;
+using ACL.Utilities;
+using ACL.Services;
 
 namespace ACL.Repositories.V1
 {
-    public class AclUserGroupRepository : GenericRepository<AclUsergroup>, IAclUserGroupRepository
+    public class AclUserGroupRepository : GenericRepository<AclUsergroup, ApplicationDbContext,ICustomUnitOfWork>, IAclUserGroupRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "User Group";
-        public static ulong CompanyId = 0;
-        public AclUserGroupRepository(IUnitOfWork _unitOfWork) : base(_unitOfWork)
+        public static ulong CompanyId = AppAuth.GetAuthInfo().CompanyId;
+        private ICustomUnitOfWork _customUnitOfWork;
+
+
+        public AclUserGroupRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
+            AppAuth.SetAuthInfo();
+            _customUnitOfWork = _unitOfWork;
             aclResponse = new AclResponse();
-            messageResponse = new MessageResponse(modelName);
+            messageResponse = new MessageResponse(modelName, _unitOfWork);
         }
 
         public async Task<AclResponse> GetAll()
@@ -31,20 +41,20 @@ namespace ACL.Repositories.V1
             }
             else
             {
-                aclResponse.Message = messageResponse.noFoundMessage;
+                aclResponse.Message = messageResponse.notFoundMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
             }
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
         }
-        public async Task<AclResponse> AddUserGroup(UserGroupRequest usergroup)
+        public async Task<AclResponse> AddUserGroup(AclUserGroupRequest usergroup)
         {
             try
             {
                 var result = PrepareInputData(usergroup);
-                await _unitOfWork.AclUserGroupRepository.AddAsync(result);
-                await _unitOfWork.CompleteAsync();
-                await _unitOfWork.AclUserGroupRepository.ReloadAsync(result);
+                await _customUnitOfWork.AclUserGroupRepository.AddAsync(result);
+                await _customUnitOfWork.CompleteAsync();
+                await _customUnitOfWork.AclUserGroupRepository.ReloadAsync(result);
                 aclResponse.Data = result;
                 aclResponse.Message = messageResponse.createMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
@@ -58,22 +68,22 @@ namespace ACL.Repositories.V1
             return aclResponse;
         }
 
-        public async Task<AclResponse> UpdateUserGroup(ulong id, UserGroupRequest usergroup)
+        public async Task<AclResponse> UpdateUserGroup(ulong id, AclUserGroupRequest usergroup)
         {
-            var result = await _dbSet.FindAsync(id);
+            var result = await base.GetById(id);
             if (result != null)
             {
                 result = PrepareInputData(usergroup, result);
-                await _unitOfWork.AclUserGroupRepository.UpdateAsync(result);
-                await _unitOfWork.CompleteAsync();
-                await _unitOfWork.AclUserGroupRepository.ReloadAsync(result);
+                await _customUnitOfWork.AclUserGroupRepository.UpdateAsync(result);
+                await _customUnitOfWork.CompleteAsync();
+                await _customUnitOfWork.AclUserGroupRepository.ReloadAsync(result);
                 aclResponse.Data = result;
                 aclResponse.Message = messageResponse.editMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
             else
             {
-                aclResponse.Message = messageResponse.noFoundMessage;
+                aclResponse.Message = messageResponse.notFoundMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
             }
             aclResponse.Timestamp = DateTime.Now;
@@ -90,7 +100,7 @@ namespace ACL.Repositories.V1
             }
             else
             {
-                aclResponse.Message = messageResponse.noFoundMessage;
+                aclResponse.Message = messageResponse.notFoundMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
             }
             aclResponse.Timestamp = DateTime.Now;
@@ -102,7 +112,7 @@ namespace ACL.Repositories.V1
             if (result != null)
             {
                 await base.DeleteAsync(result);
-                await _unitOfWork.CompleteAsync();
+                await _customUnitOfWork.CompleteAsync();
                 await base.ReloadAsync(result);
                 aclResponse.Data = result;
                 aclResponse.Message = messageResponse.deleteMessage;
@@ -110,14 +120,14 @@ namespace ACL.Repositories.V1
             }
             else
             {
-                aclResponse.Message = messageResponse.noFoundMessage;
+                aclResponse.Message = messageResponse.notFoundMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
             }
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
         }
 
-        public AclUsergroup PrepareInputData(UserGroupRequest request, AclUsergroup aclUsergroup = null)
+        public AclUsergroup PrepareInputData(AclUserGroupRequest request, AclUsergroup aclUsergroup = null)
         {
             var _aclInstance = aclUsergroup ?? new AclUsergroup();
 
@@ -126,7 +136,7 @@ namespace ACL.Repositories.V1
 
             if (CompanyId == 0)
             {
-                _aclInstance.CompanyId = 2; // We will get this from auth later
+                _aclInstance.CompanyId = AppAuth.GetAuthInfo().CompanyId; // We will get this from auth later
             }
             if (aclUsergroup == null)
             {

@@ -3,7 +3,6 @@ using System;
 using ACL.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -17,23 +16,98 @@ namespace ACL.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.4")
+                .UseCollation("utf8mb4_general_ci")
+                .HasAnnotation("MySql:CharSet", "utf8mb4")
+                .HasAnnotation("ProductVersion", "8.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
+            modelBuilder.Entity("ACL.Database.Models.AclBranch", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint(20) unsigned")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("address");
+
+                    b.Property<long>("CompanyId")
+                        .HasColumnType("bigint(20) unsigned")
+                        .HasColumnName("company_id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasMaxLength(6)
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("created_at");
+
+                    b.Property<long>("CreatedById")
+                        .HasColumnType("bigint(20) unsigned")
+                        .HasColumnName("created_by_id");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("description");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("name");
+
+                    b.Property<long>("Sequence")
+                        .HasColumnType("bigint(20) unsigned")
+                        .HasColumnName("sequence");
+
+                    b.Property<sbyte>("Status")
+                        .HasColumnType("tinyint(3) unsigned")
+                        .HasColumnName("status");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasMaxLength(6)
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("updated_at");
+
+                    b.Property<long>("UpdatedById")
+                        .HasColumnType("bigint(20) unsigned")
+                        .HasColumnName("updated_by_id");
+
+                    b.HasKey("Id")
+                        .HasName("PRIMARY");
+
+                    b.ToTable("acl_branches", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Address = "Dhaka",
+                            CompanyId = 1L,
+                            CreatedAt = new DateTime(2015, 11, 4, 1, 52, 1, 0, DateTimeKind.Unspecified),
+                            CreatedById = 1L,
+                            Description = "Test",
+                            Name = "Test",
+                            Sequence = 1L,
+                            Status = (sbyte)1,
+                            UpdatedAt = new DateTime(2019, 3, 28, 13, 29, 33, 0, DateTimeKind.Unspecified),
+                            UpdatedById = 1L
+                        });
+                });
 
             modelBuilder.Entity("ACL.Database.Models.AclCompany", b =>
                 {
-                    b.Property<ulong>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint unsigned")
+                        .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("id");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<ulong>("Id"));
 
                     b.Property<int>("AddedBy")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("int(11)")
                         .HasColumnName("added_by")
                         .HasDefaultValueSql("'1'");
 
@@ -66,7 +140,7 @@ namespace ACL.Migrations
                         .HasColumnName("city");
 
                     b.Property<sbyte>("CmmiLevel")
-                        .HasColumnType("tinyint")
+                        .HasColumnType("tinyint(4)")
                         .HasColumnName("cmmi_level");
 
                     b.Property<string>("Cname")
@@ -118,7 +192,7 @@ namespace ACL.Migrations
                         .HasColumnName("name");
 
                     b.Property<int>("NoOfEmployees")
-                        .HasColumnType("int")
+                        .HasColumnType("int(11)")
                         .HasColumnName("no_of_employees");
 
                     b.Property<string>("Phone")
@@ -152,7 +226,7 @@ namespace ACL.Migrations
 
                     b.Property<sbyte>("Status")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("tinyint")
+                        .HasColumnType("tinyint(4)")
                         .HasColumnName("status")
                         .HasDefaultValueSql("'1'")
                         .HasComment("1=active,0=inactive");
@@ -169,7 +243,7 @@ namespace ACL.Migrations
                         .HasColumnName("tax_office");
 
                     b.Property<int>("Timezone")
-                        .HasColumnType("int")
+                        .HasColumnType("int(11)")
                         .HasColumnName("timezone");
 
                     b.Property<string>("TimezoneValue")
@@ -180,7 +254,7 @@ namespace ACL.Migrations
 
                     b.Property<sbyte>("UniqueColumnName")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("tinyint")
+                        .HasColumnType("tinyint(4)")
                         .HasColumnName("unique_column_name")
                         .HasDefaultValueSql("'1'")
                         .HasComment("1=>email,2=>username");
@@ -201,7 +275,7 @@ namespace ACL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1ul,
+                            Id = 1L,
                             AddedBy = 1,
                             Address1 = "A",
                             Address2 = "A2",
@@ -235,23 +309,21 @@ namespace ACL.Migrations
 
             modelBuilder.Entity("ACL.Database.Models.AclCompanyModule", b =>
                 {
-                    b.Property<ulong>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint unsigned")
+                        .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("id");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<ulong>("Id"));
-
-                    b.Property<ulong>("CompanyId")
-                        .HasColumnType("bigint unsigned")
+                    b.Property<long>("CompanyId")
+                        .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("company_id");
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("timestamp")
                         .HasColumnName("created_at");
 
-                    b.Property<ulong>("ModuleId")
-                        .HasColumnType("bigint unsigned")
+                    b.Property<long>("ModuleId")
+                        .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("module_id");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -262,16 +334,101 @@ namespace ACL.Migrations
                         .HasName("PRIMARY");
 
                     b.ToTable("acl_company_modules", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CompanyId = 1L,
+                            CreatedAt = new DateTime(2015, 11, 4, 1, 52, 1, 0, DateTimeKind.Unspecified),
+                            ModuleId = 1001L,
+                            UpdatedAt = new DateTime(2019, 3, 28, 13, 29, 33, 0, DateTimeKind.Unspecified)
+                        });
+                });
+
+            modelBuilder.Entity("ACL.Database.Models.AclCountry", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint(20) unsigned")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("code");
+
+                    b.Property<long>("CompanyId")
+                        .HasColumnType("bigint(20) unsigned")
+                        .HasColumnName("company_id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasMaxLength(6)
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("created_at");
+
+                    b.Property<long>("CreatedById")
+                        .HasColumnType("bigint(20) unsigned")
+                        .HasColumnName("created_by_id");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("description");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("name");
+
+                    b.Property<long>("Sequence")
+                        .HasColumnType("bigint(20) unsigned")
+                        .HasColumnName("sequence");
+
+                    b.Property<sbyte>("Status")
+                        .HasColumnType("tinyint(3) unsigned")
+                        .HasColumnName("status");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasMaxLength(6)
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("updated_at");
+
+                    b.Property<long>("UpdatedById")
+                        .HasColumnType("bigint(20) unsigned")
+                        .HasColumnName("updated_by_id");
+
+                    b.HasKey("Id")
+                        .HasName("PRIMARY");
+
+                    b.ToTable("acl_countries", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Code = "BD",
+                            CompanyId = 1L,
+                            CreatedAt = new DateTime(2015, 11, 4, 1, 52, 1, 0, DateTimeKind.Unspecified),
+                            CreatedById = 2L,
+                            Description = "This is beautiful country",
+                            Name = "Bangladesh",
+                            Sequence = 0L,
+                            Status = (sbyte)1,
+                            UpdatedAt = new DateTime(2019, 3, 28, 13, 29, 33, 0, DateTimeKind.Unspecified),
+                            UpdatedById = 2L
+                        });
                 });
 
             modelBuilder.Entity("ACL.Database.Models.AclModule", b =>
                 {
-                    b.Property<ulong>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint unsigned")
+                        .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("id");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<ulong>("Id"));
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("timestamp")
@@ -296,7 +453,7 @@ namespace ACL.Migrations
                         .HasColumnName("name");
 
                     b.Property<int>("Sequence")
-                        .HasColumnType("int")
+                        .HasColumnType("int(11)")
                         .HasColumnName("sequence");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -311,7 +468,7 @@ namespace ACL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1001ul,
+                            Id = 1001L,
                             CreatedAt = new DateTime(2015, 12, 9, 12, 10, 46, 0, DateTimeKind.Unspecified),
                             DisplayName = "Company",
                             Icon = "<i class=\"fa fa-list-ul\"></i>",
@@ -321,7 +478,7 @@ namespace ACL.Migrations
                         },
                         new
                         {
-                            Id = 1002ul,
+                            Id = 1002L,
                             CreatedAt = new DateTime(2015, 12, 9, 12, 10, 46, 0, DateTimeKind.Unspecified),
                             DisplayName = "Master Data",
                             Icon = "<i class=\"fa fa-list-ul\"></i>",
@@ -331,7 +488,7 @@ namespace ACL.Migrations
                         },
                         new
                         {
-                            Id = 1003ul,
+                            Id = 1003L,
                             CreatedAt = new DateTime(2015, 12, 9, 12, 10, 47, 0, DateTimeKind.Unspecified),
                             DisplayName = "Access Control",
                             Icon = "<img src=\"adminca/assets/img/icons/access-control.svg\" />",
@@ -343,15 +500,13 @@ namespace ACL.Migrations
 
             modelBuilder.Entity("ACL.Database.Models.AclPage", b =>
                 {
-                    b.Property<ulong>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint unsigned")
+                        .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("id");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<ulong>("Id"));
-
                     b.Property<sbyte>("AvailableToCompany")
-                        .HasColumnType("tinyint")
+                        .HasColumnType("tinyint(4)")
                         .HasColumnName("available_to_company");
 
                     b.Property<DateTime?>("CreatedAt")
@@ -365,12 +520,12 @@ namespace ACL.Migrations
                         .HasColumnName("method_name");
 
                     b.Property<int>("MethodType")
-                        .HasColumnType("int")
+                        .HasColumnType("int(11)")
                         .HasColumnName("method_type")
                         .HasComment("1=Post, 2=Get, 3=Put, 4=Delete");
 
-                    b.Property<ulong>("ModuleId")
-                        .HasColumnType("bigint unsigned")
+                    b.Property<long>("ModuleId")
+                        .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("module_id");
 
                     b.Property<string>("Name")
@@ -379,8 +534,8 @@ namespace ACL.Migrations
                         .HasColumnType("varchar(100)")
                         .HasColumnName("name");
 
-                    b.Property<ulong>("SubModuleId")
-                        .HasColumnType("bigint unsigned")
+                    b.Property<long>("SubModuleId")
+                        .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("sub_module_id");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -395,549 +550,547 @@ namespace ACL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 3001ul,
+                            Id = 3001L,
                             AvailableToCompany = (sbyte)0,
                             CreatedAt = new DateTime(2015, 12, 9, 12, 10, 51, 0, DateTimeKind.Unspecified),
                             MethodName = "index",
                             MethodType = 0,
-                            ModuleId = 1001ul,
+                            ModuleId = 1001L,
                             Name = "Company List",
-                            SubModuleId = 2001ul,
+                            SubModuleId = 2001L,
                             UpdatedAt = new DateTime(2015, 12, 9, 12, 10, 51, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 3002ul,
+                            Id = 3002L,
                             AvailableToCompany = (sbyte)0,
                             CreatedAt = new DateTime(2015, 12, 9, 12, 10, 52, 0, DateTimeKind.Unspecified),
                             MethodName = "create",
                             MethodType = 0,
-                            ModuleId = 1001ul,
+                            ModuleId = 1001L,
                             Name = "Add New Company",
-                            SubModuleId = 2001ul,
+                            SubModuleId = 2001L,
                             UpdatedAt = new DateTime(2015, 12, 9, 12, 10, 52, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 3003ul,
+                            Id = 3003L,
                             AvailableToCompany = (sbyte)0,
                             CreatedAt = new DateTime(2015, 12, 9, 12, 10, 52, 0, DateTimeKind.Unspecified),
                             MethodName = "edit",
                             MethodType = 2,
-                            ModuleId = 1001ul,
+                            ModuleId = 1001L,
                             Name = "Modify Company",
-                            SubModuleId = 2001ul,
+                            SubModuleId = 2001L,
                             UpdatedAt = new DateTime(2019, 3, 27, 15, 3, 28, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 3004ul,
+                            Id = 3004L,
                             AvailableToCompany = (sbyte)0,
                             CreatedAt = new DateTime(2015, 12, 9, 12, 10, 52, 0, DateTimeKind.Unspecified),
                             MethodName = "destroy",
                             MethodType = 2,
-                            ModuleId = 1001ul,
+                            ModuleId = 1001L,
                             Name = "Delete Company",
-                            SubModuleId = 2001ul,
+                            SubModuleId = 2001L,
                             UpdatedAt = new DateTime(2019, 3, 26, 22, 42, 31, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 3005ul,
+                            Id = 3005L,
                             AvailableToCompany = (sbyte)0,
                             CreatedAt = new DateTime(2015, 12, 9, 12, 10, 52, 0, DateTimeKind.Unspecified),
                             MethodName = "show",
                             MethodType = 0,
-                            ModuleId = 1001ul,
+                            ModuleId = 1001L,
                             Name = "View Company",
-                            SubModuleId = 2001ul,
+                            SubModuleId = 2001L,
                             UpdatedAt = new DateTime(2015, 12, 9, 12, 10, 52, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 3015ul,
+                            Id = 3015L,
                             AvailableToCompany = (sbyte)0,
                             CreatedAt = new DateTime(2015, 12, 9, 12, 10, 53, 0, DateTimeKind.Unspecified),
                             MethodName = "index",
                             MethodType = 0,
-                            ModuleId = 1002ul,
+                            ModuleId = 1002L,
                             Name = "Module List",
-                            SubModuleId = 2020ul,
+                            SubModuleId = 2020L,
                             UpdatedAt = new DateTime(2015, 12, 9, 12, 10, 53, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 3016ul,
+                            Id = 3016L,
                             AvailableToCompany = (sbyte)0,
                             CreatedAt = new DateTime(2015, 12, 9, 12, 10, 53, 0, DateTimeKind.Unspecified),
                             MethodName = "create",
                             MethodType = 0,
-                            ModuleId = 1002ul,
+                            ModuleId = 1002L,
                             Name = "Add New Module",
-                            SubModuleId = 2020ul,
+                            SubModuleId = 2020L,
                             UpdatedAt = new DateTime(2015, 12, 9, 12, 10, 53, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 3017ul,
+                            Id = 3017L,
                             AvailableToCompany = (sbyte)0,
                             CreatedAt = new DateTime(2015, 12, 9, 12, 10, 53, 0, DateTimeKind.Unspecified),
                             MethodName = "edit",
                             MethodType = 0,
-                            ModuleId = 1002ul,
+                            ModuleId = 1002L,
                             Name = "Modify Module",
-                            SubModuleId = 2020ul,
+                            SubModuleId = 2020L,
                             UpdatedAt = new DateTime(2015, 12, 9, 12, 10, 53, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 3018ul,
+                            Id = 3018L,
                             AvailableToCompany = (sbyte)0,
                             CreatedAt = new DateTime(2015, 12, 9, 12, 10, 54, 0, DateTimeKind.Unspecified),
                             MethodName = "destroy",
                             MethodType = 0,
-                            ModuleId = 1002ul,
+                            ModuleId = 1002L,
                             Name = "Delete Module",
-                            SubModuleId = 2020ul,
+                            SubModuleId = 2020L,
                             UpdatedAt = new DateTime(2015, 12, 9, 12, 10, 54, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 3019ul,
+                            Id = 3019L,
                             AvailableToCompany = (sbyte)0,
                             CreatedAt = new DateTime(2015, 12, 9, 12, 10, 54, 0, DateTimeKind.Unspecified),
                             MethodName = "view",
                             MethodType = 0,
-                            ModuleId = 1002ul,
+                            ModuleId = 1002L,
                             Name = "View Module",
-                            SubModuleId = 2020ul,
+                            SubModuleId = 2020L,
                             UpdatedAt = new DateTime(2015, 12, 9, 12, 10, 54, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 3025ul,
+                            Id = 3025L,
                             AvailableToCompany = (sbyte)0,
                             CreatedAt = new DateTime(2015, 12, 9, 12, 10, 54, 0, DateTimeKind.Unspecified),
                             MethodName = "index",
                             MethodType = 0,
-                            ModuleId = 1002ul,
+                            ModuleId = 1002L,
                             Name = "Submodule List",
-                            SubModuleId = 2021ul,
+                            SubModuleId = 2021L,
                             UpdatedAt = new DateTime(2015, 12, 9, 12, 10, 54, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 3026ul,
+                            Id = 3026L,
                             AvailableToCompany = (sbyte)0,
                             CreatedAt = new DateTime(2015, 12, 9, 12, 10, 54, 0, DateTimeKind.Unspecified),
                             MethodName = "create",
                             MethodType = 0,
-                            ModuleId = 1002ul,
+                            ModuleId = 1002L,
                             Name = "Add New Submodule",
-                            SubModuleId = 2021ul,
+                            SubModuleId = 2021L,
                             UpdatedAt = new DateTime(2015, 12, 9, 12, 10, 54, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 3027ul,
+                            Id = 3027L,
                             AvailableToCompany = (sbyte)0,
                             CreatedAt = new DateTime(2015, 12, 9, 12, 10, 54, 0, DateTimeKind.Unspecified),
                             MethodName = "edit",
                             MethodType = 0,
-                            ModuleId = 1002ul,
+                            ModuleId = 1002L,
                             Name = "Modify Submodule",
-                            SubModuleId = 2021ul,
+                            SubModuleId = 2021L,
                             UpdatedAt = new DateTime(2015, 12, 9, 12, 10, 54, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 3028ul,
+                            Id = 3028L,
                             AvailableToCompany = (sbyte)0,
                             CreatedAt = new DateTime(2015, 12, 9, 12, 10, 55, 0, DateTimeKind.Unspecified),
                             MethodName = "destroy",
                             MethodType = 0,
-                            ModuleId = 1002ul,
+                            ModuleId = 1002L,
                             Name = "Delete Submodule",
-                            SubModuleId = 2021ul,
+                            SubModuleId = 2021L,
                             UpdatedAt = new DateTime(2015, 12, 9, 12, 10, 55, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 3029ul,
+                            Id = 3029L,
                             AvailableToCompany = (sbyte)0,
                             CreatedAt = new DateTime(2015, 12, 9, 12, 10, 55, 0, DateTimeKind.Unspecified),
                             MethodName = "view",
                             MethodType = 0,
-                            ModuleId = 1002ul,
+                            ModuleId = 1002L,
                             Name = "View Submodule",
-                            SubModuleId = 2021ul,
+                            SubModuleId = 2021L,
                             UpdatedAt = new DateTime(2015, 12, 9, 12, 10, 55, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 3035ul,
+                            Id = 3035L,
                             AvailableToCompany = (sbyte)0,
                             CreatedAt = new DateTime(2015, 12, 9, 12, 10, 55, 0, DateTimeKind.Unspecified),
                             MethodName = "index",
                             MethodType = 0,
-                            ModuleId = 1002ul,
+                            ModuleId = 1002L,
                             Name = "Page List",
-                            SubModuleId = 2022ul,
+                            SubModuleId = 2022L,
                             UpdatedAt = new DateTime(2015, 12, 9, 12, 10, 55, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 3036ul,
+                            Id = 3036L,
                             AvailableToCompany = (sbyte)0,
                             CreatedAt = new DateTime(2015, 12, 9, 12, 10, 55, 0, DateTimeKind.Unspecified),
                             MethodName = "create",
                             MethodType = 0,
-                            ModuleId = 1002ul,
+                            ModuleId = 1002L,
                             Name = "Add New Page",
-                            SubModuleId = 2022ul,
+                            SubModuleId = 2022L,
                             UpdatedAt = new DateTime(2016, 1, 21, 10, 44, 25, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 3037ul,
+                            Id = 3037L,
                             AvailableToCompany = (sbyte)0,
                             CreatedAt = new DateTime(2015, 12, 9, 12, 10, 56, 0, DateTimeKind.Unspecified),
                             MethodName = "edit",
                             MethodType = 0,
-                            ModuleId = 1002ul,
+                            ModuleId = 1002L,
                             Name = "Modify Page",
-                            SubModuleId = 2022ul,
+                            SubModuleId = 2022L,
                             UpdatedAt = new DateTime(2015, 12, 9, 12, 10, 56, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 3038ul,
+                            Id = 3038L,
                             AvailableToCompany = (sbyte)0,
                             CreatedAt = new DateTime(2015, 12, 9, 12, 10, 56, 0, DateTimeKind.Unspecified),
                             MethodName = "destroy",
                             MethodType = 0,
-                            ModuleId = 1002ul,
+                            ModuleId = 1002L,
                             Name = "Delete Page",
-                            SubModuleId = 2022ul,
+                            SubModuleId = 2022L,
                             UpdatedAt = new DateTime(2015, 12, 9, 12, 10, 56, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 3039ul,
+                            Id = 3039L,
                             AvailableToCompany = (sbyte)0,
                             CreatedAt = new DateTime(2015, 12, 9, 12, 10, 56, 0, DateTimeKind.Unspecified),
                             MethodName = "view",
                             MethodType = 0,
-                            ModuleId = 1002ul,
+                            ModuleId = 1002L,
                             Name = "View Page",
-                            SubModuleId = 2022ul,
+                            SubModuleId = 2022L,
                             UpdatedAt = new DateTime(2015, 12, 9, 12, 10, 56, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 3045ul,
+                            Id = 3045L,
                             AvailableToCompany = (sbyte)1,
                             CreatedAt = new DateTime(2015, 12, 9, 12, 10, 56, 0, DateTimeKind.Unspecified),
                             MethodName = "index",
                             MethodType = 0,
-                            ModuleId = 1003ul,
+                            ModuleId = 1003L,
                             Name = "User List",
-                            SubModuleId = 2050ul,
+                            SubModuleId = 2050L,
                             UpdatedAt = new DateTime(2015, 12, 9, 12, 10, 56, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 3046ul,
+                            Id = 3046L,
                             AvailableToCompany = (sbyte)1,
                             CreatedAt = new DateTime(2015, 12, 9, 12, 10, 57, 0, DateTimeKind.Unspecified),
                             MethodName = "create",
                             MethodType = 0,
-                            ModuleId = 1003ul,
+                            ModuleId = 1003L,
                             Name = "User Add",
-                            SubModuleId = 2050ul,
+                            SubModuleId = 2050L,
                             UpdatedAt = new DateTime(2015, 12, 9, 12, 10, 57, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 3047ul,
+                            Id = 3047L,
                             AvailableToCompany = (sbyte)1,
                             CreatedAt = new DateTime(2015, 12, 9, 12, 10, 57, 0, DateTimeKind.Unspecified),
                             MethodName = "edit",
                             MethodType = 0,
-                            ModuleId = 1003ul,
+                            ModuleId = 1003L,
                             Name = "User Edit",
-                            SubModuleId = 2050ul,
+                            SubModuleId = 2050L,
                             UpdatedAt = new DateTime(2015, 12, 9, 12, 10, 57, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 3048ul,
+                            Id = 3048L,
                             AvailableToCompany = (sbyte)1,
                             CreatedAt = new DateTime(2015, 12, 9, 12, 10, 57, 0, DateTimeKind.Unspecified),
                             MethodName = "destroy",
                             MethodType = 0,
-                            ModuleId = 1003ul,
+                            ModuleId = 1003L,
                             Name = "User Delete",
-                            SubModuleId = 2050ul,
+                            SubModuleId = 2050L,
                             UpdatedAt = new DateTime(2015, 12, 9, 12, 10, 57, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 3049ul,
+                            Id = 3049L,
                             AvailableToCompany = (sbyte)0,
                             CreatedAt = new DateTime(2015, 11, 22, 23, 13, 47, 0, DateTimeKind.Unspecified),
                             MethodName = "view",
                             MethodType = 0,
-                            ModuleId = 1003ul,
+                            ModuleId = 1003L,
                             Name = "User View",
-                            SubModuleId = 2050ul,
+                            SubModuleId = 2050L,
                             UpdatedAt = new DateTime(2015, 11, 22, 23, 13, 47, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 3055ul,
+                            Id = 3055L,
                             AvailableToCompany = (sbyte)1,
                             CreatedAt = new DateTime(2015, 12, 9, 12, 12, 2, 0, DateTimeKind.Unspecified),
                             MethodName = "index",
                             MethodType = 0,
-                            ModuleId = 1003ul,
+                            ModuleId = 1003L,
                             Name = "Role List",
-                            SubModuleId = 2051ul,
+                            SubModuleId = 2051L,
                             UpdatedAt = new DateTime(2015, 12, 9, 12, 12, 2, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 3056ul,
+                            Id = 3056L,
                             AvailableToCompany = (sbyte)1,
                             CreatedAt = new DateTime(2015, 12, 9, 12, 12, 2, 0, DateTimeKind.Unspecified),
                             MethodName = "create",
                             MethodType = 0,
-                            ModuleId = 1003ul,
+                            ModuleId = 1003L,
                             Name = "Role Add",
-                            SubModuleId = 2051ul,
+                            SubModuleId = 2051L,
                             UpdatedAt = new DateTime(2015, 12, 9, 12, 12, 2, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 3057ul,
+                            Id = 3057L,
                             AvailableToCompany = (sbyte)1,
                             CreatedAt = new DateTime(2015, 12, 9, 12, 12, 3, 0, DateTimeKind.Unspecified),
                             MethodName = "edit",
                             MethodType = 0,
-                            ModuleId = 1003ul,
+                            ModuleId = 1003L,
                             Name = "Role Edit",
-                            SubModuleId = 2051ul,
+                            SubModuleId = 2051L,
                             UpdatedAt = new DateTime(2015, 12, 9, 12, 12, 3, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 3058ul,
+                            Id = 3058L,
                             AvailableToCompany = (sbyte)1,
                             CreatedAt = new DateTime(2015, 12, 9, 12, 12, 3, 0, DateTimeKind.Unspecified),
                             MethodName = "destroy",
                             MethodType = 0,
-                            ModuleId = 1003ul,
+                            ModuleId = 1003L,
                             Name = "Role Delete",
-                            SubModuleId = 2051ul,
+                            SubModuleId = 2051L,
                             UpdatedAt = new DateTime(2015, 12, 9, 12, 12, 3, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 3059ul,
+                            Id = 3059L,
                             AvailableToCompany = (sbyte)1,
                             CreatedAt = new DateTime(2015, 12, 9, 12, 12, 3, 0, DateTimeKind.Unspecified),
                             MethodName = "view",
                             MethodType = 0,
-                            ModuleId = 1003ul,
+                            ModuleId = 1003L,
                             Name = "Role View",
-                            SubModuleId = 2051ul,
+                            SubModuleId = 2051L,
                             UpdatedAt = new DateTime(2015, 12, 9, 12, 12, 3, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 3065ul,
+                            Id = 3065L,
                             AvailableToCompany = (sbyte)1,
                             CreatedAt = new DateTime(2015, 12, 9, 12, 12, 3, 0, DateTimeKind.Unspecified),
                             MethodName = "index",
                             MethodType = 0,
-                            ModuleId = 1003ul,
+                            ModuleId = 1003L,
                             Name = "UserGroup List",
-                            SubModuleId = 2052ul,
+                            SubModuleId = 2052L,
                             UpdatedAt = new DateTime(2015, 12, 9, 12, 12, 3, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 3066ul,
+                            Id = 3066L,
                             AvailableToCompany = (sbyte)1,
                             CreatedAt = new DateTime(2015, 12, 9, 12, 12, 4, 0, DateTimeKind.Unspecified),
                             MethodName = "create",
                             MethodType = 0,
-                            ModuleId = 1003ul,
+                            ModuleId = 1003L,
                             Name = "UserGroup Add",
-                            SubModuleId = 2052ul,
+                            SubModuleId = 2052L,
                             UpdatedAt = new DateTime(2015, 12, 9, 12, 12, 4, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 3067ul,
+                            Id = 3067L,
                             AvailableToCompany = (sbyte)1,
                             CreatedAt = new DateTime(2015, 12, 9, 12, 12, 4, 0, DateTimeKind.Unspecified),
                             MethodName = "edit",
                             MethodType = 0,
-                            ModuleId = 1003ul,
+                            ModuleId = 1003L,
                             Name = "UserGroup Edit",
-                            SubModuleId = 2052ul,
+                            SubModuleId = 2052L,
                             UpdatedAt = new DateTime(2015, 12, 9, 12, 12, 4, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 3068ul,
+                            Id = 3068L,
                             AvailableToCompany = (sbyte)1,
                             CreatedAt = new DateTime(2015, 12, 9, 12, 12, 4, 0, DateTimeKind.Unspecified),
                             MethodName = "destroy",
                             MethodType = 0,
-                            ModuleId = 1003ul,
+                            ModuleId = 1003L,
                             Name = "UserGroup Delete",
-                            SubModuleId = 2052ul,
+                            SubModuleId = 2052L,
                             UpdatedAt = new DateTime(2015, 12, 9, 12, 12, 4, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 3069ul,
+                            Id = 3069L,
                             AvailableToCompany = (sbyte)1,
                             CreatedAt = new DateTime(2015, 12, 9, 12, 12, 4, 0, DateTimeKind.Unspecified),
                             MethodName = "view",
                             MethodType = 0,
-                            ModuleId = 1003ul,
+                            ModuleId = 1003L,
                             Name = "UserGroup View",
-                            SubModuleId = 2052ul,
+                            SubModuleId = 2052L,
                             UpdatedAt = new DateTime(2015, 12, 9, 12, 12, 4, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 3075ul,
+                            Id = 3075L,
                             AvailableToCompany = (sbyte)1,
                             CreatedAt = new DateTime(2015, 12, 9, 12, 12, 5, 0, DateTimeKind.Unspecified),
                             MethodName = "index",
                             MethodType = 0,
-                            ModuleId = 1003ul,
+                            ModuleId = 1003L,
                             Name = "Usergroup Role Association",
-                            SubModuleId = 2053ul,
+                            SubModuleId = 2053L,
                             UpdatedAt = new DateTime(2015, 12, 9, 12, 12, 5, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 3076ul,
+                            Id = 3076L,
                             AvailableToCompany = (sbyte)1,
                             CreatedAt = new DateTime(2021, 12, 9, 15, 10, 51, 0, DateTimeKind.Unspecified),
                             MethodName = "edit",
                             MethodType = 0,
-                            ModuleId = 1003ul,
+                            ModuleId = 1003L,
                             Name = "Usergroup & Role Association Update",
-                            SubModuleId = 2053ul,
+                            SubModuleId = 2053L,
                             UpdatedAt = new DateTime(2021, 12, 9, 15, 10, 51, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 3078ul,
+                            Id = 3078L,
                             AvailableToCompany = (sbyte)1,
                             CreatedAt = new DateTime(2015, 12, 9, 12, 12, 5, 0, DateTimeKind.Unspecified),
                             MethodName = "index",
                             MethodType = 0,
-                            ModuleId = 1003ul,
+                            ModuleId = 1003L,
                             Name = "Role & Page Association",
-                            SubModuleId = 2054ul,
+                            SubModuleId = 2054L,
                             UpdatedAt = new DateTime(2015, 12, 9, 12, 12, 5, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 3079ul,
+                            Id = 3079L,
                             AvailableToCompany = (sbyte)1,
                             CreatedAt = new DateTime(2021, 12, 9, 15, 10, 51, 0, DateTimeKind.Unspecified),
                             MethodName = "edit",
                             MethodType = 0,
-                            ModuleId = 1003ul,
+                            ModuleId = 1003L,
                             Name = "Role & Page Association Update",
-                            SubModuleId = 2054ul,
+                            SubModuleId = 2054L,
                             UpdatedAt = new DateTime(2021, 12, 9, 15, 10, 51, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 3080ul,
+                            Id = 3080L,
                             AvailableToCompany = (sbyte)0,
                             CreatedAt = new DateTime(2015, 12, 9, 12, 10, 51, 0, DateTimeKind.Unspecified),
                             MethodName = "index",
                             MethodType = 0,
-                            ModuleId = 1003ul,
+                            ModuleId = 1003L,
                             Name = "Company Module List",
-                            SubModuleId = 2055ul,
+                            SubModuleId = 2055L,
                             UpdatedAt = new DateTime(2015, 12, 9, 12, 10, 51, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 3081ul,
+                            Id = 3081L,
                             AvailableToCompany = (sbyte)0,
                             CreatedAt = new DateTime(2015, 12, 9, 12, 10, 52, 0, DateTimeKind.Unspecified),
                             MethodName = "create",
                             MethodType = 0,
-                            ModuleId = 1003ul,
+                            ModuleId = 1003L,
                             Name = "Add New Company Module",
-                            SubModuleId = 2055ul,
+                            SubModuleId = 2055L,
                             UpdatedAt = new DateTime(2015, 12, 9, 12, 10, 52, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 3082ul,
+                            Id = 3082L,
                             AvailableToCompany = (sbyte)0,
                             CreatedAt = new DateTime(2015, 12, 9, 12, 10, 52, 0, DateTimeKind.Unspecified),
                             MethodName = "edit",
                             MethodType = 2,
-                            ModuleId = 1003ul,
+                            ModuleId = 1003L,
                             Name = "Modify Company Module",
-                            SubModuleId = 2055ul,
+                            SubModuleId = 2055L,
                             UpdatedAt = new DateTime(2019, 3, 27, 15, 3, 28, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 3083ul,
+                            Id = 3083L,
                             AvailableToCompany = (sbyte)0,
                             CreatedAt = new DateTime(2015, 12, 9, 12, 10, 52, 0, DateTimeKind.Unspecified),
                             MethodName = "destroy",
                             MethodType = 2,
-                            ModuleId = 1003ul,
+                            ModuleId = 1003L,
                             Name = "Delete Company Module",
-                            SubModuleId = 2055ul,
+                            SubModuleId = 2055L,
                             UpdatedAt = new DateTime(2019, 3, 26, 22, 42, 31, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 3084ul,
+                            Id = 3084L,
                             AvailableToCompany = (sbyte)0,
                             CreatedAt = new DateTime(2015, 12, 9, 12, 10, 52, 0, DateTimeKind.Unspecified),
                             MethodName = "show",
                             MethodType = 0,
-                            ModuleId = 1003ul,
+                            ModuleId = 1003L,
                             Name = "View Company Module",
-                            SubModuleId = 2055ul,
+                            SubModuleId = 2055L,
                             UpdatedAt = new DateTime(2015, 12, 9, 12, 10, 52, 0, DateTimeKind.Unspecified)
                         });
                 });
 
             modelBuilder.Entity("ACL.Database.Models.AclPageRoute", b =>
                 {
-                    b.Property<ulong>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint unsigned")
+                        .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("id");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<ulong>("Id"));
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime")
                         .HasColumnName("created_at");
 
-                    b.Property<ulong?>("PageId")
-                        .HasColumnType("bigint unsigned")
+                    b.Property<long?>("PageId")
+                        .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("page_id");
 
                     b.Property<string>("RouteName")
@@ -964,330 +1117,330 @@ namespace ACL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1ul,
-                            PageId = 3001ul,
+                            Id = 1L,
+                            PageId = 3001L,
                             RouteName = "acl.company.list",
                             RouteUrl = "companies"
                         },
                         new
                         {
-                            Id = 2ul,
-                            PageId = 3002ul,
+                            Id = 2L,
+                            PageId = 3002L,
                             RouteName = "acl.company.add",
                             RouteUrl = "companies/add"
                         },
                         new
                         {
-                            Id = 3ul,
-                            PageId = 3003ul,
+                            Id = 3L,
+                            PageId = 3003L,
                             RouteName = "acl.company.edit",
                             RouteUrl = "companies/edit/{id}"
                         },
                         new
                         {
-                            Id = 4ul,
-                            PageId = 3004ul,
+                            Id = 4L,
+                            PageId = 3004L,
                             RouteName = "acl.company.destroy",
                             RouteUrl = "companies/delete/{id}"
                         },
                         new
                         {
-                            Id = 5ul,
-                            PageId = 3005ul,
+                            Id = 5L,
+                            PageId = 3005L,
                             RouteName = "acl.company.show",
                             RouteUrl = "companies/view/{id}"
                         },
                         new
                         {
-                            Id = 6ul,
-                            PageId = 3015ul,
+                            Id = 6L,
+                            PageId = 3015L,
                             RouteName = "acl.module.list",
                             RouteUrl = "modules"
                         },
                         new
                         {
-                            Id = 7ul,
-                            PageId = 3016ul,
+                            Id = 7L,
+                            PageId = 3016L,
                             RouteName = "acl.module.add",
                             RouteUrl = "modules/add"
                         },
                         new
                         {
-                            Id = 8ul,
-                            PageId = 3017ul,
+                            Id = 8L,
+                            PageId = 3017L,
                             RouteName = "acl.module.edit",
                             RouteUrl = "modules/edit/{id}"
                         },
                         new
                         {
-                            Id = 9ul,
-                            PageId = 3018ul,
+                            Id = 9L,
+                            PageId = 3018L,
                             RouteName = "acl.module.destroy",
                             RouteUrl = "modules/delete/{id}"
                         },
                         new
                         {
-                            Id = 10ul,
-                            PageId = 3019ul,
+                            Id = 10L,
+                            PageId = 3019L,
                             RouteName = "acl.module.view",
                             RouteUrl = "modules/view/{id}"
                         },
                         new
                         {
-                            Id = 11ul,
-                            PageId = 3080ul,
+                            Id = 11L,
+                            PageId = 3080L,
                             RouteName = "acl.company_module.list",
                             RouteUrl = "company/modules"
                         },
                         new
                         {
-                            Id = 12ul,
-                            PageId = 3081ul,
+                            Id = 12L,
+                            PageId = 3081L,
                             RouteName = "acl.company_module.add",
                             RouteUrl = "company/modules/add"
                         },
                         new
                         {
-                            Id = 13ul,
-                            PageId = 3082ul,
+                            Id = 13L,
+                            PageId = 3082L,
                             RouteName = "acl.company_module.edit",
                             RouteUrl = "company/modules/edit/{id}"
                         },
                         new
                         {
-                            Id = 14ul,
-                            PageId = 3083ul,
+                            Id = 14L,
+                            PageId = 3083L,
                             RouteName = "acl.company_module.destroy",
                             RouteUrl = "company/modules/delete/{id}"
                         },
                         new
                         {
-                            Id = 15ul,
-                            PageId = 3084ul,
+                            Id = 15L,
+                            PageId = 3084L,
                             RouteName = "acl.company_module.view",
                             RouteUrl = "company/modules/view/{id}"
                         },
                         new
                         {
-                            Id = 16ul,
-                            PageId = 3025ul,
+                            Id = 16L,
+                            PageId = 3025L,
                             RouteName = "acl.submodule.list",
                             RouteUrl = "submodules"
                         },
                         new
                         {
-                            Id = 17ul,
-                            PageId = 3026ul,
+                            Id = 17L,
+                            PageId = 3026L,
                             RouteName = "acl.submodule.add",
                             RouteUrl = "submodules/add"
                         },
                         new
                         {
-                            Id = 18ul,
-                            PageId = 3027ul,
+                            Id = 18L,
+                            PageId = 3027L,
                             RouteName = "acl.submodule.edit",
                             RouteUrl = "submodules/edit/{id}"
                         },
                         new
                         {
-                            Id = 19ul,
-                            PageId = 3028ul,
+                            Id = 19L,
+                            PageId = 3028L,
                             RouteName = "acl.submodule.destroy",
                             RouteUrl = "submodules/delete/{id}"
                         },
                         new
                         {
-                            Id = 20ul,
-                            PageId = 3029ul,
+                            Id = 20L,
+                            PageId = 3029L,
                             RouteName = "acl.submodule.view",
                             RouteUrl = "submodules/view/{id}"
                         },
                         new
                         {
-                            Id = 21ul,
-                            PageId = 3035ul,
+                            Id = 21L,
+                            PageId = 3035L,
                             RouteName = "acl.page.list",
                             RouteUrl = "pages"
                         },
                         new
                         {
-                            Id = 22ul,
-                            PageId = 3036ul,
+                            Id = 22L,
+                            PageId = 3036L,
                             RouteName = "acl.page.add",
                             RouteUrl = "pages/add"
                         },
                         new
                         {
-                            Id = 23ul,
-                            PageId = 3037ul,
+                            Id = 23L,
+                            PageId = 3037L,
                             RouteName = "acl.page.edit",
                             RouteUrl = "pages/edit/{id}"
                         },
                         new
                         {
-                            Id = 24ul,
-                            PageId = 3038ul,
+                            Id = 24L,
+                            PageId = 3038L,
                             RouteName = "acl.page.destroy",
                             RouteUrl = "pages/delete/{id}"
                         },
                         new
                         {
-                            Id = 25ul,
-                            PageId = 3039ul,
+                            Id = 25L,
+                            PageId = 3039L,
                             RouteName = "acl.page.view",
                             RouteUrl = "pages/view/{id}"
                         },
                         new
                         {
-                            Id = 26ul,
-                            PageId = 3045ul,
+                            Id = 26L,
+                            PageId = 3045L,
                             RouteName = "acl.user.list",
                             RouteUrl = "users"
                         },
                         new
                         {
-                            Id = 27ul,
-                            PageId = 3046ul,
+                            Id = 27L,
+                            PageId = 3046L,
                             RouteName = "acl.user.add",
                             RouteUrl = "users/add"
                         },
                         new
                         {
-                            Id = 28ul,
-                            PageId = 3047ul,
+                            Id = 28L,
+                            PageId = 3047L,
                             RouteName = "acl.user.edit",
                             RouteUrl = "users/edit/{id}"
                         },
                         new
                         {
-                            Id = 29ul,
-                            PageId = 3048ul,
+                            Id = 29L,
+                            PageId = 3048L,
                             RouteName = "acl.user.destroy",
                             RouteUrl = "users/delete/{id}"
                         },
                         new
                         {
-                            Id = 30ul,
-                            PageId = 3049ul,
+                            Id = 30L,
+                            PageId = 3049L,
                             RouteName = "acl.user.view",
                             RouteUrl = "users/view/{id}"
                         },
                         new
                         {
-                            Id = 31ul,
-                            PageId = 3055ul,
+                            Id = 31L,
+                            PageId = 3055L,
                             RouteName = "acl.role.list",
                             RouteUrl = "roles"
                         },
                         new
                         {
-                            Id = 32ul,
-                            PageId = 3056ul,
+                            Id = 32L,
+                            PageId = 3056L,
                             RouteName = "acl.role.add",
                             RouteUrl = "roles/add"
                         },
                         new
                         {
-                            Id = 33ul,
-                            PageId = 3057ul,
+                            Id = 33L,
+                            PageId = 3057L,
                             RouteName = "acl.role.edit",
                             RouteUrl = "roles/edit/{id}"
                         },
                         new
                         {
-                            Id = 34ul,
-                            PageId = 3058ul,
+                            Id = 34L,
+                            PageId = 3058L,
                             RouteName = "acl.role.destroy",
                             RouteUrl = "roles/delete/{id}"
                         },
                         new
                         {
-                            Id = 35ul,
-                            PageId = 3059ul,
+                            Id = 35L,
+                            PageId = 3059L,
                             RouteName = "acl.role.view",
                             RouteUrl = "roles/view/{id}"
                         },
                         new
                         {
-                            Id = 36ul,
-                            PageId = 3065ul,
+                            Id = 36L,
+                            PageId = 3065L,
                             RouteName = "acl.usergroups.list",
                             RouteUrl = "usergroups"
                         },
                         new
                         {
-                            Id = 37ul,
-                            PageId = 3066ul,
+                            Id = 37L,
+                            PageId = 3066L,
                             RouteName = "acl.usergroups.add",
                             RouteUrl = "usergroups/add"
                         },
                         new
                         {
-                            Id = 38ul,
-                            PageId = 3067ul,
+                            Id = 38L,
+                            PageId = 3067L,
                             RouteName = "acl.usergroups.edit",
                             RouteUrl = "usergroups/edit/{id}"
                         },
                         new
                         {
-                            Id = 39ul,
-                            PageId = 3068ul,
+                            Id = 39L,
+                            PageId = 3068L,
                             RouteName = "acl.usergroups.destroy",
                             RouteUrl = "usergroups/delete/{id}"
                         },
                         new
                         {
-                            Id = 40ul,
-                            PageId = 3069ul,
+                            Id = 40L,
+                            PageId = 3069L,
                             RouteName = "acl.usergroups.view",
                             RouteUrl = "usergroups/view/{id}"
                         },
                         new
                         {
-                            Id = 41ul,
-                            PageId = 3075ul,
+                            Id = 41L,
+                            PageId = 3075L,
                             RouteName = "acl.usergroups.role.association",
                             RouteUrl = "usergroups/roles/{user_group_id}"
                         },
                         new
                         {
-                            Id = 42ul,
-                            PageId = 3076ul,
+                            Id = 42L,
+                            PageId = 3076L,
                             RouteName = "acl.usergroups.role.association.update",
                             RouteUrl = "usergroups/roles/update"
                         },
                         new
                         {
-                            Id = 43ul,
-                            PageId = 3078ul,
+                            Id = 43L,
+                            PageId = 3078L,
                             RouteName = "acl.role&page.association",
                             RouteUrl = "permissions/associations/{role_id}"
                         },
                         new
                         {
-                            Id = 44ul,
-                            PageId = 3079ul,
+                            Id = 44L,
+                            PageId = 3079L,
                             RouteName = "acl.role&page.association.update",
                             RouteUrl = "permissions/associations/update"
                         },
                         new
                         {
-                            Id = 45ul,
-                            PageId = 3036ul,
+                            Id = 45L,
+                            PageId = 3036L,
                             RouteName = "acl.page.route.add",
                             RouteUrl = "pages/routes/add"
                         },
                         new
                         {
-                            Id = 46ul,
-                            PageId = 3037ul,
+                            Id = 46L,
+                            PageId = 3037L,
                             RouteName = "acl.page.route.edit",
                             RouteUrl = "pages/routes/edit/{id}"
                         },
                         new
                         {
-                            Id = 47ul,
-                            PageId = 3038ul,
+                            Id = 47L,
+                            PageId = 3038L,
                             RouteName = "acl.page.route.destroy",
                             RouteUrl = "pages/routes/delete/{id}"
                         });
@@ -1295,23 +1448,21 @@ namespace ACL.Migrations
 
             modelBuilder.Entity("ACL.Database.Models.AclRole", b =>
                 {
-                    b.Property<ulong>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint unsigned")
+                        .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("id");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<ulong>("Id"));
-
-                    b.Property<ulong>("CompanyId")
-                        .HasColumnType("bigint unsigned")
+                    b.Property<long>("CompanyId")
+                        .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("company_id");
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime")
                         .HasColumnName("created_at");
 
-                    b.Property<ulong?>("CreatedById")
-                        .HasColumnType("bigint unsigned")
+                    b.Property<long?>("CreatedById")
+                        .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("created_by_id")
                         .HasComment("creator auth ID");
 
@@ -1322,7 +1473,7 @@ namespace ACL.Migrations
 
                     b.Property<sbyte>("Status")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("tinyint")
+                        .HasColumnType("tinyint(4)")
                         .HasColumnName("status")
                         .HasDefaultValueSql("'1'");
 
@@ -1335,8 +1486,8 @@ namespace ACL.Migrations
                         .HasColumnType("datetime")
                         .HasColumnName("updated_at");
 
-                    b.Property<ulong?>("UpdatedById")
-                        .HasColumnType("bigint unsigned")
+                    b.Property<long?>("UpdatedById")
+                        .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("updated_by_id")
                         .HasComment("approve auth ID");
 
@@ -1348,8 +1499,8 @@ namespace ACL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1ul,
-                            CompanyId = 1ul,
+                            Id = 1L,
+                            CompanyId = 1L,
                             CreatedAt = new DateTime(2019, 3, 21, 20, 38, 30, 0, DateTimeKind.Unspecified),
                             Name = "",
                             Status = (sbyte)1,
@@ -1360,23 +1511,21 @@ namespace ACL.Migrations
 
             modelBuilder.Entity("ACL.Database.Models.AclRolePage", b =>
                 {
-                    b.Property<ulong>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint unsigned")
+                        .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("id");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<ulong>("Id"));
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime")
                         .HasColumnName("created_at");
 
-                    b.Property<ulong>("PageId")
-                        .HasColumnType("bigint unsigned")
+                    b.Property<long>("PageId")
+                        .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("page_id");
 
-                    b.Property<ulong>("RoleId")
-                        .HasColumnType("bigint unsigned")
+                    b.Property<long>("RoleId")
+                        .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("role_id");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -1394,164 +1543,237 @@ namespace ACL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1ul,
-                            PageId = 3001ul,
-                            RoleId = 1ul
+                            Id = 1L,
+                            PageId = 3001L,
+                            RoleId = 1L
                         },
                         new
                         {
-                            Id = 2ul,
-                            PageId = 3002ul,
-                            RoleId = 1ul
+                            Id = 2L,
+                            PageId = 3002L,
+                            RoleId = 1L
                         },
                         new
                         {
-                            Id = 3ul,
-                            PageId = 3003ul,
-                            RoleId = 1ul
+                            Id = 3L,
+                            PageId = 3003L,
+                            RoleId = 1L
                         },
                         new
                         {
-                            Id = 4ul,
-                            PageId = 3004ul,
-                            RoleId = 1ul
+                            Id = 4L,
+                            PageId = 3004L,
+                            RoleId = 1L
                         },
                         new
                         {
-                            Id = 5ul,
-                            PageId = 3005ul,
-                            RoleId = 1ul
+                            Id = 5L,
+                            PageId = 3005L,
+                            RoleId = 1L
                         },
                         new
                         {
-                            Id = 6ul,
-                            PageId = 3015ul,
-                            RoleId = 1ul
+                            Id = 6L,
+                            PageId = 3015L,
+                            RoleId = 1L
                         },
                         new
                         {
-                            Id = 7ul,
-                            PageId = 3016ul,
-                            RoleId = 1ul
+                            Id = 7L,
+                            PageId = 3016L,
+                            RoleId = 1L
                         },
                         new
                         {
-                            Id = 8ul,
-                            PageId = 3017ul,
-                            RoleId = 1ul
+                            Id = 8L,
+                            PageId = 3017L,
+                            RoleId = 1L
                         },
                         new
                         {
-                            Id = 9ul,
-                            PageId = 3018ul,
-                            RoleId = 1ul
+                            Id = 9L,
+                            PageId = 3018L,
+                            RoleId = 1L
                         },
                         new
                         {
-                            Id = 10ul,
-                            PageId = 3019ul,
-                            RoleId = 1ul
+                            Id = 10L,
+                            PageId = 3019L,
+                            RoleId = 1L
                         },
                         new
                         {
-                            Id = 11ul,
-                            PageId = 3025ul,
-                            RoleId = 1ul
+                            Id = 11L,
+                            PageId = 3025L,
+                            RoleId = 1L
                         },
                         new
                         {
-                            Id = 12ul,
-                            PageId = 3026ul,
-                            RoleId = 1ul
+                            Id = 12L,
+                            PageId = 3026L,
+                            RoleId = 1L
                         },
                         new
                         {
-                            Id = 13ul,
-                            PageId = 3027ul,
-                            RoleId = 1ul
+                            Id = 13L,
+                            PageId = 3027L,
+                            RoleId = 1L
                         },
                         new
                         {
-                            Id = 14ul,
-                            PageId = 3028ul,
-                            RoleId = 1ul
+                            Id = 14L,
+                            PageId = 3028L,
+                            RoleId = 1L
                         },
                         new
                         {
-                            Id = 15ul,
-                            PageId = 3029ul,
-                            RoleId = 1ul
+                            Id = 15L,
+                            PageId = 3029L,
+                            RoleId = 1L
                         },
                         new
                         {
-                            Id = 16ul,
-                            PageId = 3035ul,
-                            RoleId = 1ul
+                            Id = 16L,
+                            PageId = 3035L,
+                            RoleId = 1L
                         },
                         new
                         {
-                            Id = 17ul,
-                            PageId = 3036ul,
-                            RoleId = 1ul
+                            Id = 17L,
+                            PageId = 3036L,
+                            RoleId = 1L
                         },
                         new
                         {
-                            Id = 18ul,
-                            PageId = 3037ul,
-                            RoleId = 1ul
+                            Id = 18L,
+                            PageId = 3037L,
+                            RoleId = 1L
                         },
                         new
                         {
-                            Id = 19ul,
-                            PageId = 3038ul,
-                            RoleId = 1ul
+                            Id = 19L,
+                            PageId = 3038L,
+                            RoleId = 1L
                         },
                         new
                         {
-                            Id = 20ul,
-                            PageId = 3039ul,
-                            RoleId = 1ul
+                            Id = 20L,
+                            PageId = 3039L,
+                            RoleId = 1L
                         },
                         new
                         {
-                            Id = 21ul,
-                            PageId = 3080ul,
-                            RoleId = 1ul
+                            Id = 21L,
+                            PageId = 3080L,
+                            RoleId = 1L
                         },
                         new
                         {
-                            Id = 22ul,
-                            PageId = 3081ul,
-                            RoleId = 1ul
+                            Id = 22L,
+                            PageId = 3081L,
+                            RoleId = 1L
                         },
                         new
                         {
-                            Id = 23ul,
-                            PageId = 3082ul,
-                            RoleId = 1ul
+                            Id = 23L,
+                            PageId = 3082L,
+                            RoleId = 1L
                         },
                         new
                         {
-                            Id = 24ul,
-                            PageId = 3083ul,
-                            RoleId = 1ul
+                            Id = 24L,
+                            PageId = 3083L,
+                            RoleId = 1L
                         },
                         new
                         {
-                            Id = 25ul,
-                            PageId = 3084ul,
-                            RoleId = 1ul
+                            Id = 25L,
+                            PageId = 3084L,
+                            RoleId = 1L
+                        });
+                });
+
+            modelBuilder.Entity("ACL.Database.Models.AclState", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint(20) unsigned")
+                        .HasColumnName("id");
+
+                    b.Property<long>("CompanyId")
+                        .HasColumnType("bigint(20) unsigned")
+                        .HasColumnName("company_id");
+
+                    b.Property<long>("CountryId")
+                        .HasColumnType("bigint(20) unsigned")
+                        .HasColumnName("country_id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasMaxLength(6)
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("created_at");
+
+                    b.Property<long>("CreatedById")
+                        .HasColumnType("bigint(20) unsigned")
+                        .HasColumnName("created_by_id");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("description");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("name");
+
+                    b.Property<long>("Sequence")
+                        .HasColumnType("bigint(20) unsigned")
+                        .HasColumnName("sequence");
+
+                    b.Property<sbyte>("Status")
+                        .HasColumnType("tinyint(3) unsigned")
+                        .HasColumnName("status");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasMaxLength(6)
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("updated_at");
+
+                    b.Property<long>("UpdatedById")
+                        .HasColumnType("bigint(20) unsigned")
+                        .HasColumnName("updated_by_id");
+
+                    b.HasKey("Id")
+                        .HasName("PRIMARY");
+
+                    b.ToTable("acl_states", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CompanyId = 1L,
+                            CountryId = 1L,
+                            CreatedAt = new DateTime(2019, 3, 22, 8, 38, 12, 0, DateTimeKind.Unspecified),
+                            CreatedById = 1L,
+                            Description = "Dhaka city of BD",
+                            Name = "Dhaka",
+                            Sequence = 100L,
+                            Status = (sbyte)1,
+                            UpdatedAt = new DateTime(2023, 11, 1, 19, 17, 0, 0, DateTimeKind.Unspecified),
+                            UpdatedById = 1L
                         });
                 });
 
             modelBuilder.Entity("ACL.Database.Models.AclSubModule", b =>
                 {
-                    b.Property<ulong>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint unsigned")
+                        .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("id");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<ulong>("Id"));
 
                     b.Property<string>("ControllerName")
                         .IsRequired()
@@ -1581,8 +1803,8 @@ namespace ACL.Migrations
                         .HasColumnType("varchar(255)")
                         .HasColumnName("icon");
 
-                    b.Property<ulong>("ModuleId")
-                        .HasColumnType("bigint unsigned")
+                    b.Property<long>("ModuleId")
+                        .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("module_id");
 
                     b.Property<string>("Name")
@@ -1592,7 +1814,7 @@ namespace ACL.Migrations
                         .HasColumnName("name");
 
                     b.Property<int>("Sequence")
-                        .HasColumnType("int")
+                        .HasColumnType("int(11)")
                         .HasColumnName("sequence");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -1607,130 +1829,130 @@ namespace ACL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 2001ul,
+                            Id = 2001L,
                             ControllerName = "CompanyController",
                             CreatedAt = new DateTime(2015, 12, 9, 12, 10, 47, 0, DateTimeKind.Unspecified),
                             DefaultMethod = "index",
                             DisplayName = "Company Management",
                             Icon = "<i class=\"fa fa-angle-double-right\"></i>",
-                            ModuleId = 1001ul,
+                            ModuleId = 1001L,
                             Name = "Company Management",
                             Sequence = 100,
                             UpdatedAt = new DateTime(2015, 12, 9, 12, 10, 47, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 2020ul,
+                            Id = 2020L,
                             ControllerName = "ModuleController",
                             CreatedAt = new DateTime(2015, 12, 9, 12, 10, 48, 0, DateTimeKind.Unspecified),
                             DefaultMethod = "index",
                             DisplayName = "Module Management",
                             Icon = "<i class=\"fa fa-angle-double-right\"></i>",
-                            ModuleId = 1002ul,
+                            ModuleId = 1002L,
                             Name = "Module Management",
                             Sequence = 100,
                             UpdatedAt = new DateTime(2015, 12, 9, 12, 10, 48, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 2021ul,
+                            Id = 2021L,
                             ControllerName = "SubModuleController",
                             CreatedAt = new DateTime(2015, 12, 9, 12, 10, 48, 0, DateTimeKind.Unspecified),
                             DefaultMethod = "index",
                             DisplayName = "Sub Module Management",
                             Icon = "<i class=\"fa fa-angle-double-right\"></i>",
-                            ModuleId = 1002ul,
+                            ModuleId = 1002L,
                             Name = "Sub Module Management",
                             Sequence = 101,
                             UpdatedAt = new DateTime(2015, 12, 9, 12, 10, 48, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 2022ul,
+                            Id = 2022L,
                             ControllerName = "PageController",
                             CreatedAt = new DateTime(2015, 12, 9, 12, 10, 48, 0, DateTimeKind.Unspecified),
                             DefaultMethod = "index",
                             DisplayName = "Page Management",
                             Icon = "<i class=\"fa fa-angle-double-right\"></i>",
-                            ModuleId = 1002ul,
+                            ModuleId = 1002L,
                             Name = "Page Management",
                             Sequence = 102,
                             UpdatedAt = new DateTime(2015, 12, 9, 12, 10, 48, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 2050ul,
+                            Id = 2050L,
                             ControllerName = "UserController",
                             CreatedAt = new DateTime(2015, 12, 9, 12, 10, 49, 0, DateTimeKind.Unspecified),
                             DefaultMethod = "index",
                             DisplayName = "User Management",
                             Icon = "<i class=\"fa fa-angle-double-right\"></i>",
-                            ModuleId = 1003ul,
+                            ModuleId = 1003L,
                             Name = "User Management",
                             Sequence = 18,
                             UpdatedAt = new DateTime(2015, 12, 9, 12, 10, 49, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 2051ul,
+                            Id = 2051L,
                             ControllerName = "RoleController",
                             CreatedAt = new DateTime(2015, 12, 9, 12, 10, 49, 0, DateTimeKind.Unspecified),
                             DefaultMethod = "index",
                             DisplayName = "Role Management",
                             Icon = "<i class=\"fa fa-angle-double-right\"></i>",
-                            ModuleId = 1003ul,
+                            ModuleId = 1003L,
                             Name = "Role Management",
                             Sequence = 101,
                             UpdatedAt = new DateTime(2015, 12, 23, 14, 35, 45, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 2052ul,
+                            Id = 2052L,
                             ControllerName = "UsergroupController",
                             CreatedAt = new DateTime(2015, 12, 9, 12, 10, 49, 0, DateTimeKind.Unspecified),
                             DefaultMethod = "index",
                             DisplayName = "User Group Management",
                             Icon = "<i class=\"fa fa-angle-double-right\"></i>",
-                            ModuleId = 1003ul,
+                            ModuleId = 1003L,
                             Name = "User Group Management",
                             Sequence = 102,
                             UpdatedAt = new DateTime(2015, 12, 9, 12, 10, 49, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 2053ul,
+                            Id = 2053L,
                             ControllerName = "UsergroupRoleController",
                             CreatedAt = new DateTime(2015, 12, 9, 12, 10, 49, 0, DateTimeKind.Unspecified),
                             DefaultMethod = "index",
                             DisplayName = "Usergroup & Role Association",
                             Icon = "<i class=\"fa fa-angle-double-right\"></i>",
-                            ModuleId = 1003ul,
+                            ModuleId = 1003L,
                             Name = "Usergroup & Role Association",
                             Sequence = 103,
                             UpdatedAt = new DateTime(2015, 12, 9, 12, 10, 49, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 2054ul,
+                            Id = 2054L,
                             ControllerName = "RolePageController",
                             CreatedAt = new DateTime(2015, 12, 9, 12, 10, 50, 0, DateTimeKind.Unspecified),
                             DefaultMethod = "index",
                             DisplayName = "Role & Page Association",
                             Icon = "<i class=\"fa fa-angle-double-right\"></i>",
-                            ModuleId = 1003ul,
+                            ModuleId = 1003L,
                             Name = "Role & Page Association",
                             Sequence = 104,
                             UpdatedAt = new DateTime(2015, 12, 9, 12, 10, 50, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 2055ul,
+                            Id = 2055L,
                             ControllerName = "CompanyModuleController",
                             CreatedAt = new DateTime(2015, 12, 9, 12, 10, 48, 0, DateTimeKind.Unspecified),
                             DefaultMethod = "index",
                             DisplayName = "Company Module Management",
                             Icon = "<i class=\"fa fa-angle-double-right\"></i>",
-                            ModuleId = 1003ul,
+                            ModuleId = 1003L,
                             Name = "Company Module Management",
                             Sequence = 105,
                             UpdatedAt = new DateTime(2015, 12, 9, 12, 10, 48, 0, DateTimeKind.Unspecified)
@@ -1739,12 +1961,10 @@ namespace ACL.Migrations
 
             modelBuilder.Entity("ACL.Database.Models.AclUser", b =>
                 {
-                    b.Property<ulong>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint unsigned")
+                        .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("id");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<ulong>("Id"));
 
                     b.Property<DateTime?>("ActivatedAt")
                         .HasColumnType("datetime")
@@ -1770,24 +1990,24 @@ namespace ACL.Migrations
                         .HasColumnType("varchar(100)")
                         .HasColumnName("city");
 
-                    b.Property<uint>("CompanyId")
-                        .HasColumnType("int unsigned")
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int(10) unsigned")
                         .HasColumnName("company_id");
 
-                    b.Property<uint>("Country")
-                        .HasColumnType("int unsigned")
+                    b.Property<int>("Country")
+                        .HasColumnType("int(10) unsigned")
                         .HasColumnName("country");
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime")
                         .HasColumnName("created_at");
 
-                    b.Property<uint>("CreatedById")
-                        .HasColumnType("int unsigned")
+                    b.Property<int>("CreatedById")
+                        .HasColumnType("int(10) unsigned")
                         .HasColumnName("created_by_id");
 
                     b.Property<DateTime?>("Dob")
-                        .HasColumnType("date")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("dob");
 
                     b.Property<string>("Email")
@@ -1802,7 +2022,7 @@ namespace ACL.Migrations
                         .HasColumnName("first_name");
 
                     b.Property<sbyte?>("Gender")
-                        .HasColumnType("tinyint")
+                        .HasColumnType("tinyint(4)")
                         .HasColumnName("gender")
                         .HasComment("1=Male, 2=Female");
 
@@ -1811,7 +2031,7 @@ namespace ACL.Migrations
                         .HasColumnName("img_path");
 
                     b.Property<sbyte>("IsAdminVerified")
-                        .HasColumnType("tinyint")
+                        .HasColumnType("tinyint(4)")
                         .HasColumnName("is_admin_verified")
                         .HasComment("0=Pending, 1=Approved, 2=Not Approved, 3=Lock User");
 
@@ -1834,7 +2054,7 @@ namespace ACL.Migrations
                         .HasComment("user logged in time");
 
                     b.Property<sbyte>("OtpChannel")
-                        .HasColumnType("tinyint")
+                        .HasColumnType("tinyint(4)")
                         .HasColumnName("otp_channel")
                         .HasComment("0 => all channel like sms, email, 1 => only sms, 2=> only email");
 
@@ -1843,8 +2063,8 @@ namespace ACL.Migrations
                         .HasColumnType("varchar(255)")
                         .HasColumnName("password");
 
-                    b.Property<uint>("PermissionVersion")
-                        .HasColumnType("int unsigned")
+                    b.Property<int>("PermissionVersion")
+                        .HasColumnType("int(10) unsigned")
                         .HasColumnName("permission_version");
 
                     b.Property<string>("Phone")
@@ -1859,7 +2079,7 @@ namespace ACL.Migrations
 
                     b.Property<sbyte>("Status")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("tinyint")
+                        .HasColumnType("tinyint(4)")
                         .HasColumnName("status")
                         .HasDefaultValueSql("'1'")
                         .HasComment("0=>Inactive or disable; 1=>enable or active; 2=> disabled or suspected;3= awaiting disable or banned;4=awaiting GSM");
@@ -1868,8 +2088,8 @@ namespace ACL.Migrations
                         .HasColumnType("datetime")
                         .HasColumnName("updated_at");
 
-                    b.Property<uint>("UserType")
-                        .HasColumnType("int unsigned")
+                    b.Property<int>("UserType")
+                        .HasColumnType("int(10) unsigned")
                         .HasColumnName("user_type")
                         .HasComment("USER_TYPE_SS_ADMIN = 0; USER_TYPE_S_ADMIN = 1; USER_TYPE_USER = 2");
 
@@ -1886,14 +2106,14 @@ namespace ACL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1ul,
+                            Id = 1L,
                             Address = "Dhaka",
                             Avatar = "users/admin/c41353d1c1fcbdbd39f96ea46a3f769136952e79.png",
                             City = "19",
-                            CompanyId = 1u,
-                            Country = 0u,
+                            CompanyId = 1,
+                            Country = 0,
                             CreatedAt = new DateTime(2018, 7, 10, 16, 21, 24, 0, DateTimeKind.Unspecified),
-                            CreatedById = 1u,
+                            CreatedById = 1,
                             Dob = new DateTime(1994, 2, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "ssadmin@sipay.com.tr",
                             FirstName = "admin1",
@@ -1904,27 +2124,25 @@ namespace ACL.Migrations
                             LastName = "admin1",
                             OtpChannel = (sbyte)0,
                             Password = "Nop@ss1234",
-                            PermissionVersion = 1u,
+                            PermissionVersion = 1,
                             Phone = "+8801788343704",
                             RememberToken = "",
                             Status = (sbyte)1,
                             UpdatedAt = new DateTime(2021, 8, 25, 5, 46, 27, 0, DateTimeKind.Unspecified),
-                            UserType = 0u,
+                            UserType = 0,
                             Username = "rajibecbb"
                         });
                 });
 
             modelBuilder.Entity("ACL.Database.Models.AclUserUsergroup", b =>
                 {
-                    b.Property<ulong>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint unsigned")
+                        .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("id");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<ulong>("Id"));
-
-                    b.Property<ulong>("CompanyId")
-                        .HasColumnType("bigint unsigned")
+                    b.Property<long>("CompanyId")
+                        .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("company_id");
 
                     b.Property<DateTime?>("CreatedAt")
@@ -1935,12 +2153,12 @@ namespace ACL.Migrations
                         .HasColumnType("datetime")
                         .HasColumnName("updated_at");
 
-                    b.Property<ulong>("UserId")
-                        .HasColumnType("bigint unsigned")
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("user_id");
 
-                    b.Property<ulong>("UsergroupId")
-                        .HasColumnType("bigint unsigned")
+                    b.Property<long>("UsergroupId")
+                        .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("usergroup_id");
 
                     b.HasKey("Id")
@@ -1951,31 +2169,29 @@ namespace ACL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1ul,
-                            CompanyId = 1ul,
+                            Id = 1L,
+                            CompanyId = 1L,
                             CreatedAt = new DateTime(2024, 1, 24, 7, 23, 21, 0, DateTimeKind.Unspecified),
                             UpdatedAt = new DateTime(2024, 1, 24, 7, 23, 23, 0, DateTimeKind.Unspecified),
-                            UserId = 1ul,
-                            UsergroupId = 1ul
+                            UserId = 1L,
+                            UsergroupId = 1L
                         });
                 });
 
             modelBuilder.Entity("ACL.Database.Models.AclUsergroup", b =>
                 {
-                    b.Property<ulong>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint unsigned")
+                        .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("id");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<ulong>("Id"));
-
                     b.Property<sbyte>("Category")
-                        .HasColumnType("tinyint")
+                        .HasColumnType("tinyint(4)")
                         .HasColumnName("category")
                         .HasComment("1 = Project manager, 2 = Developer, 3 = Reporter, 4 = Admin");
 
-                    b.Property<ulong>("CompanyId")
-                        .HasColumnType("bigint unsigned")
+                    b.Property<long>("CompanyId")
+                        .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("company_id");
 
                     b.Property<DateTime?>("CreatedAt")
@@ -1995,7 +2211,7 @@ namespace ACL.Migrations
 
                     b.Property<sbyte>("Status")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("tinyint")
+                        .HasColumnType("tinyint(4)")
                         .HasColumnName("status")
                         .HasDefaultValueSql("'1'");
 
@@ -2011,9 +2227,9 @@ namespace ACL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1ul,
+                            Id = 1L,
                             Category = (sbyte)0,
-                            CompanyId = 1ul,
+                            CompanyId = 1L,
                             CreatedAt = new DateTime(2019, 3, 22, 8, 38, 12, 0, DateTimeKind.Unspecified),
                             GroupName = "super-super-admin-group",
                             Status = (sbyte)1,
@@ -2023,31 +2239,29 @@ namespace ACL.Migrations
 
             modelBuilder.Entity("ACL.Database.Models.AclUsergroupRole", b =>
                 {
-                    b.Property<ulong>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint unsigned")
+                        .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("id");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<ulong>("Id"));
-
-                    b.Property<ulong>("CompanyId")
-                        .HasColumnType("bigint unsigned")
+                    b.Property<long>("CompanyId")
+                        .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("company_id");
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime")
                         .HasColumnName("created_at");
 
-                    b.Property<ulong>("RoleId")
-                        .HasColumnType("bigint unsigned")
+                    b.Property<long>("RoleId")
+                        .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("role_id");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime")
                         .HasColumnName("updated_at");
 
-                    b.Property<ulong>("UsergroupId")
-                        .HasColumnType("bigint unsigned")
+                    b.Property<long>("UsergroupId")
+                        .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("usergroup_id");
 
                     b.HasKey("Id")
@@ -2058,36 +2272,34 @@ namespace ACL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1ul,
-                            CompanyId = 1ul,
-                            RoleId = 1ul,
-                            UsergroupId = 1ul
+                            Id = 1L,
+                            CompanyId = 1L,
+                            RoleId = 1L,
+                            UsergroupId = 1L
                         });
                 });
 
             modelBuilder.Entity("ACL.Database.Models.AclUsertypeSubmodule", b =>
                 {
-                    b.Property<ulong>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint unsigned")
+                        .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("id");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<ulong>("Id"));
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime")
                         .HasColumnName("created_at");
 
-                    b.Property<uint>("SubModuleId")
-                        .HasColumnType("int unsigned")
+                    b.Property<int>("SubModuleId")
+                        .HasColumnType("int(10) unsigned")
                         .HasColumnName("sub_module_id");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime")
                         .HasColumnName("updated_at");
 
-                    b.Property<byte>("UserTypeId")
-                        .HasColumnType("tinyint unsigned")
+                    b.Property<sbyte>("UserTypeId")
+                        .HasColumnType("tinyint(3) unsigned")
                         .HasColumnName("user_type_id");
 
                     b.HasKey("Id")
@@ -2098,68 +2310,83 @@ namespace ACL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1ul,
-                            SubModuleId = 2001u,
-                            UserTypeId = (byte)0
+                            Id = 1L,
+                            SubModuleId = 2001,
+                            UserTypeId = (sbyte)0
                         },
                         new
                         {
-                            Id = 2ul,
-                            SubModuleId = 2020u,
-                            UserTypeId = (byte)0
+                            Id = 2L,
+                            SubModuleId = 2020,
+                            UserTypeId = (sbyte)0
                         },
                         new
                         {
-                            Id = 3ul,
-                            SubModuleId = 2021u,
-                            UserTypeId = (byte)0
+                            Id = 3L,
+                            SubModuleId = 2021,
+                            UserTypeId = (sbyte)0
                         },
                         new
                         {
-                            Id = 4ul,
-                            SubModuleId = 2022u,
-                            UserTypeId = (byte)0
+                            Id = 4L,
+                            SubModuleId = 2022,
+                            UserTypeId = (sbyte)0
                         },
                         new
                         {
-                            Id = 5ul,
-                            SubModuleId = 2050u,
-                            UserTypeId = (byte)1
+                            Id = 5L,
+                            SubModuleId = 2050,
+                            UserTypeId = (sbyte)1
                         },
                         new
                         {
-                            Id = 6ul,
-                            SubModuleId = 2051u,
-                            UserTypeId = (byte)1
+                            Id = 6L,
+                            SubModuleId = 2051,
+                            UserTypeId = (sbyte)1
                         },
                         new
                         {
-                            Id = 7ul,
-                            SubModuleId = 2052u,
-                            UserTypeId = (byte)1
+                            Id = 7L,
+                            SubModuleId = 2052,
+                            UserTypeId = (sbyte)1
                         },
                         new
                         {
-                            Id = 8ul,
-                            SubModuleId = 2053u,
-                            UserTypeId = (byte)1
+                            Id = 8L,
+                            SubModuleId = 2053,
+                            UserTypeId = (sbyte)1
                         },
                         new
                         {
-                            Id = 9ul,
-                            SubModuleId = 2054u,
-                            UserTypeId = (byte)1
+                            Id = 9L,
+                            SubModuleId = 2054,
+                            UserTypeId = (sbyte)1
                         });
+                });
+
+            modelBuilder.Entity("ACL.Database.Models.Efmigrationshistory", b =>
+                {
+                    b.Property<string>("MigrationId")
+                        .HasMaxLength(150)
+                        .HasColumnType("varchar(150)");
+
+                    b.Property<string>("ProductVersion")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("varchar(32)");
+
+                    b.HasKey("MigrationId")
+                        .HasName("PRIMARY");
+
+                    b.ToTable("_efmigrationshistory", (string)null);
                 });
 
             modelBuilder.Entity("ACL.Database.Models.FailedJob", b =>
                 {
-                    b.Property<ulong>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint unsigned")
+                        .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("id");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<ulong>("Id"));
 
                     b.Property<string>("Connection")
                         .IsRequired()
@@ -2175,7 +2402,7 @@ namespace ACL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp")
                         .HasColumnName("failed_at")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                        .HasDefaultValueSql("current_timestamp()");
 
                     b.Property<string>("Payload")
                         .IsRequired()
@@ -2203,15 +2430,13 @@ namespace ACL.Migrations
 
             modelBuilder.Entity("ACL.Database.Models.Migration", b =>
                 {
-                    b.Property<uint>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int unsigned")
+                        .HasColumnType("int(10) unsigned")
                         .HasColumnName("id");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<uint>("Id"));
-
                     b.Property<int>("Batch")
-                        .HasColumnType("int")
+                        .HasColumnType("int(11)")
                         .HasColumnName("batch");
 
                     b.Property<string>("Migration1")
@@ -2228,12 +2453,10 @@ namespace ACL.Migrations
 
             modelBuilder.Entity("ACL.Database.Models.PersonalAccessToken", b =>
                 {
-                    b.Property<ulong>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint unsigned")
+                        .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("id");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<ulong>("Id"));
 
                     b.Property<string>("Abilities")
                         .HasColumnType("text")
@@ -2263,8 +2486,8 @@ namespace ACL.Migrations
                         .HasColumnType("varchar(64)")
                         .HasColumnName("token");
 
-                    b.Property<ulong>("TokenableId")
-                        .HasColumnType("bigint unsigned")
+                    b.Property<long>("TokenableId")
+                        .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("tokenable_id");
 
                     b.Property<string>("TokenableType")
