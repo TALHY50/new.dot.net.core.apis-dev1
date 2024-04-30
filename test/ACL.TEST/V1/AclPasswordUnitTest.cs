@@ -33,7 +33,7 @@ namespace ACL.Tests.V1
             var data = GetPasswordReset();
 
             // Act
-            var request = new RestRequest(AclRoutesUrl.AclPassword.Reset, Method.Post);
+            var request = new RestRequest(AclRoutesUrl.AclPasswordRouteUrl.Reset, Method.Post);
             request.AddHeader("Authorization", authToken);
             request.AddJsonBody(data);
             RestResponse response = restClient.Execute(request);
@@ -49,7 +49,7 @@ namespace ACL.Tests.V1
             var data = new AclForgetPasswordRequest { email = DataCollectors.getRandomEmail() };
 
             // Act
-            var request = new RestRequest(AclRoutesUrl.AclPassword.Forget, Method.Post);
+            var request = new RestRequest(AclRoutesUrl.AclPasswordRouteUrl.Forget, Method.Post);
             request.AddHeader("Authorization", authToken);
             request.AddJsonBody(data);
 
@@ -72,7 +72,7 @@ namespace ACL.Tests.V1
         }; 
 
             // Act
-            var request = new RestRequest(AclRoutesUrl.AclPassword.VerifyToken, Method.Post);
+            var request = new RestRequest(AclRoutesUrl.AclPasswordRouteUrl.VerifyToken, Method.Post);
             request.AddHeader("Authorization", authToken);
             request.AddJsonBody(data);
 
