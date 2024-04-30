@@ -12,5 +12,7 @@ namespace ACL.Response.V1
         public object Data { get; set; }
         public DateTime Timestamp { get; set; } = DateTime.Now;
 
+        public int responseCode { get; set; }
+
     }
 }

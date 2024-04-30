@@ -29,6 +29,7 @@ using SharedLibrary.Interfaces;
 using SharedLibrary.Services;
 using ACL.Interfaces.Repositories.V1;
 using ACL.Repositories.V1;
+using ACL.Exceptions;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -131,6 +132,7 @@ app.UseSwaggerUI(options =>
 
 app.UseMiddleware<RequestResponseLoggingMiddleware>();
 app.UseSerilogRequestLogging();
+app.UseMiddleware<GlobalExceptionHandling>();
 
 app.UseCors(builder =>
 {
