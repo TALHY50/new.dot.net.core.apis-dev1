@@ -51,6 +51,7 @@
   <ItemGroup>
     <EmbeddedResource Update="Resources\bn-BD.resx">
       <CustomToolNamespace>bn-BD</CustomToolNamespace>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\en-US.resx">
       <CustomToolNamespace>en-US</CustomToolNamespace>

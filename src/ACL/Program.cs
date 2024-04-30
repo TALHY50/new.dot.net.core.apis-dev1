@@ -51,24 +51,24 @@ var userName = Env.GetString("DB_USERNAME");
 var password = Env.GetString("DB_PASSWORD");
 
 var connectionString = $"server={server};database={database};User ID={userName};Password={password};CharSet=utf8mb4;" ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseMySQL(connectionString, options =>
+    {
+        options.EnableRetryOnFailure();
+    }));
+//#if UNIT_TEST
+//builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//    options.UseInMemoryDatabase("acl").ConfigureWarnings(warnings =>
+//    {
+//        warnings.Ignore(InMemoryEventId.TransactionIgnoredWarning);
+//    }));
+//#else
 //builder.Services.AddDbContext<ApplicationDbContext>(options =>
 //    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString), options =>
 //    {
 //        options.EnableRetryOnFailure();
 //    }));
-#if UNIT_TEST
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseInMemoryDatabase("acl").ConfigureWarnings(warnings =>
-    {
-        warnings.Ignore(InMemoryEventId.TransactionIgnoredWarning);
-    }));
-#else
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString), options =>
-    {
-        options.EnableRetryOnFailure();
-    }));
-#endif
+//#endif
 builder.Services.AddAntiforgery(options => options.HeaderName = "X-CSRF-TOKEN");
 
 builder.Services.AddEndpointsApiExplorer();

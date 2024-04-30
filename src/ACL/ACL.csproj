@@ -13,13 +13,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\**" />
-    <Content Remove="Migrations\**" />
-    <EmbeddedResource Remove="Migrations\**" />
-    <None Remove="Migrations\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Remove="Requests\RoleAndPageAssocUpdateRequest.cs" />
   </ItemGroup>
 
@@ -39,7 +32,6 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.4" />
     <PackageReference Include="MySql.EntityFrameworkCore" Version="8.0.2" />
-    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.2" />
     <PackageReference Include="Serilog" Version="3.1.1" />
     <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
@@ -51,6 +43,7 @@
     <Folder Include="Data\" />
     <Folder Include="Logs\" />
     <Folder Include="Database\" />
+    <Folder Include="Migrations\" />
     <Folder Include="Repository\" />
   </ItemGroup>
 

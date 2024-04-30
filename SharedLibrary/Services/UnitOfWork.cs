@@ -23,7 +23,7 @@ using Microsoft.Extensions.Hosting;
 namespace SharedLibrary.Services
 {
 
-    public class UnitOfWork<TDbContext, TUnitOfWork> : IUnitOfWork<TDbContext, TUnitOfWork>
+    public partial class UnitOfWork<TDbContext, TUnitOfWork> : IUnitOfWork<TDbContext, TUnitOfWork>
         where TDbContext : DbContext
         where TUnitOfWork : class
     {
@@ -40,6 +40,23 @@ namespace SharedLibrary.Services
         public IHttpContextAccessor _httpContextAccessor;
         public IUnitOfWork<TDbContext, TUnitOfWork> unitOfWork;
         public virtual ILocalizationService LocalizationService { get; set; }
+        public UnitOfWork(TDbContext context, ILogger<UnitOfWork<TDbContext, TUnitOfWork>> logger, ILogService logService, ICacheService cacheService, IServiceCollection services, Assembly programAssembly,TUnitOfWork customUnitOfWork)
+        {
+            _services = services;
+            _logger = logger;
+            _customUnitOfWork = customUnitOfWork;
+            _assembly = programAssembly;
+            _logService = logService;
+            _cacheService = cacheService;
+            _services = services;
+            this.context = context;
+            _cultureInfo = new CultureInfo("en-US");
+            unitOfWork = this;
+            _resourceManager = new ResourceManager("SharedLibrary.Resources." + _cultureInfo.Name, _assembly);
+            _httpContextAccessor = new HttpContextAccessor();
+            LocalizationService = new LocalizationService("SharedLibrary.Resources.en-US", _assembly, "en-US");
+            Initialize(context, logger, logService, cacheService, services, programAssembly);
+        }
         public UnitOfWork(TDbContext context, ILogger<UnitOfWork<TDbContext, TUnitOfWork>> logger, ILogService logService, ICacheService cacheService, IServiceCollection services, Assembly programAssembly)
         {
             _services = services;
@@ -49,7 +66,6 @@ namespace SharedLibrary.Services
             _cacheService = cacheService;
             _services = services;
             this.context = context;
-            _customUnitOfWork = null;
             _cultureInfo = new CultureInfo("en-US");
             unitOfWork = this;
             _resourceManager = new ResourceManager("SharedLibrary.Resources." + _cultureInfo.Name, _assembly);
@@ -62,7 +78,6 @@ namespace SharedLibrary.Services
         {
 
             this.context = dbContext;
-            _customUnitOfWork = null;
             _cultureInfo = new CultureInfo("en-US");
             unitOfWork = this;
             _assembly = Assembly.GetExecutingAssembly();

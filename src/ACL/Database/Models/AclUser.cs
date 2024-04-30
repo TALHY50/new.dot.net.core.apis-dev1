@@ -17,7 +17,7 @@ public partial class AclUser
 
     public string? Password { get; set; }
 
-    public DateOnly? Dob { get; set; }
+    public DateTime? Dob { get; set; }
 
     /// <summary>
     /// 1=Male, 2=Female
