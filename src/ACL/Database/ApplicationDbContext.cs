@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using ACL.Database.Models;
 using Microsoft.EntityFrameworkCore;
-using Pomelo.EntityFrameworkCore.MySql.Scaffolding.Internal;
+using MySql.EntityFrameworkCore.Extensions;
 
 namespace ACL.Database;
 
@@ -49,8 +49,6 @@ public partial class ApplicationDbContext : DbContext
 
     public virtual DbSet<AclUsertypeSubmodule> AclUsertypeSubmodules { get; set; }
 
-    public virtual DbSet<Efmigrationshistory> Efmigrationshistories { get; set; }
-
     public virtual DbSet<FailedJob> FailedJobs { get; set; }
 
     public virtual DbSet<Migration> Migrations { get; set; }
@@ -58,14 +56,13 @@ public partial class ApplicationDbContext : DbContext
     public virtual DbSet<PersonalAccessToken> PersonalAccessTokens { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseMySql("server=127.0.0.1;database=acl;user id=root;charset=utf8mb4", Microsoft.EntityFrameworkCore.ServerVersion.Parse("10.4.22-mariadb"));
+        => optionsBuilder.UseMySQL("server=127.0.0.1;database=acl;user id=root;charset=utf8mb4");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder
-            .UseCollation("utf8mb4_general_ci")
-            .HasCharSet("utf8mb4");
+        //modelBuilder
+        //    .UseCollation("utf8mb4_general_ci")
+        //    .HasCharSet("utf8mb4");
 
         modelBuilder.Entity<AclBranch>(entity =>
         {
@@ -720,15 +717,6 @@ public partial class ApplicationDbContext : DbContext
                 .HasColumnName("user_type_id");
         });
 
-        modelBuilder.Entity<Efmigrationshistory>(entity =>
-        {
-            entity.HasKey(e => e.MigrationId).HasName("PRIMARY");
-
-            entity.ToTable("__efmigrationshistory");
-
-            entity.Property(e => e.MigrationId).HasMaxLength(150);
-            entity.Property(e => e.ProductVersion).HasMaxLength(32);
-        });
 
         modelBuilder.Entity<FailedJob>(entity =>
         {

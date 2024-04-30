@@ -3,7 +3,6 @@ using System;
 using ACL.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -17,21 +16,15 @@ namespace ACL.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .UseCollation("utf8mb4_general_ci")
                 .HasAnnotation("ProductVersion", "8.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            MySqlModelBuilderExtensions.HasCharSet(modelBuilder, "utf8mb4");
-            MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
-
             modelBuilder.Entity("ACL.Database.Models.AclBranch", b =>
                 {
-                    b.Property<ulong>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("id");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<ulong>("Id"));
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -39,7 +32,7 @@ namespace ACL.Migrations
                         .HasColumnType("varchar(255)")
                         .HasColumnName("address");
 
-                    b.Property<ulong>("CompanyId")
+                    b.Property<long>("CompanyId")
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("company_id");
 
@@ -48,7 +41,7 @@ namespace ACL.Migrations
                         .HasColumnType("datetime(6)")
                         .HasColumnName("created_at");
 
-                    b.Property<ulong>("CreatedById")
+                    b.Property<long>("CreatedById")
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("created_by_id");
 
@@ -64,11 +57,11 @@ namespace ACL.Migrations
                         .HasColumnType("varchar(50)")
                         .HasColumnName("name");
 
-                    b.Property<ulong>("Sequence")
+                    b.Property<long>("Sequence")
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("sequence");
 
-                    b.Property<byte>("Status")
+                    b.Property<sbyte>("Status")
                         .HasColumnType("tinyint(3) unsigned")
                         .HasColumnName("status");
 
@@ -77,7 +70,7 @@ namespace ACL.Migrations
                         .HasColumnType("datetime(6)")
                         .HasColumnName("updated_at");
 
-                    b.Property<ulong>("UpdatedById")
+                    b.Property<long>("UpdatedById")
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("updated_by_id");
 
@@ -89,12 +82,10 @@ namespace ACL.Migrations
 
             modelBuilder.Entity("ACL.Database.Models.AclCompany", b =>
                 {
-                    b.Property<ulong>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("id");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<ulong>("Id"));
 
                     b.Property<int>("AddedBy")
                         .ValueGeneratedOnAdd()
@@ -266,14 +257,12 @@ namespace ACL.Migrations
 
             modelBuilder.Entity("ACL.Database.Models.AclCompanyModule", b =>
                 {
-                    b.Property<ulong>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("id");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<ulong>("Id"));
-
-                    b.Property<ulong>("CompanyId")
+                    b.Property<long>("CompanyId")
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("company_id");
 
@@ -281,7 +270,7 @@ namespace ACL.Migrations
                         .HasColumnType("timestamp")
                         .HasColumnName("created_at");
 
-                    b.Property<ulong>("ModuleId")
+                    b.Property<long>("ModuleId")
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("module_id");
 
@@ -297,12 +286,10 @@ namespace ACL.Migrations
 
             modelBuilder.Entity("ACL.Database.Models.AclCountry", b =>
                 {
-                    b.Property<ulong>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("id");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<ulong>("Id"));
 
                     b.Property<string>("Code")
                         .IsRequired()
@@ -310,7 +297,7 @@ namespace ACL.Migrations
                         .HasColumnType("varchar(50)")
                         .HasColumnName("code");
 
-                    b.Property<ulong>("CompanyId")
+                    b.Property<long>("CompanyId")
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("company_id");
 
@@ -319,7 +306,7 @@ namespace ACL.Migrations
                         .HasColumnType("datetime(6)")
                         .HasColumnName("created_at");
 
-                    b.Property<ulong>("CreatedById")
+                    b.Property<long>("CreatedById")
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("created_by_id");
 
@@ -335,11 +322,11 @@ namespace ACL.Migrations
                         .HasColumnType("varchar(50)")
                         .HasColumnName("name");
 
-                    b.Property<ulong>("Sequence")
+                    b.Property<long>("Sequence")
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("sequence");
 
-                    b.Property<byte>("Status")
+                    b.Property<sbyte>("Status")
                         .HasColumnType("tinyint(3) unsigned")
                         .HasColumnName("status");
 
@@ -348,7 +335,7 @@ namespace ACL.Migrations
                         .HasColumnType("datetime(6)")
                         .HasColumnName("updated_at");
 
-                    b.Property<ulong>("UpdatedById")
+                    b.Property<long>("UpdatedById")
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("updated_by_id");
 
@@ -360,12 +347,10 @@ namespace ACL.Migrations
 
             modelBuilder.Entity("ACL.Database.Models.AclModule", b =>
                 {
-                    b.Property<ulong>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("id");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<ulong>("Id"));
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("timestamp")
@@ -405,12 +390,10 @@ namespace ACL.Migrations
 
             modelBuilder.Entity("ACL.Database.Models.AclPage", b =>
                 {
-                    b.Property<ulong>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("id");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<ulong>("Id"));
 
                     b.Property<sbyte>("AvailableToCompany")
                         .HasColumnType("tinyint(4)")
@@ -431,7 +414,7 @@ namespace ACL.Migrations
                         .HasColumnName("method_type")
                         .HasComment("1=Post, 2=Get, 3=Put, 4=Delete");
 
-                    b.Property<ulong>("ModuleId")
+                    b.Property<long>("ModuleId")
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("module_id");
 
@@ -441,7 +424,7 @@ namespace ACL.Migrations
                         .HasColumnType("varchar(100)")
                         .HasColumnName("name");
 
-                    b.Property<ulong>("SubModuleId")
+                    b.Property<long>("SubModuleId")
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("sub_module_id");
 
@@ -457,18 +440,16 @@ namespace ACL.Migrations
 
             modelBuilder.Entity("ACL.Database.Models.AclPageRoute", b =>
                 {
-                    b.Property<ulong>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("id");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<ulong>("Id"));
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime")
                         .HasColumnName("created_at");
 
-                    b.Property<ulong?>("PageId")
+                    b.Property<long?>("PageId")
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("page_id");
 
@@ -496,14 +477,12 @@ namespace ACL.Migrations
 
             modelBuilder.Entity("ACL.Database.Models.AclRole", b =>
                 {
-                    b.Property<ulong>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("id");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<ulong>("Id"));
-
-                    b.Property<ulong>("CompanyId")
+                    b.Property<long>("CompanyId")
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("company_id");
 
@@ -511,7 +490,7 @@ namespace ACL.Migrations
                         .HasColumnType("datetime")
                         .HasColumnName("created_at");
 
-                    b.Property<ulong?>("CreatedById")
+                    b.Property<long?>("CreatedById")
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("created_by_id")
                         .HasComment("creator auth ID");
@@ -536,7 +515,7 @@ namespace ACL.Migrations
                         .HasColumnType("datetime")
                         .HasColumnName("updated_at");
 
-                    b.Property<ulong?>("UpdatedById")
+                    b.Property<long?>("UpdatedById")
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("updated_by_id")
                         .HasComment("approve auth ID");
@@ -549,22 +528,20 @@ namespace ACL.Migrations
 
             modelBuilder.Entity("ACL.Database.Models.AclRolePage", b =>
                 {
-                    b.Property<ulong>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("id");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<ulong>("Id"));
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime")
                         .HasColumnName("created_at");
 
-                    b.Property<ulong>("PageId")
+                    b.Property<long>("PageId")
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("page_id");
 
-                    b.Property<ulong>("RoleId")
+                    b.Property<long>("RoleId")
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("role_id");
 
@@ -583,18 +560,16 @@ namespace ACL.Migrations
 
             modelBuilder.Entity("ACL.Database.Models.AclState", b =>
                 {
-                    b.Property<ulong>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("id");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<ulong>("Id"));
-
-                    b.Property<ulong>("CompanyId")
+                    b.Property<long>("CompanyId")
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("company_id");
 
-                    b.Property<ulong>("CountryId")
+                    b.Property<long>("CountryId")
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("country_id");
 
@@ -603,7 +578,7 @@ namespace ACL.Migrations
                         .HasColumnType("datetime(6)")
                         .HasColumnName("created_at");
 
-                    b.Property<ulong>("CreatedById")
+                    b.Property<long>("CreatedById")
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("created_by_id");
 
@@ -619,11 +594,11 @@ namespace ACL.Migrations
                         .HasColumnType("varchar(50)")
                         .HasColumnName("name");
 
-                    b.Property<ulong>("Sequence")
+                    b.Property<long>("Sequence")
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("sequence");
 
-                    b.Property<byte>("Status")
+                    b.Property<sbyte>("Status")
                         .HasColumnType("tinyint(3) unsigned")
                         .HasColumnName("status");
 
@@ -632,7 +607,7 @@ namespace ACL.Migrations
                         .HasColumnType("datetime(6)")
                         .HasColumnName("updated_at");
 
-                    b.Property<ulong>("UpdatedById")
+                    b.Property<long>("UpdatedById")
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("updated_by_id");
 
@@ -644,12 +619,10 @@ namespace ACL.Migrations
 
             modelBuilder.Entity("ACL.Database.Models.AclSubModule", b =>
                 {
-                    b.Property<ulong>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("id");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<ulong>("Id"));
 
                     b.Property<string>("ControllerName")
                         .IsRequired()
@@ -679,7 +652,7 @@ namespace ACL.Migrations
                         .HasColumnType("varchar(255)")
                         .HasColumnName("icon");
 
-                    b.Property<ulong>("ModuleId")
+                    b.Property<long>("ModuleId")
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("module_id");
 
@@ -705,12 +678,10 @@ namespace ACL.Migrations
 
             modelBuilder.Entity("ACL.Database.Models.AclUser", b =>
                 {
-                    b.Property<ulong>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("id");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<ulong>("Id"));
 
                     b.Property<DateTime?>("ActivatedAt")
                         .HasColumnType("datetime")
@@ -736,11 +707,11 @@ namespace ACL.Migrations
                         .HasColumnType("varchar(100)")
                         .HasColumnName("city");
 
-                    b.Property<uint>("CompanyId")
+                    b.Property<int>("CompanyId")
                         .HasColumnType("int(10) unsigned")
                         .HasColumnName("company_id");
 
-                    b.Property<uint>("Country")
+                    b.Property<int>("Country")
                         .HasColumnType("int(10) unsigned")
                         .HasColumnName("country");
 
@@ -748,7 +719,7 @@ namespace ACL.Migrations
                         .HasColumnType("datetime")
                         .HasColumnName("created_at");
 
-                    b.Property<uint>("CreatedById")
+                    b.Property<int>("CreatedById")
                         .HasColumnType("int(10) unsigned")
                         .HasColumnName("created_by_id");
 
@@ -809,7 +780,7 @@ namespace ACL.Migrations
                         .HasColumnType("varchar(255)")
                         .HasColumnName("password");
 
-                    b.Property<uint>("PermissionVersion")
+                    b.Property<int>("PermissionVersion")
                         .HasColumnType("int(10) unsigned")
                         .HasColumnName("permission_version");
 
@@ -834,7 +805,7 @@ namespace ACL.Migrations
                         .HasColumnType("datetime")
                         .HasColumnName("updated_at");
 
-                    b.Property<uint>("UserType")
+                    b.Property<int>("UserType")
                         .HasColumnType("int(10) unsigned")
                         .HasColumnName("user_type")
                         .HasComment("USER_TYPE_SS_ADMIN = 0; USER_TYPE_S_ADMIN = 1; USER_TYPE_USER = 2");
@@ -852,14 +823,12 @@ namespace ACL.Migrations
 
             modelBuilder.Entity("ACL.Database.Models.AclUserUsergroup", b =>
                 {
-                    b.Property<ulong>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("id");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<ulong>("Id"));
-
-                    b.Property<ulong>("CompanyId")
+                    b.Property<long>("CompanyId")
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("company_id");
 
@@ -871,11 +840,11 @@ namespace ACL.Migrations
                         .HasColumnType("datetime")
                         .HasColumnName("updated_at");
 
-                    b.Property<ulong>("UserId")
+                    b.Property<long>("UserId")
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("user_id");
 
-                    b.Property<ulong>("UsergroupId")
+                    b.Property<long>("UsergroupId")
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("usergroup_id");
 
@@ -887,19 +856,17 @@ namespace ACL.Migrations
 
             modelBuilder.Entity("ACL.Database.Models.AclUsergroup", b =>
                 {
-                    b.Property<ulong>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("id");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<ulong>("Id"));
 
                     b.Property<sbyte>("Category")
                         .HasColumnType("tinyint(4)")
                         .HasColumnName("category")
                         .HasComment("1 = Project manager, 2 = Developer, 3 = Reporter, 4 = Admin");
 
-                    b.Property<ulong>("CompanyId")
+                    b.Property<long>("CompanyId")
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("company_id");
 
@@ -936,14 +903,12 @@ namespace ACL.Migrations
 
             modelBuilder.Entity("ACL.Database.Models.AclUsergroupRole", b =>
                 {
-                    b.Property<ulong>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("id");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<ulong>("Id"));
-
-                    b.Property<ulong>("CompanyId")
+                    b.Property<long>("CompanyId")
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("company_id");
 
@@ -951,7 +916,7 @@ namespace ACL.Migrations
                         .HasColumnType("datetime")
                         .HasColumnName("created_at");
 
-                    b.Property<ulong>("RoleId")
+                    b.Property<long>("RoleId")
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("role_id");
 
@@ -959,7 +924,7 @@ namespace ACL.Migrations
                         .HasColumnType("datetime")
                         .HasColumnName("updated_at");
 
-                    b.Property<ulong>("UsergroupId")
+                    b.Property<long>("UsergroupId")
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("usergroup_id");
 
@@ -971,18 +936,16 @@ namespace ACL.Migrations
 
             modelBuilder.Entity("ACL.Database.Models.AclUsertypeSubmodule", b =>
                 {
-                    b.Property<ulong>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("id");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<ulong>("Id"));
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime")
                         .HasColumnName("created_at");
 
-                    b.Property<uint>("SubModuleId")
+                    b.Property<int>("SubModuleId")
                         .HasColumnType("int(10) unsigned")
                         .HasColumnName("sub_module_id");
 
@@ -990,7 +953,7 @@ namespace ACL.Migrations
                         .HasColumnType("datetime")
                         .HasColumnName("updated_at");
 
-                    b.Property<byte>("UserTypeId")
+                    b.Property<sbyte>("UserTypeId")
                         .HasColumnType("tinyint(3) unsigned")
                         .HasColumnName("user_type_id");
 
@@ -1019,12 +982,10 @@ namespace ACL.Migrations
 
             modelBuilder.Entity("ACL.Database.Models.FailedJob", b =>
                 {
-                    b.Property<ulong>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("id");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<ulong>("Id"));
 
                     b.Property<string>("Connection")
                         .IsRequired()
@@ -1068,12 +1029,10 @@ namespace ACL.Migrations
 
             modelBuilder.Entity("ACL.Database.Models.Migration", b =>
                 {
-                    b.Property<uint>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int(10) unsigned")
                         .HasColumnName("id");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<uint>("Id"));
 
                     b.Property<int>("Batch")
                         .HasColumnType("int(11)")
@@ -1093,12 +1052,10 @@ namespace ACL.Migrations
 
             modelBuilder.Entity("ACL.Database.Models.PersonalAccessToken", b =>
                 {
-                    b.Property<ulong>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("id");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<ulong>("Id"));
 
                     b.Property<string>("Abilities")
                         .HasColumnType("text")
@@ -1128,7 +1085,7 @@ namespace ACL.Migrations
                         .HasColumnType("varchar(64)")
                         .HasColumnName("token");
 
-                    b.Property<ulong>("TokenableId")
+                    b.Property<long>("TokenableId")
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("tokenable_id");
 

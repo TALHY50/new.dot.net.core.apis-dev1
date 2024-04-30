@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Text.Json;
 using ACL.Response.V1;
-using MySqlConnector;
+using MySql.Data.MySqlClient;
 
 
 namespace ACL.Exceptions
