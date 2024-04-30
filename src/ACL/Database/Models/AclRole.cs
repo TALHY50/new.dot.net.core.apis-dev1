@@ -14,6 +14,7 @@ public partial class AclRole
     public sbyte Status { get; set; }
 
     public ulong CompanyId { get; set; }
+
     /// <summary>
     /// creator auth ID
     /// </summary>
