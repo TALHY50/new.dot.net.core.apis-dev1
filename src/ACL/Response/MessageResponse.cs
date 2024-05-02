@@ -24,7 +24,8 @@ namespace ACL.Response.V1
                 editMessage = base.GetEditMessage(model, language);
                 createMessage =  base.GetCreateMessage(model, language);
                 deleteMessage = base.GetDeleteMessage(model, language);
-                existMessage =  base.GetExistMessage(model, language);;
+                existMessage =  base.GetExistMessage(model, language);
+                notFoundMessage = base.GetNotFoundMessage(language);
             }
             catch (Exception ex)
             {

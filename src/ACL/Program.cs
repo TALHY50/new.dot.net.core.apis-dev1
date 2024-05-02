@@ -7,7 +7,6 @@ using ACL.Services;
 using DotNetEnv;
 using ACL.Interfaces;
 using Microsoft.AspNetCore.Authentication;
-using ACL.Services.CustomMiddleWare;
 using SharedLibrary.Interfaces;
 using SharedLibrary.Services;
 using ACL.Exceptions;
@@ -134,13 +133,15 @@ app.UseMiddleware<RequestResponseLoggingMiddleware>();
 app.UseSerilogRequestLogging();
 app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
 
+
+app.UseRouting();
+
+app.UseEndpoints(endpoints =>{endpoints.MapControllers();});
+
 app.UseFileServer();
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
-
-app.MapControllers();
 
 app.UseCors(builder =>
 {

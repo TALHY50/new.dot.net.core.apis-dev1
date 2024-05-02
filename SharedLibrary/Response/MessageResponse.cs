@@ -86,5 +86,14 @@ namespace SharedLibrary.Response
             localizationService = new LocalizationService("SharedLibrary.Resources.en-US", _assembly, "en-US");
             return ExistMessage = localizationService.GetLocalizedStringWithCulture("existMessage", _cultureInfo);
         }
+        public virtual string GetNotFoundMessage(string language = "en-US")
+        {
+            _cultureInfo = new CultureInfo(language);
+            _assembly = Assembly.GetExecutingAssembly();
+            _resourceManager = new ResourceManager("SharedLibrary.Resources." + _cultureInfo.Name, _assembly);
+            localizationService = new LocalizationService("SharedLibrary.Resources.en-US", _assembly, "en-US");
+            return ExistMessage = localizationService.GetLocalizedStringWithCulture("notFoundMessage", _cultureInfo);
+        }
+        
     }
 }
