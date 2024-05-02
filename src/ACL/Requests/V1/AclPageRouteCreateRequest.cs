@@ -1,7 +1,10 @@
 ﻿
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using ACL.Database;
+using ACL.Interfaces;
 using ACL.Requests.CustomDataAnotator;
+using SharedLibrary.CustomDataAnotator;
 
 namespace ACL.Requests.V1
 {
@@ -10,7 +13,7 @@ namespace ACL.Requests.V1
         [DefaultValue("3002")]
         [Required]
         [Range(1, ulong.MaxValue)]
-        [ExistsInDatabase("AclPage", "Id")]
+        [ExistsInDatabase<ApplicationDbContext,ICustomUnitOfWork>("AclPage", "Id")]
         public ulong page_id { get; set; }
 
         [DefaultValue("acl.company.list")]

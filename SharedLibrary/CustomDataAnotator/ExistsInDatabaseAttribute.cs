@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SharedLibrary.Interfaces;
 
-namespace ACL.Requests.CustomDataAnotator
+namespace SharedLibrary.CustomDataAnotator
 {
-    public class ExistsInDatabaseAttribute<TDbContext,TUnitOfWork> : ValidationAttribute where TDbContext : DbContext where TUnitOfWork : class
+    public class ExistsInDatabaseAttribute<TDbContext, TUnitOfWork> : ValidationAttribute where TDbContext : DbContext where TUnitOfWork : class
     {
         private readonly string _tableName;
         private readonly string _columnName;
@@ -26,22 +26,33 @@ namespace ACL.Requests.CustomDataAnotator
                 throw new InvalidOperationException("Could not obtain the IServiceProvider.");
             }
 
-            var unitOfWork = serviceProvider.GetRequiredService<IUnitOfWork<TDbContext,TUnitOfWork>>();
+            var unitOfWork = serviceProvider.GetRequiredService<IUnitOfWork<TDbContext, TUnitOfWork>>();
             var dbContext = unitOfWork.ApplicationDbContext;
 
-            var dbSet = dbContext.Set<object>().AsQueryable();
+            // Get the DbSet property dynamically based on the table name
+            var dbSetProperty = dbContext.GetType().GetProperties()
+                .FirstOrDefault(p => p.PropertyType.IsGenericType &&
+                                     p.PropertyType.GetGenericTypeDefinition() == typeof(DbSet<>) &&
+                                     p.PropertyType.GetGenericArguments()[0].Name == _tableName);
 
-            var entityType = dbContext.Model.FindEntityType(typeof(TDbContext).AssemblyQualifiedName);
-            var tableName = entityType.GetTableName();
+            if (dbSetProperty == null)
+            {
+                return new ValidationResult($"Table '{_tableName}' not found in the DbContext.");
+            }
 
-            var propertyName = _columnName; // You may need to adjust this based on your entity property name
 
-            var query = dbSet.Where(e => EF.Property<object>(e, propertyName).Equals(value));
+            // Get the DbSet instance
+            var dbSet = (IQueryable<object>)dbSetProperty.GetValue(dbContext);
 
+
+            // Construct the LINQ query dynamically
+            var query = dbSet.Where(e => EF.Property<object>(e, _columnName).Equals(value));
+            // If there exists any record with the same value in the specified column
             if (!query.Any())
             {
-                return new ValidationResult($"The value '{value}' does not exist in the database.");
+                return new ValidationResult($"The '{value}' is not exist.");
             }
+          
 
             return ValidationResult.Success;
         }

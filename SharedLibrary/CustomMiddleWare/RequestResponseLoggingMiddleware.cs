@@ -1,4 +1,4 @@
-﻿namespace ACL.Services.CustomMiddleWare
+﻿namespace SharedLibrary.CustomMiddleWare
 {
     using System;
     using System.IO;

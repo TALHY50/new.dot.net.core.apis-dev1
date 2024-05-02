@@ -1,4 +1,7 @@
-﻿using ACL.Requests.CustomDataAnotator;
+﻿using ACL.Database;
+using ACL.Interfaces;
+using ACL.Requests.CustomDataAnotator;
+using SharedLibrary.CustomDataAnotator;
 using System.ComponentModel.DataAnnotations;
 
 namespace ACL.Requests
@@ -6,7 +9,7 @@ namespace ACL.Requests
 	public class AclRoleAndPageAssocUpdateRequest
 	{
 		[Required]
-        [ExistsInDatabase("AclRole", "Id")]
+        [ExistsInDatabase<ApplicationDbContext,ICustomUnitOfWork>("AclRole", "Id")]
         [Range(1, int.MaxValue)]
 		public ulong role_id { get; set; }
 		[Required]

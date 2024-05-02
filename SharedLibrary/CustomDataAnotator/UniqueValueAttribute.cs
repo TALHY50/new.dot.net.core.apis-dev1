@@ -83,7 +83,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SharedLibrary.Interfaces;
 
-namespace ACL.Requests.CustomDataAnotator
+namespace SharedLibrary.CustomDataAnotator
 {
     public class UniqueValueAttribute<TDbContext,TUnitOfWork> : ValidationAttribute where TDbContext : DbContext where TUnitOfWork : class
     {

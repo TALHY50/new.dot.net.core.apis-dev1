@@ -1,7 +1,10 @@
 ﻿
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using ACL.Database;
+using ACL.Interfaces;
 using ACL.Requests.CustomDataAnotator;
+using SharedLibrary.CustomDataAnotator;
 
 namespace ACL.Requests.V1;
 
@@ -10,7 +13,7 @@ public partial class AclPasswordResetRequest
     [DefaultValue("10")]
     [Required(ErrorMessage = "User ID is required")]
     [Range(1, ulong.MaxValue, ErrorMessage = "User ID greater than 0.")]
-    [ExistsInDatabase("AclUser", "Id")]
+    [ExistsInDatabase<ApplicationDbContext,ICustomUnitOfWork>("AclUser", "Id")]
     public ulong user_id { get; set; }
 
     [DefaultValue("12345678")]

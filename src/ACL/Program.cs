@@ -14,7 +14,6 @@ using DotNetEnv;
 using ACL.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Serilog.AspNetCore;
-using ACL.Services.CustomMiddleWare;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
 using Microsoft.Extensions.Localization;
@@ -31,6 +30,7 @@ using ACL.Interfaces.Repositories.V1;
 using ACL.Repositories.V1;
 using ACL.Exceptions;
 using ACL.Data;
+using SharedLibrary.CustomMiddleWare;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -142,12 +142,13 @@ using (var serviceScope = app.Services.CreateScope())
 app.UseSwagger();
 app.UseSwaggerUI(options =>
 {
-     options.DefaultModelsExpandDepth(-1);
+    options.DefaultModelsExpandDepth(-1);
 });
 
+//app.UseGlobalExceptionHandler();
 app.UseMiddleware<RequestResponseLoggingMiddleware>();
 app.UseSerilogRequestLogging();
-app.UseMiddleware<GlobalExceptionHandling>();
+app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
 
 app.UseCors(builder =>
 {
