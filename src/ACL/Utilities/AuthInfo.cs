@@ -11,7 +11,7 @@ namespace ACL.Utilities
         public string Phone { get; set; }
         public ulong UserType { get; set; }
         public string UserGroupIds { get; set; }
-        public string Language { get; set; }
+        public string Language { get; set; } = "en-US";
 
        
     }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using SharedLibrary.Response;
 using System.Net;
 using System.Text.Json;
 
@@ -8,7 +9,7 @@ namespace SharedLibrary.CustomMiddleWare
     public class GlobalExceptionHandlerMiddleware
     {
         private readonly RequestDelegate _next;
-
+        BaseResponse aclResponse = new BaseResponse();
         public GlobalExceptionHandlerMiddleware(RequestDelegate next)
         {
             _next = next;
@@ -19,6 +20,24 @@ namespace SharedLibrary.CustomMiddleWare
             try
             {
                 await _next(context);
+
+                if (context.Response.StatusCode == StatusCodes.Status404NotFound)
+                {
+                    aclResponse.Message = "The requested resource is not found.";
+                    aclResponse.StatusCode = (HttpStatusCode)context.Response.StatusCode;
+
+                    var exResult = JsonSerializer.Serialize(aclResponse);
+                    await context.Response.WriteAsync(exResult);
+                }
+
+                if (context.Response.StatusCode == StatusCodes.Status405MethodNotAllowed)
+                {
+                    aclResponse.Message = "The requested method not supported.";
+                    aclResponse.StatusCode = (HttpStatusCode)context.Response.StatusCode;
+
+                    var exResult = JsonSerializer.Serialize(aclResponse);
+                    await context.Response.WriteAsync(exResult);
+                }
             }
             catch (Exception ex)
             {

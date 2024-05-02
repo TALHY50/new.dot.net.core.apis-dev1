@@ -16,24 +16,14 @@ namespace ACL.Response.V1
         public string deleteMessage = "deleteMessage";
         public string notFoundMessage = "notFoundMessage";
         public string existMessage = "existMessage";
-        public MessageResponse(string model, ICustomUnitOfWork _unitOfWork, string language = "en-US") :base(model,language)
+        public MessageResponse(string model, ICustomUnitOfWork _unitOfWork, string language = "en-US") : base(model, language)
         {
-            try
-            {
-                fetchMessage = base.FetchMessage;
-                editMessage = base.EditMessage;
-                createMessage =  base.CreateMessage;
-                deleteMessage = base.DeleteMessage;
-                existMessage =  base.ExistMessage;
-            }
-            catch (Exception ex)
-            {
-                fetchMessage = model + " fetchMessage";
-                editMessage = model + " editMessage";
-                createMessage = model + " createMessage";
-                deleteMessage = model + " deleteMessage";
-                existMessage = model + " existMessage";
-            }
+            fetchMessage = base.FetchMessage;
+            editMessage = base.EditMessage;
+            createMessage = base.CreateMessage;
+            deleteMessage = base.DeleteMessage;
+            existMessage = base.ExistMessage;
+            notFoundMessage = base.NotFoundMessage;
 
         }
 

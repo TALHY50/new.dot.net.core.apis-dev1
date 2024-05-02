@@ -20,6 +20,7 @@ namespace SharedLibrary.Response
         public string CreateMessage { get; set; }
         public string DeleteMessage { get; set; }
         public string ExistMessage { get; set; }
+        public string NotFoundMessage { get; set; }
 
         public BaseMessageResponse(string model, string language = "en-US")
         {
@@ -34,6 +35,7 @@ namespace SharedLibrary.Response
                 CreateMessage = localizationService.GetLocalizedStringWithCulture(model, _cultureInfo) + " " + localizationService.GetLocalizedStringWithCulture("createMessage", _cultureInfo);
                 DeleteMessage = localizationService.GetLocalizedStringWithCulture(model, _cultureInfo) + " " + localizationService.GetLocalizedStringWithCulture("deleteMessage", _cultureInfo);
                 ExistMessage = localizationService.GetLocalizedStringWithCulture("existMessage", _cultureInfo);
+                NotFoundMessage = localizationService.GetLocalizedStringWithCulture("notFoundMessage", _cultureInfo);
         }
 
     }

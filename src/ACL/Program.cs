@@ -1,36 +1,19 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
+
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Events;
-using System;
-using System.IO;
 using ACL.Database;
 using ACL.Services;
 using DotNetEnv;
 using ACL.Interfaces;
 using Microsoft.AspNetCore.Authentication;
-using Serilog.AspNetCore;
-using Microsoft.AspNetCore.Localization;
-using System.Globalization;
-using Microsoft.Extensions.Localization;
-using System.Resources;
-using Microsoft.AspNetCore.Mvc.Localization;
-using Microsoft.AspNetCore.Mvc.Razor;
-using Castle.Core.Resource;
-using Microsoft.Extensions.Options;
-using Sprache;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using SharedLibrary.Interfaces;
 using SharedLibrary.Services;
-using ACL.Interfaces.Repositories.V1;
-using ACL.Repositories.V1;
 using ACL.Exceptions;
 using ACL.Data;
 using SharedLibrary.CustomMiddleWare;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -59,6 +42,7 @@ var connectionString = $"server={server};database={database};User ID={userName};
 //    {
 //        options.EnableRetryOnFailure();
 //    }));
+
 #if UNIT_TEST
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseInMemoryDatabase("acl").ConfigureWarnings(warnings =>
@@ -150,19 +134,15 @@ app.UseMiddleware<RequestResponseLoggingMiddleware>();
 app.UseSerilogRequestLogging();
 app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
 
-app.UseCors(builder =>
-{
-    builder.AllowAnyOrigin()
-           .AllowAnyMethod()
-           .AllowAnyHeader();
-});
+
+app.UseRouting();
+
+app.UseEndpoints(endpoints =>{endpoints.MapControllers();});
+
 app.UseFileServer();
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
-
-app.MapControllers();
 
 app.UseCors(builder =>
 {
