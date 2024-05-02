@@ -6,11 +6,6 @@ namespace ACL.Database.Models;
 public partial class AclState
 {
     public ulong Id { get; set; }
-
-    public ulong CompanyId { get; set; }
-
-    public ulong CountryId { get; set; }
-
     public string Name { get; set; } = null!;
 
     public string Description { get; set; } = null!;

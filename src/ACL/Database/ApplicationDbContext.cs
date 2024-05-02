@@ -88,9 +88,6 @@ public partial class ApplicationDbContext : DbContext, IApplicationDbContext
             entity.Property(e => e.Address)
                 .HasMaxLength(255)
                 .HasColumnName("address");
-            entity.Property(e => e.CompanyId)
-                .HasColumnType("bigint(20) unsigned")
-                .HasColumnName("company_id");
             entity.Property(e => e.CreatedAt)
                 .HasMaxLength(6)
                 .HasColumnName("created_at");
@@ -258,9 +255,6 @@ public partial class ApplicationDbContext : DbContext, IApplicationDbContext
             entity.Property(e => e.Code)
                 .HasMaxLength(50)
                 .HasColumnName("code");
-            entity.Property(e => e.CompanyId)
-                .HasColumnType("bigint(20) unsigned")
-                .HasColumnName("company_id");
             entity.Property(e => e.CreatedAt)
                 .HasMaxLength(6)
                 .HasColumnName("created_at");
@@ -452,12 +446,6 @@ public partial class ApplicationDbContext : DbContext, IApplicationDbContext
             entity.Property(e => e.Id)
                 .HasColumnType("bigint(20) unsigned")
                 .HasColumnName("id");
-            entity.Property(e => e.CompanyId)
-                .HasColumnType("bigint(20) unsigned")
-                .HasColumnName("company_id");
-            entity.Property(e => e.CountryId)
-                .HasColumnType("bigint(20) unsigned")
-                .HasColumnName("country_id");
             entity.Property(e => e.CreatedAt)
                 .HasMaxLength(6)
                 .HasColumnName("created_at");
@@ -826,7 +814,6 @@ public partial class ApplicationDbContext : DbContext, IApplicationDbContext
           new AclBranch
           {
               Id = 1,
-              CompanyId = 1,
               Name = "Test",
               Address = "Dhaka",
               Description = "Test",
@@ -882,7 +869,6 @@ public partial class ApplicationDbContext : DbContext, IApplicationDbContext
          new AclCountry
          {
              Id = 1,
-             CompanyId = 1,
              Name = "Bangladesh",
              Description = "This is beautiful country",
              Code = "BD",
@@ -1798,8 +1784,6 @@ public partial class ApplicationDbContext : DbContext, IApplicationDbContext
                     new AclState
                     {
                         Id = 1,
-                        CompanyId = 1,
-                        CountryId =1 ,
                         Name ="Dhaka",
                         Description ="Dhaka city of BD",
                         CreatedById = 1,

@@ -126,7 +126,6 @@ namespace ACL.Repositories.V1
             _aclBranch.Status = (byte)(request.Status ?? 1);
             _aclBranch.UpdatedAt = DateTime.Now;
             _aclBranch.UpdatedById = AppAuth.GetAuthInfo().UserId;
-            _aclBranch.CompanyId = AppAuth.GetAuthInfo().CompanyId;
             if(aclBranch == null)
             {
                 _aclBranch.CreatedAt = DateTime.Now;

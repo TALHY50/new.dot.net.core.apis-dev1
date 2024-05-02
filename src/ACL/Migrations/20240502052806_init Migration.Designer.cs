@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ACL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240430224322_Init migration")]
-    partial class Initmigration
+    [Migration("20240502052806_init Migration")]
+    partial class initMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,10 +36,6 @@ namespace ACL.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("varchar(255)")
                         .HasColumnName("address");
-
-                    b.Property<long>("CompanyId")
-                        .HasColumnType("bigint(20) unsigned")
-                        .HasColumnName("company_id");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasMaxLength(6)
@@ -89,7 +85,6 @@ namespace ACL.Migrations
                         {
                             Id = 1L,
                             Address = "Dhaka",
-                            CompanyId = 1L,
                             CreatedAt = new DateTime(2015, 11, 4, 1, 52, 1, 0, DateTimeKind.Unspecified),
                             CreatedById = 1L,
                             Description = "Test",
@@ -362,10 +357,6 @@ namespace ACL.Migrations
                         .HasColumnType("varchar(50)")
                         .HasColumnName("code");
 
-                    b.Property<long>("CompanyId")
-                        .HasColumnType("bigint(20) unsigned")
-                        .HasColumnName("company_id");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasMaxLength(6)
                         .HasColumnType("datetime(6)")
@@ -414,7 +405,6 @@ namespace ACL.Migrations
                         {
                             Id = 1L,
                             Code = "BD",
-                            CompanyId = 1L,
                             CreatedAt = new DateTime(2015, 11, 4, 1, 52, 1, 0, DateTimeKind.Unspecified),
                             CreatedById = 2L,
                             Description = "This is beautiful country",
@@ -1703,14 +1693,6 @@ namespace ACL.Migrations
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("id");
 
-                    b.Property<long>("CompanyId")
-                        .HasColumnType("bigint(20) unsigned")
-                        .HasColumnName("company_id");
-
-                    b.Property<long>("CountryId")
-                        .HasColumnType("bigint(20) unsigned")
-                        .HasColumnName("country_id");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasMaxLength(6)
                         .HasColumnType("datetime(6)")
@@ -1758,8 +1740,6 @@ namespace ACL.Migrations
                         new
                         {
                             Id = 1L,
-                            CompanyId = 1L,
-                            CountryId = 1L,
                             CreatedAt = new DateTime(2019, 3, 22, 8, 38, 12, 0, DateTimeKind.Unspecified),
                             CreatedById = 1L,
                             Description = "Dhaka city of BD",
