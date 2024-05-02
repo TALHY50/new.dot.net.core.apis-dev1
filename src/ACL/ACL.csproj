@@ -13,6 +13,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\**" />
+    <Content Remove="Migrations\**" />
+    <EmbeddedResource Remove="Migrations\**" />
+    <None Remove="Migrations\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Database\Models\Efmigrationshistory.cs" />
     <Compile Remove="Requests\RoleAndPageAssocUpdateRequest.cs" />
   </ItemGroup>
 

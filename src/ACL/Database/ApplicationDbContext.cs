@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using ACL.Database.Models;
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
+using MySql.EntityFrameworkCore.Extensions;
 using Pomelo.EntityFrameworkCore.MySql.Scaffolding.Internal;
 using SharedLibrary.Interfaces;
 
@@ -72,9 +73,9 @@ public partial class ApplicationDbContext : DbContext, IApplicationDbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder
-            .UseCollation("utf8mb4_general_ci")
-            .HasCharSet("utf8mb4");
+        //modelBuilder
+        //    .UseCollation("utf8mb4_general_ci")
+        //    .HasCharSet("utf8mb4");
 
         modelBuilder.Entity<AclBranch>(entity =>
         {
