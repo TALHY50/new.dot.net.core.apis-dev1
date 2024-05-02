@@ -28,6 +28,7 @@ namespace ACL.Services
     {
         private ApplicationDbContext context;
         private Assembly _assembly;
+        private ILogService _logService;
         IUnitOfWork<ApplicationDbContext, ICustomUnitOfWork> _baseunitOfWork;
         ICustomUnitOfWork _unitOfWork;
         public CustomUnitOfWork(ApplicationDbContext context, ILogger<UnitOfWork<ApplicationDbContext, ICustomUnitOfWork>> logger, ILogService logService, ICacheService cacheService, IServiceCollection services, Assembly programAssembly)
@@ -35,8 +36,10 @@ namespace ACL.Services
         {
             _assembly = programAssembly;
             this.context = context;
+            _logService  = logService;
             _baseunitOfWork = base.unitOfWork;
             _unitOfWork = this;
+            base.SetLogService(logService);
             _assembly = programAssembly;
             _unitOfWork.SetAssembly(_assembly);
         }
@@ -45,6 +48,7 @@ namespace ACL.Services
             this.context = context;
             _unitOfWork = this;
             _baseunitOfWork = base.unitOfWork;
+            base.SetLogService(_logService);
             _assembly = Assembly.GetExecutingAssembly() ?? Assembly.GetEntryAssembly() ?? Assembly.GetCallingAssembly();
             _unitOfWork.SetAssembly(_assembly);
             _unitOfWork.SetLocalizationService( new LocalizationService("ACL.Resources.en-US", typeof(Program).Assembly, "en-US"));

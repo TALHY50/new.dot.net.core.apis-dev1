@@ -40,7 +40,7 @@ namespace SharedLibrary.Services
         public IHttpContextAccessor _httpContextAccessor;
         public IUnitOfWork<TDbContext, TUnitOfWork> unitOfWork;
         public virtual ILocalizationService LocalizationService { get; set; }
-        public UnitOfWork(TDbContext context, ILogger<UnitOfWork<TDbContext, TUnitOfWork>> logger, ILogService logService, ICacheService cacheService, IServiceCollection services, Assembly programAssembly,TUnitOfWork customUnitOfWork)
+        public UnitOfWork(TDbContext context, ILogger<UnitOfWork<TDbContext, TUnitOfWork>> logger, ILogService logService, ICacheService cacheService, IServiceCollection services, Assembly programAssembly, TUnitOfWork customUnitOfWork)
         {
             _services = services;
             _logger = logger;
@@ -315,6 +315,10 @@ namespace SharedLibrary.Services
                 service = new LocalizationService("SharedLibrary.Resources.en-US", Assembly.GetExecutingAssembly(), "en-US");
             }
             return LocalizationService = service;
+        }
+        public virtual ILogService SetLogService(ILogService service)
+        {
+            return LogService = _logService = service;
         }
 
         public TUnitOfWork SetCustomUnitOfWork(TUnitOfWork customUnitOfWork)
