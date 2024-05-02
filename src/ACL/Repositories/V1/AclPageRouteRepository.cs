@@ -10,7 +10,7 @@ using SharedLibrary.Services;
 
 namespace ACL.Repositories.V1
 {
-    public class AclPageRouteRepository : GenericRepository<AclPageRoute, ApplicationDbContext,ICustomUnitOfWork>, IAclPageRouteRepository
+    public class AclPageRouteRepository : GenericRepository<AclPageRoute, ApplicationDbContext, ICustomUnitOfWork>, IAclPageRouteRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
@@ -19,8 +19,8 @@ namespace ACL.Repositories.V1
         public AclPageRouteRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
             aclResponse = new AclResponse();
-            messageResponse = new MessageResponse(modelName, _unitOfWork);
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
+            messageResponse = new MessageResponse(modelName, _unitOfWork, AppAuth.GetAuthInfo().Language);
         }
     }
 }

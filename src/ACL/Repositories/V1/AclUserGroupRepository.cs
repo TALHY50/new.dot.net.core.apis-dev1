@@ -13,7 +13,7 @@ using ACL.Services;
 
 namespace ACL.Repositories.V1
 {
-    public class AclUserGroupRepository : GenericRepository<AclUsergroup, ApplicationDbContext,ICustomUnitOfWork>, IAclUserGroupRepository
+    public class AclUserGroupRepository : GenericRepository<AclUsergroup, ApplicationDbContext, ICustomUnitOfWork>, IAclUserGroupRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
@@ -27,7 +27,7 @@ namespace ACL.Repositories.V1
             AppAuth.SetAuthInfo();
             _customUnitOfWork = _unitOfWork;
             aclResponse = new AclResponse();
-            messageResponse = new MessageResponse(modelName, _unitOfWork);
+            messageResponse = new MessageResponse(modelName, _unitOfWork, AppAuth.GetAuthInfo().Language);
         }
 
         public async Task<AclResponse> GetAll()

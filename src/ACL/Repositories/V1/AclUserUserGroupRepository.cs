@@ -16,11 +16,11 @@ namespace ACL.Repositories.V1
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "User User Group";
-        public AclUserUserGroupRepository(ICustomUnitOfWork unitOfWork) : base(unitOfWork,unitOfWork.ApplicationDbContext)
+        public AclUserUserGroupRepository(ICustomUnitOfWork unitOfWork) : base(unitOfWork, unitOfWork.ApplicationDbContext)
         {
             AppAuth.SetAuthInfo();
             aclResponse = new AclResponse();
-            messageResponse = new MessageResponse(modelName, _unitOfWork);
+            messageResponse = new MessageResponse(modelName, _unitOfWork, AppAuth.GetAuthInfo().Language);
         }
     }
 }

@@ -20,11 +20,11 @@ namespace ACL.Response.V1
         {
             try
             {
-                fetchMessage = base.GetFetchMessage(model,language);
-                editMessage = base.GetEditMessage(model, language);
-                createMessage =  base.GetCreateMessage(model, language);
-                deleteMessage = base.GetDeleteMessage(model, language);
-                existMessage =  base.GetExistMessage(model, language);;
+                fetchMessage = base.FetchMessage;
+                editMessage = base.EditMessage;
+                createMessage =  base.CreateMessage;
+                deleteMessage = base.DeleteMessage;
+                existMessage =  base.ExistMessage;
             }
             catch (Exception ex)
             {

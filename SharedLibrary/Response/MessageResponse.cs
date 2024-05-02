@@ -25,66 +25,16 @@ namespace SharedLibrary.Response
         {
             _cultureInfo = new CultureInfo(language);
             _assembly = Assembly.GetExecutingAssembly();
-            _resourceManager = new ResourceManager("SharedLibrary.Resources." + _cultureInfo.Name, _assembly);
-            localizationService = new LocalizationService("SharedLibrary.Resources.en-US", _assembly, "en-US");
-            try
-            {
+            _resourceManager = new ResourceManager("SharedLibrary.Resources."+language + _cultureInfo.Name, _assembly);
+            localizationService = new LocalizationService("SharedLibrary.Resources."+language, _assembly, language);
+      
                 FetchMessage = localizationService.GetLocalizedStringWithCulture(model, _cultureInfo) + " " + localizationService.GetLocalizedStringWithCulture("fetchMessage", _cultureInfo);
 
                 EditMessage = localizationService.GetLocalizedStringWithCulture(model, _cultureInfo) + " " + localizationService.GetLocalizedStringWithCulture("editMessage", _cultureInfo);
                 CreateMessage = localizationService.GetLocalizedStringWithCulture(model, _cultureInfo) + " " + localizationService.GetLocalizedStringWithCulture("createMessage", _cultureInfo);
                 DeleteMessage = localizationService.GetLocalizedStringWithCulture(model, _cultureInfo) + " " + localizationService.GetLocalizedStringWithCulture("deleteMessage", _cultureInfo);
                 ExistMessage = localizationService.GetLocalizedStringWithCulture("existMessage", _cultureInfo);
-            }
-            catch (Exception ex)
-            {
-                FetchMessage = model + " fetchMessage";
-                EditMessage = model + " editMessage";
-                CreateMessage = model + " createMessage";
-                DeleteMessage = model + " deleteMessage";
-                ExistMessage = model + " existMessage";
-            }
         }
 
-        public virtual string GetCreateMessage(string model = null, string language = null)
-        {
-            _cultureInfo = new CultureInfo("en-US");
-            _assembly = Assembly.GetExecutingAssembly();
-            _resourceManager = new ResourceManager("SharedLibrary.Resources." + _cultureInfo.Name, _assembly);
-            localizationService = new LocalizationService("SharedLibrary.Resources.en-US", _assembly, "en-US");
-            return CreateMessage = localizationService.GetLocalizedStringWithCulture(model, _cultureInfo) + " " + localizationService.GetLocalizedStringWithCulture("createMessage", _cultureInfo);
-        }
-        public virtual string GetEditMessage(string model = null, string language = null)
-        {
-            _cultureInfo = new CultureInfo("en-US");
-            _assembly = Assembly.GetExecutingAssembly();
-            _resourceManager = new ResourceManager("SharedLibrary.Resources." + _cultureInfo.Name, _assembly);
-            localizationService = new LocalizationService("SharedLibrary.Resources.en-US", _assembly, "en-US");
-            return EditMessage = localizationService.GetLocalizedStringWithCulture(model, _cultureInfo) + " " + localizationService.GetLocalizedStringWithCulture("editMessage", _cultureInfo);
-        }
-        public virtual string GetDeleteMessage(string model = null, string language = null)
-        {
-            _cultureInfo = new CultureInfo("en-US");
-            _assembly = Assembly.GetExecutingAssembly();
-            _resourceManager = new ResourceManager("SharedLibrary.Resources." + _cultureInfo.Name, _assembly);
-            localizationService = new LocalizationService("SharedLibrary.Resources.en-US", _assembly, "en-US");
-            return DeleteMessage = localizationService.GetLocalizedStringWithCulture(model, _cultureInfo) + " " + localizationService.GetLocalizedStringWithCulture("deleteMessage", _cultureInfo);
-        }
-        public virtual string GetFetchMessage(string model = null, string language = null)
-        {
-            _cultureInfo = new CultureInfo("en-US");
-            _assembly = Assembly.GetExecutingAssembly();
-            _resourceManager = new ResourceManager("SharedLibrary.Resources." + _cultureInfo.Name, _assembly);
-            localizationService = new LocalizationService("SharedLibrary.Resources.en-US", _assembly, "en-US");
-            return FetchMessage = localizationService.GetLocalizedStringWithCulture(model, _cultureInfo) + " " + localizationService.GetLocalizedStringWithCulture("fetchMessage", _cultureInfo);
-        }
-        public virtual string GetExistMessage(string model = null, string language = null)
-        {
-            _cultureInfo = new CultureInfo("en-US");
-            _assembly = Assembly.GetExecutingAssembly();
-            _resourceManager = new ResourceManager("SharedLibrary.Resources." + _cultureInfo.Name, _assembly);
-            localizationService = new LocalizationService("SharedLibrary.Resources.en-US", _assembly, "en-US");
-            return ExistMessage = localizationService.GetLocalizedStringWithCulture("existMessage", _cultureInfo);
-        }
     }
 }

@@ -25,7 +25,7 @@ namespace ACL.Repositories.V1
             _customUnitOfWork = _unitOfWork;
             AppAuth.SetAuthInfo();
             aclResponse = new AclResponse();
-            messageResponse = new MessageResponse(modelName, _unitOfWork);
+            messageResponse = new MessageResponse(modelName, _unitOfWork, AppAuth.GetAuthInfo().Language);
         }
 
         public async Task<AclResponse> GetAll()

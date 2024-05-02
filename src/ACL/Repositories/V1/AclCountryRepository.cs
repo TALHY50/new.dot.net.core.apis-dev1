@@ -11,18 +11,18 @@ using SharedLibrary.Services;
 
 namespace ACL.Repositories.V1
 {
-    public class AclCountryRepository : GenericRepository<AclCountry,ApplicationDbContext,ICustomUnitOfWork>, IAclCountryRepository
+    public class AclCountryRepository : GenericRepository<AclCountry, ApplicationDbContext, ICustomUnitOfWork>, IAclCountryRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "Country";
         ICustomUnitOfWork _customUnitOfWork;
-        public AclCountryRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork,_unitOfWork.ApplicationDbContext)
+        public AclCountryRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
             _customUnitOfWork = _unitOfWork;
             aclResponse = new AclResponse();
-            messageResponse = new MessageResponse(modelName, _unitOfWork);
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
+            messageResponse = new MessageResponse(modelName, _unitOfWork, AppAuth.GetAuthInfo().Language);
         }
 
         public async Task<AclResponse> GetAll()
@@ -139,6 +139,6 @@ namespace ACL.Repositories.V1
             return aclCountry;
         }
 
-       
+
     }
 }

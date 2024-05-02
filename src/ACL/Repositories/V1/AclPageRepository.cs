@@ -16,7 +16,7 @@ using ACL.Utilities;
 
 namespace ACL.Repositories.V1
 {
-    public class AclPageRepository : GenericRepository<AclPage,ApplicationDbContext,ICustomUnitOfWork>, IAclPageRepository
+    public class AclPageRepository : GenericRepository<AclPage, ApplicationDbContext, ICustomUnitOfWork>, IAclPageRepository
     {
 
         public AclResponse aclResponse;
@@ -25,11 +25,10 @@ namespace ACL.Repositories.V1
         private ICustomUnitOfWork _customUnitOfWork;
         public AclPageRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
-             _customUnitOfWork = _unitOfWork;
+            _customUnitOfWork = _unitOfWork;
             aclResponse = new AclResponse();
-            messageResponse = new MessageResponse(modelName, _unitOfWork);
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
-            
+            messageResponse = new MessageResponse(modelName, _unitOfWork, AppAuth.GetAuthInfo().Language);
         }
         public async Task<AclResponse> GetAll()
         {
@@ -121,7 +120,7 @@ namespace ACL.Repositories.V1
 
             if (await base.GetById(id) != null)
             {
-                 await base.DeleteAsync(await base.GetById(id));
+                await base.DeleteAsync(await base.GetById(id));
                 _unitOfWork.Complete();
                 aclResponse.Message = messageResponse.deleteMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
@@ -161,7 +160,7 @@ namespace ACL.Repositories.V1
                 await _unitOfWork.CompleteAsync();
                 await _customUnitOfWork.AclPageRouteRepository.ReloadAsync(aclPageRoute);
                 aclResponse.Data = aclPageRoute;
-                aclResponse.Message =messageResponse.createMessage;
+                aclResponse.Message = messageResponse.createMessage;
                 aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
             }
             catch (Exception ex)
@@ -210,7 +209,7 @@ namespace ACL.Repositories.V1
         public async Task<AclResponse> PageRouteDelete(ulong id)
         {
             messageResponse.deleteMessage = "Page Route Deleted Successfully";
-            AclPageRoute? aclPageRoute =  await _customUnitOfWork.AclPageRouteRepository.GetById(id);
+            AclPageRoute? aclPageRoute = await _customUnitOfWork.AclPageRouteRepository.GetById(id);
             if (aclPageRoute != null)
             {
                 await _customUnitOfWork.AclPageRouteRepository.DeleteAsync(aclPageRoute);

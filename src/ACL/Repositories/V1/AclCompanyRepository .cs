@@ -36,9 +36,9 @@ namespace ACL.Repositories.V1
         {
             aclResponse = new AclResponse();
             _customUnitOfWork = _unitOfWork;
-            messageResponse = new MessageResponse(modelName, _unitOfWork);
             _config = config;
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
+             messageResponse = new MessageResponse(modelName, _unitOfWork,AppAuth.GetAuthInfo().Language);
         }
 
         public async Task<AclResponse> FindById(ulong id)

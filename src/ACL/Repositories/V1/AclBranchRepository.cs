@@ -20,7 +20,7 @@ namespace ACL.Repositories.V1
         {
             AppAuth.SetAuthInfo();
             aclResponse = new AclResponse();
-            messageResponse = new MessageResponse(modelName, _unitOfWork);
+            messageResponse = new MessageResponse(modelName, _unitOfWork,AppAuth.GetAuthInfo().Language);
         }
 
         async Task<AclResponse> IAclBranchRepository.AddBranch(AclBranchRequest request)

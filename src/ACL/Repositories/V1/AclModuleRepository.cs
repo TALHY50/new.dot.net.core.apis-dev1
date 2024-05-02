@@ -12,7 +12,7 @@ using ACL.Utilities;
 
 namespace ACL.Repositories.V1
 {
-    public class AclModuleRepository : GenericRepository<AclModule,ApplicationDbContext,ICustomUnitOfWork>, IAclModuleRepository
+    public class AclModuleRepository : GenericRepository<AclModule, ApplicationDbContext, ICustomUnitOfWork>, IAclModuleRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
@@ -21,10 +21,10 @@ namespace ACL.Repositories.V1
 
         public AclModuleRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
-             _customUnitOfWork = _unitOfWork;
+            _customUnitOfWork = _unitOfWork;
             aclResponse = new AclResponse();
-            messageResponse = new MessageResponse(modelName, _unitOfWork);
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
+            messageResponse = new MessageResponse(modelName, _unitOfWork, AppAuth.GetAuthInfo().Language);
         }
         public async Task<AclResponse> FindById(ulong id)
         {

@@ -31,9 +31,9 @@ namespace ACL.Repositories.V1
             AppAuth.SetAuthInfo();
             _config = config;
             aclResponse = new AclResponse();
-            messageResponse = new MessageResponse(modelName, _unitOfWork);
             _companyId = (uint)AppAuth.GetAuthInfo().CompanyId;
             _userType = (uint)AppAuth.GetAuthInfo().UserType;
+             messageResponse = new MessageResponse(modelName, _unitOfWork, AppAuth.GetAuthInfo().Language);
         }
 
         public async Task<AclResponse> GetAll()
