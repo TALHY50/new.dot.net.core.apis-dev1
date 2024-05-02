@@ -5,6 +5,7 @@ using RestSharp;
 using Bogus;
 using ACL.Database.Models;
 using ACL.Requests.V1;
+using ACL.Route;
 
 namespace ACL.Tests.V1
 {
@@ -27,7 +28,7 @@ namespace ACL.Tests.V1
             //Arrange
 
             // Act
-            var request = new RestRequest("users", Method.Get);
+            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclUserRouteUrl.List, Method.Get);
             //request.AddHeader("Authorization", "Bearer desc");
 
             RestResponse response = restClient.Execute(request);
@@ -44,7 +45,7 @@ namespace ACL.Tests.V1
             var data = GetUser();
 
             // Act
-            var request = new RestRequest("users/add", Method.Post);
+            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclUserRouteUrl.Add, Method.Post);
             //request.AddHeader("Authorization", "Bearer desc");
             request.AddJsonBody(data);
 
@@ -63,7 +64,8 @@ namespace ACL.Tests.V1
             var id = getRandomID();
 
             // Act
-            var request = new RestRequest($"users/view/{id}", Method.Get);
+            //var request = new RestRequest($"users/view/{id}", Method.Get);
+            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclUserRouteUrl.View.Replace("{id}", id.ToString()), Method.Get);
             //request.AddHeader("Authorization", "Bearer desc");
 
 
@@ -83,7 +85,7 @@ namespace ACL.Tests.V1
             var id = getRandomID();
 
             // Act
-            var request = new RestRequest($"users/edit/{id}", Method.Put);
+            var request = new RestRequest(AclRoutesUrl.AclUserRouteUrl.Edit.Replace("{id}", id.ToString()), Method.Put);
             //request.AddHeader("Authorization", "Bearer desc");
             request.AddJsonBody(data);
 
@@ -101,7 +103,7 @@ namespace ACL.Tests.V1
             var id = getRandomID();
 
             // Act
-            var request = new RestRequest($"users/delete/{id}", Method.Delete);
+            var request = new RestRequest(AclRoutesUrl.AclUserRouteUrl.Destroy.Replace("{id}", id.ToString()), Method.Delete);
             //request.AddHeader("Authorization", "Bearer desc");
 
             RestResponse response = restClient.Execute(request);
@@ -121,7 +123,7 @@ namespace ACL.Tests.V1
                 email = faker.Internet.Email(),
                 password = faker.Random.String2(1, 5),
                 avatar = faker.Random.String2(1, 50),
-                dob = new DateOnly(),
+                dob = null,
                 gender = 1,
                 address = faker.Random.String2(1, 30),
                 city = faker.Random.String2(1, 10),
@@ -137,7 +139,9 @@ namespace ACL.Tests.V1
         private ulong getRandomID()
         {
 
-            return unitOfWork.ApplicationDbContext.AclUsers.Max(x => x.Id);
+          //  var chkFirst = (ulong)unitOfWork.AclUserRepository.FirstOrDefault().Result.Id;
+           // var chkLast = (ulong)unitOfWork.AclUserRepository.LastOrDefault().Result.Id;
+            return (ulong)unitOfWork.ApplicationDbContext.AclUsers.Max(l=>l.Id);
 
         }
 

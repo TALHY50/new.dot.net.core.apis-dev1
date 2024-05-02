@@ -10,6 +10,7 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using RestSharp;
+using SharedLibrary.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,15 +37,15 @@ namespace ACL.Tests.V1
             unitOfWork = new CustomUnitOfWork(_inMemoryDbContext);
             restClient = new RestClient(dbConnector.baseUrl);
             unitOfWork.ApplicationDbContext = _inMemoryDbContext;
-           controller = new AclCompanyController(unitOfWork);
+            controller = new AclCompanyController(unitOfWork);
         }
 
         [Fact]
         public async Task Get_All_Companies()
         {
             #region  Arrange
-            var chk = await getRandomID();
-           
+            //var chk = await getRandomID();
+
             #endregion
             #region Act
             var request = new RestRequest(AclRoutesUrl.AclBranchRouteUrl.List, Method.Get);
@@ -123,7 +124,7 @@ namespace ACL.Tests.V1
         {
             #region  Arrange
             AclCompanyEditRequest editReq = GetCompanyEditRequest();
-            var id = getRandomID().Result;
+            var id = getRandomID().Id;
             #endregion
             #region Act
             //// Create request
@@ -150,7 +151,7 @@ namespace ACL.Tests.V1
         public async Task Get_View_Company()
         {
             #region  Arrange
-            var id = getRandomID().Result;
+            var id = getRandomID().Id;
             #endregion
 
             #region Act
@@ -228,22 +229,23 @@ namespace ACL.Tests.V1
 
         private async Task<ulong> getRandomID()
         {
-            #region Arrange
-            AclCompanyCreateRequest createReq = GetCompanyCreateRequest();
-            #endregion
+            //#region Arrange
+            //AclCompanyCreateRequest createReq = GetCompanyCreateRequest();
 
-            
 
-            #region Act
-            // Act
-            var aclResponse = await controller.Create(createReq);
-            //var aclData = unitOfWork.AclCompanyRepository.Add((AclCompany)aclResponse.Data);
-             // Commit the changes to the database
-            await unitOfWork.CompleteAsync();
-            var data = aclResponse.Data as AclCompany;
 
-            return data.Id;
-            #endregion
+            //#endregion
+            //#region Act
+            return (await unitOfWork.AclCompanyRepository.All()).LastOrDefault().Id;
+            //// Act
+            //var aclResponse = await controller.Create(createReq);
+            ////var aclData = unitOfWork.AclCompanyRepository.Add((AclCompany)aclResponse.Data);
+            //// Commit the changes to the database
+            //await unitOfWork.CompleteAsync();
+            //var data = aclResponse.Data as AclCompany;
+
+            //return data.Id;
+            //#endregion
         }
 
     }

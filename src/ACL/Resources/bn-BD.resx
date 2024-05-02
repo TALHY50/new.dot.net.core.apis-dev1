@@ -117,8 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Branch" xml:space="preserve">
+    <value>শাখা</value>
+  </data>
   <data name="Company" xml:space="preserve">
     <value>প্রতিষ্ঠান</value>
+  </data>
+  <data name="Company Module" xml:space="preserve">
+    <value>কোম্পানির মডিউল</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>দেশ</value>
   </data>
   <data name="createMessage" xml:space="preserve">
     <value>সফলভাবে তৈরি করা হয়েছে।</value>
@@ -135,8 +144,17 @@
   <data name="fetchMessage" xml:space="preserve">
     <value>সফলভাবে আনা হয়েছে।</value>
   </data>
+  <data name="Module" xml:space="preserve">
+    <value>মডিউল</value>
+  </data>
   <data name="notFoundMessage" xml:space="preserve">
     <value>কোন তথ্য পাওয়া যায়নি।</value>
+  </data>
+  <data name="Page" xml:space="preserve">
+    <value>পাতা</value>
+  </data>
+  <data name="Page Route" xml:space="preserve">
+    <value>পেজ রুট</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>পাসওয়ার্ড</value>
@@ -144,13 +162,25 @@
   <data name="Role" xml:space="preserve">
     <value>ভূমিকা</value>
   </data>
+  <data name="Role Page" xml:space="preserve">
+    <value>ভূমিকা পাতা</value>
+  </data>
   <data name="State" xml:space="preserve">
     <value>রাজ্য</value>
   </data>
-  <data name="SubModule" xml:space="preserve">
+  <data name="Sub Module" xml:space="preserve">
     <value>উপমডিউল</value>
   </data>
-  <data name="UserGroupRole" xml:space="preserve">
+  <data name="User" xml:space="preserve">
+    <value>ব্যবহারকারী</value>
+  </data>
+  <data name="User Group" xml:space="preserve">
+    <value>ব্যবহারকারী দল</value>
+  </data>
+  <data name="User Group Role" xml:space="preserve">
     <value>ইউজার গ্রুপ ভূমিকা</value>
+  </data>
+  <data name="User User Group" xml:space="preserve">
+    <value>ব্যবহারকারী ব্যবহারকারী গ্রুপ</value>
   </data>
 </root>

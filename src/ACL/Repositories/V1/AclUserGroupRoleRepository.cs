@@ -18,7 +18,7 @@ namespace ACL.Repositories.V1
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
-        private string modelName = "UserGroupRole";
+        private string modelName = "User Group Role";
         private ICustomUnitOfWork _customUnitOfWork;
 
         public AclUserGroupRoleRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)

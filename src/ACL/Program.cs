@@ -29,6 +29,7 @@ using SharedLibrary.Interfaces;
 using SharedLibrary.Services;
 using ACL.Interfaces.Repositories.V1;
 using ACL.Repositories.V1;
+using ACL.Data;
 using ACL.Exceptions;
 
 
@@ -50,32 +51,27 @@ var server = Env.GetString("DB_HOST");
 var database = Env.GetString("DB_DATABASE");
 var userName = Env.GetString("DB_USERNAME");
 var password = Env.GetString("DB_PASSWORD");
+var port = Env.GetString("DB_PORT");
 
-var connectionString = $"server={server};database={database};User ID={userName};Password={password};CharSet=utf8mb4;" ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+var connectionString = $"server={server};port={port};database={database};User ID={userName};Password={password};CharSet=utf8mb4;" ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+//builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//    options.UseMySQL(connectionString, options =>
+//    {
+//        options.EnableRetryOnFailure();
+//    }));
+#if UNIT_TEST
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseInMemoryDatabase("acl").ConfigureWarnings(warnings =>
+    {
+        warnings.Ignore(InMemoryEventId.TransactionIgnoredWarning);
+    }));
+#else
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySQL(connectionString, options =>
     {
         options.EnableRetryOnFailure();
     }));
-
-//builder.Services.AddDbContext<ApplicationDbContext>(options =>
-//    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString), options =>
-//    {
-//        options.EnableRetryOnFailure();
-//    }));
-//#if UNIT_TEST
-//builder.Services.AddDbContext<ApplicationDbContext>(options =>
-//    options.UseInMemoryDatabase("acl").ConfigureWarnings(warnings =>
-//    {
-//        warnings.Ignore(InMemoryEventId.TransactionIgnoredWarning);
-//    }));
-//#else
-//builder.Services.AddDbContext<ApplicationDbContext>(options =>
-//    options.UseMySQL(connectionString,options =>
-//    {
-//        options.EnableRetryOnFailure();
-//    }));
-//#endif
+#endif
 builder.Services.AddAntiforgery(options => options.HeaderName = "X-CSRF-TOKEN");
 
 builder.Services.AddEndpointsApiExplorer();
@@ -130,11 +126,23 @@ static string GetLogFilePath(string fileName)
 }
 var app = builder.Build();
 
+// Seeding Data
+using (var serviceScope = app.Services.CreateScope())
+{
+    var services = serviceScope.ServiceProvider;
+    var dbContext = services.GetRequiredService<ApplicationDbContext>();
+
+    // Ensure the database is created
+    dbContext.Database.EnsureCreated();
+
+    // Perform the seeding
+    SeedData.Initialize(services);
+}
 
 app.UseSwagger();
 app.UseSwaggerUI(options =>
 {
-    options.DefaultModelsExpandDepth(-1);
+     options.DefaultModelsExpandDepth(-1);
 });
 
 app.UseMiddleware<RequestResponseLoggingMiddleware>();

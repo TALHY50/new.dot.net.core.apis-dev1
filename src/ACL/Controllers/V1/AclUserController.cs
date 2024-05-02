@@ -18,9 +18,9 @@ namespace ACL.Controllers.V1
         }
 
         [HttpGet(AclRoutesUrl.AclUserRouteUrl.List, Name = AclRoutesName.AclUserRouteNames.List)]
-        public async Task<IActionResult> Index()
+        public async Task<AclResponse> Index()
         {
-            return Ok(_unitOfWork.AclUserRepository.GetAll());
+            return await _unitOfWork.AclUserRepository.GetAll();
         }
 
         [HttpPost(AclRoutesUrl.AclUserRouteUrl.Add, Name = AclRoutesName.AclUserRouteNames.Add)]

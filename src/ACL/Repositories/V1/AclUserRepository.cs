@@ -14,24 +14,26 @@ using ACL.Services;
 
 namespace ACL.Repositories.V1
 {
-    public class AclUserRepository : GenericRepository<AclUser, ApplicationDbContext,ICustomUnitOfWork>, IAclUserRepository
+    public class AclUserRepository : GenericRepository<AclUser, ApplicationDbContext, ICustomUnitOfWork>, IAclUserRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "User";
-        private uint _companyId = (uint)AppAuth.GetAuthInfo().CompanyId;
-        private uint _userType = (uint)AppAuth.GetAuthInfo().UserType;
+        private uint _companyId;
+        private uint _userType;
         private bool is_user_type_created_by_company = false;
         private IConfiguration _config;
         private ICustomUnitOfWork _customUnitOfWork;
 
         public AclUserRepository(ICustomUnitOfWork _unitOfWork, IConfiguration config) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
-             _customUnitOfWork = _unitOfWork;
+            _customUnitOfWork = _unitOfWork;
             AppAuth.SetAuthInfo();
             _config = config;
             aclResponse = new AclResponse();
             messageResponse = new MessageResponse(modelName, _unitOfWork);
+            _companyId = (uint)AppAuth.GetAuthInfo().CompanyId;
+            _userType = (uint)AppAuth.GetAuthInfo().UserType;
         }
 
         public async Task<AclResponse> GetAll()

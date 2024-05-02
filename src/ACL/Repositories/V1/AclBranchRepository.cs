@@ -15,7 +15,7 @@ namespace ACL.Repositories.V1
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
-        private string modelName = "User User Group";
+        private string modelName = "Branch";
         public AclBranchRepository(ICustomUnitOfWork unitOfWork) : base(unitOfWork, unitOfWork.ApplicationDbContext)
         {
             AppAuth.SetAuthInfo();

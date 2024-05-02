@@ -36,7 +36,7 @@ namespace ACL.Requests.V1
         [DefaultValue("2024-04-22")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateOnly? dob { get; set; }
+        public DateTime? dob { get; set; }
 
         [DefaultValue("1")]
         [Required]
