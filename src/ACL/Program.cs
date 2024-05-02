@@ -1,36 +1,18 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
+
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Events;
-using System;
-using System.IO;
 using ACL.Database;
 using ACL.Services;
 using DotNetEnv;
 using ACL.Interfaces;
 using Microsoft.AspNetCore.Authentication;
-using Serilog.AspNetCore;
 using ACL.Services.CustomMiddleWare;
-using Microsoft.AspNetCore.Localization;
-using System.Globalization;
-using Microsoft.Extensions.Localization;
-using System.Resources;
-using Microsoft.AspNetCore.Mvc.Localization;
-using Microsoft.AspNetCore.Mvc.Razor;
-using Castle.Core.Resource;
-using Microsoft.Extensions.Options;
-using Sprache;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using SharedLibrary.Interfaces;
 using SharedLibrary.Services;
-using ACL.Interfaces.Repositories.V1;
-using ACL.Repositories.V1;
 using ACL.Exceptions;
 using ACL.Data;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -54,31 +36,12 @@ var password = Env.GetString("DB_PASSWORD");
 var port = Env.GetString("DB_PORT");
 
 var connectionString = $"server={server};database={database};User ID={userName};Password={password};CharSet=utf8mb4;" ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-var connectionString = $"server={server};database={database};User ID={userName};Password={password};CharSet=utf8mb4;" ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseMySQL(connectionString, options =>
-    {
-        options.EnableRetryOnFailure();
-    }));
-
-=========
-var connectionString = $"server={server};port={port};database={database};User ID={userName};Password={password};CharSet=utf8mb4;" ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
->>>>>>>>> Temporary merge branch 2
-var connectionString = $"server={server};database={database};User ID={userName};Password={password};CharSet=utf8mb4;" ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseMySQL(connectionString, options =>
-    {
-        options.EnableRetryOnFailure();
-    }));
-
-=========
-var connectionString = $"server={server};port={port};database={database};User ID={userName};Password={password};CharSet=utf8mb4;" ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
->>>>>>>>> Temporary merge branch 2
 //builder.Services.AddDbContext<ApplicationDbContext>(options =>
 //    options.UseMySQL(connectionString, options =>
 //    {
 //        options.EnableRetryOnFailure();
 //    }));
+
 #if UNIT_TEST
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseInMemoryDatabase("acl").ConfigureWarnings(warnings =>
@@ -162,19 +125,13 @@ using (var serviceScope = app.Services.CreateScope())
 app.UseSwagger();
 app.UseSwaggerUI(options =>
 {
-     options.DefaultModelsExpandDepth(-1);
+    options.DefaultModelsExpandDepth(-1);
 });
 
 app.UseMiddleware<RequestResponseLoggingMiddleware>();
 app.UseSerilogRequestLogging();
 app.UseMiddleware<GlobalExceptionHandling>();
 
-app.UseCors(builder =>
-{
-    builder.AllowAnyOrigin()
-           .AllowAnyMethod()
-           .AllowAnyHeader();
-});
 app.UseFileServer();
 
 app.UseHttpsRedirection();

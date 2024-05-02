@@ -58,7 +58,6 @@ namespace ACL.Exceptions
         {
             aclResponse.StatusCode = statusCode;
             aclResponse.Message = message;
-            aclResponse.responseCode = (int)statusCode;
             return aclResponse;
         }
     }
