@@ -29,21 +29,12 @@ namespace ACL.Tests.V1
         DatabaseConnector dbConnector;
         CustomUnitOfWork unitOfWork;
         RestClient restClient;
-        DbContextOptions<ApplicationDbContext> _inMemoryDbContextOptions;
-        ApplicationDbContext _inMemoryDbContext;
-        AclRoleAndPageAssocController _controller;
         public AclRolePageAssociationControllerUnitTest()
         {
             dbConnector = new DatabaseConnector();
-            _inMemoryDbContextOptions = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "acl")
-                .Options;
-            _inMemoryDbContext = new ApplicationDbContext(_inMemoryDbContextOptions);
-            unitOfWork = new CustomUnitOfWork(_inMemoryDbContext);
+            unitOfWork = new CustomUnitOfWork(dbConnector.dbContext);
+            unitOfWork.ApplicationDbContext = dbConnector.dbContext;
             restClient = new RestClient(dbConnector.baseUrl);
-            //  unitOfWork = new UnitOfWork(dbConnector.dbContext);
-            unitOfWork.ApplicationDbContext = _inMemoryDbContext;
-            _controller = new AclRoleAndPageAssocController(unitOfWork);
         }
         [Fact]
         public async Task Get_All_AclRolePageAssociation()

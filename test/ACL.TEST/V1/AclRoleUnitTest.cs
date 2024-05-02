@@ -4,23 +4,29 @@ using RestSharp;
 using Bogus;
 using ACL.Route;
 using ACL.Database.Models;
+using ACL.Services;
 
 namespace ACL.Tests.V1
 {
     public class AclRoleUnitTest
     {
+        DatabaseConnector dbConnector;
+        CustomUnitOfWork unitOfWork;
         RestClient restClient;
         private string authToken;
         public AclRoleUnitTest()
         {
-            DataCollectors.SetDatabase();
+            dbConnector = new DatabaseConnector();
+            unitOfWork = new CustomUnitOfWork(dbConnector.dbContext);
+            unitOfWork.ApplicationDbContext = dbConnector.dbContext;
             authToken = DataCollectors.GetAuthorization();
-            restClient = new RestClient(DataCollectors.baseUrl);
+            restClient = new RestClient(dbConnector.baseUrl);
         }
+
         [Fact]
         public void TestRoleList()
         {
-           
+
             //Arrange
 
             // Act
@@ -29,7 +35,7 @@ namespace ACL.Tests.V1
 
             RestResponse response = restClient.Execute(request);
 
-          
+
             //// Assert
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, (int)response.StatusCode);
 
@@ -115,7 +121,7 @@ namespace ACL.Tests.V1
                 status = (sbyte)faker.Random.Number(1, 2),
                 title = faker.Random.String2(10, 50),
 
-			};
+            };
 
         }
 

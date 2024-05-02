@@ -29,14 +29,9 @@ namespace ACL.Tests.V1
         DatabaseConnector dbConnector;
         CustomUnitOfWork unitOfWork;
         RestClient restClient;
-        DbContextOptions<ApplicationDbContext> _inMemoryDbContext;
         public AclCompanyModuleControllerUnitTest()
         {
             dbConnector = new DatabaseConnector();
-            _inMemoryDbContext = new DbContextOptionsBuilder<ApplicationDbContext>()
-      .UseInMemoryDatabase(databaseName: "acl")
-      .Options;
-            //unitOfWork = new UnitOfWork(new ApplicationDbContext(_inMemoryDbContext));
             unitOfWork = new CustomUnitOfWork(dbConnector.dbContext);
             unitOfWork.ApplicationDbContext = dbConnector.dbContext;
             restClient = new RestClient(dbConnector.baseUrl);
@@ -216,7 +211,8 @@ namespace ACL.Tests.V1
         {
             #region Act
             //    // Act
-            return unitOfWork.ApplicationDbContext.AclCompanyModules.Last().Id;
+            //return unitOfWork.ApplicationDbContext.AclCompanyModules.Last().Id;
+            return (ulong)unitOfWork.ApplicationDbContext.AclModules.Max(i=>i.Id);
             #endregion
             // }
 

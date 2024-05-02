@@ -27,7 +27,7 @@ namespace ACL.Tests.V1
             var data = GetPageRoute();
 
             // Act
-            var request = new RestRequest("page/routes/add", Method.Post);
+            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclPageRouteRouteUrl.Add, Method.Post);
             //request.AddHeader("Authorization", "Bearer desc");
             request.AddJsonBody(data);
 
@@ -48,7 +48,7 @@ namespace ACL.Tests.V1
             var id = getRandomID();
 
             // Act
-            var request = new RestRequest($"page/routes/edit/{id}", Method.Put);
+            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclPageRouteRouteUrl.Edit.Replace("{id}",id.ToString()), Method.Put);
             //request.AddHeader("Authorization", "Bearer desc");
             request.AddJsonBody(data);
 
@@ -66,7 +66,7 @@ namespace ACL.Tests.V1
             var id = getRandomID();
 
             // Act
-            var request = new RestRequest($"page/routes/delete/{id}", Method.Delete);
+            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclPageRouteRouteUrl.Destroy.Replace("{id}",id.ToString()), Method.Delete);
             //request.AddHeader("Authorization", "Bearer desc");
 
             RestResponse response = restClient.Execute(request);

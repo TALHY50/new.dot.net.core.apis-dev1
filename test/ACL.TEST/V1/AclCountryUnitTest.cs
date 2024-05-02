@@ -27,7 +27,7 @@ namespace ACL.Tests.V1
 
             //Arrange
             // Act
-            var request = new RestRequest("countries", Method.Get);
+            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclCountryRouteUrl.List, Method.Get);
             //request.AddHeader("Authorization", "Bearer desc");
             RestResponse response = restClient.Execute(request);
             //// Assert
@@ -40,7 +40,7 @@ namespace ACL.Tests.V1
             //Arrange
             var data = GetCountry();
             // Act
-            var request = new RestRequest("countries/add", Method.Post);
+            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclCountryRouteUrl.Add, Method.Post);
             //request.AddHeader("Authorization", "Bearer desc");
             request.AddJsonBody(data);
             RestResponse response = restClient.Execute(request);
@@ -55,7 +55,7 @@ namespace ACL.Tests.V1
             //Arrange
             var id = getRandomID();
             // Act
-            var request = new RestRequest($"countries/view/{id}", Method.Get);
+            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclCountryRouteUrl.View.Replace("{id}",id.ToString()), Method.Get);
             //request.AddHeader("Authorization", "Bearer desc");
             RestResponse response = restClient.Execute(request);
             //// Assert
@@ -71,7 +71,7 @@ namespace ACL.Tests.V1
             var id = getRandomID();
 
             // Act
-            var request = new RestRequest($"countries/edit/{id}", Method.Put);
+            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclCountryRouteUrl.Edit.Replace("{id}",id.ToString()), Method.Put);
             //request.AddHeader("Authorization", "Bearer desc");
             request.AddJsonBody(data);
 
@@ -89,7 +89,7 @@ namespace ACL.Tests.V1
             var id = getRandomID();
 
             // Act
-            var request = new RestRequest($"countries/delete/{id}", Method.Delete);
+            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclCountryRouteUrl.Destroy.Replace("{id}",id.ToString()), Method.Delete);
             //request.AddHeader("Authorization", "Bearer desc");
 
             RestResponse response = restClient.Execute(request);

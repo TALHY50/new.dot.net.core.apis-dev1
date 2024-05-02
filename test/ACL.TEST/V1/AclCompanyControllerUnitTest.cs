@@ -66,7 +66,7 @@ namespace ACL.Tests.V1
 
             #region Act
             //// Create request
-            var req = new RestRequest(AclRoutesUrl.AclBranchRouteUrl.Add, Method.Post);
+            var req = new RestRequest(AclRoutesUrl.AclCompanyRouteUrl.Add, Method.Post);
 
             //// Serialize the request body
             req.AddJsonBody(createReq);
@@ -120,7 +120,7 @@ namespace ACL.Tests.V1
             #endregion
             #region Act
             //// Create request
-            var req = new RestRequest(AclRoutesUrl.AclBranchRouteUrl.Edit.Replace("{id}", id.ToString()), Method.Put);
+            var req = new RestRequest(AclRoutesUrl.AclCompanyRouteUrl.Edit.Replace("{id}", id.ToString()), Method.Put);
             //Add request body
             req.AddJsonBody(editReq);
 

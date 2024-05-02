@@ -867,19 +867,3247 @@ public partial class ApplicationDbContext : DbContext, IApplicationDbContext
          }
       );
         modelBuilder.Entity<AclCountry>().HasData(
-         new AclCountry
-         {
-             Id = 1,
-             Name = "Bangladesh",
-             Description = "This is beautiful country",
-             Code = "BD",
-             Status = 1,
-             Sequence = 0,
-             CreatedById = 2,
-             UpdatedById = 2,
-             CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
-             UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
-         }
+            new AclCountry[]{
+                new AclCountry
+                {
+                    Id = 1,
+                    Name = "Afghanistan",
+                    Description = "This is beautiful country",
+                    Code = "AF",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 2,
+                    Name = "Albania",
+                    Description = "This is beautiful country",
+                    Code = "AL",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 3,
+                    Name = "Algeria",
+                    Description = "This is beautiful country",
+                    Code = "DZ",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 4,
+                    Name = "American Samoa",
+                    Description = "This is beautiful country",
+                    Code = "AS",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 5,
+                    Name = "Andorra",
+                    Description = "This is beautiful country",
+                    Code = "AD",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 6,
+                    Name = "Angola",
+                    Description = "This is beautiful country",
+                    Code = "AO",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 7,
+                    Name = "Anguilla",
+                    Description = "This is beautiful country",
+                    Code = "AI",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 8,
+                    Name = "Antarctica",
+                    Description = "This is beautiful country",
+                    Code = "AQ",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 9,
+                    Name = "Antigua and Barbuda",
+                    Description = "This is beautiful country",
+                    Code = "AG",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 10,
+                    Name = "Argentina",
+                    Description = "This is beautiful country",
+                    Code = "AR",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 11,
+                    Name = "Armenia",
+                    Description = "This is beautiful country",
+                    Code = "AM",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 12,
+                    Name = "Aruba",
+                    Description = "This is beautiful country",
+                    Code = "AW",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 13,
+                    Name = "Australia",
+                    Description = "This is beautiful country",
+                    Code = "AU",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 14,
+                    Name = "Austria",
+                    Description = "This is beautiful country",
+                    Code = "AT",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 15,
+                    Name = "Azerbaijan",
+                    Description = "This is beautiful country",
+                    Code = "AZ",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 16,
+                    Name = "Bahamas",
+                    Description = "This is beautiful country",
+                    Code = "BS",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 17,
+                    Name = "Bahrain",
+                    Description = "This is beautiful country",
+                    Code = "BH",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 18,
+                    Name = "Bangladesh",
+                    Description = "This is beautiful country",
+                    Code = "BD",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 19,
+                    Name = "Barbados",
+                    Description = "This is beautiful country",
+                    Code = "BB",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 20,
+                    Name = "Belarus",
+                    Description = "This is beautiful country",
+                    Code = "BY",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 21,
+                    Name = "Belgium",
+                    Description = "This is beautiful country",
+                    Code = "BE",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 22,
+                    Name = "Belize",
+                    Description = "This is beautiful country",
+                    Code = "BZ",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 23,
+                    Name = "Benin",
+                    Description = "This is beautiful country",
+                    Code = "BJ",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 24,
+                    Name = "Bermuda",
+                    Description = "This is beautiful country",
+                    Code = "BM",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 25,
+                    Name = "Bhutan",
+                    Description = "This is beautiful country",
+                    Code = "BT",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 26,
+                    Name = "Bolivia, Plurinational State of",
+                    Description = "This is beautiful country",
+                    Code = "BO",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 27,
+                    Name = "Bonaire, Sint Eustatius and Saba",
+                    Description = "This is beautiful country",
+                    Code = "BQ",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 28,
+                    Name = "Bosnia and Herzegovina",
+                    Description = "This is beautiful country",
+                    Code = "BA",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 29,
+                    Name = "Botswana",
+                    Description = "This is beautiful country",
+                    Code = "BW",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 30,
+                    Name = "Bouvet Island",
+                    Description = "This is beautiful country",
+                    Code = "BV",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 31,
+                    Name = "Brazil",
+                    Description = "This is beautiful country",
+                    Code = "BR",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 32,
+                    Name = "British Indian Ocean Territory",
+                    Description = "This is beautiful country",
+                    Code = "IO",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 33,
+                    Name = "Brunei Darussalam",
+                    Description = "This is beautiful country",
+                    Code = "BN",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 34,
+                    Name = "Bulgaria",
+                    Description = "This is beautiful country",
+                    Code = "BG",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 35,
+                    Name = "Burkina Faso",
+                    Description = "This is beautiful country",
+                    Code = "BF",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 36,
+                    Name = "Burundi",
+                    Description = "This is beautiful country",
+                    Code = "BI",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 37,
+                    Name = "Cambodia",
+                    Description = "This is beautiful country",
+                    Code = "KH",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 38,
+                    Name = "Cameroon",
+                    Description = "This is beautiful country",
+                    Code = "CM",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 39,
+                    Name = "Canada",
+                    Description = "This is beautiful country",
+                    Code = "CA",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 40,
+                    Name = "Cape Verde",
+                    Description = "This is beautiful country",
+                    Code = "CV",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 41,
+                    Name = "Cayman Islands",
+                    Description = "This is beautiful country",
+                    Code = "KY",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 42,
+                    Name = "Central African Republic",
+                    Description = "This is beautiful country",
+                    Code = "CF",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 43,
+                    Name = "Chad",
+                    Description = "This is beautiful country",
+                    Code = "TD",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 44,
+                    Name = "Chile",
+                    Description = "This is beautiful country",
+                    Code = "CL",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 45,
+                    Name = "China",
+                    Description = "This is beautiful country",
+                    Code = "CN",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 46,
+                    Name = "Christmas Island",
+                    Description = "This is beautiful country",
+                    Code = "CX",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 47,
+                    Name = "Cocos (Keeling) Islands",
+                    Description = "This is beautiful country",
+                    Code = "CC",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 48,
+                    Name = "Colombia",
+                    Description = "This is beautiful country",
+                    Code = "CO",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 49,
+                    Name = "Comoros",
+                    Description = "This is beautiful country",
+                    Code = "KM",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 50,
+                    Name = "Congo",
+                    Description = "This is beautiful country",
+                    Code = "CG",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 51,
+                    Name = "Congo, the Democratic Republic of the",
+                    Description = "This is beautiful country",
+                    Code = "CD",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 52,
+                    Name = "Cook Islands",
+                    Description = "This is beautiful country",
+                    Code = "CK",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 53,
+                    Name = "Costa Rica",
+                    Description = "This is beautiful country",
+                    Code = "CR",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 54,
+                    Name = "Croatia",
+                    Description = "This is beautiful country",
+                    Code = "HR",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 55,
+                    Name = "Cuba",
+                    Description = "This is beautiful country",
+                    Code = "CU",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 56,
+                    Name = "CuraÃ§ao",
+                    Description = "This is beautiful country",
+                    Code = "CW",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 57,
+                    Name = "Cyprus",
+                    Description = "This is beautiful country",
+                    Code = "CY",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 58,
+                    Name = "Czech Republic",
+                    Description = "This is beautiful country",
+                    Code = "CZ",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 59,
+                    Name = "CÃ´te d'Ivoire",
+                    Description = "This is beautiful country",
+                    Code = "CI",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 60,
+                    Name = "Denmark",
+                    Description = "This is beautiful country",
+                    Code = "DK",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 61,
+                    Name = "Djibouti",
+                    Description = "This is beautiful country",
+                    Code = "DJ",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 62,
+                    Name = "Dominica",
+                    Description = "This is beautiful country",
+                    Code = "DM",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 63,
+                    Name = "Dominican Republic",
+                    Description = "This is beautiful country",
+                    Code = "DO",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 64,
+                    Name = "Ecuador",
+                    Description = "This is beautiful country",
+                    Code = "EC",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 65,
+                    Name = "Egypt",
+                    Description = "This is beautiful country",
+                    Code = "EG",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 66,
+                    Name = "El Salvador",
+                    Description = "This is beautiful country",
+                    Code = "SV",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 67,
+                    Name = "Equatorial Guinea",
+                    Description = "This is beautiful country",
+                    Code = "GQ",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 68,
+                    Name = "Eritrea",
+                    Description = "This is beautiful country",
+                    Code = "ER",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 69,
+                    Name = "Estonia",
+                    Description = "This is beautiful country",
+                    Code = "EE",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 70,
+                    Name = "Ethiopia",
+                    Description = "This is beautiful country",
+                    Code = "ET",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 71,
+                    Name = "Falkland Islands (Malvinas)",
+                    Description = "This is beautiful country",
+                    Code = "FK",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 72,
+                    Name = "Faroe Islands",
+                    Description = "This is beautiful country",
+                    Code = "FO",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 73,
+                    Name = "Fiji",
+                    Description = "This is beautiful country",
+                    Code = "FJ",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 74,
+                    Name = "Finland",
+                    Description = "This is beautiful country",
+                    Code = "FI",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 75,
+                    Name = "France",
+                    Description = "This is beautiful country",
+                    Code = "FR",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 76,
+                    Name = "French Guiana",
+                    Description = "This is beautiful country",
+                    Code = "GF",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 77,
+                    Name = "French Polynesia",
+                    Description = "This is beautiful country",
+                    Code = "PF",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 78,
+                    Name = "French Southern Territories",
+                    Description = "This is beautiful country",
+                    Code = "TF",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 79,
+                    Name = "Gabon",
+                    Description = "This is beautiful country",
+                    Code = "GA",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 80,
+                    Name = "Gambia",
+                    Description = "This is beautiful country",
+                    Code = "GM",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 81,
+                    Name = "Georgia",
+                    Description = "This is beautiful country",
+                    Code = "GE",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 82,
+                    Name = "Germany",
+                    Description = "This is beautiful country",
+                    Code = "DE",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 83,
+                    Name = "Ghana",
+                    Description = "This is beautiful country",
+                    Code = "GH",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 84,
+                    Name = "Gibraltar",
+                    Description = "This is beautiful country",
+                    Code = "GI",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 85,
+                    Name = "Greece",
+                    Description = "This is beautiful country",
+                    Code = "GR",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 86,
+                    Name = "Greenland",
+                    Description = "This is beautiful country",
+                    Code = "GL",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 87,
+                    Name = "Grenada",
+                    Description = "This is beautiful country",
+                    Code = "GD",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 88,
+                    Name = "Guadeloupe",
+                    Description = "This is beautiful country",
+                    Code = "GP",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 89,
+                    Name = "Guam",
+                    Description = "This is beautiful country",
+                    Code = "GU",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 90,
+                    Name = "Guatemala",
+                    Description = "This is beautiful country",
+                    Code = "GT",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 91,
+                    Name = "Guernsey",
+                    Description = "This is beautiful country",
+                    Code = "GG",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 92,
+                    Name = "Guinea",
+                    Description = "This is beautiful country",
+                    Code = "GN",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 93,
+                    Name = "Guinea-Bissau",
+                    Description = "This is beautiful country",
+                    Code = "GW",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 94,
+                    Name = "Guyana",
+                    Description = "This is beautiful country",
+                    Code = "GY",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 95,
+                    Name = "Haiti",
+                    Description = "This is beautiful country",
+                    Code = "HT",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 96,
+                    Name = "Heard Island and McDonald Islands",
+                    Description = "This is beautiful country",
+                    Code = "HM",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 97,
+                    Name = "Holy See (Vatican City State)",
+                    Description = "This is beautiful country",
+                    Code = "VA",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 98,
+                    Name = "Honduras",
+                    Description = "This is beautiful country",
+                    Code = "HN",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 99,
+                    Name = "Hong Kong",
+                    Description = "This is beautiful country",
+                    Code = "HK",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 100,
+                    Name = "Hungary",
+                    Description = "This is beautiful country",
+                    Code = "HU",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 101,
+                    Name = "Iceland",
+                    Description = "This is beautiful country",
+                    Code = "IS",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 102,
+                    Name = "India",
+                    Description = "This is beautiful country",
+                    Code = "IN",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 103,
+                    Name = "Indonesia",
+                    Description = "This is beautiful country",
+                    Code = "ID",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 104,
+                    Name = "Iran, Islamic Republic of",
+                    Description = "This is beautiful country",
+                    Code = "IR",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 105,
+                    Name = "Iraq",
+                    Description = "This is beautiful country",
+                    Code = "IQ",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 106,
+                    Name = "Ireland",
+                    Description = "This is beautiful country",
+                    Code = "IE",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 107,
+                    Name = "Isle of Man",
+                    Description = "This is beautiful country",
+                    Code = "IM",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 108,
+                    Name = "Israel",
+                    Description = "This is beautiful country",
+                    Code = "IL",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 109,
+                    Name = "Italy",
+                    Description = "This is beautiful country",
+                    Code = "IT",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 110,
+                    Name = "Jamaica",
+                    Description = "This is beautiful country",
+                    Code = "JM",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 111,
+                    Name = "Japan",
+                    Description = "This is beautiful country",
+                    Code = "JP",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 112,
+                    Name = "Jersey",
+                    Description = "This is beautiful country",
+                    Code = "JE",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 113,
+                    Name = "Jordan",
+                    Description = "This is beautiful country",
+                    Code = "JO",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 114,
+                    Name = "Kazakhstan",
+                    Description = "This is beautiful country",
+                    Code = "KZ",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 115,
+                    Name = "Kenya",
+                    Description = "This is beautiful country",
+                    Code = "KE",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 116,
+                    Name = "Kiribati",
+                    Description = "This is beautiful country",
+                    Code = "KI",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 117,
+                    Name = "Korea, Democratic People's Republic of",
+                    Description = "This is beautiful country",
+                    Code = "KP",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 118,
+                    Name = "Korea, Republic of",
+                    Description = "This is beautiful country",
+                    Code = "KR",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 119,
+                    Name = "Kuwait",
+                    Description = "This is beautiful country",
+                    Code = "KW",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 120,
+                    Name = "Kyrgyzstan",
+                    Description = "This is beautiful country",
+                    Code = "KG",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 121,
+                    Name = "Lao People's Democratic Republic",
+                    Description = "This is beautiful country",
+                    Code = "LA",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 122,
+                    Name = "Latvia",
+                    Description = "This is beautiful country",
+                    Code = "LV",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 123,
+                    Name = "Lebanon",
+                    Description = "This is beautiful country",
+                    Code = "LB",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 124,
+                    Name = "Lesotho",
+                    Description = "This is beautiful country",
+                    Code = "LS",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 125,
+                    Name = "Liberia",
+                    Description = "This is beautiful country",
+                    Code = "LR",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 126,
+                    Name = "Libya",
+                    Description = "This is beautiful country",
+                    Code = "LY",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 127,
+                    Name = "Liechtenstein",
+                    Description = "This is beautiful country",
+                    Code = "LI",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 128,
+                    Name = "Lithuania",
+                    Description = "This is beautiful country",
+                    Code = "LT",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 129,
+                    Name = "Luxembourg",
+                    Description = "This is beautiful country",
+                    Code = "LU",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 130,
+                    Name = "Macao",
+                    Description = "This is beautiful country",
+                    Code = "MO",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 131,
+                    Name = "Macedonia, the Former Yugoslav Republic of",
+                    Description = "This is beautiful country",
+                    Code = "MK",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 132,
+                    Name = "Madagascar",
+                    Description = "This is beautiful country",
+                    Code = "MG",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 133,
+                    Name = "Malawi",
+                    Description = "This is beautiful country",
+                    Code = "MW",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 134,
+                    Name = "Malaysia",
+                    Description = "This is beautiful country",
+                    Code = "MY",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 135,
+                    Name = "Maldives",
+                    Description = "This is beautiful country",
+                    Code = "MV",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 136,
+                    Name = "Mali",
+                    Description = "This is beautiful country",
+                    Code = "ML",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 137,
+                    Name = "Malta",
+                    Description = "This is beautiful country",
+                    Code = "MT",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 138,
+                    Name = "Marshall Islands",
+                    Description = "This is beautiful country",
+                    Code = "MH",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 139,
+                    Name = "Martinique",
+                    Description = "This is beautiful country",
+                    Code = "MQ",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 140,
+                    Name = "Mauritania",
+                    Description = "This is beautiful country",
+                    Code = "MR",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 141,
+                    Name = "Mauritius",
+                    Description = "This is beautiful country",
+                    Code = "MU",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 142,
+                    Name = "Mayotte",
+                    Description = "This is beautiful country",
+                    Code = "YT",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 143,
+                    Name = "Mexico",
+                    Description = "This is beautiful country",
+                    Code = "MX",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 144,
+                    Name = "Micronesia, Federated States of",
+                    Description = "This is beautiful country",
+                    Code = "FM",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 145,
+                    Name = "Moldova, Republic of",
+                    Description = "This is beautiful country",
+                    Code = "MD",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 146,
+                    Name = "Monaco",
+                    Description = "This is beautiful country",
+                    Code = "MC",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 147,
+                    Name = "Mongolia",
+                    Description = "This is beautiful country",
+                    Code = "MN",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 148,
+                    Name = "Montenegro",
+                    Description = "This is beautiful country",
+                    Code = "ME",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 149,
+                    Name = "Montserrat",
+                    Description = "This is beautiful country",
+                    Code = "MS",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 150,
+                    Name = "Morocco",
+                    Description = "This is beautiful country",
+                    Code = "MA",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 151,
+                    Name = "Mozambique",
+                    Description = "This is beautiful country",
+                    Code = "MZ",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 152,
+                    Name = "Myanmar",
+                    Description = "This is beautiful country",
+                    Code = "MM",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 153,
+                    Name = "Namibia",
+                    Description = "This is beautiful country",
+                    Code = "NA",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 154,
+                    Name = "Nauru",
+                    Description = "This is beautiful country",
+                    Code = "NR",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 155,
+                    Name = "Nepal",
+                    Description = "This is beautiful country",
+                    Code = "NP",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 156,
+                    Name = "Netherlands",
+                    Description = "This is beautiful country",
+                    Code = "NL",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 157,
+                    Name = "New Caledonia",
+                    Description = "This is beautiful country",
+                    Code = "NC",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 158,
+                    Name = "New Zealand",
+                    Description = "This is beautiful country",
+                    Code = "NZ",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 159,
+                    Name = "Nicaragua",
+                    Description = "This is beautiful country",
+                    Code = "NI",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 160,
+                    Name = "Niger",
+                    Description = "This is beautiful country",
+                    Code = "NE",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 161,
+                    Name = "Nigeria",
+                    Description = "This is beautiful country",
+                    Code = "NG",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 162,
+                    Name = "Niue",
+                    Description = "This is beautiful country",
+                    Code = "NU",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 163,
+                    Name = "Norfolk Island",
+                    Description = "This is beautiful country",
+                    Code = "NF",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 164,
+                    Name = "Northern Mariana Islands",
+                    Description = "This is beautiful country",
+                    Code = "MP",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 165,
+                    Name = "Norway",
+                    Description = "This is beautiful country",
+                    Code = "NO",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 166,
+                    Name = "Oman",
+                    Description = "This is beautiful country",
+                    Code = "OM",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 167,
+                    Name = "Pakistan",
+                    Description = "This is beautiful country",
+                    Code = "PK",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 168,
+                    Name = "Palau",
+                    Description = "This is beautiful country",
+                    Code = "PW",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 169,
+                    Name = "Palestine, State of",
+                    Description = "This is beautiful country",
+                    Code = "PS",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 170,
+                    Name = "Panama",
+                    Description = "This is beautiful country",
+                    Code = "PA",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 171,
+                    Name = "Papua New Guinea",
+                    Description = "This is beautiful country",
+                    Code = "PG",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 172,
+                    Name = "Paraguay",
+                    Description = "This is beautiful country",
+                    Code = "PY",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 173,
+                    Name = "Peru",
+                    Description = "This is beautiful country",
+                    Code = "PE",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 174,
+                    Name = "Philippines",
+                    Description = "This is beautiful country",
+                    Code = "PH",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 175,
+                    Name = "Pitcairn",
+                    Description = "This is beautiful country",
+                    Code = "PN",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 176,
+                    Name = "Poland",
+                    Description = "This is beautiful country",
+                    Code = "PL",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 177,
+                    Name = "Portugal",
+                    Description = "This is beautiful country",
+                    Code = "PT",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 178,
+                    Name = "Puerto Rico",
+                    Description = "This is beautiful country",
+                    Code = "PR",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 179,
+                    Name = "Qatar",
+                    Description = "This is beautiful country",
+                    Code = "QA",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 180,
+                    Name = "Romania",
+                    Description = "This is beautiful country",
+                    Code = "RO",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 181,
+                    Name = "Russian Federation",
+                    Description = "This is beautiful country",
+                    Code = "RU",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 182,
+                    Name = "Rwanda",
+                    Description = "This is beautiful country",
+                    Code = "RW",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 183,
+                    Name = "RÃ©union",
+                    Description = "This is beautiful country",
+                    Code = "RE",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 184,
+                    Name = "Saint BarthÃ©lemy",
+                    Description = "This is beautiful country",
+                    Code = "BL",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 185,
+                    Name = "Saint Helena, Ascension and Tristan da Cunha",
+                    Description = "This is beautiful country",
+                    Code = "SH",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 186,
+                    Name = "Saint Kitts and Nevis",
+                    Description = "This is beautiful country",
+                    Code = "KN",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 187,
+                    Name = "Saint Lucia",
+                    Description = "This is beautiful country",
+                    Code = "LC",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 188,
+                    Name = "Saint Martin (French part)",
+                    Description = "This is beautiful country",
+                    Code = "MF",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 189,
+                    Name = "Saint Pierre and Miquelon",
+                    Description = "This is beautiful country",
+                    Code = "PM",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 190,
+                    Name = "Saint Vincent and the Grenadines",
+                    Description = "This is beautiful country",
+                    Code = "VC",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 191,
+                    Name = "Samoa",
+                    Description = "This is beautiful country",
+                    Code = "WS",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 192,
+                    Name = "San Marino",
+                    Description = "This is beautiful country",
+                    Code = "SM",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 193,
+                    Name = "Sao Tome and Principe",
+                    Description = "This is beautiful country",
+                    Code = "ST",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 194,
+                    Name = "Saudi Arabia",
+                    Description = "This is beautiful country",
+                    Code = "SA",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 195,
+                    Name = "Senegal",
+                    Description = "This is beautiful country",
+                    Code = "SN",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 196,
+                    Name = "Serbia",
+                    Description = "This is beautiful country",
+                    Code = "RS",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 197,
+                    Name = "Seychelles",
+                    Description = "This is beautiful country",
+                    Code = "SC",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 198,
+                    Name = "Sierra Leone",
+                    Description = "This is beautiful country",
+                    Code = "SL",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 199,
+                    Name = "Singapore",
+                    Description = "This is beautiful country",
+                    Code = "SG",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 200,
+                    Name = "Sint Maarten (Dutch part)",
+                    Description = "This is beautiful country",
+                    Code = "SX",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 201,
+                    Name = "Slovakia",
+                    Description = "This is beautiful country",
+                    Code = "SK",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 202,
+                    Name = "Slovenia",
+                    Description = "This is beautiful country",
+                    Code = "SI",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 203,
+                    Name = "Solomon Islands",
+                    Description = "This is beautiful country",
+                    Code = "SB",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 204,
+                    Name = "Somalia",
+                    Description = "This is beautiful country",
+                    Code = "SO",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 205,
+                    Name = "South Africa",
+                    Description = "This is beautiful country",
+                    Code = "ZA",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 206,
+                    Name = "South Georgia and the South Sandwich Islands",
+                    Description = "This is beautiful country",
+                    Code = "GS",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 207,
+                    Name = "South Sudan",
+                    Description = "This is beautiful country",
+                    Code = "SS",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 208,
+                    Name = "Spain",
+                    Description = "This is beautiful country",
+                    Code = "ES",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 209,
+                    Name = "Sri Lanka",
+                    Description = "This is beautiful country",
+                    Code = "LK",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 210,
+                    Name = "Sudan",
+                    Description = "This is beautiful country",
+                    Code = "SD",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 211,
+                    Name = "Suriname",
+                    Description = "This is beautiful country",
+                    Code = "SR",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 212,
+                    Name = "Svalbard and Jan Mayen",
+                    Description = "This is beautiful country",
+                    Code = "SJ",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 213,
+                    Name = "Swaziland",
+                    Description = "This is beautiful country",
+                    Code = "SZ",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 214,
+                    Name = "Sweden",
+                    Description = "This is beautiful country",
+                    Code = "SE",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 215,
+                    Name = "Switzerland",
+                    Description = "This is beautiful country",
+                    Code = "CH",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 216,
+                    Name = "Syrian Arab Republic",
+                    Description = "This is beautiful country",
+                    Code = "SY",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 217,
+                    Name = "Taiwan, Province of China",
+                    Description = "This is beautiful country",
+                    Code = "TW",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 218,
+                    Name = "Tajikistan",
+                    Description = "This is beautiful country",
+                    Code = "TJ",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 219,
+                    Name = "Tanzania, United Republic of",
+                    Description = "This is beautiful country",
+                    Code = "TZ",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 220,
+                    Name = "Thailand",
+                    Description = "This is beautiful country",
+                    Code = "TH",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 221,
+                    Name = "Timor-Leste",
+                    Description = "This is beautiful country",
+                    Code = "TL",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 222,
+                    Name = "Togo",
+                    Description = "This is beautiful country",
+                    Code = "TG",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 223,
+                    Name = "Tokelau",
+                    Description = "This is beautiful country",
+                    Code = "TK",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 224,
+                    Name = "Tonga",
+                    Description = "This is beautiful country",
+                    Code = "TO",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 225,
+                    Name = "Trinidad and Tobago",
+                    Description = "This is beautiful country",
+                    Code = "TT",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 226,
+                    Name = "Tunisia",
+                    Description = "This is beautiful country",
+                    Code = "TN",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 227,
+                    Name = "Turkey",
+                    Description = "This is beautiful country",
+                    Code = "TR",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 228,
+                    Name = "Turkmenistan",
+                    Description = "This is beautiful country",
+                    Code = "TM",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 229,
+                    Name = "Turks and Caicos Islands",
+                    Description = "This is beautiful country",
+                    Code = "TC",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 230,
+                    Name = "Tuvalu",
+                    Description = "This is beautiful country",
+                    Code = "TV",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 231,
+                    Name = "Uganda",
+                    Description = "This is beautiful country",
+                    Code = "UG",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 232,
+                    Name = "Ukraine",
+                    Description = "This is beautiful country",
+                    Code = "UA",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 233,
+                    Name = "United Arab Emirates",
+                    Description = "This is beautiful country",
+                    Code = "AE",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 234,
+                    Name = "United Kingdom",
+                    Description = "This is beautiful country",
+                    Code = "GB",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 235,
+                    Name = "United States",
+                    Description = "This is beautiful country",
+                    Code = "US",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 236,
+                    Name = "United States Minor Outlying Islands",
+                    Description = "This is beautiful country",
+                    Code = "UM",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 237,
+                    Name = "Uruguay",
+                    Description = "This is beautiful country",
+                    Code = "UY",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 238,
+                    Name = "Uzbekistan",
+                    Description = "This is beautiful country",
+                    Code = "UZ",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 239,
+                    Name = "Vanuatu",
+                    Description = "This is beautiful country",
+                    Code = "VU",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 240,
+                    Name = "Venezuela, Bolivarian Republic of",
+                    Description = "This is beautiful country",
+                    Code = "VE",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 241,
+                    Name = "Viet Nam",
+                    Description = "This is beautiful country",
+                    Code = "VN",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 242,
+                    Name = "Virgin Islands, British",
+                    Description = "This is beautiful country",
+                    Code = "VG",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 243,
+                    Name = "Virgin Islands, U.S.",
+                    Description = "This is beautiful country",
+                    Code = "VI",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 244,
+                    Name = "Wallis and Futuna",
+                    Description = "This is beautiful country",
+                    Code = "WF",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 245,
+                    Name = "Western Sahara",
+                    Description = "This is beautiful country",
+                    Code = "EH",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 246,
+                    Name = "Yemen",
+                    Description = "This is beautiful country",
+                    Code = "YE",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 247,
+                    Name = "Zambia",
+                    Description = "This is beautiful country",
+                    Code = "ZM",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 248,
+                    Name = "Zimbabwe",
+                    Description = "This is beautiful country",
+                    Code = "ZW",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+                new AclCountry
+                {
+                    Id = 249,
+                    Name = "Ã…land Islands",
+                    Description = "This is beautiful country",
+                    Code = "AX",
+                    Status = 1,
+                    Sequence = 0,
+                    CreatedById = 2,
+                    UpdatedById = 2,
+                    CreatedAt = DateTime.Parse("2015-11-04 01:52:01"),
+                    UpdatedAt = DateTime.Parse("2019-03-28 13:29:33")
+                },
+            }
+
+
       );
         modelBuilder.Entity<AclUser>().HasData(
              new AclUser

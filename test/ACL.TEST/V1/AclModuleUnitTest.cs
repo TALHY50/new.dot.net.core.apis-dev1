@@ -27,7 +27,7 @@ namespace ACL.Tests.V1
             //Arrange
 
             // Act
-            var request = new RestRequest("modules", Method.Get);
+            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclModuleRouteUrl.List, Method.Get);
             //request.AddHeader("Authorization", "Bearer desc");
 
             RestResponse response = restClient.Execute(request);
@@ -44,7 +44,7 @@ namespace ACL.Tests.V1
             var data = GetModule();
 
             // Act
-            var request = new RestRequest("modules/add", Method.Post);
+            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclModuleRouteUrl.Add, Method.Post);
             //request.AddHeader("Authorization", "Bearer desc");
             request.AddJsonBody(data);
 
@@ -63,7 +63,7 @@ namespace ACL.Tests.V1
             var id = getRandomID();
 
             // Act
-            var request = new RestRequest($"modules/view/{id}", Method.Get);
+            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclModuleRouteUrl.View.Replace("{id}",id.ToString()), Method.Get);
             //request.AddHeader("Authorization", "Bearer desc");
 
 
@@ -83,7 +83,7 @@ namespace ACL.Tests.V1
             var id = getRandomID();
 
             // Act
-            var request = new RestRequest($"modules/edit/{id}", Method.Put);
+            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclModuleRouteUrl.Edit.Replace("{id}",id.ToString()),Method.Put);
             //request.AddHeader("Authorization", "Bearer desc");
             request.AddJsonBody(data);
 
@@ -101,7 +101,7 @@ namespace ACL.Tests.V1
             var id = getRandomID();
 
             // Act
-            var request = new RestRequest($"modules/delete/{id}", Method.Delete);
+            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclModuleRouteUrl.Destroy.Replace("{id}",id.ToString()), Method.Delete);
             //request.AddHeader("Authorization", "Bearer desc");
 
             RestResponse response = restClient.Execute(request);
@@ -127,7 +127,7 @@ namespace ACL.Tests.V1
         private int getRandomID()
         {
 
-            return (int)unitOfWork.AclModuleRepository.FirstOrDefault().Id;
+            return (int)unitOfWork.ApplicationDbContext.AclModules.Max(i=>i.Id);
 
         }
 
