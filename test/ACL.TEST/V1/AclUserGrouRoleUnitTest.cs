@@ -4,6 +4,7 @@ using RestSharp;
 using ACL.Requests.V1;
 using ACL.Route;
 using ACL.Database.Models;
+using SharedLibrary.Services;
 
 namespace ACL.Tests.V1
 {
@@ -30,7 +31,7 @@ namespace ACL.Tests.V1
 
             RestResponse response = restClient.Execute(request);
 
-          
+
             //// Assert
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, (int)response.StatusCode);
 
@@ -54,18 +55,20 @@ namespace ACL.Tests.V1
 
         }
 
-     
+
         private AclUserGroupRoleRequest GetUserGroupRole()
         {
+            ulong maxId = DataCollectors.unitOfWork.ApplicationDbContext.AclRoles.Max(i => i.Id);
+            ulong[] idArray = new ulong[] { maxId };
             return new AclUserGroupRoleRequest
             {
-                user_group_id = DataCollectors.GetMaxId<AclUsergroup>(x => x.Id),
-                role_ids = new ulong[]  { DataCollectors.GetMaxId<AclRole>(x => x.Id)}
+                user_group_id = DataCollectors.unitOfWork.ApplicationDbContext.AclUsergroups.Max(i => i.Id),
+                role_ids = idArray
             };
 
         }
 
-       
+
 
     }
 }

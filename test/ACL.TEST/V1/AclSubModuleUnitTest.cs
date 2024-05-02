@@ -74,7 +74,7 @@ namespace ACL.Tests.V1
             //Arrange
 
             var data = GetSubModule();
-            var id = DataCollectors.GetMaxId<AclSubModule>(x => x.Id);
+            var id = DataCollectors.unitOfWork.ApplicationDbContext.AclSubModules.Max(x => x.Id);
 
             // Act
             var request = new RestRequest(AclRoutesUrl.AclSubmoduleRouteUrl.Edit.Replace("{id}", id.ToString()), Method.Put);
