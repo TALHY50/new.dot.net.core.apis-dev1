@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using ACL.Database.Models;
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
+using MySql.EntityFrameworkCore.Extensions;
 using Pomelo.EntityFrameworkCore.MySql.Scaffolding.Internal;
 using SharedLibrary.Interfaces;
 
@@ -88,9 +89,6 @@ public partial class ApplicationDbContext : DbContext, IApplicationDbContext
             entity.Property(e => e.Address)
                 .HasMaxLength(255)
                 .HasColumnName("address");
-            entity.Property(e => e.CompanyId)
-                .HasColumnType("bigint(20) unsigned")
-                .HasColumnName("company_id");
             entity.Property(e => e.CreatedAt)
                 .HasMaxLength(6)
                 .HasColumnName("created_at");
@@ -258,9 +256,6 @@ public partial class ApplicationDbContext : DbContext, IApplicationDbContext
             entity.Property(e => e.Code)
                 .HasMaxLength(50)
                 .HasColumnName("code");
-            entity.Property(e => e.CompanyId)
-                .HasColumnType("bigint(20) unsigned")
-                .HasColumnName("company_id");
             entity.Property(e => e.CreatedAt)
                 .HasMaxLength(6)
                 .HasColumnName("created_at");
@@ -452,12 +447,6 @@ public partial class ApplicationDbContext : DbContext, IApplicationDbContext
             entity.Property(e => e.Id)
                 .HasColumnType("bigint(20) unsigned")
                 .HasColumnName("id");
-            entity.Property(e => e.CompanyId)
-                .HasColumnType("bigint(20) unsigned")
-                .HasColumnName("company_id");
-            entity.Property(e => e.CountryId)
-                .HasColumnType("bigint(20) unsigned")
-                .HasColumnName("country_id");
             entity.Property(e => e.CreatedAt)
                 .HasMaxLength(6)
                 .HasColumnName("created_at");
@@ -729,15 +718,15 @@ public partial class ApplicationDbContext : DbContext, IApplicationDbContext
                 .HasColumnName("user_type_id");
         });
 
-        modelBuilder.Entity<Efmigrationshistory>(entity =>
-        {
-            entity.HasKey(e => e.MigrationId).HasName("PRIMARY");
+        //modelBuilder.Entity<Efmigrationshistory>(entity =>
+        //{
+        //    entity.HasKey(e => e.MigrationId).HasName("PRIMARY");
 
-            entity.ToTable("_efmigrationshistory");
+        //    entity.ToTable("_efmigrationshistory");
 
-            entity.Property(e => e.MigrationId).HasMaxLength(150);
-            entity.Property(e => e.ProductVersion).HasMaxLength(32);
-        });
+        //    entity.Property(e => e.MigrationId).HasMaxLength(150);
+        //    entity.Property(e => e.ProductVersion).HasMaxLength(32);
+        //});
 
         modelBuilder.Entity<FailedJob>(entity =>
         {
@@ -826,7 +815,6 @@ public partial class ApplicationDbContext : DbContext, IApplicationDbContext
           new AclBranch
           {
               Id = 1,
-              CompanyId = 1,
               Name = "Test",
               Address = "Dhaka",
               Description = "Test",
@@ -882,7 +870,6 @@ public partial class ApplicationDbContext : DbContext, IApplicationDbContext
          new AclCountry
          {
              Id = 1,
-             CompanyId = 1,
              Name = "Bangladesh",
              Description = "This is beautiful country",
              Code = "BD",
@@ -1798,8 +1785,6 @@ public partial class ApplicationDbContext : DbContext, IApplicationDbContext
                     new AclState
                     {
                         Id = 1,
-                        CompanyId = 1,
-                        CountryId =1 ,
                         Name ="Dhaka",
                         Description ="Dhaka city of BD",
                         CreatedById = 1,

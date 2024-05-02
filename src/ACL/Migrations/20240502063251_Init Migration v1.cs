@@ -9,18 +9,20 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace ACL.Migrations
 {
     /// <inheritdoc />
-    public partial class Initmigration : Migration
+    public partial class InitMigrationv1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AlterDatabase()
+                .Annotation("MySQL:Charset", "utf8mb4");
+
             migrationBuilder.CreateTable(
                 name: "acl_branches",
                 columns: table => new
                 {
                     id = table.Column<long>(type: "bigint(20) unsigned", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    company_id = table.Column<long>(type: "bigint(20) unsigned", nullable: false),
                     name = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
                     address = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
                     description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
@@ -35,7 +37,7 @@ namespace ACL.Migrations
                 {
                     table.PrimaryKey("PRIMARY", x => x.id);
                 })
-                .Annotation("Relational:Collation", "utf8mb4_general_ci");
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "acl_companies",
@@ -78,7 +80,7 @@ namespace ACL.Migrations
                 {
                     table.PrimaryKey("PRIMARY", x => x.id);
                 })
-                .Annotation("Relational:Collation", "utf8mb4_general_ci");
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "acl_company_modules",
@@ -95,7 +97,7 @@ namespace ACL.Migrations
                 {
                     table.PrimaryKey("PRIMARY", x => x.id);
                 })
-                .Annotation("Relational:Collation", "utf8mb4_general_ci");
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "acl_countries",
@@ -103,7 +105,6 @@ namespace ACL.Migrations
                 {
                     id = table.Column<long>(type: "bigint(20) unsigned", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    company_id = table.Column<long>(type: "bigint(20) unsigned", nullable: false),
                     name = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
                     description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
                     code = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
@@ -118,7 +119,7 @@ namespace ACL.Migrations
                 {
                     table.PrimaryKey("PRIMARY", x => x.id);
                 })
-                .Annotation("Relational:Collation", "utf8mb4_general_ci");
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "acl_modules",
@@ -137,7 +138,7 @@ namespace ACL.Migrations
                 {
                     table.PrimaryKey("PRIMARY", x => x.id);
                 })
-                .Annotation("Relational:Collation", "utf8mb4_general_ci");
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "acl_page_routes",
@@ -155,7 +156,7 @@ namespace ACL.Migrations
                 {
                     table.PrimaryKey("PRIMARY", x => x.id);
                 })
-                .Annotation("Relational:Collation", "utf8mb4_general_ci");
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "acl_pages",
@@ -176,7 +177,7 @@ namespace ACL.Migrations
                 {
                     table.PrimaryKey("PRIMARY", x => x.id);
                 })
-                .Annotation("Relational:Collation", "utf8mb4_general_ci");
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "acl_role_pages",
@@ -193,7 +194,7 @@ namespace ACL.Migrations
                 {
                     table.PrimaryKey("PRIMARY", x => x.id);
                 })
-                .Annotation("Relational:Collation", "utf8mb4_general_ci");
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "acl_roles",
@@ -214,7 +215,7 @@ namespace ACL.Migrations
                 {
                     table.PrimaryKey("PRIMARY", x => x.id);
                 })
-                .Annotation("Relational:Collation", "utf8mb4_general_ci");
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "acl_states",
@@ -222,8 +223,6 @@ namespace ACL.Migrations
                 {
                     id = table.Column<long>(type: "bigint(20) unsigned", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    company_id = table.Column<long>(type: "bigint(20) unsigned", nullable: false),
-                    country_id = table.Column<long>(type: "bigint(20) unsigned", nullable: false),
                     name = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
                     description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
                     status = table.Column<sbyte>(type: "tinyint(3) unsigned", nullable: false),
@@ -237,7 +236,7 @@ namespace ACL.Migrations
                 {
                     table.PrimaryKey("PRIMARY", x => x.id);
                 })
-                .Annotation("Relational:Collation", "utf8mb4_general_ci");
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "acl_sub_modules",
@@ -259,7 +258,7 @@ namespace ACL.Migrations
                 {
                     table.PrimaryKey("PRIMARY", x => x.id);
                 })
-                .Annotation("Relational:Collation", "utf8mb4_general_ci");
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "acl_user_usergroups",
@@ -277,7 +276,7 @@ namespace ACL.Migrations
                 {
                     table.PrimaryKey("PRIMARY", x => x.id);
                 })
-                .Annotation("Relational:Collation", "utf8mb4_general_ci");
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "acl_usergroup_roles",
@@ -295,7 +294,7 @@ namespace ACL.Migrations
                 {
                     table.PrimaryKey("PRIMARY", x => x.id);
                 })
-                .Annotation("Relational:Collation", "utf8mb4_general_ci");
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "acl_usergroups",
@@ -315,7 +314,7 @@ namespace ACL.Migrations
                 {
                     table.PrimaryKey("PRIMARY", x => x.id);
                 })
-                .Annotation("Relational:Collation", "utf8mb4_general_ci");
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "acl_users",
@@ -355,7 +354,7 @@ namespace ACL.Migrations
                 {
                     table.PrimaryKey("PRIMARY", x => x.id);
                 })
-                .Annotation("Relational:Collation", "utf8mb4_general_ci");
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "acl_usertype_submodules",
@@ -372,7 +371,7 @@ namespace ACL.Migrations
                 {
                     table.PrimaryKey("PRIMARY", x => x.id);
                 })
-                .Annotation("Relational:Collation", "utf8mb4_general_ci");
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "failed_jobs",
@@ -391,7 +390,7 @@ namespace ACL.Migrations
                 {
                     table.PrimaryKey("PRIMARY", x => x.id);
                 })
-                .Annotation("Relational:Collation", "utf8mb4_general_ci");
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "migrations",
@@ -406,7 +405,7 @@ namespace ACL.Migrations
                 {
                     table.PrimaryKey("PRIMARY", x => x.id);
                 })
-                .Annotation("Relational:Collation", "utf8mb4_general_ci");
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "personal_access_tokens",
@@ -428,12 +427,12 @@ namespace ACL.Migrations
                 {
                     table.PrimaryKey("PRIMARY", x => x.id);
                 })
-                .Annotation("Relational:Collation", "utf8mb4_general_ci");
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.InsertData(
                 table: "acl_branches",
-                columns: new[] { "id", "address", "company_id", "created_at", "created_by_id", "description", "name", "sequence", "status", "updated_at", "updated_by_id" },
-                values: new object[] { 1L, "Dhaka", 1L, new DateTime(2015, 11, 4, 1, 52, 1, 0, DateTimeKind.Unspecified), 1L, "Test", "Test", 1L, (sbyte)1, new DateTime(2019, 3, 28, 13, 29, 33, 0, DateTimeKind.Unspecified), 1L });
+                columns: new[] { "id", "address", "created_at", "created_by_id", "description", "name", "sequence", "status", "updated_at", "updated_by_id" },
+                values: new object[] { 1L, "Dhaka", new DateTime(2015, 11, 4, 1, 52, 1, 0, DateTimeKind.Unspecified), 1L, "Test", "Test", 1L, (sbyte)1, new DateTime(2019, 3, 28, 13, 29, 33, 0, DateTimeKind.Unspecified), 1L });
 
             migrationBuilder.InsertData(
                 table: "acl_companies",
@@ -447,8 +446,8 @@ namespace ACL.Migrations
 
             migrationBuilder.InsertData(
                 table: "acl_countries",
-                columns: new[] { "id", "code", "company_id", "created_at", "created_by_id", "description", "name", "sequence", "status", "updated_at", "updated_by_id" },
-                values: new object[] { 1L, "BD", 1L, new DateTime(2015, 11, 4, 1, 52, 1, 0, DateTimeKind.Unspecified), 2L, "This is beautiful country", "Bangladesh", 0L, (sbyte)1, new DateTime(2019, 3, 28, 13, 29, 33, 0, DateTimeKind.Unspecified), 2L });
+                columns: new[] { "id", "code", "created_at", "created_by_id", "description", "name", "sequence", "status", "updated_at", "updated_by_id" },
+                values: new object[] { 1L, "BD", new DateTime(2015, 11, 4, 1, 52, 1, 0, DateTimeKind.Unspecified), 2L, "This is beautiful country", "Bangladesh", 0L, (sbyte)1, new DateTime(2019, 3, 28, 13, 29, 33, 0, DateTimeKind.Unspecified), 2L });
 
             migrationBuilder.InsertData(
                 table: "acl_modules",
@@ -604,8 +603,8 @@ namespace ACL.Migrations
 
             migrationBuilder.InsertData(
                 table: "acl_states",
-                columns: new[] { "id", "company_id", "country_id", "created_at", "created_by_id", "description", "name", "sequence", "status", "updated_at", "updated_by_id" },
-                values: new object[] { 1L, 1L, 1L, new DateTime(2019, 3, 22, 8, 38, 12, 0, DateTimeKind.Unspecified), 1L, "Dhaka city of BD", "Dhaka", 100L, (sbyte)1, new DateTime(2023, 11, 1, 19, 17, 0, 0, DateTimeKind.Unspecified), 1L });
+                columns: new[] { "id", "created_at", "created_by_id", "description", "name", "sequence", "status", "updated_at", "updated_by_id" },
+                values: new object[] { 1L, new DateTime(2019, 3, 22, 8, 38, 12, 0, DateTimeKind.Unspecified), 1L, "Dhaka city of BD", "Dhaka", 100L, (sbyte)1, new DateTime(2023, 11, 1, 19, 17, 0, 0, DateTimeKind.Unspecified), 1L });
 
             migrationBuilder.InsertData(
                 table: "acl_sub_modules",
@@ -692,9 +691,6 @@ namespace ACL.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "_efmigrationshistory");
-
             migrationBuilder.DropTable(
                 name: "acl_branches");
 

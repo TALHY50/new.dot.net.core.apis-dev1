@@ -138,8 +138,6 @@ namespace ACL.Repositories.V1
                 aclState.CreatedAt = DateTime.Now;
                 aclState.CreatedById = AppAuth.GetAuthInfo().UserId;
             }
-            aclState.CompanyId = request.company_id;
-            aclState.CountryId = request.country_id;
             aclState.Name = request.name;
             aclState.Status = request.status;
             aclState.Description = request.description;

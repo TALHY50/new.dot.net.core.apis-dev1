@@ -16,8 +16,6 @@ namespace ACL.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .UseCollation("utf8mb4_general_ci")
-                .HasAnnotation("MySql:CharSet", "utf8mb4")
                 .HasAnnotation("ProductVersion", "8.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
@@ -33,10 +31,6 @@ namespace ACL.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("varchar(255)")
                         .HasColumnName("address");
-
-                    b.Property<long>("CompanyId")
-                        .HasColumnType("bigint(20) unsigned")
-                        .HasColumnName("company_id");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasMaxLength(6)
@@ -86,7 +80,6 @@ namespace ACL.Migrations
                         {
                             Id = 1L,
                             Address = "Dhaka",
-                            CompanyId = 1L,
                             CreatedAt = new DateTime(2015, 11, 4, 1, 52, 1, 0, DateTimeKind.Unspecified),
                             CreatedById = 1L,
                             Description = "Test",
@@ -359,10 +352,6 @@ namespace ACL.Migrations
                         .HasColumnType("varchar(50)")
                         .HasColumnName("code");
 
-                    b.Property<long>("CompanyId")
-                        .HasColumnType("bigint(20) unsigned")
-                        .HasColumnName("company_id");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasMaxLength(6)
                         .HasColumnType("datetime(6)")
@@ -411,7 +400,6 @@ namespace ACL.Migrations
                         {
                             Id = 1L,
                             Code = "BD",
-                            CompanyId = 1L,
                             CreatedAt = new DateTime(2015, 11, 4, 1, 52, 1, 0, DateTimeKind.Unspecified),
                             CreatedById = 2L,
                             Description = "This is beautiful country",
@@ -1700,14 +1688,6 @@ namespace ACL.Migrations
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("id");
 
-                    b.Property<long>("CompanyId")
-                        .HasColumnType("bigint(20) unsigned")
-                        .HasColumnName("company_id");
-
-                    b.Property<long>("CountryId")
-                        .HasColumnType("bigint(20) unsigned")
-                        .HasColumnName("country_id");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasMaxLength(6)
                         .HasColumnType("datetime(6)")
@@ -1755,8 +1735,6 @@ namespace ACL.Migrations
                         new
                         {
                             Id = 1L,
-                            CompanyId = 1L,
-                            CountryId = 1L,
                             CreatedAt = new DateTime(2019, 3, 22, 8, 38, 12, 0, DateTimeKind.Unspecified),
                             CreatedById = 1L,
                             Description = "Dhaka city of BD",
@@ -2362,23 +2340,6 @@ namespace ACL.Migrations
                             SubModuleId = 2054,
                             UserTypeId = (sbyte)1
                         });
-                });
-
-            modelBuilder.Entity("ACL.Database.Models.Efmigrationshistory", b =>
-                {
-                    b.Property<string>("MigrationId")
-                        .HasMaxLength(150)
-                        .HasColumnType("varchar(150)");
-
-                    b.Property<string>("ProductVersion")
-                        .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("varchar(32)");
-
-                    b.HasKey("MigrationId")
-                        .HasName("PRIMARY");
-
-                    b.ToTable("_efmigrationshistory", (string)null);
                 });
 
             modelBuilder.Entity("ACL.Database.Models.FailedJob", b =>

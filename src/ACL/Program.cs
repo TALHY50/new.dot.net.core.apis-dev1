@@ -29,8 +29,8 @@ using SharedLibrary.Interfaces;
 using SharedLibrary.Services;
 using ACL.Interfaces.Repositories.V1;
 using ACL.Repositories.V1;
-using ACL.Data;
 using ACL.Exceptions;
+using ACL.Data;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -53,7 +53,27 @@ var userName = Env.GetString("DB_USERNAME");
 var password = Env.GetString("DB_PASSWORD");
 var port = Env.GetString("DB_PORT");
 
+var connectionString = $"server={server};database={database};User ID={userName};Password={password};CharSet=utf8mb4;" ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+var connectionString = $"server={server};database={database};User ID={userName};Password={password};CharSet=utf8mb4;" ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseMySQL(connectionString, options =>
+    {
+        options.EnableRetryOnFailure();
+    }));
+
+=========
 var connectionString = $"server={server};port={port};database={database};User ID={userName};Password={password};CharSet=utf8mb4;" ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+>>>>>>>>> Temporary merge branch 2
+var connectionString = $"server={server};database={database};User ID={userName};Password={password};CharSet=utf8mb4;" ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseMySQL(connectionString, options =>
+    {
+        options.EnableRetryOnFailure();
+    }));
+
+=========
+var connectionString = $"server={server};port={port};database={database};User ID={userName};Password={password};CharSet=utf8mb4;" ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+>>>>>>>>> Temporary merge branch 2
 //builder.Services.AddDbContext<ApplicationDbContext>(options =>
 //    options.UseMySQL(connectionString, options =>
 //    {

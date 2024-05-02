@@ -41,8 +41,6 @@
 
   <ItemGroup>
     <Folder Include="Logs\" />
-    <Folder Include="Database\" />
-    <Folder Include="Migrations\" />
     <Folder Include="Repository\" />
   </ItemGroup>
 
