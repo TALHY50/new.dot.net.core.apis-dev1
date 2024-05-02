@@ -718,15 +718,15 @@ public partial class ApplicationDbContext : DbContext, IApplicationDbContext
                 .HasColumnName("user_type_id");
         });
 
-        modelBuilder.Entity<Efmigrationshistory>(entity =>
-        {
-            entity.HasKey(e => e.MigrationId).HasName("PRIMARY");
+        //modelBuilder.Entity<Efmigrationshistory>(entity =>
+        //{
+        //    entity.HasKey(e => e.MigrationId).HasName("PRIMARY");
 
-            entity.ToTable("_efmigrationshistory");
+        //    entity.ToTable("_efmigrationshistory");
 
-            entity.Property(e => e.MigrationId).HasMaxLength(150);
-            entity.Property(e => e.ProductVersion).HasMaxLength(32);
-        });
+        //    entity.Property(e => e.MigrationId).HasMaxLength(150);
+        //    entity.Property(e => e.ProductVersion).HasMaxLength(32);
+        //});
 
         modelBuilder.Entity<FailedJob>(entity =>
         {

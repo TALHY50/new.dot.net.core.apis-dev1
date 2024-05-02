@@ -9,11 +9,14 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace ACL.Migrations
 {
     /// <inheritdoc />
-    public partial class initMigration : Migration
+    public partial class InitMigrationv1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AlterDatabase()
+                .Annotation("MySQL:Charset", "utf8mb4");
+
             migrationBuilder.CreateTable(
                 name: "acl_branches",
                 columns: table => new
@@ -34,7 +37,7 @@ namespace ACL.Migrations
                 {
                     table.PrimaryKey("PRIMARY", x => x.id);
                 })
-                .Annotation("Relational:Collation", "utf8mb4_general_ci");
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "acl_companies",
@@ -77,7 +80,7 @@ namespace ACL.Migrations
                 {
                     table.PrimaryKey("PRIMARY", x => x.id);
                 })
-                .Annotation("Relational:Collation", "utf8mb4_general_ci");
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "acl_company_modules",
@@ -94,7 +97,7 @@ namespace ACL.Migrations
                 {
                     table.PrimaryKey("PRIMARY", x => x.id);
                 })
-                .Annotation("Relational:Collation", "utf8mb4_general_ci");
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "acl_countries",
@@ -116,7 +119,7 @@ namespace ACL.Migrations
                 {
                     table.PrimaryKey("PRIMARY", x => x.id);
                 })
-                .Annotation("Relational:Collation", "utf8mb4_general_ci");
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "acl_modules",
@@ -135,7 +138,7 @@ namespace ACL.Migrations
                 {
                     table.PrimaryKey("PRIMARY", x => x.id);
                 })
-                .Annotation("Relational:Collation", "utf8mb4_general_ci");
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "acl_page_routes",
@@ -153,7 +156,7 @@ namespace ACL.Migrations
                 {
                     table.PrimaryKey("PRIMARY", x => x.id);
                 })
-                .Annotation("Relational:Collation", "utf8mb4_general_ci");
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "acl_pages",
@@ -174,7 +177,7 @@ namespace ACL.Migrations
                 {
                     table.PrimaryKey("PRIMARY", x => x.id);
                 })
-                .Annotation("Relational:Collation", "utf8mb4_general_ci");
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "acl_role_pages",
@@ -191,7 +194,7 @@ namespace ACL.Migrations
                 {
                     table.PrimaryKey("PRIMARY", x => x.id);
                 })
-                .Annotation("Relational:Collation", "utf8mb4_general_ci");
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "acl_roles",
@@ -212,7 +215,7 @@ namespace ACL.Migrations
                 {
                     table.PrimaryKey("PRIMARY", x => x.id);
                 })
-                .Annotation("Relational:Collation", "utf8mb4_general_ci");
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "acl_states",
@@ -233,7 +236,7 @@ namespace ACL.Migrations
                 {
                     table.PrimaryKey("PRIMARY", x => x.id);
                 })
-                .Annotation("Relational:Collation", "utf8mb4_general_ci");
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "acl_sub_modules",
@@ -255,7 +258,7 @@ namespace ACL.Migrations
                 {
                     table.PrimaryKey("PRIMARY", x => x.id);
                 })
-                .Annotation("Relational:Collation", "utf8mb4_general_ci");
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "acl_user_usergroups",
@@ -273,7 +276,7 @@ namespace ACL.Migrations
                 {
                     table.PrimaryKey("PRIMARY", x => x.id);
                 })
-                .Annotation("Relational:Collation", "utf8mb4_general_ci");
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "acl_usergroup_roles",
@@ -291,7 +294,7 @@ namespace ACL.Migrations
                 {
                     table.PrimaryKey("PRIMARY", x => x.id);
                 })
-                .Annotation("Relational:Collation", "utf8mb4_general_ci");
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "acl_usergroups",
@@ -311,7 +314,7 @@ namespace ACL.Migrations
                 {
                     table.PrimaryKey("PRIMARY", x => x.id);
                 })
-                .Annotation("Relational:Collation", "utf8mb4_general_ci");
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "acl_users",
@@ -351,7 +354,7 @@ namespace ACL.Migrations
                 {
                     table.PrimaryKey("PRIMARY", x => x.id);
                 })
-                .Annotation("Relational:Collation", "utf8mb4_general_ci");
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "acl_usertype_submodules",
@@ -368,7 +371,7 @@ namespace ACL.Migrations
                 {
                     table.PrimaryKey("PRIMARY", x => x.id);
                 })
-                .Annotation("Relational:Collation", "utf8mb4_general_ci");
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "failed_jobs",
@@ -387,7 +390,7 @@ namespace ACL.Migrations
                 {
                     table.PrimaryKey("PRIMARY", x => x.id);
                 })
-                .Annotation("Relational:Collation", "utf8mb4_general_ci");
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "migrations",
@@ -402,7 +405,7 @@ namespace ACL.Migrations
                 {
                     table.PrimaryKey("PRIMARY", x => x.id);
                 })
-                .Annotation("Relational:Collation", "utf8mb4_general_ci");
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "personal_access_tokens",
@@ -424,7 +427,7 @@ namespace ACL.Migrations
                 {
                     table.PrimaryKey("PRIMARY", x => x.id);
                 })
-                .Annotation("Relational:Collation", "utf8mb4_general_ci");
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.InsertData(
                 table: "acl_branches",
@@ -688,9 +691,6 @@ namespace ACL.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "_efmigrationshistory");
-
             migrationBuilder.DropTable(
                 name: "acl_branches");
 

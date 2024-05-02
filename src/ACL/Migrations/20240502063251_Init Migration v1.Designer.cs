@@ -11,16 +11,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ACL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240502052806_init Migration")]
-    partial class initMigration
+    [Migration("20240502063251_Init Migration v1")]
+    partial class InitMigrationv1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .UseCollation("utf8mb4_general_ci")
-                .HasAnnotation("MySql:CharSet", "utf8mb4")
                 .HasAnnotation("ProductVersion", "8.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
@@ -2345,23 +2343,6 @@ namespace ACL.Migrations
                             SubModuleId = 2054,
                             UserTypeId = (sbyte)1
                         });
-                });
-
-            modelBuilder.Entity("ACL.Database.Models.Efmigrationshistory", b =>
-                {
-                    b.Property<string>("MigrationId")
-                        .HasMaxLength(150)
-                        .HasColumnType("varchar(150)");
-
-                    b.Property<string>("ProductVersion")
-                        .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("varchar(32)");
-
-                    b.HasKey("MigrationId")
-                        .HasName("PRIMARY");
-
-                    b.ToTable("_efmigrationshistory", (string)null);
                 });
 
             modelBuilder.Entity("ACL.Database.Models.FailedJob", b =>
