@@ -12,6 +12,7 @@ using SharedLibrary.Interfaces;
 using SharedLibrary.Services;
 using ACL.Exceptions;
 using ACL.Data;
+using SharedLibrary.CustomMiddleWare;
 
 
 
@@ -128,9 +129,10 @@ app.UseSwaggerUI(options =>
     options.DefaultModelsExpandDepth(-1);
 });
 
+//app.UseGlobalExceptionHandler();
 app.UseMiddleware<RequestResponseLoggingMiddleware>();
 app.UseSerilogRequestLogging();
-app.UseMiddleware<GlobalExceptionHandling>();
+app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
 
 app.UseFileServer();
 

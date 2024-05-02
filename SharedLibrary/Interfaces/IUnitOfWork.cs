@@ -42,5 +42,6 @@ namespace SharedLibrary.Interfaces
         Assembly SetAssembly(Assembly assembly);
         ILocalizationService SetLocalizationService (ILocalizationService service);
         TUnitOfWork SetCustomUnitOfWork (TUnitOfWork customUnitOfWork);
+        ILogService SetLogService(ILogService service);
     }
 }

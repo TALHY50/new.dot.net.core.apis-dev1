@@ -1,7 +1,10 @@
 ﻿
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using ACL.Database;
+using ACL.Interfaces;
 using ACL.Requests.CustomDataAnotator;
+using SharedLibrary.CustomDataAnotator;
 
 namespace ACL.Requests.V1
 {
@@ -10,13 +13,13 @@ namespace ACL.Requests.V1
         [DefaultValue(1001)]
         [Required]
         [Range(1, ulong.MaxValue)]
-        [ExistsInDatabase("AclModule", "Id")]
+        [ExistsInDatabase<ApplicationDbContext,ICustomUnitOfWork>("AclModule", "Id")]
         public ulong module_id { get; set; }
 
         [DefaultValue(2001)]
         [Required]
         [Range(1, ulong.MaxValue)]
-        [ExistsInDatabase("AclSubModule", "Id")]
+        [ExistsInDatabase<ApplicationDbContext,ICustomUnitOfWork>("AclSubModule", "Id")]
         public ulong sub_module_id { get; set; }
 
         [DefaultValue("Company List")]

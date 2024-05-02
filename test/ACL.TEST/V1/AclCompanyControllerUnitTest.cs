@@ -24,20 +24,12 @@ namespace ACL.Tests.V1
         DatabaseConnector dbConnector;
         CustomUnitOfWork unitOfWork;
         RestClient restClient;
-        DbContextOptions<ApplicationDbContext> _inMemoryDbContextOptions;
-        ApplicationDbContext _inMemoryDbContext;
-        AclCompanyController controller;
         public AclCompanyControllerUnitTest()
         {
-            dbConnector = new DatabaseConnector(true);
-            _inMemoryDbContextOptions = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "acl")
-                .Options;
-            _inMemoryDbContext = new ApplicationDbContext(_inMemoryDbContextOptions);
-            unitOfWork = new CustomUnitOfWork(_inMemoryDbContext);
+            dbConnector = new DatabaseConnector();
+            unitOfWork = new CustomUnitOfWork(dbConnector.dbContext);
+            unitOfWork.ApplicationDbContext = dbConnector.dbContext;
             restClient = new RestClient(dbConnector.baseUrl);
-            unitOfWork.ApplicationDbContext = _inMemoryDbContext;
-            controller = new AclCompanyController(unitOfWork);
         }
 
         [Fact]
@@ -236,7 +228,8 @@ namespace ACL.Tests.V1
 
             //#endregion
             //#region Act
-            return (await unitOfWork.AclCompanyRepository.All()).LastOrDefault().Id;
+            
+                return unitOfWork.ApplicationDbContext.AclCompanies.Max(t=>t.Id);
             //// Act
             //var aclResponse = await controller.Create(createReq);
             ////var aclData = unitOfWork.AclCompanyRepository.Add((AclCompany)aclResponse.Data);

@@ -34,7 +34,7 @@ namespace ACL.Exceptions
             switch (exception)
             {
                 case MySqlException ex:
-                    AclErrorResponse(HttpStatusCode.NotFound,ex.Message);
+                    AclErrorResponse(HttpStatusCode.NotFound, ex.Message);
                     break;
                 case ApplicationException ex:
                     message = "Application Exception Occured, please retry after sometime.";
@@ -54,11 +54,13 @@ namespace ACL.Exceptions
             await context.Response.WriteAsync(exResult);
         }
 
-        private AclResponse AclErrorResponse(HttpStatusCode statusCode,string message)
+        private AclResponse AclErrorResponse(HttpStatusCode statusCode, string message)
         {
             aclResponse.StatusCode = statusCode;
             aclResponse.Message = message;
             return aclResponse;
         }
     }
+
 }
+
