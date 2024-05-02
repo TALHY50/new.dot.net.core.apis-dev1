@@ -1,4 +1,7 @@
 ﻿
+using ACL.Database;
+using ACL.Interfaces;
+using SharedLibrary.CustomDataAnotator;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -9,7 +12,7 @@ public partial class AclCountryRequest
     [DefaultValue("Bangladesh")]
     [Required]
     [StringLength(50)]
-    [UniqueValue("AclCountry", "Name")]
+    [UniqueValue<ApplicationDbContext,ICustomUnitOfWork>("AclCountry", "Name")]
     public string name { get; set; }
 
     [DefaultValue("This is beautiful country")]
@@ -20,7 +23,7 @@ public partial class AclCountryRequest
     [DefaultValue("bn")]
     [Required]
     [StringLength(50)]
-    [UniqueValue("AclCountry", "Code")]
+    [UniqueValue<ApplicationDbContext,ICustomUnitOfWork>("AclCountry", "Code")]
     public string code { get; set; }
 
     [DefaultValue(1)]

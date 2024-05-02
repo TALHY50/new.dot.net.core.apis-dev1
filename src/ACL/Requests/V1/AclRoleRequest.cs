@@ -1,6 +1,9 @@
 ﻿
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using ACL.Database;
+using ACL.Interfaces;
+using SharedLibrary.CustomDataAnotator;
 
 namespace ACL.Requests;
 
@@ -9,13 +12,13 @@ public partial class AclRoleRequest
 
     [DefaultValue("Admin Role")]
     [Required(ErrorMessage = "name is required.")]
-    [UniqueValue("AclRole", "Name")]
+    [UniqueValue<ApplicationDbContext, ICustomUnitOfWork>("AclRole", "Name")]
     [StringLength(100, MinimumLength = 3, ErrorMessage = "name must be between 3 to 100 characters.")]
     public  string name { get; set; }
 
     [DefaultValue("Admin")]
     [Required(ErrorMessage = "title is required.")]
-    [UniqueValue("AclRole", "Title")]
+    [UniqueValue<ApplicationDbContext, ICustomUnitOfWork>("AclRole", "Title")]
     [StringLength(100, MinimumLength = 3, ErrorMessage = "title must be between 3 to 100 characters.")]
     public  string title { get; set; }
 

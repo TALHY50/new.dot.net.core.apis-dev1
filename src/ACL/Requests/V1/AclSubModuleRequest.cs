@@ -1,7 +1,10 @@
 ﻿
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using ACL.Database;
+using ACL.Interfaces;
 using ACL.Requests.CustomDataAnotator;
+using SharedLibrary.CustomDataAnotator;
 
 namespace ACL.Requests;
 
@@ -9,20 +12,20 @@ public partial class AclSubModuleRequest
 {
     [DefaultValue("2055")]
     [Required(ErrorMessage = "id is required.")]
-    [UniqueValue("AclSubModule", "Id")]
+    [UniqueValue<ApplicationDbContext,ICustomUnitOfWork>("AclSubModule", "Id")]
     [Range(1, ulong.MaxValue, ErrorMessage = "id is required.")]
     public ulong id { get; set; }
 
     [DefaultValue("1004")]
     [Required(ErrorMessage = "module_id is required.")]
     [Range(1, ulong.MaxValue, ErrorMessage = "module_id is required.")]
-    [ExistsInDatabase("AclModule", "Id")]
+    [ExistsInDatabase<ApplicationDbContext,ICustomUnitOfWork>("AclModule", "Id")]
     public ulong module_id { get; set; }
 
     [DefaultValue("Company")]
     [Required(ErrorMessage = "name is required.")]
     [MaxLength(100)]
-    [UniqueValue("AclSubModule", "Name")]
+    [UniqueValue<ApplicationDbContext,ICustomUnitOfWork>("AclSubModule", "Name")]
     public  string name { get; set; }
 
     [DefaultValue("AclCompanyController")]
