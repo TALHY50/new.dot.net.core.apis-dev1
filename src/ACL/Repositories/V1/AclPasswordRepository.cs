@@ -39,7 +39,7 @@ namespace ACL.Repositories.V1
             }
 
 
-            var aclUser = (AclUser)_customUnitOfWork.AclUserRepository.Where(x => x.Id == request.user_id && x.Status == 1);
+            var aclUser = _customUnitOfWork.AclUserRepository.Where(x => x.Id == request.user_id && x.Status == 1).FirstOrDefault();
 
             if (aclUser != null)
             {
@@ -54,21 +54,15 @@ namespace ACL.Repositories.V1
                 }
 
                 // password update
-                try
-                {
-                    aclUser.Password = Cryptographer.AppEncrypt(request.new_password);
-                    await base.UpdateAsync(aclUser);
-                    await _unitOfWork.CompleteAsync();
-                    await _customUnitOfWork.AclUserRepository.ReloadAsync(aclUser);
 
-                    aclResponse.Message = "Password Reset Succesfully.";
-                    aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
-                }
-                catch (Exception ex)
-                {
-                    aclResponse.Message = ex.Message;
-                    aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
-                }
+                aclUser.Password = Cryptographer.AppEncrypt(request.new_password);
+                await base.UpdateAsync(aclUser);
+                await _unitOfWork.CompleteAsync();
+                await _customUnitOfWork.AclUserRepository.ReloadAsync(aclUser);
+
+                aclResponse.Message = "Password Reset Succesfully.";
+                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+
             }
 
             return aclResponse;
@@ -76,7 +70,7 @@ namespace ACL.Repositories.V1
 
         public async Task<AclResponse> Forget(AclForgetPasswordRequest request)
         {
-            var aclUser = (AclUser)_customUnitOfWork.AclUserRepository.Where(x => x.Email == request.email);
+            var aclUser = _customUnitOfWork.AclUserRepository.Where(x => x.Email == request.email).FirstOrDefault();
 
             if (aclUser != null)
             {
@@ -109,23 +103,17 @@ namespace ACL.Repositories.V1
             string email = (string)CacheHelper.Get(request.token);
 
             // password update
-            try
-            {
-                var aclUser = _unitOfWork.ApplicationDbContext.AclUsers.FirstOrDefault(x => x.Email == email);
-                aclUser.Password = Cryptographer.AppEncrypt(request.new_password);
-                await base.UpdateAsync(aclUser);
-                await _unitOfWork.CompleteAsync();
-                await _customUnitOfWork.AclUserRepository.ReloadAsync(aclUser);
 
-                CacheHelper.Remove(request.token);
-                aclResponse.Message = "Password Reset Succesfully.";
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
-            }
-            catch (Exception ex)
-            {
-                aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
-            }
+            var aclUser = _unitOfWork.ApplicationDbContext.AclUsers.Where(x => x.Email == email).FirstOrDefault();
+            aclUser.Password = Cryptographer.AppEncrypt(request.new_password);
+            await base.UpdateAsync(aclUser);
+            await _unitOfWork.CompleteAsync();
+            await _customUnitOfWork.AclUserRepository.ReloadAsync(aclUser);
+
+            CacheHelper.Remove(request.token);
+            aclResponse.Message = "Password Reset Succesfully.";
+            aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+
             return aclResponse;
         }
 

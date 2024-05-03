@@ -7,7 +7,7 @@ namespace ACL.Tests
 {
     public class DatabaseConnector
     {
-        public string baseUrl ;
+        public string baseUrl;
         private string connectionString;
         public ApplicationDbContext dbContext;
 
@@ -15,8 +15,8 @@ namespace ACL.Tests
         {
             Env.NoClobber().TraversePath().Load();
 
-            baseUrl = Env.GetString("APP_URL"); 
-           
+            baseUrl = Env.GetString("APP_URL");
+
             var server = Env.GetString("DB_HOST");
             var database = Env.GetString("DB_DATABASE");
             var userName = Env.GetString("DB_USERNAME");
@@ -28,9 +28,9 @@ namespace ACL.Tests
 
             if (isLocalDb)
             {
-                 options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(databaseName: "acl").Options;
+                options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(databaseName: "acl").Options;
             }
-                
+
             dbContext = new ApplicationDbContext(options);
 
         }

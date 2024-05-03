@@ -92,11 +92,11 @@ namespace ACL.Repositories.V1
             return aclResponse;
         }
 
-        public AclResponse FindById(ulong id)
+        public async Task<AclResponse> FindById(ulong id)
         {
             try
             {
-                var aclPage = _customUnitOfWork.AclPageRepository.GetById(id);
+                AclPage aclPage = await base.GetById(id);
                 aclResponse.Data = aclPage;
                 aclResponse.Message = messageResponse.fetchMessage;
                 if (aclPage == null)
