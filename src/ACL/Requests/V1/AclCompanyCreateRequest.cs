@@ -52,7 +52,7 @@ namespace ACL.Requests.V1
 
         [DefaultValue("+6")]
         [Required]
-        public int imezone { get; set; }
+        public int Timezone { get; set; }
 
         [DefaultValue("bd")]
         [Required]

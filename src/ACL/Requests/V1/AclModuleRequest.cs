@@ -19,7 +19,7 @@ namespace ACL.Requests.V1
         public string Name { get; set; }
 
         [DefaultValue("<i class='fa fa-list-ul'></i>")]
-        public string icon { get; set; }
+        public string Icon { get; set; }
 
         [DefaultValue(1)]
         public int Sequence { get; set; }

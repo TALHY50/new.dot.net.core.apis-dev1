@@ -276,7 +276,7 @@ namespace ACL.Repositories.V1
                 aclCompany.Name = requ.Name;
                 aclCompany.Cname = requ.Cname;
                 aclCompany.Cemail = requ.Cemail;
-                aclCompany.Address1 = requ.address1;
+                aclCompany.Address1 = requ.Address1;
                 aclCompany.Address2 = requ.Address2;
                 aclCompany.Postcode = requ.PostCode;
                 aclCompany.Phone = requ.Phone;
@@ -287,7 +287,7 @@ namespace ACL.Repositories.V1
                 aclCompany.Country = requ.Country;
                 aclCompany.Logo = requ.Logo;
                 aclCompany.RegistrationNo = requ.RegistrationNo;
-                aclCompany.Timezone = requ.timezone;
+                aclCompany.Timezone = requ.Timezone;
                 aclCompany.TimezoneValue = requ.TimeZoneValue;
                 aclCompany.TaxNo = requ.TaxNo;
                 aclCompany.UniqueColumnName = requ.UniqueColumnName;

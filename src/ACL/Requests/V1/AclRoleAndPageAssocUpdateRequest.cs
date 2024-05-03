@@ -15,15 +15,9 @@ namespace ACL.Requests
         [Range(1, int.MaxValue)]
 		public ulong RoleId { get; set; }
 		[Required]
+        [DefaultValue(new int[] { 1, 2 })]
 		[MinLength(1, ErrorMessage = "Array must contain at least one element.")]
 		[ArrayOfIntegers]
 		public int[] PageIds { get; set; }
 	}
-
-        [DefaultValue(new int[] { 1, 2 })]
-        [Required]
-        [MinLength(1, ErrorMessage = "Array must contain at least one element.")]
-        [ArrayOfIntegers]
-        public int[] PageIds { get; set; }
-    }
 }
