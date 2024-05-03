@@ -49,7 +49,7 @@ namespace ACL.Controllers.V1
         [HttpGet(AclRoutesUrl.AclPageRouteUrl.View, Name = AclRoutesName.AclPageNamesRouteNames.View)]
         public async Task<AclResponse> View(ulong id)
         {
-            return _unitOfWork.AclPageRepository.FindById(id);
+            return await _unitOfWork.AclPageRepository.FindById(id);
 
         }
 

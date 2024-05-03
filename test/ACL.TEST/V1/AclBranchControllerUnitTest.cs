@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ACL.TEST.V1
+namespace ACL.Tests.V1
 {
     public class AclBranchControllerUnitTest
     {
@@ -53,12 +53,12 @@ namespace ACL.TEST.V1
         }
 
         [Fact]
-        public void GetByIdCountryTest()
+        public void GetByIdBranchTest()
         {
             //Arrange
-            var id = getRandomID();
+            var id = GetRandomID();
             // Act
-            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclBranchRouteUrl.View.Replace("{id}",id.ToString()), Method.Get);
+            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclBranchRouteUrl.View.Replace("{id}", id.ToString()), Method.Get);
             //request.AddHeader("Authorization", "Bearer desc");
             RestResponse response = restClient.Execute(request);
             //// Assert
@@ -66,15 +66,15 @@ namespace ACL.TEST.V1
 
         }
         [Fact]
-        public void EditByIdCountryTest()
+        public void EditByIdBranchTest()
         {
             //Arrange
 
             var data = GetBranch();
-            var id = getRandomID();
+            var id = GetRandomID();
 
             // Act
-            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclBranchRouteUrl.Edit.Replace("{id}",id.ToString()), Method.Put);
+            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclBranchRouteUrl.Edit.Replace("{id}", id.ToString()), Method.Put);
             //request.AddHeader("Authorization", "Bearer desc");
             request.AddJsonBody(data);
 
@@ -86,13 +86,13 @@ namespace ACL.TEST.V1
 
         }
         [Fact]
-        public void DeleteByIdCountryTest()
+        public void DeleteByIdBranchTest()
         {
 
-            var id = getRandomID();
+            var id = GetRandomID();
 
             // Act
-            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclBranchRouteUrl.Destroy.Replace("{id}",id.ToString()), Method.Delete);
+            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclBranchRouteUrl.Destroy.Replace("{id}", id.ToString()), Method.Delete);
             //request.AddHeader("Authorization", "Bearer desc");
 
             RestResponse response = restClient.Execute(request);
@@ -116,7 +116,7 @@ namespace ACL.TEST.V1
 
         }
 
-        private ulong getRandomID()
+        private ulong GetRandomID()
         {
 
             return unitOfWork.ApplicationDbContext.AclCountries.Max(x => x.Id);

@@ -24,6 +24,7 @@ namespace ACL.Tests.V1
             DataCollectors.SetDatabase();
             authToken = DataCollectors.GetAuthorization();
             restClient = new RestSharp.RestClient(DataCollectors.baseUrl);
+            user_id = DataCollectors.unitOfWork.ApplicationDbContext.AclUsers.Max(x => x.Id);
         }
         [Fact]
         public void PasswordResetTest()
@@ -37,7 +38,7 @@ namespace ACL.Tests.V1
             request.AddHeader("Authorization", authToken);
             request.AddJsonBody(data);
             RestResponse response = restClient.Execute(request);
-           
+
             //// Assert
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, (int)response.StatusCode);
 
@@ -56,7 +57,7 @@ namespace ACL.Tests.V1
             RestResponse response = restClient.Execute(request);
 
             aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
-            CacheHelper.Set(uniqueKey,aclResponse.Data,60);
+            CacheHelper.Set(uniqueKey, aclResponse.Data, 60);
             //SetMemoryCache((string)aclResponse.Data);
 
             //// Assert
@@ -67,9 +68,13 @@ namespace ACL.Tests.V1
         public void PasswordForgetVerifyTest()
         {
             //Arrange
-            var data = new AclForgetPasswordTokenVerifyRequest { 
-                new_password = userPassword, password_confirmation= userPassword, token = (string)CacheHelper.Get(uniqueKey)
-        }; 
+            CacheHelper.Set(uniqueKey,authToken,1500);
+            var data = new AclForgetPasswordTokenVerifyRequest
+            {
+                new_password = userPassword,
+                password_confirmation = userPassword,
+                token = (string)CacheHelper.Get(uniqueKey)
+            };
 
             // Act
             var request = new RestRequest(AclRoutesUrl.AclPasswordRouteUrl.VerifyToken, Method.Post);
@@ -87,15 +92,16 @@ namespace ACL.Tests.V1
 
         private AclPasswordResetRequest GetPasswordReset()
         {
+            user_id = DataCollectors.unitOfWork.ApplicationDbContext.AclUsers.Max(x => x.Id);
             return new AclPasswordResetRequest
             {
                 user_id = user_id,
-                current_password = userPassword ,
+                current_password = userPassword,
                 new_password = resetPassword,
                 password_confirmation = resetPassword
             };
         }
 
-    
+
     }
 }

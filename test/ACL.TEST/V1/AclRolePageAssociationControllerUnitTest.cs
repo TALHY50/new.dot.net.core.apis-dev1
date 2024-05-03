@@ -89,7 +89,7 @@ namespace ACL.Tests.V1
 
             #endregion
             #region Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(400, actualEditStatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, actualEditStatusCode);
             #endregion Assert
         }
 

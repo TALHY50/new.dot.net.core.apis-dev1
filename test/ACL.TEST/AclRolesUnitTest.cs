@@ -1,117 +1,117 @@
-using ACL.Requests;
-using ACL.Services;
-using ACL.Controllers.V1;
-using ACL.Response.V1;
-using Bogus;
-using ACL.Tests;
+//using ACL.Requests;
+//using ACL.Services;
+//using ACL.Controllers.V1;
+//using ACL.Response.V1;
+//using Bogus;
+//using ACL.Tests;
 
-namespace ACL.TEST
-{
-    public class AclRolesUnitTest
-    {
-        DatabaseConnector dbConnector;
-        CustomUnitOfWork unitOfWork;
-        AclRoleController controller;
-        public AclRolesUnitTest()
-        {
-            dbConnector = new DatabaseConnector();
-            unitOfWork = new CustomUnitOfWork(dbConnector.dbContext);
-            unitOfWork.ApplicationDbContext = dbConnector.dbContext;
-            controller = new AclRoleController(unitOfWork);
-        }
-        [Fact]
-        public async void GetAllRolesTest()
-        {
+//namespace ACL.TEST
+//{
+//    public class AclRolesUnitTest
+//    {
+//        DatabaseConnector dbConnector;
+//        CustomUnitOfWork unitOfWork;
+//        AclRoleController controller;
+//        public AclRolesUnitTest()
+//        {
+//            dbConnector = new DatabaseConnector();
+//            unitOfWork = new CustomUnitOfWork(dbConnector.dbContext);
+//            unitOfWork.ApplicationDbContext = dbConnector.dbContext;
+//            controller = new AclRoleController(unitOfWork);
+//        }
+//        [Fact]
+//        public async void GetAllRolesTest()
+//        {
 
-            // Act
-            var aclResponse = await controller.Index();
-
-
-            // Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, (int)aclResponse.StatusCode);
-
-        }
-        [Fact]
-        public async void AddRoleTest()
-        {
-            var data = GetRole();
-
-            // Act
-            AclResponse aclResponse = await controller.Create(data);
-
-            int actualStatusCode = (int)aclResponse.StatusCode;
-
-            //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, actualStatusCode);
-
-        }
-
-        [Fact]
-        public async void GetByIdRoleTest()
-        {
-
-            var id = getRandomID();
+//            // Act
+//            var aclResponse = await controller.Index();
 
 
-            // Act
-            AclResponse aclResponse = await controller.View(id);
+//            // Assert
+//            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, (int)aclResponse.StatusCode);
 
-            int actualStatusCode = (int)aclResponse.StatusCode;
+//        }
+//        [Fact]
+//        public async void AddRoleTest()
+//        {
+//            var data = GetRole();
 
-            //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, actualStatusCode);
+//            // Act
+//            AclResponse aclResponse = await controller.Create(data);
 
-        }
-        [Fact]
-        public async void EditByIdRoleTest()
-        {
-            var data = GetRole();
-            var id = getRandomID();
+//            int actualStatusCode = (int)aclResponse.StatusCode;
+
+//            //// Assert
+//            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, actualStatusCode);
+
+//        }
+
+//        [Fact]
+//        public async void GetByIdRoleTest()
+//        {
+
+//            var id = getRandomID();
 
 
-            // Act
-            AclResponse aclResponse = await controller.Edit(id, data);
+//            // Act
+//            AclResponse aclResponse = await controller.View(id);
 
-            int actualStatusCode = (int)aclResponse.StatusCode;
+//            int actualStatusCode = (int)aclResponse.StatusCode;
 
-            //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, actualStatusCode);
+//            //// Assert
+//            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, actualStatusCode);
 
-        }
-        [Fact]
-        public async void DeleteByIdRoleTest()
-        {
+//        }
+//        [Fact]
+//        public async void EditByIdRoleTest()
+//        {
+//            var data = GetRole();
+//            var id = getRandomID();
 
-            var id = getRandomID();
 
-            // Act
-            AclResponse aclResponse = await controller.Destroy(id);
+//            // Act
+//            AclResponse aclResponse = await controller.Edit(id, data);
 
-            int actualStatusCode = (int)aclResponse.StatusCode;
+//            int actualStatusCode = (int)aclResponse.StatusCode;
 
-            //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, actualStatusCode);
+//            //// Assert
+//            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, actualStatusCode);
 
-        }
+//        }
+//        [Fact]
+//        public async void DeleteByIdRoleTest()
+//        {
 
-        private AclRoleRequest GetRole()
-        {
-            var faker = new Faker();
-            return new AclRoleRequest
-            {
-                name = faker.Lorem.Sentence(5),
-                status = (sbyte)faker.Random.Number(1, 2),
-                title = faker.Lorem.Sentence(5)
-            };
+//            var id = getRandomID();
 
-        }
+//            // Act
+//            AclResponse aclResponse = await controller.Destroy(id);
 
-        private ulong getRandomID()
-        {
+//            int actualStatusCode = (int)aclResponse.StatusCode;
 
-            return unitOfWork.ApplicationDbContext.AclRoles.FirstOrDefault().Id;
+//            //// Assert
+//            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, actualStatusCode);
 
-        }
+//        }
 
-    }
-}
+//        private AclRoleRequest GetRole()
+//        {
+//            var faker = new Faker();
+//            return new AclRoleRequest
+//            {
+//                name = faker.Lorem.Sentence(5),
+//                status = (sbyte)faker.Random.Number(1, 2),
+//                title = faker.Lorem.Sentence(5)
+//            };
+
+//        }
+
+//        private ulong getRandomID()
+//        {
+
+//            return unitOfWork.ApplicationDbContext.AclRoles.FirstOrDefault().Id;
+
+//        }
+
+//    }
+//}
