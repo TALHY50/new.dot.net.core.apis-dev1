@@ -173,14 +173,14 @@ namespace ACL.Tests.V1
                 Name = faker.Company.CompanyName(),
                 Cname = faker.Company.CompanyName(),
                 Cemail = faker.Internet.Email(),
-                address1 = faker.Address.StreetAddress(),
+                Address1 = faker.Address.StreetAddress(),
                 Address2 = faker.Address.SecondaryAddress(),
                 City = faker.Random.String2(15),
                 State = faker.Address.State(),
                 Country = faker.Address.Country(),
                 PostCode = faker.Address.ZipCode(),
                 Phone = faker.Random.String2(15),
-                timezone = faker.Random.Number(-12, 12), // Convert to string if 'timezone' is a string
+                Timezone = faker.Random.Number(-12, 12), // Convert to string if 'timezone' is a string
                 TimeZoneValue = faker.Random.String2(20),
                 Logo = faker.Image.PicsumUrl(),
                 Fax = faker.Random.String2(15),
