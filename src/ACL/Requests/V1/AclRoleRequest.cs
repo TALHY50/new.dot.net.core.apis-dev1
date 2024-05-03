@@ -14,18 +14,18 @@ public partial class AclRoleRequest
     [Required(ErrorMessage = "name is required.")]
     [UniqueValue<ApplicationDbContext, ICustomUnitOfWork>("AclRole", "Name")]
     [StringLength(100, MinimumLength = 3, ErrorMessage = "name must be between 3 to 100 characters.")]
-    public  string name { get; set; }
+    public  string Name { get; set; }
 
     [DefaultValue("Admin")]
     [Required(ErrorMessage = "title is required.")]
     [UniqueValue<ApplicationDbContext, ICustomUnitOfWork>("AclRole", "Title")]
     [StringLength(100, MinimumLength = 3, ErrorMessage = "title must be between 3 to 100 characters.")]
-    public  string title { get; set; }
+    public  string Title { get; set; }
 
 
     [Required(ErrorMessage = "status is required.")]
     [Range(1, 2, ErrorMessage = "Value must be between {1} and {2}.")]
-    public sbyte status { get; set; }
+    public sbyte Status { get; set; }
 
 
 }

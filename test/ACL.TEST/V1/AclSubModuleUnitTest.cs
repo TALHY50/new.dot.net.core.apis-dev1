@@ -110,14 +110,14 @@ namespace ACL.Tests.V1
             var faker = new Faker();
             return new AclSubModuleRequest
             {
-                id = (ulong)faker.Random.Number(1, int.MaxValue),
-                module_id = DataCollectors.GetMaxId<AclModule>(x => x.Id),
-                name = faker.Random.String2(10, 50),
-                controller_name = faker.Random.String2(10, 50),
-                default_method = faker.Random.String2(10, 50),
-                display_name = faker.Random.String2(10, 50),
-                sequence = faker.Random.Number(1, int.MaxValue),
-                icon = faker.Random.String2(10, 100)
+                Id = (ulong)faker.Random.Number(1, int.MaxValue),
+                ModuleId = DataCollectors.GetMaxId<AclModule>(x => x.Id),
+                Name = faker.Random.String2(10, 50),
+                ControllerName = faker.Random.String2(10, 50),
+                DefaultMethod = faker.Random.String2(10, 50),
+                DisplayName = faker.Random.String2(10, 50),
+                Sequence = faker.Random.Number(1, int.MaxValue),
+                Icon = faker.Random.String2(10, 100)
 
             };
 

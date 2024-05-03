@@ -62,8 +62,8 @@ namespace ACL.Tests.V1
             ulong[] idArray = new ulong[] { maxId };
             return new AclUserGroupRoleRequest
             {
-                user_group_id = DataCollectors.unitOfWork.ApplicationDbContext.AclUsergroups.Max(i => i.Id),
-                role_ids = idArray
+                UserGroupId = DataCollectors.unitOfWork.ApplicationDbContext.AclUsergroups.Max(i => i.Id),
+                RoleIds = idArray
             };
 
         }

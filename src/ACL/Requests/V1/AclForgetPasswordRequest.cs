@@ -14,7 +14,7 @@ public partial class AclForgetPasswordRequest
     [Required(ErrorMessage = "Email is required")]
     [EmailAddress(ErrorMessage = "Invalid email format")]
     [ExistsInDatabase<ApplicationDbContext,ICustomUnitOfWork>("AclUser","Email")]
-    public string email { get; set; }
+    public string Email { get; set; }
 
 
 }

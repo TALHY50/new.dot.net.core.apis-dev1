@@ -8,12 +8,12 @@ namespace ACL.Requests.V1
         [Required]
         [Range(1, ulong.MaxValue)]
         [UniqueCompanyModule]
-        public ulong company_id { get; set; }
+        public ulong CompanyId { get; set; }
 
         [Required]
         [Range(1, ulong.MaxValue)]
         [UniqueCompanyModule]
-        public ulong module_id { get; set; }
+        public ulong ModuleId { get; set; }
     }
 
 

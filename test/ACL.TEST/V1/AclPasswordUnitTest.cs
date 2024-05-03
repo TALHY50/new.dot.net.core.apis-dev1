@@ -47,7 +47,7 @@ namespace ACL.Tests.V1
         public void PasswordForgetTest()
         {
             //Arrange
-            var data = new AclForgetPasswordRequest { email = DataCollectors.getRandomEmail() };
+            var data = new AclForgetPasswordRequest { Email = DataCollectors.getRandomEmail() };
 
             // Act
             var request = new RestRequest(AclRoutesUrl.AclPasswordRouteUrl.Forget, Method.Post);
@@ -71,9 +71,9 @@ namespace ACL.Tests.V1
             CacheHelper.Set(uniqueKey,authToken,1500);
             var data = new AclForgetPasswordTokenVerifyRequest
             {
-                new_password = userPassword,
-                password_confirmation = userPassword,
-                token = (string)CacheHelper.Get(uniqueKey)
+                NewPassword = userPassword,
+                PasswordConfirmation = userPassword,
+                Token = (string)CacheHelper.Get(uniqueKey)
             };
 
             // Act
@@ -95,10 +95,10 @@ namespace ACL.Tests.V1
             user_id = DataCollectors.unitOfWork.ApplicationDbContext.AclUsers.Max(x => x.Id);
             return new AclPasswordResetRequest
             {
-                user_id = user_id,
-                current_password = userPassword,
-                new_password = resetPassword,
-                password_confirmation = resetPassword
+                UserId = user_id,
+                CurrentPassword = userPassword,
+                NewPassword = resetPassword,
+                PasswordConfirmation = resetPassword
             };
         }
 

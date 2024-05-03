@@ -109,12 +109,12 @@ namespace ACL.Tests.V1
             var faker = new Faker();
             return new AclStateRequest
             {
-                company_id = DataCollectors.GetMaxId<AclCompany>(x => x.Id),
-                country_id = DataCollectors.GetMaxId<AclCountry>(x => x.Id),
-                name = faker.Random.String2(10, 50),
-                description = faker.Random.String2(10, 255),
-                sequence = (ulong)faker.Random.Number(1, int.MaxValue),
-                status = (byte)faker.Random.Number(1, 2)
+                CompanyId = DataCollectors.GetMaxId<AclCompany>(x => x.Id),
+                CountryId = DataCollectors.GetMaxId<AclCountry>(x => x.Id),
+                Name = faker.Random.String2(10, 50),
+                Description = faker.Random.String2(10, 255),
+                Sequence = (ulong)faker.Random.Number(1, int.MaxValue),
+                Status = (byte)faker.Random.Number(1, 2)
 
             };
 

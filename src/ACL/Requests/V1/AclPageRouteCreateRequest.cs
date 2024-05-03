@@ -14,16 +14,16 @@ namespace ACL.Requests.V1
         [Required]
         [Range(1, ulong.MaxValue)]
         [ExistsInDatabase<ApplicationDbContext,ICustomUnitOfWork>("AclPage", "Id")]
-        public ulong page_id { get; set; }
+        public ulong PageId { get; set; }
 
         [DefaultValue("acl.company.list")]
         [Required]
         [StringLength(100)]
-        public string route_name { get; set; }
+        public string RouteName { get; set; }
 
         [DefaultValue("companies")]
         [Required]
         [StringLength(100)]
-        public string route_url { get; set; }
+        public string RouteUrl { get; set; }
     }
 }

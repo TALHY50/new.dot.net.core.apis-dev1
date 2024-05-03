@@ -138,10 +138,10 @@ namespace ACL.Repositories.V1
                 aclState.CreatedAt = DateTime.Now;
                 aclState.CreatedById = AppAuth.GetAuthInfo().UserId;
             }
-            aclState.Name = request.name;
-            aclState.Status = request.status;
-            aclState.Description = request.description;
-            aclState.Sequence = request.sequence;
+            aclState.Name = request.Name;
+            aclState.Status = request.Status;
+            aclState.Description = request.Description;
+            aclState.Sequence = request.Sequence;
             aclState.UpdatedById = AppAuth.GetAuthInfo().UserId;
             aclState.UpdatedAt = DateTime.Now;
 

@@ -112,9 +112,9 @@ namespace ACL.Tests.V1
             var faker = new Faker();
             return new AclUserGroupRequest
             {
-                name = faker.Random.String2(10, 50),
-                status = (sbyte)faker.Random.Number(1, 2),
-                group_name = faker.Random.String2(10, 50)
+                Name = faker.Random.String2(10, 50),
+                Status = (sbyte)faker.Random.Number(1, 2),
+                GroupName = faker.Random.String2(10, 50)
                   
 			};
 

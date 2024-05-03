@@ -135,16 +135,16 @@ namespace ACL.Repositories.V1
             if (aclSubModule == null)
             {
                 aclSubModule = new AclSubModule();
-                aclSubModule.Id = request.id;
+                aclSubModule.Id = request.Id;
                 aclSubModule.CreatedAt = DateTime.Now;
             }
-            aclSubModule.ModuleId = request.module_id;
-            aclSubModule.Name = request.name;
-            aclSubModule.ControllerName = request.controller_name;
-            aclSubModule.DefaultMethod = request.default_method;
-            aclSubModule.DisplayName = request.display_name;
-            aclSubModule.Icon = request.icon;
-            aclSubModule.Sequence = request.sequence;
+            aclSubModule.ModuleId = request.ModuleId;
+            aclSubModule.Name = request.Name;
+            aclSubModule.ControllerName = request.ControllerName;
+            aclSubModule.DefaultMethod = request.DefaultMethod;
+            aclSubModule.DisplayName = request.DisplayName;
+            aclSubModule.Icon = request.Icon;
+            aclSubModule.Sequence = request.Sequence;
             aclSubModule.UpdatedAt = DateTime.Now;
 
             return aclSubModule;

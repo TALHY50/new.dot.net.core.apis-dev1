@@ -116,11 +116,11 @@ namespace ACL.Tests.V1
             var faker = new Faker();
             return new AclPageRequest
             {
-                module_id = (ulong)faker.Random.Number(1001, 1002),
-                sub_module_id = (ulong)faker.Random.Number(2052, 2054),
-                name = faker.Random.String2(10, 50),
-                method_name = faker.Random.String2(1, 5),
-                method_type = faker.Random.Number(1, 3),
+                ModuleId = (ulong)faker.Random.Number(1001, 1002),
+                SubModuleId = (ulong)faker.Random.Number(2052, 2054),
+                Name = faker.Random.String2(10, 50),
+                MethodName = faker.Random.String2(1, 5),
+                MethodType = faker.Random.Number(1, 3),
             };
 
         }

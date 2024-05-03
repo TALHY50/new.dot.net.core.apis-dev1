@@ -11,7 +11,7 @@ namespace ACL.Requests
 		[Required]
         [ExistsInDatabase<ApplicationDbContext,ICustomUnitOfWork>("AclRole", "Id")]
         [Range(1, int.MaxValue)]
-		public ulong role_id { get; set; }
+		public ulong RoleId { get; set; }
 		[Required]
 		[MinLength(1, ErrorMessage = "Array must contain at least one element.")]
 		[ArrayOfIntegers]

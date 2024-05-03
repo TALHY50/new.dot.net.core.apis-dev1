@@ -48,7 +48,7 @@ namespace ACL.Repositories.V1
 
         public async Task<AclResponse> UpdateAll(AclRoleAndPageAssocUpdateRequest req)
         {
-            var res = await base.Where(x => x.RoleId == req.role_id).ToListAsync();
+            var res = await base.Where(x => x.RoleId == req.RoleId).ToListAsync();
             var check = PrepareData(req);
             using (var transaction = _unitOfWork.BeginTransaction())
             {
@@ -96,7 +96,7 @@ namespace ACL.Repositories.V1
                 {
                     AclRolePage aclRolePage = new AclRolePage();
                     aclRolePage.Id = 0;
-                    aclRolePage.RoleId = req.role_id;
+                    aclRolePage.RoleId = req.RoleId;
                     aclRolePage.PageId = page;
                     aclRolePage.CreatedAt = DateTime.Now;
                     aclRolePage.UpdatedAt = DateTime.Now;

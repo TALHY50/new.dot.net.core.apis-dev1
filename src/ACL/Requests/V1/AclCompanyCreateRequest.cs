@@ -6,77 +6,77 @@ namespace ACL.Requests.V1
     {
         [Required]
         [MaxLength(100)]
-        public string name { get; set; }
+        public string Name { get; set; }
 
         [Required]
         [MaxLength(100)]
         [EmailAddress]
-        public string cemail { get; set; }
+        public string Cemail { get; set; }
 
         [Required]
         [MaxLength(100)]
-        public string address1 { get; set; }
+        public string Address1 { get; set; }
 
         [MaxLength(100)]
-        public string address2 { get; set; }
+        public string Address2 { get; set; }
 
         [Required]
         [MaxLength(15)]
-        public string city { get; set; }
+        public string City { get; set; }
 
         [Required]
         [MaxLength(15)]
-        public string state { get; set; }
+        public string State { get; set; }
 
         [Required]
         [MaxLength(100)]
-        public string country { get; set; }
+        public string Country { get; set; }
 
         [Required]
         [MaxLength(10)]
-        public string postcode { get; set; }
+        public string PostCode { get; set; }
 
         [Required]
         [MaxLength(15)]
-        public string phone { get; set; }
+        public string Phone { get; set; }
 
         [Required]
-        public int timezone { get; set; }
+        public int imezone { get; set; }
 
         [Required]
         [MaxLength(20)]
-        public string timezone_value { get; set; }
+        public string TimeZoneValue { get; set; }
 
         [Required]
         [MaxLength(191)]
-        public string logo { get; set; }
+        public string Logo { get; set; }
 
         [Required]
         [MaxLength(15)]
-        public string fax { get; set; }
+        public string Fax { get; set; }
 
         [Required]
         [MaxLength(40)]
-        public string registration_no { get; set; }
+        public string RegistrationNo { get; set; }
 
         [Required]
         [MaxLength(40)]
-        public string tax_no { get; set; }
+        public string TaxNo { get; set; }
 
         [Required]
-        public sbyte unique_column_name { get; set; }
+        public sbyte UniqueColumnName { get; set; }
 
         [Required]
         [EmailAddress]
         [MaxLength(50)]
-        public string email { get; set; }
+        public string Email { get; set; }
 
         [Required]
         [MinLength(6)]
         [MaxLength(191)]
-        public string password { get; set; }
+        public string Password { get; set; }
 
-        public string cname { get; set; }
+        public string Cname { get; set; }
     }
 }
 

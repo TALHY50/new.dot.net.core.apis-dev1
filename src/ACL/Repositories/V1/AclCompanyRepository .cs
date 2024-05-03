@@ -87,8 +87,8 @@ namespace ACL.Repositories.V1
                             {
                                 AclUserGroupRequest userGroupRequest = new AclUserGroupRequest()
                                 {
-                                    group_name = _config["USER_GROUP_NAME"],
-                                    status = 1
+                                    GroupName = _config["USER_GROUP_NAME"],
+                                    Status = 1
                                 };
                                 _unitOfWork.AclUserGroupRepository.SetCompanyId(aclCompany.Id);
                                 var userGroup = await _unitOfWork.AclUserGroupRepository.AddUserGroup(userGroupRequest);
@@ -96,13 +96,13 @@ namespace ACL.Repositories.V1
                                 var createdUserGroup = (AclUsergroup)userGroup.Data;
                                 await _customUnitOfWork.AclUserGroupRepository.ReloadAsync(createdUserGroup);
 
-                                string[] nameArr = request.name.Split(' ');
+                                string[] nameArr = request.Name.Split(' ');
                                 string fname = (nameArr.Length > 0) ? nameArr[0] : "";
                                 string lname = (nameArr.Length > 1) ? nameArr[1] : fname;
                                 AclUser user = new AclUser()
                                 {
                                     Email = aclCompany.Email,
-                                    Password = request.password,
+                                    Password = request.Password,
                                     UserType = _customUnitOfWork.AclUserRepository.SetUserType(true),
                                     FirstName = fname,
                                     LastName = lname,
@@ -253,44 +253,44 @@ namespace ACL.Repositories.V1
             AclCompany aclCompany = _aclCompany == null ? new AclCompany() : _aclCompany;
             if (requ == null && req != null)
             {
-                aclCompany.Name = req.name;
-                aclCompany.Cname = req.cname;
-                aclCompany.Cemail = req.cemail;
-                aclCompany.Address1 = req.address1;
-                aclCompany.Address2 = req.address2;
-                aclCompany.Postcode = req.postcode;
-                aclCompany.Phone = req.phone;
-                aclCompany.Fax = req.fax;
-                aclCompany.City = req.city;
-                aclCompany.State = req.state;
-                aclCompany.Country = req.country;
-                aclCompany.Logo = req.logo;
-                aclCompany.RegistrationNo = req.registration_no;
-                aclCompany.Timezone = req.timezone;
-                aclCompany.TimezoneValue = req.timezone_value;
-                aclCompany.TaxNo = req.tax_no;
-                aclCompany.Status = req.status;
+                aclCompany.Name = req.Name;
+                aclCompany.Cname = req.Cname;
+                aclCompany.Cemail = req.Cemail;
+                aclCompany.Address1 = req.Address1;
+                aclCompany.Address2 = req.Address2;
+                aclCompany.Postcode = req.PostCode;
+                aclCompany.Phone = req.Phone;
+                aclCompany.Fax = req.Fax;
+                aclCompany.City = req.City;
+                aclCompany.State = req.State;
+                aclCompany.Country = req.Country;
+                aclCompany.Logo = req.Logo;
+                aclCompany.RegistrationNo = req.RegistrationNo;
+                aclCompany.Timezone = req.Timezone;
+                aclCompany.TimezoneValue = req.TimezoneValue;
+                aclCompany.TaxNo = req.TaxNo;
+                aclCompany.Status = req.Status;
             }
             if (requ != null && req == null)
             {
-                aclCompany.Name = requ.name;
-                aclCompany.Cname = requ.cname;
-                aclCompany.Cemail = requ.cemail;
+                aclCompany.Name = requ.Name;
+                aclCompany.Cname = requ.Cname;
+                aclCompany.Cemail = requ.Cemail;
                 aclCompany.Address1 = requ.address1;
-                aclCompany.Address2 = requ.address2;
-                aclCompany.Postcode = requ.postcode;
-                aclCompany.Phone = requ.phone;
-                aclCompany.Email = requ.email;
-                aclCompany.Fax = requ.fax;
-                aclCompany.City = requ.city;
-                aclCompany.State = requ.state;
-                aclCompany.Country = requ.country;
-                aclCompany.Logo = requ.logo;
-                aclCompany.RegistrationNo = requ.registration_no;
+                aclCompany.Address2 = requ.Address2;
+                aclCompany.Postcode = requ.PostCode;
+                aclCompany.Phone = requ.Phone;
+                aclCompany.Email = requ.Email;
+                aclCompany.Fax = requ.Fax;
+                aclCompany.City = requ.City;
+                aclCompany.State = requ.State;
+                aclCompany.Country = requ.Country;
+                aclCompany.Logo = requ.Logo;
+                aclCompany.RegistrationNo = requ.RegistrationNo;
                 aclCompany.Timezone = requ.timezone;
-                aclCompany.TimezoneValue = requ.timezone_value;
-                aclCompany.TaxNo = requ.tax_no;
-                aclCompany.UniqueColumnName = requ.unique_column_name;
+                aclCompany.TimezoneValue = requ.TimeZoneValue;
+                aclCompany.TaxNo = requ.TaxNo;
+                aclCompany.UniqueColumnName = requ.UniqueColumnName;
             }
             aclCompany.UpdatedAt = DateTime.Now;
             if (aclCompany.Id == 0)

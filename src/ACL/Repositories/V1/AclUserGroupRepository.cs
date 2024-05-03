@@ -131,8 +131,8 @@ namespace ACL.Repositories.V1
         {
             var _aclInstance = aclUsergroup ?? new AclUsergroup();
 
-            _aclInstance.Status = request.status;
-            _aclInstance.GroupName = request.group_name;
+            _aclInstance.Status = request.Status;
+            _aclInstance.GroupName = request.GroupName;
 
             if (CompanyId == 0)
             {

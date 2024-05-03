@@ -186,20 +186,20 @@ namespace ACL.Repositories.V1
                 if (_companyId == 0)
                     return new AclUser
                     {
-                        FirstName = request.first_name,
-                        LastName = request.last_name,
-                        Email = request.email,
-                        Password = Cryptographer.AppEncrypt(request.password),
-                        Avatar = request.avatar,
-                        Dob = request.dob,
-                        Gender = request.gender,
-                        Address = request.address,
-                        City = request.city,
-                        Country = request.country,
-                        Phone = request.phone,
-                        Username = request.username,
-                        ImgPath = request.img_path,
-                        Status = request.status,
+                        FirstName = request.FirstName,
+                        LastName = request.LastName,
+                        Email = request.Email,
+                        Password = Cryptographer.AppEncrypt(request.Password),
+                        Avatar = request.Avatar,
+                        Dob = request.DOB,
+                        Gender = request.Gender,
+                        Address = request.Address,
+                        City = request.City,
+                        Country = request.Country,
+                        Phone = request.Phone,
+                        Username = request.UserName,
+                        ImgPath = request.ImgPath,
+                        Status = request.Status,
                         CreatedAt = DateTime.Now,
                         UpdatedAt = DateTime.Now,
                         CompanyId = (_companyId == 0) ? _companyId : 0,
@@ -208,20 +208,20 @@ namespace ACL.Repositories.V1
             }
             else
             {
-                AclUser.FirstName = request.first_name;
-                AclUser.LastName = request.last_name;
-                AclUser.Email = request.email;
-                AclUser.Password = Cryptographer.AppEncrypt(request.password);
-                AclUser.Avatar = request.avatar;
-                AclUser.Dob = request.dob;
-                AclUser.Gender = request.gender;
-                AclUser.Address = request.address;
-                AclUser.City = request.city;
-                AclUser.Country = request.country;
-                AclUser.Phone = request.phone;
-                AclUser.Username = request.username;
-                AclUser.ImgPath = request.img_path;
-                AclUser.Status = request.status;
+                AclUser.FirstName = request.FirstName;
+                AclUser.LastName = request.LastName;
+                AclUser.Email = request.Email;
+                AclUser.Password = Cryptographer.AppEncrypt(request.Password);
+                AclUser.Avatar = request.Avatar;
+                AclUser.Dob = request.DOB;
+                AclUser.Gender = request.Gender;
+                AclUser.Address = request.Address;
+                AclUser.City = request.City;
+                AclUser.Country = request.Country;
+                AclUser.Phone = request.Phone;
+                AclUser.Username = request.UserName;
+                AclUser.ImgPath = request.ImgPath;
+                AclUser.Status = request.Status;
                 AclUser.UpdatedAt = DateTime.Now;
                 AclUser.CompanyId = (_companyId != 0) ? _companyId : 0;
                 AclUser.UserType = (_userType != 0) ? _userType : 0;
@@ -234,7 +234,7 @@ namespace ACL.Repositories.V1
         {
             IList<AclUserUsergroup> res = new List<AclUserUsergroup>();
 
-            foreach (ulong user_group in request.usergroup)
+            foreach (ulong user_group in request.UserGroup)
             {
                 AclUserUsergroup aclUserUserGroup = new AclUserUsergroup();
                 aclUserUserGroup.UserId = user_id;

@@ -19,7 +19,7 @@ namespace ACL.Requests.CustomDataAnotator
             var request = (AclCompanyModuleRequest)validationContext.ObjectInstance;
 
             bool isUnique = unitOfWork.ApplicationDbContext.AclCompanyModules
-                                .Any(a => a.CompanyId == request.company_id && a.ModuleId == request.module_id) && unitOfWork.ApplicationDbContext.AclCompanies.Any(x=>x.Id==request.company_id) && unitOfWork.ApplicationDbContext.AclModules.Any(x=>x.Id == request.module_id);
+                                .Any(a => a.CompanyId == request.CompanyId && a.ModuleId == request.ModuleId) && unitOfWork.ApplicationDbContext.AclCompanies.Any(x=>x.Id==request.CompanyId) && unitOfWork.ApplicationDbContext.AclModules.Any(x=>x.Id == request.ModuleId);
 
             if (!isUnique)
             {

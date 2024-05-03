@@ -2,8 +2,8 @@
 {
     public class AclUserGroupRequest
     {
-        public string group_name { get; set; }
-        public string name { get; set; }
-        public sbyte status { get; set; }
+        public string GroupName { get; set; }
+        public string Name { get; set; }
+        public sbyte Status { get; set; }
     }
 }

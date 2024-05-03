@@ -53,7 +53,7 @@ namespace ACL.Repositories.V1
         {
             try
             {
-                var check = await base.GetById(request.id);
+                var check = await base.GetById(request.Id);
                 if (check == null)
                 {
                     var aclModule = PrepareInputData(request);
@@ -157,11 +157,11 @@ namespace ACL.Repositories.V1
             {
                 aclModule = _aclModule;
             }
-            aclModule.Id = request.id;
-            aclModule.Name = request.name;
-            aclModule.Icon = request.icon;
-            aclModule.Sequence = request.sequence;
-            aclModule.DisplayName = request.display_name;
+            aclModule.Id = request.Id;
+            aclModule.Name = request.Name;
+            aclModule.Icon = request.Icon;
+            aclModule.Sequence = request.Sequence;
+            aclModule.DisplayName = request.DisplayName;
             aclModule.UpdatedAt = DateTime.Now;
             if (_aclModule == null)
             {

@@ -31,7 +31,7 @@ namespace ACL.Repositories.V1
         public async Task<AclResponse> Reset(AclPasswordResetRequest request)
         {
             //Auth User Id Checking
-            if (AppAuth.GetAuthInfo().UserId != request.user_id)
+            if (AppAuth.GetAuthInfo().UserId != request.UserId)
             {
                 aclResponse.Message = "Invalid User";
                 aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
@@ -39,14 +39,14 @@ namespace ACL.Repositories.V1
             }
 
 
-            var aclUser = _customUnitOfWork.AclUserRepository.Where(x => x.Id == request.user_id && x.Status == 1).FirstOrDefault();
+            var aclUser = _customUnitOfWork.AclUserRepository.Where(x => x.Id == request.UserId && x.Status == 1).FirstOrDefault();
 
             if (aclUser != null)
             {
                 // password checking
                 var password = Cryptographer.AppDecrypt(aclUser.Password);
 
-                if (request.current_password != password)
+                if (request.CurrentPassword != password)
                 {
                     aclResponse.Message = "Password Mismatch";
                     aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
@@ -55,7 +55,7 @@ namespace ACL.Repositories.V1
 
                 // password update
 
-                aclUser.Password = Cryptographer.AppEncrypt(request.new_password);
+                aclUser.Password = Cryptographer.AppEncrypt(request.NewPassword);
                 await base.UpdateAsync(aclUser);
                 await _unitOfWork.CompleteAsync();
                 await _customUnitOfWork.AclUserRepository.ReloadAsync(aclUser);
@@ -70,7 +70,7 @@ namespace ACL.Repositories.V1
 
         public async Task<AclResponse> Forget(AclForgetPasswordRequest request)
         {
-            var aclUser = _customUnitOfWork.AclUserRepository.Where(x => x.Email == request.email).FirstOrDefault();
+            var aclUser = _customUnitOfWork.AclUserRepository.Where(x => x.Email == request.Email).FirstOrDefault();
 
             if (aclUser != null)
             {
@@ -92,7 +92,7 @@ namespace ACL.Repositories.V1
 
         public async Task<AclResponse> VerifyToken(AclForgetPasswordTokenVerifyRequest request)
         {
-            if (!CacheHelper.Exist(request.token))
+            if (!CacheHelper.Exist(request.Token))
             {
                 aclResponse.Message = "Invalid Token";
                 aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
@@ -100,17 +100,17 @@ namespace ACL.Repositories.V1
             }
 
             // get email from cache by token
-            string email = (string)CacheHelper.Get(request.token);
+            string email = (string)CacheHelper.Get(request.Token);
 
             // password update
 
             var aclUser = _unitOfWork.ApplicationDbContext.AclUsers.Where(x => x.Email == email).FirstOrDefault();
-            aclUser.Password = Cryptographer.AppEncrypt(request.new_password);
+            aclUser.Password = Cryptographer.AppEncrypt(request.NewPassword);
             await base.UpdateAsync(aclUser);
             await _unitOfWork.CompleteAsync();
             await _customUnitOfWork.AclUserRepository.ReloadAsync(aclUser);
 
-            CacheHelper.Remove(request.token);
+            CacheHelper.Remove(request.Token);
             aclResponse.Message = "Password Reset Succesfully.";
             aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
 

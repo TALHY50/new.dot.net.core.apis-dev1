@@ -139,11 +139,11 @@ namespace ACL.Repositories.V1
                 AclPage = new AclPage();
                 AclPage.CreatedAt = DateTime.Now;
             }
-            AclPage.ModuleId = request.module_id;
-            AclPage.SubModuleId = request.sub_module_id;
-            AclPage.Name = request.name;
-            AclPage.MethodName = request.method_name;
-            AclPage.MethodType = request.method_type;
+            AclPage.ModuleId = request.ModuleId;
+            AclPage.SubModuleId = request.SubModuleId;
+            AclPage.Name = request.Name;
+            AclPage.MethodName = request.MethodName;
+            AclPage.MethodType = request.MethodType;
             AclPage.CreatedAt = DateTime.Now;
             AclPage.UpdatedAt = DateTime.Now;
             return AclPage;
@@ -228,18 +228,18 @@ namespace ACL.Repositories.V1
             {
                 return new AclPageRoute
                 {
-                    PageId = request.page_id,
-                    RouteName = request.route_name,
-                    RouteUrl = request.route_url,
+                    PageId = request.PageId,
+                    RouteName = request.RouteName,
+                    RouteUrl = request.RouteUrl,
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now
                 };
             }
             else
             {
-                aclPageRoute.PageId = request.page_id;
-                aclPageRoute.RouteName = request.route_name;
-                aclPageRoute.RouteUrl = request.route_url;
+                aclPageRoute.PageId = request.PageId;
+                aclPageRoute.RouteName = request.RouteName;
+                aclPageRoute.RouteUrl = request.RouteUrl;
                 aclPageRoute.UpdatedAt = DateTime.Now;
                 return aclPageRoute;
             }

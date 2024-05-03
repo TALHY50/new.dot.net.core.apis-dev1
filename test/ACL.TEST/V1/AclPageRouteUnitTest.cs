@@ -81,9 +81,9 @@ namespace ACL.Tests.V1
             var faker = new Faker();
             return new AclPageRouteRequest
             {
-                page_id = (ulong)faker.Random.Number(3001, 3004),
-                route_name = faker.Random.String2(10, 50),
-                route_url = faker.Random.String2(10, 50),
+                PageId = (ulong)faker.Random.Number(3001, 3004),
+                RouteName = faker.Random.String2(10, 50),
+                RouteUrl = faker.Random.String2(10, 50),
             };
         }
 

@@ -9,72 +9,72 @@ namespace ACL.Requests.V1
         [DefaultValue("Mahmud")]
         [Required]
         [StringLength(100)]
-        public string first_name { get; set; }
+        public string FirstName { get; set; }
 
         [DefaultValue("Sheikh")]
         [Required]
         [StringLength(100)]
-        public string last_name { get; set; }
+        public string LastName { get; set; }
 
         [DefaultValue("mahmud@srbl.com")]
         [Required]
         [StringLength(50)]
         [EmailAddress]
-        public string email { get; set; }
+        public string Email { get; set; }
 
         [DefaultValue("Should be image as base 64")]
         [Required]
         [StringLength(255)]
-        public string avatar { get; set; }
+        public string Avatar { get; set; }
 
         [DefaultValue("Srbl@123.")]
         [Required]
         //[MaxLength(255)]
         //[MinLength(6)]
-        public string password { get; set; }
+        public string Password { get; set; }
 
         [DefaultValue("2024-04-22")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime? dob { get; set; }
+        public DateTime? DOB { get; set; }
 
         [DefaultValue("1")]
         [Required]
         [Range(1, 4)]
-        public sbyte gender { get; set; }
+        public sbyte Gender { get; set; }
 
         [DefaultValue("Pantho path Dhaka")]
         [MaxLength(255)]
-        public string address { get; set; }
+        public string Address { get; set; }
 
         [DefaultValue("Dhaka")]
         //[MaxLength(100)]
-        public string city { get; set; }
+        public string City { get; set; }
 
         [DefaultValue(1)]
-        public uint country { get; set; }
+        public uint Country { get; set; }
 
         [DefaultValue("+88014314xxxxx")]
         //[MaxLength(20)]
-        public string phone { get; set; }
+        public string Phone { get; set; }
 
         [DefaultValue("mahmud")]
         //[MaxLength(20)]
-        public string username { get; set; }
+        public string UserName { get; set; }
 
         [DefaultValue("Should be base 64")]
         //[MaxLength(255)]
-        public string img_path { get; set; }
+        public string ImgPath { get; set; }
 
         [DefaultValue("1")]
         [Required]
         //[MaxLength(4)]
         //[MinLength(0)]
-        public sbyte status { get; set; }
+        public sbyte Status { get; set; }
 
         [Required]
         [MinLength(1, ErrorMessage = "Array must contain at least one element.")]
-        public ulong[] usergroup { get; set; }
+        public ulong[] UserGroup { get; set; }
 
     }
 

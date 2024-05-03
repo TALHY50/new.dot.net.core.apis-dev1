@@ -14,27 +14,27 @@ namespace ACL.Requests.V1
         [Required]
         [Range(1, ulong.MaxValue)]
         [ExistsInDatabase<ApplicationDbContext,ICustomUnitOfWork>("AclModule", "Id")]
-        public ulong module_id { get; set; }
+        public ulong ModuleId { get; set; }
 
         [DefaultValue(2001)]
         [Required]
         [Range(1, ulong.MaxValue)]
         [ExistsInDatabase<ApplicationDbContext,ICustomUnitOfWork>("AclSubModule", "Id")]
-        public ulong sub_module_id { get; set; }
+        public ulong SubModuleId { get; set; }
 
         [DefaultValue("Company List")]
         [Required]
         [StringLength(100)]
-        public string name { get; set; } = null!;
+        public string Name { get; set; } = null!;
 
         [DefaultValue("index")]
         [Required]
         [StringLength(100)]
-        public string method_name { get; set; } = null!;
+        public string MethodName { get; set; } = null!;
 
         [DefaultValue(1)]
         [Required]
         [Range(1, 4)]
-        public int method_type { get; set; }
+        public int MethodType { get; set; }
     }
 }

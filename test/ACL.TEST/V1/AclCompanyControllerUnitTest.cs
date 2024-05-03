@@ -170,25 +170,25 @@ namespace ACL.Tests.V1
             // Generate random data for the company creation request
             return new AclCompanyCreateRequest
             {
-                name = faker.Company.CompanyName(),
-                cname = faker.Company.CompanyName(),
-                cemail = faker.Internet.Email(),
+                Name = faker.Company.CompanyName(),
+                Cname = faker.Company.CompanyName(),
+                Cemail = faker.Internet.Email(),
                 address1 = faker.Address.StreetAddress(),
-                address2 = faker.Address.SecondaryAddress(),
-                city = faker.Random.String2(15),
-                state = faker.Address.State(),
-                country = faker.Address.Country(),
-                postcode = faker.Address.ZipCode(),
-                phone = faker.Random.String2(15),
+                Address2 = faker.Address.SecondaryAddress(),
+                City = faker.Random.String2(15),
+                State = faker.Address.State(),
+                Country = faker.Address.Country(),
+                PostCode = faker.Address.ZipCode(),
+                Phone = faker.Random.String2(15),
                 timezone = faker.Random.Number(-12, 12), // Convert to string if 'timezone' is a string
-                timezone_value = faker.Random.String2(20),
-                logo = faker.Image.PicsumUrl(),
-                fax = faker.Random.String2(15),
-                registration_no = faker.Random.AlphaNumeric(10),
-                tax_no = faker.Random.AlphaNumeric(10),
-                unique_column_name = (sbyte)faker.Random.Byte(), // Ensure 'unique_column_name' is of correct type
-                email = faker.Internet.Email(),
-                password = faker.Internet.Password()
+                TimeZoneValue = faker.Random.String2(20),
+                Logo = faker.Image.PicsumUrl(),
+                Fax = faker.Random.String2(15),
+                RegistrationNo = faker.Random.AlphaNumeric(10),
+                TaxNo = faker.Random.AlphaNumeric(10),
+                UniqueColumnName = (sbyte)faker.Random.Byte(), // Ensure 'unique_column_name' is of correct type
+                Email = faker.Internet.Email(),
+                Password = faker.Internet.Password()
             };
         }
 
@@ -197,24 +197,24 @@ namespace ACL.Tests.V1
             var faker = new Faker();
             return new AclCompanyEditRequest
             {
-                name = faker.Company.CompanyName(),
-                cname = faker.Company.CompanyName(),
-                cemail = faker.Internet.Email(),
-                address1 = faker.Address.StreetAddress(),
-                address2 = faker.Address.SecondaryAddress(),
-                city = faker.Random.String2(15),
-                state = faker.Address.State(),
-                country = faker.Address.Country(),
-                postcode = faker.Address.ZipCode(),
-                phone = faker.Random.String2(15),
-                timezone = faker.Random.Number(0, 24),
-                unique_column_name = faker.Random.Number(1, 100),
-                timezone_value = faker.Random.String2(20),
-                logo = faker.Image.PicsumUrl(),
-                fax = faker.Random.String2(15),
-                registration_no = faker.Random.AlphaNumeric(10),
-                tax_no = faker.Random.AlphaNumeric(10),
-                status = (sbyte)faker.Random.Number(0, 1) // Example for status
+                Name = faker.Company.CompanyName(),
+                Cname = faker.Company.CompanyName(),
+                Cemail = faker.Internet.Email(),
+                Address1 = faker.Address.StreetAddress(),
+                Address2 = faker.Address.SecondaryAddress(),
+                City = faker.Random.String2(15),
+                State = faker.Address.State(),
+                Country = faker.Address.Country(),
+                PostCode = faker.Address.ZipCode(),
+                Phone = faker.Random.String2(15),
+                Timezone = faker.Random.Number(0, 24),
+                UniqueColumnName = faker.Random.Number(1, 100),
+                TimezoneValue = faker.Random.String2(20),
+                Logo = faker.Image.PicsumUrl(),
+                Fax = faker.Random.String2(15),
+                RegistrationNo = faker.Random.AlphaNumeric(10),
+                TaxNo = faker.Random.AlphaNumeric(10),
+                Status = (sbyte)faker.Random.Number(0, 1) // Example for status
             };
 
         }

@@ -201,8 +201,8 @@ namespace ACL.Tests.V1
             // Generate random data for the company module request
             return new AclCompanyModuleRequest
             {
-                company_id = GenerateRandomUlong(),
-                module_id = GenerateRandomUlong()
+                CompanyId = GenerateRandomUlong(),
+                ModuleId = GenerateRandomUlong()
             };
         }
 

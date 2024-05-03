@@ -60,7 +60,7 @@ namespace ACL.Repositories.V1
         public async Task<AclResponse> Update(AclUserGroupRoleRequest request)
         {
             var aclUserGroupRole = await _customUnitOfWork.AclUserGroupRoleRepository
-                .Where(x => x.UsergroupId == request.user_group_id)
+                .Where(x => x.UsergroupId == request.UserGroupId)
                 .ToListAsync();
 
             var userGroupRoles = GetUserGroupRoles(request);
@@ -104,9 +104,9 @@ namespace ACL.Repositories.V1
         private AclUsergroupRole[] GetUserGroupRoles(AclUserGroupRoleRequest request)
         {
 
-            var userGroupRoles = request.role_ids.Select(roleId => new AclUsergroupRole
+            var userGroupRoles = request.RoleIds.Select(roleId => new AclUsergroupRole
             {
-                UsergroupId = request.user_group_id,
+                UsergroupId = request.UserGroupId,
                 RoleId = roleId,
                 CompanyId = AppAuth.GetAuthInfo().CompanyId,
                 CreatedAt = DateTime.Now,

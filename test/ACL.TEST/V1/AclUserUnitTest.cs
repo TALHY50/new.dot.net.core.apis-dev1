@@ -118,21 +118,21 @@ namespace ACL.Tests.V1
             var faker = new Faker();
             return new AclUserRequest
             {
-                first_name = faker.Random.String2(1, 5),
-                last_name = faker.Random.String2(1, 5),
-                email = faker.Internet.Email(),
-                password = faker.Random.String2(1, 5),
-                avatar = faker.Random.String2(1, 50),
-                dob = null,
-                gender = 1,
-                address = faker.Random.String2(1, 30),
-                city = faker.Random.String2(1, 10),
-                country = 1,
-                phone = "01524874555",
-                username = faker.Random.String2(1, 5),
-                img_path = faker.Random.String2(1, 10),
-                status = 1,
-                usergroup = new ulong[] { 1, 2 },
+                FirstName = faker.Random.String2(1, 5),
+                LastName = faker.Random.String2(1, 5),
+                Email = faker.Internet.Email(),
+                Password = faker.Random.String2(1, 5),
+                Avatar = faker.Random.String2(1, 50),
+                DOB = null,
+                Gender = 1,
+                Address = faker.Random.String2(1, 30),
+                City = faker.Random.String2(1, 10),
+                Country = 1,
+                Phone = "01524874555",
+                UserName = faker.Random.String2(1, 5),
+                ImgPath = faker.Random.String2(1, 10),
+                Status = 1,
+                UserGroup = new ulong[] { 1, 2 },
             };
         }
 

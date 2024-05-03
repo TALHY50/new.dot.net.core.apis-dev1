@@ -129,10 +129,10 @@ namespace ACL.Repositories.V1
                 aclCountry.CreatedById = AppAuth.GetAuthInfo().UserId;
                 aclCountry.CreatedAt = DateTime.Now;
             }
-            aclCountry.Name = request.name;
-            aclCountry.Description = request.description;
-            aclCountry.Code = request.code;
-            aclCountry.Status = request.status;
+            aclCountry.Name = request.Name;
+            aclCountry.Description = request.Description;
+            aclCountry.Code = request.Code;
+            aclCountry.Status = request.Status;
             aclCountry.UpdatedById = AppAuth.GetAuthInfo().UserId;
             aclCountry.UpdatedAt = DateTime.Now;
 

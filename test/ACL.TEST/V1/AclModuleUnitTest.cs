@@ -116,10 +116,10 @@ namespace ACL.Tests.V1
             var faker = new Faker();
             return new AclModuleRequest
             {
-                name = faker.Random.String2(10, 50),
-                icon = faker.Random.String2(1, 5),
-                sequence = faker.Random.Number(1, 3),
-                display_name = faker.Random.String2(1, 5)
+                Name = faker.Random.String2(10, 50),
+                Icon = faker.Random.String2(1, 5),
+                Sequence = faker.Random.Number(1, 3),
+                DisplayName = faker.Random.String2(1, 5)
             };
 
         }

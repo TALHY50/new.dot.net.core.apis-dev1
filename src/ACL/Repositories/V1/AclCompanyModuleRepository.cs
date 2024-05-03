@@ -134,7 +134,7 @@ namespace ACL.Repositories.V1
 
         public AclCompanyModule PrepareInputData(AclCompanyModuleRequest request, ulong Id = 0, AclCompanyModule _aclCompanyModule = null)
         {
-            bool valid = IsValidForCreateOrUpdate(request.company_id, request.module_id);
+            bool valid = IsValidForCreateOrUpdate(request.CompanyId, request.ModuleId);
             AclCompanyModule aclCompanyModule = new AclCompanyModule();
             if (valid)
             {
@@ -142,8 +142,8 @@ namespace ACL.Repositories.V1
                 {
                     aclCompanyModule = _aclCompanyModule;
                 }
-                aclCompanyModule.CompanyId = request.company_id;
-                aclCompanyModule.ModuleId = request.module_id;
+                aclCompanyModule.CompanyId = request.CompanyId;
+                aclCompanyModule.ModuleId = request.ModuleId;
                 aclCompanyModule.UpdatedAt = DateTime.Now;
                 if (Id == 0)
                 {

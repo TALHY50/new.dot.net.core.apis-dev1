@@ -13,22 +13,22 @@ public partial class AclCountryRequest
     [Required]
     [StringLength(50)]
     [UniqueValue<ApplicationDbContext,ICustomUnitOfWork>("AclCountry", "Name")]
-    public string name { get; set; }
+    public string Name { get; set; }
 
     [DefaultValue("This is beautiful country")]
     [Required]
     [StringLength(255)]
-    public string description { get; set; }
+    public string Description { get; set; }
 
     [DefaultValue("bn")]
     [Required]
     [StringLength(50)]
     [UniqueValue<ApplicationDbContext,ICustomUnitOfWork>("AclCountry", "Code")]
-    public string code { get; set; }
+    public string Code { get; set; }
 
     [DefaultValue(1)]
-    public byte status { get; set; }
+    public byte Status { get; set; }
     [DefaultValue(1)]
-    public ulong sequence { get; set; }
+    public ulong Sequence { get; set; }
 
 }

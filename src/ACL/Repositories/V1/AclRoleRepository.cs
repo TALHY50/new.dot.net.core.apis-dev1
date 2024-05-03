@@ -130,9 +130,9 @@ namespace ACL.Repositories.V1
                 aclRole.CreatedById = AppAuth.GetAuthInfo().UserId;
                 aclRole.CreatedAt = DateTime.Now;
             }
-            aclRole.Title = request.title;
-            aclRole.Name = request.name;
-            aclRole.Status = request.status;
+            aclRole.Title = request.Title;
+            aclRole.Name = request.Name;
+            aclRole.Status = request.Status;
             aclRole.CompanyId = AppAuth.GetAuthInfo().CompanyId;
             aclRole.UpdatedById = AppAuth.GetAuthInfo().UserId;
             aclRole.UpdatedAt = DateTime.Now;

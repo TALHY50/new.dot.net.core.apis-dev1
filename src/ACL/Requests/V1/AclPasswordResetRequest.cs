@@ -14,20 +14,20 @@ public partial class AclPasswordResetRequest
     [Required(ErrorMessage = "User ID is required")]
     [Range(1, ulong.MaxValue, ErrorMessage = "User ID greater than 0.")]
     [ExistsInDatabase<ApplicationDbContext,ICustomUnitOfWork>("AclUser", "Id")]
-    public ulong user_id { get; set; }
+    public ulong UserId { get; set; }
 
     [DefaultValue("12345678")]
     [Required(ErrorMessage = "Current password is required")]
-    public string current_password { get; set; }
+    public string CurrentPassword { get; set; }
 
     [DefaultValue("12345678")]
     [Required(ErrorMessage = "New password is required")]
-    public string new_password { get; set; }
+    public string NewPassword { get; set; }
 
     [DefaultValue("12345678")]
     [Required(ErrorMessage = "Password confirmation is required")]
     [Compare("new_password", ErrorMessage = "The new password and confirmation password do not match.")]
-    public string password_confirmation { get; set; }
+    public string PasswordConfirmation { get; set; }
 
 
 }

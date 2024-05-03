@@ -104,11 +104,11 @@ namespace ACL.Tests.V1
             var faker = new Faker();
             return new AclCountryRequest
             {
-                name = faker.Random.String2(10, 50),
-                description = faker.Random.String2(10, 100),
-                code = faker.Random.String2(2, 5),
-                status = (byte)faker.Random.Number(1, 2),
-                sequence = (ulong)faker.Random.Number(10, 200),
+                Name = faker.Random.String2(10, 50),
+                Description = faker.Random.String2(10, 100),
+                Code = faker.Random.String2(2, 5),
+                Status = (byte)faker.Random.Number(1, 2),
+                Sequence = (ulong)faker.Random.Number(10, 200),
             };
 
         }

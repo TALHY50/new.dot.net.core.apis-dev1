@@ -103,7 +103,7 @@ namespace ACL.Tests.V1
             
                var toReturn = new AclRoleAndPageAssocUpdateRequest
                 {
-                    role_id = roleId,
+                    RoleId = roleId,
                     PageIds = pageIds
                 };
             return toReturn;
