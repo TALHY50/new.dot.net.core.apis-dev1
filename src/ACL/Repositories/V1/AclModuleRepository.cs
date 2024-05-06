@@ -27,26 +27,22 @@ namespace ACL.Repositories.V1
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
             messageResponse = new MessageResponse(modelName, _unitOfWork, AppAuth.GetAuthInfo().Language);
         }
-        public async Task<AclResponse> FindById(ulong id)
+        public async Task<AclResponse> GetAll()
         {
-            try
+            var aclModules = await base.All();
+            if (aclModules.Any())
             {
-                var aclModule = await _customUnitOfWork.AclModuleRepository.GetById(id);
-                aclResponse.Data = aclModule;
                 aclResponse.Message = messageResponse.fetchMessage;
-                if (aclModule == null)
-                {
-                    aclResponse.Message = messageResponse.notFoundMessage;
-                }
-
                 aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
-            catch (Exception ex)
+            else
             {
-                aclResponse.Message = ex.Message;
+                aclResponse.Message = messageResponse.notFoundMessage;
                 aclResponse.StatusCode = AppStatusCode.FAIL;
             }
+            aclResponse.Data = aclModules;
             aclResponse.Timestamp = DateTime.Now;
+
             return aclResponse;
         }
 
@@ -109,23 +105,26 @@ namespace ACL.Repositories.V1
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
         }
-
-        public async Task<AclResponse> GetAll()
+        public async Task<AclResponse> FindById(ulong id)
         {
-            var aclModules = await base.All();
-            if (aclModules.Any())
+            try
             {
+                var aclModule = await _customUnitOfWork.AclModuleRepository.GetById(id);
+                aclResponse.Data = aclModule;
                 aclResponse.Message = messageResponse.fetchMessage;
+                if (aclModule == null)
+                {
+                    aclResponse.Message = messageResponse.notFoundMessage;
+                }
+
                 aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
-            else
+            catch (Exception ex)
             {
-                aclResponse.Message = messageResponse.notFoundMessage;
+                aclResponse.Message = ex.Message;
                 aclResponse.StatusCode = AppStatusCode.FAIL;
             }
-            aclResponse.Data = aclModules;
             aclResponse.Timestamp = DateTime.Now;
-
             return aclResponse;
         }
 
@@ -159,7 +158,7 @@ namespace ACL.Repositories.V1
                 aclModule.Id = request.Id;
                 aclModule = _aclModule;
             }
-            
+
             aclModule.Name = request.Name;
             aclModule.Icon = request.Icon;
             aclModule.Sequence = request.Sequence;

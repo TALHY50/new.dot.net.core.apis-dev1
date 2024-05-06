@@ -58,24 +58,6 @@ namespace ACL.Tests.V1
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
 
         }
-
-        [Fact]
-        public void GetByIdRoleTest()
-        {
-            //Arrange
-            var id = DataCollectors.unitOfWork.ApplicationDbContext.AclRoles.Max(i => i.Id);
-
-            // Act
-            var request = new RestRequest(AclRoutesUrl.AclRoleRouteUrl.View.Replace("{id}", id.ToString()), Method.Get);
-            request.AddHeader("Authorization", authToken);
-            RestResponse response = restClient.Execute(request);
-
-
-            //// Assert
-            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
-
-        }
         [Fact]
         public void EditByIdRoleTest()
         {
@@ -97,6 +79,24 @@ namespace ACL.Tests.V1
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
 
         }
+        [Fact]
+        public void GetByIdRoleTest()
+        {
+            //Arrange
+            var id = DataCollectors.unitOfWork.ApplicationDbContext.AclRoles.Max(i => i.Id);
+
+            // Act
+            var request = new RestRequest(AclRoutesUrl.AclRoleRouteUrl.View.Replace("{id}", id.ToString()), Method.Get);
+            request.AddHeader("Authorization", authToken);
+            RestResponse response = restClient.Execute(request);
+
+
+            //// Assert
+            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
+
+        }
+
         [Fact]
         public void DeleteByIdRoleTest()
         {

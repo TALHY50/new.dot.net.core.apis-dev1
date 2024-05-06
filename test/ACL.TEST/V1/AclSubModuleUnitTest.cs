@@ -56,24 +56,6 @@ namespace ACL.Tests.V1
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
 
         }
-
-        [Fact]
-        public void GetByIdSubModuleTest()
-        {
-            //Arrange
-            var id = DataCollectors.GetMaxId<AclSubModule>(x => x.Id);
-
-            // Act
-            var request = new RestRequest(AclRoutesUrl.AclSubmoduleRouteUrl.View.Replace("{id}", id.ToString()), Method.Get);
-            request.AddHeader("Authorization", authToken);
-            RestResponse response = restClient.Execute(request);
-
-
-            //// Assert
-            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
-
-        }
         [Fact]
         public void EditByIdSubModuleTest()
         {
@@ -95,6 +77,24 @@ namespace ACL.Tests.V1
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
 
         }
+        [Fact]
+        public void GetByIdSubModuleTest()
+        {
+            //Arrange
+            var id = DataCollectors.GetMaxId<AclSubModule>(x => x.Id);
+
+            // Act
+            var request = new RestRequest(AclRoutesUrl.AclSubmoduleRouteUrl.View.Replace("{id}", id.ToString()), Method.Get);
+            request.AddHeader("Authorization", authToken);
+            RestResponse response = restClient.Execute(request);
+
+
+            //// Assert
+            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
+
+        }
+
         [Fact]
         public void DeleteByIdSubModuleTest()
         {
