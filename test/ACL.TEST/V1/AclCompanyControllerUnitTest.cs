@@ -21,15 +21,11 @@ namespace ACL.Tests.V1
 {
     public class AclCompanyControllerUnitTest
     {
-        DatabaseConnector dbConnector;
-        CustomUnitOfWork unitOfWork;
         RestClient restClient;
         public AclCompanyControllerUnitTest()
         {
-            dbConnector = new DatabaseConnector();
-            unitOfWork = new CustomUnitOfWork(dbConnector.dbContext);
-            unitOfWork.ApplicationDbContext = dbConnector.dbContext;
-            restClient = new RestClient(dbConnector.baseUrl);
+              DataCollectors.SetDatabase(false);
+            restClient = new RestClient(DataCollectors.baseUrl);
         }
 
         [Fact]
@@ -229,7 +225,7 @@ namespace ACL.Tests.V1
             //#endregion
             //#region Act
             
-                return unitOfWork.ApplicationDbContext.AclCompanies.Max(t=>t.Id);
+                return DataCollectors.unitOfWork.ApplicationDbContext.AclCompanies.Max(t=>t.Id);
             //// Act
             //var aclResponse = await controller.Create(createReq);
             ////var aclData = unitOfWork.AclCompanyRepository.Add((AclCompany)aclResponse.Data);

@@ -6,6 +6,7 @@ namespace ACL.Database.Models;
 public partial class AclBranch
 {
     public ulong Id { get; set; }
+    public ulong CompanyId { get; set; }
 
     public string Name { get; set; } = null!;
 

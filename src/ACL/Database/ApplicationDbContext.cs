@@ -86,6 +86,9 @@ public partial class ApplicationDbContext : DbContext, IApplicationDbContext
             entity.Property(e => e.Id)
                 .HasColumnType("bigint(20) unsigned")
                 .HasColumnName("id");
+            entity.Property(e => e.CompanyId)
+                .HasColumnType("bigint(20) unsigned")
+                .HasColumnName("company_id");
             entity.Property(e => e.Address)
                 .HasMaxLength(255)
                 .HasColumnName("address");
@@ -815,6 +818,7 @@ public partial class ApplicationDbContext : DbContext, IApplicationDbContext
           new AclBranch
           {
               Id = 1,
+              CompanyId = 2,
               Name = "Test",
               Address = "Dhaka",
               Description = "Test",

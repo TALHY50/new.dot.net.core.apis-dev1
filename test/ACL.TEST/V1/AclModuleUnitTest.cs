@@ -10,15 +10,11 @@ namespace ACL.Tests.V1
 {
     public class AclModuleUnitTest
     {
-        DatabaseConnector dbConnector;
-        CustomUnitOfWork unitOfWork;
         RestClient restClient;
         public AclModuleUnitTest()
         {
-            dbConnector = new DatabaseConnector();
-            unitOfWork = new CustomUnitOfWork(dbConnector.dbContext);
-            unitOfWork.ApplicationDbContext = dbConnector.dbContext;
-            restClient = new RestClient(dbConnector.baseUrl);
+             DataCollectors.SetDatabase(false);
+            restClient = new RestClient(DataCollectors.baseUrl);
         }
         [Fact]
         public void TestModuleList()
@@ -127,7 +123,7 @@ namespace ACL.Tests.V1
         private int getRandomID()
         {
 
-            return (int)unitOfWork.ApplicationDbContext.AclModules.Max(i=>i.Id);
+            return (int)DataCollectors.unitOfWork.ApplicationDbContext.AclModules.Max(i=>i.Id);
 
         }
 

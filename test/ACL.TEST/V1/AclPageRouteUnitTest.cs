@@ -10,15 +10,12 @@ namespace ACL.Tests.V1
 {
     public class AclPageRouteUnitTest
     {
-        DatabaseConnector dbConnector;
-        CustomUnitOfWork unitOfWork;
+      
         RestClient restClient;
         public AclPageRouteUnitTest()
         {
-            dbConnector = new DatabaseConnector();
-            unitOfWork = new CustomUnitOfWork(dbConnector.dbContext);
-            unitOfWork.ApplicationDbContext = dbConnector.dbContext;
-            restClient = new RestClient(dbConnector.baseUrl);
+             DataCollectors.SetDatabase(false);
+            restClient = new RestClient(DataCollectors.baseUrl);
         }
         [Fact]
         public void AddPageRouteTest()
@@ -90,7 +87,7 @@ namespace ACL.Tests.V1
         private ulong getRandomID()
         {
 
-            return unitOfWork.ApplicationDbContext.AclPageRoutes.Max(x => x.Id);
+            return DataCollectors.unitOfWork.ApplicationDbContext.AclPageRoutes.Max(x => x.Id);
 
         }
 

@@ -11,15 +11,11 @@ namespace ACL.Tests.V1
 {
     public class AclUserUnitTest
     {
-        DatabaseConnector dbConnector;
-        CustomUnitOfWork unitOfWork;
         RestClient restClient;
         public AclUserUnitTest()
         {
-            dbConnector = new DatabaseConnector();
-            unitOfWork = new CustomUnitOfWork(dbConnector.dbContext);
-            unitOfWork.ApplicationDbContext = dbConnector.dbContext;
-            restClient = new RestClient(dbConnector.baseUrl);
+            DataCollectors.SetDatabase(false);
+            restClient = new RestClient(DataCollectors.baseUrl);
         }
         [Fact]
         public void TestUserList()
@@ -139,9 +135,9 @@ namespace ACL.Tests.V1
         private ulong getRandomID()
         {
 
-          //  var chkFirst = (ulong)unitOfWork.AclUserRepository.FirstOrDefault().Result.Id;
-           // var chkLast = (ulong)unitOfWork.AclUserRepository.LastOrDefault().Result.Id;
-            return (ulong)unitOfWork.ApplicationDbContext.AclUsers.Max(l=>l.Id);
+            //  var chkFirst = (ulong)unitOfWork.AclUserRepository.FirstOrDefault().Result.Id;
+            // var chkLast = (ulong)unitOfWork.AclUserRepository.LastOrDefault().Result.Id;
+            return (ulong)DataCollectors.unitOfWork.ApplicationDbContext.AclUsers.Max(l => l.Id);
 
         }
 

@@ -38,3 +38,4 @@ msbuild.wrn
 SharedLibrary/bin/.*
 SharedLibrary/obj/.*
 Migrations/
+Migrations/*

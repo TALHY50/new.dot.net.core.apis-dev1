@@ -26,15 +26,12 @@ namespace ACL.Tests.V1
 {
     public class AclCompanyModuleControllerUnitTest
     {
-        DatabaseConnector dbConnector;
-        CustomUnitOfWork unitOfWork;
+       
         RestClient restClient;
         public AclCompanyModuleControllerUnitTest()
         {
-            dbConnector = new DatabaseConnector();
-            unitOfWork = new CustomUnitOfWork(dbConnector.dbContext);
-            unitOfWork.ApplicationDbContext = dbConnector.dbContext;
-            restClient = new RestClient(dbConnector.baseUrl);
+            DataCollectors.SetDatabase(false);
+            restClient = new RestClient(DataCollectors.baseUrl);
         }
         [Fact]
         public async Task Get_All_CompanyModules()
@@ -212,7 +209,7 @@ namespace ACL.Tests.V1
             #region Act
             //    // Act
             //return unitOfWork.ApplicationDbContext.AclCompanyModules.Last().Id;
-            return (ulong)unitOfWork.ApplicationDbContext.AclModules.Max(i=>i.Id);
+            return (ulong)DataCollectors.unitOfWork.ApplicationDbContext.AclModules.Max(i=>i.Id);
             #endregion
             // }
 

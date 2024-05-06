@@ -120,6 +120,7 @@ namespace ACL.Repositories.V1
         {
             AclBranch _aclBranch = aclBranch ?? new AclBranch();
             _aclBranch.Name = request.Name;
+            _aclBranch.CompanyId = AppAuth.GetAuthInfo().CompanyId;
             _aclBranch.Address = request.Address;
             _aclBranch.Description = request.Description;
             _aclBranch.Sequence = request.Sequence;
