@@ -6,6 +6,7 @@ using ACL.Response.V1;
 using ACL.Route;
 using ACL.Requests.V1;
 using SharedLibrary.Utilities;
+using SharedLibrary.Services;
 
 
 namespace ACL.Tests.V1
@@ -24,7 +25,6 @@ namespace ACL.Tests.V1
             DataCollectors.SetDatabase();
             authToken = DataCollectors.GetAuthorization();
             restClient = new RestSharp.RestClient(DataCollectors.baseUrl);
-            user_id = DataCollectors.unitOfWork.ApplicationDbContext.AclUsers.Max(x => x.Id);
         }
         [Fact]
         public void PasswordResetTest()
@@ -38,9 +38,9 @@ namespace ACL.Tests.V1
             request.AddHeader("Authorization", authToken);
             request.AddJsonBody(data);
             RestResponse response = restClient.Execute(request);
-
+            aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
             //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, (int)response.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, (int)aclResponse.StatusCode);
 
         }
         [Fact]
@@ -58,7 +58,6 @@ namespace ACL.Tests.V1
 
             aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
             CacheHelper.Set(uniqueKey, aclResponse.Data, 60);
-            //SetMemoryCache((string)aclResponse.Data);
 
             //// Assert
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, (int)response.StatusCode);
@@ -68,7 +67,6 @@ namespace ACL.Tests.V1
         public void PasswordForgetVerifyTest()
         {
             //Arrange
-            CacheHelper.Set(uniqueKey,authToken,1500);
             var data = new AclForgetPasswordTokenVerifyRequest
             {
                 NewPassword = userPassword,
@@ -82,24 +80,27 @@ namespace ACL.Tests.V1
             request.AddJsonBody(data);
 
             RestResponse response = restClient.Execute(request);
+            aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
             CacheHelper.Remove(uniqueKey);
 
             //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, (int)response.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, (int)aclResponse.StatusCode);
 
         }
 
 
         private AclPasswordResetRequest GetPasswordReset()
         {
-            user_id = DataCollectors.unitOfWork.ApplicationDbContext.AclUsers.Max(x => x.Id);
-            return new AclPasswordResetRequest
+            AclPasswordResetRequest aclPassword = new AclPasswordResetRequest();
+            var user = DataCollectors.unitOfWork.ApplicationDbContext.AclUsers.FirstOrDefault();
+            if (user != null)
             {
-                UserId = user_id,
-                CurrentPassword = userPassword,
-                NewPassword = resetPassword,
-                PasswordConfirmation = resetPassword
-            };
+                aclPassword.UserId = user.Id;
+                aclPassword.CurrentPassword = Cryptographer.AppDecrypt(user.Password);
+                aclPassword.NewPassword = resetPassword;
+                aclPassword.PasswordConfirmation = resetPassword;
+            }
+            return aclPassword;
         }
 
 

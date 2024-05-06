@@ -78,7 +78,7 @@ namespace ACL.Repositories.V1
                 var uniqueKey = Helper.GenerateUniqueKey(aclUser.Email);
 
                 // add to cache
-                CacheHelper.Set(uniqueKey, aclResponse.Data, tokenExpiryMinutes * 60);
+                CacheHelper.Set(uniqueKey, aclUser.Email, tokenExpiryMinutes * 60);
 
                 //Send Notification to email. Not implemented yet
 
@@ -100,7 +100,7 @@ namespace ACL.Repositories.V1
             }
 
             // get email from cache by token
-            var  email = CacheHelper.Get(request.Token);
+            string  email = (string)CacheHelper.Get(request.Token);
 
             // password update
 
