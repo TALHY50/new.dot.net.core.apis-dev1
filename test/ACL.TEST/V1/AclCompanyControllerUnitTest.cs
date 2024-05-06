@@ -19,6 +19,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace ACL.Tests.V1
 {
     public class AclCompanyControllerUnitTest
@@ -50,7 +51,7 @@ namespace ACL.Tests.V1
             int actualStatusCode = (int)response.StatusCode;
 
             //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, actualStatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, actualStatusCode);
             #endregion Assert
 
         }
@@ -77,7 +78,7 @@ namespace ACL.Tests.V1
             #endregion
 
             #region Assert
-           Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, actualCreateStatusCode);
             #endregion Assert
         }
 
@@ -106,7 +107,7 @@ namespace ACL.Tests.V1
 
             #endregion
             #region Assert
-             AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, actualEditStatusCode);
             #endregion Assert
         }
         [Fact]
@@ -133,7 +134,7 @@ namespace ACL.Tests.V1
 
             #endregion
             #region Assert
-             AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, actualEditStatusCode);
             #endregion Assert
         }
         [Fact]
@@ -156,7 +157,7 @@ namespace ACL.Tests.V1
             int actualStatusCode = (int)response.StatusCode;
 
             //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, actualStatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, actualStatusCode);
             #endregion Assert
         }
 

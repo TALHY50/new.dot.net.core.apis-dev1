@@ -8,8 +8,6 @@ using ACL.Requests.V1;
 using SharedLibrary.Utilities;
 using SharedLibrary.Services;
 using SharedLibrary.Response.CustomStatusCode;
-using ACL.Response.V1;
-using Newtonsoft.Json;
 
 namespace ACL.Tests.V1
 {
@@ -42,7 +40,7 @@ namespace ACL.Tests.V1
             RestResponse response = restClient.Execute(request);
             aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
             //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, (int)aclResponse.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, (int)aclResponse.StatusCode);
 
         }
         [Fact]
@@ -61,8 +59,7 @@ namespace ACL.Tests.V1
 
 
             //// Assert
-            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
-            CacheHelper.Set(uniqueKey, aclResponse.Data, 60);      Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, (int)response.StatusCode);
 
         }
         [Fact]
@@ -86,7 +83,7 @@ namespace ACL.Tests.V1
             CacheHelper.Remove(uniqueKey);
 
             //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, (int)aclResponse.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, (int)aclResponse.StatusCode);
 
         }
 
