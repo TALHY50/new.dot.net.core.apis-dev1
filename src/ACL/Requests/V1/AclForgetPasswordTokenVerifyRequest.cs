@@ -16,7 +16,7 @@ public partial class AclForgetPasswordTokenVerifyRequest
 
     [DefaultValue("12345678")]
     [Required(ErrorMessage = "Password confirmation is required")]
-    [Compare("new_password", ErrorMessage = "The new password and confirmation password do not match.")]
+    [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
     public string PasswordConfirmation { get; set; }
 
 

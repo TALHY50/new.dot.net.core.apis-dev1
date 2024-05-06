@@ -100,19 +100,22 @@ namespace ACL.Repositories.V1
             }
 
             // get email from cache by token
-            string email = (string)CacheHelper.Get(request.Token);
+            var  email = CacheHelper.Get(request.Token);
 
             // password update
 
             var aclUser = _unitOfWork.ApplicationDbContext.AclUsers.Where(x => x.Email == email).FirstOrDefault();
-            aclUser.Password = Cryptographer.AppEncrypt(request.NewPassword);
-            await base.UpdateAsync(aclUser);
-            await _unitOfWork.CompleteAsync();
-            await _customUnitOfWork.AclUserRepository.ReloadAsync(aclUser);
+            if (aclUser != null)
+            {
+                aclUser.Password = Cryptographer.AppEncrypt(request.NewPassword);
+                await base.UpdateAsync(aclUser);
+                await _unitOfWork.CompleteAsync();
+                await _customUnitOfWork.AclUserRepository.ReloadAsync(aclUser);
 
-            CacheHelper.Remove(request.Token);
-            aclResponse.Message = "Password Reset Succesfully.";
-            aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                CacheHelper.Remove(request.Token);
+                aclResponse.Message = "Password Reset Succesfully.";
+                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+            }
 
             return aclResponse;
         }
