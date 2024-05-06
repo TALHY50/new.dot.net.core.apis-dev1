@@ -27,15 +27,11 @@ namespace ACL.Tests.V1
 {
     public class AclRolePageAssociationControllerUnitTest
     {
-        DatabaseConnector dbConnector;
-        CustomUnitOfWork unitOfWork;
         RestClient restClient;
         public AclRolePageAssociationControllerUnitTest()
         {
-            dbConnector = new DatabaseConnector();
-            unitOfWork = new CustomUnitOfWork(dbConnector.dbContext);
-            unitOfWork.ApplicationDbContext = dbConnector.dbContext;
-            restClient = new RestClient(dbConnector.baseUrl);
+            DataCollectors.SetDatabase(false);
+            restClient = new RestClient(DataCollectors.baseUrl);
         }
         [Fact]
         public async Task Get_All_AclRolePageAssociation()
@@ -96,8 +92,8 @@ namespace ACL.Tests.V1
         public AclRoleAndPageAssocUpdateRequest GetRoleAndPageAssocUpdateRequest(ulong id)
         {
             var faker = new Faker();
-            var gotid = unitOfWork.ApplicationDbContext.AclPages.Max(i=>i.Id);
-            var roleId = unitOfWork.ApplicationDbContext.AclRoles.Max(i=>i.Id);
+            var gotid = DataCollectors.unitOfWork.ApplicationDbContext.AclPages.Max(i=>i.Id);
+            var roleId = DataCollectors.unitOfWork.ApplicationDbContext.AclRoles.Max(i=>i.Id);
           
             int[] pageIds = new int[] { (int)gotid };
             
@@ -119,7 +115,7 @@ namespace ACL.Tests.V1
         {
             #region Act
             //    // Act
-            return (ulong)unitOfWork.ApplicationDbContext.AclRolePages.Max(i=>i.RoleId);
+            return (ulong)DataCollectors.unitOfWork.ApplicationDbContext.AclRolePages.Max(i=>i.RoleId);
             #endregion
 
         }

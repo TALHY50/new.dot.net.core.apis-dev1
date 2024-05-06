@@ -14,15 +14,11 @@ namespace ACL.Tests.V1
 {
     public class AclBranchControllerUnitTest
     {
-        DatabaseConnector dbConnector;
-        CustomUnitOfWork unitOfWork;
         RestClient restClient;
         public AclBranchControllerUnitTest()
         {
-            dbConnector = new DatabaseConnector();
-            unitOfWork = new CustomUnitOfWork(dbConnector.dbContext);
-            unitOfWork.ApplicationDbContext = dbConnector.dbContext;
-            restClient = new RestClient(dbConnector.baseUrl);
+            DataCollectors.SetDatabase(false);
+            restClient = new RestClient(DataCollectors.baseUrl);
         }
         [Fact]
         public void GetBranchList()
@@ -119,7 +115,7 @@ namespace ACL.Tests.V1
         private ulong GetRandomID()
         {
 
-            return unitOfWork.ApplicationDbContext.AclCountries.Max(x => x.Id);
+            return DataCollectors.unitOfWork.ApplicationDbContext.AclCountries.Max(x => x.Id);
 
         }
     }

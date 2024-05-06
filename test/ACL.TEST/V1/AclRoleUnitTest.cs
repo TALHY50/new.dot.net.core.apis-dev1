@@ -10,17 +10,13 @@ namespace ACL.Tests.V1
 {
     public class AclRoleUnitTest
     {
-        DatabaseConnector dbConnector;
-        CustomUnitOfWork unitOfWork;
         RestClient restClient;
         private string authToken;
         public AclRoleUnitTest()
         {
-            dbConnector = new DatabaseConnector();
-            unitOfWork = new CustomUnitOfWork(dbConnector.dbContext);
-            unitOfWork.ApplicationDbContext = dbConnector.dbContext;
+            DataCollectors.SetDatabase(false);
             authToken = DataCollectors.GetAuthorization();
-            restClient = new RestClient(dbConnector.baseUrl);
+            restClient = new RestClient(DataCollectors.baseUrl);
         }
 
         [Fact]
@@ -63,7 +59,7 @@ namespace ACL.Tests.V1
         public void GetByIdRoleTest()
         {
             //Arrange
-            var id = unitOfWork.ApplicationDbContext.AclRoles.Max(i => i.Id);
+            var id = DataCollectors.unitOfWork.ApplicationDbContext.AclRoles.Max(i => i.Id);
 
             // Act
             var request = new RestRequest(AclRoutesUrl.AclRoleRouteUrl.View.Replace("{id}", id.ToString()), Method.Get);
@@ -81,7 +77,7 @@ namespace ACL.Tests.V1
             //Arrange
 
             var data = GetRole();
-            var id = unitOfWork.ApplicationDbContext.AclRoles.Max(i => i.Id);
+            var id = DataCollectors.unitOfWork.ApplicationDbContext.AclRoles.Max(i => i.Id);
 
             // Act
             var request = new RestRequest(AclRoutesUrl.AclRoleRouteUrl.Edit.Replace("{id}", id.ToString()), Method.Put);

@@ -8,7 +8,7 @@ namespace ACL.Tests
 {
     public static class DataCollectors
     {
-        public static string baseUrl;
+        public static string baseUrl = Env.GetString("APP_URL");
         private static string connectionString;
         public static ApplicationDbContext dbContext;
         public static CustomUnitOfWork unitOfWork;

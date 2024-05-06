@@ -96,7 +96,6 @@ namespace ACL.Requests.V1
         public string Password { get; set; }
 
         [DefaultValue("mahmud")]
-        public string cname { get; set; }
         public string Cname { get; set; }
     }
 }
