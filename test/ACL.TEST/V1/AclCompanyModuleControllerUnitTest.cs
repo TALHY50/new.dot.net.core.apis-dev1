@@ -15,6 +15,7 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using RestSharp;
+using SharedLibrary.Response.CustomStatusCode;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -76,10 +77,10 @@ namespace ACL.Tests.V1
             //request.AddHeader("Authorization", "Bearer YOUR_TOKEN_HERE");
 
             //// Execute request
-            var respons = restClient.Execute(req);
+            var response = restClient.Execute(req);
 
             //// Convert actual status code to enum
-            int actualCreateStatusCode = (int)respons.StatusCode;
+            int actualCreateStatusCode = (int)response.StatusCode;
             //// Assert for create
 
             #endregion
@@ -117,15 +118,15 @@ namespace ACL.Tests.V1
             //request.AddHeader("Authorization", "Bearer YOUR_TOKEN_HERE");
 
             //// Execute request
-            var respons = restClient.Execute(req);
+            var response = restClient.Execute(req);
 
             //// Convert actual status code to enum
-            int actualEditStatusCode = (int)respons.StatusCode;
+            int actualEditStatusCode = (int)response.StatusCode;
             //// Assert for create
 
             #endregion
             #region Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, actualEditStatusCode);
+             AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
             #endregion Assert
         }
         [Fact]
@@ -145,15 +146,15 @@ namespace ACL.Tests.V1
             //request.AddHeader("Authorization", "Bearer YOUR_TOKEN_HERE");
 
             //// Execute request
-            var respons = restClient.Execute(req);
+            var response = restClient.Execute(req);
 
             //// Convert actual status code to enum
-            int actualEditStatusCode = (int)respons.StatusCode;
+            int actualEditStatusCode = (int)response.StatusCode;
             //// Assert for create
 
             #endregion
             #region Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, actualEditStatusCode);
+             AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
             #endregion Assert
         }
         [Fact]

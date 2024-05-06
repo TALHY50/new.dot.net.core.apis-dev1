@@ -32,9 +32,7 @@ namespace ACL.Tests.V1
             var request = new RestRequest(ACL.Route.AclRoutesUrl.AclBranchRouteUrl.List, Method.Get);
             //request.AddHeader("Authorization", "Bearer desc");
             RestResponse response = restClient.Execute(request);
-            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
-            //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
+            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
 
         }
         [Fact]

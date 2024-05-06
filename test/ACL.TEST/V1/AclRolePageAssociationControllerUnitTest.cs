@@ -22,6 +22,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static Org.BouncyCastle.Asn1.Cmp.Challenge;
+using SharedLibrary.Response.CustomStatusCode;
+using ACL.Response.V1;
+using Newtonsoft.Json;
 
 namespace ACL.Tests.V1
 {
@@ -77,15 +80,15 @@ namespace ACL.Tests.V1
             //request.AddHeader("Authorization", "Bearer YOUR_TOKEN_HERE");
 
             //// Execute request
-            var respons = restClient.Execute(req);
+            var response = restClient.Execute(req);
 
             //// Convert actual status code to enum
-            int actualEditStatusCode = (int)respons.StatusCode;
+            int actualEditStatusCode = (int)response.StatusCode;
             //// Assert for create
 
             #endregion
             #region Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, actualEditStatusCode);
+             AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
             #endregion Assert
         }
 
