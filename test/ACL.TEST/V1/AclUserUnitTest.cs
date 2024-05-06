@@ -60,7 +60,7 @@ namespace ACL.Tests.V1
         public void GetByIdUserTest()
         {
             //Arrange
-            var id = getRandomID();
+            var id = GetRandomID();
 
             // Act
             //var request = new RestRequest($"users/view/{id}", Method.Get);
@@ -81,7 +81,7 @@ namespace ACL.Tests.V1
             //Arrange
 
             var data = GetUser();
-            var id = getRandomID();
+            var id = GetRandomID();
 
             // Act
             var request = new RestRequest(AclRoutesUrl.AclUserRouteUrl.Edit.Replace("{id}", id.ToString()), Method.Put);
@@ -100,7 +100,7 @@ namespace ACL.Tests.V1
         public void DeleteByIdUserTest()
         {
 
-            var id = getRandomID();
+            var id = GetRandomID();
 
             // Act
             var request = new RestRequest(AclRoutesUrl.AclUserRouteUrl.Destroy.Replace("{id}", id.ToString()), Method.Delete);
@@ -137,7 +137,7 @@ namespace ACL.Tests.V1
             };
         }
 
-        private ulong getRandomID()
+        private ulong GetRandomID()
         {
 
             //  var chkFirst = (ulong)unitOfWork.AclUserRepository.FirstOrDefault().Result.Id;

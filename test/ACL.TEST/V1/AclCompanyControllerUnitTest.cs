@@ -35,7 +35,7 @@ namespace ACL.Tests.V1
         public async Task Get_All_Companies()
         {
             #region  Arrange
-            //var chk = await getRandomID();
+            //var chk = await GetRandomID();
 
             #endregion
             #region Act
@@ -87,7 +87,7 @@ namespace ACL.Tests.V1
         public async Task Delete_Acl_Company()
         {
             #region  Arrange
-            var id = getRandomID().Result;
+            var id = GetRandomID().Result;
 
             #endregion
             #region Act
@@ -115,7 +115,7 @@ namespace ACL.Tests.V1
         {
             #region  Arrange
             AclCompanyEditRequest editReq = GetCompanyEditRequest();
-            var id = getRandomID().Id;
+            var id = GetRandomID().Id;
             #endregion
             #region Act
             //// Create request
@@ -142,7 +142,7 @@ namespace ACL.Tests.V1
         public async Task Get_View_Company()
         {
             #region  Arrange
-            var id = getRandomID().Id;
+            var id = GetRandomID().Id;
             #endregion
 
             #region Act
@@ -218,7 +218,7 @@ namespace ACL.Tests.V1
 
         }
 
-        private async Task<ulong> getRandomID()
+        private async Task<ulong> GetRandomID()
         {
             //#region Arrange
             //AclCompanyCreateRequest createReq = GetCompanyCreateRequest();

@@ -57,7 +57,7 @@ namespace ACL.Tests.V1
         public void GetByIdPageTest()
         {
             //Arrange
-            var id = getRandomID();
+            var id = GetRandomID();
 
             // Act
             var request = new RestRequest(ACL.Route.AclRoutesUrl.AclPageRouteUrl.View.Replace("{id}",id.ToString()), Method.Get);
@@ -77,7 +77,7 @@ namespace ACL.Tests.V1
             //Arrange
 
             var data = GetPage();
-            var id = getRandomID();
+            var id = GetRandomID();
 
             // Act
             var request = new RestRequest(ACL.Route.AclRoutesUrl.AclPageRouteUrl.Edit.Replace("{id}",id.ToString()), Method.Put);
@@ -95,7 +95,7 @@ namespace ACL.Tests.V1
         public void DeleteByIdPageTest()
         {
 
-            var id = getRandomID();
+            var id = GetRandomID();
 
             // Act
             var request = new RestRequest(ACL.Route.AclRoutesUrl.AclModuleRouteUrl.Destroy.Replace("{id}",id.ToString()), Method.Delete);
@@ -122,7 +122,7 @@ namespace ACL.Tests.V1
 
         }
 
-        private ulong getRandomID()
+        private ulong GetRandomID()
         {
 
             return DataCollectors.unitOfWork.ApplicationDbContext.AclPages.Max(x => x.Id);

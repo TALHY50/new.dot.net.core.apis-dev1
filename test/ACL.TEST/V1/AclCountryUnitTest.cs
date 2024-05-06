@@ -50,7 +50,7 @@ namespace ACL.Tests.V1
         public void GetByIdCountryTest()
         {
             //Arrange
-            var id = getRandomID();
+            var id = GetRandomID();
             // Act
             var request = new RestRequest(ACL.Route.AclRoutesUrl.AclCountryRouteUrl.View.Replace("{id}",id.ToString()), Method.Get);
             //request.AddHeader("Authorization", "Bearer desc");
@@ -65,7 +65,7 @@ namespace ACL.Tests.V1
             //Arrange
 
             var data = GetCountry();
-            var id = getRandomID();
+            var id = GetRandomID();
 
             // Act
             var request = new RestRequest(ACL.Route.AclRoutesUrl.AclCountryRouteUrl.Edit.Replace("{id}",id.ToString()), Method.Put);
@@ -83,7 +83,7 @@ namespace ACL.Tests.V1
         public void DeleteByIdCountryTest()
         {
 
-            var id = getRandomID();
+            var id = GetRandomID();
 
             // Act
             var request = new RestRequest(ACL.Route.AclRoutesUrl.AclCountryRouteUrl.Destroy.Replace("{id}",id.ToString()), Method.Delete);
@@ -110,7 +110,7 @@ namespace ACL.Tests.V1
 
         }
 
-        private ulong getRandomID()
+        private ulong GetRandomID()
         {
 
             return DataCollectors.unitOfWork.ApplicationDbContext.AclCountries.Max(x => x.Id);

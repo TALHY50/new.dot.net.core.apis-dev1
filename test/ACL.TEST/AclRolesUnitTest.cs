@@ -50,7 +50,7 @@
 //        public async void GetByIdRoleTest()
 //        {
 
-//            var id = getRandomID();
+//            var id = GetRandomID();
 
 
 //            // Act
@@ -66,7 +66,7 @@
 //        public async void EditByIdRoleTest()
 //        {
 //            var data = GetRole();
-//            var id = getRandomID();
+//            var id = GetRandomID();
 
 
 //            // Act
@@ -82,7 +82,7 @@
 //        public async void DeleteByIdRoleTest()
 //        {
 
-//            var id = getRandomID();
+//            var id = GetRandomID();
 
 //            // Act
 //            AclResponse aclResponse = await controller.Destroy(id);
@@ -106,7 +106,7 @@
 
 //        }
 
-//        private ulong getRandomID()
+//        private ulong GetRandomID()
 //        {
 
 //            return unitOfWork.ApplicationDbContext.AclRoles.FirstOrDefault().Id;

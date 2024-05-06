@@ -57,7 +57,7 @@ namespace ACL.Tests.V1
         public void GetByIdModuleTest()
         {
             //Arrange
-            var id = getRandomID();
+            var id = GetRandomID();
 
             // Act
             var request = new RestRequest(ACL.Route.AclRoutesUrl.AclModuleRouteUrl.View.Replace("{id}",id.ToString()), Method.Get);
@@ -77,7 +77,7 @@ namespace ACL.Tests.V1
             //Arrange
 
             var data = GetModule();
-            var id = getRandomID();
+            var id = GetRandomID();
 
             // Act
             var request = new RestRequest(ACL.Route.AclRoutesUrl.AclModuleRouteUrl.Edit.Replace("{id}",id.ToString()),Method.Put);
@@ -95,7 +95,7 @@ namespace ACL.Tests.V1
         public void DeleteByIdModuleTest()
         {
 
-            var id = getRandomID();
+            var id = GetRandomID();
 
             // Act
             var request = new RestRequest(ACL.Route.AclRoutesUrl.AclModuleRouteUrl.Destroy.Replace("{id}",id.ToString()), Method.Delete);
@@ -121,7 +121,7 @@ namespace ACL.Tests.V1
 
         }
 
-        private int getRandomID()
+        private int GetRandomID()
         {
 
             return (int)DataCollectors.unitOfWork.ApplicationDbContext.AclModules.Max(i=>i.Id);

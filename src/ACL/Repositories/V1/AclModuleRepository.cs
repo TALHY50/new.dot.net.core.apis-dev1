@@ -156,9 +156,10 @@ namespace ACL.Repositories.V1
             AclModule aclModule = new AclModule();
             if (_aclModule != null)
             {
+                aclModule.Id = request.Id;
                 aclModule = _aclModule;
             }
-            aclModule.Id = request.Id;
+            
             aclModule.Name = request.Name;
             aclModule.Icon = request.Icon;
             aclModule.Sequence = request.Sequence;

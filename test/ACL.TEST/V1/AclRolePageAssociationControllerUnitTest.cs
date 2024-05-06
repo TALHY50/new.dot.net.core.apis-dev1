@@ -38,7 +38,7 @@ namespace ACL.Tests.V1
         public async Task Get_All_AclRolePageAssociation()
         {
             #region  Arrange
-            var id = getRandomID();
+            var id = GetRandomID();
             #endregion
             #region Act
             var request = new RestRequest(AclRoutesUrl.AclRolePageRouteUrl.List.Replace("{id}", id.ToString()), RestSharp.Method.Get);
@@ -64,7 +64,7 @@ namespace ACL.Tests.V1
         {
             #region  Arrange
 
-            var id = getRandomID();
+            var id = GetRandomID();
             AclRoleAndPageAssocUpdateRequest editReq = GetRoleAndPageAssocUpdateRequest(id);
 
             #endregion
@@ -112,7 +112,7 @@ namespace ACL.Tests.V1
 
 
 
-        private ulong getRandomID()
+        private ulong GetRandomID()
         {
             #region Act
             //    // Act

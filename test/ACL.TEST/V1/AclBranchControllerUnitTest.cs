@@ -120,7 +120,7 @@ namespace ACL.Tests.V1
         private ulong GetRandomID()
         {
 
-            return DataCollectors.unitOfWork.ApplicationDbContext.AclCountries.Max(x => x.Id);
+            return DataCollectors.unitOfWork.ApplicationDbContext.AclBranches.Max(x => x.Id);
 
         }
     }

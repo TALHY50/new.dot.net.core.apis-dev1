@@ -94,7 +94,7 @@ namespace ACL.Tests.V1
         public async Task Delete_Acl_Company()
         {
             #region  Arrange
-            var id = getRandomID();
+            var id = GetRandomID();
             //// Create RestClient
             //var client = new RestSharp.RestClient("https://localhost:7125/api/v1");
 
@@ -135,7 +135,7 @@ namespace ACL.Tests.V1
         {
             #region  Arrange
             AclCompanyModuleRequest editReq = GetCompanyModuleRequest();
-            var id = getRandomID();
+            var id = GetRandomID();
             #endregion
             #region Act
             //// Create request
@@ -163,7 +163,7 @@ namespace ACL.Tests.V1
         public async Task Get_View_CompanyModule()
         {
             #region  Arrange
-            var id = getRandomID();
+            var id = GetRandomID();
             #endregion
             #region Act
             var request = new RestRequest(AclCompanyModuleRouteUrl.View.Replace("{id}", id.ToString()), Method.Get);
@@ -206,12 +206,21 @@ namespace ACL.Tests.V1
         }
 
 
-        private ulong getRandomID()
+        private ulong GetRandomID()
         {
             #region Act
             //    // Act
             //return unitOfWork.ApplicationDbContext.AclCompanyModules.Last().Id;
-            return (ulong)DataCollectors.unitOfWork.ApplicationDbContext.AclModules.Max(i=>i.Id);
+            try
+            {
+                var check = DataCollectors.unitOfWork.ApplicationDbContext.AclCompanyModules.Max(i => i.Id);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex.InnerException;
+            }
+            return (ulong)DataCollectors.unitOfWork.ApplicationDbContext.AclCompanyModules.Max(i=>i.Id);
             #endregion
             // }
 
