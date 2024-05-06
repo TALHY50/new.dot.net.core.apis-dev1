@@ -5,6 +5,7 @@ using RestSharp;
 using Bogus;
 using ACL.Database.Models;
 using ACL.Requests.V1;
+using SharedLibrary.Response.CustomStatusCode;
 
 namespace ACL.Tests.V1
 {
@@ -30,7 +31,7 @@ namespace ACL.Tests.V1
 
 
             //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, (int)response.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, (int)response.StatusCode);
 
         }
         [Fact]
@@ -48,7 +49,7 @@ namespace ACL.Tests.V1
 
 
             //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, (int)response.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, (int)response.StatusCode);
 
         }
 
@@ -67,7 +68,7 @@ namespace ACL.Tests.V1
 
 
             //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, (int)response.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, (int)response.StatusCode);
 
         }
         [Fact]
@@ -87,7 +88,7 @@ namespace ACL.Tests.V1
 
 
             //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, (int)response.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, (int)response.StatusCode);
 
         }
         [Fact]
@@ -103,7 +104,7 @@ namespace ACL.Tests.V1
             RestResponse response = restClient.Execute(request);
 
             // Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, (int)response.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, (int)response.StatusCode);
 
         }
 

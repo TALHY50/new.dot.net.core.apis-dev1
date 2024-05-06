@@ -47,7 +47,7 @@ namespace ACL.Tests.V1
             //request.AddHeader("Authorization", "Bearer desc");
             request.AddJsonBody(data);
             RestResponse response = restClient.Execute(request);
-             AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
+            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
             //// Assert
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
 
@@ -62,7 +62,7 @@ namespace ACL.Tests.V1
             var request = new RestRequest(ACL.Route.AclRoutesUrl.AclBranchRouteUrl.View.Replace("{id}", id.ToString()), Method.Get);
             //request.AddHeader("Authorization", "Bearer desc");
             RestResponse response = restClient.Execute(request);
-          AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
+            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
             //// Assert
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
 
@@ -83,7 +83,7 @@ namespace ACL.Tests.V1
             RestResponse response = restClient.Execute(request);
 
 
-          AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
+            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
             //// Assert
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
 
@@ -99,8 +99,7 @@ namespace ACL.Tests.V1
             //request.AddHeader("Authorization", "Bearer desc");
 
             RestResponse response = restClient.Execute(request);
-
-           AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
+            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
             //// Assert
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
 

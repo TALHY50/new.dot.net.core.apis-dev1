@@ -6,6 +6,9 @@ using Bogus;
 using ACL.Database.Models;
 using ACL.Requests.V1;
 using ACL.Route;
+using SharedLibrary.Response.CustomStatusCode;
+using ACL.Response.V1;
+using Newtonsoft.Json;
 
 namespace ACL.Tests.V1
 {
@@ -31,7 +34,8 @@ namespace ACL.Tests.V1
 
 
             //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, (int)response.StatusCode);
+            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
 
         }
         [Fact]
@@ -46,10 +50,9 @@ namespace ACL.Tests.V1
             request.AddJsonBody(data);
 
             RestResponse response = restClient.Execute(request);
-
-
             //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, (int)response.StatusCode);
+            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
 
         }
 
@@ -67,9 +70,9 @@ namespace ACL.Tests.V1
 
             RestResponse response = restClient.Execute(request);
 
-
             //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, (int)response.StatusCode);
+            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
 
         }
         [Fact]
@@ -89,7 +92,8 @@ namespace ACL.Tests.V1
 
 
             //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, (int)response.StatusCode);
+            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
 
         }
         [Fact]
@@ -104,8 +108,9 @@ namespace ACL.Tests.V1
 
             RestResponse response = restClient.Execute(request);
 
-            // Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, (int)response.StatusCode);
+            //// Assert
+            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
 
         }
 

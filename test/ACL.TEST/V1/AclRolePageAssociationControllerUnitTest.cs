@@ -22,6 +22,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static Org.BouncyCastle.Asn1.Cmp.Challenge;
+using SharedLibrary.Response.CustomStatusCode;
 
 namespace ACL.Tests.V1
 {
@@ -53,7 +54,7 @@ namespace ACL.Tests.V1
             int actualStatusCode = (int)response.StatusCode;
 
             //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, actualStatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, actualStatusCode);
             #endregion Assert
 
         }
@@ -85,7 +86,7 @@ namespace ACL.Tests.V1
 
             #endregion
             #region Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, actualEditStatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, actualEditStatusCode);
             #endregion Assert
         }
 
