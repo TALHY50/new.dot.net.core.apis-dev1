@@ -28,7 +28,7 @@ namespace ACL.Tests.V1
 {
     public class AclCompanyModuleControllerUnitTest
     {
-       
+
         RestClient restClient;
         public AclCompanyModuleControllerUnitTest()
         {
@@ -89,8 +89,58 @@ namespace ACL.Tests.V1
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, actualCreateStatusCode);
             #endregion Assert
         }
-        [Fact]
+        public async Task Get_View_CompanyModule()
+        {
+            #region  Arrange
+            var id = GetRandomID();
+            #endregion
+            #region Act
+            var request = new RestRequest(AclCompanyModuleRouteUrl.View.Replace("{id}", id.ToString()), Method.Get);
 
+            //request.AddHeader("Authorization", "Bearer YOUR_TOKEN_HERE");
+
+            var response = restClient.Execute(request);
+            #endregion
+            #region Assert
+
+
+            //// Convert actual status code to enum
+            int actualStatusCode = (int)response.StatusCode;
+
+            //// Assert
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, actualStatusCode);
+            #endregion Assert
+
+        }
+        [Fact]
+        public async Task Put_Edit_Acl_CompanyModule()
+        {
+            #region  Arrange
+            AclCompanyModuleRequest editReq = GetCompanyModuleRequest();
+            var id = GetRandomID();
+            #endregion
+            #region Act
+            //// Create request
+            var req = new RestRequest(AclCompanyModuleRouteUrl.Edit.Replace("{id}", id.ToString()), Method.Put);
+            //Add request body
+            req.AddBody(editReq);
+
+            //// Add headers
+            //request.AddHeader("Authorization", "Bearer YOUR_TOKEN_HERE");
+
+            //// Execute request
+            var response = restClient.Execute(req);
+
+            //// Convert actual status code to enum
+            int actualEditStatusCode = (int)response.StatusCode;
+            //// Assert for create
+
+            #endregion
+            #region Assert
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, actualEditStatusCode);
+            #endregion Assert
+        }
+        [Fact]
         public async Task Delete_Acl_Company()
         {
             #region  Arrange
@@ -130,59 +180,7 @@ namespace ACL.Tests.V1
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, actualEditStatusCode);
             #endregion Assert
         }
-        [Fact]
-        public async Task Put_Edit_Acl_CompanyModule()
-        {
-            #region  Arrange
-            AclCompanyModuleRequest editReq = GetCompanyModuleRequest();
-            var id = GetRandomID();
-            #endregion
-            #region Act
-            //// Create request
-            var req = new RestRequest(AclCompanyModuleRouteUrl.Edit.Replace("{id}", id.ToString()), Method.Put);
-            //Add request body
-            req.AddBody(editReq);
 
-            //// Add headers
-            //request.AddHeader("Authorization", "Bearer YOUR_TOKEN_HERE");
-
-            //// Execute request
-            var response = restClient.Execute(req);
-
-            //// Convert actual status code to enum
-            int actualEditStatusCode = (int)response.StatusCode;
-            //// Assert for create
-
-            #endregion
-            #region Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, actualEditStatusCode);
-            #endregion Assert
-        }
-        [Fact]
-
-        public async Task Get_View_CompanyModule()
-        {
-            #region  Arrange
-            var id = GetRandomID();
-            #endregion
-            #region Act
-            var request = new RestRequest(AclCompanyModuleRouteUrl.View.Replace("{id}", id.ToString()), Method.Get);
-
-            //request.AddHeader("Authorization", "Bearer YOUR_TOKEN_HERE");
-
-            var response = restClient.Execute(request);
-            #endregion
-            #region Assert
-
-
-            //// Convert actual status code to enum
-            int actualStatusCode = (int)response.StatusCode;
-
-            //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, actualStatusCode);
-            #endregion Assert
-
-        }
 
         public AclCompanyModuleRequest GetCompanyModuleRequest()
         {
@@ -220,7 +218,7 @@ namespace ACL.Tests.V1
 
                 throw ex.InnerException;
             }
-            return (ulong)DataCollectors.unitOfWork.ApplicationDbContext.AclCompanyModules.Max(i=>i.Id);
+            return (ulong)DataCollectors.unitOfWork.ApplicationDbContext.AclCompanyModules.Max(i => i.Id);
             #endregion
             // }
 
