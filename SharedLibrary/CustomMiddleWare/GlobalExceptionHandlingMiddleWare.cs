@@ -25,7 +25,7 @@ namespace SharedLibrary.CustomMiddleWare
                 if (context.Response.StatusCode == StatusCodes.Status404NotFound)
                 {
                     aclResponse.Message = "The requested resource is not found.";
-                    aclResponse.StatusCode = (HttpStatusCode)context.Response.StatusCode;
+                    aclResponse.StatusCode = context.Response.StatusCode;
 
                     var exResult = JsonSerializer.Serialize(aclResponse);
                     await context.Response.WriteAsync(exResult);
@@ -34,7 +34,7 @@ namespace SharedLibrary.CustomMiddleWare
                 if (context.Response.StatusCode == StatusCodes.Status405MethodNotAllowed)
                 {
                     aclResponse.Message = "The requested method not supported.";
-                    aclResponse.StatusCode = (HttpStatusCode)context.Response.StatusCode;
+                    aclResponse.StatusCode = context.Response.StatusCode;
 
                     var exResult = JsonSerializer.Serialize(aclResponse);
                     await context.Response.WriteAsync(exResult);
@@ -66,24 +66,24 @@ namespace SharedLibrary.CustomMiddleWare
             {
                 case MySqlException ex:
                     aclResponse.Message = ex.Message;
-                    aclResponse.StatusCode = (HttpStatusCode)context.Response.StatusCode;
+                    aclResponse.StatusCode = context.Response.StatusCode;
                     break;
                 case ApplicationException ex:
                     aclResponse.Message = ex.Message;
-                    aclResponse.StatusCode = (HttpStatusCode)context.Response.StatusCode;
+                    aclResponse.StatusCode = context.Response.StatusCode;
                     break;
                 case FileNotFoundException ex:
                     aclResponse.Message = ex.Message;
-                    aclResponse.StatusCode = (HttpStatusCode)context.Response.StatusCode;
+                    aclResponse.StatusCode = context.Response.StatusCode;
                     break;
                 case NullReferenceException ex:
                     aclResponse.Message = ex.Message;
-                    aclResponse.StatusCode = (HttpStatusCode)context.Response.StatusCode;
+                    aclResponse.StatusCode = context.Response.StatusCode;
                     break;
                     
                 default:
                     aclResponse.Message = "Internal Server Error, Please retry after sometime";
-                    aclResponse.StatusCode = (HttpStatusCode)context.Response.StatusCode;
+                    aclResponse.StatusCode = context.Response.StatusCode;
                     break;
 
             }

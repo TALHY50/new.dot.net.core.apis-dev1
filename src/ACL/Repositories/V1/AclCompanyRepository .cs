@@ -20,6 +20,7 @@ using Castle.Core.Logging;
 using SharedLibrary.Interfaces;
 using ACL.Database;
 using ACL.Utilities;
+using SharedLibrary.Response.CustomStatusCode;
 
 namespace ACL.Repositories.V1
 {
@@ -51,13 +52,13 @@ namespace ACL.Repositories.V1
 
                 aclResponse.Data = aclCompany;
                 aclResponse.Message = aclCompany != null ? messageResponse.fetchMessage : messageResponse.notFoundMessage;
-                aclResponse.StatusCode = aclCompany != null ? HttpStatusCode.OK : HttpStatusCode.NotFound;
+                aclResponse.StatusCode = aclCompany != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
             }
             catch (Exception ex)
             {
                 _unitOfWork.Logger.LogError(ex, "Error at COMPANY_FIND", new { data = id, message = ex.Message });
                 aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = HttpStatusCode.BadRequest;
+                aclResponse.StatusCode = AppStatusCode.FAIL;
             }
 
             aclResponse.Timestamp = DateTime.Now;
@@ -161,7 +162,7 @@ namespace ACL.Repositories.V1
 
                             aclResponse.Message = aclCompany != null ? messageResponse.createMessage : messageResponse.notFoundMessage;
 
-                            aclResponse.StatusCode = aclCompany != null ? HttpStatusCode.OK : HttpStatusCode.BadRequest;
+                            aclResponse.StatusCode = aclCompany != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
 
                             await transaction.CommitAsync();
                         }
@@ -175,7 +176,7 @@ namespace ACL.Repositories.V1
 
                             await transaction.RollbackAsync();
                             aclResponse.Message = ex.Message;
-                            aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                            aclResponse.StatusCode = AppStatusCode.FAIL;
                         }
                     }
                 });
@@ -184,7 +185,7 @@ namespace ACL.Repositories.V1
             {
                 _unitOfWork.Logger.LogError( null, "Error at COMPANY_CREATE", new { data = request, message = ex.Message, });
                 aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                aclResponse.StatusCode = AppStatusCode.FAIL;
             }
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
@@ -201,13 +202,13 @@ namespace ACL.Repositories.V1
                 aclResponse.Data = _aclCompany;
                 aclResponse.Message = _aclCompany != null ? messageResponse.editMessage : messageResponse.notFoundMessage;
 
-                aclResponse.StatusCode = _aclCompany != null ? HttpStatusCode.OK : HttpStatusCode.BadRequest;
+                aclResponse.StatusCode = _aclCompany != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
             }
             catch (Exception ex)
             {
                 _unitOfWork.Logger.LogError(ex, "Error at COMPANY_EDIT", new { data = request, message = ex.Message, });
                 aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                aclResponse.StatusCode = AppStatusCode.FAIL;
             }
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
@@ -220,10 +221,10 @@ namespace ACL.Repositories.V1
             {
 
                 aclResponse.Data = aclCompany;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             aclResponse.Message = aclCompany != null ? messageResponse.fetchMessage : messageResponse.notFoundMessage;
-            aclResponse.StatusCode = aclCompany != null ? HttpStatusCode.OK : HttpStatusCode.NotFound;
+            aclResponse.StatusCode = aclCompany != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
             aclResponse.Timestamp = DateTime.Now;
 
             return aclResponse;
@@ -242,7 +243,7 @@ namespace ACL.Repositories.V1
                 aclResponse.Data = aclCompany;
             }
             aclResponse.Message = aclCompany != null ? messageResponse.fetchMessage : messageResponse.notFoundMessage;
-            aclResponse.StatusCode = aclCompany != null ? HttpStatusCode.OK : HttpStatusCode.NotFound;
+            aclResponse.StatusCode = aclCompany != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
             aclResponse.Timestamp = DateTime.Now;
 
             return aclResponse;

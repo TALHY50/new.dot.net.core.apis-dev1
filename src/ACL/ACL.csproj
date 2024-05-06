@@ -41,6 +41,7 @@
 
   <ItemGroup>
     <Folder Include="Database\" />
+    <Folder Include="Exceptions\" />
     <Folder Include="Logs\" />
     <Folder Include="Migrations\" />
     <Folder Include="Repository\" />

@@ -8,7 +8,7 @@ using ACL.Utilities;
 using SharedLibrary.Interfaces;
 using SharedLibrary.Services;
 using SharedLibrary.Utilities;
-
+using SharedLibrary.Response.CustomStatusCode;
 
 
 namespace ACL.Repositories.V1
@@ -34,7 +34,7 @@ namespace ACL.Repositories.V1
             if (AppAuth.GetAuthInfo().UserId != request.UserId)
             {
                 aclResponse.Message = "Invalid User";
-                aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
+                aclResponse.StatusCode = AppStatusCode.FAIL;
                 return aclResponse;
             }
 
@@ -49,7 +49,7 @@ namespace ACL.Repositories.V1
                 if (request.CurrentPassword != password)
                 {
                     aclResponse.Message = "Password Mismatch";
-                    aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
+                    aclResponse.StatusCode = AppStatusCode.FAIL;
                     return aclResponse;
                 }
 
@@ -61,7 +61,7 @@ namespace ACL.Repositories.V1
                 await _customUnitOfWork.AclUserRepository.ReloadAsync(aclUser);
 
                 aclResponse.Message = "Password Reset Succesfully.";
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                aclResponse.StatusCode = AppStatusCode.SUCCESS;
 
             }
 
@@ -84,7 +84,7 @@ namespace ACL.Repositories.V1
 
                 aclResponse.Message = "Password Reset Notification email is sent to user email";
                 aclResponse.Data = uniqueKey;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
 
             return aclResponse;
@@ -95,7 +95,7 @@ namespace ACL.Repositories.V1
             if (!CacheHelper.Exist(request.Token))
             {
                 aclResponse.Message = "Invalid Token";
-                aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
+                aclResponse.StatusCode = AppStatusCode.FAIL;
                 return aclResponse;
             }
 
@@ -114,7 +114,7 @@ namespace ACL.Repositories.V1
 
                 CacheHelper.Remove(request.Token);
                 aclResponse.Message = "Password Reset Succesfully.";
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
 
             return aclResponse;

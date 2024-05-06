@@ -10,6 +10,7 @@ using SharedLibrary.Interfaces;
 using SharedLibrary.Services;
 using ACL.Database;
 using ACL.Services;
+using SharedLibrary.Response.CustomStatusCode;
 
 
 namespace ACL.Repositories.V1
@@ -53,7 +54,7 @@ namespace ACL.Repositories.V1
 
             aclResponse.Message = messageResponse.fetchMessage;
             aclResponse.Data = new { UsergroupRoles = associatedRoles, Roles = roles };
-            aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+            aclResponse.StatusCode = AppStatusCode.SUCCESS;
 
             return aclResponse;
         }
@@ -84,14 +85,14 @@ namespace ACL.Repositories.V1
                         await _customUnitOfWork.AclUserGroupRoleRepository.ReloadEntitiesAsync(userGroupRoles);
                         aclResponse.Data = userGroupRoles;
                         aclResponse.Message = messageResponse.createMessage;
-                        aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                        aclResponse.StatusCode = AppStatusCode.SUCCESS;
                         await transaction.CommitAsync();
                     }
                     catch (Exception ex)
                     {
                         await transaction.RollbackAsync();
                         aclResponse.Message = ex.Message;
-                        aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                        aclResponse.StatusCode = AppStatusCode.FAIL;
                     }
                 }
             });

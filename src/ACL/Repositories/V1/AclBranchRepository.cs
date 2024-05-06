@@ -8,6 +8,7 @@ using ACL.Utilities;
 using ACL.Requests.V1;
 using System.Net;
 using Castle.Components.DictionaryAdapter.Xml;
+using SharedLibrary.Response.CustomStatusCode;
 
 namespace ACL.Repositories.V1
 {
@@ -34,13 +35,13 @@ namespace ACL.Repositories.V1
                 aclResponse.Data = _aclBranch;
                 aclResponse.Message = _aclBranch != null ? messageResponse.createMessage : messageResponse.notFoundMessage;
 
-                aclResponse.StatusCode = _aclBranch != null ? HttpStatusCode.OK : HttpStatusCode.BadRequest;
+                aclResponse.StatusCode = _aclBranch != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
             }
             catch (Exception ex)
             {
                 _unitOfWork.Logger.LogError(ex, "Error at BRANCH_ADD", new { data = request, message = ex.Message, });
                 aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                aclResponse.StatusCode = AppStatusCode.FAIL;
             }
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
@@ -49,7 +50,7 @@ namespace ACL.Repositories.V1
         async Task<AclResponse> IAclBranchRepository.DeleteById(ulong id)
         {
             var aclCompanyModule = await base.GetById(id);
-            aclResponse.StatusCode = aclCompanyModule != null ? HttpStatusCode.OK : HttpStatusCode.NotFound;
+            aclResponse.StatusCode = aclCompanyModule != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
             aclResponse.Message = aclCompanyModule != null ? messageResponse.deleteMessage : messageResponse.notFoundMessage;
             aclResponse.Data = aclCompanyModule;
             if (aclCompanyModule != null)
@@ -72,13 +73,13 @@ namespace ACL.Repositories.V1
                 aclResponse.Data = _aclBranch;
                 aclResponse.Message = _aclBranch != null ? messageResponse.editMessage : messageResponse.notFoundMessage;
 
-                aclResponse.StatusCode = _aclBranch != null ? HttpStatusCode.OK : HttpStatusCode.BadRequest;
+                aclResponse.StatusCode = _aclBranch != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
             }
             catch (Exception ex)
             {
                 _unitOfWork.Logger.LogError(ex, "Error at BRANCH_EDIT", new { data = request, message = ex.Message, });
                 aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                aclResponse.StatusCode = AppStatusCode.FAIL;
             }
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
@@ -92,13 +93,13 @@ namespace ACL.Repositories.V1
                 var message = aclCompanyModule != null ? messageResponse.fetchMessage : messageResponse.notFoundMessage;
                 aclResponse.Data = aclCompanyModule;
                 aclResponse.Message = message;
-                aclResponse.StatusCode = aclCompanyModule != null ? System.Net.HttpStatusCode.OK : System.Net.HttpStatusCode.NotFound;
+                aclResponse.StatusCode = aclCompanyModule != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
                 aclResponse.Timestamp = DateTime.Now;
             }
             catch (Exception ex)
             {
                 aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                aclResponse.StatusCode = AppStatusCode.FAIL;
                 aclResponse.Timestamp = DateTime.Now;
             }
             return aclResponse;
@@ -110,7 +111,7 @@ namespace ACL.Repositories.V1
 
             aclResponse.Message = aclCompanyModules.Any() ? messageResponse.fetchMessage : messageResponse.notFoundMessage;
             aclResponse.Data = aclCompanyModules;
-            aclResponse.StatusCode = aclCompanyModules.Any() ? System.Net.HttpStatusCode.OK : System.Net.HttpStatusCode.NotFound;
+            aclResponse.StatusCode = aclCompanyModules.Any() ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
             aclResponse.Timestamp = DateTime.Now;
 
             return aclResponse;

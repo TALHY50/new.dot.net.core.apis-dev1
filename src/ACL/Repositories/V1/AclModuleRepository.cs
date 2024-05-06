@@ -9,6 +9,7 @@ using SharedLibrary.Services;
 using ACL.Database;
 using ACL.Services;
 using ACL.Utilities;
+using SharedLibrary.Response.CustomStatusCode;
 
 namespace ACL.Repositories.V1
 {
@@ -38,12 +39,12 @@ namespace ACL.Repositories.V1
                     aclResponse.Message = messageResponse.notFoundMessage;
                 }
 
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             catch (Exception ex)
             {
                 aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                aclResponse.StatusCode = AppStatusCode.FAIL;
             }
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
@@ -62,19 +63,19 @@ namespace ACL.Repositories.V1
                     await _customUnitOfWork.AclModuleRepository.ReloadAsync(aclModule);
                     aclResponse.Data = aclModule;
                     aclResponse.Message = messageResponse.createMessage;
-                    aclResponse.StatusCode = System.Net.HttpStatusCode.Created;
+                    aclResponse.StatusCode = AppStatusCode.SUCCESS;
                 }
                 else
                 {
                     aclResponse.Message = messageResponse.existMessage;
-                    aclResponse.StatusCode = System.Net.HttpStatusCode.Conflict;
+                    aclResponse.StatusCode = AppStatusCode.FAIL;
                 }
                 aclResponse.Timestamp = DateTime.Now;
             }
             catch (Exception ex)
             {
                 aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                aclResponse.StatusCode = AppStatusCode.FAIL;
             }
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
@@ -92,18 +93,18 @@ namespace ACL.Repositories.V1
                     await _customUnitOfWork.AclModuleRepository.ReloadAsync(aclModule);
                     aclResponse.Data = aclModule;
                     aclResponse.Message = messageResponse.editMessage;
-                    aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                    aclResponse.StatusCode = AppStatusCode.SUCCESS;
                 }
                 else
                 {
                     aclResponse.Message = messageResponse.notFoundMessage;
-                    aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
+                    aclResponse.StatusCode = AppStatusCode.FAIL;
                 }
             }
             catch (Exception ex)
             {
                 aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                aclResponse.StatusCode = AppStatusCode.FAIL;
             }
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
@@ -115,12 +116,12 @@ namespace ACL.Repositories.V1
             if (aclModules.Any())
             {
                 aclResponse.Message = messageResponse.fetchMessage;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             else
             {
                 aclResponse.Message = messageResponse.notFoundMessage;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
+                aclResponse.StatusCode = AppStatusCode.FAIL;
             }
             aclResponse.Data = aclModules;
             aclResponse.Timestamp = DateTime.Now;
@@ -139,12 +140,12 @@ namespace ACL.Repositories.V1
                 await _unitOfWork.CompleteAsync();
                 aclResponse.Data = aclModule;
                 aclResponse.Message = messageResponse.deleteMessage;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.Continue;
+                aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             else
             {
                 aclResponse.Message = messageResponse.notFoundMessage;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
+                aclResponse.StatusCode = AppStatusCode.FAIL;
             }
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;

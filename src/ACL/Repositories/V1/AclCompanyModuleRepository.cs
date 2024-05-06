@@ -13,6 +13,7 @@ using ACL.Database;
 using ACL.Utilities;
 using System.Net;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using SharedLibrary.Response.CustomStatusCode;
 
 
 namespace ACL.Repositories.V1
@@ -36,13 +37,13 @@ namespace ACL.Repositories.V1
                 var message = aclCompanyModule != null ? messageResponse.fetchMessage : messageResponse.notFoundMessage;
                 aclResponse.Data = aclCompanyModule;
                 aclResponse.Message = message;
-                aclResponse.StatusCode = aclCompanyModule != null ? System.Net.HttpStatusCode.OK : System.Net.HttpStatusCode.NotFound;
+                aclResponse.StatusCode = aclCompanyModule != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
                 aclResponse.Timestamp = DateTime.Now;
             }
             catch (Exception ex)
             {
                 aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                aclResponse.StatusCode = AppStatusCode.FAIL;
                 aclResponse.Timestamp = DateTime.Now;
             }
             return aclResponse;
@@ -59,12 +60,12 @@ namespace ACL.Repositories.V1
                 await base.ReloadAsync(aclCompanyModule);
                 aclResponse.Data = aclCompanyModule;
                 aclResponse.Message = messageResponse.createMessage;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             catch (Exception ex)
             {
                 aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                aclResponse.StatusCode = AppStatusCode.FAIL;
             }
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
@@ -75,7 +76,7 @@ namespace ACL.Repositories.V1
             {
                 var _aclCompanyModule = await base.GetById(Id);
                 aclResponse.Message = (_aclCompanyModule != null) ? messageResponse.editMessage : messageResponse.notFoundMessage;
-                aclResponse.StatusCode = (_aclCompanyModule != null) ? HttpStatusCode.OK : HttpStatusCode.BadRequest;
+                aclResponse.StatusCode = (_aclCompanyModule != null) ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
                 if (_aclCompanyModule != null)
                 {
                     _aclCompanyModule = PrepareInputData(request, Id, _aclCompanyModule);
@@ -98,7 +99,7 @@ namespace ACL.Repositories.V1
             var aclCompanyModules = await base.All();
             aclResponse.Message = aclCompanyModules.Any() ? messageResponse.fetchMessage : messageResponse.notFoundMessage;
             aclResponse.Data = aclCompanyModules;
-            aclResponse.StatusCode = aclCompanyModules.Any() ? System.Net.HttpStatusCode.OK : System.Net.HttpStatusCode.NotFound;
+            aclResponse.StatusCode = aclCompanyModules.Any() ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
         }
@@ -121,7 +122,7 @@ namespace ACL.Repositories.V1
         public async Task<AclResponse> DeleteCompanyModule(ulong id)
         {
             var aclCompanyModule = await base.GetById(id);
-            aclResponse.StatusCode = aclCompanyModule != null ? HttpStatusCode.OK : HttpStatusCode.NotFound;
+            aclResponse.StatusCode = aclCompanyModule != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
             aclResponse.Message = aclCompanyModule != null ? messageResponse.deleteMessage : messageResponse.notFoundMessage;
             aclResponse.Data = aclCompanyModule;
             if (aclCompanyModule != null)

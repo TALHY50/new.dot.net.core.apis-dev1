@@ -10,6 +10,7 @@ using SharedLibrary.Services;
 using ACL.Database;
 using ACL.Utilities;
 using ACL.Services;
+using SharedLibrary.Response.CustomStatusCode;
 
 namespace ACL.Repositories.V1
 {
@@ -37,12 +38,12 @@ namespace ACL.Repositories.V1
             {
                 aclResponse.Data = result;
                 aclResponse.Message = messageResponse.fetchMessage;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             else
             {
                 aclResponse.Message = messageResponse.notFoundMessage;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
+                aclResponse.StatusCode = AppStatusCode.FAIL;
             }
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
@@ -57,12 +58,12 @@ namespace ACL.Repositories.V1
                 await _customUnitOfWork.AclUserGroupRepository.ReloadAsync(result);
                 aclResponse.Data = result;
                 aclResponse.Message = messageResponse.createMessage;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             catch (Exception ex)
             {
                 aclResponse.Message = messageResponse.createMessage;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.UnprocessableEntity;
+                aclResponse.StatusCode = AppStatusCode.FAIL;
             }
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
@@ -79,12 +80,12 @@ namespace ACL.Repositories.V1
                 await _customUnitOfWork.AclUserGroupRepository.ReloadAsync(result);
                 aclResponse.Data = result;
                 aclResponse.Message = messageResponse.editMessage;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             else
             {
                 aclResponse.Message = messageResponse.notFoundMessage;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
+                aclResponse.StatusCode = AppStatusCode.FAIL;
             }
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
@@ -96,12 +97,12 @@ namespace ACL.Repositories.V1
             {
                 aclResponse.Data = result;
                 aclResponse.Message = messageResponse.fetchMessage;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             else
             {
                 aclResponse.Message = messageResponse.notFoundMessage;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
+                aclResponse.StatusCode = AppStatusCode.FAIL;
             }
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
@@ -116,12 +117,12 @@ namespace ACL.Repositories.V1
                 await base.ReloadAsync(result);
                 aclResponse.Data = result;
                 aclResponse.Message = messageResponse.deleteMessage;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             else
             {
                 aclResponse.Message = messageResponse.notFoundMessage;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
+                aclResponse.StatusCode = AppStatusCode.FAIL;
             }
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;

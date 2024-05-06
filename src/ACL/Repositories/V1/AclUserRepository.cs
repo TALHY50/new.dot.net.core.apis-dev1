@@ -11,6 +11,7 @@ using SharedLibrary.Services;
 using ACL.Database;
 using ACL.Utilities;
 using ACL.Services;
+using SharedLibrary.Response.CustomStatusCode;
 
 namespace ACL.Repositories.V1
 {
@@ -44,7 +45,7 @@ namespace ACL.Repositories.V1
                 aclResponse.Message = messageResponse.fetchMessage;
             }
             aclResponse.Data = aclUser;
-            aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+            aclResponse.StatusCode = AppStatusCode.SUCCESS;
             aclResponse.Timestamp = DateTime.Now;
 
             return aclResponse;
@@ -72,7 +73,7 @@ namespace ACL.Repositories.V1
 
                         aclResponse.Data = aclUser;
                         aclResponse.Message = messageResponse.createMessage;
-                        aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                        aclResponse.StatusCode = AppStatusCode.SUCCESS;
 
                         await transaction.CommitAsync();
                     }
@@ -80,7 +81,7 @@ namespace ACL.Repositories.V1
                     {
                         await transaction.RollbackAsync();
                         aclResponse.Message = ex.Message;
-                        aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                        aclResponse.StatusCode = AppStatusCode.FAIL;
                     }
                 }
             });
@@ -115,12 +116,12 @@ namespace ACL.Repositories.V1
 
                     aclResponse.Data = aclUser;
                     aclResponse.Message = messageResponse.editMessage;
-                    aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                    aclResponse.StatusCode = AppStatusCode.SUCCESS;
                 }
                 else
                 {
                     aclResponse.Message = messageResponse.notFoundMessage;
-                    aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
+                    aclResponse.StatusCode = AppStatusCode.FAIL;
                     return aclResponse;
                 }
 
@@ -128,7 +129,7 @@ namespace ACL.Repositories.V1
             catch (Exception ex)
             {
                 aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                aclResponse.StatusCode = AppStatusCode.FAIL;
             }
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
@@ -147,12 +148,12 @@ namespace ACL.Repositories.V1
                     aclResponse.Message = messageResponse.notFoundMessage;
                 }
 
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             catch (Exception ex)
             {
                 aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                aclResponse.StatusCode = AppStatusCode.FAIL;
             }
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
@@ -174,7 +175,7 @@ namespace ACL.Repositories.V1
 
 
                 aclResponse.Message = messageResponse.deleteMessage;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             return aclResponse;
         }

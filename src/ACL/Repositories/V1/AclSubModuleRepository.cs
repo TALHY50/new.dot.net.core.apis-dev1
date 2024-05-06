@@ -10,6 +10,7 @@ using ACL.Database;
 using ACL.Services;
 using ACL.Utilities;
 using Castle.Components.DictionaryAdapter.Xml;
+using SharedLibrary.Response.CustomStatusCode;
 
 namespace ACL.Repositories.V1
 {
@@ -36,7 +37,7 @@ namespace ACL.Repositories.V1
                 aclResponse.Message = messageResponse.fetchMessage;
             }
             aclResponse.Data = aclSubModules;
-            aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+            aclResponse.StatusCode = AppStatusCode.SUCCESS;
             aclResponse.Timestamp = DateTime.Now;
 
             return aclResponse;
@@ -51,12 +52,12 @@ namespace ACL.Repositories.V1
                 await _customUnitOfWork.AclSubModuleRepository.ReloadAsync(aclSubModule);
                 aclResponse.Data = aclSubModule;
                 aclResponse.Message = messageResponse.createMessage;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             catch (Exception ex)
             {
                 aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                aclResponse.StatusCode = AppStatusCode.FAIL;
             }
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
@@ -79,12 +80,12 @@ namespace ACL.Repositories.V1
                 await _customUnitOfWork.AclSubModuleRepository.ReloadAsync(aclSubModule);
                 aclResponse.Data = aclSubModule;
                 aclResponse.Message = messageResponse.editMessage;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             catch (Exception ex)
             {
                 aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                aclResponse.StatusCode = AppStatusCode.FAIL;
             }
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
@@ -103,12 +104,12 @@ namespace ACL.Repositories.V1
                     aclResponse.Message = messageResponse.notFoundMessage;
                 }
 
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             catch (Exception ex)
             {
                 aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                aclResponse.StatusCode = AppStatusCode.FAIL;
             }
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
@@ -123,7 +124,7 @@ namespace ACL.Repositories.V1
                 await base.DeleteAsync(subModule);
                 await _customUnitOfWork.CompleteAsync();
                 aclResponse.Message = messageResponse.deleteMessage;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
 
             return aclResponse;

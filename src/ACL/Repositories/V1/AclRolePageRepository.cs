@@ -11,6 +11,7 @@ using SharedLibrary.Interfaces;
 using SharedLibrary.Services;
 using ACL.Database;
 using ACL.Utilities;
+using SharedLibrary.Response.CustomStatusCode;
 
 namespace ACL.Repositories.V1
 {
@@ -33,12 +34,12 @@ namespace ACL.Repositories.V1
             if (res.Any())
             {
                 aclResponse.Message = messageResponse.fetchMessage;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             else
             {
                 aclResponse.Message = messageResponse.notFoundMessage;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
+                aclResponse.StatusCode = AppStatusCode.FAIL;
             }
             aclResponse.Data = res;
             aclResponse.Timestamp = DateTime.Now;
@@ -62,7 +63,7 @@ namespace ACL.Repositories.V1
                 {
                     await _unitOfWork.RollbackTransactionAsync();
                     aclResponse.Message = ex.Message;
-                    aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                    aclResponse.StatusCode = AppStatusCode.FAIL;
                 }
             }
             await _unitOfWork.CompleteAsync();
@@ -71,12 +72,12 @@ namespace ACL.Repositories.V1
             if (res.Any())
             {
                 aclResponse.Message = messageResponse.fetchMessage;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             else
             {
                 aclResponse.Message = messageResponse.notFoundMessage;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
+                aclResponse.StatusCode = AppStatusCode.FAIL;
             }
 
             aclResponse.Data = res;
