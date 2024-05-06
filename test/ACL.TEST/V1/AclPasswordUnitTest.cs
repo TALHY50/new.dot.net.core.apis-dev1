@@ -40,7 +40,7 @@ namespace ACL.Tests.V1
             RestResponse response = restClient.Execute(request);
             aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
             //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, (int)aclResponse.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
 
         }
         [Fact]
@@ -56,21 +56,28 @@ namespace ACL.Tests.V1
 
             RestResponse response = restClient.Execute(request);
 
+            aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
 
+            CacheHelper.Set(uniqueKey, aclResponse.Data, 120);
 
             //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, (int)response.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
 
         }
         [Fact]
         public void PasswordForgetVerifyTest()
         {
             //Arrange
+            string Token = (string)CacheHelper.Get(uniqueKey);
+            if (!CacheHelper.Exist(uniqueKey))
+            {
+                Token = "bba47d83926a8d98cdc4affeee7b91459a08734b6e40da5ac0f69eaf78fb6017";
+            }
             var data = new AclForgetPasswordTokenVerifyRequest
             {
                 NewPassword = userPassword,
                 PasswordConfirmation = userPassword,
-                Token = (string)CacheHelper.Get(uniqueKey)
+                Token = Token
             };
 
             // Act
@@ -83,7 +90,7 @@ namespace ACL.Tests.V1
             CacheHelper.Remove(uniqueKey);
 
             //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, (int)aclResponse.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
 
         }
 
