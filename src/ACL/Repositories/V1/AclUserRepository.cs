@@ -184,8 +184,7 @@ namespace ACL.Repositories.V1
         {
             if (AclUser == null)
             {
-                if (_companyId == 0)
-                    return new AclUser
+                return new AclUser
                     {
                         FirstName = request.FirstName,
                         LastName = request.LastName,
@@ -203,8 +202,8 @@ namespace ACL.Repositories.V1
                         Status = request.Status,
                         CreatedAt = DateTime.Now,
                         UpdatedAt = DateTime.Now,
-                        CompanyId = (_companyId == 0) ? _companyId : 0,
-                        UserType = (_userType == 0) ? _userType : 0
+                        CompanyId = _companyId ,
+                        UserType = (_companyId==0)? uint.Parse(_config["USER_TYPE_S_ADMIN"])  : uint.Parse(_config["USER_TYPE_USER"])
                     };
             }
             else

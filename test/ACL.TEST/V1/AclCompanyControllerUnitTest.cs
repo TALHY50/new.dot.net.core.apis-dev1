@@ -83,7 +83,7 @@ namespace ACL.Tests.V1
         {
             #region  Arrange
             AclCompanyEditRequest editReq = GetCompanyEditRequest();
-            var id = GetRandomID().Id;
+            var id = GetRandomID();
             #endregion
             #region Act
             //// Create request
@@ -109,7 +109,7 @@ namespace ACL.Tests.V1
         public async Task Get_View_Company()
         {
             #region  Arrange
-            var id = GetRandomID().Id;
+            var id = GetRandomID();
             #endregion
 
             #region Act
@@ -135,7 +135,7 @@ namespace ACL.Tests.V1
             #endregion
             #region Act
             //// Create request
-            var req = new RestRequest(AclRoutesUrl.AclBranchRouteUrl.Destroy.Replace("{id}", id.ToString()), Method.Delete);
+            var req = new RestRequest(AclRoutesUrl.AclCompanyRouteUrl.Destroy.Replace("{id}", id.ToString()), Method.Delete);
             //Add request body
 
             //// Add headers
@@ -150,7 +150,8 @@ namespace ACL.Tests.V1
 
             #endregion
             #region Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, actualEditStatusCode);
+            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
             #endregion Assert
         }
 
@@ -220,7 +221,8 @@ namespace ACL.Tests.V1
             //#endregion
             //#region Act
 
-            return (ulong)DataCollectors.unitOfWork.ApplicationDbContext.AclCompanies.Max(t => t.Id);
+            return (ulong)DataCollectors.unitOfWork.ApplicationDbContext.AclCompanies.Where(t => t.Status == 1).Max(t => t.Id);
+
             //// Act
             //var aclResponse = await controller.Create(createReq);
             ////var aclData = unitOfWork.AclCompanyRepository.Add((AclCompany)aclResponse.Data);

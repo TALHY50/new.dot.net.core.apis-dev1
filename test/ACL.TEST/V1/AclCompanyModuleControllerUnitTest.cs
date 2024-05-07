@@ -168,22 +168,11 @@ namespace ACL.Tests.V1
 
         public AclCompanyModuleRequest GetCompanyModuleRequest()
         {
-            var faker = new Faker();
-            var random = new Random();
-
-            // Generate random ulong values within the valid range
-            ulong GenerateRandomUlong()
-            {
-                var buffer = new byte[sizeof(ulong)];
-                random.NextBytes(buffer);
-                return BitConverter.ToUInt64(buffer, 0);
-            }
-
             // Generate random data for the company module request
             return new AclCompanyModuleRequest
             {
-                CompanyId = GenerateRandomUlong(),
-                ModuleId = GenerateRandomUlong()
+                CompanyId = DataCollectors.unitOfWork.ApplicationDbContext.AclCompanies.Max(i => i.Id),
+                ModuleId = DataCollectors.unitOfWork.ApplicationDbContext.AclModules.Max(i => i.Id)
             };
         }
 
@@ -193,15 +182,6 @@ namespace ACL.Tests.V1
             #region Act
             //    // Act
             //return unitOfWork.ApplicationDbContext.AclCompanyModules.Last().Id;
-            try
-            {
-                var check = DataCollectors.unitOfWork.ApplicationDbContext.AclCompanyModules.Max(i => i.Id);
-            }
-            catch (Exception ex)
-            {
-
-                throw ex.InnerException;
-            }
             return (ulong)DataCollectors.unitOfWork.ApplicationDbContext.AclCompanyModules.Max(i => i.Id);
             #endregion
             // }
