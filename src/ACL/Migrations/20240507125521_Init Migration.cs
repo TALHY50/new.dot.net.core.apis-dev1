@@ -225,6 +225,7 @@ namespace ACL.Migrations
                     id = table.Column<long>(type: "bigint(20) unsigned", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     name = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
+                    country_id = table.Column<long>(type: "bigint(20) unsigned", nullable: false),
                     description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
                     status = table.Column<sbyte>(type: "tinyint(3) unsigned", nullable: false),
                     sequence = table.Column<long>(type: "bigint(20) unsigned", nullable: false),
@@ -433,7 +434,7 @@ namespace ACL.Migrations
             migrationBuilder.InsertData(
                 table: "acl_branches",
                 columns: new[] { "id", "address", "company_id", "created_at", "created_by_id", "description", "name", "sequence", "status", "updated_at", "updated_by_id" },
-                values: new object[] { 1L, "Dhaka", 0L, new DateTime(2015, 11, 4, 1, 52, 1, 0, DateTimeKind.Unspecified), 1L, "Test", "Test", 1L, (sbyte)1, new DateTime(2019, 3, 28, 13, 29, 33, 0, DateTimeKind.Unspecified), 1L });
+                values: new object[] { 1L, "Dhaka", 2L, new DateTime(2015, 11, 4, 1, 52, 1, 0, DateTimeKind.Unspecified), 1L, "Test", "Test", 1L, (sbyte)1, new DateTime(2019, 3, 28, 13, 29, 33, 0, DateTimeKind.Unspecified), 1L });
 
             migrationBuilder.InsertData(
                 table: "acl_companies",
@@ -855,8 +856,8 @@ namespace ACL.Migrations
 
             migrationBuilder.InsertData(
                 table: "acl_states",
-                columns: new[] { "id", "created_at", "created_by_id", "description", "name", "sequence", "status", "updated_at", "updated_by_id" },
-                values: new object[] { 1L, new DateTime(2019, 3, 22, 8, 38, 12, 0, DateTimeKind.Unspecified), 1L, "Dhaka city of BD", "Dhaka", 100L, (sbyte)1, new DateTime(2023, 11, 1, 19, 17, 0, 0, DateTimeKind.Unspecified), 1L });
+                columns: new[] { "id", "country_id", "created_at", "created_by_id", "description", "name", "sequence", "status", "updated_at", "updated_by_id" },
+                values: new object[] { 1L, 1L, new DateTime(2019, 3, 22, 8, 38, 12, 0, DateTimeKind.Unspecified), 1L, "Dhaka city of BD", "Dhaka", 100L, (sbyte)1, new DateTime(2023, 11, 1, 19, 17, 0, 0, DateTimeKind.Unspecified), 1L });
 
             migrationBuilder.InsertData(
                 table: "acl_sub_modules",

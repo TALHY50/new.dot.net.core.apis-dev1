@@ -450,6 +450,9 @@ public partial class ApplicationDbContext : DbContext, IApplicationDbContext
             entity.Property(e => e.Id)
                 .HasColumnType("bigint(20) unsigned")
                 .HasColumnName("id");
+            entity.Property(e => e.CountryId)
+                .HasColumnType("bigint(20) unsigned")
+                .HasColumnName("country_id");
             entity.Property(e => e.CreatedAt)
                 .HasMaxLength(6)
                 .HasColumnName("created_at");
@@ -5019,6 +5022,7 @@ public partial class ApplicationDbContext : DbContext, IApplicationDbContext
                         Id = 1,
                         Name ="Dhaka",
                         Description ="Dhaka city of BD",
+                        CountryId = 1,
                         CreatedById = 1,
                         UpdatedById = 1,
                         Sequence = 100,

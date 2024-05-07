@@ -140,6 +140,7 @@ namespace ACL.Repositories.V1
                 aclState.CreatedById = AppAuth.GetAuthInfo().UserId;
             }
             aclState.Name = request.Name;
+            aclState.CountryId = request.CountryId;
             aclState.Status = request.Status;
             aclState.Description = request.Description;
             aclState.Sequence = request.Sequence;

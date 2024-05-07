@@ -7,6 +7,7 @@ public partial class AclState
 {
     public ulong Id { get; set; }
     public string Name { get; set; } = null!;
+    public ulong CountryId { get; set; } 
 
     public string Description { get; set; } = null!;
 
