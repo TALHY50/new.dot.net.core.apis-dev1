@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ACL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240506062519_Init Migration")]
+    [Migration("20240507125521_Init Migration")]
     partial class InitMigration
     {
         /// <inheritdoc />
@@ -87,7 +87,7 @@ namespace ACL.Migrations
                         {
                             Id = 1L,
                             Address = "Dhaka",
-                            CompanyId = 0L,
+                            CompanyId = 2L,
                             CreatedAt = new DateTime(2015, 11, 4, 1, 52, 1, 0, DateTimeKind.Unspecified),
                             CreatedById = 1L,
                             Description = "Test",
@@ -4920,6 +4920,10 @@ namespace ACL.Migrations
                         .HasColumnType("bigint(20) unsigned")
                         .HasColumnName("id");
 
+                    b.Property<long>("CountryId")
+                        .HasColumnType("bigint(20) unsigned")
+                        .HasColumnName("country_id");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasMaxLength(6)
                         .HasColumnType("datetime(6)")
@@ -4967,6 +4971,7 @@ namespace ACL.Migrations
                         new
                         {
                             Id = 1L,
+                            CountryId = 1L,
                             CreatedAt = new DateTime(2019, 3, 22, 8, 38, 12, 0, DateTimeKind.Unspecified),
                             CreatedById = 1L,
                             Description = "Dhaka city of BD",
