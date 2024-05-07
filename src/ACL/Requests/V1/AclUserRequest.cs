@@ -27,9 +27,9 @@ namespace ACL.Requests.V1
         [StringLength(255)]
         public string Avatar { get; set; }
         
-        [DefaultValue("Should be image as base 64")]
+        [DefaultValue("en-US")]
         [Required]
-        [StringLength(255)]
+        [StringLength(10)]
         public string Language { get; set; }
 
         [DefaultValue("Srbl@123.")]
