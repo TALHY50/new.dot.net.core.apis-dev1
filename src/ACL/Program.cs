@@ -1,4 +1,12 @@
 
+using System.Configuration;
+using System.Security.Cryptography;
+using ACL.Application.Ports.Repositories;
+using ACL.Application.Ports.Services;
+using ACL.Application.UseCases.CreateUser;
+using ACL.Application.UseCases.Login;
+using ACL.Application.UseCases.RefreshToken;
+using ACL.Application.UseCases.SignOut;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Events;
@@ -10,9 +18,18 @@ using Microsoft.AspNetCore.Authentication;
 using SharedLibrary.Interfaces;
 using SharedLibrary.Services;
 using ACL.Data;
+using ACL.Infrastructure.Authorization;
+using ACL.Infrastructure.Services;
+using ACL.Infrastructure.Services.Cryptography;
+using ACL.Infrastructure.Services.Jwt;
+using ACL.Interfaces.Repositories.V1;
+using ACL.Repositories.V1;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using SharedLibrary.CustomMiddleWare;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-
+using Microsoft.IdentityModel.Tokens;
+using AuthenticationService = Microsoft.AspNetCore.Authentication.AuthenticationService;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,9 +40,65 @@ builder.Services.AddLogging(loggingBuilder =>
     loggingBuilder.AddConsole();
     loggingBuilder.AddSerilog(dispose: true);
 });
-builder.Services.AddAuthentication();
-builder.Services.AddAuthorization(); // Add authorization services
+
+var jwtSettingsConfiguration = builder.Configuration.GetSection("JwtSettings");
+builder.Services.Configure<JwtSettings>(jwtSettingsConfiguration);
+var jwtSettings = jwtSettingsConfiguration.Get<JwtSettings>();
+
+builder.Services.AddSingleton<IAuthTokenService, JwtService>();
+builder.Services.AddSingleton<ICryptographyService, CryptographyService>();
+
+builder.Services.AddSingleton(provider =>
+{
+    var rsa = RSA.Create();
+    rsa.ImportRSAPrivateKey(source: Convert.FromBase64String(jwtSettings.AccessTokenSettings.PrivateKey), bytesRead: out int _);
+    return new RsaSecurityKey(rsa);
+});
+
+RSA rsa = RSA.Create();
+rsa.ImportRSAPublicKey(
+    source: Convert.FromBase64String(jwtSettings.AccessTokenSettings.PublicKey),
+    bytesRead: out int _
+);
+
+var rsaKey = new RsaSecurityKey(rsa);
+
+builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(options =>
+    {
+        if (builder.Environment.IsDevelopment()) options.RequireHttpsMetadata = false;
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            RequireSignedTokens = true,
+            RequireExpirationTime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = jwtSettings.AccessTokenSettings.Issuer,
+            ValidAudience = jwtSettings.AccessTokenSettings.Audience,
+            IssuerSigningKey = rsaKey,
+            ClockSkew = TimeSpan.FromMinutes(0)
+        };
+    });
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("CanReadWeather", policy =>
+        policy.Requirements.Add(new GetWeatherRequirement()));
+});
+
+// Singletons
+builder.Services.AddSingleton<IAuthorizationHandler, GetWeatherHandler>();
+
+//builder.Services.AddAuthentication();
+//builder.Services.AddAuthorization(); // Add authorization services
 builder.Services.AddControllers();
+
 
 Env.NoClobber().TraversePath().Load();
 
@@ -100,6 +173,13 @@ builder.Host.UseSerilog((hostingContext, loggerConfiguration) =>
 
 builder.Services.AddSerilog();
 
+builder.Services.AddScoped<IAclUserRepository, AclUserRepository>();
+
+builder.Services.AddScoped<LoginUseCase>();
+builder.Services.AddScoped<RefreshTokenUseCase>();
+builder.Services.AddScoped<SignOutUseCase>();
+builder.Services.AddScoped<CreateUserUseCase>();
+
 static string GetLogFilePath(string fileName)
 {
     var logDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Logs");
@@ -108,6 +188,16 @@ static string GetLogFilePath(string fileName)
     return Path.Combine(logDirectory, $"{datePrefix}_{fileName}");
 }
 var app = builder.Build();
+
+app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 
 // Seeding Data
 using (var serviceScope = app.Services.CreateScope())
@@ -134,9 +224,12 @@ app.UseSerilogRequestLogging();
 app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
 
 
+
 app.UseRouting();
 
-app.UseEndpoints(endpoints =>{endpoints.MapControllers();});
+
+
+
 
 app.UseFileServer();
 

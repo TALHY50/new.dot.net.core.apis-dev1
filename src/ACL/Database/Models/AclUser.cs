@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using ACL.Domain;
 
 namespace ACL.Database.Models;
 
@@ -43,6 +45,10 @@ public partial class AclUser
     public uint UserType { get; set; }
 
     public string? RememberToken { get; set; }
+    
+    public RefreshToken RefreshToken { get; set; }
+    
+    public string? Salt { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 
@@ -55,6 +61,8 @@ public partial class AclUser
     public string? Username { get; set; }
 
     public string? ImgPath { get; set; }
+    
+    public IList<Domain.Claim> Claims { get; set; }
 
     /// <summary>
     /// 0=&gt;Inactive or disable; 1=&gt;enable or active; 2=&gt; disabled or suspected;3= awaiting disable or banned;4=awaiting GSM
@@ -78,4 +86,12 @@ public partial class AclUser
     public uint CreatedById { get; set; }
 
     public string? AuthIdentifier { get; set; }
+    
+    
+    public AclUser()
+    {
+        Claims = new List<Domain.Claim>();
+        RefreshToken = new RefreshToken();
+    }
+    
 }

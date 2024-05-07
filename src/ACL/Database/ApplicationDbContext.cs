@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using ACL.Database.Models;
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
@@ -73,6 +74,9 @@ public partial class ApplicationDbContext : DbContext, IApplicationDbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+        base.OnModelCreating(modelBuilder);
         //modelBuilder
         //    .UseCollation("utf8mb4_general_ci")
         //    .HasCharSet("utf8mb4");
@@ -517,7 +521,7 @@ public partial class ApplicationDbContext : DbContext, IApplicationDbContext
                 .HasColumnName("updated_at");
         });
 
-        modelBuilder.Entity<AclUser>(entity =>
+        /*modelBuilder.Entity<AclUser>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
@@ -613,7 +617,7 @@ public partial class ApplicationDbContext : DbContext, IApplicationDbContext
             entity.Property(e => e.Username)
                 .HasMaxLength(20)
                 .HasColumnName("username");
-        });
+        });*/
 
         modelBuilder.Entity<AclUserUsergroup>(entity =>
         {
