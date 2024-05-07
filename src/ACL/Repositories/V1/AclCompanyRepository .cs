@@ -24,7 +24,7 @@ using SharedLibrary.Response.CustomStatusCode;
 
 namespace ACL.Repositories.V1
 {
-    public class AclCompanyRepository : GenericRepository<AclCompany,ApplicationDbContext,ICustomUnitOfWork>, IAclCompanyRepository
+    public class AclCompanyRepository : GenericRepository<AclCompany, ApplicationDbContext, ICustomUnitOfWork>, IAclCompanyRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
@@ -39,32 +39,24 @@ namespace ACL.Repositories.V1
             _customUnitOfWork = _unitOfWork;
             _config = config;
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
-             messageResponse = new MessageResponse(modelName, _unitOfWork,AppAuth.GetAuthInfo().Language);
+            messageResponse = new MessageResponse(modelName, _unitOfWork, AppAuth.GetAuthInfo().Language);
         }
 
-        public async Task<AclResponse> FindById(ulong id)
+        public async Task<AclResponse> GetAll()
         {
-            var aclResponse = new AclResponse();
-
-            try
+            var aclCompany = await base.Where(b => b.Status == 1).ToListAsync();
+            if (aclCompany.Any())
             {
-                var aclCompany = await base.GetById(id);
 
                 aclResponse.Data = aclCompany;
-                aclResponse.Message = aclCompany != null ? messageResponse.fetchMessage : messageResponse.notFoundMessage;
-                aclResponse.StatusCode = aclCompany != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
+                aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
-            catch (Exception ex)
-            {
-                _unitOfWork.Logger.LogError(ex, "Error at COMPANY_FIND", new { data = id, message = ex.Message });
-                aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = AppStatusCode.FAIL;
-            }
-
+            aclResponse.Message = aclCompany != null ? messageResponse.fetchMessage : messageResponse.notFoundMessage;
+            aclResponse.StatusCode = aclCompany != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
             aclResponse.Timestamp = DateTime.Now;
+
             return aclResponse;
         }
-
 
         public async Task<AclResponse> AddAclCompany(AclCompanyCreateRequest request)
         {
@@ -168,9 +160,9 @@ namespace ACL.Repositories.V1
                         }
                         catch (Exception ex)
                         {
-                            if(_unitOfWork.Logger == null)
+                            if (_unitOfWork.Logger == null)
                             {
-                                 
+
                             }
                             _unitOfWork.Logger.LogError(ex, "Error at COMPANY_CREATE", new { data = request, message = ex.Message, });
 
@@ -183,7 +175,7 @@ namespace ACL.Repositories.V1
             }
             catch (Exception ex)
             {
-                _unitOfWork.Logger.LogError( null, "Error at COMPANY_CREATE", new { data = request, message = ex.Message, });
+                _unitOfWork.Logger.LogError(null, "Error at COMPANY_CREATE", new { data = request, message = ex.Message, });
                 aclResponse.Message = ex.Message;
                 aclResponse.StatusCode = AppStatusCode.FAIL;
             }
@@ -213,23 +205,28 @@ namespace ACL.Repositories.V1
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
         }
-
-        public async Task<AclResponse> GetAll()
+        public async Task<AclResponse> FindById(ulong id)
         {
-            var aclCompany = await base.Where(b => b.Status == 1).ToListAsync();
-            if (aclCompany.Any())
+            var aclResponse = new AclResponse();
+
+            try
             {
+                var aclCompany = await base.GetById(id);
 
                 aclResponse.Data = aclCompany;
-                aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                aclResponse.Message = aclCompany != null ? messageResponse.fetchMessage : messageResponse.notFoundMessage;
+                aclResponse.StatusCode = aclCompany != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
             }
-            aclResponse.Message = aclCompany != null ? messageResponse.fetchMessage : messageResponse.notFoundMessage;
-            aclResponse.StatusCode = aclCompany != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
-            aclResponse.Timestamp = DateTime.Now;
+            catch (Exception ex)
+            {
+                _unitOfWork.Logger.LogError(ex, "Error at COMPANY_FIND", new { data = id, message = ex.Message });
+                aclResponse.Message = ex.Message;
+                aclResponse.StatusCode = AppStatusCode.FAIL;
+            }
 
+            aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
         }
-
         public async Task<AclResponse> DeleteCompany(ulong id)
         {
 

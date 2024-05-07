@@ -7,6 +7,10 @@ using ACL.Database.Models;
 using ACL.Requests.V1;
 using SharedLibrary.Services;
 using SharedLibrary.Response.CustomStatusCode;
+using ACL.Response.V1;
+using System.Text.Json.Serialization;
+using SharedLibrary.Utilities;
+using Newtonsoft.Json;
 
 namespace ACL.Tests.V1
 {
@@ -15,7 +19,7 @@ namespace ACL.Tests.V1
         RestClient restClient;
         public AclCountryUnitTest()
         {
-             DataCollectors.SetDatabase(false);
+            DataCollectors.SetDatabase(false);
             restClient = new RestClient(DataCollectors.baseUrl);
         }
         [Fact]
@@ -27,8 +31,9 @@ namespace ACL.Tests.V1
             var request = new RestRequest(ACL.Route.AclRoutesUrl.AclCountryRouteUrl.List, Method.Get);
             //request.AddHeader("Authorization", "Bearer desc");
             RestResponse response = restClient.Execute(request);
+
             //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, (int)response.StatusCode);
+            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
 
         }
         [Fact]
@@ -42,21 +47,7 @@ namespace ACL.Tests.V1
             request.AddJsonBody(data);
             RestResponse response = restClient.Execute(request);
             //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, (int)response.StatusCode);
-
-        }
-
-        [Fact]
-        public void GetByIdCountryTest()
-        {
-            //Arrange
-            var id = GetRandomID();
-            // Act
-            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclCountryRouteUrl.View.Replace("{id}",id.ToString()), Method.Get);
-            //request.AddHeader("Authorization", "Bearer desc");
-            RestResponse response = restClient.Execute(request);
-            //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, (int)response.StatusCode);
+            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
 
         }
         [Fact]
@@ -68,7 +59,7 @@ namespace ACL.Tests.V1
             var id = GetRandomID();
 
             // Act
-            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclCountryRouteUrl.Edit.Replace("{id}",id.ToString()), Method.Put);
+            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclCountryRouteUrl.Edit.Replace("{id}", id.ToString()), Method.Put);
             //request.AddHeader("Authorization", "Bearer desc");
             request.AddJsonBody(data);
 
@@ -76,9 +67,23 @@ namespace ACL.Tests.V1
 
 
             //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, (int)response.StatusCode);
+            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
 
         }
+        [Fact]
+        public void GetByIdCountryTest()
+        {
+            //Arrange
+            var id = GetRandomID();
+            // Act
+            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclCountryRouteUrl.View.Replace("{id}", id.ToString()), Method.Get);
+            //request.AddHeader("Authorization", "Bearer desc");
+            RestResponse response = restClient.Execute(request);
+            //// Assert
+            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
+
+        }
+
         [Fact]
         public void DeleteByIdCountryTest()
         {
@@ -86,13 +91,13 @@ namespace ACL.Tests.V1
             var id = GetRandomID();
 
             // Act
-            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclCountryRouteUrl.Destroy.Replace("{id}",id.ToString()), Method.Delete);
+            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclCountryRouteUrl.Destroy.Replace("{id}", id.ToString()), Method.Delete);
             //request.AddHeader("Authorization", "Bearer desc");
 
             RestResponse response = restClient.Execute(request);
 
             // Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, (int)response.StatusCode);
+            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
 
         }
 
