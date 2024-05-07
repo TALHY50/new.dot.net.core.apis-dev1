@@ -9,20 +9,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SharedLibrary.Response.CustomStatusCode;
+using ACL.Response.V1;
+using Newtonsoft.Json;
 
 namespace ACL.Tests.V1
 {
     public class AclBranchControllerUnitTest
     {
-        DatabaseConnector dbConnector;
-        CustomUnitOfWork unitOfWork;
         RestClient restClient;
         public AclBranchControllerUnitTest()
         {
-            dbConnector = new DatabaseConnector();
-            unitOfWork = new CustomUnitOfWork(dbConnector.dbContext);
-            unitOfWork.ApplicationDbContext = dbConnector.dbContext;
-            restClient = new RestClient(dbConnector.baseUrl);
+            DataCollectors.SetDatabase(false);
+            restClient = new RestClient(DataCollectors.baseUrl);
         }
         [Fact]
         public void GetBranchList()
@@ -33,8 +32,9 @@ namespace ACL.Tests.V1
             var request = new RestRequest(ACL.Route.AclRoutesUrl.AclBranchRouteUrl.List, Method.Get);
             //request.AddHeader("Authorization", "Bearer desc");
             RestResponse response = restClient.Execute(request);
-            //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, (int)response.StatusCode);
+            //Assert
+            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content); 
+           Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
 
         }
         [Fact]
@@ -47,22 +47,9 @@ namespace ACL.Tests.V1
             //request.AddHeader("Authorization", "Bearer desc");
             request.AddJsonBody(data);
             RestResponse response = restClient.Execute(request);
+            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
             //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, (int)response.StatusCode);
-
-        }
-
-        [Fact]
-        public void GetByIdBranchTest()
-        {
-            //Arrange
-            var id = GetRandomID();
-            // Act
-            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclBranchRouteUrl.View.Replace("{id}", id.ToString()), Method.Get);
-            //request.AddHeader("Authorization", "Bearer desc");
-            RestResponse response = restClient.Execute(request);
-            //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, (int)response.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
 
         }
         [Fact]
@@ -81,10 +68,26 @@ namespace ACL.Tests.V1
             RestResponse response = restClient.Execute(request);
 
 
+            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
             //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, (int)response.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
 
         }
+        [Fact]
+        public void GetByIdBranchTest()
+        {
+            //Arrange
+            var id = GetRandomID();
+            // Act
+            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclBranchRouteUrl.View.Replace("{id}", id.ToString()), Method.Get);
+            //request.AddHeader("Authorization", "Bearer desc");
+            RestResponse response = restClient.Execute(request);
+            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
+            //// Assert
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
+
+        }
+
         [Fact]
         public void DeleteByIdBranchTest()
         {
@@ -96,9 +99,9 @@ namespace ACL.Tests.V1
             //request.AddHeader("Authorization", "Bearer desc");
 
             RestResponse response = restClient.Execute(request);
-
-            // Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, (int)response.StatusCode);
+            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
+            //// Assert
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
 
         }
 
@@ -119,7 +122,7 @@ namespace ACL.Tests.V1
         private ulong GetRandomID()
         {
 
-            return unitOfWork.ApplicationDbContext.AclCountries.Max(x => x.Id);
+            return DataCollectors.unitOfWork.ApplicationDbContext.AclBranches.Max(x => x.Id);
 
         }
     }

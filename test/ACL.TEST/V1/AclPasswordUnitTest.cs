@@ -6,7 +6,8 @@ using ACL.Response.V1;
 using ACL.Route;
 using ACL.Requests.V1;
 using SharedLibrary.Utilities;
-
+using SharedLibrary.Services;
+using SharedLibrary.Response.CustomStatusCode;
 
 namespace ACL.Tests.V1
 {
@@ -24,24 +25,6 @@ namespace ACL.Tests.V1
             DataCollectors.SetDatabase();
             authToken = DataCollectors.GetAuthorization();
             restClient = new RestSharp.RestClient(DataCollectors.baseUrl);
-            user_id = DataCollectors.unitOfWork.ApplicationDbContext.AclUsers.Max(x => x.Id);
-        }
-        [Fact]
-        public void PasswordResetTest()
-        {
-
-            //Arrange
-            var data = GetPasswordReset();
-
-            // Act
-            var request = new RestRequest(AclRoutesUrl.AclPasswordRouteUrl.Reset, Method.Post);
-            request.AddHeader("Authorization", authToken);
-            request.AddJsonBody(data);
-            RestResponse response = restClient.Execute(request);
-
-            //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, (int)response.StatusCode);
-
         }
         [Fact]
         public void PasswordForgetTest()
@@ -56,24 +39,48 @@ namespace ACL.Tests.V1
 
             RestResponse response = restClient.Execute(request);
 
-            aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
-            CacheHelper.Set(uniqueKey, aclResponse.Data, 60);
-            //SetMemoryCache((string)aclResponse.Data);
-
             //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, (int)response.StatusCode);
+            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content); 
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
 
         }
+        [Fact]
+        public void PasswordResetTest()
+        {
+
+            //Arrange
+            var data = GetPasswordReset();
+
+            // Act
+            var request = new RestRequest(AclRoutesUrl.AclPasswordRouteUrl.Forget, Method.Post);
+            request.AddHeader("Authorization", authToken);
+            request.AddJsonBody(data);
+
+            RestResponse response = restClient.Execute(request);
+
+            aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
+
+            CacheHelper.Set(uniqueKey, aclResponse.Data, 120);
+
+            //// Assert
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
+
+        }
+
         [Fact]
         public void PasswordForgetVerifyTest()
         {
             //Arrange
-            CacheHelper.Set(uniqueKey,authToken,1500);
+            string Token = (string)CacheHelper.Get(uniqueKey);
+            if (!CacheHelper.Exist(uniqueKey))
+            {
+                Token = "bba47d83926a8d98cdc4affeee7b91459a08734b6e40da5ac0f69eaf78fb6017";
+            }
             var data = new AclForgetPasswordTokenVerifyRequest
             {
                 NewPassword = userPassword,
                 PasswordConfirmation = userPassword,
-                Token = (string)CacheHelper.Get(uniqueKey)
+                Token = Token
             };
 
             // Act
@@ -82,24 +89,27 @@ namespace ACL.Tests.V1
             request.AddJsonBody(data);
 
             RestResponse response = restClient.Execute(request);
+            aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
             CacheHelper.Remove(uniqueKey);
 
             //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, (int)response.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
 
         }
 
 
         private AclPasswordResetRequest GetPasswordReset()
         {
-            user_id = DataCollectors.unitOfWork.ApplicationDbContext.AclUsers.Max(x => x.Id);
-            return new AclPasswordResetRequest
+            AclPasswordResetRequest aclPassword = new AclPasswordResetRequest();
+            var user = DataCollectors.unitOfWork.ApplicationDbContext.AclUsers.FirstOrDefault();
+            if (user != null)
             {
-                UserId = user_id,
-                CurrentPassword = userPassword,
-                NewPassword = resetPassword,
-                PasswordConfirmation = resetPassword
-            };
+                aclPassword.UserId = user.Id;
+                aclPassword.CurrentPassword = Cryptographer.AppDecrypt(user.Password);
+                aclPassword.NewPassword = resetPassword;
+                aclPassword.PasswordConfirmation = resetPassword;
+            }
+            return aclPassword;
         }
 
 

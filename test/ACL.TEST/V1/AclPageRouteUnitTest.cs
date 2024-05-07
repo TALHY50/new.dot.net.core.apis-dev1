@@ -5,20 +5,20 @@ using RestSharp;
 using Bogus;
 using ACL.Database.Models;
 using ACL.Requests.V1;
+using SharedLibrary.Response.CustomStatusCode;
+using ACL.Response.V1;
+using Newtonsoft.Json;
 
 namespace ACL.Tests.V1
 {
     public class AclPageRouteUnitTest
     {
-        DatabaseConnector dbConnector;
-        CustomUnitOfWork unitOfWork;
+      
         RestClient restClient;
         public AclPageRouteUnitTest()
         {
-            dbConnector = new DatabaseConnector();
-            unitOfWork = new CustomUnitOfWork(dbConnector.dbContext);
-            unitOfWork.ApplicationDbContext = dbConnector.dbContext;
-            restClient = new RestClient(dbConnector.baseUrl);
+             DataCollectors.SetDatabase(false);
+            restClient = new RestClient(DataCollectors.baseUrl);
         }
         [Fact]
         public void AddPageRouteTest()
@@ -35,7 +35,7 @@ namespace ACL.Tests.V1
 
 
             //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, (int)response.StatusCode);
+                       AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
 
         }
 
@@ -45,7 +45,7 @@ namespace ACL.Tests.V1
             //Arrange
 
             var data = GetPageRoute();
-            var id = getRandomID();
+            var id = GetRandomID();
 
             // Act
             var request = new RestRequest(ACL.Route.AclRoutesUrl.AclPageRouteRouteUrl.Edit.Replace("{id}",id.ToString()), Method.Put);
@@ -56,14 +56,14 @@ namespace ACL.Tests.V1
 
 
             //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, (int)response.StatusCode);
+                       AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
 
         }
         [Fact]
         public void DeleteByIdPageRouteTest()
         {
 
-            var id = getRandomID();
+            var id = GetRandomID();
 
             // Act
             var request = new RestRequest(ACL.Route.AclRoutesUrl.AclPageRouteRouteUrl.Destroy.Replace("{id}",id.ToString()), Method.Delete);
@@ -72,7 +72,7 @@ namespace ACL.Tests.V1
             RestResponse response = restClient.Execute(request);
 
             // Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, (int)response.StatusCode);
+                       AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
 
         }
 
@@ -87,10 +87,10 @@ namespace ACL.Tests.V1
             };
         }
 
-        private ulong getRandomID()
+        private ulong GetRandomID()
         {
 
-            return unitOfWork.ApplicationDbContext.AclPageRoutes.Max(x => x.Id);
+            return DataCollectors.unitOfWork.ApplicationDbContext.AclPageRoutes.Max(x => x.Id);
 
         }
 

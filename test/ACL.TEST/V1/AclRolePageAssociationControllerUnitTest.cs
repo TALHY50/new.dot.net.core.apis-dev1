@@ -22,26 +22,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static Org.BouncyCastle.Asn1.Cmp.Challenge;
+using SharedLibrary.Response.CustomStatusCode;
 
 namespace ACL.Tests.V1
 {
     public class AclRolePageAssociationControllerUnitTest
     {
-        DatabaseConnector dbConnector;
-        CustomUnitOfWork unitOfWork;
         RestClient restClient;
         public AclRolePageAssociationControllerUnitTest()
         {
-            dbConnector = new DatabaseConnector();
-            unitOfWork = new CustomUnitOfWork(dbConnector.dbContext);
-            unitOfWork.ApplicationDbContext = dbConnector.dbContext;
-            restClient = new RestClient(dbConnector.baseUrl);
+            DataCollectors.SetDatabase(false);
+            restClient = new RestClient(DataCollectors.baseUrl);
         }
         [Fact]
         public async Task Get_All_AclRolePageAssociation()
         {
             #region  Arrange
-            var id = getRandomID();
+            var id = GetRandomID();
             #endregion
             #region Act
             var request = new RestRequest(AclRoutesUrl.AclRolePageRouteUrl.List.Replace("{id}", id.ToString()), RestSharp.Method.Get);
@@ -57,7 +54,7 @@ namespace ACL.Tests.V1
             int actualStatusCode = (int)response.StatusCode;
 
             //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, actualStatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, actualStatusCode);
             #endregion Assert
 
         }
@@ -67,7 +64,7 @@ namespace ACL.Tests.V1
         {
             #region  Arrange
 
-            var id = getRandomID();
+            var id = GetRandomID();
             AclRoleAndPageAssocUpdateRequest editReq = GetRoleAndPageAssocUpdateRequest(id);
 
             #endregion
@@ -81,23 +78,23 @@ namespace ACL.Tests.V1
             //request.AddHeader("Authorization", "Bearer YOUR_TOKEN_HERE");
 
             //// Execute request
-            var respons = restClient.Execute(req);
+            var response = restClient.Execute(req);
 
             //// Convert actual status code to enum
-            int actualEditStatusCode = (int)respons.StatusCode;
+            int actualEditStatusCode = (int)response.StatusCode;
             //// Assert for create
 
             #endregion
             #region Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, actualEditStatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, actualEditStatusCode);
             #endregion Assert
         }
 
         public AclRoleAndPageAssocUpdateRequest GetRoleAndPageAssocUpdateRequest(ulong id)
         {
             var faker = new Faker();
-            var gotid = unitOfWork.ApplicationDbContext.AclPages.Max(i=>i.Id);
-            var roleId = unitOfWork.ApplicationDbContext.AclRoles.Max(i=>i.Id);
+            var gotid = DataCollectors.unitOfWork.ApplicationDbContext.AclPages.Max(i=>i.Id);
+            var roleId = DataCollectors.unitOfWork.ApplicationDbContext.AclRoles.Max(i=>i.Id);
           
             int[] pageIds = new int[] { (int)gotid };
             
@@ -115,11 +112,11 @@ namespace ACL.Tests.V1
 
 
 
-        private ulong getRandomID()
+        private ulong GetRandomID()
         {
             #region Act
             //    // Act
-            return (ulong)unitOfWork.ApplicationDbContext.AclRolePages.Max(i=>i.RoleId);
+            return (ulong)DataCollectors.unitOfWork.ApplicationDbContext.AclRolePages.Max(i=>i.RoleId);
             #endregion
 
         }

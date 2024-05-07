@@ -20,10 +20,11 @@ using Castle.Core.Logging;
 using SharedLibrary.Interfaces;
 using ACL.Database;
 using ACL.Utilities;
+using SharedLibrary.Response.CustomStatusCode;
 
 namespace ACL.Repositories.V1
 {
-    public class AclCompanyRepository : GenericRepository<AclCompany,ApplicationDbContext,ICustomUnitOfWork>, IAclCompanyRepository
+    public class AclCompanyRepository : GenericRepository<AclCompany, ApplicationDbContext, ICustomUnitOfWork>, IAclCompanyRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
@@ -38,32 +39,24 @@ namespace ACL.Repositories.V1
             _customUnitOfWork = _unitOfWork;
             _config = config;
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
-             messageResponse = new MessageResponse(modelName, _unitOfWork,AppAuth.GetAuthInfo().Language);
+            messageResponse = new MessageResponse(modelName, _unitOfWork, AppAuth.GetAuthInfo().Language);
         }
 
-        public async Task<AclResponse> FindById(ulong id)
+        public async Task<AclResponse> GetAll()
         {
-            var aclResponse = new AclResponse();
-
-            try
+            var aclCompany = await base.Where(b => b.Status == 1).ToListAsync();
+            if (aclCompany.Any())
             {
-                var aclCompany = await base.GetById(id);
 
                 aclResponse.Data = aclCompany;
-                aclResponse.Message = aclCompany != null ? messageResponse.fetchMessage : messageResponse.notFoundMessage;
-                aclResponse.StatusCode = aclCompany != null ? HttpStatusCode.OK : HttpStatusCode.NotFound;
+                aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
-            catch (Exception ex)
-            {
-                _unitOfWork.Logger.LogError(ex, "Error at COMPANY_FIND", new { data = id, message = ex.Message });
-                aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = HttpStatusCode.BadRequest;
-            }
-
+            aclResponse.Message = aclCompany != null ? messageResponse.fetchMessage : messageResponse.notFoundMessage;
+            aclResponse.StatusCode = aclCompany != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
             aclResponse.Timestamp = DateTime.Now;
+
             return aclResponse;
         }
-
 
         public async Task<AclResponse> AddAclCompany(AclCompanyCreateRequest request)
         {
@@ -161,30 +154,30 @@ namespace ACL.Repositories.V1
 
                             aclResponse.Message = aclCompany != null ? messageResponse.createMessage : messageResponse.notFoundMessage;
 
-                            aclResponse.StatusCode = aclCompany != null ? HttpStatusCode.OK : HttpStatusCode.BadRequest;
+                            aclResponse.StatusCode = aclCompany != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
 
                             await transaction.CommitAsync();
                         }
                         catch (Exception ex)
                         {
-                            if(_unitOfWork.Logger == null)
+                            if (_unitOfWork.Logger == null)
                             {
-                                 
+
                             }
                             _unitOfWork.Logger.LogError(ex, "Error at COMPANY_CREATE", new { data = request, message = ex.Message, });
 
                             await transaction.RollbackAsync();
                             aclResponse.Message = ex.Message;
-                            aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                            aclResponse.StatusCode = AppStatusCode.FAIL;
                         }
                     }
                 });
             }
             catch (Exception ex)
             {
-                _unitOfWork.Logger.LogError( null, "Error at COMPANY_CREATE", new { data = request, message = ex.Message, });
+                _unitOfWork.Logger.LogError(null, "Error at COMPANY_CREATE", new { data = request, message = ex.Message, });
                 aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                aclResponse.StatusCode = AppStatusCode.FAIL;
             }
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
@@ -201,34 +194,39 @@ namespace ACL.Repositories.V1
                 aclResponse.Data = _aclCompany;
                 aclResponse.Message = _aclCompany != null ? messageResponse.editMessage : messageResponse.notFoundMessage;
 
-                aclResponse.StatusCode = _aclCompany != null ? HttpStatusCode.OK : HttpStatusCode.BadRequest;
+                aclResponse.StatusCode = _aclCompany != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
             }
             catch (Exception ex)
             {
                 _unitOfWork.Logger.LogError(ex, "Error at COMPANY_EDIT", new { data = request, message = ex.Message, });
                 aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                aclResponse.StatusCode = AppStatusCode.FAIL;
             }
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
         }
-
-        public async Task<AclResponse> GetAll()
+        public async Task<AclResponse> FindById(ulong id)
         {
-            var aclCompany = await base.Where(b => b.Status == 1).ToListAsync();
-            if (aclCompany.Any())
+            var aclResponse = new AclResponse();
+
+            try
             {
+                var aclCompany = await base.GetById(id);
 
                 aclResponse.Data = aclCompany;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                aclResponse.Message = aclCompany != null ? messageResponse.fetchMessage : messageResponse.notFoundMessage;
+                aclResponse.StatusCode = aclCompany != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
             }
-            aclResponse.Message = aclCompany != null ? messageResponse.fetchMessage : messageResponse.notFoundMessage;
-            aclResponse.StatusCode = aclCompany != null ? HttpStatusCode.OK : HttpStatusCode.NotFound;
-            aclResponse.Timestamp = DateTime.Now;
+            catch (Exception ex)
+            {
+                _unitOfWork.Logger.LogError(ex, "Error at COMPANY_FIND", new { data = id, message = ex.Message });
+                aclResponse.Message = ex.Message;
+                aclResponse.StatusCode = AppStatusCode.FAIL;
+            }
 
+            aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
         }
-
         public async Task<AclResponse> DeleteCompany(ulong id)
         {
 
@@ -242,7 +240,7 @@ namespace ACL.Repositories.V1
                 aclResponse.Data = aclCompany;
             }
             aclResponse.Message = aclCompany != null ? messageResponse.fetchMessage : messageResponse.notFoundMessage;
-            aclResponse.StatusCode = aclCompany != null ? HttpStatusCode.OK : HttpStatusCode.NotFound;
+            aclResponse.StatusCode = aclCompany != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
             aclResponse.Timestamp = DateTime.Now;
 
             return aclResponse;

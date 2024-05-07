@@ -11,6 +11,7 @@ using SharedLibrary.Services;
 using ACL.Database;
 using ACL.Utilities;
 using ACL.Services;
+using SharedLibrary.Response.CustomStatusCode;
 
 namespace ACL.Repositories.V1
 {
@@ -33,7 +34,7 @@ namespace ACL.Repositories.V1
             aclResponse = new AclResponse();
             _companyId = (uint)AppAuth.GetAuthInfo().CompanyId;
             _userType = (uint)AppAuth.GetAuthInfo().UserType;
-             messageResponse = new MessageResponse(modelName, _unitOfWork, AppAuth.GetAuthInfo().Language);
+            messageResponse = new MessageResponse(modelName, _unitOfWork, AppAuth.GetAuthInfo().Language);
         }
 
         public async Task<AclResponse> GetAll()
@@ -44,7 +45,7 @@ namespace ACL.Repositories.V1
                 aclResponse.Message = messageResponse.fetchMessage;
             }
             aclResponse.Data = aclUser;
-            aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+            aclResponse.StatusCode = AppStatusCode.SUCCESS;
             aclResponse.Timestamp = DateTime.Now;
 
             return aclResponse;
@@ -72,7 +73,7 @@ namespace ACL.Repositories.V1
 
                         aclResponse.Data = aclUser;
                         aclResponse.Message = messageResponse.createMessage;
-                        aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                        aclResponse.StatusCode = AppStatusCode.SUCCESS;
 
                         await transaction.CommitAsync();
                     }
@@ -80,7 +81,7 @@ namespace ACL.Repositories.V1
                     {
                         await transaction.RollbackAsync();
                         aclResponse.Message = ex.Message;
-                        aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                        aclResponse.StatusCode = AppStatusCode.FAIL;
                     }
                 }
             });
@@ -115,12 +116,12 @@ namespace ACL.Repositories.V1
 
                     aclResponse.Data = aclUser;
                     aclResponse.Message = messageResponse.editMessage;
-                    aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                    aclResponse.StatusCode = AppStatusCode.SUCCESS;
                 }
                 else
                 {
                     aclResponse.Message = messageResponse.notFoundMessage;
-                    aclResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
+                    aclResponse.StatusCode = AppStatusCode.FAIL;
                     return aclResponse;
                 }
 
@@ -128,7 +129,7 @@ namespace ACL.Repositories.V1
             catch (Exception ex)
             {
                 aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                aclResponse.StatusCode = AppStatusCode.FAIL;
             }
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
@@ -147,12 +148,12 @@ namespace ACL.Repositories.V1
                     aclResponse.Message = messageResponse.notFoundMessage;
                 }
 
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             catch (Exception ex)
             {
                 aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                aclResponse.StatusCode = AppStatusCode.FAIL;
             }
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
@@ -174,7 +175,7 @@ namespace ACL.Repositories.V1
 
 
                 aclResponse.Message = messageResponse.deleteMessage;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             return aclResponse;
         }
@@ -183,28 +184,28 @@ namespace ACL.Repositories.V1
         {
             if (AclUser == null)
             {
-                if (_companyId == 0)
-                    return new AclUser
-                    {
-                        FirstName = request.FirstName,
-                        LastName = request.LastName,
-                        Email = request.Email,
-                        Password = Cryptographer.AppEncrypt(request.Password),
-                        Avatar = request.Avatar,
-                        Dob = request.DOB,
-                        Gender = request.Gender,
-                        Address = request.Address,
-                        City = request.City,
-                        Country = request.Country,
-                        Phone = request.Phone,
-                        Username = request.UserName,
-                        ImgPath = request.ImgPath,
-                        Status = request.Status,
-                        CreatedAt = DateTime.Now,
-                        UpdatedAt = DateTime.Now,
-                        CompanyId = (_companyId == 0) ? _companyId : 0,
-                        UserType = (_userType == 0) ? _userType : 0
-                    };
+                return new AclUser
+                {
+                    FirstName = request.FirstName,
+                    LastName = request.LastName,
+                    Email = request.Email,
+                    Password = Cryptographer.AppEncrypt(request.Password),
+                    Avatar = request.Avatar,
+                    Dob = request.DOB,
+                    Gender = request.Gender,
+                    Address = request.Address,
+                    City = request.City,
+                    Country = request.Country,
+                    Phone = request.Phone,
+                    Username = request.UserName,
+                    Language = request.Language,
+                    ImgPath = request.ImgPath,
+                    Status = request.Status,
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                    CompanyId = _companyId,
+                    UserType = (_companyId == 0) ? uint.Parse(_config["USER_TYPE_S_ADMIN"]) : uint.Parse(_config["USER_TYPE_USER"])
+                };
             }
             else
             {
@@ -219,6 +220,7 @@ namespace ACL.Repositories.V1
                 AclUser.City = request.City;
                 AclUser.Country = request.Country;
                 AclUser.Phone = request.Phone;
+                AclUser.Language = "en-US";
                 AclUser.Username = request.UserName;
                 AclUser.ImgPath = request.ImgPath;
                 AclUser.Status = request.Status;

@@ -6,10 +6,9 @@ using ACL.Response.V1;
 using ACL.Interfaces.Repositories.V1;
 using Microsoft.EntityFrameworkCore;
 using ACL.Utilities;
-using SharedLibrary.Interfaces;
 using SharedLibrary.Services;
 using ACL.Database;
-using ACL.Services;
+using SharedLibrary.Response.CustomStatusCode;
 
 
 namespace ACL.Repositories.V1
@@ -32,28 +31,24 @@ namespace ACL.Repositories.V1
 
         public async Task<AclResponse> GetRolesByUserGroupId(ulong userGroupId)
         {
-            var roles = await _customUnitOfWork.AclRoleRepository
-        .Where(role => true) // Replace 'true' with your actual filter condition
-        .Select(role => new { role.Id, role.Title }) // Project the selected properties
-        .ToListAsync();
+            var roles = await _customUnitOfWork.AclRoleRepository.Where(role => true)
+                .Select(role => new { role.Id, role.Title }).ToListAsync();
+
             var associatedRoles = await _customUnitOfWork.AclUserGroupRoleRepository
-        .Where(usergroupRole => usergroupRole.UsergroupId == userGroupId)
-        .Join(
-            _customUnitOfWork.AclRoleRepository.Where(role => true), // Replace 'true' with your actual filter condition
-            usergroupRole => usergroupRole.RoleId,
-            role => role.Id,
-            (usergroupRole, role) => new
-            {
-                UsergroupId = usergroupRole.UsergroupId,
-                RoleTitle = role.Title,
-                RoleId = usergroupRole.RoleId
-            })
-        .ToListAsync();
+                .Where(ugr => ugr.UsergroupId == userGroupId)
+                .Join(_customUnitOfWork.AclRoleRepository
+                .Where(role => true), ugr => ugr.RoleId, r => r.Id,
+                (ugr, r) => new
+                {
+                    UsergroupId = ugr.UsergroupId,
+                    RoleTitle = r.Title,
+                    RoleId = ugr.RoleId
+                }).ToListAsync();
 
 
             aclResponse.Message = messageResponse.fetchMessage;
             aclResponse.Data = new { UsergroupRoles = associatedRoles, Roles = roles };
-            aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+            aclResponse.StatusCode = AppStatusCode.SUCCESS;
 
             return aclResponse;
         }
@@ -84,14 +79,14 @@ namespace ACL.Repositories.V1
                         await _customUnitOfWork.AclUserGroupRoleRepository.ReloadEntitiesAsync(userGroupRoles);
                         aclResponse.Data = userGroupRoles;
                         aclResponse.Message = messageResponse.createMessage;
-                        aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                        aclResponse.StatusCode = AppStatusCode.SUCCESS;
                         await transaction.CommitAsync();
                     }
                     catch (Exception ex)
                     {
                         await transaction.RollbackAsync();
                         aclResponse.Message = ex.Message;
-                        aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                        aclResponse.StatusCode = AppStatusCode.FAIL;
                     }
                 }
             });

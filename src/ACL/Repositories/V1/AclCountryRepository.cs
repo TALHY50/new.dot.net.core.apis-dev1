@@ -7,6 +7,7 @@ using ACL.Requests;
 using ACL.Response.V1;
 using ACL.Services;
 using ACL.Utilities;
+using SharedLibrary.Response.CustomStatusCode;
 using SharedLibrary.Services;
 
 namespace ACL.Repositories.V1
@@ -33,7 +34,7 @@ namespace ACL.Repositories.V1
                 aclResponse.Message = messageResponse.fetchMessage;
             }
             aclResponse.Data = aclRoles;
-            aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+            aclResponse.StatusCode = AppStatusCode.SUCCESS;
 
             return aclResponse;
         }
@@ -47,12 +48,12 @@ namespace ACL.Repositories.V1
                 await _customUnitOfWork.AclCountryRepository.ReloadAsync(aclCountry);
                 aclResponse.Data = aclCountry;
                 aclResponse.Message = messageResponse.createMessage;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             catch (Exception ex)
             {
                 aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                aclResponse.StatusCode = AppStatusCode.FAIL;
             }
             return aclResponse;
 
@@ -74,12 +75,12 @@ namespace ACL.Repositories.V1
                 await _unitOfWork.AclCountryRepository.ReloadAsync(aclCountry);
                 aclResponse.Data = aclCountry;
                 aclResponse.Message = messageResponse.editMessage;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             catch (Exception ex)
             {
                 aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                aclResponse.StatusCode = AppStatusCode.FAIL;
             }
             return aclResponse;
 
@@ -96,12 +97,12 @@ namespace ACL.Repositories.V1
                     aclResponse.Message = messageResponse.notFoundMessage;
                 }
 
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             catch (Exception ex)
             {
                 aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                aclResponse.StatusCode = AppStatusCode.FAIL;
             }
             return aclResponse;
 
@@ -115,7 +116,7 @@ namespace ACL.Repositories.V1
                 await base.DeleteAsync(aclRole);
                 await _unitOfWork.CompleteAsync();
                 aclResponse.Message = messageResponse.deleteMessage;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
 
             return aclResponse;

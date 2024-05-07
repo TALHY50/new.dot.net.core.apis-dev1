@@ -4,12 +4,11 @@ using ACL.Interfaces.Repositories.V1;
 using ACL.Interfaces;
 using ACL.Requests;
 using ACL.Response.V1;
-using SharedLibrary.Interfaces;
 using SharedLibrary.Services;
 using ACL.Database;
-using ACL.Services;
 using ACL.Utilities;
-using Castle.Components.DictionaryAdapter.Xml;
+using SharedLibrary.Response.CustomStatusCode;
+using Microsoft.EntityFrameworkCore;
 
 namespace ACL.Repositories.V1
 {
@@ -30,34 +29,34 @@ namespace ACL.Repositories.V1
 
         public async Task<AclResponse> GetAll()
         {
-            var aclSubModules = await base.All();
+            var aclSubModules = await _customUnitOfWork.AclSubModuleRepository.Where(sm => true)
+                .Join(_customUnitOfWork.AclModuleRepository.Where(m => true), sm => sm.ModuleId, m => m.Id, (sm, m) => new
+                {
+                    submodule = sm,
+                    module = m 
+
+                }).ToListAsync();
             if (aclSubModules.Any())
             {
                 aclResponse.Message = messageResponse.fetchMessage;
             }
             aclResponse.Data = aclSubModules;
-            aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+            aclResponse.StatusCode = AppStatusCode.SUCCESS;
             aclResponse.Timestamp = DateTime.Now;
 
             return aclResponse;
         }
         public async Task<AclResponse> Add(AclSubModuleRequest request)
         {
-            try
-            {
-                var aclSubModule = PrepareInputData(request);
-                await base.AddAsync(aclSubModule);
-                await _customUnitOfWork.CompleteAsync();
-                await _customUnitOfWork.AclSubModuleRepository.ReloadAsync(aclSubModule);
-                aclResponse.Data = aclSubModule;
-                aclResponse.Message = messageResponse.createMessage;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
-            }
-            catch (Exception ex)
-            {
-                aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
-            }
+
+            var aclSubModule = PrepareInputData(request);
+            await base.AddAsync(aclSubModule);
+            await _customUnitOfWork.CompleteAsync();
+            await _customUnitOfWork.AclSubModuleRepository.ReloadAsync(aclSubModule);
+            aclResponse.Data = aclSubModule;
+            aclResponse.Message = messageResponse.createMessage;
+            aclResponse.StatusCode = AppStatusCode.SUCCESS;
+
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
 
@@ -71,21 +70,15 @@ namespace ACL.Repositories.V1
                 aclResponse.Message = messageResponse.notFoundMessage;
                 return aclResponse;
             }
-            try
-            {
-                aclSubModule = PrepareInputData(request, aclSubModule);
-                await base.UpdateAsync(aclSubModule);
-                await _customUnitOfWork.CompleteAsync();
-                await _customUnitOfWork.AclSubModuleRepository.ReloadAsync(aclSubModule);
-                aclResponse.Data = aclSubModule;
-                aclResponse.Message = messageResponse.editMessage;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
-            }
-            catch (Exception ex)
-            {
-                aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
-            }
+
+            aclSubModule = PrepareInputData(request, aclSubModule);
+            await base.UpdateAsync(aclSubModule);
+            await _customUnitOfWork.CompleteAsync();
+            await _customUnitOfWork.AclSubModuleRepository.ReloadAsync(aclSubModule);
+            aclResponse.Data = aclSubModule;
+            aclResponse.Message = messageResponse.editMessage;
+            aclResponse.StatusCode = AppStatusCode.SUCCESS;
+
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
 
@@ -93,23 +86,23 @@ namespace ACL.Repositories.V1
 
         public async Task<AclResponse> FindById(ulong id)
         {
-            try
-            {
-                var aclSubModule = await base.GetById(id);
-                aclResponse.Data = aclSubModule;
-                aclResponse.Message = messageResponse.fetchMessage;
-                if (aclSubModule == null)
-                {
-                    aclResponse.Message = messageResponse.notFoundMessage;
-                }
 
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
-            }
-            catch (Exception ex)
+            var aclSubModule = await _customUnitOfWork.AclSubModuleRepository.Where(sm => true)
+               .Join(_customUnitOfWork.AclModuleRepository.Where(m => true), sm => sm.ModuleId, m => m.Id, (sm, m) => new
+               {
+                   submodule = sm,
+                   module = m
+
+               }).FirstOrDefaultAsync();
+            aclResponse.Data = aclSubModule;
+            aclResponse.Message = messageResponse.fetchMessage;
+            if (aclSubModule == null)
             {
-                aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                aclResponse.Message = messageResponse.notFoundMessage;
             }
+
+            aclResponse.StatusCode = AppStatusCode.SUCCESS;
+
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
 
@@ -123,7 +116,7 @@ namespace ACL.Repositories.V1
                 await base.DeleteAsync(subModule);
                 await _customUnitOfWork.CompleteAsync();
                 aclResponse.Message = messageResponse.deleteMessage;
-                aclResponse.StatusCode = System.Net.HttpStatusCode.OK;
+                aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
 
             return aclResponse;

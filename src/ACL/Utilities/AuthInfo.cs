@@ -25,7 +25,7 @@ namespace ACL.Utilities
         {
             if(authInfo == null)
             {
-                authInfo = new AuthInfoModel() { UserId = 2, CompanyId = 2, Email = "user@example.com", Name = "test", Phone = "12345678", UserType = 1, UserGroupIds = "1,2",Language= "en-US" };
+                authInfo = new AuthInfoModel() { UserId = 0, CompanyId = 0, Email = "user@example.com", Name = "test", Phone = "12345678", UserType = 1, UserGroupIds = "1,2",Language= "en-US" };
             }
            
             _authInfo = authInfo;

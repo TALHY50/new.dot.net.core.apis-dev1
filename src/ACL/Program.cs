@@ -9,7 +9,6 @@ using ACL.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using SharedLibrary.Interfaces;
 using SharedLibrary.Services;
-using ACL.Exceptions;
 using ACL.Data;
 using SharedLibrary.CustomMiddleWare;
 using Microsoft.EntityFrameworkCore.Diagnostics;

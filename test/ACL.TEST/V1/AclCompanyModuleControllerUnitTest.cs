@@ -15,6 +15,7 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using RestSharp;
+using SharedLibrary.Response.CustomStatusCode;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,19 +23,17 @@ using System.Text;
 using System.Threading.Tasks;
 using static ACL.Route.AclRoutesUrl;
 
+
 namespace ACL.Tests.V1
 {
     public class AclCompanyModuleControllerUnitTest
     {
-        DatabaseConnector dbConnector;
-        CustomUnitOfWork unitOfWork;
+
         RestClient restClient;
         public AclCompanyModuleControllerUnitTest()
         {
-            dbConnector = new DatabaseConnector();
-            unitOfWork = new CustomUnitOfWork(dbConnector.dbContext);
-            unitOfWork.ApplicationDbContext = dbConnector.dbContext;
-            restClient = new RestClient(dbConnector.baseUrl);
+            DataCollectors.SetDatabase(false);
+            restClient = new RestClient(DataCollectors.baseUrl);
         }
         [Fact]
         public async Task Get_All_CompanyModules()
@@ -54,11 +53,8 @@ namespace ACL.Tests.V1
             #region Assert
 
 
-            //// Convert actual status code to enum
-            int actualStatusCode = (int)response.StatusCode;
-
             //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, actualStatusCode);
+            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
             #endregion Assert
 
         }
@@ -79,23 +75,64 @@ namespace ACL.Tests.V1
             //request.AddHeader("Authorization", "Bearer YOUR_TOKEN_HERE");
 
             //// Execute request
-            var respons = restClient.Execute(req);
+            var response = restClient.Execute(req);
 
             //// Convert actual status code to enum
-            int actualCreateStatusCode = (int)respons.StatusCode;
-            //// Assert for create
 
             #endregion
             #region Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, actualCreateStatusCode);
+            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
             #endregion Assert
         }
         [Fact]
+        public async Task Put_Edit_Acl_CompanyModule()
+        {
+            #region  Arrange
+            AclCompanyModuleRequest editReq = GetCompanyModuleRequest();
+            var id = GetRandomID();
+            #endregion
+            #region Act
+            //// Create request
+            var req = new RestRequest(AclCompanyModuleRouteUrl.Edit.Replace("{id}", id.ToString()), Method.Put);
+            //Add request body
+            req.AddBody(editReq);
 
+            //// Add headers
+            //request.AddHeader("Authorization", "Bearer YOUR_TOKEN_HERE");
+
+            //// Execute request
+            var response = restClient.Execute(req);
+
+
+            #endregion
+            #region Assert
+            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
+            #endregion Assert
+        }
+        [Fact]
+        public async Task Get_View_CompanyModule()
+        {
+            #region  Arrange
+            var id = GetRandomID();
+            #endregion
+            #region Act
+            var request = new RestRequest(AclCompanyModuleRouteUrl.View.Replace("{id}", id.ToString()), Method.Get);
+
+            //request.AddHeader("Authorization", "Bearer YOUR_TOKEN_HERE");
+
+            var response = restClient.Execute(request);
+            #endregion
+            #region Assert
+            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
+            #endregion Assert
+
+        }
+
+        [Fact]
         public async Task Delete_Acl_Company()
         {
             #region  Arrange
-            var id = getRandomID();
+            var id = GetRandomID();
             //// Create RestClient
             //var client = new RestSharp.RestClient("https://localhost:7125/api/v1");
 
@@ -120,99 +157,32 @@ namespace ACL.Tests.V1
             //request.AddHeader("Authorization", "Bearer YOUR_TOKEN_HERE");
 
             //// Execute request
-            var respons = restClient.Execute(req);
-
-            //// Convert actual status code to enum
-            int actualEditStatusCode = (int)respons.StatusCode;
-            //// Assert for create
+            var response = restClient.Execute(req);
 
             #endregion
             #region Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, actualEditStatusCode);
+            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
             #endregion Assert
         }
-        [Fact]
-        public async Task Put_Edit_Acl_CompanyModule()
-        {
-            #region  Arrange
-            AclCompanyModuleRequest editReq = GetCompanyModuleRequest();
-            var id = getRandomID();
-            #endregion
-            #region Act
-            //// Create request
-            var req = new RestRequest(AclCompanyModuleRouteUrl.Edit.Replace("{id}", id.ToString()), Method.Put);
-            //Add request body
-            req.AddBody(editReq);
 
-            //// Add headers
-            //request.AddHeader("Authorization", "Bearer YOUR_TOKEN_HERE");
-
-            //// Execute request
-            var respons = restClient.Execute(req);
-
-            //// Convert actual status code to enum
-            int actualEditStatusCode = (int)respons.StatusCode;
-            //// Assert for create
-
-            #endregion
-            #region Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, actualEditStatusCode);
-            #endregion Assert
-        }
-        [Fact]
-
-        public async Task Get_View_CompanyModule()
-        {
-            #region  Arrange
-            var id = getRandomID();
-            #endregion
-            #region Act
-            var request = new RestRequest(AclCompanyModuleRouteUrl.View.Replace("{id}", id.ToString()), Method.Get);
-
-            //request.AddHeader("Authorization", "Bearer YOUR_TOKEN_HERE");
-
-            var response = restClient.Execute(request);
-            #endregion
-            #region Assert
-
-
-            //// Convert actual status code to enum
-            int actualStatusCode = (int)response.StatusCode;
-
-            //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, actualStatusCode);
-            #endregion Assert
-
-        }
 
         public AclCompanyModuleRequest GetCompanyModuleRequest()
         {
-            var faker = new Faker();
-            var random = new Random();
-
-            // Generate random ulong values within the valid range
-            ulong GenerateRandomUlong()
-            {
-                var buffer = new byte[sizeof(ulong)];
-                random.NextBytes(buffer);
-                return BitConverter.ToUInt64(buffer, 0);
-            }
-
             // Generate random data for the company module request
             return new AclCompanyModuleRequest
             {
-                CompanyId = GenerateRandomUlong(),
-                ModuleId = GenerateRandomUlong()
+                CompanyId = DataCollectors.unitOfWork.ApplicationDbContext.AclCompanies.Max(i => i.Id),
+                ModuleId = DataCollectors.unitOfWork.ApplicationDbContext.AclModules.Max(i => i.Id)
             };
         }
 
 
-        private ulong getRandomID()
+        private ulong GetRandomID()
         {
             #region Act
             //    // Act
             //return unitOfWork.ApplicationDbContext.AclCompanyModules.Last().Id;
-            return (ulong)unitOfWork.ApplicationDbContext.AclModules.Max(i=>i.Id);
+            return (ulong)DataCollectors.unitOfWork.ApplicationDbContext.AclCompanyModules.Max(i => i.Id);
             #endregion
             // }
 

@@ -26,6 +26,11 @@ namespace ACL.Requests.V1
         [Required]
         [StringLength(255)]
         public string Avatar { get; set; }
+        
+        [DefaultValue("en-US")]
+        [Required]
+        [StringLength(10)]
+        public string Language { get; set; }
 
         [DefaultValue("Srbl@123.")]
         [Required]
