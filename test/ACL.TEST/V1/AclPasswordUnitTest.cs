@@ -27,27 +27,30 @@ namespace ACL.Tests.V1
             restClient = new RestSharp.RestClient(DataCollectors.baseUrl);
         }
         [Fact]
+        public void PasswordForgetTest()
+        {
+            //Arrange
+            var data = new AclForgetPasswordRequest { Email = DataCollectors.getRandomEmail() };
+
+            // Act
+            var request = new RestRequest(AclRoutesUrl.AclPasswordRouteUrl.Forget, Method.Post);
+            request.AddHeader("Authorization", authToken);
+            request.AddJsonBody(data);
+
+            RestResponse response = restClient.Execute(request);
+
+
+
+            //// Assert
+                       AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
+
+        }
+        [Fact]
         public void PasswordResetTest()
         {
 
             //Arrange
             var data = GetPasswordReset();
-
-            // Act
-            var request = new RestRequest(AclRoutesUrl.AclPasswordRouteUrl.Reset, Method.Post);
-            request.AddHeader("Authorization", authToken);
-            request.AddJsonBody(data);
-            RestResponse response = restClient.Execute(request);
-            aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
-            //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
-
-        }
-        [Fact]
-        public void PasswordForgetTest()
-        {
-            //Arrange
-            var data = new AclForgetPasswordRequest { Email = DataCollectors.getRandomEmail() };
 
             // Act
             var request = new RestRequest(AclRoutesUrl.AclPasswordRouteUrl.Forget, Method.Post);
@@ -64,6 +67,7 @@ namespace ACL.Tests.V1
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
 
         }
+
         [Fact]
         public void PasswordForgetVerifyTest()
         {

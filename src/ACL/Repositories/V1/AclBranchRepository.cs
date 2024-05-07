@@ -21,9 +21,19 @@ namespace ACL.Repositories.V1
         {
             AppAuth.SetAuthInfo();
             aclResponse = new AclResponse();
-            messageResponse = new MessageResponse(modelName, _unitOfWork,AppAuth.GetAuthInfo().Language);
+            messageResponse = new MessageResponse(modelName, _unitOfWork, AppAuth.GetAuthInfo().Language);
         }
+        async Task<AclResponse> IAclBranchRepository.GetAll()
+        {
+            var aclCompanyModules = await base.All();
 
+            aclResponse.Message = aclCompanyModules.Any() ? messageResponse.fetchMessage : messageResponse.notFoundMessage;
+            aclResponse.Data = aclCompanyModules;
+            aclResponse.StatusCode = aclCompanyModules.Any() ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
+            aclResponse.Timestamp = DateTime.Now;
+
+            return aclResponse;
+        }
         async Task<AclResponse> IAclBranchRepository.AddBranch(AclBranchRequest request)
         {
             try
@@ -46,21 +56,6 @@ namespace ACL.Repositories.V1
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
         }
-
-        async Task<AclResponse> IAclBranchRepository.DeleteById(ulong id)
-        {
-            var aclCompanyModule = await base.GetById(id);
-            aclResponse.StatusCode = aclCompanyModule != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
-            aclResponse.Message = aclCompanyModule != null ? messageResponse.deleteMessage : messageResponse.notFoundMessage;
-            aclResponse.Data = aclCompanyModule;
-            if (aclCompanyModule != null)
-            {
-                await base.DeleteAsync(aclCompanyModule);
-                await _unitOfWork.CompleteAsync();
-            }
-            return aclResponse;
-        }
-
         async Task<AclResponse> IAclBranchRepository.EditBranch(ulong id, AclBranchRequest request)
         {
             try
@@ -105,19 +100,21 @@ namespace ACL.Repositories.V1
             return aclResponse;
         }
 
-        async Task<AclResponse> IAclBranchRepository.GetAll()
+        async Task<AclResponse> IAclBranchRepository.DeleteById(ulong id)
         {
-            var aclCompanyModules = await base.All();
-
-            aclResponse.Message = aclCompanyModules.Any() ? messageResponse.fetchMessage : messageResponse.notFoundMessage;
-            aclResponse.Data = aclCompanyModules;
-            aclResponse.StatusCode = aclCompanyModules.Any() ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
-            aclResponse.Timestamp = DateTime.Now;
-
+            var aclCompanyModule = await base.GetById(id);
+            aclResponse.StatusCode = aclCompanyModule != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
+            aclResponse.Message = aclCompanyModule != null ? messageResponse.deleteMessage : messageResponse.notFoundMessage;
+            aclResponse.Data = aclCompanyModule;
+            if (aclCompanyModule != null)
+            {
+                await base.DeleteAsync(aclCompanyModule);
+                await _unitOfWork.CompleteAsync();
+            }
             return aclResponse;
         }
 
-        private AclBranch PrepareInputData(AclBranchRequest request, AclBranch aclBranch=null)
+        private AclBranch PrepareInputData(AclBranchRequest request, AclBranch aclBranch = null)
         {
             AclBranch _aclBranch = aclBranch ?? new AclBranch();
             _aclBranch.Name = request.Name;
@@ -128,7 +125,7 @@ namespace ACL.Repositories.V1
             _aclBranch.Status = (byte)(request.Status ?? 1);
             _aclBranch.UpdatedAt = DateTime.Now;
             _aclBranch.UpdatedById = AppAuth.GetAuthInfo().UserId;
-            if(aclBranch == null)
+            if (aclBranch == null)
             {
                 _aclBranch.CreatedAt = DateTime.Now;
                 _aclBranch.CreatedById = AppAuth.GetAuthInfo().UserId;

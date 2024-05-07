@@ -55,26 +55,6 @@ namespace ACL.Tests.V1
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
 
         }
-
-        [Fact]
-        public void GetByIdUserTest()
-        {
-            //Arrange
-            var id = GetRandomID();
-
-            // Act
-            //var request = new RestRequest($"users/view/{id}", Method.Get);
-            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclUserRouteUrl.View.Replace("{id}", id.ToString()), Method.Get);
-            //request.AddHeader("Authorization", "Bearer desc");
-
-
-            RestResponse response = restClient.Execute(request);
-
-            //// Assert
-            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
-
-        }
         [Fact]
         public void EditByIdUserTest()
         {
@@ -96,6 +76,26 @@ namespace ACL.Tests.V1
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
 
         }
+        [Fact]
+        public void GetByIdUserTest()
+        {
+            //Arrange
+            var id = GetRandomID();
+
+            // Act
+            //var request = new RestRequest($"users/view/{id}", Method.Get);
+            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclUserRouteUrl.View.Replace("{id}", id.ToString()), Method.Get);
+            //request.AddHeader("Authorization", "Bearer desc");
+
+
+            RestResponse response = restClient.Execute(request);
+
+            //// Assert
+            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
+
+        }
+
         [Fact]
         public void DeleteByIdUserTest()
         {
@@ -124,7 +124,7 @@ namespace ACL.Tests.V1
                 Email = faker.Internet.Email(),
                 Password = faker.Random.String2(1, 5),
                 Avatar = faker.Random.String2(1, 50),
-                DOB = null,
+                DOB = DateTime.Now,
                 Gender = 1,
                 Address = faker.Random.String2(1, 30),
                 City = faker.Random.String2(1, 10),

@@ -28,7 +28,7 @@ namespace ACL.Tests.V1
 
             // Act
             var request = new RestRequest(AclRoutesUrl.AclStateRouteUrl.List, Method.Get);
-            request.AddHeader("Authorization", authToken);
+            //request.AddHeader("Authorization", authToken);
             RestResponse response = restClient.Execute(request);
 
             //// Assert
@@ -56,22 +56,6 @@ namespace ACL.Tests.V1
         }
 
         [Fact]
-        public void GetByIdStateTest()
-        {
-            //Arrange
-            var id = DataCollectors.GetMaxId<AclState>(x => x.Id); 
-
-            // Act
-            var request = new RestRequest(AclRoutesUrl.AclStateRouteUrl.View.Replace("{id}", id.ToString()), Method.Get);
-            request.AddHeader("Authorization", authToken);
-            RestResponse response = restClient.Execute(request);
-
-            //// Assert
-            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
-
-        }
-        [Fact]
         public void EditByIdStateTest()
         {
             //Arrange
@@ -84,6 +68,22 @@ namespace ACL.Tests.V1
             request.AddHeader("Authorization", authToken);
             request.AddJsonBody(data);
 
+            RestResponse response = restClient.Execute(request);
+
+            //// Assert
+            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
+
+        }
+        [Fact]
+        public void GetByIdStateTest()
+        {
+            //Arrange
+            var id = DataCollectors.GetMaxId<AclState>(x => x.Id);
+
+            // Act
+            var request = new RestRequest(AclRoutesUrl.AclStateRouteUrl.View.Replace("{id}", id.ToString()), Method.Get);
+            request.AddHeader("Authorization", authToken);
             RestResponse response = restClient.Execute(request);
 
             //// Assert
@@ -124,6 +124,6 @@ namespace ACL.Tests.V1
 
         }
 
-       
+
     }
 }
