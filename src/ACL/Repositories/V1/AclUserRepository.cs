@@ -34,7 +34,7 @@ namespace ACL.Repositories.V1
             aclResponse = new AclResponse();
             _companyId = (uint)AppAuth.GetAuthInfo().CompanyId;
             _userType = (uint)AppAuth.GetAuthInfo().UserType;
-             messageResponse = new MessageResponse(modelName, _unitOfWork, AppAuth.GetAuthInfo().Language);
+            messageResponse = new MessageResponse(modelName, _unitOfWork, AppAuth.GetAuthInfo().Language);
         }
 
         public async Task<AclResponse> GetAll()
@@ -185,26 +185,27 @@ namespace ACL.Repositories.V1
             if (AclUser == null)
             {
                 return new AclUser
-                    {
-                        FirstName = request.FirstName,
-                        LastName = request.LastName,
-                        Email = request.Email,
-                        Password = Cryptographer.AppEncrypt(request.Password),
-                        Avatar = request.Avatar,
-                        Dob = request.DOB,
-                        Gender = request.Gender,
-                        Address = request.Address,
-                        City = request.City,
-                        Country = request.Country,
-                        Phone = request.Phone,
-                        Username = request.UserName,
-                        ImgPath = request.ImgPath,
-                        Status = request.Status,
-                        CreatedAt = DateTime.Now,
-                        UpdatedAt = DateTime.Now,
-                        CompanyId = _companyId ,
-                        UserType = (_companyId==0)? uint.Parse(_config["USER_TYPE_S_ADMIN"])  : uint.Parse(_config["USER_TYPE_USER"])
-                    };
+                {
+                    FirstName = request.FirstName,
+                    LastName = request.LastName,
+                    Email = request.Email,
+                    Password = Cryptographer.AppEncrypt(request.Password),
+                    Avatar = request.Avatar,
+                    Dob = request.DOB,
+                    Gender = request.Gender,
+                    Address = request.Address,
+                    City = request.City,
+                    Country = request.Country,
+                    Phone = request.Phone,
+                    Username = request.UserName,
+                    Language = request.Language,
+                    ImgPath = request.ImgPath,
+                    Status = request.Status,
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                    CompanyId = _companyId,
+                    UserType = (_companyId == 0) ? uint.Parse(_config["USER_TYPE_S_ADMIN"]) : uint.Parse(_config["USER_TYPE_USER"])
+                };
             }
             else
             {
@@ -219,6 +220,7 @@ namespace ACL.Repositories.V1
                 AclUser.City = request.City;
                 AclUser.Country = request.Country;
                 AclUser.Phone = request.Phone;
+                AclUser.Language = "en-US";
                 AclUser.Username = request.UserName;
                 AclUser.ImgPath = request.ImgPath;
                 AclUser.Status = request.Status;
