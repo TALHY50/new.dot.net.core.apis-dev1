@@ -5,7 +5,6 @@ using ACL.Interfaces.Repositories.V1;
 using ACL.Requests.V1;
 using ACL.Response.V1;
 using ACL.Utilities;
-using SharedLibrary.Interfaces;
 using SharedLibrary.Services;
 using SharedLibrary.Utilities;
 using SharedLibrary.Response.CustomStatusCode;
@@ -104,7 +103,7 @@ namespace ACL.Repositories.V1
 
             // password update
 
-            var aclUser = _unitOfWork.ApplicationDbContext.AclUsers.Where(x => x.Email == email).FirstOrDefault();
+            var aclUser = _unitOfWork.AclUserRepository.Where(x => x.Email == email).FirstOrDefault();
             if (aclUser != null)
             {
                 aclUser.Password = Cryptographer.AppEncrypt(request.NewPassword);

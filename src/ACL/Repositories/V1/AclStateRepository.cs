@@ -5,11 +5,10 @@ using ACL.Interfaces;
 using ACL.Requests;
 using ACL.Response.V1;
 using ACL.Utilities;
-using SharedLibrary.Interfaces;
 using SharedLibrary.Services;
 using ACL.Database;
-using ACL.Services;
 using SharedLibrary.Response.CustomStatusCode;
+using Microsoft.EntityFrameworkCore;
 
 namespace ACL.Repositories.V1
 {
@@ -31,7 +30,13 @@ namespace ACL.Repositories.V1
 
         public async Task<AclResponse> GetAll()
         {
-            var aclStates = await base.All();
+            var aclStates = await _customUnitOfWork.AclStateRepository.Where(s => true)
+                .Join(_customUnitOfWork.AclCountryRepository.Where(c => true), s => s.CountryId, c => c.Id, (s, c) => new
+                {
+                    state = s,
+                    country = c
+
+                }).ToListAsync();
             if (aclStates.Any())
             {
                 aclResponse.Message = messageResponse.fetchMessage;
@@ -44,21 +49,15 @@ namespace ACL.Repositories.V1
         }
         public async Task<AclResponse> Add(AclStateRequest request)
         {
-            try
-            {
-                var aclState = PrepareInputData(request);
-                await base.AddAsync(aclState);
-                await _unitOfWork.CompleteAsync();
-                await _customUnitOfWork.AclStateRepository.ReloadAsync(aclState);
-                aclResponse.Data = aclState;
-                aclResponse.Message = messageResponse.createMessage;
-                aclResponse.StatusCode = AppStatusCode.SUCCESS;
-            }
-            catch (Exception ex)
-            {
-                aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = AppStatusCode.FAIL;
-            }
+
+            var aclState = PrepareInputData(request);
+            await base.AddAsync(aclState);
+            await _unitOfWork.CompleteAsync();
+            await _customUnitOfWork.AclStateRepository.ReloadAsync(aclState);
+            aclResponse.Data = aclState;
+            aclResponse.Message = messageResponse.createMessage;
+            aclResponse.StatusCode = AppStatusCode.SUCCESS;
+
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
 
@@ -72,21 +71,15 @@ namespace ACL.Repositories.V1
                 aclResponse.Message = messageResponse.notFoundMessage;
                 return aclResponse;
             }
-            try
-            {
-                aclState = PrepareInputData(request, aclState);
-                await base.UpdateAsync(aclState);
-                await _unitOfWork.CompleteAsync();
-                await _customUnitOfWork.AclStateRepository.ReloadAsync(aclState);
-                aclResponse.Data = aclState;
-                aclResponse.Message = messageResponse.editMessage;
-                aclResponse.StatusCode = AppStatusCode.SUCCESS;
-            }
-            catch (Exception ex)
-            {
-                aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = AppStatusCode.FAIL;
-            }
+
+            aclState = PrepareInputData(request, aclState);
+            await base.UpdateAsync(aclState);
+            await _unitOfWork.CompleteAsync();
+            await _customUnitOfWork.AclStateRepository.ReloadAsync(aclState);
+            aclResponse.Data = aclState;
+            aclResponse.Message = messageResponse.editMessage;
+            aclResponse.StatusCode = AppStatusCode.SUCCESS;
+
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
 
@@ -94,23 +87,23 @@ namespace ACL.Repositories.V1
 
         public async Task<AclResponse> FindById(ulong id)
         {
-            try
-            {
-                var aclState = await base.GetById(id);
-                aclResponse.Data = aclState;
-                aclResponse.Message = messageResponse.fetchMessage;
-                if (aclState == null)
-                {
-                    aclResponse.Message = messageResponse.notFoundMessage;
-                }
 
-                aclResponse.StatusCode = AppStatusCode.SUCCESS;
-            }
-            catch (Exception ex)
+            var aclState = await _customUnitOfWork.AclStateRepository.Where(s => s.Id == id)
+                .Join(_customUnitOfWork.AclCountryRepository.Where(c => true), s => s.CountryId, c => c.Id, (s, c) => new
+                {
+                    state = s,
+                    country = c
+
+                }).FirstOrDefaultAsync();
+            aclResponse.Data = aclState;
+            aclResponse.Message = messageResponse.fetchMessage;
+            if (aclState == null)
             {
-                aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = AppStatusCode.FAIL;
+                aclResponse.Message = messageResponse.notFoundMessage;
             }
+
+            aclResponse.StatusCode = AppStatusCode.SUCCESS;
+
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
 
@@ -140,6 +133,7 @@ namespace ACL.Repositories.V1
                 aclState.CreatedById = AppAuth.GetAuthInfo().UserId;
             }
             aclState.Name = request.Name;
+            aclState.CountryId = request.CountryId;
             aclState.Status = request.Status;
             aclState.Description = request.Description;
             aclState.Sequence = request.Sequence;

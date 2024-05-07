@@ -80,7 +80,10 @@ namespace SharedLibrary.CustomMiddleWare
                     aclResponse.Message = ex.Message;
                     aclResponse.StatusCode = context.Response.StatusCode;
                     break;
-                    
+                case InvalidOperationException ex:
+                    aclResponse.Message = ex.Message;
+                    aclResponse.StatusCode = context.Response.StatusCode;
+                    break;
                 default:
                     aclResponse.Message = "Internal Server Error, Please retry after sometime";
                     aclResponse.StatusCode = context.Response.StatusCode;

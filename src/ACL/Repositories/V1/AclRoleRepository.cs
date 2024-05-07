@@ -5,11 +5,10 @@ using ACL.Interfaces.Repositories.V1;
 using ACL.Requests;
 using ACL.Response.V1;
 using ACL.Utilities;
-using SharedLibrary.Interfaces;
 using SharedLibrary.Services;
 using ACL.Database;
-using ACL.Services;
 using SharedLibrary.Response.CustomStatusCode;
+using Microsoft.EntityFrameworkCore;
 
 namespace ACL.Repositories.V1
 {
@@ -29,7 +28,14 @@ namespace ACL.Repositories.V1
 
         public async Task<AclResponse> GetAll()
         {
-            var aclRoles = await base.All();
+            var aclRoles = await _customUnitOfWork.AclRoleRepository.Where(x => true).Select(x => new
+            {
+                x.Id,
+                x.Name,
+                x.Status,
+                x.CompanyId
+
+            }).ToListAsync();
             if (aclRoles.Any())
             {
                 aclResponse.Message = messageResponse.fetchMessage;
@@ -41,23 +47,15 @@ namespace ACL.Repositories.V1
         }
         public async Task<AclResponse> Add(AclRoleRequest request)
         {
-            try
-            {
-                var aclRole = PrepareInputData(request);
-                await base.AddAsync(aclRole);
-                await _unitOfWork.CompleteAsync();
-                await _customUnitOfWork.AclRoleRepository.ReloadAsync(aclRole);
-                aclResponse.Data = aclRole;
-                aclResponse.Message = messageResponse.createMessage;
-                aclResponse.StatusCode = AppStatusCode.SUCCESS;
-            }
-            catch (Exception ex)
-            {
-                aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = AppStatusCode.FAIL;
-            }
-            return aclResponse;
 
+            var aclRole = PrepareInputData(request);
+            await base.AddAsync(aclRole);
+            await _unitOfWork.CompleteAsync();
+            await _customUnitOfWork.AclRoleRepository.ReloadAsync(aclRole);
+            aclResponse.Data = aclRole;
+            aclResponse.Message = messageResponse.createMessage;
+            aclResponse.StatusCode = AppStatusCode.SUCCESS;
+            return aclResponse;
 
         }
         public async Task<AclResponse> Edit(ulong id, AclRoleRequest request)
@@ -68,43 +66,38 @@ namespace ACL.Repositories.V1
                 aclResponse.Message = messageResponse.notFoundMessage;
                 return aclResponse;
             }
-            try
-            {
-                aclRole = PrepareInputData(request, aclRole);
-                await base.UpdateAsync(aclRole);
-                await _unitOfWork.CompleteAsync();
-                await _customUnitOfWork.AclRoleRepository.ReloadAsync(aclRole);
-                aclResponse.Data = aclRole;
-                aclResponse.Message = messageResponse.editMessage;
-                aclResponse.StatusCode = AppStatusCode.SUCCESS;
-            }
-            catch (Exception ex)
-            {
-                aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = AppStatusCode.FAIL;
-            }
+
+            aclRole = PrepareInputData(request, aclRole);
+            await base.UpdateAsync(aclRole);
+            await _unitOfWork.CompleteAsync();
+            await _customUnitOfWork.AclRoleRepository.ReloadAsync(aclRole);
+            aclResponse.Data = aclRole;
+            aclResponse.Message = messageResponse.editMessage;
+            aclResponse.StatusCode = AppStatusCode.SUCCESS;
             return aclResponse;
 
         }
         public async Task<AclResponse> FindById(ulong id)
         {
-            try
-            {
-                var aclRole = await base.GetById(id);
-                aclResponse.Data = aclRole;
-                aclResponse.Message = messageResponse.fetchMessage;
-                if (aclRole == null)
-                {
-                    aclResponse.Message = messageResponse.notFoundMessage;
-                }
 
-                aclResponse.StatusCode = AppStatusCode.SUCCESS;
-            }
-            catch (Exception ex)
+            var aclRole = await _customUnitOfWork.AclRoleRepository.Where(x=>true).Select(x => new
             {
-                aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = AppStatusCode.FAIL;
+                x.Id,
+                x.Name,
+                x.Status,
+                x.CompanyId
+
+            }).FirstOrDefaultAsync(x => x.Id == id);
+
+            aclResponse.Data = aclRole;
+            aclResponse.Message = messageResponse.fetchMessage;
+            if (aclRole == null)
+            {
+                aclResponse.Message = messageResponse.notFoundMessage;
             }
+
+            aclResponse.StatusCode = AppStatusCode.SUCCESS;
+
             return aclResponse;
 
         }

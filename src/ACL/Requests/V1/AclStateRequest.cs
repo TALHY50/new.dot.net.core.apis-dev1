@@ -3,19 +3,12 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using ACL.Database;
 using ACL.Interfaces;
-using ACL.Requests.CustomDataAnotator;
 using SharedLibrary.CustomDataAnotator;
 
 namespace ACL.Requests;
 
 public partial class AclStateRequest
 {
-
-    [DefaultValue("2")]
-    [Required(ErrorMessage = "company_id is required.")]
-    [Range(1, ulong.MaxValue, ErrorMessage = "company_id is required.")]
-    [ExistsInDatabase<ApplicationDbContext,ICustomUnitOfWork>("AclCompany", "Id")]
-    public ulong CompanyId { get; set; }
 
     [DefaultValue("2")]
     [Required(ErrorMessage = "country_id is required.")]
