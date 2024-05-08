@@ -27,6 +27,11 @@ using ACL.Repositories.V1;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using SharedLibrary.CustomMiddleWare;
+using SharedLibrary.CustomDataAnotator;
+using Microsoft.AspNetCore.Mvc;
+using SharedLibrary.Response.CustomStatusCode;
+using Microsoft.Extensions.DependencyInjection;
+
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.IdentityModel.Tokens;
 using AuthenticationService = Microsoft.AspNetCore.Authentication.AuthenticationService;
@@ -154,6 +159,12 @@ builder.Services.AddSingleton<Serilog.ILogger>(_ => Log.Logger);
 builder.Services.AddSingleton<ILocalizationService>(new LocalizationService("ACL.Resources.en-US", typeof(Program).Assembly, "en-US"));
 builder.Services.AddSingleton<Microsoft.Extensions.Logging.ILogger>(_ => (Microsoft.Extensions.Logging.ILogger)Log.Logger);
 builder.Services.AddScoped<ILogService, LogService>();
+
+builder.Services.Configure<ApiBehaviorOptions>(o =>
+{
+    o.InvalidModelStateResponseFactory = actionContext =>
+    new BadRequestObjectResult(new { errors = new UnprocessableEntityObjectResult(actionContext.ModelState).Value, statusCode = AppStatusCode.FAIL });
+});
 
 Log.Logger = new LoggerConfiguration()
    .MinimumLevel.Debug()
