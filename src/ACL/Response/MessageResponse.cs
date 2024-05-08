@@ -16,6 +16,9 @@ namespace ACL.Response.V1
         public string deleteMessage = "deleteMessage";
         public string notFoundMessage = "notFoundMessage";
         public string existMessage = "existMessage";
+        public string createFail = "createFail";
+        public string deleteFail = "deleteFail";
+        public string editFail = "editFail";
         public MessageResponse(string model, ICustomUnitOfWork _unitOfWork, string language = "en-US") : base(model, language)
         {
             fetchMessage = base.FetchMessage;
@@ -24,6 +27,9 @@ namespace ACL.Response.V1
             deleteMessage = base.DeleteMessage;
             existMessage = base.ExistMessage;
             notFoundMessage = base.NotFoundMessage;
+            createFail = base.CreateFail;
+            editFail = base.EditFail;
+            deleteFail = base.DeleteFail;
 
         }
 

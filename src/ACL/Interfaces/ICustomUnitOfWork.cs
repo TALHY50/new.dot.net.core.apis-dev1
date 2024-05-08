@@ -12,6 +12,7 @@ using System.Reflection;
 using System.Resources;
 using ACL.Repositories.V1;
 using SharedLibrary.Interfaces;
+using ACL.Interfaces.ServiceInterfaces;
 
 
 namespace ACL.Interfaces
@@ -37,5 +38,6 @@ namespace ACL.Interfaces
         IAclUserGroupRepository AclUserGroupRepository { get; }
         IAclStateRepository AclStateRepository { get; }
         IAclBranchRepository AclBranchRepository { get; }
+        IAclBranchService AclBranchService { get; }
     }
 }

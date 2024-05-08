@@ -21,6 +21,7 @@ using SharedLibrary.Services;
 using Microsoft.EntityFrameworkCore;
 using HtmlAgilityPack;
 using System.Runtime.CompilerServices;
+using ACL.Interfaces.ServiceInterfaces;
 
 namespace ACL.Services
 {
@@ -170,6 +171,10 @@ namespace ACL.Services
         public IAclBranchRepository AclBranchRepository
         {
             get { return new AclBranchRepository(this); }
+        }
+        public IAclBranchService AclBranchService
+        {
+            get { return new AclBranchService(this); }
         }
 
         ICustomUnitOfWork ICustomUnitOfWork._unitOfWork => this;

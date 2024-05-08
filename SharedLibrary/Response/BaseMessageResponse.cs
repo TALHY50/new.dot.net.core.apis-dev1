@@ -21,6 +21,9 @@ namespace SharedLibrary.Response
         public string DeleteMessage { get; set; }
         public string ExistMessage { get; set; }
         public string NotFoundMessage { get; set; }
+        public string CreateFail { get; set; }
+        public string DeleteFail { get; set; }
+        public string EditFail { get; set; }
 
         public BaseMessageResponse(string model, string language = "en-US")
         {
@@ -36,6 +39,9 @@ namespace SharedLibrary.Response
                 DeleteMessage = localizationService.GetLocalizedStringWithCulture(model, _cultureInfo) + " " + localizationService.GetLocalizedStringWithCulture("deleteMessage", _cultureInfo);
                 ExistMessage = localizationService.GetLocalizedStringWithCulture("existMessage", _cultureInfo);
                 NotFoundMessage = localizationService.GetLocalizedStringWithCulture("notFoundMessage", _cultureInfo);
+                CreateFail = localizationService.GetLocalizedStringWithCulture("createFail", _cultureInfo);
+                EditFail = localizationService.GetLocalizedStringWithCulture("deleteFail", _cultureInfo);
+                DeleteFail = localizationService.GetLocalizedStringWithCulture("editFail", _cultureInfo);
         }
 
     }
