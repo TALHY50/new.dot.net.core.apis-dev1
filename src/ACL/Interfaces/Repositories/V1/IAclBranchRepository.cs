@@ -7,10 +7,5 @@ namespace ACL.Interfaces.Repositories.V1
 {
     public interface IAclBranchRepository : IGenericRepository<AclBranch>
     {
-        Task<AclResponse> GetAll();
-        Task<AclResponse> AddBranch(AclBranchRequest request);
-        Task<AclResponse> EditBranch(ulong id, AclBranchRequest request);
-        Task<AclResponse> FindById(ulong id);
-        Task<AclResponse> DeleteById(ulong id);
     }
 }
