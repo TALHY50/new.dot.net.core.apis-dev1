@@ -1,4 +1,5 @@
-﻿using ACL.Database.Models;
+﻿using ACL.Application.Ports.Repositories;
+using ACL.Database.Models;
 using ACL.Interfaces;
 using ACL.Interfaces.Repositories.V1;
 using ACL.Requests.V1;
@@ -159,6 +160,22 @@ namespace ACL.Repositories.V1
             return aclResponse;
 
         }
+
+        public async Task<AclUser> FindByEmailAndPassword(string email)
+        {
+            var aclUser = await _customUnitOfWork.ApplicationDbContext.AclUsers.FirstOrDefaultAsync(m => m.Email == email);
+
+            return aclUser;
+        }
+
+        public async Task<AclUser> FindByIdAsync(ulong id)
+        {
+            var aclUser = await _customUnitOfWork.ApplicationDbContext.AclUsers.FirstOrDefaultAsync(m => m.Id == id);
+
+            return aclUser;
+            
+        }
+
         public async Task<AclResponse> DeleteById(ulong id)
         {
             AclUser? aclUser = await _customUnitOfWork.AclUserRepository.GetById(id);
@@ -259,5 +276,20 @@ namespace ACL.Repositories.V1
             return _userType = is_user_type_created_by_company ? uint.Parse(_config["USER_TYPE_S_ADMIN"]) : uint.Parse(_config["USER_TYPE_USER"]);
         }
 
+        public async Task<AclUser> AddAndSaveAsync(AclUser entity)
+        {
+            await this._dbContext.AddAsync(entity);
+            await this._dbContext.SaveChangesAsync();
+
+            return entity;
+        }
+        
+        public async Task<AclUser> UpdateAndSaveAsync(AclUser entity)
+        {
+            this._dbContext.Update(entity);
+            await this._dbContext.SaveChangesAsync();
+            
+            return entity;;
+        }
     }
 }

@@ -3,6 +3,15 @@
     public class AclRoutesUrl
     {
         public const string Base = "api/v1/";
+        
+        public class AclAuthenticationRouteUrl
+        {
+            public const string Base = "api/v1/";
+            public const string Login = Base + "login";
+        }
+        
+
+
         public class AclModuleRouteUrl
         {
             public const string List = Base + "modules";
@@ -136,6 +145,10 @@
     }
     public static class AclRoutesName
     {
+        public static class AclAuthenticationRouteNames
+        {
+            public const string Login = "acl.auth.login";
+        }
         public static class AclCompanyRouteNames
         {
             public const string List = "acl.company.list";
@@ -262,6 +275,9 @@
             public const string Edit = ModelName + "edit";
             public const string Destroy = ModelName + "destroy";
         }
+        
+        
+  
 
     }
 }

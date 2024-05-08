@@ -22,6 +22,7 @@ using Microsoft.EntityFrameworkCore;
 using HtmlAgilityPack;
 using System.Runtime.CompilerServices;
 using ACL.Interfaces.ServiceInterfaces;
+using ACL.Application.Ports.Repositories;
 
 namespace ACL.Services
 {
