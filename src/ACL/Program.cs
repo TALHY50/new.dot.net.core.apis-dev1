@@ -200,15 +200,10 @@ static string GetLogFilePath(string fileName)
 }
 var app = builder.Build();
 
-app.UseRouting();
-
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers();
-});
+
 
 // Seeding Data
 using (var serviceScope = app.Services.CreateScope())
@@ -234,13 +229,11 @@ app.UseMiddleware<RequestResponseLoggingMiddleware>();
 app.UseSerilogRequestLogging();
 app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
 
-
-
 app.UseRouting();
-
-
-
-
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 
 app.UseFileServer();
 

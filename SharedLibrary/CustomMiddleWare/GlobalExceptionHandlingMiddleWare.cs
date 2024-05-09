@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using MySqlConnector;
 using SharedLibrary.Response;
+using SharedLibrary.Response.CustomStatusCode;
 using System.Net;
 using System.Text.Json;
 
@@ -68,22 +69,26 @@ namespace SharedLibrary.CustomMiddleWare
                     aclResponse.Message = ex.Message;
                     aclResponse.StatusCode = context.Response.StatusCode;
                     break;
-                case ApplicationException ex:
+                case Exception ex:
                     aclResponse.Message = ex.Message;
-                    aclResponse.StatusCode = context.Response.StatusCode;
+                    aclResponse.StatusCode = AppStatusCode.FAIL;
                     break;
-                case FileNotFoundException ex:
-                    aclResponse.Message = ex.Message;
-                    aclResponse.StatusCode = context.Response.StatusCode;
-                    break;
-                case NullReferenceException ex:
-                    aclResponse.Message = ex.Message;
-                    aclResponse.StatusCode = context.Response.StatusCode;
-                    break;
-                case InvalidOperationException ex:
-                    aclResponse.Message = ex.Message;
-                    aclResponse.StatusCode = context.Response.StatusCode;
-                    break;
+                //case ApplicationException ex:
+                //    aclResponse.Message = ex.Message;
+                //    aclResponse.StatusCode = context.Response.StatusCode;
+                //    break;
+                //case FileNotFoundException ex:
+                //    aclResponse.Message = ex.Message;
+                //    aclResponse.StatusCode = context.Response.StatusCode;
+                //    break;
+                //case NullReferenceException ex:
+                //    aclResponse.Message = ex.Message;
+                //    aclResponse.StatusCode = context.Response.StatusCode;
+                //    break;
+                //case InvalidOperationException ex:
+                //    aclResponse.Message = ex.Message;
+                //    aclResponse.StatusCode = context.Response.StatusCode;
+                //    break;
                 default:
                     aclResponse.Message = "Internal Server Error, Please retry after sometime";
                     aclResponse.StatusCode = context.Response.StatusCode;
