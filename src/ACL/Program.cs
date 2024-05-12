@@ -118,6 +118,7 @@ var password = Env.GetString("DB_PASSWORD");
 var port = Env.GetString("DB_PORT");
 
 var connectionString = $"server={server};database={database};User ID={userName};Password={password};CharSet=utf8mb4;" ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+
 //builder.Services.AddDbContext<ApplicationDbContext>(options =>
 //    options.UseMySQL(connectionString, options =>
 //    {
@@ -137,6 +138,23 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
         options.EnableRetryOnFailure();
     }));
 #endif
+
+var cacheDriver = Env.GetString("CACHE_DRIVER");
+
+if (cacheDriver == "redis")
+{
+    var redisHost = Env.GetString("REDIS_HOST");
+    ;
+    var redistPort = Env.GetString("REDIS_PORT");
+    ;
+    var redisPassword = Env.GetString("REDIS_PASSWORD");
+    var redistConnectionString = $"{redisHost}:{redistPort},password={redisPassword}";
+
+    builder.Services.AddStackExchangeRedisCache(
+        redisOptions => { redisOptions.Configuration = redistConnectionString; }
+    );
+}
+
 builder.Services.AddAntiforgery(options => options.HeaderName = "X-CSRF-TOKEN");
 
 builder.Services.AddEndpointsApiExplorer();
