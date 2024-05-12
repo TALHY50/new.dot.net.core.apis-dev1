@@ -12,6 +12,7 @@ namespace ACL.Infrastructure.Services.Jwt
 {
     public class JwtService : IAuthTokenService
     {
+        public static readonly string VersionClaimType = "ver";
         private readonly IOptions<JwtSettings> _settings;
         private readonly RsaSecurityKey _rsaSecurityKey;
 
@@ -32,10 +33,16 @@ namespace ACL.Infrastructure.Services.Jwt
 
             // Access Token must only carry the user Id
             claimsIdentity.AddClaim(new System.Security.Claims.Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
-
+            
             // Add scope claim, which contains an array of scopes
             var scope = user.Claims.SingleOrDefault(c => c.Type == "scope");
-            if (scope != null) claimsIdentity.AddClaim(new System.Security.Claims.Claim("scope", string.Join(" ", scope.Value)));
+            if (scope != null)
+            {
+                claimsIdentity.AddClaim(new System.Security.Claims.Claim("scope", string.Join(" ", scope.Value)));
+            }
+
+            var version = user.PermissionVersion;
+            claimsIdentity.AddClaim(new System.Security.Claims.Claim(VersionClaimType, version.ToString()));
 
             var jwtHandler = new JwtSecurityTokenHandler();
 

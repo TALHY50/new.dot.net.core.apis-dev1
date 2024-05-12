@@ -10,7 +10,7 @@ public class PermissionRepository(ApplicationDbContext applicationDbContext) : I
 
     private readonly ApplicationDbContext dbContext = applicationDbContext;
 
-    public async Task<List<PermissionQueryResult>> GetPermissionQueryAsync(uint userId)
+    public async Task<Permission> GetPermissionAsync(uint userId, uint userPermissionVersion)
     {
         var result = (from user in dbContext.AclUsers
             join userUsergroup in dbContext.AclUserUsergroups on user.Id equals userUsergroup.UserId
@@ -41,6 +41,10 @@ public class PermissionRepository(ApplicationDbContext applicationDbContext) : I
                 MethodType = page.MethodType,
                 DefaultMethod = subModule.DefaultMethod
             }).ToList();
-        return result;
+        
+        HashSet<string> permittedRoutes = new HashSet<string>(result.Select(q => q.PageRouteName));
+
+        var permission = new Permission(0, permittedRoutes);
+        return permission;
     }
 }

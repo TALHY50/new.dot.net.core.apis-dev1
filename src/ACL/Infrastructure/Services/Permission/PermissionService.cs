@@ -12,15 +12,12 @@ public class PermissionService : IPermissionService
     {
         this._permissionRepository = permissionRepository;
     }
-    public async Task<AclUser> GetUserWithPermissionAsync(uint userId)
+    public async Task<AclUser> GetUserAsync(uint userId, uint userPermissionVersion)
     {
-        var queryResult = await this._permissionRepository.GetPermissionQueryAsync(userId);
+        var permissions = await this._permissionRepository.GetPermissionAsync(userId, userPermissionVersion);
 
         {
-            HashSet<string> permittedRoutes = new HashSet<string>(queryResult.Select(q => q.PageRouteName));
-            var permission = new Domain.Permissions.Permission(permittedRoutes);
-            var permissionVersion = queryResult.FirstOrDefault().PermissionVersion;
-            var user = new AclUser(userId, permissionVersion, permission);
+            var user = new AclUser(userId, permissions.Version, permissions);
             
             return user;
         }

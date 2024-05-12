@@ -4,5 +4,5 @@ namespace ACL.Application.Ports.Repositories;
 
 public interface IPermissionRepository
 {
-    public Task<List<PermissionQueryResult>> GetPermissionQueryAsync(uint userId);
+    public Task<Permission> GetPermissionAsync(uint userId, uint userPermissionVersion);
 }

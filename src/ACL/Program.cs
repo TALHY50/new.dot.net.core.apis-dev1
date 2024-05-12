@@ -205,7 +205,7 @@ static string GetLogFilePath(string fileName)
 var app = builder.Build();
 
 app.UseAuthentication();
-app.UseAuthorization();
+//app.UseAuthorization();
 
 
 
@@ -234,6 +234,7 @@ app.UseSerilogRequestLogging();
 app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
 
 app.UseRouting();
+app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();

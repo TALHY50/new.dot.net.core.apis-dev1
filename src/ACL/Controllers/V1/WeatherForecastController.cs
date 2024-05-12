@@ -26,9 +26,9 @@ namespace ACL.Controllers.V1
             _logger = logger;
         }
 
-        [HttpGet]
-        [Authorize(Policy = "HasPermission")]
-       [Route(AclRoutesUrl.WeatherForecastRouteUrl.GetWeatherForecast, Name = AclRoutesName.AclWeatherForecastRouteNames.GetWeatherForecasts)]
+        [HttpGet] 
+        [Authorize(Policy = "HasPermission")] 
+        [Route(AclRoutesUrl.WeatherForecastRouteUrl.GetWeatherForecast, Name = AclRoutesName.AclWeatherForecastRouteNames.GetWeatherForecasts)]
         public IEnumerable<WeatherForecast> GetWeatherForecasts()
         {
             var rng = new Random();
