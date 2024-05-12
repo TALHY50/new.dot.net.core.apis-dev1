@@ -103,8 +103,8 @@ namespace ACL.Application.UseCases.RefreshToken
 
                 var response = new RefreshTokenErrorResponse
                 {
-                    Message = Enum.GetName(ErrorCodes.AnUnexpectedErrorOcurred),
-                    Code = ErrorCodes.AnUnexpectedErrorOcurred.ToString("D")
+                    Message = Enum.GetName(ErrorCodes.AnUnexpectedErrorOccurred),
+                    Code = ErrorCodes.AnUnexpectedErrorOccurred.ToString("D")
                 };
 
                 return response;

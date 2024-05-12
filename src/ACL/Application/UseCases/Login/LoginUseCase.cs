@@ -32,7 +32,7 @@ namespace ACL.Application.UseCases.Login
         {
             try
             {
-                var user = await this._authRepository.FindByEmailAndPassword(request.Email);
+                var user = await this._authRepository.FindByEmail(request.Email);
                 if (user == null)
                 {
                     var response = new LoginErrorResponse
@@ -82,8 +82,8 @@ namespace ACL.Application.UseCases.Login
 
                 var response = new LoginErrorResponse
                 {
-                    Message = Enum.GetName(ErrorCodes.AnUnexpectedErrorOcurred),
-                    Code = ErrorCodes.AnUnexpectedErrorOcurred.ToString("D")
+                    Message = Enum.GetName(ErrorCodes.AnUnexpectedErrorOccurred),
+                    Code = ErrorCodes.AnUnexpectedErrorOccurred.ToString("D")
                 };
 
                 return response;

@@ -4,10 +4,15 @@
     {
         public const string Base = "api/v1/";
         
-        public class AclAuthenticationRouteUrl
+        public class AclAuthRouteUrl
         {
             public const string Base = "api/v1/";
             public const string Login = Base + "login";
+        }
+
+        public class WeatherForecastRouteUrl
+        {
+            public const string GetWeatherForecast = "api/v1/GetWeatherForecast";
         }
         
 
@@ -145,10 +150,21 @@
     }
     public static class AclRoutesName
     {
-        public static class AclAuthenticationRouteNames
+   
+
+        public static class AclAuthRouteNames
         {
             public const string Login = "acl.auth.login";
+            public const string SignOut = "acl.auth.signout";
+            public const string RefreshToken = "acl.auth.refreshToken";
+            public const string CreateUser = "acl.auth.createUser";
         }
+        
+        public static class AclWeatherForecastRouteNames
+        {
+            public const string GetWeatherForecasts = "acl.weatherForecast.getWeatherForecasts";
+        }
+        
         public static class AclCompanyRouteNames
         {
             public const string List = "acl.company.list";

@@ -104,7 +104,7 @@ namespace ACL.Infrastructure.Services.Jwt
             return Task.FromResult(this._settings.Value.RefreshTokenSettings.LifeTimeInMinutes);
         }
 
-        public Task<string> GetUserIdFromToken(string token)
+        public Task<string?> GetUserIdFromToken(string token)
         {
             try
             {
@@ -122,7 +122,7 @@ namespace ACL.Infrastructure.Services.Jwt
 
                 var jwtHandler = new JwtSecurityTokenHandler();
                 var claims = jwtHandler.ValidateToken(token, tokenValidationParameters, out _);
-                var userId = claims.FindFirst(ClaimTypes.NameIdentifier).Value.ToString();
+                var userId = claims.FindFirst(ClaimTypes.NameIdentifier)?.Value.ToString();
 
                 return Task.FromResult(userId);
             }

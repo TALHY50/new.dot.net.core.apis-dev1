@@ -1,6 +1,6 @@
 ﻿namespace ACL.Application.UseCases.CreateUser.Response
 {
-    public abstract class CreateUserResponse : UseCases.Response
+    public abstract class RegisterResponse : UseCases.Response
     {
     }
 }

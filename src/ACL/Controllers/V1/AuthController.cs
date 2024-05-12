@@ -16,7 +16,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ACL.Controllers.V1
 {
-    [Authorize]
     [Route("api/v1/auth/")]
     [ApiController]
     public class AuthController : ControllerBase
@@ -24,18 +23,18 @@ namespace ACL.Controllers.V1
         private readonly LoginUseCase _loginUseCase;
         private readonly RefreshTokenUseCase _refreshTokenUseCase;
         private readonly SignOutUseCase _signOutUseCase;
-        private readonly CreateUserUseCase _createUserUseCase;
+        private readonly RegisterUseCase _registerUseCase;
 
         public AuthController(
             LoginUseCase loginUseCase,
             RefreshTokenUseCase refreshTokenUseCase,
             SignOutUseCase signOutUseCase,
-            CreateUserUseCase createUserUseCase)
+            RegisterUseCase registerUseCase)
         {
             _loginUseCase = loginUseCase;
             _refreshTokenUseCase = refreshTokenUseCase;
             _signOutUseCase = signOutUseCase;
-            _createUserUseCase = createUserUseCase;
+            this._registerUseCase = registerUseCase;
         }
 
         [AllowAnonymous]
@@ -64,10 +63,10 @@ namespace ACL.Controllers.V1
 
         [AllowAnonymous]
         [HttpPost]
-        [Route("user/create")]
-        public async Task<CreateUserResponse> CreateUser(CreateUserRequest request)
+        [Route("register")]
+        public async Task<RegisterResponse> Register(RegisterRequest request)
         {
-            return await _createUserUseCase.Execute(request);
+            return await this._registerUseCase.Execute(request);
         }
     }
 }

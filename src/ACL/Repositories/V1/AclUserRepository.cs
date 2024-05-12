@@ -161,7 +161,7 @@ namespace ACL.Repositories.V1
 
         }
 
-        public async Task<AclUser> FindByEmailAndPassword(string email)
+        public async Task<AclUser> FindByEmail(string email)
         {
             var aclUser = await _customUnitOfWork.ApplicationDbContext.AclUsers.FirstOrDefaultAsync(m => m.Email == email);
 

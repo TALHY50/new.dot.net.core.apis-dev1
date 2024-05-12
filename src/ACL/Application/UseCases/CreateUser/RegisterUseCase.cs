@@ -10,15 +10,15 @@ using Claim = ACL.Application.UseCases.CreateUser.Request.Claim;
 
 namespace ACL.Application.UseCases.CreateUser
 {
-    public class CreateUserUseCase : ICreateUserUseCase
+    public class RegisterUseCase : IRegisterUseCase
     {
         private readonly ILogger _logger;
         private readonly IAuthTokenService _authTokenService;
         private readonly IAclUserRepository _authRepository;
         private readonly ICryptographyService _cryptographyService;
 
-        public CreateUserUseCase(
-            ILogger<CreateUserUseCase> logger,
+        public RegisterUseCase(
+            ILogger<RegisterUseCase> logger,
             IAuthTokenService authTokenService,
             IAclUserRepository authRepository,
             ICryptographyService cryptographyService)
@@ -29,14 +29,25 @@ namespace ACL.Application.UseCases.CreateUser
             this._cryptographyService = cryptographyService;
         }
 
-        public async Task<CreateUserResponse> Execute(CreateUserRequest request)
+        public async Task<RegisterResponse> Execute(RegisterRequest request)
         {
             try
-            {
+            { 
+                var user = await this._authRepository.FindByEmail(request.Email);
+                if (user != null)
+                {
+                    var response = new RegisterErrorResponse
+                    {
+                        Message = Enum.GetName(ErrorCodes.UserWithEmailAlreadyExist),
+                        Code = ErrorCodes.UserWithEmailAlreadyExist.ToString("D")
+                    };
+                    return response;
+                }
+                
                 var salt = this._cryptographyService.GenerateSalt();
                 var currentDate = DateTime.UtcNow;
-
-                var user = new AclUser()
+                
+                user = new AclUser() 
                 {
                     Status = 1,
                     Email = request.Email,
@@ -51,7 +62,7 @@ namespace ACL.Application.UseCases.CreateUser
 
                 await this._authRepository.AddAndSaveAsync(user);
 
-                return new CreateUserSuccessResponse
+                return new RegisterSuccessResponse
                 {
                     UserId = user.Id
                 };
@@ -60,10 +71,10 @@ namespace ACL.Application.UseCases.CreateUser
             {
                 this._logger.LogError(ex, ex.Message);
 
-                var response = new CreateUserErrorResponse
+                var response = new RegisterErrorResponse
                 {
-                    Message = Enum.GetName(ErrorCodes.AnUnexpectedErrorOcurred),
-                    Code = ErrorCodes.AnUnexpectedErrorOcurred.ToString("D")
+                    Message = Enum.GetName(ErrorCodes.AnUnexpectedErrorOccurred),
+                    Code = ErrorCodes.AnUnexpectedErrorOccurred.ToString("D")
                 };
 
                 return response;

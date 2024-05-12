@@ -18,10 +18,12 @@ using Microsoft.AspNetCore.Authentication;
 using SharedLibrary.Interfaces;
 using SharedLibrary.Services;
 using ACL.Data;
-using ACL.Infrastructure.Authorization;
+using ACL.Infrastructure.Persistence.Permissions;
+using ACL.Infrastructure.Security;
 using ACL.Infrastructure.Services;
 using ACL.Infrastructure.Services.Cryptography;
 using ACL.Infrastructure.Services.Jwt;
+using ACL.Infrastructure.Services.Permission;
 using ACL.Interfaces.Repositories.V1;
 using ACL.Repositories.V1;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -93,13 +95,15 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("CanReadWeather", policy =>
-        policy.Requirements.Add(new GetWeatherRequirement()));
+    options.AddPolicy("HasPermission", policy =>
+        policy.Requirements.Add(new PermissionRequirement()));
 });
 
-// Singletons
-builder.Services.AddSingleton<IAuthorizationHandler, GetWeatherHandler>();
 
+builder.Services.AddScoped<IPermissionRepository, PermissionRepository>();
+// Singletons
+builder.Services.AddSingleton<IAuthorizationHandler, PermissionHandler>();
+builder.Services.AddScoped<IPermissionService, PermissionService>();
 //builder.Services.AddAuthentication();
 //builder.Services.AddAuthorization(); // Add authorization services
 builder.Services.AddControllers();
@@ -189,7 +193,7 @@ builder.Services.AddScoped<IAclUserRepository, AclUserRepository>();
 builder.Services.AddScoped<LoginUseCase>();
 builder.Services.AddScoped<RefreshTokenUseCase>();
 builder.Services.AddScoped<SignOutUseCase>();
-builder.Services.AddScoped<CreateUserUseCase>();
+builder.Services.AddScoped<RegisterUseCase>();
 
 static string GetLogFilePath(string fileName)
 {
