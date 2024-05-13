@@ -29,10 +29,10 @@ namespace ACL.Data
                     {
                         var dbContext = services.GetRequiredService<ApplicationDbContext>();
 
-                            try
-                            {
-                                // Execute raw SQL query to insert data into the AclBranches table
-                                dbContext.Database.ExecuteSqlRaw(@"INSERT INTO acl_branches (company_id,name,address,description,status,`sequence`,created_by_id,updated_by_id,created_at,updated_at) VALUES
+                        try
+                        {
+                            // Execute raw SQL query to insert data into the AclBranches table
+                            dbContext.Database.ExecuteSqlRaw(@"INSERT INTO acl_branches (company_id,name,address,description,status,`sequence`,created_by_id,updated_by_id,created_at,updated_at) VALUES
 	 (2,'Default','Dhaka','TEST',1,0,2,2,'2024-05-01 02:59:58.902135','2024-05-01 02:59:58.902019');
 INSERT INTO acl_companies (name,cname,cemail,address1,address2,postcode,phone,email,fax,city,state,country,logo,registration_no,timezone,unique_column_name,timezone_value,tax_no,tax_office,sector,average_turnover,no_of_employees,cmmi_level,yearly_revenue,hourly_rate,daily_rate,status,added_by,created_at,updated_at) VALUES
 	 ('Default','Admin','ssadmin@softrobotics.com','A','A2','4100','031','ssadmin@softrobotics.com','Fax','C','s','BD','logo','420',254,1,'TimeZone','tax',NULL,NULL,0.0,6,0,0.0,0.0,0.0,1,1,'2015-11-04 01:52:01','2019-03-28 13:29:33');
@@ -441,8 +441,7 @@ INSERT INTO acl_usergroup_roles (usergroup_id,role_id,company_id,created_at,upda
 	 (1,1,1,NULL,NULL);
 INSERT INTO acl_usergroups (group_name,category,dashboard_url,status,company_id,created_at,updated_at) VALUES
 	 ('super-super-admin-group',0,NULL,1,1,'2019-03-22 08:38:12','2023-11-01 19:17:00');
-INSERT INTO acl_users (first_name,last_name,email,avatar,password,dob,gender,address,city,country,phone,is_admin_verified,user_type,remember_token,created_at,updated_at,activated_at,`language`,username,img_path,status,company_id,permission_version,otp_channel,login_at,created_by_id,auth_identifier) VALUES
-	 ('admin1','admin1','ssadmin@sipay.com.tr','users/admin/c41353d1c1fcbdbd39f96ea46a3f769136952e79.png','Nop@ss1234','1994-02-22 00:00:00',1,'Dhaka','19',0,'+8801788343704',1,0,'','2018-07-10 16:21:24','2021-08-25 05:46:27',NULL,'en','rajibecbb','storage/users/1/2019-04-18-07-49-28-ba4fe9be59df7b82f8243d2126070d76f5305b3e.png',1,1,1,0,NULL,1,NULL);
+INSERT INTO acl_users (id, first_name, last_name, email, avatar, password, dob, gender, address, city, country, phone, is_admin_verified, user_type, remember_token, created_at, updated_at, activated_at, `language`, username, img_path, status, company_id, permission_version, otp_channel, login_at, created_by_id, auth_identifier, claims, refresh_token, salt) VALUES(1, 'admin1', 'admin1', 'ssadmin@sipay.com.tr', 'users/admin/c41353d1c1fcbdbd39f96ea46a3f769136952e79.png', 'QCy4DY93n7XSPqOJAjrq9hmwoIuaq9zqbDUBXmXPs+DgWlbGHBxWVQTlQVdmmUYUk0D21muGuNGQr32ro0zFdA==', '1994-02-22 00:00:00', 1, 'Dhaka', '19', 0, '+8801788343704', 1, 0, NULL, '2018-07-10 16:21:24', '2021-08-25 05:46:27', NULL, 'en-US', 'rajibecbb', 'storage/users/1/2019-04-18-07-49-28-ba4fe9be59df7b82f8243d2126070d76f5305b3e.png', 1, 1, 1, 0, NULL, 1, NULL, '[{""Type"":""scope"",""Value"":""CanReadWeather""}]', '{""Value"":null,""Active"":false,""ExpirationDate"":""0001-01-01T00:00:00""}', 'pNr7R0FzsicCDrMlIwXYVI6zM4rZByVgNCkWRwM4y57Sw+cdKUbTrRZLbV8nccwNlN+DokHXlkxKGvw+7ISPPw==');
 INSERT INTO acl_usertype_submodules (user_type_id,sub_module_id,created_at,updated_at) VALUES
 	 (0,2001,NULL,NULL),
 	 (0,2020,NULL,NULL),
@@ -454,15 +453,15 @@ INSERT INTO acl_usertype_submodules (user_type_id,sub_module_id,created_at,updat
 	 (1,2053,NULL,NULL),
 	 (1,2054,NULL,NULL);
 ");
-                                // Save changes to persist the data
-                                dbContext.SaveChanges();
-                            }
-                            catch (Exception ex)
-                            {
-                                // Log any exceptions
-                                var logger = services.GetRequiredService<ILogger<dynamic>>();
-                                logger.LogError(ex, "An error occurred while seeding the database.");
-                            }
+                            // Save changes to persist the data
+                            dbContext.SaveChanges();
+                        }
+                        catch (Exception ex)
+                        {
+                            // Log any exceptions
+                            var logger = services.GetRequiredService<ILogger<dynamic>>();
+                            logger.LogError(ex, "An error occurred while seeding the database.");
+                        }
                     }
                     catch (Exception ex)
                     {
