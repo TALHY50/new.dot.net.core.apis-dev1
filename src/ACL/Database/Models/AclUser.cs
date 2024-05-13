@@ -105,6 +105,11 @@ public partial class AclUser
         PermissionVersion = permissionVersion;
         _permission = permission;
     }
+
+    public void SetPermission(Permission permission)
+    {
+        this._permission = permission;
+    }
     
     
     public bool IsPermitted(string routeName)

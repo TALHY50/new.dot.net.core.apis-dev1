@@ -18,7 +18,6 @@ using Microsoft.AspNetCore.Authentication;
 using SharedLibrary.Interfaces;
 using SharedLibrary.Services;
 using ACL.Data;
-using ACL.Infrastructure.Persistence.Permissions;
 using ACL.Infrastructure.Security;
 using ACL.Infrastructure.Services;
 using ACL.Infrastructure.Services.Cryptography;
@@ -99,8 +98,6 @@ builder.Services.AddAuthorization(options =>
         policy.Requirements.Add(new PermissionRequirement()));
 });
 
-
-builder.Services.AddScoped<IPermissionRepository, PermissionRepository>();
 // Singletons
 builder.Services.AddSingleton<IAuthorizationHandler, PermissionHandler>();
 builder.Services.AddScoped<IPermissionService, PermissionService>();

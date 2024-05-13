@@ -49,6 +49,8 @@
     <Folder Include="Application\UseCases\" />
     <Folder Include="Domain\" />
     <Folder Include="Http\" />
+    <Folder Include="Infrastructure\Common\" />
+    <Folder Include="Infrastructure\Persistence\Permissions\" />
     <Folder Include="Logs\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
