@@ -43,7 +43,7 @@ namespace ACL.Repositories.V1
             if (aclUser != null)
             {
                 // password checking
-                var password = Cryptographer.AppDecrypt(aclUser.Password);
+                var password = _unitOfWork.cryptographyService.HashPassword(request.CurrentPassword,aclUser.Salt);
 
                 if (request.CurrentPassword != password)
                 {
@@ -54,7 +54,7 @@ namespace ACL.Repositories.V1
 
                 // password update
 
-                aclUser.Password = Cryptographer.AppEncrypt(request.NewPassword);
+                aclUser.Password = _unitOfWork.cryptographyService.HashPassword(request.NewPassword,aclUser.Salt);
                 await base.UpdateAsync(aclUser);
                 await _unitOfWork.CompleteAsync();
                 await _customUnitOfWork.AclUserRepository.ReloadAsync(aclUser);
@@ -106,7 +106,7 @@ namespace ACL.Repositories.V1
             var aclUser = _unitOfWork.AclUserRepository.Where(x => x.Email == email).FirstOrDefault();
             if (aclUser != null)
             {
-                aclUser.Password = Cryptographer.AppEncrypt(request.NewPassword);
+                aclUser.Password = _unitOfWork.cryptographyService.HashPassword(request.NewPassword,aclUser.Salt);
                 await base.UpdateAsync(aclUser);
                 await _unitOfWork.CompleteAsync();
                 await _customUnitOfWork.AclUserRepository.ReloadAsync(aclUser);

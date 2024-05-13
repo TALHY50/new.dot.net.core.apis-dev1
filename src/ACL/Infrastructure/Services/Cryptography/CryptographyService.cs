@@ -1,6 +1,7 @@
 using System.Security.Cryptography;
 using System.Text;
 using ACL.Application.Ports.Services;
+using ACL.Interfaces;
 using Konscious.Security.Cryptography;
 
 namespace ACL.Infrastructure.Services.Cryptography
@@ -12,6 +13,7 @@ namespace ACL.Infrastructure.Services.Cryptography
         private const int _hashSize = 64;
 
         public CryptographyService() { }
+        public CryptographyService(ICustomUnitOfWork unitOfWork) { }
 
         public string GenerateSalt()
         {
