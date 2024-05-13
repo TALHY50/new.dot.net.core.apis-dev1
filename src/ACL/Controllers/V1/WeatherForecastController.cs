@@ -5,12 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ACL.Database.Models;
+using ACL.Route;
 
 namespace ACL.Controllers.V1
 {
     [Authorize]
     [ApiController]
-    [Route("api/[controller]")]
+   // [Route("api/[controller]")]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
@@ -25,9 +26,10 @@ namespace ACL.Controllers.V1
             _logger = logger;
         }
 
-        [HttpGet]
-       // [Authorize(Policy = "CanReadWeather")]
-        public IEnumerable<WeatherForecast> Get()
+        [HttpGet] 
+        [Authorize(Policy = "HasPermission")] 
+        [Route(AclRoutesUrl.WeatherForecastRouteUrl.GetWeatherForecast, Name = AclRoutesName.AclWeatherForecastRouteNames.GetWeatherForecasts)]
+        public IEnumerable<WeatherForecast> GetWeatherForecasts()
         {
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast

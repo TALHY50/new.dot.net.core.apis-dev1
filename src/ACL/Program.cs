@@ -18,10 +18,12 @@ using Microsoft.AspNetCore.Authentication;
 using SharedLibrary.Interfaces;
 using SharedLibrary.Services;
 using ACL.Data;
-using ACL.Infrastructure.Authorization;
+using ACL.Infrastructure.Persistence.Permissions;
+using ACL.Infrastructure.Security;
 using ACL.Infrastructure.Services;
 using ACL.Infrastructure.Services.Cryptography;
 using ACL.Infrastructure.Services.Jwt;
+using ACL.Infrastructure.Services.Permission;
 using ACL.Interfaces.Repositories.V1;
 using ACL.Repositories.V1;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -93,13 +95,15 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("CanReadWeather", policy =>
-        policy.Requirements.Add(new GetWeatherRequirement()));
+    options.AddPolicy("HasPermission", policy =>
+        policy.Requirements.Add(new PermissionRequirement()));
 });
 
-// Singletons
-builder.Services.AddSingleton<IAuthorizationHandler, GetWeatherHandler>();
 
+builder.Services.AddScoped<IPermissionRepository, PermissionRepository>();
+// Singletons
+builder.Services.AddSingleton<IAuthorizationHandler, PermissionHandler>();
+builder.Services.AddScoped<IPermissionService, PermissionService>();
 //builder.Services.AddAuthentication();
 //builder.Services.AddAuthorization(); // Add authorization services
 builder.Services.AddControllers();
@@ -114,6 +118,7 @@ var password = Env.GetString("DB_PASSWORD");
 var port = Env.GetString("DB_PORT");
 
 var connectionString = $"server={server};database={database};User ID={userName};Password={password};CharSet=utf8mb4;" ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+
 //builder.Services.AddDbContext<ApplicationDbContext>(options =>
 //    options.UseMySQL(connectionString, options =>
 //    {
@@ -133,6 +138,23 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
         options.EnableRetryOnFailure();
     }));
 #endif
+
+var cacheDriver = Env.GetString("CACHE_DRIVER");
+
+if (cacheDriver == "redis")
+{
+    var redisHost = Env.GetString("REDIS_HOST");
+    ;
+    var redistPort = Env.GetString("REDIS_PORT");
+    ;
+    var redisPassword = Env.GetString("REDIS_PASSWORD");
+    var redistConnectionString = $"{redisHost}:{redistPort},password={redisPassword}";
+
+    builder.Services.AddStackExchangeRedisCache(
+        redisOptions => { redisOptions.Configuration = redistConnectionString; }
+    );
+}
+
 builder.Services.AddAntiforgery(options => options.HeaderName = "X-CSRF-TOKEN");
 
 builder.Services.AddEndpointsApiExplorer();
@@ -189,7 +211,7 @@ builder.Services.AddScoped<IAclUserRepository, AclUserRepository>();
 builder.Services.AddScoped<LoginUseCase>();
 builder.Services.AddScoped<RefreshTokenUseCase>();
 builder.Services.AddScoped<SignOutUseCase>();
-builder.Services.AddScoped<CreateUserUseCase>();
+builder.Services.AddScoped<RegisterUseCase>();
 
 static string GetLogFilePath(string fileName)
 {
@@ -201,7 +223,7 @@ static string GetLogFilePath(string fileName)
 var app = builder.Build();
 
 app.UseAuthentication();
-app.UseAuthorization();
+//app.UseAuthorization();
 
 
 
@@ -230,6 +252,7 @@ app.UseSerilogRequestLogging();
 app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
 
 app.UseRouting();
+app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();

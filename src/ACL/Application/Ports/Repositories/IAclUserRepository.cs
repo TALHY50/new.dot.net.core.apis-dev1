@@ -14,7 +14,7 @@ namespace ACL.Application.Ports.Repositories
         
         Task<AclUser> FindByIdAsync(ulong id);
         
-        Task<AclUser> FindByEmailAndPassword(string email);
+        Task<AclUser> FindByEmail(string email);
         
         Task<AclResponse> DeleteById(ulong id);
         uint SetCompanyId(uint companyId);

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using ACL.Domain;
+using ACL.Domain.Permissions;
 
 namespace ACL.Database.Models;
 
@@ -87,11 +88,36 @@ public partial class AclUser
 
     public string? AuthIdentifier { get; set; }
     
+    [NotMapped]
+    
+    private Permission? _permission { get; set; }
+    
     
     public AclUser()
     {
         Claims = new List<Domain.Claim>();
         RefreshToken = new RefreshToken();
     }
+
+    public AclUser(ulong userId, uint permissionVersion, Permission? permission)
+    {
+        Id = userId;
+        PermissionVersion = permissionVersion;
+        _permission = permission;
+    }
+    
+    
+    public bool IsPermitted(string routeName)
+    {
+        if (_permission.PermittedRoutes.Contains(routeName))
+        {
+            return true;
+        }
+
+        return false;
+    }
+    
+    
+    
     
 }

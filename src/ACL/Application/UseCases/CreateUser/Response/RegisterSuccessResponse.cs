@@ -1,6 +1,6 @@
 ﻿namespace ACL.Application.UseCases.CreateUser.Response
 {
-    public class CreateUserSuccessResponse : CreateUserResponse
+    public class RegisterSuccessResponse : RegisterResponse
     {
         public ulong UserId { get; internal set; }
     }
