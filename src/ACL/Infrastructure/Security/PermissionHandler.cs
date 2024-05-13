@@ -25,12 +25,11 @@ namespace ACL.Infrastructure.Security
 
                 var userId = Convert.ToUInt32(context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
                 var version = Convert.ToUInt32(context.User.FindFirst(JwtService.VersionClaimType)?.Value);
-
+                var routeName = (context.Resource as HttpContext).GetRouteName();
+                
                 var user = permissionService.GetUserAsync(userId, version).Result;
 
-                var routeName = (context.Resource as HttpContext).GetRouteName();
-
-                if (user.IsPermitted(routeName))
+                if (user != null && user.IsPermitted(routeName))
                 {
                     context.Succeed(requirement);
                 }

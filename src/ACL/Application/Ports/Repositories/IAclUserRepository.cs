@@ -24,6 +24,8 @@ namespace ACL.Application.Ports.Repositories
         
         public Task<AclUser> UpdateAndSaveAsync(AclUser entity);
 
+        public Task<AclUser?> GetUserWithPermissionAsync(uint userId, uint userPermissionVersion);
+
 
     }
 }
