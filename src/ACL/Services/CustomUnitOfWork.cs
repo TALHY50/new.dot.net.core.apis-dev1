@@ -23,6 +23,7 @@ using HtmlAgilityPack;
 using System.Runtime.CompilerServices;
 using ACL.Interfaces.ServiceInterfaces;
 using ACL.Application.Ports.Repositories;
+using Microsoft.Extensions.Caching.Distributed;
 
 namespace ACL.Services
 {
@@ -33,7 +34,8 @@ namespace ACL.Services
         private ILogService _logService;
         IUnitOfWork<ApplicationDbContext, ICustomUnitOfWork> _baseunitOfWork;
         ICustomUnitOfWork _unitOfWork;
-        public CustomUnitOfWork(ApplicationDbContext context, ILogger<UnitOfWork<ApplicationDbContext, ICustomUnitOfWork>> logger, ILogService logService, ICacheService cacheService, IServiceCollection services, Assembly programAssembly)
+        private IDistributedCache _distributedCache;
+        public CustomUnitOfWork(ApplicationDbContext context, ILogger<UnitOfWork<ApplicationDbContext, ICustomUnitOfWork>> logger, ILogService logService, ICacheService cacheService, IServiceCollection services, Assembly programAssembly, IDistributedCache distributedCache = null)
                    : base(context, logger, logService, cacheService, services, programAssembly)
         {
             _assembly = programAssembly;
@@ -44,6 +46,7 @@ namespace ACL.Services
             base.SetLogService(logService);
             _assembly = programAssembly;
             _unitOfWork.SetAssembly(_assembly);
+            this._distributedCache = distributedCache;
         }
         public CustomUnitOfWork(ApplicationDbContext context) : base(context)
         {
@@ -143,7 +146,7 @@ namespace ACL.Services
 
         public IAclUserRepository AclUserRepository
         {
-            get { return new AclUserRepository(this, Config); }
+            get { return new AclUserRepository(this, Config,this.context, this._distributedCache); }
         }
 
         public IAclUserUserGroupRepository AclUserUserGroupRepository

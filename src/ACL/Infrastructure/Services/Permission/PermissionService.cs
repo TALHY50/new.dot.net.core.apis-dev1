@@ -4,23 +4,11 @@ using ACL.Database.Models;
 
 namespace ACL.Infrastructure.Services.Permission;
 
-public class PermissionService : IPermissionService
+public class PermissionService(IAclUserRepository aclUserRepository) : IPermissionService
 {
-    private readonly IPermissionRepository _permissionRepository;
-
-    public PermissionService(IPermissionRepository permissionRepository)
+    public async Task<AclUser?> GetUserAsync(uint userId, uint userPermissionVersion)
     {
-        this._permissionRepository = permissionRepository;
-    }
-    public async Task<AclUser> GetUserAsync(uint userId, uint userPermissionVersion)
-    {
-        var permissions = await this._permissionRepository.GetPermissionAsync(userId, userPermissionVersion);
+        return await aclUserRepository.GetUserWithPermissionAsync(userId, userPermissionVersion);
 
-        {
-            var user = new AclUser(userId, permissions.Version, permissions);
-            
-            return user;
-        }
-        
     }
 }

@@ -10,8 +10,11 @@ using SharedLibrary.Utilities;
 using SharedLibrary.Interfaces;
 using SharedLibrary.Services;
 using ACL.Database;
+using ACL.Domain.Permissions;
 using ACL.Utilities;
 using ACL.Services;
+using Microsoft.Extensions.Caching.Distributed;
+using Newtonsoft.Json;
 using SharedLibrary.Response.CustomStatusCode;
 
 namespace ACL.Repositories.V1
@@ -26,8 +29,9 @@ namespace ACL.Repositories.V1
         private bool is_user_type_created_by_company = false;
         private IConfiguration _config;
         private ICustomUnitOfWork _customUnitOfWork;
-
-        public AclUserRepository(ICustomUnitOfWork _unitOfWork, IConfiguration config) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
+        private readonly ApplicationDbContext _dbContext;
+        private readonly IDistributedCache _distributedCache;
+        public AclUserRepository(ICustomUnitOfWork _unitOfWork, IConfiguration config, ApplicationDbContext dbContext, IDistributedCache distributedCache) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
             _customUnitOfWork = _unitOfWork;
             AppAuth.SetAuthInfo();
@@ -36,6 +40,8 @@ namespace ACL.Repositories.V1
             _companyId = (uint)AppAuth.GetAuthInfo().CompanyId;
             _userType = (uint)AppAuth.GetAuthInfo().UserType;
             messageResponse = new MessageResponse(modelName, _unitOfWork, AppAuth.GetAuthInfo().Language);
+            this._dbContext = dbContext;
+            _distributedCache = distributedCache;
         }
 
         public async Task<AclResponse> GetAll()
@@ -290,6 +296,82 @@ namespace ACL.Repositories.V1
             await this._dbContext.SaveChangesAsync();
             
             return entity;;
-        }
+        } 
+        public async Task<AclUser?> GetUserWithPermissionAsync(uint userId, uint userPermissionVersion) 
+        { 
+            HashSet<string>? permittedRoutes = null;
+        
+            var key = $"userId_PermissionVersion-{userId}_{userPermissionVersion}";
+
+            var user = await this.FindByIdAsync(userId);
+
+            if (user == null) return user;
+            
+            if (this._distributedCache is IDistributedCache)
+            {
+
+                if (userPermissionVersion == user.PermissionVersion)
+                {
+
+                    string? cachedPermittedRoutes = await this._distributedCache.GetStringAsync(key);
+
+                    if (cachedPermittedRoutes != null)
+                    {
+                        permittedRoutes =
+                            JsonConvert.DeserializeObject<HashSet<string>>(cachedPermittedRoutes) ?? null;
+                    }
+                }
+            }
+
+            if (permittedRoutes == null)
+            {
+                var result = (from userUsergroup in this._dbContext.AclUserUsergroups
+                    join usergroup in this._dbContext.AclUsergroups on userUsergroup.UsergroupId equals usergroup.Id
+                    join usergroupRole in this._dbContext.AclUsergroupRoles on usergroup.Id equals usergroupRole
+                        .UsergroupId
+                    join role in this._dbContext.AclRoles on usergroupRole.RoleId equals role.Id
+                    join rolePage in this._dbContext.AclRolePages on role.Id equals rolePage.RoleId
+                    join page in this._dbContext.AclPages on rolePage.PageId equals page.Id
+                    join pageRoute in this._dbContext.AclPageRoutes on page.Id equals pageRoute.PageId
+                    join subModule in this._dbContext.AclSubModules on page.SubModuleId equals subModule.Id
+                    join module in this._dbContext.AclModules on subModule.ModuleId equals module.Id
+                    where userUsergroup.UserId == userId
+                    select new PermissionQueryResult()
+                    {
+                        UserId = user.Id,
+                        PermissionVersion = user.PermissionVersion,
+                        PageId = page.Id,
+                        PageName = page.Name,
+                        PageRouteName = pageRoute.RouteName,
+                        UsergroupId = usergroup.Id,
+                        DefaultUrl = usergroup.DashboardUrl,
+                        UsergroupCategory = usergroup.Category,
+                        ModuleId = module.Id,
+                        ControllerName = subModule.ControllerName,
+                        SubmoduleName = subModule.Name,
+                        SubmoduleId = subModule.Id,
+                        MethodName = page.MethodName,
+                        MethodType = page.MethodType,
+                        DefaultMethod = subModule.DefaultMethod
+                    }).ToList();
+
+                if (result != null)
+                {
+                    permittedRoutes = new HashSet<string>(result.Select(q => q.PageRouteName)!);
+                }
+
+                if (this._distributedCache is IDistributedCache)
+                {
+                    await this._distributedCache.SetStringAsync(key, JsonConvert.SerializeObject(permittedRoutes));
+                }
+            }
+
+            var permission = new Permission(userPermissionVersion, permittedRoutes);
+
+            user.SetPermission(permission);
+
+            return user;
+    }
+        
     }
 }
