@@ -31,7 +31,7 @@ namespace ACL.Repositories.V1
         private ICustomUnitOfWork _customUnitOfWork;
         private readonly ApplicationDbContext _dbContext;
         private readonly IDistributedCache _distributedCache;
-        public AclUserRepository(ICustomUnitOfWork _unitOfWork, IConfiguration config, ApplicationDbContext dbContext, IDistributedCache distributedCache) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
+        public AclUserRepository(ICustomUnitOfWork _unitOfWork, IConfiguration config, ApplicationDbContext dbContext, IDistributedCache distributedCache = null) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
             _customUnitOfWork = _unitOfWork;
             AppAuth.SetAuthInfo();
