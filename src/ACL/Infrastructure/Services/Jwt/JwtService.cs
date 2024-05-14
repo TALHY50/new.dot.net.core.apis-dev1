@@ -76,7 +76,7 @@ namespace ACL.Infrastructure.Services.Jwt
             claimsIdentity.AddClaim(new System.Security.Claims.Claim(ClaimTypes.Surname, user.LastName));
 
             // Add custom claims if any
-            foreach (var c in user.Claims ?? System.Linq.Enumerable.Empty<ACL.Domain.Claim>())
+            foreach (var c in user.Claims ?? System.Linq.Enumerable.Empty<Database.Models.Claim>())
             {
                 claimsIdentity.AddClaim(new System.Security.Claims.Claim(c.Type, c.Value));
             }

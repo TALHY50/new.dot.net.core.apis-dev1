@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using ACL.Database.Models;
+using ACL.Domain;
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
 using MySql.EntityFrameworkCore.Extensions;
@@ -577,7 +578,7 @@ public partial class ApplicationDbContext : DbContext, IApplicationDbContext
                 .HasColumnName("is_admin_verified");
             entity.Property(e => e.Language)
                 .HasMaxLength(2)
-                .HasDefaultValueSql("'en'")
+                .HasDefaultValueSql("en-US")
                 .HasColumnName("language");
             entity.Property(e => e.LastName)
                 .HasMaxLength(100)
@@ -4120,7 +4121,7 @@ public partial class ApplicationDbContext : DbContext, IApplicationDbContext
 
 
       );
-        modelBuilder.Entity<AclUser>().HasData(
+        _ = modelBuilder.Entity<AclUser>().HasData(
              new AclUser
              {
                  Id = 1,
@@ -4128,7 +4129,7 @@ public partial class ApplicationDbContext : DbContext, IApplicationDbContext
                  LastName = "admin1",
                  Email = "ssadmin@sipay.com.tr",
                  Avatar = "users/admin/c41353d1c1fcbdbd39f96ea46a3f769136952e79.png",
-                 Password = "Nop@ss1234", // Hashing should be done before storing in actual code
+                 Password = "QCy4DY93n7XSPqOJAjrq9hmwoIuaq9zqbDUBXmXPs+DgWlbGHBxWVQTlQVdmmUYUk0D21muGuNGQr32ro0zFdA==", // Hashing should be done before storing in actual code
                  Dob = DateTime.Parse("1994-02-22"),
                  Gender = 1,
                  Address = "Dhaka",
@@ -4139,14 +4140,26 @@ public partial class ApplicationDbContext : DbContext, IApplicationDbContext
                  RememberToken = "",
                  CreatedAt = DateTime.Parse("2018-07-10 16:21:24"),
                  UpdatedAt = DateTime.Parse("2021-08-25 05:46:27"),
-                 Language = "en",
+                 Language = "en-US",
                  Username = "rajibecbb",
                  ImgPath = "storage/users/1/2019-04-18-07-49-28-ba4fe9be59df7b82f8243d2126070d76f5305b3e.png",
                  Status = 1,
                  CompanyId = 1,
                  PermissionVersion = 1,
                  OtpChannel = 0,
-                 CreatedById = 1
+                 CreatedById = 1,
+                 Salt = "pNr7R0FzsicCDrMlIwXYVI6zM4rZByVgNCkWRwM4y57Sw+cdKUbTrRZLbV8nccwNlN+DokHXlkxKGvw+7ISPPw==",
+                 Claims = new List<Models.Claim>{new Models.Claim
+                 {
+                     Type = "scope",
+                     Value = "CanReadWeather"
+                 } },
+                 RefreshToken = new RefreshToken
+                 {
+                     Value = null,
+                     Active = true,
+                     ExpirationDate = DateTime.MaxValue
+                 },
              }
         );
 

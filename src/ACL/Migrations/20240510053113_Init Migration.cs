@@ -224,8 +224,8 @@ namespace ACL.Migrations
                 {
                     id = table.Column<long>(type: "bigint(20) unsigned", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    name = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
                     country_id = table.Column<long>(type: "bigint(20) unsigned", nullable: false),
+                    name = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
                     description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
                     status = table.Column<sbyte>(type: "tinyint(3) unsigned", nullable: false),
                     sequence = table.Column<long>(type: "bigint(20) unsigned", nullable: false),
@@ -338,12 +338,15 @@ namespace ACL.Migrations
                     is_admin_verified = table.Column<sbyte>(type: "tinyint(4)", nullable: false, comment: "0=Pending, 1=Approved, 2=Not Approved, 3=Lock User"),
                     user_type = table.Column<int>(type: "int(10) unsigned", nullable: false, comment: "USER_TYPE_SS_ADMIN = 0; USER_TYPE_S_ADMIN = 1; USER_TYPE_USER = 2"),
                     remember_token = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true),
+                    refresh_token = table.Column<string>(type: "text", nullable: false),
+                    salt = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true),
                     created_at = table.Column<DateTime>(type: "datetime", nullable: true),
                     updated_at = table.Column<DateTime>(type: "datetime", nullable: true),
                     activated_at = table.Column<DateTime>(type: "datetime", nullable: true),
-                    language = table.Column<string>(type: "varchar(2)", maxLength: 2, nullable: false, defaultValueSql: "'en'"),
+                    language = table.Column<string>(type: "varchar(8)", maxLength: 8, nullable: false),
                     username = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: true),
                     img_path = table.Column<string>(type: "text", nullable: true),
+                    claims = table.Column<string>(type: "text",  nullable: false),
                     status = table.Column<sbyte>(type: "tinyint(4)", nullable: false, defaultValueSql: "'1'", comment: "0=>Inactive or disable; 1=>enable or active; 2=> disabled or suspected;3= awaiting disable or banned;4=awaiting GSM"),
                     company_id = table.Column<int>(type: "int(10) unsigned", nullable: false),
                     permission_version = table.Column<int>(type: "int(10) unsigned", nullable: false),
@@ -357,6 +360,9 @@ namespace ACL.Migrations
                     table.PrimaryKey("PRIMARY", x => x.id);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
+            migrationBuilder.Sql("ALTER TABLE acl_users ALTER COLUMN language SET DEFAULT 'en-US';");
+            migrationBuilder.Sql("ALTER TABLE acl_users ALTER COLUMN salt SET DEFAULT 'pNr7R0FzsicCDrMlIwXYVI6zM4rZByVgNCkWRwM4y57Sw+cdKUbTrRZLbV8nccwNlN+DokHXlkxKGvw+7ISPPw==';");
+            migrationBuilder.Sql("ALTER TABLE acl_users \r\nALTER COLUMN claims \r\nSET DEFAULT '[{\"Type\":\"scope\",\"Value\":\"CanReadWeather\"}]';");
 
             migrationBuilder.CreateTable(
                 name: "acl_usertype_submodules",
@@ -893,8 +899,8 @@ namespace ACL.Migrations
 
             migrationBuilder.InsertData(
                 table: "acl_users",
-                columns: new[] { "id", "activated_at", "address", "auth_identifier", "avatar", "city", "company_id", "country", "created_at", "created_by_id", "dob", "email", "first_name", "gender", "img_path", "is_admin_verified", "language", "last_name", "login_at", "otp_channel", "password", "permission_version", "phone", "remember_token", "status", "updated_at", "user_type", "username" },
-                values: new object[] { 1L, null, "Dhaka", null, "users/admin/c41353d1c1fcbdbd39f96ea46a3f769136952e79.png", "19", 1, 0, new DateTime(2018, 7, 10, 16, 21, 24, 0, DateTimeKind.Unspecified), 1, new DateTime(1994, 2, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), "ssadmin@sipay.com.tr", "admin1", (sbyte)1, "storage/users/1/2019-04-18-07-49-28-ba4fe9be59df7b82f8243d2126070d76f5305b3e.png", (sbyte)1, "en", "admin1", null, (sbyte)0, "Nop@ss1234", 1, "+8801788343704", "", (sbyte)1, new DateTime(2021, 8, 25, 5, 46, 27, 0, DateTimeKind.Unspecified), 0, "rajibecbb" });
+                columns: new[] { "id", "activated_at", "address", "auth_identifier", "avatar", "city", "claims", "company_id", "country", "created_at", "created_by_id", "dob", "email", "first_name", "gender", "img_path", "is_admin_verified", "language", "last_name", "login_at", "otp_channel", "password", "permission_version", "phone", "refresh_token", "remember_token", "salt", "status", "updated_at", "user_type", "username" },
+                values: new object[] { 1L, null, "Dhaka", null, "users/admin/c41353d1c1fcbdbd39f96ea46a3f769136952e79.png", "19", "[]", 1, 0, new DateTime(2018, 7, 10, 16, 21, 24, 0, DateTimeKind.Unspecified), 1, new DateTime(1994, 2, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), "ssadmin@sipay.com.tr", "admin1", (sbyte)1, "storage/users/1/2019-04-18-07-49-28-ba4fe9be59df7b82f8243d2126070d76f5305b3e.png", (sbyte)1, "en-US", "admin1", null, (sbyte)0, "QCy4DY93n7XSPqOJAjrq9hmwoIuaq9zqbDUBXmXPs+DgWlbGHBxWVQTlQVdmmUYUk0D21muGuNGQr32ro0zFdA==", 1, "+8801788343704", "{\"Value\":null,\"Active\":false,\"ExpirationDate\":\"0001-01-01T00:00:00\"}", "", "pNr7R0FzsicCDrMlIwXYVI6zM4rZByVgNCkWRwM4y57Sw+cdKUbTrRZLbV8nccwNlN+DokHXlkxKGvw+7ISPPw==", (sbyte)1, new DateTime(2021, 8, 25, 5, 46, 27, 0, DateTimeKind.Unspecified), 0, "rajibecbb" });
 
             migrationBuilder.InsertData(
                 table: "acl_usertype_submodules",

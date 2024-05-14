@@ -22,5 +22,12 @@ namespace SharedLibrary.Interfaces
         void Detach(T entity);
         IQueryable<T> Where(Expression<Func<T, bool>> predicate);
         Task ReloadEntitiesAsync(IEnumerable<T> entities);
+        Task<List<T>> GetAllWhere(Expression<Func<T, bool>> predicate);
+        Task<List<dynamic>> ExecuteObjectSqlQuery(string sqlQuery);
+        Task<string> ExecuteConcatenatedStringSqlQuery(string sqlQuery);
+        Task<string> ExecuteSqlQueryAsJson(string sqlQuery);
+        Task<string> ExecuteSqlQueryAsJson(string sqlQuery, params object[] parameters);
+        Task<List<Dictionary<string, object>>> ExecuteAnySqlQuery(string sqlQuery);
+        Task<List<Dictionary<string, object>>> ExecuteStoredProcedure(string storedProcedureName, params object[] parameters);
     }
 }

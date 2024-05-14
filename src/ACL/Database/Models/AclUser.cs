@@ -63,7 +63,7 @@ public partial class AclUser
 
     public string? ImgPath { get; set; }
     
-    public IList<Domain.Claim> Claims { get; set; }
+    public IList<Claim> Claims { get; set; }
 
     /// <summary>
     /// 0=&gt;Inactive or disable; 1=&gt;enable or active; 2=&gt; disabled or suspected;3= awaiting disable or banned;4=awaiting GSM
@@ -95,7 +95,7 @@ public partial class AclUser
     
     public AclUser()
     {
-        Claims = new List<Domain.Claim>();
+        Claims = new List<Claim>();
         RefreshToken = new RefreshToken();
     }
 

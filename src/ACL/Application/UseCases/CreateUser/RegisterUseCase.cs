@@ -81,11 +81,11 @@ namespace ACL.Application.UseCases.CreateUser
             }
         }
 
-        private static IList<Domain.Claim> ToClaims(IList<Request.Claim> requestClaims)
+        private static IList<Database.Models.Claim> ToClaims(IList<Request.Claim> requestClaims)
         {
             if (requestClaims == null) return null;
-            var claims = new List<Domain.Claim>();
-            claims.AddRange(requestClaims.Select(r => new Domain.Claim { Type = r.Type, Value = r.Value }).ToList());
+            var claims = new List<Database.Models.Claim>();
+            claims.AddRange(requestClaims.Select(r => new Database.Models.Claim { Type = r.Type, Value = r.Value }).ToList());
             return claims;
         }
     }
