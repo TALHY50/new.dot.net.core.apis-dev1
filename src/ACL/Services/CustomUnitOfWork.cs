@@ -25,6 +25,7 @@ using ACL.Interfaces.ServiceInterfaces;
 using ACL.Application.Ports.Repositories;
 using ACL.Application.Ports.Services;
 using ACL.Infrastructure.Services.Cryptography;
+using Microsoft.Extensions.Caching.Distributed;
 
 namespace ACL.Services
 {
@@ -35,6 +36,7 @@ namespace ACL.Services
         private ILogService _logService;
         IUnitOfWork<ApplicationDbContext, ICustomUnitOfWork> _baseunitOfWork;
         ICustomUnitOfWork _unitOfWork;
+        readonly IDistributedCache _distributedCache;
         public CustomUnitOfWork(ApplicationDbContext context, ILogger<UnitOfWork<ApplicationDbContext, ICustomUnitOfWork>> logger, ILogService logService, ICacheService cacheService, IServiceCollection services, Assembly programAssembly)
                    : base(context, logger, logService, cacheService, services, programAssembly)
         {
@@ -147,7 +149,7 @@ namespace ACL.Services
 
         public IAclUserRepository AclUserRepository
         {
-            get { return new AclUserRepository(this, Config,ApplicationDbContext); }
+            get { return new AclUserRepository(this, Config,this.ApplicationDbContext,this._distributedCache); }
         }
 
         public IAclUserUserGroupRepository AclUserUserGroupRepository
