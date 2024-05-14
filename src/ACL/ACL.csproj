@@ -44,7 +44,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Database\" />
     <Folder Include="Application\Enums\" />
     <Folder Include="Application\UseCases\" />
     <Folder Include="Domain\" />
@@ -52,7 +51,6 @@
     <Folder Include="Infrastructure\Common\" />
     <Folder Include="Infrastructure\Persistence\Permissions\" />
     <Folder Include="Logs\" />
-    <Folder Include="Migrations\" />
   </ItemGroup>
 
   <ItemGroup>
