@@ -7,8 +7,11 @@ using ACL.Requests;
 using ACL.Response.V1;
 using ACL.Services;
 using ACL.Utilities;
+using Microsoft.Extensions.Caching.Distributed;
+using Newtonsoft.Json;
 using SharedLibrary.Response.CustomStatusCode;
 using SharedLibrary.Services;
+using SharedLibrary.Utilities;
 
 namespace ACL.Repositories.V1
 {
@@ -18,9 +21,13 @@ namespace ACL.Repositories.V1
         public MessageResponse messageResponse;
         private string modelName = "Country";
         ICustomUnitOfWork _customUnitOfWork;
-        public AclCountryRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
+
+        public readonly IDistributedCache _distributedCache;
+
+        public AclCountryRepository(ICustomUnitOfWork _unitOfWork, IDistributedCache distributedCache) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
             _customUnitOfWork = _unitOfWork;
+            _distributedCache = distributedCache;
             aclResponse = new AclResponse();
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
             messageResponse = new MessageResponse(modelName, _unitOfWork, AppAuth.GetAuthInfo().Language);
@@ -28,12 +35,17 @@ namespace ACL.Repositories.V1
 
         public async Task<AclResponse> GetAll()
         {
-            var aclRoles = await base.All();
-            if (aclRoles.Any())
+
+            string? cachedCountires = await _distributedCache.GetStringAsync("countries");
+            IEnumerable<AclCountry>? aclRoles;
+            if (string.IsNullOrEmpty(cachedCountires))
             {
-                aclResponse.Message = messageResponse.fetchMessage;
+                aclRoles = await base.All();
+                await _distributedCache.SetStringAsync("countries", JsonConvert.SerializeObject(aclRoles));
             }
-            aclResponse.Data = aclRoles;
+
+            aclResponse.Message = messageResponse.fetchMessage;
+            aclResponse.Data = JsonConvert.DeserializeObject(cachedCountires);
             aclResponse.StatusCode = AppStatusCode.SUCCESS;
 
             return aclResponse;
