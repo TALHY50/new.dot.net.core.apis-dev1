@@ -89,19 +89,22 @@ namespace ACL.Repositories.V1
                                 var createdUserGroup = (AclUsergroup)userGroup.Data;
                                 await _customUnitOfWork.AclUserGroupRepository.ReloadAsync(createdUserGroup);
 
+                                var salt = _unitOfWork.cryptographyService.GenerateSalt();
                                 string[] nameArr = request.Name.Split(' ');
                                 string fname = (nameArr.Length > 0) ? nameArr[0] : "";
                                 string lname = (nameArr.Length > 1) ? nameArr[1] : fname;
                                 AclUser user = new AclUser()
                                 {
                                     Email = aclCompany.Email,
-                                    Password = request.Password,
+                                    Password =  (request.Password != null && request.Password.Length != 88) ? _unitOfWork.cryptographyService.HashPassword(request.Password, salt) : request.Password,
                                     UserType = _customUnitOfWork.AclUserRepository.SetUserType(true),
                                     FirstName = fname,
                                     LastName = lname,
                                     Language = "en-US",
                                     Username = aclCompany.Email,
                                     CreatedById = 0,
+                                    Salt = salt,
+                                    Claims = new Claim[] {},
                                     CreatedAt = DateTime.Now,
                                     UpdatedAt = DateTime.Now
                                 };
