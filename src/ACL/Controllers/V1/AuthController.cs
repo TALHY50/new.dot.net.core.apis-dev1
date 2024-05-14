@@ -45,6 +45,7 @@ namespace ACL.Controllers.V1
             return await _loginUseCase.Execute(request);
         }
 
+        [Authorize]
         [AllowAnonymous]
         [HttpPost]
         [Route("refresh-token")]
@@ -53,6 +54,7 @@ namespace ACL.Controllers.V1
             return await _refreshTokenUseCase.Execute(request);
         }
 
+        [Authorize]
         [AllowAnonymous]
         [HttpPost]
         [Route("sign-out")]
