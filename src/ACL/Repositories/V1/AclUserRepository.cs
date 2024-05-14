@@ -215,7 +215,7 @@ namespace ACL.Repositories.V1
                     FirstName = request.FirstName,
                     LastName = request.LastName,
                     Email = request.Email,
-                    Password = (request.Password != null && request.Password.Length != 88) ? _unitOfWork.cryptographyService.HashPassword(request.Password, request.Salt ?? salt) : request.Password,
+                    Password = (request.Password != null && request.Password.Length != 88) ? _unitOfWork.cryptographyService.HashPassword(request.Password,  salt) : request.Password,
                     Avatar = request.Avatar,
                     Dob = request.DOB,
                     Gender = request.Gender,
@@ -240,7 +240,7 @@ namespace ACL.Repositories.V1
                 AclUser.FirstName = request.FirstName;
                 AclUser.LastName = request.LastName;
                 AclUser.Email = request.Email;
-                AclUser.Password = (request.Password != null && request.Password.Length != 88) ? _unitOfWork.cryptographyService.HashPassword(request.Password, request.Salt ?? salt) : request.Password;
+                AclUser.Password = (request.Password != null && request.Password.Length != 88) ? _unitOfWork.cryptographyService.HashPassword(request.Password, AclUser.Salt ?? salt) : request.Password;
                 AclUser.Avatar = request.Avatar;
                 AclUser.Dob = request.DOB;
                 AclUser.Gender = request.Gender;
