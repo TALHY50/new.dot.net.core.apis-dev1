@@ -2,5 +2,5 @@ namespace ACL.Application.Enums;
 
 public enum CacheKeys
 {
-    RoleIdPermittedRoutes = 1
+    RoleRouteNames = 1
 }
