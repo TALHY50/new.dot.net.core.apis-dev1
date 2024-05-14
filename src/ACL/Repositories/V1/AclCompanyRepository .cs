@@ -96,7 +96,7 @@ namespace ACL.Repositories.V1
                                 AclUser user = new AclUser()
                                 {
                                     Email = aclCompany.Email,
-                                    Password =  (request.Password != null && request.Password.Length != 88) ? _unitOfWork.cryptographyService.HashPassword(request.Password, salt) : request.Password,
+                                    Password = (request.Password != null && request.Password.Length != 88) ? _unitOfWork.cryptographyService.HashPassword(request.Password, salt) : request.Password,
                                     UserType = _customUnitOfWork.AclUserRepository.SetUserType(true),
                                     FirstName = fname,
                                     LastName = lname,
@@ -104,7 +104,7 @@ namespace ACL.Repositories.V1
                                     Username = aclCompany.Email,
                                     CreatedById = 0,
                                     Salt = salt,
-                                    Claims = new Claim[] {},
+                                    Claims = new Claim[] { },
                                     CreatedAt = DateTime.Now,
                                     UpdatedAt = DateTime.Now
                                 };
@@ -114,6 +114,9 @@ namespace ACL.Repositories.V1
                                 _unitOfWork.AclUserRepository.Add(user);
                                 await _unitOfWork.CompleteAsync();
                                 await _unitOfWork.AclUserRepository.ReloadAsync(user);
+                                var userusergroup = PrepareDataForUserUserGroups(createdUserGroup.Id, user.Id);
+                                _unitOfWork.AclUserUserGroupRepository.Add(userusergroup);
+                                await _unitOfWork.CompleteAsync();
 
                                 AclRole role = new AclRole()
                                 {
@@ -140,8 +143,8 @@ namespace ACL.Repositories.V1
                                 };
                                 var createdUserGroupRole = _unitOfWork.AclUserGroupRoleRepository.Add(userGroupRole);
                                 await _unitOfWork.CompleteAsync();
-                                List<AclRolePage> aclRolePagesById = await _customUnitOfWork.AclRolePageRepository.Where(x => x.RoleId == ulong.Parse(_config["S_ADMIN_DEFAULT_MODULE_ID"])).ToListAsync();
-                                List<ulong> pageIds = aclRolePagesById.Select(page => page.Id).ToList();
+                                List<AclPage> aclPagesByModuleId = await _customUnitOfWork.AclPageRepository.Where(x => x.ModuleId == ulong.Parse(_config["S_ADMIN_DEFAULT_MODULE_ID"])).ToListAsync();
+                                List<ulong> pageIds = aclPagesByModuleId.Select(page => page.Id).ToList();
                                 List<AclRolePage> aclRolePages = pageIds.Select(pageId => new AclRolePage
                                 {
                                     RoleId = role.Id,
@@ -307,5 +310,14 @@ namespace ACL.Repositories.V1
             return (int)AppAuth.GetAuthInfo().UserId;
         }
 
+        public AclUserUsergroup PrepareDataForUserUserGroups(ulong usergroup, ulong user_id)
+        {
+            AclUserUsergroup aclUserUserGroup = new AclUserUsergroup();
+            aclUserUserGroup.UserId = user_id;
+            aclUserUserGroup.UsergroupId = usergroup;
+            aclUserUserGroup.CreatedAt = DateTime.Now;
+            aclUserUserGroup.UpdatedAt = DateTime.Now;
+            return aclUserUserGroup;
+        }
     }
 }
