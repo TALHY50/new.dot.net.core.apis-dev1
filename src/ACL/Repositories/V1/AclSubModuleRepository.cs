@@ -87,7 +87,7 @@ namespace ACL.Repositories.V1
         public async Task<AclResponse> FindById(ulong id)
         {
 
-            var aclSubModule = await _customUnitOfWork.AclSubModuleRepository.Where(sm => true)
+            var aclSubModule = await _customUnitOfWork.AclSubModuleRepository.Where(sm => true).Where(x=>x.Id == id)
                .Join(_customUnitOfWork.AclModuleRepository.Where(m => true), sm => sm.ModuleId, m => m.Id, (sm, m) => new
                {
                    submodule = sm,
