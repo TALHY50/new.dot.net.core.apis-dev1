@@ -1,4 +1,5 @@
-﻿using ACL.Application.Ports.Repositories;
+﻿using ACL.Application.Enums;
+using ACL.Application.Ports.Repositories;
 using ACL.Database.Models;
 using ACL.Interfaces;
 using ACL.Interfaces.Repositories.V1;
@@ -300,84 +301,86 @@ namespace ACL.Repositories.V1
         {
             this._dbContext.Update(entity);
             await this._dbContext.SaveChangesAsync();
-
-            return entity; ;
-        }
-        public async Task<AclUser?> GetUserWithPermissionAsync(uint userId, uint userPermissionVersion)
-        {
-            HashSet<string>? permittedRoutes = null;
-
-            var key = $"userId_PermissionVersion-{userId}_{userPermissionVersion}";
-
+            
+            return entity;;
+        } 
+        public async Task<AclUser?> GetUserWithPermissionAsync(uint userId) 
+        { 
+            HashSet<string>? permittedRoutes = new HashSet<string>();
+            
             var user = await this.FindByIdAsync(userId);
 
             if (user == null) return user;
-
-            if (this._distributedCache is IDistributedCache)
-            {
-
-                if (userPermissionVersion == user.PermissionVersion)
+            
+            var roles = (from userUsergroup in this._dbContext.AclUserUsergroups
+                join usergroup in this._dbContext.AclUsergroups on userUsergroup.UsergroupId equals usergroup.Id
+                join usergroupRole in this._dbContext.AclUsergroupRoles on usergroup.Id equals usergroupRole
+                    .UsergroupId
+                join role in this._dbContext.AclRoles on usergroupRole.RoleId equals role.Id
+                where userUsergroup.UserId == userId
+                select new 
                 {
+                    RoleId = role.Id
+                }).ToList();
 
-                    string? cachedPermittedRoutes = await this._distributedCache.GetStringAsync(key);
 
-                    if (cachedPermittedRoutes != null)
-                    {
-                        permittedRoutes =
-                            JsonConvert.DeserializeObject<HashSet<string>>(cachedPermittedRoutes) ?? null;
-                    }
-                }
-            }
-
-            if (permittedRoutes == null)
+            foreach (var role in roles)
             {
-                var result = (from userUsergroup in this._dbContext.AclUserUsergroups
-                              join usergroup in this._dbContext.AclUsergroups on userUsergroup.UsergroupId equals usergroup.Id
-                              join usergroupRole in this._dbContext.AclUsergroupRoles on usergroup.Id equals usergroupRole
-                                  .UsergroupId
-                              join role in this._dbContext.AclRoles on usergroupRole.RoleId equals role.Id
-                              join rolePage in this._dbContext.AclRolePages on role.Id equals rolePage.RoleId
-                              join page in this._dbContext.AclPages on rolePage.PageId equals page.Id
-                              join pageRoute in this._dbContext.AclPageRoutes on page.Id equals pageRoute.PageId
-                              join subModule in this._dbContext.AclSubModules on page.SubModuleId equals subModule.Id
-                              join module in this._dbContext.AclModules on subModule.ModuleId equals module.Id
-                              where userUsergroup.UserId == userId
-                              select new PermissionQueryResult()
-                              {
-                                  UserId = user.Id,
-                                  PermissionVersion = user.PermissionVersion,
-                                  PageId = page.Id,
-                                  PageName = page.Name,
-                                  PageRouteName = pageRoute.RouteName,
-                                  UsergroupId = usergroup.Id,
-                                  DefaultUrl = usergroup.DashboardUrl,
-                                  UsergroupCategory = usergroup.Category,
-                                  ModuleId = module.Id,
-                                  ControllerName = subModule.ControllerName,
-                                  SubmoduleName = subModule.Name,
-                                  SubmoduleId = subModule.Id,
-                                  MethodName = page.MethodName,
-                                  MethodType = page.MethodType,
-                                  DefaultMethod = subModule.DefaultMethod
-                              }).ToList();
+                var key = $"{Enum.GetName(CacheKeys.RoleIdPermittedRoutes)}-{role.RoleId}";
 
-                if (result != null)
-                {
-                    permittedRoutes = new HashSet<string>(result.Select(q => q.PageRouteName)!);
-                }
+                string? cachedPermittedRoutes = null;
 
                 if (this._distributedCache is IDistributedCache)
                 {
-                    await this._distributedCache.SetStringAsync(key, JsonConvert.SerializeObject(permittedRoutes));
+                    cachedPermittedRoutes = await this._distributedCache.GetStringAsync(key);
+                }
+
+                if (cachedPermittedRoutes != null)
+                {
+                    permittedRoutes.UnionWith(JsonConvert.DeserializeObject<HashSet<string>>(cachedPermittedRoutes));
+                }
+                else
+                {
+                    var permissionList = (from rolePage in this._dbContext.AclRolePages
+                        join page in this._dbContext.AclPages on rolePage.PageId equals page.Id
+                        join pageRoute in this._dbContext.AclPageRoutes on page.Id equals pageRoute.PageId
+                        join subModule in this._dbContext.AclSubModules on page.SubModuleId equals subModule.Id
+                        join module in this._dbContext.AclModules on subModule.ModuleId equals module.Id
+                        where rolePage.RoleId == role.RoleId
+                        select new PermissionQueryResult()
+                        {
+                            UserId = user.Id,
+                            PermissionVersion = user.PermissionVersion,
+                            PageId = page.Id,
+                            PageName = page.Name,
+                            PageRouteName = pageRoute.RouteName,
+                            ModuleId = module.Id,
+                            ControllerName = subModule.ControllerName,
+                            SubmoduleName = subModule.Name,
+                            SubmoduleId = subModule.Id,
+                            MethodName = page.MethodName,
+                            MethodType = page.MethodType,
+                            DefaultMethod = subModule.DefaultMethod
+                        }).ToList();
+                    if (permissionList != null)
+                    {
+                        var tmp = permissionList.Select(q => q.PageRouteName).ToHashSet();
+                        permittedRoutes.UnionWith(tmp);
+                    }
+
+                    if (this._distributedCache is IDistributedCache)
+                    {
+                        await this._distributedCache.SetStringAsync(key, JsonConvert.SerializeObject(permittedRoutes));
+                    }
                 }
             }
-
-            var permission = new Permission(userPermissionVersion, permittedRoutes);
+            
+            var permission = new Permission(permittedRoutes);
 
             user.SetPermission(permission);
 
             return user;
-        }
-
+    }
+        
     }
 }
