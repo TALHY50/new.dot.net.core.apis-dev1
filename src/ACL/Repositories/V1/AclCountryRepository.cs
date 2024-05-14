@@ -22,12 +22,9 @@ namespace ACL.Repositories.V1
         private string modelName = "Country";
         ICustomUnitOfWork _customUnitOfWork;
 
-        public readonly IDistributedCache _distributedCache;
-
-        public AclCountryRepository(ICustomUnitOfWork _unitOfWork, IDistributedCache distributedCache = null) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
+        public AclCountryRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
             _customUnitOfWork = _unitOfWork;
-            _distributedCache = distributedCache;
             aclResponse = new AclResponse();
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
             messageResponse = new MessageResponse(modelName, _unitOfWork, AppAuth.GetAuthInfo().Language);
@@ -35,17 +32,12 @@ namespace ACL.Repositories.V1
 
         public async Task<AclResponse> GetAll()
         {
-
-            string? cachedCountires = await _distributedCache.GetStringAsync("countries");
-            IEnumerable<AclCountry>? aclRoles;
-            if (string.IsNullOrEmpty(cachedCountires))
+            var aclRoles = await base.All();
+            if (aclRoles.Any())
             {
-                aclRoles = await base.All();
-                await _distributedCache.SetStringAsync("countries", JsonConvert.SerializeObject(aclRoles));
+                aclResponse.Message = messageResponse.fetchMessage;
             }
-
-            aclResponse.Message = messageResponse.fetchMessage;
-            aclResponse.Data = JsonConvert.DeserializeObject(cachedCountires);
+            aclResponse.Data = aclRoles;
             aclResponse.StatusCode = AppStatusCode.SUCCESS;
 
             return aclResponse;
