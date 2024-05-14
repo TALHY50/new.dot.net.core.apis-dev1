@@ -166,7 +166,7 @@ namespace ACL.Services
         }
         public IAclCountryRepository AclCountryRepository
         {
-            get { return new AclCountryRepository(this, this._distributedCache); }
+            get { return new AclCountryRepository(this); }
         }
 
         public IAclStateRepository AclStateRepository

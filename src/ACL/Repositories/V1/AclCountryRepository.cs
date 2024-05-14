@@ -24,7 +24,7 @@ namespace ACL.Repositories.V1
 
         public readonly IDistributedCache _distributedCache;
 
-        public AclCountryRepository(ICustomUnitOfWork _unitOfWork, IDistributedCache distributedCache) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
+        public AclCountryRepository(ICustomUnitOfWork _unitOfWork, IDistributedCache distributedCache = null) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
             _customUnitOfWork = _unitOfWork;
             _distributedCache = distributedCache;
