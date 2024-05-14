@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using ACL.Database.Models;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 
@@ -81,6 +82,13 @@ namespace ACL.Requests.V1
         [Required]
         [MinLength(1, ErrorMessage = "Array must contain at least one element.")]
         public ulong[] UserGroup { get; set; }
+
+        [Required]
+        public IList<Claim>? Claims { get; set; }
+        [Required]
+        [DefaultValue("QVQhNmhjVBaFlKvwy+qec20itUl8kmNFgwlKVard2KDfPOmkkD3voz9xKVs+30gFKZYiVcGrRLRvJLRRklzO9g==")]
+        [MaxLength(255)]
+        public string? Salt { get; set; }
 
     }
 

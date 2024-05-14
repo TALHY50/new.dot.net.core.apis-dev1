@@ -103,7 +103,7 @@ namespace ACL.Repositories.V1
                                     Username = aclCompany.Email,
                                     CreatedById = 0,
                                     CreatedAt = DateTime.Now,
-                                    UpdatedAt = DateTime.Now,
+                                    UpdatedAt = DateTime.Now
                                 };
 
                                 _unitOfWork.AclUserRepository.SetCompanyId((uint)aclCompany.Id);

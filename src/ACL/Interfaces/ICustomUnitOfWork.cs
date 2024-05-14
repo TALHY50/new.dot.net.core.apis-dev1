@@ -14,6 +14,7 @@ using ACL.Application.Ports.Repositories;
 using ACL.Repositories.V1;
 using SharedLibrary.Interfaces;
 using ACL.Interfaces.ServiceInterfaces;
+using ACL.Application.Ports.Services;
 
 
 namespace ACL.Interfaces
@@ -22,6 +23,7 @@ namespace ACL.Interfaces
     {
         ICustomUnitOfWork _unitOfWork { get; }
         IUnitOfWork<ApplicationDbContext,CustomUnitOfWork> _baseUnitOfWork { get; }
+        ICryptographyService cryptographyService { get; }
         IAclCompanyRepository AclCompanyRepository { get; }
         IAclCountryRepository AclCountryRepository { get; }
         IAclCompanyModuleRepository AclCompanyModuleRepository { get; }

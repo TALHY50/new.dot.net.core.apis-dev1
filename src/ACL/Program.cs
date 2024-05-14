@@ -54,7 +54,7 @@ builder.Services.Configure<JwtSettings>(jwtSettingsConfiguration);
 var jwtSettings = jwtSettingsConfiguration.Get<JwtSettings>();
 
 builder.Services.AddSingleton<IAuthTokenService, JwtService>();
-builder.Services.AddSingleton<ICryptographyService, CryptographyService>();
+builder.Services.AddTransient<ICryptographyService, CryptographyService>();
 
 builder.Services.AddSingleton(provider =>
 {

@@ -45,7 +45,7 @@ namespace ACL.Application.UseCases.Login
 
                 if (AreCredentialsValid(request.Password, user))
                 {
-                    user.RefreshToken = new Domain.RefreshToken
+                    user.RefreshToken = new ACL.Database.Models.RefreshToken
                     {
                         Value = await this._authTokenService.GenerateRefreshToken(),
                         Active = true,

@@ -102,7 +102,7 @@ namespace ACL.Repositories.V1
         {
             try
             {
-                var aclUser = _unitOfWork.ApplicationDbContext.AclUsers.Find(id);
+                AclUser aclUser = await base.GetById(id);
 
                 if (aclUser != null)
                 {
@@ -143,6 +143,7 @@ namespace ACL.Repositories.V1
 
         }
 
+
         public async Task<AclResponse> FindById(ulong id)
         {
             try
@@ -179,7 +180,7 @@ namespace ACL.Repositories.V1
             var aclUser = await _customUnitOfWork.ApplicationDbContext.AclUsers.FirstOrDefaultAsync(m => m.Id == id);
 
             return aclUser;
-            
+
         }
 
         public async Task<AclResponse> DeleteById(ulong id)
@@ -203,8 +204,9 @@ namespace ACL.Repositories.V1
             return aclResponse;
         }
 
-        private AclUser PrepareInputData(AclUserRequest request, AclUser AclUser = null)
+        public AclUser PrepareInputData(AclUserRequest request, AclUser AclUser = null)
         {
+            var salt = _unitOfWork.cryptographyService.GenerateSalt();
             if (AclUser == null)
             {
                 return new AclUser
@@ -212,7 +214,7 @@ namespace ACL.Repositories.V1
                     FirstName = request.FirstName,
                     LastName = request.LastName,
                     Email = request.Email,
-                    Password = Cryptographer.AppEncrypt(request.Password),
+                    Password = (request.Password != null && request.Password.Length != 88) ? _unitOfWork.cryptographyService.HashPassword(request.Password, request.Salt ?? salt) : request.Password,
                     Avatar = request.Avatar,
                     Dob = request.DOB,
                     Gender = request.Gender,
@@ -227,7 +229,9 @@ namespace ACL.Repositories.V1
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now,
                     CompanyId = _companyId,
-                    UserType = (_companyId == 0) ? uint.Parse(_config["USER_TYPE_S_ADMIN"]) : uint.Parse(_config["USER_TYPE_USER"])
+                    UserType = (_companyId == 0) ? uint.Parse(_config["USER_TYPE_S_ADMIN"]) : uint.Parse(_config["USER_TYPE_USER"]),
+                    Salt = request.Salt,
+                    Claims = request.Claims
                 };
             }
             else
@@ -235,7 +239,7 @@ namespace ACL.Repositories.V1
                 AclUser.FirstName = request.FirstName;
                 AclUser.LastName = request.LastName;
                 AclUser.Email = request.Email;
-                AclUser.Password = Cryptographer.AppEncrypt(request.Password);
+                AclUser.Password = (request.Password != null && request.Password.Length != 88) ? _unitOfWork.cryptographyService.HashPassword(request.Password, request.Salt ?? salt) : request.Password;
                 AclUser.Avatar = request.Avatar;
                 AclUser.Dob = request.DOB;
                 AclUser.Gender = request.Gender;
@@ -250,6 +254,8 @@ namespace ACL.Repositories.V1
                 AclUser.UpdatedAt = DateTime.Now;
                 AclUser.CompanyId = (_companyId != 0) ? _companyId : 0;
                 AclUser.UserType = (_userType != 0) ? _userType : 0;
+                AclUser.Salt = request.Salt;
+                AclUser.Claims = request.Claims;
             }
             return AclUser;
         }
@@ -289,24 +295,24 @@ namespace ACL.Repositories.V1
 
             return entity;
         }
-        
+
         public async Task<AclUser> UpdateAndSaveAsync(AclUser entity)
         {
             this._dbContext.Update(entity);
             await this._dbContext.SaveChangesAsync();
-            
-            return entity;;
-        } 
-        public async Task<AclUser?> GetUserWithPermissionAsync(uint userId, uint userPermissionVersion) 
-        { 
+
+            return entity; ;
+        }
+        public async Task<AclUser?> GetUserWithPermissionAsync(uint userId, uint userPermissionVersion)
+        {
             HashSet<string>? permittedRoutes = null;
-        
+
             var key = $"userId_PermissionVersion-{userId}_{userPermissionVersion}";
 
             var user = await this.FindByIdAsync(userId);
 
             if (user == null) return user;
-            
+
             if (this._distributedCache is IDistributedCache)
             {
 
@@ -326,34 +332,34 @@ namespace ACL.Repositories.V1
             if (permittedRoutes == null)
             {
                 var result = (from userUsergroup in this._dbContext.AclUserUsergroups
-                    join usergroup in this._dbContext.AclUsergroups on userUsergroup.UsergroupId equals usergroup.Id
-                    join usergroupRole in this._dbContext.AclUsergroupRoles on usergroup.Id equals usergroupRole
-                        .UsergroupId
-                    join role in this._dbContext.AclRoles on usergroupRole.RoleId equals role.Id
-                    join rolePage in this._dbContext.AclRolePages on role.Id equals rolePage.RoleId
-                    join page in this._dbContext.AclPages on rolePage.PageId equals page.Id
-                    join pageRoute in this._dbContext.AclPageRoutes on page.Id equals pageRoute.PageId
-                    join subModule in this._dbContext.AclSubModules on page.SubModuleId equals subModule.Id
-                    join module in this._dbContext.AclModules on subModule.ModuleId equals module.Id
-                    where userUsergroup.UserId == userId
-                    select new PermissionQueryResult()
-                    {
-                        UserId = user.Id,
-                        PermissionVersion = user.PermissionVersion,
-                        PageId = page.Id,
-                        PageName = page.Name,
-                        PageRouteName = pageRoute.RouteName,
-                        UsergroupId = usergroup.Id,
-                        DefaultUrl = usergroup.DashboardUrl,
-                        UsergroupCategory = usergroup.Category,
-                        ModuleId = module.Id,
-                        ControllerName = subModule.ControllerName,
-                        SubmoduleName = subModule.Name,
-                        SubmoduleId = subModule.Id,
-                        MethodName = page.MethodName,
-                        MethodType = page.MethodType,
-                        DefaultMethod = subModule.DefaultMethod
-                    }).ToList();
+                              join usergroup in this._dbContext.AclUsergroups on userUsergroup.UsergroupId equals usergroup.Id
+                              join usergroupRole in this._dbContext.AclUsergroupRoles on usergroup.Id equals usergroupRole
+                                  .UsergroupId
+                              join role in this._dbContext.AclRoles on usergroupRole.RoleId equals role.Id
+                              join rolePage in this._dbContext.AclRolePages on role.Id equals rolePage.RoleId
+                              join page in this._dbContext.AclPages on rolePage.PageId equals page.Id
+                              join pageRoute in this._dbContext.AclPageRoutes on page.Id equals pageRoute.PageId
+                              join subModule in this._dbContext.AclSubModules on page.SubModuleId equals subModule.Id
+                              join module in this._dbContext.AclModules on subModule.ModuleId equals module.Id
+                              where userUsergroup.UserId == userId
+                              select new PermissionQueryResult()
+                              {
+                                  UserId = user.Id,
+                                  PermissionVersion = user.PermissionVersion,
+                                  PageId = page.Id,
+                                  PageName = page.Name,
+                                  PageRouteName = pageRoute.RouteName,
+                                  UsergroupId = usergroup.Id,
+                                  DefaultUrl = usergroup.DashboardUrl,
+                                  UsergroupCategory = usergroup.Category,
+                                  ModuleId = module.Id,
+                                  ControllerName = subModule.ControllerName,
+                                  SubmoduleName = subModule.Name,
+                                  SubmoduleId = subModule.Id,
+                                  MethodName = page.MethodName,
+                                  MethodType = page.MethodType,
+                                  DefaultMethod = subModule.DefaultMethod
+                              }).ToList();
 
                 if (result != null)
                 {
@@ -371,7 +377,7 @@ namespace ACL.Repositories.V1
             user.SetPermission(permission);
 
             return user;
-    }
-        
+        }
+
     }
 }

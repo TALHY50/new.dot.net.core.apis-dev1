@@ -6,6 +6,8 @@ using ACL.Application.UseCases.CreateUser.Response;
 using ACL.Database.Models;
 using ACL.Interfaces;
 using ACL.Interfaces.Repositories.V1;
+using ACL.Requests.V1;
+using ACL.Response.V1;
 using Claim = ACL.Application.UseCases.CreateUser.Request.Claim;
 
 namespace ACL.Application.UseCases.CreateUser
@@ -32,39 +34,37 @@ namespace ACL.Application.UseCases.CreateUser
         public async Task<RegisterResponse> Execute(RegisterRequest request)
         {
             try
-            { 
-                var user = await this._authRepository.FindByEmail(request.Email);
-                if (user != null)
-                {
-                    var response = new RegisterErrorResponse
-                    {
-                        Message = Enum.GetName(ErrorCodes.UserWithEmailAlreadyExist),
-                        Code = ErrorCodes.UserWithEmailAlreadyExist.ToString("D")
-                    };
-                    return response;
-                }
-                
+            {
                 var salt = this._cryptographyService.GenerateSalt();
                 var currentDate = DateTime.UtcNow;
-                
-                user = new AclUser() 
+                AclUserRequest userRequest = new AclUserRequest
                 {
-                    Status = 1,
                     Email = request.Email,
-                    Password = _cryptographyService.HashPassword(request.Password, salt),
-                    Salt = salt,
                     FirstName = request.Name,
                     LastName = request.LastName,
-                    Claims = ToClaims(request.Claims),
-                    CreatedAt = currentDate,
-                    UpdatedAt = currentDate
+                    Language = "en-US",
+                    Avatar = "Should be image as base 64",
+                    Password = _cryptographyService.HashPassword(request.Password, salt),
+                    Salt = salt,
+                    DOB = currentDate,
+                    Gender = 1,
+                    Address = "Pantho path Dhaka",
+                    City = "Dhaka",
+                    Country = 1,
+                    Phone = "+88014314xxxxx",
+                    UserName = request.Name,
+                    ImgPath = "Should be base64",
+                    Status = 1,
+                    UserGroup = new ulong[] { 1, 2 },
+                    Claims = ToClaims(request.Claims)
                 };
-
-                await this._authRepository.AddAndSaveAsync(user);
+                AclResponse result = await _authRepository.AddUser(userRequest);
+                AclUser user = (AclUser)result.Data;
 
                 return new RegisterSuccessResponse
                 {
-                    UserId = user.Id
+                    UserId = user.Id,
+                    //User = user
                 };
             }
             catch (Exception ex)
@@ -81,7 +81,7 @@ namespace ACL.Application.UseCases.CreateUser
             }
         }
 
-        private static IList<Database.Models.Claim> ToClaims(IList<Request.Claim> requestClaims)
+        private static IList<Database.Models.Claim> ToClaims(IList<Database.Models.Claim> requestClaims)
         {
             if (requestClaims == null) return null;
             var claims = new List<Database.Models.Claim>();
