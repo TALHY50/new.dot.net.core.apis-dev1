@@ -41,8 +41,8 @@ namespace ACL.Infrastructure.Services.Jwt
                 claimsIdentity.AddClaim(new System.Security.Claims.Claim("scope", string.Join(" ", scope.Value)));
             }
 
-            var version = user.PermissionVersion;
-            claimsIdentity.AddClaim(new System.Security.Claims.Claim(VersionClaimType, version.ToString()));
+            /*var version = user.PermissionVersion;
+            claimsIdentity.AddClaim(new System.Security.Claims.Claim(VersionClaimType, version.ToString()));*/
 
             var jwtHandler = new JwtSecurityTokenHandler();
 

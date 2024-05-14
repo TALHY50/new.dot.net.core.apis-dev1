@@ -19,8 +19,7 @@ public static class HttpContextExtensions
     {
         return context.User.Identity != null
                && context.User.Identity.IsAuthenticated
-               && context.User.HasClaim(c => c.Type == ClaimTypes.NameIdentifier)
-               && context.User.HasClaim(c => c.Type == JwtService.VersionClaimType);
+               && context.User.HasClaim(c => c.Type == ClaimTypes.NameIdentifier);
 
     }
     
