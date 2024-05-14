@@ -49,6 +49,17 @@ namespace ACL.Services
             _assembly = programAssembly;
             _unitOfWork.SetAssembly(_assembly);
         }
+         public CustomUnitOfWork(ApplicationDbContext context,IDistributedCache distributedCache) : base(context)
+        {
+            this.context = context;
+            _unitOfWork = this;
+            _baseunitOfWork = base.unitOfWork;
+            base.SetLogService(_logService);
+            _distributedCache = distributedCache;
+            _assembly = Assembly.GetExecutingAssembly() ?? Assembly.GetEntryAssembly() ?? Assembly.GetCallingAssembly();
+            _unitOfWork.SetAssembly(_assembly);
+            _unitOfWork.SetLocalizationService(new LocalizationService("ACL.Resources.en-US", typeof(Program).Assembly, "en-US"));
+        }
         public CustomUnitOfWork(ApplicationDbContext context) : base(context)
         {
             this.context = context;
