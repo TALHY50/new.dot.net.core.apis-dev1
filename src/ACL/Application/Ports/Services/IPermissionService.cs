@@ -6,5 +6,5 @@ namespace ACL.Application.Ports.Services;
 
 public interface IPermissionService
 {
-    public Task<AclUser> GetUserAsync(uint userId, uint userPermissionVersion);
+    public Task<AclUser> GetUserAsync(uint userId);
 }

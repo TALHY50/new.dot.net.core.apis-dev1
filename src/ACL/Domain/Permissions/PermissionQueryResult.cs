@@ -18,4 +18,6 @@ public class PermissionQueryResult
     public string MethodName { get; set; }
     public int MethodType { get; set; }
     public string DefaultMethod { get; set; }
+    
+    public ulong RoleId { get; set; }
 }
