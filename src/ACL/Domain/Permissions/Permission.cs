@@ -3,11 +3,11 @@ namespace ACL.Domain.Permissions;
 public class Permission
 {
     public uint Version { get; private set; }
-    public HashSet<string>? PermittedRoutes { get; private set; }
+    public HashSet<string>? RouteNames { get; private set; }
 
-    public Permission(HashSet<string>? permittedRoutes)
+    public Permission(HashSet<string>? routeNames)
     {
-        this.PermittedRoutes = permittedRoutes;
+        this.RouteNames = routeNames;
     }
 
 }
