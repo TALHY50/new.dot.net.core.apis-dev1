@@ -2,7 +2,7 @@ using ACL.Database.Models;
 using ACL.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Claim = ACL.Domain.Claim;
+//using Claim = ACL.Database.Models.Claim;
 
 namespace ACL.Infrastructure.Configurations;
 

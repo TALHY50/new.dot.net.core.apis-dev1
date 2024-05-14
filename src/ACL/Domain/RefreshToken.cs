@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ACL.Domain
+namespace ACL.Database.Models
 {
     public class RefreshToken
     {
