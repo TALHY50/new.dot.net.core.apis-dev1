@@ -1,6 +1,6 @@
 ﻿namespace ACL.UseCases.Enums
 {
-    enum ErrorCodes
+    public enum ErrorCodes
     {
         AnUnexpectedErrorOccurred = 99,
         CredentialsAreNotValid = 101,

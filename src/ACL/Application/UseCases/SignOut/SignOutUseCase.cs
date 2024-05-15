@@ -1,7 +1,7 @@
-﻿using ACL.Application.Enums;
-using ACL.Application.Ports.Repositories;
+﻿using ACL.Application.Ports.Repositories;
 using ACL.Application.UseCases.SignOut.Request;
 using ACL.Application.UseCases.SignOut.Response;
+using ACL.UseCases.Enums;
 
 namespace ACL.Application.UseCases.SignOut
 {

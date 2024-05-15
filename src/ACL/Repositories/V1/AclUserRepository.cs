@@ -1,5 +1,4 @@
-﻿using ACL.Application.Enums;
-using ACL.Application.Interfaces;
+﻿using ACL.Application.Interfaces;
 using ACL.Application.Ports.Repositories;
 using ACL.Core.Models;
 using ACL.Core.Permissions;
@@ -13,6 +12,7 @@ using SharedLibrary.Services;
 using ACL.Database;
 using ACL.Utilities;
 using ACL.Services;
+using ACL.UseCases.Enums;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;

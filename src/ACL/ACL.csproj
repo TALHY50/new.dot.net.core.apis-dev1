@@ -51,7 +51,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Application\Enums\" />
     <Folder Include="Application\UseCases\" />
     <Folder Include="Domain\" />
     <Folder Include="Http\" />
