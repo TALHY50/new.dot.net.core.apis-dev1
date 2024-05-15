@@ -104,7 +104,7 @@ namespace ACL.Repositories.V1
                                     Username = aclCompany.Email,
                                     CreatedById = 0,
                                     Salt = salt,
-                                    Claims = new Claim[] { },
+                                    Claims = new Core.Claim[] { },
                                     CreatedAt = DateTime.Now,
                                     UpdatedAt = DateTime.Now
                                 };

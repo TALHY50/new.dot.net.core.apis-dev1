@@ -96,7 +96,7 @@ public class AclUserConfiguration : IEntityTypeConfiguration<AclUser>
             builder.Property(e => e.RefreshToken)
                 .HasMaxLength(100)
                 .HasColumnName("refresh_token").HasValueJsonConverter();
-            builder.Property<IList<Claim>>("Claims")
+            builder.Property<IList<Core.Claim>>("Claims")
                 .HasMaxLength(100)
                 .HasColumnName("claims").HasValueJsonConverter();
             builder.Property(e => e.Status)

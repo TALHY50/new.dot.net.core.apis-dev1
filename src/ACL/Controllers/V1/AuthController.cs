@@ -8,6 +8,8 @@ using ACL.Application.UseCases.Login.Response;
 using ACL.Application.UseCases.RefreshToken;
 using ACL.Application.UseCases.RefreshToken.Request;
 using ACL.Application.UseCases.RefreshToken.Response;
+using ACL.Application.UseCases.Register;
+using ACL.Application.UseCases.Register.Request;
 using ACL.Application.UseCases.SignOut;
 using ACL.Application.UseCases.SignOut.Request;
 using ACL.Application.UseCases.SignOut.Response;

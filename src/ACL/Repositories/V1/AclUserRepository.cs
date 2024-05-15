@@ -248,7 +248,7 @@ namespace ACL.Repositories.V1
                     CompanyId = _companyId,
                     UserType = (_companyId == 0) ? uint.Parse(_config["USER_TYPE_S_ADMIN"]) : uint.Parse(_config["USER_TYPE_USER"]),
                     Salt = salt,
-                    Claims = new Claim[] { }
+                    Claims = new Core.Claim[] { }
                 };
             }
             else
@@ -272,7 +272,7 @@ namespace ACL.Repositories.V1
                 AclUser.CompanyId = (_companyId != 0) ? _companyId : 0;
                 AclUser.UserType = (_userType != 0) ? _userType : 0;
                 AclUser.Salt = AclUser.Salt ?? salt;
-                AclUser.Claims = AclUser.Claims??new Claim[] { };
+                AclUser.Claims = AclUser.Claims??new Core.Claim[] { };
             }
             return AclUser;
         }

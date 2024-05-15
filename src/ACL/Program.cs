@@ -7,6 +7,7 @@ using ACL.Application.Ports.Services;
 using ACL.Application.UseCases.CreateUser;
 using ACL.Application.UseCases.Login;
 using ACL.Application.UseCases.RefreshToken;
+using ACL.Application.UseCases.Register;
 using ACL.Application.UseCases.SignOut;
 using Microsoft.EntityFrameworkCore;
 using Serilog;

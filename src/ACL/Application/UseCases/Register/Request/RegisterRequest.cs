@@ -1,4 +1,6 @@
-﻿namespace ACL.Application.UseCases.CreateUser.Request
+﻿using ACL.Core;
+
+namespace ACL.Application.UseCases.Register.Request
 {
     public class RegisterRequest : UseCases.Request
     {
@@ -6,6 +8,6 @@
         public string Password { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
-        public IList<Core.Models.Claim> Claims { get; set; }
+        public IList<Claim> Claims { get; set; }
     }
 }
