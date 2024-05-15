@@ -1,6 +1,6 @@
 ﻿
+using ACL.Core.Models;
 using ACL.Database;
-using ACL.Database.Models;
 using ACL.Interfaces;
 using ACL.Interfaces.Repositories.V1;
 using ACL.Requests;

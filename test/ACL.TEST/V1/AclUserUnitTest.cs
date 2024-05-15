@@ -3,7 +3,6 @@ using ACL.Services;
 using Microsoft.EntityFrameworkCore;
 using RestSharp;
 using Bogus;
-using ACL.Database.Models;
 using ACL.Requests.V1;
 using ACL.Route;
 using SharedLibrary.Response.CustomStatusCode;

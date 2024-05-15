@@ -1,6 +1,4 @@
-﻿
-using ACL.Database.Models;
-using ACL.Interfaces.Repositories.V1;
+﻿using ACL.Interfaces.Repositories.V1;
 using ACL.Interfaces;
 using ACL.Requests.V1;
 using ACL.Response.V1;
@@ -8,6 +6,7 @@ using SharedLibrary.Utilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using System.Threading.Tasks;
+using ACL.Core.Models;
 using SharedLibrary.Services;
 using ACL.Database;
 using SharedLibrary.Interfaces;

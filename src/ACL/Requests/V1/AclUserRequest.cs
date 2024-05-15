@@ -1,8 +1,8 @@
-﻿using ACL.Database.Models;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 using System.Text.Json.Serialization;
+using ACL.Core.Models;
 
 namespace ACL.Requests.V1
 {

@@ -1,5 +1,4 @@
 ﻿using ACL.Controllers.V1;
-using ACL.Database.Models;
 using ACL.Interfaces;
 using ACL.Interfaces.Repositories.V1;
 using ACL.Requests;
@@ -14,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using ACL.Services;
 using System.Globalization;
 using System.Net;
+using ACL.Core.Models;
 using SharedLibrary.Services;
 using Microsoft.Extensions.Logging;
 using Castle.Core.Logging;

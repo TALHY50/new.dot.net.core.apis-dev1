@@ -1,7 +1,7 @@
 ﻿using ACL.Application.Enums;
 using ACL.Application.Ports.Repositories;
+using ACL.Core.Models;
 using ACL.Core.Permissions;
-using ACL.Database.Models;
 using ACL.Interfaces;
 using ACL.Interfaces.Repositories.V1;
 using ACL.Requests.V1;

@@ -1,6 +1,4 @@
-﻿
-using ACL.Database.Models;
-using ACL.Interfaces;
+﻿using ACL.Interfaces;
 using ACL.Interfaces.Repositories.V1;
 using ACL.Requests;
 using ACL.Response.V1;
@@ -11,6 +9,7 @@ using SharedLibrary.Response.CustomStatusCode;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using ACL.Application.Enums;
+using ACL.Core.Models;
 
 namespace ACL.Repositories.V1
 {

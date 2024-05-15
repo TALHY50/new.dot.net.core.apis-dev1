@@ -1,11 +1,11 @@
-﻿using ACL.Database.Models;
-using ACL.Interfaces;
+﻿using ACL.Interfaces;
 using ACL.Interfaces.Repositories.V1;
 using ACL.Requests;
 using ACL.Response.V1;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using System.Linq;
+using ACL.Core.Models;
 using static ACL.Route.AclRoutesUrl;
 using SharedLibrary.Interfaces;
 using SharedLibrary.Services;

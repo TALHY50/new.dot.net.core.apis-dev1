@@ -1,6 +1,6 @@
 using ACL.Application.Ports.Repositories;
 using ACL.Application.Ports.Services;
-using ACL.Database.Models;
+using ACL.Core.Models;
 
 namespace ACL.Infrastructure.Services.Permission;
 

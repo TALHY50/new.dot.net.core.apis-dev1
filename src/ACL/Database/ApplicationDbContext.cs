@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Reflection;
 using ACL.Core;
-using ACL.Database.Models;
+using ACL.Core.Models;
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
 using MySql.EntityFrameworkCore.Extensions;
 using Pomelo.EntityFrameworkCore.MySql.Scaffolding.Internal;
 using SharedLibrary.Interfaces;
+using Claim = ACL.Core.Models.Claim;
 
 namespace ACL.Database;
 
@@ -4149,7 +4150,7 @@ public partial class ApplicationDbContext : DbContext, IApplicationDbContext
                  OtpChannel = 0,
                  CreatedById = 1,
                  Salt = "pNr7R0FzsicCDrMlIwXYVI6zM4rZByVgNCkWRwM4y57Sw+cdKUbTrRZLbV8nccwNlN+DokHXlkxKGvw+7ISPPw==",
-                 Claims = new List<Models.Claim>{new Models.Claim
+                 Claims = new List<Claim>{new Claim
                  {
                      Type = "scope",
                      Value = "CanReadWeather"

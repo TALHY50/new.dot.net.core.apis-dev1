@@ -1,9 +1,9 @@
+using ACL.Core.Models;
 using ACL.Requests;
 using Microsoft.EntityFrameworkCore;
 using RestSharp;
 using Bogus;
 using ACL.Route;
-using ACL.Database.Models;
 using ACL.Services;
 using SharedLibrary.Response.CustomStatusCode;
 using ACL.Response.V1;

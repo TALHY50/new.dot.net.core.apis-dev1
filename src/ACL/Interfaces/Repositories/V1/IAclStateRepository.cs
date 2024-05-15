@@ -1,5 +1,4 @@
-
-using ACL.Database.Models;
+using ACL.Core.Models;
 using ACL.Requests;
 using ACL.Response.V1;
 using SharedLibrary.Interfaces;

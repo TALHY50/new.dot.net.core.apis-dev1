@@ -3,7 +3,7 @@ using ACL.Application.Ports.Repositories;
 using ACL.Application.Ports.Services;
 using ACL.Application.UseCases.CreateUser.Request;
 using ACL.Application.UseCases.CreateUser.Response;
-using ACL.Database.Models;
+using ACL.Core.Models;
 using ACL.Interfaces;
 using ACL.Interfaces.Repositories.V1;
 using ACL.Requests.V1;
@@ -81,11 +81,11 @@ namespace ACL.Application.UseCases.CreateUser
             }
         }
 
-        private static IList<Database.Models.Claim> ToClaims(IList<Database.Models.Claim> requestClaims)
+        private static IList<Core.Models.Claim> ToClaims(IList<Core.Models.Claim> requestClaims)
         {
             if (requestClaims == null) return null;
-            var claims = new List<Database.Models.Claim>();
-            claims.AddRange(requestClaims.Select(r => new Database.Models.Claim { Type = r.Type, Value = r.Value }).ToList());
+            var claims = new List<Core.Models.Claim>();
+            claims.AddRange(requestClaims.Select(r => new Core.Models.Claim { Type = r.Type, Value = r.Value }).ToList());
             return claims;
         }
     }

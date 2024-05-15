@@ -3,7 +3,7 @@ using ACL.Application.Ports.Repositories;
 using ACL.Application.Ports.Services;
 using ACL.Application.UseCases.Login.Request;
 using ACL.Application.UseCases.Login.Response;
-using ACL.Database.Models;
+using ACL.Core.Models;
 using ACL.Interfaces;
 using ACL.Interfaces.Repositories.V1;
 

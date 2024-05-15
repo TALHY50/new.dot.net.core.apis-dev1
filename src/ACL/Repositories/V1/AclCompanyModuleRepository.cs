@@ -1,5 +1,4 @@
-﻿using ACL.Database.Models;
-using ACL.Interfaces;
+﻿using ACL.Interfaces;
 using ACL.Interfaces.Repositories.V1;
 using ACL.Requests;
 using ACL.Requests.V1;
@@ -12,6 +11,7 @@ using SharedLibrary.Services;
 using ACL.Database;
 using ACL.Utilities;
 using System.Net;
+using ACL.Core.Models;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using SharedLibrary.Response.CustomStatusCode;
 

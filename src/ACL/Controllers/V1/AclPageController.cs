@@ -1,7 +1,6 @@
 ﻿using ACL.Database;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ACL.Database.Models;
 using ACL.Requests.V1;
 using ACL.Interfaces.Repositories.V1;
 using ACL.Response.V1;

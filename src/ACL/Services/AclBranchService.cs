@@ -1,4 +1,4 @@
-﻿using ACL.Database.Models;
+﻿using ACL.Core.Models;
 using ACL.Interfaces;
 using ACL.Interfaces.Repositories.V1;
 using ACL.Interfaces.ServiceInterfaces;

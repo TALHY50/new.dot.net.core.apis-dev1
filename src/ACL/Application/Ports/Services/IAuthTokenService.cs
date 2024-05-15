@@ -1,4 +1,4 @@
-using ACL.Database.Models;
+using ACL.Core.Models;
 
 namespace ACL.Application.Ports.Services;
 

@@ -1,5 +1,4 @@
 ﻿using ACL.Database;
-using ACL.Database.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace ACL.Data

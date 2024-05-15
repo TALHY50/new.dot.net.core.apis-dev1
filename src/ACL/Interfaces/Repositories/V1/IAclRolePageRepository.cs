@@ -1,4 +1,4 @@
-﻿using ACL.Database.Models;
+﻿using ACL.Core.Models;
 using ACL.Requests;
 using ACL.Response.V1;
 using SharedLibrary.Interfaces;
@@ -11,6 +11,6 @@ namespace ACL.Interfaces.Repositories.V1
     {
         Task<AclResponse> GetAllById(ulong Id);
         Task<AclResponse> UpdateAll(AclRoleAndPageAssocUpdateRequest req);
-        Database.Models.AclRolePage[] PrepareData(AclRoleAndPageAssocUpdateRequest req);
+        AclRolePage[] PrepareData(AclRoleAndPageAssocUpdateRequest req);
     }
 }
