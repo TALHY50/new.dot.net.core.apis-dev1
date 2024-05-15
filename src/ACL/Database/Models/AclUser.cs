@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using ACL.Domain;
-using ACL.Domain.Permissions;
+using ACL.Core;
+using ACL.Core.Permissions;
 
 namespace ACL.Database.Models;
 

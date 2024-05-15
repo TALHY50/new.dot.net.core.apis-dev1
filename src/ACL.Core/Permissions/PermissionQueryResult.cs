@@ -1,4 +1,4 @@
-namespace ACL.Domain.Permissions;
+namespace ACL.Core.Permissions;
 
 public class PermissionQueryResult
 {

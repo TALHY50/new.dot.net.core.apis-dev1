@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ACL.Database.Models
+﻿namespace ACL.Core
 {
     public class RefreshToken
     {

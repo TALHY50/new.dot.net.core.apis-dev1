@@ -1,4 +1,4 @@
-﻿namespace ACL.Domain
+﻿namespace ACL.Core
 {
     public class Claim
     {

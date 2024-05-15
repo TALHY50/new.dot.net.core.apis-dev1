@@ -1,5 +1,6 @@
 ﻿using ACL.Application.Enums;
 using ACL.Application.Ports.Repositories;
+using ACL.Core.Permissions;
 using ACL.Database.Models;
 using ACL.Interfaces;
 using ACL.Interfaces.Repositories.V1;
@@ -11,7 +12,6 @@ using SharedLibrary.Utilities;
 using SharedLibrary.Interfaces;
 using SharedLibrary.Services;
 using ACL.Database;
-using ACL.Domain.Permissions;
 using ACL.Utilities;
 using ACL.Services;
 using Microsoft.Extensions.Caching.Distributed;
