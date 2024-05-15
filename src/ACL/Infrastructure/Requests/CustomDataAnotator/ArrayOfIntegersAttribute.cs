@@ -1,12 +1,8 @@
-﻿using ACL.Application.Interfaces;
+﻿using System.ComponentModel.DataAnnotations;
+using ACL.Application.Interfaces;
 
 namespace ACL.Requests.CustomDataAnotator
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.Linq;
-
     public class ArrayOfIntegersAttribute : ValidationAttribute
     {
 

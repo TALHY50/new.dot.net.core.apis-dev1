@@ -5,8 +5,6 @@ using ACL.Application.UseCases.CreateUser.Request;
 using ACL.Application.UseCases.CreateUser.Response;
 using ACL.Application.UseCases.Register.Request;
 using ACL.Core.Models;
-using ACL.Requests.V1;
-using ACL.Response.V1;
 using ACL.UseCases.Enums;
 using Claim = ACL.Application.UseCases.CreateUser.Request.Claim;
 

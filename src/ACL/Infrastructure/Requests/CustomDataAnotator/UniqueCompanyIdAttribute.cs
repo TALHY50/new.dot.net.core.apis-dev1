@@ -1,6 +1,6 @@
-﻿using ACL.Requests.V1;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using ACL.Application.Interfaces;
+using ACL.Requests.V1;
 
 namespace ACL.Requests.CustomDataAnotator
 {

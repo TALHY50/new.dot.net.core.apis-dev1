@@ -1,7 +1,4 @@
 ﻿using ACL.Controllers.V1;
-using ACL.Requests;
-using ACL.Requests.V1;
-using ACL.Response.V1;
 using ACL.Route;
 using ACL.Tests;
 using Bogus;
@@ -17,6 +14,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ACL.Requests.V1;
+using ACL.Response.V1;
 using static ACL.Route.AclRoutesUrl;
 
 

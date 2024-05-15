@@ -1,7 +1,4 @@
-﻿
-using System.Globalization;
-using ACL.Application.Interfaces;
-using SharedLibrary.Interfaces;
+﻿using ACL.Application.Interfaces;
 using SharedLibrary.Response;
 
 namespace ACL.Response.V1
@@ -20,16 +17,16 @@ namespace ACL.Response.V1
         public string somethingIsWrong = "somethingIsWrong";
         public MessageResponse(string model, ICustomUnitOfWork _unitOfWork, string language = "en-US") : base(model, language)
         {
-            fetchMessage = base.FetchMessage;
-            editMessage = base.EditMessage;
-            createMessage = base.CreateMessage;
-            deleteMessage = base.DeleteMessage;
-            existMessage = base.ExistMessage;
-            notFoundMessage = base.NotFoundMessage;
-            createFail = base.CreateFail;
-            editFail = base.EditFail;
-            deleteFail = base.DeleteFail;
-            somethingIsWrong = base.SomethingIsWrong;
+            this.fetchMessage = base.FetchMessage;
+            this.editMessage = base.EditMessage;
+            this.createMessage = base.CreateMessage;
+            this.deleteMessage = base.DeleteMessage;
+            this.existMessage = base.ExistMessage;
+            this.notFoundMessage = base.NotFoundMessage;
+            this.createFail = base.CreateFail;
+            this.editFail = base.EditFail;
+            this.deleteFail = base.DeleteFail;
+            this.somethingIsWrong = base.SomethingIsWrong;
 
         }
 
