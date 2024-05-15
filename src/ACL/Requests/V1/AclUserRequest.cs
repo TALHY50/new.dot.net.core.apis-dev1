@@ -79,7 +79,7 @@ namespace ACL.Requests.V1
         //[MinLength(0)]
         public sbyte Status { get; set; }
 
-        [DefaultValue(new ulong[] { 1, 2 })]
+        [DefaultValue(new ulong[] { 2 })]
         [Required]
         [MinLength(1, ErrorMessage = "Array must contain at least one element.")]
         public ulong[] UserGroup { get; set; }

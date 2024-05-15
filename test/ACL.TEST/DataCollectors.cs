@@ -58,8 +58,8 @@ namespace ACL.Tests
 
         public static string GetAuthorization()
         {
-            //return Authorization = "Bearer "+"";
-            return Authorization = "jfkjdkfjklsdjf";
+            return Authorization = "Bearer  "+"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwidmVyIjoiMSIsIm5iZiI6MTcxNTY4NTE0MSwiZXhwIjoxNzE1Njg1NDQxLCJpYXQiOjE3MTU2ODUxNDEsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTAwMS8iLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0LyJ9.qktXbYqYrjTY5xEEU_JGbA4GtJtmJzsk8J5G9scaOM6Nc-klcRXzEHXTlxkTDcODTOuKI9ftyI31n-r-kgmNGrDgo7XbLBSurnuyO4IjWNRc-KVv-e4gt_Chb_iOdEzsM6Oucn6VwxycMs4kgEBHgUxeWquDreBdVA0Iq1Jd0RRA4dkkSovbZw1mAs8iKivraRAnpjk7YoI4-59w33pT4Dzvy1AWlwTVDG2H1LRSENcOfMoM4ws0GXv1kIp75OexxFRxobx2pgBekgejhIsEIcMZOG8ZHkrpD6fG9RtC00q5g6GdQBL2_17Hm09H8ER25I7eN5ezNH869_wig5WnvQ";
+            //return Authorization = "jfkjdkfjklsdjf";
         }
 
 

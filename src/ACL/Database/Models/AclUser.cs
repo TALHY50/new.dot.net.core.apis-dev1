@@ -114,7 +114,7 @@ public partial class AclUser
     
     public bool IsPermitted(string routeName)
     {
-        if (_permission.PermittedRoutes.Contains(routeName))
+        if (_permission.RouteNames.Contains(routeName))
         {
             return true;
         }
