@@ -9,6 +9,8 @@ using SharedLibrary.Services;
 using ACL.Database;
 using SharedLibrary.Response.CustomStatusCode;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Distributed;
+using ACL.Application.Enums;
 
 namespace ACL.Repositories.V1
 {
@@ -18,12 +20,14 @@ namespace ACL.Repositories.V1
         public MessageResponse messageResponse;
         private string modelName = "Role";
         private ICustomUnitOfWork _customUnitOfWork;
-        public AclRoleRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
+        private readonly IDistributedCache _distributedCache;
+        public AclRoleRepository(ICustomUnitOfWork _unitOfWork, IDistributedCache distributedCache) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
             _customUnitOfWork = _unitOfWork;
             aclResponse = new AclResponse();
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
             messageResponse = new MessageResponse(modelName, _unitOfWork, AppAuth.GetAuthInfo().Language);
+            _distributedCache = distributedCache;
         }
 
         public async Task<AclResponse> GetAll()
@@ -80,7 +84,7 @@ namespace ACL.Repositories.V1
         public async Task<AclResponse> FindById(ulong id)
         {
 
-            var aclRole = await _customUnitOfWork.AclRoleRepository.Where(x=>true).Select(x => new
+            var aclRole = await _customUnitOfWork.AclRoleRepository.Where(x => true).Select(x => new
             {
                 x.Id,
                 x.Name,
@@ -109,6 +113,7 @@ namespace ACL.Repositories.V1
             {
                 await base.DeleteAsync(aclRole);
                 await _unitOfWork.CompleteAsync();
+                RemoveCache(id);
                 aclResponse.Message = messageResponse.deleteMessage;
                 aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
@@ -132,6 +137,19 @@ namespace ACL.Repositories.V1
             aclRole.UpdatedAt = DateTime.Now;
 
             return aclRole;
+        }
+
+        private void RemoveCache(ulong roleId)
+        {
+            var key = $"{Enum.GetName(CacheKeys.RoleRouteNames)}-{roleId}";
+            if (this._distributedCache is IDistributedCache)
+            {
+                var cachedRouteNames = this._distributedCache.GetStringAsync(key);
+                if (cachedRouteNames != null)
+                {
+                    this._distributedCache.RemoveAsync(key);
+                }
+            }
         }
 
 

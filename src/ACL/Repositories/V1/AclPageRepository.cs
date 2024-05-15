@@ -33,7 +33,7 @@ namespace ACL.Repositories.V1
         }
         public async Task<AclResponse> GetAll()
         {
-            var aclPage = await base.All();
+            IEnumerable<AclPage>? aclPage = await base.All();
             if (aclPage.Any())
             {
                 aclResponse.Message = messageResponse.fetchMessage;
@@ -48,7 +48,7 @@ namespace ACL.Repositories.V1
         {
             try
             {
-                var aclPage = PrepareInputData(request);
+                AclPage? aclPage = PrepareInputData(request);
                 await base.AddAsync(aclPage);
                 await _unitOfWork.CompleteAsync();
                 await _customUnitOfWork.AclPageRepository.ReloadAsync(aclPage);
@@ -67,7 +67,7 @@ namespace ACL.Repositories.V1
 
         public async Task<AclResponse> EditAclPage(ulong id, AclPageRequest request)
         {
-            var aclPage = await base.GetById(id);
+            AclPage? aclPage = await base.GetById(id);
             if (aclPage == null)
             {
                 aclResponse.Message = messageResponse.notFoundMessage;
@@ -118,13 +118,37 @@ namespace ACL.Repositories.V1
         }
         public async Task<AclResponse> DeleteById(ulong id)
         {
-
-            if (await base.GetById(id) != null)
+            AclPage? page = await base.GetById(id);
+            if (page != null)
             {
-                await base.DeleteAsync(await base.GetById(id));
-                _unitOfWork.Complete();
-                aclResponse.Message = messageResponse.deleteMessage;
-                aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                var executionStrategy = _unitOfWork.CreateExecutionStrategy();
+                await executionStrategy.ExecuteAsync(async () =>
+                {
+                    using (var transaction = await _unitOfWork.BeginTransactionAsync())
+                    {
+                        try
+                        {
+                            await base.DeleteAsync(page);
+                            _unitOfWork.Complete();
+                            this.DeletePageRouteByPageId(id);
+                            aclResponse.Message = messageResponse.deleteMessage;
+                            aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                            await transaction.CommitAsync();
+                        }
+                        catch (Exception ex)
+                        {
+                            await transaction.RollbackAsync();
+                            _unitOfWork.Logger.LogError(ex, ex.Message);
+                            aclResponse.Message = messageResponse.somethingIsWrong;
+                            aclResponse.StatusCode = AppStatusCode.FAIL;
+                        }
+                    }
+                });
+            }
+            else
+            {
+                aclResponse.Message = messageResponse.notFoundMessage;
+                aclResponse.StatusCode = AppStatusCode.FAIL;
             }
 
             return aclResponse;
@@ -156,7 +180,7 @@ namespace ACL.Repositories.V1
             messageResponse.createMessage = "Page Route Create Successfully";
             try
             {
-                var aclPageRoute = PreparePageRouteInputData(request);
+                AclPageRoute? aclPageRoute = PreparePageRouteInputData(request);
                 await _customUnitOfWork.AclPageRouteRepository.AddAsync(aclPageRoute);
                 await _unitOfWork.CompleteAsync();
                 await _customUnitOfWork.AclPageRouteRepository.ReloadAsync(aclPageRoute);
@@ -178,10 +202,10 @@ namespace ACL.Repositories.V1
             messageResponse.editMessage = "Page Route Update Successfully";
             try
             {
-                var aclPageRoute = _unitOfWork.ApplicationDbContext.AclPageRoutes.Find(id);
+                AclPageRoute? aclPageRoute = _unitOfWork.ApplicationDbContext.AclPageRoutes.Find(id);
                 if (aclPageRoute != null)
                 {
-                    var aclPageRouteUpdateData = PreparePageRouteInputData(request, aclPageRoute);
+                    AclPageRoute? aclPageRouteUpdateData = PreparePageRouteInputData(request, aclPageRoute);
                     _customUnitOfWork.AclPageRouteRepository.Update(aclPageRouteUpdateData);
                     await _unitOfWork.CompleteAsync();
                     await _customUnitOfWork.AclPageRouteRepository.ReloadAsync(aclPageRouteUpdateData);
@@ -246,5 +270,15 @@ namespace ACL.Repositories.V1
             }
 
         }
+
+
+        public void DeletePageRouteByPageId(ulong pageId)
+        {
+            List<AclPageRoute>? pageRoutes = _customUnitOfWork.ApplicationDbContext.AclPageRoutes.Where(r => r.PageId == pageId).ToList();
+            _customUnitOfWork.ApplicationDbContext.AclPageRoutes.RemoveRange(pageRoutes);
+            _unitOfWork.Complete();
+        }
+
+
     }
 }

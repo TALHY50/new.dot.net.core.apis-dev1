@@ -25,6 +25,8 @@ namespace SharedLibrary.Response
         public string DeleteFail { get; set; }
         public string EditFail { get; set; }
 
+        public string SomethingIsWrong { get; set; }
+
         public BaseMessageResponse(string model, string language = "en-US")
         {
             _cultureInfo = new CultureInfo(language);
@@ -42,6 +44,7 @@ namespace SharedLibrary.Response
                 CreateFail = localizationService.GetLocalizedStringWithCulture("createFail", _cultureInfo);
                 EditFail = localizationService.GetLocalizedStringWithCulture("deleteFail", _cultureInfo);
                 DeleteFail = localizationService.GetLocalizedStringWithCulture("editFail", _cultureInfo);
+                SomethingIsWrong = localizationService.GetLocalizedStringWithCulture("somethingIsWrong", _cultureInfo);
         }
 
     }

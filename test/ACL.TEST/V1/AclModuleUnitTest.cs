@@ -27,7 +27,7 @@ namespace ACL.Tests.V1
 
             // Act
             var request = new RestRequest(ACL.Route.AclRoutesUrl.AclModuleRouteUrl.List, Method.Get);
-            //request.AddHeader("Authorization", "Bearer desc");
+            request.AddHeader("Authorization", DataCollectors.GetAuthorization());
 
             RestResponse response = restClient.Execute(request);
 

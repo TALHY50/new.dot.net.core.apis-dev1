@@ -49,11 +49,22 @@ namespace ACL.Repositories.V1
         public async Task<AclResponse> GetAll()
         {
             var aclUser = await base.All();
+            List<AclUser> re = (aclUser != null) ? aclUser.ToList():new List<AclUser>();
+            re.ForEach(user =>
+            {
+                user.Password = "**********";
+                user.Salt = "**********";
+                user.Claims = null;
+                user.RefreshToken = null;
+            });
+            aclUser =re;
+            var result = (aclUser != null) ? aclUser.Where(i => i.Id != 1 && i.Status == 1 ) : null; // further we need to add with companyid from auth and created by  from UTHUSER ID other wise the system would be insecured.
+
             if (aclUser.Any())
             {
                 aclResponse.Message = messageResponse.fetchMessage;
             }
-            aclResponse.Data = aclUser;
+            aclResponse.Data = result;
             aclResponse.StatusCode = AppStatusCode.SUCCESS;
             aclResponse.Timestamp = DateTime.Now;
 
@@ -79,7 +90,10 @@ namespace ACL.Repositories.V1
                         var userGroupPrepareData = PrepareDataForUserUserGroups(request, aclUser.Id);
                         await _unitOfWork.ApplicationDbContext.AddRangeAsync(userGroupPrepareData);
                         await _unitOfWork.CompleteAsync();
-
+                        aclUser.Password = "******************"; //request.Password
+                        aclUser.Salt = "******************";
+                        aclUser.Claims = null;
+                        aclUser.RefreshToken = null;
                         aclResponse.Data = aclUser;
                         aclResponse.Message = messageResponse.createMessage;
                         aclResponse.StatusCode = AppStatusCode.SUCCESS;
@@ -122,7 +136,9 @@ namespace ACL.Repositories.V1
                     var UserGroupPrepareData = PrepareDataForUserUserGroups(request, aclUser.Id);
                     await _customUnitOfWork.AclUserUserGroupRepository.AddRange(UserGroupPrepareData);
                     _unitOfWork.Complete();
-
+                    aclUser.Password = "******************"; //request.Password
+                    aclUser.Salt = "******************";
+                    aclUser.Claims = null;
                     aclResponse.Data = aclUser;
                     aclResponse.Message = messageResponse.editMessage;
                     aclResponse.StatusCode = AppStatusCode.SUCCESS;
@@ -216,7 +232,7 @@ namespace ACL.Repositories.V1
                     FirstName = request.FirstName,
                     LastName = request.LastName,
                     Email = request.Email,
-                    Password = (request.Password != null && request.Password.Length != 88) ? _unitOfWork.cryptographyService.HashPassword(request.Password, request.Salt ?? salt) : request.Password,
+                    Password = _unitOfWork.cryptographyService.HashPassword(request.Password, salt),
                     Avatar = request.Avatar,
                     Dob = request.DOB,
                     Gender = request.Gender,
@@ -232,8 +248,8 @@ namespace ACL.Repositories.V1
                     UpdatedAt = DateTime.Now,
                     CompanyId = _companyId,
                     UserType = (_companyId == 0) ? uint.Parse(_config["USER_TYPE_S_ADMIN"]) : uint.Parse(_config["USER_TYPE_USER"]),
-                    Salt = request.Salt,
-                    Claims = request.Claims
+                    Salt = salt,
+                    Claims = new Claim[] { }
                 };
             }
             else
@@ -241,7 +257,7 @@ namespace ACL.Repositories.V1
                 AclUser.FirstName = request.FirstName;
                 AclUser.LastName = request.LastName;
                 AclUser.Email = request.Email;
-                AclUser.Password = (request.Password != null && request.Password.Length != 88) ? _unitOfWork.cryptographyService.HashPassword(request.Password, request.Salt ?? salt) : request.Password;
+                AclUser.Password = _unitOfWork.cryptographyService.HashPassword(request.Password, AclUser.Salt ?? salt);
                 AclUser.Avatar = request.Avatar;
                 AclUser.Dob = request.DOB;
                 AclUser.Gender = request.Gender;
@@ -256,8 +272,8 @@ namespace ACL.Repositories.V1
                 AclUser.UpdatedAt = DateTime.Now;
                 AclUser.CompanyId = (_companyId != 0) ? _companyId : 0;
                 AclUser.UserType = (_userType != 0) ? _userType : 0;
-                AclUser.Salt = request.Salt;
-                AclUser.Claims = request.Claims;
+                AclUser.Salt = AclUser.Salt ?? salt;
+                AclUser.Claims = AclUser.Claims??new Claim[] { };
             }
             return AclUser;
         }
@@ -303,7 +319,7 @@ namespace ACL.Repositories.V1
             this._dbContext.Update(entity);
             await this._dbContext.SaveChangesAsync();
             
-            return entity;;
+            return entity;
         } 
         public async Task<AclUser?> GetUserWithPermissionAsync(uint userId) 
         { 

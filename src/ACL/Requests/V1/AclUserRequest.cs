@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Configuration;
+using System.Text.Json.Serialization;
 
 namespace ACL.Requests.V1
 {
@@ -78,15 +79,16 @@ namespace ACL.Requests.V1
         //[MinLength(0)]
         public sbyte Status { get; set; }
 
-        [DefaultValue(new ulong[] { 1, 2 })]
+        [DefaultValue(new ulong[] { 2 })]
         [Required]
         [MinLength(1, ErrorMessage = "Array must contain at least one element.")]
         public ulong[] UserGroup { get; set; }
 
-        [Required]
+        [JsonIgnore]
         public IList<Claim>? Claims { get; set; }
-        [Required]
-        [DefaultValue("QVQhNmhjVBaFlKvwy+qec20itUl8kmNFgwlKVard2KDfPOmkkD3voz9xKVs+30gFKZYiVcGrRLRvJLRRklzO9g==")]
+        
+        [JsonIgnore]
+       // [DefaultValue("QVQhNmhjVBaFlKvwy+qec20itUl8kmNFgwlKVard2KDfPOmkkD3voz9xKVs+30gFKZYiVcGrRLRvJLRRklzO9g==")]
         [MaxLength(255)]
         public string? Salt { get; set; }
 

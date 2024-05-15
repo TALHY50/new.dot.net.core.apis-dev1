@@ -100,7 +100,6 @@ namespace ACL.Services
         {
             get { return new AclCompanyRepository(_unitOfWork, Config); }
         }
-
         public IAclRolePageRepository AclRolePageRepository
         {
             get { return new AclRolePageRepository(this); }
@@ -119,7 +118,7 @@ namespace ACL.Services
         }
         public IAclRoleRepository AclRoleRepository
         {
-            get { return new AclRoleRepository(this); }
+            get { return new AclRoleRepository(this,this._distributedCache); }
 
         }
 
