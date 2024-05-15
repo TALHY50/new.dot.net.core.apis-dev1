@@ -1,4 +1,4 @@
-﻿namespace ACL.Application.Exceptions
+﻿namespace ACL.UseCases.Exceptions
 {
     public class UpdateUserException : Exception
     {

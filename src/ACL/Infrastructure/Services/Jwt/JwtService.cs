@@ -1,9 +1,9 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
-using ACL.Application.Exceptions;
 using ACL.Application.Ports.Services;
 using ACL.Core.Models;
+using ACL.UseCases.Exceptions;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Claim = ACL.Core.Models.Claim;
