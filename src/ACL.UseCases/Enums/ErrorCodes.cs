@@ -1,4 +1,4 @@
-﻿namespace ACL.Application.Enums
+﻿namespace ACL.UseCases.Enums
 {
     enum ErrorCodes
     {
