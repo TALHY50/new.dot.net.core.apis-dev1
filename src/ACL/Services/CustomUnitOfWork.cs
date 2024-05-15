@@ -100,7 +100,6 @@ namespace ACL.Services
         {
             get { return new AclCompanyRepository(_unitOfWork, Config); }
         }
-
         public IAclRolePageRepository AclRolePageRepository
         {
             get { return new AclRolePageRepository(this); }

@@ -7,8 +7,11 @@ using ACL.Requests;
 using ACL.Response.V1;
 using ACL.Services;
 using ACL.Utilities;
+using Microsoft.Extensions.Caching.Distributed;
+using Newtonsoft.Json;
 using SharedLibrary.Response.CustomStatusCode;
 using SharedLibrary.Services;
+using SharedLibrary.Utilities;
 
 namespace ACL.Repositories.V1
 {
@@ -18,6 +21,7 @@ namespace ACL.Repositories.V1
         public MessageResponse messageResponse;
         private string modelName = "Country";
         ICustomUnitOfWork _customUnitOfWork;
+
         public AclCountryRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
             _customUnitOfWork = _unitOfWork;
