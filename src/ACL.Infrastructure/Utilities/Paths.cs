@@ -1,7 +1,6 @@
 using System.Reflection;
-using Microsoft.Extensions.Configuration;
 
-namespace ACL.Utilities;
+namespace ACL.Infrastructure.Utilities;
 
 public class Paths
 {

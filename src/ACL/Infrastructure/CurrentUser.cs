@@ -1,10 +1,7 @@
-using System.Security.Claims;
 using ACL.Application.Ports.Services;
 using ACL.UseCases.Common;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.Net.Http.Headers;
 
-namespace ACL.Services;
+namespace ACL.Infrastructure;
 
 public class CurrentUser : IUser
 {
@@ -13,7 +10,7 @@ public class CurrentUser : IUser
 
     public CurrentUser(IHttpContextAccessor httpContextAccessor, IAuthTokenService authenTokenService)
     {
-        _httpContextAccessor = httpContextAccessor;
+        this._httpContextAccessor = httpContextAccessor;
         this._authenTokenService = authenTokenService;
     }
     

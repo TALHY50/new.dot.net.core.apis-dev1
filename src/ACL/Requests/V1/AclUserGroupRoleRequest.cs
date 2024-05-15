@@ -2,9 +2,8 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using ACL.Application.Interfaces;
-using ACL.Database;
+using ACL.Infrastructure.Database;
 using ACL.Requests.CustomDataAnotator;
-using ACL.Services;
 using SharedLibrary.CustomDataAnotator;
 namespace ACL.Requests.V1
 {

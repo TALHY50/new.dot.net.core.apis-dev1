@@ -1,17 +1,17 @@
-﻿using ACL.Requests;
-using ACL.Response.V1;
-using ACL.Utilities;
-using SharedLibrary.Services;
-using ACL.Database;
-using SharedLibrary.Response.CustomStatusCode;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Caching.Distributed;
-using ACL.Application.Interfaces;
+﻿using ACL.Application.Interfaces;
 using ACL.Application.Interfaces.Repositories.V1;
 using ACL.Core.Models;
+using ACL.Infrastructure.Database;
+using ACL.Infrastructure.Utilities;
+using ACL.Requests;
+using ACL.Response.V1;
 using ACL.UseCases.Enums;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Distributed;
+using SharedLibrary.Response.CustomStatusCode;
+using SharedLibrary.Services;
 
-namespace ACL.Repositories.V1
+namespace ACL.Infrastructure.Repositories.V1
 {
     public class AclRoleRepository : GenericRepository<AclRole, ApplicationDbContext, ICustomUnitOfWork>, IAclRoleRepository
     {
@@ -22,16 +22,16 @@ namespace ACL.Repositories.V1
         private readonly IDistributedCache _distributedCache;
         public AclRoleRepository(ICustomUnitOfWork _unitOfWork, IDistributedCache distributedCache) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
-            _customUnitOfWork = _unitOfWork;
-            aclResponse = new AclResponse();
+            this._customUnitOfWork = _unitOfWork;
+            this.aclResponse = new AclResponse();
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
-            messageResponse = new MessageResponse(modelName, _unitOfWork, AppAuth.GetAuthInfo().Language);
-            _distributedCache = distributedCache;
+            this.messageResponse = new MessageResponse(this.modelName, _unitOfWork, AppAuth.GetAuthInfo().Language);
+            this._distributedCache = distributedCache;
         }
 
         public async Task<AclResponse> GetAll()
         {
-            var aclRoles = await _customUnitOfWork.AclRoleRepository.Where(x => true).Select(x => new
+            var aclRoles = await this._customUnitOfWork.AclRoleRepository.Where(x => true).Select(x => new
             {
                 x.Id,
                 x.Name,
@@ -41,24 +41,24 @@ namespace ACL.Repositories.V1
             }).ToListAsync();
             if (aclRoles.Any())
             {
-                aclResponse.Message = messageResponse.fetchMessage;
+                this.aclResponse.Message = this.messageResponse.fetchMessage;
             }
-            aclResponse.Data = aclRoles;
-            aclResponse.StatusCode = AppStatusCode.SUCCESS;
+            this.aclResponse.Data = aclRoles;
+            this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
 
-            return aclResponse;
+            return this.aclResponse;
         }
         public async Task<AclResponse> Add(AclRoleRequest request)
         {
 
             var aclRole = PrepareInputData(request);
             await base.AddAsync(aclRole);
-            await _unitOfWork.CompleteAsync();
-            await _customUnitOfWork.AclRoleRepository.ReloadAsync(aclRole);
-            aclResponse.Data = aclRole;
-            aclResponse.Message = messageResponse.createMessage;
-            aclResponse.StatusCode = AppStatusCode.SUCCESS;
-            return aclResponse;
+            await this._unitOfWork.CompleteAsync();
+            await this._customUnitOfWork.AclRoleRepository.ReloadAsync(aclRole);
+            this.aclResponse.Data = aclRole;
+            this.aclResponse.Message = this.messageResponse.createMessage;
+            this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+            return this.aclResponse;
 
         }
         public async Task<AclResponse> Edit(ulong id, AclRoleRequest request)
@@ -66,24 +66,24 @@ namespace ACL.Repositories.V1
             var aclRole = await base.GetById(id);
             if (aclRole == null)
             {
-                aclResponse.Message = messageResponse.notFoundMessage;
-                return aclResponse;
+                this.aclResponse.Message = this.messageResponse.notFoundMessage;
+                return this.aclResponse;
             }
 
             aclRole = PrepareInputData(request, aclRole);
             await base.UpdateAsync(aclRole);
-            await _unitOfWork.CompleteAsync();
-            await _customUnitOfWork.AclRoleRepository.ReloadAsync(aclRole);
-            aclResponse.Data = aclRole;
-            aclResponse.Message = messageResponse.editMessage;
-            aclResponse.StatusCode = AppStatusCode.SUCCESS;
-            return aclResponse;
+            await this._unitOfWork.CompleteAsync();
+            await this._customUnitOfWork.AclRoleRepository.ReloadAsync(aclRole);
+            this.aclResponse.Data = aclRole;
+            this.aclResponse.Message = this.messageResponse.editMessage;
+            this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+            return this.aclResponse;
 
         }
         public async Task<AclResponse> FindById(ulong id)
         {
 
-            var aclRole = await _customUnitOfWork.AclRoleRepository.Where(x => true).Select(x => new
+            var aclRole = await this._customUnitOfWork.AclRoleRepository.Where(x => true).Select(x => new
             {
                 x.Id,
                 x.Name,
@@ -92,16 +92,16 @@ namespace ACL.Repositories.V1
 
             }).FirstOrDefaultAsync(x => x.Id == id);
 
-            aclResponse.Data = aclRole;
-            aclResponse.Message = messageResponse.fetchMessage;
+            this.aclResponse.Data = aclRole;
+            this.aclResponse.Message = this.messageResponse.fetchMessage;
             if (aclRole == null)
             {
-                aclResponse.Message = messageResponse.notFoundMessage;
+                this.aclResponse.Message = this.messageResponse.notFoundMessage;
             }
 
-            aclResponse.StatusCode = AppStatusCode.SUCCESS;
+            this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
 
-            return aclResponse;
+            return this.aclResponse;
 
         }
         public async Task<AclResponse> DeleteById(ulong id)
@@ -111,13 +111,13 @@ namespace ACL.Repositories.V1
             if (aclRole != null)
             {
                 await base.DeleteAsync(aclRole);
-                await _unitOfWork.CompleteAsync();
+                await this._unitOfWork.CompleteAsync();
                 RemoveCache(id);
-                aclResponse.Message = messageResponse.deleteMessage;
-                aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.aclResponse.Message = this.messageResponse.deleteMessage;
+                this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
 
-            return aclResponse;
+            return this.aclResponse;
 
         }
         private AclRole PrepareInputData(AclRoleRequest request, AclRole aclRole = null)

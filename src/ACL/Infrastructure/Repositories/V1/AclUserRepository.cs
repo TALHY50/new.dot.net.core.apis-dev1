@@ -2,23 +2,19 @@
 using ACL.Application.Ports.Repositories;
 using ACL.Core.Models;
 using ACL.Core.Permissions;
+using ACL.Infrastructure.Database;
+using ACL.Infrastructure.Utilities;
 using ACL.Requests.V1;
 using ACL.Response.V1;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Localization;
-using SharedLibrary.Utilities;
-using SharedLibrary.Interfaces;
-using SharedLibrary.Services;
-using ACL.Database;
-using ACL.Utilities;
-using ACL.Services;
 using ACL.UseCases.Enums;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using SharedLibrary.Response.CustomStatusCode;
+using SharedLibrary.Services;
 
-namespace ACL.Repositories.V1
+namespace ACL.Infrastructure.Repositories.V1
 {
     public class AclUserRepository : GenericRepository<AclUser, ApplicationDbContext, ICustomUnitOfWork>, IAclUserRepository
     {
@@ -34,15 +30,15 @@ namespace ACL.Repositories.V1
         private readonly IDistributedCache _distributedCache;
         public AclUserRepository(ICustomUnitOfWork _unitOfWork, IConfiguration config, ApplicationDbContext dbContext, IDistributedCache distributedCache = null) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
-            _customUnitOfWork = _unitOfWork;
+            this._customUnitOfWork = _unitOfWork;
             AppAuth.SetAuthInfo();
-            _config = config;
-            aclResponse = new AclResponse();
-            _companyId = (uint)AppAuth.GetAuthInfo().CompanyId;
-            _userType = (uint)AppAuth.GetAuthInfo().UserType;
-            messageResponse = new MessageResponse(modelName, _unitOfWork, AppAuth.GetAuthInfo().Language);
+            this._config = config;
+            this.aclResponse = new AclResponse();
+            this._companyId = (uint)AppAuth.GetAuthInfo().CompanyId;
+            this._userType = (uint)AppAuth.GetAuthInfo().UserType;
+            this.messageResponse = new MessageResponse(this.modelName, _unitOfWork, AppAuth.GetAuthInfo().Language);
             this._dbContext = dbContext;
-            _distributedCache = distributedCache;
+            this._distributedCache = distributedCache;
         }
 
         public async Task<AclResponse> GetAll()
@@ -61,55 +57,55 @@ namespace ACL.Repositories.V1
 
             if (aclUser.Any())
             {
-                aclResponse.Message = messageResponse.fetchMessage;
+                this.aclResponse.Message = this.messageResponse.fetchMessage;
             }
-            aclResponse.Data = result;
-            aclResponse.StatusCode = AppStatusCode.SUCCESS;
-            aclResponse.Timestamp = DateTime.Now;
+            this.aclResponse.Data = result;
+            this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+            this.aclResponse.Timestamp = DateTime.Now;
 
-            return aclResponse;
+            return this.aclResponse;
         }
         public async Task<AclResponse> AddUser(AclUserRequest request)
         {
 
-            var executionStrategy = _unitOfWork.CreateExecutionStrategy();
+            var executionStrategy = this._unitOfWork.CreateExecutionStrategy();
 
             await executionStrategy.ExecuteAsync(async () =>
             {
-                using (var transaction = await _unitOfWork.BeginTransactionAsync())
+                using (var transaction = await this._unitOfWork.BeginTransactionAsync())
                 {
                     try
                     {
                         var aclUser = PrepareInputData(request);
                         await base.AddAsync(aclUser);
-                        await _unitOfWork.CompleteAsync();
+                        await this._unitOfWork.CompleteAsync();
                         await base.ReloadAsync(aclUser);
 
                         //  need to insert user user group
                         var userGroupPrepareData = PrepareDataForUserUserGroups(request, aclUser.Id);
-                        await _unitOfWork.ApplicationDbContext.AddRangeAsync(userGroupPrepareData);
-                        await _unitOfWork.CompleteAsync();
+                        await this._unitOfWork.ApplicationDbContext.AddRangeAsync(userGroupPrepareData);
+                        await this._unitOfWork.CompleteAsync();
                         aclUser.Password = "******************"; //request.Password
                         aclUser.Salt = "******************";
                         aclUser.Claims = null;
                         aclUser.RefreshToken = null;
-                        aclResponse.Data = aclUser;
-                        aclResponse.Message = messageResponse.createMessage;
-                        aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                        this.aclResponse.Data = aclUser;
+                        this.aclResponse.Message = this.messageResponse.createMessage;
+                        this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
 
                         await transaction.CommitAsync();
                     }
                     catch (Exception ex)
                     {
                         await transaction.RollbackAsync();
-                        aclResponse.Message = ex.Message;
-                        aclResponse.StatusCode = AppStatusCode.FAIL;
+                        this.aclResponse.Message = ex.Message;
+                        this.aclResponse.StatusCode = AppStatusCode.FAIL;
                     }
                 }
             });
 
-            aclResponse.Timestamp = DateTime.Now;
-            return aclResponse;
+            this.aclResponse.Timestamp = DateTime.Now;
+            return this.aclResponse;
         }
 
 
@@ -123,40 +119,40 @@ namespace ACL.Repositories.V1
                 {
                     aclUser = PrepareInputData(request, aclUser);
                     base.Update(aclUser);
-                    _unitOfWork.Complete();
+                    this._unitOfWork.Complete();
                     await base.ReloadAsync(aclUser);
 
                     // first delete all user user group
-                    var UserUserGroups = _customUnitOfWork.AclUserUserGroupRepository.Where(x => x.UserId == id).ToArray();
-                    await _customUnitOfWork.AclUserUserGroupRepository.RemoveRange(UserUserGroups);
-                    _unitOfWork.Complete();
+                    var UserUserGroups = this._customUnitOfWork.AclUserUserGroupRepository.Where(x => x.UserId == id).ToArray();
+                    await this._customUnitOfWork.AclUserUserGroupRepository.RemoveRange(UserUserGroups);
+                    this._unitOfWork.Complete();
 
                     // need to insert user user group
                     var UserGroupPrepareData = PrepareDataForUserUserGroups(request, aclUser.Id);
-                    await _customUnitOfWork.AclUserUserGroupRepository.AddRange(UserGroupPrepareData);
-                    _unitOfWork.Complete();
+                    await this._customUnitOfWork.AclUserUserGroupRepository.AddRange(UserGroupPrepareData);
+                    this._unitOfWork.Complete();
                     aclUser.Password = "******************"; //request.Password
                     aclUser.Salt = "******************";
                     aclUser.Claims = null;
-                    aclResponse.Data = aclUser;
-                    aclResponse.Message = messageResponse.editMessage;
-                    aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                    this.aclResponse.Data = aclUser;
+                    this.aclResponse.Message = this.messageResponse.editMessage;
+                    this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
                 }
                 else
                 {
-                    aclResponse.Message = messageResponse.notFoundMessage;
-                    aclResponse.StatusCode = AppStatusCode.FAIL;
-                    return aclResponse;
+                    this.aclResponse.Message = this.messageResponse.notFoundMessage;
+                    this.aclResponse.StatusCode = AppStatusCode.FAIL;
+                    return this.aclResponse;
                 }
 
             }
             catch (Exception ex)
             {
-                aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = AppStatusCode.FAIL;
+                this.aclResponse.Message = ex.Message;
+                this.aclResponse.StatusCode = AppStatusCode.FAIL;
             }
-            aclResponse.Timestamp = DateTime.Now;
-            return aclResponse;
+            this.aclResponse.Timestamp = DateTime.Now;
+            return this.aclResponse;
 
         }
 
@@ -165,36 +161,36 @@ namespace ACL.Repositories.V1
         {
             try
             {
-                var aclUser = await _customUnitOfWork.AclUserRepository.GetById(id);
-                aclResponse.Data = aclUser;
-                aclResponse.Message = messageResponse.fetchMessage;
+                var aclUser = await this._customUnitOfWork.AclUserRepository.GetById(id);
+                this.aclResponse.Data = aclUser;
+                this.aclResponse.Message = this.messageResponse.fetchMessage;
                 if (aclUser == null)
                 {
-                    aclResponse.Message = messageResponse.notFoundMessage;
+                    this.aclResponse.Message = this.messageResponse.notFoundMessage;
                 }
 
-                aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             catch (Exception ex)
             {
-                aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = AppStatusCode.FAIL;
+                this.aclResponse.Message = ex.Message;
+                this.aclResponse.StatusCode = AppStatusCode.FAIL;
             }
-            aclResponse.Timestamp = DateTime.Now;
-            return aclResponse;
+            this.aclResponse.Timestamp = DateTime.Now;
+            return this.aclResponse;
 
         }
 
         public async Task<AclUser> FindByEmail(string email)
         {
-            var aclUser = await _customUnitOfWork.ApplicationDbContext.AclUsers.FirstOrDefaultAsync(m => m.Email == email);
+            var aclUser = await this._customUnitOfWork.ApplicationDbContext.AclUsers.FirstOrDefaultAsync(m => m.Email == email);
 
             return aclUser;
         }
 
         public async Task<AclUser> FindByIdAsync(ulong id)
         {
-            var aclUser = await _customUnitOfWork.ApplicationDbContext.AclUsers.FirstOrDefaultAsync(m => m.Id == id);
+            var aclUser = await this._customUnitOfWork.ApplicationDbContext.AclUsers.FirstOrDefaultAsync(m => m.Id == id);
 
             return aclUser;
 
@@ -202,28 +198,28 @@ namespace ACL.Repositories.V1
 
         public async Task<AclResponse> DeleteById(ulong id)
         {
-            AclUser? aclUser = await _customUnitOfWork.AclUserRepository.GetById(id);
+            AclUser? aclUser = await this._customUnitOfWork.AclUserRepository.GetById(id);
 
             if (aclUser != null)
             {
                 await base.DeleteAsync(aclUser);
-                _unitOfWork.ApplicationDbContext.SaveChanges();
+                this._unitOfWork.ApplicationDbContext.SaveChanges();
 
                 // delete all item for user user group
-                var UserUserGroups = _unitOfWork.ApplicationDbContext.AclUserUsergroups.Where(x => x.UserId == id).ToArray();
-                _unitOfWork.ApplicationDbContext.RemoveRange(UserUserGroups);
-                _unitOfWork.Complete();
+                var UserUserGroups = this._unitOfWork.ApplicationDbContext.AclUserUsergroups.Where(x => x.UserId == id).ToArray();
+                this._unitOfWork.ApplicationDbContext.RemoveRange(UserUserGroups);
+                this._unitOfWork.Complete();
 
 
-                aclResponse.Message = messageResponse.deleteMessage;
-                aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.aclResponse.Message = this.messageResponse.deleteMessage;
+                this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
-            return aclResponse;
+            return this.aclResponse;
         }
 
         public AclUser PrepareInputData(AclUserRequest request, AclUser AclUser = null)
         {
-            var salt = _unitOfWork.cryptographyService.GenerateSalt();
+            var salt = this._unitOfWork.cryptographyService.GenerateSalt();
             if (AclUser == null)
             {
                 return new AclUser
@@ -231,7 +227,7 @@ namespace ACL.Repositories.V1
                     FirstName = request.FirstName,
                     LastName = request.LastName,
                     Email = request.Email,
-                    Password = _unitOfWork.cryptographyService.HashPassword(request.Password, salt),
+                    Password = this._unitOfWork.cryptographyService.HashPassword(request.Password, salt),
                     Avatar = request.Avatar,
                     Dob = request.DOB,
                     Gender = request.Gender,
@@ -245,8 +241,8 @@ namespace ACL.Repositories.V1
                     Status = request.Status,
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now,
-                    CompanyId = _companyId,
-                    UserType = (_companyId == 0) ? uint.Parse(_config["USER_TYPE_S_ADMIN"]) : uint.Parse(_config["USER_TYPE_USER"]),
+                    CompanyId = this._companyId,
+                    UserType = (this._companyId == 0) ? uint.Parse(this._config["USER_TYPE_S_ADMIN"]) : uint.Parse(this._config["USER_TYPE_USER"]),
                     Salt = salt,
                     Claims = new Core.Claim[] { }
                 };
@@ -256,7 +252,7 @@ namespace ACL.Repositories.V1
                 AclUser.FirstName = request.FirstName;
                 AclUser.LastName = request.LastName;
                 AclUser.Email = request.Email;
-                AclUser.Password = _unitOfWork.cryptographyService.HashPassword(request.Password, AclUser.Salt ?? salt);
+                AclUser.Password = this._unitOfWork.cryptographyService.HashPassword(request.Password, AclUser.Salt ?? salt);
                 AclUser.Avatar = request.Avatar;
                 AclUser.Dob = request.DOB;
                 AclUser.Gender = request.Gender;
@@ -269,8 +265,8 @@ namespace ACL.Repositories.V1
                 AclUser.ImgPath = request.ImgPath;
                 AclUser.Status = request.Status;
                 AclUser.UpdatedAt = DateTime.Now;
-                AclUser.CompanyId = (_companyId != 0) ? _companyId : 0;
-                AclUser.UserType = (_userType != 0) ? _userType : 0;
+                AclUser.CompanyId = (this._companyId != 0) ? this._companyId : 0;
+                AclUser.UserType = (this._userType != 0) ? this._userType : 0;
                 AclUser.Salt = AclUser.Salt ?? salt;
                 AclUser.Claims = AclUser.Claims??new Core.Claim[] { };
             }
@@ -296,13 +292,13 @@ namespace ACL.Repositories.V1
 
         public uint SetCompanyId(uint companyId)
         {
-            _companyId = companyId;
-            return _companyId;
+            this._companyId = companyId;
+            return this._companyId;
         }
         public uint SetUserType(bool is_user_type_created_by_company)
         {
 
-            return _userType = is_user_type_created_by_company ? uint.Parse(_config["USER_TYPE_S_ADMIN"]) : uint.Parse(_config["USER_TYPE_USER"]);
+            return this._userType = is_user_type_created_by_company ? uint.Parse(this._config["USER_TYPE_S_ADMIN"]) : uint.Parse(this._config["USER_TYPE_USER"]);
         }
 
         public async Task<AclUser> AddAndSaveAsync(AclUser entity)

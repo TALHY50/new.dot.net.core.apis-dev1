@@ -1,7 +1,7 @@
-﻿using ACL.Database;
+﻿using ACL.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 
-namespace ACL.Data
+namespace ACL.Infrastructure.Data
 {
     public static class SeedData
     {

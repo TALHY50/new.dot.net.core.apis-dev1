@@ -1,15 +1,12 @@
 ﻿using ACL.Application.Interfaces;
 using ACL.Application.Interfaces.Repositories.V1;
 using ACL.Core.Models;
-using ACL.Database;
+using ACL.Infrastructure.Database;
+using ACL.Infrastructure.Utilities;
 using ACL.Response.V1;
-using ACL.Utilities;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using SharedLibrary.Interfaces;
 using SharedLibrary.Services;
-using SharedLibrary.Response.CustomStatusCode;
 
-namespace ACL.Repositories.V1
+namespace ACL.Infrastructure.Repositories.V1
 {
     public class AclPageRouteRepository : GenericRepository<AclPageRoute, ApplicationDbContext, ICustomUnitOfWork>, IAclPageRouteRepository
     {
@@ -19,9 +16,9 @@ namespace ACL.Repositories.V1
 
         public AclPageRouteRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
-            aclResponse = new AclResponse();
+            this.aclResponse = new AclResponse();
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
-            messageResponse = new MessageResponse(modelName, _unitOfWork, AppAuth.GetAuthInfo().Language);
+            this.messageResponse = new MessageResponse(this.modelName, _unitOfWork, AppAuth.GetAuthInfo().Language);
         }
     }
 }

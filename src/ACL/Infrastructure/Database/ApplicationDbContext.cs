@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
+﻿using System.Reflection;
 using ACL.Core;
 using ACL.Core.Models;
-using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
-using MySql.EntityFrameworkCore.Extensions;
-using Pomelo.EntityFrameworkCore.MySql.Scaffolding.Internal;
 using SharedLibrary.Interfaces;
 using Claim = ACL.Core.Models.Claim;
 
-namespace ACL.Database;
+namespace ACL.Infrastructure.Database;
 
 public partial class ApplicationDbContext : DbContext, IApplicationDbContext
 {

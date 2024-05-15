@@ -2,8 +2,8 @@
 using ACL.Application.Interfaces.ServiceInterfaces;
 using ACL.Application.Ports.Repositories;
 using ACL.Application.Ports.Services;
-using ACL.Database;
-using ACL.Services;
+using ACL.Infrastructure;
+using ACL.Infrastructure.Database;
 using SharedLibrary.Interfaces;
 
 namespace ACL.Application.Interfaces

@@ -1,31 +1,19 @@
-﻿using ACL.Controllers.V1;
-using ACL.Database;
-using ACL.Repositories;
-using ACL.Repositories.V1;
-using Microsoft.EntityFrameworkCore.Storage;
-using ACL.Services;
-using System.Data;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Localization;
-using Microsoft.AspNetCore.Mvc.Localization;
-using System.Globalization;
-using System.Resources;
+﻿using System.Globalization;
 using System.Reflection;
-using Serilog.Core;
-using SharedLibrary.Interfaces;
-using SharedLibrary.Services;
-using Microsoft.EntityFrameworkCore;
-using HtmlAgilityPack;
-using System.Runtime.CompilerServices;
+using System.Resources;
 using ACL.Application.Interfaces;
 using ACL.Application.Interfaces.Repositories.V1;
 using ACL.Application.Interfaces.ServiceInterfaces;
 using ACL.Application.Ports.Repositories;
 using ACL.Application.Ports.Services;
+using ACL.Infrastructure.Database;
+using ACL.Infrastructure.Repositories.V1;
 using ACL.Infrastructure.Services.Cryptography;
 using Microsoft.Extensions.Caching.Distributed;
+using SharedLibrary.Interfaces;
+using SharedLibrary.Services;
 
-namespace ACL.Services
+namespace ACL.Infrastructure
 {
     public class CustomUnitOfWork : UnitOfWork<ApplicationDbContext, ICustomUnitOfWork>, ICustomUnitOfWork
     {
@@ -38,35 +26,35 @@ namespace ACL.Services
         public CustomUnitOfWork(ApplicationDbContext context, ILogger<UnitOfWork<ApplicationDbContext, ICustomUnitOfWork>> logger, ILogService logService, ICacheService cacheService, IServiceCollection services, Assembly programAssembly)
                    : base(context, logger, logService, cacheService, services, programAssembly)
         {
-            _assembly = programAssembly;
+            this._assembly = programAssembly;
             this.context = context;
-            _logService = logService;
-            _baseunitOfWork = base.unitOfWork;
-            _unitOfWork = this;
+            this._logService = logService;
+            this._baseunitOfWork = base.unitOfWork;
+            this._unitOfWork = this;
             base.SetLogService(logService);
-            _assembly = programAssembly;
-            _unitOfWork.SetAssembly(_assembly);
+            this._assembly = programAssembly;
+            this._unitOfWork.SetAssembly(this._assembly);
         }
          public CustomUnitOfWork(ApplicationDbContext context,IDistributedCache distributedCache) : base(context)
         {
             this.context = context;
-            _unitOfWork = this;
-            _baseunitOfWork = base.unitOfWork;
-            base.SetLogService(_logService);
-            _distributedCache = distributedCache;
-            _assembly = Assembly.GetExecutingAssembly() ?? Assembly.GetEntryAssembly() ?? Assembly.GetCallingAssembly();
-            _unitOfWork.SetAssembly(_assembly);
-            _unitOfWork.SetLocalizationService(new LocalizationService("ACL.Resources.en-US", typeof(Program).Assembly, "en-US"));
+            this._unitOfWork = this;
+            this._baseunitOfWork = base.unitOfWork;
+            base.SetLogService(this._logService);
+            this._distributedCache = distributedCache;
+            this._assembly = Assembly.GetExecutingAssembly() ?? Assembly.GetEntryAssembly() ?? Assembly.GetCallingAssembly();
+            this._unitOfWork.SetAssembly(this._assembly);
+            this._unitOfWork.SetLocalizationService(new LocalizationService("ACL.Resources.en-US", typeof(Program).Assembly, "en-US"));
         }
         public CustomUnitOfWork(ApplicationDbContext context) : base(context)
         {
             this.context = context;
-            _unitOfWork = this;
-            _baseunitOfWork = base.unitOfWork;
-            base.SetLogService(_logService);
-            _assembly = Assembly.GetExecutingAssembly() ?? Assembly.GetEntryAssembly() ?? Assembly.GetCallingAssembly();
-            _unitOfWork.SetAssembly(_assembly);
-            _unitOfWork.SetLocalizationService(new LocalizationService("ACL.Resources.en-US", typeof(Program).Assembly, "en-US"));
+            this._unitOfWork = this;
+            this._baseunitOfWork = base.unitOfWork;
+            base.SetLogService(this._logService);
+            this._assembly = Assembly.GetExecutingAssembly() ?? Assembly.GetEntryAssembly() ?? Assembly.GetCallingAssembly();
+            this._unitOfWork.SetAssembly(this._assembly);
+            this._unitOfWork.SetLocalizationService(new LocalizationService("ACL.Resources.en-US", typeof(Program).Assembly, "en-US"));
         }
 
         public new ApplicationDbContext ApplicationDbContext
@@ -96,7 +84,7 @@ namespace ACL.Services
         }
         public IAclCompanyRepository AclCompanyRepository
         {
-            get { return new AclCompanyRepository(_unitOfWork, Config); }
+            get { return new AclCompanyRepository(this._unitOfWork, Config); }
         }
         public IAclRolePageRepository AclRolePageRepository
         {
@@ -128,7 +116,7 @@ namespace ACL.Services
         public override ResourceManager SetReourceManager(CultureInfo resource = null, Assembly assembly = null)
         {
             resource ??= new CultureInfo("en-US");
-            assembly ??= _assembly;
+            assembly ??= this._assembly;
             return base.SetReourceManager(resource, assembly);
         }
 
@@ -195,7 +183,7 @@ namespace ACL.Services
 
         ICustomUnitOfWork ICustomUnitOfWork._unitOfWork => this;
 
-        IUnitOfWork<ApplicationDbContext, CustomUnitOfWork> IUnitOfWork<ApplicationDbContext, CustomUnitOfWork>.UnitOfWork { get { return this._unitOfWork; } set => unitOfWork = (IUnitOfWork<ApplicationDbContext, ICustomUnitOfWork>)this._unitOfWork; }
+        IUnitOfWork<ApplicationDbContext, CustomUnitOfWork> IUnitOfWork<ApplicationDbContext, CustomUnitOfWork>.UnitOfWork { get { return this._unitOfWork; } set => this.unitOfWork = (IUnitOfWork<ApplicationDbContext, ICustomUnitOfWork>)this._unitOfWork; }
 
         IUnitOfWork<ApplicationDbContext, CustomUnitOfWork> ICustomUnitOfWork._baseUnitOfWork => this._unitOfWork;
 

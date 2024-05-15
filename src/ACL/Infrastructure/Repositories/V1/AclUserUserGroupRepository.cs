@@ -1,16 +1,12 @@
 ﻿using ACL.Application.Interfaces;
 using ACL.Application.Interfaces.Repositories.V1;
 using ACL.Core.Models;
-using ACL.Database;
+using ACL.Infrastructure.Database;
+using ACL.Infrastructure.Utilities;
 using ACL.Response.V1;
-using ACL.Services;
-using ACL.Utilities;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using SharedLibrary.Interfaces;
 using SharedLibrary.Services;
-using SharedLibrary.Response.CustomStatusCode;
 
-namespace ACL.Repositories.V1
+namespace ACL.Infrastructure.Repositories.V1
 {
     public class AclUserUserGroupRepository : GenericRepository<AclUserUsergroup, ApplicationDbContext, ICustomUnitOfWork>, IAclUserUserGroupRepository
     {
@@ -20,8 +16,8 @@ namespace ACL.Repositories.V1
         public AclUserUserGroupRepository(ICustomUnitOfWork unitOfWork) : base(unitOfWork, unitOfWork.ApplicationDbContext)
         {
             AppAuth.SetAuthInfo();
-            aclResponse = new AclResponse();
-            messageResponse = new MessageResponse(modelName, _unitOfWork, AppAuth.GetAuthInfo().Language);
+            this.aclResponse = new AclResponse();
+            this.messageResponse = new MessageResponse(this.modelName, this._unitOfWork, AppAuth.GetAuthInfo().Language);
         }
     }
 }

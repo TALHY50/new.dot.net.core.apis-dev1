@@ -1,6 +1,6 @@
 ﻿
 
-namespace ACL.Utilities
+namespace ACL.Infrastructure.Utilities
 {
     public class AuthInfoModel
     {

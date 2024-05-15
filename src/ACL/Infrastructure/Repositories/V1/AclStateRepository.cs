@@ -1,15 +1,15 @@
 ﻿using ACL.Application.Interfaces;
 using ACL.Application.Interfaces.Repositories.V1;
 using ACL.Core.Models;
+using ACL.Infrastructure.Database;
+using ACL.Infrastructure.Utilities;
 using ACL.Requests;
 using ACL.Response.V1;
-using ACL.Utilities;
-using SharedLibrary.Services;
-using ACL.Database;
-using SharedLibrary.Response.CustomStatusCode;
 using Microsoft.EntityFrameworkCore;
+using SharedLibrary.Response.CustomStatusCode;
+using SharedLibrary.Services;
 
-namespace ACL.Repositories.V1
+namespace ACL.Infrastructure.Repositories.V1
 {
     public class AclStateRepository : GenericRepository<AclState, ApplicationDbContext, ICustomUnitOfWork>, IAclStateRepository
     {
@@ -20,17 +20,17 @@ namespace ACL.Repositories.V1
 
         public AclStateRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
-            _customUnitOfWork = _unitOfWork;
+            this._customUnitOfWork = _unitOfWork;
             AppAuth.SetAuthInfo();
-            aclResponse = new AclResponse();
+            this.aclResponse = new AclResponse();
             AppAuth.SetAuthInfo();
-            messageResponse = new MessageResponse(modelName, _unitOfWork, AppAuth.GetAuthInfo().Language);
+            this.messageResponse = new MessageResponse(this.modelName, _unitOfWork, AppAuth.GetAuthInfo().Language);
         }
 
         public async Task<AclResponse> GetAll()
         {
-            var aclStates = await _customUnitOfWork.AclStateRepository.Where(s => true)
-                .Join(_customUnitOfWork.AclCountryRepository.Where(c => true), s => s.CountryId, c => c.Id, (s, c) => new
+            var aclStates = await this._customUnitOfWork.AclStateRepository.Where(s => true)
+                .Join(this._customUnitOfWork.AclCountryRepository.Where(c => true), s => s.CountryId, c => c.Id, (s, c) => new
                 {
                     state = s,
                     country = c
@@ -38,27 +38,27 @@ namespace ACL.Repositories.V1
                 }).ToListAsync();
             if (aclStates.Any())
             {
-                aclResponse.Message = messageResponse.fetchMessage;
+                this.aclResponse.Message = this.messageResponse.fetchMessage;
             }
-            aclResponse.Data = aclStates;
-            aclResponse.StatusCode = AppStatusCode.SUCCESS;
-            aclResponse.Timestamp = DateTime.Now;
+            this.aclResponse.Data = aclStates;
+            this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+            this.aclResponse.Timestamp = DateTime.Now;
 
-            return aclResponse;
+            return this.aclResponse;
         }
         public async Task<AclResponse> Add(AclStateRequest request)
         {
 
             var aclState = PrepareInputData(request);
             await base.AddAsync(aclState);
-            await _unitOfWork.CompleteAsync();
-            await _customUnitOfWork.AclStateRepository.ReloadAsync(aclState);
-            aclResponse.Data = aclState;
-            aclResponse.Message = messageResponse.createMessage;
-            aclResponse.StatusCode = AppStatusCode.SUCCESS;
+            await this._unitOfWork.CompleteAsync();
+            await this._customUnitOfWork.AclStateRepository.ReloadAsync(aclState);
+            this.aclResponse.Data = aclState;
+            this.aclResponse.Message = this.messageResponse.createMessage;
+            this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
 
-            aclResponse.Timestamp = DateTime.Now;
-            return aclResponse;
+            this.aclResponse.Timestamp = DateTime.Now;
+            return this.aclResponse;
 
 
         }
@@ -67,44 +67,44 @@ namespace ACL.Repositories.V1
             var aclState = await base.GetById(id);
             if (aclState == null)
             {
-                aclResponse.Message = messageResponse.notFoundMessage;
-                return aclResponse;
+                this.aclResponse.Message = this.messageResponse.notFoundMessage;
+                return this.aclResponse;
             }
 
             aclState = PrepareInputData(request, aclState);
             await base.UpdateAsync(aclState);
-            await _unitOfWork.CompleteAsync();
-            await _customUnitOfWork.AclStateRepository.ReloadAsync(aclState);
-            aclResponse.Data = aclState;
-            aclResponse.Message = messageResponse.editMessage;
-            aclResponse.StatusCode = AppStatusCode.SUCCESS;
+            await this._unitOfWork.CompleteAsync();
+            await this._customUnitOfWork.AclStateRepository.ReloadAsync(aclState);
+            this.aclResponse.Data = aclState;
+            this.aclResponse.Message = this.messageResponse.editMessage;
+            this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
 
-            aclResponse.Timestamp = DateTime.Now;
-            return aclResponse;
+            this.aclResponse.Timestamp = DateTime.Now;
+            return this.aclResponse;
 
         }
 
         public async Task<AclResponse> FindById(ulong id)
         {
 
-            var aclState = await _customUnitOfWork.AclStateRepository.Where(s => s.Id == id)
-                .Join(_customUnitOfWork.AclCountryRepository.Where(c => true), s => s.CountryId, c => c.Id, (s, c) => new
+            var aclState = await this._customUnitOfWork.AclStateRepository.Where(s => s.Id == id)
+                .Join(this._customUnitOfWork.AclCountryRepository.Where(c => true), s => s.CountryId, c => c.Id, (s, c) => new
                 {
                     state = s,
                     country = c
 
                 }).FirstOrDefaultAsync();
-            aclResponse.Data = aclState;
-            aclResponse.Message = messageResponse.fetchMessage;
+            this.aclResponse.Data = aclState;
+            this.aclResponse.Message = this.messageResponse.fetchMessage;
             if (aclState == null)
             {
-                aclResponse.Message = messageResponse.notFoundMessage;
+                this.aclResponse.Message = this.messageResponse.notFoundMessage;
             }
 
-            aclResponse.StatusCode = AppStatusCode.SUCCESS;
+            this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
 
-            aclResponse.Timestamp = DateTime.Now;
-            return aclResponse;
+            this.aclResponse.Timestamp = DateTime.Now;
+            return this.aclResponse;
 
         }
         public async Task<AclResponse> DeleteById(ulong id)
@@ -114,12 +114,12 @@ namespace ACL.Repositories.V1
             if (aclState != null)
             {
                 await base.DeleteAsync(aclState);
-                await _unitOfWork.CompleteAsync();
-                aclResponse.Message = messageResponse.deleteMessage;
-                aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                await this._unitOfWork.CompleteAsync();
+                this.aclResponse.Message = this.messageResponse.deleteMessage;
+                this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
 
-            return aclResponse;
+            return this.aclResponse;
 
         }
 

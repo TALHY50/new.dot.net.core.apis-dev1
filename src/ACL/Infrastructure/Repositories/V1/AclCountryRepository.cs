@@ -1,19 +1,14 @@
-﻿
-using ACL.Application.Interfaces;
+﻿using ACL.Application.Interfaces;
 using ACL.Application.Interfaces.Repositories.V1;
 using ACL.Core.Models;
-using ACL.Database;
+using ACL.Infrastructure.Database;
+using ACL.Infrastructure.Utilities;
 using ACL.Requests;
 using ACL.Response.V1;
-using ACL.Services;
-using ACL.Utilities;
-using Microsoft.Extensions.Caching.Distributed;
-using Newtonsoft.Json;
 using SharedLibrary.Response.CustomStatusCode;
 using SharedLibrary.Services;
-using SharedLibrary.Utilities;
 
-namespace ACL.Repositories.V1
+namespace ACL.Infrastructure.Repositories.V1
 {
     public class AclCountryRepository : GenericRepository<AclCountry, ApplicationDbContext, ICustomUnitOfWork>, IAclCountryRepository
     {
@@ -24,10 +19,10 @@ namespace ACL.Repositories.V1
 
         public AclCountryRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
-            _customUnitOfWork = _unitOfWork;
-            aclResponse = new AclResponse();
+            this._customUnitOfWork = _unitOfWork;
+            this.aclResponse = new AclResponse();
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
-            messageResponse = new MessageResponse(modelName, _unitOfWork, AppAuth.GetAuthInfo().Language);
+            this.messageResponse = new MessageResponse(this.modelName, _unitOfWork, AppAuth.GetAuthInfo().Language);
         }
 
         public async Task<AclResponse> GetAll()
@@ -35,12 +30,12 @@ namespace ACL.Repositories.V1
             var aclRoles = await base.All();
             if (aclRoles.Any())
             {
-                aclResponse.Message = messageResponse.fetchMessage;
+                this.aclResponse.Message = this.messageResponse.fetchMessage;
             }
-            aclResponse.Data = aclRoles;
-            aclResponse.StatusCode = AppStatusCode.SUCCESS;
+            this.aclResponse.Data = aclRoles;
+            this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
 
-            return aclResponse;
+            return this.aclResponse;
         }
         public async Task<AclResponse> Add(AclCountryRequest request)
         {
@@ -48,18 +43,18 @@ namespace ACL.Repositories.V1
             {
                 var aclCountry = PrepareInputData(request);
                 await base.AddAsync(aclCountry);
-                await _unitOfWork.CompleteAsync();
-                await _customUnitOfWork.AclCountryRepository.ReloadAsync(aclCountry);
-                aclResponse.Data = aclCountry;
-                aclResponse.Message = messageResponse.createMessage;
-                aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                await this._unitOfWork.CompleteAsync();
+                await this._customUnitOfWork.AclCountryRepository.ReloadAsync(aclCountry);
+                this.aclResponse.Data = aclCountry;
+                this.aclResponse.Message = this.messageResponse.createMessage;
+                this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             catch (Exception ex)
             {
-                aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = AppStatusCode.FAIL;
+                this.aclResponse.Message = ex.Message;
+                this.aclResponse.StatusCode = AppStatusCode.FAIL;
             }
-            return aclResponse;
+            return this.aclResponse;
 
 
         }
@@ -68,25 +63,25 @@ namespace ACL.Repositories.V1
             var aclCountry = await base.GetById(id);
             if (aclCountry == null)
             {
-                aclResponse.Message = messageResponse.notFoundMessage;
-                return aclResponse;
+                this.aclResponse.Message = this.messageResponse.notFoundMessage;
+                return this.aclResponse;
             }
             try
             {
                 aclCountry = PrepareInputData(request, aclCountry);
                 await base.UpdateAsync(aclCountry);
-                await _unitOfWork.CompleteAsync();
-                await _unitOfWork.AclCountryRepository.ReloadAsync(aclCountry);
-                aclResponse.Data = aclCountry;
-                aclResponse.Message = messageResponse.editMessage;
-                aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                await this._unitOfWork.CompleteAsync();
+                await this._unitOfWork.AclCountryRepository.ReloadAsync(aclCountry);
+                this.aclResponse.Data = aclCountry;
+                this.aclResponse.Message = this.messageResponse.editMessage;
+                this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             catch (Exception ex)
             {
-                aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = AppStatusCode.FAIL;
+                this.aclResponse.Message = ex.Message;
+                this.aclResponse.StatusCode = AppStatusCode.FAIL;
             }
-            return aclResponse;
+            return this.aclResponse;
 
         }
         public async Task<AclResponse> FindById(ulong id)
@@ -94,21 +89,21 @@ namespace ACL.Repositories.V1
             try
             {
                 var aclRole = await base.GetById(id);
-                aclResponse.Data = aclRole;
-                aclResponse.Message = messageResponse.fetchMessage;
+                this.aclResponse.Data = aclRole;
+                this.aclResponse.Message = this.messageResponse.fetchMessage;
                 if (aclRole == null)
                 {
-                    aclResponse.Message = messageResponse.notFoundMessage;
+                    this.aclResponse.Message = this.messageResponse.notFoundMessage;
                 }
 
-                aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             catch (Exception ex)
             {
-                aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = AppStatusCode.FAIL;
+                this.aclResponse.Message = ex.Message;
+                this.aclResponse.StatusCode = AppStatusCode.FAIL;
             }
-            return aclResponse;
+            return this.aclResponse;
 
         }
         public async Task<AclResponse> DeleteById(ulong id)
@@ -118,12 +113,12 @@ namespace ACL.Repositories.V1
             if (aclRole != null)
             {
                 await base.DeleteAsync(aclRole);
-                await _unitOfWork.CompleteAsync();
-                aclResponse.Message = messageResponse.deleteMessage;
-                aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                await this._unitOfWork.CompleteAsync();
+                this.aclResponse.Message = this.messageResponse.deleteMessage;
+                this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
 
-            return aclResponse;
+            return this.aclResponse;
 
         }
         private AclCountry PrepareInputData(AclCountryRequest request, AclCountry aclCountry = null)

@@ -1,19 +1,16 @@
-﻿using ACL.Requests;
-using ACL.Response.V1;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Localization;
-using System.Linq;
-using ACL.Application.Interfaces;
+﻿using ACL.Application.Interfaces;
 using ACL.Application.Interfaces.Repositories.V1;
 using ACL.Core.Models;
-using static ACL.Route.AclRoutesUrl;
-using SharedLibrary.Interfaces;
-using SharedLibrary.Services;
-using ACL.Database;
-using ACL.Utilities;
+using ACL.Infrastructure.Database;
+using ACL.Infrastructure.Utilities;
+using ACL.Requests;
+using ACL.Response.V1;
+using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Response.CustomStatusCode;
+using SharedLibrary.Services;
+using static ACL.Route.AclRoutesUrl;
 
-namespace ACL.Repositories.V1
+namespace ACL.Infrastructure.Repositories.V1
 {
     public class AclRolePageRepository : GenericRepository<AclRolePage, ApplicationDbContext, ICustomUnitOfWork>, IAclRolePageRepository
     {
@@ -22,9 +19,9 @@ namespace ACL.Repositories.V1
         private string modelName = "Role Page";
         public AclRolePageRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
-            aclResponse = new AclResponse();
+            this.aclResponse = new AclResponse();
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
-            messageResponse = new MessageResponse(modelName, _unitOfWork, AppAuth.GetAuthInfo().Language);
+            this.messageResponse = new MessageResponse(this.modelName, _unitOfWork, AppAuth.GetAuthInfo().Language);
 
         }
 
@@ -33,57 +30,57 @@ namespace ACL.Repositories.V1
             var res = await base.Where(x => x.RoleId == id).ToListAsync();
             if (res.Any())
             {
-                aclResponse.Message = messageResponse.fetchMessage;
-                aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.aclResponse.Message = this.messageResponse.fetchMessage;
+                this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             else
             {
-                aclResponse.Message = messageResponse.notFoundMessage;
-                aclResponse.StatusCode = AppStatusCode.FAIL;
+                this.aclResponse.Message = this.messageResponse.notFoundMessage;
+                this.aclResponse.StatusCode = AppStatusCode.FAIL;
             }
-            aclResponse.Data = res;
-            aclResponse.Timestamp = DateTime.Now;
+            this.aclResponse.Data = res;
+            this.aclResponse.Timestamp = DateTime.Now;
 
-            return aclResponse;
+            return this.aclResponse;
         }
 
         public async Task<AclResponse> UpdateAll(AclRoleAndPageAssocUpdateRequest req)
         {
             var res = await base.Where(x => x.RoleId == req.RoleId).ToListAsync();
             var check = PrepareData(req);
-            using (var transaction = _unitOfWork.BeginTransaction())
+            using (var transaction = this._unitOfWork.BeginTransaction())
             {
                 try
                 {
                     var removedEntities = await base.RemoveRange(res);
                     await base.AddRange(check);
-                    await _unitOfWork.CommitTransactionAsync();
+                    await this._unitOfWork.CommitTransactionAsync();
                 }
                 catch (Exception ex)
                 {
-                    await _unitOfWork.RollbackTransactionAsync();
-                    aclResponse.Message = ex.Message;
-                    aclResponse.StatusCode = AppStatusCode.FAIL;
+                    await this._unitOfWork.RollbackTransactionAsync();
+                    this.aclResponse.Message = ex.Message;
+                    this.aclResponse.StatusCode = AppStatusCode.FAIL;
                 }
             }
-            await _unitOfWork.CompleteAsync();
+            await this._unitOfWork.CompleteAsync();
             await ReloadEntitiesAsync(check);
             res = check.ToList();
             if (res.Any())
             {
-                aclResponse.Message = messageResponse.fetchMessage;
-                aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.aclResponse.Message = this.messageResponse.fetchMessage;
+                this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             else
             {
-                aclResponse.Message = messageResponse.notFoundMessage;
-                aclResponse.StatusCode = AppStatusCode.FAIL;
+                this.aclResponse.Message = this.messageResponse.notFoundMessage;
+                this.aclResponse.StatusCode = AppStatusCode.FAIL;
             }
 
-            aclResponse.Data = res;
-            aclResponse.Timestamp = DateTime.Now;
+            this.aclResponse.Data = res;
+            this.aclResponse.Timestamp = DateTime.Now;
 
-            return aclResponse;
+            return this.aclResponse;
         }
 
 
