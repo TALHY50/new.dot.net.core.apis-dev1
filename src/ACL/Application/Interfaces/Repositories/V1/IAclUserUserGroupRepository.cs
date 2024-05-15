@@ -1,7 +1,7 @@
 ﻿using ACL.Core.Models;
 using SharedLibrary.Interfaces;
 
-namespace ACL.Interfaces.Repositories.V1
+namespace ACL.Application.Interfaces.Repositories.V1
 {
     public interface IAclUserUserGroupRepository :IGenericRepository<AclUserUsergroup>
     {

@@ -4,8 +4,6 @@ using ACL.Application.Ports.Services;
 using ACL.Application.UseCases.CreateUser.Request;
 using ACL.Application.UseCases.CreateUser.Response;
 using ACL.Core.Models;
-using ACL.Interfaces;
-using ACL.Interfaces.Repositories.V1;
 using ACL.Requests.V1;
 using ACL.Response.V1;
 using Claim = ACL.Application.UseCases.CreateUser.Request.Claim;

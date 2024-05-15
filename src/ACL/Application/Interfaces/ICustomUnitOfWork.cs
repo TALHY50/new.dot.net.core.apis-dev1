@@ -1,24 +1,12 @@
-﻿using ACL.Services;
-using System.Data;
-using ACL.Database;
-using ACL.Interfaces.Repositories.V1;
-using Microsoft.EntityFrameworkCore.Storage;
-using ACL.Interfaces.Repositories;
-using ACL.Controllers.V1;
-using Microsoft.Extensions.Localization;
-using Microsoft.AspNetCore.Mvc.Localization;
-using System.Globalization;
-using System.Reflection;
-using System.Resources;
+﻿using ACL.Application.Interfaces.Repositories.V1;
+using ACL.Application.Interfaces.ServiceInterfaces;
 using ACL.Application.Ports.Repositories;
-using ACL.Repositories.V1;
-using SharedLibrary.Interfaces;
-using ACL.Interfaces.ServiceInterfaces;
-using Microsoft.Extensions.Caching.Distributed;
 using ACL.Application.Ports.Services;
+using ACL.Database;
+using ACL.Services;
+using SharedLibrary.Interfaces;
 
-
-namespace ACL.Interfaces
+namespace ACL.Application.Interfaces
 {
     public interface ICustomUnitOfWork : IDisposable, IUnitOfWork<ApplicationDbContext, CustomUnitOfWork>
     {

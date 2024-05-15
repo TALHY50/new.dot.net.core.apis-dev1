@@ -1,6 +1,4 @@
-﻿using ACL.Interfaces;
-using ACL.Interfaces.Repositories.V1;
-using ACL.Requests;
+﻿using ACL.Requests;
 using ACL.Requests.V1;
 using ACL.Response.V1;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +9,8 @@ using SharedLibrary.Services;
 using ACL.Database;
 using ACL.Utilities;
 using System.Net;
+using ACL.Application.Interfaces;
+using ACL.Application.Interfaces.Repositories.V1;
 using ACL.Core.Models;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using SharedLibrary.Response.CustomStatusCode;

@@ -1,7 +1,6 @@
-﻿using ACL.Core.Models;
-using ACL.Interfaces;
-using ACL.Interfaces.Repositories.V1;
-using ACL.Interfaces.ServiceInterfaces;
+﻿using ACL.Application.Interfaces;
+using ACL.Application.Interfaces.ServiceInterfaces;
+using ACL.Core.Models;
 using ACL.Repositories.V1;
 using ACL.Requests.V1;
 using ACL.Response.V1;

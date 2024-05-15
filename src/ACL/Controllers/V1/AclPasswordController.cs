@@ -1,6 +1,6 @@
 ﻿
 using System.ComponentModel;
-using ACL.Interfaces;
+using ACL.Application.Interfaces;
 using ACL.Requests.V1;
 using ACL.Response.V1;
 using Microsoft.AspNetCore.Authorization;

@@ -2,7 +2,6 @@
 using ACL.Application.Ports.Repositories;
 using ACL.Application.UseCases.SignOut.Request;
 using ACL.Application.UseCases.SignOut.Response;
-using ACL.Interfaces.Repositories.V1;
 
 namespace ACL.Application.UseCases.SignOut
 {

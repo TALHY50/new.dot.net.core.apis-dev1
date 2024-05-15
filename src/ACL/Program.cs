@@ -1,6 +1,7 @@
 
 using System.Configuration;
 using System.Security.Cryptography;
+using ACL.Application.Interfaces;
 using ACL.Application.Ports.Repositories;
 using ACL.Application.Ports.Services;
 using ACL.Application.UseCases.CreateUser;
@@ -13,7 +14,6 @@ using Serilog.Events;
 using ACL.Database;
 using ACL.Services;
 using DotNetEnv;
-using ACL.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using SharedLibrary.Interfaces;
 using SharedLibrary.Services;
@@ -23,7 +23,6 @@ using ACL.Infrastructure.Services;
 using ACL.Infrastructure.Services.Cryptography;
 using ACL.Infrastructure.Services.Jwt;
 using ACL.Infrastructure.Services.Permission;
-using ACL.Interfaces.Repositories.V1;
 using ACL.Repositories.V1;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
