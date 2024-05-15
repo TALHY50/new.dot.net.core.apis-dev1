@@ -1,8 +1,14 @@
 
+using ACL.Application.UseCases.Login.Request;
 using ACL.Database;
 using ACL.Services;
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
+using System.Runtime.Caching;
+using Newtonsoft.Json;
+using RestSharp;
+using Microsoft.Extensions.Caching.Distributed;
+
 
 namespace ACL.Tests
 {
@@ -13,7 +19,7 @@ namespace ACL.Tests
         public static ApplicationDbContext dbContext;
         public static CustomUnitOfWork unitOfWork;
         public static string Authorization;
-
+        static MemoryCache _cache = new MemoryCache("cache");
         public static void SetDatabase(bool isLocalDb = false)
         {
             Env.NoClobber().TraversePath().Load();
@@ -58,10 +64,53 @@ namespace ACL.Tests
 
         public static string GetAuthorization()
         {
-            return Authorization = "Bearer  "+"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwidmVyIjoiMSIsIm5iZiI6MTcxNTY4NTE0MSwiZXhwIjoxNzE1Njg1NDQxLCJpYXQiOjE3MTU2ODUxNDEsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTAwMS8iLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0LyJ9.qktXbYqYrjTY5xEEU_JGbA4GtJtmJzsk8J5G9scaOM6Nc-klcRXzEHXTlxkTDcODTOuKI9ftyI31n-r-kgmNGrDgo7XbLBSurnuyO4IjWNRc-KVv-e4gt_Chb_iOdEzsM6Oucn6VwxycMs4kgEBHgUxeWquDreBdVA0Iq1Jd0RRA4dkkSovbZw1mAs8iKivraRAnpjk7YoI4-59w33pT4Dzvy1AWlwTVDG2H1LRSENcOfMoM4ws0GXv1kIp75OexxFRxobx2pgBekgejhIsEIcMZOG8ZHkrpD6fG9RtC00q5g6GdQBL2_17Hm09H8ER25I7eN5ezNH869_wig5WnvQ";
-            //return Authorization = "jfkjdkfjklsdjf";
+            string key = "UserToken";
+            var Token = _cache.Get(key); 
+            if (Token == null)
+            {
+                
+                Token = TestLogin();
+                var cacheItem = new CacheItem(key, Token);
+                var cacheItemPolicy = new CacheItemPolicy
+                {
+                    AbsoluteExpiration = DateTimeOffset.Now.AddSeconds(120.0)
+                };
+                 _cache.Set(cacheItem , cacheItemPolicy);
+
+            }
+            return Authorization = "Bearer  "+ TestLogin();
+           
         }
 
+        public static string TestLogin()
+        {
+            var loginRequest =  new LoginRequest { Email = "ssadmin@sipay.com.tr", Password = "Nop@ss1234" };
+            //Arrange
+            RestClient restClient = new RestClient(baseUrl);
+            // Act
+            var  request = new RestRequest("api/v1/auth/login", Method.Post);
 
+            request.AddJsonBody(loginRequest);
+
+            RestResponse response = restClient.Execute(request);
+
+
+            //// Assert
+            loginResonse aclResponse = JsonConvert.DeserializeObject<loginResonse>(response.Content);
+
+            return aclResponse.accessToken;
+
+
+        }
+       
+
+    }
+
+    public class loginResonse()
+    {
+        public string idToken { get; set; }
+      
+        public string accessToken { get; set; }
+        public string refreshToken { get; set; }
     }
 }
