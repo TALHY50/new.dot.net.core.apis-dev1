@@ -15,7 +15,6 @@ using ACL.Domain.Permissions;
 using ACL.Utilities;
 using ACL.Services;
 using Microsoft.Extensions.Caching.Distributed;
-using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using SharedLibrary.Response.CustomStatusCode;
 
@@ -307,45 +306,47 @@ namespace ACL.Repositories.V1
         } 
         public async Task<AclUser?> GetUserWithPermissionAsync(uint userId) 
         { 
-            HashSet<string>? routeNames = new HashSet<string>();
+            HashSet<string>? permittedRoutes = new HashSet<string>();
             
             var user = await this.FindByIdAsync(userId);
 
             if (user == null) return user;
             
-            var roleIds = (from userUsergroup in this._dbContext.AclUserUsergroups
+            var roles = (from userUsergroup in this._dbContext.AclUserUsergroups
                 join usergroup in this._dbContext.AclUsergroups on userUsergroup.UsergroupId equals usergroup.Id
-                join usergroupRole in this._dbContext.AclUsergroupRoles on usergroup.Id equals usergroupRole.UsergroupId
+                join usergroupRole in this._dbContext.AclUsergroupRoles on usergroup.Id equals usergroupRole
+                    .UsergroupId
                 join role in this._dbContext.AclRoles on usergroupRole.RoleId equals role.Id
                 where userUsergroup.UserId == userId
-                select role.Id).ToList();
+                select new 
+                {
+                    RoleId = role.Id
+                }).ToList();
 
 
-            foreach (var roleId in roleIds)
+            foreach (var role in roles)
             {
-                var key = $"{Enum.GetName(CacheKeys.RoleRouteNames)}-{roleId}";
-                HashSet<string> tmpRouteNames = new HashSet<string>();
+                var key = $"{Enum.GetName(CacheKeys.RoleIdPermittedRoutes)}-{role.RoleId}";
 
-                string? cachedRouteNames = null;
+                string? cachedPermittedRoutes = null;
 
                 if (this._distributedCache is IDistributedCache)
                 {
-                    cachedRouteNames = await this._distributedCache.GetStringAsync(key);
+                    cachedPermittedRoutes = await this._distributedCache.GetStringAsync(key);
                 }
 
-                if (cachedRouteNames != null)
+                if (cachedPermittedRoutes != null)
                 {
-                    tmpRouteNames = JsonConvert.DeserializeObject<HashSet<string>>(cachedRouteNames);
-                    routeNames.UnionWith(tmpRouteNames);
+                    permittedRoutes.UnionWith(JsonConvert.DeserializeObject<HashSet<string>>(cachedPermittedRoutes));
                 }
-                
-                if(tmpRouteNames.IsNullOrEmpty()){
+                else
+                {
                     var permissionList = (from rolePage in this._dbContext.AclRolePages
                         join page in this._dbContext.AclPages on rolePage.PageId equals page.Id
                         join pageRoute in this._dbContext.AclPageRoutes on page.Id equals pageRoute.PageId
                         join subModule in this._dbContext.AclSubModules on page.SubModuleId equals subModule.Id
                         join module in this._dbContext.AclModules on subModule.ModuleId equals module.Id
-                        where rolePage.RoleId == roleId
+                        where rolePage.RoleId == role.RoleId
                         select new PermissionQueryResult()
                         {
                             UserId = user.Id,
@@ -363,18 +364,18 @@ namespace ACL.Repositories.V1
                         }).ToList();
                     if (permissionList != null)
                     {
-                        tmpRouteNames = permissionList.Select(q => q.PageRouteName).ToHashSet();
-                        routeNames.UnionWith(tmpRouteNames);
-                        if (this._distributedCache is IDistributedCache)
-                        {
-                            await this._distributedCache.SetStringAsync(key, JsonConvert.SerializeObject(tmpRouteNames));
-                        }
+                        var tmp = permissionList.Select(q => q.PageRouteName).ToHashSet();
+                        permittedRoutes.UnionWith(tmp);
                     }
-                    
+
+                    if (this._distributedCache is IDistributedCache)
+                    {
+                        await this._distributedCache.SetStringAsync(key, JsonConvert.SerializeObject(permittedRoutes));
+                    }
                 }
             }
             
-            var permission = new Permission(routeNames);
+            var permission = new Permission(permittedRoutes);
 
             user.SetPermission(permission);
 
