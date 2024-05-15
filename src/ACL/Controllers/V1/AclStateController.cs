@@ -18,21 +18,21 @@ namespace ACL.Controllers.V1
             _unitOfWork = unitOfWork;
         }
 
-        [Authorize(Policy = "HasPermission")]
+        //[Authorize(Policy = "HasPermission")]
         [HttpGet(Route.AclRoutesUrl.AclStateRouteUrl.List, Name = Route.AclRoutesName.AclStateRouteNames.List)]
         public async Task<AclResponse> Index()
         {
             return await _unitOfWork.AclStateRepository.GetAll();
         }
 
-        [Authorize(Policy = "HasPermission")]
+        //[Authorize(Policy = "HasPermission")]
         [HttpPost(Route.AclRoutesUrl.AclStateRouteUrl.Add, Name = Route.AclRoutesName.AclStateRouteNames.Add)]
         public async Task<AclResponse> Create(AclStateRequest objState)
         {
             return await _unitOfWork.AclStateRepository.Add(objState);
         }
 
-        [Authorize(Policy = "HasPermission")]
+        //[Authorize(Policy = "HasPermission")]
         [HttpGet(Route.AclRoutesUrl.AclStateRouteUrl.View, Name = Route.AclRoutesName.AclStateRouteNames.View)]
         public async Task<AclResponse> View(ulong id)
         {
@@ -40,7 +40,7 @@ namespace ACL.Controllers.V1
 
         }
 
-        [Authorize(Policy = "HasPermission")]
+        //[Authorize(Policy = "HasPermission")]
         [HttpPut(Route.AclRoutesUrl.AclStateRouteUrl.Edit, Name = Route.AclRoutesName.AclStateRouteNames.Edit)]
         public async Task<AclResponse> Edit(ulong id, AclStateRequest objState)
         {
@@ -48,7 +48,7 @@ namespace ACL.Controllers.V1
 
         }
 
-        [Authorize(Policy = "HasPermission")]
+        //[Authorize(Policy = "HasPermission")]
         [HttpDelete(Route.AclRoutesUrl.AclStateRouteUrl.Destroy, Name = Route.AclRoutesName.AclStateRouteNames.Destroy)]
         public async Task<AclResponse> Destroy(ulong id)
         {
