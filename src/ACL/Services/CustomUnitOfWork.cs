@@ -118,7 +118,7 @@ namespace ACL.Services
         }
         public IAclRoleRepository AclRoleRepository
         {
-            get { return new AclRoleRepository(this); }
+            get { return new AclRoleRepository(this,this._distributedCache); }
 
         }
 
