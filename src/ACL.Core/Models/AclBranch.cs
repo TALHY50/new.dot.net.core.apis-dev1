@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace ACL.Core.Models;
 
-namespace ACL.Database.Models;
-
-public partial class AclState
+public partial class AclBranch
 {
     public ulong Id { get; set; }
-    public ulong CountryId { get; set; }
-    public string Name { get; set; }
+    public ulong CompanyId { get; set; }
+
+    public string Name { get; set; } = null!;
+
+    public string Address { get; set; } = null!;
+
     public string Description { get; set; } = null!;
 
     public byte Status { get; set; }

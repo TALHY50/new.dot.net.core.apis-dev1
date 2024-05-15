@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using ACL.Core;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using ACL.Core.Permissions;
 
-namespace ACL.Database.Models;
+namespace ACL.Core.Models;
 
 public partial class AclUser
 {

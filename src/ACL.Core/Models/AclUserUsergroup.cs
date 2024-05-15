@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace ACL.Core.Models;
 
-namespace ACL.Database.Models;
-
-public partial class AclUsergroupRole
+public partial class AclUserUsergroup
 {
     public ulong Id { get; set; }
 
     public ulong UsergroupId { get; set; }
 
-    public ulong RoleId { get; set; }
+    public ulong UserId { get; set; }
 
     public ulong CompanyId { get; set; }
 
