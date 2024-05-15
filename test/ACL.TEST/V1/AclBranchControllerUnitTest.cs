@@ -1,7 +1,4 @@
-﻿using ACL.Requests;
-using ACL.Requests.V1;
-using ACL.Services;
-using ACL.Tests;
+﻿using ACL.Tests;
 using Bogus;
 using RestSharp;
 using System;
@@ -9,8 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ACL.Contracts.Requests.V1;
+using ACL.Contracts.Response.V1;
 using SharedLibrary.Response.CustomStatusCode;
-using ACL.Response.V1;
 using Newtonsoft.Json;
 
 namespace ACL.Tests.V1

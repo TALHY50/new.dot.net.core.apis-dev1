@@ -1,11 +1,9 @@
-﻿using ACL.Application.Enums;
-using ACL.Application.Exceptions;
-using ACL.Application.Ports.Repositories;
+﻿using ACL.Application.Ports.Repositories;
 using ACL.Application.Ports.Services;
 using ACL.Application.UseCases.RefreshToken.Request;
 using ACL.Application.UseCases.RefreshToken.Response;
-using ACL.Interfaces;
-using ACL.Interfaces.Repositories.V1;
+using ACL.UseCases.Enums;
+using ACL.UseCases.Exceptions;
 
 namespace ACL.Application.UseCases.RefreshToken
 {

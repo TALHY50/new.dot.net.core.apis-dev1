@@ -1,7 +1,6 @@
-﻿
-using ACL.Interfaces;
-using ACL.Requests;
-using ACL.Response.V1;
+﻿using ACL.Application.Interfaces;
+using ACL.Contracts.Requests.V1;
+using ACL.Contracts.Response.V1;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

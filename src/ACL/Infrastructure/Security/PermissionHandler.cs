@@ -1,8 +1,5 @@
 ﻿using System.Security.Claims;
 using ACL.Application.Ports.Services;
-using ACL.Database.Models;
-using ACL.Domain;
-using ACL.Domain.Permissions;
 using ACL.Infrastructure.Services.Jwt;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Controllers;

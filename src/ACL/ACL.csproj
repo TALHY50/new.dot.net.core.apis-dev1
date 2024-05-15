@@ -5,6 +5,13 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
+  
+  <PropertyGroup>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+    <OutputType>Exe</OutputType>
+    <WebProjectMode>true</WebProjectMode>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'" />
 
@@ -44,17 +51,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Application\Enums\" />
     <Folder Include="Application\UseCases\" />
-    <Folder Include="Domain\" />
     <Folder Include="Http\" />
-    <Folder Include="Infrastructure\Common\" />
     <Folder Include="Infrastructure\Persistence\Permissions\" />
     <Folder Include="Logs\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Requests\V1\AclRoleAndPageAssocUpdateRequest.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -62,12 +62,32 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Resources\bn-BD.resx">
+    <EmbeddedResource Update="Infrastructure\Resources\bn-BD.resx">
       <CustomToolNamespace>bn-BD</CustomToolNamespace>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\en-US.resx">
+    <EmbeddedResource Update="Infrastructure\Resources\en-US.resx">
       <CustomToolNamespace>en-US</CustomToolNamespace>
     </EmbeddedResource>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Ardalis.ListStartupServices" />
+    <PackageReference Include="Ardalis.Result" />
+    <PackageReference Include="Ardalis.Result.AspNetCore" />
+    <PackageReference Include="FastEndpoints" />
+    <PackageReference Include="FastEndpoints.Swagger" />
+    <PackageReference Include="MediatR" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" PrivateAssets="All" />
+  </ItemGroup>
+  
+  <ItemGroup>
+	<ProjectReference Include="..\ACL.Infrastructure\ACL.Infrastructure.csproj" />
+	<ProjectReference Include="..\ACL.UseCases\ACL.UseCases.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Include="Contracts\Requests\V1\AclRoleAndPageAssocUpdateRequest.cs" />
   </ItemGroup>
 
 </Project>

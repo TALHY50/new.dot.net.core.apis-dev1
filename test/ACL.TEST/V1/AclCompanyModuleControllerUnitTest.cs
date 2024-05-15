@@ -1,12 +1,5 @@
 ﻿using ACL.Controllers.V1;
-using ACL.Database;
-using ACL.Database.Models;
-using ACL.Interfaces;
-using ACL.Requests;
-using ACL.Requests.V1;
-using ACL.Response.V1;
 using ACL.Route;
-using ACL.Services;
 using ACL.Tests;
 using Bogus;
 using Microsoft.AspNetCore.Mvc;
@@ -21,6 +14,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ACL.Contracts.Requests.V1;
+using ACL.Contracts.Response.V1;
 using static ACL.Route.AclRoutesUrl;
 
 

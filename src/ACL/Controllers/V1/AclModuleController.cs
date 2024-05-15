@@ -1,12 +1,7 @@
-﻿using ACL.Database;
-using ACL.Database.Models;
-using ACL.Interfaces;
-using ACL.Interfaces.Repositories;
-using ACL.Requests;
-using ACL.Requests.V1;
-using ACL.Response.V1;
+﻿using ACL.Application.Interfaces;
+using ACL.Contracts.Requests.V1;
+using ACL.Contracts.Response.V1;
 using ACL.Route;
-using ACL.Services;
 using Craftgate.Response;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

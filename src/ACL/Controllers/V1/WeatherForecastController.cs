@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ACL.Database.Models;
+using ACL.Core.Models;
 using ACL.Route;
 
 namespace ACL.Controllers.V1

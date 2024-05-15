@@ -1,12 +1,11 @@
-using ACL.Requests;
+using ACL.Contracts.Requests.V1;
+using ACL.Contracts.Response.V1;
+using ACL.Core.Models;
 using Microsoft.EntityFrameworkCore;
 using RestSharp;
 using Bogus;
 using ACL.Route;
-using ACL.Database.Models;
-using ACL.Services;
 using SharedLibrary.Response.CustomStatusCode;
-using ACL.Response.V1;
 using Newtonsoft.Json;
 
 namespace ACL.Tests.V1

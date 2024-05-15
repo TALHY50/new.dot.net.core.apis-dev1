@@ -1,10 +1,11 @@
 
 using ACL.Application.UseCases.Login.Request;
-using ACL.Database;
-using ACL.Services;
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
 using System.Runtime.Caching;
+using ACL.Infrastructure;
+using ACL.Infrastructure.Database;
+using ACL.Infrastructure.Services;
 using Newtonsoft.Json;
 using RestSharp;
 using Microsoft.Extensions.Caching.Distributed;

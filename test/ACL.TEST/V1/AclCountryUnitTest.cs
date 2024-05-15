@@ -1,14 +1,11 @@
-using ACL.Requests;
-using ACL.Services;
 using Microsoft.EntityFrameworkCore;
 using RestSharp;
 using Bogus;
-using ACL.Database.Models;
-using ACL.Requests.V1;
 using SharedLibrary.Services;
 using SharedLibrary.Response.CustomStatusCode;
-using ACL.Response.V1;
 using System.Text.Json.Serialization;
+using ACL.Contracts.Requests.V1;
+using ACL.Contracts.Response.V1;
 using SharedLibrary.Utilities;
 using Newtonsoft.Json;
 
