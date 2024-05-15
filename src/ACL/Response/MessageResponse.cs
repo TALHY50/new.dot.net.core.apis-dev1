@@ -19,6 +19,7 @@ namespace ACL.Response.V1
         public string createFail = "createFail";
         public string deleteFail = "deleteFail";
         public string editFail = "editFail";
+        public string somethingIsWrong = "somethingIsWrong";
         public MessageResponse(string model, ICustomUnitOfWork _unitOfWork, string language = "en-US") : base(model, language)
         {
             fetchMessage = base.FetchMessage;
@@ -30,6 +31,7 @@ namespace ACL.Response.V1
             createFail = base.CreateFail;
             editFail = base.EditFail;
             deleteFail = base.DeleteFail;
+            somethingIsWrong = base.SomethingIsWrong;
 
         }
 
