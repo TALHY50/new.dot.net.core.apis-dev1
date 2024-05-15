@@ -15,6 +15,7 @@ using ACL.Domain.Permissions;
 using ACL.Utilities;
 using ACL.Services;
 using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using SharedLibrary.Response.CustomStatusCode;
 
@@ -317,85 +318,84 @@ namespace ACL.Repositories.V1
         {
             this._dbContext.Update(entity);
             await this._dbContext.SaveChangesAsync();
-
-            return entity; ;
-        }
-        public async Task<AclUser?> GetUserWithPermissionAsync(uint userId)
-        {
-            HashSet<string>? permittedRoutes = new HashSet<string>();
-
+            
+            return entity;
+        } 
+        public async Task<AclUser?> GetUserWithPermissionAsync(uint userId) 
+        { 
+            HashSet<string>? routeNames = new HashSet<string>();
+            
             var user = await this.FindByIdAsync(userId);
 
             if (user == null) return user;
-
-            var roles = (from userUsergroup in this._dbContext.AclUserUsergroups
-                         join usergroup in this._dbContext.AclUsergroups on userUsergroup.UsergroupId equals usergroup.Id
-                         join usergroupRole in this._dbContext.AclUsergroupRoles on usergroup.Id equals usergroupRole
-                             .UsergroupId
-                         join role in this._dbContext.AclRoles on usergroupRole.RoleId equals role.Id
-                         where userUsergroup.UserId == userId
-                         select new
-                         {
-                             RoleId = role.Id
-                         }).ToList();
+            
+            var roleIds = (from userUsergroup in this._dbContext.AclUserUsergroups
+                join usergroup in this._dbContext.AclUsergroups on userUsergroup.UsergroupId equals usergroup.Id
+                join usergroupRole in this._dbContext.AclUsergroupRoles on usergroup.Id equals usergroupRole.UsergroupId
+                join role in this._dbContext.AclRoles on usergroupRole.RoleId equals role.Id
+                where userUsergroup.UserId == userId
+                select role.Id).ToList();
 
 
-            foreach (var role in roles)
+            foreach (var roleId in roleIds)
             {
-                var key = $"{Enum.GetName(CacheKeys.RoleIdPermittedRoutes)}-{role.RoleId}";
+                var key = $"{Enum.GetName(CacheKeys.RoleRouteNames)}-{roleId}";
+                HashSet<string> tmpRouteNames = new HashSet<string>();
 
-                string? cachedPermittedRoutes = null;
+                string? cachedRouteNames = null;
 
                 if (this._distributedCache is IDistributedCache)
                 {
-                    cachedPermittedRoutes = await this._distributedCache.GetStringAsync(key);
+                    cachedRouteNames = await this._distributedCache.GetStringAsync(key);
                 }
 
-                if (cachedPermittedRoutes != null)
+                if (cachedRouteNames != null)
                 {
-                    permittedRoutes.UnionWith(JsonConvert.DeserializeObject<HashSet<string>>(cachedPermittedRoutes));
+                    tmpRouteNames = JsonConvert.DeserializeObject<HashSet<string>>(cachedRouteNames);
+                    routeNames.UnionWith(tmpRouteNames);
                 }
-                else
-                {
+                
+                if(tmpRouteNames.IsNullOrEmpty()){
                     var permissionList = (from rolePage in this._dbContext.AclRolePages
-                                          join page in this._dbContext.AclPages on rolePage.PageId equals page.Id
-                                          join pageRoute in this._dbContext.AclPageRoutes on page.Id equals pageRoute.PageId
-                                          join subModule in this._dbContext.AclSubModules on page.SubModuleId equals subModule.Id
-                                          join module in this._dbContext.AclModules on subModule.ModuleId equals module.Id
-                                          where rolePage.RoleId == role.RoleId
-                                          select new PermissionQueryResult()
-                                          {
-                                              UserId = user.Id,
-                                              PermissionVersion = user.PermissionVersion,
-                                              PageId = page.Id,
-                                              PageName = page.Name,
-                                              PageRouteName = pageRoute.RouteName,
-                                              ModuleId = module.Id,
-                                              ControllerName = subModule.ControllerName,
-                                              SubmoduleName = subModule.Name,
-                                              SubmoduleId = subModule.Id,
-                                              MethodName = page.MethodName,
-                                              MethodType = page.MethodType,
-                                              DefaultMethod = subModule.DefaultMethod
-                                          }).ToList();
+                        join page in this._dbContext.AclPages on rolePage.PageId equals page.Id
+                        join pageRoute in this._dbContext.AclPageRoutes on page.Id equals pageRoute.PageId
+                        join subModule in this._dbContext.AclSubModules on page.SubModuleId equals subModule.Id
+                        join module in this._dbContext.AclModules on subModule.ModuleId equals module.Id
+                        where rolePage.RoleId == roleId
+                        select new PermissionQueryResult()
+                        {
+                            UserId = user.Id,
+                            PermissionVersion = user.PermissionVersion,
+                            PageId = page.Id,
+                            PageName = page.Name,
+                            PageRouteName = pageRoute.RouteName,
+                            ModuleId = module.Id,
+                            ControllerName = subModule.ControllerName,
+                            SubmoduleName = subModule.Name,
+                            SubmoduleId = subModule.Id,
+                            MethodName = page.MethodName,
+                            MethodType = page.MethodType,
+                            DefaultMethod = subModule.DefaultMethod
+                        }).ToList();
                     if (permissionList != null)
                     {
-                        var tmp = permissionList.Select(q => q.PageRouteName).ToHashSet();
-                        permittedRoutes.UnionWith(tmp);
+                        tmpRouteNames = permissionList.Select(q => q.PageRouteName).ToHashSet();
+                        routeNames.UnionWith(tmpRouteNames);
+                        if (this._distributedCache is IDistributedCache)
+                        {
+                            await this._distributedCache.SetStringAsync(key, JsonConvert.SerializeObject(tmpRouteNames));
+                        }
                     }
-
-                    if (this._distributedCache is IDistributedCache)
-                    {
-                        await this._distributedCache.SetStringAsync(key, JsonConvert.SerializeObject(permittedRoutes));
-                    }
+                    
                 }
             }
-
-            var permission = new Permission(permittedRoutes);
+            
+            var permission = new Permission(routeNames);
 
             user.SetPermission(permission);
 
             return user;
-        }
+    }
+        
     }
 }
