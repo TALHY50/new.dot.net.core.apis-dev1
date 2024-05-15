@@ -1,11 +1,12 @@
 ﻿using ACL.Application.Interfaces;
 using ACL.Application.Ports.Repositories;
+using ACL.Contracts.Requests.V1;
+using ACL.Contracts.Response;
+using ACL.Contracts.Response.V1;
 using ACL.Core.Models;
 using ACL.Core.Permissions;
 using ACL.Infrastructure.Database;
 using ACL.Infrastructure.Utilities;
-using ACL.Requests.V1;
-using ACL.Response.V1;
 using ACL.UseCases.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;

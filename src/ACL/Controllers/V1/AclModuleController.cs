@@ -1,6 +1,6 @@
 ﻿using ACL.Application.Interfaces;
-using ACL.Requests.V1;
-using ACL.Response.V1;
+using ACL.Contracts.Requests.V1;
+using ACL.Contracts.Response.V1;
 using ACL.Route;
 using Craftgate.Response;
 using Microsoft.AspNetCore.Authorization;

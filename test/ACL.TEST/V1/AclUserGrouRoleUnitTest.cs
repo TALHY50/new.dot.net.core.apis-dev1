@@ -1,7 +1,7 @@
 
+using ACL.Contracts.Requests.V1;
+using ACL.Contracts.Response.V1;
 using ACL.Core.Models;
-using ACL.Requests.V1;
-using ACL.Response.V1;
 using Microsoft.EntityFrameworkCore;
 using RestSharp;
 using ACL.Route;

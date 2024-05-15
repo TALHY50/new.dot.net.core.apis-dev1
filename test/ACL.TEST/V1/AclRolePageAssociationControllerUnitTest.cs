@@ -14,7 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ACL.Requests;
+using ACL.Contracts.Requests.V1;
 using static Org.BouncyCastle.Asn1.Cmp.Challenge;
 using SharedLibrary.Response.CustomStatusCode;
 

@@ -15,5 +15,9 @@
   <ItemGroup>
     <ProjectReference Include="..\ACL.Core\ACL.Core.csproj" />
   </ItemGroup>
-
+  
+  <ItemGroup>
+    <ProjectReference Include="..\ACL.Contracts\ACL.Contracts.csproj" />
+  </ItemGroup>
+  
 </Project>

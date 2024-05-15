@@ -4,8 +4,8 @@ using Bogus;
 using SharedLibrary.Services;
 using SharedLibrary.Response.CustomStatusCode;
 using System.Text.Json.Serialization;
-using ACL.Requests;
-using ACL.Response.V1;
+using ACL.Contracts.Requests.V1;
+using ACL.Contracts.Response.V1;
 using SharedLibrary.Utilities;
 using Newtonsoft.Json;
 

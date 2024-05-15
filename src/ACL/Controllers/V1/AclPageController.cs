@@ -1,6 +1,6 @@
 ﻿using ACL.Application.Interfaces;
-using ACL.Requests.V1;
-using ACL.Response.V1;
+using ACL.Contracts.Requests.V1;
+using ACL.Contracts.Response.V1;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ACL.Route;

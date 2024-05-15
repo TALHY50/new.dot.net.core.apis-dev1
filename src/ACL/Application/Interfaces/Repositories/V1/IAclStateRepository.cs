@@ -1,6 +1,6 @@
+using ACL.Contracts.Requests.V1;
+using ACL.Contracts.Response.V1;
 using ACL.Core.Models;
-using ACL.Requests;
-using ACL.Response.V1;
 using SharedLibrary.Interfaces;
 
 namespace ACL.Application.Interfaces.Repositories.V1

@@ -52,9 +52,7 @@
 
   <ItemGroup>
     <Folder Include="Application\UseCases\" />
-    <Folder Include="Domain\" />
     <Folder Include="Http\" />
-    <Folder Include="Infrastructure\Common\" />
     <Folder Include="Infrastructure\Persistence\Permissions\" />
     <Folder Include="Logs\" />
   </ItemGroup>
@@ -89,7 +87,7 @@
   </ItemGroup>
   
   <ItemGroup>
-    <None Include="Infrastructure\Requests\V1\AclRoleAndPageAssocUpdateRequest.cs" />
+    <None Include="Contracts\Requests\V1\AclRoleAndPageAssocUpdateRequest.cs" />
   </ItemGroup>
 
 </Project>
