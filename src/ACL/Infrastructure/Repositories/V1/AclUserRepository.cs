@@ -8,7 +8,6 @@ using ACL.Contracts.Response.V1;
 using ACL.Core.Models;
 using ACL.Core.Permissions;
 using ACL.Infrastructure.Database;
-using ACL.Infrastructure.Repositories.GenericRepository;
 using ACL.Infrastructure.Utilities;
 using ACL.UseCases.Enums;
 using Microsoft.EntityFrameworkCore;
@@ -20,7 +19,7 @@ using SharedLibrary.Services;
 
 namespace ACL.Infrastructure.Repositories.V1
 {
-    public class AclUserRepository : GenericRepository<AclUser>, IAclUserRepository
+    public class AclUserRepository : IAclUserRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
@@ -32,7 +31,9 @@ namespace ACL.Infrastructure.Repositories.V1
         private readonly IDistributedCache _distributedCache;
         private readonly ICryptographyService cryptographyService;
         private readonly IAclUserUserGroupRepository AclUserUserGroupRepository;
-        public AclUserRepository(ApplicationDbContext dbcontext,IConfiguration config,IDistributedCache distributedCache) : base(dbcontext)
+
+        private readonly ApplicationDbContext _dbcontext;
+        public AclUserRepository(ApplicationDbContext dbcontext, IConfiguration config, IDistributedCache distributedCache) : base(dbcontext)
         {
             AppAuth.SetAuthInfo();
             this._config = config;
@@ -41,22 +42,22 @@ namespace ACL.Infrastructure.Repositories.V1
             this._userType = (uint)AppAuth.GetAuthInfo().UserType;
             this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
             this._distributedCache = distributedCache;
+            _dbcontext = dbcontext;
         }
 
         public async Task<AclResponse> GetAll()
         {
-            var aclUser = await base.All();
-            List<AclUser> re = (aclUser != null) ? aclUser.ToList():new List<AclUser>();
-            re.ForEach(user =>
+            List<AclUser>? aclUser = _dbcontext.AclUsers.ToList();
+            aclUser.ForEach(user =>
             {
                 user.Password = "**********";
                 user.Salt = "**********";
                 user.Claims = null;
                 user.RefreshToken = null;
             });
-            aclUser =re;
-            var result = (aclUser != null) ? aclUser.Where(i => i.Id != 1 && i.Status == 1 ) : null; // further we need to add with companyid from auth and created by  from UTHUSER ID other wise the system would be insecured.
 
+            // further we need to add with companyid from auth and created by  from UTHUSER ID other wise the system would be insecured.
+            IEnumerable<AclUser>? result = (aclUser != null) ? aclUser.Where(i => i.Id != 1 && i.Status == 1) : null;
             if (aclUser.Any())
             {
                 this.aclResponse.Message = this.messageResponse.fetchMessage;
@@ -69,42 +70,32 @@ namespace ACL.Infrastructure.Repositories.V1
         }
         public async Task<AclResponse> AddUser(AclUserRequest request)
         {
-
-            var executionStrategy = base.CreateExecutionStrategy();
-
-            await executionStrategy.ExecuteAsync(async () =>
+            try
             {
-                using (var transaction = await base.BeginTransactionAsync())
-                {
-                    try
-                    {
-                        var aclUser = PrepareInputData(request);
-                        await base.AddAsync(aclUser);
-                        await base.CompleteAsync();
-                        await base.ReloadAsync(aclUser);
+                AclUser? aclUser = PrepareInputData(request);
+                await _dbcontext.AclUsers.AddAsync(aclUser);
+                await _dbcontext.SaveChangesAsync();
+                await _dbcontext.Entry(aclUser).ReloadAsync();
 
-                        //  need to insert user user group
-                        var userGroupPrepareData = PrepareDataForUserUserGroups(request, aclUser.Id);
-                        await base._dbContext.AddRangeAsync(userGroupPrepareData);
-                        await base.CompleteAsync();
-                        aclUser.Password = "******************"; //request.Password
-                        aclUser.Salt = "******************";
-                        aclUser.Claims = null;
-                        aclUser.RefreshToken = null;
-                        this.aclResponse.Data = aclUser;
-                        this.aclResponse.Message = this.messageResponse.createMessage;
-                        this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                //  need to insert user user group
+                AclUserUsergroup[]? userGroupPrepareData = PrepareDataForUserUserGroups(request, aclUser.Id);
+                await _dbcontext.AclUserUsergroups.AddRangeAsync(userGroupPrepareData);
+                await _dbcontext.SaveChangesAsync();
+                await _dbcontext.Entry(userGroupPrepareData).ReloadAsync();
+                aclUser.Password = "******************"; //request.Password
+                aclUser.Salt = "******************";
+                aclUser.Claims = null;
+                aclUser.RefreshToken = null;
+                this.aclResponse.Data = aclUser;
+                this.aclResponse.Message = this.messageResponse.createMessage;
+                this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
 
-                        await transaction.CommitAsync();
-                    }
-                    catch (Exception ex)
-                    {
-                        await transaction.RollbackAsync();
-                        this.aclResponse.Message = ex.Message;
-                        this.aclResponse.StatusCode = AppStatusCode.FAIL;
-                    }
-                }
-            });
+            }
+            catch (Exception ex)
+            {
+                this.aclResponse.Message = ex.Message;
+                this.aclResponse.StatusCode = AppStatusCode.FAIL;
+            }
 
             this.aclResponse.Timestamp = DateTime.Now;
             return this.aclResponse;
@@ -115,24 +106,24 @@ namespace ACL.Infrastructure.Repositories.V1
         {
             try
             {
-                AclUser aclUser = await base.GetById(id);
+                AclUser aclUser = await _dbcontext.AclUsers.FindAsync(id);
 
                 if (aclUser != null)
                 {
                     aclUser = PrepareInputData(request, aclUser);
-                    base.Update(aclUser);
-                    base.Complete();
-                    await base.ReloadAsync(aclUser);
+                    _dbcontext.AclUsers.Update(aclUser);
+                    _dbcontext.SaveChanges();
+                    await _dbcontext.Entry(aclUser).ReloadAsync();
 
                     // first delete all user user group
-                    var UserUserGroups = AclUserUserGroupRepository.Where(x => x.UserId == id).ToArray();
+                    AclUserUsergroup[]? UserUserGroups = AclUserUserGroupRepository.Where(x => x.UserId == id).ToArray();
                     await AclUserUserGroupRepository.RemoveRange(UserUserGroups);
-                    base.Complete();
+                    _dbcontext.SaveChanges();
 
                     // need to insert user user group
                     var UserGroupPrepareData = PrepareDataForUserUserGroups(request, aclUser.Id);
                     await AclUserUserGroupRepository.AddRange(UserGroupPrepareData);
-                    base.Complete();
+                    _dbcontext.SaveChanges();
                     aclUser.Password = "******************"; //request.Password
                     aclUser.Salt = "******************";
                     aclUser.Claims = null;
@@ -163,7 +154,7 @@ namespace ACL.Infrastructure.Repositories.V1
         {
             try
             {
-                var aclUser = await base.GetById(id);
+                AclUser? aclUser = await _dbcontext.AclUsers.FindAsync(id);
                 this.aclResponse.Data = aclUser;
                 this.aclResponse.Message = this.messageResponse.fetchMessage;
                 if (aclUser == null)
@@ -185,30 +176,31 @@ namespace ACL.Infrastructure.Repositories.V1
 
         public async Task<AclUser?> FindByEmail(string email)
         {
-            return await base._dbContext.AclUsers.FirstOrDefaultAsync(m => m.Email == email);
+            return await _dbcontext.AclUsers.FirstOrDefaultAsync(m => m.Email == email);
 
         }
 
         public async Task<AclUser?> FindByIdAsync(ulong id)
         {
-            return await base._dbContext.AclUsers.FirstOrDefaultAsync(m => m.Id == id);
+            return await _dbcontext.AclUsers.FirstOrDefaultAsync(m => m.Id == id);
 
         }
 
         public async Task<AclResponse> DeleteById(ulong id)
         {
-            AclUser? aclUser = await base.GetById(id);
+            AclUser? aclUser = await _dbcontext.AclUsers.FindAsync(id);
 
             if (aclUser != null)
             {
-                await base.DeleteAsync(aclUser);
-                base.Complete();
+                _dbcontext.AclUsers.Remove(aclUser);
+                _dbcontext.SaveChanges();
+                await _dbcontext.Entry(aclUser).ReloadAsync();
 
                 // delete all item for user user group
-                var UserUserGroups = base._dbContext.AclUserUsergroups.Where(x => x.UserId == id).ToArray();
-                base._dbContext.RemoveRange(UserUserGroups);
-                base.Complete();
-
+                var UserUserGroups = _dbcontext.AclUserUsergroups.Where(x => x.UserId == id).ToArray();
+                _dbcontext.RemoveRange(UserUserGroups);
+                _dbcontext.SaveChanges();
+                await _dbcontext.Entry(UserUserGroups).ReloadAsync();
 
                 this.aclResponse.Message = this.messageResponse.deleteMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
@@ -267,7 +259,7 @@ namespace ACL.Infrastructure.Repositories.V1
                 AclUser.CompanyId = (this._companyId != 0) ? this._companyId : 0;
                 AclUser.UserType = (this._userType != 0) ? this._userType : 0;
                 AclUser.Salt = AclUser.Salt ?? salt;
-                AclUser.Claims = AclUser.Claims??new Core.Claim[] { };
+                AclUser.Claims = AclUser.Claims ?? new Core.Claim[] { };
             }
             return AclUser;
         }
@@ -302,33 +294,32 @@ namespace ACL.Infrastructure.Repositories.V1
 
         public async Task<AclUser> AddAndSaveAsync(AclUser entity)
         {
-            await this._dbContext.AddAsync(entity);
-            await this._dbContext.SaveChangesAsync();
-
+            await _dbcontext.AclUsers.AddAsync(entity);
+            await _dbcontext.SaveChangesAsync();
             return entity;
         }
 
         public async Task<AclUser> UpdateAndSaveAsync(AclUser entity)
         {
-            this._dbContext.Update(entity);
-            await this._dbContext.SaveChangesAsync();
-            
+            this._dbcontext.Update(entity);
+            await this._dbcontext.SaveChangesAsync();
+
             return entity;
-        } 
-        public async Task<AclUser?> GetUserWithPermissionAsync(uint userId) 
-        { 
+        }
+        public async Task<AclUser?> GetUserWithPermissionAsync(uint userId)
+        {
             HashSet<string>? routeNames = new HashSet<string>();
-            
+
             var user = await this.FindByIdAsync(userId);
 
             if (user == null) return user;
-            
-            var roleIds = (from userUsergroup in this._dbContext.AclUserUsergroups
-                join usergroup in this._dbContext.AclUsergroups on userUsergroup.UsergroupId equals usergroup.Id
-                join usergroupRole in this._dbContext.AclUsergroupRoles on usergroup.Id equals usergroupRole.UsergroupId
-                join role in this._dbContext.AclRoles on usergroupRole.RoleId equals role.Id
-                where userUsergroup.UserId == userId
-                select role.Id).ToList();
+
+            var roleIds = (from userUsergroup in this._dbcontext.AclUserUsergroups
+                           join usergroup in this._dbcontext.AclUsergroups on userUsergroup.UsergroupId equals usergroup.Id
+                           join usergroupRole in this._dbcontext.AclUsergroupRoles on usergroup.Id equals usergroupRole.UsergroupId
+                           join role in this._dbcontext.AclRoles on usergroupRole.RoleId equals role.Id
+                           where userUsergroup.UserId == userId
+                           select role.Id).ToList();
 
 
             foreach (var roleId in roleIds)
@@ -348,29 +339,30 @@ namespace ACL.Infrastructure.Repositories.V1
                     tmpRouteNames = JsonConvert.DeserializeObject<HashSet<string>>(cachedRouteNames);
                     routeNames.UnionWith(tmpRouteNames);
                 }
-                
-                if(tmpRouteNames.IsNullOrEmpty()){
-                    var permissionList = (from rolePage in this._dbContext.AclRolePages
-                        join page in this._dbContext.AclPages on rolePage.PageId equals page.Id
-                        join pageRoute in this._dbContext.AclPageRoutes on page.Id equals pageRoute.PageId
-                        join subModule in this._dbContext.AclSubModules on page.SubModuleId equals subModule.Id
-                        join module in this._dbContext.AclModules on subModule.ModuleId equals module.Id
-                        where rolePage.RoleId == roleId
-                        select new PermissionQueryResult()
-                        {
-                            UserId = user.Id,
-                            PermissionVersion = user.PermissionVersion,
-                            PageId = page.Id,
-                            PageName = page.Name,
-                            PageRouteName = pageRoute.RouteName,
-                            ModuleId = module.Id,
-                            ControllerName = subModule.ControllerName,
-                            SubmoduleName = subModule.Name,
-                            SubmoduleId = subModule.Id,
-                            MethodName = page.MethodName,
-                            MethodType = page.MethodType,
-                            DefaultMethod = subModule.DefaultMethod
-                        }).ToList();
+
+                if (tmpRouteNames.IsNullOrEmpty())
+                {
+                    var permissionList = (from rolePage in _dbcontext.AclRolePages
+                                          join page in _dbcontext.AclPages on rolePage.PageId equals page.Id
+                                          join pageRoute in _dbcontext.AclPageRoutes on page.Id equals pageRoute.PageId
+                                          join subModule in _dbcontext.AclSubModules on page.SubModuleId equals subModule.Id
+                                          join module in _dbcontext.AclModules on subModule.ModuleId equals module.Id
+                                          where rolePage.RoleId == roleId
+                                          select new PermissionQueryResult()
+                                          {
+                                              UserId = user.Id,
+                                              PermissionVersion = user.PermissionVersion,
+                                              PageId = page.Id,
+                                              PageName = page.Name,
+                                              PageRouteName = pageRoute.RouteName,
+                                              ModuleId = module.Id,
+                                              ControllerName = subModule.ControllerName,
+                                              SubmoduleName = subModule.Name,
+                                              SubmoduleId = subModule.Id,
+                                              MethodName = page.MethodName,
+                                              MethodType = page.MethodType,
+                                              DefaultMethod = subModule.DefaultMethod
+                                          }).ToList();
                     if (permissionList != null)
                     {
                         tmpRouteNames = permissionList.Select(q => q.PageRouteName).ToHashSet();
@@ -380,16 +372,16 @@ namespace ACL.Infrastructure.Repositories.V1
                             await this._distributedCache.SetStringAsync(key, JsonConvert.SerializeObject(tmpRouteNames));
                         }
                     }
-                    
+
                 }
             }
-            
+
             var permission = new Permission(routeNames);
 
             user.SetPermission(permission);
 
             return user;
-    }
-        
+        }
+
     }
 }
