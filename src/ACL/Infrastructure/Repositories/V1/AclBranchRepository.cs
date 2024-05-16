@@ -17,11 +17,16 @@ namespace ACL.Infrastructure.Repositories.V1
         protected readonly ApplicationDbContext _dbContext;
         protected readonly IDistributedCache _distributedCache;
 
+        public AclBranchRepository(ApplicationDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
         AclBranch IAclBranchRepository.Add(AclBranch entity)
         {
             try
             {
-                _dbSet.Add(entity);
+                _dbContext.Add(entity);
                 _dbContext.SaveChanges();
                 _dbSet.Entry(entity).ReloadAsync();
                 return entity;
