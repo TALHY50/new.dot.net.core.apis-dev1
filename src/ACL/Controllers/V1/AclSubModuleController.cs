@@ -1,4 +1,5 @@
-using ACL.Application.Interfaces;
+
+using ACL.Application.Interfaces.Repositories.V1;
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response.V1;
 using Microsoft.AspNetCore.Authorization;
@@ -11,31 +12,31 @@ namespace ACL.Controllers.V1
     [ApiController]
     public class AclSubModuleController : ControllerBase
     {
-        private readonly ICustomUnitOfWork _unitOfWork;
-        public AclSubModuleController(ICustomUnitOfWork unitOfWork)
+        private readonly IAclSubModuleRepository _repository;
+        public AclSubModuleController(IAclSubModuleRepository repository)
         {
-            _unitOfWork = unitOfWork;
+            _repository = repository;
         }
 
         [Authorize(Policy = "HasPermission")]
         [HttpGet(Route.AclRoutesUrl.AclSubmoduleRouteUrl.List, Name = Route.AclRoutesName.AclSubmoduleRouteNames.List)]
         public async Task<AclResponse> Index()
         {
-            return await _unitOfWork.AclSubModuleRepository.GetAll();
+            return await _repository.GetAll();
         }
 
         [Authorize(Policy = "HasPermission")]
         [HttpPost(Route.AclRoutesUrl.AclSubmoduleRouteUrl.Add, Name = Route.AclRoutesName.AclSubmoduleRouteNames.Add)]
         public async Task<AclResponse> Create(AclSubModuleRequest objSubModule)
         {
-            return await _unitOfWork.AclSubModuleRepository.Add(objSubModule);
+            return await _repository.Add(objSubModule);
         }
 
         [Authorize(Policy = "HasPermission")]
         [HttpGet(Route.AclRoutesUrl.AclSubmoduleRouteUrl.View, Name = Route.AclRoutesName.AclSubmoduleRouteNames.View)]
         public async Task<AclResponse> View(ulong id)
         {
-            return await _unitOfWork.AclSubModuleRepository.FindById(id);
+            return await _repository.FindById(id);
 
         }
 
@@ -43,7 +44,7 @@ namespace ACL.Controllers.V1
         [HttpPut(Route.AclRoutesUrl.AclSubmoduleRouteUrl.Edit, Name = Route.AclRoutesName.AclSubmoduleRouteNames.Edit)]
         public async Task<AclResponse> Edit(ulong id, AclSubModuleRequest objSubModule)
         {
-            return await _unitOfWork.AclSubModuleRepository.Edit(id, objSubModule);
+            return await _repository.Edit(id, objSubModule);
 
         }
 
@@ -51,7 +52,7 @@ namespace ACL.Controllers.V1
         [HttpDelete(Route.AclRoutesUrl.AclSubmoduleRouteUrl.Destroy, Name = Route.AclRoutesName.AclSubmoduleRouteNames.Destroy)]
         public async Task<AclResponse> Destroy(ulong id)
         {
-            return await _unitOfWork.AclSubModuleRepository.DeleteById(id);
+            return await _repository.DeleteById(id);
         }
 
 

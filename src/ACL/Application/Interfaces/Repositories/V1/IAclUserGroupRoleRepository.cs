@@ -5,7 +5,7 @@ using SharedLibrary.Interfaces;
 
 namespace ACL.Application.Interfaces.Repositories.V1
 {
-    public interface IAclUserGroupRoleRepository : IGenericRepository<AclUsergroupRole>
+    public interface IAclUserGroupRoleRepository 
     {
         Task<AclResponse> GetRolesByUserGroupId(ulong groupId);
         Task<AclResponse> Update(AclUserGroupRoleRequest userGroupRole);

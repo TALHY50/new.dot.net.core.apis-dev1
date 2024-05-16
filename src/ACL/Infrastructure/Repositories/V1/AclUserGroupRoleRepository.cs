@@ -1,27 +1,26 @@
-﻿using ACL.Application.Interfaces;
+﻿
 using ACL.Application.Interfaces.Repositories.V1;
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response;
 using ACL.Contracts.Response.V1;
 using ACL.Core.Models;
 using ACL.Infrastructure.Database;
-using ACL.Infrastructure.Repositories.GenericRepository;
 using ACL.Infrastructure.Utilities;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Response.CustomStatusCode;
-using SharedLibrary.Services;
 
 namespace ACL.Infrastructure.Repositories.V1
 {
-    public class AclUserGroupRoleRepository : GenericRepository<AclUsergroupRole>, IAclUserGroupRoleRepository
+    public class AclUserGroupRoleRepository : IAclUserGroupRoleRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "User Group Role";
-        private IAclRoleRepository AclRoleRepository;
+        ApplicationDbContext _dbcontext;
 
-        public AclUserGroupRoleRepository(ApplicationDbContext dbcontext) : base(dbcontext)
+        public AclUserGroupRoleRepository(ApplicationDbContext dbcontext) 
         {
+            _dbcontext = dbcontext;
             AppAuth.SetAuthInfo();
             this.aclResponse = new AclResponse();
             this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
@@ -30,13 +29,11 @@ namespace ACL.Infrastructure.Repositories.V1
 
         public async Task<AclResponse> GetRolesByUserGroupId(ulong userGroupId)
         {
-            var roles = await AclRoleRepository.Where(role => true)
+            var roles = await _dbcontext.AclRoles
                 .Select(role => new { role.Id, role.Title }).ToListAsync();
 
-            var associatedRoles = await base
-                .Where(ugr => ugr.UsergroupId == userGroupId)
-                .Join(AclRoleRepository
-                .Where(role => true), ugr => ugr.RoleId, r => r.Id,
+            var associatedRoles = await _dbcontext.AclUsergroupRoles.Where(ugr => ugr.UsergroupId == userGroupId)
+                .Join(_dbcontext.AclRoles, ugr => ugr.RoleId, r => r.Id,
                 (ugr, r) => new
                 {
                     UsergroupId = ugr.UsergroupId,
@@ -53,29 +50,27 @@ namespace ACL.Infrastructure.Repositories.V1
         }
         public async Task<AclResponse> Update(AclUserGroupRoleRequest request)
         {
-            var aclUserGroupRole = await base
-                .Where(x => x.UsergroupId == request.UserGroupId)
-                .ToListAsync();
+            var aclUserGroupRole = await _dbcontext.AclUsergroupRoles.Where(x => x.UsergroupId == request.UserGroupId).ToListAsync();
 
             var userGroupRoles = GetUserGroupRoles(request);
-            var executionStrategy = base.CreateExecutionStrategy();
+            var executionStrategy = _dbcontext.Database.CreateExecutionStrategy();
 
             var aclResponse = new AclResponse(); // Assuming aclResponse is already defined
 
             await executionStrategy.ExecuteAsync(async () =>
             {
-                using (var transaction = await base.BeginTransactionAsync())
+                using (var transaction = await _dbcontext.Database.BeginTransactionAsync())
                 {
                     try
                     {
                         if (aclUserGroupRole.Any())
                         {
-                            await base.RemoveRange(aclUserGroupRole);
-                            await base.CompleteAsync();
+                             _dbcontext.AclUsergroupRoles.RemoveRange(aclUserGroupRole);
+                            await _dbcontext.SaveChangesAsync();
                         }
-                        await base.AddRange(userGroupRoles);
-                        await base.CompleteAsync();
-                        await base.ReloadEntitiesAsync(userGroupRoles);
+                         _dbcontext.AclUsergroupRoles.AddRange(userGroupRoles);
+                        await _dbcontext.SaveChangesAsync();
+                        await ReloadEntitiesAsync(userGroupRoles);
                         aclResponse.Data = userGroupRoles;
                         aclResponse.Message = this.messageResponse.createMessage;
                         aclResponse.StatusCode = AppStatusCode.SUCCESS;
@@ -108,6 +103,11 @@ namespace ACL.Infrastructure.Repositories.V1
             }).ToArray();
 
             return userGroupRoles;
+        }
+
+        public async Task ReloadEntitiesAsync(IEnumerable<AclUsergroupRole> entities)
+        {
+            await Task.WhenAll(entities.Select(entity => _dbcontext.Entry(entity).ReloadAsync()));
         }
 
 

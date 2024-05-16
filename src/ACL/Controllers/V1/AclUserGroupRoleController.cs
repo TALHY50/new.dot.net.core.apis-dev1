@@ -1,4 +1,5 @@
-﻿using ACL.Application.Interfaces;
+﻿
+using ACL.Application.Interfaces.Repositories.V1;
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response.V1;
 using Microsoft.AspNetCore.Authorization;
@@ -11,24 +12,24 @@ namespace ACL.Controllers.V1
     [ApiController]
     public class AclUserGroupRoleController : ControllerBase
     {
-        private readonly ICustomUnitOfWork _unitOfWork;
-        public AclUserGroupRoleController(ICustomUnitOfWork unitOfWork)
+        private readonly IAclUserGroupRoleRepository _repository;
+        public AclUserGroupRoleController(IAclUserGroupRoleRepository repository)
         {
-            _unitOfWork = unitOfWork;
+            _repository = repository;
         }
 
         [Authorize(Policy = "HasPermission")]
         [HttpGet(Route.AclRoutesUrl.AclUserGroupRoleRouteUrl.List, Name = Route.AclRoutesName.AclUserGroupRoleRouteNames.List)]
         public async Task<AclResponse> Index(ulong userGroupId)
         {
-            return await _unitOfWork.AclUserGroupRoleRepository.GetRolesByUserGroupId(userGroupId);
+            return await _repository.GetRolesByUserGroupId(userGroupId);
         }
 
         [Authorize(Policy = "HasPermission")]
         [HttpPost(Route.AclRoutesUrl.AclUserGroupRoleRouteUrl.Update, Name = Route.AclRoutesName.AclUserGroupRoleRouteNames.Update)]
         public async Task<AclResponse> Update(AclUserGroupRoleRequest objUserGroupRole)
         {
-            return await _unitOfWork.AclUserGroupRoleRepository.Update(objUserGroupRole);
+            return await _repository.Update(objUserGroupRole);
         }
 
 

@@ -5,7 +5,7 @@ using SharedLibrary.Interfaces;
 
 namespace ACL.Application.Interfaces.Repositories.V1
 {
-    public interface IAclPasswordRepository:IGenericRepository<AclUser>
+    public interface IAclPasswordRepository
     {
         Task<AclResponse> Reset(AclPasswordResetRequest request);
         Task<AclResponse> Forget(AclForgetPasswordRequest request);

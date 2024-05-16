@@ -1,4 +1,5 @@
-using ACL.Application.Interfaces;
+
+using ACL.Application.Interfaces.Repositories.V1;
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response.V1;
 using Microsoft.AspNetCore.Authorization;
@@ -11,31 +12,31 @@ namespace ACL.Controllers.V1
     [ApiController]
     public class AclStateController : ControllerBase
     {
-        private readonly ICustomUnitOfWork _unitOfWork;
-        public AclStateController(ICustomUnitOfWork unitOfWork)
+        private readonly IAclStateRepository _repository;
+        public AclStateController(IAclStateRepository repository)
         {
-            _unitOfWork = unitOfWork;
+            _repository = repository;
         }
 
         //[Authorize(Policy = "HasPermission")]
         [HttpGet(Route.AclRoutesUrl.AclStateRouteUrl.List, Name = Route.AclRoutesName.AclStateRouteNames.List)]
         public async Task<AclResponse> Index()
         {
-            return await _unitOfWork.AclStateRepository.GetAll();
+            return await _repository.GetAll();
         }
 
         //[Authorize(Policy = "HasPermission")]
         [HttpPost(Route.AclRoutesUrl.AclStateRouteUrl.Add, Name = Route.AclRoutesName.AclStateRouteNames.Add)]
         public async Task<AclResponse> Create(AclStateRequest objState)
         {
-            return await _unitOfWork.AclStateRepository.Add(objState);
+            return await _repository.Add(objState);
         }
 
         //[Authorize(Policy = "HasPermission")]
         [HttpGet(Route.AclRoutesUrl.AclStateRouteUrl.View, Name = Route.AclRoutesName.AclStateRouteNames.View)]
         public async Task<AclResponse> View(ulong id)
         {
-            return await _unitOfWork.AclStateRepository.FindById(id);
+            return await _repository.FindById(id);
 
         }
 
@@ -43,7 +44,7 @@ namespace ACL.Controllers.V1
         [HttpPut(Route.AclRoutesUrl.AclStateRouteUrl.Edit, Name = Route.AclRoutesName.AclStateRouteNames.Edit)]
         public async Task<AclResponse> Edit(ulong id, AclStateRequest objState)
         {
-            return await _unitOfWork.AclStateRepository.Edit(id, objState);
+            return await _repository.Edit(id, objState);
 
         }
 
@@ -51,7 +52,7 @@ namespace ACL.Controllers.V1
         [HttpDelete(Route.AclRoutesUrl.AclStateRouteUrl.Destroy, Name = Route.AclRoutesName.AclStateRouteNames.Destroy)]
         public async Task<AclResponse> Destroy(ulong id)
         {
-            return await _unitOfWork.AclStateRepository.DeleteById(id);
+            return await _repository.DeleteById(id);
         }
 
 

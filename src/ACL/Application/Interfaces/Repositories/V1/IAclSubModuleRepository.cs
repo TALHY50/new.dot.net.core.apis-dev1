@@ -5,7 +5,7 @@ using SharedLibrary.Interfaces;
 
 namespace ACL.Application.Interfaces.Repositories.V1
 {
-    public interface IAclSubModuleRepository:IGenericRepository<AclSubModule>
+    public interface IAclSubModuleRepository
     {
         Task<AclResponse> GetAll();
         Task<AclResponse> Add(AclSubModuleRequest subModule);
