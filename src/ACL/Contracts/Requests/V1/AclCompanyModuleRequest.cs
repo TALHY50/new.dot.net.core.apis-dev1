@@ -9,13 +9,13 @@ namespace ACL.Contracts.Requests.V1
         [DefaultValue(1)]
         [Required]
         [Range(1, ulong.MaxValue)]
-        [UniqueCompanyModule]
+        //[UniqueCompanyModule]
         public ulong CompanyId { get; set; }
 
         [DefaultValue(1001)]
         [Required]
         [Range(1, ulong.MaxValue)]
-        [UniqueCompanyModule]
+        //[UniqueCompanyModule]
         public ulong ModuleId { get; set; }
     }
 

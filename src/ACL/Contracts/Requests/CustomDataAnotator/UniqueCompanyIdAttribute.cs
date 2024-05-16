@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using ACL.Application.Interfaces;
 using ACL.Contracts.Requests.V1;
+using ACL.Infrastructure.Database;
 
 namespace ACL.Contracts.Requests.CustomDataAnotator
 {
@@ -9,17 +10,13 @@ namespace ACL.Contracts.Requests.CustomDataAnotator
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             var serviceProvider = validationContext.GetService(typeof(IServiceProvider)) as IServiceProvider;
-            var unitOfWork = serviceProvider.GetService(typeof(ICustomUnitOfWork)) as ICustomUnitOfWork;
+            ApplicationDbContext dbContext = new ApplicationDbContext();
 
-            if (unitOfWork == null)
-            {
-                throw new InvalidOperationException("Not found.");
-            }
 
             var request = (AclCompanyModuleRequest)validationContext.ObjectInstance;
 
-            bool isUnique = unitOfWork.ApplicationDbContext.AclCompanyModules
-                                .Any(a => a.CompanyId == request.CompanyId && a.ModuleId == request.ModuleId) && unitOfWork.ApplicationDbContext.AclCompanies.Any(x=>x.Id==request.CompanyId) && unitOfWork.ApplicationDbContext.AclModules.Any(x=>x.Id == request.ModuleId);
+            bool isUnique = dbContext.AclCompanyModules
+                                .Any(a => a.CompanyId == request.CompanyId && a.ModuleId == request.ModuleId) && unitOfWork.ApplicationDbContext.AclCompanies.Any(x=>x.Id==request.CompanyId) && dbContext.AclModules.Any(x=>x.Id == request.ModuleId);
 
             if (!isUnique)
             {
