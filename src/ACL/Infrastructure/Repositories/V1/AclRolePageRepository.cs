@@ -14,22 +14,25 @@ using static ACL.Route.AclRoutesUrl;
 
 namespace ACL.Infrastructure.Repositories.V1
 {
-    public class AclRolePageRepository : GenericRepository<AclRolePage>, IAclRolePageRepository
+    public class AclRolePageRepository : IAclRolePageRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "Role Page";
-        public AclRolePageRepository(ApplicationDbContext dbContext) : base(dbContext)
+
+        public readonly ApplicationDbContext _dbContext;
+
+        public AclRolePageRepository(ApplicationDbContext dbContext)
         {
             this.aclResponse = new AclResponse();
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
             this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
-
+            _dbContext = dbContext;
         }
 
         public async Task<AclResponse> GetAllById(ulong id)
         {
-            var res = await base.Where(x => x.RoleId == id).ToListAsync();
+            List<AclRolePage>? res = await _dbContext.AclRolePages.Where(x => x.RoleId == id).ToListAsync();
             if (res.Any())
             {
                 this.aclResponse.Message = this.messageResponse.fetchMessage;
@@ -48,25 +51,20 @@ namespace ACL.Infrastructure.Repositories.V1
 
         public async Task<AclResponse> UpdateAll(AclRoleAndPageAssocUpdateRequest req)
         {
-            var res = await base.Where(x => x.RoleId == req.RoleId).ToListAsync();
-            var check = PrepareData(req);
-            using (var transaction = base.BeginTransaction())
+            List<AclRolePage>? res = await _dbContext.AclRolePages.Where(x => x.RoleId == req.RoleId).ToListAsync();
+            AclRolePage[]? check = PrepareData(req);
+
+            try
             {
-                try
-                {
-                    var removedEntities = await base.RemoveRange(res);
-                    await base.AddRange(check);
-                    await base.CommitTransactionAsync();
-                }
-                catch (Exception ex)
-                {
-                    await base.RollbackTransactionAsync();
-                    this.aclResponse.Message = ex.Message;
-                    this.aclResponse.StatusCode = AppStatusCode.FAIL;
-                }
+                _dbContext.AclRolePages.RemoveRange(res);
+                _dbContext.AclRolePages.AddRange(check);
             }
-            await base.CompleteAsync();
-            await ReloadEntitiesAsync(check);
+            catch (Exception ex)
+            {
+                this.aclResponse.Message = ex.Message;
+                this.aclResponse.StatusCode = AppStatusCode.FAIL;
+            }
+            await _dbContext.SaveChangesAsync();
             res = check.ToList();
             if (res.Any())
             {
@@ -78,7 +76,6 @@ namespace ACL.Infrastructure.Repositories.V1
                 this.aclResponse.Message = this.messageResponse.notFoundMessage;
                 this.aclResponse.StatusCode = AppStatusCode.FAIL;
             }
-
             this.aclResponse.Data = res;
             this.aclResponse.Timestamp = DateTime.Now;
 
