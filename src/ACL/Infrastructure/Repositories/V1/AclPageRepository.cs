@@ -5,7 +5,6 @@ using ACL.Contracts.Response;
 using ACL.Contracts.Response.V1;
 using ACL.Core.Models;
 using ACL.Infrastructure.Database;
-using ACL.Infrastructure.Repositories.GenericRepository;
 using ACL.Infrastructure.Utilities;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Response.CustomStatusCode;
@@ -13,22 +12,25 @@ using SharedLibrary.Services;
 
 namespace ACL.Infrastructure.Repositories.V1
 {
-    public class AclPageRepository : GenericRepository<AclPage>, IAclPageRepository
+    public class AclPageRepository : IAclPageRepository
     {
 
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "Page";
         private IAclPageRouteRepository routeRepository;
-        public AclPageRepository(ApplicationDbContext dbContext) : base(dbContext)
+
+        private ApplicationDbContext _dbContext;
+        public AclPageRepository(ApplicationDbContext dbContext)
         {
+            _dbContext = dbContext;
             this.aclResponse = new AclResponse();
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
             this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
         }
         public async Task<AclResponse> GetAll()
         {
-            IEnumerable<AclPage>? aclPage = await base.All();
+            List<AclPage>? aclPage = _dbContext.AclPages.ToList();
             if (aclPage.Any())
             {
                 this.aclResponse.Message = this.messageResponse.fetchMessage;
@@ -44,9 +46,9 @@ namespace ACL.Infrastructure.Repositories.V1
             try
             {
                 AclPage? aclPage = PrepareInputData(request);
-                await base.AddAsync(aclPage);
-                await base.CompleteAsync();
-                await base.ReloadAsync(aclPage);
+                _dbContext.AclPages.AddAsync(aclPage);
+                _dbContext.SaveChanges();
+                await _dbContext.Entry(aclPage).ReloadAsync();
                 this.aclResponse.Data = aclPage;
                 this.aclResponse.Message = this.messageResponse.createMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
@@ -62,7 +64,7 @@ namespace ACL.Infrastructure.Repositories.V1
 
         public async Task<AclResponse> EditAclPage(ulong id, AclPageRequest request)
         {
-            AclPage? aclPage = await base.GetById(id);
+            AclPage? aclPage = _dbContext.AclPages.Find(id);
             if (aclPage == null)
             {
                 this.aclResponse.Message = this.messageResponse.notFoundMessage;
@@ -72,9 +74,9 @@ namespace ACL.Infrastructure.Repositories.V1
             try
             {
                 aclPage = PrepareInputData(request, aclPage);
-                base.Update(aclPage);
-                await base.CompleteAsync();
-                await base.ReloadAsync(aclPage);
+                _dbContext.AclPages.Update(aclPage);
+                _dbContext.SaveChanges();
+                await _dbContext.Entry(aclPage).ReloadAsync();
                 this.aclResponse.Data = aclPage;
                 this.aclResponse.Message = this.messageResponse.editMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
@@ -92,7 +94,7 @@ namespace ACL.Infrastructure.Repositories.V1
         {
             try
             {
-                AclPage aclPage = await base.GetById(id);
+                AclPage aclPage = _dbContext.AclPages.Find(id);
                 this.aclResponse.Data = aclPage;
                 this.aclResponse.Message = this.messageResponse.fetchMessage;
                 if (aclPage == null)
@@ -113,31 +115,24 @@ namespace ACL.Infrastructure.Repositories.V1
         }
         public async Task<AclResponse> DeleteById(ulong id)
         {
-            AclPage? page = await base.GetById(id);
+            AclPage? page = _dbContext.AclPages.Find(id);
             if (page != null)
             {
-                var executionStrategy = base.CreateExecutionStrategy();
-                await executionStrategy.ExecuteAsync(async () =>
+                try
                 {
-                    using (var transaction = await base.BeginTransactionAsync())
-                    {
-                        try
-                        {
-                            await base.DeleteAsync(page);
-                            base.Complete();
-                            await routeRepository.DeleteAll(i=>i.PageId == id);
-                            this.aclResponse.Message = this.messageResponse.deleteMessage;
-                            this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
-                            await transaction.CommitAsync();
-                        }
-                        catch (Exception ex)
-                        {
-                            await transaction.RollbackAsync();
-                            this.aclResponse.Message = this.messageResponse.somethingIsWrong;
-                            this.aclResponse.StatusCode = AppStatusCode.FAIL;
-                        }
-                    }
-                });
+                    _dbContext.AclPages.Remove(page);
+                    _dbContext.SaveChanges();
+                    await _dbContext.Entry(page).ReloadAsync();
+                    await routeRepository.DeleteAll(i => i.PageId == id);
+                    this.aclResponse.Message = this.messageResponse.deleteMessage;
+                    this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                }
+                catch (Exception ex)
+                {
+                    this.aclResponse.Message = this.messageResponse.somethingIsWrong;
+                    this.aclResponse.StatusCode = AppStatusCode.FAIL;
+                }
+
             }
             else
             {
@@ -176,7 +171,7 @@ namespace ACL.Infrastructure.Repositories.V1
             {
                 AclPageRoute? aclPageRoute = PreparePageRouteInputData(request);
                 await routeRepository.AddAsync(aclPageRoute);
-                await base.CompleteAsync();
+                await _dbContext.SaveChangesAsync();
                 await routeRepository.ReloadAsync(aclPageRoute);
                 this.aclResponse.Data = aclPageRoute;
                 this.aclResponse.Message = this.messageResponse.createMessage;
@@ -201,7 +196,7 @@ namespace ACL.Infrastructure.Repositories.V1
                 {
                     AclPageRoute? aclPageRouteUpdateData = PreparePageRouteInputData(request, aclPageRoute);
                     routeRepository.Update(aclPageRouteUpdateData);
-                    await base.CompleteAsync();
+                    await _dbContext.SaveChangesAsync();
                     await routeRepository.ReloadAsync(aclPageRouteUpdateData);
                     this.aclResponse.Data = aclPageRouteUpdateData;
                     this.aclResponse.Message = this.messageResponse.editMessage;
@@ -213,8 +208,6 @@ namespace ACL.Infrastructure.Repositories.V1
                     this.aclResponse.StatusCode = AppStatusCode.FAIL;
                     return this.aclResponse;
                 }
-
-
             }
             catch (Exception ex)
             {
@@ -232,7 +225,7 @@ namespace ACL.Infrastructure.Repositories.V1
             if (aclPageRoute != null)
             {
                 await routeRepository.DeleteAsync(aclPageRoute);
-                await base.CompleteAsync();
+                await _dbContext.SaveChangesAsync();
                 await routeRepository.ReloadAsync(aclPageRoute);
                 this.aclResponse.Message = this.messageResponse.deleteMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
@@ -268,9 +261,9 @@ namespace ACL.Infrastructure.Repositories.V1
 
         public void DeletePageRouteByPageId(ulong pageId)
         {
-            List<AclPageRoute>? pageRoutes = base._dbContext.AclPageRoutes.Where(r => r.PageId == pageId).ToList();
-            base._dbContext.AclPageRoutes.RemoveRange(pageRoutes);
-            base.Complete();
+            List<AclPageRoute>? pageRoutes = _dbContext.AclPageRoutes.Where(r => r.PageId == pageId).ToList();
+            _dbContext.AclPageRoutes.RemoveRange(pageRoutes);
+            _dbContext.SaveChanges();
         }
 
 
