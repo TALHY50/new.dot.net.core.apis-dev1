@@ -19,8 +19,9 @@ namespace ACL.Infrastructure.Services
         private string modelName = "Branch";
         private IAclBranchRepository _repository;
 
-        public AclBranchService()
+        public AclBranchService(ApplicationDbContext dbContext,IAclBranchRepository repository):base(dbContext)
         {
+            _repository = repository;
             AppAuth.SetAuthInfo();
             this.aclResponse = new AclResponse();
             this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);

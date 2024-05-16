@@ -16,6 +16,10 @@ namespace ACL.Controllers.V1
     {
         private IAclBranchService AclBranchService;
 
+        public AclBranchController(IAclBranchService aclBranchService)
+        {
+            AclBranchService = aclBranchService;
+        }
         //[Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclBranchRouteUrl.List, Name = AclRoutesName.AclBranchRouteNames.List)]
         public async Task<AclResponse> Index()
