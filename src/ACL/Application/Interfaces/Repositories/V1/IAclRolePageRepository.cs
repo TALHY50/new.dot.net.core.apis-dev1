@@ -5,7 +5,7 @@ using SharedLibrary.Interfaces;
 
 namespace ACL.Application.Interfaces.Repositories.V1
 {
-    public interface IAclRolePageRepository : IGenericRepository<AclRolePage>
+    public interface IAclRolePageRepository 
     {
         Task<AclResponse> GetAllById(ulong Id);
         Task<AclResponse> UpdateAll(AclRoleAndPageAssocUpdateRequest req);
