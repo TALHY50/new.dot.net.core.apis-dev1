@@ -75,9 +75,9 @@ namespace ACL.Infrastructure.Repositories.V1
                     };
                     AclUserGroupRepository.SetCompanyId(aclCompany.Id);
                     var userGroup = await AclUserGroupRepository.AddUserGroup(userGroupRequest);
+                    var CreatedUser = (AclUsergroup?)userGroup.Data;
                     await _dbContext.SaveChangesAsync();
-                    var createdUserGroup = (AclUsergroup)userGroup.Data;
-                    await AclUserGroupRepository.ReloadAsync(createdUserGroup);
+                    _dbContext.Entry(userGroupRequest).Reload();
 
                     var salt = cryptographyService.GenerateSalt();
                     string[] nameArr = request.Name.Split(' ');
@@ -101,10 +101,10 @@ namespace ACL.Infrastructure.Repositories.V1
 
                     AclUserRepository.SetCompanyId((uint)aclCompany.Id);
                     AclUserRepository.SetUserType(true);
-                    AclUserRepository.Add(user);
-                    await _dbContext.SaveChangesAsync();
-                    await AclUserRepository.ReloadAsync(user);
-                    var userusergroup = PrepareDataForUserUserGroups(createdUserGroup.Id, user.Id);
+                    _dbContext.AclUsers.Add(user);
+                    _dbContext.SaveChanges();
+                    _dbContext.Entry(user).Reload();
+                    var userusergroup = PrepareDataForUserUserGroups(CreatedUser.Id, user.Id);
                     AclUserUserGroupRepository.Add(userusergroup);
                     await _dbContext.SaveChangesAsync();
 
@@ -119,9 +119,10 @@ namespace ACL.Infrastructure.Repositories.V1
                         UpdatedAt = DateTime.Now,
                         Status = 1
                     };
-                    var roleAdd = await AclRoleRepository.Add(role);
-                    await _dbContext.SaveChangesAsync();
-                    await AclRoleRepository.ReloadAsync(role);
+                    //var roleAdd = await AclRoleRepository.Add(role);
+                    var roleAdd = _dbContext.AclRoles.Add(role);
+                     _dbContext.SaveChanges();
+                     _dbContext.Entry(role).Reload();
 
                     AclUsergroupRole userGroupRole = new AclUsergroupRole()
                     {
@@ -131,9 +132,10 @@ namespace ACL.Infrastructure.Repositories.V1
                         CreatedAt = DateTime.UtcNow,
                         UpdatedAt = DateTime.UtcNow
                     };
-                    var createdUserGroupRole = AclUserGroupRoleRepository.Add(userGroupRole);
-                    await _dbContext.SaveChangesAsync();
-                    List<AclPage> aclPagesByModuleId = await AclPageRepository.Where(x => x.ModuleId == ulong.Parse(this._config["S_ADMIN_DEFAULT_MODULE_ID"])).ToListAsync();
+                    var createdUserGroupRole = _dbContext.AclUsergroupRoles.Add(userGroupRole);
+                     _dbContext.SaveChanges();
+                     _dbContext.Entry(userGroupRole).Reload();
+                    List<AclPage> aclPagesByModuleId = await _dbContext.AclPages.Where(x => x.ModuleId == ulong.Parse(this._config["S_ADMIN_DEFAULT_MODULE_ID"])).ToListAsync();
                     List<ulong> pageIds = aclPagesByModuleId.Select(page => page.Id).ToList();
                     List<AclRolePage> aclRolePages = pageIds.Select(pageId => new AclRolePage
                     {
