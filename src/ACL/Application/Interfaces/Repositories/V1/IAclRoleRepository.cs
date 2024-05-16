@@ -6,7 +6,7 @@ using SharedLibrary.Interfaces;
 namespace ACL.Application.Interfaces.Repositories.V1
 
 {
-    public interface IAclRoleRepository : IGenericRepository<AclRole>
+    public interface IAclRoleRepository 
     {
         Task<AclResponse> GetAll();
         Task<AclResponse> Add(AclRoleRequest subModule);

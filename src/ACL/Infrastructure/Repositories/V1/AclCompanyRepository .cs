@@ -126,7 +126,7 @@ namespace ACL.Infrastructure.Repositories.V1
                                     UpdatedAt = DateTime.Now,
                                     Status = 1
                                 };
-                                var roleAdd = await AclRoleRepository.AddAsync(role);
+                                var roleAdd = await AclRoleRepository.Add(role);
                                 await base.CompleteAsync();
                                 await AclRoleRepository.ReloadAsync(role);
 

@@ -1,4 +1,5 @@
 ﻿using ACL.Application.Interfaces;
+using ACL.Application.Interfaces.Repositories.V1;
 using ACL.Application.Interfaces.ServiceInterfaces;
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response;
@@ -11,14 +12,16 @@ using SharedLibrary.Response.CustomStatusCode;
 
 namespace ACL.Infrastructure.Services
 {
-    public partial class AclBranchService :AclBranchRepository, IAclBranchService
+    public partial class AclBranchService
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "Branch";
+        private IAclBranchRepository _repository;
 
-        public AclBranchService(ApplicationDbContext dbContext) : base(dbContext) 
+        public AclBranchService(IAclBranchRepository repository)
         {
+            _repository = repository;
             AppAuth.SetAuthInfo();
             this.aclResponse = new AclResponse();
             this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
@@ -40,17 +43,14 @@ namespace ACL.Infrastructure.Services
             try
             {
                 AclBranch _aclBranch = PrepareInputData(request);
-                await base.AddAsync(_aclBranch);
-                await base.CompleteAsync();
-                await base.ReloadAsync(_aclBranch);
-                this.aclResponse.Data = _aclBranch;
+                this.aclResponse.Data = _repository.Add(_aclBranch);
                 this.aclResponse.Message = _aclBranch != null ? this.messageResponse.createMessage : this.messageResponse.createFail;
 
                 this.aclResponse.StatusCode = _aclBranch != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
             }
             catch (Exception ex)
             {
-               // base.Logger.LogError(ex, "Error at BRANCH_ADD", new { data = request, message = ex.Message, });
+                // base.Logger.LogError(ex, "Error at BRANCH_ADD", new { data = request, message = ex.Message, });
                 this.aclResponse.Message = ex.Message;
                 this.aclResponse.StatusCode = AppStatusCode.FAIL;
             }
@@ -61,19 +61,15 @@ namespace ACL.Infrastructure.Services
         {
             try
             {
-                var _aclBranch = await base.GetById(id);
+                var _aclBranch =  _repository.GetById(id);
                 _aclBranch = PrepareInputData(request, _aclBranch);
-                await base.UpdateAsync(_aclBranch);
-                await base.CompleteAsync();
-                await base.ReloadAsync(_aclBranch);
-                this.aclResponse.Data = _aclBranch;
+                this.aclResponse.Data = _repository.Update(_aclBranch);
                 this.aclResponse.Message = _aclBranch != null ? this.messageResponse.editMessage : this.messageResponse.notFoundMessage;
-
                 this.aclResponse.StatusCode = _aclBranch != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
             }
             catch (Exception ex)
             {
-               // base.Logger.LogError(ex, "Error at BRANCH_EDIT", new { data = request, message = ex.Message, });
+                // base.Logger.LogError(ex, "Error at BRANCH_EDIT", new { data = request, message = ex.Message, });
                 this.aclResponse.Message = ex.Message;
                 this.aclResponse.StatusCode = AppStatusCode.FAIL;
             }
@@ -85,7 +81,7 @@ namespace ACL.Infrastructure.Services
         {
             try
             {
-                var aclCompanyModule = await base.GetById(id);
+                var aclCompanyModule = _repository.GetById(id);
                 var message = aclCompanyModule != null ? this.messageResponse.fetchMessage : this.messageResponse.notFoundMessage;
                 this.aclResponse.Data = aclCompanyModule;
                 this.aclResponse.Message = message;
@@ -103,14 +99,13 @@ namespace ACL.Infrastructure.Services
 
         public async Task<AclResponse> Delete(ulong id)
         {
-            var aclCompanyModule = await base.GetById(id);
+            var aclCompanyModule = _repository.GetById(id);
             this.aclResponse.StatusCode = aclCompanyModule != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
             this.aclResponse.Message = aclCompanyModule != null ? this.messageResponse.deleteMessage : this.messageResponse.notFoundMessage;
             this.aclResponse.Data = aclCompanyModule;
             if (aclCompanyModule != null)
             {
-                await base.DeleteAsync(aclCompanyModule);
-                await base.CompleteAsync();
+                 _repository.Delete(aclCompanyModule);
             }
             return this.aclResponse;
         }

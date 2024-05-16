@@ -8,6 +8,7 @@ using ACL.Infrastructure.Database;
 using ACL.Infrastructure.Repositories.GenericRepository;
 using ACL.Infrastructure.Utilities;
 using ACL.UseCases.Enums;
+using Ardalis.Specification;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using SharedLibrary.Response.CustomStatusCode;
@@ -15,23 +16,25 @@ using SharedLibrary.Services;
 
 namespace ACL.Infrastructure.Repositories.V1
 {
-    public class AclRoleRepository : GenericRepository<AclRole>, IAclRoleRepository
+    public class AclRoleRepository : IAclRoleRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "Role";
         private readonly IDistributedCache _distributedCache;
-        public AclRoleRepository(ApplicationDbContext dbContext, IDistributedCache distributedCache) : base(dbContext,distributedCache)
+        private ApplicationDbContext _dbContext;
+        public AclRoleRepository(ApplicationDbContext dbContext, IDistributedCache distributedCache)
         {
             this.aclResponse = new AclResponse();
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
             this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
             this._distributedCache = distributedCache;
+            _dbContext = dbContext;
         }
 
         public async Task<AclResponse> GetAll()
         {
-            var aclRoles = base.Where(x => true).Select(x => new
+            var aclRoles = _dbContext.AclRoles.Where(x => true).Select(x => new
             {
                 x.Id,
                 x.Name,
@@ -52,9 +55,9 @@ namespace ACL.Infrastructure.Repositories.V1
         {
 
             var aclRole = PrepareInputData(request);
-            await base.AddAsync(aclRole);
-            await base.CompleteAsync();
-            await base.ReloadAsync(aclRole);
+            await _dbContext.AclRoles.AddAsync(aclRole);
+            _dbContext.SaveChanges();
+            await _dbContext.Entry(aclRole).ReloadAsync();
             this.aclResponse.Data = aclRole;
             this.aclResponse.Message = this.messageResponse.createMessage;
             this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
@@ -63,7 +66,7 @@ namespace ACL.Infrastructure.Repositories.V1
         }
         public async Task<AclResponse> Edit(ulong id, AclRoleRequest request)
         {
-            var aclRole = await base.GetById(id);
+            var aclRole = _dbContext.AclRoles.Find(id);
             if (aclRole == null)
             {
                 this.aclResponse.Message = this.messageResponse.notFoundMessage;
@@ -71,9 +74,9 @@ namespace ACL.Infrastructure.Repositories.V1
             }
 
             aclRole = PrepareInputData(request, aclRole);
-            await base.UpdateAsync(aclRole);
-            await base.CompleteAsync();
-            await base.ReloadAsync(aclRole);
+            _dbContext.AclRoles.Update(aclRole);
+            _dbContext.SaveChanges();
+            await _dbContext.Entry(aclRole).ReloadAsync();
             this.aclResponse.Data = aclRole;
             this.aclResponse.Message = this.messageResponse.editMessage;
             this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
@@ -83,7 +86,7 @@ namespace ACL.Infrastructure.Repositories.V1
         public async Task<AclResponse> FindById(ulong id)
         {
 
-            var aclRole = await base.Where(x => true).Select(x => new
+            var aclRole = await _dbContext.AclRoles.Where(x => true).Select(x => new
             {
                 x.Id,
                 x.Name,
@@ -106,12 +109,12 @@ namespace ACL.Infrastructure.Repositories.V1
         }
         public async Task<AclResponse> DeleteById(ulong id)
         {
-            var aclRole = await base.GetById(id);
+            var aclRole = _dbContext.AclRoles.Find(id);
 
             if (aclRole != null)
             {
-                await base.DeleteAsync(aclRole);
-                await base.CompleteAsync();
+                _dbContext.AclRoles.Remove(aclRole);
+                _dbContext.SaveChanges();
                 RemoveCache(id);
                 this.aclResponse.Message = this.messageResponse.deleteMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;

@@ -40,6 +40,7 @@ using Microsoft.OpenApi.Models;
 using StackExchange.Redis;
 using ACL.Infrastructure.Repositories.GenericRepository;
 using ACL.Application.Interfaces.Repositories.V1;
+using ACL.Application.Interfaces.ServiceInterfaces;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -228,6 +229,9 @@ builder.Host.UseSerilog((hostingContext, loggerConfiguration) =>
 });
 
 builder.Services.AddSerilog();
+
+builder.Services.AddScoped<IAclBranchService, AclBranchService>();
+
 
 builder.Services.AddScoped<IAclUserRepository, AclUserRepository>();
 builder.Services.AddScoped<IAclBranchRepository, AclBranchRepository>();
