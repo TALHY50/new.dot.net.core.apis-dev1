@@ -5,7 +5,7 @@ using SharedLibrary.Interfaces;
 
 namespace ACL.Application.Ports.Repositories
 {
-    public interface IAclUserRepository : IGenericRepository<AclUser>
+    public interface IAclUserRepository 
     {
         Task<AclResponse> GetAll();
         Task<AclResponse> AddUser(AclUserRequest request);
