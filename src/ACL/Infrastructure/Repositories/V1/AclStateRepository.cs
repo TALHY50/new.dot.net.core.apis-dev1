@@ -5,6 +5,7 @@ using ACL.Contracts.Response;
 using ACL.Contracts.Response.V1;
 using ACL.Core.Models;
 using ACL.Infrastructure.Database;
+using ACL.Infrastructure.Repositories.GenericRepository;
 using ACL.Infrastructure.Utilities;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Response.CustomStatusCode;
@@ -12,26 +13,25 @@ using SharedLibrary.Services;
 
 namespace ACL.Infrastructure.Repositories.V1
 {
-    public class AclStateRepository : GenericRepository<AclState, ApplicationDbContext, ICustomUnitOfWork>, IAclStateRepository
+    public class AclStateRepository : GenericRepository<AclState>, IAclStateRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "State";
-        private ICustomUnitOfWork _customUnitOfWork;
+        private IAclCountryRepository AclCountryRepository;
 
-        public AclStateRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
+        public AclStateRepository(ApplicationDbContext dbContext) : base(dbContext)
         {
-            this._customUnitOfWork = _unitOfWork;
             AppAuth.SetAuthInfo();
             this.aclResponse = new AclResponse();
             AppAuth.SetAuthInfo();
-            this.messageResponse = new MessageResponse(this.modelName, _unitOfWork, AppAuth.GetAuthInfo().Language);
+            this.messageResponse = new MessageResponse(this.modelName,  AppAuth.GetAuthInfo().Language);
         }
 
         public async Task<AclResponse> GetAll()
         {
-            var aclStates = await this._customUnitOfWork.AclStateRepository.Where(s => true)
-                .Join(this._customUnitOfWork.AclCountryRepository.Where(c => true), s => s.CountryId, c => c.Id, (s, c) => new
+            var aclStates = await base.Where(s => true)
+                .Join(AclCountryRepository.Where(c => true), s => s.CountryId, c => c.Id, (s, c) => new
                 {
                     state = s,
                     country = c
@@ -52,8 +52,8 @@ namespace ACL.Infrastructure.Repositories.V1
 
             var aclState = PrepareInputData(request);
             await base.AddAsync(aclState);
-            await this._unitOfWork.CompleteAsync();
-            await this._customUnitOfWork.AclStateRepository.ReloadAsync(aclState);
+            await base.CompleteAsync();
+            await base.ReloadAsync(aclState);
             this.aclResponse.Data = aclState;
             this.aclResponse.Message = this.messageResponse.createMessage;
             this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
@@ -74,8 +74,8 @@ namespace ACL.Infrastructure.Repositories.V1
 
             aclState = PrepareInputData(request, aclState);
             await base.UpdateAsync(aclState);
-            await this._unitOfWork.CompleteAsync();
-            await this._customUnitOfWork.AclStateRepository.ReloadAsync(aclState);
+            await base.CompleteAsync();
+            await base.ReloadAsync(aclState);
             this.aclResponse.Data = aclState;
             this.aclResponse.Message = this.messageResponse.editMessage;
             this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
@@ -88,8 +88,8 @@ namespace ACL.Infrastructure.Repositories.V1
         public async Task<AclResponse> FindById(ulong id)
         {
 
-            var aclState = await this._customUnitOfWork.AclStateRepository.Where(s => s.Id == id)
-                .Join(this._customUnitOfWork.AclCountryRepository.Where(c => true), s => s.CountryId, c => c.Id, (s, c) => new
+            var aclState = base.Where(s => s.Id == id)
+                .Join(AclCountryRepository.Where(c => true), s => s.CountryId, c => c.Id, (s, c) => new
                 {
                     state = s,
                     country = c
@@ -115,7 +115,7 @@ namespace ACL.Infrastructure.Repositories.V1
             if (aclState != null)
             {
                 await base.DeleteAsync(aclState);
-                await this._unitOfWork.CompleteAsync();
+                await base.CompleteAsync();
                 this.aclResponse.Message = this.messageResponse.deleteMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }

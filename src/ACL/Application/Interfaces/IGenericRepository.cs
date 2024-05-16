@@ -1,6 +1,8 @@
-﻿using System.Linq.Expressions;
+﻿using Microsoft.EntityFrameworkCore.Storage;
+using System.Data;
+using System.Linq.Expressions;
 
-namespace SharedLibrary.Interfaces
+namespace ACL.Application.Interfaces
 {
     public interface IGenericRepository<T> where T : class
     {
@@ -29,6 +31,15 @@ namespace SharedLibrary.Interfaces
         Task<string> ExecuteSqlQueryAsJson(string sqlQuery, params object[] parameters);
         Task<List<Dictionary<string, object>>> ExecuteAnySqlQuery(string sqlQuery);
         Task<List<Dictionary<string, object>>> ExecuteStoredProcedure(string storedProcedureName, params object[] parameters);
+        IDbTransaction BeginTransaction();
+        Task<IDbContextTransaction> BeginTransactionAsync();
         Task<int> DeleteAll(Expression<Func<T, bool>> predicate);
+        Task CompleteAsync();
+        public void Complete();
+        void RollbackTransaction();
+        Task RollbackTransactionAsync();
+        Task CommitTransactionAsync();
+        void CommitTransaction();
+        IExecutionStrategy CreateExecutionStrategy();
     }
 }

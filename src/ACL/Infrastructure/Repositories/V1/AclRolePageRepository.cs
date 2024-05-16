@@ -5,6 +5,7 @@ using ACL.Contracts.Response;
 using ACL.Contracts.Response.V1;
 using ACL.Core.Models;
 using ACL.Infrastructure.Database;
+using ACL.Infrastructure.Repositories.GenericRepository;
 using ACL.Infrastructure.Utilities;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Response.CustomStatusCode;
@@ -13,16 +14,16 @@ using static ACL.Route.AclRoutesUrl;
 
 namespace ACL.Infrastructure.Repositories.V1
 {
-    public class AclRolePageRepository : GenericRepository<AclRolePage, ApplicationDbContext, ICustomUnitOfWork>, IAclRolePageRepository
+    public class AclRolePageRepository : GenericRepository<AclRolePage>, IAclRolePageRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "Role Page";
-        public AclRolePageRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
+        public AclRolePageRepository(ApplicationDbContext dbContext) : base(dbContext)
         {
             this.aclResponse = new AclResponse();
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
-            this.messageResponse = new MessageResponse(this.modelName, _unitOfWork, AppAuth.GetAuthInfo().Language);
+            this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
 
         }
 
@@ -49,22 +50,22 @@ namespace ACL.Infrastructure.Repositories.V1
         {
             var res = await base.Where(x => x.RoleId == req.RoleId).ToListAsync();
             var check = PrepareData(req);
-            using (var transaction = this._unitOfWork.BeginTransaction())
+            using (var transaction = base.BeginTransaction())
             {
                 try
                 {
                     var removedEntities = await base.RemoveRange(res);
                     await base.AddRange(check);
-                    await this._unitOfWork.CommitTransactionAsync();
+                    await base.CommitTransactionAsync();
                 }
                 catch (Exception ex)
                 {
-                    await this._unitOfWork.RollbackTransactionAsync();
+                    await base.RollbackTransactionAsync();
                     this.aclResponse.Message = ex.Message;
                     this.aclResponse.StatusCode = AppStatusCode.FAIL;
                 }
             }
-            await this._unitOfWork.CompleteAsync();
+            await base.CompleteAsync();
             await ReloadEntitiesAsync(check);
             res = check.ToList();
             if (res.Any())

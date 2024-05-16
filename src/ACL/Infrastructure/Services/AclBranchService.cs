@@ -4,6 +4,7 @@ using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response;
 using ACL.Contracts.Response.V1;
 using ACL.Core.Models;
+using ACL.Infrastructure.Database;
 using ACL.Infrastructure.Repositories.V1;
 using ACL.Infrastructure.Utilities;
 using SharedLibrary.Response.CustomStatusCode;
@@ -16,11 +17,11 @@ namespace ACL.Infrastructure.Services
         public MessageResponse messageResponse;
         private string modelName = "Branch";
 
-        public AclBranchService(ICustomUnitOfWork unitOfWork) : base(unitOfWork)
+        public AclBranchService(ApplicationDbContext dbContext) : base(dbContext) 
         {
             AppAuth.SetAuthInfo();
             this.aclResponse = new AclResponse();
-            this.messageResponse = new MessageResponse(this.modelName, this._unitOfWork, AppAuth.GetAuthInfo().Language);
+            this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
         }
 
         public async Task<AclResponse> Get()
@@ -40,7 +41,7 @@ namespace ACL.Infrastructure.Services
             {
                 AclBranch _aclBranch = PrepareInputData(request);
                 await base.AddAsync(_aclBranch);
-                await this._unitOfWork.CompleteAsync();
+                await base.CompleteAsync();
                 await base.ReloadAsync(_aclBranch);
                 this.aclResponse.Data = _aclBranch;
                 this.aclResponse.Message = _aclBranch != null ? this.messageResponse.createMessage : this.messageResponse.createFail;
@@ -49,7 +50,7 @@ namespace ACL.Infrastructure.Services
             }
             catch (Exception ex)
             {
-                this._unitOfWork.Logger.LogError(ex, "Error at BRANCH_ADD", new { data = request, message = ex.Message, });
+               // base.Logger.LogError(ex, "Error at BRANCH_ADD", new { data = request, message = ex.Message, });
                 this.aclResponse.Message = ex.Message;
                 this.aclResponse.StatusCode = AppStatusCode.FAIL;
             }
@@ -63,7 +64,7 @@ namespace ACL.Infrastructure.Services
                 var _aclBranch = await base.GetById(id);
                 _aclBranch = PrepareInputData(request, _aclBranch);
                 await base.UpdateAsync(_aclBranch);
-                await this._unitOfWork.CompleteAsync();
+                await base.CompleteAsync();
                 await base.ReloadAsync(_aclBranch);
                 this.aclResponse.Data = _aclBranch;
                 this.aclResponse.Message = _aclBranch != null ? this.messageResponse.editMessage : this.messageResponse.notFoundMessage;
@@ -72,7 +73,7 @@ namespace ACL.Infrastructure.Services
             }
             catch (Exception ex)
             {
-                this._unitOfWork.Logger.LogError(ex, "Error at BRANCH_EDIT", new { data = request, message = ex.Message, });
+               // base.Logger.LogError(ex, "Error at BRANCH_EDIT", new { data = request, message = ex.Message, });
                 this.aclResponse.Message = ex.Message;
                 this.aclResponse.StatusCode = AppStatusCode.FAIL;
             }
@@ -109,7 +110,7 @@ namespace ACL.Infrastructure.Services
             if (aclCompanyModule != null)
             {
                 await base.DeleteAsync(aclCompanyModule);
-                await this._unitOfWork.CompleteAsync();
+                await base.CompleteAsync();
             }
             return this.aclResponse;
         }
