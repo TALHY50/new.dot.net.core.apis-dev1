@@ -33,7 +33,7 @@ namespace ACL.Infrastructure.Repositories.V1
         private readonly IAclUserUserGroupRepository AclUserUserGroupRepository;
 
         private readonly ApplicationDbContext _dbcontext;
-        public AclUserRepository(ApplicationDbContext dbcontext, IConfiguration config, IDistributedCache distributedCache) : base(dbcontext)
+        public AclUserRepository(ApplicationDbContext dbcontext, IConfiguration config, IDistributedCache distributedCache) 
         {
             AppAuth.SetAuthInfo();
             this._config = config;
