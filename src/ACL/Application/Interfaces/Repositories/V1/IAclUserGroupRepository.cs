@@ -5,7 +5,7 @@ using SharedLibrary.Interfaces;
 
 namespace ACL.Application.Interfaces.Repositories.V1
 {
-    public interface IAclUserGroupRepository : IGenericRepository<AclUsergroup>
+    public interface IAclUserGroupRepository 
     {
         Task<AclResponse> GetAll();
         Task<AclResponse> AddUserGroup(AclUserGroupRequest usergroup);
