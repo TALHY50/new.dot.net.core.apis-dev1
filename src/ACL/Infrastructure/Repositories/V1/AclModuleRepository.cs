@@ -12,21 +12,23 @@ using SharedLibrary.Services;
 
 namespace ACL.Infrastructure.Repositories.V1
 {
-    public class AclModuleRepository : GenericRepository<AclModule>, IAclModuleRepository
+    public class AclModuleRepository : IAclModuleRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
+        private ApplicationDbContext _dbcontext;
         private string modelName = "Module";
 
-        public AclModuleRepository(ApplicationDbContext dbcontext) : base(dbcontext)
+        public AclModuleRepository(ApplicationDbContext dbcontext) 
         {
+            _dbcontext = dbcontext;
             this.aclResponse = new AclResponse();
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
             this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
         }
-        public async Task<AclResponse> GetAll()
+        public AclResponse GetAll()
         {
-            var aclModules = await base.All();
+            var aclModules = _dbcontext.AclModules.ToList();
             if (aclModules.Any())
             {
                 this.aclResponse.Message = this.messageResponse.fetchMessage;
@@ -47,13 +49,13 @@ namespace ACL.Infrastructure.Repositories.V1
         {
             try
             {
-                var check = await base.GetById(request.Id);
+                var check = _dbcontext.AclModules.Find(request.Id);
                 if (check == null)
                 {
                     var aclModule = PrepareInputData(request);
-                    base.Add(aclModule);
-                    await base.CompleteAsync();
-                    await base.ReloadAsync(aclModule);
+                    _dbcontext.Add(aclModule);
+                    _dbcontext.SaveChanges();
+                    _dbcontext.Entry(request).Reload();
                     this.aclResponse.Data = aclModule;
                     this.aclResponse.Message = this.messageResponse.createMessage;
                     this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
@@ -77,13 +79,13 @@ namespace ACL.Infrastructure.Repositories.V1
         {
             try
             {
-                var aclModule = await base.GetById(id);
+                var aclModule = _dbcontext.AclModules.Find(request.Id);
                 if (aclModule != null)
                 {
                     aclModule = PrepareInputData(request, aclModule);
-                    await base.UpdateAsync(aclModule);
-                    await base.CompleteAsync();
-                    await base.ReloadAsync(aclModule);
+                    _dbcontext.AclModules.Update(aclModule);
+                    _dbcontext.SaveChanges();
+                    _dbcontext.Entry(request).Reload();
                     this.aclResponse.Data = aclModule;
                     this.aclResponse.Message = this.messageResponse.editMessage;
                     this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
@@ -106,7 +108,7 @@ namespace ACL.Infrastructure.Repositories.V1
         {
             try
             {
-                var aclModule = await base.GetById(id);
+                var aclModule = _dbcontext.AclModules.Find(id);
                 this.aclResponse.Data = aclModule;
                 this.aclResponse.Message = this.messageResponse.fetchMessage;
                 if (aclModule == null)
@@ -128,12 +130,12 @@ namespace ACL.Infrastructure.Repositories.V1
         public async Task<AclResponse> DeleteModule(ulong id)
         {
 
-            var aclModule = await base.GetById(id);
+            var aclModule =  _dbcontext.AclModules.Find(id);
 
             if (aclModule != null)
             {
-                await base.DeleteAsync(aclModule);
-                await base.CompleteAsync();
+                _dbcontext.Remove(aclModule);
+                _dbcontext.SaveChanges();
                 this.aclResponse.Data = aclModule;
                 this.aclResponse.Message = this.messageResponse.deleteMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
