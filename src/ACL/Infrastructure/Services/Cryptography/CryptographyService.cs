@@ -13,8 +13,7 @@ namespace ACL.Infrastructure.Services.Cryptography
         private const int _hashSize = 64;
 
         public CryptographyService() { }
-        public CryptographyService(ICustomUnitOfWork unitOfWork) { }
-
+     
         public string GenerateSalt()
         {
             var buffer = new byte[_hashSize];
