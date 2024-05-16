@@ -15,7 +15,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ACL.Contracts.Requests.V1;
-using static Org.BouncyCastle.Asn1.Cmp.Challenge;
 using SharedLibrary.Response.CustomStatusCode;
 
 namespace ACL.Tests.V1
@@ -87,8 +86,8 @@ namespace ACL.Tests.V1
         public AclRoleAndPageAssocUpdateRequest GetRoleAndPageAssocUpdateRequest(ulong id)
         {
             var faker = new Faker();
-            var gotid = DataCollectors.unitOfWork.ApplicationDbContext.AclPages.Max(i=>i.Id);
-            var roleId = DataCollectors.unitOfWork.ApplicationDbContext.AclRoles.Max(i=>i.Id);
+            var gotid = DataCollectors.dbContext.AclPages.Max(i=>i.Id);
+            var roleId = DataCollectors.dbContext.AclRoles.Max(i=>i.Id);
           
             int[] pageIds = new int[] { (int)gotid };
             
@@ -110,7 +109,7 @@ namespace ACL.Tests.V1
         {
             #region Act
             //    // Act
-            return (ulong)DataCollectors.unitOfWork.ApplicationDbContext.AclRolePages.Max(i=>i.RoleId);
+            return (ulong)DataCollectors.dbContext.AclRolePages.Max(i=>i.RoleId);
             #endregion
 
         }

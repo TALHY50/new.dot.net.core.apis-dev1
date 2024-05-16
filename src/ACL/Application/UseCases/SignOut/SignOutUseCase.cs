@@ -32,7 +32,7 @@ namespace ACL.Application.UseCases.SignOut
                     };
                 }
                 user.RefreshToken.Active = false;
-                await this._authRepository.UpdateAsync(user);
+                await this._authRepository.UpdateAndSaveAsync(user);
 
                 return new SignOutSuccessResponse
                 {

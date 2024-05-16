@@ -144,8 +144,8 @@ namespace ACL.Infrastructure.Repositories.V1
                         CreatedAt = DateTime.UtcNow,
                         UpdatedAt = DateTime.UtcNow
                     }).ToList();
-                    await AclRolePageRepository.AddRange(aclRolePages.ToArray());
-                    await _dbContext.SaveChangesAsync();
+                     _dbContext.AclRolePages.AddRange(aclRolePages.ToArray());
+                     _dbContext.SaveChanges();
                 }
                 this.aclResponse.Data = aclCompany;
                 this.aclResponse.Message = aclCompany != null ? this.messageResponse.createMessage : this.messageResponse.notFoundMessage;

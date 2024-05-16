@@ -72,7 +72,7 @@ namespace ACL.Application.UseCases.RefreshToken
                 user.RefreshToken.Value = await this._authTokenService.GenerateRefreshToken();
                 user.RefreshToken.Active = true;
                 user.RefreshToken.ExpirationDate = DateTime.UtcNow.AddMinutes(await this._authTokenService.GetRefreshTokenLifetimeInMinutes());
-                await this._authRepository.UpdateAsync(user);
+                await this._authRepository.UpdateAndSaveAsync(user);
 
                 var response = new RefreshTokenSuccessResponse
                 {
