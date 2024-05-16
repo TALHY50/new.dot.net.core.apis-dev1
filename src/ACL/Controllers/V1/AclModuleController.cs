@@ -14,41 +14,46 @@ namespace ACL.Controllers.V1
     [ApiController]
     public class AclModuleController : ControllerBase
     {
-        IAclModuleRepository AclModuleRepository;
+        IAclModuleRepository _repository;
+
+        public AclModuleController(IAclModuleRepository repository)
+        {
+            _repository = repository;
+        }
 
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclModuleRouteUrl.List, Name = AclRoutesName.AclModuleRouteNames.List)]
-        public AclResponse Index()
+        public async Task<AclResponse> Index()
         {
-            return AclModuleRepository.GetAll();
+            return await _repository.GetAll();
         }
 
         [Authorize(Policy = "HasPermission")]
         [HttpPost(AclRoutesUrl.AclModuleRouteUrl.Add, Name = AclRoutesName.AclModuleRouteNames.Add)]
-        public AclResponse Create(AclModuleRequest moduleRequest)
+        public async Task<AclResponse> Create(AclModuleRequest moduleRequest)
         {
-            return AclModuleRepository.AddAclModule(moduleRequest);
+            return await _repository.AddAclModule(moduleRequest);
         }
 
          [Authorize(Policy = "HasPermission")]
         [HttpPut(AclRoutesUrl.AclModuleRouteUrl.Edit, Name = AclRoutesName.AclModuleRouteNames.Edit)]
-        public AclResponse Edit(ulong id, AclModuleRequest moduleRequest)
+        public async Task<AclResponse> Edit(ulong id, AclModuleRequest moduleRequest)
         {
-            return AclModuleRepository.EditAclModule(id, moduleRequest);
+            return await _repository.EditAclModule(id, moduleRequest);
         }
 
          [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclModuleRouteUrl.View, Name = AclRoutesName.AclModuleRouteNames.View)]
-        public AclResponse View(ulong id)
+        public async Task<AclResponse> View(ulong id)
         {
-            return AclModuleRepository.FindById(id);
+            return await _repository.FindById(id);
         }
 
          [Authorize(Policy = "HasPermission")]
         [HttpDelete(AclRoutesUrl.AclModuleRouteUrl.Destroy, Name = AclRoutesName.AclModuleRouteNames.Destroy)]
-        public AclResponse Destroy(ulong id)
+        public async Task<AclResponse> Destroy(ulong id)
         {
-            return AclModuleRepository.DeleteModule(id);
+            return await _repository.DeleteModule(id);
         }
     }
 }

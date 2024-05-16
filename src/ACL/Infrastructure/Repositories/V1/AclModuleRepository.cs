@@ -26,7 +26,7 @@ namespace ACL.Infrastructure.Repositories.V1
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
             this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
         }
-        public AclResponse GetAll()
+        public async Task<AclResponse> GetAll()
         {
             var aclModules = _dbcontext.AclModules.ToList();
             if (aclModules.Any())
@@ -45,7 +45,7 @@ namespace ACL.Infrastructure.Repositories.V1
             return this.aclResponse;
         }
 
-        public AclResponse AddAclModule(AclModuleRequest request)
+        public async Task<AclResponse> AddAclModule(AclModuleRequest request)
         {
             try
             {
@@ -75,7 +75,7 @@ namespace ACL.Infrastructure.Repositories.V1
             this.aclResponse.Timestamp = DateTime.Now;
             return this.aclResponse;
         }
-        public AclResponse EditAclModule(ulong id, AclModuleRequest request)
+        public async Task<AclResponse> EditAclModule(ulong id, AclModuleRequest request)
         {
             try
             {
@@ -104,7 +104,7 @@ namespace ACL.Infrastructure.Repositories.V1
             this.aclResponse.Timestamp = DateTime.Now;
             return this.aclResponse;
         }
-        public AclResponse FindById(ulong id)
+        public async Task<AclResponse> FindById(ulong id)
         {
             try
             {
@@ -127,7 +127,7 @@ namespace ACL.Infrastructure.Repositories.V1
             return this.aclResponse;
         }
 
-        public AclResponse DeleteModule(ulong id)
+        public async Task<AclResponse> DeleteModule(ulong id)
         {
 
             var aclModule =  _dbcontext.AclModules.Find(id);
