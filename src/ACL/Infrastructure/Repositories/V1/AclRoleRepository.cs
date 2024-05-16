@@ -5,7 +5,6 @@ using ACL.Contracts.Response;
 using ACL.Contracts.Response.V1;
 using ACL.Core.Models;
 using ACL.Infrastructure.Database;
-using ACL.Infrastructure.Repositories.GenericRepository;
 using ACL.Infrastructure.Utilities;
 using ACL.UseCases.Enums;
 using Microsoft.EntityFrameworkCore;
@@ -15,23 +14,25 @@ using SharedLibrary.Services;
 
 namespace ACL.Infrastructure.Repositories.V1
 {
-    public class AclRoleRepository : GenericRepository<AclRole>, IAclRoleRepository
+    public class AclRoleRepository : GenericRepository<AclRole, ApplicationDbContext, ICustomUnitOfWork>, IAclRoleRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "Role";
+        private ICustomUnitOfWork _customUnitOfWork;
         private readonly IDistributedCache _distributedCache;
-        public AclRoleRepository(ApplicationDbContext dbContext, IDistributedCache distributedCache) : base(dbContext,distributedCache)
+        public AclRoleRepository(ICustomUnitOfWork _unitOfWork, IDistributedCache distributedCache) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
+            this._customUnitOfWork = _unitOfWork;
             this.aclResponse = new AclResponse();
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
-            this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
+            this.messageResponse = new MessageResponse(this.modelName, _unitOfWork, AppAuth.GetAuthInfo().Language);
             this._distributedCache = distributedCache;
         }
 
         public async Task<AclResponse> GetAll()
         {
-            var aclRoles = base.Where(x => true).Select(x => new
+            var aclRoles = await this._customUnitOfWork.AclRoleRepository.Where(x => true).Select(x => new
             {
                 x.Id,
                 x.Name,
@@ -39,7 +40,7 @@ namespace ACL.Infrastructure.Repositories.V1
                 x.CompanyId
 
             }).ToListAsync();
-            if (aclRoles.Result.Any())
+            if (aclRoles.Any())
             {
                 this.aclResponse.Message = this.messageResponse.fetchMessage;
             }
@@ -53,8 +54,8 @@ namespace ACL.Infrastructure.Repositories.V1
 
             var aclRole = PrepareInputData(request);
             await base.AddAsync(aclRole);
-            await base.CompleteAsync();
-            await base.ReloadAsync(aclRole);
+            await this._unitOfWork.CompleteAsync();
+            await this._customUnitOfWork.AclRoleRepository.ReloadAsync(aclRole);
             this.aclResponse.Data = aclRole;
             this.aclResponse.Message = this.messageResponse.createMessage;
             this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
@@ -72,8 +73,8 @@ namespace ACL.Infrastructure.Repositories.V1
 
             aclRole = PrepareInputData(request, aclRole);
             await base.UpdateAsync(aclRole);
-            await base.CompleteAsync();
-            await base.ReloadAsync(aclRole);
+            await this._unitOfWork.CompleteAsync();
+            await this._customUnitOfWork.AclRoleRepository.ReloadAsync(aclRole);
             this.aclResponse.Data = aclRole;
             this.aclResponse.Message = this.messageResponse.editMessage;
             this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
@@ -83,7 +84,7 @@ namespace ACL.Infrastructure.Repositories.V1
         public async Task<AclResponse> FindById(ulong id)
         {
 
-            var aclRole = await base.Where(x => true).Select(x => new
+            var aclRole = await this._customUnitOfWork.AclRoleRepository.Where(x => true).Select(x => new
             {
                 x.Id,
                 x.Name,
@@ -111,7 +112,7 @@ namespace ACL.Infrastructure.Repositories.V1
             if (aclRole != null)
             {
                 await base.DeleteAsync(aclRole);
-                await base.CompleteAsync();
+                await this._unitOfWork.CompleteAsync();
                 RemoveCache(id);
                 this.aclResponse.Message = this.messageResponse.deleteMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;

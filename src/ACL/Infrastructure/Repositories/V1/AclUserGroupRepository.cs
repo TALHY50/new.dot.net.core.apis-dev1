@@ -5,26 +5,27 @@ using ACL.Contracts.Response;
 using ACL.Contracts.Response.V1;
 using ACL.Core.Models;
 using ACL.Infrastructure.Database;
-using ACL.Infrastructure.Repositories.GenericRepository;
 using ACL.Infrastructure.Utilities;
 using SharedLibrary.Response.CustomStatusCode;
 using SharedLibrary.Services;
 
 namespace ACL.Infrastructure.Repositories.V1
 {
-    public class AclUserGroupRepository : GenericRepository<AclUsergroup>, IAclUserGroupRepository
+    public class AclUserGroupRepository : GenericRepository<AclUsergroup, ApplicationDbContext, ICustomUnitOfWork>, IAclUserGroupRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "User Group";
         public static ulong CompanyId = AppAuth.GetAuthInfo().CompanyId;
+        private ICustomUnitOfWork _customUnitOfWork;
 
 
-        public AclUserGroupRepository(ApplicationDbContext dbcontext) : base(dbcontext)
+        public AclUserGroupRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
             AppAuth.SetAuthInfo();
+            this._customUnitOfWork = _unitOfWork;
             this.aclResponse = new AclResponse();
-            this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
+            this.messageResponse = new MessageResponse(this.modelName, _unitOfWork, AppAuth.GetAuthInfo().Language);
         }
 
         public async Task<AclResponse> GetAll()
@@ -49,9 +50,9 @@ namespace ACL.Infrastructure.Repositories.V1
             try
             {
                 var result = PrepareInputData(usergroup);
-                await base.AddAsync(result);
-                await base.CompleteAsync();
-                await base.ReloadAsync(result);
+                await this._customUnitOfWork.AclUserGroupRepository.AddAsync(result);
+                await this._customUnitOfWork.CompleteAsync();
+                await this._customUnitOfWork.AclUserGroupRepository.ReloadAsync(result);
                 this.aclResponse.Data = result;
                 this.aclResponse.Message = this.messageResponse.createMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
@@ -71,9 +72,9 @@ namespace ACL.Infrastructure.Repositories.V1
             if (result != null)
             {
                 result = PrepareInputData(usergroup, result);
-                await base.UpdateAsync(result);
-                await base.CompleteAsync();
-                await base.ReloadAsync(result);
+                await this._customUnitOfWork.AclUserGroupRepository.UpdateAsync(result);
+                await this._customUnitOfWork.CompleteAsync();
+                await this._customUnitOfWork.AclUserGroupRepository.ReloadAsync(result);
                 this.aclResponse.Data = result;
                 this.aclResponse.Message = this.messageResponse.editMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
@@ -109,7 +110,7 @@ namespace ACL.Infrastructure.Repositories.V1
             if (result != null)
             {
                 await base.DeleteAsync(result);
-                await base.CompleteAsync();
+                await this._customUnitOfWork.CompleteAsync();
                 await base.ReloadAsync(result);
                 this.aclResponse.Data = result;
                 this.aclResponse.Message = this.messageResponse.deleteMessage;

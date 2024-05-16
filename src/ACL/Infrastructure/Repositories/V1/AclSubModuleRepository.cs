@@ -5,7 +5,6 @@ using ACL.Contracts.Response;
 using ACL.Contracts.Response.V1;
 using ACL.Core.Models;
 using ACL.Infrastructure.Database;
-using ACL.Infrastructure.Repositories.GenericRepository;
 using ACL.Infrastructure.Utilities;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Response.CustomStatusCode;
@@ -13,23 +12,25 @@ using SharedLibrary.Services;
 
 namespace ACL.Infrastructure.Repositories.V1
 {
-    public class AclSubModuleRepository : GenericRepository<AclSubModule>, IAclSubModuleRepository
+    public class AclSubModuleRepository : GenericRepository<AclSubModule, ApplicationDbContext, ICustomUnitOfWork>, IAclSubModuleRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "Sub Module";
+        private ICustomUnitOfWork _customUnitOfWork;
 
-        public AclSubModuleRepository(ApplicationDbContext dbContext) : base(dbContext)
+        public AclSubModuleRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
+            this._customUnitOfWork = _unitOfWork;
             AppAuth.SetAuthInfo();
             this.aclResponse = new AclResponse();
-            this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
+            this.messageResponse = new MessageResponse(this.modelName, _unitOfWork, AppAuth.GetAuthInfo().Language);
         }
 
         public async Task<AclResponse> GetAll()
         {
-            var aclSubModules = await base.Where(sm => true)
-                .Join(base.Where(m => true), sm => sm.ModuleId, m => m.Id, (sm, m) => new
+            var aclSubModules = await this._customUnitOfWork.AclSubModuleRepository.Where(sm => true)
+                .Join(this._customUnitOfWork.AclModuleRepository.Where(m => true), sm => sm.ModuleId, m => m.Id, (sm, m) => new
                 {
                     submodule = sm,
                     module = m 
@@ -50,8 +51,8 @@ namespace ACL.Infrastructure.Repositories.V1
 
             var aclSubModule = PrepareInputData(request);
             await base.AddAsync(aclSubModule);
-            await base.CompleteAsync();
-            await base.ReloadAsync(aclSubModule);
+            await this._customUnitOfWork.CompleteAsync();
+            await this._customUnitOfWork.AclSubModuleRepository.ReloadAsync(aclSubModule);
             this.aclResponse.Data = aclSubModule;
             this.aclResponse.Message = this.messageResponse.createMessage;
             this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
@@ -72,8 +73,8 @@ namespace ACL.Infrastructure.Repositories.V1
 
             aclSubModule = PrepareInputData(request, aclSubModule);
             await base.UpdateAsync(aclSubModule);
-            await base.CompleteAsync();
-            await base.ReloadAsync(aclSubModule);
+            await this._customUnitOfWork.CompleteAsync();
+            await this._customUnitOfWork.AclSubModuleRepository.ReloadAsync(aclSubModule);
             this.aclResponse.Data = aclSubModule;
             this.aclResponse.Message = this.messageResponse.editMessage;
             this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
@@ -86,8 +87,8 @@ namespace ACL.Infrastructure.Repositories.V1
         public async Task<AclResponse> FindById(ulong id)
         {
 
-            var aclSubModule = await base.Where(sm => true).Where(x=>x.Id == id)
-               .Join(base.Where(m => true), sm => sm.ModuleId, m => m.Id, (sm, m) => new
+            var aclSubModule = await this._customUnitOfWork.AclSubModuleRepository.Where(sm => true).Where(x=>x.Id == id)
+               .Join(this._customUnitOfWork.AclModuleRepository.Where(m => true), sm => sm.ModuleId, m => m.Id, (sm, m) => new
                {
                    submodule = sm,
                    module = m
@@ -113,7 +114,7 @@ namespace ACL.Infrastructure.Repositories.V1
             if (subModule != null)
             {
                 await base.DeleteAsync(subModule);
-                await base.CompleteAsync();
+                await this._customUnitOfWork.CompleteAsync();
                 this.aclResponse.Message = this.messageResponse.deleteMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }

@@ -123,7 +123,7 @@ namespace ACL.Tests.V1
         private int GetRandomID()
         {
 
-            return (int)DataCollectors.dbContext.AclModules.Max(i => i.Id);
+            return (int)DataCollectors.unitOfWork.ApplicationDbContext.AclModules.Max(i => i.Id);
 
         }
 

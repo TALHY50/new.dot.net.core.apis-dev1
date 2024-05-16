@@ -1,13 +1,10 @@
 ﻿using ACL.Application.Interfaces;
 using ACL.Application.Interfaces.Repositories.V1;
-using ACL.Application.Ports.Repositories;
-using ACL.Application.Ports.Services;
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response;
 using ACL.Contracts.Response.V1;
 using ACL.Core.Models;
 using ACL.Infrastructure.Database;
-using ACL.Infrastructure.Repositories.GenericRepository;
 using ACL.Infrastructure.Utilities;
 using SharedLibrary.Response.CustomStatusCode;
 using SharedLibrary.Services;
@@ -15,19 +12,19 @@ using SharedLibrary.Utilities;
 
 namespace ACL.Infrastructure.Repositories.V1
 {
-    public class AclPasswordRepository : GenericRepository<AclUser>, IAclPasswordRepository
+    public class AclPasswordRepository : GenericRepository<AclUser, ApplicationDbContext, ICustomUnitOfWork>, IAclPasswordRepository
     {
         public AclResponse aclResponse;
         private string modelName = "Password";
         private int tokenExpiryMinutes = 60;
-        private IAclUserRepository AclUserRepository;
-        private ICryptographyService cryptographyService;
         public MessageResponse messageResponse;
-        public AclPasswordRepository(ApplicationDbContext dbContext) : base(dbContext)
+        private ICustomUnitOfWork _customUnitOfWork;
+        public AclPasswordRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
+            this._customUnitOfWork = _unitOfWork;
             this.aclResponse = new AclResponse();
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
-            this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
+            this.messageResponse = new MessageResponse(this.modelName, _unitOfWork, AppAuth.GetAuthInfo().Language);
         }
 
         public async Task<AclResponse> Reset(AclPasswordResetRequest request)
@@ -41,12 +38,12 @@ namespace ACL.Infrastructure.Repositories.V1
             }
 
 
-            var aclUser = AclUserRepository.Where(x => x.Id == request.UserId && x.Status == 1).FirstOrDefault();
+            var aclUser = this._customUnitOfWork.AclUserRepository.Where(x => x.Id == request.UserId && x.Status == 1).FirstOrDefault();
 
             if (aclUser != null)
             {
                 // password checking
-                var password = cryptographyService.HashPassword(request.CurrentPassword,aclUser.Salt);
+                var password = this._unitOfWork.cryptographyService.HashPassword(request.CurrentPassword,aclUser.Salt);
 
                 if (request.CurrentPassword != password)
                 {
@@ -57,10 +54,10 @@ namespace ACL.Infrastructure.Repositories.V1
 
                 // password update
 
-                aclUser.Password = cryptographyService.HashPassword(request.NewPassword,aclUser.Salt);
+                aclUser.Password = this._unitOfWork.cryptographyService.HashPassword(request.NewPassword,aclUser.Salt);
                 await base.UpdateAsync(aclUser);
-                await base.CompleteAsync();
-                await AclUserRepository.ReloadAsync(aclUser);
+                await this._unitOfWork.CompleteAsync();
+                await this._customUnitOfWork.AclUserRepository.ReloadAsync(aclUser);
 
                 this.aclResponse.Message = "Password Reset Succesfully.";
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
@@ -72,7 +69,7 @@ namespace ACL.Infrastructure.Repositories.V1
 
         public async Task<AclResponse> Forget(AclForgetPasswordRequest request)
         {
-            var aclUser = AclUserRepository.Where(x => x.Email == request.Email).FirstOrDefault();
+            var aclUser = this._customUnitOfWork.AclUserRepository.Where(x => x.Email == request.Email).FirstOrDefault();
 
             if (aclUser != null)
             {
@@ -106,13 +103,13 @@ namespace ACL.Infrastructure.Repositories.V1
 
             // password update
 
-            var aclUser = AclUserRepository.Where(x => x.Email == email).FirstOrDefault();
+            var aclUser = this._unitOfWork.AclUserRepository.Where(x => x.Email == email).FirstOrDefault();
             if (aclUser != null)
             {
-                aclUser.Password = cryptographyService.HashPassword(request.NewPassword,aclUser.Salt);
+                aclUser.Password = this._unitOfWork.cryptographyService.HashPassword(request.NewPassword,aclUser.Salt);
                 await base.UpdateAsync(aclUser);
-                await base.CompleteAsync();
-                await AclUserRepository.ReloadAsync(aclUser);
+                await this._unitOfWork.CompleteAsync();
+                await this._customUnitOfWork.AclUserRepository.ReloadAsync(aclUser);
 
                 CacheHelper.Remove(request.Token);
                 this.aclResponse.Message = "Password Reset Succesfully.";

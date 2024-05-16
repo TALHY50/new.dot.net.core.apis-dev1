@@ -5,7 +5,6 @@ using ACL.Contracts.Response;
 using ACL.Contracts.Response.V1;
 using ACL.Core.Models;
 using ACL.Infrastructure.Database;
-using ACL.Infrastructure.Repositories.GenericRepository;
 using ACL.Infrastructure.Utilities;
 using SharedLibrary.Response.CustomStatusCode;
 using SharedLibrary.Services;
@@ -14,16 +13,16 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ACL.Infrastructure.Repositories.V1
 {
-    public class AclCompanyModuleRepository : GenericRepository<AclCompanyModule>, IAclCompanyModuleRepository
+    public class AclCompanyModuleRepository : GenericRepository<AclCompanyModule, ApplicationDbContext, ICustomUnitOfWork>, IAclCompanyModuleRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "Company Module";
-        public AclCompanyModuleRepository(ApplicationDbContext dbContext):base(dbContext) 
+        public AclCompanyModuleRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
             this.aclResponse = new AclResponse();
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
-            this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
+            this.messageResponse = new MessageResponse(this.modelName, _unitOfWork, AppAuth.GetAuthInfo().Language);
         }
 
         public async Task<AclResponse> GetAll()
@@ -41,7 +40,7 @@ namespace ACL.Infrastructure.Repositories.V1
             {
                 var aclCompanyModule = PrepareInputData(request);
                 Add(aclCompanyModule);
-                await base.CompleteAsync();
+                await this._unitOfWork.CompleteAsync();
                 await base.ReloadAsync(aclCompanyModule);
                 this.aclResponse.Data = aclCompanyModule;
                 this.aclResponse.Message = this.messageResponse.createMessage;
@@ -66,7 +65,7 @@ namespace ACL.Infrastructure.Repositories.V1
                 {
                     _aclCompanyModule = PrepareInputData(request, Id, _aclCompanyModule);
                     await base.UpdateAsync(_aclCompanyModule);
-                    await base.CompleteAsync();
+                    await this._unitOfWork.CompleteAsync();
                     await base.ReloadAsync(_aclCompanyModule);
                     this.aclResponse.Data = _aclCompanyModule;
                 }
@@ -106,7 +105,7 @@ namespace ACL.Infrastructure.Repositories.V1
             if (aclCompanyModule != null)
             {
                 await base.DeleteAsync(aclCompanyModule);
-                await base.CompleteAsync();
+                await this._unitOfWork.CompleteAsync();
             }
             return this.aclResponse;
         }
@@ -115,13 +114,13 @@ namespace ACL.Infrastructure.Repositories.V1
         {
             if (id == 0)
             {
-                return !base._dbContext.AclCompanyModules
-                    .Any(x => x.CompanyId == companyId && x.ModuleId == moduleId) && base._dbContext.AclCompanies.Any(x => x.Id == companyId) && base._dbContext.AclModules.Any(x => x.Id == moduleId);
+                return !this._unitOfWork.ApplicationDbContext.AclCompanyModules
+                    .Any(x => x.CompanyId == companyId && x.ModuleId == moduleId) && this._unitOfWork.ApplicationDbContext.AclCompanies.Any(x => x.Id == companyId) && this._unitOfWork.ApplicationDbContext.AclModules.Any(x => x.Id == moduleId);
             }
             else
             {
-                return base._dbContext.AclCompanyModules
-               .Any(x => x.CompanyId == companyId && x.ModuleId == moduleId && x.Id != id) && base._dbContext.AclCompanies.Any(x => x.Id == companyId) && base._dbContext.AclModules.Any(x => x.Id == moduleId);
+                return !this._unitOfWork.ApplicationDbContext.AclCompanyModules
+               .Any(x => x.CompanyId == companyId && x.ModuleId == moduleId && x.Id != id) && this._unitOfWork.ApplicationDbContext.AclCompanies.Any(x => x.Id == companyId) && this._unitOfWork.ApplicationDbContext.AclModules.Any(x => x.Id == moduleId);
             }
         }
 

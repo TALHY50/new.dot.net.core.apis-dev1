@@ -5,24 +5,25 @@ using ACL.Contracts.Response;
 using ACL.Contracts.Response.V1;
 using ACL.Core.Models;
 using ACL.Infrastructure.Database;
-using ACL.Infrastructure.Repositories.GenericRepository;
 using ACL.Infrastructure.Utilities;
 using SharedLibrary.Response.CustomStatusCode;
 using SharedLibrary.Services;
 
 namespace ACL.Infrastructure.Repositories.V1
 {
-    public class AclCountryRepository : GenericRepository<AclCountry>, IAclCountryRepository
+    public class AclCountryRepository : GenericRepository<AclCountry, ApplicationDbContext, ICustomUnitOfWork>, IAclCountryRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "Country";
+        ICustomUnitOfWork _customUnitOfWork;
 
-        public AclCountryRepository(ApplicationDbContext dbContext) : base(dbContext)
+        public AclCountryRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
         {
+            this._customUnitOfWork = _unitOfWork;
             this.aclResponse = new AclResponse();
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
-            this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
+            this.messageResponse = new MessageResponse(this.modelName, _unitOfWork, AppAuth.GetAuthInfo().Language);
         }
 
         public async Task<AclResponse> GetAll()
@@ -43,8 +44,8 @@ namespace ACL.Infrastructure.Repositories.V1
             {
                 var aclCountry = PrepareInputData(request);
                 await base.AddAsync(aclCountry);
-                await base.CompleteAsync();
-                await base.ReloadAsync(aclCountry);
+                await this._unitOfWork.CompleteAsync();
+                await this._customUnitOfWork.AclCountryRepository.ReloadAsync(aclCountry);
                 this.aclResponse.Data = aclCountry;
                 this.aclResponse.Message = this.messageResponse.createMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
@@ -70,8 +71,8 @@ namespace ACL.Infrastructure.Repositories.V1
             {
                 aclCountry = PrepareInputData(request, aclCountry);
                 await base.UpdateAsync(aclCountry);
-                await base.CompleteAsync();
-                await base.ReloadAsync(aclCountry);
+                await this._unitOfWork.CompleteAsync();
+                await this._unitOfWork.AclCountryRepository.ReloadAsync(aclCountry);
                 this.aclResponse.Data = aclCountry;
                 this.aclResponse.Message = this.messageResponse.editMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
@@ -113,7 +114,7 @@ namespace ACL.Infrastructure.Repositories.V1
             if (aclRole != null)
             {
                 await base.DeleteAsync(aclRole);
-                await base.CompleteAsync();
+                await this._unitOfWork.CompleteAsync();
                 this.aclResponse.Message = this.messageResponse.deleteMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }

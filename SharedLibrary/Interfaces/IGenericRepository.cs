@@ -29,6 +29,5 @@ namespace SharedLibrary.Interfaces
         Task<string> ExecuteSqlQueryAsJson(string sqlQuery, params object[] parameters);
         Task<List<Dictionary<string, object>>> ExecuteAnySqlQuery(string sqlQuery);
         Task<List<Dictionary<string, object>>> ExecuteStoredProcedure(string storedProcedureName, params object[] parameters);
-        Task<int> DeleteAll(Expression<Func<T, bool>> predicate);
     }
 }

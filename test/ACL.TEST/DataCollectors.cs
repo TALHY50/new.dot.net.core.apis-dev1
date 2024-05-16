@@ -18,7 +18,7 @@ namespace ACL.Tests
         public static string baseUrl = Env.GetString("APP_URL");
         private static string connectionString;
         public static ApplicationDbContext dbContext;
-       // public static CustomUnitOfWork unitOfWork;
+        public static CustomUnitOfWork unitOfWork;
         public static string Authorization;
         static MemoryCache _cache = new MemoryCache("cache");
         public static void SetDatabase(bool isLocalDb = false)
@@ -42,20 +42,20 @@ namespace ACL.Tests
             }
 
             dbContext = new ApplicationDbContext(options);
-            //unitOfWork = new CustomUnitOfWork(dbContext);
-            //unitOfWork.ApplicationDbContext = dbContext;
+            unitOfWork = new CustomUnitOfWork(dbContext);
+            unitOfWork.ApplicationDbContext = dbContext;
 
         }
 
         public static string getRandomEmail()
         {
-            return dbContext.AclUsers.FirstOrDefault().Email;
+            return unitOfWork.ApplicationDbContext.AclUsers.FirstOrDefault().Email;
         }
 
         public static ulong GetMaxId<TEntity>(Func<TEntity, ulong> idSelector) where TEntity : class
         {
             ulong id = 0;
-            var entities = dbContext.Set<TEntity>();
+            var entities = unitOfWork.ApplicationDbContext.Set<TEntity>();
             if (entities.Any())
             {
                 id = entities.Max(idSelector);

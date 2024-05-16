@@ -15,7 +15,7 @@ namespace ACL.Contracts.Response
         public string deleteFail = "deleteFail";
         public string editFail = "editFail";
         public string somethingIsWrong = "somethingIsWrong";
-        public MessageResponse(string model, string language = "en-US") : base(model, language)
+        public MessageResponse(string model, ICustomUnitOfWork _unitOfWork, string language = "en-US") : base(model, language)
         {
             this.fetchMessage = base.FetchMessage;
             this.editMessage = base.EditMessage;

@@ -205,12 +205,7 @@ namespace SharedLibrary.Services
             await _dbSet.AddRangeAsync(entities);
             return entities;
         }
-        public async Task<int> DeleteAll(Expression<Func<T, bool>> predicate)
-        {
-            var entitiesToDelete = await _dbSet.Where(predicate).ToListAsync();
-            _dbSet.RemoveRange(entitiesToDelete);
-            return entitiesToDelete.Count;
-        }
+
         public async Task<IEnumerable<T>> RemoveRange(IEnumerable<T> entities)
         {
             _dbSet.RemoveRange(entities);
