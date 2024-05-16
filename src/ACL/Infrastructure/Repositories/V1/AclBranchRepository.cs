@@ -17,11 +17,6 @@ namespace ACL.Infrastructure.Repositories.V1
         protected readonly ApplicationDbContext _dbContext;
         protected readonly IDistributedCache _distributedCache;
 
-        public AclBranchRepository(ApplicationDbContext dbContext)
-        {
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
-            _dbSet = _dbContext.Set<AclBranch>();
-        }
         AclBranch IAclBranchRepository.Add(AclBranch entity)
         {
             try

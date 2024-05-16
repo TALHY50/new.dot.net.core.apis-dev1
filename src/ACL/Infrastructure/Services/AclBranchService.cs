@@ -12,16 +12,15 @@ using SharedLibrary.Response.CustomStatusCode;
 
 namespace ACL.Infrastructure.Services
 {
-    public partial class AclBranchService
+    public class AclBranchService : AclBranchRepository, IAclBranchService
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "Branch";
         private IAclBranchRepository _repository;
 
-        public AclBranchService(IAclBranchRepository repository)
+        public AclBranchService()
         {
-            _repository = repository;
             AppAuth.SetAuthInfo();
             this.aclResponse = new AclResponse();
             this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
@@ -29,11 +28,11 @@ namespace ACL.Infrastructure.Services
 
         public async Task<AclResponse> Get()
         {
-            var aclCompanyModules = await base.All();
+            var aclBranches =  _repository.All();
 
-            this.aclResponse.Message = aclCompanyModules.Any() ? this.messageResponse.fetchMessage : this.messageResponse.notFoundMessage;
-            this.aclResponse.Data = aclCompanyModules;
-            this.aclResponse.StatusCode = aclCompanyModules.Any() ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
+            this.aclResponse.Message = aclBranches.Any() ? this.messageResponse.fetchMessage : this.messageResponse.notFoundMessage;
+            this.aclResponse.Data = aclBranches;
+            this.aclResponse.StatusCode = aclBranches.Any() ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
             this.aclResponse.Timestamp = DateTime.Now;
 
             return this.aclResponse;
