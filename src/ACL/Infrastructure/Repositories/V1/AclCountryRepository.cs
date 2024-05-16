@@ -7,27 +7,29 @@ using ACL.Core.Models;
 using ACL.Infrastructure.Database;
 using ACL.Infrastructure.Repositories.GenericRepository;
 using ACL.Infrastructure.Utilities;
+using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Response.CustomStatusCode;
 using SharedLibrary.Services;
 
 namespace ACL.Infrastructure.Repositories.V1
 {
-    public class AclCountryRepository : GenericRepository<AclCountry>, IAclCountryRepository
+    public class AclCountryRepository :  IAclCountryRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "Country";
-
-        public AclCountryRepository(ApplicationDbContext dbContext) : base(dbContext)
+        ApplicationDbContext _dbContext;
+        public AclCountryRepository(ApplicationDbContext dbContext) 
         {
+            _dbContext = dbContext;
             this.aclResponse = new AclResponse();
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
             this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
         }
 
-        public async Task<AclResponse> GetAll()
+        public AclResponse GetAll()
         {
-            var aclRoles = await base.All();
+            var aclRoles = _dbContext.AclCountries.ToList();
             if (aclRoles.Any())
             {
                 this.aclResponse.Message = this.messageResponse.fetchMessage;
@@ -42,9 +44,9 @@ namespace ACL.Infrastructure.Repositories.V1
             try
             {
                 var aclCountry = PrepareInputData(request);
-                await base.AddAsync(aclCountry);
-                await base.CompleteAsync();
-                await base.ReloadAsync(aclCountry);
+                _dbContext.AclCountries.Add(aclCountry);
+                _dbContext.SaveChanges();
+               _dbContext.Entry(aclCountry).Reload();
                 this.aclResponse.Data = aclCountry;
                 this.aclResponse.Message = this.messageResponse.createMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
@@ -60,7 +62,7 @@ namespace ACL.Infrastructure.Repositories.V1
         }
         public async Task<AclResponse> Edit(ulong id, AclCountryRequest request)
         {
-            var aclCountry = await base.GetById(id);
+            var aclCountry = _dbContext.AclCountries.Find(id);
             if (aclCountry == null)
             {
                 this.aclResponse.Message = this.messageResponse.notFoundMessage;
@@ -69,9 +71,9 @@ namespace ACL.Infrastructure.Repositories.V1
             try
             {
                 aclCountry = PrepareInputData(request, aclCountry);
-                await base.UpdateAsync(aclCountry);
-                await base.CompleteAsync();
-                await base.ReloadAsync(aclCountry);
+                 _dbContext.AclCountries.Add(aclCountry);
+                _dbContext.SaveChanges();
+               _dbContext.Entry(aclCountry).Reload();
                 this.aclResponse.Data = aclCountry;
                 this.aclResponse.Message = this.messageResponse.editMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
@@ -84,14 +86,14 @@ namespace ACL.Infrastructure.Repositories.V1
             return this.aclResponse;
 
         }
-        public async Task<AclResponse> FindById(ulong id)
+        public AclResponse FindById(ulong id)
         {
             try
             {
-                var aclRole = await base.GetById(id);
-                this.aclResponse.Data = aclRole;
+                var aclCountry = _dbContext.AclCountries.Find(id);
+                this.aclResponse.Data = aclCountry;
                 this.aclResponse.Message = this.messageResponse.fetchMessage;
-                if (aclRole == null)
+                if (aclCountry == null)
                 {
                     this.aclResponse.Message = this.messageResponse.notFoundMessage;
                 }
@@ -108,12 +110,12 @@ namespace ACL.Infrastructure.Repositories.V1
         }
         public async Task<AclResponse> DeleteById(ulong id)
         {
-            var aclRole = await base.GetById(id);
+            var aclCountry = _dbContext.AclCountries.Find(id);
 
-            if (aclRole != null)
+            if (aclCountry != null)
             {
-                await base.DeleteAsync(aclRole);
-                await base.CompleteAsync();
+                _dbContext.AclCountries.Remove(aclCountry);
+                 _dbContext.SaveChanges();
                 this.aclResponse.Message = this.messageResponse.deleteMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }

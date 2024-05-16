@@ -6,12 +6,12 @@ using SharedLibrary.Interfaces;
 namespace ACL.Application.Interfaces.Repositories.V1
 
 {
-    public interface IAclCountryRepository : IGenericRepository<AclCountry>
+    public interface IAclCountryRepository
     {
-        Task<AclResponse> GetAll();
-        Task<AclResponse> Add(AclCountryRequest request);
-        Task<AclResponse> Edit(ulong id, AclCountryRequest request);
-        Task<AclResponse> FindById(ulong id);
-        Task<AclResponse> DeleteById(ulong id);
+        AclResponse GetAll();
+        AclResponse Add(AclCountryRequest request);
+        AclResponse Edit(ulong id, AclCountryRequest request);
+        AclResponse FindById(ulong id);
+        AclResponse DeleteById(ulong id);
     }
 }

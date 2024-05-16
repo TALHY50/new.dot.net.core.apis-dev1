@@ -7,11 +7,11 @@ namespace ACL.Application.Interfaces.Repositories.V1
 {
     public interface IAclCompanyModuleRepository 
     {
-        Task<AclResponse> GetAll();
-        Task<AclResponse> AddAclCompanyModule(AclCompanyModuleRequest module);
-        Task<AclResponse> EditAclCompanyModule(ulong Id, AclCompanyModuleRequest module);
-        Task<AclResponse> FindById(ulong id);
-        Task<AclResponse> DeleteCompanyModule(ulong id);
+        AclResponse GetAll();
+        AclResponse AddAclCompanyModule(AclCompanyModuleRequest module);
+        AclResponse EditAclCompanyModule(ulong Id, AclCompanyModuleRequest module);
+        AclResponse FindById(ulong id);
+        AclResponse DeleteCompanyModule(ulong id);
         bool IsValidForCreateOrUpdate(ulong companyId, ulong moduleId, ulong id = 0);
         AclCompanyModule PrepareInputData(AclCompanyModuleRequest request, ulong Id = 0, AclCompanyModule aclCompany = null);
 
