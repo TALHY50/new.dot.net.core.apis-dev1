@@ -13,7 +13,7 @@ namespace ACL.Contracts.Requests.V1
         [Required(ErrorMessage = "User group ID is required")]
         [Range(1, int.MaxValue, ErrorMessage = "User group ID must be a valid integer greater than 0")]
         //[ExistsInDatabase("AclUsergroup", "Id")]
-        [ExistsInDatabase<ApplicationDbContext,ICustomUnitOfWork>("AclUsergroup", "Id")]
+        //[ExistsInDatabase<ApplicationDbContext,ICustomUnitOfWork>("AclUsergroup", "Id")]
         public ulong UserGroupId { get; set; }
 
         [DefaultValue(new ulong[] { 1, 2 })]

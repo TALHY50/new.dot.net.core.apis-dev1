@@ -10,20 +10,20 @@ public partial class AclSubModuleRequest
 {
     [DefaultValue("2055")]
     [Required(ErrorMessage = "id is required.")]
-    [UniqueValue<ApplicationDbContext,ICustomUnitOfWork>("AclSubModule", "Id")]
+    //[UniqueValue<ApplicationDbContext,ICustomUnitOfWork>("AclSubModule", "Id")]
     [Range(1, ulong.MaxValue, ErrorMessage = "id is required.")]
     public ulong Id { get; set; }
 
     [DefaultValue("1004")]
     [Required(ErrorMessage = "module_id is required.")]
     [Range(1, ulong.MaxValue, ErrorMessage = "module_id is required.")]
-    [ExistsInDatabase<ApplicationDbContext,ICustomUnitOfWork>("AclModule", "Id")]
+    //[ExistsInDatabase<ApplicationDbContext,ICustomUnitOfWork>("AclModule", "Id")]
     public ulong ModuleId { get; set; }
 
     [DefaultValue("Company")]
     [Required(ErrorMessage = "name is required.")]
     [MaxLength(100)]
-    [UniqueValue<ApplicationDbContext,ICustomUnitOfWork>("AclSubModule", "Name")]
+    //[UniqueValue<ApplicationDbContext,ICustomUnitOfWork>("AclSubModule", "Name")]
     public  string Name { get; set; }
 
     [DefaultValue("AclCompanyController")]

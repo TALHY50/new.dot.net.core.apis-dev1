@@ -11,13 +11,13 @@ namespace ACL.Contracts.Requests.V1
         [DefaultValue(1001)]
         [Required]
         [Range(1, ulong.MaxValue)]
-        [ExistsInDatabase<ApplicationDbContext,ICustomUnitOfWork>("AclModule", "Id")]
+        //[ExistsInDatabase<ApplicationDbContext,ICustomUnitOfWork>("AclModule", "Id")]
         public ulong ModuleId { get; set; }
 
         [DefaultValue(2001)]
         [Required]
         [Range(1, ulong.MaxValue)]
-        [ExistsInDatabase<ApplicationDbContext,ICustomUnitOfWork>("AclSubModule", "Id")]
+        //[ExistsInDatabase<ApplicationDbContext,ICustomUnitOfWork>("AclSubModule", "Id")]
         public ulong SubModuleId { get; set; }
 
         [DefaultValue("Company List")]

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using ACL.Application.Interfaces;
+using ACL.Infrastructure.Database;
 
 namespace ACL.Contracts.Requests.CustomDataAnotator
 {
@@ -8,11 +9,11 @@ namespace ACL.Contracts.Requests.CustomDataAnotator
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             var serviceProvider = validationContext.GetService(typeof(IServiceProvider)) as IServiceProvider;
-            var unitOfWork = serviceProvider.GetService(typeof(ICustomUnitOfWork)) as ICustomUnitOfWork;
+            ApplicationDbContext dbContext = new ApplicationDbContext();
 
             foreach (var roleId in (ulong[])value)
             {
-                if (!(unitOfWork.ApplicationDbContext.AclRoles.Any(r => r.Id == roleId)))
+                if (!(dbContext.AclRoles.Any(r => r.Id == roleId)))
                 {
                     return new ValidationResult($"Role with ID {roleId} does not exist");
                 }

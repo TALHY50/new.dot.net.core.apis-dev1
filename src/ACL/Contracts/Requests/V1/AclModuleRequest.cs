@@ -10,7 +10,7 @@ namespace ACL.Contracts.Requests.V1
 
         [DefaultValue("1004")]
         //[UniqueValue("AclModules", "Id", ErrorMessage = "Id must be unique.")]
-        [UniqueValue<ApplicationDbContext, ICustomUnitOfWork>("AclModule", "Id", ErrorMessage = "Id must be unique.")]
+        //[UniqueValue<ApplicationDbContext, ICustomUnitOfWork>("AclModule", "Id", ErrorMessage = "Id must be unique.")]
         public ulong Id { get; set; }
 
         [DefaultValue("Hrm Module")]
