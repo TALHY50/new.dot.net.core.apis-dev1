@@ -39,7 +39,7 @@ namespace ACL.Infrastructure.Repositories.V1
 
             return this.aclResponse;
         }
-        public async Task<AclResponse> Add(AclCountryRequest request)
+        public AclResponse Add(AclCountryRequest request)
         {
             try
             {
@@ -60,7 +60,7 @@ namespace ACL.Infrastructure.Repositories.V1
 
 
         }
-        public async Task<AclResponse> Edit(ulong id, AclCountryRequest request)
+        public AclResponse Edit(ulong id, AclCountryRequest request)
         {
             var aclCountry = _dbContext.AclCountries.Find(id);
             if (aclCountry == null)
@@ -108,7 +108,7 @@ namespace ACL.Infrastructure.Repositories.V1
             return this.aclResponse;
 
         }
-        public async Task<AclResponse> DeleteById(ulong id)
+        public AclResponse DeleteById(ulong id)
         {
             var aclCountry = _dbContext.AclCountries.Find(id);
 
