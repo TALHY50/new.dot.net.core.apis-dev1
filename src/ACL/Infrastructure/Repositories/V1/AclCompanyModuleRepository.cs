@@ -14,7 +14,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ACL.Infrastructure.Repositories.V1
 {
-    public class AclCompanyModuleRepository : GenericRepository<AclCompanyModule>, IAclCompanyModuleRepository
+    public class AclCompanyModuleRepository :IAclCompanyModuleRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;

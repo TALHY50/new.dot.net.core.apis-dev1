@@ -5,7 +5,7 @@ using SharedLibrary.Interfaces;
 
 namespace ACL.Application.Interfaces.Repositories.V1
 {
-    public interface IAclCompanyModuleRepository : IGenericRepository<AclCompanyModule>
+    public interface IAclCompanyModuleRepository 
     {
         Task<AclResponse> GetAll();
         Task<AclResponse> AddAclCompanyModule(AclCompanyModuleRequest module);
