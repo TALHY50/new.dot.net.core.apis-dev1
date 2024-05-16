@@ -5,12 +5,12 @@ using SharedLibrary.Interfaces;
 
 namespace ACL.Application.Interfaces.Repositories.V1
 {
-    public interface IAclModuleRepository : IGenericRepository<AclModule>
+    public interface IAclModuleRepository 
     {
-        Task<AclResponse> GetAll();
-        Task<AclResponse> FindById(ulong id);
-        Task<AclResponse> AddAclModule(AclModuleRequest request);
-        Task<AclResponse> EditAclModule(ulong Id, AclModuleRequest request);
-        Task<AclResponse> DeleteModule(ulong id);
+        AclResponse GetAll();
+        AclResponse FindById(ulong id);
+        AclResponse AddAclModule(AclModuleRequest request);
+        AclResponse EditAclModule(ulong Id, AclModuleRequest request);
+        AclResponse DeleteModule(ulong id);
     }
 }
