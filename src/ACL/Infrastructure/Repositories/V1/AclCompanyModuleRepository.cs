@@ -30,16 +30,16 @@ namespace ACL.Infrastructure.Repositories.V1
             this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
         }
 
-        public async AclResponse GetAll()
+        public async Task<AclResponse> GetAll()
         {
-            var aclCompanyModules = _dbContext.AclCompanyModules.ToList();
+            var aclCompanyModules = await _dbContext.AclCompanyModules.ToListAsync();
             this.aclResponse.Message = aclCompanyModules.Any() ? this.messageResponse.fetchMessage : this.messageResponse.notFoundMessage;
             this.aclResponse.Data = aclCompanyModules;
             this.aclResponse.StatusCode = aclCompanyModules.Any() ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
             this.aclResponse.Timestamp = DateTime.Now;
             return this.aclResponse;
         }
-        public async AclResponse AddAclCompanyModule(AclCompanyModuleRequest request)
+        public async Task<AclResponse> AddAclCompanyModule(AclCompanyModuleRequest request)
         {
             try
             {
@@ -59,11 +59,11 @@ namespace ACL.Infrastructure.Repositories.V1
             this.aclResponse.Timestamp = DateTime.Now;
             return this.aclResponse;
         }
-        public AclResponse EditAclCompanyModule(ulong Id, AclCompanyModuleRequest request)
+        public async Task<AclResponse> EditAclCompanyModule(ulong Id, AclCompanyModuleRequest request)
         {
             try
             {
-                var _aclCompanyModule = _dbContext.AclCompanyModules.Find(Id);
+                var _aclCompanyModule = await _dbContext.AclCompanyModules.FindAsync(Id);
                 this.aclResponse.Message = (_aclCompanyModule != null) ? this.messageResponse.editMessage : this.messageResponse.notFoundMessage;
                 this.aclResponse.StatusCode = (_aclCompanyModule != null) ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
                 if (_aclCompanyModule != null)
@@ -82,11 +82,11 @@ namespace ACL.Infrastructure.Repositories.V1
             this.aclResponse.Timestamp = DateTime.Now;
             return this.aclResponse;
         }
-        public AclResponse FindById(ulong id)
+        public async Task<AclResponse> FindById(ulong id)
         {
             try
             {
-                var aclCompanyModule = _dbContext.AclCompanyModules.Find(id);
+                var aclCompanyModule = await _dbContext.AclCompanyModules.FindAsync(id);
                 var message = aclCompanyModule != null ? this.messageResponse.fetchMessage : this.messageResponse.notFoundMessage;
                 this.aclResponse.Data = aclCompanyModule;
                 this.aclResponse.Message = message;
@@ -101,9 +101,9 @@ namespace ACL.Infrastructure.Repositories.V1
             }
             return aclResponse;
         }
-        public  AclResponse DeleteCompanyModule(ulong id)
+        public async Task<AclResponse> DeleteCompanyModule(ulong id)
         {
-            var aclCompanyModule = _dbContext.AclCompanyModules.Find(id);
+            var aclCompanyModule = await _dbContext.AclCompanyModules.FindAsync(id);
             this.aclResponse.StatusCode = aclCompanyModule != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
             this.aclResponse.Message = aclCompanyModule != null ? this.messageResponse.deleteMessage : this.messageResponse.notFoundMessage;
             this.aclResponse.Data = aclCompanyModule;
