@@ -12,24 +12,26 @@ using SharedLibrary.Services;
 
 namespace ACL.Infrastructure.Repositories.V1
 {
-    public class AclUserGroupRepository : GenericRepository<AclUsergroup>, IAclUserGroupRepository
+    public class AclUserGroupRepository : IAclUserGroupRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "User Group";
         public static ulong CompanyId = AppAuth.GetAuthInfo().CompanyId;
 
+        public readonly ApplicationDbContext _dbContext;
 
-        public AclUserGroupRepository(ApplicationDbContext dbcontext) : base(dbcontext)
+        public AclUserGroupRepository(ApplicationDbContext dbContext)
         {
             AppAuth.SetAuthInfo();
             this.aclResponse = new AclResponse();
             this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
+            _dbContext = dbContext;
         }
 
         public async Task<AclResponse> GetAll()
         {
-            var result = await base.All();
+            List<AclUsergroup>? result = _dbContext.AclUsergroups.ToList();
             if (result.Any())
             {
                 this.aclResponse.Data = result;
@@ -48,10 +50,10 @@ namespace ACL.Infrastructure.Repositories.V1
         {
             try
             {
-                var result = PrepareInputData(usergroup);
-                await base.AddAsync(result);
-                await base.CompleteAsync();
-                await base.ReloadAsync(result);
+                AclUsergroup? result = PrepareInputData(usergroup);
+                await _dbContext.AclUsergroups.AddAsync(result);
+                await _dbContext.SaveChangesAsync();
+                await _dbContext.Entry(result).ReloadAsync();
                 this.aclResponse.Data = result;
                 this.aclResponse.Message = this.messageResponse.createMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
@@ -67,13 +69,13 @@ namespace ACL.Infrastructure.Repositories.V1
 
         public async Task<AclResponse> UpdateUserGroup(ulong id, AclUserGroupRequest usergroup)
         {
-            var result = await base.GetById(id);
+            AclUsergroup? result = await _dbContext.AclUsergroups.FindAsync(id);
             if (result != null)
             {
                 result = PrepareInputData(usergroup, result);
-                await base.UpdateAsync(result);
-                await base.CompleteAsync();
-                await base.ReloadAsync(result);
+                _dbContext.AclUsergroups.Update(result);
+                await _dbContext.SaveChangesAsync();
+                await _dbContext.Entry(result).ReloadAsync();
                 this.aclResponse.Data = result;
                 this.aclResponse.Message = this.messageResponse.editMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
@@ -88,7 +90,7 @@ namespace ACL.Infrastructure.Repositories.V1
         }
         public async Task<AclResponse> FindById(ulong id)
         {
-            var result = await base.GetById(id);
+            AclUsergroup? result = await _dbContext.AclUsergroups.FindAsync(id);
             if (result != null)
             {
                 this.aclResponse.Data = result;
@@ -105,12 +107,12 @@ namespace ACL.Infrastructure.Repositories.V1
         }
         public async Task<AclResponse> Delete(ulong id)
         {
-            var result = await base.GetById(id);
+            AclUsergroup? result = await _dbContext.AclUsergroups.FindAsync(id);
             if (result != null)
             {
-                await base.DeleteAsync(result);
-                await base.CompleteAsync();
-                await base.ReloadAsync(result);
+                _dbContext.AclUsergroups.Remove(result);
+                await _dbContext.SaveChangesAsync();
+                await _dbContext.Entry(result).ReloadAsync();
                 this.aclResponse.Data = result;
                 this.aclResponse.Message = this.messageResponse.deleteMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
@@ -126,7 +128,7 @@ namespace ACL.Infrastructure.Repositories.V1
 
         public AclUsergroup PrepareInputData(AclUserGroupRequest request, AclUsergroup aclUsergroup = null)
         {
-            var _aclInstance = aclUsergroup ?? new AclUsergroup();
+            AclUsergroup? _aclInstance = aclUsergroup ?? new AclUsergroup();
 
             _aclInstance.Status = request.Status;
             _aclInstance.GroupName = request.GroupName;
