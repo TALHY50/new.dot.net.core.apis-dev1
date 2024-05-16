@@ -116,13 +116,13 @@ namespace ACL.Infrastructure.Repositories.V1
                     await _dbcontext.Entry(aclUser).ReloadAsync();
 
                     // first delete all user user group
-                    AclUserUsergroup[]? UserUserGroups = AclUserUserGroupRepository.Where(x => x.UserId == id).ToArray();
-                    await AclUserUserGroupRepository.RemoveRange(UserUserGroups);
+                    AclUserUsergroup[]? UserUserGroups = _dbcontext.AclUserUsergroups.Where(x => x.UserId == id).ToArray();
+                    _dbcontext.AclUserUsergroups.RemoveRange(UserUserGroups);
                     _dbcontext.SaveChanges();
 
                     // need to insert user user group
-                    var UserGroupPrepareData = PrepareDataForUserUserGroups(request, aclUser.Id);
-                    await AclUserUserGroupRepository.AddRange(UserGroupPrepareData);
+                    AclUserUsergroup[]? UserGroupPrepareData = PrepareDataForUserUserGroups(request, aclUser.Id);
+                    _dbcontext.AclUserUsergroups.AddRange(UserGroupPrepareData);
                     _dbcontext.SaveChanges();
                     aclUser.Password = "******************"; //request.Password
                     aclUser.Salt = "******************";
