@@ -18,7 +18,6 @@ namespace ACL.Tests
         public static string baseUrl = Env.GetString("APP_URL");
         private static string connectionString;
         public static ApplicationDbContext dbContext;
-       // public static CustomUnitOfWork unitOfWork;
         public static string Authorization;
         static MemoryCache _cache = new MemoryCache("cache");
         public static void SetDatabase(bool isLocalDb = false)
@@ -43,7 +42,7 @@ namespace ACL.Tests
 
             dbContext = new ApplicationDbContext(options);
             //unitOfWork = new CustomUnitOfWork(dbContext);
-            //unitOfWork.ApplicationDbContext = dbContext;
+            //dbContext = dbContext;
 
         }
 

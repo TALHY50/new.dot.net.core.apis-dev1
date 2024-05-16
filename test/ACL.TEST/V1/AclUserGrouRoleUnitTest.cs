@@ -61,11 +61,11 @@ namespace ACL.Tests.V1
 
         private AclUserGroupRoleRequest GetUserGroupRole()
         {
-            ulong maxId = DataCollectors.unitOfWork.ApplicationDbContext.AclRoles.Max(i => i.Id);
+            ulong maxId = DataCollectors.dbContext.AclRoles.Max(i => i.Id);
             ulong[] idArray = new ulong[] { maxId };
             return new AclUserGroupRoleRequest
             {
-                UserGroupId = DataCollectors.unitOfWork.ApplicationDbContext.AclUsergroups.Max(i => i.Id),
+                UserGroupId = DataCollectors.dbContext.AclUsergroups.Max(i => i.Id),
                 RoleIds = idArray
             };
 

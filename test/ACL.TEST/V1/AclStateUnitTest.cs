@@ -61,7 +61,7 @@ namespace ACL.Tests.V1
             //Arrange
 
             var data = GetState();
-            var id = DataCollectors.unitOfWork.ApplicationDbContext.AclStates.Max(x => x.Id);
+            var id = DataCollectors.dbContext.AclStates.Max(x => x.Id);
 
             // Act
             var request = new RestRequest(AclRoutesUrl.AclStateRouteUrl.Edit.Replace("{id}", id.ToString()), Method.Put);
