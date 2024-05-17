@@ -10,15 +10,13 @@ namespace ACL.Application.Interfaces.Repositories.V1
     public interface IAclRoleRepository
     {
         /// <inheritdoc/>
-        Task<AclResponse> GetAll();
+       AclResponse GetAll();
         /// <inheritdoc/>
-        Task<AclResponse> Add(AclRoleRequest roleRequest);
+        AclResponse Add(AclRoleRequest roleRequest);
         /// <inheritdoc/>
-        Task<AclResponse> Edit(ulong id, AclRoleRequest roleRequest);
+        AclResponse Edit(ulong id, AclRoleRequest roleRequest);
         /// <inheritdoc/>
-        Task<AclResponse> FindById(ulong id);
-        /// <inheritdoc/>
-        Task<AclResponse> Delete(ulong id);
+        AclResponse FindById(ulong id);
         /// <inheritdoc/>
         List<AclRole>? All();
         /// <inheritdoc/>
@@ -29,7 +27,5 @@ namespace ACL.Application.Interfaces.Repositories.V1
         AclRole? Update(AclRole aclRole);
         /// <inheritdoc/>
         AclRole? Delete(AclRole aclRole);
-        /// <inheritdoc/>
-        AclRole? Deleted(ulong id);
     }
 }

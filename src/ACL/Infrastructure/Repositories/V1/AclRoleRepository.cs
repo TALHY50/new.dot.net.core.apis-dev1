@@ -16,17 +16,17 @@ using SharedLibrary.Services;
 
 namespace ACL.Infrastructure.Repositories.V1
 {
-      /// <inheritdoc/>
+    /// <inheritdoc/>
     public class AclRoleRepository : IAclRoleRepository
     {
-          /// <inheritdoc/>
+        /// <inheritdoc/>
         public AclResponse aclResponse;
-          /// <inheritdoc/>
+        /// <inheritdoc/>
         public MessageResponse messageResponse;
         private string modelName = "Role";
         private readonly IDistributedCache _distributedCache;
         private ApplicationDbContext _dbContext;
-          /// <inheritdoc/>
+        /// <inheritdoc/>
         public AclRoleRepository(ApplicationDbContext dbContext, IDistributedCache distributedCache)
         {
             this.aclResponse = new AclResponse();
@@ -35,18 +35,18 @@ namespace ACL.Infrastructure.Repositories.V1
             this._distributedCache = distributedCache;
             _dbContext = dbContext;
         }
-          /// <inheritdoc/>
-        public async Task<AclResponse> GetAll()
+        /// <inheritdoc/>
+        public AclResponse GetAll()
         {
-            var aclRoles = _dbContext.AclRoles.Where(x => true).Select(x => new
+            var aclRoles = All().Select(x => new
             {
                 x.Id,
                 x.Name,
                 x.Status,
                 x.CompanyId
 
-            }).ToListAsync();
-            if (aclRoles.Result.Any())
+            }).ToList();
+            if (aclRoles.Any())
             {
                 this.aclResponse.Message = this.messageResponse.fetchMessage;
             }
@@ -56,23 +56,20 @@ namespace ACL.Infrastructure.Repositories.V1
             return this.aclResponse;
         }
         /// <inheritdoc/>
-        public async Task<AclResponse> Add(AclRoleRequest request)
+        public AclResponse Add(AclRoleRequest request)
         {
 
             var aclRole = PrepareInputData(request);
-            await _dbContext.AclRoles.AddAsync(aclRole);
-            _dbContext.SaveChanges();
-            await _dbContext.Entry(aclRole).ReloadAsync();
-            this.aclResponse.Data = aclRole;
+            this.aclResponse.Data = Add(aclRole);
             this.aclResponse.Message = this.messageResponse.createMessage;
             this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
             return this.aclResponse;
 
         }
         /// <inheritdoc/>
-        public async Task<AclResponse> Edit(ulong id, AclRoleRequest request)
+        public AclResponse Edit(ulong id, AclRoleRequest request)
         {
-            var aclRole = _dbContext.AclRoles.Find(id);
+            var aclRole = Find(id);
             if (aclRole == null)
             {
                 this.aclResponse.Message = this.messageResponse.notFoundMessage;
@@ -82,7 +79,7 @@ namespace ACL.Infrastructure.Repositories.V1
             aclRole = PrepareInputData(request, aclRole);
             _dbContext.AclRoles.Update(aclRole);
             _dbContext.SaveChanges();
-            await _dbContext.Entry(aclRole).ReloadAsync();
+            _dbContext.Entry(aclRole).Reload();
             this.aclResponse.Data = aclRole;
             this.aclResponse.Message = this.messageResponse.editMessage;
             this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
@@ -90,17 +87,10 @@ namespace ACL.Infrastructure.Repositories.V1
 
         }
         /// <inheritdoc/>
-        public async Task<AclResponse> FindById(ulong id)
+        public AclResponse FindById(ulong id)
         {
 
-            var aclRole = await _dbContext.AclRoles.Where(x => true).Select(x => new
-            {
-                x.Id,
-                x.Name,
-                x.Status,
-                x.CompanyId
-
-            }).FirstOrDefaultAsync(x => x.Id == id);
+            var aclRole = Find(id);
 
             this.aclResponse.Data = aclRole;
             this.aclResponse.Message = this.messageResponse.fetchMessage;
@@ -115,14 +105,13 @@ namespace ACL.Infrastructure.Repositories.V1
 
         }
         /// <inheritdoc/>
-        public async Task<AclResponse> DeleteById(ulong id)
+        public AclResponse DeleteById(ulong id)
         {
-            var aclRole = _dbContext.AclRoles.Find(id);
+            var aclRole = Find(id);
 
             if (aclRole != null)
             {
-                _dbContext.AclRoles.Remove(aclRole);
-                _dbContext.SaveChanges();
+                this.aclResponse.Data = Delete(id);
                 RemoveCache(id);
                 this.aclResponse.Message = this.messageResponse.deleteMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
@@ -161,7 +150,84 @@ namespace ACL.Infrastructure.Repositories.V1
                 }
             }
         }
+        /// <inheritdoc/>
+        public AclRole? Delete(ulong id)
+        {
+            try
+            {
+                var delete = _dbContext.AclRoles.Find(id);
+                _dbContext.AclRoles.Remove(delete);
+                _dbContext.SaveChanges();
+                return delete;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        /// <inheritdoc/>
+        public List<AclRole>? All()
+        {
+            try
+            {
+                return _dbContext.AclRoles.ToList();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
 
+        }
+        /// <inheritdoc/>
+        public AclRole? Find(ulong id)
+        {
+            throw new NotImplementedException();
+        }
+        /// <inheritdoc/>
+        public AclRole? Add(AclRole aclRole)
+        {
+            try
+            {
+                _dbContext.AclRoles.Add(aclRole);
+                _dbContext.SaveChanges();
+                _dbContext.Entry(aclRole).ReloadAsync();
+                return aclRole;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
 
+        }
+        /// <inheritdoc/>
+        public AclRole? Update(AclRole aclRole)
+        {
+            try
+            {
+                _dbContext.AclRoles.Update(aclRole);
+                _dbContext.SaveChanges();
+                _dbContext.Entry(aclRole).Reload();
+                return aclRole;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        /// <inheritdoc/>
+        public AclRole? Delete(AclRole aclRole)
+        {
+            try
+            {
+                _dbContext.AclRoles.Remove(aclRole);
+                _dbContext.SaveChangesAsync();
+                return aclRole;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+        }
     }
 }

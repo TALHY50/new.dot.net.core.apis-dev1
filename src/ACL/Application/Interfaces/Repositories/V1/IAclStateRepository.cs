@@ -8,15 +8,15 @@ namespace ACL.Application.Interfaces.Repositories.V1
     public interface IAclStateRepository
     {
         /// <inheritdoc/>
-        Task<AclResponse> GetAll();
+        AclResponse GetAll();
         /// <inheritdoc/>
-        Task<AclResponse> Add(AclStateRequest stateRequest);
+        AclResponse Add(AclStateRequest stateRequest);
         /// <inheritdoc/>
-        Task<AclResponse> Edit(ulong id, AclStateRequest stateRequest);
+        AclResponse Edit(ulong id, AclStateRequest stateRequest);
         /// <inheritdoc/>
-        Task<AclResponse> FindById(ulong id);
+        AclResponse FindById(ulong id);
         /// <inheritdoc/>
-        Task<AclResponse> DeleteById(ulong id);
+        AclResponse DeleteById(ulong id);
         /// <inheritdoc/>
         List<AclState>? All();
         /// <inheritdoc/>
