@@ -55,7 +55,7 @@ namespace ACL.Infrastructure.Repositories.V1
                     var aclModule = PrepareInputData(request);
                     _dbcontext.Add(aclModule);
                     _dbcontext.SaveChanges();
-                    _dbcontext.Entry(request).Reload();
+                    _dbcontext.Entry(aclModule).Reload();
                     this.aclResponse.Data = aclModule;
                     this.aclResponse.Message = this.messageResponse.createMessage;
                     this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
@@ -85,7 +85,7 @@ namespace ACL.Infrastructure.Repositories.V1
                     aclModule = PrepareInputData(request, aclModule);
                     _dbcontext.AclModules.Update(aclModule);
                     _dbcontext.SaveChanges();
-                    _dbcontext.Entry(request).Reload();
+                    _dbcontext.Entry(aclModule).Reload();
                     this.aclResponse.Data = aclModule;
                     this.aclResponse.Message = this.messageResponse.editMessage;
                     this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
