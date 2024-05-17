@@ -1,5 +1,6 @@
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response.V1;
+using ACL.Core.Models;
 
 
 namespace ACL.Application.Interfaces.Repositories.V1
@@ -8,15 +9,15 @@ namespace ACL.Application.Interfaces.Repositories.V1
     public interface IAclSubModuleRepository
     {
         /// <inheritdoc/>
-        Task<AclResponse> GetAll();
+        AclResponse GetAll();
         /// <inheritdoc/>
-        Task<AclResponse> Add(AclSubModuleRequest subModuleRequest);
+        AclResponse Add(AclSubModuleRequest subModuleRequest);
         /// <inheritdoc/>
-        Task<AclResponse> Edit(ulong id, AclSubModuleRequest subModuleRequest);
+        AclResponse Edit(ulong id, AclSubModuleRequest subModuleRequest);
         /// <inheritdoc/>
-        Task<AclResponse> FindById(ulong id);
+        AclResponse FindById(ulong id);
         /// <inheritdoc/>
-        Task<AclResponse> DeleteById(ulong id);
+        AclResponse DeleteById(ulong id);
         /// <inheritdoc/>
         List<AclSubModule>? All();
         /// <inheritdoc/>
@@ -32,6 +33,6 @@ namespace ACL.Application.Interfaces.Repositories.V1
         /// <inheritdoc/>
         bool ExistByName(ulong id, string name);
         /// <inheritdoc/>
-        bool ExistById(ulong? id,ulong value);
+        bool ExistById(ulong? id, ulong value);
     }
 }
