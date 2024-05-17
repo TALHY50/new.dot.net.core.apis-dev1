@@ -10,41 +10,48 @@ using Microsoft.Extensions.Localization;
 
 namespace ACL.Controllers.V1
 {
+    /// <inheritdoc/>
     [Authorize]
     [Tags("Company")]
     [ApiController]
     public class AclCompanyController : Controller
     {
-        public readonly IAclCompanyRepository AclCompanyRepository;
-
+        /// <inheritdoc/>
+        public  required IAclCompanyRepository AclCompanyRepository;
+        /// <inheritdoc/>
+        public AclCompanyController(IAclCompanyRepository _AclCompanyRepository)
+        {
+            AclCompanyRepository = _AclCompanyRepository;
+        }
+        /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclCompanyRouteUrl.List, Name = AclRoutesName.AclCompanyRouteNames.List)]
         public async Task<AclResponse> Index()
         {
             return await AclCompanyRepository.GetAll();
         }
-
+        /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPost(AclRoutesUrl.AclCompanyRouteUrl.Add, Name = AclRoutesName.AclCompanyRouteNames.Add)]
-        public async Task<AclResponse> Create(AclCompanyCreateRequest request)
+        public Task<AclResponse> Create(AclCompanyCreateRequest request)
         {
-            return await AclCompanyRepository.AddAclCompany(request);
+            return  AclCompanyRepository.AddAclCompany(request);
         }
-
+        /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPut(AclRoutesUrl.AclCompanyRouteUrl.Edit, Name = AclRoutesName.AclCompanyRouteNames.Edit)]
-        public async Task<AclResponse> Edit(ulong id, AclCompanyEditRequest request)
+        public AclResponse Edit(ulong id, AclCompanyEditRequest request)
         {
-            return await AclCompanyRepository.EditAclCompany(id, request);
+            return  AclCompanyRepository.EditAclCompany(id, request);
         }
-
+        /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclCompanyRouteUrl.View, Name = AclRoutesName.AclCompanyRouteNames.View)]
-        public async Task<AclResponse> View(ulong id)
+        public AclResponse View(ulong id)
         {
-            return await AclCompanyRepository.FindById(id);
+            return AclCompanyRepository.FindById(id);
         }
-
+        /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpDelete(AclRoutesUrl.AclCompanyRouteUrl.Destroy, Name = AclRoutesName.AclCompanyRouteNames.Destroy)]
         public async Task<AclResponse> Destroy(ulong id)

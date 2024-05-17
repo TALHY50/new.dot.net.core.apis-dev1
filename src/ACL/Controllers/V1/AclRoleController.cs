@@ -7,52 +7,54 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ACL.Controllers.V1
 {
+     /// <inheritdoc/>
     [Authorize]
     [Tags("Role")]
     [ApiController]
     public class AclRoleController : ControllerBase
     {
         private readonly IAclRoleRepository _repository;
+         /// <inheritdoc/>
         public AclRoleController(IAclRoleRepository repository)
         {
             _repository = repository;
         }
-
+         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(Route.AclRoutesUrl.AclRoleRouteUrl.List, Name = Route.AclRoutesName.AclRoleRouteNames.List)]
-        public async Task<AclResponse> Index()
+        public AclResponse Index()
         {
-            return await _repository.GetAll();
+            return _repository.GetAll();
         }
-
+         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPost(Route.AclRoutesUrl.AclRoleRouteUrl.Add, Name = Route.AclRoutesName.AclRoleRouteNames.Add)]
-        public async Task<AclResponse> Create(AclRoleRequest objRole)
+        public AclResponse Create(AclRoleRequest objRole)
         {
-            return await _repository.Add(objRole);
+            return _repository.Add(objRole);
         }
-
+         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(Route.AclRoutesUrl.AclRoleRouteUrl.View, Name = Route.AclRoutesName.AclRoleRouteNames.View)]
-        public async Task<AclResponse> View(ulong id)
+        public AclResponse View(ulong id)
         {
-            return await _repository.FindById(id);
+            return  _repository.FindById(id);
 
         }
-
+         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPut(Route.AclRoutesUrl.AclRoleRouteUrl.Edit, Name = Route.AclRoutesName.AclRoleRouteNames.Edit)]
-        public async Task<AclResponse> Edit(ulong id, AclRoleRequest objRole)
+        public AclResponse Edit(ulong id, AclRoleRequest objRole)
         {
-            return await _repository.Edit(id, objRole);
+            return  _repository.Edit(id, objRole);
 
         }
-
+         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpDelete(Route.AclRoutesUrl.AclRoleRouteUrl.Destroy, Name = Route.AclRoutesName.AclRoleRouteNames.Destroy)]
-        public async Task<AclResponse> Destroy(ulong id)
+        public AclResponse Destroy(ulong id)
         {
-            return await _repository.DeleteById(id);
+            return _repository.DeleteById(id);
         }
 
     }

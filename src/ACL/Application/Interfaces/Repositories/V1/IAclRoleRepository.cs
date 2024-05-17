@@ -18,6 +18,8 @@ namespace ACL.Application.Interfaces.Repositories.V1
         /// <inheritdoc/>
         AclResponse FindById(ulong id);
         /// <inheritdoc/>
+        AclResponse DeleteById(ulong id);
+        /// <inheritdoc/>
         List<AclRole>? All();
         /// <inheritdoc/>
         AclRole? Find(ulong id);
@@ -27,5 +29,7 @@ namespace ACL.Application.Interfaces.Repositories.V1
         AclRole? Update(AclRole aclRole);
         /// <inheritdoc/>
         AclRole? Delete(AclRole aclRole);
+        /// <inheritdoc/>
+        AclRole? Delete(ulong id);
     }
 }

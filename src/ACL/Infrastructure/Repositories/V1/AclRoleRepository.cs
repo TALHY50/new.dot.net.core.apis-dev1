@@ -227,7 +227,6 @@ namespace ACL.Infrastructure.Repositories.V1
             {
                 return null;
             }
-
         }
     }
 }

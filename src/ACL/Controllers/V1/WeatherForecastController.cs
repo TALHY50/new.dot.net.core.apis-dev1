@@ -9,6 +9,7 @@ using ACL.Route;
 
 namespace ACL.Controllers.V1
 {
+    /// <inheritdoc/>
     [Authorize]
     [ApiController]
    // [Route("api/[controller]")]
@@ -20,12 +21,12 @@ namespace ACL.Controllers.V1
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
-
+        /// <inheritdoc/>
         public WeatherForecastController(ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
         }
-
+        /// <inheritdoc/>
         [HttpGet] 
         [Authorize(Policy = "HasPermission")] 
         [Route(AclRoutesUrl.WeatherForecastRouteUrl.GetWeatherForecast, Name = AclRoutesName.AclWeatherForecastRouteNames.GetWeatherForecasts)]

@@ -7,24 +7,26 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ACL.Controllers.V1
 {
+    /// <inheritdoc/>
     [Authorize]
     [Tags("User Group Role")]
     [ApiController]
     public class AclUserGroupRoleController : ControllerBase
     {
         private readonly IAclUserGroupRoleRepository _repository;
+        /// <inheritdoc/>
         public AclUserGroupRoleController(IAclUserGroupRoleRepository repository)
         {
             _repository = repository;
         }
-
+        /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(Route.AclRoutesUrl.AclUserGroupRoleRouteUrl.List, Name = Route.AclRoutesName.AclUserGroupRoleRouteNames.List)]
-        public async Task<AclResponse> Index(ulong userGroupId)
+        public AclResponse Index(ulong userGroupId)
         {
-            return await _repository.GetRolesByUserGroupId(userGroupId);
+            return _repository.GetRolesByUserGroupId(userGroupId);
         }
-
+        /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPost(Route.AclRoutesUrl.AclUserGroupRoleRouteUrl.Update, Name = Route.AclRoutesName.AclUserGroupRoleRouteNames.Update)]
         public async Task<AclResponse> Update(AclUserGroupRoleRequest objUserGroupRole)
