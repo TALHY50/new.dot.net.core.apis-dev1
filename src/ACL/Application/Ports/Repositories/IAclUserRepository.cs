@@ -9,27 +9,27 @@ namespace ACL.Application.Ports.Repositories
     public interface IAclUserRepository
     {
         /// <inheritdoc/>
-        Task<AclResponse> GetAll();
+        AclResponse GetAll();
         /// <inheritdoc/>
         Task<AclResponse> AddUser(AclUserRequest request);
         /// <inheritdoc/>
         Task<AclResponse> Edit(ulong id, AclUserRequest request);
         /// <inheritdoc/>
-        Task<AclResponse> FindById(ulong id);
+        AclResponse FindById(ulong id);
         /// <inheritdoc/>
-        Task<AclUser> FindByIdAsync(ulong id);
+        AclUser? FindByIdAsync(ulong id);
         /// <inheritdoc/>
-        Task<AclUser> FindByEmail(string email);
+        AclUser? FindByEmail(string email);
         /// <inheritdoc/>
-        Task<AclResponse> DeleteById(ulong id);
+        AclResponse DeleteById(ulong id);
         /// <inheritdoc/>
         uint SetCompanyId(uint companyId);
         /// <inheritdoc/>
         uint SetUserType(bool is_user_type_created_by_company);
         /// <inheritdoc/>
-        public Task<AclUser> AddAndSaveAsync(AclUser aclUser);
+        AclUser? AddAndSaveAsync(AclUser aclUser);
         /// <inheritdoc/>
-        public Task<AclUser> UpdateAndSaveAsync(AclUser aclUser);
+        AclUser? UpdateAndSaveAsync(AclUser aclUser);
         /// <inheritdoc/>
         public Task<AclUser?> GetUserWithPermissionAsync(uint userId);
         /// <inheritdoc/>

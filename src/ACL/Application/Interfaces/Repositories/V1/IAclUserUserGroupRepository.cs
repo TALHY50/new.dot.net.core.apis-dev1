@@ -20,5 +20,11 @@ namespace ACL.Application.Interfaces.Repositories.V1
         AclUserUsergroup? Delete(AclUserUsergroup acluseruserGroup);
         /// <inheritdoc/>
         AclUserUsergroup? Delete(ulong id);
+        /// <inheritdoc/>
+        AclUserUsergroup[]? AddRange( AclUserUsergroup[]? userUsergroups);
+        /// <inheritdoc/>
+        AclUserUsergroup[]? RemoveRange( AclUserUsergroup[] userUsergroups);
+        /// <inheritdoc/>
+        AclUserUsergroup[]? Where(ulong userid);
     }
 }

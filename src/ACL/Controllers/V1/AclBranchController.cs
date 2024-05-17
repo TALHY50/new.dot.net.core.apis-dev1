@@ -9,50 +9,52 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ACL.Controllers.V1
 {
+    /// <inheritdoc/>
     [Authorize]
     [Tags("Branch")]
     [ApiController]
     public class AclBranchController : Controller
     {
         private IAclBranchService AclBranchService;
-
+        /// <inheritdoc/>
         public AclBranchController(IAclBranchService aclBranchService)
         {
             AclBranchService = aclBranchService;
         }
+        /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclBranchRouteUrl.List, Name = AclRoutesName.AclBranchRouteNames.List)]
-        public async Task<AclResponse> Index()
+        public AclResponse Index()
         {
-            return await AclBranchService.Get();
+            return AclBranchService.Get();
         }
-
+        /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
         [HttpPost(AclRoutesUrl.AclBranchRouteUrl.Add, Name = AclRoutesName.AclBranchRouteNames.Add)]
-        public async Task<AclResponse> Create(AclBranchRequest request)
+        public AclResponse Create(AclBranchRequest request)
         {
-            return await AclBranchService.Add(request);
+            return AclBranchService.Add(request);
         }
-
+        /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
         [HttpPut(AclRoutesUrl.AclBranchRouteUrl.Edit, Name = AclRoutesName.AclBranchRouteNames.Edit)]
-        public async Task<AclResponse> Edit(ulong id, AclBranchRequest request)
+        public AclResponse Edit(ulong id, AclBranchRequest request)
         {
-            return await AclBranchService.Edit(id, request);
+            return AclBranchService.Edit(id, request);
         }
-
+        /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclBranchRouteUrl.View, Name = AclRoutesName.AclBranchRouteNames.View)]
-        public async Task<AclResponse> View(ulong id)
+        public AclResponse View(ulong id)
         {
-            return await AclBranchService.Find(id);
+            return AclBranchService.Find(id);
         }
-
+        /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
         [HttpDelete(AclRoutesUrl.AclBranchRouteUrl.Destroy, Name = AclRoutesName.AclBranchRouteNames.Destroy)]
-        public async Task<AclResponse> Destroy(ulong id)
+        public AclResponse Destroy(ulong id)
         {
-            return await AclBranchService.Delete(id);
+            return AclBranchService.Delete(id);
         }
     }
 }

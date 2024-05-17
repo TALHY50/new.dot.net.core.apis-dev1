@@ -9,15 +9,15 @@ namespace ACL.Application.Interfaces.Repositories.V1
     public interface IAclUserGroupRepository
     {
         /// <inheritdoc/>
-        Task<AclResponse> GetAll();
+        AclResponse GetAll();
         /// <inheritdoc/>
-        Task<AclResponse> AddUserGroup(AclUserGroupRequest userGroupRequest);
+        AclResponse AddUserGroup(AclUserGroupRequest userGroupRequest);
         /// <inheritdoc/>
-        Task<AclResponse> UpdateUserGroup(ulong id, AclUserGroupRequest userGroupRequest);
+        AclResponse UpdateUserGroup(ulong id, AclUserGroupRequest userGroupRequest);
         /// <inheritdoc/>
-        Task<AclResponse> FindById(ulong id);
+        AclResponse FindById(ulong id);
         /// <inheritdoc/>
-        Task<AclResponse> Delete(ulong id);
+        AclResponse Delete(ulong id);
         /// <inheritdoc/>
         AclUsergroup PrepareInputData(AclUserGroupRequest userGroupRequest, AclUsergroup aclCompany = null);
         /// <inheritdoc/>

@@ -7,20 +7,26 @@ using ACL.Core.Models;
 using ACL.Infrastructure.Database;
 using ACL.Infrastructure.Repositories.GenericRepository;
 using ACL.Infrastructure.Utilities;
+using Ardalis.Specification;
 using SharedLibrary.Response.CustomStatusCode;
 using SharedLibrary.Services;
 
 namespace ACL.Infrastructure.Repositories.V1
 {
+    /// <inheritdoc/>
     public class AclUserGroupRepository : IAclUserGroupRepository
     {
+        /// <inheritdoc/>
         public AclResponse aclResponse;
+        /// <inheritdoc/>
         public MessageResponse messageResponse;
         private string modelName = "User Group";
+        /// <inheritdoc/>
         public static ulong CompanyId = AppAuth.GetAuthInfo().CompanyId;
-
+        /// <inheritdoc/>
         public readonly ApplicationDbContext _dbContext;
 
+        /// <inheritdoc/>
         public AclUserGroupRepository(ApplicationDbContext dbContext)
         {
             AppAuth.SetAuthInfo();
@@ -28,10 +34,10 @@ namespace ACL.Infrastructure.Repositories.V1
             this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
             _dbContext = dbContext;
         }
-
-        public async Task<AclResponse> GetAll()
+        /// <inheritdoc/>
+        public AclResponse GetAll()
         {
-            List<AclUsergroup>? result = _dbContext.AclUsergroups.ToList();
+            List<AclUsergroup>? result = All();
             if (result.Any())
             {
                 this.aclResponse.Data = result;
@@ -46,19 +52,17 @@ namespace ACL.Infrastructure.Repositories.V1
             this.aclResponse.Timestamp = DateTime.Now;
             return this.aclResponse;
         }
-        public async Task<AclResponse> AddUserGroup(AclUserGroupRequest usergroup)
+        /// <inheritdoc/>
+        public AclResponse AddUserGroup(AclUserGroupRequest usergroup)
         {
             try
             {
                 AclUsergroup? result = PrepareInputData(usergroup);
-                await _dbContext.AclUsergroups.AddAsync(result);
-                await _dbContext.SaveChangesAsync();
-                await _dbContext.Entry(result).ReloadAsync();
-                this.aclResponse.Data = result;
+                this.aclResponse.Data = Add(result);
                 this.aclResponse.Message = this.messageResponse.createMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 this.aclResponse.Message = this.messageResponse.createMessage;
                 this.aclResponse.StatusCode = AppStatusCode.FAIL;
@@ -66,17 +70,14 @@ namespace ACL.Infrastructure.Repositories.V1
             this.aclResponse.Timestamp = DateTime.Now;
             return this.aclResponse;
         }
-
-        public async Task<AclResponse> UpdateUserGroup(ulong id, AclUserGroupRequest usergroup)
+        /// <inheritdoc/>
+        public AclResponse UpdateUserGroup(ulong id, AclUserGroupRequest usergroup)
         {
-            AclUsergroup? result = await _dbContext.AclUsergroups.FindAsync(id);
+            AclUsergroup? result = Find(id);
             if (result != null)
             {
                 result = PrepareInputData(usergroup, result);
-                _dbContext.AclUsergroups.Update(result);
-                await _dbContext.SaveChangesAsync();
-                await _dbContext.Entry(result).ReloadAsync();
-                this.aclResponse.Data = result;
+                this.aclResponse.Data = Update(result);
                 this.aclResponse.Message = this.messageResponse.editMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
@@ -88,9 +89,10 @@ namespace ACL.Infrastructure.Repositories.V1
             this.aclResponse.Timestamp = DateTime.Now;
             return this.aclResponse;
         }
-        public async Task<AclResponse> FindById(ulong id)
+        /// <inheritdoc/>
+        public AclResponse FindById(ulong id)
         {
-            AclUsergroup? result = await _dbContext.AclUsergroups.FindAsync(id);
+            AclUsergroup? result = Find(id);
             if (result != null)
             {
                 this.aclResponse.Data = result;
@@ -105,15 +107,13 @@ namespace ACL.Infrastructure.Repositories.V1
             this.aclResponse.Timestamp = DateTime.Now;
             return this.aclResponse;
         }
-        public async Task<AclResponse> Delete(ulong id)
+        /// <inheritdoc/>
+        public AclResponse Delete(ulong id)
         {
-            AclUsergroup? result = await _dbContext.AclUsergroups.FindAsync(id);
+            AclUsergroup? result = Find(id);
             if (result != null)
             {
-                _dbContext.AclUsergroups.Remove(result);
-                await _dbContext.SaveChangesAsync();
-                await _dbContext.Entry(result).ReloadAsync();
-                this.aclResponse.Data = result;
+                this.aclResponse.Data = Deleted(id);
                 this.aclResponse.Message = this.messageResponse.deleteMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
@@ -125,7 +125,7 @@ namespace ACL.Infrastructure.Repositories.V1
             this.aclResponse.Timestamp = DateTime.Now;
             return this.aclResponse;
         }
-
+        /// <inheritdoc/>
         public AclUsergroup PrepareInputData(AclUserGroupRequest request, AclUsergroup aclUsergroup = null)
         {
             AclUsergroup? _aclInstance = aclUsergroup ?? new AclUsergroup();
@@ -145,11 +145,98 @@ namespace ACL.Infrastructure.Repositories.V1
 
             return _aclInstance;
         }
-
+        /// <inheritdoc/>
         public ulong SetCompanyId(ulong companyId)
         {
             CompanyId = companyId;
             return CompanyId;
+        }
+        /// <inheritdoc/>
+        public List<AclUsergroup>? All()
+        {
+            try
+            {
+                return _dbContext.AclUsergroups.ToList();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+        }
+        /// <inheritdoc/>
+        public AclUsergroup? Find(ulong id)
+        {
+            try
+            {
+                return _dbContext.AclUsergroups.Find(id);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+        }
+        /// <inheritdoc/>
+        public AclUsergroup? Add(AclUsergroup aclUsergroup)
+        {
+            try
+            {
+                _dbContext.AclUsergroups.Add(aclUsergroup);
+                _dbContext.SaveChanges();
+                _dbContext.Entry(aclUsergroup).Reload();
+                return aclUsergroup;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        /// <inheritdoc/>
+        public AclUsergroup? Update(AclUsergroup aclUsergroup)
+        {
+            try
+            {
+                _dbContext.AclUsergroups.Update(aclUsergroup);
+                _dbContext.SaveChanges();
+                _dbContext.Entry(aclUsergroup).Reload();
+                return aclUsergroup;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        /// <inheritdoc/>
+        public AclUsergroup? Delete(AclUsergroup aclUsergroup)
+        {
+            try
+            {
+                _dbContext.AclUsergroups.Remove(aclUsergroup);
+                _dbContext.SaveChanges();
+                return aclUsergroup;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+        }
+        /// <inheritdoc/>
+        public AclUsergroup? Deleted(ulong id)
+        {
+            try
+            {
+                var delete = Find(id);
+                _dbContext.AclUsergroups.Remove(delete);
+                _dbContext.SaveChanges();
+                return delete;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
         }
     }
 }

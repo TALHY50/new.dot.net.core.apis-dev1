@@ -10,6 +10,7 @@ using ACL.Core.Permissions;
 using ACL.Infrastructure.Database;
 using ACL.Infrastructure.Utilities;
 using ACL.UseCases.Enums;
+using Ardalis.Specification;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Caching.Distributed;
@@ -20,9 +21,12 @@ using SharedLibrary.Services;
 
 namespace ACL.Infrastructure.Repositories.V1
 {
+    /// <inheritdoc/>
     public class AclUserRepository : IAclUserRepository
     {
+        /// <inheritdoc/>
         public AclResponse aclResponse;
+        /// <inheritdoc/>
         public MessageResponse messageResponse;
         private string modelName = "User";
         private uint _companyId;
@@ -33,9 +37,11 @@ namespace ACL.Infrastructure.Repositories.V1
         private readonly ICryptographyService _cryptographyService;
         private readonly IAclUserUserGroupRepository AclUserUserGroupRepository;
 
-        private readonly ApplicationDbContext _dbcontext;
-        public AclUserRepository(ApplicationDbContext dbcontext, IConfiguration config, IDistributedCache distributedCache, ICryptographyService cryptographyService)
+        private readonly ApplicationDbContext _dbContext;
+        /// <inheritdoc/>
+        public AclUserRepository(ApplicationDbContext dbcontext, IConfiguration config, IDistributedCache distributedCache, ICryptographyService cryptographyService, IAclUserUserGroupRepository _AclUserUserGroupRepository)
         {
+            AclUserUserGroupRepository = _AclUserUserGroupRepository;
             AppAuth.SetAuthInfo();
             this._config = config;
             this.aclResponse = new AclResponse();
@@ -43,20 +49,20 @@ namespace ACL.Infrastructure.Repositories.V1
             this._userType = (uint)AppAuth.GetAuthInfo().UserType;
             this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
             this._distributedCache = distributedCache;
-            _dbcontext = dbcontext;
+            _dbContext = dbcontext;
             _cryptographyService = cryptographyService;
         }
-
-        public async Task<AclResponse> GetAll()
+        /// <inheritdoc/>
+        public AclResponse GetAll()
         {
-            List<AclUser>? aclUser = _dbcontext.AclUsers.ToList();
-            aclUser.ForEach(user =>
-            {
-                user.Password = "**********";
-                user.Salt = "**********";
-                user.Claims = null;
-                user.RefreshToken = null;
-            });
+            List<AclUser>? aclUser = All()?.Where(u => _companyId == 0 || u.CompanyId == _companyId)?.ToList();
+            aclUser?.ForEach(user =>
+           {
+               user.Password = "**********";
+               user.Salt = "**********";
+               user.Claims = null;
+               user.RefreshToken = null;
+           });
 
             // further we need to add with companyid from auth and created by  from UTHUSER ID other wise the system would be insecured.
             IEnumerable<AclUser>? result = (aclUser != null) ? aclUser.Where(i => i.Id != 1 && i.Status == 1) : null;
@@ -70,30 +76,32 @@ namespace ACL.Infrastructure.Repositories.V1
 
             return this.aclResponse;
         }
+        /// <inheritdoc/>
         public async Task<AclResponse> AddUser(AclUserRequest request)
         {
 
-            var strategy = _dbcontext.Database.CreateExecutionStrategy();
+            var strategy = _dbContext.Database.CreateExecutionStrategy();
 
             await strategy.ExecuteAsync(async () =>
             {
-                using (IDbContextTransaction transaction = _dbcontext.Database.BeginTransaction())
+                using (IDbContextTransaction transaction = _dbContext.Database.BeginTransaction())
                 {
                     try
                     {
                         AclUser? aclUser = PrepareInputData(request);
-                        await _dbcontext.AclUsers.AddAsync(aclUser);
-                        await _dbcontext.SaveChangesAsync();
-                        await _dbcontext.Entry(aclUser).ReloadAsync();
+                        aclUser = Add(aclUser);
                         //  need to insert user user group
-                        AclUserUsergroup[] aclUserUsergroups = PrepareDataForUserUserGroups(request, aclUser.Id);
-                        await _dbcontext.AclUserUsergroups.AddRangeAsync(aclUserUsergroups);
-                        await _dbcontext.SaveChangesAsync();
-                        aclUser.Password = "******************"; //request.Password
-                        aclUser.Salt = "******************";
-                        aclUser.Claims = null;
-                        aclUser.RefreshToken = null;
-                        this.aclResponse.Data = aclUser;
+                        AclUserUsergroup[] aclUserUsergroups = PrepareDataForUserUserGroups(request, aclUser?.Id);
+                        _dbContext.AclUserUsergroups.AddRange(aclUserUsergroups);
+                        await ReloadEntitiesAsync(aclUserUsergroups);
+                        if (aclUser != null)
+                        {
+                            aclUser.Password = "******************"; //request.Password
+                            aclUser.Salt = "******************";
+                            aclUser.Claims = null;
+                            aclUser.RefreshToken = null;
+                            this.aclResponse.Data = aclUser;
+                        }
                         this.aclResponse.Message = this.messageResponse.createMessage;
                         this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
                         transaction.Commit();
@@ -109,35 +117,34 @@ namespace ACL.Infrastructure.Repositories.V1
             this.aclResponse.Timestamp = DateTime.Now;
             return this.aclResponse;
         }
-
+        /// <inheritdoc/>
         public async Task<AclResponse> Edit(ulong id, AclUserRequest request)
         {
-            var strategy = _dbcontext.Database.CreateExecutionStrategy();
-            await strategy.ExecuteAsync(async () =>
+            var strategy = _dbContext.Database.CreateExecutionStrategy();
+            await strategy.ExecuteAsync(() =>
             {
-                using (IDbContextTransaction transaction = _dbcontext.Database.BeginTransaction())
+                using (IDbContextTransaction transaction = _dbContext.Database.BeginTransaction())
                 {
                     try
                     {
-                        AclUser aclUser = await _dbcontext.AclUsers.FindAsync(id);
+                        AclUser? aclUser = Find(id);
                         if (aclUser != null)
                         {
                             aclUser = PrepareInputData(request, aclUser);
-                            _dbcontext.AclUsers.Update(aclUser);
-                            _dbcontext.SaveChanges();
-                            await _dbcontext.Entry(aclUser).ReloadAsync();
+                            aclUser = Update(aclUser);
                             // first delete all user user group
-                            AclUserUsergroup[] userUserGroups = _dbcontext.AclUserUsergroups.Where(x => x.UserId == id).ToArray();
-                            _dbcontext.AclUserUsergroups.RemoveRange(userUserGroups);
-                            _dbcontext.SaveChanges();
+                            AclUserUsergroup[] userUserGroups = AclUserUserGroupRepository.Where(id).ToArray();
+                            AclUserUserGroupRepository.RemoveRange(userUserGroups);
                             // need to insert user user group
-                            AclUserUsergroup[]? userGroupPrepareData = PrepareDataForUserUserGroups(request, aclUser.Id);
-                            _dbcontext.AclUserUsergroups.AddRange(userGroupPrepareData);
-                            _dbcontext.SaveChanges();
-                            aclUser.Password = "******************"; //request.Password
-                            aclUser.Salt = "******************";
-                            aclUser.Claims = null;
-                            this.aclResponse.Data = aclUser;
+                            AclUserUsergroup[]? userGroupPrepareData = PrepareDataForUserUserGroups(request, aclUser?.Id);
+                            AclUserUserGroupRepository.AddRange(userGroupPrepareData);
+                            if (aclUser != null)
+                            {
+                                aclUser.Password = "******************"; //request.Password
+                                aclUser.Salt = "******************";
+                                aclUser.Claims = null;
+                                this.aclResponse.Data = aclUser;
+                            }
                             this.aclResponse.Message = this.messageResponse.editMessage;
                             this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
                             transaction.Commit();
@@ -156,17 +163,19 @@ namespace ACL.Infrastructure.Repositories.V1
                         this.aclResponse.StatusCode = AppStatusCode.FAIL;
                     }
                 }
+
+                return Task.CompletedTask;
             });
             this.aclResponse.Timestamp = DateTime.Now;
             return this.aclResponse;
         }
 
-
-        public async Task<AclResponse> FindById(ulong id)
+        /// <inheritdoc/>
+        public AclResponse FindById(ulong id)
         {
             try
             {
-                AclUser? aclUser = await _dbcontext.AclUsers.FindAsync(id);
+                AclUser? aclUser = Find(id);
                 if (aclUser == null)
                 {
                     this.aclResponse.Message = this.messageResponse.notFoundMessage;
@@ -191,45 +200,51 @@ namespace ACL.Infrastructure.Repositories.V1
             return this.aclResponse;
 
         }
-
-        public async Task<AclUser?> FindByEmail(string email)
+        /// <inheritdoc/>
+        public AclUser? FindByEmail(string email)
         {
-            return await _dbcontext.AclUsers.FirstOrDefaultAsync(m => m.Email == email);
+            try
+            {
+                return _dbContext.AclUsers.FirstOrDefault(m => m.Email == email);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
-
-        public async Task<AclUser?> FindByIdAsync(ulong id)
+        /// <inheritdoc/>
+        public AclUser? FindByIdAsync(ulong id)
         {
-            return await _dbcontext.AclUsers.FirstOrDefaultAsync(m => m.Id == id);
+            try
+            {
+                return _dbContext.AclUsers.FirstOrDefault(m => m.Id == id);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
 
         }
-
-        public async Task<AclResponse> DeleteById(ulong id)
+        /// <inheritdoc/>
+        public AclResponse DeleteById(ulong id)
         {
-
-
-
-            AclUser? aclUser = await _dbcontext.AclUsers.FindAsync(id);
+            AclUser? aclUser = Find(id);
             if (aclUser != null)
             {
-                _dbcontext.AclUsers.Remove(aclUser);
-                _dbcontext.SaveChanges();
-                await _dbcontext.Entry(aclUser).ReloadAsync();
+                this.aclResponse.Data = Delete(aclUser);
                 // delete all item for user user group
-                AclUserUsergroup[] userUserGroups = _dbcontext.AclUserUsergroups.Where(x => x.UserId == id).ToArray();
-                if (userUserGroups.Length > 0)
+                AclUserUsergroup[] userUserGroups = AclUserUserGroupRepository.Where(id).ToArray();
+                if (userUserGroups.Count() > 0)
                 {
-                    _dbcontext.RemoveRange(userUserGroups);
-                    _dbcontext.SaveChanges();
+                    AclUserUserGroupRepository.RemoveRange(userUserGroups);
                 }
 
                 this.aclResponse.Message = this.messageResponse.deleteMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
-
-
             return this.aclResponse;
         }
-
+        /// <inheritdoc/>
         public AclUser PrepareInputData(AclUserRequest request, AclUser AclUser = null)
         {
             var salt = _cryptographyService.GenerateSalt();
@@ -286,15 +301,15 @@ namespace ACL.Infrastructure.Repositories.V1
             return AclUser;
         }
 
-
-        public AclUserUsergroup[] PrepareDataForUserUserGroups(AclUserRequest request, ulong user_id)
+        /// <inheritdoc/>
+        public AclUserUsergroup[] PrepareDataForUserUserGroups(AclUserRequest request, ulong? user_id)
         {
             IList<AclUserUsergroup> res = new List<AclUserUsergroup>();
 
             foreach (ulong user_group in request.UserGroup)
             {
                 AclUserUsergroup aclUserUserGroup = new AclUserUsergroup();
-                aclUserUserGroup.UserId = user_id;
+                aclUserUserGroup.UserId = user_id ?? 0;
                 aclUserUserGroup.UsergroupId = user_group;
                 aclUserUserGroup.CreatedAt = DateTime.Now;
                 aclUserUserGroup.UpdatedAt = DateTime.Now;
@@ -302,44 +317,40 @@ namespace ACL.Infrastructure.Repositories.V1
             }
             return res.ToArray();
         }
-
+        /// <inheritdoc/>
         public uint SetCompanyId(uint companyId)
         {
             this._companyId = companyId;
             return this._companyId;
         }
+        /// <inheritdoc/>
         public uint SetUserType(bool is_user_type_created_by_company)
         {
-
             return this._userType = is_user_type_created_by_company ? uint.Parse(this._config["USER_TYPE_S_ADMIN"]) : uint.Parse(this._config["USER_TYPE_USER"]);
         }
-
-        public async Task<AclUser> AddAndSaveAsync(AclUser entity)
+        /// <inheritdoc/>
+        public AclUser? AddAndSaveAsync(AclUser entity)
         {
-            await _dbcontext.AclUsers.AddAsync(entity);
-            await _dbcontext.SaveChangesAsync();
-            return entity;
+           return Add(entity);
         }
-
-        public async Task<AclUser> UpdateAndSaveAsync(AclUser entity)
+        /// <inheritdoc/>
+        public AclUser? UpdateAndSaveAsync(AclUser entity)
         {
-            this._dbcontext.Update(entity);
-            await this._dbcontext.SaveChangesAsync();
-
-            return entity;
+            return Update(entity);
         }
+        /// <inheritdoc/>
         public async Task<AclUser?> GetUserWithPermissionAsync(uint userId)
         {
-            HashSet<string>? routeNames = new HashSet<string>();
+            HashSet<string>? routeNames = new();
 
-            var user = await this.FindByIdAsync(userId);
+            var user = this.FindByIdAsync(userId);
 
             if (user == null) return user;
 
-            var roleIds = (from userUsergroup in this._dbcontext.AclUserUsergroups
-                           join usergroup in this._dbcontext.AclUsergroups on userUsergroup.UsergroupId equals usergroup.Id
-                           join usergroupRole in this._dbcontext.AclUsergroupRoles on usergroup.Id equals usergroupRole.UsergroupId
-                           join role in this._dbcontext.AclRoles on usergroupRole.RoleId equals role.Id
+            var roleIds = (from userUsergroup in this._dbContext.AclUserUsergroups
+                           join usergroup in this._dbContext.AclUsergroups on userUsergroup.UsergroupId equals usergroup.Id
+                           join usergroupRole in this._dbContext.AclUsergroupRoles on usergroup.Id equals usergroupRole.UsergroupId
+                           join role in this._dbContext.AclRoles on usergroupRole.RoleId equals role.Id
                            where userUsergroup.UserId == userId
                            select role.Id).ToList();
 
@@ -358,17 +369,19 @@ namespace ACL.Infrastructure.Repositories.V1
 
                 if (cachedRouteNames != null)
                 {
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
                     tmpRouteNames = JsonConvert.DeserializeObject<HashSet<string>>(cachedRouteNames);
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
                     routeNames.UnionWith(tmpRouteNames);
                 }
 
                 if (tmpRouteNames.IsNullOrEmpty())
                 {
-                    var permissionList = (from rolePage in _dbcontext.AclRolePages
-                                          join page in _dbcontext.AclPages on rolePage.PageId equals page.Id
-                                          join pageRoute in _dbcontext.AclPageRoutes on page.Id equals pageRoute.PageId
-                                          join subModule in _dbcontext.AclSubModules on page.SubModuleId equals subModule.Id
-                                          join module in _dbcontext.AclModules on subModule.ModuleId equals module.Id
+                    var permissionList = (from rolePage in _dbContext.AclRolePages
+                                          join page in _dbContext.AclPages on rolePage.PageId equals page.Id
+                                          join pageRoute in _dbContext.AclPageRoutes on page.Id equals pageRoute.PageId
+                                          join subModule in _dbContext.AclSubModules on page.SubModuleId equals subModule.Id
+                                          join module in _dbContext.AclModules on subModule.ModuleId equals module.Id
                                           where rolePage.RoleId == roleId
                                           select new PermissionQueryResult()
                                           {
@@ -387,7 +400,9 @@ namespace ACL.Infrastructure.Repositories.V1
                                           }).ToList();
                     if (permissionList != null)
                     {
+#pragma warning disable CS8619 // Nullability of reference types in value doesn't match target type.
                         tmpRouteNames = permissionList.Select(q => q.PageRouteName).ToHashSet();
+#pragma warning restore CS8619 // Nullability of reference types in value doesn't match target type.
                         routeNames.UnionWith(tmpRouteNames);
                         if (this._distributedCache is IDistributedCache)
                         {
@@ -404,6 +419,97 @@ namespace ACL.Infrastructure.Repositories.V1
 
             return user;
         }
+        /// <inheritdoc/>
+        public List<AclUser>? All()
+        {
+            try
+            {
+                return _dbContext.AclUsers.ToList();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
 
+        }
+        /// <inheritdoc/>
+        public AclUser? Find(ulong id)
+        {
+            try
+            {
+                return _dbContext.AclUsers.Find(id);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        /// <inheritdoc/>
+        public AclUser? Add(AclUser aclUser)
+        {
+            try
+            {
+                _dbContext.AclUsers.Add(aclUser);
+                _dbContext.SaveChanges();
+                _dbContext.Entry(aclUser).Reload();
+                return aclUser;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        /// <inheritdoc/>
+        public AclUser? Update(AclUser aclUser)
+        {
+            try
+            {
+                _dbContext.AclUsers.Update(aclUser);
+                _dbContext.SaveChanges();
+                _dbContext.Entry(aclUser).Reload();
+                return aclUser;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        /// <inheritdoc/>
+        public AclUser? Delete(AclUser aclUser)
+        {
+            try
+            {
+                _dbContext.AclUsers.Remove(aclUser);
+                _dbContext.SaveChanges();
+                return aclUser;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+        }
+        /// <inheritdoc/>
+        public AclUser? Delete(ulong id)
+        {
+            try
+            {
+                var delete = Find(id);
+                _dbContext.AclUsers.Remove(delete);
+                _dbContext.SaveChanges();
+                return delete;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+        }
+
+        /// <inheritdoc/>
+        public async Task ReloadEntitiesAsync(IEnumerable<AclUserUsergroup> entities)
+        {
+            await Task.WhenAll(entities.Select(entity => _dbContext.Entry(entity).ReloadAsync()));
+        }
     }
 }
