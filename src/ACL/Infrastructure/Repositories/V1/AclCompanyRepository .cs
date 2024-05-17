@@ -15,9 +15,12 @@ using SharedLibrary.Services;
 
 namespace ACL.Infrastructure.Repositories.V1
 {
+    /// <inheritdoc/>
     public class AclCompanyRepository : IAclCompanyRepository
     {
+        /// <inheritdoc/>
         public AclResponse aclResponse;
+        /// <inheritdoc/>
         public MessageResponse messageResponse;
         private string modelName = "Company";
         private IConfiguration _config;
@@ -34,14 +37,25 @@ namespace ACL.Infrastructure.Repositories.V1
         private readonly ApplicationDbContext _dbContext;
 
 
-        public AclCompanyRepository(ApplicationDbContext dbContext, IConfiguration config)
+        /// <inheritdoc/>
+        public AclCompanyRepository(ApplicationDbContext dbContext, IConfiguration config, ICryptographyService _cryptographyService, IAclUserGroupRepository _AclUserGroupRepository, IAclUserRepository _AclUserRepository, IAclUserUserGroupRepository _AclUserUserGroupRepository, IAclRoleRepository _AclRoleRepository, IAclUserGroupRoleRepository _AclUserGroupRoleRepository, IAclPageRepository _AclPageRepository, IAclRolePageRepository _AclRolePageRepository)
+
         {
             this.aclResponse = new AclResponse();
             this._config = config;
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
             this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
             _dbContext = dbContext;
+            cryptographyService = _cryptographyService;
+            AclUserGroupRepository = _AclUserGroupRepository;
+            AclUserRepository = _AclUserRepository;
+            AclUserUserGroupRepository = _AclUserUserGroupRepository;
+            AclRoleRepository = _AclRoleRepository;
+            AclUserGroupRoleRepository = _AclUserGroupRoleRepository;
+            AclPageRepository = _AclPageRepository;
+            AclRolePageRepository = _AclRolePageRepository;
         }
+        /// <inheritdoc/>
 
         public async Task<AclResponse> GetAll()
         {
@@ -58,6 +72,7 @@ namespace ACL.Infrastructure.Repositories.V1
             return this.aclResponse;
         }
 
+        /// <inheritdoc/>
         public async Task<AclResponse> AddAclCompany(AclCompanyCreateRequest request)
         {
             try
@@ -121,8 +136,8 @@ namespace ACL.Infrastructure.Repositories.V1
                     };
                     //var roleAdd = await AclRoleRepository.Add(role);
                     var roleAdd = _dbContext.AclRoles.Add(role);
-                     _dbContext.SaveChanges();
-                     _dbContext.Entry(role).Reload();
+                    _dbContext.SaveChanges();
+                    _dbContext.Entry(role).Reload();
 
                     AclUsergroupRole userGroupRole = new AclUsergroupRole()
                     {
@@ -133,8 +148,8 @@ namespace ACL.Infrastructure.Repositories.V1
                         UpdatedAt = DateTime.UtcNow
                     };
                     var createdUserGroupRole = _dbContext.AclUsergroupRoles.Add(userGroupRole);
-                     _dbContext.SaveChanges();
-                     _dbContext.Entry(userGroupRole).Reload();
+                    _dbContext.SaveChanges();
+                    _dbContext.Entry(userGroupRole).Reload();
                     List<AclPage> aclPagesByModuleId = await _dbContext.AclPages.Where(x => x.ModuleId == ulong.Parse(this._config["S_ADMIN_DEFAULT_MODULE_ID"])).ToListAsync();
                     List<ulong> pageIds = aclPagesByModuleId.Select(page => page.Id).ToList();
                     List<AclRolePage> aclRolePages = pageIds.Select(pageId => new AclRolePage
@@ -144,8 +159,8 @@ namespace ACL.Infrastructure.Repositories.V1
                         CreatedAt = DateTime.UtcNow,
                         UpdatedAt = DateTime.UtcNow
                     }).ToList();
-                     _dbContext.AclRolePages.AddRange(aclRolePages.ToArray());
-                     _dbContext.SaveChanges();
+                    _dbContext.AclRolePages.AddRange(aclRolePages.ToArray());
+                    _dbContext.SaveChanges();
                 }
                 this.aclResponse.Data = aclCompany;
                 this.aclResponse.Message = aclCompany != null ? this.messageResponse.createMessage : this.messageResponse.notFoundMessage;
@@ -159,6 +174,7 @@ namespace ACL.Infrastructure.Repositories.V1
             this.aclResponse.Timestamp = DateTime.Now;
             return this.aclResponse;
         }
+        /// <inheritdoc/>
         public async Task<AclResponse> EditAclCompany(ulong Id, AclCompanyEditRequest request)
         {
             try
@@ -180,6 +196,7 @@ namespace ACL.Infrastructure.Repositories.V1
             this.aclResponse.Timestamp = DateTime.Now;
             return this.aclResponse;
         }
+        /// <inheritdoc/>
         public async Task<AclResponse> FindById(ulong id)
         {
             var aclResponse = new AclResponse();
@@ -200,6 +217,7 @@ namespace ACL.Infrastructure.Repositories.V1
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
         }
+        /// <inheritdoc/>
         public async Task<AclResponse> DeleteCompany(ulong id)
         {
 
@@ -219,6 +237,7 @@ namespace ACL.Infrastructure.Repositories.V1
             return this.aclResponse;
         }
 
+        /// <inheritdoc/>
         public AclCompany PrepareInputData(AclCompanyCreateRequest requ = null, AclCompanyEditRequest req = null, AclCompany _aclCompany = null)
         {
             AclCompany aclCompany = _aclCompany == null ? new AclCompany() : _aclCompany;
@@ -277,6 +296,7 @@ namespace ACL.Infrastructure.Repositories.V1
             return (int)AppAuth.GetAuthInfo().UserId;
         }
 
+        /// <inheritdoc/>
         public AclUserUsergroup PrepareDataForUserUserGroups(ulong usergroup, ulong user_id)
         {
             AclUserUsergroup aclUserUserGroup = new AclUserUsergroup();

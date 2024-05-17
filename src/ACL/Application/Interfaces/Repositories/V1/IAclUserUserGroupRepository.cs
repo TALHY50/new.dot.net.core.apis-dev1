@@ -5,12 +5,20 @@ using SharedLibrary.Interfaces;
 
 namespace ACL.Application.Interfaces.Repositories.V1
 {
+    /// <inheritdoc/>
     public interface IAclUserUserGroupRepository
     {
-        List<AclUserUsergroup> GetAll();
-        AclUserUsergroup Add(AclUserUsergroup request);
-        AclUserUsergroup Edit(ulong id, AclUserUsergroup request);
-        AclUserUsergroup FindById(ulong id);
-        AclUserUsergroup DeleteById(ulong id);
+        /// <inheritdoc/>
+        List<AclUserUsergroup>? All();
+        /// <inheritdoc/>
+        AclUserUsergroup? Find(ulong id);
+        /// <inheritdoc/>
+        AclUserUsergroup? Add(AclUserUsergroup aclCompany);
+        /// <inheritdoc/>
+        AclUserUsergroup? Update(AclUserUsergroup aclCompany);
+        /// <inheritdoc/>
+        AclUserUsergroup? Delete(AclUserUsergroup aclCompany);
+        /// <inheritdoc/>
+        AclUserUsergroup? Delete(ulong id);
     }
 }

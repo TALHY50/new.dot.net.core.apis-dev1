@@ -3,12 +3,20 @@ using SharedLibrary.Interfaces;
 
 namespace ACL.Application.Interfaces.Repositories.V1
 {
+     /// <inheritdoc/>
     public interface IAclBranchRepository
     {
-        IEnumerable<AclBranch> All();
-        AclBranch GetById(ulong id);
-        AclBranch Add(AclBranch entity);
-        AclBranch Update(AclBranch entity);
+        /// <inheritdoc/>
+        IEnumerable<AclBranch>? All();
+        /// <inheritdoc/>
+        AclBranch? GetById(ulong id);
+        /// <inheritdoc/>
+        AclBranch? Add(AclBranch entity);
+        /// <inheritdoc/>
+        AclBranch? Update(AclBranch entity);
+        /// <inheritdoc/>
         bool Delete(AclBranch entity);
+        /// <inheritdoc/>
+        AclBranch? Delete(ulong id);
     }
 }

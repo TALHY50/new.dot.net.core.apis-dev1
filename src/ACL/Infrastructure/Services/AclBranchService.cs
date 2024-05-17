@@ -12,14 +12,14 @@ using SharedLibrary.Response.CustomStatusCode;
 
 namespace ACL.Infrastructure.Services
 {
-    public class AclBranchService : AclBranchRepository, IAclBranchService
+    public class AclBranchService : Repositories.V1.AclBranchRepository, IAclBranchService
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "Branch";
-        private IAclBranchRepository _repository;
+        private Application.Interfaces.Repositories.V1.IAclBranchRepository _repository;
 
-        public AclBranchService(ApplicationDbContext dbContext,IAclBranchRepository repository):base(dbContext)
+        public AclBranchService(ApplicationDbContext dbContext, Application.Interfaces.Repositories.V1.IAclBranchRepository repository):base(dbContext)
         {
             _repository = repository;
             AppAuth.SetAuthInfo();

@@ -11,24 +11,24 @@ using SharedLibrary.Services;
 
 namespace ACL.Infrastructure.Repositories.V1
 {
+    /// <inheritdoc/>
     public class AclBranchRepository : IAclBranchRepository
     {
         /// <inheritdoc/>
         protected readonly ApplicationDbContext _dbContext;
-        protected readonly IDistributedCache _distributedCache;
-
+         /// <inheritdoc/>
         public AclBranchRepository(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        AclBranch IAclBranchRepository.Add(AclBranch entity)
+        AclBranch? AclBranchRepository.Add(AclBranch entity)
         {
             try
             {
                 _dbContext.Add(entity);
                 _dbContext.SaveChanges();
-                _dbSet.Entry(entity).ReloadAsync();
+                _dbContext.Entry(entity).ReloadAsync();
                 return entity;
             }
             catch (Exception ex)
@@ -37,7 +37,7 @@ namespace ACL.Infrastructure.Repositories.V1
             }
         }
 
-        IEnumerable<AclBranch> IAclBranchRepository.All()
+        IEnumerable<AclBranch>? AclBranchRepository.All()
         {
             try
             {
@@ -49,7 +49,7 @@ namespace ACL.Infrastructure.Repositories.V1
             }
         }
 
-        bool IAclBranchRepository.Delete(AclBranch entity)
+        bool AclBranchRepository.Delete(AclBranch entity)
         {
             try
             {
@@ -63,7 +63,7 @@ namespace ACL.Infrastructure.Repositories.V1
             }
         }
 
-        AclBranch IAclBranchRepository.GetById(ulong id)
+        AclBranch? AclBranchRepository.GetById(ulong id)
         {
             try
             {
@@ -76,7 +76,7 @@ namespace ACL.Infrastructure.Repositories.V1
             }
         }
 
-        AclBranch IAclBranchRepository.Update(AclBranch entity)
+        AclBranch? AclBranchRepository.Update(AclBranch entity)
         {
             try
             {
