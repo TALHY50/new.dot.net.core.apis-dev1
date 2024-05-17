@@ -231,13 +231,13 @@ builder.Host.UseSerilog((hostingContext, loggerConfiguration) =>
 builder.Services.AddSerilog();
 
 
-
+builder.Services.AddScoped<IAclBranchService,AclBranchService>();
 
 
 builder.Services.AddScoped<IAclUserRepository, AclUserRepository>();
-builder.Services.AddScoped<IAclBranchRepository, IAclBranchRepository>();
-builder.Services.AddScoped<IAclBranchService,AclBranchService>();
-builder.Services.AddScoped<IAclCompanyModuleRepository, IAclCompanyModuleRepository>();
+builder.Services.AddScoped<IAclBranchRepository, AclBranchRepository>();
+
+builder.Services.AddScoped<IAclCompanyModuleRepository, AclCompanyModuleRepository>();
 builder.Services.AddScoped<IAclCompanyRepository, AclCompanyRepository>();
 builder.Services.AddScoped<IAclCountryRepository, AclCountryRepository>();
 builder.Services.AddScoped<IAclModuleRepository, AclModuleRepository>();
