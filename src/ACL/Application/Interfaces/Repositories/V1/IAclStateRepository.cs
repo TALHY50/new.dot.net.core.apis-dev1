@@ -11,5 +11,7 @@ namespace ACL.Application.Interfaces.Repositories.V1
         Task<AclResponse> FindById(ulong id);
         Task<AclResponse> DeleteById(ulong id);
 
+        bool ExistByName(ulong id, string name);
+
     }
 }

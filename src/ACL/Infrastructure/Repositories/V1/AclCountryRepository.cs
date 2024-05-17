@@ -123,6 +123,16 @@ namespace ACL.Infrastructure.Repositories.V1
             return this.aclResponse;
 
         }
+        public bool ExistById(ulong id)
+        {
+            bool exist = false;
+            var aclCountry = _dbContext.AclCountries.Find(id);
+            if(aclCountry!= null)
+            {
+                exist = true;
+            }
+            return exist;
+        }
         private AclCountry PrepareInputData(AclCountryRequest request, AclCountry aclCountry = null)
         {
             if (aclCountry == null)

@@ -13,5 +13,6 @@ namespace ACL.Application.Interfaces.Repositories.V1
         AclResponse Edit(ulong id, AclCountryRequest request);
         AclResponse FindById(ulong id);
         AclResponse DeleteById(ulong id);
+        bool ExistById(ulong id);
     }
 }

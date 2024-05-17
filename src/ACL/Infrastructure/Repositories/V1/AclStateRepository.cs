@@ -124,6 +124,13 @@ namespace ACL.Infrastructure.Repositories.V1
 
         }
 
+        public bool ExistByName(ulong id, string name)
+        {
+            if(id > 0) {
+                return _dbContext.AclStates.Any(x => x.Name.ToLower() == name.ToLower() && x.Id != id);
+            }
+           return  _dbContext.AclStates.Any(x => x.Name.ToLower() == name.ToLower());
+        }
         private AclState PrepareInputData(AclStateRequest request, AclState aclState = null)
         {
             if (aclState == null)
