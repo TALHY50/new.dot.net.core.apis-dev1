@@ -29,11 +29,11 @@ namespace ACL.Infrastructure.Repositories.V1
         private bool is_user_type_created_by_company = false;
         private IConfiguration _config;
         private readonly IDistributedCache _distributedCache;
-        private readonly ICryptographyService cryptographyService;
+        private readonly ICryptographyService _cryptographyService;
         private readonly IAclUserUserGroupRepository AclUserUserGroupRepository;
 
         private readonly ApplicationDbContext _dbcontext;
-        public AclUserRepository(ApplicationDbContext dbcontext, IConfiguration config, IDistributedCache distributedCache) 
+        public AclUserRepository(ApplicationDbContext dbcontext, IConfiguration config, IDistributedCache distributedCache, ICryptographyService cryptographyService)
         {
             AppAuth.SetAuthInfo();
             this._config = config;
@@ -43,6 +43,7 @@ namespace ACL.Infrastructure.Repositories.V1
             this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
             this._distributedCache = distributedCache;
             _dbcontext = dbcontext;
+            _cryptographyService = cryptographyService;
         }
 
         public async Task<AclResponse> GetAll()
@@ -78,10 +79,9 @@ namespace ACL.Infrastructure.Repositories.V1
                 await _dbcontext.Entry(aclUser).ReloadAsync();
 
                 //  need to insert user user group
-                AclUserUsergroup[]? userGroupPrepareData = PrepareDataForUserUserGroups(request, aclUser.Id);
-                await _dbcontext.AclUserUsergroups.AddRangeAsync(userGroupPrepareData);
+                AclUserUsergroup[] aclUserUsergroups = PrepareDataForUserUserGroups(request, aclUser.Id);
+                await _dbcontext.AclUserUsergroups.AddRangeAsync(aclUserUsergroups);
                 await _dbcontext.SaveChangesAsync();
-                await _dbcontext.Entry(userGroupPrepareData).ReloadAsync();
                 aclUser.Password = "******************"; //request.Password
                 aclUser.Salt = "******************";
                 aclUser.Claims = null;
@@ -107,22 +107,19 @@ namespace ACL.Infrastructure.Repositories.V1
             try
             {
                 AclUser aclUser = await _dbcontext.AclUsers.FindAsync(id);
-
                 if (aclUser != null)
                 {
                     aclUser = PrepareInputData(request, aclUser);
                     _dbcontext.AclUsers.Update(aclUser);
                     _dbcontext.SaveChanges();
                     await _dbcontext.Entry(aclUser).ReloadAsync();
-
                     // first delete all user user group
-                    AclUserUsergroup[]? UserUserGroups = _dbcontext.AclUserUsergroups.Where(x => x.UserId == id).ToArray();
-                    _dbcontext.AclUserUsergroups.RemoveRange(UserUserGroups);
+                    AclUserUsergroup[] userUserGroups = _dbcontext.AclUserUsergroups.Where(x => x.UserId == id).ToArray();
+                    _dbcontext.AclUserUsergroups.RemoveRange(userUserGroups);
                     _dbcontext.SaveChanges();
-
                     // need to insert user user group
-                    AclUserUsergroup[]? UserGroupPrepareData = PrepareDataForUserUserGroups(request, aclUser.Id);
-                    _dbcontext.AclUserUsergroups.AddRange(UserGroupPrepareData);
+                    AclUserUsergroup[]? userGroupPrepareData = PrepareDataForUserUserGroups(request, aclUser.Id);
+                    _dbcontext.AclUserUsergroups.AddRange(userGroupPrepareData);
                     _dbcontext.SaveChanges();
                     aclUser.Password = "******************"; //request.Password
                     aclUser.Salt = "******************";
@@ -146,7 +143,6 @@ namespace ACL.Infrastructure.Repositories.V1
             }
             this.aclResponse.Timestamp = DateTime.Now;
             return this.aclResponse;
-
         }
 
 
@@ -155,13 +151,18 @@ namespace ACL.Infrastructure.Repositories.V1
             try
             {
                 AclUser? aclUser = await _dbcontext.AclUsers.FindAsync(id);
-                this.aclResponse.Data = aclUser;
-                this.aclResponse.Message = this.messageResponse.fetchMessage;
                 if (aclUser == null)
                 {
                     this.aclResponse.Message = this.messageResponse.notFoundMessage;
                 }
-
+                else
+                {
+                    aclUser.Password = "***********";
+                    aclUser.Salt = "***********";
+                    aclUser.Claims = null;
+                    this.aclResponse.Message = this.messageResponse.fetchMessage;
+                    this.aclResponse.Data = aclUser;
+                }
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             catch (Exception ex)
@@ -177,7 +178,6 @@ namespace ACL.Infrastructure.Repositories.V1
         public async Task<AclUser?> FindByEmail(string email)
         {
             return await _dbcontext.AclUsers.FirstOrDefaultAsync(m => m.Email == email);
-
         }
 
         public async Task<AclUser?> FindByIdAsync(ulong id)
@@ -189,18 +189,18 @@ namespace ACL.Infrastructure.Repositories.V1
         public async Task<AclResponse> DeleteById(ulong id)
         {
             AclUser? aclUser = await _dbcontext.AclUsers.FindAsync(id);
-
             if (aclUser != null)
             {
                 _dbcontext.AclUsers.Remove(aclUser);
                 _dbcontext.SaveChanges();
                 await _dbcontext.Entry(aclUser).ReloadAsync();
-
                 // delete all item for user user group
-                var UserUserGroups = _dbcontext.AclUserUsergroups.Where(x => x.UserId == id).ToArray();
-                _dbcontext.RemoveRange(UserUserGroups);
-                _dbcontext.SaveChanges();
-                await _dbcontext.Entry(UserUserGroups).ReloadAsync();
+                AclUserUsergroup[] userUserGroups = _dbcontext.AclUserUsergroups.Where(x => x.UserId == id).ToArray();
+                if (userUserGroups.Length > 0)
+                {
+                    _dbcontext.RemoveRange(userUserGroups);
+                    _dbcontext.SaveChanges();
+                }
 
                 this.aclResponse.Message = this.messageResponse.deleteMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
@@ -210,7 +210,7 @@ namespace ACL.Infrastructure.Repositories.V1
 
         public AclUser PrepareInputData(AclUserRequest request, AclUser AclUser = null)
         {
-            var salt = cryptographyService.GenerateSalt();
+            var salt = _cryptographyService.GenerateSalt();
             if (AclUser == null)
             {
                 return new AclUser
@@ -218,7 +218,7 @@ namespace ACL.Infrastructure.Repositories.V1
                     FirstName = request.FirstName,
                     LastName = request.LastName,
                     Email = request.Email,
-                    Password = cryptographyService.HashPassword(request.Password, salt),
+                    Password = _cryptographyService.HashPassword(request.Password, salt),
                     Avatar = request.Avatar,
                     Dob = request.DOB,
                     Gender = request.Gender,
@@ -243,7 +243,7 @@ namespace ACL.Infrastructure.Repositories.V1
                 AclUser.FirstName = request.FirstName;
                 AclUser.LastName = request.LastName;
                 AclUser.Email = request.Email;
-                AclUser.Password = cryptographyService.HashPassword(request.Password, AclUser.Salt ?? salt);
+                AclUser.Password = _cryptographyService.HashPassword(request.Password, AclUser.Salt ?? salt);
                 AclUser.Avatar = request.Avatar;
                 AclUser.Dob = request.DOB;
                 AclUser.Gender = request.Gender;
