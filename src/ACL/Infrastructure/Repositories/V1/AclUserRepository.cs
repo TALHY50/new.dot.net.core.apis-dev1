@@ -11,6 +11,7 @@ using ACL.Infrastructure.Database;
 using ACL.Infrastructure.Utilities;
 using ACL.UseCases.Enums;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
@@ -71,76 +72,91 @@ namespace ACL.Infrastructure.Repositories.V1
         }
         public async Task<AclResponse> AddUser(AclUserRequest request)
         {
-            try
+
+            var strategy = _dbcontext.Database.CreateExecutionStrategy();
+
+            await strategy.ExecuteAsync(async () =>
             {
-                AclUser? aclUser = PrepareInputData(request);
-                await _dbcontext.AclUsers.AddAsync(aclUser);
-                await _dbcontext.SaveChangesAsync();
-                await _dbcontext.Entry(aclUser).ReloadAsync();
-
-                //  need to insert user user group
-                AclUserUsergroup[] aclUserUsergroups = PrepareDataForUserUserGroups(request, aclUser.Id);
-                await _dbcontext.AclUserUsergroups.AddRangeAsync(aclUserUsergroups);
-                await _dbcontext.SaveChangesAsync();
-                aclUser.Password = "******************"; //request.Password
-                aclUser.Salt = "******************";
-                aclUser.Claims = null;
-                aclUser.RefreshToken = null;
-                this.aclResponse.Data = aclUser;
-                this.aclResponse.Message = this.messageResponse.createMessage;
-                this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
-
-            }
-            catch (Exception ex)
-            {
-                this.aclResponse.Message = ex.Message;
-                this.aclResponse.StatusCode = AppStatusCode.FAIL;
-            }
-
+                using (IDbContextTransaction transaction = _dbcontext.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        AclUser? aclUser = PrepareInputData(request);
+                        await _dbcontext.AclUsers.AddAsync(aclUser);
+                        await _dbcontext.SaveChangesAsync();
+                        await _dbcontext.Entry(aclUser).ReloadAsync();
+                        //  need to insert user user group
+                        AclUserUsergroup[] aclUserUsergroups = PrepareDataForUserUserGroups(request, aclUser.Id);
+                        await _dbcontext.AclUserUsergroups.AddRangeAsync(aclUserUsergroups);
+                        await _dbcontext.SaveChangesAsync();
+                        aclUser.Password = "******************"; //request.Password
+                        aclUser.Salt = "******************";
+                        aclUser.Claims = null;
+                        aclUser.RefreshToken = null;
+                        this.aclResponse.Data = aclUser;
+                        this.aclResponse.Message = this.messageResponse.createMessage;
+                        this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                        transaction.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        this.aclResponse.Message = ex.Message;
+                        this.aclResponse.StatusCode = AppStatusCode.FAIL;
+                    }
+                }
+            });
             this.aclResponse.Timestamp = DateTime.Now;
             return this.aclResponse;
         }
 
-
         public async Task<AclResponse> Edit(ulong id, AclUserRequest request)
         {
-            try
+            var strategy = _dbcontext.Database.CreateExecutionStrategy();
+            await strategy.ExecuteAsync(async () =>
             {
-                AclUser aclUser = await _dbcontext.AclUsers.FindAsync(id);
-                if (aclUser != null)
+                using (IDbContextTransaction transaction = _dbcontext.Database.BeginTransaction())
                 {
-                    aclUser = PrepareInputData(request, aclUser);
-                    _dbcontext.AclUsers.Update(aclUser);
-                    _dbcontext.SaveChanges();
-                    await _dbcontext.Entry(aclUser).ReloadAsync();
-                    // first delete all user user group
-                    AclUserUsergroup[] userUserGroups = _dbcontext.AclUserUsergroups.Where(x => x.UserId == id).ToArray();
-                    _dbcontext.AclUserUsergroups.RemoveRange(userUserGroups);
-                    _dbcontext.SaveChanges();
-                    // need to insert user user group
-                    AclUserUsergroup[]? userGroupPrepareData = PrepareDataForUserUserGroups(request, aclUser.Id);
-                    _dbcontext.AclUserUsergroups.AddRange(userGroupPrepareData);
-                    _dbcontext.SaveChanges();
-                    aclUser.Password = "******************"; //request.Password
-                    aclUser.Salt = "******************";
-                    aclUser.Claims = null;
-                    this.aclResponse.Data = aclUser;
-                    this.aclResponse.Message = this.messageResponse.editMessage;
-                    this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                    try
+                    {
+                        AclUser aclUser = await _dbcontext.AclUsers.FindAsync(id);
+                        if (aclUser != null)
+                        {
+                            aclUser = PrepareInputData(request, aclUser);
+                            _dbcontext.AclUsers.Update(aclUser);
+                            _dbcontext.SaveChanges();
+                            await _dbcontext.Entry(aclUser).ReloadAsync();
+                            // first delete all user user group
+                            AclUserUsergroup[] userUserGroups = _dbcontext.AclUserUsergroups.Where(x => x.UserId == id).ToArray();
+                            _dbcontext.AclUserUsergroups.RemoveRange(userUserGroups);
+                            _dbcontext.SaveChanges();
+                            // need to insert user user group
+                            AclUserUsergroup[]? userGroupPrepareData = PrepareDataForUserUserGroups(request, aclUser.Id);
+                            _dbcontext.AclUserUsergroups.AddRange(userGroupPrepareData);
+                            _dbcontext.SaveChanges();
+                            aclUser.Password = "******************"; //request.Password
+                            aclUser.Salt = "******************";
+                            aclUser.Claims = null;
+                            this.aclResponse.Data = aclUser;
+                            this.aclResponse.Message = this.messageResponse.editMessage;
+                            this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                            transaction.Commit();
+                        }
+                        else
+                        {
+                            transaction.Rollback();
+                            this.aclResponse.Message = this.messageResponse.notFoundMessage;
+                            this.aclResponse.StatusCode = AppStatusCode.FAIL;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        this.aclResponse.Message = ex.Message;
+                        this.aclResponse.StatusCode = AppStatusCode.FAIL;
+                    }
                 }
-                else
-                {
-                    this.aclResponse.Message = this.messageResponse.notFoundMessage;
-                    this.aclResponse.StatusCode = AppStatusCode.FAIL;
-                    return this.aclResponse;
-                }
-
-            }
-            catch (Exception ex)
-            {
-                this.aclResponse.Message = ex.Message;
-                this.aclResponse.StatusCode = AppStatusCode.FAIL;
-            }
+            });
             this.aclResponse.Timestamp = DateTime.Now;
             return this.aclResponse;
         }
@@ -170,6 +186,7 @@ namespace ACL.Infrastructure.Repositories.V1
                 this.aclResponse.Message = ex.Message;
                 this.aclResponse.StatusCode = AppStatusCode.FAIL;
             }
+
             this.aclResponse.Timestamp = DateTime.Now;
             return this.aclResponse;
 
@@ -188,6 +205,9 @@ namespace ACL.Infrastructure.Repositories.V1
 
         public async Task<AclResponse> DeleteById(ulong id)
         {
+
+
+
             AclUser? aclUser = await _dbcontext.AclUsers.FindAsync(id);
             if (aclUser != null)
             {
@@ -205,6 +225,8 @@ namespace ACL.Infrastructure.Repositories.V1
                 this.aclResponse.Message = this.messageResponse.deleteMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
+
+
             return this.aclResponse;
         }
 
