@@ -1,4 +1,5 @@
 ﻿
+using System.Xml.Linq;
 using ACL.Application.Interfaces.Repositories.V1;
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response;
@@ -121,7 +122,23 @@ namespace ACL.Infrastructure.Repositories.V1
             return this.aclResponse;
 
         }
+        public bool ExistById(ulong? id,ulong value)
+        {
+            if (id > 0)
+            {
+                return _dbContext.AclSubModules.Any(x => x.Id == value && x.Id != id);
+            }
+            return _dbContext.AclSubModules.Any(x => x.Id == value);
+        }
 
+        public bool ExistByName(ulong id, string name)
+        {
+            if (id > 0)
+            {
+                return _dbContext.AclSubModules.Any(x => x.Name.ToLower() == name.ToLower() && x.Id != id);
+            }
+            return _dbContext.AclSubModules.Any(x => x.Name.ToLower() == name.ToLower());
+        }
         private AclSubModule PrepareInputData(AclSubModuleRequest request, AclSubModule aclSubModule = null)
         {
             if (aclSubModule == null)

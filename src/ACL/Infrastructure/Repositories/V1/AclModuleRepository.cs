@@ -7,6 +7,7 @@ using ACL.Core.Models;
 using ACL.Infrastructure.Database;
 using ACL.Infrastructure.Repositories.GenericRepository;
 using ACL.Infrastructure.Utilities;
+using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Response.CustomStatusCode;
 using SharedLibrary.Services;
 
@@ -149,6 +150,23 @@ namespace ACL.Infrastructure.Repositories.V1
             return this.aclResponse;
         }
 
+        public bool ExistById(ulong? id, ulong value)
+        {
+            if (id > 0)
+            {
+                return _dbcontext.AclModules.Any(x => x.Id == value && x.Id != id);
+            }
+            return _dbcontext.AclModules.Any(x => x.Id == value);
+        }
+
+        public bool ExistByName(ulong id, string name)
+        {
+            if (id > 0)
+            {
+                return _dbcontext.AclModules.Any(x => x.Name.ToLower() == name.ToLower() && x.Id != id);
+            }
+            return _dbcontext.AclModules.Any(x => x.Name.ToLower() == name.ToLower());
+        }
         public AclModule PrepareInputData(AclModuleRequest request, AclModule _aclModule = null)
         {
             AclModule aclModule = new AclModule();
