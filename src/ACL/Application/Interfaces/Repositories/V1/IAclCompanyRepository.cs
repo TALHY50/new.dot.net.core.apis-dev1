@@ -13,9 +13,9 @@ namespace ACL.Application.Interfaces.Repositories.V1
         /// <inheritdoc/>
         Task<AclResponse> AddAclCompany(AclCompanyCreateRequest module);
         /// <inheritdoc/>
-        Task<AclResponse> EditAclCompany(ulong Id, AclCompanyEditRequest module);
+        AclResponse EditAclCompany(ulong Id, AclCompanyEditRequest module);
         /// <inheritdoc/>
-        Task<AclResponse> FindById(ulong id);
+        AclResponse FindById(ulong id);
         /// <inheritdoc/>
         List<AclCompany>? All();
         /// <inheritdoc/>

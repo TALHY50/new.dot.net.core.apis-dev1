@@ -8,15 +8,15 @@ namespace ACL.Application.Interfaces.Repositories.V1
     public interface IAclModuleRepository
     {
         /// <inheritdoc/>
-        Task<AclResponse> GetAll();
+        AclResponse GetAll();
         /// <inheritdoc/>
-        Task<AclResponse> FindById(ulong id);
+        AclResponse FindById(ulong id);
         /// <inheritdoc/>
-        Task<AclResponse> AddAclModule(AclModuleRequest request);
+        AclResponse AddAclModule(AclModuleRequest request);
         /// <inheritdoc/>
-        Task<AclResponse> EditAclModule(ulong Id, AclModuleRequest request);
+        AclResponse EditAclModule(ulong Id, AclModuleRequest request);
         /// <inheritdoc/>
-        Task<AclResponse> DeleteModule(ulong id);
+        AclResponse DeleteModule(ulong id);
         /// <inheritdoc/>
         List<AclModule>? All();
         /// <inheritdoc/>

@@ -26,5 +26,11 @@ namespace ACL.Application.Interfaces.Repositories.V1
         AclRolePage? Delete(AclRolePage aclRolePage);
         /// <inheritdoc/>
         AclPageRoute? Delete(ulong id);
+        /// <inheritdoc/>
+        AclRolePage[]? AddAll(AclRolePage[] aclRolePages);
+        /// <inheritdoc/>
+        AclRolePage[]? DeleteAll(AclRolePage[] aclRolePages);
+        /// <inheritdoc/>
+        AclRolePage[]? DeleteAllByRoleId(ulong roleId);
     }
 }

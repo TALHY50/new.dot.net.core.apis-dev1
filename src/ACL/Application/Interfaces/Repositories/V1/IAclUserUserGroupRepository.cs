@@ -13,11 +13,11 @@ namespace ACL.Application.Interfaces.Repositories.V1
         /// <inheritdoc/>
         AclUserUsergroup? Find(ulong id);
         /// <inheritdoc/>
-        AclUserUsergroup? Add(AclUserUsergroup aclCompany);
+        AclUserUsergroup? Add(AclUserUsergroup acluseruserGroup);
         /// <inheritdoc/>
-        AclUserUsergroup? Update(AclUserUsergroup aclCompany);
+        AclUserUsergroup? Update(AclUserUsergroup acluseruserGroup);
         /// <inheritdoc/>
-        AclUserUsergroup? Delete(AclUserUsergroup aclCompany);
+        AclUserUsergroup? Delete(AclUserUsergroup acluseruserGroup);
         /// <inheritdoc/>
         AclUserUsergroup? Delete(ulong id);
     }

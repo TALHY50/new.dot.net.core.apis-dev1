@@ -9,6 +9,7 @@ using ACL.Core.Models;
 using ACL.Infrastructure.Database;
 using ACL.Infrastructure.Repositories.GenericRepository;
 using ACL.Infrastructure.Utilities;
+using Ardalis.Specification;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Response.CustomStatusCode;
 using SharedLibrary.Services;
@@ -78,10 +79,8 @@ namespace ACL.Infrastructure.Repositories.V1
             try
             {
                 AclCompany? aclCompany = PrepareInputData(request);
-                await _dbContext.AclCompanies.AddAsync(aclCompany);
-                await _dbContext.SaveChangesAsync();
-                await _dbContext.Entry(aclCompany).ReloadAsync();
-                if (aclCompany.Id != 0)
+                aclCompany = Add(aclCompany);
+                if (aclCompany != null && aclCompany.Id != 0)
                 {
                     AclUserGroupRequest userGroupRequest = new AclUserGroupRequest()
                     {
@@ -89,11 +88,8 @@ namespace ACL.Infrastructure.Repositories.V1
                         Status = 1
                     };
                     AclUserGroupRepository.SetCompanyId(aclCompany.Id);
-                    var userGroup = await AclUserGroupRepository.AddUserGroup(userGroupRequest);
-                    var CreatedUser = (AclUsergroup?)userGroup.Data;
-                    await _dbContext.SaveChangesAsync();
-                    _dbContext.Entry(userGroupRequest).Reload();
-
+                    var userGroup = AclUserGroupRepository.PrepareInputData(userGroupRequest);
+                     userGroup =  AclUserGroupRepository.Add(userGroup);
                     var salt = cryptographyService.GenerateSalt();
                     string[] nameArr = request.Name.Split(' ');
                     string fname = (nameArr.Length > 0) ? nameArr[0] : "";
@@ -116,13 +112,9 @@ namespace ACL.Infrastructure.Repositories.V1
 
                     AclUserRepository.SetCompanyId((uint)aclCompany.Id);
                     AclUserRepository.SetUserType(true);
-                    _dbContext.AclUsers.Add(user);
-                    _dbContext.SaveChanges();
-                    _dbContext.Entry(user).Reload();
-                    var userusergroup = PrepareDataForUserUserGroups(CreatedUser.Id, user.Id);
+                    var addeduser = AclUserRepository.Add(user);
+                    var userusergroup = PrepareDataForUserUserGroups(userGroup?.Id, addeduser?.Id);
                     AclUserUserGroupRepository.Add(userusergroup);
-                    await _dbContext.SaveChangesAsync();
-
                     AclRole role = new AclRole()
                     {
                         Name = aclCompany.Name,
@@ -134,22 +126,17 @@ namespace ACL.Infrastructure.Repositories.V1
                         UpdatedAt = DateTime.Now,
                         Status = 1
                     };
-                    //var roleAdd = await AclRoleRepository.Add(role);
-                    var roleAdd = _dbContext.AclRoles.Add(role);
-                    _dbContext.SaveChanges();
-                    _dbContext.Entry(role).Reload();
+                    var roleAdd = AclRoleRepository.Add(role);
 
                     AclUsergroupRole userGroupRole = new AclUsergroupRole()
                     {
                         UsergroupId = aclCompany.Id,
-                        RoleId = role.Id,
+                        RoleId = (roleAdd?.Id) ?? 0,
                         CompanyId = aclCompany.Id,
                         CreatedAt = DateTime.UtcNow,
                         UpdatedAt = DateTime.UtcNow
                     };
-                    var createdUserGroupRole = _dbContext.AclUsergroupRoles.Add(userGroupRole);
-                    _dbContext.SaveChanges();
-                    _dbContext.Entry(userGroupRole).Reload();
+                    var createdUserGroupRole = AclUserGroupRoleRepository.Add(userGroupRole);
                     List<AclPage> aclPagesByModuleId = await _dbContext.AclPages.Where(x => x.ModuleId == ulong.Parse(this._config["S_ADMIN_DEFAULT_MODULE_ID"])).ToListAsync();
                     List<ulong> pageIds = aclPagesByModuleId.Select(page => page.Id).ToList();
                     List<AclRolePage> aclRolePages = pageIds.Select(pageId => new AclRolePage
@@ -159,8 +146,7 @@ namespace ACL.Infrastructure.Repositories.V1
                         CreatedAt = DateTime.UtcNow,
                         UpdatedAt = DateTime.UtcNow
                     }).ToList();
-                    _dbContext.AclRolePages.AddRange(aclRolePages.ToArray());
-                    _dbContext.SaveChanges();
+                    AclRolePageRepository.AddAll(aclRolePages.ToArray());
                 }
                 this.aclResponse.Data = aclCompany;
                 this.aclResponse.Message = aclCompany != null ? this.messageResponse.createMessage : this.messageResponse.notFoundMessage;
@@ -175,15 +161,13 @@ namespace ACL.Infrastructure.Repositories.V1
             return this.aclResponse;
         }
         /// <inheritdoc/>
-        public async Task<AclResponse> EditAclCompany(ulong Id, AclCompanyEditRequest request)
+        public AclResponse EditAclCompany(ulong Id, AclCompanyEditRequest request)
         {
             try
             {
-                AclCompany? _aclCompany = await _dbContext.AclCompanies.FindAsync(Id);
+                AclCompany? _aclCompany = Find(Id);
                 _aclCompany = PrepareInputData(null, request, _aclCompany);
-                _dbContext.AclCompanies.Update(_aclCompany);
-                await _dbContext.SaveChangesAsync();
-                await _dbContext.Entry(_aclCompany).ReloadAsync();
+                _aclCompany = Update(_aclCompany);
                 this.aclResponse.Data = _aclCompany;
                 this.aclResponse.Message = _aclCompany != null ? this.messageResponse.editMessage : this.messageResponse.notFoundMessage;
                 this.aclResponse.StatusCode = _aclCompany != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
@@ -197,13 +181,11 @@ namespace ACL.Infrastructure.Repositories.V1
             return this.aclResponse;
         }
         /// <inheritdoc/>
-        public async Task<AclResponse> FindById(ulong id)
+        public AclResponse FindById(ulong id)
         {
-            var aclResponse = new AclResponse();
-
             try
             {
-                AclCompany? aclCompany = await _dbContext.AclCompanies.FindAsync(id);
+                AclCompany? aclCompany = Find(id);
                 aclResponse.Data = aclCompany;
                 aclResponse.Message = aclCompany != null ? this.messageResponse.fetchMessage : this.messageResponse.notFoundMessage;
                 aclResponse.StatusCode = aclCompany != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
@@ -221,7 +203,7 @@ namespace ACL.Infrastructure.Repositories.V1
         public async Task<AclResponse> DeleteCompany(ulong id)
         {
 
-            AclCompany? aclCompany = await _dbContext.AclCompanies.FindAsync(id);
+            AclCompany? aclCompany = Find(id);
 
             if (aclCompany != null)
             {
@@ -297,14 +279,103 @@ namespace ACL.Infrastructure.Repositories.V1
         }
 
         /// <inheritdoc/>
-        public AclUserUsergroup PrepareDataForUserUserGroups(ulong usergroup, ulong user_id)
+        public AclUserUsergroup PrepareDataForUserUserGroups(ulong? usergroup, ulong? user_id)
         {
             AclUserUsergroup aclUserUserGroup = new AclUserUsergroup();
-            aclUserUserGroup.UserId = user_id;
-            aclUserUserGroup.UsergroupId = usergroup;
+            aclUserUserGroup.UserId = user_id??0;
+            aclUserUserGroup.UsergroupId = usergroup ?? 0;
             aclUserUserGroup.CreatedAt = DateTime.Now;
             aclUserUserGroup.UpdatedAt = DateTime.Now;
             return aclUserUserGroup;
         }
+        /// <inheritdoc/>
+        public List<AclCompany>? All()
+        {
+            try
+            {
+                return _dbContext.AclCompanies.ToList();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+        }
+        /// <inheritdoc/>
+        public AclCompany? Find(ulong id)
+        {
+            try
+            {
+                return _dbContext.AclCompanies.Find(id);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+        }
+        /// <inheritdoc/>
+        public AclCompany? Add(AclCompany aclCompany)
+        {
+            try
+            {
+                _dbContext.AclCompanies.Add(aclCompany);
+                _dbContext.SaveChanges();
+                _dbContext.Entry(aclCompany).ReloadAsync();
+                return aclCompany;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+        }
+        /// <inheritdoc/>
+        public AclCompany? Update(AclCompany aclCompany)
+        {
+            try
+            {
+                _dbContext.AclCompanies.Update(aclCompany);
+                _dbContext.SaveChanges();
+                _dbContext.Entry(aclCompany).ReloadAsync();
+                return aclCompany;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        /// <inheritdoc/>
+        public AclCompany? Delete(AclCompany aclCompany)
+        {
+            try
+            {
+                _dbContext.AclCompanies.Remove(aclCompany);
+                _dbContext.SaveChangesAsync();
+                return aclCompany;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+        }
+        /// <inheritdoc/>
+        public AclCompany? Delete(ulong id)
+        {
+            try
+            {
+                var aclCompany = Find(id);
+                _dbContext.AclCompanies.Remove(aclCompany);
+                _dbContext.SaveChangesAsync();
+                return aclCompany;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+        }
+
     }
 }

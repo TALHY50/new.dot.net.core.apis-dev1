@@ -12,13 +12,17 @@ using SharedLibrary.Response.CustomStatusCode;
 
 namespace ACL.Infrastructure.Services
 {
+    /// <inheritdoc/>
     public class AclBranchService : Repositories.V1.AclBranchRepository, IAclBranchService
     {
+        /// <inheritdoc/>
         public AclResponse aclResponse;
+        /// <inheritdoc/>
         public MessageResponse messageResponse;
         private string modelName = "Branch";
         private Application.Interfaces.Repositories.V1.IAclBranchRepository _repository;
 
+        /// <inheritdoc/>
         public AclBranchService(ApplicationDbContext dbContext, Application.Interfaces.Repositories.V1.IAclBranchRepository repository):base(dbContext)
         {
             _repository = repository;
@@ -27,7 +31,8 @@ namespace ACL.Infrastructure.Services
             this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
         }
 
-        public async Task<AclResponse> Get()
+        /// <inheritdoc/>
+        public AclResponse Get()
         {
             var aclBranches =  _repository.All();
 
@@ -38,7 +43,8 @@ namespace ACL.Infrastructure.Services
 
             return this.aclResponse;
         }
-        public async Task<AclResponse> Add(AclBranchRequest request)
+        /// <inheritdoc/>
+        public AclResponse Add(AclBranchRequest request)
         {
             try
             {
@@ -57,7 +63,9 @@ namespace ACL.Infrastructure.Services
             this.aclResponse.Timestamp = DateTime.Now;
             return this.aclResponse;
         }
-        public async Task<AclResponse> Edit(ulong id, AclBranchRequest request)
+
+        /// <inheritdoc/>
+        public AclResponse Edit(ulong id, AclBranchRequest request)
         {
             try
             {
@@ -76,8 +84,8 @@ namespace ACL.Infrastructure.Services
             this.aclResponse.Timestamp = DateTime.Now;
             return this.aclResponse;
         }
-
-        public async Task<AclResponse> Find(ulong id)
+        /// <inheritdoc/>
+        public AclResponse Find(ulong id)
         {
             try
             {
@@ -97,9 +105,10 @@ namespace ACL.Infrastructure.Services
             return this.aclResponse;
         }
 
-        public async Task<AclResponse> Delete(ulong id)
+        /// <inheritdoc/>
+        public new AclResponse Delete(ulong id)
         {
-            var aclCompanyModule = _repository.GetById(id);
+            var aclCompanyModule = _repository.Delete(id);
             this.aclResponse.StatusCode = aclCompanyModule != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
             this.aclResponse.Message = aclCompanyModule != null ? this.messageResponse.deleteMessage : this.messageResponse.notFoundMessage;
             this.aclResponse.Data = aclCompanyModule;

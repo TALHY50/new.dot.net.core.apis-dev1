@@ -16,54 +16,70 @@ namespace ACL.Infrastructure.Repositories.V1
     {
         /// <inheritdoc/>
         protected readonly ApplicationDbContext _dbContext;
-         /// <inheritdoc/>
+        /// <inheritdoc/>
         public AclBranchRepository(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
         }
-
-        AclBranch? AclBranchRepository.Add(AclBranch entity)
+        /// <inheritdoc/>
+        public AclBranch? Add(AclBranch entity)
         {
             try
             {
-                _dbContext.Add(entity);
+                _dbContext.AclBranches.Add(entity);
                 _dbContext.SaveChanges();
                 _dbContext.Entry(entity).ReloadAsync();
                 return entity;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }
         }
-
-        IEnumerable<AclBranch>? AclBranchRepository.All()
+        /// <inheritdoc/>
+        public IEnumerable<AclBranch>? All()
         {
             try
             {
                 return _dbContext.AclBranches.ToList();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }
         }
-
-        bool AclBranchRepository.Delete(AclBranch entity)
+        /// <inheritdoc/>
+        public bool Delete(AclBranch entity)
         {
             try
             {
                 _dbContext.AclBranches.Remove(entity);
-               _dbContext.SaveChangesAsync();
+                _dbContext.SaveChangesAsync();
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return false; 
+                return false;
             }
         }
+        /// <inheritdoc/>
+        public AclBranch? Delete(ulong id)
+        {
+            try
+            {
+                var delete = _dbContext.AclBranches.Find(id);
+                _dbContext.AclBranches.Remove(delete);
+                _dbContext.SaveChangesAsync();
+                return delete;
+            }
+            catch (Exception)
+            {
 
-        AclBranch? AclBranchRepository.GetById(ulong id)
+                return null;
+            }
+        }
+        /// <inheritdoc/>
+        public AclBranch? GetById(ulong id)
         {
             try
             {
@@ -75,8 +91,8 @@ namespace ACL.Infrastructure.Repositories.V1
                 return null;
             }
         }
-
-        AclBranch? AclBranchRepository.Update(AclBranch entity)
+        /// <inheritdoc/>
+        public AclBranch? Update(AclBranch entity)
         {
             try
             {
@@ -90,7 +106,7 @@ namespace ACL.Infrastructure.Repositories.V1
 
                 return null;
             }
-
         }
+
     }
 }

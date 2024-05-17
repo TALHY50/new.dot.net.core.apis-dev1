@@ -7,47 +7,50 @@ using ACL.Core.Models;
 using ACL.Infrastructure.Database;
 using ACL.Infrastructure.Repositories.GenericRepository;
 using ACL.Infrastructure.Utilities;
+using Ardalis.Specification;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Response.CustomStatusCode;
 using SharedLibrary.Services;
 
 namespace ACL.Infrastructure.Repositories.V1
 {
-    public class AclCountryRepository :  IAclCountryRepository
+    /// <inheritdoc/>
+    public class AclCountryRepository : IAclCountryRepository
     {
+        /// <inheritdoc/>
         public AclResponse aclResponse;
+        /// <inheritdoc/>
         public MessageResponse messageResponse;
         private string modelName = "Country";
         ApplicationDbContext _dbContext;
-        public AclCountryRepository(ApplicationDbContext dbContext) 
+        /// <inheritdoc/>
+        public AclCountryRepository(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
             this.aclResponse = new AclResponse();
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
             this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
         }
-
+        /// <inheritdoc/>
         public AclResponse GetAll()
         {
-            var aclRoles = _dbContext.AclCountries.ToList();
-            if (aclRoles.Any())
+            var aclCountry = All();
+            if (aclCountry.Any())
             {
                 this.aclResponse.Message = this.messageResponse.fetchMessage;
             }
-            this.aclResponse.Data = aclRoles;
+            this.aclResponse.Data = aclCountry;
             this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
 
             return this.aclResponse;
         }
+        /// <inheritdoc/>
         public AclResponse Add(AclCountryRequest request)
         {
             try
             {
                 var aclCountry = PrepareInputData(request);
-                _dbContext.AclCountries.Add(aclCountry);
-                _dbContext.SaveChanges();
-               _dbContext.Entry(aclCountry).Reload();
-                this.aclResponse.Data = aclCountry;
+                this.aclResponse.Data = Add(aclCountry);
                 this.aclResponse.Message = this.messageResponse.createMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
@@ -60,9 +63,10 @@ namespace ACL.Infrastructure.Repositories.V1
 
 
         }
+        /// <inheritdoc/>
         public AclResponse Edit(ulong id, AclCountryRequest request)
         {
-            var aclCountry = _dbContext.AclCountries.Find(id);
+            var aclCountry = Find(id);
             if (aclCountry == null)
             {
                 this.aclResponse.Message = this.messageResponse.notFoundMessage;
@@ -71,10 +75,7 @@ namespace ACL.Infrastructure.Repositories.V1
             try
             {
                 aclCountry = PrepareInputData(request, aclCountry);
-                 _dbContext.AclCountries.Add(aclCountry);
-                _dbContext.SaveChanges();
-               _dbContext.Entry(aclCountry).Reload();
-                this.aclResponse.Data = aclCountry;
+                this.aclResponse.Data = Update(aclCountry);
                 this.aclResponse.Message = this.messageResponse.editMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
@@ -86,11 +87,12 @@ namespace ACL.Infrastructure.Repositories.V1
             return this.aclResponse;
 
         }
+        /// <inheritdoc/>
         public AclResponse FindById(ulong id)
         {
             try
             {
-                var aclCountry = _dbContext.AclCountries.Find(id);
+                var aclCountry = Find(id);
                 this.aclResponse.Data = aclCountry;
                 this.aclResponse.Message = this.messageResponse.fetchMessage;
                 if (aclCountry == null)
@@ -108,21 +110,19 @@ namespace ACL.Infrastructure.Repositories.V1
             return this.aclResponse;
 
         }
+        /// <inheritdoc/>
         public AclResponse DeleteById(ulong id)
         {
-            var aclCountry = _dbContext.AclCountries.Find(id);
-
+            var aclCountry = Delete(id);
             if (aclCountry != null)
             {
-                _dbContext.AclCountries.Remove(aclCountry);
-                 _dbContext.SaveChanges();
+                this.aclResponse.Data = aclCountry;
                 this.aclResponse.Message = this.messageResponse.deleteMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
-
             return this.aclResponse;
-
         }
+        /// <inheritdoc/>
         public bool ExistById(ulong id)
         {
             bool exist = false;
@@ -133,6 +133,7 @@ namespace ACL.Infrastructure.Repositories.V1
             }
             return exist;
         }
+        /// <inheritdoc/>
         private AclCountry PrepareInputData(AclCountryRequest request, AclCountry aclCountry = null)
         {
             if (aclCountry == null)
@@ -147,10 +148,95 @@ namespace ACL.Infrastructure.Repositories.V1
             aclCountry.Status = request.Status;
             aclCountry.UpdatedById = AppAuth.GetAuthInfo().UserId;
             aclCountry.UpdatedAt = DateTime.Now;
-
             return aclCountry;
         }
+        /// <inheritdoc/>
+        public List<AclCountry>? All()
+        {
+            try
+            {
+                return _dbContext.AclCountries.ToList();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
 
+        }
+        /// <inheritdoc/>
+        public AclCountry? Find(ulong id)
+        {
+            try
+            {
+                return _dbContext.AclCountries.Find(id);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
 
+        }
+        /// <inheritdoc/>
+        public AclCountry? Add(AclCountry aclCountry)
+        {
+            try
+            {
+                _dbContext.AclCountries.Add(aclCountry);
+                _dbContext.SaveChanges();
+                _dbContext.Entry(aclCountry).ReloadAsync();
+                return aclCountry;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+        }
+        /// <inheritdoc/>
+        public AclCountry? Update(AclCountry aclCountry)
+        {
+            try
+            {
+                _dbContext.AclCountries.Update(aclCountry);
+                _dbContext.SaveChanges();
+                _dbContext.Entry(aclCountry).ReloadAsync();
+                return aclCountry;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        /// <inheritdoc/>
+        public AclCountry? Delete(AclCountry aclCountry)
+        {
+            try
+            {
+                _dbContext.AclCountries.Remove(aclCountry);
+                _dbContext.SaveChangesAsync();
+                return aclCountry;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+        }
+        /// <inheritdoc/>
+        public AclCountry? Delete(ulong id)
+        {
+            try
+            {
+                var delete = Find(id);
+                _dbContext.AclCountries.Remove(delete);
+                _dbContext.SaveChanges();
+                return delete;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+        }
     }
 }

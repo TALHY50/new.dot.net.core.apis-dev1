@@ -16,12 +16,16 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ACL.Infrastructure.Repositories.V1
 {
-    public class AclCompanyModuleRepository :IAclCompanyModuleRepository
+    /// <inheritdoc/>
+    public class AclCompanyModuleRepository : IAclCompanyModuleRepository
     {
+        /// <inheritdoc/>
         public AclResponse aclResponse;
+        /// <inheritdoc/>
         public MessageResponse messageResponse;
         private string modelName = "Company Module";
         private ApplicationDbContext _dbContext;
+        /// <inheritdoc/>
         public AclCompanyModuleRepository(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
@@ -29,7 +33,7 @@ namespace ACL.Infrastructure.Repositories.V1
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
             this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
         }
-
+        /// <inheritdoc/>
         public async Task<AclResponse> GetAll()
         {
             var aclCompanyModules = await _dbContext.AclCompanyModules.ToListAsync();
@@ -39,13 +43,14 @@ namespace ACL.Infrastructure.Repositories.V1
             this.aclResponse.Timestamp = DateTime.Now;
             return this.aclResponse;
         }
+        /// <inheritdoc/>
         public async Task<AclResponse> AddAclCompanyModule(AclCompanyModuleRequest request)
         {
             try
             {
                 var aclCompanyModule = PrepareInputData(request);
                 _dbContext.Add(aclCompanyModule);
-                _dbContext.SaveChanges();
+                await _dbContext.SaveChangesAsync();
                 _dbContext.Entry(aclCompanyModule).Reload();
                 this.aclResponse.Data = aclCompanyModule;
                 this.aclResponse.Message = this.messageResponse.createMessage;
@@ -59,6 +64,7 @@ namespace ACL.Infrastructure.Repositories.V1
             this.aclResponse.Timestamp = DateTime.Now;
             return this.aclResponse;
         }
+        /// <inheritdoc/>
         public async Task<AclResponse> EditAclCompanyModule(ulong Id, AclCompanyModuleRequest request)
         {
             try
@@ -69,7 +75,7 @@ namespace ACL.Infrastructure.Repositories.V1
                 if (_aclCompanyModule != null)
                 {
                     _aclCompanyModule = PrepareInputData(request, Id, _aclCompanyModule);
-                     _dbContext.AclCompanyModules.Update(_aclCompanyModule);
+                    _dbContext.AclCompanyModules.Update(_aclCompanyModule);
                     _dbContext.SaveChanges();
                     _dbContext.Entry(_aclCompanyModule).Reload();
                     this.aclResponse.Data = _aclCompanyModule;
@@ -82,6 +88,7 @@ namespace ACL.Infrastructure.Repositories.V1
             this.aclResponse.Timestamp = DateTime.Now;
             return this.aclResponse;
         }
+        /// <inheritdoc/>
         public async Task<AclResponse> FindById(ulong id)
         {
             try
@@ -101,6 +108,7 @@ namespace ACL.Infrastructure.Repositories.V1
             }
             return aclResponse;
         }
+        /// <inheritdoc/>
         public async Task<AclResponse> DeleteCompanyModule(ulong id)
         {
             var aclCompanyModule = await _dbContext.AclCompanyModules.FindAsync(id);
@@ -109,12 +117,12 @@ namespace ACL.Infrastructure.Repositories.V1
             this.aclResponse.Data = aclCompanyModule;
             if (aclCompanyModule != null)
             {
-                 _dbContext.AclCompanyModules.Remove(aclCompanyModule);
+                _dbContext.AclCompanyModules.Remove(aclCompanyModule);
                 _dbContext.SaveChanges();
             }
             return this.aclResponse;
         }
-
+        /// <inheritdoc/>
         public bool IsValidForCreateOrUpdate(ulong companyId, ulong moduleId, ulong id = 0)
         {
             if (id == 0)
@@ -128,7 +136,7 @@ namespace ACL.Infrastructure.Repositories.V1
                .Any(x => x.CompanyId == companyId && x.ModuleId == moduleId && x.Id != id) && _dbContext.AclCompanies.Any(x => x.Id == companyId) && _dbContext.AclModules.Any(x => x.Id == moduleId);
             }
         }
-
+        /// <inheritdoc/>
         public AclCompanyModule PrepareInputData(AclCompanyModuleRequest request, ulong Id = 0, AclCompanyModule _aclCompanyModule = null)
         {
             bool valid = IsValidForCreateOrUpdate(request.CompanyId, request.ModuleId);
@@ -152,6 +160,96 @@ namespace ACL.Infrastructure.Repositories.V1
             {
                 throw new InvalidOperationException("Not valid data!");
             }
+        }
+        /// <inheritdoc/>
+        public List<AclCompany>? All()
+        {
+            try
+            {
+                return _dbContext.AclCompanies.ToList();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+        }
+        /// <inheritdoc/>
+        public AclCompanyModule? Find(ulong id)
+        {
+            try
+            {
+                return _dbContext.AclCompanyModules.Find(id);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+        }
+        /// <inheritdoc/>
+        public AclCompanyModule? Add(AclCompanyModule aclCompanyModule)
+        {
+            try
+            {
+                _dbContext.AclCompanyModules.Add(aclCompanyModule);
+                _dbContext.SaveChanges();
+                _dbContext.Entry(aclCompanyModule).ReloadAsync();
+                return aclCompanyModule;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+        }
+        /// <inheritdoc/>
+        public AclCompanyModule? Update(AclCompanyModule aclCompanyModule)
+        {
+            try
+            {
+                _dbContext.AclCompanyModules.Update(aclCompanyModule);
+                _dbContext.SaveChanges();
+                _dbContext.Entry(aclCompanyModule).ReloadAsync();
+                return aclCompanyModule;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        /// <inheritdoc/>
+        public AclCompanyModule? Delete(AclCompanyModule aclCompanyModule)
+        {
+            try
+            {
+                _dbContext.AclCompanyModules.Remove(aclCompanyModule);
+                _dbContext.SaveChangesAsync();
+                return aclCompanyModule;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+        }
+        /// <inheritdoc/>
+        public AclCompanyModule? Delete(ulong id)
+        {
+            try
+            {
+                var delete = _dbContext.AclCompanyModules.Find(id);
+                _dbContext.AclCompanyModules.Remove(delete);
+                _dbContext.SaveChangesAsync();
+                return delete;
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+
+
         }
     }
 }

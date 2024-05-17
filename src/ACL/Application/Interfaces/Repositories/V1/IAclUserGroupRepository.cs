@@ -27,11 +27,11 @@ namespace ACL.Application.Interfaces.Repositories.V1
         /// <inheritdoc/>
         AclUsergroup? Find(ulong id);
         /// <inheritdoc/>
-        AclUsergroup? Add(AclUsergroup aclCompany);
+        AclUsergroup? Add(AclUsergroup aclUsergroup);
         /// <inheritdoc/>
-        AclUsergroup? Update(AclUsergroup aclCompany);
+        AclUsergroup? Update(AclUsergroup aclUsergroup);
         /// <inheritdoc/>
-        AclUsergroup? Delete(AclUsergroup aclCompany);
+        AclUsergroup? Delete(AclUsergroup aclUsergroup);
         /// <inheritdoc/>
         AclUsergroup? Deleted(ulong id);
     }
