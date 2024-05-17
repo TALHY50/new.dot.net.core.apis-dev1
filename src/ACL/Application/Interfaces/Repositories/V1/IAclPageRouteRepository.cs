@@ -22,5 +22,7 @@ namespace ACL.Application.Interfaces.Repositories.V1
         AclPageRoute? Delete(AclPageRoute aclPageRoute);
         /// <inheritdoc/>
         AclPageRoute? Delete(ulong id);
+        /// <inheritdoc/>
+        AclPageRoute[]? DeleteAllByPageId(ulong pageid);
     }
 }

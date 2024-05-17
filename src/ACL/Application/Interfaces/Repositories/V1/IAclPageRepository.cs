@@ -9,21 +9,21 @@ namespace ACL.Application.Interfaces.Repositories.V1
     public interface IAclPageRepository
     {
         /// <inheritdoc/>
-        Task<AclResponse> GetAll();
+        AclResponse GetAll();
         /// <inheritdoc/>
-        Task<AclResponse> AddAclPage(AclPageRequest request);
+        AclResponse AddAclPage(AclPageRequest request);
         /// <inheritdoc/>
-        Task<AclResponse> EditAclPage(ulong id, AclPageRequest aclPageRequest);
+        AclResponse EditAclPage(ulong id, AclPageRequest aclPageRequest);
         /// <inheritdoc/>
-        Task<AclResponse> FindById(ulong id);
+        AclResponse FindById(ulong id);
         /// <inheritdoc/>
-        Task<AclResponse> DeleteById(ulong id);
+        AclResponse DeleteById(ulong id);
         /// <inheritdoc/>
-        Task<AclResponse> PageRouteCreate(AclPageRouteRequest aclPageRouteRequest);
+        AclResponse PageRouteCreate(AclPageRouteRequest aclPageRouteRequest);
         /// <inheritdoc/>
-        Task<AclResponse> PageRouteEdit(ulong id, AclPageRouteRequest aclPageRouteRequest);
+        AclResponse PageRouteEdit(ulong id, AclPageRouteRequest aclPageRouteRequest);
         /// <inheritdoc/>
-        Task<AclResponse> PageRouteDelete(ulong id);
+        AclResponse PageRouteDelete(ulong id);
         /// <inheritdoc/>
         AclPageRoute PreparePageRouteInputData(AclPageRouteRequest aclPageRouteRequest, AclPageRoute aclPageRoute = null);
 
