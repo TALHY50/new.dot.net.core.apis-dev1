@@ -16,13 +16,17 @@ using SharedLibrary.Services;
 
 namespace ACL.Infrastructure.Repositories.V1
 {
+      /// <inheritdoc/>
     public class AclRoleRepository : IAclRoleRepository
     {
+          /// <inheritdoc/>
         public AclResponse aclResponse;
+          /// <inheritdoc/>
         public MessageResponse messageResponse;
         private string modelName = "Role";
         private readonly IDistributedCache _distributedCache;
         private ApplicationDbContext _dbContext;
+          /// <inheritdoc/>
         public AclRoleRepository(ApplicationDbContext dbContext, IDistributedCache distributedCache)
         {
             this.aclResponse = new AclResponse();
@@ -31,7 +35,7 @@ namespace ACL.Infrastructure.Repositories.V1
             this._distributedCache = distributedCache;
             _dbContext = dbContext;
         }
-
+          /// <inheritdoc/>
         public async Task<AclResponse> GetAll()
         {
             var aclRoles = _dbContext.AclRoles.Where(x => true).Select(x => new
@@ -51,6 +55,7 @@ namespace ACL.Infrastructure.Repositories.V1
 
             return this.aclResponse;
         }
+        /// <inheritdoc/>
         public async Task<AclResponse> Add(AclRoleRequest request)
         {
 
@@ -64,6 +69,7 @@ namespace ACL.Infrastructure.Repositories.V1
             return this.aclResponse;
 
         }
+        /// <inheritdoc/>
         public async Task<AclResponse> Edit(ulong id, AclRoleRequest request)
         {
             var aclRole = _dbContext.AclRoles.Find(id);
@@ -83,6 +89,7 @@ namespace ACL.Infrastructure.Repositories.V1
             return this.aclResponse;
 
         }
+        /// <inheritdoc/>
         public async Task<AclResponse> FindById(ulong id)
         {
 
@@ -107,6 +114,7 @@ namespace ACL.Infrastructure.Repositories.V1
             return this.aclResponse;
 
         }
+        /// <inheritdoc/>
         public async Task<AclResponse> DeleteById(ulong id)
         {
             var aclRole = _dbContext.AclRoles.Find(id);
@@ -140,7 +148,7 @@ namespace ACL.Infrastructure.Repositories.V1
 
             return aclRole;
         }
-
+        /// <inheritdoc/>
         private void RemoveCache(ulong roleId)
         {
             var key = $"{Enum.GetName(CacheKeys.RoleRouteNames)}-{roleId}";

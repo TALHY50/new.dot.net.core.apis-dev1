@@ -13,23 +13,29 @@ using SharedLibrary.Utilities;
 
 namespace ACL.Infrastructure.Repositories.V1
 {
+    /// <inheritdoc/>
     public class AclPasswordRepository :  IAclPasswordRepository
     {
+        /// <inheritdoc/>
         public AclResponse aclResponse;
         private string modelName = "Password";
         private int tokenExpiryMinutes = 60;
         private IAclUserRepository AclUserRepository;
         private ICryptographyService cryptographyService;
+        /// <inheritdoc/>
         public MessageResponse messageResponse;
         ApplicationDbContext _dbContext;
-        public AclPasswordRepository(ApplicationDbContext dbContext) 
+        /// <inheritdoc/>
+        public AclPasswordRepository(ApplicationDbContext dbContext,ICryptographyService _cryptographyService,IAclUserRepository _AclUserRepository) 
         {
+            AclUserRepository = _AclUserRepository;
+            cryptographyService = _cryptographyService;
             this.aclResponse = new AclResponse();
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
             this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
             _dbContext = dbContext;
         }
-
+        /// <inheritdoc/>
         public async Task<AclResponse> Reset(AclPasswordResetRequest request)
         {
             //Auth User Id Checking
@@ -69,7 +75,7 @@ namespace ACL.Infrastructure.Repositories.V1
 
             return this.aclResponse;
         }
-
+        /// <inheritdoc/>
         public async Task<AclResponse> Forget(AclForgetPasswordRequest request)
         {
             var aclUser = _dbContext.AclUsers.Where(x => x.Email == request.Email).FirstOrDefault();
@@ -91,7 +97,7 @@ namespace ACL.Infrastructure.Repositories.V1
 
             return this.aclResponse;
         }
-
+        /// <inheritdoc/>
         public async Task<AclResponse> VerifyToken(AclForgetPasswordTokenVerifyRequest request)
         {
             if (!CacheHelper.Exist(request.Token))
