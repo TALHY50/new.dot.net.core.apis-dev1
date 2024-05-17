@@ -61,9 +61,9 @@ namespace ACL.Controllers.V1
         [AllowAnonymous]
         [HttpPost]
         [Route("sign-out")]
-        public async Task<SignOutResponse> SignOut(SignOutRequest request)
+        public Task<SignOutResponse> SignOut(SignOutRequest request)
         {
-            return await _signOutUseCase.Execute(request);
+            return _signOutUseCase.Execute(request);
         }
         /// <inheritdoc/>
         [AllowAnonymous]

@@ -7,13 +7,14 @@ using ACL.UseCases.Enums;
 
 namespace ACL.Application.UseCases.Login
 {
+    /// <inheritdoc/>
     public class LoginUseCase : ILoginUseCase
     {
         private readonly ILogger _logger;
         private readonly IAuthTokenService _authTokenService;
         private readonly IAclUserRepository _authRepository;
         private readonly ICryptographyService _cryptographyService;
-
+        /// <inheritdoc/>
         public LoginUseCase(
             ILogger<LoginUseCase> logger,
             IAuthTokenService authTokenService,
@@ -25,12 +26,12 @@ namespace ACL.Application.UseCases.Login
             this._authRepository = authRepository;
             this._cryptographyService = cryptographyService;
         }
-
+        /// <inheritdoc/>
         public async Task<LoginResponse> Execute(LoginRequest request)
         {
             try
             {
-                var user = await this._authRepository.FindByEmail(request.Email);
+                var user = this._authRepository.FindByEmail(request.Email);
                 if (user == null)
                 {
                     var response = new LoginErrorResponse
@@ -49,7 +50,7 @@ namespace ACL.Application.UseCases.Login
                         Active = true,
                         ExpirationDate = DateTime.UtcNow.AddMinutes(await this._authTokenService.GetRefreshTokenLifetimeInMinutes())
                     };
-                    await this._authRepository.UpdateAndSaveAsync(user);
+                     this._authRepository.UpdateAndSaveAsync(user);
 
                     var idToken = await this._authTokenService.GenerateIdToken(user);
                     var accessToken = await this._authTokenService.GenerateAccessToken(user);

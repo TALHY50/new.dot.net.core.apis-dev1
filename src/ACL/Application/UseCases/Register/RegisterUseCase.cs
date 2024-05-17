@@ -10,13 +10,14 @@ using Claim = ACL.Application.UseCases.CreateUser.Request.Claim;
 
 namespace ACL.Application.UseCases.Register
 {
+    /// <inheritdoc/>
     public class RegisterUseCase : IRegisterUseCase
     {
         private readonly ILogger _logger;
         private readonly IAuthTokenService _authTokenService;
         private readonly IAclUserRepository _authRepository;
         private readonly ICryptographyService _cryptographyService;
-
+/// <inheritdoc/>
         public RegisterUseCase(
             ILogger<RegisterUseCase> logger,
             IAuthTokenService authTokenService,
@@ -28,12 +29,14 @@ namespace ACL.Application.UseCases.Register
             this._authRepository = authRepository;
             this._cryptographyService = cryptographyService;
         }
-
+        /// <inheritdoc/>
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
         public async Task<RegisterResponse> Execute(RegisterRequest request)
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
         {
             try
             {
-                var user = await this._authRepository.FindByEmail(request.Email);
+                var user =  this._authRepository.FindByEmail(request.Email);
                 if (user != null)
                 {
                     var response = new RegisterErrorResponse
@@ -60,7 +63,7 @@ namespace ACL.Application.UseCases.Register
                     UpdatedAt = currentDate
                 };
 
-                await this._authRepository.AddAndSaveAsync(user);
+                 this._authRepository.AddAndSaveAsync(user);
 
                 return new RegisterSuccessResponse
                 {
@@ -81,7 +84,7 @@ namespace ACL.Application.UseCases.Register
             }
         }
 
-        private static IList<Core.Claim> ToClaims(IList<Core.Claim> requestClaims)
+        private static IList<Core.Claim>? ToClaims(IList<Core.Claim> requestClaims)
         {
             if (requestClaims == null) return null;
             var claims = new List<Core.Claim>();
