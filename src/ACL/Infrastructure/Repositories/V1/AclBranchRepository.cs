@@ -13,7 +13,7 @@ namespace ACL.Infrastructure.Repositories.V1
 {
     public class AclBranchRepository : IAclBranchRepository
     {
-        protected readonly DbSet<AclBranch> _dbSet;
+        /// <inheritdoc/>
         protected readonly ApplicationDbContext _dbContext;
         protected readonly IDistributedCache _distributedCache;
 
