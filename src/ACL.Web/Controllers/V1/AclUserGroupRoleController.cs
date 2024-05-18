@@ -5,7 +5,7 @@ using ACL.Infrastructure.Route;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ACL.Controllers.V1
+namespace ACL.Web.Controllers.V1
 {
     /// <inheritdoc/>
     [Authorize]
@@ -17,21 +17,21 @@ namespace ACL.Controllers.V1
         /// <inheritdoc/>
         public AclUserGroupRoleController(IAclUserGroupRoleRepository repository)
         {
-            _repository = repository;
+            this._repository = repository;
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclUserGroupRoleRouteUrl.List, Name = AclRoutesName.AclUserGroupRoleRouteNames.List)]
         public AclResponse Index(ulong userGroupId)
         {
-            return _repository.GetRolesByUserGroupId(userGroupId);
+            return this._repository.GetRolesByUserGroupId(userGroupId);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPost(AclRoutesUrl.AclUserGroupRoleRouteUrl.Update, Name = AclRoutesName.AclUserGroupRoleRouteNames.Update)]
         public async Task<AclResponse> Update(AclUserGroupRoleRequest objUserGroupRole)
         {
-            return await _repository.Update(objUserGroupRole);
+            return await this._repository.Update(objUserGroupRole);
         }
 
 

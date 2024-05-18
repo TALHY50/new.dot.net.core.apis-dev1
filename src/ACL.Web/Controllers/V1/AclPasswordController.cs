@@ -5,7 +5,7 @@ using ACL.Infrastructure.Route;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ACL.Controllers.V1
+namespace ACL.Web.Controllers.V1
 {
      /// <inheritdoc/>
     [Authorize]
@@ -17,28 +17,28 @@ namespace ACL.Controllers.V1
          /// <inheritdoc/>
         public AclPasswordController(IAclPasswordRepository repository)
         {
-            _repository = repository;
+            this._repository = repository;
         }
          /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPost(AclRoutesUrl.AclPasswordRouteUrl.Reset, Name = AclRoutesName.AclPasswordRouteNames.Reset)]
         public async Task<AclResponse> ResetPassword(AclPasswordResetRequest request)
         {
-            return await _repository.Reset(request);
+            return await this._repository.Reset(request);
         }
          /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPost(AclRoutesUrl.AclPasswordRouteUrl.Forget, Name = AclRoutesName.AclPasswordRouteNames.Forget)]
         public async Task<AclResponse> ForgetPassword(AclForgetPasswordRequest request)
         {
-            return await _repository.Forget(request);
+            return await this._repository.Forget(request);
         }
          /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPost(AclRoutesUrl.AclPasswordRouteUrl.VerifyToken, Name = AclRoutesName.AclPasswordRouteNames.VerifyToken)]
         public async Task<AclResponse> VerifyTokenAndUpdatePassword(AclForgetPasswordTokenVerifyRequest request)
         {
-            return await _repository.VerifyToken(request);
+            return await this._repository.VerifyToken(request);
         }
 
 

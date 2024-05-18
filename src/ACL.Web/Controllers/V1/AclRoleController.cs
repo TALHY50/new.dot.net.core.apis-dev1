@@ -5,7 +5,7 @@ using ACL.Infrastructure.Route;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ACL.Controllers.V1
+namespace ACL.Web.Controllers.V1
 {
      /// <inheritdoc/>
     [Authorize]
@@ -17,28 +17,28 @@ namespace ACL.Controllers.V1
          /// <inheritdoc/>
         public AclRoleController(IAclRoleRepository repository)
         {
-            _repository = repository;
+            this._repository = repository;
         }
          /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclRoleRouteUrl.List, Name = AclRoutesName.AclRoleRouteNames.List)]
         public AclResponse Index()
         {
-            return _repository.GetAll();
+            return this._repository.GetAll();
         }
          /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPost(AclRoutesUrl.AclRoleRouteUrl.Add, Name = AclRoutesName.AclRoleRouteNames.Add)]
         public AclResponse Create(AclRoleRequest objRole)
         {
-            return _repository.Add(objRole);
+            return this._repository.Add(objRole);
         }
          /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclRoleRouteUrl.View, Name = AclRoutesName.AclRoleRouteNames.View)]
         public AclResponse View(ulong id)
         {
-            return  _repository.FindById(id);
+            return  this._repository.FindById(id);
 
         }
          /// <inheritdoc/>
@@ -46,7 +46,7 @@ namespace ACL.Controllers.V1
         [HttpPut(AclRoutesUrl.AclRoleRouteUrl.Edit, Name = AclRoutesName.AclRoleRouteNames.Edit)]
         public AclResponse Edit(ulong id, AclRoleRequest objRole)
         {
-            return  _repository.Edit(id, objRole);
+            return  this._repository.Edit(id, objRole);
 
         }
          /// <inheritdoc/>
@@ -54,7 +54,7 @@ namespace ACL.Controllers.V1
         [HttpDelete(AclRoutesUrl.AclRoleRouteUrl.Destroy, Name = AclRoutesName.AclRoleRouteNames.Destroy)]
         public AclResponse Destroy(ulong id)
         {
-            return _repository.DeleteById(id);
+            return this._repository.DeleteById(id);
         }
 
     }
