@@ -59,3 +59,6 @@ src/ACL/Logs/
 /src/ACL.Web/.idea/*
 /src/ACL/.idea/.idea.ACL/.idea/*
 /src/ACL.Web/Logs/*
+
+*log.txt
+*.idea/
