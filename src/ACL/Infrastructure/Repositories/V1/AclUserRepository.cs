@@ -55,7 +55,7 @@ namespace ACL.Infrastructure.Repositories.V1
         /// <inheritdoc/>
         public AclResponse GetAll()
         {
-            List<AclUser>? aclUser = All()?.Where(u => _companyId == 0 || u.CompanyId == _companyId)?.ToList();
+            List<AclUser>? aclUser = All()?.Where(u => _companyId == 0 ||( u.CompanyId == _companyId && u.CreatedById ==_companyId))?.ToList();
             aclUser?.ForEach(user =>
            {
                user.Password = "**********";

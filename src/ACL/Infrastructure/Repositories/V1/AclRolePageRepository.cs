@@ -55,34 +55,20 @@ namespace ACL.Infrastructure.Repositories.V1
         /// <inheritdoc/>
         public async Task<AclResponse> UpdateAll(AclRoleAndPageAssocUpdateRequest req)
         {
-            List<AclRolePage>? res = await _dbContext.AclRolePages.Where(x => x.RoleId == req.RoleId).ToListAsync();
-            AclRolePage[]? check = PrepareData(req);
-
             try
             {
-                _dbContext.AclRolePages.RemoveRange(res);
-                _dbContext.AclRolePages.AddRange(check);
+                List<AclRolePage>? res = await _dbContext.AclRolePages.Where(x => x.RoleId == req.RoleId).ToListAsync();
+                AclRolePage[]? check = PrepareData(req);
+                DeleteAll(res.ToArray());
+                this.aclResponse.Data = AddAll(check);
+                this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             catch (Exception ex)
             {
                 this.aclResponse.Message = ex.Message;
                 this.aclResponse.StatusCode = AppStatusCode.FAIL;
             }
-            await _dbContext.SaveChangesAsync();
-            res = check.ToList();
-            if (res.Any())
-            {
-                this.aclResponse.Message = this.messageResponse.fetchMessage;
-                this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
-            }
-            else
-            {
-                this.aclResponse.Message = this.messageResponse.notFoundMessage;
-                this.aclResponse.StatusCode = AppStatusCode.FAIL;
-            }
-            this.aclResponse.Data = res;
             this.aclResponse.Timestamp = DateTime.Now;
-
             return this.aclResponse;
         }
 
@@ -217,7 +203,7 @@ namespace ACL.Infrastructure.Repositories.V1
             }
             catch (Exception)
             {
-                return null; 
+                return null;
             }
         }
         /// <inheritdoc/>

@@ -181,7 +181,14 @@ namespace ACL.Infrastructure.Repositories.V1
         /// <inheritdoc/>
         public AclRole? Find(ulong id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return _dbContext.AclRoles.Find(id);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
         /// <inheritdoc/>
         public AclRole? Add(AclRole aclRole)

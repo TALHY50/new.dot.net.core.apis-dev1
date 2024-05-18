@@ -212,7 +212,7 @@ namespace ACL.Infrastructure.Repositories.V1
                 await _dbContext.SaveChangesAsync();
                 this.aclResponse.Data = aclCompany;
             }
-            this.aclResponse.Message = aclCompany != null ? this.messageResponse.fetchMessage : this.messageResponse.notFoundMessage;
+            this.aclResponse.Message = aclCompany != null ? this.messageResponse.DeleteMessage : this.messageResponse.notFoundMessage;
             this.aclResponse.StatusCode = aclCompany != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
             this.aclResponse.Timestamp = DateTime.Now;
 

@@ -17,7 +17,7 @@ namespace ACL.Contracts.Requests.V1
 		[Required]
         [DefaultValue(new int[] { 1, 2 })]
 		[MinLength(1, ErrorMessage = "Array must contain at least one element.")]
-		[ArrayOfIntegers]
+		//[ArrayOfIntegers]
 		public int[] PageIds { get; set; }
 	}
 }
