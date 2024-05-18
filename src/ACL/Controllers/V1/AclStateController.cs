@@ -1,4 +1,5 @@
-using ACL.Application.Interfaces;
+
+using ACL.Application.Interfaces.Repositories.V1;
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response.V1;
 using Microsoft.AspNetCore.Authorization;
@@ -6,52 +7,54 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ACL.Controllers.V1
 {
+    /// <inheritdoc/>
     [Authorize]
     [Tags("State")]
     [ApiController]
     public class AclStateController : ControllerBase
     {
-        private readonly ICustomUnitOfWork _unitOfWork;
-        public AclStateController(ICustomUnitOfWork unitOfWork)
+        private readonly IAclStateRepository _repository;
+        /// <inheritdoc/>
+        public AclStateController(IAclStateRepository repository)
         {
-            _unitOfWork = unitOfWork;
+            _repository = repository;
         }
-
+        /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
         [HttpGet(Route.AclRoutesUrl.AclStateRouteUrl.List, Name = Route.AclRoutesName.AclStateRouteNames.List)]
-        public async Task<AclResponse> Index()
+        public AclResponse Index()
         {
-            return await _unitOfWork.AclStateRepository.GetAll();
+            return  _repository.GetAll();
         }
-
+        /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
         [HttpPost(Route.AclRoutesUrl.AclStateRouteUrl.Add, Name = Route.AclRoutesName.AclStateRouteNames.Add)]
-        public async Task<AclResponse> Create(AclStateRequest objState)
+        public AclResponse Create(AclStateRequest objState)
         {
-            return await _unitOfWork.AclStateRepository.Add(objState);
+            return _repository.Add(objState);
         }
-
+        /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
         [HttpGet(Route.AclRoutesUrl.AclStateRouteUrl.View, Name = Route.AclRoutesName.AclStateRouteNames.View)]
-        public async Task<AclResponse> View(ulong id)
+        public AclResponse View(ulong id)
         {
-            return await _unitOfWork.AclStateRepository.FindById(id);
+            return _repository.FindById(id);
 
         }
-
+        /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
         [HttpPut(Route.AclRoutesUrl.AclStateRouteUrl.Edit, Name = Route.AclRoutesName.AclStateRouteNames.Edit)]
-        public async Task<AclResponse> Edit(ulong id, AclStateRequest objState)
+        public AclResponse Edit(ulong id, AclStateRequest objState)
         {
-            return await _unitOfWork.AclStateRepository.Edit(id, objState);
+            return _repository.Edit(id, objState);
 
         }
-
+        /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
         [HttpDelete(Route.AclRoutesUrl.AclStateRouteUrl.Destroy, Name = Route.AclRoutesName.AclStateRouteNames.Destroy)]
-        public async Task<AclResponse> Destroy(ulong id)
+        public AclResponse Destroy(ulong id)
         {
-            return await _unitOfWork.AclStateRepository.DeleteById(id);
+            return _repository.DeleteById(id);
         }
 
 

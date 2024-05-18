@@ -1,42 +1,46 @@
-﻿using ACL.Application.Interfaces;
+﻿
 using ACL.Application.Interfaces.Repositories.V1;
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response;
 using ACL.Contracts.Response.V1;
 using ACL.Core.Models;
 using ACL.Infrastructure.Database;
-using ACL.Infrastructure.Repositories.GenericRepository;
 using ACL.Infrastructure.Utilities;
+using Ardalis.Specification;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Response.CustomStatusCode;
-using SharedLibrary.Services;
 
 namespace ACL.Infrastructure.Repositories.V1
 {
-    public class AclStateRepository : GenericRepository<AclState>, IAclStateRepository
+    /// <inheritdoc/>
+    public class AclStateRepository : IAclStateRepository
     {
+        /// <inheritdoc/>
         public AclResponse aclResponse;
+        /// <inheritdoc/>
         public MessageResponse messageResponse;
         private string modelName = "State";
-        private IAclCountryRepository AclCountryRepository;
-
-        public AclStateRepository(ApplicationDbContext dbContext) : base(dbContext)
+        /// <inheritdoc/>
+        protected readonly ApplicationDbContext _dbContext;
+        /// <inheritdoc/>
+        public AclStateRepository(ApplicationDbContext dbContext)
         {
             AppAuth.SetAuthInfo();
             this.aclResponse = new AclResponse();
             AppAuth.SetAuthInfo();
-            this.messageResponse = new MessageResponse(this.modelName,  AppAuth.GetAuthInfo().Language);
+            this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
+            _dbContext = dbContext;
         }
-
-        public async Task<AclResponse> GetAll()
+        /// <inheritdoc/>
+        public AclResponse GetAll()
         {
-            var aclStates = await base.Where(s => true)
-                .Join(AclCountryRepository.Where(c => true), s => s.CountryId, c => c.Id, (s, c) => new
+            var aclStates = _dbContext.AclStates
+                .Join(_dbContext.AclCountries, s => s.CountryId, c => c.Id, (s, c) => new
                 {
                     state = s,
                     country = c
 
-                }).ToListAsync();
+                }).ToList();
             if (aclStates.Any())
             {
                 this.aclResponse.Message = this.messageResponse.fetchMessage;
@@ -47,14 +51,12 @@ namespace ACL.Infrastructure.Repositories.V1
 
             return this.aclResponse;
         }
-        public async Task<AclResponse> Add(AclStateRequest request)
+        /// <inheritdoc/>
+        public AclResponse Add(AclStateRequest request)
         {
 
             var aclState = PrepareInputData(request);
-            await base.AddAsync(aclState);
-            await base.CompleteAsync();
-            await base.ReloadAsync(aclState);
-            this.aclResponse.Data = aclState;
+            this.aclResponse.Data = Add(aclState);
             this.aclResponse.Message = this.messageResponse.createMessage;
             this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
 
@@ -63,9 +65,10 @@ namespace ACL.Infrastructure.Repositories.V1
 
 
         }
-        public async Task<AclResponse> Edit(ulong id, AclStateRequest request)
+        /// <inheritdoc/>
+        public AclResponse Edit(ulong id, AclStateRequest request)
         {
-            var aclState = await base.GetById(id);
+            var aclState = Find(id);
             if (aclState == null)
             {
                 this.aclResponse.Message = this.messageResponse.notFoundMessage;
@@ -73,10 +76,7 @@ namespace ACL.Infrastructure.Repositories.V1
             }
 
             aclState = PrepareInputData(request, aclState);
-            await base.UpdateAsync(aclState);
-            await base.CompleteAsync();
-            await base.ReloadAsync(aclState);
-            this.aclResponse.Data = aclState;
+            this.aclResponse.Data = Update(aclState);
             this.aclResponse.Message = this.messageResponse.editMessage;
             this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
 
@@ -84,17 +84,16 @@ namespace ACL.Infrastructure.Repositories.V1
             return this.aclResponse;
 
         }
-
-        public async Task<AclResponse> FindById(ulong id)
+        /// <inheritdoc/>
+        public AclResponse FindById(ulong id)
         {
 
-            var aclState = base.Where(s => s.Id == id)
-                .Join(AclCountryRepository.Where(c => true), s => s.CountryId, c => c.Id, (s, c) => new
+            var aclState = All().Where(x => x.Id == id)
+                .Join(_dbContext.AclCountries, s => s.CountryId, c => c.Id, (s, c) => new
                 {
                     state = s,
                     country = c
-
-                }).FirstOrDefaultAsync();
+                }).FirstOrDefault();
             this.aclResponse.Data = aclState;
             this.aclResponse.Message = this.messageResponse.fetchMessage;
             if (aclState == null)
@@ -108,23 +107,28 @@ namespace ACL.Infrastructure.Repositories.V1
             return this.aclResponse;
 
         }
-        public async Task<AclResponse> DeleteById(ulong id)
+        /// <inheritdoc/>
+        public AclResponse DeleteById(ulong id)
         {
-            var aclState = await base.GetById(id);
-
+            var aclState = Find(id);
             if (aclState != null)
             {
-                await base.DeleteAsync(aclState);
-                await base.CompleteAsync();
+                this.aclResponse.Data = Delete(id);
                 this.aclResponse.Message = this.messageResponse.deleteMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
-
             return this.aclResponse;
-
         }
-
-        private AclState PrepareInputData(AclStateRequest request, AclState aclState = null)
+        /// <inheritdoc/>
+        public bool ExistByName(ulong id, string name)
+        {
+            if (id > 0)
+            {
+                return _dbContext.AclStates.Any(x => x.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase) && x.Id != id);
+            }
+            return _dbContext.AclStates.Any(x => x.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
+        }
+        private static AclState PrepareInputData(AclStateRequest request, AclState aclState = null)
         {
             if (aclState == null)
             {
@@ -141,6 +145,92 @@ namespace ACL.Infrastructure.Repositories.V1
             aclState.UpdatedAt = DateTime.Now;
 
             return aclState;
+        }
+        /// <inheritdoc/>
+        public List<AclState>? All()
+        {
+            try
+            {
+                return _dbContext.AclStates.ToList();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+        }
+        /// <inheritdoc/>
+        public AclState? Find(ulong id)
+        {
+            try
+            {
+                return _dbContext.AclStates.Find(id);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        /// <inheritdoc/>
+        public AclState? Add(AclState aclState)
+        {
+            try
+            {
+                _dbContext.AclStates.Add(aclState);
+                _dbContext.SaveChanges();
+                _dbContext.Entry(aclState).Reload();
+                return aclState;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+        }
+        /// <inheritdoc/>
+        public AclState? Update(AclState aclState)
+        {
+            try
+            {
+                _dbContext.AclStates.Update(aclState);
+                _dbContext.SaveChanges();
+                _dbContext.Entry(aclState).Reload();
+                return aclState;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        /// <inheritdoc/>
+        public AclState? Delete(AclState aclState)
+        {
+            try
+            {
+                _dbContext.AclStates.Remove(aclState);
+                _dbContext.SaveChangesAsync();
+                return aclState;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+        }
+        /// <inheritdoc/>
+        public AclState? Delete(ulong id)
+        {
+            try
+            {
+                var delete = _dbContext.AclStates.Find(id);
+                _dbContext.AclStates.Remove(delete);
+                _dbContext.SaveChanges();
+                return delete;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
     }
 }

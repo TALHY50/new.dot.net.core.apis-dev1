@@ -1,17 +1,36 @@
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response.V1;
 using ACL.Core.Models;
-using SharedLibrary.Interfaces;
 
 namespace ACL.Application.Interfaces.Repositories.V1
 {
-    public interface IAclStateRepository : IGenericRepository<AclState>
+    /// <inheritdoc/>
+    public interface IAclStateRepository
     {
-        Task<AclResponse> GetAll();
-        Task<AclResponse> Add(AclStateRequest state);
-        Task<AclResponse> Edit(ulong id, AclStateRequest state);
-        Task<AclResponse> FindById(ulong id);
-        Task<AclResponse> DeleteById(ulong id);
+        /// <inheritdoc/>
+        AclResponse GetAll();
+        /// <inheritdoc/>
+        AclResponse Add(AclStateRequest stateRequest);
+        /// <inheritdoc/>
+        AclResponse Edit(ulong id, AclStateRequest stateRequest);
+        /// <inheritdoc/>
+        AclResponse FindById(ulong id);
+        /// <inheritdoc/>
+        AclResponse DeleteById(ulong id);
+        /// <inheritdoc/>
+        List<AclState>? All();
+        /// <inheritdoc/>
+        AclState? Find(ulong id);
+        /// <inheritdoc/>
+        AclState? Add(AclState aclState);
+        /// <inheritdoc/>
+        AclState? Update(AclState aclState);
+        /// <inheritdoc/>
+        AclState? Delete(AclState aclState);
+        /// <inheritdoc/>
+        AclState? Delete(ulong id);
+        /// <inheritdoc/>
+        bool ExistByName(ulong id, string name);
 
     }
 }

@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ACL.Controllers.V1
 {
+    /// <inheritdoc/>
     [Route("api/v1/auth/")]
     [ApiController]
     public class AuthController : ControllerBase
@@ -26,7 +27,7 @@ namespace ACL.Controllers.V1
         private readonly RefreshTokenUseCase _refreshTokenUseCase;
         private readonly SignOutUseCase _signOutUseCase;
         private readonly RegisterUseCase _registerUseCase;
-
+        /// <inheritdoc/>
         public AuthController(
             LoginUseCase loginUseCase,
             RefreshTokenUseCase refreshTokenUseCase,
@@ -38,7 +39,7 @@ namespace ACL.Controllers.V1
             _signOutUseCase = signOutUseCase;
             this._registerUseCase = registerUseCase;
         }
-
+        /// <inheritdoc/>
         [AllowAnonymous]
         [HttpPost]
         [Route("login")]
@@ -46,7 +47,7 @@ namespace ACL.Controllers.V1
         {
             return await _loginUseCase.Execute(request);
         }
-
+        /// <inheritdoc/>
         [Authorize]
         [AllowAnonymous]
         [HttpPost]
@@ -55,16 +56,16 @@ namespace ACL.Controllers.V1
         {
             return await _refreshTokenUseCase.Execute(request);
         }
-
+        /// <inheritdoc/>
         [Authorize]
         [AllowAnonymous]
         [HttpPost]
         [Route("sign-out")]
-        public async Task<SignOutResponse> SignOut(SignOutRequest request)
+        public Task<SignOutResponse> SignOut(SignOutRequest request)
         {
-            return await _signOutUseCase.Execute(request);
+            return _signOutUseCase.Execute(request);
         }
-
+        /// <inheritdoc/>
         [AllowAnonymous]
         [HttpPost]
         [Route("register")]

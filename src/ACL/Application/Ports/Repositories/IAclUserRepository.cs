@@ -5,27 +5,44 @@ using SharedLibrary.Interfaces;
 
 namespace ACL.Application.Ports.Repositories
 {
-    public interface IAclUserRepository : IGenericRepository<AclUser>
+    /// <inheritdoc/>
+    public interface IAclUserRepository
     {
-        Task<AclResponse> GetAll();
+        /// <inheritdoc/>
+        AclResponse GetAll();
+        /// <inheritdoc/>
         Task<AclResponse> AddUser(AclUserRequest request);
+        /// <inheritdoc/>
         Task<AclResponse> Edit(ulong id, AclUserRequest request);
-        Task<AclResponse> FindById(ulong id);
-        
-        Task<AclUser> FindByIdAsync(ulong id);
-        
-        Task<AclUser> FindByEmail(string email);
-        
-        Task<AclResponse> DeleteById(ulong id);
+        /// <inheritdoc/>
+        AclResponse FindById(ulong id);
+        /// <inheritdoc/>
+        AclUser? FindByIdAsync(ulong id);
+        /// <inheritdoc/>
+        AclUser? FindByEmail(string email);
+        /// <inheritdoc/>
+        AclResponse DeleteById(ulong id);
+        /// <inheritdoc/>
         uint SetCompanyId(uint companyId);
+        /// <inheritdoc/>
         uint SetUserType(bool is_user_type_created_by_company);
-
-        public Task<AclUser> AddAndSaveAsync(AclUser entity);
-        
-        public Task<AclUser> UpdateAndSaveAsync(AclUser entity);
-
+        /// <inheritdoc/>
+        AclUser? AddAndSaveAsync(AclUser aclUser);
+        /// <inheritdoc/>
+        AclUser? UpdateAndSaveAsync(AclUser aclUser);
+        /// <inheritdoc/>
         public Task<AclUser?> GetUserWithPermissionAsync(uint userId);
-
-
+        /// <inheritdoc/>
+        List<AclUser>? All();
+        /// <inheritdoc/>
+        AclUser? Find(ulong id);
+        /// <inheritdoc/>
+        AclUser? Add(AclUser aclUser);
+        /// <inheritdoc/>
+        AclUser? Update(AclUser aclUser);
+        /// <inheritdoc/>
+        AclUser? Delete(AclUser aclUser);
+        /// <inheritdoc/>
+        AclUser? Delete(ulong id);
     }
 }

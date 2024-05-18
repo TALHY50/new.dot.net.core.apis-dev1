@@ -16,7 +16,7 @@
 //        {
 //            dbConnector = new DatabaseConnector();
 //            unitOfWork = new CustomUnitOfWork(dbConnector.dbContext);
-//            unitOfWork.ApplicationDbContext = dbConnector.dbContext;
+//            dbContext = dbConnector.dbContext;
 //            controller = new AclRoleController(unitOfWork);
 //        }
 //        [Fact]
@@ -109,7 +109,7 @@
 //        private ulong GetRandomID()
 //        {
 
-//            return unitOfWork.ApplicationDbContext.AclRoles.FirstOrDefault().Id;
+//            return dbContext.AclRoles.FirstOrDefault().Id;
 
 //        }
 

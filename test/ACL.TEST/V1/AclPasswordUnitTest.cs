@@ -100,7 +100,7 @@ namespace ACL.Tests.V1
         private AclPasswordResetRequest GetPasswordReset()
         {
             AclPasswordResetRequest aclPassword = new AclPasswordResetRequest();
-            var user = DataCollectors.unitOfWork.ApplicationDbContext.AclUsers.FirstOrDefault();
+            var user = DataCollectors.dbContext.AclUsers.FirstOrDefault();
             if (user != null)
             {
                 aclPassword.UserId = user.Id;

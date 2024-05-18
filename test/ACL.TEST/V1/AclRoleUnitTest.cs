@@ -63,7 +63,7 @@ namespace ACL.Tests.V1
             //Arrange
 
             var data = GetRole();
-            var id = DataCollectors.unitOfWork.ApplicationDbContext.AclRoles.Max(i => i.Id);
+            var id = DataCollectors.dbContext.AclRoles.Max(i => i.Id);
 
             // Act
             var request = new RestRequest(AclRoutesUrl.AclRoleRouteUrl.Edit.Replace("{id}", id.ToString()), Method.Put);
@@ -82,7 +82,7 @@ namespace ACL.Tests.V1
         public void GetByIdRoleTest()
         {
             //Arrange
-            var id = DataCollectors.unitOfWork.ApplicationDbContext.AclRoles.Max(i => i.Id);
+            var id = DataCollectors.dbContext.AclRoles.Max(i => i.Id);
 
             // Act
             var request = new RestRequest(AclRoutesUrl.AclRoleRouteUrl.View.Replace("{id}", id.ToString()), Method.Get);

@@ -87,7 +87,7 @@ namespace ACL.Tests.V1
         private ulong GetRandomID()
         {
 
-            return DataCollectors.unitOfWork.ApplicationDbContext.AclPageRoutes.Max(x => x.Id);
+            return DataCollectors.dbContext.AclPageRoutes.Max(x => x.Id);
 
         }
 

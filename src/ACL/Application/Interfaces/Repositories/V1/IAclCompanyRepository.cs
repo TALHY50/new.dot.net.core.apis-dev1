@@ -5,14 +5,31 @@ using SharedLibrary.Interfaces;
 
 namespace ACL.Application.Interfaces.Repositories.V1
 {
-    public interface IAclCompanyRepository : IGenericRepository<AclCompany>
+    /// <inheritdoc/>
+    public interface IAclCompanyRepository
     {
+        /// <inheritdoc/>
         Task<AclResponse> GetAll();
+        /// <inheritdoc/>
         Task<AclResponse> AddAclCompany(AclCompanyCreateRequest module);
-        Task<AclResponse> EditAclCompany(ulong Id, AclCompanyEditRequest module);
-        Task<AclResponse> FindById(ulong id);
+        /// <inheritdoc/>
+        AclResponse EditAclCompany(ulong Id, AclCompanyEditRequest module);
+        /// <inheritdoc/>
+        AclResponse FindById(ulong id);
+        /// <inheritdoc/>
+        List<AclCompany>? All();
+        /// <inheritdoc/>
+        AclCompany? Find(ulong id);
+        /// <inheritdoc/>
+        AclCompany? Add(AclCompany aclCompany);
+        /// <inheritdoc/>
+        AclCompany? Update(AclCompany aclCompany);
+        /// <inheritdoc/>
+        AclCompany? Delete(AclCompany aclCompany);
+        /// <inheritdoc/>
         Task<AclResponse> DeleteCompany(ulong id);
-        AclCompany PrepareInputData(AclCompanyCreateRequest request=null,AclCompanyEditRequest req = null,  AclCompany aclCompany = null);
+        /// <inheritdoc/>
+        AclCompany PrepareInputData(AclCompanyCreateRequest request = null, AclCompanyEditRequest req = null, AclCompany aclCompany = null);
 
     }
 }

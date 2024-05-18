@@ -7,6 +7,7 @@ using ACL.Core.Models;
 using ACL.Infrastructure.Database;
 using ACL.Infrastructure.Repositories.GenericRepository;
 using ACL.Infrastructure.Utilities;
+using Ardalis.Specification;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Response.CustomStatusCode;
 using SharedLibrary.Services;
@@ -14,22 +15,28 @@ using static ACL.Route.AclRoutesUrl;
 
 namespace ACL.Infrastructure.Repositories.V1
 {
-    public class AclRolePageRepository : GenericRepository<AclRolePage>, IAclRolePageRepository
+    /// <inheritdoc/>
+    public class AclRolePageRepository : IAclRolePageRepository
     {
+        /// <inheritdoc/>
         public AclResponse aclResponse;
+        /// <inheritdoc/>
         public MessageResponse messageResponse;
         private string modelName = "Role Page";
-        public AclRolePageRepository(ApplicationDbContext dbContext) : base(dbContext)
+        /// <inheritdoc/>
+        public readonly ApplicationDbContext _dbContext;
+        /// <inheritdoc/>
+        public AclRolePageRepository(ApplicationDbContext dbContext)
         {
             this.aclResponse = new AclResponse();
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
             this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
-
+            _dbContext = dbContext;
         }
-
+        /// <inheritdoc/>
         public async Task<AclResponse> GetAllById(ulong id)
         {
-            var res = await base.Where(x => x.RoleId == id).ToListAsync();
+            List<AclRolePage>? res = await _dbContext.AclRolePages.Where(x => x.RoleId == id).ToListAsync();
             if (res.Any())
             {
                 this.aclResponse.Message = this.messageResponse.fetchMessage;
@@ -45,47 +52,27 @@ namespace ACL.Infrastructure.Repositories.V1
 
             return this.aclResponse;
         }
-
+        /// <inheritdoc/>
         public async Task<AclResponse> UpdateAll(AclRoleAndPageAssocUpdateRequest req)
         {
-            var res = await base.Where(x => x.RoleId == req.RoleId).ToListAsync();
-            var check = PrepareData(req);
-            using (var transaction = base.BeginTransaction())
+            try
             {
-                try
-                {
-                    var removedEntities = await base.RemoveRange(res);
-                    await base.AddRange(check);
-                    await base.CommitTransactionAsync();
-                }
-                catch (Exception ex)
-                {
-                    await base.RollbackTransactionAsync();
-                    this.aclResponse.Message = ex.Message;
-                    this.aclResponse.StatusCode = AppStatusCode.FAIL;
-                }
-            }
-            await base.CompleteAsync();
-            await ReloadEntitiesAsync(check);
-            res = check.ToList();
-            if (res.Any())
-            {
-                this.aclResponse.Message = this.messageResponse.fetchMessage;
+                List<AclRolePage>? res = await _dbContext.AclRolePages.Where(x => x.RoleId == req.RoleId).ToListAsync();
+                AclRolePage[]? check = PrepareData(req);
+                DeleteAll(res.ToArray());
+                this.aclResponse.Data = AddAll(check);
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
-            else
+            catch (Exception ex)
             {
-                this.aclResponse.Message = this.messageResponse.notFoundMessage;
+                this.aclResponse.Message = ex.Message;
                 this.aclResponse.StatusCode = AppStatusCode.FAIL;
             }
-
-            this.aclResponse.Data = res;
             this.aclResponse.Timestamp = DateTime.Now;
-
             return this.aclResponse;
         }
 
-
+        /// <inheritdoc/>
         public AclRolePage[] PrepareData(AclRoleAndPageAssocUpdateRequest req)
         {
             IList<AclRolePage> res = new List<AclRolePage>();
@@ -104,6 +91,135 @@ namespace ACL.Infrastructure.Repositories.V1
                 }
             }
             return res.ToArray();
+        }
+        /// <inheritdoc/>
+        public List<AclRolePage>? All()
+        {
+            try
+            {
+                return _dbContext.AclRolePages.ToList();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+        }
+        /// <inheritdoc/>
+        public AclRolePage? Find(ulong id)
+        {
+            try
+            {
+                return _dbContext.AclRolePages.Find(id);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+        }
+        /// <inheritdoc/>
+        public AclRolePage? Add(AclRolePage aclRolePage)
+        {
+            try
+            {
+                _dbContext.AclRolePages.Add(aclRolePage);
+                _dbContext.SaveChanges();
+                _dbContext.Entry(aclRolePage).ReloadAsync();
+                return aclRolePage;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        /// <inheritdoc/>
+        public AclRolePage? Update(AclRolePage aclRolePage)
+        {
+            try
+            {
+                _dbContext.AclRolePages.Update(aclRolePage);
+                _dbContext.SaveChanges();
+                _dbContext.Entry(aclRolePage).ReloadAsync();
+                return aclRolePage;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        /// <inheritdoc/>
+        public AclRolePage? Delete(AclRolePage aclRolePage)
+        {
+            try
+            {
+                _dbContext.AclRolePages.Remove(aclRolePage);
+                _dbContext.SaveChangesAsync();
+                return aclRolePage;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        /// <inheritdoc/>
+        public AclPageRoute? Delete(ulong id)
+        {
+            try
+            {
+                var delete = _dbContext.AclPageRoutes.Find(id);
+                _dbContext.AclPageRoutes.Remove(delete);
+                _dbContext.SaveChangesAsync();
+                return delete;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+        }
+        /// <inheritdoc/>
+        public AclRolePage[]? AddAll(AclRolePage[] aclRolePages)
+        {
+            try
+            {
+                _dbContext.AclRolePages.AddRange(aclRolePages);
+                _dbContext.SaveChanges();
+                return aclRolePages;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        /// <inheritdoc/>
+        public AclRolePage[]? DeleteAll(AclRolePage[] aclRolePages)
+        {
+            try
+            {
+                _dbContext.AclRolePages.RemoveRange(aclRolePages);
+                _dbContext.SaveChanges();
+                return aclRolePages;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        /// <inheritdoc/>
+        public AclRolePage[]? DeleteAllByRoleId(ulong roleId)
+        {
+            try
+            {
+                var rolePagesToDelete = _dbContext.AclRolePages.Where(rp => rp.RoleId == roleId);
+                _dbContext.AclRolePages.RemoveRange(rolePagesToDelete);
+                _dbContext.SaveChanges();
+                return rolePagesToDelete.ToArray();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
     }
 }

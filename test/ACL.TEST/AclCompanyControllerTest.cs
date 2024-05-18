@@ -33,7 +33,7 @@
 //        {
 //            // Use a genuine instance of UnitOfWork
 //            var unitOfWork = new CustomUnitOfWork(dbContext);
-//            unitOfWork.ApplicationDbContext = dbContext;
+//            dbContext = dbContext;
 //            // unitOfWork.LocalizationService = 
 //            var controller = new AclCompanyController(unitOfWork);
 //            #region Act

@@ -1,4 +1,5 @@
-using ACL.Application.Interfaces;
+
+using ACL.Application.Interfaces.Repositories.V1;
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response.V1;
 using Microsoft.AspNetCore.Authorization;
@@ -6,56 +7,54 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ACL.Controllers.V1
 {
+    /// <inheritdoc/>
     [Authorize]
     [Tags("Sub Module")]
     [ApiController]
     public class AclSubModuleController : ControllerBase
     {
-        private readonly ICustomUnitOfWork _unitOfWork;
-        public AclSubModuleController(ICustomUnitOfWork unitOfWork)
+        private readonly IAclSubModuleRepository _repository;
+        /// <inheritdoc/>
+        public AclSubModuleController(IAclSubModuleRepository repository)
         {
-            _unitOfWork = unitOfWork;
+            _repository = repository;
         }
-
+        /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(Route.AclRoutesUrl.AclSubmoduleRouteUrl.List, Name = Route.AclRoutesName.AclSubmoduleRouteNames.List)]
-        public async Task<AclResponse> Index()
+        public AclResponse Index()
         {
-            return await _unitOfWork.AclSubModuleRepository.GetAll();
+            return _repository.GetAll();
         }
-
+        /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPost(Route.AclRoutesUrl.AclSubmoduleRouteUrl.Add, Name = Route.AclRoutesName.AclSubmoduleRouteNames.Add)]
-        public async Task<AclResponse> Create(AclSubModuleRequest objSubModule)
+        public AclResponse Create(AclSubModuleRequest objSubModule)
         {
-            return await _unitOfWork.AclSubModuleRepository.Add(objSubModule);
+            return _repository.Add(objSubModule);
         }
-
+        /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(Route.AclRoutesUrl.AclSubmoduleRouteUrl.View, Name = Route.AclRoutesName.AclSubmoduleRouteNames.View)]
-        public async Task<AclResponse> View(ulong id)
+        public AclResponse View(ulong id)
         {
-            return await _unitOfWork.AclSubModuleRepository.FindById(id);
+            return _repository.FindById(id);
 
         }
-
+        /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPut(Route.AclRoutesUrl.AclSubmoduleRouteUrl.Edit, Name = Route.AclRoutesName.AclSubmoduleRouteNames.Edit)]
-        public async Task<AclResponse> Edit(ulong id, AclSubModuleRequest objSubModule)
+        public AclResponse Edit(ulong id, AclSubModuleRequest objSubModule)
         {
-            return await _unitOfWork.AclSubModuleRepository.Edit(id, objSubModule);
+            return _repository.Edit(id, objSubModule);
 
         }
-
+        /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpDelete(Route.AclRoutesUrl.AclSubmoduleRouteUrl.Destroy, Name = Route.AclRoutesName.AclSubmoduleRouteNames.Destroy)]
-        public async Task<AclResponse> Destroy(ulong id)
+        public AclResponse Destroy(ulong id)
         {
-            return await _unitOfWork.AclSubModuleRepository.DeleteById(id);
+            return _repository.DeleteById(id);
         }
-
-
-
-
     }
 }

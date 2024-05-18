@@ -5,15 +5,35 @@ using SharedLibrary.Interfaces;
 
 namespace ACL.Application.Interfaces.Repositories.V1
 {
-    public interface IAclCompanyModuleRepository : IGenericRepository<AclCompanyModule>
+    /// <inheritdoc/>
+    public interface IAclCompanyModuleRepository
     {
+        /// <inheritdoc/>
         Task<AclResponse> GetAll();
-        Task<AclResponse> AddAclCompanyModule(AclCompanyModuleRequest module);
-        Task<AclResponse> EditAclCompanyModule(ulong Id, AclCompanyModuleRequest module);
+        /// <inheritdoc/>
+        Task<AclResponse> AddAclCompanyModule(AclCompanyModuleRequest companyModule);
+        /// <inheritdoc/>
+        Task<AclResponse> EditAclCompanyModule(ulong Id, AclCompanyModuleRequest companyModule);
+        /// <inheritdoc/>
         Task<AclResponse> FindById(ulong id);
+        /// <inheritdoc/>
         Task<AclResponse> DeleteCompanyModule(ulong id);
+        /// <inheritdoc/>
         bool IsValidForCreateOrUpdate(ulong companyId, ulong moduleId, ulong id = 0);
-        AclCompanyModule PrepareInputData(AclCompanyModuleRequest request, ulong Id = 0, AclCompanyModule aclCompany = null);
+        /// <inheritdoc/>
+        AclCompanyModule PrepareInputData(AclCompanyModuleRequest request, ulong Id = 0, AclCompanyModule aclCompanyModule = null);
+        /// <inheritdoc/>
+        List<AclCompany>? All();
+        /// <inheritdoc/>
+        AclCompanyModule? Find(ulong id);
+        /// <inheritdoc/>
+        AclCompanyModule? Add(AclCompanyModule aclCompanyModule);
+        /// <inheritdoc/>
+        AclCompanyModule? Update(AclCompanyModule aclCompanyModule);
+        /// <inheritdoc/>
+        AclCompanyModule? Delete(AclCompanyModule aclCompanyModule);
+        /// <inheritdoc/>
+        AclCompanyModule? Delete(ulong id);
 
     }
 }

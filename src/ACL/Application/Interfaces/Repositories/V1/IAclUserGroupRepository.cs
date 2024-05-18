@@ -5,14 +5,34 @@ using SharedLibrary.Interfaces;
 
 namespace ACL.Application.Interfaces.Repositories.V1
 {
-    public interface IAclUserGroupRepository : IGenericRepository<AclUsergroup>
+    /// <inheritdoc/>
+    public interface IAclUserGroupRepository
     {
-        Task<AclResponse> GetAll();
-        Task<AclResponse> AddUserGroup(AclUserGroupRequest usergroup);
-        Task<AclResponse> UpdateUserGroup(ulong id, AclUserGroupRequest usergroup);
-        Task<AclResponse> FindById(ulong id);
-        Task<AclResponse> Delete(ulong id);
-        AclUsergroup PrepareInputData(AclUserGroupRequest request, AclUsergroup aclCompany = null);
+        /// <inheritdoc/>
+        AclResponse GetAll();
+        /// <inheritdoc/>
+        AclResponse AddUserGroup(AclUserGroupRequest userGroupRequest);
+        /// <inheritdoc/>
+        AclResponse UpdateUserGroup(ulong id, AclUserGroupRequest userGroupRequest);
+        /// <inheritdoc/>
+        AclResponse FindById(ulong id);
+        /// <inheritdoc/>
+        AclResponse Delete(ulong id);
+        /// <inheritdoc/>
+        AclUsergroup PrepareInputData(AclUserGroupRequest userGroupRequest, AclUsergroup aclCompany = null);
+        /// <inheritdoc/>
         ulong SetCompanyId(ulong companyId);
+        /// <inheritdoc/>
+        List<AclUsergroup>? All();
+        /// <inheritdoc/>
+        AclUsergroup? Find(ulong id);
+        /// <inheritdoc/>
+        AclUsergroup? Add(AclUsergroup aclUsergroup);
+        /// <inheritdoc/>
+        AclUsergroup? Update(AclUsergroup aclUsergroup);
+        /// <inheritdoc/>
+        AclUsergroup? Delete(AclUsergroup aclUsergroup);
+        /// <inheritdoc/>
+        AclUsergroup? Deleted(ulong id);
     }
 }

@@ -6,12 +6,30 @@ using SharedLibrary.Interfaces;
 namespace ACL.Application.Interfaces.Repositories.V1
 
 {
-    public interface IAclRoleRepository : IGenericRepository<AclRole>
+    /// <inheritdoc/>
+    public interface IAclRoleRepository
     {
-        Task<AclResponse> GetAll();
-        Task<AclResponse> Add(AclRoleRequest subModule);
-        Task<AclResponse> Edit(ulong id, AclRoleRequest subModule);
-        Task<AclResponse> FindById(ulong id);
-        Task<AclResponse> DeleteById(ulong id);
+        /// <inheritdoc/>
+       AclResponse GetAll();
+        /// <inheritdoc/>
+        AclResponse Add(AclRoleRequest roleRequest);
+        /// <inheritdoc/>
+        AclResponse Edit(ulong id, AclRoleRequest roleRequest);
+        /// <inheritdoc/>
+        AclResponse FindById(ulong id);
+        /// <inheritdoc/>
+        AclResponse DeleteById(ulong id);
+        /// <inheritdoc/>
+        List<AclRole>? All();
+        /// <inheritdoc/>
+        AclRole? Find(ulong id);
+        /// <inheritdoc/>
+        AclRole? Add(AclRole aclRole);
+        /// <inheritdoc/>
+        AclRole? Update(AclRole aclRole);
+        /// <inheritdoc/>
+        AclRole? Delete(AclRole aclRole);
+        /// <inheritdoc/>
+        AclRole? Delete(ulong id);
     }
 }

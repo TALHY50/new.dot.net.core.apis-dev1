@@ -7,12 +7,13 @@ using ACL.UseCases.Exceptions;
 
 namespace ACL.Application.UseCases.RefreshToken
 {
+    /// <inheritdoc/>
     public class RefreshTokenUseCase : IRefreshTokenUseCase
     {
         private readonly ILogger _logger;
         private readonly IAuthTokenService _authTokenService;
         private readonly IAclUserRepository _authRepository;
-
+        /// <inheritdoc/>
         public RefreshTokenUseCase(
             ILogger<RefreshTokenUseCase> logger,
             IAuthTokenService authTokenService,
@@ -22,7 +23,7 @@ namespace ACL.Application.UseCases.RefreshToken
             this._authTokenService = authTokenService;
             this._authRepository = authRepository;
         }
-
+        /// <inheritdoc/>
         public async Task<RefreshTokenResponse> Execute(RefreshTokenRequest request)
         {
             try
@@ -38,9 +39,9 @@ namespace ACL.Application.UseCases.RefreshToken
 
                 var userIdString = await this._authTokenService.GetUserIdFromToken(request.AccessToken);
                 var userId = Convert.ToUInt32(userIdString);
-                var user = await this._authRepository.FindByIdAsync(userId);
+                var user =  this._authRepository.FindByIdAsync(userId);
 
-                if (!user.RefreshToken.Active)
+                if (user != null && !user.RefreshToken.Active)
                 {
                     return new RefreshTokenErrorResponse
                     {
@@ -49,7 +50,7 @@ namespace ACL.Application.UseCases.RefreshToken
                     };
                 }
 
-                if (user.RefreshToken.ExpirationDate < DateTime.UtcNow)
+                if (user != null && user.RefreshToken.ExpirationDate < DateTime.UtcNow)
                 {
                     return new RefreshTokenErrorResponse
                     {
@@ -58,7 +59,7 @@ namespace ACL.Application.UseCases.RefreshToken
                     };
                 }
 
-                if (user.RefreshToken.Value != request.RefreshToken)
+                if (user != null && user.RefreshToken.Value != request.RefreshToken)
                 {
                     return new RefreshTokenErrorResponse
                     {
@@ -72,7 +73,7 @@ namespace ACL.Application.UseCases.RefreshToken
                 user.RefreshToken.Value = await this._authTokenService.GenerateRefreshToken();
                 user.RefreshToken.Active = true;
                 user.RefreshToken.ExpirationDate = DateTime.UtcNow.AddMinutes(await this._authTokenService.GetRefreshTokenLifetimeInMinutes());
-                await this._authRepository.UpdateAsync(user);
+                 this._authRepository.UpdateAndSaveAsync(user);
 
                 var response = new RefreshTokenSuccessResponse
                 {

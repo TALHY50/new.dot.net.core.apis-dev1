@@ -139,7 +139,7 @@ namespace ACL.Tests.V1
 
             //  var chkFirst = (ulong)unitOfWork.AclUserRepository.FirstOrDefault().Result.Id;
             // var chkLast = (ulong)unitOfWork.AclUserRepository.LastOrDefault().Result.Id;
-            return (ulong)DataCollectors.unitOfWork.ApplicationDbContext.AclUsers.Max(l => l.Id);
+            return (ulong)DataCollectors.dbContext.AclUsers.Max(l => l.Id);
 
         }
 

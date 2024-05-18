@@ -124,7 +124,7 @@ namespace ACL.Tests.V1
         private ulong GetRandomID()
         {
 
-            return DataCollectors.unitOfWork.ApplicationDbContext.AclPages.Max(x => x.Id);
+            return DataCollectors.dbContext.AclPages.Max(x => x.Id);
 
         }
 

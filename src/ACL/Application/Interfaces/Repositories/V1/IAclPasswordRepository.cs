@@ -5,12 +5,14 @@ using SharedLibrary.Interfaces;
 
 namespace ACL.Application.Interfaces.Repositories.V1
 {
-    public interface IAclPasswordRepository:IGenericRepository<AclUser>
+    /// <inheritdoc/>
+    public interface IAclPasswordRepository
     {
+        /// <inheritdoc/>
         Task<AclResponse> Reset(AclPasswordResetRequest request);
+        /// <inheritdoc/>
         Task<AclResponse> Forget(AclForgetPasswordRequest request);
+        /// <inheritdoc/>
         Task<AclResponse> VerifyToken(AclForgetPasswordTokenVerifyRequest request);
-        
-
     }
 }

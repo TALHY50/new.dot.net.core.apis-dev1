@@ -1,17 +1,38 @@
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response.V1;
 using ACL.Core.Models;
-using SharedLibrary.Interfaces;
+
 
 namespace ACL.Application.Interfaces.Repositories.V1
 {
-    public interface IAclSubModuleRepository:IGenericRepository<AclSubModule>
+    /// <inheritdoc/>
+    public interface IAclSubModuleRepository
     {
-        Task<AclResponse> GetAll();
-        Task<AclResponse> Add(AclSubModuleRequest subModule);
-        Task<AclResponse> Edit(ulong id, AclSubModuleRequest subModule);
-        Task<AclResponse> FindById(ulong id);
-        Task<AclResponse> DeleteById(ulong id);
-
+        /// <inheritdoc/>
+        AclResponse GetAll();
+        /// <inheritdoc/>
+        AclResponse Add(AclSubModuleRequest subModuleRequest);
+        /// <inheritdoc/>
+        AclResponse Edit(ulong id, AclSubModuleRequest subModuleRequest);
+        /// <inheritdoc/>
+        AclResponse FindById(ulong id);
+        /// <inheritdoc/>
+        AclResponse DeleteById(ulong id);
+        /// <inheritdoc/>
+        List<AclSubModule>? All();
+        /// <inheritdoc/>
+        AclSubModule? Find(ulong id);
+        /// <inheritdoc/>
+        AclSubModule? Add(AclSubModule aclSubModule);
+        /// <inheritdoc/>
+        AclSubModule? Update(AclSubModule aclSubModule);
+        /// <inheritdoc/>
+        AclSubModule? Delete(AclSubModule aclSubModule);
+        /// <inheritdoc/>
+        AclSubModule? Delete(ulong id);
+        /// <inheritdoc/>
+        bool ExistByName(ulong id, string name);
+        /// <inheritdoc/>
+        bool ExistById(ulong? id, ulong value);
     }
 }

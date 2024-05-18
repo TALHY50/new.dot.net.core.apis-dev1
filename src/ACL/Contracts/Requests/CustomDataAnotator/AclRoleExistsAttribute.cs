@@ -1,23 +1,26 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using ACL.Application.Interfaces;
+using ACL.Infrastructure.Database;
 
 namespace ACL.Contracts.Requests.CustomDataAnotator
 {
+    /// <inheritdoc/>
     public class AclRoleExistsAttribute : ValidationAttribute
     {
-        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        /// <inheritdoc/>
+        protected override ValidationResult IsValid(object? value, ValidationContext validationContext)
         {
             var serviceProvider = validationContext.GetService(typeof(IServiceProvider)) as IServiceProvider;
-            var unitOfWork = serviceProvider.GetService(typeof(ICustomUnitOfWork)) as ICustomUnitOfWork;
-
-            foreach (var roleId in (ulong[])value)
+            ApplicationDbContext dbContext = new ApplicationDbContext();
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+            foreach (ulong roleId in value as ulong[])
             {
-                if (!(unitOfWork.ApplicationDbContext.AclRoles.Any(r => r.Id == roleId)))
+                if (!(dbContext.AclRoles.Any(r => r.Id == roleId)))
                 {
                     return new ValidationResult($"Role with ID {roleId} does not exist");
                 }
             }
-
+#pragma warning disable CS8603 // Possible null reference return.
             return ValidationResult.Success;
         }
     }

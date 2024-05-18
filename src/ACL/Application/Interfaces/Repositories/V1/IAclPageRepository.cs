@@ -5,17 +5,40 @@ using SharedLibrary.Interfaces;
 
 namespace ACL.Application.Interfaces.Repositories.V1
 {
-    public interface IAclPageRepository : IGenericRepository<AclPage>
+    /// <inheritdoc/>
+    public interface IAclPageRepository
     {
-        Task<AclResponse> GetAll();
-        Task<AclResponse> AddAclPage(AclPageRequest request);
-        Task<AclResponse> EditAclPage(ulong id, AclPageRequest request);
-        Task<AclResponse>  FindById(ulong id);
-        Task<AclResponse> DeleteById(ulong id);
-        Task<AclResponse> PageRouteCreate(AclPageRouteRequest request);
-        Task<AclResponse> PageRouteEdit(ulong id, AclPageRouteRequest request);
-        Task<AclResponse> PageRouteDelete(ulong id);
-        AclPageRoute PreparePageRouteInputData(AclPageRouteRequest request, AclPageRoute aclPageRoute = null);
-    
+        /// <inheritdoc/>
+        AclResponse GetAll();
+        /// <inheritdoc/>
+        AclResponse AddAclPage(AclPageRequest request);
+        /// <inheritdoc/>
+        AclResponse EditAclPage(ulong id, AclPageRequest aclPageRequest);
+        /// <inheritdoc/>
+        AclResponse FindById(ulong id);
+        /// <inheritdoc/>
+        AclResponse DeleteById(ulong id);
+        /// <inheritdoc/>
+        AclResponse PageRouteCreate(AclPageRouteRequest aclPageRouteRequest);
+        /// <inheritdoc/>
+        AclResponse PageRouteEdit(ulong id, AclPageRouteRequest aclPageRouteRequest);
+        /// <inheritdoc/>
+        AclResponse PageRouteDelete(ulong id);
+        /// <inheritdoc/>
+        AclPageRoute PreparePageRouteInputData(AclPageRouteRequest aclPageRouteRequest, AclPageRoute aclPageRoute = null);
+
+        /// <inheritdoc/>
+        List<AclPage>? All();
+        /// <inheritdoc/>
+        AclPage? Find(ulong id);
+        /// <inheritdoc/>
+        AclPage? Add(AclPage aclPage);
+        /// <inheritdoc/>
+        AclPage? Update(AclPage aclPage);
+        /// <inheritdoc/>
+        AclPage? Delete(AclPage aclPage);
+        /// <inheritdoc/>
+        AclPage? Delete(ulong id);
+
     }
 }

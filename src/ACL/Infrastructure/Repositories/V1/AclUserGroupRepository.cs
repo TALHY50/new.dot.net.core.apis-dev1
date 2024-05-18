@@ -7,29 +7,37 @@ using ACL.Core.Models;
 using ACL.Infrastructure.Database;
 using ACL.Infrastructure.Repositories.GenericRepository;
 using ACL.Infrastructure.Utilities;
+using Ardalis.Specification;
 using SharedLibrary.Response.CustomStatusCode;
 using SharedLibrary.Services;
 
 namespace ACL.Infrastructure.Repositories.V1
 {
-    public class AclUserGroupRepository : GenericRepository<AclUsergroup>, IAclUserGroupRepository
+    /// <inheritdoc/>
+    public class AclUserGroupRepository : IAclUserGroupRepository
     {
+        /// <inheritdoc/>
         public AclResponse aclResponse;
+        /// <inheritdoc/>
         public MessageResponse messageResponse;
         private string modelName = "User Group";
+        /// <inheritdoc/>
         public static ulong CompanyId = AppAuth.GetAuthInfo().CompanyId;
+        /// <inheritdoc/>
+        public readonly ApplicationDbContext _dbContext;
 
-
-        public AclUserGroupRepository(ApplicationDbContext dbcontext) : base(dbcontext)
+        /// <inheritdoc/>
+        public AclUserGroupRepository(ApplicationDbContext dbContext)
         {
             AppAuth.SetAuthInfo();
             this.aclResponse = new AclResponse();
             this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
+            _dbContext = dbContext;
         }
-
-        public async Task<AclResponse> GetAll()
+        /// <inheritdoc/>
+        public AclResponse GetAll()
         {
-            var result = await base.All();
+            List<AclUsergroup>? result = All();
             if (result.Any())
             {
                 this.aclResponse.Data = result;
@@ -44,19 +52,17 @@ namespace ACL.Infrastructure.Repositories.V1
             this.aclResponse.Timestamp = DateTime.Now;
             return this.aclResponse;
         }
-        public async Task<AclResponse> AddUserGroup(AclUserGroupRequest usergroup)
+        /// <inheritdoc/>
+        public AclResponse AddUserGroup(AclUserGroupRequest usergroup)
         {
             try
             {
-                var result = PrepareInputData(usergroup);
-                await base.AddAsync(result);
-                await base.CompleteAsync();
-                await base.ReloadAsync(result);
-                this.aclResponse.Data = result;
+                AclUsergroup? result = PrepareInputData(usergroup);
+                this.aclResponse.Data = Add(result);
                 this.aclResponse.Message = this.messageResponse.createMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 this.aclResponse.Message = this.messageResponse.createMessage;
                 this.aclResponse.StatusCode = AppStatusCode.FAIL;
@@ -64,17 +70,14 @@ namespace ACL.Infrastructure.Repositories.V1
             this.aclResponse.Timestamp = DateTime.Now;
             return this.aclResponse;
         }
-
-        public async Task<AclResponse> UpdateUserGroup(ulong id, AclUserGroupRequest usergroup)
+        /// <inheritdoc/>
+        public AclResponse UpdateUserGroup(ulong id, AclUserGroupRequest usergroup)
         {
-            var result = await base.GetById(id);
+            AclUsergroup? result = Find(id);
             if (result != null)
             {
                 result = PrepareInputData(usergroup, result);
-                await base.UpdateAsync(result);
-                await base.CompleteAsync();
-                await base.ReloadAsync(result);
-                this.aclResponse.Data = result;
+                this.aclResponse.Data = Update(result);
                 this.aclResponse.Message = this.messageResponse.editMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
@@ -86,9 +89,10 @@ namespace ACL.Infrastructure.Repositories.V1
             this.aclResponse.Timestamp = DateTime.Now;
             return this.aclResponse;
         }
-        public async Task<AclResponse> FindById(ulong id)
+        /// <inheritdoc/>
+        public AclResponse FindById(ulong id)
         {
-            var result = await base.GetById(id);
+            AclUsergroup? result = Find(id);
             if (result != null)
             {
                 this.aclResponse.Data = result;
@@ -103,15 +107,13 @@ namespace ACL.Infrastructure.Repositories.V1
             this.aclResponse.Timestamp = DateTime.Now;
             return this.aclResponse;
         }
-        public async Task<AclResponse> Delete(ulong id)
+        /// <inheritdoc/>
+        public AclResponse Delete(ulong id)
         {
-            var result = await base.GetById(id);
+            AclUsergroup? result = Find(id);
             if (result != null)
             {
-                await base.DeleteAsync(result);
-                await base.CompleteAsync();
-                await base.ReloadAsync(result);
-                this.aclResponse.Data = result;
+                this.aclResponse.Data = Deleted(id);
                 this.aclResponse.Message = this.messageResponse.deleteMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
@@ -123,10 +125,10 @@ namespace ACL.Infrastructure.Repositories.V1
             this.aclResponse.Timestamp = DateTime.Now;
             return this.aclResponse;
         }
-
+        /// <inheritdoc/>
         public AclUsergroup PrepareInputData(AclUserGroupRequest request, AclUsergroup aclUsergroup = null)
         {
-            var _aclInstance = aclUsergroup ?? new AclUsergroup();
+            AclUsergroup? _aclInstance = aclUsergroup ?? new AclUsergroup();
 
             _aclInstance.Status = request.Status;
             _aclInstance.GroupName = request.GroupName;
@@ -143,11 +145,98 @@ namespace ACL.Infrastructure.Repositories.V1
 
             return _aclInstance;
         }
-
+        /// <inheritdoc/>
         public ulong SetCompanyId(ulong companyId)
         {
             CompanyId = companyId;
             return CompanyId;
+        }
+        /// <inheritdoc/>
+        public List<AclUsergroup>? All()
+        {
+            try
+            {
+                return _dbContext.AclUsergroups.ToList();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+        }
+        /// <inheritdoc/>
+        public AclUsergroup? Find(ulong id)
+        {
+            try
+            {
+                return _dbContext.AclUsergroups.Find(id);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+        }
+        /// <inheritdoc/>
+        public AclUsergroup? Add(AclUsergroup aclUsergroup)
+        {
+            try
+            {
+                _dbContext.AclUsergroups.Add(aclUsergroup);
+                _dbContext.SaveChanges();
+                _dbContext.Entry(aclUsergroup).Reload();
+                return aclUsergroup;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        /// <inheritdoc/>
+        public AclUsergroup? Update(AclUsergroup aclUsergroup)
+        {
+            try
+            {
+                _dbContext.AclUsergroups.Update(aclUsergroup);
+                _dbContext.SaveChanges();
+                _dbContext.Entry(aclUsergroup).Reload();
+                return aclUsergroup;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        /// <inheritdoc/>
+        public AclUsergroup? Delete(AclUsergroup aclUsergroup)
+        {
+            try
+            {
+                _dbContext.AclUsergroups.Remove(aclUsergroup);
+                _dbContext.SaveChanges();
+                return aclUsergroup;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+        }
+        /// <inheritdoc/>
+        public AclUsergroup? Deleted(ulong id)
+        {
+            try
+            {
+                var delete = Find(id);
+                _dbContext.AclUsergroups.Remove(delete);
+                _dbContext.SaveChanges();
+                return delete;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
         }
     }
 }
