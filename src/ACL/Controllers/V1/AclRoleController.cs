@@ -1,7 +1,7 @@
-﻿
-using ACL.Application.Interfaces.Repositories.V1;
-using ACL.Contracts.Requests.V1;
+﻿using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response.V1;
+using ACL.Infrastructure.Route;
+using ACL.UseCases.Interfaces.Repositories.V1;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,21 +21,21 @@ namespace ACL.Controllers.V1
         }
          /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
-        [HttpGet(Route.AclRoutesUrl.AclRoleRouteUrl.List, Name = Route.AclRoutesName.AclRoleRouteNames.List)]
+        [HttpGet(AclRoutesUrl.AclRoleRouteUrl.List, Name = AclRoutesName.AclRoleRouteNames.List)]
         public AclResponse Index()
         {
             return _repository.GetAll();
         }
          /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
-        [HttpPost(Route.AclRoutesUrl.AclRoleRouteUrl.Add, Name = Route.AclRoutesName.AclRoleRouteNames.Add)]
+        [HttpPost(AclRoutesUrl.AclRoleRouteUrl.Add, Name = AclRoutesName.AclRoleRouteNames.Add)]
         public AclResponse Create(AclRoleRequest objRole)
         {
             return _repository.Add(objRole);
         }
          /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
-        [HttpGet(Route.AclRoutesUrl.AclRoleRouteUrl.View, Name = Route.AclRoutesName.AclRoleRouteNames.View)]
+        [HttpGet(AclRoutesUrl.AclRoleRouteUrl.View, Name = AclRoutesName.AclRoleRouteNames.View)]
         public AclResponse View(ulong id)
         {
             return  _repository.FindById(id);
@@ -43,7 +43,7 @@ namespace ACL.Controllers.V1
         }
          /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
-        [HttpPut(Route.AclRoutesUrl.AclRoleRouteUrl.Edit, Name = Route.AclRoutesName.AclRoleRouteNames.Edit)]
+        [HttpPut(AclRoutesUrl.AclRoleRouteUrl.Edit, Name = AclRoutesName.AclRoleRouteNames.Edit)]
         public AclResponse Edit(ulong id, AclRoleRequest objRole)
         {
             return  _repository.Edit(id, objRole);
@@ -51,7 +51,7 @@ namespace ACL.Controllers.V1
         }
          /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
-        [HttpDelete(Route.AclRoutesUrl.AclRoleRouteUrl.Destroy, Name = Route.AclRoutesName.AclRoleRouteNames.Destroy)]
+        [HttpDelete(AclRoutesUrl.AclRoleRouteUrl.Destroy, Name = AclRoutesName.AclRoleRouteNames.Destroy)]
         public AclResponse Destroy(ulong id)
         {
             return _repository.DeleteById(id);

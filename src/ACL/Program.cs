@@ -1,14 +1,6 @@
 
 using System.Configuration;
 using System.Security.Cryptography;
-using ACL.Application.Interfaces;
-using ACL.Application.Ports.Repositories;
-using ACL.Application.Ports.Services;
-using ACL.Application.UseCases.CreateUser;
-using ACL.Application.UseCases.Login;
-using ACL.Application.UseCases.RefreshToken;
-using ACL.Application.UseCases.Register;
-using ACL.Application.UseCases.SignOut;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Events;
@@ -25,6 +17,14 @@ using ACL.Infrastructure.Services;
 using ACL.Infrastructure.Services.Cryptography;
 using ACL.Infrastructure.Services.Jwt;
 using ACL.Infrastructure.Services.Permission;
+using ACL.UseCases.Interfaces.Repositories.V1;
+using ACL.UseCases.Interfaces.ServiceInterfaces;
+using ACL.UseCases.Ports.Repositories;
+using ACL.UseCases.Ports.Services;
+using ACL.UseCases.UseCases.Login;
+using ACL.UseCases.UseCases.RefreshToken;
+using ACL.UseCases.UseCases.Register;
+using ACL.UseCases.UseCases.SignOut;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using SharedLibrary.CustomMiddleWare;
@@ -38,9 +38,6 @@ using Microsoft.IdentityModel.Tokens;
 using AuthenticationService = Microsoft.AspNetCore.Authentication.AuthenticationService;
 using Microsoft.OpenApi.Models;
 using StackExchange.Redis;
-using ACL.Infrastructure.Repositories.GenericRepository;
-using ACL.Application.Interfaces.Repositories.V1;
-using ACL.Application.Interfaces.ServiceInterfaces;
 
 
 var builder = WebApplication.CreateBuilder(args);

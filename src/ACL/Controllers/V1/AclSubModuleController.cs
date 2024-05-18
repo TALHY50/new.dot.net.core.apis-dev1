@@ -1,7 +1,7 @@
-
-using ACL.Application.Interfaces.Repositories.V1;
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response.V1;
+using ACL.Infrastructure.Route;
+using ACL.UseCases.Interfaces.Repositories.V1;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,21 +21,21 @@ namespace ACL.Controllers.V1
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
-        [HttpGet(Route.AclRoutesUrl.AclSubmoduleRouteUrl.List, Name = Route.AclRoutesName.AclSubmoduleRouteNames.List)]
+        [HttpGet(AclRoutesUrl.AclSubmoduleRouteUrl.List, Name = AclRoutesName.AclSubmoduleRouteNames.List)]
         public AclResponse Index()
         {
             return _repository.GetAll();
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
-        [HttpPost(Route.AclRoutesUrl.AclSubmoduleRouteUrl.Add, Name = Route.AclRoutesName.AclSubmoduleRouteNames.Add)]
+        [HttpPost(AclRoutesUrl.AclSubmoduleRouteUrl.Add, Name = AclRoutesName.AclSubmoduleRouteNames.Add)]
         public AclResponse Create(AclSubModuleRequest objSubModule)
         {
             return _repository.Add(objSubModule);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
-        [HttpGet(Route.AclRoutesUrl.AclSubmoduleRouteUrl.View, Name = Route.AclRoutesName.AclSubmoduleRouteNames.View)]
+        [HttpGet(AclRoutesUrl.AclSubmoduleRouteUrl.View, Name = AclRoutesName.AclSubmoduleRouteNames.View)]
         public AclResponse View(ulong id)
         {
             return _repository.FindById(id);
@@ -43,7 +43,7 @@ namespace ACL.Controllers.V1
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
-        [HttpPut(Route.AclRoutesUrl.AclSubmoduleRouteUrl.Edit, Name = Route.AclRoutesName.AclSubmoduleRouteNames.Edit)]
+        [HttpPut(AclRoutesUrl.AclSubmoduleRouteUrl.Edit, Name = AclRoutesName.AclSubmoduleRouteNames.Edit)]
         public AclResponse Edit(ulong id, AclSubModuleRequest objSubModule)
         {
             return _repository.Edit(id, objSubModule);
@@ -51,7 +51,7 @@ namespace ACL.Controllers.V1
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
-        [HttpDelete(Route.AclRoutesUrl.AclSubmoduleRouteUrl.Destroy, Name = Route.AclRoutesName.AclSubmoduleRouteNames.Destroy)]
+        [HttpDelete(AclRoutesUrl.AclSubmoduleRouteUrl.Destroy, Name = AclRoutesName.AclSubmoduleRouteNames.Destroy)]
         public AclResponse Destroy(ulong id)
         {
             return _repository.DeleteById(id);

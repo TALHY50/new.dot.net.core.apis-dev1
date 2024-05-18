@@ -1,5 +1,6 @@
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response.V1;
+using ACL.Infrastructure.Route;
 using Microsoft.EntityFrameworkCore;
 using RestSharp;
 using Bogus;
@@ -24,7 +25,7 @@ namespace ACL.Tests.V1
             var data = GetPageRoute();
 
             // Act
-            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclPageRouteRouteUrl.Add, Method.Post);
+            var request = new RestRequest(AclRoutesUrl.AclPageRouteRouteUrl.Add, Method.Post);
             //request.AddHeader("Authorization", "Bearer desc");
             request.AddJsonBody(data);
 
@@ -45,7 +46,7 @@ namespace ACL.Tests.V1
             var id = GetRandomID();
 
             // Act
-            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclPageRouteRouteUrl.Edit.Replace("{id}",id.ToString()), Method.Put);
+            var request = new RestRequest(AclRoutesUrl.AclPageRouteRouteUrl.Edit.Replace("{id}",id.ToString()), Method.Put);
             //request.AddHeader("Authorization", "Bearer desc");
             request.AddJsonBody(data);
 
@@ -63,7 +64,7 @@ namespace ACL.Tests.V1
             var id = GetRandomID();
 
             // Act
-            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclPageRouteRouteUrl.Destroy.Replace("{id}",id.ToString()), Method.Delete);
+            var request = new RestRequest(AclRoutesUrl.AclPageRouteRouteUrl.Destroy.Replace("{id}",id.ToString()), Method.Delete);
             //request.AddHeader("Authorization", "Bearer desc");
 
             RestResponse response = restClient.Execute(request);

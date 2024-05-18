@@ -51,23 +51,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Application\UseCases\" />
     <Folder Include="Http\" />
-    <Folder Include="Infrastructure\Persistence\Permissions\" />
     <Folder Include="Logs\" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\SharedLibrary\SharedLibrary.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Infrastructure\Resources\bn-BD.resx">
-      <CustomToolNamespace>bn-BD</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Infrastructure\Resources\en-US.resx">
-      <CustomToolNamespace>en-US</CustomToolNamespace>
-    </EmbeddedResource>
   </ItemGroup>
   
   <ItemGroup>
@@ -84,10 +73,6 @@
   <ItemGroup>
 	<ProjectReference Include="..\ACL.Infrastructure\ACL.Infrastructure.csproj" />
 	<ProjectReference Include="..\ACL.UseCases\ACL.UseCases.csproj" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <None Include="Contracts\Requests\V1\AclRoleAndPageAssocUpdateRequest.cs" />
   </ItemGroup>
 
 </Project>

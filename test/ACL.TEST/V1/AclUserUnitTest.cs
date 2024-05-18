@@ -1,9 +1,9 @@
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response.V1;
+using ACL.Infrastructure.Route;
 using Microsoft.EntityFrameworkCore;
 using RestSharp;
 using Bogus;
-using ACL.Route;
 using SharedLibrary.Response.CustomStatusCode;
 using Newtonsoft.Json;
 
@@ -24,7 +24,7 @@ namespace ACL.Tests.V1
             //Arrange
 
             // Act
-            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclUserRouteUrl.List, Method.Get);
+            var request = new RestRequest(AclRoutesUrl.AclUserRouteUrl.List, Method.Get);
             //request.AddHeader("Authorization", "Bearer desc");
 
             RestResponse response = restClient.Execute(request);
@@ -42,7 +42,7 @@ namespace ACL.Tests.V1
             var data = GetUser();
 
             // Act
-            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclUserRouteUrl.Add, Method.Post);
+            var request = new RestRequest(AclRoutesUrl.AclUserRouteUrl.Add, Method.Post);
             //request.AddHeader("Authorization", "Bearer desc");
             request.AddJsonBody(data);
 
@@ -81,7 +81,7 @@ namespace ACL.Tests.V1
 
             // Act
             //var request = new RestRequest($"users/view/{id}", Method.Get);
-            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclUserRouteUrl.View.Replace("{id}", id.ToString()), Method.Get);
+            var request = new RestRequest(AclRoutesUrl.AclUserRouteUrl.View.Replace("{id}", id.ToString()), Method.Get);
             //request.AddHeader("Authorization", "Bearer desc");
 
 

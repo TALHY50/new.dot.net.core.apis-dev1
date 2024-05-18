@@ -1,5 +1,6 @@
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response.V1;
+using ACL.Infrastructure.Route;
 using Microsoft.EntityFrameworkCore;
 using RestSharp;
 using Bogus;
@@ -23,7 +24,7 @@ namespace ACL.Tests.V1
             //Arrange
 
             // Act
-            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclPageRouteUrl.List, Method.Get);
+            var request = new RestRequest(AclRoutesUrl.AclPageRouteUrl.List, Method.Get);
             //request.AddHeader("Authorization", "Bearer desc");
 
             RestResponse response = restClient.Execute(request);
@@ -40,7 +41,7 @@ namespace ACL.Tests.V1
             var data = GetPage();
 
             // Act
-            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclPageRouteUrl.Add, Method.Post);
+            var request = new RestRequest(AclRoutesUrl.AclPageRouteUrl.Add, Method.Post);
             //request.AddHeader("Authorization", "Bearer desc");
             request.AddJsonBody(data);
 
@@ -60,7 +61,7 @@ namespace ACL.Tests.V1
             var id = GetRandomID();
 
             // Act
-            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclPageRouteUrl.Edit.Replace("{id}", id.ToString()), Method.Put);
+            var request = new RestRequest(AclRoutesUrl.AclPageRouteUrl.Edit.Replace("{id}", id.ToString()), Method.Put);
             //request.AddHeader("Authorization", "Bearer desc");
             request.AddJsonBody(data);
 
@@ -78,7 +79,7 @@ namespace ACL.Tests.V1
             var id = GetRandomID();
 
             // Act
-            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclPageRouteUrl.View.Replace("{id}", id.ToString()), Method.Get);
+            var request = new RestRequest(AclRoutesUrl.AclPageRouteUrl.View.Replace("{id}", id.ToString()), Method.Get);
             //request.AddHeader("Authorization", "Bearer desc");
 
 
@@ -97,7 +98,7 @@ namespace ACL.Tests.V1
             var id = GetRandomID();
 
             // Act
-            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclPageRouteUrl.Destroy.Replace("{id}", id.ToString()), Method.Delete);
+            var request = new RestRequest(AclRoutesUrl.AclPageRouteUrl.Destroy.Replace("{id}", id.ToString()), Method.Delete);
             //request.AddHeader("Authorization", "Bearer desc");
 
             RestResponse response = restClient.Execute(request);
