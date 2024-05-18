@@ -1,6 +1,6 @@
 using System.Security.Cryptography;
 using System.Text;
-using ACL.UseCases.Ports.Services;
+using ACL.Application.Ports.Services;
 using Konscious.Security.Cryptography;
 
 namespace ACL.Infrastructure.Services.Cryptography

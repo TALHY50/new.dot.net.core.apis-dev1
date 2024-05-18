@@ -49,7 +49,7 @@
   
   <ItemGroup>
     <ProjectReference Include="..\ACL.Core\ACL.Core.csproj" />
-    <ProjectReference Include="..\ACL.UseCases\ACL.UseCases.csproj" />
+    <ProjectReference Include="..\ACL.Application\ACL.Application.csproj" />
   </ItemGroup>
   
   <ItemGroup>

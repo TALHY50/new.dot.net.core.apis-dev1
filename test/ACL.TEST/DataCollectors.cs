@@ -1,9 +1,9 @@
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
 using System.Runtime.Caching;
+using ACL.Application.UseCases.Login.Request;
 using ACL.Infrastructure;
 using ACL.Infrastructure.Database;
-using ACL.UseCases.UseCases.Login.Request;
 using Newtonsoft.Json;
 using RestSharp;
 using Microsoft.Extensions.Caching.Distributed;
