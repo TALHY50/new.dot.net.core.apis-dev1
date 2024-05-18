@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using ACL.Application.Interfaces.Repositories.V1;
 
-namespace ACL.Contracts.Requests.CustomDataAnotator
+namespace ACL.Infrastructure.Security.CustomDataAnotator
 {
     public class ModuleExistsAttribute : ValidationAttribute
     {

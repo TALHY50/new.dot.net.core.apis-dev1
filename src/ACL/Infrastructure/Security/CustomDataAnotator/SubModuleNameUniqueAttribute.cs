@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using ACL.Application.Interfaces.Repositories.V1;
 
-namespace ACL.Contracts.Requests.CustomDataAnotator
+namespace ACL.Infrastructure.Security.CustomDataAnotator
 {
-    public class SubModuleIdUniqueAttribute : ValidationAttribute
+    public class SubModuleNameUniqueAttribute : ValidationAttribute
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
@@ -24,7 +24,7 @@ namespace ACL.Contracts.Requests.CustomDataAnotator
             {
                 id = ulong.Parse(idValue);
             }
-            bool state = _subModuleRepository.ExistById(id,(ulong)value);
+            bool state = _subModuleRepository.ExistByName(id,(string)value);
             if (state)
             {
                 return new ValidationResult($"The '{value}' is not unique.");

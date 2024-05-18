@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-
 namespace ACL.Contracts.Requests.V1;
 
 public partial class AclRoleRequest

@@ -1,7 +1,5 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using ACL.Contracts.Requests.CustomDataAnotator;
-
 
 namespace ACL.Contracts.Requests.V1;
 
@@ -11,13 +9,11 @@ public partial class AclStateRequest
     [DefaultValue("2")]
     [Required(ErrorMessage = "country_id is required.")]
     [Range(1, ulong.MaxValue, ErrorMessage = "country_id is required.")]
-    [CountryExists]
     public ulong CountryId { get; set; }
 
     [DefaultValue("Florida")]
     [Required(ErrorMessage = "name is required.")]
     [StringLength(50)]
-    [StateNameUnique]
     public  string Name { get; set; }
 
     [DefaultValue("Florida is state of USA")]

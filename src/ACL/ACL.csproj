@@ -85,9 +85,5 @@
 	<ProjectReference Include="..\ACL.Infrastructure\ACL.Infrastructure.csproj" />
 	<ProjectReference Include="..\ACL.UseCases\ACL.UseCases.csproj" />
   </ItemGroup>
-  
-  <ItemGroup>
-    <None Include="Contracts\Requests\V1\AclRoleAndPageAssocUpdateRequest.cs" />
-  </ItemGroup>
 
 </Project>

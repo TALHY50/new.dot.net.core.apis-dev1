@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using ACL.Core.Models;
 
 namespace ACL.Contracts.Requests.V1
 {
@@ -83,8 +82,8 @@ namespace ACL.Contracts.Requests.V1
         [MinLength(1, ErrorMessage = "Array must contain at least one element.")]
         public ulong[] UserGroup { get; set; }
 
-        [JsonIgnore]
-        public IList<Claim>? Claims { get; set; }
+       // [JsonIgnore]
+      //  public IList<Claim>? Claims { get; set; }
         
         [JsonIgnore]
        // [DefaultValue("QVQhNmhjVBaFlKvwy+qec20itUl8kmNFgwlKVard2KDfPOmkkD3voz9xKVs+30gFKZYiVcGrRLRvJLRRklzO9g==")]

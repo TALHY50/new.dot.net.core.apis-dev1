@@ -1,8 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using ACL.Application.Interfaces;
 using ACL.Infrastructure.Database;
 
-namespace ACL.Contracts.Requests.CustomDataAnotator
+namespace ACL.Infrastructure.Security.CustomDataAnotator
 {
     /// <inheritdoc/>
     public class AclRoleExistsAttribute : ValidationAttribute

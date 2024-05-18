@@ -1,5 +1,4 @@
-﻿using ACL.Application.Interfaces;
-using SharedLibrary.Response;
+﻿using SharedLibrary.Response;
 
 namespace ACL.Contracts.Response
 {

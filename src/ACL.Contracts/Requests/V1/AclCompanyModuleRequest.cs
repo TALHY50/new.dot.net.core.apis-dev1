@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using ACL.Contracts.Requests.CustomDataAnotator;
 
 namespace ACL.Contracts.Requests.V1
 {
