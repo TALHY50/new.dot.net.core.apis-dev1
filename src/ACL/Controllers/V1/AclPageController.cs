@@ -1,11 +1,10 @@
-﻿using ACL.Application.Interfaces;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ACL.Route;
 using Microsoft.AspNetCore.Authorization;
-using ACL.Application.Interfaces.Repositories.V1;
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response.V1;
+using ACL.UseCases.Interfaces.Repositories.V1;
 
 namespace ACL.Controllers.V1
 {

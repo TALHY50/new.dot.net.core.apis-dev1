@@ -51,9 +51,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Application\UseCases\" />
     <Folder Include="Http\" />
     <Folder Include="Infrastructure\Persistence\Permissions\" />
+    <Folder Include="Infrastructure\Repositories\GenericRepository\" />
     <Folder Include="Logs\" />
   </ItemGroup>
 

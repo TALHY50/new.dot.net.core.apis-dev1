@@ -1,11 +1,9 @@
-﻿using ACL.Application.Interfaces;
-using ACL.Application.Interfaces.Repositories.V1;
-using ACL.Contracts.Response;
+﻿using ACL.Contracts.Response;
 using ACL.Contracts.Response.V1;
 using ACL.Core.Models;
 using ACL.Infrastructure.Database;
-using ACL.Infrastructure.Repositories.GenericRepository;
 using ACL.Infrastructure.Utilities;
+using ACL.UseCases.Interfaces.Repositories.V1;
 using Ardalis.Specification;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Services;
