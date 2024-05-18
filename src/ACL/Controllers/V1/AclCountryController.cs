@@ -1,5 +1,6 @@
 ﻿using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response.V1;
+using ACL.Infrastructure.Route;
 using ACL.UseCases.Interfaces.Repositories.V1;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -20,21 +21,21 @@ namespace ACL.Controllers.V1
         }
          /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
-        [HttpGet(Route.AclRoutesUrl.AclCountryRouteUrl.List, Name = Route.AclRoutesName.AclCountryRouteNames.List)]
+        [HttpGet(AclRoutesUrl.AclCountryRouteUrl.List, Name = AclRoutesName.AclCountryRouteNames.List)]
         public AclResponse Index()
         {
             return AclCountryRepository.GetAll();
         }
          /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
-        [HttpPost(Route.AclRoutesUrl.AclCountryRouteUrl.Add, Name = Route.AclRoutesName.AclCountryRouteNames.Add)]
+        [HttpPost(AclRoutesUrl.AclCountryRouteUrl.Add, Name = AclRoutesName.AclCountryRouteNames.Add)]
         public AclResponse Create(AclCountryRequest request)
         {
             return AclCountryRepository.Add(request);
         }
          /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
-        [HttpGet(Route.AclRoutesUrl.AclCountryRouteUrl.View, Name = Route.AclRoutesName.AclCountryRouteNames.View)]
+        [HttpGet(AclRoutesUrl.AclCountryRouteUrl.View, Name = AclRoutesName.AclCountryRouteNames.View)]
         public AclResponse View(ulong id)
         {
             return AclCountryRepository.FindById(id);
@@ -42,7 +43,7 @@ namespace ACL.Controllers.V1
         }
          /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
-        [HttpPut(Route.AclRoutesUrl.AclCountryRouteUrl.Edit, Name = Route.AclRoutesName.AclCountryRouteNames.Edit)]
+        [HttpPut(AclRoutesUrl.AclCountryRouteUrl.Edit, Name = AclRoutesName.AclCountryRouteNames.Edit)]
         public AclResponse Edit(ulong id, AclCountryRequest request)
         {
             return AclCountryRepository.Edit(id, request);
@@ -50,7 +51,7 @@ namespace ACL.Controllers.V1
         }
          /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
-        [HttpDelete(Route.AclRoutesUrl.AclCountryRouteUrl.Destroy, Name = Route.AclRoutesName.AclCountryRouteNames.Destroy)]
+        [HttpDelete(AclRoutesUrl.AclCountryRouteUrl.Destroy, Name = AclRoutesName.AclCountryRouteNames.Destroy)]
         public AclResponse Destroy(ulong id)
         {
             return AclCountryRepository.DeleteById(id);

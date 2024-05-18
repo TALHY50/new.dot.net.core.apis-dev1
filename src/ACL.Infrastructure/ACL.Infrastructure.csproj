@@ -51,4 +51,13 @@
     <ProjectReference Include="..\ACL.Core\ACL.Core.csproj" />
     <ProjectReference Include="..\ACL.UseCases\ACL.UseCases.csproj" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\en-US.resx">
+      <CustomToolNamespace>en-US</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\bn-BD.resx">
+      <CustomToolNamespace>bn-BD</CustomToolNamespace>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response.V1;
+using ACL.Infrastructure.Route;
 using SharedLibrary.Response.CustomStatusCode;
 using Newtonsoft.Json;
 
@@ -27,7 +28,7 @@ namespace ACL.Tests.V1
 
             //Arrange
             // Act
-            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclBranchRouteUrl.List, Method.Get);
+            var request = new RestRequest(AclRoutesUrl.AclBranchRouteUrl.List, Method.Get);
             //request.AddHeader("Authorization", "Bearer desc");
             RestResponse response = restClient.Execute(request);
             //Assert
@@ -41,7 +42,7 @@ namespace ACL.Tests.V1
             //Arrange
             var data = GetBranch();
             // Act
-            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclBranchRouteUrl.Add, Method.Post);
+            var request = new RestRequest(AclRoutesUrl.AclBranchRouteUrl.Add, Method.Post);
             //request.AddHeader("Authorization", "Bearer desc");
             request.AddJsonBody(data);
             RestResponse response = restClient.Execute(request);
@@ -59,7 +60,7 @@ namespace ACL.Tests.V1
             var id = GetRandomID();
 
             // Act
-            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclBranchRouteUrl.Edit.Replace("{id}", id.ToString()), Method.Put);
+            var request = new RestRequest(AclRoutesUrl.AclBranchRouteUrl.Edit.Replace("{id}", id.ToString()), Method.Put);
             //request.AddHeader("Authorization", "Bearer desc");
             request.AddJsonBody(data);
 
@@ -77,7 +78,7 @@ namespace ACL.Tests.V1
             //Arrange
             var id = GetRandomID();
             // Act
-            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclBranchRouteUrl.View.Replace("{id}", id.ToString()), Method.Get);
+            var request = new RestRequest(AclRoutesUrl.AclBranchRouteUrl.View.Replace("{id}", id.ToString()), Method.Get);
             //request.AddHeader("Authorization", "Bearer desc");
             RestResponse response = restClient.Execute(request);
             AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
@@ -93,7 +94,7 @@ namespace ACL.Tests.V1
             var id = GetRandomID();
 
             // Act
-            var request = new RestRequest(ACL.Route.AclRoutesUrl.AclBranchRouteUrl.Destroy.Replace("{id}", id.ToString()), Method.Delete);
+            var request = new RestRequest(AclRoutesUrl.AclBranchRouteUrl.Destroy.Replace("{id}", id.ToString()), Method.Delete);
             //request.AddHeader("Authorization", "Bearer desc");
 
             RestResponse response = restClient.Execute(request);
