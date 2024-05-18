@@ -1,10 +1,13 @@
 ﻿using ACL.Application.Interfaces;
 using ACL.Application.Interfaces.Repositories.V1;
+using ACL.Application.Ports.Repositories;
+using ACL.Application.Ports.Services;
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response;
 using ACL.Contracts.Response.V1;
 using ACL.Core.Models;
 using ACL.Infrastructure.Database;
+using ACL.Infrastructure.Repositories.GenericRepository;
 using ACL.Infrastructure.Utilities;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Response.CustomStatusCode;
@@ -12,22 +15,28 @@ using SharedLibrary.Services;
 
 namespace ACL.Infrastructure.Repositories.V1
 {
-    public class AclCompanyRepository : GenericRepository<AclCompany, ApplicationDbContext, ICustomUnitOfWork>, IAclCompanyRepository
+    public class AclCompanyRepository : GenericRepository<AclCompany>, IAclCompanyRepository
     {
         public AclResponse aclResponse;
         public MessageResponse messageResponse;
         private string modelName = "Company";
         private IConfiguration _config;
-        private ICustomUnitOfWork _customUnitOfWork;
+        private ICryptographyService cryptographyService;
+        private IAclUserGroupRepository AclUserGroupRepository;
+        private IAclUserRepository AclUserRepository;
+        private IAclUserUserGroupRepository AclUserUserGroupRepository;
+        private IAclRoleRepository AclRoleRepository;
+        private IAclUserGroupRoleRepository AclUserGroupRoleRepository;
+        private IAclPageRepository AclPageRepository;
+        private IAclRolePageRepository AclRolePageRepository;
 
 
-        public AclCompanyRepository(ICustomUnitOfWork _unitOfWork, IConfiguration config) : base(_unitOfWork, _unitOfWork.ApplicationDbContext)
+        public AclCompanyRepository(ApplicationDbContext dbContext, IConfiguration config) : base(dbContext)
         {
             this.aclResponse = new AclResponse();
-            this._customUnitOfWork = _unitOfWork;
             this._config = config;
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
-            this.messageResponse = new MessageResponse(this.modelName, _unitOfWork, AppAuth.GetAuthInfo().Language);
+            this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
         }
 
         public async Task<AclResponse> GetAll()
@@ -51,17 +60,17 @@ namespace ACL.Infrastructure.Repositories.V1
             try
             {
                 var aclCompany = PrepareInputData(request);
-                var executionStrategy = this._unitOfWork.CreateExecutionStrategy();
+                var executionStrategy = base.CreateExecutionStrategy();
 
                 await executionStrategy.ExecuteAsync(async () =>
                 {
-                    using (var transaction = await this._unitOfWork.BeginTransactionAsync())
+                    using (var transaction = await base.BeginTransactionAsync())
                     {
                         try
                         {
                             var aclCompany = PrepareInputData(request);
                             await base.AddAsync(aclCompany);
-                            await this._unitOfWork.CompleteAsync();
+                            await base.CompleteAsync();
                             await base.ReloadAsync(aclCompany);
 
                             if (aclCompany.Id != 0)
@@ -71,21 +80,21 @@ namespace ACL.Infrastructure.Repositories.V1
                                     GroupName = this._config["USER_GROUP_NAME"],
                                     Status = 1
                                 };
-                                this._unitOfWork.AclUserGroupRepository.SetCompanyId(aclCompany.Id);
-                                var userGroup = await this._unitOfWork.AclUserGroupRepository.AddUserGroup(userGroupRequest);
-                                await this._unitOfWork.CompleteAsync();
+                                AclUserGroupRepository.SetCompanyId(aclCompany.Id);
+                                var userGroup = await AclUserGroupRepository.AddUserGroup(userGroupRequest);
+                                await base.CompleteAsync();
                                 var createdUserGroup = (AclUsergroup)userGroup.Data;
-                                await this._customUnitOfWork.AclUserGroupRepository.ReloadAsync(createdUserGroup);
+                                await AclUserGroupRepository.ReloadAsync(createdUserGroup);
 
-                                var salt = this._unitOfWork.cryptographyService.GenerateSalt();
+                                var salt = cryptographyService.GenerateSalt();
                                 string[] nameArr = request.Name.Split(' ');
                                 string fname = (nameArr.Length > 0) ? nameArr[0] : "";
                                 string lname = (nameArr.Length > 1) ? nameArr[1] : fname;
                                 AclUser user = new AclUser()
                                 {
                                     Email = aclCompany.Email,
-                                    Password = (request.Password != null && request.Password.Length != 88) ? this._unitOfWork.cryptographyService.HashPassword(request.Password, salt) : request.Password,
-                                    UserType = this._customUnitOfWork.AclUserRepository.SetUserType(true),
+                                    Password = (request.Password != null && request.Password.Length != 88) ? cryptographyService.HashPassword(request.Password, salt) : request.Password,
+                                    UserType = AclUserRepository.SetUserType(true),
                                     FirstName = fname,
                                     LastName = lname,
                                     Language = "en-US",
@@ -97,14 +106,14 @@ namespace ACL.Infrastructure.Repositories.V1
                                     UpdatedAt = DateTime.Now
                                 };
 
-                                this._unitOfWork.AclUserRepository.SetCompanyId((uint)aclCompany.Id);
-                                this._unitOfWork.AclUserRepository.SetUserType(true);
-                                this._unitOfWork.AclUserRepository.Add(user);
-                                await this._unitOfWork.CompleteAsync();
-                                await this._unitOfWork.AclUserRepository.ReloadAsync(user);
+                                AclUserRepository.SetCompanyId((uint)aclCompany.Id);
+                                AclUserRepository.SetUserType(true);
+                                AclUserRepository.Add(user);
+                                await base.CompleteAsync();
+                                await AclUserRepository.ReloadAsync(user);
                                 var userusergroup = PrepareDataForUserUserGroups(createdUserGroup.Id, user.Id);
-                                this._unitOfWork.AclUserUserGroupRepository.Add(userusergroup);
-                                await this._unitOfWork.CompleteAsync();
+                                AclUserUserGroupRepository.Add(userusergroup);
+                                await base.CompleteAsync();
 
                                 AclRole role = new AclRole()
                                 {
@@ -117,9 +126,9 @@ namespace ACL.Infrastructure.Repositories.V1
                                     UpdatedAt = DateTime.Now,
                                     Status = 1
                                 };
-                                var roleAdd = await this._unitOfWork.AclRoleRepository.AddAsync(role);
-                                await this._unitOfWork.CompleteAsync();
-                                await this._unitOfWork.AclRoleRepository.ReloadAsync(role);
+                                var roleAdd = await AclRoleRepository.AddAsync(role);
+                                await base.CompleteAsync();
+                                await AclRoleRepository.ReloadAsync(role);
 
                                 AclUsergroupRole userGroupRole = new AclUsergroupRole()
                                 {
@@ -129,9 +138,9 @@ namespace ACL.Infrastructure.Repositories.V1
                                     CreatedAt = DateTime.UtcNow,
                                     UpdatedAt = DateTime.UtcNow
                                 };
-                                var createdUserGroupRole = this._unitOfWork.AclUserGroupRoleRepository.Add(userGroupRole);
-                                await this._unitOfWork.CompleteAsync();
-                                List<AclPage> aclPagesByModuleId = await this._customUnitOfWork.AclPageRepository.Where(x => x.ModuleId == ulong.Parse(this._config["S_ADMIN_DEFAULT_MODULE_ID"])).ToListAsync();
+                                var createdUserGroupRole = AclUserGroupRoleRepository.Add(userGroupRole);
+                                await base.CompleteAsync();
+                                List<AclPage> aclPagesByModuleId = await AclPageRepository.Where(x => x.ModuleId == ulong.Parse(this._config["S_ADMIN_DEFAULT_MODULE_ID"])).ToListAsync();
                                 List<ulong> pageIds = aclPagesByModuleId.Select(page => page.Id).ToList();
                                 List<AclRolePage> aclRolePages = pageIds.Select(pageId => new AclRolePage
                                 {
@@ -140,8 +149,8 @@ namespace ACL.Infrastructure.Repositories.V1
                                     CreatedAt = DateTime.UtcNow,
                                     UpdatedAt = DateTime.UtcNow
                                 }).ToList();
-                                await this._unitOfWork.AclRolePageRepository.AddRange(aclRolePages.ToArray());
-                                await this._unitOfWork.CompleteAsync();
+                                await AclRolePageRepository.AddRange(aclRolePages.ToArray());
+                                await base.CompleteAsync();
                             }
 
                             this.aclResponse.Data = aclCompany;
@@ -154,12 +163,6 @@ namespace ACL.Infrastructure.Repositories.V1
                         }
                         catch (Exception ex)
                         {
-                            if (this._unitOfWork.Logger == null)
-                            {
-
-                            }
-                            this._unitOfWork.Logger.LogError(ex, "Error at COMPANY_CREATE", new { data = request, message = ex.Message, });
-
                             await transaction.RollbackAsync();
                             this.aclResponse.Message = ex.Message;
                             this.aclResponse.StatusCode = AppStatusCode.FAIL;
@@ -169,7 +172,6 @@ namespace ACL.Infrastructure.Repositories.V1
             }
             catch (Exception ex)
             {
-                this._unitOfWork.Logger.LogError(null, "Error at COMPANY_CREATE", new { data = request, message = ex.Message, });
                 this.aclResponse.Message = ex.Message;
                 this.aclResponse.StatusCode = AppStatusCode.FAIL;
             }
@@ -183,7 +185,7 @@ namespace ACL.Infrastructure.Repositories.V1
                 var _aclCompany = await base.GetById(Id);
                 _aclCompany = PrepareInputData(null, request, _aclCompany);
                 await base.UpdateAsync(_aclCompany);
-                await this._unitOfWork.CompleteAsync();
+                await base.CompleteAsync();
                 await base.ReloadAsync(_aclCompany);
                 this.aclResponse.Data = _aclCompany;
                 this.aclResponse.Message = _aclCompany != null ? this.messageResponse.editMessage : this.messageResponse.notFoundMessage;
@@ -192,7 +194,6 @@ namespace ACL.Infrastructure.Repositories.V1
             }
             catch (Exception ex)
             {
-                this._unitOfWork.Logger.LogError(ex, "Error at COMPANY_EDIT", new { data = request, message = ex.Message, });
                 this.aclResponse.Message = ex.Message;
                 this.aclResponse.StatusCode = AppStatusCode.FAIL;
             }
@@ -213,7 +214,6 @@ namespace ACL.Infrastructure.Repositories.V1
             }
             catch (Exception ex)
             {
-                this._unitOfWork.Logger.LogError(ex, "Error at COMPANY_FIND", new { data = id, message = ex.Message });
                 aclResponse.Message = ex.Message;
                 aclResponse.StatusCode = AppStatusCode.FAIL;
             }
@@ -230,7 +230,7 @@ namespace ACL.Infrastructure.Repositories.V1
             {
                 aclCompany.Status = 0;
                 await base.UpdateAsync(aclCompany);
-                await this._unitOfWork.CompleteAsync();
+                await base.CompleteAsync();
                 this.aclResponse.Data = aclCompany;
             }
             this.aclResponse.Message = aclCompany != null ? this.messageResponse.fetchMessage : this.messageResponse.notFoundMessage;

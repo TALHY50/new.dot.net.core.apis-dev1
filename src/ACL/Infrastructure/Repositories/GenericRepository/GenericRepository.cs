@@ -1,38 +1,34 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ACL.Application.Interfaces;
+using ACL.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Localization;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
-using SharedLibrary.Interfaces;
+using Org.BouncyCastle.Tls;
 using System.Data;
 using System.Dynamic;
 using System.Linq.Expressions;
 
-namespace SharedLibrary.Services
+namespace ACL.Infrastructure.Repositories.GenericRepository
 {
-    //public class GenericRepository<T, TDbContext,TUnitOfWork> : IGenericRepository<T> where T : class where TDbContext : DbContext where TUnitOfWork: class
-    //{
-    //    protected IUnitOfWork<TDbContext> _unitOfWork;
-    //    protected TUnitOfWork _customUnitOfWork;
-    //    internal DbSet<T> _dbSet;
-    //    public GenericRepository(IUnitOfWork<TDbContext> unitOfWork, TUnitOfWork customUnitOfWork)
-    //    {
-    //        _unitOfWork = unitOfWork;
-    //        _customUnitOfWork = customUnitOfWork;
-    //        _dbSet = unitOfWork.ApplicationDbContext.Set<T>();
-
-    //    }
-    public class GenericRepository<T, TDbContext, TUnitOfWork> : IGenericRepository<T> where T : class where TDbContext : DbContext where TUnitOfWork : class
+    public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        protected TUnitOfWork _unitOfWork;
-        protected DbSet<T> _dbSet;
-        protected TDbContext _dbContext;
-        public GenericRepository(TUnitOfWork unitOfWork, TDbContext dbContext)
-        {
-            _unitOfWork = unitOfWork;
-            _dbContext = dbContext;
-            _dbSet = dbContext.Set<T>();
+        protected readonly DbSet<T> _dbSet;
+        protected readonly ApplicationDbContext _dbContext;
+        protected readonly IDistributedCache _distributedCache;
 
+        public GenericRepository(ApplicationDbContext dbContext)
+        {
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+            _dbSet = _dbContext.Set<T>();
         }
+        public GenericRepository(ApplicationDbContext dbContext,IDistributedCache distributedCache)
+        {
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+            _dbSet = _dbContext.Set<T>();
+            _distributedCache = distributedCache;
+        }
+
         public virtual async Task<T> FirstOrDefault()
         {
             return await this._dbSet.FirstOrDefaultAsync();
@@ -222,6 +218,61 @@ namespace SharedLibrary.Services
         {
             await _dbSet.AddRangeAsync(entities);
             return entities;
+        }
+
+        public async Task CompleteAsync()
+        {
+            await this._dbContext.SaveChangesAsync();
+        }
+
+        public void Complete()
+        {
+            _dbContext.SaveChanges();
+        }
+
+        public void Dispose()
+        {
+            this._dbContext.Dispose();
+        }
+
+        //public IUnitOfWork<TDbContext, TUnitOfWork> GetService()
+        //{
+        //    return this;
+        //}
+
+        public async Task<IDbContextTransaction> BeginTransactionAsync()
+        {
+            return await _dbContext.Database.BeginTransactionAsync();
+        }
+
+        public IDbTransaction BeginTransaction()
+        {
+            var transaction = _dbContext.Database.BeginTransaction();
+            return transaction.GetDbTransaction();
+        }
+
+        public async Task CommitTransactionAsync()
+        {
+            await this._dbContext.Database.CommitTransactionAsync();
+        }
+
+        public void CommitTransaction()
+        {
+            this._dbContext.Database.CommitTransaction();
+        }
+
+        public async Task RollbackTransactionAsync()
+        {
+            await this._dbContext.Database.RollbackTransactionAsync();
+        }
+        public void RollbackTransaction()
+        {
+            this._dbContext.Database.RollbackTransaction();
+        }
+
+        public IExecutionStrategy CreateExecutionStrategy()
+        {
+            return _dbContext.Database.CreateExecutionStrategy();
         }
 
         public virtual async Task ReloadAsync(T entity)

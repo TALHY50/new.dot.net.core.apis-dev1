@@ -38,6 +38,8 @@ using Microsoft.IdentityModel.Tokens;
 using AuthenticationService = Microsoft.AspNetCore.Authentication.AuthenticationService;
 using Microsoft.OpenApi.Models;
 using StackExchange.Redis;
+using ACL.Infrastructure.Repositories.GenericRepository;
+using ACL.Application.Interfaces.Repositories.V1;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -188,8 +190,8 @@ IConfiguration configuration = new ConfigurationBuilder()
        .SetBasePath(Directory.GetCurrentDirectory())
        .AddJsonFile("appsettings.json")
        .Build();
-builder.Services.AddScoped<ICustomUnitOfWork, CustomUnitOfWork>();
-builder.Services.AddScoped<IUnitOfWork<ApplicationDbContext, ICustomUnitOfWork>, UnitOfWork<ApplicationDbContext, ICustomUnitOfWork>>();
+//builder.Services.AddScoped<ICustomUnitOfWork, CustomUnitOfWork>();
+//builder.Services.AddScoped<IUnitOfWork<ApplicationDbContext, ICustomUnitOfWork>, UnitOfWork<ApplicationDbContext, ICustomUnitOfWork>>();
 builder.Services.AddSingleton(configuration);
 builder.Services.AddScoped<ICacheService, CacheService>();
 builder.Services.AddLogging(loggingBuilder =>
@@ -228,6 +230,21 @@ builder.Host.UseSerilog((hostingContext, loggerConfiguration) =>
 builder.Services.AddSerilog();
 
 builder.Services.AddScoped<IAclUserRepository, AclUserRepository>();
+builder.Services.AddScoped<IAclBranchRepository, AclBranchRepository>();
+builder.Services.AddScoped<IAclCompanyModuleRepository, AclCompanyModuleRepository>();
+builder.Services.AddScoped<IAclCompanyRepository, AclCompanyRepository>();
+builder.Services.AddScoped<IAclCountryRepository, AclCountryRepository>();
+builder.Services.AddScoped<IAclModuleRepository, AclModuleRepository>();
+builder.Services.AddScoped<IAclPageRepository, AclPageRepository>();
+builder.Services.AddScoped<IAclPageRouteRepository, AclPageRouteRepository>();
+builder.Services.AddScoped<IAclPasswordRepository, AclPasswordRepository>();
+builder.Services.AddScoped<IAclRolePageRepository, AclRolePageRepository>();
+builder.Services.AddScoped<IAclRoleRepository, AclRoleRepository>();
+builder.Services.AddScoped<IAclStateRepository, AclStateRepository>();
+builder.Services.AddScoped<IAclSubModuleRepository, AclSubModuleRepository>();
+builder.Services.AddScoped<IAclUserGroupRepository, AclUserGroupRepository>();
+builder.Services.AddScoped<IAclUserGroupRoleRepository, AclUserGroupRoleRepository>();
+builder.Services.AddScoped<IAclUserUserGroupRepository, AclUserUserGroupRepository>();
 
 builder.Services.AddScoped<LoginUseCase>();
 builder.Services.AddScoped<RefreshTokenUseCase>();
