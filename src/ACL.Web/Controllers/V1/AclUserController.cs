@@ -5,7 +5,7 @@ using ACL.Infrastructure.Route;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ACL.Controllers.V1
+namespace ACL.Web.Controllers.V1
 {
     /// <inheritdoc/>
     [Authorize]
@@ -17,42 +17,42 @@ namespace ACL.Controllers.V1
         /// <inheritdoc/>
         public AclUserController(IAclUserRepository repository)
         {
-            _repository = repository;
+            this._repository = repository;
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclUserRouteUrl.List, Name = AclRoutesName.AclUserRouteNames.List)]
         public AclResponse Index()
         {
-            return _repository.GetAll();
+            return this._repository.GetAll();
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPost(AclRoutesUrl.AclUserRouteUrl.Add, Name = AclRoutesName.AclUserRouteNames.Add)]
         public async Task<AclResponse> Create(AclUserRequest request)
         {
-            return await _repository.AddUser(request);
+            return await this._repository.AddUser(request);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPut(AclRoutesUrl.AclUserRouteUrl.Edit, Name = AclRoutesName.AclUserRouteNames.Edit)]
         public async Task<AclResponse> Edit(ulong id, AclUserRequest request)
         {
-            return await _repository.Edit(id, request);
+            return await this._repository.Edit(id, request);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpDelete(AclRoutesUrl.AclUserRouteUrl.Destroy, Name = AclRoutesName.AclUserRouteNames.Destroy)]
         public AclResponse Destroy(ulong id)
         {
-            return _repository.DeleteById(id);
+            return this._repository.DeleteById(id);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclUserRouteUrl.View, Name = AclRoutesName.AclUserRouteNames.View)]
         public AclResponse View(ulong id)
         {
-            return _repository.FindById(id);
+            return this._repository.FindById(id);
 
         }
     }

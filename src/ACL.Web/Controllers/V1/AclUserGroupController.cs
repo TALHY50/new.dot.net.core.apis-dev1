@@ -5,7 +5,7 @@ using ACL.Infrastructure.Route;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ACL.Controllers.V1
+namespace ACL.Web.Controllers.V1
 {
     /// <inheritdoc/>
     [Authorize]
@@ -17,42 +17,42 @@ namespace ACL.Controllers.V1
         /// <inheritdoc/>
         public AclUserGroupController(IAclUserGroupRepository repository)
         {
-            _repository = repository;
+            this._repository = repository;
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclUserGroupRouteUrl.List, Name = AclRoutesName.AclUserGroupRouteNames.List)]
         public AclResponse Index()
         {
-            return _repository.GetAll();
+            return this._repository.GetAll();
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPost(AclRoutesUrl.AclUserGroupRouteUrl.Add, Name = AclRoutesName.AclUserGroupRouteNames.Add)]
         public AclResponse AclResponseCreate(AclUserGroupRequest request)
         {
-            return _repository.AddUserGroup(request);
+            return this._repository.AddUserGroup(request);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPut(AclRoutesUrl.AclUserGroupRouteUrl.Edit, Name = AclRoutesName.AclUserGroupRouteNames.Edit)]
         public AclResponse Edit(ulong id, AclUserGroupRequest request)
         {
-            return _repository.UpdateUserGroup(id, request);
+            return this._repository.UpdateUserGroup(id, request);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclUserGroupRouteUrl.View, Name = AclRoutesName.AclUserGroupRouteNames.View)]
         public AclResponse View(ulong id)
         {
-            return  _repository.FindById(id);
+            return  this._repository.FindById(id);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpDelete(AclRoutesUrl.AclUserGroupRouteUrl.Destroy, Name = AclRoutesName.AclUserGroupRouteNames.Destroy)]
         public AclResponse Destroy(ulong id)
         {
-            return _repository.Delete(id);
+            return this._repository.Delete(id);
         }
     }
 }

@@ -5,7 +5,7 @@ using ACL.Infrastructure.Route;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ACL.Controllers.V1
+namespace ACL.Web.Controllers.V1
 {
      /// <inheritdoc/>
     [Authorize]
@@ -17,21 +17,21 @@ namespace ACL.Controllers.V1
          /// <inheritdoc/>
         public AclRoleAndPageAssocController(IAclRolePageRepository repository)
         {
-            _repository = repository;
+            this._repository = repository;
         }
          /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclRolePageRouteUrl.List, Name = AclRoutesName.AclRolePageRouteNames.List)]
         public async Task<AclResponse> Index(ulong id)
         {
-            return await _repository.GetAllById(id);
+            return await this._repository.GetAllById(id);
         }
          /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPut(AclRoutesUrl.AclRolePageRouteUrl.Edit, Name = AclRoutesName.AclRolePageRouteNames.Edit)]
         public async Task<AclResponse> Update(AclRoleAndPageAssocUpdateRequest req)
         {
-            return await _repository.UpdateAll(req);
+            return await this._repository.UpdateAll(req);
         }
     }
 }

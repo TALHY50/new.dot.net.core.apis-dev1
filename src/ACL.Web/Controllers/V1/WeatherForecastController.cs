@@ -1,13 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using ACL.Core.Models;
+﻿using ACL.Core.Models;
 using ACL.Infrastructure.Route;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
-namespace ACL.Controllers.V1
+namespace ACL.Web.Controllers.V1
 {
     /// <inheritdoc/>
     [Authorize]
@@ -24,7 +20,7 @@ namespace ACL.Controllers.V1
         /// <inheritdoc/>
         public WeatherForecastController(ILogger<WeatherForecastController> logger)
         {
-            _logger = logger;
+            this._logger = logger;
         }
         /// <inheritdoc/>
         [HttpGet] 

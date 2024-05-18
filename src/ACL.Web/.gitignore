@@ -39,3 +39,4 @@ SharedLibrary/bin/.*
 SharedLibrary/obj/.*
 Migrations/
 Migrations/*
+./idea/*

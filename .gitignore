@@ -56,3 +56,6 @@ src/ACL/Logs/
 /src/ACL/Logs/2024-04-22_querylog.txt
 /src/ACL/Logs/2024-04-23_querylog.txt
 /src/ACL/Logs/2024-04-23_log.txt
+/src/ACL.Web/.idea/*
+/src/ACL/.idea/.idea.ACL/.idea/*
+/src/ACL.Web/Logs/*
