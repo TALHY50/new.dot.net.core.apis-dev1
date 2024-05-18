@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ACL.Core", "..\ACL.Core\ACL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ACL.Infrastructure", "..\ACL.Infrastructure\ACL.Infrastructure.csproj", "{824FC178-028B-4EC6-9953-65AF86F41C36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ACL.UseCases", "..\ACL.UseCases\ACL.UseCases.csproj", "{757EA5B8-6111-4F22-8CD6-F1C54A912D68}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ACL.Application", "..\ACL.Application\ACL.Application.csproj", "{757EA5B8-6111-4F22-8CD6-F1C54A912D68}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ACL.Contracts", "..\ACL.Contracts\ACL.Contracts.csproj", "{6FF4CAEB-621B-4B84-AD13-AFE51738AB31}"
 EndProject

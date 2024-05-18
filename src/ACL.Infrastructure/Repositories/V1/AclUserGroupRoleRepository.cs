@@ -1,10 +1,10 @@
-﻿using ACL.Contracts.Requests.V1;
+﻿using ACL.Application.Interfaces.Repositories.V1;
+using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response;
 using ACL.Contracts.Response.V1;
 using ACL.Core.Models;
 using ACL.Infrastructure.Database;
 using ACL.Infrastructure.Utilities;
-using ACL.UseCases.Interfaces.Repositories.V1;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Response.CustomStatusCode;
 
