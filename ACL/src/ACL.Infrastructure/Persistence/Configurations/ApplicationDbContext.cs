@@ -1,15 +1,14 @@
 ﻿using System.Reflection;
-using ACL.Core;
-using ACL.Core.Entities;
 using ACL.Core.Entities.Auth;
 using ACL.Core.Entities.Company;
 using ACL.Core.Entities.Module;
 using ACL.Core.Entities.Role;
 using ACL.Core.Entities.UserGroup;
+using ACL.Infrastructure.Persistence.Migrations;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Interfaces;
 
-namespace ACL.Infrastructure.Persistence.Database;
+namespace ACL.Infrastructure.Persistence.Configurations;
 
 public partial class ApplicationDbContext : DbContext, IApplicationDbContext
 {

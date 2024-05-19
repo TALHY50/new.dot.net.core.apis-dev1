@@ -3,7 +3,7 @@ using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response;
 using ACL.Core.Entities.Module;
 using ACL.Core.Entities.Role;
-using ACL.Infrastructure.Persistence.Database;
+using ACL.Infrastructure.Persistence.Configurations;
 using ACL.Infrastructure.Utilities;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Response.CustomStatusCode;

@@ -1,6 +1,6 @@
 ﻿using ACL.Application.Ports.Repositories.Company;
 using ACL.Core.Entities.Company;
-using ACL.Infrastructure.Persistence.Database;
+using ACL.Infrastructure.Persistence.Configurations;
 
 namespace ACL.Infrastructure.Persistence.Repositories.Company
 {

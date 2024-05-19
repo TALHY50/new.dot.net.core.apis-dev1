@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace ACL.Infrastructure.Persistence;
+namespace ACL.Infrastructure.Persistence.Extensions;
 
 public static class FluentApiExtensions
 {

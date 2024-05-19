@@ -1,7 +1,7 @@
 ﻿using ACL.Application.Ports.Repositories.Auth;
 using ACL.Contracts.Response;
 using ACL.Core.Entities.Auth;
-using ACL.Infrastructure.Persistence.Database;
+using ACL.Infrastructure.Persistence.Configurations;
 using ACL.Infrastructure.Utilities;
 
 namespace ACL.Infrastructure.Persistence.Repositories.Auth

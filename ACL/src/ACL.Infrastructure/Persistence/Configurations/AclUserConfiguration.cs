@@ -1,5 +1,6 @@
 using ACL.Core.Entities;
 using ACL.Core.Entities.Auth;
+using ACL.Infrastructure.Persistence.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Claim = ACL.Core.Entities.Auth.Claim;

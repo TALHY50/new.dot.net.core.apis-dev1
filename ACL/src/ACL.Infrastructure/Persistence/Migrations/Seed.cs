@@ -1,9 +1,9 @@
-﻿using ACL.Infrastructure.Persistence.Database;
+﻿using ACL.Infrastructure.Persistence.Configurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace ACL.Infrastructure.Persistence.Data
+namespace ACL.Infrastructure.Persistence.Migrations
 {
     public static class SeedData
     {
