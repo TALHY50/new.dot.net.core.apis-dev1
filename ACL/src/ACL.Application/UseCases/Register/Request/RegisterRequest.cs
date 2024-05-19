@@ -6,6 +6,6 @@
         public string Password { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
-        public IList<Core.Claim> Claims { get; set; }
+        public IList<Core.Entities.Auth.Claim> Claims { get; set; }
     }
 }

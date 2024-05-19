@@ -1,9 +1,13 @@
 ﻿using ACL.Application.Enums;
 using ACL.Application.Ports.Repositories;
+using ACL.Application.Ports.Repositories.Auth;
 using ACL.Application.Ports.Services;
+using ACL.Application.Ports.Services.Cryptography;
+using ACL.Application.Ports.Services.Token;
 using ACL.Application.UseCases.Login.Request;
 using ACL.Application.UseCases.Login.Response;
-using ACL.Core.Models;
+using ACL.Core.Entities;
+using ACL.Core.Entities.Auth;
 using Microsoft.Extensions.Logging;
 
 namespace ACL.Application.UseCases.Login
@@ -45,7 +49,7 @@ namespace ACL.Application.UseCases.Login
 
                 if (AreCredentialsValid(request.Password, user))
                 {
-                    user.RefreshToken = new Core.RefreshToken
+                    user.RefreshToken = new Core.Entities.Auth.RefreshToken
                     {
                         Value = await this._authTokenService.GenerateRefreshToken(),
                         Active = true,

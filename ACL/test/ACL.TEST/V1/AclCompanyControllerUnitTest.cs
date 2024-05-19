@@ -12,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ACL.Contracts.Requests.V1;
-using ACL.Contracts.Response.V1;
+using ACL.Contracts.Response;
 using ACL.Infrastructure.Route;
 
 

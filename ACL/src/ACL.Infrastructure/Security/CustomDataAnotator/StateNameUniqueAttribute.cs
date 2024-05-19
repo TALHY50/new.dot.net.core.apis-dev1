@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using ACL.Application.Interfaces.Repositories.V1;
+using ACL.Application.Ports.Repositories;
+using ACL.Application.Ports.Repositories.Company;
 using Microsoft.AspNetCore.Http;
 
 namespace ACL.Infrastructure.Security.CustomDataAnotator

@@ -1,6 +1,6 @@
-﻿using ACL.Application.Interfaces.ServiceInterfaces;
+﻿using ACL.Application.Ports.Services;
 using ACL.Contracts.Requests.V1;
-using ACL.Contracts.Response.V1;
+using ACL.Contracts.Response;
 using ACL.Infrastructure.Route;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

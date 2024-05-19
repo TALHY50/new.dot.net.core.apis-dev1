@@ -1,4 +1,5 @@
-﻿using ACL.Core.Models;
+﻿using ACL.Core.Entities;
+using ACL.Core.Entities.Weather;
 using ACL.Infrastructure.Route;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

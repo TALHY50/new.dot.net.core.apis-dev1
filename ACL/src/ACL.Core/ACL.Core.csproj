@@ -16,10 +16,4 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="AuthAggregate\Events\" />
-    <Folder Include="AuthAggregate\Handlers\" />
-    <Folder Include="AuthAggregate\Specifications\" />
-  </ItemGroup>
-
 </Project>
