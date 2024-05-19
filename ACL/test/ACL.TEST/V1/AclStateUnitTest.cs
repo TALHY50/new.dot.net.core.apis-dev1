@@ -1,5 +1,5 @@
 using ACL.Contracts.Requests.V1;
-using ACL.Contracts.Response.V1;
+using ACL.Contracts.Response;
 using ACL.Core.Entities;
 using ACL.Core.Entities.Company;
 using ACL.Infrastructure.Route;

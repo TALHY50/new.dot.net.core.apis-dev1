@@ -1,8 +1,6 @@
 
 using System.Configuration;
 using System.Security.Cryptography;
-using ACL.Application.Interfaces.Repositories.V1;
-using ACL.Application.Interfaces.ServiceInterfaces;
 using ACL.Application.Ports.Repositories;
 using ACL.Application.Ports.Services;
 using ACL.Application.UseCases.Login;
@@ -19,7 +17,7 @@ using SharedLibrary.Services;
 using ACL.Infrastructure;
 using ACL.Infrastructure.Persistence.Data;
 using ACL.Infrastructure.Persistence.Database;
-using ACL.Infrastructure.Repositories.V1;
+using ACL.Infrastructure.Persistence.Repositories;
 using ACL.Infrastructure.Security;
 using ACL.Infrastructure.Services;
 using ACL.Infrastructure.Services.Cryptography;

@@ -1,12 +1,11 @@
-﻿using ACL.Application.Interfaces.Repositories.V1;
-using ACL.Application.Interfaces.ServiceInterfaces;
+﻿using ACL.Application.Ports.Repositories;
+using ACL.Application.Ports.Services;
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response;
-using ACL.Contracts.Response.V1;
 using ACL.Core.Entities;
 using ACL.Core.Entities.Company;
 using ACL.Infrastructure.Persistence.Database;
-using ACL.Infrastructure.Repositories.V1;
+using ACL.Infrastructure.Persistence.Repositories;
 using ACL.Infrastructure.Utilities;
 using SharedLibrary.Response.CustomStatusCode;
 

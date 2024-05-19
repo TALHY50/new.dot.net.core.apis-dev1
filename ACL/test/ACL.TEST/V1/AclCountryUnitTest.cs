@@ -5,7 +5,7 @@ using SharedLibrary.Services;
 using SharedLibrary.Response.CustomStatusCode;
 using System.Text.Json.Serialization;
 using ACL.Contracts.Requests.V1;
-using ACL.Contracts.Response.V1;
+using ACL.Contracts.Response;
 using ACL.Infrastructure.Route;
 using SharedLibrary.Utilities;
 using Newtonsoft.Json;

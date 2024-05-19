@@ -1,0 +1,34 @@
+﻿using ACL.Contracts.Requests.V1;
+using ACL.Contracts.Response;
+using ACL.Core.Entities.Role;
+
+namespace ACL.Application.Ports.Repositories
+
+{
+    /// <inheritdoc/>
+    public interface IAclRoleRepository
+    {
+        /// <inheritdoc/>
+       AclResponse GetAll();
+        /// <inheritdoc/>
+        AclResponse Add(AclRoleRequest roleRequest);
+        /// <inheritdoc/>
+        AclResponse Edit(ulong id, AclRoleRequest roleRequest);
+        /// <inheritdoc/>
+        AclResponse FindById(ulong id);
+        /// <inheritdoc/>
+        AclResponse DeleteById(ulong id);
+        /// <inheritdoc/>
+        List<AclRole>? All();
+        /// <inheritdoc/>
+        AclRole? Find(ulong id);
+        /// <inheritdoc/>
+        AclRole? Add(AclRole aclRole);
+        /// <inheritdoc/>
+        AclRole? Update(AclRole aclRole);
+        /// <inheritdoc/>
+        AclRole? Delete(AclRole aclRole);
+        /// <inheritdoc/>
+        AclRole? Delete(ulong id);
+    }
+}
