@@ -3,7 +3,7 @@ using ACL.Application.Ports.Repositories;
 using ACL.Application.Ports.Services;
 using ACL.Application.UseCases.Login.Request;
 using ACL.Application.UseCases.Login.Response;
-using ACL.Core.Models;
+using ACL.Core.Entities;
 using Microsoft.Extensions.Logging;
 
 namespace ACL.Application.UseCases.Login
@@ -45,7 +45,7 @@ namespace ACL.Application.UseCases.Login
 
                 if (AreCredentialsValid(request.Password, user))
                 {
-                    user.RefreshToken = new Core.RefreshToken
+                    user.RefreshToken = new Core.Entities.Auth.RefreshToken
                     {
                         Value = await this._authTokenService.GenerateRefreshToken(),
                         Active = true,

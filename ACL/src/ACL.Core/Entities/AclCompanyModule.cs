@@ -1,14 +1,12 @@
-﻿namespace ACL.Core.Models;
+﻿namespace ACL.Core.Entities;
 
-public partial class AclUserUsergroup
+public partial class AclCompanyModule
 {
     public ulong Id { get; set; }
 
-    public ulong UsergroupId { get; set; }
-
-    public ulong UserId { get; set; }
-
     public ulong CompanyId { get; set; }
+
+    public ulong ModuleId { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 

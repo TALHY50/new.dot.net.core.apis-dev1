@@ -17,9 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="AuthAggregate\Events\" />
-    <Folder Include="AuthAggregate\Handlers\" />
-    <Folder Include="AuthAggregate\Specifications\" />
+    <Folder Include="Entities\Module\" />
+    <Folder Include="Entities\Role\" />
+    <Folder Include="Entities\SubModule\" />
+    <Folder Include="Entities\UserGroup\" />
   </ItemGroup>
 
 </Project>

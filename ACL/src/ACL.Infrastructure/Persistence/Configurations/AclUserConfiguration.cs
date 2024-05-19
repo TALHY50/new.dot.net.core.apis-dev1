@@ -1,6 +1,7 @@
-using ACL.Core.Models;
+using ACL.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Claim = ACL.Core.Entities.Auth.Claim;
 
 //using Claim = ACL.Database.Models.Claim;
 
@@ -96,7 +97,7 @@ public class AclUserConfiguration : IEntityTypeConfiguration<AclUser>
             builder.Property(e => e.RefreshToken)
                 .HasMaxLength(100)
                 .HasColumnName("refresh_token").HasValueJsonConverter();
-            builder.Property<IList<Core.Claim>>("Claims")
+            builder.Property<IList<Claim>>("Claims")
                 .HasMaxLength(100)
                 .HasColumnName("claims").HasValueJsonConverter();
             builder.Property(e => e.Status)

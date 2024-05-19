@@ -1,4 +1,4 @@
-﻿namespace ACL.Core
+﻿namespace ACL.Core.Entities.Auth
 {
     public class RefreshToken
     {

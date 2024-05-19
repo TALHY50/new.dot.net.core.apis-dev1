@@ -3,10 +3,10 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using ACL.Application.Exceptions;
 using ACL.Application.Ports.Services;
-using ACL.Core.Models;
+using ACL.Core.Entities;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Claim = ACL.Core.Models.Claim;
+using Claim = ACL.Core.Entities.Claim;
 
 namespace ACL.Infrastructure.Services.Jwt
 {
@@ -76,7 +76,7 @@ namespace ACL.Infrastructure.Services.Jwt
             claimsIdentity.AddClaim(new System.Security.Claims.Claim(ClaimTypes.Surname, user.LastName));
 
             // Add custom claims if any
-            foreach (var c in user.Claims ?? System.Linq.Enumerable.Empty<Core.Claim>())
+            foreach (var c in user.Claims ?? System.Linq.Enumerable.Empty<Core.Entities.Auth.Claim>())
             {
                 claimsIdentity.AddClaim(new System.Security.Claims.Claim(c.Type, c.Value));
             }

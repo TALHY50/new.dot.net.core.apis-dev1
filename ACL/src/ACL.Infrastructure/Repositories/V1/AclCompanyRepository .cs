@@ -4,12 +4,13 @@ using ACL.Application.Ports.Services;
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response;
 using ACL.Contracts.Response.V1;
-using ACL.Core.Models;
+using ACL.Core.Entities;
 using ACL.Infrastructure.Persistence.Database;
 using ACL.Infrastructure.Utilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SharedLibrary.Response.CustomStatusCode;
+using Claim = ACL.Core.Entities.Auth.Claim;
 
 namespace ACL.Infrastructure.Repositories.V1
 {
@@ -102,7 +103,7 @@ namespace ACL.Infrastructure.Repositories.V1
                         Username = aclCompany.Email,
                         CreatedById = 0,
                         Salt = salt,
-                        Claims = new Core.Claim[] { },
+                        Claims = new Claim[] { },
                         CreatedAt = DateTime.Now,
                         UpdatedAt = DateTime.Now
                     };

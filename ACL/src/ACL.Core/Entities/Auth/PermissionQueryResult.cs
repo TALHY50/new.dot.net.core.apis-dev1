@@ -1,4 +1,4 @@
-namespace ACL.Core.Permissions;
+namespace ACL.Core.Entities.Auth;
 
 public class PermissionQueryResult
 {

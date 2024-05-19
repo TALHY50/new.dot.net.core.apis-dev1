@@ -5,8 +5,8 @@ using ACL.Application.Ports.Services;
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response;
 using ACL.Contracts.Response.V1;
-using ACL.Core.Models;
-using ACL.Core.Permissions;
+using ACL.Core.Entities;
+using ACL.Core.Entities.Auth;
 using ACL.Infrastructure.Persistence.Database;
 using ACL.Infrastructure.Utilities;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +16,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using SharedLibrary.Response.CustomStatusCode;
+using Claim = ACL.Core.Entities.Auth.Claim;
 
 namespace ACL.Infrastructure.Repositories.V1
 {
@@ -270,7 +271,7 @@ namespace ACL.Infrastructure.Repositories.V1
                     CompanyId = this._companyId,
                     UserType = (this._companyId == 0) ? uint.Parse(this._config["USER_TYPE_S_ADMIN"]) : uint.Parse(this._config["USER_TYPE_USER"]),
                     Salt = salt,
-                    Claims = new Core.Claim[] { }
+                    Claims = new Claim[] { }
                 };
             }
             else
@@ -294,7 +295,7 @@ namespace ACL.Infrastructure.Repositories.V1
                 AclUser.CompanyId = (this._companyId != 0) ? this._companyId : 0;
                 AclUser.UserType = (this._userType != 0) ? this._userType : 0;
                 AclUser.Salt = AclUser.Salt ?? salt;
-                AclUser.Claims = AclUser.Claims ?? new Core.Claim[] { };
+                AclUser.Claims = AclUser.Claims ?? new Claim[] { };
             }
             return AclUser;
         }

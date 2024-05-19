@@ -1,4 +1,4 @@
-namespace ACL.Core.Models;
+namespace ACL.Core.Entities;
 
 public class Claim
 {

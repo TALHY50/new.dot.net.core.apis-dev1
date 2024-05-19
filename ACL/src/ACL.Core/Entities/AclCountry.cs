@@ -1,15 +1,14 @@
-﻿namespace ACL.Core.Models;
+﻿namespace ACL.Core.Entities;
 
-public partial class AclBranch
+public partial class AclCountry
 {
     public ulong Id { get; set; }
-    public ulong CompanyId { get; set; }
 
     public string Name { get; set; } = null!;
 
-    public string Address { get; set; } = null!;
-
     public string Description { get; set; } = null!;
+
+    public string Code { get; set; } = null!;
 
     public byte Status { get; set; }
 

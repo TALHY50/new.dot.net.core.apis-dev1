@@ -3,8 +3,9 @@ using ACL.Application.Ports.Repositories;
 using ACL.Application.Ports.Services;
 using ACL.Application.UseCases.Register.Request;
 using ACL.Application.UseCases.Register.Response;
-using ACL.Core.Models;
+using ACL.Core.Entities;
 using Microsoft.Extensions.Logging;
+using Claim = ACL.Core.Entities.Auth.Claim;
 
 namespace ACL.Application.UseCases.Register
 {
@@ -82,11 +83,11 @@ namespace ACL.Application.UseCases.Register
             }
         }
 
-        private static IList<Core.Claim>? ToClaims(IList<Core.Claim> requestClaims)
+        private static IList<Claim>? ToClaims(IList<Claim> requestClaims)
         {
             if (requestClaims == null) return null;
-            var claims = new List<Core.Claim>();
-            claims.AddRange(requestClaims.Select(r => new Core.Claim { Type = r.Type, Value = r.Value }).ToList());
+            var claims = new List<Claim>();
+            claims.AddRange(requestClaims.Select(r => new Claim { Type = r.Type, Value = r.Value }).ToList());
             return claims;
         }
     }

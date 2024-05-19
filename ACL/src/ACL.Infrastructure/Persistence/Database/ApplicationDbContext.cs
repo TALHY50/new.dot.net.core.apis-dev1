@@ -1,9 +1,10 @@
 ﻿using System.Reflection;
 using ACL.Core;
-using ACL.Core.Models;
+using ACL.Core.Entities;
+using ACL.Core.Entities.Auth;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Interfaces;
-using Claim = ACL.Core.Models.Claim;
+using Claim = ACL.Core.Entities.Claim;
 
 namespace ACL.Infrastructure.Persistence.Database;
 
@@ -4145,7 +4146,7 @@ public partial class ApplicationDbContext : DbContext, IApplicationDbContext
                  OtpChannel = 0,
                  CreatedById = 1,
                  Salt = "pNr7R0FzsicCDrMlIwXYVI6zM4rZByVgNCkWRwM4y57Sw+cdKUbTrRZLbV8nccwNlN+DokHXlkxKGvw+7ISPPw==",
-                 Claims = new List<Core.Claim>{new Core.Claim
+                 Claims = new List<Core.Entities.Auth.Claim>{new Core.Entities.Auth.Claim
                  {
                      Type = "scope",
                      Value = "CanReadWeather"

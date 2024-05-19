@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using ACL.Core.Permissions;
+using ACL.Core.Entities.Auth;
 
-namespace ACL.Core.Models;
+namespace ACL.Core.Entities;
 
 public partial class AclUser
 {
@@ -60,7 +60,7 @@ public partial class AclUser
 
     public string? ImgPath { get; set; }
     
-    public IList<Core.Claim> Claims { get; set; }
+    public IList<Auth.Claim> Claims { get; set; }
 
     /// <summary>
     /// 0=&gt;Inactive or disable; 1=&gt;enable or active; 2=&gt; disabled or suspected;3= awaiting disable or banned;4=awaiting GSM
@@ -92,7 +92,7 @@ public partial class AclUser
     
     public AclUser()
     {
-        Claims = new List<Core.Claim>();
+        Claims = new List<Auth.Claim>();
         RefreshToken = new RefreshToken();
     }
 
