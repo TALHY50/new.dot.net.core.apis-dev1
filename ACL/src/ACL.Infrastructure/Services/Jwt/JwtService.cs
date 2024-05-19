@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using ACL.Application.Exceptions;
 using ACL.Application.Ports.Services;
+using ACL.Application.Ports.Services.Token;
 using ACL.Core.Entities;
 using ACL.Core.Entities.Auth;
 using Microsoft.Extensions.Options;

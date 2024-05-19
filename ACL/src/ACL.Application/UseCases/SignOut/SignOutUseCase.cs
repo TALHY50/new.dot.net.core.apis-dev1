@@ -1,5 +1,6 @@
 ﻿using ACL.Application.Enums;
 using ACL.Application.Ports.Repositories;
+using ACL.Application.Ports.Repositories.Auth;
 using ACL.Application.UseCases.SignOut.Request;
 using ACL.Application.UseCases.SignOut.Response;
 using Microsoft.Extensions.Logging;

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using ACL.Application.Ports.Repositories;
+using ACL.Application.Ports.Repositories.Company;
 
 namespace ACL.Infrastructure.Security.CustomDataAnotator
 {

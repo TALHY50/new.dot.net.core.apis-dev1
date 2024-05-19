@@ -1,4 +1,5 @@
 using ACL.Application.Ports.Repositories;
+using ACL.Application.Ports.Repositories.Auth;
 using ACL.Application.Ports.Services;
 using ACL.Core.Entities;
 using ACL.Core.Entities.Auth;
