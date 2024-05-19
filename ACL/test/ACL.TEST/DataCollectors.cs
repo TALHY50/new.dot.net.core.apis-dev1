@@ -1,7 +1,7 @@
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
 using System.Runtime.Caching;
-using ACL.Application.UseCases.Login.Request;
+using ACL.Application.UseCases.Auth.Login.Request;
 using ACL.Infrastructure;
 using ACL.Infrastructure.Persistence.Configurations;
 using Newtonsoft.Json;

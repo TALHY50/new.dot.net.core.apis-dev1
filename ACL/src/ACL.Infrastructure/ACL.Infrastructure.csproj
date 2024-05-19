@@ -62,4 +62,8 @@
       <CustomToolNamespace>bn-BD</CustomToolNamespace>
     </EmbeddedResource>
   </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="Services\Permission\" />
+  </ItemGroup>
 </Project>

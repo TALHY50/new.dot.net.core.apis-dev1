@@ -345,73 +345,65 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
 
             if (user == null) return user;
 
-            var roleIds = (from userUsergroup in this._dbContext.AclUserUsergroups
-                           join usergroup in this._dbContext.AclUsergroups on userUsergroup.UsergroupId equals usergroup.Id
-                           join usergroupRole in this._dbContext.AclUsergroupRoles on usergroup.Id equals usergroupRole.UsergroupId
-                           join role in this._dbContext.AclRoles on usergroupRole.RoleId equals role.Id
-                           where userUsergroup.UserId == userId
-                           select role.Id).ToList();
+            var userPermissionVersion = user.PermissionVersion;
+            
+            var key =  $"{Enum.GetName(CacheKeys.UserIdPermissionVersion)}-{userId}_{userPermissionVersion}";
 
-
-            foreach (var roleId in roleIds)
+            if (this._distributedCache is IDistributedCache)
             {
-                var key = $"{Enum.GetName(CacheKeys.RoleRouteNames)}-{roleId}";
-                HashSet<string> tmpRouteNames = new HashSet<string>();
 
-                string? cachedRouteNames = null;
+                string? cachedPermittedRoutes = await this._distributedCache.GetStringAsync(key);
 
-                if (this._distributedCache is IDistributedCache)
+                if (cachedPermittedRoutes != null)
                 {
-                    cachedRouteNames = await this._distributedCache.GetStringAsync(key);
-                }
-
-                if (cachedRouteNames != null)
-                {
-#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-                    tmpRouteNames = JsonConvert.DeserializeObject<HashSet<string>>(cachedRouteNames);
-#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
-                    routeNames.UnionWith(tmpRouteNames);
-                }
-
-                if (tmpRouteNames.IsNullOrEmpty())
-                {
-                    var permissionList = (from rolePage in _dbContext.AclRolePages
-                                          join page in _dbContext.AclPages on rolePage.PageId equals page.Id
-                                          join pageRoute in _dbContext.AclPageRoutes on page.Id equals pageRoute.PageId
-                                          join subModule in _dbContext.AclSubModules on page.SubModuleId equals subModule.Id
-                                          join module in _dbContext.AclModules on subModule.ModuleId equals module.Id
-                                          where rolePage.RoleId == roleId
-                                          select new PermissionQueryResult()
-                                          {
-                                              UserId = user.Id,
-                                              PermissionVersion = user.PermissionVersion,
-                                              PageId = page.Id,
-                                              PageName = page.Name,
-                                              PageRouteName = pageRoute.RouteName,
-                                              ModuleId = module.Id,
-                                              ControllerName = subModule.ControllerName,
-                                              SubmoduleName = subModule.Name,
-                                              SubmoduleId = subModule.Id,
-                                              MethodName = page.MethodName,
-                                              MethodType = page.MethodType,
-                                              DefaultMethod = subModule.DefaultMethod
-                                          }).ToList();
-                    if (permissionList != null)
-                    {
-#pragma warning disable CS8619 // Nullability of reference types in value doesn't match target type.
-                        tmpRouteNames = permissionList.Select(q => q.PageRouteName).ToHashSet();
-#pragma warning restore CS8619 // Nullability of reference types in value doesn't match target type.
-                        routeNames.UnionWith(tmpRouteNames);
-                        if (this._distributedCache is IDistributedCache)
-                        {
-                            await this._distributedCache.SetStringAsync(key, JsonConvert.SerializeObject(tmpRouteNames));
-                        }
-                    }
-
+                    routeNames =
+                        JsonConvert.DeserializeObject<HashSet<string>>(cachedPermittedRoutes) ?? null;
                 }
             }
 
-            var permission = new Permission(routeNames);
+            if (routeNames.IsNullOrEmpty())
+            {
+                var result = (from userUsergroup in _dbContext.AclUserUsergroups
+                    join usergroup in _dbContext.AclUsergroups on userUsergroup.UsergroupId equals usergroup.Id
+                    join usergroupRole in _dbContext.AclUsergroupRoles on usergroup.Id equals usergroupRole.UsergroupId
+                    join role in _dbContext.AclRoles on usergroupRole.RoleId equals role.Id
+                    join rolePage in _dbContext.AclRolePages on role.Id equals rolePage.RoleId
+                    join page in _dbContext.AclPages on rolePage.PageId equals page.Id
+                    join pageRoute in _dbContext.AclPageRoutes on page.Id equals pageRoute.PageId
+                    join subModule in _dbContext.AclSubModules on page.SubModuleId equals subModule.Id
+                    join module in _dbContext.AclModules on subModule.ModuleId equals module.Id
+                    where userUsergroup.UserId == user.Id
+                    select new PermissionQueryResult()
+                    {
+                        UserId = user.Id,
+                        PermissionVersion = user.PermissionVersion,
+                        PageId = page.Id,
+                        PageName = page.Name,
+                        PageRouteName = pageRoute.RouteName,
+                        UsergroupId = usergroup.Id,
+                        DefaultUrl = usergroup.DashboardUrl,
+                        UsergroupCategory = usergroup.Category,
+                        ModuleId = module.Id,
+                        ControllerName = subModule.ControllerName,
+                        SubmoduleName = subModule.Name,
+                        SubmoduleId = subModule.Id,
+                        MethodName = page.MethodName,
+                        MethodType = page.MethodType,
+                        DefaultMethod = subModule.DefaultMethod
+                    }).ToList();
+
+                if (!result.IsNullOrEmpty())
+                {
+                    routeNames = new HashSet<string>(result.Select(q => q.PageRouteName)!);
+                }
+
+                if (this._distributedCache is IDistributedCache)
+                {
+                    await this._distributedCache.SetStringAsync(key, JsonConvert.SerializeObject(routeNames));
+                }
+            }
+            
+            var permission = new Permission(userPermissionVersion, routeNames);
 
             user.SetPermission(permission);
 

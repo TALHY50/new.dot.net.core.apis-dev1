@@ -10,10 +10,11 @@ using ACL.Application.Ports.Repositories.UserGroup;
 using ACL.Application.Ports.Services;
 using ACL.Application.Ports.Services.Cryptography;
 using ACL.Application.Ports.Services.Token;
-using ACL.Application.UseCases.Login;
-using ACL.Application.UseCases.RefreshToken;
-using ACL.Application.UseCases.Register;
-using ACL.Application.UseCases.SignOut;
+using ACL.Application.UseCases.Auth.Authorize;
+using ACL.Application.UseCases.Auth.Login;
+using ACL.Application.UseCases.Auth.RefreshToken;
+using ACL.Application.UseCases.Auth.Register;
+using ACL.Application.UseCases.Auth.SignOut;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Events;
@@ -34,7 +35,6 @@ using ACL.Infrastructure.Security;
 using ACL.Infrastructure.Services;
 using ACL.Infrastructure.Services.Cryptography;
 using ACL.Infrastructure.Services.Jwt;
-using ACL.Infrastructure.Services.Permission;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using SharedLibrary.CustomMiddleWare;
@@ -107,12 +107,11 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("HasPermission", policy =>
-        policy.Requirements.Add(new PermissionRequirement()));
+        policy.Requirements.Add(new PermissionAuthorizationRequirement()));
 });
 
 // Singletons
-builder.Services.AddSingleton<IAuthorizationHandler, PermissionHandler>();
-builder.Services.AddScoped<IPermissionService, PermissionService>();
+builder.Services.AddSingleton<IAuthorizationHandler, PermissionAuthorizationHandler>();
 //builder.Services.AddAuthentication();
 //builder.Services.AddAuthorization(); // Add authorization services
 builder.Services.AddControllers();
