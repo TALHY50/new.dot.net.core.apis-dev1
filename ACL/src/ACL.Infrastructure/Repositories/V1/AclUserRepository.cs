@@ -7,7 +7,7 @@ using ACL.Contracts.Response;
 using ACL.Contracts.Response.V1;
 using ACL.Core.Models;
 using ACL.Core.Permissions;
-using ACL.Infrastructure.Database;
+using ACL.Infrastructure.Persistence.Database;
 using ACL.Infrastructure.Utilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;

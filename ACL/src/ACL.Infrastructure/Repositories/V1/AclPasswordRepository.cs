@@ -4,7 +4,7 @@ using ACL.Application.Ports.Services;
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response;
 using ACL.Contracts.Response.V1;
-using ACL.Infrastructure.Database;
+using ACL.Infrastructure.Persistence.Database;
 using ACL.Infrastructure.Utilities;
 using SharedLibrary.Response.CustomStatusCode;
 using SharedLibrary.Utilities;

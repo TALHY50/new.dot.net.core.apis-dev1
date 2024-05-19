@@ -1,6 +1,6 @@
 ﻿using ACL.Application.Interfaces.Repositories.V1;
 using ACL.Core.Models;
-using ACL.Infrastructure.Database;
+using ACL.Infrastructure.Persistence.Database;
 
 namespace ACL.Infrastructure.Repositories.V1
 {

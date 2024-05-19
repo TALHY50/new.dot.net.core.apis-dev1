@@ -62,3 +62,5 @@ src/ACL/Logs/
 
 *log.txt
 *.idea/
+*log.txt
+/ACL/src/ACL.Web/Logs/*

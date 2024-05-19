@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Interfaces;
 using Claim = ACL.Core.Models.Claim;
 
-namespace ACL.Infrastructure.Database;
+namespace ACL.Infrastructure.Persistence.Database;
 
 public partial class ApplicationDbContext : DbContext, IApplicationDbContext
 {

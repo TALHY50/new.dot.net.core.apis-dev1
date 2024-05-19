@@ -1,11 +1,10 @@
 using ACL.Core.Models;
-using ACL.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 //using Claim = ACL.Database.Models.Claim;
 
-namespace ACL.Infrastructure.Configurations;
+namespace ACL.Infrastructure.Persistence.Configurations;
 
 public class AclUserConfiguration : IEntityTypeConfiguration<AclUser>
 {
