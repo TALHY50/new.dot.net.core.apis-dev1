@@ -3,7 +3,7 @@ using ACL.Application.Ports.Services;
 using ACL.Application.Ports.Services.Cryptography;
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response;
-using ACL.Infrastructure.Persistence.Database;
+using ACL.Infrastructure.Persistence.Configurations;
 using ACL.Infrastructure.Utilities;
 using SharedLibrary.Response.CustomStatusCode;
 using SharedLibrary.Utilities;

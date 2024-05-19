@@ -1,4 +1,4 @@
-namespace ACL.Core.Entities.Auth;
+namespace ACL.Infrastructure.Persistence.Dtos;
 
 public class PermissionQueryResult
 {

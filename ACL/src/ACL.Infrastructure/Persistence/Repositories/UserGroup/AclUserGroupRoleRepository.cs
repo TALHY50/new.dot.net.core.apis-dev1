@@ -3,7 +3,7 @@ using ACL.Application.Ports.Repositories.UserGroup;
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response;
 using ACL.Core.Entities.UserGroup;
-using ACL.Infrastructure.Persistence.Database;
+using ACL.Infrastructure.Persistence.Configurations;
 using ACL.Infrastructure.Utilities;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Response.CustomStatusCode;

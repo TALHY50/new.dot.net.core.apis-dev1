@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using ACL.Infrastructure.Persistence.Database;
+using ACL.Infrastructure.Persistence.Configurations;
 
 namespace ACL.Infrastructure.Security.CustomDataAnotator
 {

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Runtime.Caching;
 using ACL.Application.UseCases.Login.Request;
 using ACL.Infrastructure;
-using ACL.Infrastructure.Persistence.Database;
+using ACL.Infrastructure.Persistence.Configurations;
 using Newtonsoft.Json;
 using RestSharp;
 using Microsoft.Extensions.Caching.Distributed;
