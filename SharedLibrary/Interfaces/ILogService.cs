@@ -5,16 +5,16 @@ namespace SharedLibrary.Interfaces
     public interface ILogService
     {
 
-        public Dictionary<string, object> NewLog(string action = null);
+        public Dictionary<string, object> NewLog(string? action = null);
 
         public void LogSync(Dictionary<string, object> log);
-        public Task<bool> LogAsync(Dictionary<string, object> log);
+        public bool Log(Dictionary<string, object> log);
 
-        public Task<bool> LogAsync(Exception log);
+        public bool Log(Exception log);
 
-        public Task<bool> LogAsync<T>(T any);
+        public bool Log<T>(T any);
 
-        public ILogger Logger(Type t = null);
+        public ILogger Logger(Type? t = null);
 
         public ILoggerFactory LoggerFactory();
 

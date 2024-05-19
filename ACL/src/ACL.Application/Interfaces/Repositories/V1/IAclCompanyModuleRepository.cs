@@ -20,7 +20,7 @@ namespace ACL.Application.Interfaces.Repositories.V1
         /// <inheritdoc/>
         bool IsValidForCreateOrUpdate(ulong companyId, ulong moduleId, ulong id = 0);
         /// <inheritdoc/>
-        AclCompanyModule PrepareInputData(AclCompanyModuleRequest request, ulong Id = 0, AclCompanyModule aclCompanyModule = null);
+        AclCompanyModule PrepareInputData(AclCompanyModuleRequest request, ulong Id = 0, AclCompanyModule? aclCompanyModule = null);
         /// <inheritdoc/>
         List<AclCompany>? All();
         /// <inheritdoc/>

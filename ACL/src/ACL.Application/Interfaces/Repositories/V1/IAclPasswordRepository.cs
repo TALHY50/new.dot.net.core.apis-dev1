@@ -7,10 +7,10 @@ namespace ACL.Application.Interfaces.Repositories.V1
     public interface IAclPasswordRepository
     {
         /// <inheritdoc/>
-        Task<AclResponse> Reset(AclPasswordResetRequest request);
+        AclResponse Reset(AclPasswordResetRequest request);
         /// <inheritdoc/>
-        Task<AclResponse> Forget(AclForgetPasswordRequest request);
+        AclResponse Forget(AclForgetPasswordRequest request);
         /// <inheritdoc/>
-        Task<AclResponse> VerifyToken(AclForgetPasswordTokenVerifyRequest request);
+        AclResponse VerifyToken(AclForgetPasswordTokenVerifyRequest request);
     }
 }
