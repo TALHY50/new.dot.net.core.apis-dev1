@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using Ardalis.SharedKernel;
 
 namespace ACL.Core.Entities.Auth;
 
-public partial class AclUser
+public partial class AclUser : EntityBase, IAggregateRoot
 {
     public ulong Id { get; set; }
 
