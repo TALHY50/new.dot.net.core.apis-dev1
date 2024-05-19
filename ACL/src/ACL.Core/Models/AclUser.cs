@@ -43,9 +43,9 @@ public partial class AclUser
     public uint UserType { get; set; }
 
     public string? RememberToken { get; set; }
-    
+
     public RefreshToken RefreshToken { get; set; }
-    
+
     public string? Salt { get; set; }
 
     public DateTime? CreatedAt { get; set; }
@@ -59,7 +59,7 @@ public partial class AclUser
     public string? Username { get; set; }
 
     public string? ImgPath { get; set; }
-    
+
     public IList<Core.Claim> Claims { get; set; }
 
     /// <summary>
@@ -84,12 +84,12 @@ public partial class AclUser
     public uint CreatedById { get; set; }
 
     public string? AuthIdentifier { get; set; }
-    
+
     [NotMapped]
-    
+
     private Permission? _permission { get; set; }
-    
-    
+
+
     public AclUser()
     {
         Claims = new List<Core.Claim>();
@@ -101,25 +101,28 @@ public partial class AclUser
         Id = userId;
         PermissionVersion = permissionVersion;
         _permission = permission;
+        Claims = new List<Core.Claim>();
+        RefreshToken = new RefreshToken();
     }
 
     public void SetPermission(Permission permission)
     {
         this._permission = permission;
     }
-    
-    
+
+
     public bool IsPermitted(string routeName)
     {
-        if (_permission.RouteNames.Contains(routeName))
+        if (_permission != null && _permission.RouteNames != null && _permission.RouteNames.Contains(routeName))
         {
             return true;
         }
 
         return false;
     }
-    
-    
-    
-    
+
+
+
+
+
 }

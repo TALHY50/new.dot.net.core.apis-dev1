@@ -364,3 +364,42 @@ ACL.Infrastructure.Security.PermissionRequirement
 [Response Body] 
 
 2024-05-19 17:07:59.728 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/api/v1/roles - 403 0 null 15.2212ms
+2024-05-19 18:10:07.760 +06:00 [INF] Executed DbCommand (33ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE WHEN COUNT(*) = 0 THEN FALSE ELSE TRUE END
+        FROM information_schema.tables
+        WHERE table_type = 'BASE TABLE' AND table_schema = 'acl'
+2024-05-19 18:10:07.836 +06:00 [ERR] An error occurred while seeding the database.
+System.FormatException: Input string was not in a correct format. Failure to parse near offset 64369. Expected an ASCII digit.
+   at System.Text.ValueStringBuilder.AppendFormatHelper(IFormatProvider provider, String format, ReadOnlySpan`1 args)
+   at System.String.FormatHelper(IFormatProvider provider, String format, ReadOnlySpan`1 args)
+   at System.String.Format(String format, Object[] args)
+   at Microsoft.EntityFrameworkCore.Storage.Internal.RawSqlCommandBuilder.Build(String sql, IEnumerable`1 parameters)
+   at Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions.ExecuteSqlRaw(DatabaseFacade databaseFacade, String sql, IEnumerable`1 parameters)
+   at Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions.ExecuteSqlRaw(DatabaseFacade databaseFacade, String sql, Object[] parameters)
+   at ACL.Infrastructure.Data.SeedData.Initialize(IServiceProvider serviceProvider) in D:\Porosh\ACL\ACL\src\ACL.Infrastructure\Data\Seed.cs:line 36
+2024-05-19 18:10:08.320 +06:00 [INF] User profile is available. Using 'C:\Users\88016\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-05-19 18:10:08.435 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\ACL\src\ACL.Web\wwwroot. Static files may be unavailable.
+2024-05-19 18:10:08.738 +06:00 [INF] Now listening on: https://localhost:7125
+2024-05-19 18:10:08.738 +06:00 [INF] Now listening on: http://localhost:5229
+2024-05-19 18:10:08.738 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-05-19 18:10:08.738 +06:00 [INF] Hosting environment: Development
+2024-05-19 18:10:08.738 +06:00 [INF] Content root path: D:\Porosh\ACL\ACL\src\ACL.Web
+2024-05-19 18:10:11.700 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger - null null
+2024-05-19 18:10:14.523 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger - 301 0 null 2833.6491ms
+2024-05-19 18:10:14.554 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/index.html - null null
+2024-05-19 18:10:14.774 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/index.html - 200 null text/html;charset=utf-8 219.4806ms
+2024-05-19 18:10:14.856 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/swagger-ui.css - null null
+2024-05-19 18:10:14.856 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/swagger-ui-standalone-preset.js - null null
+2024-05-19 18:10:14.856 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/swagger-ui-bundle.js - null null
+2024-05-19 18:10:14.927 +06:00 [INF] Sending file. Request path: '/swagger-ui.css'. Physical path: 'N/A'
+2024-05-19 18:10:14.927 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/swagger-ui.css - 200 144929 text/css 71.5622ms
+2024-05-19 18:10:14.951 +06:00 [INF] Sending file. Request path: '/swagger-ui-standalone-preset.js'. Physical path: 'N/A'
+2024-05-19 18:10:14.953 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/swagger-ui-standalone-preset.js - 200 312163 text/javascript 96.2914ms
+2024-05-19 18:10:14.990 +06:00 [INF] Sending file. Request path: '/swagger-ui-bundle.js'. Physical path: 'N/A'
+2024-05-19 18:10:14.990 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/swagger-ui-bundle.js - 200 1061536 text/javascript 133.5852ms
+2024-05-19 18:10:15.112 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - null null
+2024-05-19 18:10:15.120 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - 200 13750 application/javascript; charset=utf-8 8.1339ms
+2024-05-19 18:10:15.143 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_vs/browserLink - null null
+2024-05-19 18:10:15.251 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_vs/browserLink - 200 null text/javascript; charset=UTF-8 107.6764ms
+2024-05-19 18:10:16.339 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - null null
+2024-05-19 18:10:16.672 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 334.0224ms

@@ -34,7 +34,7 @@ namespace ACL.Infrastructure.Repositories.V1
         public AclResponse GetAll()
         {
             List<AclPage>? aclPage = All();
-            if (aclPage.Any())
+            if (aclPage != null)
             {
                 this.aclResponse.Message = this.messageResponse.fetchMessage;
             }
@@ -141,7 +141,7 @@ namespace ACL.Infrastructure.Repositories.V1
         }
 
 
-        private AclPage PrepareInputData(AclPageRequest request, AclPage AclPage = null)
+        private AclPage PrepareInputData(AclPageRequest request, AclPage? AclPage = null)
         {
             if (AclPage == null)
             {
@@ -221,7 +221,7 @@ namespace ACL.Infrastructure.Repositories.V1
 
         }
         /// <inheritdoc/>
-        public AclPageRoute PreparePageRouteInputData(AclPageRouteRequest request, AclPageRoute aclPageRoute = null)
+        public AclPageRoute PreparePageRouteInputData(AclPageRouteRequest request, AclPageRoute? aclPageRoute = null)
         {
             if (aclPageRoute == null)
             {
@@ -328,6 +328,7 @@ namespace ACL.Infrastructure.Repositories.V1
             try
             {
                 var delete = _dbContext.AclPages.Find(id);
+                if(delete != null)
                 _dbContext.AclPages.Remove(delete);
                 _dbContext.SaveChangesAsync();
                 return delete;

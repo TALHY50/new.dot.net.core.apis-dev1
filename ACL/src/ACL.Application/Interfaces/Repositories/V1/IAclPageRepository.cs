@@ -24,7 +24,7 @@ namespace ACL.Application.Interfaces.Repositories.V1
         /// <inheritdoc/>
         AclResponse PageRouteDelete(ulong id);
         /// <inheritdoc/>
-        AclPageRoute PreparePageRouteInputData(AclPageRouteRequest aclPageRouteRequest, AclPageRoute aclPageRoute = null);
+        AclPageRoute PreparePageRouteInputData(AclPageRouteRequest aclPageRouteRequest, AclPageRoute? aclPageRoute = null);
 
         /// <inheritdoc/>
         List<AclPage>? All();

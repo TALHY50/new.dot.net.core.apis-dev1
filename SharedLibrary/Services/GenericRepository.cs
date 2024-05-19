@@ -209,11 +209,13 @@ namespace SharedLibrary.Services
         {
             var entitiesToDelete = await _dbSet.Where(predicate).ToListAsync();
             _dbSet.RemoveRange(entitiesToDelete);
+             await _dbSet.SingleAsync();
             return entitiesToDelete.Count;
         }
         public async Task<IEnumerable<T>> RemoveRange(IEnumerable<T> entities)
         {
             _dbSet.RemoveRange(entities);
+            await _dbSet.SingleAsync();
             return entities;
         }
 
@@ -221,6 +223,7 @@ namespace SharedLibrary.Services
         public async Task<IEnumerable<T>> AddRange(params T[] entities)
         {
             await _dbSet.AddRangeAsync(entities);
+             await _dbSet.SingleAsync();
             return entities;
         }
 
@@ -263,7 +266,7 @@ namespace SharedLibrary.Services
             await Task.WhenAll(entities.Select(entity => ReloadAsync(entity)));
         }
 
-        public async Task<List<Dictionary<string, object>>> ExecuteAnySqlQuery(string sqlQuery)
+        public async Task<List<Dictionary<string, object>>?> ExecuteAnySqlQuery(string sqlQuery)
         {
             try
             {
@@ -297,7 +300,7 @@ namespace SharedLibrary.Services
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Handle exceptions if needed
                 return null;
@@ -305,7 +308,7 @@ namespace SharedLibrary.Services
         }
 
 
-        public async Task<List<Dictionary<string, object>>> ExecuteStoredProcedure(string storedProcedureName, params object[] parameters)
+        public async Task<List<Dictionary<string, object>>?> ExecuteStoredProcedure(string storedProcedureName, params object[] parameters)
         {
             try
             {
@@ -345,7 +348,7 @@ namespace SharedLibrary.Services
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Handle exceptions if needed
                 return null;

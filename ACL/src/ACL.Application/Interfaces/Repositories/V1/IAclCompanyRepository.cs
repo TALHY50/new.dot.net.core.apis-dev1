@@ -28,7 +28,7 @@ namespace ACL.Application.Interfaces.Repositories.V1
         /// <inheritdoc/>
         Task<AclResponse> DeleteCompany(ulong id);
         /// <inheritdoc/>
-        AclCompany PrepareInputData(AclCompanyCreateRequest request = null, AclCompanyEditRequest req = null, AclCompany aclCompany = null);
+        AclCompany PrepareInputData(AclCompanyCreateRequest? request = null, AclCompanyEditRequest? req = null, AclCompany? aclCompany = null);
 
     }
 }

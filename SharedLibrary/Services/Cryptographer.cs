@@ -116,7 +116,7 @@ namespace SharedLibrary.Services
         
         public static string EncryptOrDecrypt<T>(T values, string secretKey, string action, bool isURL = false, string iv = "", string salt = "")
         {
-            string data = "";
+            string? data = "";
             if (typeof(T) == typeof(string[]))
             {
                 string[]? reflectedValues  = values as string[];
@@ -141,11 +141,11 @@ namespace SharedLibrary.Services
             else
             {
                 
-                data = values as string;;
+                data = values as string;
 
             }
 
-            return EncryptOrDecrypt(data, secretKey, action, isURL, iv, salt);
+            return EncryptOrDecrypt(data??"", secretKey, action, isURL, iv, salt);
 
         }
         
@@ -230,7 +230,7 @@ namespace SharedLibrary.Services
         }
         static string Sha1Hash(string password)
         {
-            return string.Join("", SHA1CryptoServiceProvider.Create().ComputeHash(Encoding.UTF8.GetBytes(password)).Select(x => x.ToString("x2")));
+            return string.Join("", SHA1.Create().ComputeHash(Encoding.UTF8.GetBytes(password)).Select(x => x.ToString("x2")));
         }
 
         static string Encrypt(string data, string password, string iv = "", string salt = "")
