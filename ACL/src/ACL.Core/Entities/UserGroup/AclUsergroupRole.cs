@@ -1,12 +1,14 @@
-﻿namespace ACL.Core.Entities;
+﻿namespace ACL.Core.Entities.UserGroup;
 
-public partial class AclRolePage
+public partial class AclUsergroupRole
 {
     public ulong Id { get; set; }
 
+    public ulong UsergroupId { get; set; }
+
     public ulong RoleId { get; set; }
 
-    public ulong PageId { get; set; }
+    public ulong CompanyId { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 

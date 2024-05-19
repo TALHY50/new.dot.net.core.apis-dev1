@@ -4,6 +4,7 @@ using ACL.Application.Ports.Services;
 using ACL.Application.UseCases.Login.Request;
 using ACL.Application.UseCases.Login.Response;
 using ACL.Core.Entities;
+using ACL.Core.Entities.Auth;
 using Microsoft.Extensions.Logging;
 
 namespace ACL.Application.UseCases.Login

@@ -2,6 +2,7 @@
 using ACL.Contracts.Response;
 using ACL.Contracts.Response.V1;
 using ACL.Core.Entities;
+using ACL.Core.Entities.Auth;
 using ACL.Infrastructure.Persistence.Database;
 using ACL.Infrastructure.Utilities;
 

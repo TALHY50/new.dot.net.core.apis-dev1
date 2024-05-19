@@ -4,9 +4,9 @@ using System.Security.Cryptography;
 using ACL.Application.Exceptions;
 using ACL.Application.Ports.Services;
 using ACL.Core.Entities;
+using ACL.Core.Entities.Auth;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Claim = ACL.Core.Entities.Claim;
 
 namespace ACL.Infrastructure.Services.Jwt
 {

@@ -1,4 +1,4 @@
-﻿namespace ACL.Core.Entities;
+﻿namespace ACL.Core.Entities.Module;
 
 public partial class AclPageRoute
 {

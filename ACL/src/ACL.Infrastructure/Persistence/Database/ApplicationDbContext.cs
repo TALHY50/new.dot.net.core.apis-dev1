@@ -2,9 +2,12 @@
 using ACL.Core;
 using ACL.Core.Entities;
 using ACL.Core.Entities.Auth;
+using ACL.Core.Entities.Company;
+using ACL.Core.Entities.Module;
+using ACL.Core.Entities.Role;
+using ACL.Core.Entities.UserGroup;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Interfaces;
-using Claim = ACL.Core.Entities.Claim;
 
 namespace ACL.Infrastructure.Persistence.Database;
 
@@ -53,11 +56,11 @@ public partial class ApplicationDbContext : DbContext, IApplicationDbContext
 
     //public virtual DbSet<Efmigrationshistory> Efmigrationshistories { get; set; }
 
-    public virtual DbSet<FailedJob> FailedJobs { get; set; }
+    /*public virtual DbSet<FailedJob> FailedJobs { get; set; }*/
 
     public virtual DbSet<Migration> Migrations { get; set; }
 
-    public virtual DbSet<PersonalAccessToken> PersonalAccessTokens { get; set; }
+    //public virtual DbSet<PersonalAccessToken> PersonalAccessTokens { get; set; }
 
     //static string server = Environment.GetEnvironmentVariable("DB_HOST") ?? throw new InvalidOperationException("DB_HOST environment variable not found.");
     //static string database = Environment.GetEnvironmentVariable("DB_DATABASE") ?? throw new InvalidOperationException("DB_DATABASE environment variable not found.");
@@ -736,7 +739,7 @@ public partial class ApplicationDbContext : DbContext, IApplicationDbContext
         //    entity.Property(e => e.ProductVersion).HasMaxLength(32);
         //});
 
-        modelBuilder.Entity<FailedJob>(entity =>
+        /*modelBuilder.Entity<FailedJob>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
@@ -760,7 +763,7 @@ public partial class ApplicationDbContext : DbContext, IApplicationDbContext
                 .HasColumnType("text")
                 .HasColumnName("queue");
             entity.Property(e => e.Uuid).HasColumnName("uuid");
-        });
+        });*/
 
         modelBuilder.Entity<Migration>(entity =>
         {
@@ -779,7 +782,7 @@ public partial class ApplicationDbContext : DbContext, IApplicationDbContext
                 .HasColumnName("migration");
         });
 
-        modelBuilder.Entity<PersonalAccessToken>(entity =>
+        /*modelBuilder.Entity<PersonalAccessToken>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
@@ -817,7 +820,7 @@ public partial class ApplicationDbContext : DbContext, IApplicationDbContext
             entity.Property(e => e.UpdatedAt)
                 .HasColumnType("timestamp")
                 .HasColumnName("updated_at");
-        });
+        });*/
 
         modelBuilder.Entity<AclBranch>().HasData(
           new AclBranch

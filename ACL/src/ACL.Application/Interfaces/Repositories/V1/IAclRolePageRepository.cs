@@ -1,6 +1,8 @@
 ﻿using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response.V1;
 using ACL.Core.Entities;
+using ACL.Core.Entities.Module;
+using ACL.Core.Entities.Role;
 
 namespace ACL.Application.Interfaces.Repositories.V1
 {

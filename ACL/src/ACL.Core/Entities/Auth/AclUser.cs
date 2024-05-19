@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using ACL.Core.Entities.Auth;
 
-namespace ACL.Core.Entities;
+namespace ACL.Core.Entities.Auth;
 
 public partial class AclUser
 {

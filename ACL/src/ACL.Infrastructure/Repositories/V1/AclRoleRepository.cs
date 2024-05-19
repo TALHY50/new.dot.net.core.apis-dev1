@@ -4,6 +4,7 @@ using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response;
 using ACL.Contracts.Response.V1;
 using ACL.Core.Entities;
+using ACL.Core.Entities.Role;
 using ACL.Infrastructure.Persistence.Database;
 using ACL.Infrastructure.Utilities;
 using Microsoft.Extensions.Caching.Distributed;

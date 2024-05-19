@@ -1,4 +1,4 @@
-﻿namespace ACL.Core.Entities;
+﻿namespace ACL.Core.Entities.Role;
 
 public partial class AclRole
 {

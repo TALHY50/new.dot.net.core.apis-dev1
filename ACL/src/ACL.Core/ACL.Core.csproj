@@ -16,11 +16,4 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Entities\Module\" />
-    <Folder Include="Entities\Role\" />
-    <Folder Include="Entities\SubModule\" />
-    <Folder Include="Entities\UserGroup\" />
-  </ItemGroup>
-
 </Project>

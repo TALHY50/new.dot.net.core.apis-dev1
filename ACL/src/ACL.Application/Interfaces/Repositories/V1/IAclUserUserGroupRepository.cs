@@ -1,4 +1,5 @@
 ﻿using ACL.Core.Entities;
+using ACL.Core.Entities.Auth;
 
 namespace ACL.Application.Interfaces.Repositories.V1
 {

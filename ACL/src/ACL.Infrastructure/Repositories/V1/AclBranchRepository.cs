@@ -1,5 +1,6 @@
 ﻿using ACL.Application.Interfaces.Repositories.V1;
 using ACL.Core.Entities;
+using ACL.Core.Entities.Company;
 using ACL.Infrastructure.Persistence.Database;
 
 namespace ACL.Infrastructure.Repositories.V1

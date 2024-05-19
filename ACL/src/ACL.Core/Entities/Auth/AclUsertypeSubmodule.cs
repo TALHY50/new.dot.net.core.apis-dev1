@@ -1,4 +1,4 @@
-﻿namespace ACL.Core.Entities;
+﻿namespace ACL.Core.Entities.Auth;
 
 public partial class AclUsertypeSubmodule
 {
