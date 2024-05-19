@@ -30,9 +30,9 @@ namespace ACL.Web.Controllers.V1
          /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPost(AclRoutesUrl.AclPasswordRouteUrl.Forget, Name = AclRoutesName.AclPasswordRouteNames.Forget)]
-        public async Task<AclResponse> ForgetPassword(AclForgetPasswordRequest request)
+        public AclResponse ForgetPassword(AclForgetPasswordRequest request)
         {
-            return await this._repository.Forget(request);
+            return  this._repository.Forget(request);
         }
          /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]

@@ -9,7 +9,7 @@ namespace ACL.Application.Ports.Repositories.Auth
         /// <inheritdoc/>
         Task<AclResponse> Reset(AclPasswordResetRequest request);
         /// <inheritdoc/>
-        Task<AclResponse> Forget(AclForgetPasswordRequest request);
+        AclResponse Forget(AclForgetPasswordRequest request);
         /// <inheritdoc/>
         Task<AclResponse> VerifyToken(AclForgetPasswordTokenVerifyRequest request);
     }

@@ -17,14 +17,14 @@ public class LogService : ILogService
         _loggerFactory = loggerFactory;
     }
 
-    public Dictionary<string, object> NewLog(string action = "")
+    public Dictionary<string, object> NewLog(string? action = "")
     {
         var log = new Dictionary<string, object>() { };
-        log["action"] = action;
+        log["action"] = action??"";
         return log;
     }
 
-    public async Task<bool> LogAsync(Dictionary<string, object> log)
+    public bool Log(Dictionary<string, object> log)
     {
         _logger.LogInformation("{@log}", JsonConvert.SerializeObject(log));
         return true;
@@ -38,21 +38,21 @@ public class LogService : ILogService
 
     }
 
-    public async Task<bool> LogAsync(Exception log)
+    public bool Log(Exception log)
     {
         _logger.LogError(log.ToString());
         return true;
 
     }
 
-    public async Task<bool> LogAsync<T>(T any)
+    public bool Log<T>(T any)
     {
         _logger.LogInformation("{@log}", JsonConvert.SerializeObject((any as Dictionary<string, object>)));
         return true;
 
     }
 
-    public ILogger Logger(Type t = null)
+    public ILogger Logger(Type? t = null)
     {
         if (t != null)
         {
@@ -70,10 +70,12 @@ public class LogService : ILogService
 
     public void LogWrite(string fileName, string logMessage, bool shouldDelete = false)
     {
+#pragma warning disable CS8601 // Possible null reference assignment.
         m_exePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+#pragma warning restore CS8601 // Possible null reference assignment.
         try
         {
-            var path = m_exePath;
+            string path = m_exePath??"";
             string searchString = "bin/";
 
             int index = path.IndexOf(searchString);
@@ -98,12 +100,12 @@ public class LogService : ILogService
                 Log(logMessage, w);
             }
         }
-        catch (Exception ex)
+        catch (Exception)
         {
         }
     }
 
-    public void Log(string logMessage, TextWriter txtWriter)
+    public static void Log(string logMessage, TextWriter txtWriter)
     {
         try
         {
@@ -115,7 +117,7 @@ public class LogService : ILogService
 
 
         }
-        catch (Exception ex)
+        catch (Exception)
         {
         }
     }

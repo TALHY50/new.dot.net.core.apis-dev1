@@ -132,7 +132,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
             }
         }
         /// <inheritdoc/>
-        public AclCompanyModule PrepareInputData(AclCompanyModuleRequest request, ulong Id = 0, AclCompanyModule _aclCompanyModule = null)
+        public AclCompanyModule PrepareInputData(AclCompanyModuleRequest request, ulong Id = 0, AclCompanyModule? _aclCompanyModule = null)
         {
             bool valid = IsValidForCreateOrUpdate(request.CompanyId, request.ModuleId);
             AclCompanyModule aclCompanyModule = new AclCompanyModule();
@@ -234,6 +234,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
             try
             {
                 var delete = _dbContext.AclCompanyModules.Find(id);
+                if (delete != null)
                 _dbContext.AclCompanyModules.Remove(delete);
                 _dbContext.SaveChangesAsync();
                 return delete;

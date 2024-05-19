@@ -89,7 +89,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
                 {
                     AclUserGroupRequest userGroupRequest = new AclUserGroupRequest()
                     {
-                        GroupName = this._config["USER_GROUP_NAME"],
+                        GroupName = _config["USER_GROUP_NAME"]??"ADMIN_USERGROUP",
                         Status = 1
                     };
                     AclUserGroupRepository.SetCompanyId(aclCompany.Id);
@@ -142,7 +142,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
                         UpdatedAt = DateTime.UtcNow
                     };
                     var createdUserGroupRole = AclUserGroupRoleRepository.Add(userGroupRole);
-                    List<AclPage> aclPagesByModuleId = await _dbContext.AclPages.Where(x => x.ModuleId == ulong.Parse(this._config["S_ADMIN_DEFAULT_MODULE_ID"])).ToListAsync();
+                    List<AclPage> aclPagesByModuleId = await _dbContext.AclPages.Where(x => x.ModuleId == ulong.Parse(_config["S_ADMIN_DEFAULT_MODULE_ID"]??"1003")).ToListAsync();
                     List<ulong> pageIds = aclPagesByModuleId.Select(page => page.Id).ToList();
                     List<AclRolePage> aclRolePages = pageIds.Select(pageId => new AclRolePage
                     {
@@ -225,7 +225,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
         }
 
         /// <inheritdoc/>
-        public AclCompany PrepareInputData(AclCompanyCreateRequest requ = null, AclCompanyEditRequest req = null, AclCompany _aclCompany = null)
+        public AclCompany PrepareInputData(AclCompanyCreateRequest? requ = null, AclCompanyEditRequest? req = null, AclCompany? _aclCompany = null)
         {
             AclCompany aclCompany = _aclCompany == null ? new AclCompany() : _aclCompany;
             if (requ == null && req != null)
@@ -371,6 +371,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
             try
             {
                 var aclCompany = Find(id);
+                if(aclCompany!=null)
                 _dbContext.AclCompanies.Remove(aclCompany);
                 _dbContext.SaveChangesAsync();
                 return aclCompany;

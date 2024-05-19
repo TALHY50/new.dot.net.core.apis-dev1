@@ -28,7 +28,7 @@ namespace ACL.Application.Ports.Repositories.Company
         /// <inheritdoc/>
         Task<AclResponse> DeleteCompany(ulong id);
         /// <inheritdoc/>
-        AclCompany PrepareInputData(AclCompanyCreateRequest request = null, AclCompanyEditRequest req = null, AclCompany aclCompany = null);
+        AclCompany PrepareInputData(AclCompanyCreateRequest? request = null, AclCompanyEditRequest? req = null, AclCompany? aclCompany = null);
 
     }
 }

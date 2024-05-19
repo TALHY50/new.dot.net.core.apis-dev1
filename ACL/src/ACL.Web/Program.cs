@@ -69,13 +69,13 @@ builder.Services.AddTransient<ICryptographyService, CryptographyService>();
 builder.Services.AddSingleton(provider =>
 {
     var rsa = RSA.Create();
-    rsa.ImportRSAPrivateKey(source: Convert.FromBase64String(jwtSettings.AccessTokenSettings.PrivateKey), bytesRead: out int _);
+    rsa.ImportRSAPrivateKey(source: Convert.FromBase64String(jwtSettings?.AccessTokenSettings.PrivateKey), bytesRead: out int _);
     return new RsaSecurityKey(rsa);
 });
 
 RSA rsa = RSA.Create();
 rsa.ImportRSAPublicKey(
-    source: Convert.FromBase64String(jwtSettings.AccessTokenSettings.PublicKey),
+    source: Convert.FromBase64String(jwtSettings?.AccessTokenSettings.PublicKey),
     bytesRead: out int _
 );
 
@@ -304,10 +304,12 @@ app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
 
 app.UseRouting();
 app.UseAuthorization();
+#pragma warning disable ASP0014 // Suggest using top level route registrations
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
 });
+#pragma warning restore ASP0014 // Suggest using top level route registrations
 
 app.UseFileServer();
 
