@@ -2,6 +2,7 @@
 using ACL.Contracts.Response;
 using ACL.Core.Entities.Auth;
 
+
 namespace ACL.Application.Ports.Repositories.Auth
 {
     /// <inheritdoc/>
@@ -43,5 +44,10 @@ namespace ACL.Application.Ports.Repositories.Auth
         AclUser? Delete(AclUser aclUser);
         /// <inheritdoc/>
         AclUser? Delete(ulong id);
+
+        List<ulong>? GetUserIdByChangePermission(ulong? module_id = null, ulong? sub_module_id = null, ulong? page_id = null, ulong? role_id = null, ulong? user_group_id = null);
+        void UpdateUserPermissionVersion(List<ulong> user_ids);
+
     }
+
 }

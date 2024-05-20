@@ -1,8 +1,10 @@
-﻿using ACL.Application.Ports.Repositories.Module;
+﻿using ACL.Application.Ports.Repositories.Auth;
+using ACL.Application.Ports.Repositories.Module;
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response;
 using ACL.Core.Entities.Module;
 using ACL.Infrastructure.Persistence.Configurations;
+using ACL.Infrastructure.Persistence.Repositories.Auth;
 using ACL.Infrastructure.Utilities;
 using SharedLibrary.Response.CustomStatusCode;
 
@@ -16,15 +18,17 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
         /// <inheritdoc/>
         public MessageResponse messageResponse;
         private ApplicationDbContext _dbcontext;
+        private IAclUserRepository _aclUserRepository;
         private string modelName = "Module";
 
         /// <inheritdoc/>
-        public AclModuleRepository(ApplicationDbContext dbcontext)
+        public AclModuleRepository(ApplicationDbContext dbcontext, IAclUserRepository aclUserRepository)
         {
             _dbcontext = dbcontext;
             this.aclResponse = new AclResponse();
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
             this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
+            _aclUserRepository = aclUserRepository;
         }
 
         /// <inheritdoc/>
@@ -58,6 +62,10 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
                     this.aclResponse.Data = Add(aclModule);
                     this.aclResponse.Message = this.messageResponse.createMessage;
                     this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+
+                    List<ulong> user_ids = _aclUserRepository.GetUserIdByChangePermission(aclModule.Id);
+                    _aclUserRepository.UpdateUserPermissionVersion(user_ids);
+
                 }
                 else
                 {
