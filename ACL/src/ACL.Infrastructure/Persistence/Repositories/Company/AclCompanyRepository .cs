@@ -122,8 +122,8 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
                     AclUserUserGroupRepository.Add(userusergroup);
                     AclRole role = new AclRole()
                     {
-                        Name = aclCompany.Name,
-                        Title = this._config["ROLE_TITLE"],
+                        Name = this._config["ROLE_TITLE"]??"ADMIN_ROLE",
+                        Title = this._config["ROLE_TITLE"]??"ADMIN_ROLE",
                         CompanyId = (uint)aclCompany.Id,
                         CreatedById = 0,
                         UpdatedById = 0,
