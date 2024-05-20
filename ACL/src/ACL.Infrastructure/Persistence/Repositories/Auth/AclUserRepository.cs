@@ -211,7 +211,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             {
                 return _dbContext.AclUsers.FirstOrDefault(m => m.Email == email);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return null;
             }
