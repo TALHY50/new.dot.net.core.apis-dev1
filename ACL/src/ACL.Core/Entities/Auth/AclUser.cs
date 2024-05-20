@@ -5,7 +5,7 @@ namespace ACL.Core.Entities.Auth;
 
 public partial class AclUser : EntityBase, IAggregateRoot
 {
-    public ulong Id { get; set; }
+    public new ulong Id { get; set; }
 
     public string? FirstName { get; set; }
 
@@ -43,9 +43,9 @@ public partial class AclUser : EntityBase, IAggregateRoot
     public uint UserType { get; set; }
 
     public string? RememberToken { get; set; }
-    
+
     public RefreshToken RefreshToken { get; set; }
-    
+
     public string? Salt { get; set; }
 
     public DateTime? CreatedAt { get; set; }
@@ -59,7 +59,7 @@ public partial class AclUser : EntityBase, IAggregateRoot
     public string? Username { get; set; }
 
     public string? ImgPath { get; set; }
-    
+
     public IList<Auth.Claim> Claims { get; set; }
 
     /// <summary>
@@ -84,12 +84,12 @@ public partial class AclUser : EntityBase, IAggregateRoot
     public uint CreatedById { get; set; }
 
     public string? AuthIdentifier { get; set; }
-    
+
     [NotMapped]
-    
+
     private Permission? _permission { get; set; }
-    
-    
+
+
     public AclUser()
     {
         Claims = new List<Auth.Claim>();
@@ -101,25 +101,23 @@ public partial class AclUser : EntityBase, IAggregateRoot
         Id = userId;
         PermissionVersion = permissionVersion;
         _permission = permission;
+        Claims = new List<Auth.Claim>();
+        RefreshToken = new RefreshToken();
     }
 
     public void SetPermission(Permission permission)
     {
         this._permission = permission;
     }
-    
-    
+
+
     public bool IsPermitted(string routeName)
     {
-        if (_permission.RouteNames.Contains(routeName))
+        if (_permission != null && _permission.RouteNames != null && _permission.RouteNames.Contains(routeName))
         {
             return true;
         }
 
         return false;
     }
-    
-    
-    
-    
 }

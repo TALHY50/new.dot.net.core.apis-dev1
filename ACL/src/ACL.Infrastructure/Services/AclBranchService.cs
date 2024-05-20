@@ -120,7 +120,7 @@ namespace ACL.Infrastructure.Services
             return this.aclResponse;
         }
 
-        private AclBranch PrepareInputData(AclBranchRequest request, AclBranch aclBranch = null)
+        private AclBranch PrepareInputData(AclBranchRequest request, AclBranch? aclBranch = null)
         {
             AclBranch _aclBranch = aclBranch ?? new AclBranch();
             _aclBranch.Name = request.Name;
