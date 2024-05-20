@@ -53,6 +53,7 @@
 
   <ItemGroup>
     <Folder Include="Http\" />
+    <Folder Include="Logs\" />
   </ItemGroup>
 
   <ItemGroup>
