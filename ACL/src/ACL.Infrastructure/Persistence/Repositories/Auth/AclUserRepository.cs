@@ -520,7 +520,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
 
             if (module_id != null)
             {
-                query = query.Where(u => u.usergroup.Id == user_group_id);
+                query = query.Where(u => u.module.Id == module_id);
             }
 
             if (sub_module_id != null)
@@ -538,17 +538,11 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
                 query = query.Where(u => u.role.Id == role_id);
             }
 
-            if (role_id != null)
-            {
-                query = query.Where(u => u.role.Id == role_id);
-            }
-
             if (user_group_id != null)
             {
                 query = query.Where(u => u.usergroup.Id == user_group_id);
             }
-
-            List<ulong>? result = query.Select(u => u.aclUser.Id).ToList();
+            List<ulong>? result = query.GroupBy(x => x.aclUser.Id).Select(u => u.Key).ToList();
             return result;
         }
 
