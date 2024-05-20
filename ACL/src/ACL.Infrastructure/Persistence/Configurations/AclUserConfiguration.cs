@@ -74,7 +74,7 @@ public class AclUserConfiguration : IEntityTypeConfiguration<AclUser>
                 .HasMaxLength(100)
                 .HasColumnName("last_name");
             builder.Property(e => e.Salt)
-                .HasMaxLength(100)
+                .HasColumnType("text")
                 .HasColumnName("salt");
             builder.Property(e => e.LoginAt)
                 .HasComment("user logged in time")
@@ -97,10 +97,10 @@ public class AclUserConfiguration : IEntityTypeConfiguration<AclUser>
                 .HasMaxLength(100)
                 .HasColumnName("remember_token");
             builder.Property(e => e.RefreshToken)
-                .HasMaxLength(100)
+                .HasColumnType("text")
                 .HasColumnName("refresh_token").HasValueJsonConverter();
             builder.Property<IList<Claim>>("Claims")
-                .HasMaxLength(100)
+                .HasColumnType("text")
                 .HasColumnName("claims").HasValueJsonConverter();
             builder.Property(e => e.Status)
                 .HasDefaultValueSql("'1'")
