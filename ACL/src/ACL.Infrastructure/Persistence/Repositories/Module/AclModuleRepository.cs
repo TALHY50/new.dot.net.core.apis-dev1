@@ -94,6 +94,9 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
                     this.aclResponse.Data = Update(aclModule);
                     this.aclResponse.Message = this.messageResponse.editMessage;
                     this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+
+                      List<ulong> user_ids = _aclUserRepository.GetUserIdByChangePermission(id);
+                    _aclUserRepository.UpdateUserPermissionVersion(user_ids);
                 }
                 else
                 {
