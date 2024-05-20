@@ -1,4 +1,5 @@
 ﻿using ACL.Application.Enums;
+using ACL.Application.Ports.Repositories.Auth;
 using ACL.Application.Ports.Repositories.Role;
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response;
@@ -20,9 +21,11 @@ namespace ACL.Infrastructure.Persistence.Repositories.Role
         private string modelName = "Role";
         private readonly IDistributedCache _distributedCache;
         private ApplicationDbContext _dbContext;
+        private readonly IAclUserRepository _aclUserRepository;
         /// <inheritdoc/>
-        public AclRoleRepository(ApplicationDbContext dbContext, IDistributedCache distributedCache)
+        public AclRoleRepository(ApplicationDbContext dbContext, IDistributedCache distributedCache, IAclUserRepository aclUserRepository)
         {
+            _aclUserRepository = aclUserRepository;
             this.aclResponse = new AclResponse();
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
             this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
@@ -74,6 +77,8 @@ namespace ACL.Infrastructure.Persistence.Repositories.Role
             _dbContext.AclRoles.Update(aclRole);
             _dbContext.SaveChanges();
             _dbContext.Entry(aclRole).Reload();
+            List<ulong> user_ids = _aclUserRepository.GetUserIdByChangePermission(null, null,null, id);
+            _aclUserRepository.UpdateUserPermissionVersion(user_ids);
             this.aclResponse.Data = aclRole;
             this.aclResponse.Message = this.messageResponse.editMessage;
             this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
@@ -106,9 +111,10 @@ namespace ACL.Infrastructure.Persistence.Repositories.Role
             if (aclRole != null)
             {
                 this.aclResponse.Data = Delete(id);
-                RemoveCache(id);
                 this.aclResponse.Message = this.messageResponse.deleteMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                  List<ulong> user_ids = _aclUserRepository.GetUserIdByChangePermission(null, null,null, id);
+            _aclUserRepository.UpdateUserPermissionVersion(user_ids);
             }
 
             return this.aclResponse;

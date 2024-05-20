@@ -1,9 +1,11 @@
-﻿using ACL.Application.Ports.Repositories.UserGroup;
+﻿using ACL.Application.Ports.Repositories.Auth;
+using ACL.Application.Ports.Repositories.UserGroup;
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response;
 using ACL.Core.Entities.UserGroup;
 using ACL.Infrastructure.Persistence.Configurations;
 using ACL.Infrastructure.Utilities;
+using Org.BouncyCastle.Ocsp;
 using SharedLibrary.Response.CustomStatusCode;
 
 namespace ACL.Infrastructure.Persistence.Repositories.UserGroup
@@ -20,10 +22,12 @@ namespace ACL.Infrastructure.Persistence.Repositories.UserGroup
         public static ulong CompanyId = AppAuth.GetAuthInfo().CompanyId;
         /// <inheritdoc/>
         public readonly ApplicationDbContext _dbContext;
+        private readonly IAclUserRepository _aclUserRepository;
 
         /// <inheritdoc/>
-        public AclUserGroupRepository(ApplicationDbContext dbContext)
+        public AclUserGroupRepository(ApplicationDbContext dbContext, IAclUserRepository aclUserRepository)
         {
+            _aclUserRepository = aclUserRepository;
             AppAuth.SetAuthInfo();
             this.aclResponse = new AclResponse();
             this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
@@ -75,6 +79,8 @@ namespace ACL.Infrastructure.Persistence.Repositories.UserGroup
                 this.aclResponse.Data = Update(result);
                 this.aclResponse.Message = this.messageResponse.editMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                List<ulong> user_ids = _aclUserRepository.GetUserIdByChangePermission(null, null, null, null, id);
+                _aclUserRepository.UpdateUserPermissionVersion(user_ids);
             }
             else
             {
@@ -111,6 +117,8 @@ namespace ACL.Infrastructure.Persistence.Repositories.UserGroup
                 this.aclResponse.Data = Deleted(id);
                 this.aclResponse.Message = this.messageResponse.deleteMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                List<ulong> user_ids = _aclUserRepository.GetUserIdByChangePermission(null, null, null, null, id);
+                _aclUserRepository.UpdateUserPermissionVersion(user_ids);
             }
             else
             {

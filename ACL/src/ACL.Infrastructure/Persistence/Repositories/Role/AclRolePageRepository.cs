@@ -1,4 +1,5 @@
-﻿using ACL.Application.Ports.Repositories.Role;
+﻿using ACL.Application.Ports.Repositories.Auth;
+using ACL.Application.Ports.Repositories.Role;
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response;
 using ACL.Core.Entities.Module;
@@ -21,9 +22,11 @@ namespace ACL.Infrastructure.Persistence.Repositories.Role
         private string modelName = "Role Page";
         /// <inheritdoc/>
         public readonly ApplicationDbContext _dbContext;
+        private readonly IAclUserRepository _aclUserRepository;
         /// <inheritdoc/>
-        public AclRolePageRepository(ApplicationDbContext dbContext)
+        public AclRolePageRepository(ApplicationDbContext dbContext, IAclUserRepository aclUserRepository)
         {
+            _aclUserRepository = aclUserRepository;
             this.aclResponse = new AclResponse();
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
             this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
@@ -58,6 +61,8 @@ namespace ACL.Infrastructure.Persistence.Repositories.Role
                 DeleteAll(res.ToArray());
                 this.aclResponse.Data = AddAll(check);
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                List<ulong> user_ids = _aclUserRepository.GetUserIdByChangePermission(null, null, null, req.RoleId);
+                _aclUserRepository.UpdateUserPermissionVersion(user_ids);
             }
             catch (Exception ex)
             {
