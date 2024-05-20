@@ -4120,7 +4120,7 @@ public partial class ApplicationDbContext : DbContext, IApplicationDbContext
 
 
       );
-        _ = modelBuilder.Entity<AclUser>().HasData(
+       modelBuilder.Entity<AclUser>().HasData(
              new AclUser
              {
                  Id = 1,
