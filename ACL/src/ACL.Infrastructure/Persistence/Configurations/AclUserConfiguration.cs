@@ -67,8 +67,8 @@ public class AclUserConfiguration : IEntityTypeConfiguration<AclUser>
                 .HasColumnType("tinyint(4)")
                 .HasColumnName("is_admin_verified");
             builder.Property(e => e.Language)
-                .HasMaxLength(2)
-                .HasDefaultValueSql("'en'")
+                .HasMaxLength(10)
+                .HasDefaultValueSql("'en-US'")
                 .HasColumnName("language");
             builder.Property(e => e.LastName)
                 .HasMaxLength(100)
