@@ -1,4 +1,5 @@
-﻿using ACL.Application.Ports.Repositories.Module;
+﻿using ACL.Application.Ports.Repositories.Auth;
+using ACL.Application.Ports.Repositories.Module;
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response;
 using ACL.Core.Entities.Module;
@@ -17,13 +18,14 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
         public MessageResponse messageResponse;
         private string modelName = "Page";
         private IAclPageRouteRepository routeRepository;
-
+        private readonly IAclUserRepository _aclUserRepository;
         private ApplicationDbContext _dbContext;
         /// <inheritdoc/>
-        public AclPageRepository(ApplicationDbContext dbContext, IAclPageRouteRepository _routeRepository)
+        public AclPageRepository(ApplicationDbContext dbContext, IAclPageRouteRepository _routeRepository, IAclUserRepository aclUserRepository)
         {
             _dbContext = dbContext;
             routeRepository = _routeRepository;
+            _aclUserRepository = aclUserRepository;
             this.aclResponse = new AclResponse();
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
             this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
@@ -77,6 +79,8 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
                 this.aclResponse.Data = Update(aclPage); ;
                 this.aclResponse.Message = this.messageResponse.editMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                List<ulong> user_ids = _aclUserRepository.GetUserIdByChangePermission(null,null,id);
+                _aclUserRepository.UpdateUserPermissionVersion(user_ids);
             }
             catch (Exception ex)
             {
@@ -123,6 +127,8 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
                     routeRepository.DeleteAllByPageId(id);
                     this.aclResponse.Message = this.messageResponse.deleteMessage;
                     this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                    List<ulong> user_ids = _aclUserRepository.GetUserIdByChangePermission(null,null,id);
+                    _aclUserRepository.UpdateUserPermissionVersion(user_ids);
                 }
                 catch (Exception)
                 {
@@ -189,6 +195,8 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
                     this.aclResponse.Data = routeRepository.Update(aclPageRouteUpdateData);
                     this.aclResponse.Message = this.messageResponse.editMessage;
                     this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                    List<ulong> user_ids = _aclUserRepository.GetUserIdByChangePermission(null,null,id);
+                _aclUserRepository.UpdateUserPermissionVersion(user_ids);
                 }
                 else
                 {
@@ -215,6 +223,9 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
                 this.aclResponse.Data = routeRepository.Delete(aclPageRoute);
                 this.aclResponse.Message = this.messageResponse.deleteMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                List<ulong> user_ids = _aclUserRepository.GetUserIdByChangePermission(null,null,id);
+                _aclUserRepository.UpdateUserPermissionVersion(user_ids);
+
             }
             return this.aclResponse;
 
@@ -327,8 +338,8 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
             try
             {
                 var delete = _dbContext.AclPages.Find(id);
-                if(delete != null)
-                _dbContext.AclPages.Remove(delete);
+                if (delete != null)
+                    _dbContext.AclPages.Remove(delete);
                 _dbContext.SaveChangesAsync();
                 return delete;
             }

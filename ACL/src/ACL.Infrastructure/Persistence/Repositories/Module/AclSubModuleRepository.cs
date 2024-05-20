@@ -1,4 +1,5 @@
-﻿using ACL.Application.Ports.Repositories.Module;
+﻿using ACL.Application.Ports.Repositories.Auth;
+using ACL.Application.Ports.Repositories.Module;
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response;
 using ACL.Core.Entities.Module;
@@ -17,9 +18,11 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
         public MessageResponse messageResponse;
         private readonly string modelName = "Sub Module";
         readonly ApplicationDbContext _dbContext;
+        private readonly IAclUserRepository _aclUserRepository;
         /// <inheritdoc/>
-        public AclSubModuleRepository(ApplicationDbContext dbContext)
+        public AclSubModuleRepository(ApplicationDbContext dbContext, IAclUserRepository aclUserRepository)
         {
+            _aclUserRepository = aclUserRepository;
             AppAuth.SetAuthInfo();
             this.aclResponse = new AclResponse();
             this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
@@ -49,7 +52,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
         public AclResponse Add(AclSubModuleRequest request)
         {
             var aclSubModule = PrepareInputData(request);
-            this.aclResponse.Data = Add(aclSubModule); ;
+            this.aclResponse.Data = Add(aclSubModule);
             this.aclResponse.Message = this.messageResponse.createMessage;
             this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
             this.aclResponse.Timestamp = DateTime.Now;
@@ -69,6 +72,8 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
             this.aclResponse.Data = Update(aclSubModule);
             this.aclResponse.Message = this.messageResponse.editMessage;
             this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+            List<ulong> user_ids = _aclUserRepository.GetUserIdByChangePermission(null,id);
+            _aclUserRepository.UpdateUserPermissionVersion(user_ids);
             this.aclResponse.Timestamp = DateTime.Now;
             return this.aclResponse;
 
@@ -104,6 +109,8 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
                 this.aclResponse.Data = Delete(id);
                 this.aclResponse.Message = this.messageResponse.deleteMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                List<ulong> user_ids = _aclUserRepository.GetUserIdByChangePermission(null,id);
+                _aclUserRepository.UpdateUserPermissionVersion(user_ids);
             }
 
             return this.aclResponse;

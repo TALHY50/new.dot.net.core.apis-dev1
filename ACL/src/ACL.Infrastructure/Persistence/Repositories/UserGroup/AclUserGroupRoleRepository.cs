@@ -1,4 +1,5 @@
-﻿using ACL.Application.Ports.Repositories.Role;
+﻿using ACL.Application.Ports.Repositories.Auth;
+using ACL.Application.Ports.Repositories.Role;
 using ACL.Application.Ports.Repositories.UserGroup;
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response;
@@ -6,6 +7,7 @@ using ACL.Core.Entities.UserGroup;
 using ACL.Infrastructure.Persistence.Configurations;
 using ACL.Infrastructure.Utilities;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Ocsp;
 using SharedLibrary.Response.CustomStatusCode;
 
 namespace ACL.Infrastructure.Persistence.Repositories.UserGroup
@@ -20,10 +22,12 @@ namespace ACL.Infrastructure.Persistence.Repositories.UserGroup
         private readonly string modelName = "User Group Role";
         readonly ApplicationDbContext _dbContext;
         private IAclRoleRepository _aclRoleRepository;
+        private readonly IAclUserRepository _aclUserRepository;
         /// <inheritdoc/>
-        public AclUserGroupRoleRepository(ApplicationDbContext dbcontext, IAclRoleRepository aclRoleRepository)
+        public AclUserGroupRoleRepository(ApplicationDbContext dbcontext, IAclRoleRepository aclRoleRepository, IAclUserRepository aclUserRepository)
         {
             _aclRoleRepository = aclRoleRepository;
+            _aclUserRepository = aclUserRepository;
             _dbContext = dbcontext;
             AppAuth.SetAuthInfo();
             this.aclResponse = new AclResponse();
@@ -72,6 +76,8 @@ namespace ACL.Infrastructure.Persistence.Repositories.UserGroup
                         aclResponse.Data = userGroupRoles;
                         aclResponse.Message = this.messageResponse.createMessage;
                         aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                        List<ulong> user_ids = _aclUserRepository.GetUserIdByChangePermission(null, null, null, null, request.UserGroupId);
+                        _aclUserRepository.UpdateUserPermissionVersion(user_ids);
                         await transaction.CommitAsync();
                     }
                     catch (Exception ex)

@@ -1,4 +1,5 @@
-﻿using ACL.Application.Ports.Repositories.Module;
+﻿using ACL.Application.Ports.Repositories.Auth;
+using ACL.Application.Ports.Repositories.Module;
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response;
 using ACL.Core.Entities.Module;
@@ -15,10 +16,12 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
         /// <inheritdoc/>
         public MessageResponse messageResponse;
         private string modelName = "Page Route";
+        private readonly IAclUserRepository _aclUserRepository;
         ApplicationDbContext _dbContext;
         /// <inheritdoc/>
-        public AclPageRouteRepository(ApplicationDbContext dbContext)
+        public AclPageRouteRepository(ApplicationDbContext dbContext,IAclUserRepository aclUserRepository)
         {
+            _aclUserRepository = aclUserRepository;
             _dbContext = dbContext;
             this.aclResponse = new AclResponse();
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
