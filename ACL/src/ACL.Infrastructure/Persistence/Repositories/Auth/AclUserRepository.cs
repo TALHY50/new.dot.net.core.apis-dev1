@@ -16,6 +16,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using SharedLibrary.Response.CustomStatusCode;
+using System.Collections.Generic;
 using Claim = ACL.Core.Entities.Auth.Claim;
 
 namespace ACL.Infrastructure.Persistence.Repositories.Auth
@@ -35,6 +36,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
         private readonly IDistributedCache _distributedCache;
         private readonly ICryptographyService _cryptographyService;
         private readonly IAclUserUserGroupRepository AclUserUserGroupRepository;
+
 
         private readonly ApplicationDbContext _dbContext;
         /// <inheritdoc/>
@@ -146,6 +148,9 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
                             }
                             this.aclResponse.Message = this.messageResponse.editMessage;
                             this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+
+                            List<ulong> users = new List<ulong>{ aclUser.Id };
+                            this.UpdateUserPermissionVersion(users);
                             transaction.Commit();
                         }
                         else
