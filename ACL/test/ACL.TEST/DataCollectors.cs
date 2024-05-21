@@ -83,19 +83,19 @@ namespace ACL.Tests
         public static string GetAuthorization(string sadmin)
         {
             string key = "UserToken";
-            var Token = _cache.Get(key);
-            if (Token == null)
-            {
+            //var Token = _cache.Get(key);
+            //if (Token == null)
+            //{
 
-                Token = TestLogin("sadmin");
-                var cacheItem = new CacheItem(key, Token);
-                var cacheItemPolicy = new CacheItemPolicy
-                {
-                    AbsoluteExpiration = DateTimeOffset.Now.AddSeconds(99999)
-                };
-                _cache.Set(cacheItem, cacheItemPolicy);
+            //    Token = TestLogin("sadmin");
+            //    var cacheItem = new CacheItem(key, Token);
+            //    var cacheItemPolicy = new CacheItemPolicy
+            //    {
+            //        AbsoluteExpiration = DateTimeOffset.Now.AddSeconds(99999)
+            //    };
+            //    _cache.Set(cacheItem, cacheItemPolicy);
 
-            }
+            //}
             return Authorization = "Bearer  " + TestLogin("sadmin");
 
         }
