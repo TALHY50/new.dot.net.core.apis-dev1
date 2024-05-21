@@ -1,17 +1,8 @@
-﻿using ACL.Tests;
-using Bogus;
-using Microsoft.AspNetCore.Mvc;
+﻿
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using NUnit.Framework;
 using RestSharp;
 using SharedLibrary.Response.CustomStatusCode;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response;
 using ACL.Infrastructure.Route;
@@ -24,9 +15,11 @@ namespace ACL.Tests.V1
     {
 
         RestClient restClient;
+        string token = string.Empty;
         public AclCompanyModuleControllerUnitTest()
         {
             DataCollectors.SetDatabase(false);
+            token = DataCollectors.GetAuthorization();
             restClient = new RestClient(DataCollectors.baseUrl);
         }
         [Fact]
@@ -40,7 +33,6 @@ namespace ACL.Tests.V1
             #region Act
             var request = new RestRequest(AclRoutesUrl.AclCompanyModuleRouteUrl.List, Method.Get);
 
-            var token = DataCollectors.GetAuthorization();
             request.AddHeader("Authorization", token);
 
             var response = restClient.Execute(request);
@@ -67,7 +59,7 @@ namespace ACL.Tests.V1
             req.AddBody(createReq);
 
             //// Add headers
-            //request.AddHeader("Authorization", "Bearer YOUR_TOKEN_HERE");
+            req.AddHeader("Authorization", token);
 
             //// Execute request
             var response = restClient.Execute(req);
@@ -89,8 +81,6 @@ namespace ACL.Tests.V1
             #region Act
             //// Create request
             var request = new RestRequest(AclCompanyModuleRouteUrl.Edit.Replace("{id}", id.ToString()), Method.Put);
-
-            var token = DataCollectors.GetAuthorization();
             request.AddHeader("Authorization", token);
             //Add request body
             request.AddBody(editReq);
@@ -113,7 +103,6 @@ namespace ACL.Tests.V1
             #region Act
             var request = new RestRequest(AclCompanyModuleRouteUrl.View.Replace("{id}", id.ToString()), Method.Get);
 
-            var token = DataCollectors.GetAuthorization();
             request.AddHeader("Authorization", token);
 
             var response = restClient.Execute(request);
@@ -130,25 +119,12 @@ namespace ACL.Tests.V1
             #region  Arrange
             var id = GetRandomID();
             //// Create RestClient
-            //var client = new RestSharp.RestClient("https://localhost:7125/api/v1");
-
-            ////using (var dbContext = new ApplicationDbContext(_inMemoryDbContext))
-            ////{
-            ////    // Populate the in-memory database with test data
-            ////    dbContext.AclCompanies.AddRange(new List<AclCompany>
-            ////{
-            ////    new AclCompany{ Id = 1,AddedBy = 1,Address1 ="A",Address2 ="B",AverageTurnover=2.0,Cemail ="",City ="Dhaka",CmmiLevel = 1,Cname ="Porosh",Country="BD",Email="porosh@gmail.com",Fax="",Logo="",Name="Porosh",Phone="01672896992" ,Postcode ="1312",RegistrationNo="1234",State = "1",TaxNo="123456789",Timezone =1,TimezoneValue ="1",Status=1}
-            ////});
-            ////    dbContext.SaveChanges();
-            ////}
-
 
             #endregion
             #region Act
             //// Create request
             var request = new RestRequest(AclCompanyModuleRouteUrl.Destroy.Replace("{id}", id.ToString()), Method.Delete);
             //Add request body
-            var token = DataCollectors.GetAuthorization();
             request.AddHeader("Authorization", token);
 
             //// Execute request
