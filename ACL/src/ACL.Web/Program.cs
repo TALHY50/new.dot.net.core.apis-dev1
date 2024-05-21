@@ -144,7 +144,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySQL(connectionString, options =>
     {
         options.EnableRetryOnFailure();
-    }));
+    }), ServiceLifetime.Transient);
 #endif
 
 var cacheDriver = Env.GetString("CACHE_DRIVER");
