@@ -17,8 +17,8 @@ namespace ACL.Tests.V1
         private string authToken;
         public AclStateUnitTest()
         {
+             DataCollectors.SetDatabase();
             authToken = DataCollectors.GetAuthorization();
-            DataCollectors.SetDatabase();
             restClient = new RestClient(DataCollectors.baseUrl);
         }
         [Fact]

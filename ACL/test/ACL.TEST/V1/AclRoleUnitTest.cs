@@ -18,7 +18,7 @@ namespace ACL.Tests.V1.SAdmin
         public AclRoleUnitTest()
         {
             DataCollectors.SetDatabase(false);
-            authToken = DataCollectors.GetAuthorization();
+            authToken = DataCollectors.GetAuthorization("sadmin");
             restClient = new RestClient(DataCollectors.baseUrl);
         }
 

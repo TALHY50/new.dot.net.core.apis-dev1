@@ -12,10 +12,12 @@ namespace ACL.Tests.V1.SAdmin
     public class AclUserUnitTest
     {
         RestClient restClient;
+        string authToken;
         public AclUserUnitTest()
         {
             DataCollectors.SetDatabase(false);
             restClient = new RestClient(DataCollectors.baseUrl);
+             authToken = DataCollectors.GetAuthorization("sadmin");
         }
         [Fact]
         public void TestUserList()
@@ -25,7 +27,7 @@ namespace ACL.Tests.V1.SAdmin
 
             // Act
             var request = new RestRequest(AclRoutesUrl.AclUserRouteUrl.List, Method.Get);
-            //request.AddHeader("Authorization", "Bearer desc");
+            request.AddHeader("Authorization", authToken);
 
             RestResponse response = restClient.Execute(request);
 
@@ -43,7 +45,7 @@ namespace ACL.Tests.V1.SAdmin
 
             // Act
             var request = new RestRequest(AclRoutesUrl.AclUserRouteUrl.Add, Method.Post);
-            //request.AddHeader("Authorization", "Bearer desc");
+            request.AddHeader("Authorization", authToken);
             request.AddJsonBody(data);
 
             RestResponse response = restClient.Execute(request);
@@ -62,7 +64,7 @@ namespace ACL.Tests.V1.SAdmin
 
             // Act
             var request = new RestRequest(AclRoutesUrl.AclUserRouteUrl.Edit.Replace("{id}", id.ToString()), Method.Put);
-            //request.AddHeader("Authorization", "Bearer desc");
+            request.AddHeader("Authorization", authToken);
             request.AddJsonBody(data);
 
             RestResponse response = restClient.Execute(request);
@@ -82,7 +84,7 @@ namespace ACL.Tests.V1.SAdmin
             // Act
             //var request = new RestRequest($"users/view/{id}", Method.Get);
             var request = new RestRequest(AclRoutesUrl.AclUserRouteUrl.View.Replace("{id}", id.ToString()), Method.Get);
-            //request.AddHeader("Authorization", "Bearer desc");
+           request.AddHeader("Authorization", authToken);
 
 
             RestResponse response = restClient.Execute(request);
@@ -101,7 +103,7 @@ namespace ACL.Tests.V1.SAdmin
 
             // Act
             var request = new RestRequest(AclRoutesUrl.AclUserRouteUrl.Destroy.Replace("{id}", id.ToString()), Method.Delete);
-            //request.AddHeader("Authorization", "Bearer desc");
+           request.AddHeader("Authorization", authToken);
 
             RestResponse response = restClient.Execute(request);
 

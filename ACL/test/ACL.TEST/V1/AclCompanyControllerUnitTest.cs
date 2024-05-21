@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response;
 using ACL.Infrastructure.Route;
+using YamlDotNet.Core.Tokens;
 
 
 namespace ACL.Tests.V1
@@ -91,7 +92,8 @@ namespace ACL.Tests.V1
             request.AddJsonBody(editReq);
 
             //// Add headers
-            //request.AddHeader("Authorization", "Bearer YOUR_TOKEN_HERE");
+            var token = DataCollectors.GetAuthorization();
+            request.AddHeader("Authorization", token);
 
             //// Execute request
             var response = restClient.Execute(request);
@@ -139,7 +141,7 @@ namespace ACL.Tests.V1
             //Add request body
 
             //// Add headers
-           var token = DataCollectors.GetAuthorization();
+            var token = DataCollectors.GetAuthorization();
             request.AddHeader("Authorization", token);
 
             //// Execute request

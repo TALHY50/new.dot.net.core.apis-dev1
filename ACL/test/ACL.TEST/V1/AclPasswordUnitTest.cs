@@ -22,7 +22,7 @@ namespace ACL.Tests.V1.SAdmin
         public AclPasswordUnitTest()
         {
             DataCollectors.SetDatabase();
-            authToken = DataCollectors.GetAuthorization();
+            authToken = DataCollectors.GetAuthorization("sadmin");
             restClient = new RestSharp.RestClient(DataCollectors.baseUrl);
         }
         [Fact]
@@ -70,16 +70,11 @@ namespace ACL.Tests.V1.SAdmin
         public void PasswordForgetVerifyTest()
         {
             //Arrange
-            string Token = (string)CacheHelper.Get(uniqueKey);
-            if (!CacheHelper.Exist(uniqueKey))
-            {
-                Token = "bba47d83926a8d98cdc4affeee7b91459a08734b6e40da5ac0f69eaf78fb6017";
-            }
             var data = new AclForgetPasswordTokenVerifyRequest
             {
                 NewPassword = userPassword,
                 PasswordConfirmation = userPassword,
-                Token = Token
+                Token = authToken
             };
 
             // Act

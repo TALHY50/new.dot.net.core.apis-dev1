@@ -96,7 +96,7 @@ namespace ACL.Tests
                 _cache.Set(cacheItem, cacheItemPolicy);
 
             }
-            return Authorization = "Bearer  " + TestLogin();
+            return Authorization = "Bearer  " + TestLogin("sadmin");
 
         }
 
@@ -123,7 +123,7 @@ namespace ACL.Tests
         
         public static string TestLogin(string sadmin)
         {
-            var loginRequest = new LoginRequest { Email = "ssadmin@sipay.com.tr", Password = "Nop@ss1234" };
+            var loginRequest = new LoginRequest { Email = "mahmud@softrobotics.bd", Password = "secret" };
             //Arrange
             RestClient restClient = new RestClient(baseUrl);
             // Act
