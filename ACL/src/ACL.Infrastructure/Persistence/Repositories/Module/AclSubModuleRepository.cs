@@ -73,7 +73,10 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
             this.aclResponse.Message = this.messageResponse.editMessage;
             this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
             List<ulong> user_ids = _aclUserRepository.GetUserIdByChangePermission(null,id);
-            _aclUserRepository.UpdateUserPermissionVersion(user_ids);
+            if (user_ids.Count() > 0)
+            {
+                _aclUserRepository.UpdateUserPermissionVersion(user_ids);
+            }
             this.aclResponse.Timestamp = DateTime.Now;
             return this.aclResponse;
 
@@ -110,7 +113,10 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
                 this.aclResponse.Message = this.messageResponse.deleteMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
                 List<ulong> user_ids = _aclUserRepository.GetUserIdByChangePermission(null,id);
-                _aclUserRepository.UpdateUserPermissionVersion(user_ids);
+                if (user_ids.Count() > 0)
+                {
+                    _aclUserRepository.UpdateUserPermissionVersion(user_ids);
+                }
             }
 
             return this.aclResponse;
