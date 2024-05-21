@@ -79,7 +79,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
                 this.aclResponse.Data = Update(aclPage); ;
                 this.aclResponse.Message = this.messageResponse.editMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
-                List<ulong> user_ids = _aclUserRepository.GetUserIdByChangePermission(null,null,id);
+                List<ulong> user_ids = _aclUserRepository.GetUserIdByChangePermission(null, null, id);
                 _aclUserRepository.UpdateUserPermissionVersion(user_ids);
             }
             catch (Exception ex)
@@ -127,7 +127,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
                     routeRepository.DeleteAllByPageId(id);
                     this.aclResponse.Message = this.messageResponse.deleteMessage;
                     this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
-                    List<ulong> user_ids = _aclUserRepository.GetUserIdByChangePermission(null,null,id);
+                    List<ulong> user_ids = _aclUserRepository.GetUserIdByChangePermission(null, null, id);
                     _aclUserRepository.UpdateUserPermissionVersion(user_ids);
                 }
                 catch (Exception)
@@ -170,7 +170,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
             try
             {
                 AclPageRoute? aclPageRoute = PreparePageRouteInputData(request);
-                this.aclResponse.Data = routeRepository.Add(aclPageRoute); ;
+                this.aclResponse.Data = routeRepository.Add(aclPageRoute);
                 this.aclResponse.Message = this.messageResponse.createMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
@@ -191,12 +191,14 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
                 AclPageRoute? aclPageRoute = routeRepository.Find(id);
                 if (aclPageRoute != null)
                 {
+                    // clear version
+                    List<ulong> user_ids = _aclUserRepository.GetUserIdByChangePermission(null, null, request.PageId);
+                    _aclUserRepository.UpdateUserPermissionVersion(user_ids);
+
                     AclPageRoute? aclPageRouteUpdateData = PreparePageRouteInputData(request, aclPageRoute);
                     this.aclResponse.Data = routeRepository.Update(aclPageRouteUpdateData);
                     this.aclResponse.Message = this.messageResponse.editMessage;
                     this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
-                    List<ulong> user_ids = _aclUserRepository.GetUserIdByChangePermission(null,null,id);
-                _aclUserRepository.UpdateUserPermissionVersion(user_ids);
                 }
                 else
                 {
@@ -223,7 +225,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
                 this.aclResponse.Data = routeRepository.Delete(aclPageRoute);
                 this.aclResponse.Message = this.messageResponse.deleteMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
-                List<ulong> user_ids = _aclUserRepository.GetUserIdByChangePermission(null,null,id);
+                List<ulong>? user_ids = _aclUserRepository.GetUserIdByChangePermission(null, null, aclPageRoute.PageId);
                 _aclUserRepository.UpdateUserPermissionVersion(user_ids);
 
             }
