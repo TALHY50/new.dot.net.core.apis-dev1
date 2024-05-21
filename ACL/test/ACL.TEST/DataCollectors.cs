@@ -7,6 +7,7 @@ using ACL.Infrastructure.Persistence.Configurations;
 using Newtonsoft.Json;
 using RestSharp;
 using Microsoft.Extensions.Caching.Distributed;
+using ACL.Application.UseCases.Auth.Login.Response;
 
 
 namespace ACL.Tests
@@ -63,30 +64,49 @@ namespace ACL.Tests
         public static string GetAuthorization()
         {
             string key = "UserToken";
-            var Token = _cache.Get(key); 
+            var Token = _cache.Get(key);
             if (Token == null)
             {
-                
+
                 Token = TestLogin();
                 var cacheItem = new CacheItem(key, Token);
                 var cacheItemPolicy = new CacheItemPolicy
                 {
-                    AbsoluteExpiration = DateTimeOffset.Now.AddSeconds(120.0)
+                    AbsoluteExpiration = DateTimeOffset.Now.AddSeconds(99999)
                 };
-                 _cache.Set(cacheItem , cacheItemPolicy);
+                _cache.Set(cacheItem, cacheItemPolicy);
 
             }
-            return Authorization = "Bearer  "+ TestLogin();
-           
+            return Authorization = "Bearer  " + TestLogin();
+
+        }
+        public static string GetAuthorization(string sadmin)
+        {
+            string key = "UserToken";
+            var Token = _cache.Get(key);
+            if (Token == null)
+            {
+
+                Token = TestLogin("sadmin");
+                var cacheItem = new CacheItem(key, Token);
+                var cacheItemPolicy = new CacheItemPolicy
+                {
+                    AbsoluteExpiration = DateTimeOffset.Now.AddSeconds(99999)
+                };
+                _cache.Set(cacheItem, cacheItemPolicy);
+
+            }
+            return Authorization = "Bearer  " + TestLogin();
+
         }
 
         public static string TestLogin()
         {
-            var loginRequest =  new LoginRequest { Email = "ssadmin@sipay.com.tr", Password = "Nop@ss1234" };
+            var loginRequest = new LoginRequest { Email = "ssadmin@sipay.com.tr", Password = "Nop@ss1234" };
             //Arrange
             RestClient restClient = new RestClient(baseUrl);
             // Act
-            var  request = new RestRequest("api/v1/auth/login", Method.Post);
+            var request = new RestRequest("api/v1/auth/login", Method.Post);
 
             request.AddJsonBody(loginRequest);
 
@@ -94,21 +114,42 @@ namespace ACL.Tests
 
 
             //// Assert
-            loginResonse aclResponse = JsonConvert.DeserializeObject<loginResonse>(response.Content);
+            LoginSuccessResponse aclResponse = JsonConvert.DeserializeObject<LoginSuccessResponse>(response.Content);
 
-            return aclResponse.accessToken;
+            return aclResponse.AccessToken;
 
 
         }
-       
+        
+        public static string TestLogin(string sadmin)
+        {
+            var loginRequest = new LoginRequest { Email = "ssadmin@sipay.com.tr", Password = "Nop@ss1234" };
+            //Arrange
+            RestClient restClient = new RestClient(baseUrl);
+            // Act
+            var request = new RestRequest("api/v1/auth/login", Method.Post);
+
+            request.AddJsonBody(loginRequest);
+
+            RestResponse response = restClient.Execute(request);
+
+
+            //// Assert
+            LoginSuccessResponse aclResponse = JsonConvert.DeserializeObject<LoginSuccessResponse>(response.Content);
+
+            return aclResponse.AccessToken;
+
+
+        }
+
 
     }
 
-    public class loginResonse()
+    public class loginSuccessResonse()
     {
-        public string idToken { get; set; }
-      
-        public string accessToken { get; set; }
-        public string refreshToken { get; set; }
+
+        public string IdToken { get; set; }
+        public string AccessToken { get; set; }
+        public string RefreshToken { get; set; }
     }
 }

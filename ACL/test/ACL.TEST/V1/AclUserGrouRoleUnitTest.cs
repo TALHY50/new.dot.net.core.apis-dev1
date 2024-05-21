@@ -9,7 +9,7 @@ using SharedLibrary.Services;
 using SharedLibrary.Response.CustomStatusCode;
 using Newtonsoft.Json;
 
-namespace ACL.Tests.V1
+namespace ACL.Tests.V1.SAdmin
 {
     public class AclUserGrouRoleUnitTest
     {
@@ -18,7 +18,7 @@ namespace ACL.Tests.V1
         public AclUserGrouRoleUnitTest()
         {
             DataCollectors.SetDatabase();
-            authToken = DataCollectors.GetAuthorization();
+            authToken = DataCollectors.GetAuthorization("sadmin");
             restClient = new RestClient(DataCollectors.baseUrl);
         }
         [Fact]

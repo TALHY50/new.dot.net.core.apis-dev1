@@ -27,7 +27,8 @@ namespace ACL.Tests.V1
             //Arrange
             // Act
             var request = new RestRequest(AclRoutesUrl.AclCountryRouteUrl.List, Method.Get);
-            //request.AddHeader("Authorization", "Bearer desc");
+            var token = DataCollectors.GetAuthorization();
+            request.AddHeader("Authorization", token);
             RestResponse response = restClient.Execute(request);
 
             //// Assert
@@ -41,7 +42,8 @@ namespace ACL.Tests.V1
             var data = GetCountry();
             // Act
             var request = new RestRequest(AclRoutesUrl.AclCountryRouteUrl.Add, Method.Post);
-            //request.AddHeader("Authorization", "Bearer desc");
+            var token = DataCollectors.GetAuthorization();
+            request.AddHeader("Authorization", token);
             request.AddJsonBody(data);
             RestResponse response = restClient.Execute(request);
             //// Assert
@@ -58,7 +60,8 @@ namespace ACL.Tests.V1
 
             // Act
             var request = new RestRequest(AclRoutesUrl.AclCountryRouteUrl.Edit.Replace("{id}", id.ToString()), Method.Put);
-            //request.AddHeader("Authorization", "Bearer desc");
+            var token = DataCollectors.GetAuthorization();
+            request.AddHeader("Authorization", token);
             request.AddJsonBody(data);
 
             RestResponse response = restClient.Execute(request);
@@ -75,7 +78,8 @@ namespace ACL.Tests.V1
             var id = GetRandomID();
             // Act
             var request = new RestRequest(AclRoutesUrl.AclCountryRouteUrl.View.Replace("{id}", id.ToString()), Method.Get);
-            //request.AddHeader("Authorization", "Bearer desc");
+            var token = DataCollectors.GetAuthorization();
+            request.AddHeader("Authorization", token);
             RestResponse response = restClient.Execute(request);
             //// Assert
             AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
@@ -90,7 +94,8 @@ namespace ACL.Tests.V1
 
             // Act
             var request = new RestRequest(AclRoutesUrl.AclCountryRouteUrl.Destroy.Replace("{id}", id.ToString()), Method.Delete);
-            //request.AddHeader("Authorization", "Bearer desc");
+            var token = DataCollectors.GetAuthorization();
+            request.AddHeader("Authorization", token);
 
             RestResponse response = restClient.Execute(request);
 

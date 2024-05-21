@@ -40,7 +40,8 @@ namespace ACL.Tests.V1
             #region Act
             var request = new RestRequest(AclRoutesUrl.AclCompanyModuleRouteUrl.List, Method.Get);
 
-            //request.AddHeader("Authorization", "Bearer YOUR_TOKEN_HERE");
+            var token = DataCollectors.GetAuthorization();
+            request.AddHeader("Authorization", token);
 
             var response = restClient.Execute(request);
             #endregion
@@ -87,15 +88,15 @@ namespace ACL.Tests.V1
             #endregion
             #region Act
             //// Create request
-            var req = new RestRequest(AclCompanyModuleRouteUrl.Edit.Replace("{id}", id.ToString()), Method.Put);
-            //Add request body
-            req.AddBody(editReq);
+            var request = new RestRequest(AclCompanyModuleRouteUrl.Edit.Replace("{id}", id.ToString()), Method.Put);
 
-            //// Add headers
-            //request.AddHeader("Authorization", "Bearer YOUR_TOKEN_HERE");
+            var token = DataCollectors.GetAuthorization();
+            request.AddHeader("Authorization", token);
+            //Add request body
+            request.AddBody(editReq);
 
             //// Execute request
-            var response = restClient.Execute(req);
+            var response = restClient.Execute(request);
 
 
             #endregion
@@ -112,7 +113,8 @@ namespace ACL.Tests.V1
             #region Act
             var request = new RestRequest(AclCompanyModuleRouteUrl.View.Replace("{id}", id.ToString()), Method.Get);
 
-            //request.AddHeader("Authorization", "Bearer YOUR_TOKEN_HERE");
+            var token = DataCollectors.GetAuthorization();
+            request.AddHeader("Authorization", token);
 
             var response = restClient.Execute(request);
             #endregion
@@ -144,14 +146,13 @@ namespace ACL.Tests.V1
             #endregion
             #region Act
             //// Create request
-            var req = new RestRequest(AclCompanyModuleRouteUrl.Destroy.Replace("{id}", id.ToString()), Method.Delete);
+            var request = new RestRequest(AclCompanyModuleRouteUrl.Destroy.Replace("{id}", id.ToString()), Method.Delete);
             //Add request body
-
-            //// Add headers
-            //request.AddHeader("Authorization", "Bearer YOUR_TOKEN_HERE");
+            var token = DataCollectors.GetAuthorization();
+            request.AddHeader("Authorization", token);
 
             //// Execute request
-            var response = restClient.Execute(req);
+            var response = restClient.Execute(request);
 
             #endregion
             #region Assert

@@ -29,11 +29,12 @@ namespace ACL.Tests.V1
             //Arrange
             // Act
             var request = new RestRequest(AclRoutesUrl.AclBranchRouteUrl.List, Method.Get);
-            //request.AddHeader("Authorization", "Bearer desc");
+            var token = DataCollectors.GetAuthorization();
+            request.AddHeader("Authorization", token);
             RestResponse response = restClient.Execute(request);
             //Assert
-            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content); 
-           Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
+            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
 
         }
         [Fact]
@@ -43,7 +44,8 @@ namespace ACL.Tests.V1
             var data = GetBranch();
             // Act
             var request = new RestRequest(AclRoutesUrl.AclBranchRouteUrl.Add, Method.Post);
-            //request.AddHeader("Authorization", "Bearer desc");
+            var token = DataCollectors.GetAuthorization();
+            request.AddHeader("Authorization", token);
             request.AddJsonBody(data);
             RestResponse response = restClient.Execute(request);
             AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
@@ -61,7 +63,8 @@ namespace ACL.Tests.V1
 
             // Act
             var request = new RestRequest(AclRoutesUrl.AclBranchRouteUrl.Edit.Replace("{id}", id.ToString()), Method.Put);
-            //request.AddHeader("Authorization", "Bearer desc");
+            var token = DataCollectors.GetAuthorization();
+            request.AddHeader("Authorization", token);
             request.AddJsonBody(data);
 
             RestResponse response = restClient.Execute(request);
@@ -79,7 +82,8 @@ namespace ACL.Tests.V1
             var id = GetRandomID();
             // Act
             var request = new RestRequest(AclRoutesUrl.AclBranchRouteUrl.View.Replace("{id}", id.ToString()), Method.Get);
-            //request.AddHeader("Authorization", "Bearer desc");
+            var token = DataCollectors.GetAuthorization();
+            request.AddHeader("Authorization", token);
             RestResponse response = restClient.Execute(request);
             AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
             //// Assert
@@ -95,7 +99,8 @@ namespace ACL.Tests.V1
 
             // Act
             var request = new RestRequest(AclRoutesUrl.AclBranchRouteUrl.Destroy.Replace("{id}", id.ToString()), Method.Delete);
-            //request.AddHeader("Authorization", "Bearer desc");
+            var token = DataCollectors.GetAuthorization();
+            request.AddHeader("Authorization", token);
 
             RestResponse response = restClient.Execute(request);
             AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);

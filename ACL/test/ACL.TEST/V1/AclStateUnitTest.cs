@@ -29,7 +29,7 @@ namespace ACL.Tests.V1
 
             // Act
             var request = new RestRequest(AclRoutesUrl.AclStateRouteUrl.List, Method.Get);
-            //request.AddHeader("Authorization", authToken);
+            request.AddHeader("Authorization", authToken);
             RestResponse response = restClient.Execute(request);
 
             //// Assert

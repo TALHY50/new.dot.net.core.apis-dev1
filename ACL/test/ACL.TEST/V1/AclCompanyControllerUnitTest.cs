@@ -37,7 +37,8 @@ namespace ACL.Tests.V1
             #region Act
             var request = new RestRequest(AclRoutesUrl.AclCompanyRouteUrl.List, Method.Get);
 
-            //request.AddHeader("Authorization", "Bearer YOUR_TOKEN_HERE");
+            var token = DataCollectors.GetAuthorization();
+            request.AddHeader("Authorization", token);
 
             var response = restClient.Execute(request);
             #endregion
@@ -58,13 +59,14 @@ namespace ACL.Tests.V1
 
             #region Act
             //// Create request
-            var req = new RestRequest(AclRoutesUrl.AclCompanyRouteUrl.Add, Method.Post);
-
+            var request = new RestRequest(AclRoutesUrl.AclCompanyRouteUrl.Add, Method.Post);
+            var token = DataCollectors.GetAuthorization();
+            request.AddHeader("Authorization", token);
             //// Serialize the request body
-            req.AddJsonBody(createReq);
+            request.AddJsonBody(createReq);
 
             //// Execute request
-            var response = restClient.Execute(req);
+            var response = restClient.Execute(request);
 
             //// Convert actual status code to enum
             AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
@@ -83,15 +85,16 @@ namespace ACL.Tests.V1
             #endregion
             #region Act
             //// Create request
-            var req = new RestRequest(AclRoutesUrl.AclCompanyRouteUrl.Edit.Replace("{id}", id.ToString()), Method.Put);
+            var request = new RestRequest(AclRoutesUrl.AclCompanyRouteUrl.Edit.Replace("{id}", id.ToString()), Method.Put);
+
             //Add request body
-            req.AddJsonBody(editReq);
+            request.AddJsonBody(editReq);
 
             //// Add headers
             //request.AddHeader("Authorization", "Bearer YOUR_TOKEN_HERE");
 
             //// Execute request
-            var response = restClient.Execute(req);
+            var response = restClient.Execute(request);
 
             //// Assert for create
 
@@ -111,7 +114,8 @@ namespace ACL.Tests.V1
             #region Act
             var request = new RestRequest($"{AclRoutesUrl.AclCompanyRouteUrl.View.Replace("{id}", id.ToString())}", Method.Get);
 
-            // request.AddHeader("Authorization", "Bearer YOUR_TOKEN_HERE");
+            var token = DataCollectors.GetAuthorization();
+            request.AddHeader("Authorization", token);
 
             var response = restClient.Execute(request);
             #endregion
@@ -131,14 +135,15 @@ namespace ACL.Tests.V1
             #endregion
             #region Act
             //// Create request
-            var req = new RestRequest(AclRoutesUrl.AclCompanyRouteUrl.Destroy.Replace("{id}", id.ToString()), Method.Delete);
+            var request = new RestRequest(AclRoutesUrl.AclCompanyRouteUrl.Destroy.Replace("{id}", id.ToString()), Method.Delete);
             //Add request body
 
             //// Add headers
-            //request.AddHeader("Authorization", "Bearer YOUR_TOKEN_HERE");
+           var token = DataCollectors.GetAuthorization();
+            request.AddHeader("Authorization", token);
 
             //// Execute request
-            var response = restClient.Execute(req);
+            var response = restClient.Execute(request);
 
             //// Convert actual status code to enum
             int actualEditStatusCode = (int)response.StatusCode;

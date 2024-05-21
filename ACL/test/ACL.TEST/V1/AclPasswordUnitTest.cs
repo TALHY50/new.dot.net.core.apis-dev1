@@ -8,7 +8,7 @@ using SharedLibrary.Utilities;
 using SharedLibrary.Services;
 using SharedLibrary.Response.CustomStatusCode;
 
-namespace ACL.Tests.V1
+namespace ACL.Tests.V1.SAdmin
 {
     public class AclPasswordUnitTest
     {

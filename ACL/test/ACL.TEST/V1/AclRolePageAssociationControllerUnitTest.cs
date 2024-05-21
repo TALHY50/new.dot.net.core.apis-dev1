@@ -16,7 +16,7 @@ using ACL.Contracts.Requests.V1;
 using ACL.Infrastructure.Route;
 using SharedLibrary.Response.CustomStatusCode;
 
-namespace ACL.Tests.V1
+namespace ACL.Tests.V1.SAdmin
 {
     public class AclRolePageAssociationControllerUnitTest
     {

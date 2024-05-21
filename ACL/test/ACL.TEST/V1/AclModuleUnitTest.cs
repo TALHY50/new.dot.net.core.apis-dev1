@@ -42,7 +42,7 @@ namespace ACL.Tests.V1
 
             // Act
             var request = new RestRequest(AclRoutesUrl.AclModuleRouteUrl.Add, Method.Post);
-            //request.AddHeader("Authorization", "Bearer desc");
+            request.AddHeader("Authorization", DataCollectors.GetAuthorization());
             request.AddJsonBody(data);
 
             RestResponse response = restClient.Execute(request);
@@ -62,7 +62,7 @@ namespace ACL.Tests.V1
 
             // Act
             var request = new RestRequest(AclRoutesUrl.AclModuleRouteUrl.Edit.Replace("{id}", id.ToString()), Method.Put);
-            //request.AddHeader("Authorization", "Bearer desc");
+             request.AddHeader("Authorization", DataCollectors.GetAuthorization());
             request.AddJsonBody(data);
 
             RestResponse response = restClient.Execute(request);
@@ -80,7 +80,7 @@ namespace ACL.Tests.V1
 
             // Act
             var request = new RestRequest(AclRoutesUrl.AclModuleRouteUrl.View.Replace("{id}", id.ToString()), Method.Get);
-            //request.AddHeader("Authorization", "Bearer desc");
+            request.AddHeader("Authorization", DataCollectors.GetAuthorization());
 
 
             RestResponse response = restClient.Execute(request);
@@ -99,7 +99,7 @@ namespace ACL.Tests.V1
 
             // Act
             var request = new RestRequest(AclRoutesUrl.AclModuleRouteUrl.Destroy.Replace("{id}", id.ToString()), Method.Delete);
-            //request.AddHeader("Authorization", "Bearer desc");
+            request.AddHeader("Authorization", DataCollectors.GetAuthorization());
 
             RestResponse response = restClient.Execute(request);
 

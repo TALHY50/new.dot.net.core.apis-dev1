@@ -7,7 +7,7 @@ using Bogus;
 using SharedLibrary.Response.CustomStatusCode;
 using Newtonsoft.Json;
 
-namespace ACL.Tests.V1
+namespace ACL.Tests.V1.SAdmin
 {
     public class AclUserUnitTest
     {

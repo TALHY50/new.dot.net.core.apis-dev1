@@ -139,17 +139,17 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
                             // need to insert user user group
                             AclUserUsergroup[]? userGroupPrepareData = PrepareDataForUserUserGroups(request, aclUser?.Id);
                             AclUserUserGroupRepository.AddRange(userGroupPrepareData);
-                            if (aclUser != null)
-                            {
-                                aclUser.Password = "******************"; //request.Password
-                                aclUser.Salt = "******************";
-                                aclUser.Claims = null;
-                                this.aclResponse.Data = aclUser;
-                            }
+                            //if (aclUser != null)
+                            //{
+                            //    aclUser.Password = "******************"; //request.Password
+                            //    aclUser.Salt = "******************";
+                            //    aclUser.Claims = null;
+                            //    this.aclResponse.Data = aclUser;
+                            //}
                             this.aclResponse.Message = this.messageResponse.editMessage;
                             this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
 
-                            List<ulong> users = new List<ulong>{ aclUser.Id };
+                            List<ulong> users = new List<ulong> { aclUser.Id };
                             this.UpdateUserPermissionVersion(users);
                             transaction.Commit();
                         }
@@ -284,7 +284,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
                 AclUser.FirstName = request.FirstName;
                 AclUser.LastName = request.LastName;
                 AclUser.Email = request.Email;
-                AclUser.Password = _cryptographyService.HashPassword(request.Password, AclUser.Salt ?? salt);
+                AclUser.Password = AclUser.Password;
                 AclUser.Avatar = request.Avatar;
                 AclUser.Dob = request.DOB;
                 AclUser.Gender = request.Gender;
@@ -299,8 +299,8 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
                 AclUser.UpdatedAt = DateTime.Now;
                 AclUser.CompanyId = (this._companyId != 0) ? this._companyId : 0;
                 AclUser.UserType = (this._userType != 0) ? this._userType : 0;
-                AclUser.Salt = AclUser.Salt ?? salt;
-                AclUser.Claims = AclUser.Claims ?? new Claim[] { };
+                AclUser.Salt = AclUser.Salt;
+                AclUser.Claims = AclUser.Claims;
             }
             return AclUser;
         }
