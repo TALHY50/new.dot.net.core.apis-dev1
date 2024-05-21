@@ -52,8 +52,8 @@ namespace ACL.Infrastructure.Services.Jwt
                 audience: this._settings.Value.AccessTokenSettings.Audience,
                 subject: claimsIdentity,
                 notBefore: DateTime.UtcNow,
-                //expires: DateTime.UtcNow.AddSeconds(this._settings.Value.AccessTokenSettings.LifeTimeInSeconds),
-                expires: DateTime.UtcNow.AddSeconds(999999),
+                expires: DateTime.UtcNow.AddSeconds(this._settings.Value.AccessTokenSettings.LifeTimeInSeconds),
+               // expires: DateTime.UtcNow.AddSeconds(999999),
                 issuedAt: DateTime.UtcNow,
                 signingCredentials: signingCredentials);
 
