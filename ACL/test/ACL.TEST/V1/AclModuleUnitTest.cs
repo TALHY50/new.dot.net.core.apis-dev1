@@ -59,6 +59,7 @@ namespace ACL.Tests.V1
 
             var data = GetModule();
             var id = GetRandomID();
+            data.Id = id;
 
             // Act
             var request = new RestRequest(AclRoutesUrl.AclModuleRouteUrl.Edit.Replace("{id}", id.ToString()), Method.Put);
@@ -113,6 +114,7 @@ namespace ACL.Tests.V1
             var faker = new Faker();
             return new AclModuleRequest
             {
+            
                 Name = faker.Random.String2(10, 50),
                 Icon = faker.Random.String2(1, 5),
                 Sequence = faker.Random.Number(1, 3),
@@ -121,10 +123,10 @@ namespace ACL.Tests.V1
 
         }
 
-        private int GetRandomID()
+        private ulong GetRandomID()
         {
 
-            return (int)DataCollectors.dbContext.AclModules.Max(i => i.Id);
+            return (ulong)DataCollectors.dbContext.AclModules.Max(i => i.Id);
 
         }
 
