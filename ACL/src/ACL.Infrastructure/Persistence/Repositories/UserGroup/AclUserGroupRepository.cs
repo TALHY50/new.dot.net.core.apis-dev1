@@ -5,6 +5,8 @@ using ACL.Contracts.Response;
 using ACL.Core.Entities.UserGroup;
 using ACL.Infrastructure.Persistence.Configurations;
 using ACL.Infrastructure.Utilities;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Ocsp;
 using SharedLibrary.Response.CustomStatusCode;
 
@@ -23,15 +25,18 @@ namespace ACL.Infrastructure.Persistence.Repositories.UserGroup
         /// <inheritdoc/>
         public readonly ApplicationDbContext _dbContext;
         private readonly IAclUserRepository _aclUserRepository;
+        private static IHttpContextAccessor _httpContextAccessor;
 
         /// <inheritdoc/>
-        public AclUserGroupRepository(ApplicationDbContext dbContext, IAclUserRepository aclUserRepository)
+        public AclUserGroupRepository(ApplicationDbContext dbContext, IAclUserRepository aclUserRepository, IHttpContextAccessor httpContextAccessor)
         {
             _aclUserRepository = aclUserRepository;
-            AppAuth.SetAuthInfo();
             this.aclResponse = new AclResponse();
             this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
             _dbContext = dbContext;
+            _httpContextAccessor = httpContextAccessor;
+            AppAuth.Initialize(_httpContextAccessor, _dbContext);
+            AppAuth.SetAuthInfo(_httpContextAccessor);
         }
         /// <inheritdoc/>
         public AclResponse GetAll()

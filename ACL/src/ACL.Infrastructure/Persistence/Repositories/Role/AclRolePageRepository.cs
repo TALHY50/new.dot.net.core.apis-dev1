@@ -6,6 +6,7 @@ using ACL.Core.Entities.Module;
 using ACL.Core.Entities.Role;
 using ACL.Infrastructure.Persistence.Configurations;
 using ACL.Infrastructure.Utilities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Response.CustomStatusCode;
 using static ACL.Infrastructure.Route.AclRoutesUrl;
@@ -23,14 +24,17 @@ namespace ACL.Infrastructure.Persistence.Repositories.Role
         /// <inheritdoc/>
         public readonly ApplicationDbContext _dbContext;
         private readonly IAclUserRepository _aclUserRepository;
+        private static IHttpContextAccessor _httpContextAccessor;
         /// <inheritdoc/>
-        public AclRolePageRepository(ApplicationDbContext dbContext, IAclUserRepository aclUserRepository)
+        public AclRolePageRepository(ApplicationDbContext dbContext, IAclUserRepository aclUserRepository, IHttpContextAccessor httpContextAccessor)
         {
             _aclUserRepository = aclUserRepository;
             this.aclResponse = new AclResponse();
-            AppAuth.SetAuthInfo(); // sent object to this class when auth is found
             this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
             _dbContext = dbContext;
+            _httpContextAccessor = httpContextAccessor;
+            AppAuth.Initialize(_httpContextAccessor, _dbContext);
+            AppAuth.SetAuthInfo(_httpContextAccessor);
         }
         /// <inheritdoc/>
         public async Task<AclResponse> GetAllById(ulong id)
@@ -67,7 +71,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Role
                 {
                     _aclUserRepository.UpdateUserPermissionVersion(user_ids);
                 }
-                
+
             }
             catch (Exception ex)
             {

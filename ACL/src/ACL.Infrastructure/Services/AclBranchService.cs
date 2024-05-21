@@ -9,6 +9,8 @@ using ACL.Infrastructure.Persistence.Configurations;
 using ACL.Infrastructure.Persistence.Repositories;
 using ACL.Infrastructure.Persistence.Repositories.Company;
 using ACL.Infrastructure.Utilities;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Response.CustomStatusCode;
 
 namespace ACL.Infrastructure.Services
@@ -22,20 +24,22 @@ namespace ACL.Infrastructure.Services
         public MessageResponse messageResponse;
         private string modelName = "Branch";
         private IAclBranchRepository _repository;
-
+        private static IHttpContextAccessor _httpContextAccessor;
         /// <inheritdoc/>
-        public AclBranchService(ApplicationDbContext dbContext, IAclBranchRepository repository):base(dbContext)
+        public AclBranchService(ApplicationDbContext dbContext, IAclBranchRepository repository, IHttpContextAccessor httpContextAccessor) : base(dbContext, httpContextAccessor)
         {
             _repository = repository;
-            AppAuth.SetAuthInfo();
             this.aclResponse = new AclResponse();
+            _httpContextAccessor = httpContextAccessor;
+            AppAuth.Initialize(_httpContextAccessor, dbContext);
+            AppAuth.SetAuthInfo(_httpContextAccessor);
             this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
         }
 
         /// <inheritdoc/>
         public AclResponse Get()
         {
-            var aclBranches =  _repository.All();
+            var aclBranches = _repository.All();
 
             this.aclResponse.Message = aclBranches.Any() ? this.messageResponse.fetchMessage : this.messageResponse.notFoundMessage;
             this.aclResponse.Data = aclBranches;
@@ -70,7 +74,7 @@ namespace ACL.Infrastructure.Services
         {
             try
             {
-                var _aclBranch =  _repository.GetById(id);
+                var _aclBranch = _repository.GetById(id);
                 _aclBranch = PrepareInputData(request, _aclBranch);
                 this.aclResponse.Data = _repository.Update(_aclBranch);
                 this.aclResponse.Message = _aclBranch != null ? this.messageResponse.editMessage : this.messageResponse.notFoundMessage;
@@ -115,7 +119,7 @@ namespace ACL.Infrastructure.Services
             this.aclResponse.Data = aclCompanyModule;
             if (aclCompanyModule != null)
             {
-                 _repository.Delete(aclCompanyModule);
+                _repository.Delete(aclCompanyModule);
             }
             return this.aclResponse;
         }

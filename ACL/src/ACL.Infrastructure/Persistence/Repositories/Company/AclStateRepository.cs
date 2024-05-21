@@ -4,6 +4,8 @@ using ACL.Contracts.Response;
 using ACL.Core.Entities.Company;
 using ACL.Infrastructure.Persistence.Configurations;
 using ACL.Infrastructure.Utilities;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Response.CustomStatusCode;
 
 namespace ACL.Infrastructure.Persistence.Repositories.Company
@@ -18,14 +20,17 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
         private string modelName = "State";
         /// <inheritdoc/>
         protected readonly ApplicationDbContext _dbContext;
+        private static IHttpContextAccessor _httpContextAccessor;
         /// <inheritdoc/>
-        public AclStateRepository(ApplicationDbContext dbContext)
+        public AclStateRepository(ApplicationDbContext dbContext, IHttpContextAccessor httpContextAccessor)
         {
             AppAuth.SetAuthInfo();
             this.aclResponse = new AclResponse();
-            AppAuth.SetAuthInfo();
             this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
             _dbContext = dbContext;
+            _httpContextAccessor = httpContextAccessor;
+            AppAuth.Initialize(_httpContextAccessor, dbContext);
+            AppAuth.SetAuthInfo(_httpContextAccessor);
         }
         /// <inheritdoc/>
         public AclResponse GetAll()

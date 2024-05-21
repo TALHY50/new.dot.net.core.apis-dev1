@@ -5,6 +5,8 @@ using ACL.Contracts.Response;
 using ACL.Core.Entities.Module;
 using ACL.Infrastructure.Persistence.Configurations;
 using ACL.Infrastructure.Utilities;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace ACL.Infrastructure.Persistence.Repositories.Module
 {
@@ -18,13 +20,16 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
         private string modelName = "Page Route";
         private readonly IAclUserRepository _aclUserRepository;
         ApplicationDbContext _dbContext;
+        private static IHttpContextAccessor _httpContextAccessor;
         /// <inheritdoc/>
-        public AclPageRouteRepository(ApplicationDbContext dbContext,IAclUserRepository aclUserRepository)
+        public AclPageRouteRepository(ApplicationDbContext dbContext, IAclUserRepository aclUserRepository, IHttpContextAccessor httpContextAccessor)
         {
             _aclUserRepository = aclUserRepository;
             _dbContext = dbContext;
             this.aclResponse = new AclResponse();
-            AppAuth.SetAuthInfo(); // sent object to this class when auth is found
+            _httpContextAccessor = httpContextAccessor;
+            AppAuth.Initialize(_httpContextAccessor, _dbContext);
+            AppAuth.SetAuthInfo(_httpContextAccessor);
             this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
         }
         /// <inheritdoc/>

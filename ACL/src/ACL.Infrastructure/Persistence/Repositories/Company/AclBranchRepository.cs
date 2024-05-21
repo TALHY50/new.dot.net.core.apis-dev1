@@ -1,6 +1,9 @@
 ﻿using ACL.Application.Ports.Repositories.Company;
 using ACL.Core.Entities.Company;
 using ACL.Infrastructure.Persistence.Configurations;
+using ACL.Infrastructure.Utilities;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace ACL.Infrastructure.Persistence.Repositories.Company
 {
@@ -9,10 +12,14 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
     {
         /// <inheritdoc/>
         protected readonly ApplicationDbContext _dbContext;
+        private static IHttpContextAccessor _httpContextAccessor;
         /// <inheritdoc/>
-        public AclBranchRepository(ApplicationDbContext dbContext)
+        public AclBranchRepository(ApplicationDbContext dbContext, IHttpContextAccessor httpContextAccessor)
         {
             _dbContext = dbContext;
+            _httpContextAccessor = httpContextAccessor;
+            AppAuth.Initialize(_httpContextAccessor, _dbContext);
+            AppAuth.SetAuthInfo(_httpContextAccessor);
         }
         /// <inheritdoc/>
         public AclBranch? Add(AclBranch entity)

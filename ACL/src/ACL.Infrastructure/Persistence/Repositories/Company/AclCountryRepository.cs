@@ -4,6 +4,8 @@ using ACL.Contracts.Response;
 using ACL.Core.Entities.Company;
 using ACL.Infrastructure.Persistence.Configurations;
 using ACL.Infrastructure.Utilities;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Response.CustomStatusCode;
 
 namespace ACL.Infrastructure.Persistence.Repositories.Company
@@ -17,13 +19,16 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
         public MessageResponse messageResponse;
         private string modelName = "Country";
         ApplicationDbContext _dbContext;
+        private static IHttpContextAccessor _httpContextAccessor;
         /// <inheritdoc/>
-        public AclCountryRepository(ApplicationDbContext dbContext)
+        public AclCountryRepository(ApplicationDbContext dbContext, IHttpContextAccessor httpContextAccessor)
         {
             _dbContext = dbContext;
             this.aclResponse = new AclResponse();
-            AppAuth.SetAuthInfo(); // sent object to this class when auth is found
             this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
+            _httpContextAccessor = httpContextAccessor;
+            AppAuth.Initialize(_httpContextAccessor, dbContext);
+            AppAuth.SetAuthInfo(_httpContextAccessor);
         }
         /// <inheritdoc/>
         public AclResponse GetAll()
@@ -121,7 +126,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
         {
             bool exist = false;
             var aclCountry = _dbContext.AclCountries.Find(id);
-            if(aclCountry!= null)
+            if (aclCountry != null)
             {
                 exist = true;
             }

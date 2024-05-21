@@ -5,13 +5,15 @@ using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response;
 using ACL.Infrastructure.Persistence.Configurations;
 using ACL.Infrastructure.Utilities;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Response.CustomStatusCode;
 using SharedLibrary.Utilities;
 
 namespace ACL.Infrastructure.Persistence.Repositories.Auth
 {
     /// <inheritdoc/>
-    public class AclPasswordRepository :  IAclPasswordRepository
+    public class AclPasswordRepository : IAclPasswordRepository
     {
         /// <inheritdoc/>
         public AclResponse aclResponse;
@@ -22,15 +24,19 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
         /// <inheritdoc/>
         public MessageResponse messageResponse;
         ApplicationDbContext _dbContext;
+        private static IHttpContextAccessor _httpContextAccessor;
         /// <inheritdoc/>
-        public AclPasswordRepository(ApplicationDbContext dbContext,ICryptographyService _cryptographyService,IAclUserRepository _AclUserRepository) 
+        public AclPasswordRepository(ApplicationDbContext dbContext, ICryptographyService _cryptographyService, IAclUserRepository _AclUserRepository, IHttpContextAccessor httpContextAccessor)
         {
+
+            _dbContext = dbContext;
             AclUserRepository = _AclUserRepository;
             cryptographyService = _cryptographyService;
             this.aclResponse = new AclResponse();
-            AppAuth.SetAuthInfo(); // sent object to this class when auth is found
             this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
-            _dbContext = dbContext;
+            _httpContextAccessor = httpContextAccessor;
+            AppAuth.Initialize(_httpContextAccessor, _dbContext);
+            AppAuth.SetAuthInfo(_httpContextAccessor);
         }
         /// <inheritdoc/>
         public async Task<AclResponse> Reset(AclPasswordResetRequest request)
@@ -49,7 +55,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             if (aclUser != null)
             {
                 // password checking
-                var password = cryptographyService.HashPassword(request.CurrentPassword,aclUser.Salt??salt);
+                var password = cryptographyService.HashPassword(request.CurrentPassword, aclUser.Salt ?? salt);
 
                 if (request.CurrentPassword != password)
                 {
@@ -60,8 +66,8 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
 
                 // password update
 
-                aclUser.Password = cryptographyService.HashPassword(request.NewPassword,aclUser.Salt??salt);
-                 _dbContext.AclUsers.Update(aclUser);
+                aclUser.Password = cryptographyService.HashPassword(request.NewPassword, aclUser.Salt ?? salt);
+                _dbContext.AclUsers.Update(aclUser);
                 await _dbContext.SaveChangesAsync();
                 await _dbContext.Entry(aclUser).ReloadAsync();
 
@@ -105,15 +111,15 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             }
 
             // get email from cache by token
-            string  email = (string)CacheHelper.Get(request.Token);
-             var salt = cryptographyService.GenerateSalt();
+            string email = (string)CacheHelper.Get(request.Token);
+            var salt = cryptographyService.GenerateSalt();
             // password update
 
             var aclUser = _dbContext.AclUsers.Where(x => x.Email == email).FirstOrDefault();
             if (aclUser != null)
             {
-                aclUser.Password = cryptographyService.HashPassword(request.NewPassword,aclUser.Salt??salt);
-                 _dbContext.AclUsers.Update(aclUser);
+                aclUser.Password = cryptographyService.HashPassword(request.NewPassword, aclUser.Salt ?? salt);
+                _dbContext.AclUsers.Update(aclUser);
                 await _dbContext.SaveChangesAsync();
                 await _dbContext.Entry(aclUser).ReloadAsync();
 

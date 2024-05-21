@@ -9,6 +9,7 @@ using ACL.Core.Entities.Auth;
 using ACL.Infrastructure.Persistence.Configurations;
 using ACL.Infrastructure.Persistence.Dtos;
 using ACL.Infrastructure.Utilities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Caching.Distributed;
@@ -36,22 +37,26 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
         private readonly IDistributedCache _distributedCache;
         private readonly ICryptographyService _cryptographyService;
         private readonly IAclUserUserGroupRepository AclUserUserGroupRepository;
-
+        private static IHttpContextAccessor _httpContextAccessor;
 
         private readonly ApplicationDbContext _dbContext;
         /// <inheritdoc/>
-        public AclUserRepository(ApplicationDbContext dbcontext, IConfiguration config, IDistributedCache distributedCache, ICryptographyService cryptographyService, IAclUserUserGroupRepository _AclUserUserGroupRepository)
+        public AclUserRepository(ApplicationDbContext dbcontext, IConfiguration config, IDistributedCache distributedCache, ICryptographyService cryptographyService, IAclUserUserGroupRepository _AclUserUserGroupRepository, IHttpContextAccessor httpContextAccessor)
         {
+
             AclUserUserGroupRepository = _AclUserUserGroupRepository;
-            AppAuth.SetAuthInfo();
             this._config = config;
             this.aclResponse = new AclResponse();
-            this._companyId = (uint)AppAuth.GetAuthInfo().CompanyId;
-            this._userType = (uint)AppAuth.GetAuthInfo().UserType;
+            var user = _httpContextAccessor?.HttpContext?.User;
             this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
             this._distributedCache = distributedCache;
             _dbContext = dbcontext;
             _cryptographyService = cryptographyService;
+            _httpContextAccessor = httpContextAccessor;
+            AppAuth.Initialize(_httpContextAccessor, dbcontext);
+            AppAuth.SetAuthInfo(_httpContextAccessor);
+            this._companyId = (uint)AppAuth.GetAuthInfo().CompanyId;
+            this._userType = (uint)AppAuth.GetAuthInfo().UserType;
         }
         /// <inheritdoc/>
         public AclResponse GetAll()

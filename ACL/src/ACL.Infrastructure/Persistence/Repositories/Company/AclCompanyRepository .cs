@@ -14,6 +14,7 @@ using ACL.Core.Entities.Role;
 using ACL.Core.Entities.UserGroup;
 using ACL.Infrastructure.Persistence.Configurations;
 using ACL.Infrastructure.Utilities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SharedLibrary.Response.CustomStatusCode;
@@ -38,18 +39,17 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
         private IAclUserGroupRoleRepository AclUserGroupRoleRepository;
         private IAclPageRepository AclPageRepository;
         private IAclRolePageRepository AclRolePageRepository;
-
+        private static IHttpContextAccessor _httpContextAccessor;
 
         private readonly ApplicationDbContext _dbContext;
 
 
         /// <inheritdoc/>
-        public AclCompanyRepository(ApplicationDbContext dbContext, IConfiguration config, ICryptographyService _cryptographyService, IAclUserGroupRepository _AclUserGroupRepository, IAclUserRepository _AclUserRepository, IAclUserUserGroupRepository _AclUserUserGroupRepository, IAclRoleRepository _AclRoleRepository, IAclUserGroupRoleRepository _AclUserGroupRoleRepository, IAclPageRepository _AclPageRepository, IAclRolePageRepository _AclRolePageRepository)
+        public AclCompanyRepository(ApplicationDbContext dbContext, IConfiguration config, ICryptographyService _cryptographyService, IAclUserGroupRepository _AclUserGroupRepository, IAclUserRepository _AclUserRepository, IAclUserUserGroupRepository _AclUserUserGroupRepository, IAclRoleRepository _AclRoleRepository, IAclUserGroupRoleRepository _AclUserGroupRoleRepository, IAclPageRepository _AclPageRepository, IAclRolePageRepository _AclRolePageRepository, IHttpContextAccessor httpContextAccessor)
 
         {
             this.aclResponse = new AclResponse();
             this._config = config;
-            AppAuth.SetAuthInfo(); // sent object to this class when auth is found
             this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
             _dbContext = dbContext;
             cryptographyService = _cryptographyService;
@@ -60,6 +60,9 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
             AclUserGroupRoleRepository = _AclUserGroupRoleRepository;
             AclPageRepository = _AclPageRepository;
             AclRolePageRepository = _AclRolePageRepository;
+            _httpContextAccessor = httpContextAccessor;
+            AppAuth.Initialize(_httpContextAccessor, _dbContext);
+            AppAuth.SetAuthInfo(_httpContextAccessor);
         }
         /// <inheritdoc/>
 
@@ -89,12 +92,12 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
                 {
                     AclUserGroupRequest userGroupRequest = new AclUserGroupRequest()
                     {
-                        GroupName = _config["USER_GROUP_NAME"]??"ADMIN_USERGROUP",
+                        GroupName = _config["USER_GROUP_NAME"] ?? "ADMIN_USERGROUP",
                         Status = 1
                     };
                     AclUserGroupRepository.SetCompanyId(aclCompany.Id);
                     var userGroup = AclUserGroupRepository.PrepareInputData(userGroupRequest);
-                     userGroup =  AclUserGroupRepository.Add(userGroup);
+                    userGroup = AclUserGroupRepository.Add(userGroup);
                     var salt = cryptographyService.GenerateSalt();
                     string[] nameArr = request.Name.Split(' ');
                     string fname = (nameArr.Length > 0) ? nameArr[0] : "";
@@ -122,8 +125,8 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
                     AclUserUserGroupRepository.Add(userusergroup);
                     AclRole role = new AclRole()
                     {
-                        Name = this._config["ROLE_TITLE"]??"ADMIN_ROLE",
-                        Title = this._config["ROLE_TITLE"]??"ADMIN_ROLE",
+                        Name = this._config["ROLE_TITLE"] ?? "ADMIN_ROLE",
+                        Title = this._config["ROLE_TITLE"] ?? "ADMIN_ROLE",
                         CompanyId = (uint)aclCompany.Id,
                         CreatedById = 0,
                         UpdatedById = 0,
@@ -142,7 +145,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
                         UpdatedAt = DateTime.UtcNow
                     };
                     var createdUserGroupRole = AclUserGroupRoleRepository.Add(userGroupRole);
-                    List<AclPage> aclPagesByModuleId = await _dbContext.AclPages.Where(x => x.ModuleId == ulong.Parse(_config["S_ADMIN_DEFAULT_MODULE_ID"]??"1003")).ToListAsync();
+                    List<AclPage> aclPagesByModuleId = await _dbContext.AclPages.Where(x => x.ModuleId == ulong.Parse(_config["S_ADMIN_DEFAULT_MODULE_ID"] ?? "1003")).ToListAsync();
                     List<ulong> pageIds = aclPagesByModuleId.Select(page => page.Id).ToList();
                     List<AclRolePage> aclRolePages = pageIds.Select(pageId => new AclRolePage
                     {
@@ -287,7 +290,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
         public AclUserUsergroup PrepareDataForUserUserGroups(ulong? usergroup, ulong? user_id)
         {
             AclUserUsergroup aclUserUserGroup = new AclUserUsergroup();
-            aclUserUserGroup.UserId = user_id??0;
+            aclUserUserGroup.UserId = user_id ?? 0;
             aclUserUserGroup.UsergroupId = usergroup ?? 0;
             aclUserUserGroup.CreatedAt = DateTime.Now;
             aclUserUserGroup.UpdatedAt = DateTime.Now;
@@ -371,8 +374,8 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
             try
             {
                 var aclCompany = Find(id);
-                if(aclCompany!=null)
-                _dbContext.AclCompanies.Remove(aclCompany);
+                if (aclCompany != null)
+                    _dbContext.AclCompanies.Remove(aclCompany);
                 _dbContext.SaveChangesAsync();
                 return aclCompany;
             }

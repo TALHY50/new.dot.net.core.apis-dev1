@@ -6,6 +6,7 @@ using ACL.Core.Entities.Module;
 using ACL.Infrastructure.Persistence.Configurations;
 using ACL.Infrastructure.Persistence.Repositories.Auth;
 using ACL.Infrastructure.Utilities;
+using Microsoft.AspNetCore.Http;
 using SharedLibrary.Response.CustomStatusCode;
 
 namespace ACL.Infrastructure.Persistence.Repositories.Module
@@ -20,15 +21,19 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
         private ApplicationDbContext _dbcontext;
         private IAclUserRepository _aclUserRepository;
         private string modelName = "Module";
+        private static IHttpContextAccessor _httpContextAccessor;
 
         /// <inheritdoc/>
-        public AclModuleRepository(ApplicationDbContext dbcontext, IAclUserRepository aclUserRepository)
+        public AclModuleRepository(ApplicationDbContext dbcontext, IAclUserRepository aclUserRepository, IHttpContextAccessor httpContextAccessor)
         {
             _dbcontext = dbcontext;
             this.aclResponse = new AclResponse();
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
             this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
             _aclUserRepository = aclUserRepository;
+            _httpContextAccessor = httpContextAccessor;
+            AppAuth.Initialize(_httpContextAccessor, dbcontext);
+            AppAuth.SetAuthInfo(_httpContextAccessor);
         }
 
         /// <inheritdoc/>

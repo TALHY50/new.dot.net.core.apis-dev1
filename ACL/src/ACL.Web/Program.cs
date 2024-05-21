@@ -114,6 +114,7 @@ builder.Services.AddAuthorization(options =>
 builder.Services.AddSingleton<IAuthorizationHandler, PermissionAuthorizationHandler>();
 //builder.Services.AddAuthentication();
 //builder.Services.AddAuthorization(); // Add authorization services
+builder.Services.AddHttpContextAccessor(); 
 builder.Services.AddControllers();
 
 

@@ -3,6 +3,8 @@ using ACL.Contracts.Response;
 using ACL.Core.Entities.Auth;
 using ACL.Infrastructure.Persistence.Configurations;
 using ACL.Infrastructure.Utilities;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace ACL.Infrastructure.Persistence.Repositories.Auth
 {
@@ -15,11 +17,14 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
         public MessageResponse messageResponse;
         private readonly string modelName = "User User Group";
         readonly ApplicationDbContext _dbContext;
+        private static IHttpContextAccessor _httpContextAccessor;
         /// <inheritdoc/>
-        public AclUserUserGroupRepository(ApplicationDbContext dbContext)
+        public AclUserUserGroupRepository(ApplicationDbContext dbContext, IHttpContextAccessor httpContextAccessor)
         {
             _dbContext = dbContext;
-            AppAuth.SetAuthInfo();
+            _httpContextAccessor = httpContextAccessor;
+            AppAuth.Initialize(_httpContextAccessor, _dbContext);
+            AppAuth.SetAuthInfo(_httpContextAccessor);
             this.aclResponse = new AclResponse();
             this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
         }

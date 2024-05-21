@@ -4,6 +4,7 @@ using ACL.Contracts.Response;
 using ACL.Core.Entities.Company;
 using ACL.Infrastructure.Persistence.Configurations;
 using ACL.Infrastructure.Utilities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Response.CustomStatusCode;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -20,12 +21,15 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
         public MessageResponse messageResponse;
         private string modelName = "Company Module";
         private ApplicationDbContext _dbContext;
+        private static IHttpContextAccessor _httpContextAccessor;
         /// <inheritdoc/>
-        public AclCompanyModuleRepository(ApplicationDbContext dbContext)
+        public AclCompanyModuleRepository(ApplicationDbContext dbContext, IHttpContextAccessor httpContextAccessor)
         {
             _dbContext = dbContext;
             this.aclResponse = new AclResponse();
-            AppAuth.SetAuthInfo(); // sent object to this class when auth is found
+            _httpContextAccessor = httpContextAccessor;
+            AppAuth.Initialize(_httpContextAccessor, dbContext);
+            AppAuth.SetAuthInfo(_httpContextAccessor);
             this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
         }
         /// <inheritdoc/>
@@ -235,7 +239,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
             {
                 var delete = _dbContext.AclCompanyModules.Find(id);
                 if (delete != null)
-                _dbContext.AclCompanyModules.Remove(delete);
+                    _dbContext.AclCompanyModules.Remove(delete);
                 _dbContext.SaveChangesAsync();
                 return delete;
             }

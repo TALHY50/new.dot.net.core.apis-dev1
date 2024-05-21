@@ -5,6 +5,8 @@ using ACL.Contracts.Response;
 using ACL.Core.Entities.Module;
 using ACL.Infrastructure.Persistence.Configurations;
 using ACL.Infrastructure.Utilities;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Response.CustomStatusCode;
 
 namespace ACL.Infrastructure.Persistence.Repositories.Module
@@ -20,15 +22,18 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
         private IAclPageRouteRepository routeRepository;
         private readonly IAclUserRepository _aclUserRepository;
         private ApplicationDbContext _dbContext;
+        private static IHttpContextAccessor _httpContextAccessor;
         /// <inheritdoc/>
-        public AclPageRepository(ApplicationDbContext dbContext, IAclPageRouteRepository _routeRepository, IAclUserRepository aclUserRepository)
+        public AclPageRepository(ApplicationDbContext dbContext, IAclPageRouteRepository _routeRepository, IAclUserRepository aclUserRepository, IHttpContextAccessor httpContextAccessor)
         {
             _dbContext = dbContext;
             routeRepository = _routeRepository;
             _aclUserRepository = aclUserRepository;
             this.aclResponse = new AclResponse();
-            AppAuth.SetAuthInfo(); // sent object to this class when auth is found
             this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
+            _httpContextAccessor = httpContextAccessor;
+            AppAuth.Initialize(_httpContextAccessor, _dbContext);
+            AppAuth.SetAuthInfo(_httpContextAccessor);
         }
 
         /// <inheritdoc/>
