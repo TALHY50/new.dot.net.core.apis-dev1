@@ -97,6 +97,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
                     };
                     AclUserGroupRepository.SetCompanyId(aclCompany.Id);
                     var userGroup = AclUserGroupRepository.PrepareInputData(userGroupRequest);
+                    userGroup.CompanyId = aclCompany.Id;
                     userGroup = AclUserGroupRepository.Add(userGroup);
                     var salt = cryptographyService.GenerateSalt();
                     string[] nameArr = request.Name.Split(' ');
@@ -111,15 +112,13 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
                         LastName = lname,
                         Language = "en-US",
                         Username = aclCompany.Email,
-                        CreatedById = 0,
+                        CreatedById = (uint)AppAuth.GetAuthInfo().UserId,
+                        CompanyId = (uint)aclCompany.Id,
                         Salt = salt,
                         Claims = new Claim[] { },
                         CreatedAt = DateTime.Now,
                         UpdatedAt = DateTime.Now
                     };
-
-                    AclUserRepository.SetCompanyId((uint)aclCompany.Id);
-                    AclUserRepository.SetUserType(true);
                     var addeduser = AclUserRepository.Add(user);
                     var userusergroup = PrepareDataForUserUserGroups(userGroup?.Id, addeduser?.Id);
                     AclUserUserGroupRepository.Add(userusergroup);
@@ -128,8 +127,8 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
                         Name = this._config["ROLE_TITLE"] ?? "ADMIN_ROLE",
                         Title = this._config["ROLE_TITLE"] ?? "ADMIN_ROLE",
                         CompanyId = (uint)aclCompany.Id,
-                        CreatedById = 0,
-                        UpdatedById = 0,
+                        CreatedById = (uint)AppAuth.GetAuthInfo().UserId,
+                        UpdatedById = (uint)AppAuth.GetAuthInfo().UserId,
                         CreatedAt = DateTime.Now,
                         UpdatedAt = DateTime.Now,
                         Status = 1

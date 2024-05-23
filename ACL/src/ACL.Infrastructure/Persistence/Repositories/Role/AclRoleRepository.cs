@@ -30,7 +30,6 @@ namespace ACL.Infrastructure.Persistence.Repositories.Role
         {
             _aclUserRepository = aclUserRepository;
             this.aclResponse = new AclResponse();
-            AppAuth.SetAuthInfo(); // sent object to this class when auth is found
             this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
             this._distributedCache = distributedCache;
             _dbContext = dbContext;

@@ -64,32 +64,18 @@ namespace ACL.Infrastructure.Utilities
                             Language = userFromDb?.Language
                         };
                     }
-                    else
-                    {
-                        authInfo = new AuthInfoModel
-                        {
-                            UserId = 0,
-                            CompanyId = 0,
-                            Email = "user@example.com",
-                            Name = "test",
-                            Phone = "12345678",
-                            UserType = 1,
-                            UserGroupIds = "1,2",
-                            Language = "en-US"
-                        };
-                    }
                 }
                 else
                 {
                     authInfo = new AuthInfoModel
                     {
-                        UserId = 0,
+                        UserId =0,
                         CompanyId = 0,
                         Email = "user@example.com",
                         Name = "test",
                         Phone = "12345678",
                         UserType = 1,
-                        UserGroupIds = "1,2",
+                        UserGroupIds = "2",
                         Language = "en-US"
                     };
                 }
