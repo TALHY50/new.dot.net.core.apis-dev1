@@ -7,7 +7,7 @@ using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response;
 using ACL.Core.Entities.Auth;
 using ACL.Infrastructure.Persistence.Configurations;
-using ACL.Infrastructure.Persistence.Dtos;
+using ACL.Infrastructure.Persistence.DTOs;
 using ACL.Infrastructure.Utilities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -25,38 +25,44 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
     /// <inheritdoc/>
     public class AclUserRepository : IAclUserRepository
     {
-        /// <inheritdoc/>
-        public AclResponse aclResponse;
-        /// <inheritdoc/>
-        public MessageResponse messageResponse;
-        private string modelName = "User";
+        
+        public AclResponse AclResponse;
+        public MessageResponse MessageResponse;
+        private readonly string _modelName = "User";
         private uint _companyId;
         private uint _userType;
-        private bool is_user_type_created_by_company = false;
-        private IConfiguration _config;
+       //   private bool _isUserTypeCreatedByCompany = false;
+        private readonly IConfiguration _config;
         private readonly IDistributedCache _distributedCache;
         private readonly ICryptographyService _cryptographyService;
-        private readonly IAclUserUserGroupRepository AclUserUserGroupRepository;
+        public  IAclUserUserGroupRepository AclUserUserGroupRepository;
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         private static IHttpContextAccessor _httpContextAccessor;
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
         private readonly ApplicationDbContext _dbContext;
-        /// <inheritdoc/>
-        public AclUserRepository(ApplicationDbContext dbcontext, IConfiguration config, IDistributedCache distributedCache, ICryptographyService cryptographyService, IAclUserUserGroupRepository _AclUserUserGroupRepository, IHttpContextAccessor httpContextAccessor)
+
+        public AclUserRepository(ApplicationDbContext dbContext, IConfiguration config, IDistributedCache distributedCache, ICryptographyService cryptographyService, IAclUserUserGroupRepository aclUserUserGroupRepository, IHttpContextAccessor httpContextAccessor)
         {
 
-            AclUserUserGroupRepository = _AclUserUserGroupRepository;
+            AclUserUserGroupRepository = aclUserUserGroupRepository;
             this._config = config;
-            this.aclResponse = new AclResponse();
+            this.AclResponse = new AclResponse();
             var user = _httpContextAccessor?.HttpContext?.User;
-            this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8604 // Possible null reference argument.
+
+            this.MessageResponse = new MessageResponse(this._modelName, AppAuth.GetAuthInfo().Language);
             this._distributedCache = distributedCache;
-            _dbContext = dbcontext;
+            _dbContext = dbContext;
             _cryptographyService = cryptographyService;
             _httpContextAccessor = httpContextAccessor;
-            AppAuth.Initialize(_httpContextAccessor, dbcontext);
+            AppAuth.Initialize(_httpContextAccessor, dbContext);
             AppAuth.SetAuthInfo(_httpContextAccessor);
             this._companyId = (uint)AppAuth.GetAuthInfo().CompanyId;
+#pragma warning disable CS8629 // Nullable value type may be null.
             this._userType = (uint)AppAuth.GetAuthInfo().UserType;
+#pragma warning restore CS8629 // Nullable value type may be null.
         }
         /// <inheritdoc/>
         public AclResponse GetAll()
@@ -66,63 +72,76 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
            {
                user.Password = "**********";
                user.Salt = "**********";
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
                user.Claims = null;
                user.RefreshToken = null;
            });
 
             // further we need to add with companyid from auth and created by  from UTHUSER ID other wise the system would be insecured.
-            IEnumerable<AclUser>? result = (aclUser != null) ? aclUser.Where(i => i.Id != 1 && i.Status == 1) : null;
+            IEnumerable<AclUser>? result =  aclUser.Where(i => i.Id != 1 && i.Status == 1);
             if (aclUser.Any())
             {
-                this.aclResponse.Message = this.messageResponse.fetchMessage;
+                this.AclResponse.Message = this.MessageResponse.fetchMessage;
             }
-            this.aclResponse.Data = result;
-            this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
-            this.aclResponse.Timestamp = DateTime.Now;
+            this.AclResponse.Data = result;
+            this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
+            this.AclResponse.Timestamp = DateTime.Now;
 
-            return this.aclResponse;
+            return this.AclResponse;
         }
         /// <inheritdoc/>
-        public async Task<AclResponse> AddUser(AclUserRequest request)
+        public Task<AclResponse> AddUser(AclUserRequest request)
         {
-
             var strategy = _dbContext.Database.CreateExecutionStrategy();
 
-            await strategy.ExecuteAsync(async () =>
+            try
             {
-                using (IDbContextTransaction transaction = _dbContext.Database.BeginTransaction())
+                 strategy.Execute(() =>
                 {
+                    using IDbContextTransaction? transaction = _dbContext.Database.BeginTransaction();
                     try
                     {
                         AclUser? aclUser = PrepareInputData(request);
                         aclUser = Add(aclUser);
-                        //  need to insert user user group
-                        AclUserUsergroup[] aclUserUsergroups = PrepareDataForUserUserGroups(request, aclUser?.Id);
-                        _dbContext.AclUserUsergroups.AddRange(aclUserUsergroups);
-                        await ReloadEntitiesAsync(aclUserUsergroups);
+
+                        // Need to insert user user group
+                        AclUserUsergroup[] userUserGroups = PrepareDataForUserUserGroups(request, aclUser?.Id);
+                        _dbContext.AclUserUsergroups.AddRange(userUserGroups);
+                        ReloadEntities(userUserGroups);
+
                         if (aclUser != null)
                         {
-                            aclUser.Password = "******************"; //request.Password
+                            aclUser.Password = "******************"; // request.Password
                             aclUser.Salt = "******************";
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
                             aclUser.Claims = null;
                             aclUser.RefreshToken = null;
-                            this.aclResponse.Data = aclUser;
+                            this.AclResponse.Data = aclUser;
                         }
-                        this.aclResponse.Message = this.messageResponse.createMessage;
-                        this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
-                        transaction.Commit();
+
+                        this.AclResponse.Message = this.MessageResponse.createMessage;
+                        this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
+
+                        transaction.CommitAsync();
                     }
                     catch (Exception ex)
                     {
-                        transaction.Rollback();
-                        this.aclResponse.Message = ex.Message;
-                        this.aclResponse.StatusCode = AppStatusCode.FAIL;
+                        transaction?.RollbackAsync();
+                        this.AclResponse.Message = ex.Message;
+                        this.AclResponse.StatusCode = AppStatusCode.FAIL;
                     }
-                }
-            });
-            this.aclResponse.Timestamp = DateTime.Now;
-            return this.aclResponse;
+                });
+            }
+            catch (Exception ex)
+            {
+                this.AclResponse.Message = ex.Message;
+                this.AclResponse.StatusCode = AppStatusCode.FAIL;
+            }
+
+            this.AclResponse.Timestamp = DateTime.Now;
+            return Task.FromResult(this.AclResponse);
         }
+
         /// <inheritdoc/>
         public async Task<AclResponse> Edit(ulong id, AclUserRequest request)
         {
@@ -149,10 +168,10 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
                             //    aclUser.Password = "******************"; //request.Password
                             //    aclUser.Salt = "******************";
                             //    aclUser.Claims = null;
-                            //    this.aclResponse.Data = aclUser;
+                            //    this.AclResponse.Data = aclUser;
                             //}
-                            this.aclResponse.Message = this.messageResponse.editMessage;
-                            this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                            this.AclResponse.Message = this.MessageResponse.editMessage;
+                            this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
 
                             List<ulong> users = new List<ulong> { aclUser.Id };
                             this.UpdateUserPermissionVersion(users);
@@ -161,22 +180,22 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
                         else
                         {
                             transaction.Rollback();
-                            this.aclResponse.Message = this.messageResponse.notFoundMessage;
-                            this.aclResponse.StatusCode = AppStatusCode.FAIL;
+                            this.AclResponse.Message = this.MessageResponse.notFoundMessage;
+                            this.AclResponse.StatusCode = AppStatusCode.FAIL;
                         }
                     }
                     catch (Exception ex)
                     {
                         transaction.Rollback();
-                        this.aclResponse.Message = ex.Message;
-                        this.aclResponse.StatusCode = AppStatusCode.FAIL;
+                        this.AclResponse.Message = ex.Message;
+                        this.AclResponse.StatusCode = AppStatusCode.FAIL;
                     }
                 }
 
                 return Task.CompletedTask;
             });
-            this.aclResponse.Timestamp = DateTime.Now;
-            return this.aclResponse;
+            this.AclResponse.Timestamp = DateTime.Now;
+            return this.AclResponse;
         }
 
         /// <inheritdoc/>
@@ -187,26 +206,26 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
                 AclUser? aclUser = Find(id);
                 if (aclUser == null)
                 {
-                    this.aclResponse.Message = this.messageResponse.notFoundMessage;
+                    this.AclResponse.Message = this.MessageResponse.notFoundMessage;
                 }
                 else
                 {
                     aclUser.Password = "***********";
                     aclUser.Salt = "***********";
                     aclUser.Claims = null;
-                    this.aclResponse.Message = this.messageResponse.fetchMessage;
-                    this.aclResponse.Data = aclUser;
+                    this.AclResponse.Message = this.MessageResponse.fetchMessage;
+                    this.AclResponse.Data = aclUser;
                 }
-                this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             catch (Exception ex)
             {
-                this.aclResponse.Message = ex.Message;
-                this.aclResponse.StatusCode = AppStatusCode.FAIL;
+                this.AclResponse.Message = ex.Message;
+                this.AclResponse.StatusCode = AppStatusCode.FAIL;
             }
 
-            this.aclResponse.Timestamp = DateTime.Now;
-            return this.aclResponse;
+            this.AclResponse.Timestamp = DateTime.Now;
+            return this.AclResponse;
 
         }
         /// <inheritdoc/>
@@ -216,7 +235,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             {
                 return _dbContext.AclUsers.FirstOrDefault(m => m.Email == email);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }
@@ -240,24 +259,24 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             AclUser? aclUser = Find(id);
             if (aclUser != null)
             {
-                this.aclResponse.Data = Delete(aclUser);
+                this.AclResponse.Data = Delete(aclUser);
                 // delete all item for user user group
-                AclUserUsergroup[] userUserGroups = AclUserUserGroupRepository.Where(id).ToArray();
-                if (userUserGroups.Count() > 0)
+                AclUserUsergroup[]? userUserGroups = AclUserUserGroupRepository?.Where(id)?.ToArray();
+                if (userUserGroups?.Count()>0)
                 {
-                    AclUserUserGroupRepository.RemoveRange(userUserGroups);
+                    AclUserUserGroupRepository?.RemoveRange(userUserGroups);
                 }
 
-                this.aclResponse.Message = this.messageResponse.deleteMessage;
-                this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.AclResponse.Message = this.MessageResponse.deleteMessage;
+                this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
-            return this.aclResponse;
+            return this.AclResponse;
         }
-        /// <inheritdoc/>
-        public AclUser PrepareInputData(AclUserRequest request, AclUser AclUser = null)
+
+        public AclUser PrepareInputData(AclUserRequest request, AclUser? aclUser = null)
         {
             var salt = _cryptographyService.GenerateSalt();
-            if (AclUser == null)
+            if (aclUser == null)
             {
                 return new AclUser
                 {
@@ -286,28 +305,28 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             }
             else
             {
-                AclUser.FirstName = request.FirstName;
-                AclUser.LastName = request.LastName;
-                AclUser.Email = request.Email;
-                AclUser.Password = AclUser.Password;
-                AclUser.Avatar = request.Avatar;
-                AclUser.Dob = request.DOB;
-                AclUser.Gender = request.Gender;
-                AclUser.Address = request.Address;
-                AclUser.City = request.City;
-                AclUser.Country = request.Country;
-                AclUser.Phone = request.Phone;
-                AclUser.Language = "en-US";
-                AclUser.Username = request.UserName;
-                AclUser.ImgPath = request.ImgPath;
-                AclUser.Status = request.Status;
-                AclUser.UpdatedAt = DateTime.Now;
-                AclUser.CompanyId = (this._companyId != 0) ? this._companyId : 0;
-                AclUser.UserType = (this._userType != 0) ? this._userType : 0;
-                AclUser.Salt = AclUser.Salt;
-                AclUser.Claims = AclUser.Claims;
+                aclUser.FirstName = request.FirstName;
+                aclUser.LastName = request.LastName;
+                aclUser.Email = request.Email;
+                aclUser.Password = aclUser.Password;
+                aclUser.Avatar = request.Avatar;
+                aclUser.Dob = request.DOB;
+                aclUser.Gender = request.Gender;
+                aclUser.Address = request.Address;
+                aclUser.City = request.City;
+                aclUser.Country = request.Country;
+                aclUser.Phone = request.Phone;
+                aclUser.Language = "en-US";
+                aclUser.Username = request.UserName;
+                aclUser.ImgPath = request.ImgPath;
+                aclUser.Status = request.Status;
+                aclUser.UpdatedAt = DateTime.Now;
+                aclUser.CompanyId = (this._companyId != 0) ? this._companyId : 0;
+                aclUser.UserType = (this._userType != 0) ? this._userType : 0;
+                aclUser.Salt = aclUser.Salt;
+                aclUser.Claims = aclUser.Claims;
             }
-            return AclUser;
+            return aclUser;
         }
 
         /// <inheritdoc/>
@@ -391,9 +410,9 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
                                   PageId = page.Id,
                                   PageName = page.Name,
                                   PageRouteName = pageRoute.RouteName,
-                                  UsergroupId = usergroup.Id,
+                                  UserGroupId = usergroup.Id,
                                   DefaultUrl = usergroup.DashboardUrl,
-                                  UsergroupCategory = usergroup.Category,
+                                  UserGroupCategory = usergroup.Category,
                                   ModuleId = module.Id,
                                   ControllerName = subModule.ControllerName,
                                   SubmoduleName = subModule.Name,
@@ -512,6 +531,12 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
         {
             await Task.WhenAll(entities.Select(entity => _dbContext.Entry(entity).ReloadAsync()));
         }
+        public Task ReloadEntities(IEnumerable<AclUserUsergroup> entities)
+        {
+            Task.WaitAll(entities.Select<AclUserUsergroup, Task>(entity => _dbContext.Entry(entity).ReloadAsync()).ToArray());
+            return Task.CompletedTask;
+        }
+
 
         public List<ulong>? GetUserIdByChangePermission(ulong? module_id = null, ulong? sub_module_id = null, ulong? page_id = null, ulong? role_id = null, ulong? user_group_id = null)
         {
@@ -556,11 +581,11 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             return result;
         }
 
-        public void UpdateUserPermissionVersion(List<ulong> user_ids)
+        public void UpdateUserPermissionVersion(List<ulong> userIds)
         {
-            foreach (var user_id in user_ids)
+            foreach (var userId in userIds)
             {
-                AclUser aclUser = _dbContext.AclUsers.Find(user_id);
+                AclUser? aclUser = _dbContext.AclUsers.Find(userId);
                 if (aclUser != null)
                 {
                     aclUser.PermissionVersion = aclUser.PermissionVersion + 1;

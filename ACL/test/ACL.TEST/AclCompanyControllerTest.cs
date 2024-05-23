@@ -38,13 +38,13 @@
 //            var controller = new AclCompanyController(unitOfWork);
 //            #region Act
 //            // Act
-//            var aclResponse = await controller.Index();
+//            var AclResponse = await controller.Index();
 //            #endregion
 
 //            #region Assert
 //            // Assert
 
-//            var res = aclResponse as AclResponse;
+//            var res = AclResponse as AclResponse;
 //            var returnCompanies = res.Data as IEnumerable<AclCompany>;
 
 //            Assert.Equal(1, returnCompanies?.Count()); // Adjust count as per your test data

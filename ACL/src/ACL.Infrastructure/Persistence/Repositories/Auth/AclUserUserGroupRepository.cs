@@ -11,22 +11,21 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
     /// <inheritdoc/>
     public class AclUserUserGroupRepository : IAclUserUserGroupRepository
     {
-        /// <inheritdoc/>
-        public AclResponse aclResponse;
-        /// <inheritdoc/>
-        public MessageResponse messageResponse;
-        private readonly string modelName = "User User Group";
+        public AclResponse AclResponse;
+        public MessageResponse MessageResponse;
+        private readonly string _modelName = "User User Group";
         readonly ApplicationDbContext _dbContext;
-        private static IHttpContextAccessor _httpContextAccessor;
-        /// <inheritdoc/>
+        public static IHttpContextAccessor HttpContextAccessor;
         public AclUserUserGroupRepository(ApplicationDbContext dbContext, IHttpContextAccessor httpContextAccessor)
         {
             _dbContext = dbContext;
-            _httpContextAccessor = httpContextAccessor;
-            AppAuth.Initialize(_httpContextAccessor, _dbContext);
-            AppAuth.SetAuthInfo(_httpContextAccessor);
-            this.aclResponse = new AclResponse();
-            this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
+            HttpContextAccessor = httpContextAccessor;
+            AppAuth.Initialize(HttpContextAccessor, _dbContext);
+            AppAuth.SetAuthInfo(HttpContextAccessor);
+            this.AclResponse = new AclResponse();
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8604 // Possible null reference argument.
+            this.MessageResponse = new MessageResponse(this._modelName, AppAuth.GetAuthInfo().Language);
         }
         /// <inheritdoc/>
         public AclUserUsergroup? Add(AclUserUsergroup request)
@@ -37,7 +36,6 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             return request;
         }
         /// <inheritdoc/>
-
         public AclUserUsergroup DeleteById(ulong id)
         {
             AclUserUsergroup? request = _dbContext.AclUserUsergroups.Find(id);
@@ -49,10 +47,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
         public AclUserUsergroup Edit(ulong id, AclUserUsergroup? request)
         {
             AclUserUsergroup? requestOne = _dbContext.AclUserUsergroups.Find(id);
-            if (request == null)
-            {
-                request = requestOne;
-            }
+            request ??= requestOne;
             _dbContext.AclUserUsergroups.Update(request);
             _dbContext.SaveChanges();
             _dbContext.Entry(request).Reload();
@@ -93,14 +88,14 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             }
         }
         /// <inheritdoc/>
-        public AclUserUsergroup? Update(AclUserUsergroup acluseruserGroup)
+        public AclUserUsergroup? Update(AclUserUsergroup aclUserUserGroup)
         {
             try
             {
-                _dbContext.AclUserUsergroups.Update(acluseruserGroup);
+                _dbContext.AclUserUsergroups.Update(aclUserUserGroup);
                 _dbContext.SaveChanges();
-                _dbContext.Entry(acluseruserGroup).Reload();
-                return acluseruserGroup;
+                _dbContext.Entry(aclUserUserGroup).Reload();
+                return aclUserUserGroup;
             }
             catch (Exception)
             {
@@ -108,13 +103,13 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             }
         }
         /// <inheritdoc/>
-        public AclUserUsergroup? Delete(AclUserUsergroup acluseruserGroup)
+        public AclUserUsergroup? Delete(AclUserUsergroup aclUserUserGroup)
         {
             try
             {
-                _dbContext.AclUserUsergroups.Remove(acluseruserGroup);
+                _dbContext.AclUserUsergroups.Remove(aclUserUserGroup);
                 _dbContext.SaveChanges();
-                return acluseruserGroup;
+                return aclUserUserGroup;
             }
             catch (Exception)
             {
@@ -138,15 +133,15 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             }
         }
         /// <inheritdoc/>
-        public AclUserUsergroup[]? AddRange(AclUserUsergroup[]? userUsergroups)
+        public AclUserUsergroup[]? AddRange(AclUserUsergroup[]? userUserGroups)
         {
-            if (userUsergroups == null || userUsergroups.Length == 0)
+            if (userUserGroups == null || userUserGroups.Length == 0)
                 return null;
             try
             {
-                _dbContext.AclUserUsergroups.AddRange(userUsergroups);
+                _dbContext.AclUserUsergroups.AddRange(userUserGroups);
                 _dbContext.SaveChanges();
-                return userUsergroups;
+                return userUserGroups;
             }
             catch (Exception)
             {
@@ -154,15 +149,15 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             }
         }
         /// <inheritdoc/>
-        public AclUserUsergroup[]? RemoveRange(AclUserUsergroup[] userUsergroups)
+        public AclUserUsergroup[]? RemoveRange(AclUserUsergroup[] userUserGroups)
         {
-            if (userUsergroups == null || userUsergroups.Length == 0)
+            if ( userUserGroups.Length == 0)
                 return null;
             try
             {
-                _dbContext.AclUserUsergroups.RemoveRange(userUsergroups);
+                _dbContext.AclUserUsergroups.RemoveRange(userUserGroups);
                 _dbContext.SaveChanges();
-                return userUsergroups;
+                return userUserGroups;
             }
             catch (Exception)
             {

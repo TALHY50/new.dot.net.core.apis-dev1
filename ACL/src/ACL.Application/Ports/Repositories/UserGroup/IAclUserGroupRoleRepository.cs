@@ -16,11 +16,11 @@ namespace ACL.Application.Ports.Repositories.UserGroup
         /// <inheritdoc/>
         AclUsergroupRole? Find(ulong id);
         /// <inheritdoc/>
-        AclUsergroupRole? Add(AclUsergroupRole aclUsergroupRole);
+        AclUsergroupRole? Add(AclUsergroupRole aclUserGroupRole);
         /// <inheritdoc/>
-        AclUsergroupRole? Update(AclUsergroupRole aclUsergroupRole);
+        AclUsergroupRole? Update(AclUsergroupRole aclUserGroupRole);
         /// <inheritdoc/>
-        AclUsergroupRole? Delete(AclUsergroupRole aclUsergroupRole);
+        AclUsergroupRole? Delete(AclUsergroupRole aclUserGroupRole);
         /// <inheritdoc/>
         AclUsergroupRole? Delete(ulong id);
     }

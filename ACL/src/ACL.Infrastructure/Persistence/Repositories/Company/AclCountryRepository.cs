@@ -132,14 +132,18 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
             }
             return exist;
         }
-        /// <inheritdoc/>
-        private AclCountry PrepareInputData(AclCountryRequest request, AclCountry aclCountry = null)
+
+        private AclCountry PrepareInputData(AclCountryRequest request, AclCountry? aclCountry = null)
         {
             if (aclCountry == null)
             {
-                aclCountry = new AclCountry();
-                aclCountry.CreatedById = AppAuth.GetAuthInfo().UserId;
-                aclCountry.CreatedAt = DateTime.Now;
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+                aclCountry = new AclCountry
+                {
+                    CreatedById = AppAuth.GetAuthInfo().UserId,
+                    CreatedAt = DateTime.Now
+                };
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
             }
             aclCountry.Name = request.Name;
             aclCountry.Description = request.Description;

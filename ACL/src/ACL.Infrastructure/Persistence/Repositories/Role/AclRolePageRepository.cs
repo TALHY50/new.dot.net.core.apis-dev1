@@ -66,10 +66,10 @@ namespace ACL.Infrastructure.Persistence.Repositories.Role
                 this.aclResponse.Data = AddAll(check);
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
                 this.aclResponse.Message = this.messageResponse.editMessage;
-                List<ulong> user_ids = _aclUserRepository.GetUserIdByChangePermission(null, null, null, req.RoleId);
-                if (user_ids.Count() > 0)
+                List<ulong>? userIds = _aclUserRepository.GetUserIdByChangePermission(null, null, req.RoleId);
+                if (userIds != null)
                 {
-                    _aclUserRepository.UpdateUserPermissionVersion(user_ids);
+                    _aclUserRepository.UpdateUserPermissionVersion(userIds);
                 }
 
             }

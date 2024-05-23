@@ -17,25 +17,28 @@ namespace ACL.Infrastructure.Persistence.Repositories.UserGroup
     public class AclUserGroupRoleRepository : IAclUserGroupRoleRepository
     {
         /// <inheritdoc/>
-        public AclResponse aclResponse;
+        public AclResponse AclResponse;
         /// <inheritdoc/>
-        public MessageResponse messageResponse;
-        private readonly string modelName = "User Group Role";
+        public MessageResponse MessageResponse;
+        private readonly string _modelName = "User Group Role";
         readonly ApplicationDbContext _dbContext;
-        private IAclRoleRepository _aclRoleRepository;
+        private readonly IAclRoleRepository _aclRoleRepository;
         private readonly IAclUserRepository _aclUserRepository;
-        private static IHttpContextAccessor _httpContextAccessor;
+        public static IHttpContextAccessor HttpContextAccessor;
         /// <inheritdoc/>
-        public AclUserGroupRoleRepository(ApplicationDbContext dbcontext, IAclRoleRepository aclRoleRepository, IAclUserRepository aclUserRepository,IHttpContextAccessor httpContextAccessor)
+        public AclUserGroupRoleRepository(ApplicationDbContext dbContext, IAclRoleRepository aclRoleRepository, IAclUserRepository aclUserRepository,IHttpContextAccessor httpContextAccessor)
         {
             _aclRoleRepository = aclRoleRepository;
             _aclUserRepository = aclUserRepository;
-            _dbContext = dbcontext;
-            _httpContextAccessor = httpContextAccessor;
-            AppAuth.Initialize(_httpContextAccessor, dbcontext);
-            AppAuth.SetAuthInfo(_httpContextAccessor);
-            this.aclResponse = new AclResponse();
-            this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
+            _dbContext = dbContext;
+            HttpContextAccessor = httpContextAccessor;
+            AppAuth.Initialize(HttpContextAccessor, dbContext);
+            AppAuth.SetAuthInfo(HttpContextAccessor);
+            this.AclResponse = new AclResponse();
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8604 // Possible null reference argument.
+
+            this.MessageResponse = new MessageResponse(this._modelName, AppAuth.GetAuthInfo().Language);
 
         }
         /// <inheritdoc/>
@@ -50,50 +53,52 @@ namespace ACL.Infrastructure.Persistence.Repositories.UserGroup
                     RoleTitle = r.Title,
                     RoleId = ugr.RoleId
                 }).ToList();
-            this.aclResponse.Message = this.messageResponse.fetchMessage;
-            this.aclResponse.Data = new { UsergroupRoles = associatedRoles, Roles = roles };
-            this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
-            return this.aclResponse;
+            this.AclResponse.Message = this.MessageResponse.fetchMessage;
+            this.AclResponse.Data = new { UsergroupRoles = associatedRoles, Roles = roles };
+            this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
+            return this.AclResponse;
         }
         /// <inheritdoc/>
-        public async Task<AclResponse> Update(AclUserGroupRoleRequest request)
+        public Task<AclResponse> Update(AclUserGroupRoleRequest request)
         {
-            var aclUserGroupRole = All().Where(x => x.UsergroupId == request.UserGroupId).ToList();
+            var aclUserGroupRole = All()?.Where(x => x.UsergroupId == request.UserGroupId).ToList();
 
             var userGroupRoles = GetUserGroupRoles(request);
             var executionStrategy = _dbContext.Database.CreateExecutionStrategy();
 
-            await executionStrategy.ExecuteAsync(async () =>
+             executionStrategy.Execute( () =>
             {
-                using (var transaction = await _dbContext.Database.BeginTransactionAsync())
+                using var transaction =  _dbContext.Database.BeginTransaction();
+                try
                 {
-                    try
+                    if (aclUserGroupRole!=null && aclUserGroupRole.Count != 0)
                     {
-                        if (aclUserGroupRole.Any())
-                        {
-                            _dbContext.AclUsergroupRoles.RemoveRange(aclUserGroupRole);
-                            _dbContext.SaveChanges();
-                        }
-                        _dbContext.AclUsergroupRoles.AddRange(userGroupRoles);
-                        await _dbContext.SaveChangesAsync();
-                        await ReloadEntitiesAsync(userGroupRoles);
-                        aclResponse.Data = userGroupRoles;
-                        aclResponse.Message = this.messageResponse.createMessage;
-                        aclResponse.StatusCode = AppStatusCode.SUCCESS;
-                        List<ulong> user_ids = _aclUserRepository.GetUserIdByChangePermission(null, null, null, null, request.UserGroupId);
-                        _aclUserRepository.UpdateUserPermissionVersion(user_ids);
-                        await transaction.CommitAsync();
+                        _dbContext.AclUsergroupRoles.RemoveRange(aclUserGroupRole);
+                        _dbContext.SaveChanges();
                     }
-                    catch (Exception ex)
+                    _dbContext.AclUsergroupRoles.AddRange(userGroupRoles);
+                     _dbContext.SaveChanges();
+                     ReloadEntities(userGroupRoles);
+                    AclResponse.Data = userGroupRoles;
+                    AclResponse.Message = this.MessageResponse.createMessage;
+                    AclResponse.StatusCode = AppStatusCode.SUCCESS;
+                    List<ulong>? userIds = _aclUserRepository.GetUserIdByChangePermission(null, null,null,null, request.UserGroupId);
+                    if (userIds != null)
                     {
-                        await transaction.RollbackAsync();
-                        aclResponse.Message = ex.Message;
-                        aclResponse.StatusCode = AppStatusCode.FAIL;
+                        _aclUserRepository.UpdateUserPermissionVersion(userIds);
                     }
+
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                     transaction.Rollback();
+                    AclResponse.Message = ex.Message;
+                    AclResponse.StatusCode = AppStatusCode.FAIL;
                 }
             });
 
-            return aclResponse;
+            return Task.FromResult(AclResponse);
         }
 
 
@@ -112,11 +117,19 @@ namespace ACL.Infrastructure.Persistence.Repositories.UserGroup
 
             return userGroupRoles;
         }
-        /// <inheritdoc/>
+
         public async Task ReloadEntitiesAsync(IEnumerable<AclUsergroupRole> entities)
         {
             await Task.WhenAll(entities.Select(entity => _dbContext.Entry(entity).ReloadAsync()));
         }
+
+        public Task ReloadEntities(IEnumerable<AclUsergroupRole> entities)
+        {
+            return Task.WhenAll(entities.Select(entity => _dbContext.Entry(entity).ReloadAsync()));
+        }
+
+
+
         /// <inheritdoc/>
         public List<AclUsergroupRole>? All()
         {
@@ -143,14 +156,14 @@ namespace ACL.Infrastructure.Persistence.Repositories.UserGroup
             }
         }
         /// <inheritdoc/>
-        public AclUsergroupRole? Add(AclUsergroupRole aclUsergroupRole)
+        public AclUsergroupRole? Add(AclUsergroupRole aclUserGroupRole)
         {
             try
             {
-                _dbContext.AclUsergroupRoles.Add(aclUsergroupRole);
+                _dbContext.AclUsergroupRoles.Add(aclUserGroupRole);
                 _dbContext.SaveChanges();
-                _dbContext.Entry(aclUsergroupRole).Reload();
-                return aclUsergroupRole;
+                _dbContext.Entry(aclUserGroupRole).Reload();
+                return aclUserGroupRole;
             }
             catch (Exception)
             {
@@ -158,14 +171,14 @@ namespace ACL.Infrastructure.Persistence.Repositories.UserGroup
             }
         }
         /// <inheritdoc/>
-        public AclUsergroupRole? Update(AclUsergroupRole aclUsergroupRole)
+        public AclUsergroupRole? Update(AclUsergroupRole aclUserGroupRole)
         {
             try
             {
-                _dbContext.AclUsergroupRoles.Update(aclUsergroupRole);
+                _dbContext.AclUsergroupRoles.Update(aclUserGroupRole);
                 _dbContext.SaveChanges();
-                _dbContext.Entry(aclUsergroupRole).Reload();
-                return aclUsergroupRole;
+                _dbContext.Entry(aclUserGroupRole).Reload();
+                return aclUserGroupRole;
             }
             catch (Exception)
             {
@@ -173,13 +186,13 @@ namespace ACL.Infrastructure.Persistence.Repositories.UserGroup
             }
         }
         /// <inheritdoc/>
-        public AclUsergroupRole? Delete(AclUsergroupRole aclUsergroupRole)
+        public AclUsergroupRole? Delete(AclUsergroupRole aclUserGroupRole)
         {
             try
             {
-                _dbContext.AclUsergroupRoles.Remove(aclUsergroupRole);
+                _dbContext.AclUsergroupRoles.Remove(aclUserGroupRole);
                 _dbContext.SaveChanges();
-                return aclUsergroupRole;
+                return aclUserGroupRole;
             }
             catch (Exception)
             {

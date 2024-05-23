@@ -24,11 +24,11 @@
 //        {
 
 //            // Act
-//            var aclResponse = await controller.Index();
+//            var AclResponse = await controller.Index();
 
 
 //            // Assert
-//            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, (int)aclResponse.StatusCode);
+//            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, (int)AclResponse.StatusCode);
 
 //        }
 //        [Fact]
@@ -37,9 +37,9 @@
 //            var data = GetRole();
 
 //            // Act
-//            AclResponse aclResponse = await controller.Create(data);
+//            AclResponse AclResponse = await controller.Create(data);
 
-//            int actualStatusCode = (int)aclResponse.StatusCode;
+//            int actualStatusCode = (int)AclResponse.StatusCode;
 
 //            //// Assert
 //            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, actualStatusCode);
@@ -54,9 +54,9 @@
 
 
 //            // Act
-//            AclResponse aclResponse = await controller.View(id);
+//            AclResponse AclResponse = await controller.View(id);
 
-//            int actualStatusCode = (int)aclResponse.StatusCode;
+//            int actualStatusCode = (int)AclResponse.StatusCode;
 
 //            //// Assert
 //            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, actualStatusCode);
@@ -70,9 +70,9 @@
 
 
 //            // Act
-//            AclResponse aclResponse = await controller.Edit(id, data);
+//            AclResponse AclResponse = await controller.Edit(id, data);
 
-//            int actualStatusCode = (int)aclResponse.StatusCode;
+//            int actualStatusCode = (int)AclResponse.StatusCode;
 
 //            //// Assert
 //            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, actualStatusCode);
@@ -85,9 +85,9 @@
 //            var id = GetRandomID();
 
 //            // Act
-//            AclResponse aclResponse = await controller.Destroy(id);
+//            AclResponse AclResponse = await controller.Destroy(id);
 
-//            int actualStatusCode = (int)aclResponse.StatusCode;
+//            int actualStatusCode = (int)AclResponse.StatusCode;
 
 //            //// Assert
 //            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, actualStatusCode);

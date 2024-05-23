@@ -12,7 +12,7 @@ namespace ACL.Application.Ports.Repositories.Company
         /// <inheritdoc/>
         Task<AclResponse> AddAclCompanyModule(AclCompanyModuleRequest companyModule);
         /// <inheritdoc/>
-        Task<AclResponse> EditAclCompanyModule(ulong Id, AclCompanyModuleRequest companyModule);
+        Task<AclResponse> EditAclCompanyModule(ulong id, AclCompanyModuleRequest companyModule);
         /// <inheritdoc/>
         Task<AclResponse> FindById(ulong id);
         /// <inheritdoc/>
@@ -20,7 +20,7 @@ namespace ACL.Application.Ports.Repositories.Company
         /// <inheritdoc/>
         bool IsValidForCreateOrUpdate(ulong companyId, ulong moduleId, ulong id = 0);
         /// <inheritdoc/>
-        AclCompanyModule PrepareInputData(AclCompanyModuleRequest request, ulong Id = 0, AclCompanyModule? aclCompanyModule = null);
+        AclCompanyModule PrepareInputData(AclCompanyModuleRequest request, ulong id = 0, AclCompanyModule? companyModule = null);
         /// <inheritdoc/>
         List<AclCompany>? All();
         /// <inheritdoc/>

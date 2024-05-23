@@ -129,13 +129,17 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
             }
             return _dbContext.AclStates.Any(x => x.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
         }
-        private static AclState PrepareInputData(AclStateRequest request, AclState aclState = null)
+        private static AclState PrepareInputData(AclStateRequest request, AclState? aclState = null)
         {
             if (aclState == null)
             {
-                aclState = new AclState();
-                aclState.CreatedAt = DateTime.Now;
-                aclState.CreatedById = AppAuth.GetAuthInfo().UserId;
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+                aclState = new AclState
+                {
+                    CreatedAt = DateTime.Now,
+                    CreatedById = AppAuth.GetAuthInfo().UserId
+                };
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
             }
             aclState.Name = request.Name;
             aclState.CountryId = request.CountryId;

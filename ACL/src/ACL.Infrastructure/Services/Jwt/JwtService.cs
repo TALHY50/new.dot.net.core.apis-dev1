@@ -11,22 +11,15 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace ACL.Infrastructure.Services.Jwt
 {
-    public class JwtService : IAuthTokenService
+    public class JwtService(IOptions<JwtSettings> settings, RsaSecurityKey rsaSecurityKey)
+        : IAuthTokenService
     {
         public static readonly string VersionClaimType = "ver";
-        private readonly IOptions<JwtSettings> _settings;
-        private readonly RsaSecurityKey _rsaSecurityKey;
-
-        public JwtService(IOptions<JwtSettings> settings, RsaSecurityKey rsaSecurityKey)
-        {
-            this._settings = settings;
-            this._rsaSecurityKey = rsaSecurityKey;
-        }
 
         public Task<string> GenerateAccessToken(AclUser user)
         {
             var signingCredentials = new SigningCredentials(
-                key: this._rsaSecurityKey,
+                key: rsaSecurityKey,
                 algorithm: SecurityAlgorithms.RsaSha256
             );
 
@@ -48,11 +41,11 @@ namespace ACL.Infrastructure.Services.Jwt
             var jwtHandler = new JwtSecurityTokenHandler();
 
             var jwt = jwtHandler.CreateJwtSecurityToken(
-                issuer: this._settings.Value.AccessTokenSettings.Issuer,
-                audience: this._settings.Value.AccessTokenSettings.Audience,
+                issuer: settings.Value.AccessTokenSettings.Issuer,
+                audience: settings.Value.AccessTokenSettings.Audience,
                 subject: claimsIdentity,
                 notBefore: DateTime.UtcNow,
-                expires: DateTime.UtcNow.AddSeconds(this._settings.Value.AccessTokenSettings.LifeTimeInSeconds),
+                expires: DateTime.UtcNow.AddSeconds(settings.Value.AccessTokenSettings.LifeTimeInSeconds),
                // expires: DateTime.UtcNow.AddSeconds(999999),
                 issuedAt: DateTime.UtcNow,
                 signingCredentials: signingCredentials);
@@ -65,20 +58,20 @@ namespace ACL.Infrastructure.Services.Jwt
         public Task<string> GenerateIdToken(AclUser user)
         {
             var signingCredentials = new SigningCredentials(
-                key: this._rsaSecurityKey,
+                key: rsaSecurityKey,
                 algorithm: SecurityAlgorithms.RsaSha256
             );
 
             var claimsIdentity = new ClaimsIdentity();
 
             claimsIdentity.AddClaim(new System.Security.Claims.Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
-            claimsIdentity.AddClaim(new System.Security.Claims.Claim(ClaimTypes.Name, user.FirstName));
-            claimsIdentity.AddClaim(new System.Security.Claims.Claim(ClaimTypes.Email, user.Email));
-            claimsIdentity.AddClaim(new System.Security.Claims.Claim(ClaimTypes.GivenName, user.LastName));
-            claimsIdentity.AddClaim(new System.Security.Claims.Claim(ClaimTypes.Surname, user.LastName));
+            claimsIdentity.AddClaim(new System.Security.Claims.Claim(ClaimTypes.Name, user?.FirstName??""));
+            claimsIdentity.AddClaim(new System.Security.Claims.Claim(ClaimTypes.Email, user?.Email??""));
+            claimsIdentity.AddClaim(new System.Security.Claims.Claim(ClaimTypes.GivenName, user?.LastName??""));
+            claimsIdentity.AddClaim(new System.Security.Claims.Claim(ClaimTypes.Surname, user?.LastName??""));
 
             // Add custom claims if any
-            foreach (var c in user.Claims ?? System.Linq.Enumerable.Empty<Core.Entities.Auth.Claim>())
+            foreach (var c in user?.Claims ?? System.Linq.Enumerable.Empty<Core.Entities.Auth.Claim>())
             {
                 claimsIdentity.AddClaim(new System.Security.Claims.Claim(c.Type, c.Value));
             }
@@ -86,11 +79,11 @@ namespace ACL.Infrastructure.Services.Jwt
             var jwtHandler = new JwtSecurityTokenHandler();
 
             var jwt = jwtHandler.CreateJwtSecurityToken(
-                issuer: this._settings.Value.AccessTokenSettings.Issuer,
-                audience: this._settings.Value.AccessTokenSettings.Audience,
+                issuer: settings.Value.AccessTokenSettings.Issuer,
+                audience: settings.Value.AccessTokenSettings.Audience,
                 subject: claimsIdentity,
                 notBefore: DateTime.UtcNow,
-                expires: DateTime.UtcNow.AddSeconds(this._settings.Value.AccessTokenSettings.LifeTimeInSeconds),
+                expires: DateTime.UtcNow.AddSeconds(settings.Value.AccessTokenSettings.LifeTimeInSeconds),
                 issuedAt: DateTime.UtcNow,
                 signingCredentials: signingCredentials);
 
@@ -101,16 +94,16 @@ namespace ACL.Infrastructure.Services.Jwt
 
         public Task<string> GenerateRefreshToken()
         {
-            var size = this._settings.Value.RefreshTokenSettings.Length;
+            var size = settings.Value.RefreshTokenSettings.Length;
             var buffer = new byte[size];
-            using var rng = new RNGCryptoServiceProvider();
+            using var rng =  RandomNumberGenerator.Create();
             rng.GetBytes(buffer);
             return Task.FromResult(Convert.ToBase64String(buffer));
         }
 
         public Task<int> GetRefreshTokenLifetimeInMinutes()
         {
-            return Task.FromResult(this._settings.Value.RefreshTokenSettings.LifeTimeInMinutes);
+            return Task.FromResult(settings.Value.RefreshTokenSettings.LifeTimeInMinutes);
         }
 
         public Task<string?> GetUserIdFromToken(string token)
@@ -123,9 +116,9 @@ namespace ACL.Infrastructure.Services.Jwt
                     ValidateAudience = true,
                     ValidateLifetime = false, // we may be trying to validate an expired token so it makes no sense checking for it's lifetime.
                     ValidateIssuerSigningKey = true,
-                    ValidIssuer = this._settings.Value.AccessTokenSettings.Issuer,
-                    ValidAudience = this._settings.Value.AccessTokenSettings.Audience,
-                    IssuerSigningKey = this._rsaSecurityKey,
+                    ValidIssuer = settings.Value.AccessTokenSettings.Issuer,
+                    ValidAudience = settings.Value.AccessTokenSettings.Audience,
+                    IssuerSigningKey = rsaSecurityKey,
                     ClockSkew = TimeSpan.FromMinutes(0)
                 };
 
@@ -149,9 +142,9 @@ namespace ACL.Infrastructure.Services.Jwt
                 ValidateAudience = true,
                 ValidateLifetime = validateLifeTime,
                 ValidateIssuerSigningKey = true,
-                ValidIssuer = this._settings.Value.AccessTokenSettings.Issuer,
-                ValidAudience = this._settings.Value.AccessTokenSettings.Audience,
-                IssuerSigningKey = this._rsaSecurityKey,
+                ValidIssuer = settings.Value.AccessTokenSettings.Issuer,
+                ValidAudience = settings.Value.AccessTokenSettings.Audience,
+                IssuerSigningKey = rsaSecurityKey,
                 ClockSkew = TimeSpan.FromMinutes(0)
             };
 

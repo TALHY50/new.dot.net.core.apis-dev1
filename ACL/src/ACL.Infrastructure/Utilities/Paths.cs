@@ -5,13 +5,13 @@ namespace ACL.Infrastructure.Utilities;
 public class Paths
 {
     
-    public static string logPath()
+    public static string LogPath()
     {
-        var m_exePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-        var path = m_exePath;
+        var mExePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        var path = mExePath;
         string searchString = "bin/";
 
-        int index = path.IndexOf(searchString);
+        int index = (int)(path?.IndexOf(searchString)!);
             
         if (index != -1)
         {

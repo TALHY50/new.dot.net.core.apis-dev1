@@ -26,43 +26,45 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
     public class AclCompanyRepository : IAclCompanyRepository
     {
         /// <inheritdoc/>
-        public AclResponse aclResponse;
+        public AclResponse AclResponse;
         /// <inheritdoc/>
-        public MessageResponse messageResponse;
-        private string modelName = "Company";
-        private IConfiguration _config;
-        private ICryptographyService cryptographyService;
-        private IAclUserGroupRepository AclUserGroupRepository;
-        private IAclUserRepository AclUserRepository;
-        private IAclUserUserGroupRepository AclUserUserGroupRepository;
-        private IAclRoleRepository AclRoleRepository;
-        private IAclUserGroupRoleRepository AclUserGroupRoleRepository;
-        private IAclPageRepository AclPageRepository;
-        private IAclRolePageRepository AclRolePageRepository;
-        private static IHttpContextAccessor _httpContextAccessor;
+        public MessageResponse MessageResponse;
+        private readonly string _modelName = "Company";
+        private readonly IConfiguration _config;
+        private readonly ICryptographyService _cryptographyService;
+        private readonly IAclUserGroupRepository _aclUserGroupRepository;
+        private readonly IAclUserRepository _aclUserRepository;
+        private readonly IAclUserUserGroupRepository _aclUserUserGroupRepository;
+        private readonly IAclRoleRepository _aclRoleRepository;
+        private readonly IAclUserGroupRoleRepository _aclUserGroupRoleRepository;
+        private readonly IAclPageRepository _aclPageRepository;
+        private readonly IAclRolePageRepository _aclRolePageRepository;
+        public static IHttpContextAccessor HttpContextAccessor;
 
         private readonly ApplicationDbContext _dbContext;
 
 
         /// <inheritdoc/>
-        public AclCompanyRepository(ApplicationDbContext dbContext, IConfiguration config, ICryptographyService _cryptographyService, IAclUserGroupRepository _AclUserGroupRepository, IAclUserRepository _AclUserRepository, IAclUserUserGroupRepository _AclUserUserGroupRepository, IAclRoleRepository _AclRoleRepository, IAclUserGroupRoleRepository _AclUserGroupRoleRepository, IAclPageRepository _AclPageRepository, IAclRolePageRepository _AclRolePageRepository, IHttpContextAccessor httpContextAccessor)
+        public AclCompanyRepository(ApplicationDbContext dbContext, IConfiguration config, ICryptographyService cryptographyService, IAclUserGroupRepository aclUserGroupRepository, IAclUserRepository aclUserRepository, IAclUserUserGroupRepository aclUserUserGroupRepository, IAclRoleRepository aclRoleRepository, IAclUserGroupRoleRepository aclUserGroupRoleRepository, IAclPageRepository aclPageRepository, IAclRolePageRepository aclRolePageRepository, IHttpContextAccessor httpContextAccessor)
 
         {
-            this.aclResponse = new AclResponse();
+            this.AclResponse = new AclResponse();
             this._config = config;
-            this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8604 // Possible null reference argument
+            this.MessageResponse = new MessageResponse(this._modelName, AppAuth.GetAuthInfo().Language);
             _dbContext = dbContext;
-            cryptographyService = _cryptographyService;
-            AclUserGroupRepository = _AclUserGroupRepository;
-            AclUserRepository = _AclUserRepository;
-            AclUserUserGroupRepository = _AclUserUserGroupRepository;
-            AclRoleRepository = _AclRoleRepository;
-            AclUserGroupRoleRepository = _AclUserGroupRoleRepository;
-            AclPageRepository = _AclPageRepository;
-            AclRolePageRepository = _AclRolePageRepository;
-            _httpContextAccessor = httpContextAccessor;
-            AppAuth.Initialize(_httpContextAccessor, _dbContext);
-            AppAuth.SetAuthInfo(_httpContextAccessor);
+            this._cryptographyService = cryptographyService;
+            _aclUserGroupRepository = aclUserGroupRepository;
+            _aclUserRepository = aclUserRepository;
+            _aclUserUserGroupRepository = aclUserUserGroupRepository;
+            _aclRoleRepository = aclRoleRepository;
+            _aclUserGroupRoleRepository = aclUserGroupRoleRepository;
+            _aclPageRepository = aclPageRepository;
+            _aclRolePageRepository = aclRolePageRepository;
+            HttpContextAccessor = httpContextAccessor;
+            AppAuth.Initialize(HttpContextAccessor, _dbContext);
+            AppAuth.SetAuthInfo(HttpContextAccessor);
         }
         /// <inheritdoc/>
 
@@ -71,14 +73,14 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
             List<AclCompany>? aclCompany = await _dbContext.AclCompanies.Where(b => b.Status == 1).ToListAsync();
             if (aclCompany.Any())
             {
-                this.aclResponse.Data = aclCompany;
-                this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.AclResponse.Data = aclCompany;
+                this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
-            this.aclResponse.Message = aclCompany != null ? this.messageResponse.fetchMessage : this.messageResponse.notFoundMessage;
-            this.aclResponse.StatusCode = aclCompany != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
-            this.aclResponse.Timestamp = DateTime.Now;
+            this.AclResponse.Message = aclCompany != null ? this.MessageResponse.fetchMessage : this.MessageResponse.notFoundMessage;
+            this.AclResponse.StatusCode = aclCompany != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
+            this.AclResponse.Timestamp = DateTime.Now;
 
-            return this.aclResponse;
+            return this.AclResponse;
         }
 
         /// <inheritdoc/>
@@ -95,19 +97,19 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
                         GroupName = _config["USER_GROUP_NAME"] ?? "ADMIN_USERGROUP",
                         Status = 1
                     };
-                    AclUserGroupRepository.SetCompanyId(aclCompany.Id);
-                    var userGroup = AclUserGroupRepository.PrepareInputData(userGroupRequest);
+                    _aclUserGroupRepository.SetCompanyId(aclCompany.Id);
+                    var userGroup = _aclUserGroupRepository.PrepareInputData(userGroupRequest);
                     userGroup.CompanyId = aclCompany.Id;
-                    userGroup = AclUserGroupRepository.Add(userGroup);
-                    var salt = cryptographyService.GenerateSalt();
+                    userGroup = _aclUserGroupRepository.Add(userGroup);
+                    var salt = _cryptographyService.GenerateSalt();
                     string[] nameArr = request.Name.Split(' ');
                     string fname = (nameArr.Length > 0) ? nameArr[0] : "";
                     string lname = (nameArr.Length > 1) ? nameArr[1] : fname;
                     AclUser user = new AclUser()
                     {
                         Email = aclCompany.Email,
-                        Password = (request.Password != null && request.Password.Length != 88) ? cryptographyService.HashPassword(request.Password, salt) : request.Password,
-                        UserType = AclUserRepository.SetUserType(true),
+                        Password = (request.Password != null && request.Password.Length != 88) ? _cryptographyService.HashPassword(request.Password, salt) : request.Password,
+                        UserType = _aclUserRepository.SetUserType(true),
                         FirstName = fname,
                         LastName = lname,
                         Language = "en-US",
@@ -119,9 +121,9 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
                         CreatedAt = DateTime.Now,
                         UpdatedAt = DateTime.Now
                     };
-                    var addeduser = AclUserRepository.Add(user);
+                    var addeduser = _aclUserRepository.Add(user);
                     var userusergroup = PrepareDataForUserUserGroups(userGroup?.Id, addeduser?.Id);
-                    AclUserUserGroupRepository.Add(userusergroup);
+                    _aclUserUserGroupRepository.Add(userusergroup);
                     AclRole role = new AclRole()
                     {
                         Name = this._config["ROLE_TITLE"] ?? "ADMIN_ROLE",
@@ -133,7 +135,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
                         UpdatedAt = DateTime.Now,
                         Status = 1
                     };
-                    var roleAdd = AclRoleRepository.Add(role);
+                    var roleAdd = _aclRoleRepository.Add(role);
 
                     AclUsergroupRole userGroupRole = new AclUsergroupRole()
                     {
@@ -143,7 +145,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
                         CreatedAt = DateTime.UtcNow,
                         UpdatedAt = DateTime.UtcNow
                     };
-                    var createdUserGroupRole = AclUserGroupRoleRepository.Add(userGroupRole);
+                    var createdUserGroupRole = _aclUserGroupRoleRepository.Add(userGroupRole);
                     List<AclPage> aclPagesByModuleId = await _dbContext.AclPages.Where(x => x.ModuleId == ulong.Parse(_config["S_ADMIN_DEFAULT_MODULE_ID"] ?? "1003")).ToListAsync();
                     List<ulong> pageIds = aclPagesByModuleId.Select(page => page.Id).ToList();
                     List<AclRolePage> aclRolePages = pageIds.Select(pageId => new AclRolePage
@@ -153,19 +155,19 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
                         CreatedAt = DateTime.UtcNow,
                         UpdatedAt = DateTime.UtcNow
                     }).ToList();
-                    AclRolePageRepository.AddAll(aclRolePages.ToArray());
+                    _aclRolePageRepository.AddAll(aclRolePages.ToArray());
                 }
-                this.aclResponse.Data = aclCompany;
-                this.aclResponse.Message = aclCompany != null ? this.messageResponse.createMessage : this.messageResponse.notFoundMessage;
-                this.aclResponse.StatusCode = aclCompany != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
+                this.AclResponse.Data = aclCompany;
+                this.AclResponse.Message = aclCompany != null ? this.MessageResponse.createMessage : this.MessageResponse.notFoundMessage;
+                this.AclResponse.StatusCode = aclCompany != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
             }
             catch (Exception ex)
             {
-                this.aclResponse.Message = ex.Message;
-                this.aclResponse.StatusCode = AppStatusCode.FAIL;
+                this.AclResponse.Message = ex.Message;
+                this.AclResponse.StatusCode = AppStatusCode.FAIL;
             }
-            this.aclResponse.Timestamp = DateTime.Now;
-            return this.aclResponse;
+            this.AclResponse.Timestamp = DateTime.Now;
+            return this.AclResponse;
         }
         /// <inheritdoc/>
         public AclResponse EditAclCompany(ulong Id, AclCompanyEditRequest request)
@@ -175,17 +177,17 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
                 AclCompany? _aclCompany = Find(Id);
                 _aclCompany = PrepareInputData(null, request, _aclCompany);
                 _aclCompany = Update(_aclCompany);
-                this.aclResponse.Data = _aclCompany;
-                this.aclResponse.Message = _aclCompany != null ? this.messageResponse.editMessage : this.messageResponse.notFoundMessage;
-                this.aclResponse.StatusCode = _aclCompany != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
+                this.AclResponse.Data = _aclCompany;
+                this.AclResponse.Message = _aclCompany != null ? this.MessageResponse.editMessage : this.MessageResponse.notFoundMessage;
+                this.AclResponse.StatusCode = _aclCompany != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
             }
             catch (Exception ex)
             {
-                this.aclResponse.Message = ex.Message;
-                this.aclResponse.StatusCode = AppStatusCode.FAIL;
+                this.AclResponse.Message = ex.Message;
+                this.AclResponse.StatusCode = AppStatusCode.FAIL;
             }
-            this.aclResponse.Timestamp = DateTime.Now;
-            return this.aclResponse;
+            this.AclResponse.Timestamp = DateTime.Now;
+            return this.AclResponse;
         }
         /// <inheritdoc/>
         public AclResponse FindById(ulong id)
@@ -193,18 +195,18 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
             try
             {
                 AclCompany? aclCompany = Find(id);
-                aclResponse.Data = aclCompany;
-                aclResponse.Message = aclCompany != null ? this.messageResponse.fetchMessage : this.messageResponse.notFoundMessage;
-                aclResponse.StatusCode = aclCompany != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
+                AclResponse.Data = aclCompany;
+                AclResponse.Message = aclCompany != null ? this.MessageResponse.fetchMessage : this.MessageResponse.notFoundMessage;
+                AclResponse.StatusCode = aclCompany != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
             }
             catch (Exception ex)
             {
-                aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = AppStatusCode.FAIL;
+                AclResponse.Message = ex.Message;
+                AclResponse.StatusCode = AppStatusCode.FAIL;
             }
 
-            aclResponse.Timestamp = DateTime.Now;
-            return aclResponse;
+            AclResponse.Timestamp = DateTime.Now;
+            return AclResponse;
         }
         /// <inheritdoc/>
         public async Task<AclResponse> DeleteCompany(ulong id)
@@ -217,13 +219,13 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
                 aclCompany.Status = 0;
                 _dbContext.AclCompanies.Update(aclCompany);
                 await _dbContext.SaveChangesAsync();
-                this.aclResponse.Data = aclCompany;
+                this.AclResponse.Data = aclCompany;
             }
-            this.aclResponse.Message = aclCompany != null ? this.messageResponse.DeleteMessage : this.messageResponse.notFoundMessage;
-            this.aclResponse.StatusCode = aclCompany != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
-            this.aclResponse.Timestamp = DateTime.Now;
+            this.AclResponse.Message = aclCompany != null ? this.MessageResponse.DeleteMessage : this.MessageResponse.notFoundMessage;
+            this.AclResponse.StatusCode = aclCompany != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
+            this.AclResponse.Timestamp = DateTime.Now;
 
-            return this.aclResponse;
+            return this.AclResponse;
         }
 
         /// <inheritdoc/>

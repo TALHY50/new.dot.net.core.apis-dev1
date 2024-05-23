@@ -124,23 +124,26 @@ namespace ACL.Infrastructure.Services
             return this.aclResponse;
         }
 
-        private AclBranch PrepareInputData(AclBranchRequest request, AclBranch? aclBranch = null)
+        private AclBranch PrepareInputData(AclBranchRequest request, AclBranch? branch = null)
         {
-            AclBranch _aclBranch = aclBranch ?? new AclBranch();
-            _aclBranch.Name = request.Name;
-            _aclBranch.CompanyId = AppAuth.GetAuthInfo().CompanyId;
-            _aclBranch.Address = request.Address;
-            _aclBranch.Description = request.Description;
-            _aclBranch.Sequence = request.Sequence;
-            _aclBranch.Status = (byte)(request.Status ?? 1);
-            _aclBranch.UpdatedAt = DateTime.Now;
-            _aclBranch.UpdatedById = AppAuth.GetAuthInfo().UserId;
-            if (aclBranch == null)
+            AclBranch aclBranch = branch ?? new AclBranch();
+            aclBranch.Name = request.Name;
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8604 // Possible null reference argument.
+
+            aclBranch.CompanyId = AppAuth.GetAuthInfo().CompanyId;
+            aclBranch.Address = request.Address;
+            aclBranch.Description = request.Description;
+            aclBranch.Sequence = request.Sequence;
+            aclBranch.Status = (byte)(request.Status ?? 1);
+            aclBranch.UpdatedAt = DateTime.Now;
+            aclBranch.UpdatedById = AppAuth.GetAuthInfo().UserId;
+            if (branch == null)
             {
-                _aclBranch.CreatedAt = DateTime.Now;
-                _aclBranch.CreatedById = AppAuth.GetAuthInfo().UserId;
+                aclBranch.CreatedAt = DateTime.Now;
+                aclBranch.CreatedById = AppAuth.GetAuthInfo().UserId;
             }
-            return _aclBranch;
+            return aclBranch;
         }
     }
 }

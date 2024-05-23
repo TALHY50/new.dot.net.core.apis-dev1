@@ -16,26 +16,25 @@ namespace ACL.Infrastructure.Persistence.Repositories.Role
     /// <inheritdoc/>
     public class AclRoleRepository : IAclRoleRepository
     {
-        /// <inheritdoc/>
-        public AclResponse aclResponse;
-        /// <inheritdoc/>
-        public MessageResponse messageResponse;
-        private string modelName = "Role";
+        public AclResponse AclResponse;
+        public MessageResponse MessageResponse;
+        private readonly string _modelName = "Role";
         private readonly IDistributedCache _distributedCache;
-        private ApplicationDbContext _dbContext;
+        private readonly ApplicationDbContext _dbContext;
         private readonly IAclUserRepository _aclUserRepository;
-        private static IHttpContextAccessor _httpContextAccessor;
-        /// <inheritdoc/>
+        public static IHttpContextAccessor HttpContextAccessor;
         public AclRoleRepository(ApplicationDbContext dbContext, IDistributedCache distributedCache, IAclUserRepository aclUserRepository, IHttpContextAccessor httpContextAccessor)
         {
             _aclUserRepository = aclUserRepository;
-            this.aclResponse = new AclResponse();
-            this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
+            this.AclResponse = new AclResponse();
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8604 // Possible null reference argument.
+            this.MessageResponse = new MessageResponse(this._modelName, AppAuth.GetAuthInfo().Language);
             this._distributedCache = distributedCache;
             _dbContext = dbContext;
-            _httpContextAccessor = httpContextAccessor;
-            AppAuth.Initialize(_httpContextAccessor, _dbContext);
-            AppAuth.SetAuthInfo(_httpContextAccessor);
+            HttpContextAccessor = httpContextAccessor;
+            AppAuth.Initialize(HttpContextAccessor, _dbContext);
+            AppAuth.SetAuthInfo(HttpContextAccessor);
         }
         /// <inheritdoc/>
         public AclResponse GetAll()
@@ -50,22 +49,22 @@ namespace ACL.Infrastructure.Persistence.Repositories.Role
             }).ToList();
             if (aclRoles.Any())
             {
-                this.aclResponse.Message = this.messageResponse.fetchMessage;
+                this.AclResponse.Message = this.MessageResponse.fetchMessage;
             }
-            this.aclResponse.Data = aclRoles;
-            this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+            this.AclResponse.Data = aclRoles;
+            this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
 
-            return this.aclResponse;
+            return this.AclResponse;
         }
         /// <inheritdoc/>
         public AclResponse Add(AclRoleRequest request)
         {
 
             var aclRole = PrepareInputData(request);
-            this.aclResponse.Data = Add(aclRole);
-            this.aclResponse.Message = this.messageResponse.createMessage;
-            this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
-            return this.aclResponse;
+            this.AclResponse.Data = Add(aclRole);
+            this.AclResponse.Message = this.MessageResponse.createMessage;
+            this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
+            return this.AclResponse;
 
         }
         /// <inheritdoc/>
@@ -75,20 +74,20 @@ namespace ACL.Infrastructure.Persistence.Repositories.Role
 
             if (aclRole == null)
             {
-                this.aclResponse.Message = this.messageResponse.notFoundMessage;
-                return this.aclResponse;
+                this.AclResponse.Message = this.MessageResponse.notFoundMessage;
+                return this.AclResponse;
             }
 
             aclRole = PrepareInputData(request, aclRole);
             _dbContext.AclRoles.Update(aclRole);
             _dbContext.SaveChanges();
             _dbContext.Entry(aclRole).Reload();
-            List<ulong> user_ids = _aclUserRepository.GetUserIdByChangePermission(null, null, null, id);
-            _aclUserRepository.UpdateUserPermissionVersion(user_ids);
-            this.aclResponse.Data = aclRole;
-            this.aclResponse.Message = this.messageResponse.editMessage;
-            this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
-            return this.aclResponse;
+            List<ulong>? userIds = _aclUserRepository?.GetUserIdByChangePermission(null, null, null, id);
+            _aclUserRepository.UpdateUserPermissionVersion(userIds);
+            this.AclResponse.Data = aclRole;
+            this.AclResponse.Message = this.MessageResponse.editMessage;
+            this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
+            return this.AclResponse;
 
         }
         /// <inheritdoc/>
@@ -98,16 +97,16 @@ namespace ACL.Infrastructure.Persistence.Repositories.Role
             var aclRole = Find(id) is var role && role.CreatedById == AppAuth.GetAuthInfo().UserId ? role : null;
 
 
-            this.aclResponse.Data = aclRole;
-            this.aclResponse.Message = this.messageResponse.fetchMessage;
+            this.AclResponse.Data = aclRole;
+            this.AclResponse.Message = this.MessageResponse.fetchMessage;
             if (aclRole == null)
             {
-                this.aclResponse.Message = this.messageResponse.notFoundMessage;
+                this.AclResponse.Message = this.MessageResponse.notFoundMessage;
             }
 
-            this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+            this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
 
-            return this.aclResponse;
+            return this.AclResponse;
 
         }
         /// <inheritdoc/>
@@ -118,24 +117,23 @@ namespace ACL.Infrastructure.Persistence.Repositories.Role
 
             if (aclRole != null)
             {
-                this.aclResponse.Data = Delete(id);
-                this.aclResponse.Message = this.messageResponse.deleteMessage;
-                this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
-                List<ulong> user_ids = _aclUserRepository.GetUserIdByChangePermission(null, null, null, id);
-                _aclUserRepository.UpdateUserPermissionVersion(user_ids);
+                this.AclResponse.Data = Delete(id);
+                this.AclResponse.Message = this.MessageResponse.deleteMessage;
+                this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
+                List<ulong>? userIds = _aclUserRepository.GetUserIdByChangePermission(null, null, null, id);
+                _aclUserRepository.UpdateUserPermissionVersion(userIds);
             }
 
-            return this.aclResponse;
+            return this.AclResponse;
 
         }
-        private AclRole PrepareInputData(AclRoleRequest request, AclRole aclRole = null)
+        private AclRole PrepareInputData(AclRoleRequest request, AclRole? aclRole = null)
         {
-            if (aclRole == null)
-            {
-                aclRole = new AclRole();
-                aclRole.CreatedById = AppAuth.GetAuthInfo().UserId;
-                aclRole.CreatedAt = DateTime.Now;
-            }
+            aclRole ??= new AclRole
+                {
+                    CreatedById = AppAuth.GetAuthInfo().UserId,
+                    CreatedAt = DateTime.Now
+                };
             aclRole.Title = request.Title;
             aclRole.Name = request.Name;
             aclRole.Status = request.Status;
@@ -145,19 +143,20 @@ namespace ACL.Infrastructure.Persistence.Repositories.Role
 
             return aclRole;
         }
-        /// <inheritdoc/>
-        private void RemoveCache(ulong roleId)
+  
+        private async Task RemoveCache(ulong roleId)
         {
             var key = $"{Enum.GetName(CacheKeys.RoleRouteNames)}-{roleId}";
-            if (this._distributedCache is IDistributedCache)
+            if (_distributedCache is IDistributedCache)
             {
-                var cachedRouteNames = this._distributedCache.GetStringAsync(key);
+                var cachedRouteNames = await this._distributedCache.GetStringAsync(key);
                 if (cachedRouteNames != null)
                 {
-                    this._distributedCache.RemoveAsync(key);
+                    await this._distributedCache.RemoveAsync(key);
                 }
             }
         }
+
         /// <inheritdoc/>
         public AclRole? Delete(ulong id)
         {

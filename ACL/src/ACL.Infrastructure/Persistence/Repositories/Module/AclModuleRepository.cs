@@ -15,25 +15,28 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
     public class AclModuleRepository : IAclModuleRepository
     {
         /// <inheritdoc/>
-        public AclResponse aclResponse;
+        public AclResponse AclResponse;
         /// <inheritdoc/>
-        public MessageResponse messageResponse;
-        private ApplicationDbContext _dbcontext;
-        private IAclUserRepository _aclUserRepository;
-        private string modelName = "Module";
-        private static IHttpContextAccessor _httpContextAccessor;
+        public MessageResponse MessageResponse;
+        readonly ApplicationDbContext _dbContext;
+        private readonly IAclUserRepository _aclUserRepository;
+        private readonly string _modelName = "Module";
+        public static IHttpContextAccessor HttpContextAccessor;
 
         /// <inheritdoc/>
-        public AclModuleRepository(ApplicationDbContext dbcontext, IAclUserRepository aclUserRepository, IHttpContextAccessor httpContextAccessor)
+        public AclModuleRepository(ApplicationDbContext dbContext, IAclUserRepository aclUserRepository, IHttpContextAccessor httpContextAccessor)
         {
-            _dbcontext = dbcontext;
-            this.aclResponse = new AclResponse();
+            _dbContext = dbContext;
+            this.AclResponse = new AclResponse();
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
-            this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8604 // Possible null reference argument.
+
+            this.MessageResponse = new MessageResponse(this._modelName, AppAuth.GetAuthInfo().Language);
             _aclUserRepository = aclUserRepository;
-            _httpContextAccessor = httpContextAccessor;
-            AppAuth.Initialize(_httpContextAccessor, dbcontext);
-            AppAuth.SetAuthInfo(_httpContextAccessor);
+            HttpContextAccessor = httpContextAccessor;
+            AppAuth.Initialize(HttpContextAccessor, dbContext);
+            AppAuth.SetAuthInfo(HttpContextAccessor);
         }
 
         /// <inheritdoc/>
@@ -42,18 +45,18 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
             var aclModules = All();
             if (aclModules.Any())
             {
-                this.aclResponse.Message = this.messageResponse.fetchMessage;
-                this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.AclResponse.Message = this.MessageResponse.fetchMessage;
+                this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             else
             {
-                this.aclResponse.Message = this.messageResponse.notFoundMessage;
-                this.aclResponse.StatusCode = AppStatusCode.FAIL;
+                this.AclResponse.Message = this.MessageResponse.notFoundMessage;
+                this.AclResponse.StatusCode = AppStatusCode.FAIL;
             }
-            this.aclResponse.Data = aclModules;
-            this.aclResponse.Timestamp = DateTime.Now;
+            this.AclResponse.Data = aclModules;
+            this.AclResponse.Timestamp = DateTime.Now;
 
-            return this.aclResponse;
+            return this.AclResponse;
         }
         /// <inheritdoc/>
         public AclResponse AddAclModule(AclModuleRequest request)
@@ -64,24 +67,24 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
                 if (check == null)
                 {
                     var aclModule = PrepareInputData(request);
-                    this.aclResponse.Data = Add(aclModule);
-                    this.aclResponse.Message = this.messageResponse.createMessage;
-                    this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                    this.AclResponse.Data = Add(aclModule);
+                    this.AclResponse.Message = this.MessageResponse.createMessage;
+                    this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
                 }
                 else
                 {
-                    this.aclResponse.Message = this.messageResponse.existMessage;
-                    this.aclResponse.StatusCode = AppStatusCode.FAIL;
+                    this.AclResponse.Message = this.MessageResponse.existMessage;
+                    this.AclResponse.StatusCode = AppStatusCode.FAIL;
                 }
-                this.aclResponse.Timestamp = DateTime.Now;
+                this.AclResponse.Timestamp = DateTime.Now;
             }
             catch (Exception ex)
             {
-                this.aclResponse.Message = ex.Message;
-                this.aclResponse.StatusCode = AppStatusCode.FAIL;
+                this.AclResponse.Message = ex.Message;
+                this.AclResponse.StatusCode = AppStatusCode.FAIL;
             }
-            this.aclResponse.Timestamp = DateTime.Now;
-            return this.aclResponse;
+            this.AclResponse.Timestamp = DateTime.Now;
+            return this.AclResponse;
         }
         /// <inheritdoc/>
         public AclResponse EditAclModule(ulong id, AclModuleRequest request)
@@ -92,29 +95,29 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
                 if (aclModule != null)
                 {
                     aclModule = PrepareInputData(request, aclModule);
-                    this.aclResponse.Data = Update(aclModule);
-                    this.aclResponse.Message = this.messageResponse.editMessage;
-                    this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                    this.AclResponse.Data = Update(aclModule);
+                    this.AclResponse.Message = this.MessageResponse.editMessage;
+                    this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
 
-                    List<ulong> user_ids = _aclUserRepository.GetUserIdByChangePermission(id);
-                    if (user_ids.Count() > 0)
+                    List<ulong>? userIds = _aclUserRepository.GetUserIdByChangePermission(id);
+                    if (userIds != null)
                     {
-                        _aclUserRepository.UpdateUserPermissionVersion(user_ids);
+                        _aclUserRepository.UpdateUserPermissionVersion(userIds);
                     }
                 }
                 else
                 {
-                    this.aclResponse.Message = this.messageResponse.notFoundMessage;
-                    this.aclResponse.StatusCode = AppStatusCode.FAIL;
+                    this.AclResponse.Message = this.MessageResponse.notFoundMessage;
+                    this.AclResponse.StatusCode = AppStatusCode.FAIL;
                 }
             }
             catch (Exception ex)
             {
-                this.aclResponse.Message = ex.Message;
-                this.aclResponse.StatusCode = AppStatusCode.FAIL;
+                this.AclResponse.Message = ex.Message;
+                this.AclResponse.StatusCode = AppStatusCode.FAIL;
             }
-            this.aclResponse.Timestamp = DateTime.Now;
-            return this.aclResponse;
+            this.AclResponse.Timestamp = DateTime.Now;
+            return this.AclResponse;
         }
         /// <inheritdoc/>
         public AclResponse FindById(ulong id)
@@ -122,22 +125,22 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
             try
             {
                 var aclModule = Find(id);
-                this.aclResponse.Data = aclModule;
-                this.aclResponse.Message = this.messageResponse.fetchMessage;
+                this.AclResponse.Data = aclModule;
+                this.AclResponse.Message = this.MessageResponse.fetchMessage;
                 if (aclModule == null)
                 {
-                    this.aclResponse.Message = this.messageResponse.notFoundMessage;
+                    this.AclResponse.Message = this.MessageResponse.notFoundMessage;
                 }
 
-                this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             catch (Exception ex)
             {
-                this.aclResponse.Message = ex.Message;
-                this.aclResponse.StatusCode = AppStatusCode.FAIL;
+                this.AclResponse.Message = ex.Message;
+                this.AclResponse.StatusCode = AppStatusCode.FAIL;
             }
-            this.aclResponse.Timestamp = DateTime.Now;
-            return this.aclResponse;
+            this.AclResponse.Timestamp = DateTime.Now;
+            return this.AclResponse;
         }
         /// <inheritdoc/>
         public AclResponse DeleteModule(ulong id)
@@ -147,22 +150,22 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
 
             if (aclModule != null)
             {
-                this.aclResponse.Data = Delete(aclModule);
-                this.aclResponse.Message = this.messageResponse.deleteMessage;
-                this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
-                List<ulong> user_ids = _aclUserRepository.GetUserIdByChangePermission(id);
-                if (user_ids.Count() > 0)
+                this.AclResponse.Data = Delete(aclModule);
+                this.AclResponse.Message = this.MessageResponse.deleteMessage;
+                this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
+                List<ulong>? userIds = _aclUserRepository.GetUserIdByChangePermission(id);
+                if (userIds != null)
                 {
-                    _aclUserRepository.UpdateUserPermissionVersion(user_ids);
+                    _aclUserRepository.UpdateUserPermissionVersion(userIds);
                 }
             }
             else
             {
-                this.aclResponse.Message = this.messageResponse.notFoundMessage;
-                this.aclResponse.StatusCode = AppStatusCode.FAIL;
+                this.AclResponse.Message = this.MessageResponse.notFoundMessage;
+                this.AclResponse.StatusCode = AppStatusCode.FAIL;
             }
-            this.aclResponse.Timestamp = DateTime.Now;
-            return this.aclResponse;
+            this.AclResponse.Timestamp = DateTime.Now;
+            return this.AclResponse;
         }
         /// <inheritdoc/>
 
@@ -170,27 +173,27 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
         {
             if (id > 0)
             {
-                return _dbcontext.AclModules.Any(x => x.Id == value && x.Id != id);
+                return _dbContext.AclModules.Any(x => x.Id == value && x.Id != id);
             }
-            return _dbcontext.AclModules.Any(x => x.Id == value);
+            return _dbContext.AclModules.Any(x => x.Id == value);
         }
         /// <inheritdoc/>
         public bool ExistByName(ulong id, string name)
         {
             if (id > 0)
             {
-                return _dbcontext.AclModules.Any(x => x.Name.ToLower() == name.ToLower() && x.Id != id);
+                return _dbContext.AclModules.Any(x => x.Name.ToLower() == name.ToLower() && x.Id != id);
             }
-            return _dbcontext.AclModules.Any(x => x.Name.ToLower() == name.ToLower());
+            return _dbContext.AclModules.Any(x => x.Name.ToLower() == name.ToLower());
         }
-        /// <inheritdoc/>
-        public AclModule PrepareInputData(AclModuleRequest request, AclModule _aclModule = null)
+       
+        public AclModule PrepareInputData(AclModuleRequest request, AclModule? module = null)
         {
             AclModule aclModule = new AclModule();
-            if (_aclModule != null)
+            if (module != null)
             {
                 aclModule.Id = request.Id;
-                aclModule = _aclModule;
+                aclModule = module;
             }
 
             aclModule.Name = request.Name;
@@ -198,7 +201,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
             aclModule.Sequence = request.Sequence;
             aclModule.DisplayName = request.DisplayName;
             aclModule.UpdatedAt = DateTime.Now;
-            if (_aclModule == null)
+            if (module == null)
             {
                 aclModule.CreatedAt = DateTime.Now;
             }
@@ -210,7 +213,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
         {
             try
             {
-                return _dbcontext.AclModules.ToList();
+                return _dbContext.AclModules.ToList();
             }
             catch (Exception)
             {
@@ -223,7 +226,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
         {
             try
             {
-                return _dbcontext.AclModules.Find(id);
+                return _dbContext.AclModules.Find(id);
             }
             catch (Exception)
             {
@@ -235,9 +238,9 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
         {
             try
             {
-                _dbcontext.AclModules.Add(aclModule);
-                _dbcontext.SaveChanges();
-                _dbcontext.Entry(aclModule).ReloadAsync();
+                _dbContext.AclModules.Add(aclModule);
+                _dbContext.SaveChanges();
+                _dbContext.Entry(aclModule).ReloadAsync();
                 return aclModule;
             }
             catch (Exception)
@@ -251,9 +254,9 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
         {
             try
             {
-                _dbcontext.AclModules.Update(aclModule);
-                _dbcontext.SaveChanges();
-                _dbcontext.Entry(aclModule).ReloadAsync();
+                _dbContext.AclModules.Update(aclModule);
+                _dbContext.SaveChanges();
+                _dbContext.Entry(aclModule).ReloadAsync();
                 return aclModule;
             }
             catch (Exception)
@@ -266,8 +269,8 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
         {
             try
             {
-                _dbcontext.AclModules.Remove(aclModule);
-                _dbcontext.SaveChanges();
+                _dbContext.AclModules.Remove(aclModule);
+                _dbContext.SaveChanges();
                 return aclModule;
             }
             catch (Exception)
@@ -282,8 +285,8 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
             try
             {
                 var delete = Find(id);
-                _dbcontext.AclModules.Remove(delete);
-                _dbcontext.SaveChangesAsync();
+                _dbContext.AclModules.Remove(delete);
+                _dbContext.SaveChangesAsync();
                 return delete;
             }
             catch (Exception)

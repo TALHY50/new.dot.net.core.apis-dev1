@@ -12,15 +12,15 @@ namespace ACL.Application.Ports.Repositories.Auth
         /// <inheritdoc/>
         AclUserUsergroup? Add(AclUserUsergroup acluseruserGroup);
         /// <inheritdoc/>
-        AclUserUsergroup? Update(AclUserUsergroup acluseruserGroup);
+        AclUserUsergroup? Update(AclUserUsergroup aclUserUserGroup);
         /// <inheritdoc/>
-        AclUserUsergroup? Delete(AclUserUsergroup acluseruserGroup);
+        AclUserUsergroup? Delete(AclUserUsergroup aclUserUserGroup);
         /// <inheritdoc/>
         AclUserUsergroup? Delete(ulong id);
         /// <inheritdoc/>
-        AclUserUsergroup[]? AddRange( AclUserUsergroup[]? userUsergroups);
+        AclUserUsergroup[]? AddRange( AclUserUsergroup[]? userUserGroups);
         /// <inheritdoc/>
-        AclUserUsergroup[]? RemoveRange( AclUserUsergroup[] userUsergroups);
+        AclUserUsergroup[]? RemoveRange( AclUserUsergroup[] userUserGroups);
         /// <inheritdoc/>
         AclUserUsergroup[]? Where(ulong userid);
     }

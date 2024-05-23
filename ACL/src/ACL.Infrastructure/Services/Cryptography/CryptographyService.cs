@@ -10,14 +10,14 @@ namespace ACL.Infrastructure.Services.Cryptography
     // https://github.com/kmaragon/Konscious.Security.Cryptography
     public class CryptographyService : ICryptographyService
     {
-        private const int _hashSize = 64;
+        private const int HashSize = 64;
 
         public CryptographyService() { }
      
         public string GenerateSalt()
         {
-            var buffer = new byte[_hashSize];
-            using var rng = new RNGCryptoServiceProvider();
+            var buffer = new byte[HashSize];
+            using var rng = RandomNumberGenerator.Create();
             rng.GetBytes(buffer);
             return Convert.ToBase64String(buffer);
         }
@@ -32,7 +32,7 @@ namespace ACL.Infrastructure.Services.Cryptography
                 Salt = Encoding.UTF8.GetBytes(salt)
             };
 
-            var hash = argon2.GetBytes(_hashSize);
+            var hash = argon2.GetBytes(HashSize);
             return Convert.ToBase64String(hash);
         }
     }

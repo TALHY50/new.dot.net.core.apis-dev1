@@ -16,31 +16,34 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
     public class AclCompanyModuleRepository : IAclCompanyModuleRepository
     {
         /// <inheritdoc/>
-        public AclResponse aclResponse;
+        public AclResponse AclResponse;
         /// <inheritdoc/>
-        public MessageResponse messageResponse;
-        private string modelName = "Company Module";
-        private ApplicationDbContext _dbContext;
-        private static IHttpContextAccessor _httpContextAccessor;
+        public MessageResponse MessageResponse;
+        private readonly string _modelName = "Company Module";
+        readonly ApplicationDbContext _dbContext;
+        public static IHttpContextAccessor HttpContextAccessor;
         /// <inheritdoc/>
         public AclCompanyModuleRepository(ApplicationDbContext dbContext, IHttpContextAccessor httpContextAccessor)
         {
             _dbContext = dbContext;
-            this.aclResponse = new AclResponse();
-            _httpContextAccessor = httpContextAccessor;
-            AppAuth.Initialize(_httpContextAccessor, dbContext);
-            AppAuth.SetAuthInfo(_httpContextAccessor);
-            this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
+            this.AclResponse = new AclResponse();
+            HttpContextAccessor = httpContextAccessor;
+            AppAuth.Initialize(HttpContextAccessor, dbContext);
+            AppAuth.SetAuthInfo(HttpContextAccessor);
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8604 // Possible null reference argument.
+
+            this.MessageResponse = new MessageResponse(this._modelName, AppAuth.GetAuthInfo().Language);
         }
         /// <inheritdoc/>
         public async Task<AclResponse> GetAll()
         {
             var aclCompanyModules = await _dbContext.AclCompanyModules.ToListAsync();
-            this.aclResponse.Message = aclCompanyModules.Any() ? this.messageResponse.fetchMessage : this.messageResponse.notFoundMessage;
-            this.aclResponse.Data = aclCompanyModules;
-            this.aclResponse.StatusCode = aclCompanyModules.Any() ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
-            this.aclResponse.Timestamp = DateTime.Now;
-            return this.aclResponse;
+            this.AclResponse.Message = aclCompanyModules.Any() ? this.MessageResponse.fetchMessage : this.MessageResponse.notFoundMessage;
+            this.AclResponse.Data = aclCompanyModules;
+            this.AclResponse.StatusCode = aclCompanyModules.Any() ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
+            this.AclResponse.Timestamp = DateTime.Now;
+            return this.AclResponse;
         }
         /// <inheritdoc/>
         public async Task<AclResponse> AddAclCompanyModule(AclCompanyModuleRequest request)
@@ -50,42 +53,42 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
                 var aclCompanyModule = PrepareInputData(request);
                 _dbContext.Add(aclCompanyModule);
                 await _dbContext.SaveChangesAsync();
-                _dbContext.Entry(aclCompanyModule).Reload();
-                this.aclResponse.Data = aclCompanyModule;
-                this.aclResponse.Message = this.messageResponse.createMessage;
-                this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                await _dbContext.Entry(aclCompanyModule).ReloadAsync();
+                this.AclResponse.Data = aclCompanyModule;
+                this.AclResponse.Message = this.MessageResponse.createMessage;
+                this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             catch (Exception ex)
             {
-                this.aclResponse.Message = ex.Message;
-                this.aclResponse.StatusCode = AppStatusCode.FAIL;
+                this.AclResponse.Message = ex.Message;
+                this.AclResponse.StatusCode = AppStatusCode.FAIL;
             }
-            this.aclResponse.Timestamp = DateTime.Now;
-            return this.aclResponse;
+            this.AclResponse.Timestamp = DateTime.Now;
+            return this.AclResponse;
         }
         /// <inheritdoc/>
-        public async Task<AclResponse> EditAclCompanyModule(ulong Id, AclCompanyModuleRequest request)
+        public async Task<AclResponse> EditAclCompanyModule(ulong id, AclCompanyModuleRequest request)
         {
             try
             {
-                var _aclCompanyModule = await _dbContext.AclCompanyModules.FindAsync(Id);
-                this.aclResponse.Message = (_aclCompanyModule != null) ? this.messageResponse.editMessage : this.messageResponse.notFoundMessage;
-                this.aclResponse.StatusCode = (_aclCompanyModule != null) ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
-                if (_aclCompanyModule != null)
+                var aclCompanyModule = await _dbContext.AclCompanyModules.FindAsync(id);
+                this.AclResponse.Message = (aclCompanyModule != null) ? this.MessageResponse.editMessage : this.MessageResponse.notFoundMessage;
+                this.AclResponse.StatusCode = (aclCompanyModule != null) ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
+                if (aclCompanyModule != null)
                 {
-                    _aclCompanyModule = PrepareInputData(request, Id, _aclCompanyModule);
-                    _dbContext.AclCompanyModules.Update(_aclCompanyModule);
-                    _dbContext.SaveChanges();
-                    _dbContext.Entry(_aclCompanyModule).Reload();
-                    this.aclResponse.Data = _aclCompanyModule;
+                    aclCompanyModule = PrepareInputData(request, id, aclCompanyModule);
+                    _dbContext.AclCompanyModules.Update(aclCompanyModule);
+                    await _dbContext.SaveChangesAsync();
+                    await _dbContext.Entry(aclCompanyModule).ReloadAsync();
+                    this.AclResponse.Data = aclCompanyModule;
                 }
             }
             catch (Exception ex)
             {
-                this.aclResponse.Message = ex.Message;
+                this.AclResponse.Message = ex.Message;
             }
-            this.aclResponse.Timestamp = DateTime.Now;
-            return this.aclResponse;
+            this.AclResponse.Timestamp = DateTime.Now;
+            return this.AclResponse;
         }
         /// <inheritdoc/>
         public async Task<AclResponse> FindById(ulong id)
@@ -93,33 +96,33 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
             try
             {
                 var aclCompanyModule = await _dbContext.AclCompanyModules.FindAsync(id);
-                var message = aclCompanyModule != null ? this.messageResponse.fetchMessage : this.messageResponse.notFoundMessage;
-                this.aclResponse.Data = aclCompanyModule;
-                this.aclResponse.Message = message;
-                this.aclResponse.StatusCode = aclCompanyModule != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
-                this.aclResponse.Timestamp = DateTime.Now;
+                var message = aclCompanyModule != null ? this.MessageResponse.fetchMessage : this.MessageResponse.notFoundMessage;
+                this.AclResponse.Data = aclCompanyModule;
+                this.AclResponse.Message = message;
+                this.AclResponse.StatusCode = aclCompanyModule != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
+                this.AclResponse.Timestamp = DateTime.Now;
             }
             catch (Exception ex)
             {
-                this.aclResponse.Message = ex.Message;
-                this.aclResponse.StatusCode = AppStatusCode.FAIL;
-                this.aclResponse.Timestamp = DateTime.Now;
+                this.AclResponse.Message = ex.Message;
+                this.AclResponse.StatusCode = AppStatusCode.FAIL;
+                this.AclResponse.Timestamp = DateTime.Now;
             }
-            return aclResponse;
+            return AclResponse;
         }
         /// <inheritdoc/>
         public async Task<AclResponse> DeleteCompanyModule(ulong id)
         {
             var aclCompanyModule = await _dbContext.AclCompanyModules.FindAsync(id);
-            this.aclResponse.StatusCode = aclCompanyModule != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
-            this.aclResponse.Message = aclCompanyModule != null ? this.messageResponse.deleteMessage : this.messageResponse.notFoundMessage;
-            this.aclResponse.Data = aclCompanyModule;
+            this.AclResponse.StatusCode = aclCompanyModule != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
+            this.AclResponse.Message = aclCompanyModule != null ? this.MessageResponse.deleteMessage : this.MessageResponse.notFoundMessage;
+            this.AclResponse.Data = aclCompanyModule;
             if (aclCompanyModule != null)
             {
                 _dbContext.AclCompanyModules.Remove(aclCompanyModule);
-                _dbContext.SaveChanges();
+                await _dbContext.SaveChangesAsync();
             }
-            return this.aclResponse;
+            return this.AclResponse;
         }
         /// <inheritdoc/>
         public bool IsValidForCreateOrUpdate(ulong companyId, ulong moduleId, ulong id = 0)
@@ -136,20 +139,20 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
             }
         }
         /// <inheritdoc/>
-        public AclCompanyModule PrepareInputData(AclCompanyModuleRequest request, ulong Id = 0, AclCompanyModule? _aclCompanyModule = null)
+        public AclCompanyModule PrepareInputData(AclCompanyModuleRequest request, ulong id = 0, AclCompanyModule? companyModule = null)
         {
             bool valid = IsValidForCreateOrUpdate(request.CompanyId, request.ModuleId);
             AclCompanyModule aclCompanyModule = new AclCompanyModule();
             if (valid)
             {
-                if (_aclCompanyModule != null)
+                if (companyModule != null)
                 {
-                    aclCompanyModule = _aclCompanyModule;
+                    aclCompanyModule = companyModule;
                 }
                 aclCompanyModule.CompanyId = request.CompanyId;
                 aclCompanyModule.ModuleId = request.ModuleId;
                 aclCompanyModule.UpdatedAt = DateTime.Now;
-                if (Id == 0)
+                if (id == 0)
                 {
                     aclCompanyModule.CreatedAt = DateTime.Now;
                 }

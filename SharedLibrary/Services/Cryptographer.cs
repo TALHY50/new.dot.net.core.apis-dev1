@@ -49,7 +49,7 @@ namespace SharedLibrary.Services
                 {
                     saltWithPassword = GetHash(sha256Hash, password + salt);
                 }
-                string originalValues = Decryptor(mainKey, saltWithPassword.Substring(0, 32), iv);
+                string originalValues = DecryptMessage(mainKey, saltWithPassword.Substring(0, 32), iv);
                 IList<string> valueList = originalValues.Split('|').ToList<string>();
 
                  content = AssignValuesToContent<T>(valueList);
@@ -149,40 +149,36 @@ namespace SharedLibrary.Services
 
         }
         
-        
-
-
-        private static string Encryptor(string TextToEncrypt, string strKey, string strIV)
+        private static string Encryptor(string textToEncrypt, string strKey, string strIv)
         {
             //Turn the plaintext into a byte array.
-            byte[] PlainTextBytes = global::System.Text.Encoding.UTF8.GetBytes(TextToEncrypt);
+            byte[] plainTextBytes = global::System.Text.Encoding.UTF8.GetBytes(textToEncrypt);
 
-            //Setup the AES providor for our purposes.
-            AesCryptoServiceProvider aesProvider = new AesCryptoServiceProvider();
+            Aes aesProvider = Aes.Create();
             aesProvider.BlockSize = 128;
 
             aesProvider.KeySize = 256;
-            //My key and iv that i have used in openssl
+
             aesProvider.Key = global::System.Text.Encoding.UTF8.GetBytes(strKey);
-            aesProvider.IV = global::System.Text.Encoding.UTF8.GetBytes(strIV);
+            aesProvider.IV = global::System.Text.Encoding.UTF8.GetBytes(strIv);
             aesProvider.Padding = PaddingMode.PKCS7;
             aesProvider.Mode = CipherMode.CBC;
 
             ICryptoTransform cryptoTransform = aesProvider.CreateEncryptor(aesProvider.Key, aesProvider.IV);
-            byte[] EncryptedBytes = cryptoTransform.TransformFinalBlock(PlainTextBytes, 0, PlainTextBytes.Length);
-            return Convert.ToBase64String(EncryptedBytes);
+            byte[] encryptedBytes = cryptoTransform.TransformFinalBlock(plainTextBytes, 0, plainTextBytes.Length);
+            return Convert.ToBase64String(encryptedBytes);
         }
-        private static string Decryptor(string msg, string key, string iv = "")
+ 
+        private static string DecryptMessage(string msg, string key, string iv = "")
         {
             //msg = msg.Replace("__", "/");
-            byte[] EncryptedBytes = Convert.FromBase64String(msg);
-
-            //Setup the AES provider for decrypting.            
-            AesCryptoServiceProvider aesProvider = new AesCryptoServiceProvider();
+            byte[] encryptedBytes = Convert.FromBase64String(msg);
+           
+            Aes aesProvider = Aes.Create();
 
             aesProvider.BlockSize = 128;
             aesProvider.KeySize = 256;
-            //My key and iv that i have used in openssl
+           
             aesProvider.Key = global::System.Text.Encoding.ASCII.GetBytes(key);
             aesProvider.IV = global::System.Text.Encoding.ASCII.GetBytes(iv);
             aesProvider.Padding = PaddingMode.PKCS7;
@@ -190,13 +186,13 @@ namespace SharedLibrary.Services
 
 
             ICryptoTransform cryptoTransform = aesProvider.CreateDecryptor(aesProvider.Key, aesProvider.IV);
-            byte[] DecryptedBytes = cryptoTransform.TransformFinalBlock(EncryptedBytes, 0, EncryptedBytes.Length);
-            return global::System.Text.Encoding.ASCII.GetString(DecryptedBytes);
+            byte[] decryptedBytes = cryptoTransform.TransformFinalBlock(encryptedBytes, 0, encryptedBytes.Length);
+            return global::System.Text.Encoding.ASCII.GetString(decryptedBytes);
         }
         
 
  
-        public static string HashSHA256(string password, string salt = "")
+        public static string HashSha256(string password, string salt = "")
         {
             string saltWithPassword;
             using (SHA256 sha256Hash = SHA256.Create())
@@ -252,7 +248,7 @@ namespace SharedLibrary.Services
             {
                 salt = Sha1Hash(mt_rand.Next().ToString()).Substring(0, 4);
             }
-            string saltWithPassword = HashSHA256(password, salt);
+            string saltWithPassword = HashSha256(password, salt);
 
             string encrypted = Encryptor(data, saltWithPassword.Substring(0, 32), iv);
 
@@ -283,13 +279,13 @@ namespace SharedLibrary.Services
             var iv = components[0] ?? "";
             var salt = components[1] ?? "";
 
-            string saltWithPassword = HashSHA256(key, salt); ;
+            string saltWithPassword = HashSha256(key, salt); ;
             
-            var encrypted_msg = components[2] ?? "";
+            var encryptedMsg = components[2] ?? "";
 
-            var decrypted_msg = Decryptor(encrypted_msg, saltWithPassword.Substring(0, 32), iv);
+            var decryptedMsg = DecryptMessage(encryptedMsg, saltWithPassword.Substring(0, 32), iv);
 
-            return decrypted_msg;
+            return decryptedMsg;
         }
 
        public static string AppDecrypt(string msg)

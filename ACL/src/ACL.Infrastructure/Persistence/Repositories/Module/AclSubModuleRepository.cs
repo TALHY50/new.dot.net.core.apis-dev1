@@ -77,10 +77,10 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
             this.aclResponse.Data = Update(aclSubModule);
             this.aclResponse.Message = this.messageResponse.editMessage;
             this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
-            List<ulong> user_ids = _aclUserRepository.GetUserIdByChangePermission(null, id);
-            if (user_ids.Count() > 0)
+            List<ulong>? userIds = _aclUserRepository.GetUserIdByChangePermission(null, id);
+            if (userIds != null)
             {
-                _aclUserRepository.UpdateUserPermissionVersion(user_ids);
+                _aclUserRepository.UpdateUserPermissionVersion(userIds);
             }
             this.aclResponse.Timestamp = DateTime.Now;
             return this.aclResponse;
@@ -90,7 +90,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
         public AclResponse FindById(ulong id)
         {
 
-            var aclSubModule = All().Where(x => x.Id == id)
+            var aclSubModule = All()?.Where(x => x.Id == id)
                .Join(_dbContext.AclModules, sm => sm.ModuleId, m => m.Id, (sm, m) => new
                {
                    submodule = sm,
@@ -117,10 +117,10 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
                 this.aclResponse.Data = Delete(id);
                 this.aclResponse.Message = this.messageResponse.deleteMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
-                List<ulong> user_ids = _aclUserRepository.GetUserIdByChangePermission(null, id);
-                if (user_ids.Count() > 0)
+                List<ulong>? userIds = _aclUserRepository.GetUserIdByChangePermission(null, id);
+                if (userIds != null)
                 {
-                    _aclUserRepository.UpdateUserPermissionVersion(user_ids);
+                    _aclUserRepository.UpdateUserPermissionVersion(userIds);
                 }
             }
 
@@ -145,13 +145,15 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
             }
             return _dbContext.AclSubModules.Any(x => x.Name.ToLower() == name.ToLower());
         }
-        private static AclSubModule PrepareInputData(AclSubModuleRequest request, AclSubModule aclSubModule = null)
+        private static AclSubModule PrepareInputData(AclSubModuleRequest request, AclSubModule? aclSubModule = null)
         {
             if (aclSubModule == null)
             {
-                aclSubModule = new AclSubModule();
-                aclSubModule.Id = request.Id;
-                aclSubModule.CreatedAt = DateTime.Now;
+                aclSubModule = new AclSubModule
+                {
+                    Id = request.Id,
+                    CreatedAt = DateTime.Now
+                };
             }
             aclSubModule.ModuleId = request.ModuleId;
             aclSubModule.Name = request.Name;

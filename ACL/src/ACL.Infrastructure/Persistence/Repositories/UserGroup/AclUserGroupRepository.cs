@@ -75,17 +75,20 @@ namespace ACL.Infrastructure.Persistence.Repositories.UserGroup
             return this.aclResponse;
         }
         /// <inheritdoc/>
-        public AclResponse UpdateUserGroup(ulong id, AclUserGroupRequest usergroup)
+        public AclResponse UpdateUserGroup(ulong id, AclUserGroupRequest userGroup)
         {
             AclUsergroup? result = Find(id);
             if (result != null)
             {
-                result = PrepareInputData(usergroup, result);
+                result = PrepareInputData(userGroup, result);
                 this.aclResponse.Data = Update(result);
                 this.aclResponse.Message = this.messageResponse.editMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
-                List<ulong> user_ids = _aclUserRepository.GetUserIdByChangePermission(null, null, null, null, id);
-                _aclUserRepository.UpdateUserPermissionVersion(user_ids);
+                List<ulong>? userIds = _aclUserRepository.GetUserIdByChangePermission(null, null,null,null,id);
+                if (userIds != null)
+                {
+                    _aclUserRepository.UpdateUserPermissionVersion(userIds);
+                }
             }
             else
             {
@@ -122,8 +125,11 @@ namespace ACL.Infrastructure.Persistence.Repositories.UserGroup
                 this.aclResponse.Data = Deleted(id);
                 this.aclResponse.Message = this.messageResponse.deleteMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
-                List<ulong> user_ids = _aclUserRepository.GetUserIdByChangePermission(null, null, null, null, id);
-                _aclUserRepository.UpdateUserPermissionVersion(user_ids);
+                List<ulong>? userIds = _aclUserRepository.GetUserIdByChangePermission(null, null, null, null, id);
+                if (userIds != null)
+                {
+                    _aclUserRepository.UpdateUserPermissionVersion(userIds);
+                }
             }
             else
             {
@@ -134,24 +140,26 @@ namespace ACL.Infrastructure.Persistence.Repositories.UserGroup
             return this.aclResponse;
         }
         /// <inheritdoc/>
-        public AclUsergroup PrepareInputData(AclUserGroupRequest request, AclUsergroup aclUsergroup = null)
+        public AclUsergroup PrepareInputData(AclUserGroupRequest request, AclUsergroup? aclUserGroup = null)
         {
-            AclUsergroup? _aclInstance = aclUsergroup ?? new AclUsergroup();
+            AclUsergroup? aclInstance = aclUserGroup ?? new AclUsergroup();
 
-            _aclInstance.Status = request.Status;
-            _aclInstance.GroupName = request.GroupName;
+            aclInstance.Status = request.Status;
+            aclInstance.GroupName = request.GroupName;
 
             if (CompanyId == 0)
             {
-                _aclInstance.CompanyId = AppAuth.GetAuthInfo().CompanyId; // We will get this from auth later
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+                aclInstance.CompanyId = AppAuth.GetAuthInfo().CompanyId; // We will get this from auth later
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
             }
-            if (aclUsergroup == null)
+            if (aclUserGroup == null)
             {
-                _aclInstance.CreatedAt = DateTime.Now;
+                aclInstance.CreatedAt = DateTime.Now;
             }
-            _aclInstance.UpdatedAt = DateTime.Now;
+            aclInstance.UpdatedAt = DateTime.Now;
 
-            return _aclInstance;
+            return aclInstance;
         }
         /// <inheritdoc/>
         public ulong SetCompanyId(ulong companyId)

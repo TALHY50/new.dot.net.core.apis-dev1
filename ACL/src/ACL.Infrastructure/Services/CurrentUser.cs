@@ -17,6 +17,6 @@ public class CurrentUser : IUser
     }
     
 
-    // public uint? Id => this._authenTokenService.GetUserIdFromToken(_httpContextAccessor.HttpContext.Request.Headers[HeaderNames.Authorization]);
+    // public uint? Id => this._authenTokenService.GetUserIdFromToken(HttpContextAccessor.HttpContext.Request.Headers[HeaderNames.Authorization]);
     public uint? Id { get; }
 }

@@ -227,11 +227,11 @@ namespace ACL.Tests.V1
             return (ulong)DataCollectors.dbContext.AclCompanies.Where(t => t.Status == 1).Max(t => t.Id);
 
             //// Act
-            //var aclResponse = await controller.Create(createReq);
-            ////var aclData = unitOfWork.AclCompanyRepository.Add((AclCompany)aclResponse.Data);
+            //var AclResponse = await controller.Create(createReq);
+            ////var aclData = unitOfWork.AclCompanyRepository.Add((AclCompany)AclResponse.Data);
             //// Commit the changes to the database
             //await unitOfWork.CompleteAsync();
-            //var data = aclResponse.Data as AclCompany;
+            //var data = AclResponse.Data as AclCompany;
 
             //return data.Id;
             //#endregion

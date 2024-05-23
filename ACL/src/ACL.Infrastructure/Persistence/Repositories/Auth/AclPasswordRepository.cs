@@ -15,28 +15,28 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
     /// <inheritdoc/>
     public class AclPasswordRepository : IAclPasswordRepository
     {
-        /// <inheritdoc/>
-        public AclResponse aclResponse;
-        private string modelName = "Password";
-        private int tokenExpiryMinutes = 60;
-        private IAclUserRepository AclUserRepository;
-        private ICryptographyService cryptographyService;
-        /// <inheritdoc/>
-        public MessageResponse messageResponse;
-        ApplicationDbContext _dbContext;
-        private static IHttpContextAccessor _httpContextAccessor;
-        /// <inheritdoc/>
-        public AclPasswordRepository(ApplicationDbContext dbContext, ICryptographyService _cryptographyService, IAclUserRepository _AclUserRepository, IHttpContextAccessor httpContextAccessor)
+       
+        public AclResponse AclResponse;
+        private readonly string _modelName = "Password";
+        public readonly int TokenExpiryMinutes = 60;
+        public readonly IAclUserRepository AclUserRepository;
+        private readonly ICryptographyService _cryptographyService;
+        public MessageResponse Response;
+        readonly ApplicationDbContext _dbContext;
+        public static IHttpContextAccessor HttpContextAccessor;
+        public AclPasswordRepository(ApplicationDbContext dbContext, ICryptographyService cryptographyService, IAclUserRepository aclUserRepository, IHttpContextAccessor httpContextAccessor)
         {
 
             _dbContext = dbContext;
-            AclUserRepository = _AclUserRepository;
-            cryptographyService = _cryptographyService;
-            this.aclResponse = new AclResponse();
-            this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
-            _httpContextAccessor = httpContextAccessor;
-            AppAuth.Initialize(_httpContextAccessor, _dbContext);
-            AppAuth.SetAuthInfo(_httpContextAccessor);
+            AclUserRepository = aclUserRepository;
+            this._cryptographyService = cryptographyService;
+            this.AclResponse = new AclResponse();
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8604 // Possible null reference argument.
+            this.Response = new MessageResponse(this._modelName, AppAuth.GetAuthInfo().Language);
+            HttpContextAccessor = httpContextAccessor;
+            AppAuth.Initialize(HttpContextAccessor, _dbContext);
+            AppAuth.SetAuthInfo(HttpContextAccessor);
         }
         /// <inheritdoc/>
         public async Task<AclResponse> Reset(AclPasswordResetRequest request)
@@ -44,44 +44,44 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             //Auth User Id Checking
             if (AppAuth.GetAuthInfo().UserId != request.UserId)
             {
-                this.aclResponse.Message = "Invalid User";
-                this.aclResponse.StatusCode = AppStatusCode.FAIL;
-                return this.aclResponse;
+                this.AclResponse.Message = "Invalid User";
+                this.AclResponse.StatusCode = AppStatusCode.FAIL;
+                return this.AclResponse;
             }
 
-            var salt = cryptographyService.GenerateSalt();
-            var aclUser = _dbContext.AclUsers.Where(x => x.Id == request.UserId && x.Status == 1).FirstOrDefault();
+            var salt = _cryptographyService.GenerateSalt();
+            var aclUser = _dbContext.AclUsers?.Where(x => x.Id == request.UserId && x.Status == 1).FirstOrDefault();
 
             if (aclUser != null)
             {
                 // password checking
-                var password = cryptographyService.HashPassword(request.CurrentPassword, aclUser.Salt ?? salt);
+                var password = _cryptographyService.HashPassword(request.CurrentPassword, aclUser.Salt ?? salt);
 
                 if (request.CurrentPassword != password)
                 {
-                    this.aclResponse.Message = "Password Mismatch";
-                    this.aclResponse.StatusCode = AppStatusCode.FAIL;
-                    return this.aclResponse;
+                    this.AclResponse.Message = "Password Mismatch";
+                    this.AclResponse.StatusCode = AppStatusCode.FAIL;
+                    return this.AclResponse;
                 }
 
                 // password update
 
-                aclUser.Password = cryptographyService.HashPassword(request.NewPassword, aclUser.Salt ?? salt);
+                aclUser.Password = _cryptographyService.HashPassword(request.NewPassword, aclUser.Salt ?? salt);
                 _dbContext.AclUsers.Update(aclUser);
                 await _dbContext.SaveChangesAsync();
                 await _dbContext.Entry(aclUser).ReloadAsync();
 
-                this.aclResponse.Message = "Password Reset Succesfully.";
-                this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.AclResponse.Message = "Password Reset Succesfully.";
+                this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
 
             }
 
-            return this.aclResponse;
+            return this.AclResponse;
         }
         /// <inheritdoc/>
         public AclResponse Forget(AclForgetPasswordRequest request)
         {
-            var aclUser = _dbContext.AclUsers.Where(x => x.Email == request.Email).FirstOrDefault();
+            var aclUser = _dbContext.AclUsers?.Where(x => x.Email == request.Email).FirstOrDefault();
 
             if (aclUser != null)
             {
@@ -89,46 +89,46 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
                 var uniqueKey = Helper.GenerateUniqueKey(aclUser.Email);
 
                 // add to cache
-                CacheHelper.Set(uniqueKey, aclUser.Email, this.tokenExpiryMinutes * 60);
+                CacheHelper.Set(uniqueKey, aclUser.Email, this.TokenExpiryMinutes * 60);
 
                 //Send Notification to email. Not implemented yet
 
-                this.aclResponse.Message = "Password Reset Notification email is sent to user email";
-                this.aclResponse.Data = uniqueKey;
-                this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.AclResponse.Message = "Password Reset Notification email is sent to user email";
+                this.AclResponse.Data = uniqueKey;
+                this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
 
-            return this.aclResponse;
+            return this.AclResponse;
         }
         /// <inheritdoc/>
         public async Task<AclResponse> VerifyToken(AclForgetPasswordTokenVerifyRequest request)
         {
             if (!CacheHelper.Exist(request.Token))
             {
-                this.aclResponse.Message = "Invalid Token";
-                this.aclResponse.StatusCode = AppStatusCode.FAIL;
-                return this.aclResponse;
+                this.AclResponse.Message = "Invalid Token";
+                this.AclResponse.StatusCode = AppStatusCode.FAIL;
+                return this.AclResponse;
             }
 
             // get email from cache by token
             string email = (string)CacheHelper.Get(request.Token);
-            var salt = cryptographyService.GenerateSalt();
+            var salt = _cryptographyService.GenerateSalt();
             // password update
 
-            var aclUser = _dbContext.AclUsers.Where(x => x.Email == email).FirstOrDefault();
+            var aclUser = _dbContext.AclUsers?.Where(x => x.Email == email).FirstOrDefault();
             if (aclUser != null)
             {
-                aclUser.Password = cryptographyService.HashPassword(request.NewPassword, aclUser.Salt ?? salt);
+                aclUser.Password = _cryptographyService.HashPassword(request.NewPassword, aclUser.Salt ?? salt);
                 _dbContext.AclUsers.Update(aclUser);
                 await _dbContext.SaveChangesAsync();
                 await _dbContext.Entry(aclUser).ReloadAsync();
 
                 CacheHelper.Remove(request.Token);
-                this.aclResponse.Message = "Password Reset Succesfully.";
-                this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.AclResponse.Message = "Password Reset Succesfully.";
+                this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
 
-            return this.aclResponse;
+            return this.AclResponse;
         }
 
     }
