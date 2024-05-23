@@ -25,8 +25,8 @@ namespace ACL.Infrastructure.Utilities
     public static class AppAuth
     {
         private static AuthInfoModel? _authInfo;
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         private static IHttpContextAccessor _httpContextAccessor;
-        private static IAclUserRepository _userRepository;
         private static ApplicationDbContext _dbContext;
 
         public static void Initialize(IHttpContextAccessor httpContextAccessor, ApplicationDbContext dbContext)
@@ -38,9 +38,10 @@ namespace ACL.Infrastructure.Utilities
         {
             if (authInfo == null)
             {
+#pragma warning disable CS8601 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
                 _httpContextAccessor = httpContextAccessor;
                 var user = _httpContextAccessor?.HttpContext?.User;
-                if (user != null && user.Identity != null && user.Identity.IsAuthenticated)
+                if (user?.Identity?.IsAuthenticated ?? false)
                 {
                     var userIdClaim = user.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
                     if (userIdClaim != null)
@@ -54,7 +55,7 @@ namespace ACL.Infrastructure.Utilities
                         string concatenatedIds = string.Join(",", userGroupIds);
                         authInfo = new AuthInfoModel
                         {
-                            CompanyId = userFromDb?.CompanyId??0,
+                            CompanyId = userFromDb?.CompanyId ?? 0,
                             UserId = ulong.Parse(userIdClaim.Value),
                             Email = userFromDb?.Email,
                             Name = userFromDb?.Username,
@@ -69,7 +70,7 @@ namespace ACL.Infrastructure.Utilities
                 {
                     authInfo = new AuthInfoModel
                     {
-                        UserId =0,
+                        UserId = 0,
                         CompanyId = 0,
                         Email = "user@example.com",
                         Name = "test",
