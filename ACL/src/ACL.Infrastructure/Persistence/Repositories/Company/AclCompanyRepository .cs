@@ -75,9 +75,14 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
             {
                 this.AclResponse.Data = aclCompany;
                 this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.AclResponse.Message = this.MessageResponse.fetchMessage;
             }
-            this.AclResponse.Message = aclCompany != null ? this.MessageResponse.fetchMessage : this.MessageResponse.notFoundMessage;
-            this.AclResponse.StatusCode = aclCompany != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
+            else
+            {
+                this.AclResponse.Message = this.MessageResponse.notFoundMessage;
+                this.AclResponse.StatusCode = AppStatusCode.FAIL;
+            }
+
             this.AclResponse.Timestamp = DateTime.Now;
 
             return this.AclResponse;
@@ -103,14 +108,14 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
                     userGroup = _aclUserGroupRepository.Add(userGroup);
                     var salt = _cryptographyService.GenerateSalt();
                     string[] nameArr = request.Name.Split(' ');
-                    string fname = (nameArr.Length > 0) ? nameArr[0] : "";
-                    string lname = (nameArr.Length > 1) ? nameArr[1] : fname;
+                    string firstName = (nameArr.Length > 0) ? nameArr[0] : "";
+                    string lname = (nameArr.Length > 1) ? nameArr[1] : firstName;
                     AclUser user = new AclUser()
                     {
                         Email = aclCompany.Email,
                         Password = (request.Password != null && request.Password.Length != 88) ? _cryptographyService.HashPassword(request.Password, salt) : request.Password,
                         UserType = _aclUserRepository.SetUserType(true),
-                        FirstName = fname,
+                        FirstName = firstName,
                         LastName = lname,
                         Language = "en-US",
                         Username = aclCompany.Email,
@@ -121,9 +126,9 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
                         CreatedAt = DateTime.Now,
                         UpdatedAt = DateTime.Now
                     };
-                    var addeduser = _aclUserRepository.Add(user);
-                    var userusergroup = PrepareDataForUserUserGroups(userGroup?.Id, addeduser?.Id);
-                    _aclUserUserGroupRepository.Add(userusergroup);
+                    var aclUser = _aclUserRepository.Add(user);
+                    var aclUserUserGroup = PrepareDataForUserUserGroups(userGroup?.Id, aclUser?.Id);
+                    _aclUserUserGroupRepository.Add(aclUserUserGroup);
                     AclRole role = new AclRole()
                     {
                         Name = this._config["ROLE_TITLE"] ?? "ADMIN_ROLE",
@@ -170,16 +175,16 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
             return this.AclResponse;
         }
         /// <inheritdoc/>
-        public AclResponse EditAclCompany(ulong Id, AclCompanyEditRequest request)
+        public AclResponse EditAclCompany(ulong id, AclCompanyEditRequest request)
         {
             try
             {
-                AclCompany? _aclCompany = Find(Id);
-                _aclCompany = PrepareInputData(null, request, _aclCompany);
-                _aclCompany = Update(_aclCompany);
-                this.AclResponse.Data = _aclCompany;
-                this.AclResponse.Message = _aclCompany != null ? this.MessageResponse.editMessage : this.MessageResponse.notFoundMessage;
-                this.AclResponse.StatusCode = _aclCompany != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
+                AclCompany? aclCompany = Find(id);
+                aclCompany = PrepareInputData(null, request, aclCompany);
+                aclCompany = Update(aclCompany);
+                this.AclResponse.Data = aclCompany;
+                this.AclResponse.Message = aclCompany != null ? this.MessageResponse.editMessage : this.MessageResponse.notFoundMessage;
+                this.AclResponse.StatusCode = aclCompany != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
             }
             catch (Exception ex)
             {
@@ -229,49 +234,50 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
         }
 
         /// <inheritdoc/>
-        public AclCompany PrepareInputData(AclCompanyCreateRequest? requ = null, AclCompanyEditRequest? req = null, AclCompany? _aclCompany = null)
+        public AclCompany PrepareInputData(AclCompanyCreateRequest? request = null, AclCompanyEditRequest? editRequest = null, AclCompany? company = null)
         {
-            AclCompany aclCompany = _aclCompany == null ? new AclCompany() : _aclCompany;
-            if (requ == null && req != null)
+            AclCompany aclCompany = company ?? new AclCompany();
+
+            if (request == null && editRequest != null)
             {
-                aclCompany.Name = req.Name;
-                aclCompany.Cname = req.Cname;
-                aclCompany.Cemail = req.Cemail;
-                aclCompany.Address1 = req.Address1;
-                aclCompany.Address2 = req.Address2;
-                aclCompany.Postcode = req.PostCode;
-                aclCompany.Phone = req.Phone;
-                aclCompany.Fax = req.Fax;
-                aclCompany.City = req.City;
-                aclCompany.State = req.State;
-                aclCompany.Country = req.Country;
-                aclCompany.Logo = req.Logo;
-                aclCompany.RegistrationNo = req.RegistrationNo;
-                aclCompany.Timezone = req.Timezone;
-                aclCompany.TimezoneValue = req.TimezoneValue;
-                aclCompany.TaxNo = req.TaxNo;
-                aclCompany.Status = req.Status;
+                aclCompany.Name = editRequest.Name;
+                aclCompany.Cname = editRequest.Cname;
+                aclCompany.Cemail = editRequest.Cemail;
+                aclCompany.Address1 = editRequest.Address1;
+                aclCompany.Address2 = editRequest.Address2;
+                aclCompany.Postcode = editRequest.PostCode;
+                aclCompany.Phone = editRequest.Phone;
+                aclCompany.Fax = editRequest.Fax;
+                aclCompany.City = editRequest.City;
+                aclCompany.State = editRequest.State;
+                aclCompany.Country = editRequest.Country;
+                aclCompany.Logo = editRequest.Logo;
+                aclCompany.RegistrationNo = editRequest.RegistrationNo;
+                aclCompany.Timezone = editRequest.Timezone;
+                aclCompany.TimezoneValue = editRequest.TimezoneValue;
+                aclCompany.TaxNo = editRequest.TaxNo;
+                aclCompany.Status = editRequest.Status;
             }
-            if (requ != null && req == null)
+            if (request != null && editRequest == null)
             {
-                aclCompany.Name = requ.Name;
-                aclCompany.Cname = requ.Cname;
-                aclCompany.Cemail = requ.Cemail;
-                aclCompany.Address1 = requ.Address1;
-                aclCompany.Address2 = requ.Address2;
-                aclCompany.Postcode = requ.PostCode;
-                aclCompany.Phone = requ.Phone;
-                aclCompany.Email = requ.Email;
-                aclCompany.Fax = requ.Fax;
-                aclCompany.City = requ.City;
-                aclCompany.State = requ.State;
-                aclCompany.Country = requ.Country;
-                aclCompany.Logo = requ.Logo;
-                aclCompany.RegistrationNo = requ.RegistrationNo;
-                aclCompany.Timezone = requ.Timezone;
-                aclCompany.TimezoneValue = requ.TimeZoneValue;
-                aclCompany.TaxNo = requ.TaxNo;
-                aclCompany.UniqueColumnName = requ.UniqueColumnName;
+                aclCompany.Name = request.Name;
+                aclCompany.Cname = request.Cname;
+                aclCompany.Cemail = request.Cemail;
+                aclCompany.Address1 = request.Address1;
+                aclCompany.Address2 = request.Address2;
+                aclCompany.Postcode = request.PostCode;
+                aclCompany.Phone = request.Phone;
+                aclCompany.Email = request.Email;
+                aclCompany.Fax = request.Fax;
+                aclCompany.City = request.City;
+                aclCompany.State = request.State;
+                aclCompany.Country = request.Country;
+                aclCompany.Logo = request.Logo;
+                aclCompany.RegistrationNo = request.RegistrationNo;
+                aclCompany.Timezone = request.Timezone;
+                aclCompany.TimezoneValue = request.TimeZoneValue;
+                aclCompany.TaxNo = request.TaxNo;
+                aclCompany.UniqueColumnName = request.UniqueColumnName;
             }
             aclCompany.UpdatedAt = DateTime.Now;
             if (aclCompany.Id == 0)
@@ -288,13 +294,15 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
         }
 
         /// <inheritdoc/>
-        public AclUserUsergroup PrepareDataForUserUserGroups(ulong? usergroup, ulong? user_id)
+        public AclUserUsergroup PrepareDataForUserUserGroups(ulong? userGroup, ulong? userId)
         {
-            AclUserUsergroup aclUserUserGroup = new AclUserUsergroup();
-            aclUserUserGroup.UserId = user_id ?? 0;
-            aclUserUserGroup.UsergroupId = usergroup ?? 0;
-            aclUserUserGroup.CreatedAt = DateTime.Now;
-            aclUserUserGroup.UpdatedAt = DateTime.Now;
+            AclUserUsergroup aclUserUserGroup = new AclUserUsergroup
+            {
+                UserId = userId ?? 0,
+                UsergroupId = userGroup ?? 0,
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now
+            };
             return aclUserUserGroup;
         }
         /// <inheritdoc/>

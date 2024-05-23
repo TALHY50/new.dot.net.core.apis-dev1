@@ -12,7 +12,7 @@ namespace ACL.Application.Ports.Repositories.Company
         /// <inheritdoc/>
         Task<AclResponse> AddAclCompany(AclCompanyCreateRequest module);
         /// <inheritdoc/>
-        AclResponse EditAclCompany(ulong Id, AclCompanyEditRequest module);
+        AclResponse EditAclCompany(ulong id, AclCompanyEditRequest module);
         /// <inheritdoc/>
         AclResponse FindById(ulong id);
         /// <inheritdoc/>
@@ -28,7 +28,7 @@ namespace ACL.Application.Ports.Repositories.Company
         /// <inheritdoc/>
         Task<AclResponse> DeleteCompany(ulong id);
         /// <inheritdoc/>
-        AclCompany PrepareInputData(AclCompanyCreateRequest? request = null, AclCompanyEditRequest? req = null, AclCompany? aclCompany = null);
+        AclCompany PrepareInputData(AclCompanyCreateRequest? request = null, AclCompanyEditRequest? editRequest = null, AclCompany? company = null);
 
     }
 }

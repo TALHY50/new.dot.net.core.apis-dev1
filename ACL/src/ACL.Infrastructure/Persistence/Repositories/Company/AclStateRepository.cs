@@ -14,23 +14,26 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
     public class AclStateRepository : IAclStateRepository
     {
         /// <inheritdoc/>
-        public AclResponse aclResponse;
+        public AclResponse AclResponse;
         /// <inheritdoc/>
-        public MessageResponse messageResponse;
-        private string modelName = "State";
+        public MessageResponse MessageResponse;
+        private readonly string _modelName = "State";
         /// <inheritdoc/>
-        protected readonly ApplicationDbContext _dbContext;
-        private static IHttpContextAccessor _httpContextAccessor;
+        readonly ApplicationDbContext _dbContext;
+        public static IHttpContextAccessor HttpContextAccessor;
         /// <inheritdoc/>
         public AclStateRepository(ApplicationDbContext dbContext, IHttpContextAccessor httpContextAccessor)
         {
             AppAuth.SetAuthInfo();
-            this.aclResponse = new AclResponse();
-            this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
+            this.AclResponse = new AclResponse();
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8604 // Possible null reference argument.
+
+            this.MessageResponse = new MessageResponse(this._modelName, AppAuth.GetAuthInfo().Language);
             _dbContext = dbContext;
-            _httpContextAccessor = httpContextAccessor;
-            AppAuth.Initialize(_httpContextAccessor, dbContext);
-            AppAuth.SetAuthInfo(_httpContextAccessor);
+            HttpContextAccessor = httpContextAccessor;
+            AppAuth.Initialize(HttpContextAccessor, dbContext);
+            AppAuth.SetAuthInfo(HttpContextAccessor);
         }
         /// <inheritdoc/>
         public AclResponse GetAll()
@@ -44,25 +47,25 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
                 }).ToList();
             if (aclStates.Any())
             {
-                this.aclResponse.Message = this.messageResponse.fetchMessage;
+                this.AclResponse.Message = this.MessageResponse.fetchMessage;
             }
-            this.aclResponse.Data = aclStates;
-            this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
-            this.aclResponse.Timestamp = DateTime.Now;
+            this.AclResponse.Data = aclStates;
+            this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
+            this.AclResponse.Timestamp = DateTime.Now;
 
-            return this.aclResponse;
+            return this.AclResponse;
         }
         /// <inheritdoc/>
         public AclResponse Add(AclStateRequest request)
         {
 
             var aclState = PrepareInputData(request);
-            this.aclResponse.Data = Add(aclState);
-            this.aclResponse.Message = this.messageResponse.createMessage;
-            this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+            this.AclResponse.Data = Add(aclState);
+            this.AclResponse.Message = this.MessageResponse.createMessage;
+            this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
 
-            this.aclResponse.Timestamp = DateTime.Now;
-            return this.aclResponse;
+            this.AclResponse.Timestamp = DateTime.Now;
+            return this.AclResponse;
 
 
         }
@@ -72,40 +75,40 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
             var aclState = Find(id);
             if (aclState == null)
             {
-                this.aclResponse.Message = this.messageResponse.notFoundMessage;
-                return this.aclResponse;
+                this.AclResponse.Message = this.MessageResponse.notFoundMessage;
+                return this.AclResponse;
             }
 
             aclState = PrepareInputData(request, aclState);
-            this.aclResponse.Data = Update(aclState);
-            this.aclResponse.Message = this.messageResponse.editMessage;
-            this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+            this.AclResponse.Data = Update(aclState);
+            this.AclResponse.Message = this.MessageResponse.editMessage;
+            this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
 
-            this.aclResponse.Timestamp = DateTime.Now;
-            return this.aclResponse;
+            this.AclResponse.Timestamp = DateTime.Now;
+            return this.AclResponse;
 
         }
         /// <inheritdoc/>
         public AclResponse FindById(ulong id)
         {
 
-            var aclState = All().Where(x => x.Id == id)
+            var aclState = All()?.Where(x => x.Id == id)
                 .Join(_dbContext.AclCountries, s => s.CountryId, c => c.Id, (s, c) => new
                 {
                     state = s,
                     country = c
                 }).FirstOrDefault();
-            this.aclResponse.Data = aclState;
-            this.aclResponse.Message = this.messageResponse.fetchMessage;
+            this.AclResponse.Data = aclState;
+            this.AclResponse.Message = this.MessageResponse.fetchMessage;
             if (aclState == null)
             {
-                this.aclResponse.Message = this.messageResponse.notFoundMessage;
+                this.AclResponse.Message = this.MessageResponse.notFoundMessage;
             }
 
-            this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+            this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
 
-            this.aclResponse.Timestamp = DateTime.Now;
-            return this.aclResponse;
+            this.AclResponse.Timestamp = DateTime.Now;
+            return this.AclResponse;
 
         }
         /// <inheritdoc/>
@@ -114,11 +117,11 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
             var aclState = Find(id);
             if (aclState != null)
             {
-                this.aclResponse.Data = Delete(id);
-                this.aclResponse.Message = this.messageResponse.deleteMessage;
-                this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.AclResponse.Data = Delete(id);
+                this.AclResponse.Message = this.MessageResponse.deleteMessage;
+                this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
-            return this.aclResponse;
+            return this.AclResponse;
         }
         /// <inheritdoc/>
         public bool ExistByName(ulong id, string name)
@@ -139,7 +142,6 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
                     CreatedAt = DateTime.Now,
                     CreatedById = AppAuth.GetAuthInfo().UserId
                 };
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
             }
             aclState.Name = request.Name;
             aclState.CountryId = request.CountryId;
