@@ -1,0 +1,6 @@
+@IMT_HostAddress = http://localhost:5048
+
+GET {{IMT_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
