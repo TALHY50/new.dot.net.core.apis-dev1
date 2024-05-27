@@ -4,7 +4,7 @@ services:
   acl.web:
     image: acl.web
     build:
-      context: ./src/ACL.Web
+      context: ./ACL.Web
       dockerfile: Dockerfile
     ports:
       - "8000:80"
