@@ -56,6 +56,12 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
         /// <inheritdoc/>
         public AclResponse Add(AclSubModuleRequest request)
         {
+            var exitAclSubModule = Find(request.Id);
+            if (exitAclSubModule != null)
+            {
+                this.aclResponse.Message = this.messageResponse.ExistMessage;
+                return this.aclResponse;
+            }
             var aclSubModule = PrepareInputData(request);
             this.aclResponse.Data = Add(aclSubModule);
             this.aclResponse.Message = (aclResponse.Data!=null)?this.messageResponse.createMessage: messageResponse.createFail;
@@ -181,74 +187,49 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
         /// <inheritdoc/>
         public AclSubModule? Find(ulong id)
         {
-            try
-            {
-                return _dbContext.AclSubModules.Find(id);
-            }
-            catch (Exception)
-            {
-                return null;
-            }
+           
+            return _dbContext.AclSubModules.Find(id);
+          
 
         }
         /// <inheritdoc/>
         public AclSubModule? Add(AclSubModule aclSubModule)
         {
-            try
-            {
+           
                 _dbContext.AclSubModules.Add(aclSubModule);
                 _dbContext.SaveChanges();
                 _dbContext.Entry(aclSubModule).Reload();
                 return aclSubModule;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
+
         }
         /// <inheritdoc/>
         public AclSubModule? Update(AclSubModule aclSubModule)
         {
-            try
-            {
+           
                 _dbContext.AclSubModules.Update(aclSubModule);
                 _dbContext.SaveChanges();
                 _dbContext.Entry(aclSubModule).Reload();
                 return aclSubModule;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
+          
         }
         /// <inheritdoc/>
         public AclSubModule? Delete(AclSubModule aclSubModule)
         {
-            try
-            {
+          
                 _dbContext.AclSubModules.Remove(aclSubModule);
                 _dbContext.SaveChanges();
                 return aclSubModule;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
+            
         }
         /// <inheritdoc/>
         public AclSubModule? Delete(ulong id)
         {
-            try
-            {
+           
                 var delete = Find(id);
                 _dbContext.AclSubModules.Remove(delete);
                 _dbContext.SaveChanges();
                 return delete;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
+           
 
         }
     }

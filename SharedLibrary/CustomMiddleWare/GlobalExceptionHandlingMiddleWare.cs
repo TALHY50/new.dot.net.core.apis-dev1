@@ -40,6 +40,15 @@ namespace SharedLibrary.CustomMiddleWare
                     var exResult = JsonSerializer.Serialize(aclResponse);
                     await context.Response.WriteAsync(exResult);
                 }
+                if (context.Response.StatusCode == StatusCodes.Status401Unauthorized)
+                {
+                    throw new Exception("UnAuthorized.");
+                }
+
+                if (context.Response.StatusCode == StatusCodes.Status403Forbidden)
+                {
+                    throw new Exception("Access Denied.");
+                }
             }
             catch (Exception ex)
             {
@@ -66,6 +75,10 @@ namespace SharedLibrary.CustomMiddleWare
             switch (exception)
             {
                 case MySqlException ex:
+                    aclResponse.Message = ex.Message;
+                    aclResponse.StatusCode = context.Response.StatusCode;
+                    break;
+                case UnauthorizedAccessException ex:
                     aclResponse.Message = ex.Message;
                     aclResponse.StatusCode = context.Response.StatusCode;
                     break;
