@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Ardalis.Result" Version="9.1.0" />
+		<PackageReference Include="MediatR" Version="12.2.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.5" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\IMT.Contracts\IMT.Contracts.csproj" />
+	  <ProjectReference Include="..\IMT.Core\IMT.Core.csproj" />
+	</ItemGroup>
+</Project>
