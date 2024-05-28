@@ -129,11 +129,20 @@
   <data name="Country" xml:space="preserve">
     <value>Country</value>
   </data>
+  <data name="createFail" xml:space="preserve">
+    <value>create fail.</value>
+  </data>
   <data name="createMessage" xml:space="preserve">
     <value>created succesfully.</value>
   </data>
+  <data name="deleteFail" xml:space="preserve">
+    <value>delete fail.</value>
+  </data>
   <data name="deleteMessage" xml:space="preserve">
     <value>deleted succesfully.</value>
+  </data>
+  <data name="editFail" xml:space="preserve">
+    <value>edit fail.</value>
   </data>
   <data name="editMessage" xml:space="preserve">
     <value>edited succesfully.</value>
@@ -164,6 +173,9 @@
   </data>
   <data name="Role Page" xml:space="preserve">
     <value>Role Page</value>
+  </data>
+  <data name="somethingIsWrong" xml:space="preserve">
+    <value>something is wrong.</value>
   </data>
   <data name="State" xml:space="preserve">
     <value>State</value>

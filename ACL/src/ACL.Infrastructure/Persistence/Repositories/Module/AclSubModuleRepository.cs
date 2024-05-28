@@ -58,8 +58,8 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
         {
             var aclSubModule = PrepareInputData(request);
             this.aclResponse.Data = Add(aclSubModule);
-            this.aclResponse.Message = this.messageResponse.createMessage;
-            this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+            this.aclResponse.Message = (aclResponse.Data!=null)?this.messageResponse.createMessage: messageResponse.createFail;
+            this.aclResponse.StatusCode = (aclResponse.Data != null) ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
             this.aclResponse.Timestamp = DateTime.Now;
             return this.aclResponse;
 

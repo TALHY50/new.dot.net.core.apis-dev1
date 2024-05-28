@@ -129,11 +129,20 @@
   <data name="Country" xml:space="preserve">
     <value>দেশ</value>
   </data>
+  <data name="createFail" xml:space="preserve">
+    <value>তৈরি করা ব্যর্থ হয়েছে।</value>
+  </data>
   <data name="createMessage" xml:space="preserve">
     <value>সফলভাবে তৈরি করা হয়েছে।</value>
   </data>
+  <data name="deleteFail" xml:space="preserve">
+    <value>মুছে ফেলা ব্যর্থ হয়েছে।</value>
+  </data>
   <data name="deleteMessage" xml:space="preserve">
     <value>সফলভাবে মুছে ফেলা হয়েছে।</value>
+  </data>
+  <data name="editFail" xml:space="preserve">
+    <value>সম্পাদনা ব্যর্থ হয়েছে।</value>
   </data>
   <data name="editMessage" xml:space="preserve">
     <value>সফলভাবে সম্পাদিত।</value>
@@ -164,6 +173,9 @@
   </data>
   <data name="Role Page" xml:space="preserve">
     <value>ভূমিকা পাতা</value>
+  </data>
+  <data name="somethingIsWrong" xml:space="preserve">
+    <value>কিছু একটা সমস্যা।</value>
   </data>
   <data name="State" xml:space="preserve">
     <value>রাজ্য</value>
