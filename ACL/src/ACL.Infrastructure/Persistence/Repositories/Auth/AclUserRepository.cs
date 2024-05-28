@@ -25,17 +25,17 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
     /// <inheritdoc/>
     public class AclUserRepository : IAclUserRepository
     {
-        
+
         public AclResponse AclResponse;
         public MessageResponse MessageResponse;
         private readonly string _modelName = "User";
         private uint _companyId;
         private uint _userType;
-       //   private bool _isUserTypeCreatedByCompany = false;
+        //   private bool _isUserTypeCreatedByCompany = false;
         private readonly IConfiguration _config;
         private readonly IDistributedCache _distributedCache;
         private readonly ICryptographyService _cryptographyService;
-        public  IAclUserUserGroupRepository AclUserUserGroupRepository;
+        public IAclUserUserGroupRepository AclUserUserGroupRepository;
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         private static IHttpContextAccessor _httpContextAccessor;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
@@ -78,7 +78,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
            });
 
             // further we need to add with companyid from auth and created by  from UTHUSER ID other wise the system would be insecured.
-            IEnumerable<AclUser>? result =  aclUser.Where(i => i.Id != 1 && i.Status == 1);
+            IEnumerable<AclUser>? result = aclUser.Where(i => i.Id != 1 && i.Status == 1);
             if (aclUser.Any())
             {
                 this.AclResponse.Message = this.MessageResponse.fetchMessage;
@@ -96,41 +96,41 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
 
             try
             {
-                 strategy.Execute(() =>
-                {
-                    using IDbContextTransaction? transaction = _dbContext.Database.BeginTransaction();
-                    try
-                    {
-                        AclUser? aclUser = PrepareInputData(request);
-                        aclUser = Add(aclUser);
+                strategy.Execute(() =>
+               {
+                   using IDbContextTransaction? transaction = _dbContext.Database.BeginTransaction();
+                   try
+                   {
+                       AclUser? aclUser = PrepareInputData(request);
+                       aclUser = Add(aclUser);
 
-                        // Need to insert user user group
-                        AclUserUsergroup[] userUserGroups = PrepareDataForUserUserGroups(request, aclUser?.Id);
-                        _dbContext.AclUserUsergroups.AddRange(userUserGroups);
-                        ReloadEntities(userUserGroups);
+                       // Need to insert user user group
+                       AclUserUsergroup[] userUserGroups = PrepareDataForUserUserGroups(request, aclUser?.Id);
+                       _dbContext.AclUserUsergroups.AddRange(userUserGroups);
+                       ReloadEntities(userUserGroups);
 
-                        if (aclUser != null)
-                        {
-                            aclUser.Password = "******************"; // request.Password
-                            aclUser.Salt = "******************";
+                       if (aclUser != null)
+                       {
+                           aclUser.Password = "******************"; // request.Password
+                           aclUser.Salt = "******************";
 #pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
-                            aclUser.Claims = null;
-                            aclUser.RefreshToken = null;
-                            this.AclResponse.Data = aclUser;
-                        }
+                           aclUser.Claims = null;
+                           aclUser.RefreshToken = null;
+                           this.AclResponse.Data = aclUser;
+                       }
 
-                        this.AclResponse.Message = this.MessageResponse.createMessage;
-                        this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
+                       this.AclResponse.Message = this.MessageResponse.createMessage;
+                       this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
 
-                        transaction.CommitAsync();
-                    }
-                    catch (Exception ex)
-                    {
-                        transaction?.RollbackAsync();
-                        this.AclResponse.Message = ex.Message;
-                        this.AclResponse.StatusCode = AppStatusCode.FAIL;
-                    }
-                });
+                       transaction.CommitAsync();
+                   }
+                   catch (Exception ex)
+                   {
+                       transaction?.RollbackAsync();
+                       this.AclResponse.Message = ex.Message;
+                       this.AclResponse.StatusCode = AppStatusCode.FAIL;
+                   }
+               });
             }
             catch (Exception ex)
             {
@@ -145,6 +145,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
         /// <inheritdoc/>
         public async Task<AclResponse> Edit(ulong id, AclUserRequest request)
         {
+            AclUser? aclUser = Find(id);
             var strategy = _dbContext.Database.CreateExecutionStrategy();
             await strategy.ExecuteAsync(() =>
             {
@@ -152,7 +153,6 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
                 {
                     try
                     {
-                        AclUser? aclUser = Find(id);
                         if (aclUser != null)
                         {
                             aclUser = PrepareInputData(request, aclUser);
@@ -194,6 +194,18 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
 
                 return Task.CompletedTask;
             });
+            if (aclUser == null)
+            {
+                this.AclResponse.Message = this.MessageResponse.notFoundMessage;
+            }
+            else
+            {
+                aclUser.Password = "***********";
+                aclUser.Salt = "***********";
+                aclUser.Claims = null;
+                this.AclResponse.Message = this.MessageResponse.fetchMessage;
+                this.AclResponse.Data = aclUser;
+            }
             this.AclResponse.Timestamp = DateTime.Now;
             return this.AclResponse;
         }
@@ -262,7 +274,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
                 this.AclResponse.Data = Delete(aclUser);
                 // delete all item for user user group
                 AclUserUsergroup[]? userUserGroups = AclUserUserGroupRepository?.Where(id)?.ToArray();
-                if (userUserGroups?.Count()>0)
+                if (userUserGroups?.Count() > 0)
                 {
                     AclUserUserGroupRepository?.RemoveRange(userUserGroups);
                 }
@@ -297,7 +309,8 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
                     Status = request.Status,
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now,
-                    CompanyId = this._companyId,
+                    CreatedById = (uint)AppAuth.GetAuthInfo().UserId,
+                    CompanyId = (this._companyId != 0) ? this._companyId : (uint)AppAuth.GetAuthInfo().CompanyId,
                     UserType = (this._companyId == 0) ? uint.Parse(this._config["USER_TYPE_S_ADMIN"]) : uint.Parse(this._config["USER_TYPE_USER"]),
                     Salt = salt,
                     Claims = new Claim[] { }
@@ -321,8 +334,8 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
                 aclUser.ImgPath = request.ImgPath;
                 aclUser.Status = request.Status;
                 aclUser.UpdatedAt = DateTime.Now;
-                aclUser.CompanyId = (this._companyId != 0) ? this._companyId : 0;
-                aclUser.UserType = (this._userType != 0) ? this._userType : 0;
+                aclUser.CompanyId = (this._companyId != 0) ? this._companyId : (uint)AppAuth.GetAuthInfo().CompanyId;
+                aclUser.UserType = (this._userType != 0) ? this._userType : (uint)AppAuth.GetAuthInfo().UserType;
                 aclUser.Salt = aclUser.Salt;
                 aclUser.Claims = aclUser.Claims;
             }
