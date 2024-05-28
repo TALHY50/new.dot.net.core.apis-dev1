@@ -68,7 +68,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.UserGroup
             }
             catch (Exception)
             {
-                this.aclResponse.Message = this.messageResponse.createMessage;
+                this.aclResponse.Message = this.messageResponse.createFail;
                 this.aclResponse.StatusCode = AppStatusCode.FAIL;
             }
             this.aclResponse.Timestamp = DateTime.Now;
@@ -152,6 +152,10 @@ namespace ACL.Infrastructure.Persistence.Repositories.UserGroup
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
                 aclInstance.CompanyId = AppAuth.GetAuthInfo().CompanyId; // We will get this from auth later
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
+            }
+            else
+            {
+                aclInstance.CompanyId = CompanyId;
             }
             if (aclUserGroup == null)
             {
