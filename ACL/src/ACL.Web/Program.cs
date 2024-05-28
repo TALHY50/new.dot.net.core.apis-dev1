@@ -194,6 +194,8 @@ builder.Services.AddSwaggerGen(c => {
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddMemoryCache();
+builder.Services.AddDistributedMemoryCache();
+
 IConfiguration configuration = new ConfigurationBuilder()
        .SetBasePath(Directory.GetCurrentDirectory())
        .AddJsonFile("appsettings.json")
