@@ -33,10 +33,11 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             this.AclResponse = new AclResponse();
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8604 // Possible null reference argument.
-            this.Response = new MessageResponse(this._modelName, AppAuth.GetAuthInfo().Language);
+
             HttpContextAccessor = httpContextAccessor;
             AppAuth.Initialize(HttpContextAccessor, _dbContext);
             AppAuth.SetAuthInfo(HttpContextAccessor);
+            this.Response = new MessageResponse(this._modelName, AppAuth.GetAuthInfo().Language);
         }
         /// <inheritdoc/>
         public async Task<AclResponse> Reset(AclPasswordResetRequest request)

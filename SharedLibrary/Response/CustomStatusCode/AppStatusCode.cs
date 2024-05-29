@@ -14,6 +14,8 @@ namespace SharedLibrary.Response.CustomStatusCode
         public static readonly int FAIL = 99;
         public static readonly int UNAUTHENTICATED = 401;
         public static readonly int PERMISSION_DENIED = 403;
+        public static readonly int NOTFOUND = 404;
+        public static readonly int CONFLICT = 409;
 
 
 
