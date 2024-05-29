@@ -249,5 +249,10 @@ namespace ACL.Infrastructure.Persistence.Repositories.Role
         {
             return _dbContext.AclRoles.Any(i => i.Id == id);
         }
+
+        public bool IsExist(ulong id)
+        {
+            return  _dbContext.AclRoles.Any(x => x.Id == id && x.CompanyId == AppAuth.GetAuthInfo().CompanyId); 
+        }
     }
 }
