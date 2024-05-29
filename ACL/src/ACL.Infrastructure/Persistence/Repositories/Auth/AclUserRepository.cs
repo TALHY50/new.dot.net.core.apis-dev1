@@ -7,7 +7,7 @@ using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response;
 using ACL.Core.Entities.Auth;
 using ACL.Infrastructure.Persistence.Configurations;
-using ACL.Infrastructure.Persistence.DTOs;
+//using ACL.Infrastructure.Persistence.DTOs;
 using ACL.Infrastructure.Utilities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +18,7 @@ using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using SharedLibrary.Response.CustomStatusCode;
 using System.Collections.Generic;
+using ACL.Infrastructure.Persistence.DTOs;
 using Claim = ACL.Core.Entities.Auth.Claim;
 
 namespace ACL.Infrastructure.Persistence.Repositories.Auth
@@ -334,6 +335,9 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
                 aclUser.ImgPath = request.ImgPath;
                 aclUser.Status = request.Status;
                 aclUser.UpdatedAt = DateTime.Now;
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8604 // Possible null reference argument.
+#pragma warning disable CS8629 // Possible null reference argument.
                 aclUser.CompanyId = (this._companyId != 0) ? this._companyId : (uint)AppAuth.GetAuthInfo().CompanyId;
                 aclUser.UserType = (this._userType != 0) ? this._userType : (uint)AppAuth.GetAuthInfo().UserType;
                 aclUser.Salt = aclUser.Salt;

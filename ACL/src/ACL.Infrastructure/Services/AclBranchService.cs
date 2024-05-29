@@ -33,6 +33,8 @@ namespace ACL.Infrastructure.Services
             _httpContextAccessor = httpContextAccessor;
             AppAuth.Initialize(_httpContextAccessor, dbContext);
             AppAuth.SetAuthInfo(_httpContextAccessor);
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8604 // Possible null reference argument.
             this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
         }
 

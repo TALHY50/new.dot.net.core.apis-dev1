@@ -38,6 +38,7 @@ namespace ACL.Application.Ports.Repositories.Module
         AclPage? Delete(AclPage aclPage);
         /// <inheritdoc/>
         AclPage? Delete(ulong id);
-
+        /// <inheritdoc/>
+        bool IsExist(ulong id);
     }
 }

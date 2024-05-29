@@ -38,6 +38,7 @@ namespace ACL.Application.UseCases.Auth.Login
                 {
                     var response = new LoginErrorResponse
                     {
+#pragma warning disable CS8601 // Possible null reference argument.
                         Message = Enum.GetName(ErrorCodes.UserDoesNotExist),
                         Code = ErrorCodes.UserDoesNotExist.ToString("D")
                     };
@@ -83,6 +84,7 @@ namespace ACL.Application.UseCases.Auth.Login
 
                 var response = new LoginErrorResponse
                 {
+
                     Message = Enum.GetName(ErrorCodes.AnUnexpectedErrorOccurred),
                     Code = ErrorCodes.AnUnexpectedErrorOccurred.ToString("D")
                 };
@@ -93,6 +95,7 @@ namespace ACL.Application.UseCases.Auth.Login
 
         private bool AreCredentialsValid(string testPassword, AclUser user)
         {
+#pragma warning disable CS8604 // Possible null reference argument.
             var hash = this._cryptographyService.HashPassword(testPassword, user.Salt);
             return hash == user.Password;
         }

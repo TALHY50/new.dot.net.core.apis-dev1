@@ -15,25 +15,28 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
     public class AclPageRepository : IAclPageRepository
     {
         /// <inheritdoc/>
-        public AclResponse aclResponse;
+        public AclResponse AclResponse;
         /// <inheritdoc/>
-        public MessageResponse messageResponse;
-        private string modelName = "Page";
-        private IAclPageRouteRepository routeRepository;
+        public MessageResponse MessageResponse;
+        private readonly string _modelName = "Page";
+        private readonly IAclPageRouteRepository _routeRepository;
         private readonly IAclUserRepository _aclUserRepository;
-        private ApplicationDbContext _dbContext;
-        private static IHttpContextAccessor _httpContextAccessor;
+        private readonly ApplicationDbContext _dbContext;
+        public static IHttpContextAccessor ContextAccessor { get; private set; }
+
         /// <inheritdoc/>
-        public AclPageRepository(ApplicationDbContext dbContext, IAclPageRouteRepository _routeRepository, IAclUserRepository aclUserRepository, IHttpContextAccessor httpContextAccessor)
+        public AclPageRepository(ApplicationDbContext dbContext, IAclPageRouteRepository routeRepository, IAclUserRepository aclUserRepository, IHttpContextAccessor httpContextAccessor)
         {
             _dbContext = dbContext;
-            routeRepository = _routeRepository;
+            this._routeRepository = routeRepository;
             _aclUserRepository = aclUserRepository;
-            this.aclResponse = new AclResponse();
-            this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
-            _httpContextAccessor = httpContextAccessor;
-            AppAuth.Initialize(_httpContextAccessor, _dbContext);
-            AppAuth.SetAuthInfo(_httpContextAccessor);
+            this.AclResponse = new AclResponse();
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8604 // Possible null reference argument.
+            this.MessageResponse = new MessageResponse(this._modelName, AppAuth.GetAuthInfo().Language);
+            ContextAccessor = httpContextAccessor;
+            AppAuth.Initialize(ContextAccessor, _dbContext);
+            AppAuth.SetAuthInfo(ContextAccessor);
         }
 
         /// <inheritdoc/>
@@ -42,13 +45,13 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
             List<AclPage>? aclPage = All();
             if (aclPage != null)
             {
-                this.aclResponse.Message = this.messageResponse.fetchMessage;
+                this.AclResponse.Message = this.MessageResponse.fetchMessage;
             }
-            this.aclResponse.Data = aclPage;
-            this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
-            this.aclResponse.Timestamp = DateTime.Now;
+            this.AclResponse.Data = aclPage;
+            this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
+            this.AclResponse.Timestamp = DateTime.Now;
 
-            return this.aclResponse;
+            return this.AclResponse;
         }
         /// <inheritdoc/>
         public AclResponse AddAclPage(AclPageRequest request)
@@ -56,17 +59,17 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
             try
             {
                 AclPage? aclPage = PrepareInputData(request);
-                this.aclResponse.Data = Add(aclPage);
-                this.aclResponse.Message = this.messageResponse.createMessage;
-                this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.AclResponse.Data = Add(aclPage);
+                this.AclResponse.Message = this.MessageResponse.createMessage;
+                this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             catch (Exception ex)
             {
-                this.aclResponse.Message = ex.Message;
-                this.aclResponse.StatusCode = AppStatusCode.FAIL;
+                this.AclResponse.Message = ex.Message;
+                this.AclResponse.StatusCode = AppStatusCode.FAIL;
             }
-            this.aclResponse.Timestamp = DateTime.Now;
-            return this.aclResponse;
+            this.AclResponse.Timestamp = DateTime.Now;
+            return this.AclResponse;
         }
         /// <inheritdoc/>
         public AclResponse EditAclPage(ulong id, AclPageRequest request)
@@ -74,16 +77,16 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
             AclPage? aclPage = Find(id);
             if (aclPage == null)
             {
-                this.aclResponse.Message = this.messageResponse.notFoundMessage;
-                return this.aclResponse;
+                this.AclResponse.Message = this.MessageResponse.notFoundMessage;
+                return this.AclResponse;
             }
 
             try
             {
                 aclPage = PrepareInputData(request, aclPage);
-                this.aclResponse.Data = Update(aclPage); ;
-                this.aclResponse.Message = this.messageResponse.editMessage;
-                this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.AclResponse.Data = Update(aclPage); ;
+                this.AclResponse.Message = this.MessageResponse.editMessage;
+                this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
                 List<ulong>? userIds = _aclUserRepository.GetUserIdByChangePermission(null, null, id);
                 if (userIds != null)
                 {
@@ -92,11 +95,11 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
             }
             catch (Exception ex)
             {
-                this.aclResponse.Message = ex.Message;
-                this.aclResponse.StatusCode = AppStatusCode.FAIL;
+                this.AclResponse.Message = ex.Message;
+                this.AclResponse.StatusCode = AppStatusCode.FAIL;
             }
-            this.aclResponse.Timestamp = DateTime.Now;
-            return this.aclResponse;
+            this.AclResponse.Timestamp = DateTime.Now;
+            return this.AclResponse;
         }
 
         /// <inheritdoc/>
@@ -105,22 +108,22 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
             try
             {
                 AclPage? aclPage = Find(id);
-                this.aclResponse.Data = aclPage;
-                this.aclResponse.Message = this.messageResponse.fetchMessage;
+                this.AclResponse.Data = aclPage;
+                this.AclResponse.Message = this.MessageResponse.fetchMessage;
                 if (aclPage == null)
                 {
-                    this.aclResponse.Message = this.messageResponse.notFoundMessage;
+                    this.AclResponse.Message = this.MessageResponse.notFoundMessage;
                 }
 
-                this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             catch (Exception ex)
             {
-                this.aclResponse.Message = ex.Message;
-                this.aclResponse.StatusCode = AppStatusCode.FAIL;
+                this.AclResponse.Message = ex.Message;
+                this.AclResponse.StatusCode = AppStatusCode.FAIL;
             }
-            this.aclResponse.Timestamp = DateTime.Now;
-            return this.aclResponse;
+            this.AclResponse.Timestamp = DateTime.Now;
+            return this.AclResponse;
 
         }
         /// <inheritdoc/>
@@ -131,10 +134,10 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
             {
                 try
                 {
-                    this.aclResponse.Data = Delete(page);
-                    routeRepository.DeleteAllByPageId(id);
-                    this.aclResponse.Message = this.messageResponse.deleteMessage;
-                    this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                    this.AclResponse.Data = Delete(page);
+                    _routeRepository.DeleteAllByPageId(id);
+                    this.AclResponse.Message = this.MessageResponse.deleteMessage;
+                    this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
                     List<ulong>? userIds = _aclUserRepository.GetUserIdByChangePermission(null, null, id);
                     if (userIds != null)
                     {
@@ -143,63 +146,63 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
                 }
                 catch (Exception)
                 {
-                    this.aclResponse.Message = this.messageResponse.somethingIsWrong;
-                    this.aclResponse.StatusCode = AppStatusCode.FAIL;
+                    this.AclResponse.Message = this.MessageResponse.somethingIsWrong;
+                    this.AclResponse.StatusCode = AppStatusCode.FAIL;
                 }
             }
             else
             {
-                this.aclResponse.Message = this.messageResponse.notFoundMessage;
-                this.aclResponse.StatusCode = AppStatusCode.FAIL;
+                this.AclResponse.Message = this.MessageResponse.notFoundMessage;
+                this.AclResponse.StatusCode = AppStatusCode.FAIL;
             }
-            return this.aclResponse;
+            return this.AclResponse;
 
         }
 
 
-        private AclPage PrepareInputData(AclPageRequest request, AclPage? AclPage = null)
+        private AclPage PrepareInputData(AclPageRequest request, AclPage? aclPage = null)
         {
-            if (AclPage == null)
+            if (aclPage == null)
             {
-                AclPage = new AclPage();
-                AclPage.CreatedAt = DateTime.Now;
+                aclPage = new AclPage();
+                aclPage.CreatedAt = DateTime.Now;
             }
-            AclPage.ModuleId = request.ModuleId;
-            AclPage.SubModuleId = request.SubModuleId;
-            AclPage.Name = request.Name;
-            AclPage.MethodName = request.MethodName;
-            AclPage.MethodType = request.MethodType;
-            AclPage.CreatedAt = DateTime.Now;
-            AclPage.UpdatedAt = DateTime.Now;
-            return AclPage;
+            aclPage.ModuleId = request.ModuleId;
+            aclPage.SubModuleId = request.SubModuleId;
+            aclPage.Name = request.Name;
+            aclPage.MethodName = request.MethodName;
+            aclPage.MethodType = request.MethodType;
+            aclPage.CreatedAt = DateTime.Now;
+            aclPage.UpdatedAt = DateTime.Now;
+            return aclPage;
         }
 
         /// <inheritdoc/>
         public AclResponse PageRouteCreate(AclPageRouteRequest request)
         {
-            this.messageResponse.createMessage = "Page Route Create Successfully";
+            this.MessageResponse.createMessage = "Page Route Create Successfully";
             try
             {
                 AclPageRoute? aclPageRoute = PreparePageRouteInputData(request);
-                this.aclResponse.Data = routeRepository.Add(aclPageRoute);
-                this.aclResponse.Message = this.messageResponse.createMessage;
-                this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.AclResponse.Data = _routeRepository.Add(aclPageRoute);
+                this.AclResponse.Message = this.MessageResponse.createMessage;
+                this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             catch (Exception ex)
             {
-                this.aclResponse.Message = ex.Message;
-                this.aclResponse.StatusCode = AppStatusCode.FAIL;
+                this.AclResponse.Message = ex.Message;
+                this.AclResponse.StatusCode = AppStatusCode.FAIL;
             }
-            this.aclResponse.Timestamp = DateTime.Now;
-            return this.aclResponse;
+            this.AclResponse.Timestamp = DateTime.Now;
+            return this.AclResponse;
         }
         /// <inheritdoc/>
         public AclResponse PageRouteEdit(ulong id, AclPageRouteRequest request)
         {
-            this.messageResponse.editMessage = "Page Route Update Successfully";
+            this.MessageResponse.editMessage = "Page Route Update Successfully";
             try
             {
-                AclPageRoute? aclPageRoute = routeRepository.Find(id);
+                AclPageRoute? aclPageRoute = _routeRepository.Find(id);
                 if (aclPageRoute != null)
                 {
                     // clear version
@@ -210,42 +213,42 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
                     }
 
                     AclPageRoute? aclPageRouteUpdateData = PreparePageRouteInputData(request, aclPageRoute);
-                    this.aclResponse.Data = routeRepository.Update(aclPageRouteUpdateData);
-                    this.aclResponse.Message = this.messageResponse.editMessage;
-                    this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                    this.AclResponse.Data = _routeRepository.Update(aclPageRouteUpdateData);
+                    this.AclResponse.Message = this.MessageResponse.editMessage;
+                    this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
                 }
                 else
                 {
-                    this.aclResponse.Message = this.messageResponse.notFoundMessage;
-                    this.aclResponse.StatusCode = AppStatusCode.FAIL;
-                    return this.aclResponse;
+                    this.AclResponse.Message = this.MessageResponse.notFoundMessage;
+                    this.AclResponse.StatusCode = AppStatusCode.FAIL;
+                    return this.AclResponse;
                 }
             }
             catch (Exception ex)
             {
-                this.aclResponse.Message = ex.Message;
-                this.aclResponse.StatusCode = AppStatusCode.FAIL;
+                this.AclResponse.Message = ex.Message;
+                this.AclResponse.StatusCode = AppStatusCode.FAIL;
             }
-            this.aclResponse.Timestamp = DateTime.Now;
-            return this.aclResponse;
+            this.AclResponse.Timestamp = DateTime.Now;
+            return this.AclResponse;
         }
         /// <inheritdoc/>
         public AclResponse PageRouteDelete(ulong id)
         {
-            this.messageResponse.deleteMessage = "Page Route Deleted Successfully";
-            AclPageRoute? aclPageRoute = routeRepository.Find(id);
+            this.MessageResponse.deleteMessage = "Page Route Deleted Successfully";
+            AclPageRoute? aclPageRoute = _routeRepository.Find(id);
             if (aclPageRoute != null)
             {
-                this.aclResponse.Data = routeRepository.Delete(aclPageRoute);
-                this.aclResponse.Message = this.messageResponse.deleteMessage;
-                this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.AclResponse.Data = _routeRepository.Delete(aclPageRoute);
+                this.AclResponse.Message = this.MessageResponse.deleteMessage;
+                this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
                 List<ulong>? userIds = _aclUserRepository.GetUserIdByChangePermission(null, null, aclPageRoute.PageId);
                 if (userIds != null)
                 {
                     _aclUserRepository.UpdateUserPermissionVersion(userIds);
                 }
             }
-            return this.aclResponse;
+            return this.AclResponse;
 
         }
         /// <inheritdoc/>
@@ -276,7 +279,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
         /// <inheritdoc/>
         public void DeletePageRouteByPageId(ulong pageId)
         {
-            routeRepository.DeleteAllByPageId(pageId);
+            _routeRepository.DeleteAllByPageId(pageId);
             //List<AclPageRoute>? pageRoutes = _dbContext.AclPageRoutes.Where(r => r.PageId == pageId).ToList();
             //_dbContext.AclPageRoutes.RemoveRange(pageRoutes);
             //_dbContext.SaveChanges();
@@ -366,6 +369,10 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
                 return null;
             }
 
+        }
+        public bool IsExist(ulong id)
+        {
+            return _dbContext.AclPages.Any(i => i.Id == id);
         }
     }
 }

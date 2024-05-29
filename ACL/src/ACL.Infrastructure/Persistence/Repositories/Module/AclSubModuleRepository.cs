@@ -27,6 +27,8 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
         {
             _aclUserRepository = aclUserRepository;
             this.aclResponse = new AclResponse();
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8604 // Possible null reference argument.
             this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
             _dbContext = dbContext;
             _httpContextAccessor = httpContextAccessor;

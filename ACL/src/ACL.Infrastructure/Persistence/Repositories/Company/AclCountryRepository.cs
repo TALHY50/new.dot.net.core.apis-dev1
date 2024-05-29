@@ -14,21 +14,24 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
     public class AclCountryRepository : IAclCountryRepository
     {
         /// <inheritdoc/>
-        public AclResponse aclResponse;
+        public AclResponse AclResponse;
         /// <inheritdoc/>
-        public MessageResponse messageResponse;
-        private string modelName = "Country";
-        ApplicationDbContext _dbContext;
-        private static IHttpContextAccessor _httpContextAccessor;
+        public MessageResponse MessageResponse;
+        private readonly string _modelName = "Country";
+        readonly ApplicationDbContext _dbContext;
+        public static IHttpContextAccessor ContextAccessor { get; private set; }
+
         /// <inheritdoc/>
         public AclCountryRepository(ApplicationDbContext dbContext, IHttpContextAccessor httpContextAccessor)
         {
             _dbContext = dbContext;
-            this.aclResponse = new AclResponse();
-            this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
-            _httpContextAccessor = httpContextAccessor;
-            AppAuth.Initialize(_httpContextAccessor, dbContext);
-            AppAuth.SetAuthInfo(_httpContextAccessor);
+            this.AclResponse = new AclResponse();
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8604 // Possible null reference argument.
+            this.MessageResponse = new MessageResponse(this._modelName, AppAuth.GetAuthInfo().Language);
+            ContextAccessor = httpContextAccessor;
+            AppAuth.Initialize(ContextAccessor, dbContext);
+            AppAuth.SetAuthInfo(ContextAccessor);
         }
         /// <inheritdoc/>
         public AclResponse GetAll()
@@ -36,12 +39,12 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
             var aclCountry = All();
             if (aclCountry.Any())
             {
-                this.aclResponse.Message = this.messageResponse.fetchMessage;
+                this.AclResponse.Message = this.MessageResponse.fetchMessage;
             }
-            this.aclResponse.Data = aclCountry;
-            this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+            this.AclResponse.Data = aclCountry;
+            this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
 
-            return this.aclResponse;
+            return this.AclResponse;
         }
         /// <inheritdoc/>
         public AclResponse Add(AclCountryRequest request)
@@ -49,16 +52,16 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
             try
             {
                 var aclCountry = PrepareInputData(request);
-                this.aclResponse.Data = Add(aclCountry);
-                this.aclResponse.Message = this.messageResponse.createMessage;
-                this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.AclResponse.Data = Add(aclCountry);
+                this.AclResponse.Message = this.MessageResponse.createMessage;
+                this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             catch (Exception ex)
             {
-                this.aclResponse.Message = ex.Message;
-                this.aclResponse.StatusCode = AppStatusCode.FAIL;
+                this.AclResponse.Message = ex.Message;
+                this.AclResponse.StatusCode = AppStatusCode.FAIL;
             }
-            return this.aclResponse;
+            return this.AclResponse;
 
 
         }
@@ -68,22 +71,22 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
             var aclCountry = Find(id);
             if (aclCountry == null)
             {
-                this.aclResponse.Message = this.messageResponse.notFoundMessage;
-                return this.aclResponse;
+                this.AclResponse.Message = this.MessageResponse.notFoundMessage;
+                return this.AclResponse;
             }
             try
             {
                 aclCountry = PrepareInputData(request, aclCountry);
-                this.aclResponse.Data = Update(aclCountry);
-                this.aclResponse.Message = this.messageResponse.editMessage;
-                this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.AclResponse.Data = Update(aclCountry);
+                this.AclResponse.Message = this.MessageResponse.editMessage;
+                this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             catch (Exception ex)
             {
-                this.aclResponse.Message = ex.Message;
-                this.aclResponse.StatusCode = AppStatusCode.FAIL;
+                this.AclResponse.Message = ex.Message;
+                this.AclResponse.StatusCode = AppStatusCode.FAIL;
             }
-            return this.aclResponse;
+            return this.AclResponse;
 
         }
         /// <inheritdoc/>
@@ -92,21 +95,21 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
             try
             {
                 var aclCountry = Find(id);
-                this.aclResponse.Data = aclCountry;
-                this.aclResponse.Message = this.messageResponse.fetchMessage;
+                this.AclResponse.Data = aclCountry;
+                this.AclResponse.Message = this.MessageResponse.fetchMessage;
                 if (aclCountry == null)
                 {
-                    this.aclResponse.Message = this.messageResponse.notFoundMessage;
+                    this.AclResponse.Message = this.MessageResponse.notFoundMessage;
                 }
 
-                this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             catch (Exception ex)
             {
-                this.aclResponse.Message = ex.Message;
-                this.aclResponse.StatusCode = AppStatusCode.FAIL;
+                this.AclResponse.Message = ex.Message;
+                this.AclResponse.StatusCode = AppStatusCode.FAIL;
             }
-            return this.aclResponse;
+            return this.AclResponse;
 
         }
         /// <inheritdoc/>
@@ -115,11 +118,11 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
             var aclCountry = Delete(id);
             if (aclCountry != null)
             {
-                this.aclResponse.Data = aclCountry;
-                this.aclResponse.Message = this.messageResponse.deleteMessage;
-                this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.AclResponse.Data = aclCountry;
+                this.AclResponse.Message = this.MessageResponse.deleteMessage;
+                this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
-            return this.aclResponse;
+            return this.AclResponse;
         }
         /// <inheritdoc/>
         public bool ExistById(ulong id)
@@ -143,7 +146,6 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
                     CreatedById = AppAuth.GetAuthInfo().UserId,
                     CreatedAt = DateTime.Now
                 };
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
             }
             aclCountry.Name = request.Name;
             aclCountry.Description = request.Description;
@@ -162,7 +164,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
             }
             catch (Exception)
             {
-                return null;
+                throw new Exception();
             }
 
         }
@@ -175,7 +177,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
             }
             catch (Exception)
             {
-                return null;
+                throw new Exception();
             }
 
         }
@@ -191,7 +193,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
             }
             catch (Exception)
             {
-                return null;
+                throw new Exception();
             }
 
         }
@@ -207,7 +209,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
             }
             catch (Exception)
             {
-                return null;
+                throw new Exception();
             }
         }
         /// <inheritdoc/>
@@ -221,7 +223,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
             }
             catch (Exception)
             {
-                return null;
+                throw new Exception();
             }
 
         }
@@ -231,13 +233,15 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
             try
             {
                 var delete = Find(id);
+#pragma warning disable CS8604 // Possible null reference argument.
                 _dbContext.AclCountries.Remove(delete);
+#pragma warning restore CS8604 // Possible null reference argument.
                 _dbContext.SaveChanges();
                 return delete;
             }
             catch (Exception)
             {
-                return null;
+                throw new Exception();
             }
 
         }

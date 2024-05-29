@@ -30,5 +30,7 @@ namespace ACL.Application.Ports.Repositories.Role
         AclRole? Delete(AclRole aclRole);
         /// <inheritdoc/>
         AclRole? Delete(ulong id);
+        /// <inheritdoc/>
+        bool IsExist(ulong id);
     }
 }

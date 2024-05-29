@@ -21,6 +21,8 @@ namespace ACL.Infrastructure.Persistence.Repositories.UserGroup
         public MessageResponse messageResponse;
         private string modelName = "User Group";
         /// <inheritdoc/>
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8604 // Possible null reference argument.
         public static ulong CompanyId = AppAuth.GetAuthInfo().CompanyId;
         /// <inheritdoc/>
         public readonly ApplicationDbContext _dbContext;

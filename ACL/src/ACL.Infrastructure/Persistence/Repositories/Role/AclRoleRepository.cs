@@ -242,5 +242,10 @@ namespace ACL.Infrastructure.Persistence.Repositories.Role
                 return null;
             }
         }
+
+        public bool IsExist(ulong id)
+        {
+            return _dbContext.AclRoles.Any(i => i.Id == id);
+        }
     }
 }
