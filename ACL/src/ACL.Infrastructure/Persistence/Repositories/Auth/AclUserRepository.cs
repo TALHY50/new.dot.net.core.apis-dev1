@@ -281,7 +281,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             AclUser? aclUser = Find(id);
             if (aclUser != null)
             {
-                this.AclResponse.Data = Delete(aclUser);
+                Delete(aclUser);
                 // delete all item for user user group
                 AclUserUsergroup[]? userUserGroups = AclUserUserGroupRepository?.Where(id)?.ToArray();
                 if (userUserGroups?.Count() > 0)
