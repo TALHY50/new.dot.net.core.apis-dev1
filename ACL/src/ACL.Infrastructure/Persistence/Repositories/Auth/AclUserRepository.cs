@@ -250,7 +250,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             }
             catch (Exception)
             {
-                return null;
+                throw new Exception();
             }
         }
         /// <inheritdoc/>
@@ -262,7 +262,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             }
             catch (Exception)
             {
-                return null;
+                throw new Exception();
             }
 
         }
@@ -465,7 +465,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             }
             catch (Exception)
             {
-                return null;
+                throw new Exception();
             }
 
         }
@@ -478,7 +478,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             }
             catch (Exception)
             {
-                return null;
+                throw new Exception();
             }
         }
         /// <inheritdoc/>
@@ -493,7 +493,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             }
             catch (Exception)
             {
-                return null;
+                throw new Exception();
             }
         }
         /// <inheritdoc/>
@@ -508,7 +508,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             }
             catch (Exception)
             {
-                return null;
+                throw new Exception();
             }
         }
         /// <inheritdoc/>
@@ -522,7 +522,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             }
             catch (Exception)
             {
-                return null;
+                throw new Exception();
             }
 
         }
@@ -538,7 +538,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             }
             catch (Exception)
             {
-                return null;
+                throw new Exception();
             }
 
         }
@@ -612,7 +612,10 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             }
         }
 
-
+        public bool IsExist(ulong id)
+        {
+            return _dbContext.AclUsers.Any(m=> m.Id == id);
+        }
 
     }
 }

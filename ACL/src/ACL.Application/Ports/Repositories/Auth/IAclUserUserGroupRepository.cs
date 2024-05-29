@@ -23,5 +23,7 @@ namespace ACL.Application.Ports.Repositories.Auth
         AclUserUsergroup[]? RemoveRange( AclUserUsergroup[] userUserGroups);
         /// <inheritdoc/>
         AclUserUsergroup[]? Where(ulong userid);
+        /// <inheritdoc/>
+        AclUserUsergroup PrepareDataForInput(ulong userGroup, ulong userId);
     }
 }

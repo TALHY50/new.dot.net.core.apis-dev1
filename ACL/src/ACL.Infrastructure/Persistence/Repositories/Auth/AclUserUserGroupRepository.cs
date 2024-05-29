@@ -1,4 +1,5 @@
 ﻿using ACL.Application.Ports.Repositories.Auth;
+using ACL.Application.Ports.Repositories.UserGroup;
 using ACL.Contracts.Response;
 using ACL.Core.Entities.Auth;
 using ACL.Infrastructure.Persistence.Configurations;
@@ -72,7 +73,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             }
             catch (Exception)
             {
-                return null;
+                throw new Exception();
             }
         }
         /// <inheritdoc/>
@@ -84,7 +85,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             }
             catch (Exception)
             {
-                return null;
+                throw new Exception();
             }
         }
         /// <inheritdoc/>
@@ -99,7 +100,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             }
             catch (Exception)
             {
-                return null;
+                throw new Exception();
             }
         }
         /// <inheritdoc/>
@@ -113,7 +114,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             }
             catch (Exception)
             {
-                return null;
+                throw new Exception();
             }
 
         }
@@ -129,7 +130,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             }
             catch (Exception)
             {
-                return null;
+                throw new Exception();
             }
         }
         /// <inheritdoc/>
@@ -145,7 +146,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             }
             catch (Exception)
             {
-                return null;
+                throw new Exception();
             }
         }
         /// <inheritdoc/>
@@ -161,7 +162,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             }
             catch (Exception)
             {
-                return null;
+                throw new Exception();
             }
         }
         /// <inheritdoc/>
@@ -175,8 +176,39 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             }
             catch (Exception)
             {
-                return null;
+                throw new Exception();
             }
+        }
+
+        public AclUserUsergroup PrepareDataForInput(ulong userGroup, ulong userId)
+        {
+            bool userIdValid = UserIsExist(userId);
+            if (!userIdValid)
+            {
+                throw new Exception("User Id not Valid");
+            }
+            bool userGroupIdValid = UserGroupIsExist(userGroup);
+            if (!userGroupIdValid)
+            {
+                throw new Exception("User Group Id not Valid");
+            }
+            AclUserUsergroup aclUserUserGroup = new AclUserUsergroup
+            {
+                UserId = userId,
+                UsergroupId = userGroup,
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now
+            };
+            return aclUserUserGroup;
+        }
+
+        public bool UserIsExist(ulong userId)
+        {
+            return _dbContext.AclUsers.Any(i => i.Id == userId);
+        }
+        public bool UserGroupIsExist(ulong id)
+        {
+            return _dbContext.AclUserUsergroups.Any(m=> m.Id == id);
         }
     }
 }
