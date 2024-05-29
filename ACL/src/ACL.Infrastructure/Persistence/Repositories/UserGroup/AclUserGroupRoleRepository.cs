@@ -8,7 +8,6 @@ using ACL.Infrastructure.Persistence.Configurations;
 using ACL.Infrastructure.Utilities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Org.BouncyCastle.Ocsp;
 using SharedLibrary.Response.CustomStatusCode;
 
 namespace ACL.Infrastructure.Persistence.Repositories.UserGroup
@@ -22,94 +21,89 @@ namespace ACL.Infrastructure.Persistence.Repositories.UserGroup
         public MessageResponse MessageResponse;
         private readonly string _modelName = "User Group Role";
         readonly ApplicationDbContext _dbContext;
-        private readonly IAclRoleRepository _aclRoleRepository;
         private readonly IAclUserRepository _aclUserRepository;
         public static IHttpContextAccessor HttpContextAccessor;
         /// <inheritdoc/>
-        public AclUserGroupRoleRepository(ApplicationDbContext dbContext, IAclRoleRepository aclRoleRepository, IAclUserRepository aclUserRepository,IHttpContextAccessor httpContextAccessor)
+        public AclUserGroupRoleRepository(ApplicationDbContext dbContext, IAclUserRepository aclUserRepository, IHttpContextAccessor httpContextAccessor)
         {
-            _aclRoleRepository = aclRoleRepository;
             _aclUserRepository = aclUserRepository;
             _dbContext = dbContext;
             HttpContextAccessor = httpContextAccessor;
             AppAuth.Initialize(HttpContextAccessor, dbContext);
             AppAuth.SetAuthInfo(HttpContextAccessor);
-            this.AclResponse = new AclResponse();
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-#pragma warning disable CS8604 // Possible null reference argument.
-
-            this.MessageResponse = new MessageResponse(this._modelName, AppAuth.GetAuthInfo().Language);
+            AclResponse = new AclResponse();
+            MessageResponse = new MessageResponse(_modelName, AppAuth.GetAuthInfo().Language);
 
         }
         /// <inheritdoc/>
         public AclResponse GetRolesByUserGroupId(ulong userGroupId)
         {
-            var roles = _aclRoleRepository.All().Select(role => new { role.Id, role.Title }).ToList();
+            var roles = _dbContext.AclRoles.Where(x=>x.CompanyId == AppAuth.GetAuthInfo().CompanyId).Select(role => new { role.Id, role.Title }).ToList();
             var associatedRoles = All().Where(ugr => ugr.UsergroupId == userGroupId)
-                .Join(_dbContext.AclRoles, ugr => ugr.RoleId, r => r.Id,
+                .Join(roles, ugr => ugr.RoleId, r => r.Id,
                 (ugr, r) => new
                 {
                     UsergroupId = ugr.UsergroupId,
                     RoleTitle = r.Title,
                     RoleId = ugr.RoleId
                 }).ToList();
-            this.AclResponse.Message = this.MessageResponse.fetchMessage;
-            this.AclResponse.Data = new { UsergroupRoles = associatedRoles, Roles = roles };
-            this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
-            return this.AclResponse;
+            AclResponse.Message = MessageResponse.fetchMessage;
+            AclResponse.Data = new { UsergroupRoles = associatedRoles, Roles = roles };
+            AclResponse.StatusCode = AppStatusCode.SUCCESS;
+            return AclResponse;
         }
         /// <inheritdoc/>
         public Task<AclResponse> Update(AclUserGroupRoleRequest request)
         {
-            var aclUserGroupRole = All()?.Where(x => x.UsergroupId == request.UserGroupId).ToList();
 
             var userGroupRoles = GetUserGroupRoles(request);
+            var aclUserGroupRole = All().Where(x => x.UsergroupId == request.UserGroupId).ToList();
             var executionStrategy = _dbContext.Database.CreateExecutionStrategy();
 
-             executionStrategy.Execute( () =>
-            {
-                using var transaction =  _dbContext.Database.BeginTransaction();
-                try
-                {
-                    if (aclUserGroupRole!=null && aclUserGroupRole.Count != 0)
-                    {
-                        _dbContext.AclUsergroupRoles.RemoveRange(aclUserGroupRole);
-                        _dbContext.SaveChanges();
-                    }
-                    _dbContext.AclUsergroupRoles.AddRange(userGroupRoles);
-                     _dbContext.SaveChanges();
-                     ReloadEntities(userGroupRoles);
-                    AclResponse.Data = userGroupRoles;
-                    AclResponse.Message = this.MessageResponse.createMessage;
-                    AclResponse.StatusCode = AppStatusCode.SUCCESS;
-                    List<ulong>? userIds = _aclUserRepository.GetUserIdByChangePermission(null, null,null,null, request.UserGroupId);
-                    if (userIds != null)
-                    {
-                        _aclUserRepository.UpdateUserPermissionVersion(userIds);
-                    }
+            executionStrategy.Execute(() =>
+           {
+               using var transaction = _dbContext.Database.BeginTransaction();
+               try
+               {
+                   if (aclUserGroupRole != null && aclUserGroupRole.Count != 0)
+                   {
+                       _dbContext.AclUsergroupRoles.RemoveRange(aclUserGroupRole);
+                       _dbContext.SaveChanges();
+                   }
+                   _dbContext.AclUsergroupRoles.AddRange(userGroupRoles);
+                   _dbContext.SaveChanges();
+                   ReloadEntities(userGroupRoles);
+                   AclResponse.Data = userGroupRoles;
+                   AclResponse.Message = MessageResponse.createMessage;
+                   AclResponse.StatusCode = AppStatusCode.SUCCESS;
+                   List<ulong>? userIds = _aclUserRepository.GetUserIdByChangePermission(null, null, null, null, request.UserGroupId);
+                   if (userIds != null)
+                   {
+                       _aclUserRepository.UpdateUserPermissionVersion(userIds);
+                   }
 
-                    transaction.Commit();
-                }
-                catch (Exception ex)
-                {
-                     transaction.Rollback();
-                    AclResponse.Message = ex.Message;
-                    AclResponse.StatusCode = AppStatusCode.FAIL;
-                }
-            });
+                   transaction.Commit();
+               }
+               catch (Exception ex)
+               {
+                   transaction.Rollback();
+                   AclResponse.Message = ex.Message;
+                   AclResponse.StatusCode = AppStatusCode.FAIL;
+               }
+           });
 
             return Task.FromResult(AclResponse);
         }
 
 
 
-        private static AclUsergroupRole[] GetUserGroupRoles(AclUserGroupRoleRequest request)
+        private AclUsergroupRole[] GetUserGroupRoles(AclUserGroupRoleRequest request)
         {
 
             var userGroupRoles = request.RoleIds.Select(roleId => new AclUsergroupRole
             {
-                UsergroupId = request.UserGroupId,
-                RoleId = roleId,
+                UsergroupId = UserGroupIdExist(request.UserGroupId),
+                RoleId = RoleIdExist(roleId),
                 CompanyId = AppAuth.GetAuthInfo().CompanyId,
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now,
@@ -128,12 +122,24 @@ namespace ACL.Infrastructure.Persistence.Repositories.UserGroup
             return Task.WhenAll(entities.Select(entity => _dbContext.Entry(entity).ReloadAsync()));
         }
 
-
-
         /// <inheritdoc/>
-        public List<AclUsergroupRole>? All()
+        private ulong RoleIdExist(ulong roleId)
         {
-            try
+            var valid = _dbContext.AclRoles.Any(x => x.Id == roleId && x.CompanyId == AppAuth.GetAuthInfo().CompanyId);
+
+            if (!valid)
+            {
+                throw new InvalidOperationException("Role Id " + roleId +" does not exist.");
+            }
+
+            return roleId;
+        }
+        /// <inheritdoc/>
+        private ulong UserGroupIdExist(ulong userGroupId)
+        {
+            var valid = _dbContext.AclUsergroups.Any(x => x.Id == userGroupId && x.CompanyId == AppAuth.GetAuthInfo().CompanyId);
+
+            if (!valid)
             {
                 return _dbContext.AclUsergroupRoles.ToList();
             }
@@ -141,6 +147,17 @@ namespace ACL.Infrastructure.Persistence.Repositories.UserGroup
             {
                 throw new Exception();
             }
+                throw new InvalidOperationException("UserGroup Id does not exist.");
+            }
+
+            return userGroupId;
+        }
+
+        /// <inheritdoc/>
+        public List<AclUsergroupRole>? All()
+        {
+
+            return _dbContext.AclUsergroupRoles.Where(x=>x.CompanyId == AppAuth.GetAuthInfo().CompanyId).ToList();
 
         }
         /// <inheritdoc/>
