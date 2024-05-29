@@ -29,8 +29,7 @@ namespace ACL.Application.Ports.Repositories.Company
         AclState? Delete(AclState aclState);
         /// <inheritdoc/>
         AclState? Delete(ulong id);
-        /// <inheritdoc/>
-        bool ExistByName(ulong id, string name);
+
 
     }
 }
