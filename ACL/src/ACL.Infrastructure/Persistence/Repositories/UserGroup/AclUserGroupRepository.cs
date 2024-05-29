@@ -182,7 +182,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.UserGroup
             }
             catch (Exception)
             {
-                return null;
+                throw new Exception();
             }
 
         }
@@ -195,7 +195,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.UserGroup
             }
             catch (Exception)
             {
-                return null;
+                throw new Exception();
             }
 
         }
@@ -211,7 +211,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.UserGroup
             }
             catch (Exception)
             {
-                return null;
+                throw new Exception();
             }
         }
         /// <inheritdoc/>
@@ -226,7 +226,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.UserGroup
             }
             catch (Exception)
             {
-                return null;
+                throw new Exception();
             }
         }
         /// <inheritdoc/>
@@ -240,7 +240,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.UserGroup
             }
             catch (Exception)
             {
-                return null;
+                throw new Exception();
             }
 
         }
@@ -256,7 +256,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.UserGroup
             }
             catch (Exception)
             {
-                return null;
+                throw new Exception();
             }
 
         }

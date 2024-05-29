@@ -183,7 +183,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
             }
             catch (Exception)
             {
-                return null;
+                throw new Exception();
             }
 
         }
