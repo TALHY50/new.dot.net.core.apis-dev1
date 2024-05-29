@@ -34,6 +34,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
             _httpContextAccessor = httpContextAccessor;
             AppAuth.Initialize(_httpContextAccessor, _dbContext);
             AppAuth.SetAuthInfo(_httpContextAccessor);
+            this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
         }
         /// <inheritdoc/>
         public AclResponse GetAll()
