@@ -240,6 +240,11 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
 
             if (request == null && editRequest != null)
             {
+                bool isvalid = IsCompanyNameUnique(editRequest.Name, company.Id);
+                if (!isvalid)
+                {
+                    throw new Exception("Company name is Not Unique");
+                }
                 aclCompany.Name = editRequest.Name;
                 aclCompany.Cname = editRequest.Cname;
                 aclCompany.Cemail = editRequest.Cemail;
@@ -260,6 +265,11 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
             }
             if (request != null && editRequest == null)
             {
+                bool isvalid = IsCompanyNameUnique(request.Name);
+                if (!isvalid)
+                {
+                    throw new Exception("Company name is Not Unique");
+                }
                 aclCompany.Name = request.Name;
                 aclCompany.Cname = request.Cname;
                 aclCompany.Cemail = request.Cemail;
@@ -296,6 +306,16 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
         /// <inheritdoc/>
         public AclUserUsergroup PrepareDataForUserUserGroups(ulong? userGroup, ulong? userId)
         {
+            bool userIdValid = UserIsExist(userId??0);
+            if (!userIdValid || userId ==0 || userId == null)
+            {
+                throw new Exception("User Id not Valid");
+            }
+            bool userGroupIdValid = UserGroupIsExist(userGroup??0);
+            if (!userGroupIdValid || userGroup ==0 || userGroup == null)
+            {
+                throw new Exception("User Group Id not Valid");
+            }
             AclUserUsergroup aclUserUserGroup = new AclUserUsergroup
             {
                 UserId = userId ?? 0,
@@ -336,6 +356,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
         {
             try
             {
+                IsCompanyNameUnique(aclCompany.Name);
                 _dbContext.AclCompanies.Add(aclCompany);
                 _dbContext.SaveChanges();
                 _dbContext.Entry(aclCompany).ReloadAsync();
@@ -352,6 +373,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
         {
             try
             {
+                IsCompanyNameUnique(aclCompany.Name, aclCompany.Id);
                 _dbContext.AclCompanies.Update(aclCompany);
                 _dbContext.SaveChanges();
                 _dbContext.Entry(aclCompany).ReloadAsync();
@@ -395,5 +417,25 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
 
         }
 
+        public bool IsCompanyNameUnique(string CompanyName, ulong? CompanyId = null)
+        {
+            if (CompanyId == null)
+            {
+                return _dbContext.AclCompanies.Any(i => i.Name == CompanyName);
+            }
+            else
+            {
+                return _dbContext.AclCompanies.Any(i => i.Name == CompanyName && i.Id != CompanyId);
+            }
+        }
+
+        public bool UserIsExist(ulong userId)
+        {
+            return _dbContext.AclUsers.Any(i => i.Id == userId);
+        }
+        public bool UserGroupIsExist(ulong id)
+        {
+            return _dbContext.AclUsergroups.Any(m => m.Id == id);
+        }
     }
 }

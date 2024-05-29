@@ -29,6 +29,8 @@ namespace ACL.Application.Ports.Repositories.Company
         Task<AclResponse> DeleteCompany(ulong id);
         /// <inheritdoc/>
         AclCompany PrepareInputData(AclCompanyCreateRequest? request = null, AclCompanyEditRequest? editRequest = null, AclCompany? company = null);
+        /// <inheritdoc/>
+        bool IsCompanyNameUnique(string CompanyName, ulong? CompanyId = null);
 
     }
 }

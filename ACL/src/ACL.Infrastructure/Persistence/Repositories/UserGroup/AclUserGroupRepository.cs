@@ -260,5 +260,10 @@ namespace ACL.Infrastructure.Persistence.Repositories.UserGroup
             }
 
         }
+
+        public bool IsExist(ulong id)
+        {
+            return _dbContext.AclUserUsergroups.Any(m=> m.Id == id);
+        }
     }
 }

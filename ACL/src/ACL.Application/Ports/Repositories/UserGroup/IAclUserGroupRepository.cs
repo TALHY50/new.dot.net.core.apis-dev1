@@ -33,5 +33,7 @@ namespace ACL.Application.Ports.Repositories.UserGroup
         AclUsergroup? Delete(AclUsergroup aclUserGroup);
         /// <inheritdoc/>
         AclUsergroup? Deleted(ulong id);
+        /// <inheritdoc/>
+        bool IsExist(ulong id);
     }
 }
