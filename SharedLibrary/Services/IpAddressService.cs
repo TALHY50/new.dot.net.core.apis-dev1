@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace SharedLibrary.Services
 {
+#pragma warning disable CS8602 // Possible null reference argument.
     public interface IIpAddressService
     {
         string GetClientIpAddress();
@@ -14,18 +15,11 @@ namespace SharedLibrary.Services
         IPAddress? GetMerchantServerIpFromRequest(HttpRequest Request);
 
     }
-    public class IpAddressService : IIpAddressService
+    public class IpAddressService(IHttpContextAccessor httpContextAccessor) : IIpAddressService
     {
-        private readonly IHttpContextAccessor _httpContextAccessor;
-
-        public IpAddressService(IHttpContextAccessor httpContextAccessor)
-        {
-            _httpContextAccessor = httpContextAccessor;
-        }
-
         public string GetClientIpAddress()
         {
-            var ipAddress = _httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString();
+            var ipAddress = httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString();
             return ipAddress ?? "UNKNOWN";
         }
 
@@ -34,10 +28,10 @@ namespace SharedLibrary.Services
         {
             string ipAddress = string.Empty;
             // Check if the request is coming from a proxy server
-            if (_httpContextAccessor.HttpContext.Request.Headers.ContainsKey("X-Forwarded-For"))
+            if (httpContextAccessor.HttpContext.Request.Headers.ContainsKey("X-Forwarded-For"))
             {
                 // Get the list of IP addresses in the X-Forwarded-For header
-                string forwardedForHeader = _httpContextAccessor.HttpContext.Request.Headers["X-Forwarded-For"].ToString();
+                string forwardedForHeader = httpContextAccessor.HttpContext.Request.Headers["X-Forwarded-For"].ToString();
                 
                 // Split the IP addresses and get the first one (client IP)
                 ipAddress = forwardedForHeader.Split(',')[0].Trim();
@@ -45,7 +39,7 @@ namespace SharedLibrary.Services
             else
             {
                 // Get the remote IP address
-                ipAddress = _httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString();
+                ipAddress = httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString();
             }
             
             return ipAddress;

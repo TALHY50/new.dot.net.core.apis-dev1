@@ -21,18 +21,18 @@ namespace SharedLibrary.Services
     //        _dbSet = unitOfWork.ApplicationDbContext.Set<T>();
 
     //    }
-    public class GenericRepository<T, TDbContext, TUnitOfWork> : IGenericRepository<T> where T : class where TDbContext : DbContext where TUnitOfWork : class
+    public class GenericRepository<T, TDbContext, TUnitOfWork>(TUnitOfWork unitOfWork, TDbContext dbContext)
+        : IGenericRepository<T>
+        where T : class
+        where TDbContext : DbContext
+        where TUnitOfWork : class
     {
-        protected TUnitOfWork _unitOfWork;
-        protected DbSet<T> _dbSet;
-        protected TDbContext _dbContext;
-        public GenericRepository(TUnitOfWork unitOfWork, TDbContext dbContext)
-        {
-            _unitOfWork = unitOfWork;
-            _dbContext = dbContext;
-            _dbSet = dbContext.Set<T>();
-
-        }
+        protected TUnitOfWork _unitOfWork = unitOfWork;
+        protected DbSet<T> _dbSet = dbContext.Set<T>();
+        protected TDbContext _dbContext = dbContext;
+#pragma warning disable CS8603 // Possible null reference argument.
+#pragma warning disable CA2200 // Possible null reference argument.
+#pragma warning disable CS0168 // Possible null reference argument.
         public virtual async Task<T> FirstOrDefault()
         {
             return await this._dbSet.FirstOrDefaultAsync();
