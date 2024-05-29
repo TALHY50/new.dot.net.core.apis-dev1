@@ -36,9 +36,11 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
         private readonly IDistributedCache _distributedCache;
         private readonly ICryptographyService _cryptographyService;
         public IAclUserUserGroupRepository AclUserUserGroupRepository;
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+#pragma warning disable CS8618
         private static IHttpContextAccessor _httpContextAccessor;
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+#pragma warning restore CS8618
 
         private readonly ApplicationDbContext _dbContext;
 
@@ -130,12 +132,20 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
                        this.AclResponse.Message = ex.Message;
                        this.AclResponse.StatusCode = AppStatusCode.FAIL;
                    }
+                   finally
+                   {
+                       _dbContext.Database.CloseConnection();
+                   }
                });
             }
             catch (Exception ex)
             {
                 this.AclResponse.Message = ex.Message;
                 this.AclResponse.StatusCode = AppStatusCode.FAIL;
+            }
+            finally
+            {
+                _dbContext.Database.CloseConnection();
             }
 
             this.AclResponse.Timestamp = DateTime.Now;
@@ -203,7 +213,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
                 aclUser.Password = "***********";
                 aclUser.Salt = "***********";
                 aclUser.Claims = null;
-                this.AclResponse.Message = this.MessageResponse.fetchMessage;
+                this.AclResponse.Message = this.MessageResponse.editMessage;
                 this.AclResponse.Data = aclUser;
             }
             this.AclResponse.Timestamp = DateTime.Now;
@@ -259,7 +269,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             {
                 return _dbContext.AclUsers.FirstOrDefault(m => m.Id == id);
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return null;
             }
@@ -290,6 +300,11 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             var salt = _cryptographyService.GenerateSalt();
             if (aclUser == null)
             {
+
+                if (isAclUserEmailExist(request.Email))
+                {
+                    throw new InvalidOperationException("Email already exist");
+                }
                 return new AclUser
                 {
                     FirstName = request.FirstName,
@@ -318,6 +333,10 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             }
             else
             {
+                if (isAclUserEmailExist(request.Email, aclUser.Id))
+                {
+                    throw new InvalidOperationException("Email already exist");
+                }
                 aclUser.FirstName = request.FirstName;
                 aclUser.LastName = request.LastName;
                 aclUser.Email = request.Email;
@@ -470,7 +489,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
         {
             try
             {
-                return _dbContext.AclUsers.Find(id);
+                return _dbContext.AclUsers.FirstOrDefault(x => x.Id == id && x.CreatedById == AppAuth.GetAuthInfo().UserId);
             }
             catch (Exception)
             {
@@ -608,6 +627,19 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             }
         }
 
+
+        public bool isAclUserEmailExist(string email, ulong? isUserId = null)
+        {
+
+            if (isUserId == null)
+            {
+                return _dbContext.AclUsers.Any(x => x.Email == email);
+            }
+            else
+            {
+                return _dbContext.AclUsers.Any(x => x.Email == email && x.Id != isUserId);
+            }
+        }
 
 
     }
