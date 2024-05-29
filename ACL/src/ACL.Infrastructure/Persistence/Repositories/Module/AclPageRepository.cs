@@ -71,22 +71,20 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
             return this.aclResponse;
         }
         /// <inheritdoc/>
-        public AclResponse EditAclPage(ulong id, AclPageRequest request)
+        public AclResponse EditAclPage(AclPageRequest request)
         {
-            AclPage? aclPage = Find(id);
-            if (aclPage == null)
-            {
-                this.aclResponse.Message = this.messageResponse.notFoundMessage;
-                return this.aclResponse;
-            }
-
+            AclPage? aclPage = Find(request.Id);
             try
             {
+                if (aclPage == null)
+                {
+                    throw new InvalidOperationException("Page id not found");
+                }
                 aclPage = PrepareInputData(request, aclPage);
-                this.aclResponse.Data = Update(aclPage); ;
+                this.aclResponse.Data = Update(aclPage);
                 this.aclResponse.Message = this.messageResponse.editMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
-                List<ulong>? userIds = _aclUserRepository.GetUserIdByChangePermission(null, null, id);
+                List<ulong>? userIds = _aclUserRepository.GetUserIdByChangePermission(null, null, request.Id);
                 if (userIds != null)
                 {
                     _aclUserRepository.UpdateUserPermissionVersion(userIds);
@@ -129,33 +127,28 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
         public AclResponse DeleteById(ulong id)
         {
             AclPage? page = Find(id);
-            if (page != null)
+            try
             {
-                try
+                if (page == null)
                 {
-                    this.aclResponse.Data = Delete(page);
-                    routeRepository.DeleteAllByPageId(id);
-                    this.aclResponse.Message = this.messageResponse.deleteMessage;
-                    this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
-                    List<ulong>? userIds = _aclUserRepository.GetUserIdByChangePermission(null, null, id);
-                    if (userIds != null)
-                    {
-                        _aclUserRepository.UpdateUserPermissionVersion(userIds);
-                    }
+                    throw new InvalidOperationException("Page id not found");
                 }
-                catch (Exception)
+                this.aclResponse.Data = Delete(page);
+                routeRepository.DeleteAllByPageId(id);
+                this.aclResponse.Message = this.messageResponse.deleteMessage;
+                this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                List<ulong>? userIds = _aclUserRepository.GetUserIdByChangePermission(null, null, id);
+                if (userIds != null)
                 {
-                    this.aclResponse.Message = this.messageResponse.somethingIsWrong;
-                    this.aclResponse.StatusCode = AppStatusCode.FAIL;
+                    _aclUserRepository.UpdateUserPermissionVersion(userIds);
                 }
             }
-            else
+            catch (Exception e)
             {
-                this.aclResponse.Message = this.messageResponse.notFoundMessage;
+                this.aclResponse.Message = e.Message;
                 this.aclResponse.StatusCode = AppStatusCode.FAIL;
             }
             return this.aclResponse;
-
         }
 
 
@@ -193,12 +186,11 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
         /// <inheritdoc/>
         public AclResponse PageRouteCreate(AclPageRouteRequest request)
         {
-            this.messageResponse.createMessage = "Page Route Create Successfully";
             try
             {
-                AclPageRoute? aclPageRoute = PreparePageRouteInputData(request);
+                AclPageRoute aclPageRoute = PreparePageRouteInputData(request);
                 this.aclResponse.Data = routeRepository.Add(aclPageRoute);
-                this.aclResponse.Message = this.messageResponse.createMessage;
+                this.aclResponse.Message = "Page Route Create Successfully";
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             catch (Exception ex)
@@ -212,30 +204,23 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
         /// <inheritdoc/>
         public AclResponse PageRouteEdit(ulong id, AclPageRouteRequest request)
         {
-            this.messageResponse.editMessage = "Page Route Update Successfully";
             try
             {
                 AclPageRoute? aclPageRoute = routeRepository.Find(id);
-                if (aclPageRoute != null)
+                if (aclPageRoute == null)
                 {
-                    // clear version
-                    List<ulong>? userIds = _aclUserRepository.GetUserIdByChangePermission(null, null, request.PageId);
-                    if (userIds != null)
-                    {
-                        _aclUserRepository.UpdateUserPermissionVersion(userIds);
-                    }
-
-                    AclPageRoute? aclPageRouteUpdateData = PreparePageRouteInputData(request, aclPageRoute);
-                    this.aclResponse.Data = routeRepository.Update(aclPageRouteUpdateData);
-                    this.aclResponse.Message = this.messageResponse.editMessage;
-                    this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                    throw new InvalidOperationException("Page route id not found");
                 }
-                else
+                // clear version
+                List<ulong>? userIds = _aclUserRepository.GetUserIdByChangePermission(null, null, request.PageId);
+                if (userIds != null)
                 {
-                    this.aclResponse.Message = this.messageResponse.notFoundMessage;
-                    this.aclResponse.StatusCode = AppStatusCode.FAIL;
-                    return this.aclResponse;
+                    _aclUserRepository.UpdateUserPermissionVersion(userIds);
                 }
+                AclPageRoute? aclPageRouteUpdateData = PreparePageRouteInputData(request, aclPageRoute);
+                this.aclResponse.Data = routeRepository.Update(aclPageRouteUpdateData);
+                this.aclResponse.Message = "Page Route Update Successfully";
+                this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             catch (Exception ex)
             {
@@ -248,25 +233,36 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
         /// <inheritdoc/>
         public AclResponse PageRouteDelete(ulong id)
         {
-            this.messageResponse.deleteMessage = "Page Route Deleted Successfully";
             AclPageRoute? aclPageRoute = routeRepository.Find(id);
-            if (aclPageRoute != null)
+            try
             {
-                this.aclResponse.Data = routeRepository.Delete(aclPageRoute);
-                this.aclResponse.Message = this.messageResponse.deleteMessage;
-                this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                if (aclPageRoute == null)
+                {
+                    throw new InvalidOperationException("Page route id not found");
+                }
                 List<ulong>? userIds = _aclUserRepository.GetUserIdByChangePermission(null, null, aclPageRoute.PageId);
                 if (userIds != null)
                 {
                     _aclUserRepository.UpdateUserPermissionVersion(userIds);
                 }
+                this.aclResponse.Data = routeRepository.Delete(aclPageRoute);
+                this.aclResponse.Message = "Page Route Deleted Successfully";
+                this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+            }
+            catch (Exception ex)
+            {
+                this.aclResponse.Message = ex.Message;
+                this.aclResponse.StatusCode = AppStatusCode.FAIL;
             }
             return this.aclResponse;
-
         }
         /// <inheritdoc/>
         public AclPageRoute PreparePageRouteInputData(AclPageRouteRequest request, AclPageRoute? aclPageRoute = null)
         {
+            if (!isAclPageIdExist(request.PageId))
+            {
+                throw new InvalidOperationException("Page id not valid");
+            }
             if (aclPageRoute == null)
             {
                 return new AclPageRoute
@@ -293,9 +289,6 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
         public void DeletePageRouteByPageId(ulong pageId)
         {
             routeRepository.DeleteAllByPageId(pageId);
-            //List<AclPageRoute>? pageRoutes = _dbContext.AclPageRoutes.Where(r => r.PageId == pageId).ToList();
-            //_dbContext.AclPageRoutes.RemoveRange(pageRoutes);
-            //_dbContext.SaveChanges();
         }
         /// <inheritdoc/>
         public List<AclPage>? All()
