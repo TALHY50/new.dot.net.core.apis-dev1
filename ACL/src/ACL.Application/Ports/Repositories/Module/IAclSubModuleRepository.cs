@@ -29,9 +29,6 @@ namespace ACL.Application.Ports.Repositories.Module
         AclSubModule? Delete(AclSubModule aclSubModule);
         /// <inheritdoc/>
         AclSubModule? Delete(ulong id);
-        /// <inheritdoc/>
-        bool ExistByName(ulong id, string name);
-        /// <inheritdoc/>
-        bool ExistById(ulong? id, ulong value);
+
     }
 }
