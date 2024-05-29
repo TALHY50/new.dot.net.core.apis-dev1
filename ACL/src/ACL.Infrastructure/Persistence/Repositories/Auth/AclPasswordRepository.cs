@@ -49,15 +49,14 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
                 return this.AclResponse;
             }
 
-            var salt = _cryptographyService.GenerateSalt();
-            var aclUser = _dbContext.AclUsers?.Where(x => x.Id == request.UserId && x.Status == 1).FirstOrDefault();
+            var aclUser = _dbContext.AclUsers.Where(x => x.Id == request.UserId && x.Status == 1).FirstOrDefault();
 
             if (aclUser != null)
             {
                 // password checking
-                var password = _cryptographyService.HashPassword(request.CurrentPassword, aclUser.Salt ?? salt);
+                var password = _cryptographyService.HashPassword(request.CurrentPassword, aclUser.Salt);
 
-                if (request.CurrentPassword != password)
+                if (aclUser.Password != password)
                 {
                     this.AclResponse.Message = "Password Mismatch";
                     this.AclResponse.StatusCode = AppStatusCode.FAIL;
@@ -66,7 +65,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
 
                 // password update
 
-                aclUser.Password = _cryptographyService.HashPassword(request.NewPassword, aclUser.Salt ?? salt);
+                aclUser.Password = _cryptographyService.HashPassword(request.NewPassword, aclUser.Salt);
                 _dbContext.AclUsers.Update(aclUser);
                 await _dbContext.SaveChangesAsync();
                 await _dbContext.Entry(aclUser).ReloadAsync();
@@ -81,7 +80,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
         /// <inheritdoc/>
         public AclResponse Forget(AclForgetPasswordRequest request)
         {
-            var aclUser = _dbContext.AclUsers?.Where(x => x.Email == request.Email).FirstOrDefault();
+            var aclUser = _dbContext.AclUsers.Where(x => x.Email == request.Email).FirstOrDefault();
 
             if (aclUser != null)
             {
@@ -112,13 +111,13 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
 
             // get email from cache by token
             string email = (string)CacheHelper.Get(request.Token);
-            var salt = _cryptographyService.GenerateSalt();
+          
             // password update
 
             var aclUser = _dbContext.AclUsers?.Where(x => x.Email == email).FirstOrDefault();
             if (aclUser != null)
             {
-                aclUser.Password = _cryptographyService.HashPassword(request.NewPassword, aclUser.Salt ?? salt);
+                aclUser.Password = _cryptographyService.HashPassword(request.NewPassword, aclUser.Salt);
                 _dbContext.AclUsers.Update(aclUser);
                 await _dbContext.SaveChangesAsync();
                 await _dbContext.Entry(aclUser).ReloadAsync();

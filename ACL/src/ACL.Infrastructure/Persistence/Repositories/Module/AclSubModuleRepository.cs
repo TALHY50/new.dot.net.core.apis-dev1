@@ -27,11 +27,11 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
         {
             _aclUserRepository = aclUserRepository;
             this.aclResponse = new AclResponse();
-            this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
             _dbContext = dbContext;
             _httpContextAccessor = httpContextAccessor;
             AppAuth.Initialize(_httpContextAccessor, _dbContext);
             AppAuth.SetAuthInfo(_httpContextAccessor);
+            this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
         }
         /// <inheritdoc/>
         public AclResponse GetAll()
