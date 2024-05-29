@@ -7,7 +7,7 @@ namespace ACL.Application.Ports.Repositories.Module
     public interface IAclPageRouteRepository
     {
         /// <inheritdoc/>
-        AclPageRoute PreparePageRouteInputData(AclPageRouteRequest request, AclPageRoute aclPageRoute = null);
+        AclPageRoute PreparePageRouteInputData(AclPageRouteRequest request, AclPageRoute? aclPageRoute = null);
         /// <inheritdoc/>
         List<AclPageRoute>? All();
         /// <inheritdoc/>

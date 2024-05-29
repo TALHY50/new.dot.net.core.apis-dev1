@@ -1,5 +1,4 @@
 ﻿using ACL.Application.Ports.Repositories.Auth;
-using ACL.Application.Ports.Repositories.Role;
 using ACL.Application.Ports.Repositories.UserGroup;
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response;

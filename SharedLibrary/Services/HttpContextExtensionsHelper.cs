@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Http;
 
 namespace SharedLibrary.Services;
 
+#pragma warning disable CS8600 // Dereference of a possibly null reference.
+#pragma warning disable CS8602 // Possible null reference argument.
 public static class HttpContextExtensions
 {
     public static object? GetBrandSession(this IHttpContextAccessor httpContextAccessor, string key, string reference = "")

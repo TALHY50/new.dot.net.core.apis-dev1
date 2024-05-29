@@ -3,6 +3,7 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace SharedLibrary.Utilities
 {
+#pragma warning disable CS8603 // Possible null reference argument.
     public static class CacheHelper
     {
         private static readonly  MemoryCache _cache = new MemoryCache(new MemoryCacheOptions());

@@ -326,7 +326,8 @@ public partial class ApplicationDbContext : DbContext, IApplicationDbContext
 
             entity.Property(e => e.Id)
                 .HasColumnType("bigint(20) unsigned")
-                .HasColumnName("id");
+                .HasColumnName("id")
+                .ValueGeneratedNever();
             entity.Property(e => e.AvailableToCompany)
                 .HasColumnType("tinyint(4)")
                 .HasColumnName("available_to_company");
@@ -4120,47 +4121,47 @@ public partial class ApplicationDbContext : DbContext, IApplicationDbContext
 
 
       );
-       modelBuilder.Entity<AclUser>().HasData(
-             new AclUser
-             {
-                 Id = 1,
-                 FirstName = "admin1",
-                 LastName = "admin1",
-                 Email = "ssadmin@sipay.com.tr",
-                 Avatar = "users/admin/c41353d1c1fcbdbd39f96ea46a3f769136952e79.png",
-                 Password = "QCy4DY93n7XSPqOJAjrq9hmwoIuaq9zqbDUBXmXPs+DgWlbGHBxWVQTlQVdmmUYUk0D21muGuNGQr32ro0zFdA==", // Hashing should be done before storing in actual code
-                 Dob = DateTime.Parse("1994-02-22"),
-                 Gender = 1,
-                 Address = "Dhaka",
-                 City = "19",
-                 Phone = "+8801788343704",
-                 IsAdminVerified = 1,
-                 UserType = 0,
-                 RememberToken = "",
-                 CreatedAt = DateTime.Parse("2018-07-10 16:21:24"),
-                 UpdatedAt = DateTime.Parse("2021-08-25 05:46:27"),
-                 Language = "en-US",
-                 Username = "rajibecbb",
-                 ImgPath = "storage/users/1/2019-04-18-07-49-28-ba4fe9be59df7b82f8243d2126070d76f5305b3e.png",
-                 Status = 1,
-                 CompanyId = 1,
-                 PermissionVersion = 1,
-                 OtpChannel = 0,
-                 CreatedById = 1,
-                 Salt = "pNr7R0FzsicCDrMlIwXYVI6zM4rZByVgNCkWRwM4y57Sw+cdKUbTrRZLbV8nccwNlN+DokHXlkxKGvw+7ISPPw==",
-                 Claims = new List<Core.Entities.Auth.Claim>{new Core.Entities.Auth.Claim
+        modelBuilder.Entity<AclUser>().HasData(
+              new AclUser
+              {
+                  Id = 1,
+                  FirstName = "admin1",
+                  LastName = "admin1",
+                  Email = "ssadmin@sipay.com.tr",
+                  Avatar = "users/admin/c41353d1c1fcbdbd39f96ea46a3f769136952e79.png",
+                  Password = "QCy4DY93n7XSPqOJAjrq9hmwoIuaq9zqbDUBXmXPs+DgWlbGHBxWVQTlQVdmmUYUk0D21muGuNGQr32ro0zFdA==", // Hashing should be done before storing in actual code
+                  Dob = DateTime.Parse("1994-02-22"),
+                  Gender = 1,
+                  Address = "Dhaka",
+                  City = "19",
+                  Phone = "+8801788343704",
+                  IsAdminVerified = 1,
+                  UserType = 0,
+                  RememberToken = "",
+                  CreatedAt = DateTime.Parse("2018-07-10 16:21:24"),
+                  UpdatedAt = DateTime.Parse("2021-08-25 05:46:27"),
+                  Language = "en-US",
+                  Username = "rajibecbb",
+                  ImgPath = "storage/users/1/2019-04-18-07-49-28-ba4fe9be59df7b82f8243d2126070d76f5305b3e.png",
+                  Status = 1,
+                  CompanyId = 1,
+                  PermissionVersion = 1,
+                  OtpChannel = 0,
+                  CreatedById = 1,
+                  Salt = "pNr7R0FzsicCDrMlIwXYVI6zM4rZByVgNCkWRwM4y57Sw+cdKUbTrRZLbV8nccwNlN+DokHXlkxKGvw+7ISPPw==",
+                  Claims = new List<Core.Entities.Auth.Claim>{new Core.Entities.Auth.Claim
                  {
                      Type = "scope",
                      Value = "CanReadWeather"
                  } },
-                 RefreshToken = new RefreshToken
-                 {
-                     Value = null,
-                     Active = true,
-                     ExpirationDate = DateTime.MaxValue
-                 },
-             }
-        );
+                  RefreshToken = new RefreshToken
+                  {
+                      Value = null,
+                      Active = true,
+                      ExpirationDate = DateTime.MaxValue
+                  },
+              }
+         );
 
         modelBuilder.Entity<AclModule>().HasData(
             new AclModule[]

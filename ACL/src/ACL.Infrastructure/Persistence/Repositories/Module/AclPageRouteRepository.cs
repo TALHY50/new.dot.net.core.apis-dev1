@@ -14,23 +14,26 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
     public class AclPageRouteRepository : IAclPageRouteRepository
     {
         /// <inheritdoc/>
-        public AclResponse aclResponse;
+        public AclResponse AclResponse;
         /// <inheritdoc/>
-        public MessageResponse messageResponse;
-        private string modelName = "Page Route";
+        public MessageResponse MessageResponse;
+        private readonly string _modelName = "Page Route";
         private readonly IAclUserRepository _aclUserRepository;
-        ApplicationDbContext _dbContext;
-        private static IHttpContextAccessor _httpContextAccessor;
+        readonly ApplicationDbContext _dbContext;
+        public static IHttpContextAccessor ContextAccessor { get; private set; }
+
         /// <inheritdoc/>
         public AclPageRouteRepository(ApplicationDbContext dbContext, IAclUserRepository aclUserRepository, IHttpContextAccessor httpContextAccessor)
         {
             _aclUserRepository = aclUserRepository;
             _dbContext = dbContext;
-            this.aclResponse = new AclResponse();
-            _httpContextAccessor = httpContextAccessor;
-            AppAuth.Initialize(_httpContextAccessor, _dbContext);
-            AppAuth.SetAuthInfo(_httpContextAccessor);
-            this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
+            this.AclResponse = new AclResponse();
+            ContextAccessor = httpContextAccessor;
+            AppAuth.Initialize(ContextAccessor, _dbContext);
+            AppAuth.SetAuthInfo(ContextAccessor);
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8604 // Possible null reference argument.
+            this.MessageResponse = new MessageResponse(this._modelName, AppAuth.GetAuthInfo().Language);
         }
         /// <inheritdoc/>
         public AclPageRoute? Add(AclPageRoute aclPageRoute)
@@ -44,7 +47,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
             }
             catch (Exception)
             {
-                return null;
+                throw new Exception();
             }
         }
         /// <inheritdoc/>
@@ -56,7 +59,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
             }
             catch (Exception)
             {
-                return null;
+                throw new Exception();
             }
 
         }
@@ -71,7 +74,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
             }
             catch (Exception)
             {
-                return null;
+                throw new Exception();
             }
 
         }
@@ -87,15 +90,15 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
             }
             catch (Exception)
             {
-                return null;
+                throw new Exception();
             }
         }
         /// <inheritdoc/>
-        public AclPageRoute[]? DeleteAllByPageId(ulong pageid)
+        public AclPageRoute[]? DeleteAllByPageId(ulong pageId)
         {
             try
             {
-                List<AclPageRoute>? pageRoutes = _dbContext.AclPageRoutes.Where(r => r.PageId == pageid).ToList();
+                List<AclPageRoute>? pageRoutes = _dbContext.AclPageRoutes.Where(r => r.PageId == pageId).ToList();
                 _dbContext.AclPageRoutes.RemoveRange(pageRoutes);
                 _dbContext.SaveChanges();
                 return pageRoutes.ToArray();
@@ -103,7 +106,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
             catch (Exception)
             {
 
-                return null;
+                throw new Exception();
             }
         }
         /// <inheritdoc/>
@@ -115,7 +118,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
             }
             catch (Exception)
             {
-                return null;
+                throw new Exception();
             }
 
         }
@@ -154,7 +157,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
             }
             catch (Exception)
             {
-                return null;
+                throw new Exception();
             }
         }
     }

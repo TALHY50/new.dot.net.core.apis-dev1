@@ -62,13 +62,13 @@ namespace ACL.Web.Controllers.V1
         {
             return this._signOutUseCase.Execute(request);
         }
-        /// <inheritdoc/>
-        [AllowAnonymous]
-        [HttpPost]
-        [Route("register")]
-        public async Task<RegisterResponse> Register(RegisterRequest request)
-        {
-            return await this._registerUseCase.Execute(request);
-        }
+        ///// <inheritdoc/>
+        //[AllowAnonymous]
+        //[HttpPost]
+        //[Route("register")]
+        //public async Task<RegisterResponse> Register(RegisterRequest request)
+        //{
+        //    return await this._registerUseCase.Execute(request);
+        //}
     }
 }

@@ -21,8 +21,8 @@ namespace ACL.Application.UseCases.Auth.SignOut
         }
         /// <inheritdoc/>
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+#pragma warning disable CS8601 // Async method lacks 'await' operators and will run synchronously
         public async Task<SignOutResponse> Execute(SignOutRequest request)
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
         {
             try
             {

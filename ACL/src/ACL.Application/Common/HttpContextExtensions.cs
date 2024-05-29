@@ -13,7 +13,9 @@ public static class HttpContextExtensions
         var routeNameMetadata = endpoint?.Metadata.OfType<RouteNameMetadata>().SingleOrDefault();
         var routeName = routeNameMetadata?.RouteName;
 
+#pragma warning disable CS8603 // Possible null reference return.
         return routeName;
+#pragma warning restore CS8603 // Possible null reference return.
     }
 
     public static bool IsPermissible(this AuthorizationHandlerContext context)

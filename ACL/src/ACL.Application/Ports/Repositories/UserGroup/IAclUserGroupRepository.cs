@@ -18,7 +18,7 @@ namespace ACL.Application.Ports.Repositories.UserGroup
         /// <inheritdoc/>
         AclResponse Delete(ulong id);
         /// <inheritdoc/>
-        AclUsergroup PrepareInputData(AclUserGroupRequest userGroupRequest, AclUsergroup aclUserGroup = null);
+        AclUsergroup PrepareInputData(AclUserGroupRequest userGroupRequest, AclUsergroup? aclUserGroup = null);
         /// <inheritdoc/>
         ulong SetCompanyId(ulong companyId);
         /// <inheritdoc/>
@@ -26,11 +26,11 @@ namespace ACL.Application.Ports.Repositories.UserGroup
         /// <inheritdoc/>
         AclUsergroup? Find(ulong id);
         /// <inheritdoc/>
-        AclUsergroup? Add(AclUsergroup aclUsergroup);
+        AclUsergroup? Add(AclUsergroup aclUserGroup);
         /// <inheritdoc/>
-        AclUsergroup? Update(AclUsergroup aclUsergroup);
+        AclUsergroup? Update(AclUsergroup aclUserGroup);
         /// <inheritdoc/>
-        AclUsergroup? Delete(AclUsergroup aclUsergroup);
+        AclUsergroup? Delete(AclUsergroup aclUserGroup);
         /// <inheritdoc/>
         AclUsergroup? Deleted(ulong id);
     }

@@ -14,7 +14,6 @@ using System.Reflection;
 using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
 using Serilog;
 using Serilog.Events;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
@@ -27,6 +26,9 @@ namespace SharedLibrary.Services
         where TDbContext : DbContext
         where TUnitOfWork : class
     {
+#pragma warning disable CS0105 // Dereference of a possibly null reference.
+#pragma warning disable CS8603 // Possible null reference argument.
+#pragma warning disable CS8618 // Possible null reference argument.
         public ILogger<UnitOfWork<TDbContext, TUnitOfWork>> _logger;
         //private ILogger _logger;
         private TUnitOfWork _customUnitOfWork;

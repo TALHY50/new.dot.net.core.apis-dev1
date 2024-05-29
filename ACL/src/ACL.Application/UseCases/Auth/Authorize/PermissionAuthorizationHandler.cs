@@ -22,6 +22,7 @@ namespace ACL.Application.UseCases.Auth.Authorize
                     scope.ServiceProvider.GetRequiredService<IAclUserRepository>();
                 
                 var userId = Convert.ToUInt32(context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+#pragma warning disable CS8604 // Possible null reference argument.
                 var routeName = (context.Resource as HttpContext).GetRouteName();
                 
                 var user = userRepo.GetUserWithPermissionAsync(userId).Result;

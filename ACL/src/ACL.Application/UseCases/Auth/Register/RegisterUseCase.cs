@@ -31,8 +31,8 @@ namespace ACL.Application.UseCases.Auth.Register
         }
         /// <inheritdoc/>
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+#pragma warning disable CS8601 // Async method lacks 'await' operators and will run synchronously
         public async Task<RegisterResponse> Execute(RegisterRequest request)
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
         {
             try
             {

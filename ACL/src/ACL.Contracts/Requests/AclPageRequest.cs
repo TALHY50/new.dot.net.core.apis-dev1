@@ -5,16 +5,19 @@ namespace ACL.Contracts.Requests.V1
 {
     public class AclPageRequest
     {
+        [DefaultValue(3001)]
+        [Required]
+        [Range(1, ulong.MaxValue)]
+        public ulong Id { get; set; }
+
         [DefaultValue(1001)]
         [Required]
         [Range(1, ulong.MaxValue)]
-        //[ExistsInDatabase<ApplicationDbContext,ICustomUnitOfWork>("AclModule", "Id")]
         public ulong ModuleId { get; set; }
 
         [DefaultValue(2001)]
         [Required]
         [Range(1, ulong.MaxValue)]
-        //[ExistsInDatabase<ApplicationDbContext,ICustomUnitOfWork>("AclSubModule", "Id")]
         public ulong SubModuleId { get; set; }
 
         [DefaultValue("Company List")]

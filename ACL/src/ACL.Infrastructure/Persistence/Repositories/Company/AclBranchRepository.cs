@@ -33,7 +33,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
             }
             catch (Exception)
             {
-                return null;
+                throw new Exception();
             }
         }
         /// <inheritdoc/>
@@ -45,7 +45,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
             }
             catch (Exception)
             {
-                return null;
+                throw new Exception();
             }
         }
         /// <inheritdoc/>
@@ -59,7 +59,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
             }
             catch (Exception)
             {
-                return false;
+                throw new Exception();
             }
         }
         /// <inheritdoc/>
@@ -68,14 +68,16 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
             try
             {
                 var delete = _dbContext.AclBranches.Find(id);
+#pragma warning disable CS8604 // Possible null reference argument.
                 _dbContext.AclBranches.Remove(delete);
+#pragma warning restore CS8604 // Possible null reference argument.
                 _dbContext.SaveChangesAsync();
                 return delete;
             }
             catch (Exception)
             {
 
-                return null;
+                throw new Exception();
             }
         }
         /// <inheritdoc/>
@@ -88,7 +90,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
             catch (Exception)
             {
 
-                return null;
+                throw new Exception();
             }
         }
         /// <inheritdoc/>
@@ -104,7 +106,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
             catch (Exception)
             {
 
-                return null;
+                throw new Exception();
             }
         }
 

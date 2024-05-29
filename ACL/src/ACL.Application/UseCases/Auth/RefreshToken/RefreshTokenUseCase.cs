@@ -33,6 +33,7 @@ namespace ACL.Application.UseCases.Auth.RefreshToken
                 {
                     return new RefreshTokenErrorResponse
                     {
+#pragma warning disable CS8601 // Possible null reference argument.
                         Message = Enum.GetName(ErrorCodes.AccessTokenIsNotValid),
                         Code = ErrorCodes.AccessTokenIsNotValid.ToString("D")
                     };
@@ -68,7 +69,7 @@ namespace ACL.Application.UseCases.Auth.RefreshToken
                         Code = ErrorCodes.RefreshTokenIsNotCorrect.ToString("D")
                     };
                 }
-
+#pragma warning disable CS8604 // Possible null reference argument.
                 var newToken = await this._authTokenService.GenerateAccessToken(user);
 
                 user.RefreshToken.Value = await this._authTokenService.GenerateRefreshToken();

@@ -12,7 +12,7 @@ namespace ACL.Application.Ports.Repositories.Module
         /// <inheritdoc/>
         AclResponse AddAclPage(AclPageRequest request);
         /// <inheritdoc/>
-        AclResponse EditAclPage(ulong id, AclPageRequest aclPageRequest);
+        AclResponse EditAclPage(AclPageRequest aclPageRequest);
         /// <inheritdoc/>
         AclResponse FindById(ulong id);
         /// <inheritdoc/>
@@ -38,6 +38,7 @@ namespace ACL.Application.Ports.Repositories.Module
         AclPage? Delete(AclPage aclPage);
         /// <inheritdoc/>
         AclPage? Delete(ulong id);
-
+        /// <inheritdoc/>
+        bool IsExist(ulong id);
     }
 }

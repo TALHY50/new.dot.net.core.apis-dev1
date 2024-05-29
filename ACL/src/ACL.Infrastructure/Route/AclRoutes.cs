@@ -63,7 +63,7 @@
             public const string ModelName = Base + "pages";
             public const string List = ModelName;
             public const string Add = ModelName + "/add";
-            public const string Edit = ModelName + "/edit/{id}";
+            public const string Edit = ModelName + "/edit";
             public const string View = ModelName + "/view/{id}";
             public const string Destroy = ModelName + "/delete/{id}";
         }

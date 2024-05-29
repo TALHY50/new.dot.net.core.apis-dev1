@@ -83,18 +83,20 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SharedLibrary.Interfaces;
 
+#pragma warning disable CS8600 // Dereference of a possibly null reference.
+#pragma warning disable CS8602 // Possible null reference argument.
+#pragma warning disable CS8603 // Possible null reference argument.
+#pragma warning disable CS8604 // Possible null reference argument.
+#pragma warning disable CS8765 // Possible null reference argument.
 namespace SharedLibrary.CustomDataAnotator
 {
-    public class UniqueValueAttribute<TDbContext,TUnitOfWork> : ValidationAttribute where TDbContext : DbContext where TUnitOfWork : class
+    public class UniqueValueAttribute<TDbContext, TUnitOfWork>(string tableName, string columnName)
+        : ValidationAttribute
+        where TDbContext : DbContext
+        where TUnitOfWork : class
     {
-        private readonly string _tableName;
-        private readonly string _columnName;
-
-        public UniqueValueAttribute(string tableName, string columnName)
-        {
-            _tableName = tableName ?? throw new ArgumentNullException(nameof(tableName));
-            _columnName = columnName ?? throw new ArgumentNullException(nameof(columnName));
-        }
+        private readonly string _tableName = tableName ?? throw new ArgumentNullException(nameof(tableName));
+        private readonly string _columnName = columnName ?? throw new ArgumentNullException(nameof(columnName));
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {

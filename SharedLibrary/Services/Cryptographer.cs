@@ -6,6 +6,7 @@ using SharedLibrary.Utilities;
 
 namespace SharedLibrary.Services
 {
+#pragma warning disable CS8629 // Possible null reference argument.
     public static class Cryptographer
     {
  

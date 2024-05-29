@@ -1,22 +1,18 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
+﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SharedLibrary.Interfaces;
 
+#pragma warning disable CS8765 // Possible null reference argument.
 namespace SharedLibrary.CustomDataAnotator
 {
-    public class ExistsInDatabaseAttribute<TDbContext, TUnitOfWork> : ValidationAttribute where TDbContext : DbContext where TUnitOfWork : class
+    public class ExistsInDatabaseAttribute<TDbContext, TUnitOfWork>(string tableName, string columnName)
+        : ValidationAttribute
+        where TDbContext : DbContext
+        where TUnitOfWork : class
     {
-        private readonly string _tableName;
-        private readonly string _columnName;
-
-        public ExistsInDatabaseAttribute(string tableName, string columnName)
-        {
-            _tableName = tableName ?? throw new ArgumentNullException(nameof(tableName));
-            _columnName = columnName ?? throw new ArgumentNullException(nameof(columnName));
-        }
+        private readonly string _tableName = tableName ?? throw new ArgumentNullException(nameof(tableName));
+        private readonly string _columnName = columnName ?? throw new ArgumentNullException(nameof(columnName));
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
@@ -40,7 +36,9 @@ namespace SharedLibrary.CustomDataAnotator
                 return new ValidationResult($"Table '{_tableName}' not found in the DbContext.");
             }
 
-
+#pragma warning disable CS8600 // Dereference of a possibly null reference.
+#pragma warning disable CS8603 // Dereference of a possibly null reference.
+#pragma warning disable CS8604 // Dereference of a possibly null reference.
             // Get the DbSet instance
             var dbSet = (IQueryable<object>)dbSetProperty.GetValue(dbContext);
 
