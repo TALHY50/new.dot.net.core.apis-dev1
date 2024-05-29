@@ -7,6 +7,8 @@ using ACL.Infrastructure.Persistence.Configurations;
 using ACL.Infrastructure.Utilities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Crypto.Modes;
+using Org.BouncyCastle.Utilities;
 using SharedLibrary.Response.CustomStatusCode;
 
 namespace ACL.Infrastructure.Persistence.Repositories.Module
@@ -161,8 +163,22 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
         {
             if (AclPage == null)
             {
+                if (isAclPageIdExist(request.Id))
+                {
+                    throw new InvalidOperationException("Page id already exist");
+                }
                 AclPage = new AclPage();
+                AclPage.Id = request.Id;
                 AclPage.CreatedAt = DateTime.Now;
+            }
+            if (!isModuleIdExist(request.ModuleId))
+            {
+                throw new InvalidOperationException("Module id not valid");
+            }
+
+            if (!isSubModuleIdExist(request.SubModuleId))
+            {
+                throw new InvalidOperationException("Sub Module id not valid");
             }
             AclPage.ModuleId = request.ModuleId;
             AclPage.SubModuleId = request.SubModuleId;
@@ -367,5 +383,22 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
             }
 
         }
+
+        public bool isAclPageIdExist(ulong id)
+        {
+            return _dbContext.AclPages.Any(x => x.Id == id);
+        }
+
+        public bool isModuleIdExist(ulong id)
+        {
+            return _dbContext.AclModules.Any(x => x.Id == id);
+        }
+
+        public bool isSubModuleIdExist(ulong id)
+        {
+            return _dbContext.AclSubModules.Any(x => x.Id == id);
+        }
+
+
     }
 }
