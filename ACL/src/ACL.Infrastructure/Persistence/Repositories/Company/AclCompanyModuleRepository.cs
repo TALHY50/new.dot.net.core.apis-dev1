@@ -72,6 +72,10 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
             try
             {
                 var aclCompanyModule = await _dbContext.AclCompanyModules.FindAsync(id);
+                if (aclCompanyModule == null)
+                {
+                    throw new Exception("company module not exist");
+                }
                 this.AclResponse.Message = (aclCompanyModule != null) ? this.MessageResponse.editMessage : this.MessageResponse.notFoundMessage;
                 this.AclResponse.StatusCode = (aclCompanyModule != null) ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
                 if (aclCompanyModule != null)
@@ -114,6 +118,10 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
         public async Task<AclResponse> DeleteCompanyModule(ulong id)
         {
             var aclCompanyModule = await _dbContext.AclCompanyModules.FindAsync(id);
+            if (aclCompanyModule == null)
+            {
+                throw new Exception("company module not exist");
+            }
             this.AclResponse.StatusCode = aclCompanyModule != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
             this.AclResponse.Message = aclCompanyModule != null ? this.MessageResponse.deleteMessage : this.MessageResponse.notFoundMessage;
             this.AclResponse.Data = aclCompanyModule;
@@ -124,19 +132,46 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
             }
             return this.AclResponse;
         }
-        /// <inheritdoc/>
-        public bool IsValidForCreateOrUpdate(ulong companyId, ulong moduleId, ulong id = 0)
+
+        public bool CompanyModuleValid(ulong companyId, ulong moduleId, ulong id = 0)
         {
             if (id == 0)
             {
                 return !_dbContext.AclCompanyModules
-                    .Any(x => x.CompanyId == companyId && x.ModuleId == moduleId) && _dbContext.AclCompanies.Any(x => x.Id == companyId) && _dbContext.AclModules.Any(x => x.Id == moduleId);
+                    .Any(x => x.CompanyId == companyId && x.ModuleId == moduleId);
             }
             else
             {
                 return _dbContext.AclCompanyModules
-               .Any(x => x.CompanyId == companyId && x.ModuleId == moduleId && x.Id != id) && _dbContext.AclCompanies.Any(x => x.Id == companyId) && _dbContext.AclModules.Any(x => x.Id == moduleId);
+                    .Any(x => x.CompanyId == companyId && x.ModuleId == moduleId && x.Id != id);
             }
+        }
+
+        public bool CompanyValid(ulong companyId)
+        {
+                return _dbContext.AclCompanies.Any(x => x.Id == companyId);
+        }
+        public bool ModuleValid(ulong moduleId)
+        {
+                return _dbContext.AclModules.Any(x => x.Id == moduleId);
+        }
+        /// <inheritdoc/>
+        public bool IsValidForCreateOrUpdate(ulong companyId, ulong moduleId, ulong id = 0)
+        {
+                if (!CompanyModuleValid(companyId, moduleId, id))
+                {
+                    throw new Exception("Company Module already exist");
+                }
+
+                if (!CompanyValid(companyId))
+                {
+                    throw new Exception("Company not valid");
+                }
+                if (!ModuleValid(moduleId))
+                {
+                    throw new Exception("Module not valid");
+                }
+                return true;
         }
         /// <inheritdoc/>
         public AclCompanyModule PrepareInputData(AclCompanyModuleRequest request, ulong id = 0, AclCompanyModule? companyModule = null)
@@ -160,7 +195,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
             }
             else
             {
-                throw new InvalidOperationException("Not valid data!");
+                throw new Exception();
             }
         }
         /// <inheritdoc/>
