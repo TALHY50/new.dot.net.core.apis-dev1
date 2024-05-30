@@ -7,13 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Adapter\" />
-    <Folder Include="Common\" />
-    <Folder Include="Exception\" />
     <Folder Include="Model\" />
-    <Folder Include="Net\" />
-    <Folder Include="Response\" />
-    <Folder Include="Request\" />
+    <Folder Include="Response\Dto\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
 </Project>

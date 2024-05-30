@@ -1,0 +1,39 @@
+
+using IMT.PayAll.Exception;
+using exception = System.Exception;
+
+namespace IMT.PayAll.Net
+{
+    public class AsyncRestClient : BaseRestClient
+    {
+        public static Task<T> Post<T>(string url, Dictionary<string, string> headers, object request)
+        {
+            return Exchange<T>(url, HttpMethod.Post, headers, request);
+        }
+
+        public static Task<T> Post<T>(string url, Dictionary<string, string> headers)
+        {
+            return Exchange<T>(url, HttpMethod.Post, headers, null);
+        }
+
+        private static async Task<T> Exchange<T>(string url, HttpMethod httpMethod, Dictionary<string, string> headers,
+            object request)
+        {
+            try
+            {
+                var requestMessage = BuildHttpRequestMessage(url, httpMethod, headers, request);
+                var httpResponseMessage = await HttpClient.SendAsync(requestMessage);
+                var content = await httpResponseMessage.Content.ReadAsByteArrayAsync();
+                return HandleResponse<T>(httpResponseMessage, content);
+            }
+            catch (PayAllException e)
+            {
+                throw e;
+            }
+            catch (exception e)
+            {
+                throw new PayAllException(e);
+            }
+        }
+    }
+}
