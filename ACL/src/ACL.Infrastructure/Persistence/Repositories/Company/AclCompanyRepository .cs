@@ -180,6 +180,11 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
             try
             {
                 AclCompany? aclCompany = Find(id);
+                if (aclCompany == null)
+                {
+                    throw new Exception("Company not exist");
+                }
+
                 aclCompany = PrepareInputData(null, request, aclCompany);
                 aclCompany = Update(aclCompany);
                 this.AclResponse.Data = aclCompany;
@@ -241,7 +246,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
             if (request == null && editRequest != null)
             {
                 bool isvalid = IsCompanyNameUnique(editRequest.Name, company.Id);
-                if (!isvalid)
+                if (isvalid)
                 {
                     throw new Exception("Company name is Not Unique");
                 }
@@ -269,6 +274,12 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
                 if (isvalid)
                 {
                     throw new Exception("Company name is Not Unique");
+                }
+
+                var isAlreadyExist = _aclUserRepository.FindByEmail(request.Email);
+                if (isAlreadyExist != null)
+                {
+                    throw new Exception("Email is Not Unique");
                 }
                 aclCompany.Name = request.Name;
                 aclCompany.Cname = request.Cname;
