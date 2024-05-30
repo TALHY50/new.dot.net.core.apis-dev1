@@ -12,6 +12,10 @@ using ACL.Application.UseCases.Auth.Login.Response;
 
 namespace ACL.Tests
 {
+#pragma warning disable CS8600 // Possible null reference argument     
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8604 // Possible null reference argument.
+#pragma warning disable CS0219 // Possible null reference argument
     public static class DataCollectors
     {
         public static string baseUrl = Env.GetString("APP_URL");

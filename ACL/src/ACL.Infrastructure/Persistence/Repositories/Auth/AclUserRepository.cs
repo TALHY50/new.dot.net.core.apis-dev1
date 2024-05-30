@@ -272,7 +272,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             }
             catch (Exception e)
             {
-                throw new Exception();
+                throw new Exception(e.Message);
             }
 
         }

@@ -12,6 +12,9 @@ using SharedLibrary.Response.CustomStatusCode;
 
 namespace ACL.Infrastructure.Persistence.Repositories.UserGroup
 {
+      
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8604 // Possible null reference argument.
     /// <inheritdoc/>
     public class AclUserGroupRoleRepository : IAclUserGroupRoleRepository
     {
@@ -141,12 +144,6 @@ namespace ACL.Infrastructure.Persistence.Repositories.UserGroup
 
             if (!valid)
             {
-                return _dbContext.AclUsergroupRoles.ToList();
-            }
-            catch (Exception)
-            {
-                throw new Exception();
-            }
                 throw new InvalidOperationException("UserGroup Id does not exist.");
             }
 

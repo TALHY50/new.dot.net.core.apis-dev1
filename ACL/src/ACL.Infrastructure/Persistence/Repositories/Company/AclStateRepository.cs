@@ -7,6 +7,10 @@ using ACL.Infrastructure.Utilities;
 using Microsoft.AspNetCore.Http;
 using SharedLibrary.Response.CustomStatusCode;
 
+  
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8604 // Possible null reference argument.
+#pragma warning disable CS8629 // Possible null reference argument
 namespace ACL.Infrastructure.Persistence.Repositories.Company
 {
     /// <inheritdoc/>

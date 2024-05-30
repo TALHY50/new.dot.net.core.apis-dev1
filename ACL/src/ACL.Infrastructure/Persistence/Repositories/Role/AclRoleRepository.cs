@@ -11,6 +11,9 @@ using SharedLibrary.Response.CustomStatusCode;
 
 namespace ACL.Infrastructure.Persistence.Repositories.Role
 {
+      
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8604 // Possible null reference argument.
     /// <inheritdoc/>
     public class AclRoleRepository : IAclRoleRepository
     {
@@ -243,11 +246,6 @@ namespace ACL.Infrastructure.Persistence.Repositories.Role
             {
                 throw new Exception();
             }
-        }
-
-        public bool IsExist(ulong id)
-        {
-            return _dbContext.AclRoles.Any(i => i.Id == id);
         }
 
         public bool IsExist(ulong id)
