@@ -77,6 +77,10 @@ namespace ACL.Infrastructure.Services
             try
             {
                 var _aclBranch = _repository.GetById(id);
+                if (_aclBranch == null)
+                {
+                    throw new Exception("Branch id Not Exist");
+                }
                 _aclBranch = PrepareInputData(request, _aclBranch);
                 this.aclResponse.Data = _repository.Update(_aclBranch);
                 this.aclResponse.Message = _aclBranch != null ? this.messageResponse.editMessage : this.messageResponse.notFoundMessage;
