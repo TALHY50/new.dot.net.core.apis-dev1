@@ -188,63 +188,40 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
         /// <inheritdoc/>
         public AclState? Add(AclState aclState)
         {
-            try
-            {
-                _dbContext.AclStates.Add(aclState);
-                _dbContext.SaveChanges();
-                _dbContext.Entry(aclState).Reload();
-                return aclState;
-            }
-            catch (Exception)
-            {
-                throw new Exception();
-            }
-
+            _dbContext.AclStates.Add(aclState);
+            _dbContext.SaveChanges();
+            _dbContext.Entry(aclState).Reload();
+            return aclState;
         }
         /// <inheritdoc/>
         public AclState? Update(AclState aclState)
         {
-            try
-            {
-                _dbContext.AclStates.Update(aclState);
-                _dbContext.SaveChanges();
-                _dbContext.Entry(aclState).Reload();
-                return aclState;
-            }
-            catch (Exception)
-            {
-                throw new Exception();
-            }
+
+            _dbContext.AclStates.Update(aclState);
+            _dbContext.SaveChanges();
+            _dbContext.Entry(aclState).Reload();
+            return aclState;
+
         }
         /// <inheritdoc/>
         public AclState? Delete(AclState aclState)
         {
-            try
-            {
-                _dbContext.AclStates.Remove(aclState);
-                _dbContext.SaveChangesAsync();
-                return aclState;
-            }
-            catch (Exception)
-            {
-                throw new Exception();
-            }
+
+            _dbContext.AclStates.Remove(aclState);
+            _dbContext.SaveChangesAsync();
+            return aclState;
+
 
         }
         /// <inheritdoc/>
         public AclState? Delete(ulong id)
         {
-            try
-            {
-                var delete = _dbContext.AclStates.Find(id);
-                _dbContext.AclStates.Remove(delete);
-                _dbContext.SaveChanges();
-                return delete;
-            }
-            catch (Exception)
-            {
-                throw new Exception();
-            }
+
+            var delete = _dbContext.AclStates.Find(id);
+            _dbContext.AclStates.Remove(delete);
+            _dbContext.SaveChanges();
+            return delete;
+
         }
     }
 }

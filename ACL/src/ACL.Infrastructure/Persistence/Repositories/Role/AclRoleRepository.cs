@@ -205,47 +205,31 @@ namespace ACL.Infrastructure.Persistence.Repositories.Role
         /// <inheritdoc/>
         public AclRole? Add(AclRole aclRole)
         {
-            try
-            {
-                _dbContext.AclRoles.Add(aclRole);
-                _dbContext.SaveChanges();
-                _dbContext.Entry(aclRole).ReloadAsync();
-                return aclRole;
-            }
-            catch (Exception)
-            {
-                throw new Exception();
-            }
+
+            _dbContext.AclRoles.Add(aclRole);
+            _dbContext.SaveChanges();
+            _dbContext.Entry(aclRole).ReloadAsync();
+            return aclRole;
 
         }
         /// <inheritdoc/>
         public AclRole? Update(AclRole aclRole)
         {
-            try
-            {
-                _dbContext.AclRoles.Update(aclRole);
-                _dbContext.SaveChanges();
-                _dbContext.Entry(aclRole).Reload();
-                return aclRole;
-            }
-            catch (Exception)
-            {
-                throw new Exception();
-            }
+
+            _dbContext.AclRoles.Update(aclRole);
+            _dbContext.SaveChanges();
+            _dbContext.Entry(aclRole).Reload();
+            return aclRole;
+
         }
         /// <inheritdoc/>
         public AclRole? Delete(AclRole aclRole)
         {
-            try
-            {
-                _dbContext.AclRoles.Remove(aclRole);
-                _dbContext.SaveChangesAsync();
-                return aclRole;
-            }
-            catch (Exception)
-            {
-                throw new Exception();
-            }
+
+            _dbContext.AclRoles.Remove(aclRole);
+            _dbContext.SaveChangesAsync();
+            return aclRole;
+
         }
 
         public bool IsExist(ulong id)

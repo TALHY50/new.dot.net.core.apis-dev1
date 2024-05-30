@@ -10,6 +10,8 @@ using SharedLibrary.Response.CustomStatusCode;
 
 namespace ACL.Infrastructure.Persistence.Repositories.Module
 {
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8604 // Possible null reference argument.
     /// <inheritdoc/>
     public class AclSubModuleRepository : IAclSubModuleRepository
     {
@@ -26,10 +28,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
         public AclSubModuleRepository(ApplicationDbContext dbContext, IAclUserRepository aclUserRepository, IHttpContextAccessor httpContextAccessor)
         {
             _aclUserRepository = aclUserRepository;
-            this.aclResponse = new AclResponse();
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-#pragma warning disable CS8604 // Possible null reference argument.
-            this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
+            aclResponse = new AclResponse();
             _dbContext = dbContext;
             _httpContextAccessor = httpContextAccessor;
             AppAuth.Initialize(_httpContextAccessor, _dbContext);

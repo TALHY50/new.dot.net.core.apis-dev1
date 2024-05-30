@@ -101,7 +101,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             {
                 strategy.Execute(() =>
                {
-                   using var transaction = _dbContext.Database.BeginTransaction();
+                   var transaction = _dbContext.Database.BeginTransaction();
                    try
                    {
                        AclUser? aclUser = PrepareInputData(request);
@@ -133,6 +133,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
                        this.AclResponse.Message = ex.Message;
                        this.AclResponse.StatusCode = AppStatusCode.FAIL;
                    }
+                  
                });
             }
             catch (Exception ex)
@@ -140,6 +141,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
                 this.AclResponse.Message = ex.Message;
                 this.AclResponse.StatusCode = AppStatusCode.FAIL;
             }
+
             this.AclResponse.Timestamp = DateTime.Now;
             return Task.FromResult(this.AclResponse);
         }
@@ -293,7 +295,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             if (aclUser == null)
             {
 
-                if (isAclUserEmailExist(request.Email))
+                if (IsAclUserEmailExist(request.Email))
                 {
                     throw new InvalidOperationException("Email already exist");
                 }
@@ -325,7 +327,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             }
             else
             {
-                if (isAclUserEmailExist(request.Email, aclUser.Id))
+                if (IsAclUserEmailExist(request.Email, aclUser.Id))
                 {
                     throw new InvalidOperationException("Email already exist");
                 }
@@ -623,7 +625,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
         }
 
 
-        public bool isAclUserEmailExist(string email, ulong? isUserId = null)
+        public bool IsAclUserEmailExist(string email, ulong? isUserId = null)
         {
 
             if (isUserId == null)
@@ -640,6 +642,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
         {
             return _dbContext.AclUsers.Any(m=> m.Id == id);
         }
+
 
     }
 }

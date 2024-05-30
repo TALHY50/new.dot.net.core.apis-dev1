@@ -1,5 +1,4 @@
 ﻿using ACL.Application.Ports.Repositories.Auth;
-using ACL.Application.Ports.Repositories.Role;
 using ACL.Application.Ports.Repositories.UserGroup;
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response;
@@ -160,74 +159,43 @@ namespace ACL.Infrastructure.Persistence.Repositories.UserGroup
         /// <inheritdoc/>
         public AclUsergroupRole? Find(ulong id)
         {
-            try
-            {
-                return _dbContext.AclUsergroupRoles.Find(id);
-            }
-            catch (Exception)
-            {
-                throw new Exception();
-            }
+
+            return _dbContext.AclUsergroupRoles.Find(id);
+
         }
         /// <inheritdoc/>
         public AclUsergroupRole? Add(AclUsergroupRole aclUserGroupRole)
         {
-            try
-            {
-                _dbContext.AclUsergroupRoles.Add(aclUserGroupRole);
-                _dbContext.SaveChanges();
-                _dbContext.Entry(aclUserGroupRole).Reload();
-                return aclUserGroupRole;
-            }
-            catch (Exception)
-            {
-                throw new Exception();
-            }
+
+            _dbContext.AclUsergroupRoles.Add(aclUserGroupRole);
+            _dbContext.SaveChanges();
+            _dbContext.Entry(aclUserGroupRole).Reload();
+            return aclUserGroupRole;
         }
         /// <inheritdoc/>
         public AclUsergroupRole? Update(AclUsergroupRole aclUserGroupRole)
         {
-            try
-            {
-                _dbContext.AclUsergroupRoles.Update(aclUserGroupRole);
-                _dbContext.SaveChanges();
-                _dbContext.Entry(aclUserGroupRole).Reload();
-                return aclUserGroupRole;
-            }
-            catch (Exception)
-            {
-                throw new Exception();
-            }
+
+            _dbContext.AclUsergroupRoles.Update(aclUserGroupRole);
+            _dbContext.SaveChanges();
+            _dbContext.Entry(aclUserGroupRole).Reload();
+            return aclUserGroupRole;
+
         }
         /// <inheritdoc/>
         public AclUsergroupRole? Delete(AclUsergroupRole aclUserGroupRole)
         {
-            try
-            {
-                _dbContext.AclUsergroupRoles.Remove(aclUserGroupRole);
-                _dbContext.SaveChanges();
-                return aclUserGroupRole;
-            }
-            catch (Exception)
-            {
-                throw new Exception();
-            }
-
+            _dbContext.AclUsergroupRoles.Remove(aclUserGroupRole);
+            _dbContext.SaveChanges();
+            return aclUserGroupRole;
         }
         /// <inheritdoc/>
         public AclUsergroupRole? Delete(ulong id)
         {
-            try
-            {
-                var delete = Find(id);
-                _dbContext.AclUsergroupRoles.Remove(delete);
-                _dbContext.SaveChanges();
-                return delete;
-            }
-            catch (Exception)
-            {
-                throw new Exception();
-            }
+            var delete = Find(id);
+            _dbContext.AclUsergroupRoles.Remove(delete);
+            _dbContext.SaveChanges();
+            return delete;
         }
     }
 }
