@@ -101,7 +101,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             {
                 strategy.Execute(() =>
                {
-                   using IDbContextTransaction? transaction = _dbContext.Database.BeginTransaction();
+                   var transaction = _dbContext.Database.BeginTransaction();
                    try
                    {
                        AclUser? aclUser = PrepareInputData(request);
@@ -133,20 +133,13 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
                        this.AclResponse.Message = ex.Message;
                        this.AclResponse.StatusCode = AppStatusCode.FAIL;
                    }
-                   finally
-                   {
-                       _dbContext.Database.CloseConnection();
-                   }
+                  
                });
             }
             catch (Exception ex)
             {
                 this.AclResponse.Message = ex.Message;
                 this.AclResponse.StatusCode = AppStatusCode.FAIL;
-            }
-            finally
-            {
-                _dbContext.Database.CloseConnection();
             }
 
             this.AclResponse.Timestamp = DateTime.Now;
