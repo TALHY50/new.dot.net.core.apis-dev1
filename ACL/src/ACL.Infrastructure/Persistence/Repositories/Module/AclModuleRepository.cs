@@ -87,7 +87,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
             return this.AclResponse;
         }
         /// <inheritdoc/>
-        public AclResponse EditAclModule(ulong id, AclModuleRequest request)
+        public AclResponse EditAclModule(AclModuleRequest request)
         {
             try
             {
@@ -99,7 +99,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
                     this.AclResponse.Message = this.MessageResponse.editMessage;
                     this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
 
-                    List<ulong>? userIds = _aclUserRepository.GetUserIdByChangePermission(id);
+                    List<ulong>? userIds = _aclUserRepository.GetUserIdByChangePermission(request.Id);
                     if (userIds != null)
                     {
                         _aclUserRepository.UpdateUserPermissionVersion(userIds);

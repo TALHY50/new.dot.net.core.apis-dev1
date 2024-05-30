@@ -21,7 +21,7 @@
         {
             public const string List = Base + "modules";
             public const string Add = Base + "modules/add";
-            public const string Edit = Base + "modules/edit/{id}";
+            public const string Edit = Base + "modules/edit";
             public const string View = Base + "modules/view/{id}";
             public const string Destroy = Base + "modules/delete/{id}";
         }

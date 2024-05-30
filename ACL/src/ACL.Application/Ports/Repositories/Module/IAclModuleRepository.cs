@@ -14,7 +14,7 @@ namespace ACL.Application.Ports.Repositories.Module
         /// <inheritdoc/>
         AclResponse AddAclModule(AclModuleRequest request);
         /// <inheritdoc/>
-        AclResponse EditAclModule(ulong Id, AclModuleRequest request);
+        AclResponse EditAclModule(AclModuleRequest request);
         /// <inheritdoc/>
         AclResponse DeleteModule(ulong id);
         /// <inheritdoc/>

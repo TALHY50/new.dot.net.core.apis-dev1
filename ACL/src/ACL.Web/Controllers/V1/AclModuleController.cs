@@ -37,9 +37,9 @@ namespace ACL.Web.Controllers.V1
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPut(AclRoutesUrl.AclModuleRouteUrl.Edit, Name = AclRoutesName.AclModuleRouteNames.Edit)]
-        public AclResponse Edit(ulong id, AclModuleRequest moduleRequest)
+        public AclResponse Edit(AclModuleRequest moduleRequest)
         {
-            return this._repository.EditAclModule(id, moduleRequest);
+            return this._repository.EditAclModule(moduleRequest);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]

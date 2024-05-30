@@ -241,7 +241,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
             }
             catch (Exception)
             {
-                throw new Exception();
+                throw new Exception("Country not exist");
             }
 
         }
