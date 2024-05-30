@@ -266,7 +266,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
             if (request != null && editRequest == null)
             {
                 bool isvalid = IsCompanyNameUnique(request.Name);
-                if (!isvalid)
+                if (isvalid)
                 {
                     throw new Exception("Company name is Not Unique");
                 }
