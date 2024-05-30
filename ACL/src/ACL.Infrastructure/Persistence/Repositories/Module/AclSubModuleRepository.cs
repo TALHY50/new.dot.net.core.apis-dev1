@@ -87,7 +87,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
             aclResponse.Data = Update(aclSubModule);
             aclResponse.Message = messageResponse.editMessage;
             aclResponse.StatusCode = AppStatusCode.SUCCESS;
-            List<ulong>? userIds = _aclUserRepository.GetUserIdByChangePermission(null, id);
+            List<ulong>? userIds = _aclUserRepository.GetUserIdByChangePermission(null, request.Id);
             if (userIds != null)
             {
                 _aclUserRepository.UpdateUserPermissionVersion(userIds);
