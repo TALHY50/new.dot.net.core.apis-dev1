@@ -5,7 +5,7 @@ namespace IMT.Thunes
 {
     public class ThunesClient
     {
-        private const string BaseUrl = "https://api.craftgate.io";
+        private const string BaseUrl = "https://xyz";
         public ThunesClient(string apiKey, string secretKey)
             : this(apiKey, secretKey, BaseUrl, null)
         {
