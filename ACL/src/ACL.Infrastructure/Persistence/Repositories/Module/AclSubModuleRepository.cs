@@ -10,6 +10,8 @@ using SharedLibrary.Response.CustomStatusCode;
 
 namespace ACL.Infrastructure.Persistence.Repositories.Module
 {
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+#pragma warning disable CS8604 // Possible null reference argument.
     /// <inheritdoc/>
     public class AclSubModuleRepository : IAclSubModuleRepository
     {
