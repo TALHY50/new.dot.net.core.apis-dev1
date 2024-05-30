@@ -272,7 +272,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             }
             catch (Exception e)
             {
-                throw new Exception();
+                throw new Exception(e.Message);
             }
 
         }
@@ -302,7 +302,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             if (aclUser == null)
             {
 
-                if (isAclUserEmailExist(request.Email))
+                if (IsAclUserEmailExist(request.Email))
                 {
                     throw new InvalidOperationException("Email already exist");
                 }
@@ -334,7 +334,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             }
             else
             {
-                if (isAclUserEmailExist(request.Email, aclUser.Id))
+                if (IsAclUserEmailExist(request.Email, aclUser.Id))
                 {
                     throw new InvalidOperationException("Email already exist");
                 }
@@ -631,12 +631,8 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             }
         }
 
-        public bool IsExist(ulong id)
-        {
-            return _dbContext.AclUsers.Any(m=> m.Id == id);
-        }
 
-        public bool isAclUserEmailExist(string email, ulong? isUserId = null)
+        public bool IsAclUserEmailExist(string email, ulong? isUserId = null)
         {
 
             if (isUserId == null)
@@ -647,6 +643,11 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             {
                 return _dbContext.AclUsers.Any(x => x.Email == email && x.Id != isUserId);
             }
+        }
+
+        public bool IsExist(ulong id)
+        {
+            return _dbContext.AclUsers.Any(m=> m.Id == id);
         }
 
 
