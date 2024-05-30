@@ -12,7 +12,7 @@ namespace ACL.Application.Ports.Repositories.Module
         /// <inheritdoc/>
         AclResponse Add(AclSubModuleRequest subModuleRequest);
         /// <inheritdoc/>
-        AclResponse Edit(ulong id, AclSubModuleRequest subModuleRequest);
+        AclResponse Edit(AclSubModuleRequest subModuleRequest);
         /// <inheritdoc/>
         AclResponse FindById(ulong id);
         /// <inheritdoc/>

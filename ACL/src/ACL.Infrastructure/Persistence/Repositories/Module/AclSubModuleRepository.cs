@@ -23,7 +23,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
         readonly ApplicationDbContext _dbContext;
         private readonly IAclUserRepository _aclUserRepository;
         private static IHttpContextAccessor _httpContextAccessor;
-        private enum SubModuleIds:ulong { _2001 = 2001,_2020 = 2020, _2021 = 2021, _2022 = 2022, _2050 =  2050, _2051 = 2051, _2052 = 2052, _2053 = 2053, _2054 = 2054, _2055 = 2055 };
+        private enum SubModuleIds : ulong { _2001 = 2001, _2020 = 2020, _2021 = 2021, _2022 = 2022, _2050 = 2050, _2051 = 2051, _2052 = 2052, _2053 = 2053, _2054 = 2054, _2055 = 2055 };
         /// <inheritdoc/>
         public AclSubModuleRepository(ApplicationDbContext dbContext, IAclUserRepository aclUserRepository, IHttpContextAccessor httpContextAccessor)
         {
@@ -67,16 +67,16 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
             }
             var aclSubModule = PrepareInputData(request);
             aclResponse.Data = Add(aclSubModule);
-            aclResponse.Message = (aclResponse.Data!=null)?messageResponse.createMessage: messageResponse.createFail;
+            aclResponse.Message = (aclResponse.Data != null) ? messageResponse.createMessage : messageResponse.createFail;
             aclResponse.StatusCode = (aclResponse.Data != null) ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
             aclResponse.Timestamp = DateTime.Now;
             return aclResponse;
 
         }
         /// <inheritdoc/>
-        public AclResponse Edit(ulong id, AclSubModuleRequest request)
+        public AclResponse Edit(AclSubModuleRequest request)
         {
-            var aclSubModule = Find(id);
+            var aclSubModule = Find(request.Id);
             if (aclSubModule == null)
             {
                 aclResponse.Message = messageResponse.notFoundMessage;
@@ -154,22 +154,22 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
         private AclSubModule PrepareInputData(AclSubModuleRequest request, AclSubModule? aclSubModule = null)
         {
             if (aclSubModule == null)
+            {
+                aclSubModule = new AclSubModule
                 {
-                    aclSubModule = new AclSubModule
-                    {
-                        Id = request.Id,
-                        CreatedAt = DateTime.Now
-                    };
-                }
-                aclSubModule.ModuleId = ModuleIdExist(request.ModuleId);
-                aclSubModule.Name = ExistByName(aclSubModule.Id, request.Name);
-                aclSubModule.ControllerName = request.ControllerName;
-                aclSubModule.DefaultMethod = request.DefaultMethod;
-                aclSubModule.DisplayName = request.DisplayName;
-                aclSubModule.Icon = request.Icon;
-                aclSubModule.Sequence = request.Sequence;
-                aclSubModule.UpdatedAt = DateTime.Now;
-                return aclSubModule;
+                    Id = request.Id,
+                    CreatedAt = DateTime.Now
+                };
+            }
+            aclSubModule.ModuleId = ModuleIdExist(request.ModuleId);
+            aclSubModule.Name = ExistByName(aclSubModule.Id, request.Name);
+            aclSubModule.ControllerName = request.ControllerName;
+            aclSubModule.DefaultMethod = request.DefaultMethod;
+            aclSubModule.DisplayName = request.DisplayName;
+            aclSubModule.Icon = request.Icon;
+            aclSubModule.Sequence = request.Sequence;
+            aclSubModule.UpdatedAt = DateTime.Now;
+            return aclSubModule;
         }
         /// <inheritdoc/>
         public List<AclSubModule>? All()
@@ -187,49 +187,46 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
         /// <inheritdoc/>
         public AclSubModule? Find(ulong id)
         {
-           
             return _dbContext.AclSubModules.Find(id);
-          
-
         }
         /// <inheritdoc/>
         public AclSubModule? Add(AclSubModule aclSubModule)
         {
-           
-                _dbContext.AclSubModules.Add(aclSubModule);
-                _dbContext.SaveChanges();
-                _dbContext.Entry(aclSubModule).Reload();
-                return aclSubModule;
+
+            _dbContext.AclSubModules.Add(aclSubModule);
+            _dbContext.SaveChanges();
+            _dbContext.Entry(aclSubModule).Reload();
+            return aclSubModule;
 
         }
         /// <inheritdoc/>
         public AclSubModule? Update(AclSubModule aclSubModule)
         {
-           
-                _dbContext.AclSubModules.Update(aclSubModule);
-                _dbContext.SaveChanges();
-                _dbContext.Entry(aclSubModule).Reload();
-                return aclSubModule;
-          
+
+            _dbContext.AclSubModules.Update(aclSubModule);
+            _dbContext.SaveChanges();
+            _dbContext.Entry(aclSubModule).Reload();
+            return aclSubModule;
+
         }
         /// <inheritdoc/>
         public AclSubModule? Delete(AclSubModule aclSubModule)
         {
-          
-                _dbContext.AclSubModules.Remove(aclSubModule);
-                _dbContext.SaveChanges();
-                return aclSubModule;
-            
+
+            _dbContext.AclSubModules.Remove(aclSubModule);
+            _dbContext.SaveChanges();
+            return aclSubModule;
+
         }
         /// <inheritdoc/>
         public AclSubModule? Delete(ulong id)
         {
-                var delete = Find(id);
-                _dbContext.AclSubModules.Remove(delete);
-                _dbContext.SaveChanges();
-                return delete;
+            var delete = Find(id);
+            _dbContext.AclSubModules.Remove(delete);
+            _dbContext.SaveChanges();
+            return delete;
         }
-       
+
         /// <inheritdoc/>
         public string ExistByName(ulong? id, string name)
         {
@@ -249,8 +246,9 @@ namespace ACL.Infrastructure.Persistence.Repositories.Module
         {
             var valid = _dbContext.AclModules.Any(x => x.Id == moduleId);
 
-            if (!valid){
-                throw new InvalidOperationException("Module Id does not exist.");
+            if (!valid)
+            {
+                throw new Exception("Module Id does not exist.");
             }
 
             return moduleId;
