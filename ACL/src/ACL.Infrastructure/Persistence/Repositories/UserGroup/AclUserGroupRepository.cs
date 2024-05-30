@@ -43,7 +43,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.UserGroup
         /// <inheritdoc/>
         public AclResponse GetAll()
         {
-            List<AclUsergroup>? result = All();
+            List<AclUsergroup>? result = All().Where(x=>x.CompanyId == AppAuth.GetAuthInfo().CompanyId).ToList();
             if (result.Any())
             {
                 this.aclResponse.Data = result;
@@ -82,6 +82,14 @@ namespace ACL.Infrastructure.Persistence.Repositories.UserGroup
             AclUsergroup? result = Find(id);
             if (result != null)
             {
+                bool isCompanyMatch = result.CompanyId == AppAuth.GetAuthInfo().CompanyId;
+                if (!isCompanyMatch)
+                {
+                    result = null;
+                }
+            }
+            if (result != null)
+            {
                 result = PrepareInputData(userGroup, result);
                 this.aclResponse.Data = Update(result);
                 this.aclResponse.Message = this.messageResponse.editMessage;
@@ -106,6 +114,22 @@ namespace ACL.Infrastructure.Persistence.Repositories.UserGroup
             AclUsergroup? result = Find(id);
             if (result != null)
             {
+                bool isCompanyMatch = result.CompanyId == AppAuth.GetAuthInfo().CompanyId;
+                if (!isCompanyMatch)
+                {
+                    result = null;
+                }
+            }
+            if (result != null)
+            {
+                bool isCompanyMatch = result.CompanyId == AppAuth.GetAuthInfo().CompanyId;
+                if (!isCompanyMatch)
+                {
+                    result = null;
+                }
+            }
+            if (result != null)
+            {
                 this.aclResponse.Data = result;
                 this.aclResponse.Message = this.messageResponse.fetchMessage;
                 this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
@@ -122,6 +146,14 @@ namespace ACL.Infrastructure.Persistence.Repositories.UserGroup
         public AclResponse Delete(ulong id)
         {
             AclUsergroup? result = Find(id);
+            if (result != null)
+            {
+                bool isCompanyMatch = result.CompanyId == AppAuth.GetAuthInfo().CompanyId;
+                if (!isCompanyMatch)
+                {
+                    result = null;
+                }
+            }
             if (result != null)
             {
                 this.aclResponse.Data = Deleted(id);

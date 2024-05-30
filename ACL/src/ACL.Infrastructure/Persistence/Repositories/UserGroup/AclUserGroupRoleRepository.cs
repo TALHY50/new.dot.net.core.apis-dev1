@@ -41,7 +41,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.UserGroup
         public AclResponse GetRolesByUserGroupId(ulong userGroupId)
         {
             var roles = _dbContext.AclRoles.Where(x=>x.CompanyId == AppAuth.GetAuthInfo().CompanyId).Select(role => new { role.Id, role.Title }).ToList();
-            var associatedRoles = All().Where(ugr => ugr.UsergroupId == userGroupId)
+            var associatedRoles = All().Where(ugr => ugr.UsergroupId == userGroupId && ugr.CompanyId == AppAuth.GetAuthInfo().CompanyId)
                 .Join(roles, ugr => ugr.RoleId, r => r.Id,
                 (ugr, r) => new
                 {
