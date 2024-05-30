@@ -77,7 +77,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
             catch (Exception)
             {
 
-                throw new Exception();
+                throw new Exception("Branch id not Exist");
             }
         }
         /// <inheritdoc/>
