@@ -7,10 +7,10 @@ namespace IMT.Thunes.Response.Common
 {
     public class Payer
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Currency { get; set; }
-        public string CountryIsoCode { get; set; }
-        public Service Service { get; set; }
+        public int id { get; set; }
+        public string name { get; set; }
+        public string currency { get; set; }
+        public string country_iso_code { get; set; }
+        public Service service { get; set; }
     }
 }

@@ -7,8 +7,8 @@ namespace IMT.Thunes.Response.Common
 {
     public class Source
     {
-        public string CountryIsoCode { get; set; }
-        public string Currency { get; set; }
-        public double Amount { get; set; }
+        public string country_iso_code { get; set; }
+        public string currency { get; set; }
+        public double amount { get; set; }
     }
 }

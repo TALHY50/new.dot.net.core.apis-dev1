@@ -8,17 +8,17 @@ namespace IMT.Thunes.Response
 {
     public class CreateQuatationResponse
     {
-        public int Id { get; set; }
-        public string ExternalId { get; set; }
-        public Payer Payer { get; set; }
-        public string Mode { get; set; }
-        public string TransactionType { get; set; }
-        public Source Source { get; set; }
-        public Destination Destination { get; set; }
-        public SentAmount SentAmount { get; set; }
-        public double WholesaleFxRate { get; set; }
-        public Fee Fee { get; set; }
-        public DateTime CreationDate { get; set; }
-        public DateTime ExpirationDate { get; set; }
+        public int id { get; set; }
+        public string external_id { get; set; }
+        public Payer payer { get; set; }
+        public string mode { get; set; }
+        public string transaction_type { get; set; }
+        public Source source { get; set; }
+        public Destination destination { get; set; }
+        public SentAmount sent_amount { get; set; }
+        public double wholesale_fx_rate { get; set; }
+        public Fee fee { get; set; }
+        public DateTime creation_date { get; set; }
+        public DateTime expiration_date { get; set; }
     }
 }

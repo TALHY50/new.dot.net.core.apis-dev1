@@ -7,7 +7,7 @@ namespace IMT.Thunes.Response.Common
 {
     public class Destination
     {
-        public string Currency { get; set; }
-        public double Amount { get; set; }
+        public string currency { get; set; }
+        public double amount { get; set; }
     }
 }
