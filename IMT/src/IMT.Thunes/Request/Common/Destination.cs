@@ -7,7 +7,7 @@ namespace IMT.Thunes.Request.Common
 {
     public class Destination
     {
-        public required string Amount { get; set; }
-        public required string Currency { get; set; }
+        public required string amount { get; set; }
+        public required string currency { get; set; }
     }
 }
