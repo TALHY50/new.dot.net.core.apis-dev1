@@ -1,6 +1,8 @@
 ﻿//using IMT.Thunes.Adapter;
 using IMT.Thunes.Adapter;
+using IMT.Thunes.Request;
 using IMT.Thunes.Request.Common;
+using IMT.Thunes.Response;
 
 namespace IMT.Thunes
 {
@@ -15,7 +17,7 @@ namespace IMT.Thunes
         {
         }
 
-        public ThunesClient(string apiKey, string secretKey, string baseUrl, string language)
+        public ThunesClient(string apiKey, string secretKey, string baseUrl, string language = null)
         {
             var requestOptions = new RequestOptions
             {
@@ -28,9 +30,9 @@ namespace IMT.Thunes
         }
 
 
-        public QuotationAdapter CreateQuotation()
+        public BaseCreateQuatationResponse CreateQuotation(CreateQuatationRequest request)
         {
-            return this._quotationAdapter;
+            return this._quotationAdapter.createQuatatioin(request);
         }
 
 
