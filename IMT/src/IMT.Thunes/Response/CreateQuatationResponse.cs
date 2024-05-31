@@ -6,7 +6,7 @@ using IMT.Thunes.Response.Common;
 
 namespace IMT.Thunes.Response
 {
-    public class CreateQuatationResponse
+    public class BaseCreateQuatationResponse
     {
         public int id { get; set; }
         public string external_id { get; set; }

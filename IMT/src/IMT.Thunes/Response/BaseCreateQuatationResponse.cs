@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace IMT.Thunes.Response
 {
-    public class BaseCreateQuatationResponse : CreateQuatationResponse
+    public class CreateQuatationResponse : BaseCreateQuatationResponse
     {
 
     }

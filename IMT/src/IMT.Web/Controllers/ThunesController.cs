@@ -16,7 +16,7 @@ namespace IMT.Web.Controllers
 
 
         [HttpGet(Name = "GetThunes")]
-        public BaseCreateQuatationResponse Get()
+        public CreateQuatationResponse Get()
         {
             CreateQuatationRequest? request = new CreateQuatationRequest();
             var response = _thunesClient.CreateQuotation(request);
