@@ -8,11 +8,11 @@ namespace IMT.Thunes.Request
 {
     public class CreateQuatationRequest
     {
-        public  string ExternalId { get; set; }
-        public  string PayerId { get; set; }
-        public  string Mode { get; set; }
-        public  string TransactionType { get; set; }
-        public  Source Source { get; set; }
-        public  Destination Destination { get; set; }
+        public string external_id { get; set; }
+        public string payer_id { get; set; }
+        public string mode { get; set; }
+        public string transaction_type { get; set; }
+        public Source source { get; set; }
+        public Destination destination { get; set; }
     }
 }

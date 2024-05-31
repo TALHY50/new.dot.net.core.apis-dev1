@@ -7,8 +7,8 @@ namespace IMT.Thunes.Request.Common
 {
     public class Source
     {
-        public required string Amount { get; set; }
-        public required string Currency { get; set; }
-        public required string CountryIsoCode { get; set; }
+        public required string amount { get; set; }
+        public required string currency { get; set; }
+        public required string country_iso_code { get; set; }
     }
 }
