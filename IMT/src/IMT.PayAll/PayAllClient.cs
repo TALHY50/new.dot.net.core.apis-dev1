@@ -8,25 +8,26 @@ namespace IMT.PayAll
         private const string BaseUrl = "https://api.sandbox.payall.com";
         private readonly PaymentAdapter _paymentAdapter;
        
-        public PayAllClient(string apiKey, string secretKey)
-            : this(apiKey, secretKey, BaseUrl, null)
+        public PayAllClient(string clientId, string clientSecret)
+            : this(clientId, clientSecret, BaseUrl, null)
         {
         }
 
-        public PayAllClient(string apiKey, string secretKey, string baseUrl)
-            : this(apiKey, secretKey, baseUrl, null)
+        public PayAllClient(string clientId, string clientSecret, string baseUrl)
+            : this(clientId, clientSecret, baseUrl, null)
         {
         }
 
-        public PayAllClient(string apiKey, string secretKey, string baseUrl, string language)
+        public PayAllClient(string clientId, string clientSecret, string baseUrl, string language)
         {
             var requestOptions = new RequestOptions
             {
-                ApiKey = apiKey,
-                SecretKey = secretKey,
+                Client_ID = clientId,
+                Client_Secret = clientSecret,
                 BaseUrl = baseUrl,
                 Language = language
             };
+
 
             _paymentAdapter = new PaymentAdapter(requestOptions);
 

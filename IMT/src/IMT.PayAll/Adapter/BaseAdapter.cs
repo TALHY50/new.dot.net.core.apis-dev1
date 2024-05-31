@@ -1,5 +1,7 @@
 
+
 using IMT.PayAll.Request.Common;
+
 
 namespace IMT.PayAll.Adapter
 {
@@ -7,7 +9,7 @@ namespace IMT.PayAll.Adapter
     {
 
         private const string Accept = "accept";
-        private const string Authorization = "Authorization";
+        private const string Authorization = "authorization";
 
         private const int RandomStringSize = 8;
         private const string ApiVersionHeaderValue = "v1";
@@ -19,6 +21,7 @@ namespace IMT.PayAll.Adapter
         private const string SignatureHeaderName = "x-signature";
         private const string LanguageHeaderName = "lang";
         private const string RandomChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        private const string acceptHeader = "application/json";
         protected readonly RequestOptions RequestOptions;
 
         protected BaseAdapter(RequestOptions requestOptions)
@@ -43,16 +46,21 @@ namespace IMT.PayAll.Adapter
         {
             var headers = new Dictionary<string, string>();
 
-            var randomString = RandomString(RandomStringSize);
-            headers.Add(ApiKeyHeaderName, options.ApiKey);
-            headers.Add(RandomHeaderName, randomString);
-            headers.Add(AuthVersionHeaderName, ApiVersionHeaderValue);
-            headers.Add(ClientVersionHeaderName, ClientVersionHeaderValue + ":1.0.59");
-            headers.Add(SignatureHeaderName, PrepareAuthorizationString(request, path, randomString, options));
-            if (options.Language != null)
-            {
-                headers.Add(LanguageHeaderName, options.Language);
-            }
+            var BearerToken = PrepareAuthorization(options);
+
+            //var randomString = RandomString(RandomStringSize);
+            //headers.Add(ApiKeyHeaderName, options.ApiKey);
+            //headers.Add(RandomHeaderName, randomString);
+            //headers.Add(AuthVersionHeaderName, ApiVersionHeaderValue);
+            //headers.Add(ClientVersionHeaderName, ClientVersionHeaderValue + ":1.0.59");
+            //headers.Add(SignatureHeaderName, PrepareAuthorizationString(request, path, randomString, options));
+            //if (options.Language != null)
+            //{
+            //    headers.Add(LanguageHeaderName, options.Language);
+            //}
+
+            headers.Add(Accept, acceptHeader);
+            headers.Add(Authorization, BearerToken);
             return headers;
         }
 
@@ -70,6 +78,14 @@ namespace IMT.PayAll.Adapter
             for (var i = 0; i < stringChars.Length; i++)
                 stringChars[i] = RandomChars[random.Next(RandomChars.Length)];
             return new string(stringChars);
+        }
+
+        private static string PrepareAuthorization(RequestOptions options)
+        {
+            var path = "/oauth/token";
+            //RestClient.Post(RequestOptions.BaseUrl + path, CreateHeaders(null, path, RequestOptions), null);
+
+            return "Bearer 123456789adffsfsfsfasfdfsdfadfsfsf";
         }
     }
 }

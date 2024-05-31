@@ -3,6 +3,7 @@ using System.Net;
 using System.Text;
 using IMT.PayAll.Common;
 using IMT.PayAll.Exception;
+using IMT.PayAll.Response;
 using IMT.PayAll.Response.Common;
 using Newtonsoft.Json;
 using exception = System.Exception;
@@ -74,6 +75,18 @@ namespace IMT.PayAll.Net
             if (request == null) return null;
             var body = JsonConvert.SerializeObject(request, PayAllJsonSerializerSettings.Settings);
             return new StringContent(body, Encoding.UTF8, "application/json");
+        }
+
+        protected static HttpResponseModel HandleResponse(HttpResponseMessage httpResponse)
+        {
+           return new HttpResponseModel{
+                StatusCode = (int)httpResponse.StatusCode,
+               StatusMessage = httpResponse.StatusCode.ToString(),
+               ReasonPhrase = httpResponse.ReasonPhrase,
+                Version = httpResponse.Version.ToString(),
+                Headers = new Dictionary<string, string>(),
+                Content = httpResponse.Content != null ? httpResponse.Content.ReadAsStringAsync().Result : null
+            };
         }
     }
 }
