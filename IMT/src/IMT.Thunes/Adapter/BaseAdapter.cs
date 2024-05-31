@@ -53,6 +53,12 @@ namespace IMT.Thunes.Adapter
             {
                 headers.Add(LanguageHeaderName, options.Language);
             }
+            //// Add Authorization header
+            //headers.Add("Authorization", "Basic " + PrepareAuthorizationString(request, path, RandomString(RandomStringSize), options));
+            //// Add Content-Type header
+            //headers.Add("Content-Type", "application/xml; charset=utf-8");
+            //// Add accept header
+            //headers.Add("accept", "application/json");
             return headers;
         }
 

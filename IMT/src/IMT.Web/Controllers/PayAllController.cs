@@ -20,7 +20,7 @@ namespace IMT.Web.Controllers
             var request = CreatePaymentRequest();
             var response = _payAllClient.Payment().Initiate_single_payment(request);
 
-            return null;
+            return response;
         }
 
         private CreatePaymentRequest CreatePaymentRequest()

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using IMT.Thunes.Exception;
-using exception = System.Exception;
+using _exception = System.Exception;
 
 namespace IMT.Thunes.Net
 {
@@ -47,11 +47,7 @@ namespace IMT.Thunes.Net
                 var content = httpResponseMessage.Content.ReadAsByteArrayAsync().Result;
                 return HandleResponse<T>(httpResponseMessage, content);
             }
-            catch (ThunesException e)
-            {
-                throw e;
-            }
-            catch (exception e)
+            catch (_exception e)
             {
                 throw new ThunesException(e);
             }

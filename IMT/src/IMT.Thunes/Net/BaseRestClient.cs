@@ -7,7 +7,7 @@ using IMT.Thunes.Common;
 using IMT.Thunes.Exception;
 using IMT.Thunes.Response.Common;
 using Newtonsoft.Json;
-using exception = System.Exception;
+using _exception = System.Exception;
 
 namespace IMT.Thunes.Net
 {
