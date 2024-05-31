@@ -1,4 +1,5 @@
 ﻿//using IMT.Thunes.Adapter;
+using IMT.Thunes.Adapter;
 using IMT.Thunes.Request.Common;
 
 namespace IMT.Thunes
@@ -6,6 +7,9 @@ namespace IMT.Thunes
     public class ThunesClient
     {
         private const string BaseUrl = "https://xyz";
+
+        private readonly QuotationAdapter _quotationAdapter;
+
         public ThunesClient(string apiKey, string secretKey)
             : this(apiKey, secretKey, BaseUrl, null)
         {
@@ -20,6 +24,15 @@ namespace IMT.Thunes
                 BaseUrl = baseUrl,
                 Language = language
             };
+            this._quotationAdapter = new QuotationAdapter(requestOptions);
         }
+
+
+        public QuotationAdapter CreateQuotation()
+        {
+            return this._quotationAdapter;
+        }
+
+
     }
 }
