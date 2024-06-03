@@ -30,9 +30,9 @@ namespace IMT.Thunes
         }
 
 
-        public BaseCreateQuatationResponse CreateQuotation(CreateQuatationRequest request)
+        public QuotationAdapter QuotationAdapter()
         {
-            return this._quotationAdapter.createQuatatioin(request);
+            return this._quotationAdapter;
         }
 
 

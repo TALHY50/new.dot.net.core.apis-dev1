@@ -1,4 +1,5 @@
-﻿using IMT.Thunes;
+﻿using IMT.PayAll;
+using IMT.Thunes;
 using IMT.Thunes.Request;
 using IMT.Thunes.Response;
 using Microsoft.AspNetCore.Mvc;
@@ -11,15 +12,30 @@ namespace IMT.Web.Controllers
     {
 
         private readonly ThunesClient _thunesClient =
-            new ThunesClient("api-key", "secret-key", "https://sandbox-api.craftgate.io");
+            new ThunesClient("api-key", "secret-key", "https://api.limonetikqualif.com");
 
 
-        [HttpGet(Name = "GetThunes")]
-        public BaseCreateQuatationResponse Get()
+        [HttpGet("CreateQuatatioin")]
+        public CreateQuatationResponse Get()
         {
             CreateQuatationRequest? request = new CreateQuatationRequest();
-            return _thunesClient.CreateQuotation(request);
+            return _thunesClient.QuotationAdapter().CreateQuatatioin(request);
+        }
 
+        [HttpGet("GetQuotationById")]
+        public CreateQuatationResponse GetById()
+        {
+
+            int id = 1;
+            return _thunesClient.QuotationAdapter().GetQuotationById(id);
+        }
+
+        [HttpGet("GetRetrieveQuotationByExternalId")]
+        public CreateQuatationResponse GetByExternalId()
+        {
+
+            ulong id = 1481184321405;
+            return _thunesClient.QuotationAdapter().GetRetrieveQuotationByExternalId(id);
         }
     }
 }

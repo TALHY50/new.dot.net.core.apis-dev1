@@ -5,9 +5,10 @@ using System.Net.Http;
 using System.Text;
 using IMT.Thunes.Common;
 using IMT.Thunes.Exception;
+using IMT.Thunes.Response;
 using IMT.Thunes.Response.Common;
 using Newtonsoft.Json;
-using exception = System.Exception;
+using _exception = System.Exception;
 
 namespace IMT.Thunes.Net
 {
@@ -44,6 +45,22 @@ namespace IMT.Thunes.Net
             return typeof(T) == typeof(byte[])
                 ? HandleByteArrayResponse<T>(httpResponseMessage, content)
                 : HandleJsonResponse<T>(httpResponseMessage, content);
+        }
+
+        protected static CreateQuatationResponse HandleResponse(HttpResponseMessage httpResponseMessage)
+        {
+            CreateContentQuatationResponse? Content = new CreateContentQuatationResponse();
+            if (httpResponseMessage.Content != null)
+            {
+                Content = (CreateContentQuatationResponse)JsonConvert.DeserializeObject(httpResponseMessage.Content.ReadAsStringAsync().Result, ThunesJsonSerializerSettings.Settings);
+            }
+            return new CreateQuatationResponse
+            {
+                StatusCode = (int)httpResponseMessage.StatusCode,
+                ReasonPhrase = httpResponseMessage.ReasonPhrase,
+                Version = httpResponseMessage.Version.ToString(),
+                Content = Content
+            };
         }
 
         private static T HandleJsonResponse<T>(HttpResponseMessage httpResponseMessage, byte[] content)

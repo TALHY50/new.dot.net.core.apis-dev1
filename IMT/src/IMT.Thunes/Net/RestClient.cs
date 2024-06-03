@@ -1,12 +1,24 @@
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Json;
 using IMT.Thunes.Exception;
-using exception = System.Exception;
+using IMT.Thunes.Response;
+using _exception = System.Exception;
 
 namespace IMT.Thunes.Net
 {
     public class RestClient : BaseRestClient
     {
+        public static CreateQuatationResponse Post(string url, Dictionary<string, string> headers, object request)
+        {
+            return ExchangeCreateQuatation(url, HttpMethod.Post, headers, null);
+        }
+
+        public static CreateQuatationResponse Get(string url, Dictionary<string, string> headers)
+        {
+            return ExchangeCreateQuatation(url, HttpMethod.Get, headers, null);
+        }
+
         public static T Get<T>(string url, Dictionary<string, string> headers)
         {
             return Exchange<T>(url, HttpMethod.Get, headers, null);
@@ -43,18 +55,32 @@ namespace IMT.Thunes.Net
             try
             {
                 var requestMessage = BuildHttpRequestMessage(url, httpMethod, headers, request);
-                var httpResponseMessage = HttpClient.SendAsync(requestMessage).Result;
+                HttpResponseMessage? httpResponseMessage = HttpClient.SendAsync(requestMessage).Result;
                 var content = httpResponseMessage.Content.ReadAsByteArrayAsync().Result;
                 return HandleResponse<T>(httpResponseMessage, content);
             }
-            catch (ThunesException e)
-            {
-                throw e;
-            }
-            catch (exception e)
+            catch (_exception e)
             {
                 throw new ThunesException(e);
             }
         }
+
+        private static CreateQuatationResponse ExchangeCreateQuatation(string url, HttpMethod httpMethod, Dictionary<string, string> headers,
+            object request)
+        {
+            try
+            {
+                var requestMessage = BuildHttpRequestMessage(url, httpMethod, headers, request);
+                var httpResponseMessage = HttpClient.SendAsync(requestMessage).Result;
+                return HandleResponse(httpResponseMessage);
+            }
+            catch (_exception e)
+            {
+                throw new ThunesException(e);
+            }
+        }
+
+
+
     }
 }
