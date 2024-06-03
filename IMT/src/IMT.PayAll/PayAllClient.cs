@@ -22,10 +22,9 @@ namespace IMT.PayAll
         {
             var requestOptions = new RequestOptions
             {
-                Client_ID = clientId,
-                Client_Secret = clientSecret,
-                BaseUrl = baseUrl,
-                Language = language
+                ClientID = clientId,
+                ClientSecret = clientSecret,
+                BaseUrl = baseUrl
             };
 
 

@@ -11,16 +11,14 @@ namespace IMT.PayAll.Exception
         public string ErrorDescription { get; }
         public string ErrorGroup { get; }
 
-        public PayAllException(string errorCode, string errorDescription, string errorGroup)
-            : base(errorDescription)
+        public PayAllException(string errorCode, string errorDescription, string errorGroup): base(errorDescription)
         {
             ErrorCode = errorCode;
             ErrorDescription = errorDescription;
             ErrorGroup = errorGroup;
         }
 
-        public PayAllException(exception exception)
-            : base(exception.Message, exception)
+        public PayAllException(exception exception): base(exception.Message, exception)
         {
             ErrorCode = GeneralErrorCode;
             ErrorDescription = GeneralErrorDescription;
