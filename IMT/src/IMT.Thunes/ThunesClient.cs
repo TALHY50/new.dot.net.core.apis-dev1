@@ -13,6 +13,7 @@ namespace IMT.Thunes
 
         private readonly QuotationAdapter _quotationAdapter;
         private readonly InformationAdapter _information_adapter;
+        private readonly TransactionAdapter _transactionAdapter;
 
         public ThunesClient(string apiKey, string secretKey)
             : this(apiKey, secretKey, BaseUrl, null)
@@ -30,12 +31,18 @@ namespace IMT.Thunes
             };
             this._quotationAdapter = new QuotationAdapter(requestOptions);
             this._information_adapter = new InformationAdapter(requestOptions);
+            _transactionAdapter = new TransactionAdapter(requestOptions);
         }
 
 
         public object CreateQuotation(CreateQuatationRequest request)
         {
             return this._information_adapter;
+        }
+
+        public object CreateTransaction(CreateNewTransactionRequest request)
+        {
+            return _transactionAdapter.CreateTransaction(request);
         }
 
 

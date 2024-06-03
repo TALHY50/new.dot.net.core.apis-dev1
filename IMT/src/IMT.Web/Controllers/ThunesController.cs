@@ -7,6 +7,7 @@ using IMT.Thunes.Response;
 using IMT.Thunes.Response.CreditParties;
 using IMT.Thunes.Route;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace IMT.Web.Controllers
 {
@@ -15,47 +16,20 @@ namespace IMT.Web.Controllers
     public class ThunesController : ControllerBase
     {
 
-        private readonly ThunesClient _thunesClient =
-            new ThunesClient("api-key", "secret-key", "http://localhost:3001");
+        private readonly ThunesClient _thunesClient = new ThunesClient("api-key", "secret-key", "https://api.limonetikqualif.com");
+       // private readonly ThunesClient _thunesClient = new ThunesClient("api-key", "secret-key", "http://localhost:3001"); // mock
 
 
         [HttpPost(ThunesUrl.CreateQuatationUrl)]
-        public Object Post()
+        public Object QuotationPost()
         {
             CreateQuatationRequest? request = new CreateQuatationRequest();
-            return _thunesClient.QuotationAdapter().CreateQuatatioin(request);
+            var response = _thunesClient.CreateQuotation(request);
+           return response;
         }
-
-        [HttpGet("GetQuotationById")]
-        public CreateQuatationResponse GetById()
+        CreateNewTransactionRequest CreateTransactionFromJson(string json)
         {
-
-            int id = 1;
-            return _thunesClient.QuotationAdapter().GetQuotationById(id);
-        }
-
-        [HttpGet("GetRetrieveQuotationByExternalId")]
-        public CreateQuatationResponse GetByExternalId()
-        {
-            ulong id = 1481184321405;
-            return _thunesClient.QuotationAdapter().GetRetrieveQuotationByExternalId(id);
-        }
-
-
-        [HttpGet("CreditPartyInformation")]
-        public InformationResponse GetInformationAdapter()
-        {
-            InformationRequest request = new InformationRequest
-            {
-                credit_party_identifier = new CreditPartyIdentifier
-                {
-                    msisdn = "263775892364",
-                }
-            };
-            // request = new InformationRequest();
-            ulong id = 1;
-            string transaction_type = "C2C";
-            return _thunesClient.GetInformationAdapter().CreditPartyInformation(request, id, transaction_type);
+            return JsonConvert.DeserializeObject<CreateNewTransactionRequest>(json);
         }
     }
 }
