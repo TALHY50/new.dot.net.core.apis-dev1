@@ -5,6 +5,7 @@ using IMT.Thunes.Request.CreditParties;
 using IMT.Thunes.Request.CreditParties.Common;
 using IMT.Thunes.Response;
 using IMT.Thunes.Response.CreditParties;
+using IMT.Thunes.Route;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IMT.Web.Controllers
@@ -18,8 +19,8 @@ namespace IMT.Web.Controllers
             new ThunesClient("api-key", "secret-key", "http://localhost:3001");
 
 
-        [HttpGet("CreateQuatatioin")]
-        public CreateQuatationResponse Get()
+        [HttpPost(ThunesUrl.CreateQuatationUrl)]
+        public Object Post()
         {
             CreateQuatationRequest? request = new CreateQuatationRequest();
             return _thunesClient.QuotationAdapter().CreateQuatatioin(request);
