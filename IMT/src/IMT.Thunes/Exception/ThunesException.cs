@@ -9,14 +9,12 @@ namespace IMT.Thunes.Exception
         private const string GeneralErrorGroup = "Unknown";
         public string ErrorCode { get; }
         public string ErrorDescription { get; }
-        public string ErrorGroup { get; }
 
-        public ThunesException(string errorCode, string errorDescription, string errorGroup)
+        public ThunesException(string errorCode, string errorDescription)
             : base(errorDescription)
         {
             ErrorCode = errorCode;
             ErrorDescription = errorDescription;
-            ErrorGroup = errorGroup;
         }
 
         public ThunesException(exception exception)
@@ -24,7 +22,6 @@ namespace IMT.Thunes.Exception
         {
             ErrorCode = GeneralErrorCode;
             ErrorDescription = GeneralErrorDescription;
-            ErrorGroup = GeneralErrorGroup;
         }
     }
 }

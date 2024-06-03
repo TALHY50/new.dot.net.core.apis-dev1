@@ -15,8 +15,8 @@ namespace IMT.Web.Controllers
             new ThunesClient("api-key", "secret-key", "https://api.limonetikqualif.com");
 
 
-        [HttpGet(Name = "GetThunes")]
-        public CreateQuatationResponse Get()
+        [HttpPost(Name = "CreateQuotation")]
+        public Object Post()
         {
             CreateQuatationRequest? request = new CreateQuatationRequest();
             var response = _thunesClient.CreateQuotation(request);
