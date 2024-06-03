@@ -29,5 +29,13 @@ namespace IMT.Web.Controllers
             int id = 1;
             return _thunesClient.QuotationAdapter().GetQuotationById(id);
         }
+
+        [HttpGet("GetRetrieveQuotationByExternalId")]
+        public CreateQuatationResponse GetByExternalId()
+        {
+
+            ulong id = 1481184321405;
+            return _thunesClient.QuotationAdapter().GetRetrieveQuotationByExternalId(id);
+        }
     }
 }
