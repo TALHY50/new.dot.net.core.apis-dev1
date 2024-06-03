@@ -33,12 +33,7 @@ namespace IMT.Thunes
         }
 
 
-        public QuotationAdapter QuotationAdapter()
-        {
-            return this._quotationAdapter;
-        }
-
-        public InformationAdapter GetInformationAdapter()
+        public object CreateQuotation(CreateQuatationRequest request)
         {
             return this._information_adapter;
         }

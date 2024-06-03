@@ -46,6 +46,52 @@ namespace IMT.Thunes.Net
                 ? HandleByteArrayResponse<T>(httpResponseMessage, content)
                 : HandleJsonResponse<T>(httpResponseMessage, content);
         }
+        protected static T HandleResponse<T>(HttpResponseMessage httpResponseMessage, string content)
+        {
+            return HandleJsonResponse<T>(httpResponseMessage, content);
+        }
+        protected static object HandleObjectResponse<T>(HttpResponseMessage httpResponseMessage, string content)
+        {
+            var response = HandleJsonObjectResponse<T>(httpResponseMessage, content);
+            var httpResponse = JsonConvert.SerializeObject(httpResponseMessage);
+            var apiResponse = JsonConvert.DeserializeObject<Response<T>>((content != "") ? content : httpResponse, ThunesJsonSerializerSettings.Settings);
+            if (apiResponse.Data != null)
+            {
+                return apiResponse.Data;
+            }
+            else
+            {
+                // If there are errors, return ErrorResponse
+                if (apiResponse.Errors != null)
+                {
+                    return apiResponse.Errors;
+                }
+                else
+                {
+                    apiResponse.Errors = new ErrorResponse();
+                    apiResponse.Errors.ErrorCode = ((int)httpResponseMessage.StatusCode).ToString();
+                    apiResponse.Errors.ErrorDescription = httpResponseMessage.ReasonPhrase ?? httpResponseMessage.StatusCode.ToString();
+                    return apiResponse.Errors;
+                }
+            }
+        }
+        private static T HandleJsonResponse<T>(HttpResponseMessage httpResponseMessage, string content)
+        {
+            RequireSuccess<T>(httpResponseMessage, content);
+
+            var httpResponse = JsonConvert.SerializeObject(httpResponseMessage);
+            var apiResponse = JsonConvert.DeserializeObject<Response<T>>((content != "") ? content : httpResponse, ThunesJsonSerializerSettings.Settings);
+
+            if (apiResponse.Data == null)
+            {
+                apiResponse = new Response<T>();
+                apiResponse.Errors = new ErrorResponse();
+                apiResponse.Errors.ErrorCode = ((int)httpResponseMessage.StatusCode).ToString();
+                apiResponse.Errors.ErrorDescription = httpResponseMessage.ReasonPhrase ?? httpResponseMessage.StatusCode.ToString();
+            }
+
+            return apiResponse.Data;
+        }
 
         protected static CreateQuatationResponse HandleResponse(HttpResponseMessage httpResponseMessage)
         {
@@ -83,7 +129,8 @@ namespace IMT.Thunes.Net
             // var response = JsonConvert.DeserializeObject<Response<T>>(content, ThunesJsonSerializerSettings.Settings);
             if (httpResponseMessage.StatusCode == HttpStatusCode.Unauthorized)
             {
-                throw new UnauthorizeException(((int)httpResponseMessage.StatusCode).ToString(), ((int)httpResponseMessage.StatusCode).ToString());
+                var errorResponse = response.Errors;
+                throw new ThunesException(errorResponse.ErrorCode, errorResponse.ErrorDescription, errorResponse.ErrorGroup);
             }
         }
 
