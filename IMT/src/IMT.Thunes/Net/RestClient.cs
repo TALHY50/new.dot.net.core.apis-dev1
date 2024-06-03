@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Json;
 using IMT.Thunes.Exception;
 using IMT.Thunes.Response;
 using _exception = System.Exception;
@@ -50,7 +51,7 @@ namespace IMT.Thunes.Net
             try
             {
                 var requestMessage = BuildHttpRequestMessage(url, httpMethod, headers, request);
-                var httpResponseMessage = HttpClient.SendAsync(requestMessage).Result;
+                HttpResponseMessage? httpResponseMessage = HttpClient.SendAsync(requestMessage).Result;
                 var content = httpResponseMessage.Content.ReadAsByteArrayAsync().Result;
                 return HandleResponse<T>(httpResponseMessage, content);
             }
