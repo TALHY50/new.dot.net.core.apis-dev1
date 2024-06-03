@@ -11,6 +11,7 @@ namespace IMT.Thunes
         private const string BaseUrl = "https://xyz";
 
         private readonly QuotationAdapter _quotationAdapter;
+        private readonly TransactionAdapter _transactionAdapter;
 
         public ThunesClient(string apiKey, string secretKey)
             : this(apiKey, secretKey, BaseUrl, null)
@@ -27,12 +28,18 @@ namespace IMT.Thunes
                 Language = language
             };
             this._quotationAdapter = new QuotationAdapter(requestOptions);
+            _transactionAdapter = new TransactionAdapter(requestOptions);
         }
 
 
         public object CreateQuotation(CreateQuatationRequest request)
         {
             return this._quotationAdapter.CreateQuatatioin(request);
+        }
+
+        public object CreateTransaction(CreateNewTransactionRequest request)
+        {
+            return _transactionAdapter.CreateTransaction(request);
         }
 
 
