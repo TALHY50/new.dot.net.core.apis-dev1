@@ -19,8 +19,7 @@ namespace IMT.Web.Controllers
         public CreateQuatationResponse Get()
         {
             CreateQuatationRequest? request = new CreateQuatationRequest();
-            var response = _thunesClient.CreateQuotation(request);
-           return response;
+            return _thunesClient.CreateQuotation().CreateQuatatioin(request);
         }
     }
 }

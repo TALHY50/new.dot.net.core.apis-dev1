@@ -19,7 +19,7 @@ namespace IMT.Thunes.Adapter
 
         public CreateQuatationResponse CreateQuatatioin(CreateQuatationRequest request)
         {
-            return RestClient.Post<CreateQuatationResponse>(RequestOptions.BaseUrl + ThunesUrl.CreateQuatationUrl,
+            return RestClient.Post(RequestOptions.BaseUrl + ThunesUrl.CreateQuatationUrl,
                 CreateHeaders(request, ThunesUrl.CreateQuatationUrl, RequestOptions), request);
         }
     }
