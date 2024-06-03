@@ -2,6 +2,7 @@
 using IMT.Thunes;
 using IMT.Thunes.Request;
 using IMT.Thunes.Response;
+using IMT.Thunes.Route;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IMT.Web.Controllers
@@ -15,7 +16,7 @@ namespace IMT.Web.Controllers
             new ThunesClient("api-key", "secret-key", "https://api.limonetikqualif.com");
 
 
-        [HttpPost(Name = "CreateQuotation")]
+        [HttpPost(ThunesUrl.CreateQuatationUrl)]
         public Object Post()
         {
             CreateQuatationRequest? request = new CreateQuatationRequest();
