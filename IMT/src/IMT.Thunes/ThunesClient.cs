@@ -30,7 +30,7 @@ namespace IMT.Thunes
         }
 
 
-        public QuotationAdapter CreateQuotation()
+        public QuotationAdapter QuotationAdapter()
         {
             return this._quotationAdapter;
         }

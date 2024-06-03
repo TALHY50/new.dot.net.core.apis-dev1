@@ -22,5 +22,12 @@ namespace IMT.Thunes.Adapter
             return RestClient.Post(RequestOptions.BaseUrl + ThunesUrl.CreateQuatationUrl,
                 CreateHeaders(request, ThunesUrl.CreateQuatationUrl, RequestOptions), request);
         }
+
+        public CreateQuatationResponse GetQuotationById(int id)
+        {
+            string url = ThunesUrl.RetrieveAQuotationByIdUrl + "/" + id;
+            return RestClient.Get(RequestOptions.BaseUrl + url,
+                CreateHeaders(url, RequestOptions));
+        }
     }
 }

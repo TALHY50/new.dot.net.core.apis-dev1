@@ -14,11 +14,15 @@ namespace IMT.Thunes.Net
             return ExchangeCreateQuatation(url, HttpMethod.Post, headers, null);
         }
 
+        public static CreateQuatationResponse Get(string url, Dictionary<string, string> headers)
+        {
+            return ExchangeCreateQuatation(url, HttpMethod.Get, headers, null);
+        }
+
         public static T Get<T>(string url, Dictionary<string, string> headers)
         {
             return Exchange<T>(url, HttpMethod.Get, headers, null);
         }
-
 
         public static T Post<T>(string url, Dictionary<string, string> headers, object request)
         {

@@ -15,11 +15,19 @@ namespace IMT.Web.Controllers
             new ThunesClient("api-key", "secret-key", "https://api.limonetikqualif.com");
 
 
-        [HttpGet(Name = "GetThunes")]
+        [HttpGet("CreateQuatatioin")]
         public CreateQuatationResponse Get()
         {
             CreateQuatationRequest? request = new CreateQuatationRequest();
-            return _thunesClient.CreateQuotation().CreateQuatatioin(request);
+            return _thunesClient.QuotationAdapter().CreateQuatatioin(request);
+        }
+
+        [HttpGet("GetQuotationById")]
+        public CreateQuatationResponse GetById()
+        {
+
+            int id = 1;
+            return _thunesClient.QuotationAdapter().GetQuotationById(id);
         }
     }
 }
