@@ -27,9 +27,5 @@ namespace IMT.Web.Controllers
             var response = _thunesClient.CreateQuotation(request);
            return response;
         }
-        CreateNewTransactionRequest CreateTransactionFromJson(string json)
-        {
-            return JsonConvert.DeserializeObject<CreateNewTransactionRequest>(json);
-        }
     }
 }
