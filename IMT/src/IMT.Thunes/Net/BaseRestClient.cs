@@ -55,8 +55,11 @@ namespace IMT.Thunes.Net
             var response = HandleJsonObjectResponse<T>(httpResponseMessage, content);
             var httpResponse = JsonConvert.SerializeObject(httpResponseMessage);
             var apiResponse = JsonConvert.DeserializeObject<T>(content , ThunesJsonSerializerSettings.Settings);
+            //var checkapiResponse = JsonConvert.DeserializeObject(content , ThunesJsonSerializerSettings.Settings);
+            //return (checkapiResponse==null)?apiResponse:checkapiResponse;
             return apiResponse;
         }
+        
         private static T HandleJsonResponse<T>(HttpResponseMessage httpResponseMessage, string content)
         {
             RequireSuccess<T>(httpResponseMessage, content);
@@ -73,6 +76,14 @@ namespace IMT.Thunes.Net
             }
 
             return apiResponse.Data;
+        }
+
+        protected static CreateQuatationResponse HandleResponse(HttpResponseMessage httpResponseMessage)
+        {
+            RequireSuccess<T>(httpResponseMessage, content);
+            var httpResponse = JsonConvert.SerializeObject(httpResponseMessage);
+            var apiResponse = JsonConvert.DeserializeObject( content, ThunesJsonSerializerSettings.Settings);
+            return apiResponse;
         }
 
         protected static CreateQuatationResponse HandleResponse(HttpResponseMessage httpResponseMessage)
@@ -115,6 +126,7 @@ namespace IMT.Thunes.Net
                 throw new ThunesException(errorResponse.ErrorCode, errorResponse.ErrorDescription, errorResponse.ErrorGroup);
             }
         }
+   
 
         private static StringContent PrepareContent(object request)
         {

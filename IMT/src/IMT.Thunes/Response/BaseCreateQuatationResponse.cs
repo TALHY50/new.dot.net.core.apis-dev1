@@ -8,6 +8,6 @@ namespace IMT.Thunes.Response
 {
     public class CreateQuatationResponse : BaseCreateQuatationResponse
     {
-        public ErrorResponse errorResponse { get; set; }
+        
     }
 }
