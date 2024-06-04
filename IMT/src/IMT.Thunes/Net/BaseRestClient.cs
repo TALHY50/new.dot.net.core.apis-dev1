@@ -67,8 +67,8 @@ namespace IMT.Thunes.Net
         {
             var contentString = Encoding.UTF8.GetString(content);
             RequireSuccess<T>(httpResponseMessage, contentString);
-            var apiResponse = JsonConvert.DeserializeObject<Response<T>>(contentString, ThunesJsonSerializerSettings.Settings);
-            return apiResponse == null ? default : apiResponse.Data;
+            var apiResponse = JsonConvert.DeserializeObject<T>(contentString, ThunesJsonSerializerSettings.Settings);
+            return apiResponse == null ? default : apiResponse;
         }
 
         private static T HandleByteArrayResponse<T>(HttpResponseMessage httpResponseMessage, byte[] content)
@@ -80,11 +80,10 @@ namespace IMT.Thunes.Net
         private static void RequireSuccess<T>(HttpResponseMessage httpResponseMessage, string content)
         {
             if (httpResponseMessage.StatusCode < HttpStatusCode.BadRequest) return;
-            var response = JsonConvert.DeserializeObject<Response<T>>(content, ThunesJsonSerializerSettings.Settings);
-            if (response != null && response.Errors != null)
+            // var response = JsonConvert.DeserializeObject<Response<T>>(content, ThunesJsonSerializerSettings.Settings);
+            if (httpResponseMessage.StatusCode == HttpStatusCode.Unauthorized)
             {
-                var errorResponse = response.Errors;
-                throw new ThunesException(errorResponse.ErrorCode, errorResponse.ErrorDescription, errorResponse.ErrorGroup);
+                throw new UnauthorizeException(((int)httpResponseMessage.StatusCode).ToString(), ((int)httpResponseMessage.StatusCode).ToString());
             }
         }
 
