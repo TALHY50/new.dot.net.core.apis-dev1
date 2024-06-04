@@ -1,7 +1,9 @@
 
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using IMT.PayAll.Common;
+using IMT.PayAll.Exception;
 using IMT.PayAll.Response.Common;
 using Newtonsoft.Json;
 
@@ -87,6 +89,7 @@ namespace IMT.PayAll.Net
                 Content = httpResponse.Content != null ? httpResponse.Content.ReadAsStringAsync().Result : null,
             };
         }
-      
+
+        
     }
 }
