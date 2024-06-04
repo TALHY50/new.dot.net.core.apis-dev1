@@ -33,7 +33,6 @@ namespace IMT.Web.Controllers
         [HttpGet("GetRetrieveQuotationByExternalId")]
         public CreateQuatationResponse GetByExternalId()
         {
-
             ulong id = 1481184321405;
             return _thunesClient.QuotationAdapter().GetRetrieveQuotationByExternalId(id);
         }
