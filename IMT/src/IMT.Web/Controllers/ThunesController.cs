@@ -24,6 +24,7 @@ namespace IMT.Web.Controllers
             return response;
         }
 
+        [Tags("Transaction From Quotation Id")]
         [HttpPost(ThunesUrl.CreateTransactionUrl)]
         public Object TransactionPost()
         {
