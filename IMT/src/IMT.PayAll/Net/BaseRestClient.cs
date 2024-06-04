@@ -79,6 +79,8 @@ namespace IMT.PayAll.Net
 
         protected static HttpResponse<T> HandleResponse<T>(HttpResponseMessage httpResponse,string content)
         {
+            var apiResponse = JsonConvert.DeserializeObject<T>(httpResponse.Content.ReadAsStringAsync().Result, PayAllJsonSerializerSettings.Settings);
+
             return new HttpResponse<T>
             {
                 StatusCode = (int)httpResponse.StatusCode,
@@ -87,6 +89,7 @@ namespace IMT.PayAll.Net
                 Version = httpResponse.Version.ToString(),
                 Headers = new Dictionary<string, string>(),
                 Content = httpResponse.Content != null ? httpResponse.Content.ReadAsStringAsync().Result : null,
+                Data = apiResponse
             };
         }
 
