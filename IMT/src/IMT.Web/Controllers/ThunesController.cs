@@ -13,7 +13,8 @@ namespace IMT.Web.Controllers
     public class ThunesController : ControllerBase
     {
 
-        private readonly ThunesClient _thunesClient = new ThunesClient("api-key", "secret-key", "https://api.limonetikqualif.com");
+      //  private readonly ThunesClient _thunesClient = new ThunesClient("api-key", "secret-key", "https://api.limonetikqualif.com");
+        private readonly ThunesClient _thunesClient = new ThunesClient("api-key", "secret-key", "http://localhost:3000");
 
 
         [HttpPost(ThunesUrl.CreateQuatationUrl)]
@@ -75,14 +76,15 @@ namespace IMT.Web.Controllers
     'retail_fee_currency': 'EUR',
     'purpose_of_remittance': 'FAMILY_SUPPORT',
     'document_reference_number': '12345678',
-    'callback_url': '{URL_PLACEHOLDER}',
+    'callback_url': 'URL_PLACEHOLDER',
     'reference': 'some reference'
 }";
-            CreateNewTransactionRequest request = CreateTransactionFromJson(jsonString);
-            var response = _thunesClient.CreateTransaction(request);
+            CreateNewTransactionRequest? request = CreateTransactionFromJson(jsonString);
+            request = request??new CreateNewTransactionRequest();
+            var response = _thunesClient.CreateTransaction(request=null);
             return response;
         }
-        CreateNewTransactionRequest CreateTransactionFromJson(string json)
+        CreateNewTransactionRequest? CreateTransactionFromJson(string json)
         {
             return JsonConvert.DeserializeObject<CreateNewTransactionRequest>(json);
         }

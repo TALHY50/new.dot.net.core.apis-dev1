@@ -8,6 +8,7 @@ using IMT.Thunes.Request;
 using IMT.Thunes.Request.Common;
 using IMT.Thunes.Response;
 using IMT.Thunes.Route;
+using Newtonsoft.Json;
 
 namespace IMT.Thunes.Adapter
 {
