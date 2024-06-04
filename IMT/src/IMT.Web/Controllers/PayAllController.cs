@@ -1,9 +1,10 @@
 ﻿
 using IMT.PayAll;
 using IMT.PayAll.Request;
-using IMT.PayAll.Response;
+using IMT.PayAll.Request.Common;
 using IMT.PayAll.Route;
 using Microsoft.AspNetCore.Mvc;
+
 
 namespace IMT.Web.Controllers
 {
@@ -17,15 +18,30 @@ namespace IMT.Web.Controllers
             _payAllClient = new PayAllClient("client-id", "client-secret", "https://api.sandbox.payall.com");
         }
         [HttpPost(PayAllUrl.SinglePayment)]
-        public HttpResponseModel SinglePayment()
+        public object SinglePayment()
         {
             var request = CreatePaymentRequest();
-            return _payAllClient.Payment().SinglePayment(request); 
+            var result = _payAllClient.Payment().SinglePayment(request);
+            return Ok(result);
+        }
+        [HttpGet(PayAllUrl.GetPaymentById)]
+        public object GetPaymentById(string id)
+        {
+            var result = _payAllClient.Payment().GetPaymentById(id);
+            return Ok(result);
+        }
+
+        [HttpPatch(PayAllUrl.UpdatePaymentById)]
+        public object UpdatePaymentById(string id)
+        {
+            var request = UpdatePaymentRequest();
+            var result = _payAllClient.Payment().UpdatePaymentDetailsById(id, request);
+            return Ok(result);
         }
 
         private CreatePaymentRequest CreatePaymentRequest()
         {
-           
+
             var paymentData = new CreatePaymentRequest
             {
                 client_payment_id = "CP12345",
@@ -102,6 +118,17 @@ namespace IMT.Web.Controllers
                 }
             };
             return paymentData;
+        }
+
+        private PaymentUpdateRequest UpdatePaymentRequest()
+        {
+            return new PaymentUpdateRequest
+            {
+                supporting_documents = new List<SupportingDocument>{
+                                        new SupportingDocument { document_id = "3fa85f64-5717-4562-b3fc-2c963f66afa6" }
+            },
+                exchange_rate_id = "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+            };
         }
     }
 }

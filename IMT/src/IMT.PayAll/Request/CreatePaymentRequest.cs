@@ -1,4 +1,6 @@
 
+using IMT.PayAll.Request.Common;
+
 namespace IMT.PayAll.Request
 {
     public class CreatePaymentRequest
@@ -14,12 +16,6 @@ namespace IMT.PayAll.Request
         public string carded_rate_id { get; set; }
         public Kyt kyt { get; set; }
 
-    }
-
-    public class Amount
-    {
-        public string currency { get; set; }
-        public int value { get; set; }
     }
 
     public class IdentityDocument
@@ -81,8 +77,5 @@ namespace IMT.PayAll.Request
         public string building_number { get; set; }
     }
 
-    public class SupportingDocument
-    {
-        public string document_id { get; set; }
-    }
+
 }
