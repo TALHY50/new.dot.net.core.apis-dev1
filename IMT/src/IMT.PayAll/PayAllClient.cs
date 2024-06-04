@@ -7,7 +7,8 @@ namespace IMT.PayAll
     {
         private const string BaseUrl = "https://api.sandbox.payall.com";
         private readonly PaymentAdapter _paymentAdapter;
-       
+        private readonly PaymentInstrumentAdapter _paymentInstrumentAdapter;
+
         public PayAllClient(string clientId, string clientSecret)
             : this(clientId, clientSecret, BaseUrl, null)
         {
@@ -29,12 +30,17 @@ namespace IMT.PayAll
 
 
             _paymentAdapter = new PaymentAdapter(requestOptions);
+            _paymentInstrumentAdapter = new PaymentInstrumentAdapter(requestOptions);
 
         }
 
         public PaymentAdapter Payment()
         {
             return _paymentAdapter;
+        }
+        public PaymentInstrumentAdapter PaymentInstruments()
+        {
+            return _paymentInstrumentAdapter;
         }
 
     

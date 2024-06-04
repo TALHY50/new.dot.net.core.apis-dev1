@@ -20,6 +20,10 @@ namespace IMT.PayAll.Net
         {
             return Exchange<T>(url, HttpMethod.Patch, headers, request);
         }
+        public static HttpResponse<T> Delete<T>(string url, Dictionary<string, string> headers)
+        {
+           return Exchange<T>(url, HttpMethod.Delete, headers, null);
+        }
         private static HttpResponse<T> Exchange<T>(string url, HttpMethod httpMethod, Dictionary<string, string> headers,object request)
         {
             try

@@ -2,6 +2,7 @@
 using IMT.PayAll;
 using IMT.PayAll.Request;
 using IMT.PayAll.Request.Common;
+using IMT.PayAll.Request.PaymentInstructionRequest;
 using IMT.PayAll.Route;
 using Microsoft.AspNetCore.Mvc;
 
@@ -36,6 +37,48 @@ namespace IMT.Web.Controllers
         {
             var request = UpdatePaymentRequest();
             var result = _payAllClient.Payment().UpdatePaymentDetailsById(id, request);
+            return Ok(result);
+        }
+
+        [HttpGet(PayAllUrl.PaymentInstrumentsList)]
+        public object PaymentInstrumentsList(string? recipient_id)
+        {
+            var request = new SearchPaymentInstrumentsRequest()
+            {
+                recipient_id = recipient_id
+            };
+            var result = _payAllClient.PaymentInstruments().GetPaymentInstrumentsList(request);
+            return Ok(result);
+        }
+
+        [HttpPost(PayAllUrl.CreatePaymentInstruments)]
+        public object PaymentInstrumentsCreate(PaymentInstrumentsRequest requests)
+        {
+           var request = CreatePaymentInstrumentsRequest();
+            var result = _payAllClient.PaymentInstruments().CreatePaymentInstruments(request);
+            return Ok(result);
+        }
+
+        [HttpGet(PayAllUrl.GetPaymentInstrumentsByID)]
+        public object GetPaymentInstrumentsById(string id)
+        {
+            var result = _payAllClient.PaymentInstruments().GetPaymentInstrumentsByID(id);
+            return Ok(result);
+        }
+
+        [HttpPatch(PayAllUrl.UpdatePaymentInstrumentsByID)]
+        public object UpdatePaymentInstrumentsByID(string id, PaymentInstrumentsRequest requests)
+        {
+            var request = CreatePaymentInstrumentsRequest();
+            var result = _payAllClient.PaymentInstruments().UpdatePaymentInstrumentsById(id, request);
+            return Ok(result);
+        }
+
+
+        [HttpDelete(PayAllUrl.DeletePaymentInstrumentsByID)]
+        public object DeletePaymentInstrumentsById(string id)
+        {
+            var result = _payAllClient.PaymentInstruments().DeletePaymentInstrumentsByID(id);
             return Ok(result);
         }
 
@@ -129,6 +172,17 @@ namespace IMT.Web.Controllers
             },
                 exchange_rate_id = "3fa85f64-5717-4562-b3fc-2c963f66afa6"
             };
+        }
+
+        private PaymentInstrumentsRequest CreatePaymentInstrumentsRequest()
+        {
+            var request = new PaymentInstrumentsRequest();
+
+            request.category = "MobileWallet";
+            request.currency = "USD";
+            request.recipient_id = "123654";
+
+            return request;
         }
     }
 }
