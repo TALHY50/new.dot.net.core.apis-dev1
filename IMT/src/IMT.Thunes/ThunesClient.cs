@@ -34,7 +34,7 @@ namespace IMT.Thunes
 
         public object CreateQuotation(CreateQuatationRequest request)
         {
-            return this._quotationAdapter.CreateQuatatioin(request);
+            return this._quotationAdapter;
         }
 
         public object CreateTransaction(CreateNewTransactionRequest request)

@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Text;
 using IMT.Thunes.Common;
 using IMT.Thunes.Exception;
+using IMT.Thunes.Response;
 using IMT.Thunes.Response.Common;
 using Newtonsoft.Json;
 using _exception = System.Exception;
@@ -81,6 +82,22 @@ namespace IMT.Thunes.Net
             var apiResponse = JsonConvert.DeserializeObject( content, ThunesJsonSerializerSettings.Settings);
             return apiResponse;
         }
+        protected static CreateQuatationResponse HandleResponse(HttpResponseMessage httpResponseMessage)
+        {
+            CreateContentQuatationResponse? Content = new CreateContentQuatationResponse();
+            if (httpResponseMessage.Content != null)
+            {
+                Content = (CreateContentQuatationResponse)JsonConvert.DeserializeObject(httpResponseMessage.Content.ReadAsStringAsync().Result, ThunesJsonSerializerSettings.Settings);
+            }
+            return new CreateQuatationResponse
+            {
+                StatusCode = (int)httpResponseMessage.StatusCode,
+                ReasonPhrase = httpResponseMessage.ReasonPhrase,
+                Version = httpResponseMessage.Version.ToString(),
+                Content = Content
+            };
+        }
+
         private static T HandleJsonResponse<T>(HttpResponseMessage httpResponseMessage, byte[] content)
         {
             var contentString = Encoding.UTF8.GetString(content);

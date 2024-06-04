@@ -1,9 +1,10 @@
+﻿
 
 using IMT.PayAll.Response.Common;
 
 namespace IMT.PayAll.Response
 {
-    public class PaymentResponse 
+    public class UpdatePaymentResponse
     {
             public string client_payment_id { get; set; }
             public string id { get; set; }
@@ -12,9 +13,6 @@ namespace IMT.PayAll.Response
             public ExchangeRate exchange_rate { get; set; }
             public string recipient_id { get; set; }
             public string payment_instrument_id { get; set; }
-
     }
     
-
-
 }

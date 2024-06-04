@@ -2,11 +2,9 @@
 using System.Net;
 using System.Text;
 using IMT.PayAll.Common;
-using IMT.PayAll.Exception;
-using IMT.PayAll.Response;
 using IMT.PayAll.Response.Common;
 using Newtonsoft.Json;
-using exception = System.Exception;
+
 
 namespace IMT.PayAll.Net
 {
@@ -25,7 +23,7 @@ namespace IMT.PayAll.Net
                 Timeout = TimeSpan.FromSeconds(150)
             };
         }
-        
+
         protected static HttpRequestMessage BuildHttpRequestMessage(string url, HttpMethod httpMethod, Dictionary<string, string> headers, object request)
         {
             var requestMessage = new HttpRequestMessage
@@ -37,7 +35,7 @@ namespace IMT.PayAll.Net
             foreach (var header in headers) requestMessage.Headers.TryAddWithoutValidation(header.Key, header.Value);
             return requestMessage;
         }
-        
+        /*
         protected static T HandleResponse<T>(HttpResponseMessage httpResponseMessage, byte[] content)
         {
             return typeof(T) == typeof(byte[])
@@ -58,7 +56,7 @@ namespace IMT.PayAll.Net
             RequireSuccess<T>(httpResponseMessage, Encoding.UTF8.GetString(content));
             return (T)Convert.ChangeType(content, typeof(T));
         }
-        
+
         private static void RequireSuccess<T>(HttpResponseMessage httpResponseMessage, string content)
         {
             if (httpResponseMessage.StatusCode < HttpStatusCode.BadRequest) return;
@@ -66,10 +64,10 @@ namespace IMT.PayAll.Net
             if (response != null && response.Errors != null)
             {
                 var errorResponse = response.Errors;
-                throw new PayAllException(errorResponse.ErrorCode, errorResponse.ErrorDescription, errorResponse.ErrorGroup);
+                throw new PayAllException(errorResponse.code, errorResponse.message, errorResponse.trace_id);
             }
         }
-        
+        */
         private static StringContent PrepareContent(object request)
         {
             if (request == null) return null;
@@ -77,16 +75,18 @@ namespace IMT.PayAll.Net
             return new StringContent(body, Encoding.UTF8, "application/json");
         }
 
-        protected static HttpResponseModel HandleResponse(HttpResponseMessage httpResponse)
+        protected static HttpResponse<T> HandleResponse<T>(HttpResponseMessage httpResponse,string content)
         {
-           return new HttpResponseModel{
+            return new HttpResponse<T>
+            {
                 StatusCode = (int)httpResponse.StatusCode,
-               StatusMessage = httpResponse.StatusCode.ToString(),
-               ReasonPhrase = httpResponse.ReasonPhrase,
+                StatusMessage = httpResponse.StatusCode.ToString(),
+                ReasonPhrase = httpResponse.ReasonPhrase,
                 Version = httpResponse.Version.ToString(),
                 Headers = new Dictionary<string, string>(),
-                Content = httpResponse.Content != null ? httpResponse.Content.ReadAsStringAsync().Result : null
+                Content = httpResponse.Content != null ? httpResponse.Content.ReadAsStringAsync().Result : null,
             };
         }
+      
     }
 }
