@@ -14,11 +14,27 @@ namespace IMT.Web.Controllers
     {
 
         private readonly ThunesClient _thunesClient = new ThunesClient(Env.GetString("THUNES_API_SECRET"), Env.GetString("THUNES_API_KEY"), Env.GetString("THUNES_BASE_URL"));
-        [HttpGet("CreateQuatatioin")]
-        public object Get()
+
+
+        [Tags("Transfers")]
+        [HttpPost(ThunesUrl.CreateQuatationUrl)]
+        public object CreateQuatatioin(CreateQuatationRequest request)
         {
-            CreateQuatationRequest? request = new CreateQuatationRequest();
-            return _thunesClient.QuotationAdapter().CreateQuatatioin(request);
+            try
+            {
+                return _thunesClient.QuotationAdapter().CreateQuatatioin(request);
+            }
+            catch (System.Exception e)
+            {
+                if (e.Message == "Unauthorized")
+                {
+                    return Unauthorized();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
         }
 
         [HttpGet("GetRetrieveQuotationByExternalId")]

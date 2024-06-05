@@ -20,10 +20,5 @@ namespace IMT.Thunes.Response
         public Fee fee { get; set; }
         public DateTime creation_date { get; set; }
         public DateTime expiration_date { get; set; }
-
-        public static implicit operator CreateContentQuatationResponse(bool v)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
