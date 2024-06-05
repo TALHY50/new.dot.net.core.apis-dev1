@@ -55,8 +55,6 @@ namespace IMT.Thunes.Net
             var response = HandleJsonObjectResponse<T>(httpResponseMessage, content);
             var httpResponse = JsonConvert.SerializeObject(httpResponseMessage);
             var apiResponse = JsonConvert.DeserializeObject<T>(content , ThunesJsonSerializerSettings.Settings);
-            //var checkapiResponse = JsonConvert.DeserializeObject(content , ThunesJsonSerializerSettings.Settings);
-            //return (checkapiResponse==null)?apiResponse:checkapiResponse;
             return apiResponse;
         }
         
@@ -77,13 +75,23 @@ namespace IMT.Thunes.Net
 
             return apiResponse.Data;
         }
-
-        protected static CreateQuatationResponse HandleResponse(HttpResponseMessage httpResponseMessage)
+        private static Object HandleJsonObjectResponse<T>(HttpResponseMessage httpResponseMessage, string content)
         {
             RequireSuccess<T>(httpResponseMessage, content);
+
             var httpResponse = JsonConvert.SerializeObject(httpResponseMessage);
-            var apiResponse = JsonConvert.DeserializeObject( content, ThunesJsonSerializerSettings.Settings);
-            return apiResponse;
+            var apiResponse = JsonConvert.DeserializeObject<Response<T>>((content != "") ? content : httpResponse, ThunesJsonSerializerSettings.Settings);
+
+            if (apiResponse.Data == null)
+            {
+                apiResponse = new Response<T>();
+                apiResponse.Errors = new ErrorResponse();
+                apiResponse.Errors.ErrorCode = ((int)httpResponseMessage.StatusCode).ToString();
+                apiResponse.Errors.ErrorDescription = httpResponseMessage.ReasonPhrase ?? httpResponseMessage.StatusCode.ToString();
+                return apiResponse.Errors;
+            }
+
+            return apiResponse.Data;
         }
 
         protected static CreateQuatationResponse HandleResponse(HttpResponseMessage httpResponseMessage)
@@ -119,11 +127,11 @@ namespace IMT.Thunes.Net
         private static void RequireSuccess<T>(HttpResponseMessage httpResponseMessage, string content)
         {
             if (httpResponseMessage.StatusCode < HttpStatusCode.BadRequest) return;
-            // var response = JsonConvert.DeserializeObject<Response<T>>(content, ThunesJsonSerializerSettings.Settings);
+             var response = JsonConvert.DeserializeObject<Response<T>>(content, ThunesJsonSerializerSettings.Settings);
             if (httpResponseMessage.StatusCode == HttpStatusCode.Unauthorized)
             {
-                var errorResponse = response.Errors;
-                throw new ThunesException(errorResponse.ErrorCode, errorResponse.ErrorDescription, errorResponse.ErrorGroup);
+                var errorResponse = response?.Errors;
+                throw new UnauthorizeException(errorResponse?.ErrorCode??"401", errorResponse?.ErrorDescription??"Unauthorized");
             }
         }
    

@@ -1,10 +1,7 @@
 ﻿using IMT.PayAll;
 using IMT.Thunes;
 using IMT.Thunes.Request;
-using IMT.Thunes.Request.CreditParties;
-using IMT.Thunes.Request.CreditParties.Common;
 using IMT.Thunes.Response;
-using IMT.Thunes.Response.CreditParties;
 using IMT.Thunes.Route;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;

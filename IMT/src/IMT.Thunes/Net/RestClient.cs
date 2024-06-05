@@ -75,7 +75,7 @@ namespace IMT.Thunes.Net
             }
             catch (_exception e)
             {
-                throw new ThunesException(e);
+                throw e;
             }
         }
 
