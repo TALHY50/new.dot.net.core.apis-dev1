@@ -55,8 +55,6 @@ namespace IMT.Thunes.Net
             var response = HandleJsonObjectResponse<T>(httpResponseMessage, content);
             var httpResponse = JsonConvert.SerializeObject(httpResponseMessage);
             var apiResponse = JsonConvert.DeserializeObject<T>(content , ThunesJsonSerializerSettings.Settings);
-            //var checkapiResponse = JsonConvert.DeserializeObject(content , ThunesJsonSerializerSettings.Settings);
-            //return (checkapiResponse==null)?apiResponse:checkapiResponse;
             return apiResponse;
         }
         
