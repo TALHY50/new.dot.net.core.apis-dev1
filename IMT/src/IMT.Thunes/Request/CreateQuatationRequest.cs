@@ -12,7 +12,7 @@ namespace IMT.Thunes.Request
         public string payer_id { get; set; }
         public string mode { get; set; }
         public string transaction_type { get; set; }
-        public Source source { get; set; }
-        public Destination destination { get; set; }
+        public Source1 source { get; set; }
+        public Destination1 destination { get; set; }
     }
 }

@@ -9,7 +9,7 @@ using IMT.Thunes.Response;
 using IMT.Thunes.Route;
 
 
-namespace IMT.Thunes.Adapter
+namespace IMT.Thunes.Adapter.Transfers.Quotations
 {
     public class QuotationAdapter : BaseAdapter
     {
@@ -17,11 +17,10 @@ namespace IMT.Thunes.Adapter
         {
         }
 
-        public object CreateQuatatioin(CreateQuatationRequest request)
+        public CreateContentQuatationResponse CreateQuatatioin(CreateQuatationRequest request)
         {
-            var result = RestClient.PostObject<CreateQuatationResponse>(RequestOptions.BaseUrl + ThunesUrl.CreateQuatationUrl,
+            return RestClient.Post<CreateContentQuatationResponse>(RequestOptions.BaseUrl + ThunesUrl.CreateQuatationUrl,
                 CreateHeaders(request, ThunesUrl.CreateQuatationUrl, RequestOptions), request);
-            return result;
         }
         public CreateQuatationResponse GetQuotationById(int id)
         {

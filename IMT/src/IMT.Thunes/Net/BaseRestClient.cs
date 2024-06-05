@@ -53,14 +53,10 @@ namespace IMT.Thunes.Net
         {
             var response = HandleJsonObjectResponse<T>(httpResponseMessage, content);
             var httpResponse = JsonConvert.SerializeObject(httpResponseMessage);
-            if (httpResponseMessage.StatusCode == HttpStatusCode.Unauthorized)
-            {
-                return new UnauthorizeException(((int)httpResponseMessage.StatusCode).ToString(), httpResponseMessage.StatusCode.ToString());
-            }
-            var apiResponse = JsonConvert.DeserializeObject<T>(content , ThunesJsonSerializerSettings.Settings);
+            var apiResponse = JsonConvert.DeserializeObject<T>(content, ThunesJsonSerializerSettings.Settings);
             return apiResponse;
         }
-        
+
         private static T HandleJsonResponse<T>(HttpResponseMessage httpResponseMessage, string content)
         {
             RequireSuccess<T>(httpResponseMessage, content);
@@ -130,13 +126,14 @@ namespace IMT.Thunes.Net
         private static void RequireSuccess<T>(HttpResponseMessage httpResponseMessage, string content)
         {
             if (httpResponseMessage.StatusCode < HttpStatusCode.BadRequest) return;
-             var response = JsonConvert.DeserializeObject<Response<T>>(content, ThunesJsonSerializerSettings.Settings);
+            var response = JsonConvert.DeserializeObject<Response<T>>(content, ThunesJsonSerializerSettings.Settings);
             if (httpResponseMessage.StatusCode == HttpStatusCode.Unauthorized)
             {
                 throw new UnauthorizeException(((int)httpResponseMessage.StatusCode).ToString(), httpResponseMessage.StatusCode.ToString());
             }
+            // more condigtion will written below
         }
-   
+
 
         private static StringContent PrepareContent(object request)
         {
