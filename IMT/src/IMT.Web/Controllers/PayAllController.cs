@@ -2,7 +2,7 @@
 using IMT.PayAll;
 using IMT.PayAll.Request;
 using IMT.PayAll.Request.Common;
-using IMT.PayAll.Request.PaymentInstructionRequest;
+using IMT.PayAll.Request.PaymentRequest;
 using IMT.PayAll.Route;
 using Microsoft.AspNetCore.Mvc;
 
@@ -54,7 +54,7 @@ namespace IMT.Web.Controllers
         [HttpPost(PayAllUrl.CreatePaymentInstruments)]
         public object PaymentInstrumentsCreate(PaymentInstrumentsRequest requests)
         {
-           var request = CreatePaymentInstrumentsRequest();
+            var request = CreatePaymentInstrumentsRequest();
             var result = _payAllClient.PaymentInstruments().CreatePaymentInstruments(request);
             return Ok(result);
         }
@@ -88,15 +88,15 @@ namespace IMT.Web.Controllers
             var paymentData = new CreatePaymentRequest
             {
                 client_payment_id = "CP12345",
-                recipient = new PayAll.Request.Recipient
+                recipient = new Recipient
                 {
-                    type = "Individual",
+                    type = "Person",
                     email = "john.doe@example.com",
                     first_name = "John",
                     last_name = "Doe",
                     middle_name = "A",
                     mobile_number = "+123456789",
-                    dob = "1990-01-01",
+                    dob = new DateOnly(),
                     registration_address = new List<RegistrationAddress>
                 {
                     new RegistrationAddress
