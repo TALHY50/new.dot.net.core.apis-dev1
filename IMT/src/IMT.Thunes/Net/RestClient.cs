@@ -52,17 +52,10 @@ namespace IMT.Thunes.Net
         private static T Exchange<T>(string url, HttpMethod httpMethod, Dictionary<string, string> headers,
             object request)
         {
-            try
-            {
-                var requestMessage = BuildHttpRequestMessage(url, httpMethod, headers, request);
-                HttpResponseMessage? httpResponseMessage = HttpClient.SendAsync(requestMessage).Result;
-                var content = httpResponseMessage.Content.ReadAsByteArrayAsync().Result;
-                return HandleResponse<T>(httpResponseMessage, content);
-            }
-            catch (_exception e)
-            {
-                throw new ThunesException(e);
-            }
+            var requestMessage = BuildHttpRequestMessage(url, httpMethod, headers, request);
+            HttpResponseMessage? httpResponseMessage = HttpClient.SendAsync(requestMessage).Result;
+            var content = httpResponseMessage.Content.ReadAsByteArrayAsync().Result;
+            return HandleResponse<T>(httpResponseMessage, content);
         }
 
         private static CreateQuatationResponse ExchangeCreateQuatation(string url, HttpMethod httpMethod, Dictionary<string, string> headers,
