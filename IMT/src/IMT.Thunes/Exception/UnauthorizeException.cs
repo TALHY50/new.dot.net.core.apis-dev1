@@ -17,7 +17,7 @@ namespace IMT.Thunes.Exception
         }
 
         public UnauthorizeException(object errorCode, exception exception)
-            : base(exception.Message, exception)
+            : base(exception.Message)
         {
             ErrorCode = GeneralErrorCode;
             ErrorDescription = GeneralErrorDescription;

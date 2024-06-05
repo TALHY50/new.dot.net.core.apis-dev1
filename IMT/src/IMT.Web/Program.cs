@@ -1,6 +1,7 @@
 
-
 using IMT.PayAll.Exception;
+using DotNetEnv;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,8 +21,13 @@ app.UseMiddleware<GlobalExceptionHandler>();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(options =>
+    {
+        options.DefaultModelsExpandDepth(-1);
+    });
 }
+
+Env.NoClobber().TraversePath().Load();
 
 app.UseHttpsRedirection();
 

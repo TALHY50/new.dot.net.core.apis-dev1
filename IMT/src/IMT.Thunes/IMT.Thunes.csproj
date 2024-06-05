@@ -7,14 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Adapter\" />
     <Folder Include="Common\" />
     <Folder Include="Exception\" />
     <Folder Include="Model\" />
     <Folder Include="Net\" />
-    <Folder Include="Response\" />
     <PackageReference Include="RestSharp" Version="110.2.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNetCore.Mvc.Abstractions">
+      <HintPath>C:\Program Files\dotnet\packs\Microsoft.AspNetCore.App.Ref\8.0.2\ref\net8.0\Microsoft.AspNetCore.Mvc.Abstractions.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

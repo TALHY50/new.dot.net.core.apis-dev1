@@ -1,10 +1,9 @@
-﻿using IMT.PayAll;
+﻿using DotNetEnv;
 using IMT.Thunes;
 using IMT.Thunes.Request;
 using IMT.Thunes.Request.CreditParties;
-using IMT.Thunes.Request.CreditParties.Common;
 using IMT.Thunes.Response;
-using IMT.Thunes.Response.CreditParties;
+using IMT.Thunes.Route;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IMT.Web.Controllers
@@ -14,23 +13,12 @@ namespace IMT.Web.Controllers
     public class ThunesController : ControllerBase
     {
 
-        private readonly ThunesClient _thunesClient =
-            new ThunesClient("api-key", "secret-key", "http://localhost:3001");
-
-
+        private readonly ThunesClient _thunesClient = new ThunesClient(Env.GetString("THUNES_API_SECRET"), Env.GetString("THUNES_API_KEY"), Env.GetString("THUNES_BASE_URL"));
         [HttpGet("CreateQuatatioin")]
-        public CreateQuatationResponse Get()
+        public object Get()
         {
             CreateQuatationRequest? request = new CreateQuatationRequest();
             return _thunesClient.QuotationAdapter().CreateQuatatioin(request);
-        }
-
-        [HttpGet("GetQuotationById")]
-        public CreateQuatationResponse GetById()
-        {
-
-            int id = 1;
-            return _thunesClient.QuotationAdapter().GetQuotationById(id);
         }
 
         [HttpGet("GetRetrieveQuotationByExternalId")]
@@ -41,20 +29,71 @@ namespace IMT.Web.Controllers
         }
 
 
-        [HttpGet("CreditPartyInformation")]
-        public InformationResponse GetInformationAdapter()
+        [HttpPost(ThunesUrl.CreditPartiesInformationUrl)]
+        public object GetInformationAdapter(ulong id, string transaction_type, InformationRequest request)
         {
-            InformationRequest request = new InformationRequest
+            try
             {
-                credit_party_identifier = new CreditPartyIdentifier
+                return _thunesClient.GetInformationAdapter().CreditPartyInformation(request, id, transaction_type);
+            }
+            catch (System.Exception e)
+            {
+                if (e.Message == "Unauthorized")
                 {
-                    msisdn = "263775892364",
+                    return Unauthorized();
                 }
-            };
-            // request = new InformationRequest();
-            ulong id = 1;
-            string transaction_type = "C2C";
-            return _thunesClient.GetInformationAdapter().CreditPartyInformation(request, id, transaction_type);
+                else
+                {
+                    return NotFound();
+                }
+            }
+
+        }
+
+        [Tags("Transaction From Quotation Id")]
+        [HttpPost(ThunesUrl.CreateTransactionUrl)]
+        public Object TransactionPost(int id, CreateNewTransactionRequest request)
+        {
+            try
+            {
+                if (id == 1) request = null;
+                var response = _thunesClient.CreateTransaction(id, request);
+                return response;
+            }
+            catch (System.Exception e)
+            {
+                if (e.Message == "Unauthorized")
+                {
+                    return Unauthorized();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+        }
+        
+        [Tags("Transaction From Quotation External Id")]
+        [HttpPost(ThunesUrl.CreateTransactionFromQuotationExternalIdUrl)]
+        public Object CreateTransactionFromQuotationExternalIdPost(int external_id, CreateNewTransactionRequest request)
+        {
+            try
+            {
+                if (external_id == 1) request = null;
+                var response = _thunesClient.CreateTransactionFromQuotationExternalId(external_id, request);
+                return response;
+            }
+            catch (System.Exception e)
+            {
+                if (e.Message == "Unauthorized")
+                {
+                    return Unauthorized();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
         }
     }
 }

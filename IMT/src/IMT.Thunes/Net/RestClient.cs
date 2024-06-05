@@ -29,11 +29,6 @@ namespace IMT.Thunes.Net
             return Exchange<T>(url, HttpMethod.Post, headers, request);
         }
 
-        public static T Post<T>(string url, Dictionary<string, string> headers)
-        {
-            return Exchange<T>(url, HttpMethod.Post, headers, null);
-        }
-
         public static T Put<T>(string url, Dictionary<string, string> headers, object request)
         {
             return Exchange<T>(url, HttpMethod.Put, headers, request);
@@ -52,16 +47,28 @@ namespace IMT.Thunes.Net
         private static T Exchange<T>(string url, HttpMethod httpMethod, Dictionary<string, string> headers,
             object request)
         {
+            var requestMessage = BuildHttpRequestMessage(url, httpMethod, headers, request);
+            HttpResponseMessage? httpResponseMessage = HttpClient.SendAsync(requestMessage).Result;
+            var content = httpResponseMessage.Content.ReadAsByteArrayAsync().Result;
+            return HandleResponse<T>(httpResponseMessage, content);
+        }
+        public static object PostObject<T>(string url, Dictionary<string, string> headers, object request)
+        {
+            return ExchangeObject<T>(url, HttpMethod.Post, headers, request);
+        }
+        private static object ExchangeObject<T>(string url, HttpMethod httpMethod, Dictionary<string, string> headers,
+            object request)
+        {
             try
             {
                 var requestMessage = BuildHttpRequestMessage(url, httpMethod, headers, request);
-                HttpResponseMessage? httpResponseMessage = HttpClient.SendAsync(requestMessage).Result;
-                var content = httpResponseMessage.Content.ReadAsByteArrayAsync().Result;
-                return HandleResponse<T>(httpResponseMessage, content);
+                var httpResponseMessage = HttpClient.SendAsync(requestMessage).Result;
+                var content = httpResponseMessage.Content.ReadAsStringAsync().Result;
+                return HandleObjectResponse<T>(httpResponseMessage, content);
             }
             catch (_exception e)
             {
-                throw new ThunesException(e);
+                throw e;
             }
         }
 
@@ -82,5 +89,19 @@ namespace IMT.Thunes.Net
 
 
 
+        //private static T Exchange<T>(string url, HttpMethod httpMethod, Dictionary<string, string> headers, object request)
+        //{
+        //    try
+        //    {
+        //        var requestMessage = BuildHttpRequestMessage(url, httpMethod, headers, request);
+        //        var httpResponseMessage = HttpClient.SendAsync(requestMessage).Result;
+        //        var content = httpResponseMessage.Content.ReadAsStringAsync().Result;
+        //        return HandleResponse<T>(httpResponseMessage, content);
+        //    }
+        //    catch (_exception e)
+        //    {
+        //        throw new ThunesException(e);
+        //    }
+        //}
     }
 }

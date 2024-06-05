@@ -17,10 +17,11 @@ namespace IMT.Thunes.Adapter
         {
         }
 
-        public CreateQuatationResponse CreateQuatatioin(CreateQuatationRequest request)
+        public object CreateQuatatioin(CreateQuatationRequest request)
         {
-            return RestClient.Post(RequestOptions.BaseUrl + ThunesUrl.CreateQuatationUrl,
+            var result = RestClient.PostObject<CreateQuatationResponse>(RequestOptions.BaseUrl + ThunesUrl.CreateQuatationUrl,
                 CreateHeaders(request, ThunesUrl.CreateQuatationUrl, RequestOptions), request);
+            return result;
         }
         public CreateQuatationResponse GetQuotationById(int id)
         {
