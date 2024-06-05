@@ -27,9 +27,9 @@ namespace IMT.Web.Controllers
 
         [Tags("Transaction From Quotation Id")]
         [HttpPost(ThunesUrl.CreateTransactionUrl)]
-        public Object TransactionPost(CreateNewTransactionRequest request)
+        public Object TransactionPost(int id,CreateNewTransactionRequest request)
         {
-            var response = _thunesClient.CreateTransaction(request);
+            var response = _thunesClient.CreateTransaction(id, request);
             return response;
         }
     }
