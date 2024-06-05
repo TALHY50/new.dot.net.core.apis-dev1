@@ -8,7 +8,6 @@ using IMT.Thunes.Exception;
 using IMT.Thunes.Response;
 using IMT.Thunes.Response.Common;
 using Newtonsoft.Json;
-using _exception = System.Exception;
 
 namespace IMT.Thunes.Net
 {
@@ -130,8 +129,7 @@ namespace IMT.Thunes.Net
              var response = JsonConvert.DeserializeObject<Response<T>>(content, ThunesJsonSerializerSettings.Settings);
             if (httpResponseMessage.StatusCode == HttpStatusCode.Unauthorized)
             {
-                var errorResponse = response?.Errors;
-                throw new UnauthorizeException(errorResponse?.ErrorCode??"401", errorResponse?.ErrorDescription??"Unauthorized");
+                throw new UnauthorizeException(((int)httpResponseMessage.StatusCode).ToString(), httpResponseMessage.StatusCode.ToString());
             }
         }
    

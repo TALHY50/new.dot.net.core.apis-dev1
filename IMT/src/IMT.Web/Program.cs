@@ -1,3 +1,6 @@
+
+using DotNetEnv;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -18,6 +21,8 @@ if (app.Environment.IsDevelopment())
         options.DefaultModelsExpandDepth(-1);
     });
 }
+
+Env.NoClobber().TraversePath().Load();
 
 app.UseHttpsRedirection();
 
