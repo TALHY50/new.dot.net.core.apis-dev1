@@ -37,14 +37,12 @@ namespace IMT.PayAll.Net
             foreach (var header in headers) requestMessage.Headers.TryAddWithoutValidation(header.Key, header.Value);
             return requestMessage;
         }
-        /*
+        
         protected static T HandleResponse<T>(HttpResponseMessage httpResponseMessage, byte[] content)
         {
-            return typeof(T) == typeof(byte[])
-                ? HandleByteArrayResponse<T>(httpResponseMessage, content)
-                : HandleJsonResponse<T>(httpResponseMessage, content);
+            return typeof(T) == typeof(byte[])? HandleByteArrayResponse<T>(httpResponseMessage, content): HandleJsonResponse<T>(httpResponseMessage, content);
         }
-
+       
         private static T HandleJsonResponse<T>(HttpResponseMessage httpResponseMessage, byte[] content)
         {
             var contentString = Encoding.UTF8.GetString(content);
@@ -63,13 +61,17 @@ namespace IMT.PayAll.Net
         {
             if (httpResponseMessage.StatusCode < HttpStatusCode.BadRequest) return;
             var response = JsonConvert.DeserializeObject<Response<T>>(content, PayAllJsonSerializerSettings.Settings);
+            if(httpResponseMessage.StatusCode == HttpStatusCode.Unauthorized)
+            {
+                throw new PayAllException(((int)httpResponseMessage.StatusCode).ToString(), httpResponseMessage.StatusCode.ToString(), content);
+            }
             if (response != null && response.Errors != null)
             {
                 var errorResponse = response.Errors;
                 throw new PayAllException(errorResponse.code, errorResponse.message, errorResponse.trace_id);
             }
         }
-        */
+
         private static StringContent PrepareContent(object request)
         {
             if (request == null) return null;

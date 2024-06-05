@@ -17,7 +17,7 @@ namespace IMT.PayAll.Adapter
         }
 
         // Get list of payment instruments
-        public HttpResponse<PaymentInstrumentsListResponse> GetPaymentInstrumentsList(SearchPaymentInstrumentsRequest request)
+        public PaymentInstrumentsListResponse GetPaymentInstrumentsList(SearchPaymentInstrumentsRequest request)
         {
             var queryParam = RequestQueryParamsBuilder.BuildQueryParam(request);
             var path = PayAllUrl.PaymentInstrumentsList + queryParam;
@@ -25,22 +25,23 @@ namespace IMT.PayAll.Adapter
         }
 
         // Create a payment instrument
-        public HttpResponse<PaymentInstrumentsCreateResponse> CreatePaymentInstruments(PaymentInstrumentsRequest request)
+        public PaymentInstrumentsCreateResponse CreatePaymentInstruments(PaymentInstrumentsRequest request)
         {
             var path = PayAllUrl.CreatePaymentInstruments;
             var paymentInstrumentsRequest = PaymentInstruments(request);
             return RestClient.Post<PaymentInstrumentsCreateResponse>(RequestOptions.BaseUrl + path, CreateHeaders(paymentInstrumentsRequest, path, RequestOptions), paymentInstrumentsRequest);
         }
+       
 
         // Get payment instrument by its ID
-        public HttpResponse<PaymentInstrumentsListResponse> GetPaymentInstrumentsByID(string id)
+        public PaymentInstrumentsResponse GetPaymentInstrumentsByID(string id)
         {
             var path = PayAllUrl.GetPaymentInstrumentsByID + id;
-            return RestClient.Get<PaymentInstrumentsListResponse>(RequestOptions.BaseUrl + path, CreateHeaders(path, RequestOptions));
+            return RestClient.Get<PaymentInstrumentsResponse>(RequestOptions.BaseUrl + path, CreateHeaders(path, RequestOptions));
         }
 
         // Update a payment instrument
-        public HttpResponse<PaymentInstrumentsResponse> UpdatePaymentInstrumentsById(string Id, PaymentInstrumentsRequest request)
+        public PaymentInstrumentsResponse UpdatePaymentInstrumentsById(string Id, PaymentInstrumentsRequest request)
         {
             var path = PayAllUrl.UpdatePaymentInstrumentsByID + Id;
 
@@ -48,13 +49,13 @@ namespace IMT.PayAll.Adapter
         }
 
         // Delete a payment instrument
-        public HttpResponse<string> DeletePaymentInstrumentsByID(string id)
+        public string DeletePaymentInstrumentsByID(string id)
         {
             var path = PayAllUrl.DeletePaymentInstrumentsByID + id;
             return RestClient.Delete<string>(RequestOptions.BaseUrl + path, CreateHeaders(path, RequestOptions));
         }
 
-        
+
 
         private object PaymentInstruments(PaymentInstrumentsRequest request)
         {

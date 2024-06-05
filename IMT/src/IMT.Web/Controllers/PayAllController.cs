@@ -90,7 +90,7 @@ namespace IMT.Web.Controllers
                 client_payment_id = "CP12345",
                 recipient = new Recipient
                 {
-                    type = "Person",
+                    type = "Business",
                     email = "john.doe@example.com",
                     first_name = "John",
                     last_name = "Doe",
