@@ -8,7 +8,6 @@ using IMT.Thunes.Request;
 using IMT.Thunes.Request.Common;
 using IMT.Thunes.Response;
 using IMT.Thunes.Route;
-using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
 namespace IMT.Thunes.Adapter
@@ -23,7 +22,14 @@ namespace IMT.Thunes.Adapter
         public object CreateTransaction(int id, CreateNewTransactionRequest request)
         {
             var url = ThunesUrl.CreateTransactionUrl.Replace("{id}", id.ToString());
-            var result = RestClient.PostObject<CreateTransactionResponse>(RequestOptions.BaseUrl + url,CreateHeaders(request, ThunesUrl.CreateTransactionUrl, RequestOptions), request);
+            var result = RestClient.PostObject<CreateTransactionResponse>(RequestOptions.BaseUrl + url, CreateHeaders(request, ThunesUrl.CreateTransactionUrl, RequestOptions), request);
+            return result;
+        } 
+        
+        public object CreateTransactionFromQuotationExternalId(int external_id, CreateNewTransactionRequest request)
+        {
+            var url = ThunesUrl.CreateTransactionFromQuotationExternalIdUrl.Replace("{external_id}", external_id.ToString());
+            var result = RestClient.PostObject<CreateTransactionResponse>(RequestOptions.BaseUrl + url, CreateHeaders(request, ThunesUrl.CreateTransactionUrl, RequestOptions), request);
             return result;
         }
     }
