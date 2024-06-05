@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IMT.Thunes.Request.CreditParties.Common
 {
-    public class CreditPartyIdentifier
+    public class CreditPartyIdentifier1
     {
 
         [DefaultValue("263775892364")]

@@ -1,13 +1,10 @@
 ﻿using DotNetEnv;
-using IMT.PayAll;
 using IMT.Thunes;
-using IMT.Thunes.Exception;
 using IMT.Thunes.Request;
+using IMT.Thunes.Request.CreditParties;
 using IMT.Thunes.Response;
-using IMT.Thunes.Response.CreditParties;
 using IMT.Thunes.Route;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace IMT.Web.Controllers
 {
@@ -18,22 +15,10 @@ namespace IMT.Web.Controllers
 
         private readonly ThunesClient _thunesClient = new ThunesClient(Env.GetString("THUNES_API_SECRET"), Env.GetString("THUNES_API_KEY"), Env.GetString("THUNES_BASE_URL"));
         [HttpGet("CreateQuatatioin")]
-        public CreateQuatationResponse Get()
+        public object Get()
         {
             CreateQuatationRequest? request = new CreateQuatationRequest();
-            var response = _thunesClient.CreateQuotation(request);
-           return response;
-        }
-
-        [Tags("Transaction From Quotation Id")]
-        [HttpPost(ThunesUrl.CreateTransactionUrl)]
-        public Object TransactionPost(CreateNewTransactionRequest request)
-        {
-            var response = _thunesClient.CreateTransaction(request);
-            return response;
-
-            int id = 1;
-            return _thunesClient.QuotationAdapter().GetQuotationById(id);
+            return _thunesClient.QuotationAdapter().CreateQuatatioin(request);
         }
 
         [HttpGet("GetRetrieveQuotationByExternalId")]
@@ -63,6 +48,14 @@ namespace IMT.Web.Controllers
                 }
             }
 
+        }
+
+        [Tags("Transaction From Quotation Id")]
+        [HttpPost(ThunesUrl.CreateTransactionUrl)]
+        public Object TransactionPost(int id, CreateNewTransactionRequest request)
+        {
+            var response = _thunesClient.CreateTransaction(id, request);
+            return response;
         }
     }
 }

@@ -31,18 +31,22 @@ namespace IMT.Thunes
             };
             this._quotationAdapter = new QuotationAdapter(requestOptions);
             this._information_adapter = new InformationAdapter(requestOptions);
-            _transactionAdapter = new TransactionAdapter(requestOptions);
+            this._transactionAdapter = new TransactionAdapter(requestOptions);
         }
 
+        public QuotationAdapter QuotationAdapter()
+        {
+            return this._quotationAdapter;
+        }
 
-        public object CreateQuotation(CreateQuatationRequest request)
+        public InformationAdapter GetInformationAdapter()
         {
             return this._information_adapter;
         }
 
-        public object CreateTransaction(CreateNewTransactionRequest request)
+        public object CreateTransaction(int id, CreateNewTransactionRequest request)
         {
-            return _transactionAdapter.CreateTransaction(request);
+            return _transactionAdapter.CreateTransaction(id, request);
         }
 
 
