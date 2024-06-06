@@ -23,5 +23,13 @@ namespace IMT.Thunes.Adapter.Account
                 CreateHeaders(url, RequestOptions));
         }
 
+        public List<BalanceMovementResponse> GetBalanceMovement(ulong id, DateTime from_date, DateTime to_date, string queryParams = null)
+        {
+            string url = ThunesUrl.BalanceMovementUrl.Replace("{id}", id.ToString());
+            url = url + "?from_date=" + from_date + "&to_date=" + to_date + queryParams;
+            return RestClient.Get<List<BalanceMovementResponse>>(RequestOptions.BaseUrl + url,
+                CreateHeaders(url, RequestOptions));
+        }
+
     }
 }

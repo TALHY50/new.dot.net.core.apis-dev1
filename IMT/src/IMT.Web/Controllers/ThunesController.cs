@@ -162,12 +162,32 @@ namespace IMT.Web.Controllers
             }
         }
 
-        [HttpPost(ThunesUrl.BalancesUrl)]
+        [HttpGet(ThunesUrl.BalancesUrl)]
         public Object GetAccountAdapter()
         {
             try
             {
                 return _thunesClient.GetAccountAdapter().GetBalanceResponse();
+            }
+            catch (System.Exception e)
+            {
+                if (e.Message == "Unauthorized")
+                {
+                    return Unauthorized();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+        }
+
+        [HttpGet(ThunesUrl.BalanceMovementUrl)]
+        public Object GetBalanceMovement(ulong id, DateTime from_date, DateTime to_date)
+        {
+            try
+            {
+                return _thunesClient.GetAccountAdapter().GetBalanceMovement(id, from_date, to_date);
             }
             catch (System.Exception e)
             {
