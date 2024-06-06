@@ -9,16 +9,6 @@ namespace IMT.Thunes.Net
 {
     public class RestClient : BaseRestClient
     {
-        public static CreateQuatationResponse Post(string url, Dictionary<string, string> headers, object request)
-        {
-            return ExchangeCreateQuatation(url, HttpMethod.Post, headers, null);
-        }
-
-        public static CreateQuatationResponse Get(string url, Dictionary<string, string> headers)
-        {
-            return ExchangeCreateQuatation(url, HttpMethod.Get, headers, null);
-        }
-
         public static T Get<T>(string url, Dictionary<string, string> headers)
         {
             return Exchange<T>(url, HttpMethod.Get, headers, null);
@@ -52,21 +42,6 @@ namespace IMT.Thunes.Net
             var content = httpResponseMessage.Content.ReadAsByteArrayAsync().Result;
             return HandleResponse<T>(httpResponseMessage, content);
         }
-        
-
-        private static CreateQuatationResponse ExchangeCreateQuatation(string url, HttpMethod httpMethod, Dictionary<string, string> headers,
-            object request)
-        {
-            try
-            {
-                var requestMessage = BuildHttpRequestMessage(url, httpMethod, headers, request);
-                var httpResponseMessage = HttpClient.SendAsync(requestMessage).Result;
-                return HandleResponse(httpResponseMessage);
-            }
-            catch (_exception e)
-            {
-                throw new ThunesException(e);
-            }
-        }
+       
     }
 }

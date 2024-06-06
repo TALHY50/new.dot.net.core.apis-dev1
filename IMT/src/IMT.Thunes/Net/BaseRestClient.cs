@@ -93,22 +93,6 @@ namespace IMT.Thunes.Net
             return apiResponse.Data;
         }
 
-        protected static CreateQuatationResponse HandleResponse(HttpResponseMessage httpResponseMessage)
-        {
-            CreateContentQuatationResponse? Content = new CreateContentQuatationResponse();
-            if (httpResponseMessage.Content != null)
-            {
-                Content = (CreateContentQuatationResponse)JsonConvert.DeserializeObject(httpResponseMessage.Content.ReadAsStringAsync().Result, ThunesJsonSerializerSettings.Settings);
-            }
-            return new CreateQuatationResponse
-            {
-                StatusCode = (int)httpResponseMessage.StatusCode,
-                ReasonPhrase = httpResponseMessage.ReasonPhrase,
-                Version = httpResponseMessage.Version.ToString(),
-                Content = Content
-            };
-        }
-
         private static T HandleJsonResponse<T>(HttpResponseMessage httpResponseMessage, byte[] content)
         {
             var contentString = Encoding.UTF8.GetString(content);
@@ -131,9 +115,8 @@ namespace IMT.Thunes.Net
             {
                 throw new UnauthorizeException(((int)httpResponseMessage.StatusCode).ToString(), httpResponseMessage.StatusCode.ToString());
             }
-            // more condigtion will written below
+            // more condition will written below
         }
-
 
         private static StringContent PrepareContent(object request)
         {

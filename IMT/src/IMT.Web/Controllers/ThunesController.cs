@@ -15,8 +15,7 @@ namespace IMT.Web.Controllers
 
         private readonly ThunesClient _thunesClient = new ThunesClient(Env.GetString("THUNES_API_SECRET"), Env.GetString("THUNES_API_KEY"), Env.GetString("THUNES_BASE_URL"));
 
-
-        [Tags("Transfers")]
+        [Tags("Thunes")]
         [HttpPost(ThunesUrl.CreateQuatationUrl)]
         public object CreateQuatatioin(CreateQuatationRequest request)
         {
@@ -37,13 +36,45 @@ namespace IMT.Web.Controllers
             }
         }
 
-        [HttpGet("GetRetrieveQuotationByExternalId")]
-        public CreateQuatationResponse GetByExternalId()
+        [HttpGet(ThunesUrl.RetrieveAQuotationByIdUrl)]
+        public object RetrieveAQuotationByIdUrl(int id)
         {
-            ulong id = 1481184321405;
-            return _thunesClient.QuotationAdapter().GetRetrieveQuotationByExternalId(id);
+            try
+            {
+                return _thunesClient.QuotationAdapter().GetQuotationById(id);
+            }
+            catch (System.Exception e)
+            {
+                if (e.Message == "Unauthorized")
+                {
+                    return Unauthorized();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
         }
 
+        [HttpGet(ThunesUrl.RetrieveQuotationByExternalIdUrl)]
+        public object GetByExternalId(ulong external_id)
+        {
+            try
+            {
+                return _thunesClient.QuotationAdapter().GetRetrieveQuotationByExternalId(external_id);
+            }
+            catch (System.Exception e)
+            {
+                if (e.Message == "Unauthorized")
+                {
+                    return Unauthorized();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+        }
 
         [HttpPost(ThunesUrl.CreditPartiesInformationUrl)]
         public object GetInformationAdapter(ulong id, string transaction_type, InformationRequest request)
@@ -66,7 +97,6 @@ namespace IMT.Web.Controllers
 
         }
 
-        [Tags("Transaction From Quotation Id")]
         [HttpPost(ThunesUrl.CreateTransactionUrl)]
         public Object TransactionPost(int id, CreateNewTransactionRequest request)
         {
@@ -88,8 +118,7 @@ namespace IMT.Web.Controllers
                 }
             }
         }
-        
-        [Tags("Transaction From Quotation External Id")]
+
         [HttpPost(ThunesUrl.CreateTransactionFromQuotationExternalIdUrl)]
         public Object CreateTransactionFromQuotationExternalIdPost(int external_id, CreateNewTransactionRequest request)
         {
