@@ -24,8 +24,16 @@ namespace IMT.PayAll.Route
         //Exchange
         public const string GetExchangeRateByID = "/v2/exchange-rates/{id}";
         public const string GetNewRateByExistRateID = "/v2/exchange-rates/{id}/refresh";
+        public const string RequestExchangeRate = "/v2/exchange-rates";
+        public const string ConfirmExchangeRate = "/v2/exchange-rates/confirm";
+        public const string CancelExchangeRate = "/v2/exchange-rates/cancel";
+        public const string GetCardedExchangeRate = "/v2/carded-rates";
+        public const string PostCardedExchangeRate = "/v2/payall/carded-rates/{event_type}/{tenant_id}";
         
 
-}
+
+
+
+    }
 
 }

@@ -47,8 +47,8 @@ namespace IMT.PayAll.Net
         {
             var contentString = Encoding.UTF8.GetString(content);
             RequireSuccess<T>(httpResponseMessage, contentString);
-            var apiResponse = JsonConvert.DeserializeObject<Response<T>>(contentString, PayAllJsonSerializerSettings.Settings);
-            return apiResponse == null ? default : apiResponse.Data;
+            var apiResponse = JsonConvert.DeserializeObject<T>(contentString, PayAllJsonSerializerSettings.Settings);
+            return apiResponse == null ? default : apiResponse;
         }
 
         private static T HandleByteArrayResponse<T>(HttpResponseMessage httpResponseMessage, byte[] content)
@@ -60,15 +60,16 @@ namespace IMT.PayAll.Net
         private static void RequireSuccess<T>(HttpResponseMessage httpResponseMessage, string content)
         {
             if (httpResponseMessage.StatusCode < HttpStatusCode.BadRequest) return;
-            var response = JsonConvert.DeserializeObject<Response<T>>(content, PayAllJsonSerializerSettings.Settings);
+            
             if(httpResponseMessage.StatusCode == HttpStatusCode.Unauthorized)
             {
                 throw new PayAllException(((int)httpResponseMessage.StatusCode).ToString(), httpResponseMessage.StatusCode.ToString(), content);
             }
-            if (response != null && response.Errors != null)
+
+            var errorResponse = JsonConvert.DeserializeObject<ErrorResponse>(content, PayAllJsonSerializerSettings.Settings);
+            if (errorResponse != null)
             {
-                var errorResponse = response.Errors;
-                throw new PayAllException(errorResponse.code, errorResponse.message, errorResponse.trace_id);
+                throw new PayAllException(((int)httpResponseMessage.StatusCode).ToString(), errorResponse.message, errorResponse);
             }
         }
 

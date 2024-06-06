@@ -16,9 +16,11 @@ namespace IMT.Web.Controllers
     public class PayAllController : ControllerBase
     {
         private readonly PayAllClient _payAllClient;
+        //string baseurl = "https://api.sandbox.payall.com";
+        string baseurl = "http://localhost:3000";
         public PayAllController()
         {
-            _payAllClient = new PayAllClient("client-id", "client-secret", "https://api.sandbox.payall.com");
+            _payAllClient = new PayAllClient("client-id", "client-secret", baseurl);
         }
         [Tags("PayAll.Payment")]
         [HttpPost(PayAllUrl.SinglePayment)]
@@ -107,6 +109,45 @@ namespace IMT.Web.Controllers
             var result = _payAllClient.Exchanges().GetNewRateByExistRateID(id);
             return Ok(result);
         }
+
+        [Tags("PayAll.Exchange")]
+        [HttpPost(PayAllUrl.RequestExchangeRate)]
+        public object RequestExchangeRate(RequestExchangeRate request)
+        {
+            var result = _payAllClient.Exchanges().RequestExchangeRate(request);
+            return Ok(result);
+        }
+
+        [Tags("PayAll.Exchange")]
+        [HttpPost(PayAllUrl.ConfirmExchangeRate)]
+        public object ConfirmExchangeRate(ConfirmExchangeRateRequest request)
+        {
+            var result = _payAllClient.Exchanges().ConfirmExchangeRate(request);
+            return Ok(result);
+        }
+
+        [Tags("PayAll.Exchange")]
+        [HttpPost(PayAllUrl.CancelExchangeRate)]
+        public object CancelExchangeRate(CancelExchangeRateRequest request)
+        {
+            var result = _payAllClient.Exchanges().CancelExchangeRate(request);
+            return Ok(result);
+        }
+        [Tags("PayAll.Exchange")]
+        [HttpGet(PayAllUrl.GetCardedExchangeRate)]
+        public object GetCardedExchangeRate()
+        {
+            var result = _payAllClient.Exchanges().GetCardedExchangeRate();
+            return Ok(result);
+        }
+        [Tags("PayAll.Exchange")]
+        [HttpPost(PayAllUrl.PostCardedExchangeRate)]
+        public object PostCardedExchangeRate(string event_type, string tenant_id, CardedExchangeRateRequest request)
+        {
+            var result = _payAllClient.Exchanges().PostCardedExchangeRate(event_type, tenant_id, request);
+            return Ok(result);
+        }
+
 
         private CreatePaymentRequest CreatePaymentRequest()
         {

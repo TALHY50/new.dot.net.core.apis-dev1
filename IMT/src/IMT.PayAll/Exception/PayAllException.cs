@@ -9,9 +9,9 @@ namespace IMT.PayAll.Exception
         private const string GeneralErrorGroup = "Unknown";
         public string ErrorCode { get; }
         public string ErrorDescription { get; }
-        public string ErrorGroup { get; }
+        public object ErrorGroup { get; }
 
-        public PayAllException(string errorCode, string errorDescription, string errorGroup): base(errorDescription)
+        public PayAllException(string errorCode, string errorDescription, object errorGroup): base(errorDescription)
         {
             ErrorCode = errorCode;
             ErrorDescription = errorDescription;
