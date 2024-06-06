@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace IMT.Thunes.Response
+namespace IMT.Thunes.Response.Transfer.Quotation
 {
     public class BaseCreateQuatationResponse
     {

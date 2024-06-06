@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IMT.Thunes.Response
+namespace IMT.Thunes.Response.Transfer.Transaction
 {
     public class CreateTransactionResponse
     {

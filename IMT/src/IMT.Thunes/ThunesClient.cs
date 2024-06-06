@@ -2,8 +2,8 @@
 using IMT.Thunes.Adapter.CreditParties;
 using IMT.Thunes.Adapter.Transfers.Quotations;
 using IMT.Thunes.Adapter.Transfers.Transaction;
-using IMT.Thunes.Request;
 using IMT.Thunes.Request.Common;
+using IMT.Thunes.Request.Transaction;
 using IMT.Thunes.Response;
 
 namespace IMT.Thunes
@@ -53,6 +53,10 @@ namespace IMT.Thunes
         public object CreateTransactionFromQuotationExternalId(int external_id, CreateNewTransactionRequest request)
         {
             return _transactionAdapter.CreateTransactionFromQuotationExternalId(external_id, request);
+        } 
+        public object CreateAttachmentToTransactionById(int id, AttachmentRequest request)
+        {
+            return _transactionAdapter.CreateAttachmentToTransactionById(id, request);
         }
 
 

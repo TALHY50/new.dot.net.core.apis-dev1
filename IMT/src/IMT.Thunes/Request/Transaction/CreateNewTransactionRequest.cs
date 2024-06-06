@@ -5,7 +5,7 @@ using System.Runtime.InteropServices.JavaScript;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IMT.Thunes.Request
+namespace IMT.Thunes.Request.Transaction
 {
     public class CreateNewTransactionRequest
     {
@@ -105,13 +105,13 @@ namespace IMT.Thunes.Request
         public string? representative_id_expiration_date { get; set; }
     }
 
-    public class SendingBussiness :RecievingBussiness
+    public class SendingBussiness : RecievingBussiness
     {
         public string? code { get; set; }
         public string? business_relationship { get; set; }
     }
 
-   
+
     #endregion
 
 }

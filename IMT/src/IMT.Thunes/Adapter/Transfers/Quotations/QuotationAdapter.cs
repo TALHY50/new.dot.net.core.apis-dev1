@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using IMT.Thunes.Net;
 using IMT.Thunes.Request;
 using IMT.Thunes.Request.Common;
-using IMT.Thunes.Response;
+using IMT.Thunes.Response.Transfer.Quotation;
 using IMT.Thunes.Route;
 
 
