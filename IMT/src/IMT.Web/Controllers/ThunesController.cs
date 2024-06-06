@@ -255,6 +255,27 @@ namespace IMT.Web.Controllers
             }
         }
 
+        [Tags("Thunes.Account")]
+        [HttpGet(ThunesUrl.ListReportFilesAvailableUrl)]
+        public Object GetListReportsAvailable(ulong id)
+        {
+            try
+            {
+                return _thunesClient.GetAccountAdapter().ListReportsAvailable(id);
+            }
+            catch (System.Exception e)
+            {
+                if (e.Message == "Unauthorized")
+                {
+                    return Unauthorized();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+        }
+
 
 
 
