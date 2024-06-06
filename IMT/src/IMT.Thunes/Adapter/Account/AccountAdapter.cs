@@ -38,5 +38,12 @@ namespace IMT.Thunes.Adapter.Account
                 CreateHeaders(url, RequestOptions));
         }
 
+        public ListReportsAvailableResponse GetReportDetail(ulong id)
+        {
+            string url = ThunesUrl.GetReportDetailUrl.Replace("{id}", id.ToString());
+            return RestClient.Get<ListReportsAvailableResponse>(RequestOptions.BaseUrl + url,
+                CreateHeaders(url, RequestOptions));
+        }
+
     }
 }
