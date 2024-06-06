@@ -194,7 +194,7 @@ namespace IMT.Web.Controllers
             }
         }
 
-        [Tags("Thunes.Account.Balances")]
+        [Tags("Thunes.Account")]
         [HttpGet(ThunesUrl.BalancesUrl)]
         public Object GetAccountAdapter()
         {
@@ -214,8 +214,8 @@ namespace IMT.Web.Controllers
                 }
             }
         }
-        
-        [Tags("Thunes.Account.Balance Movement")]
+
+        [Tags("Thunes.Account")]
         [HttpGet(ThunesUrl.BalanceMovementUrl)]
         public Object GetBalanceMovement(ulong id, DateTime from_date, DateTime to_date)
         {
@@ -235,6 +235,70 @@ namespace IMT.Web.Controllers
                 }
             }
         }
+
+        [Tags("Thunes.Account")]
+        [HttpGet(ThunesUrl.ListReportsAvailableUrl)]
+        public Object ListReportsAvailable(string queryParams = null)
+        {
+            try
+            {
+                return _thunesClient.GetAccountAdapter().ListReportsAvailable(queryParams);
+            }
+            catch (System.Exception e)
+            {
+                if (e.Message == "Unauthorized")
+                {
+                    return Unauthorized();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+        }
+
+        [Tags("Thunes.Account")]
+        [HttpGet(ThunesUrl.GetReportDetailUrl)]
+        public Object GetReportDetail(ulong id)
+        {
+            try
+            {
+                return _thunesClient.GetAccountAdapter().GetReportDetail(id);
+            }
+            catch (System.Exception e)
+            {
+                if (e.Message == "Unauthorized")
+                {
+                    return Unauthorized();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+        }
+
+        [Tags("Thunes.Account")]
+        [HttpGet(ThunesUrl.ListReportFilesAvailableUrl)]
+        public Object GetListReportsAvailable(ulong id)
+        {
+            try
+            {
+                return _thunesClient.GetAccountAdapter().ListReportsAvailable(id);
+            }
+            catch (System.Exception e)
+            {
+                if (e.Message == "Unauthorized")
+                {
+                    return Unauthorized();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+        }
+
 
 
 

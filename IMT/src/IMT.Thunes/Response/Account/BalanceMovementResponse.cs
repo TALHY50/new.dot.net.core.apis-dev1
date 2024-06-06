@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace IMT.Thunes.Response.Balances
+namespace IMT.Thunes.Response.Account
 {
     public class BalanceMovementResponse
     {

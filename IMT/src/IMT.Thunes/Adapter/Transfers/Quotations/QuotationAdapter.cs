@@ -35,5 +35,6 @@ namespace IMT.Thunes.Adapter.Transfers.Quotations
             return RestClient.Get<CreateContentQuatationResponse>(RequestOptions.BaseUrl + url,
                 CreateHeaders(url, RequestOptions));
         }
+
     }
 }
