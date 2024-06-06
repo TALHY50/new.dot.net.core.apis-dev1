@@ -15,8 +15,7 @@ namespace IMT.Web.Controllers
 
         private readonly ThunesClient _thunesClient = new ThunesClient(Env.GetString("THUNES_API_SECRET"), Env.GetString("THUNES_API_KEY"), Env.GetString("THUNES_BASE_URL"));
 
-
-        [Tags("Transfers")]
+        [Tags("Thunes")]
         [HttpPost(ThunesUrl.CreateQuatationUrl)]
         public object CreateQuatatioin(CreateQuatationRequest request)
         {
@@ -37,7 +36,6 @@ namespace IMT.Web.Controllers
             }
         }
 
-        [Tags("Transfers")]
         [HttpGet(ThunesUrl.RetrieveAQuotationByIdUrl)]
         public object RetrieveAQuotationByIdUrl(int id)
         {
@@ -58,7 +56,6 @@ namespace IMT.Web.Controllers
             }
         }
 
-        [Tags("Transfers")]
         [HttpGet(ThunesUrl.RetrieveQuotationByExternalIdUrl)]
         public object GetByExternalId(ulong external_id)
         {
@@ -78,7 +75,6 @@ namespace IMT.Web.Controllers
                 }
             }
         }
-
 
         [HttpPost(ThunesUrl.CreditPartiesInformationUrl)]
         public object GetInformationAdapter(ulong id, string transaction_type, InformationRequest request)
@@ -101,7 +97,6 @@ namespace IMT.Web.Controllers
 
         }
 
-        [Tags("Transaction From Quotation Id")]
         [HttpPost(ThunesUrl.CreateTransactionUrl)]
         public Object TransactionPost(int id, CreateNewTransactionRequest request)
         {
@@ -124,7 +119,6 @@ namespace IMT.Web.Controllers
             }
         }
 
-        [Tags("Transaction From Quotation External Id")]
         [HttpPost(ThunesUrl.CreateTransactionFromQuotationExternalIdUrl)]
         public Object CreateTransactionFromQuotationExternalIdPost(int external_id, CreateNewTransactionRequest request)
         {
