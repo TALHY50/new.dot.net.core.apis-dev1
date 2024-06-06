@@ -22,10 +22,10 @@ namespace IMT.Thunes.Adapter.Transfers.Quotations
             return RestClient.Post<CreateContentQuatationResponse>(RequestOptions.BaseUrl + ThunesUrl.CreateQuatationUrl,
                 CreateHeaders(request, ThunesUrl.CreateQuatationUrl, RequestOptions), request);
         }
-        public CreateQuatationResponse GetQuotationById(int id)
+        public CreateContentQuatationResponse GetQuotationById(int id)
         {
-            string url = ThunesUrl.RetrieveAQuotationByIdUrl + "/" + id;
-            return RestClient.Get(RequestOptions.BaseUrl + url,
+            string url = ThunesUrl.RetrieveAQuotationByIdUrl.Replace("{id}", id.ToString());
+            return RestClient.Get<CreateContentQuatationResponse>(RequestOptions.BaseUrl + url,
                 CreateHeaders(url, RequestOptions));
         }
 
