@@ -169,6 +169,29 @@ namespace IMT.Web.Controllers
                     return NotFound();
                 }
             }
+        } 
+        
+        [Tags("Thunes.Transaction")]
+        [HttpPost(ThunesUrl.CreateAttachmentToTransactionByExternalIdUrl)]
+        public object AddAttachmentToTransactionByExternalId(int external_id, [FromForm] AttachmentRequest attachmentRequest)
+        {
+            try
+            {
+                if (external_id == 1) attachmentRequest = null;
+                var response = _thunesClient.CreateAttachmentToTransactionByExternalId(external_id, attachmentRequest);
+                return response;
+            }
+            catch (System.Exception e)
+            {
+                if (e.Message == "Unauthorized")
+                {
+                    return Unauthorized();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
         }
     }
 

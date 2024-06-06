@@ -38,6 +38,12 @@ namespace IMT.Thunes.Adapter.Transfers.Transaction
             var url = ThunesUrl.CreateAttachmentToTransactionByIdUrl.Replace("{id}", id.ToString());
             var result = RestClient.Post<TransactionAttachmentResponse>(RequestOptions.BaseUrl + url, CreateHeaders(request, ThunesUrl.CreateAttachmentToTransactionByIdUrl, RequestOptions), request);
             return result;
+        }  
+        public object CreateAttachmentToTransactionByExternalId(int external_id, AttachmentRequest request)
+        {
+            var url = ThunesUrl.CreateAttachmentToTransactionByExternalIdUrl.Replace("{external_id}", external_id.ToString());
+            var result = RestClient.Post<TransactionAttachmentResponse>(RequestOptions.BaseUrl + url, CreateHeaders(request, ThunesUrl.CreateAttachmentToTransactionByExternalIdUrl, RequestOptions), request);
+            return result;
         }
     }
 }
