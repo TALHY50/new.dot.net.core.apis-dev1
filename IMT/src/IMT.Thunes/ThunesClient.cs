@@ -1,7 +1,7 @@
 ﻿//using IMT.Thunes.Adapter;
-using IMT.Thunes.Adapter;
 using IMT.Thunes.Adapter.CreditParties;
 using IMT.Thunes.Adapter.Transfers.Quotations;
+using IMT.Thunes.Adapter.Transfers.Transaction;
 using IMT.Thunes.Request;
 using IMT.Thunes.Request.Common;
 using IMT.Thunes.Response;

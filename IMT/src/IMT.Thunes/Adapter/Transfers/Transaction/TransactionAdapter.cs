@@ -10,7 +10,7 @@ using IMT.Thunes.Response;
 using IMT.Thunes.Route;
 using Newtonsoft.Json;
 
-namespace IMT.Thunes.Adapter
+namespace IMT.Thunes.Adapter.Transfers.Transaction
 {
     public class TransactionAdapter : BaseAdapter
     {
@@ -24,8 +24,8 @@ namespace IMT.Thunes.Adapter
             var url = ThunesUrl.CreateTransactionUrl.Replace("{id}", id.ToString());
             var result = RestClient.Post<CreateTransactionResponse>(RequestOptions.BaseUrl + url, CreateHeaders(request, ThunesUrl.CreateTransactionUrl, RequestOptions), request);
             return result;
-        } 
-        
+        }
+
         public object CreateTransactionFromQuotationExternalId(int external_id, CreateNewTransactionRequest request)
         {
             var url = ThunesUrl.CreateTransactionFromQuotationExternalIdUrl.Replace("{external_id}", external_id.ToString());
