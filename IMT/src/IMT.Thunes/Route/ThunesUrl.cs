@@ -13,5 +13,7 @@ namespace IMT.Thunes.Route
         public const string RetrieveAQuotationByIdUrl = "/v2/money-transfer/quotations/{id}";
         public const string RetrieveQuotationByExternalIdUrl = "/v2/money-transfer/quotations/ext-{external_id}";
         public const string CreditPartiesInformationUrl = "/v2/money-transfer/payers/{id}/{transaction_type}/credit-party-information";
+        public const string CreditPartyVerificationUrl = "/v2/money-transfer/payers/{id}/{transaction_type}/credit-party-verification";
+        public const string BalancesUrl = "/v2/money-transfer/balances";
     }
 }

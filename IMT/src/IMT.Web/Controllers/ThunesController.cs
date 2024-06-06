@@ -140,5 +140,50 @@ namespace IMT.Web.Controllers
                 }
             }
         }
+
+
+        [HttpPost(ThunesUrl.CreditPartyVerificationUrl)]
+        public Object CreditPartyVerification(ulong id, string transaction_type, InformationRequest request)
+        {
+            try
+            {
+                return _thunesClient.VerificationAdapter().CreditPartyVerification(id, transaction_type, request);
+            }
+            catch (System.Exception e)
+            {
+                if (e.Message == "Unauthorized")
+                {
+                    return Unauthorized();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+        }
+
+        [HttpPost(ThunesUrl.BalancesUrl)]
+        public Object GetAccountAdapter()
+        {
+            try
+            {
+                return _thunesClient.GetAccountAdapter().GetBalanceResponse();
+            }
+            catch (System.Exception e)
+            {
+                if (e.Message == "Unauthorized")
+                {
+                    return Unauthorized();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+        }
+
+
+
+
     }
 }
