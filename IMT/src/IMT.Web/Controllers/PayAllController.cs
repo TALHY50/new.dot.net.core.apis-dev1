@@ -100,6 +100,14 @@ namespace IMT.Web.Controllers
             return Ok(result);
         }
 
+        [Tags("PayAll.Exchange")]
+        [HttpGet(PayAllUrl.GetNewRateByExistRateID)]
+        public object GetNewRateByExistRateId(string id)
+        {
+            var result = _payAllClient.Exchanges().GetNewRateByExistRateID(id);
+            return Ok(result);
+        }
+
         private CreatePaymentRequest CreatePaymentRequest()
         {
 

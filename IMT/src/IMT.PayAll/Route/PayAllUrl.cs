@@ -23,6 +23,7 @@ namespace IMT.PayAll.Route
 
         //Exchange
         public const string GetExchangeRateByID = "/v2/exchange-rates/{id}";
+        public const string GetNewRateByExistRateID = "/v2/exchange-rates/{id}/refresh";
         
 
 }

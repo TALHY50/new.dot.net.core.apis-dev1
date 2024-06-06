@@ -17,6 +17,17 @@ namespace IMT.PayAll.Adapter
         public ExchangeResponse GetExchangeRateByID(string Id)
         {
             var path = PayAllUrl.GetExchangeRateByID.Replace("{id}", Id);
+
+            return RestClient.Get<ExchangeResponse>(RequestOptions.BaseUrl + path, CreateHeaders(path, RequestOptions));
+
+        }
+
+        // Get new exchange rate based on already existing rate.
+        public ExchangeResponse GetNewRateByExistRateID(string Id)
+        {
+
+            var path = PayAllUrl.GetNewRateByExistRateID.Replace("{id}", Id);
+
             return RestClient.Get<ExchangeResponse>(RequestOptions.BaseUrl + path, CreateHeaders(path, RequestOptions));
 
         }
