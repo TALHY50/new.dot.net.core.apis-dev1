@@ -3,6 +3,7 @@ using IMT.PayAll;
 using IMT.PayAll.Request;
 using IMT.PayAll.Request.Common;
 using IMT.PayAll.Request.PaymentRequest;
+using IMT.PayAll.Response;
 using IMT.PayAll.Route;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace IMT.Web.Controllers
 {
     [ApiController]
+    [Tags("PayAll")]
     [Route("[controller]")]
     public class PayAllController : ControllerBase
     {
@@ -18,13 +20,15 @@ namespace IMT.Web.Controllers
         {
             _payAllClient = new PayAllClient("client-id", "client-secret", "https://api.sandbox.payall.com");
         }
+        [Tags("PayAll.Payment")]
         [HttpPost(PayAllUrl.SinglePayment)]
-        public object SinglePayment()
+        public object SinglePayment(CreatePaymentRequest requests)
         {
             var request = CreatePaymentRequest();
-            var result = _payAllClient.Payment().SinglePayment(request);
-            return Ok(result);
+            return _payAllClient.Payment().SinglePayment(request);
         }
+
+        [Tags("PayAll.Payment")]
         [HttpGet(PayAllUrl.GetPaymentById)]
         public object GetPaymentById(string id)
         {
@@ -32,6 +36,7 @@ namespace IMT.Web.Controllers
             return Ok(result);
         }
 
+        [Tags("PayAll.Payment")]
         [HttpPatch(PayAllUrl.UpdatePaymentById)]
         public object UpdatePaymentById(string id)
         {
@@ -40,6 +45,7 @@ namespace IMT.Web.Controllers
             return Ok(result);
         }
 
+        [Tags("PayAll.Payment Instruments")]
         [HttpGet(PayAllUrl.PaymentInstrumentsList)]
         public object PaymentInstrumentsList(string? recipient_id)
         {
@@ -51,6 +57,7 @@ namespace IMT.Web.Controllers
             return Ok(result);
         }
 
+        [Tags("PayAll.Payment Instruments")]
         [HttpPost(PayAllUrl.CreatePaymentInstruments)]
         public object PaymentInstrumentsCreate(PaymentInstrumentsRequest requests)
         {
@@ -59,6 +66,7 @@ namespace IMT.Web.Controllers
             return Ok(result);
         }
 
+        [Tags("PayAll.Payment Instruments")]
         [HttpGet(PayAllUrl.GetPaymentInstrumentsByID)]
         public object GetPaymentInstrumentsById(string id)
         {
@@ -66,6 +74,7 @@ namespace IMT.Web.Controllers
             return Ok(result);
         }
 
+        [Tags("PayAll.Payment Instruments")]
         [HttpPatch(PayAllUrl.UpdatePaymentInstrumentsByID)]
         public object UpdatePaymentInstrumentsByID(string id, PaymentInstrumentsRequest requests)
         {
@@ -75,10 +84,19 @@ namespace IMT.Web.Controllers
         }
 
 
+        [Tags("PayAll.Payment Instruments")]
         [HttpDelete(PayAllUrl.DeletePaymentInstrumentsByID)]
         public object DeletePaymentInstrumentsById(string id)
         {
             var result = _payAllClient.PaymentInstruments().DeletePaymentInstrumentsByID(id);
+            return Ok(result);
+        }
+
+        [Tags("PayAll.Exchange")]
+        [HttpGet(PayAllUrl.GetExchangeRateByID)]
+        public object GetExchangeRateById(string id)
+        {
+            var result = _payAllClient.Exchanges().GetExchangeRateByID(id);
             return Ok(result);
         }
 

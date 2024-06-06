@@ -29,7 +29,7 @@ namespace IMT.PayAll.Adapter
         // Get payment information by its ID
         public PaymentInformationResponse GetPaymentById(string Id)
         {
-            var path = PayAllUrl.GetPaymentById + Id;
+            var path = PayAllUrl.GetPaymentById.Replace("{id}",Id);
 
             return RestClient.Get<PaymentInformationResponse>(RequestOptions.BaseUrl + path, CreateHeaders(path, RequestOptions));
 
@@ -38,7 +38,7 @@ namespace IMT.PayAll.Adapter
         // Update payment details
         public UpdatePaymentResponse UpdatePaymentDetailsById(string Id, PaymentUpdateRequest request)
         {
-            var path = PayAllUrl.UpdatePaymentById + Id;
+            var path = PayAllUrl.UpdatePaymentById.Replace("{id}", Id);
 
             return RestClient.Patch<UpdatePaymentResponse>(RequestOptions.BaseUrl + path, CreateHeaders(request, path, RequestOptions), request);
 
