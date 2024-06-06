@@ -38,7 +38,7 @@ namespace IMT.Web.Controllers
         }
 
         [Tags("Transfers")]
-        [HttpPost(ThunesUrl.RetrieveAQuotationByIdUrl)]
+        [HttpGet(ThunesUrl.RetrieveAQuotationByIdUrl)]
         public object RetrieveAQuotationByIdUrl(int id)
         {
             try
@@ -58,13 +58,25 @@ namespace IMT.Web.Controllers
             }
         }
 
-
-
-        [HttpGet("GetRetrieveQuotationByExternalId")]
-        public CreateQuatationResponse GetByExternalId()
+        [Tags("Transfers")]
+        [HttpGet(ThunesUrl.RetrieveQuotationByExternalIdUrl)]
+        public object GetByExternalId(ulong external_id)
         {
-            ulong id = 1481184321405;
-            return _thunesClient.QuotationAdapter().GetRetrieveQuotationByExternalId(id);
+            try
+            {
+                return _thunesClient.QuotationAdapter().GetRetrieveQuotationByExternalId(external_id);
+            }
+            catch (System.Exception e)
+            {
+                if (e.Message == "Unauthorized")
+                {
+                    return Unauthorized();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
         }
 
 

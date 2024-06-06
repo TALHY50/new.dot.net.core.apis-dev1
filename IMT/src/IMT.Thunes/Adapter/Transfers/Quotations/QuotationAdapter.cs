@@ -29,10 +29,10 @@ namespace IMT.Thunes.Adapter.Transfers.Quotations
                 CreateHeaders(url, RequestOptions));
         }
 
-        public CreateQuatationResponse GetRetrieveQuotationByExternalId(ulong id)
+        public CreateContentQuatationResponse GetRetrieveQuotationByExternalId(ulong external_id)
         {
-            string url = ThunesUrl.RetrieveQuotationByExternalIdUrl + "/ext-" + id;
-            return RestClient.Get(RequestOptions.BaseUrl + url,
+            string url = ThunesUrl.RetrieveQuotationByExternalIdUrl.Replace("{external_id}", external_id.ToString());
+            return RestClient.Get<CreateContentQuatationResponse>(RequestOptions.BaseUrl + url,
                 CreateHeaders(url, RequestOptions));
         }
     }
