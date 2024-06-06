@@ -171,7 +171,7 @@ namespace IMT.Web.Controllers
             }
         }
 
-        [Tags("Thunes.Account.Balances")]
+        [Tags("Thunes.Account")]
         [HttpGet(ThunesUrl.BalancesUrl)]
         public Object GetAccountAdapter()
         {
@@ -191,14 +191,35 @@ namespace IMT.Web.Controllers
                 }
             }
         }
-        
-        [Tags("Thunes.Account.Balance Movement")]
+
+        [Tags("Thunes.Account")]
         [HttpGet(ThunesUrl.BalanceMovementUrl)]
         public Object GetBalanceMovement(ulong id, DateTime from_date, DateTime to_date)
         {
             try
             {
                 return _thunesClient.GetAccountAdapter().GetBalanceMovement(id, from_date, to_date);
+            }
+            catch (System.Exception e)
+            {
+                if (e.Message == "Unauthorized")
+                {
+                    return Unauthorized();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+        }
+
+        [Tags("Thunes.Account")]
+        [HttpGet(ThunesUrl.ListReportsAvailableUrl)]
+        public Object ListReportsAvailable(string queryParams = null)
+        {
+            try
+            {
+                return _thunesClient.GetAccountAdapter().ListReportsAvailable(queryParams);
             }
             catch (System.Exception e)
             {

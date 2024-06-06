@@ -17,5 +17,6 @@ namespace IMT.Thunes.Route
         public const string CreditPartyVerificationUrl = "/v2/money-transfer/payers/{id}/{transaction_type}/credit-party-verification";
         public const string BalancesUrl = "/v2/money-transfer/balances";
         public const string BalanceMovementUrl = "/v2/money-transfer/balances/{id}/movements";
+        public const string ListReportsAvailableUrl = "/v2/money-transfer/reports";
     }
 }
