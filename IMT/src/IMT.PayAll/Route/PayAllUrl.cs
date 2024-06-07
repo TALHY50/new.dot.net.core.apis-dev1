@@ -29,7 +29,10 @@ namespace IMT.PayAll.Route
         public const string CancelExchangeRate = "/v2/exchange-rates/cancel";
         public const string GetCardedExchangeRate = "/v2/carded-rates";
         public const string PostCardedExchangeRate = "/v2/payall/carded-rates/{event_type}/{tenant_id}";
-        
+
+        // Accounts
+
+        public const string GetPaymentAccountsList = "/v2/accounts";
 
 
 
