@@ -237,6 +237,28 @@ namespace IMT.Web.Controllers
                 }
             }
         }
+        
+        [Tags("Thunes.Transaction")]
+        [HttpGet(ThunesUrl.RetrieveTransactionInformationByTransactionIdUrl)]
+        public object RetrieveTransactionInformationByTransactionIdUrl(int id)
+        {
+            try
+            {
+                var response = _thunesClient.RetrieveTransactionInformationByTransactionId(id);
+                return response;
+            }
+            catch (System.Exception e)
+            {
+                if (e.Message == "Unauthorized")
+                {
+                    return Unauthorized();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+        }
         #endregion
 
         [Tags("Thunes.Account")]

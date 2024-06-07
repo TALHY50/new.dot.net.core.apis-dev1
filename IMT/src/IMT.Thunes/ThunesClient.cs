@@ -73,9 +73,15 @@ namespace IMT.Thunes
         {
             return _transactionAdapter.ConfirmTransactionById(id);
         }
+
         public object ConfirmTransactionByExternalId(int external_id)
         {
             return _transactionAdapter.ConfirmTransactionByExternalId(external_id);
+        }
+
+        public object RetrieveTransactionInformationByTransactionId(int id)
+        {
+            return _transactionAdapter.RetrieveTransactionInformationByTransactionId(id);
         }
 
         public VerificationAdapter VerificationAdapter()
