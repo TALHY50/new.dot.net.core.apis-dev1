@@ -215,6 +215,28 @@ namespace IMT.Web.Controllers
                 }
             }
         }
+
+        [Tags("Thunes.Transaction")]
+        [HttpPost(ThunesUrl.ConfirmTransactionByExternalIdUrl)]
+        public object ConfirmTransactionByExternalId(int external_id)
+        {
+            try
+            {
+                var response = _thunesClient.ConfirmTransactionByExternalId(external_id);
+                return response;
+            }
+            catch (System.Exception e)
+            {
+                if (e.Message == "Unauthorized")
+                {
+                    return Unauthorized();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+        }
         #endregion
 
         [Tags("Thunes.Account")]
