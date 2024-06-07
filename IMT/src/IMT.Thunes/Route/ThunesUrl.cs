@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace IMT.Thunes.Route
 {
@@ -12,6 +13,7 @@ namespace IMT.Thunes.Route
         public const string CreateTransactionFromQuotationExternalIdUrl = "/v2/money-transfer/quotations/ext-{external_id}/transactions";
         public const string CreateAttachmentToTransactionByIdUrl = "/v2/money-transfer/transactions/{id}/attachments";
         public const string CreateAttachmentToTransactionByExternalIdUrl = "/v2/money-transfer/transactions/ext-{external_id}/attachments";
+        public const string ConfirmTransactionByIdUrl = "/v2/money-transfer/transactions/{id}/confirm";
         public const string RetrieveAQuotationByIdUrl = "/v2/money-transfer/quotations/{id}";
         public const string RetrieveQuotationByExternalIdUrl = "/v2/money-transfer/quotations/ext-{external_id}";
         public const string CreditPartiesInformationUrl = "/v2/money-transfer/payers/{id}/{transaction_type}/credit-party-information";

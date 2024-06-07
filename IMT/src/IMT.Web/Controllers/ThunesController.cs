@@ -169,8 +169,8 @@ namespace IMT.Web.Controllers
                     return NotFound();
                 }
             }
-        } 
-        
+        }
+
         [Tags("Thunes.Transaction")]
         [HttpPost(ThunesUrl.CreateAttachmentToTransactionByExternalIdUrl)]
         public object AddAttachmentToTransactionByExternalId(int external_id, [FromForm] AttachmentRequest attachmentRequest)
@@ -192,7 +192,30 @@ namespace IMT.Web.Controllers
                     return NotFound();
                 }
             }
+        } 
+        
+        [Tags("Thunes.Transaction")]
+        [HttpPost(ThunesUrl.ConfirmTransactionByIdUrl)]
+        public object ConfirmTransactionById(int id)
+        {
+            try
+            {
+                var response = _thunesClient.ConfirmTransactionById(id);
+                return response;
+            }
+            catch (System.Exception e)
+            {
+                if (e.Message == "Unauthorized")
+                {
+                    return Unauthorized();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
         }
+        #endregion
 
         [Tags("Thunes.Account")]
         [HttpGet(ThunesUrl.BalancesUrl)]
@@ -305,6 +328,6 @@ namespace IMT.Web.Controllers
 
     }
 
-    #endregion
+
 
 }

@@ -22,28 +22,30 @@ namespace IMT.Thunes.Adapter.Transfers.Transaction
         public object CreateTransaction(int id, CreateNewTransactionRequest request)
         {
             var url = ThunesUrl.CreateTransactionUrl.Replace("{id}", id.ToString());
-            var result = RestClient.Post<CreateTransactionResponse>(RequestOptions.BaseUrl + url, CreateHeaders(request, ThunesUrl.CreateTransactionUrl, RequestOptions), request);
-            return result;
+            return RestClient.Post<CreateTransactionResponse>(RequestOptions.BaseUrl + url, CreateHeaders(request, ThunesUrl.CreateTransactionUrl, RequestOptions), request);
         }
 
         public object CreateTransactionFromQuotationExternalId(int external_id, CreateNewTransactionRequest request)
         {
             var url = ThunesUrl.CreateTransactionFromQuotationExternalIdUrl.Replace("{external_id}", external_id.ToString());
-            var result = RestClient.Post<CreateTransactionResponse>(RequestOptions.BaseUrl + url, CreateHeaders(request, ThunesUrl.CreateTransactionFromQuotationExternalIdUrl, RequestOptions), request);
-            return result;
+            return RestClient.Post<CreateTransactionResponse>(RequestOptions.BaseUrl + url, CreateHeaders(request, ThunesUrl.CreateTransactionFromQuotationExternalIdUrl, RequestOptions), request);
         } 
         
         public object CreateAttachmentToTransactionById(int id, AttachmentRequest request)
         {
             var url = ThunesUrl.CreateAttachmentToTransactionByIdUrl.Replace("{id}", id.ToString());
-            var result = RestClient.Post<TransactionAttachmentResponse>(RequestOptions.BaseUrl + url, CreateHeaders(request, ThunesUrl.CreateAttachmentToTransactionByIdUrl, RequestOptions), request);
-            return result;
+            return RestClient.Post<TransactionAttachmentResponse>(RequestOptions.BaseUrl + url, CreateHeaders(request, ThunesUrl.CreateAttachmentToTransactionByIdUrl, RequestOptions), request);
         }  
         public object CreateAttachmentToTransactionByExternalId(int external_id, AttachmentRequest request)
         {
             var url = ThunesUrl.CreateAttachmentToTransactionByExternalIdUrl.Replace("{external_id}", external_id.ToString());
-            var result = RestClient.Post<TransactionAttachmentResponse>(RequestOptions.BaseUrl + url, CreateHeaders(request, ThunesUrl.CreateAttachmentToTransactionByExternalIdUrl, RequestOptions), request);
-            return result;
+            return RestClient.Post<TransactionAttachmentResponse>(RequestOptions.BaseUrl + url, CreateHeaders(request, ThunesUrl.CreateAttachmentToTransactionByExternalIdUrl, RequestOptions), request);
+        } 
+        
+        public object ConfirmTransactionById(int id)
+        {
+            var url = ThunesUrl.ConfirmTransactionByIdUrl.Replace("{id}", id.ToString());
+           return RestClient.Post<TransactionAttachmentResponse>(RequestOptions.BaseUrl + url, CreateHeaders( ThunesUrl.ConfirmTransactionByIdUrl, RequestOptions),null);
         }
     }
 }
