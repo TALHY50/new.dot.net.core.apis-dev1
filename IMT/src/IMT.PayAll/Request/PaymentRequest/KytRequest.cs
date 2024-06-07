@@ -7,7 +7,7 @@ using IMT.PayAll.Request.Common;
 
 namespace IMT.PayAll.Request.PaymentRequest
 {
-    public class Kyt
+    public class KytRequest
     {
         public string destination_country { get; set; }
         public string payment_purpose { get; set; }

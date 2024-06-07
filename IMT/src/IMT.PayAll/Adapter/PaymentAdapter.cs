@@ -3,6 +3,7 @@ using IMT.PayAll.Net;
 using IMT.PayAll.Request;
 using IMT.PayAll.Request.Common;
 using IMT.PayAll.Request.PaymentRequest;
+using IMT.PayAll.Request.Recipient;
 using IMT.PayAll.Response;
 using IMT.PayAll.Route;
 
@@ -60,7 +61,7 @@ namespace IMT.PayAll.Adapter
             return singlePayment;
         }
 
-        private object PaymentInstruments(PaymentInstrument request)
+        private object PaymentInstruments(PaymentInstrumentRequest request)
         {
             if (request.category == paymentInstrumentCategory.MobileWallet.ToString())
             {
@@ -116,12 +117,12 @@ namespace IMT.PayAll.Adapter
 
         }
 
-        private object GetRecipient(Request.PaymentRequest.Recipient request)
+        private object GetRecipient(RecipientRequest request)
         {
             if (request.type == recipientType.Business.ToString())
             {
-               return new BusinessRecipient
-                {
+               return new BusinessRecipientRequest
+               {
                     type = request.type,
                     email = request.email,
                     country = request.country,
@@ -135,7 +136,7 @@ namespace IMT.PayAll.Adapter
             }
             if (request.type == recipientType.Person.ToString())
             {
-                return new PersonRecipient
+                return new PersonRecipientRequest
                 {
                     type = request.type,
                     email = request.email,

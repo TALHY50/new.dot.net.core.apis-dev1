@@ -2,7 +2,7 @@
 
 namespace IMT.PayAll.Request.PaymentRequest
 {
-    public class PaymentInstrument
+    public class PaymentInstrumentRequest
     {
         public string category { get; set; }
         public string currency { get; set; }

@@ -1,9 +1,10 @@
 ﻿
-using System.ComponentModel.DataAnnotations;
 
-namespace IMT.PayAll.Request.PaymentRequest
+using IMT.PayAll.Request.PaymentRequest;
+
+namespace IMT.PayAll.Request.Recipient
 {
-    public class Recipient : BaseRecipient
+    public class RecipientRequest : BaseRecipientRequest
     {
         public string first_name { get; set; }
         public string last_name { get; set; }
@@ -15,6 +16,8 @@ namespace IMT.PayAll.Request.PaymentRequest
         public string trade_name { get; set; }
         public string phone_number { get; set; }
         public string registration_number { get; set; }
-        public IdentityDocument identity_document { get; set; }
+        public IdentityDocumentRequest identity_document { get; set; }
+
+        
     }
 }

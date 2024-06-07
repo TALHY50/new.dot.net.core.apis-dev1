@@ -10,6 +10,7 @@ namespace IMT.PayAll
         private readonly PaymentInstrumentAdapter _paymentInstrumentAdapter;
         private readonly ExchangeAdapter _exchangeAdapter;
         private readonly AccountsAdapter _accountsAdapter;
+        private readonly RecipientsAdapter _recipientsAdapter;
 
         public PayAllClient(string clientId, string clientSecret)
             : this(clientId, clientSecret, BaseUrl, null)
@@ -35,6 +36,7 @@ namespace IMT.PayAll
             _paymentInstrumentAdapter = new PaymentInstrumentAdapter(requestOptions);
             _exchangeAdapter = new ExchangeAdapter(requestOptions);
             _accountsAdapter = new AccountsAdapter(requestOptions);
+            _recipientsAdapter = new RecipientsAdapter(requestOptions);
 
         }
 
@@ -54,6 +56,11 @@ namespace IMT.PayAll
         {
             return _accountsAdapter;
         }
+        public RecipientsAdapter Recipients()
+        {
+            return _recipientsAdapter;
+        }
+        
 
 
     }

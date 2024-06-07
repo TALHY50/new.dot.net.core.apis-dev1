@@ -2,9 +2,9 @@
 
 using System.ComponentModel.DataAnnotations;
 
-namespace IMT.PayAll.Request.PaymentRequest
+namespace IMT.PayAll.Request.Recipient
 {
-    public class BusinessRecipient : BaseRecipient
+    public class BusinessRecipientRequest : BaseRecipientRequest
     {
         [Required]
         public string legal_name { get; set; }
@@ -16,5 +16,7 @@ namespace IMT.PayAll.Request.PaymentRequest
         public string phone_number { get; set; }
         [Required]
         public string registration_number { get; set; }
+
+       
     }
 }

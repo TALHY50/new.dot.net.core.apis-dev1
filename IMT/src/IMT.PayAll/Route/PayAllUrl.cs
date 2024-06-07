@@ -31,8 +31,14 @@ namespace IMT.PayAll.Route
         public const string PostCardedExchangeRate = "/v2/payall/carded-rates/{event_type}/{tenant_id}";
 
         // Accounts
-
         public const string GetPaymentAccountsList = "/v2/accounts";
+
+        // Recipients
+        public const string GetRecipientList = "/v2/recipients";
+        public const string CreateRecipient = "/v2/recipients";
+        public const string UpdateRecipient = "/v2/recipients/{id}";
+        public const string DeleteRecipient = "/v2/recipients/{id}";
+        
 
 
 

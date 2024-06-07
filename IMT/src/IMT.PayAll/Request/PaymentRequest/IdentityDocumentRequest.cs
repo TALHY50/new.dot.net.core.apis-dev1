@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IMT.PayAll.Request.PaymentRequest
 {
-    public class IdentityDocument
+    public class IdentityDocumentRequest
     {
         public string type { get; set; }
         public string type_version_number { get; set; }

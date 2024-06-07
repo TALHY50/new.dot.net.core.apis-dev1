@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace IMT.PayAll.Request.PaymentRequest
 {
-    public class RegistrationAddress
+    public class RegistrationAddressRequest
     {
         [Required]
         public string city { get; set; }

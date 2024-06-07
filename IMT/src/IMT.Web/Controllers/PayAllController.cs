@@ -4,6 +4,7 @@ using IMT.PayAll.Common;
 using IMT.PayAll.Request;
 using IMT.PayAll.Request.Common;
 using IMT.PayAll.Request.PaymentRequest;
+using IMT.PayAll.Request.Recipient;
 using IMT.PayAll.Response;
 using IMT.PayAll.Route;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +19,7 @@ namespace IMT.Web.Controllers
     {
         private readonly PayAllClient _payAllClient;
 
-        private string ServerEnvironment = "Local";
+        private string ServerEnvironment = "Sandbox";
         public PayAllController()
         {
             var requirement = BaseRequirement.GetBaseRequirement(ServerEnvironment);
@@ -158,6 +159,36 @@ namespace IMT.Web.Controllers
             return Ok(result);
         }
 
+        [Tags("PayAll.Recipients")]
+        [HttpGet(PayAllUrl.GetRecipientList)]
+        public object GetRecipients()
+        {
+            var result = _payAllClient.Recipients().GetRecipients();
+            return Ok(result);
+        }
+
+        [Tags("PayAll.Recipients")]
+        [HttpPost(PayAllUrl.CreateRecipient)]
+        public object CreateRecipients(RecipientRequest request)
+        {
+            var result = _payAllClient.Recipients().CreateRecipient(request);
+            return Ok(result);
+        }
+
+        [Tags("PayAll.Recipients")]
+        [HttpPatch(PayAllUrl.UpdateRecipient)]
+        public object UpdateRecipient(string id,RecipientRequest request)
+        {
+            var result = _payAllClient.Recipients().UpdateRecipient(id,request);
+            return Ok(result);
+        }
+        [Tags("PayAll.Recipients")]
+        [HttpDelete(PayAllUrl.DeleteRecipient)]
+        public object DeleteRecipient(string id)
+        {
+            var result = _payAllClient.Recipients().DeleteRecipient(id);
+            return Ok(result);
+        }
 
         private CreatePaymentRequest CreatePaymentRequest()
         {
@@ -165,7 +196,7 @@ namespace IMT.Web.Controllers
             var paymentData = new CreatePaymentRequest
             {
                 client_payment_id = "CP12345",
-                recipient = new Recipient
+                recipient = new RecipientRequest()
                 {
                     type = "Business",
                     email = "john.doe@example.com",
@@ -174,9 +205,9 @@ namespace IMT.Web.Controllers
                     middle_name = "A",
                     mobile_number = "+123456789",
                     dob = new DateOnly(),
-                    registration_address = new List<RegistrationAddress>
+                    registration_address = new List<RegistrationAddressRequest>
                 {
-                    new RegistrationAddress
+                    new RegistrationAddressRequest
                     {
                         city = "New York",
                         street = "5th Avenue",
@@ -188,7 +219,7 @@ namespace IMT.Web.Controllers
                         building_number = "350"
                     }
                 },
-                    identity_document = new IdentityDocument
+                    identity_document = new IdentityDocumentRequest
                     {
                         type = "Passport",
                         type_version_number = "1.0",
@@ -206,7 +237,7 @@ namespace IMT.Web.Controllers
                         driver_license_version_number = "1"
                     }
                 },
-                payment_instrument = new PaymentInstrument
+                payment_instrument = new PaymentInstrumentRequest
                 {
                     category = "Credit Card",
                     currency = "USD",
@@ -222,7 +253,7 @@ namespace IMT.Web.Controllers
                 },
                 exchange_rate_id = "ER12345",
                 carded_rate_id = "CR12345",
-                kyt = new Kyt
+                kyt = new KytRequest
                 {
                     destination_country = "USA",
                     payment_purpose = "Business",

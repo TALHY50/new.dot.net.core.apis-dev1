@@ -1,0 +1,91 @@
+﻿
+using IMT.PayAll.Net;
+using IMT.PayAll.Request.Common;
+using IMT.PayAll.Request.Recipient;
+using IMT.PayAll.Response;
+using IMT.PayAll.Route;
+
+namespace IMT.PayAll.Adapter
+{
+    public class RecipientsAdapter : BaseAdapter
+    {
+        private enum recipientType { Person, Business };
+        public RecipientsAdapter(RequestOptions requestOptions) : base(requestOptions)
+        {
+
+        }
+
+        // Get list of recipients
+        public IEnumerable<RecipientsResponse> GetRecipients()
+        {
+            var path = PayAllUrl.GetRecipientList;
+
+            return RestClient.Get<IEnumerable<RecipientsResponse>>(RequestOptions.BaseUrl + path, CreateHeaders(path, RequestOptions));
+
+        }
+
+        // Create a recipient
+        public CreateRecipientResponse CreateRecipient(RecipientRequest request)
+        {
+            var path = PayAllUrl.GetRecipientList;
+            var recipientRequest = GenerateRecipientRequest(request);
+            return RestClient.Post<CreateRecipientResponse>(RequestOptions.BaseUrl + path, CreateHeaders(recipientRequest, path, RequestOptions), recipientRequest);
+
+        }
+
+        // Update a recipient
+        public CreateRecipientResponse UpdateRecipient(string recipientId ,RecipientRequest request)
+        {
+            var path = PayAllUrl.UpdateRecipient.Replace("{id}", recipientId);
+            var recipientRequest = GenerateRecipientRequest(request);
+            return RestClient.Patch<CreateRecipientResponse>(RequestOptions.BaseUrl + path, CreateHeaders(recipientRequest, path, RequestOptions), recipientRequest);
+
+        }
+
+        //Delete a recipient
+        public string DeleteRecipient(string recipientId)
+        {
+            var path = PayAllUrl.DeleteRecipient.Replace("{id}", recipientId);
+            return RestClient.Delete<string>(RequestOptions.BaseUrl + path, CreateHeaders(path, RequestOptions));
+        }
+
+        private object GenerateRecipientRequest(RecipientRequest request)
+        {
+            if (request.type == recipientType.Business.ToString())
+            {
+                return new BusinessRecipientRequest
+                {
+                    type = request.type,
+                    email = request.email,
+                    country = request.country,
+                    legal_name = request.legal_name,
+                    phone_number = request.phone_number,
+                    registration_address = request.registration_address,
+                    registration_number = request.registration_number,
+                    trade_name = request.trade_name
+                };
+
+            }
+            if (request.type == recipientType.Person.ToString())
+            {
+                return new PersonRecipientRequest
+                {
+                    type = request.type,
+                    email = request.email,
+                    first_name = request.first_name,
+                    dob = request.dob,
+                    identity_document = request.identity_document,
+                    last_name = request.last_name,
+                    middle_name = request.middle_name,
+                    mobile_number = request.mobile_number,
+                    registration_address = request.registration_address
+                };
+
+            }
+
+            return null;
+
+        }
+
+    }
+}
