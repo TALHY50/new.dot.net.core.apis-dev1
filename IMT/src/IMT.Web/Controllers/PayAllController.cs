@@ -1,5 +1,6 @@
 ﻿
 using IMT.PayAll;
+using IMT.PayAll.Common;
 using IMT.PayAll.Request;
 using IMT.PayAll.Request.Common;
 using IMT.PayAll.Request.PaymentRequest;
@@ -16,11 +17,12 @@ namespace IMT.Web.Controllers
     public class PayAllController : ControllerBase
     {
         private readonly PayAllClient _payAllClient;
-        //string baseurl = "https://api.sandbox.payall.com";
-        string baseurl = "http://localhost:3000";
+
+        private string ServerEnvironment = "Local";
         public PayAllController()
         {
-            _payAllClient = new PayAllClient("client-id", "client-secret", baseurl);
+            var requirement = BaseRequirement.GetBaseRequirement(ServerEnvironment);
+            _payAllClient = new PayAllClient(requirement.ClientID, requirement.ClientSecret, requirement.BaseUrl);
         }
         [Tags("PayAll.Payment")]
         [HttpPost(PayAllUrl.SinglePayment)]
@@ -145,6 +147,14 @@ namespace IMT.Web.Controllers
         public object PostCardedExchangeRate(string event_type, string tenant_id, CardedExchangeRateRequest request)
         {
             var result = _payAllClient.Exchanges().PostCardedExchangeRate(event_type, tenant_id, request);
+            return Ok(result);
+        }
+
+        [Tags("PayAll.Accounts")]
+        [HttpGet(PayAllUrl.GetPaymentAccountsList)]
+        public object GetPaymentAccountsList()
+        {
+            var result = _payAllClient.Accounts().GetPaymentAccountsList();
             return Ok(result);
         }
 
