@@ -1,9 +1,9 @@
 ﻿using DotNetEnv;
 using IMT.Thunes;
-using IMT.Thunes.Request;
 using IMT.Thunes.Request.Common;
 using IMT.Thunes.Request.CreditParties;
-using IMT.Thunes.Request.Transaction;
+using IMT.Thunes.Request.Transaction.Quoatation;
+using IMT.Thunes.Request.Transaction.Transfer;
 using IMT.Thunes.Response;
 using IMT.Thunes.Route;
 using Microsoft.AspNetCore.Mvc;

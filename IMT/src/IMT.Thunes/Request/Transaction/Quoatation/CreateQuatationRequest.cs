@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using IMT.Thunes.Request.Common;
 
-namespace IMT.Thunes.Request
+namespace IMT.Thunes.Request.Transaction.Quoatation
 {
     public class CreateQuatationRequest
     {

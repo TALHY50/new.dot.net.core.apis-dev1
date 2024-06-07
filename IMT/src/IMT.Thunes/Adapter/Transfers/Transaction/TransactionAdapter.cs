@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using IMT.Thunes.Net;
 using IMT.Thunes.Request.Common;
-using IMT.Thunes.Request.Transaction;
+using IMT.Thunes.Request.Transaction.Transfer;
 using IMT.Thunes.Response.Transfer.Transaction;
 using IMT.Thunes.Route;
 using Newtonsoft.Json;

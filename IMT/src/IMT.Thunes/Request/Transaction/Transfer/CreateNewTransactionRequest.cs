@@ -5,7 +5,7 @@ using System.Runtime.InteropServices.JavaScript;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IMT.Thunes.Request.Transaction
+namespace IMT.Thunes.Request.Transaction.Transfer
 {
     public class CreateNewTransactionRequest
     {

@@ -4,7 +4,7 @@ using IMT.Thunes.Adapter.CreditParties;
 using IMT.Thunes.Adapter.Transfers.Quotations;
 using IMT.Thunes.Adapter.Transfers.Transaction;
 using IMT.Thunes.Request.Common;
-using IMT.Thunes.Request.Transaction;
+using IMT.Thunes.Request.Transaction.Transfer;
 using IMT.Thunes.Response;
 
 namespace IMT.Thunes
