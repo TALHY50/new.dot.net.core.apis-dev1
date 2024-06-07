@@ -281,6 +281,28 @@ namespace IMT.Web.Controllers
                 }
             }
         }
+ 
+        [Tags("Thunes.Transaction")]
+        [HttpGet(ThunesUrl.ListAttachmentsOfATransactionByIdUrl)]
+        public object ListAttachmentsOfATransactionById(int external_id)
+        {
+            try
+            {
+                var response = _thunesClient.ListAttachmentsOfATransactionById(external_id);
+                return response;
+            }
+            catch (System.Exception e)
+            {
+                if (e.Message == "Unauthorized")
+                {
+                    return Unauthorized();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+        }
 
         #endregion
 

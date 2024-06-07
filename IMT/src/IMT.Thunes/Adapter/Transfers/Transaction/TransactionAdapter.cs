@@ -59,6 +59,12 @@ namespace IMT.Thunes.Adapter.Transfers.Transaction
             var url = ThunesUrl.RetrieveTransactionInformationByTransactionIdUrl.Replace("{id}", id.ToString());
            return RestClient.Get<TransactionAttachmentResponse>(RequestOptions.BaseUrl + url, CreateHeaders( ThunesUrl.RetrieveTransactionInformationByTransactionIdUrl, RequestOptions));
         }
+        public object ListAttachmentsOfATransactionById(int id)
+        {
+            var url = ThunesUrl.ListAttachmentsOfATransactionByIdUrl.Replace("{id}", id.ToString());
+           return RestClient.Get<List<TransactionAttachmentResponse>>(RequestOptions.BaseUrl + url, CreateHeaders( ThunesUrl.ListAttachmentsOfATransactionByIdUrl, RequestOptions));
+        }
+
         public object RetrieveTransactionInformationByExternalId(int external_id)
         {
             var url = ThunesUrl.RetrieveTransactionInformationByExternalIdUrl.Replace("{external_id}", external_id.ToString());

@@ -8,10 +8,10 @@ namespace IMT.Thunes.Response.Transfer.Transaction
 {
     public class TransactionAttachmentResponse
     {
-        public int Id { get; set; }
-        public string ContentType { get; set; }
-        public string Name { get; set; }
-        public int TransactionId { get; set; }
-        public string Type { get; set; }
+        public int id { get; set; }
+        public string content_type { get; set; }
+        public string name { get; set; }
+        public int transaction_id { get; set; }
+        public string type { get; set; }
     }
 }
