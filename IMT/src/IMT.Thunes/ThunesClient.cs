@@ -1,5 +1,6 @@
 ﻿//using IMT.Thunes.Adapter;
 using IMT.Thunes.Adapter.Account;
+using IMT.Thunes.Adapter.Connectivity;
 using IMT.Thunes.Adapter.CreditParties;
 using IMT.Thunes.Adapter.Transfers.Quotations;
 using IMT.Thunes.Adapter.Transfers.Transaction;
@@ -18,6 +19,7 @@ namespace IMT.Thunes
         private readonly TransactionAdapter _transactionAdapter;
         private readonly VerificationAdapter _verificationAdapter;
         private readonly AccountAdapter _accountAdapter;
+        private readonly ConnectivityAdapter _connectivityAdapter;
 
         public ThunesClient(string apiKey, string secretKey)
             : this(apiKey, secretKey, BaseUrl, null)
@@ -35,9 +37,10 @@ namespace IMT.Thunes
             };
             this._quotationAdapter = new QuotationAdapter(requestOptions);
             this._information_adapter = new InformationAdapter(requestOptions);
-            this._transactionAdapter = new TransactionAdapter(requestOptions);
+           _transactionAdapter = new TransactionAdapter(requestOptions);
             this._verificationAdapter = new VerificationAdapter(requestOptions);
             this._accountAdapter = new AccountAdapter(requestOptions);
+            _connectivityAdapter = new ConnectivityAdapter(requestOptions);
         }
 
         public QuotationAdapter QuotationAdapter()
@@ -115,6 +118,11 @@ namespace IMT.Thunes
         public AccountAdapter GetAccountAdapter()
         {
             return this._accountAdapter;
+        }
+
+        public object Ping()
+        {
+            return _connectivityAdapter.Ping();
         }
 
 

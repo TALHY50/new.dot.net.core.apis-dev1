@@ -10,6 +10,7 @@ namespace IMT.Thunes.Route
 {
     public class ThunesUrl
     {
+        public const string ConnectivityUrl = "/ping";
         public const string CreateQuatationUrl = "/v2/money-transfer/quotations";
         public const string CreateTransactionUrl = "/v2/money-transfer/quotations/{id}/transactions";
         public const string CreateTransactionFromQuotationExternalIdUrl = "/v2/money-transfer/quotations/ext-{external_id}/transactions";
