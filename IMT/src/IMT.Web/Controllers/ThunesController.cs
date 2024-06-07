@@ -101,6 +101,32 @@ namespace IMT.Web.Controllers
 
         }
 
+
+        #region Connectivity
+
+        [Tags("Thunes.Connectivity")]
+        [HttpGet(ThunesUrl.ConnectivityUrl)]
+        public object Connectivity()
+        {
+            try
+            {
+                return _thunesClient.Ping();
+            }
+            catch (System.Exception e)
+            {
+                if (e.Message == "Unauthorized")
+                {
+                    return Unauthorized();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+        }
+
+        #endregion
+
         #region Transaction
 
         [Tags("Thunes.Transaction")]
@@ -192,8 +218,8 @@ namespace IMT.Web.Controllers
                     return NotFound();
                 }
             }
-        } 
-        
+        }
+
         [Tags("Thunes.Transaction")]
         [HttpPost(ThunesUrl.ConfirmTransactionByIdUrl)]
         public object ConfirmTransactionById(int id)
@@ -237,7 +263,7 @@ namespace IMT.Web.Controllers
                 }
             }
         }
-        
+
         [Tags("Thunes.Transaction")]
         [HttpGet(ThunesUrl.RetrieveTransactionInformationByTransactionIdUrl)]
         public object RetrieveTransactionInformationByTransactionId(int id)
@@ -258,8 +284,8 @@ namespace IMT.Web.Controllers
                     return NotFound();
                 }
             }
-        } 
-        
+        }
+
         [Tags("Thunes.Transaction")]
         [HttpGet(ThunesUrl.RetrieveTransactionInformationByExternalIdUrl)]
         public object RetrieveTransactionInformationByExternalId(int external_id)
@@ -281,7 +307,7 @@ namespace IMT.Web.Controllers
                 }
             }
         }
- 
+
         [Tags("Thunes.Transaction")]
         [HttpGet(ThunesUrl.ListAttachmentsOfATransactionByIdUrl)]
         public object ListAttachmentsOfATransactionById(int id)
@@ -325,7 +351,7 @@ namespace IMT.Web.Controllers
                 }
             }
         }
-        
+
         [Tags("Thunes.Transaction")]
         [HttpGet(ThunesUrl.CancelTransactionByExternalIdUrl)]
         public object CancelTransactionByExternalId(int external_id)
