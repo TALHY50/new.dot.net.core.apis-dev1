@@ -98,7 +98,27 @@ namespace IMT.Web.Controllers
                     return NotFound();
                 }
             }
+        }
 
+        [Tags("Thunes.CreditParties")]
+        [HttpPost(ThunesUrl.CreditPartyVerificationUrl)]
+        public object CreditPartyVerification(ulong id, string transaction_type, InformationRequest request)
+        {
+            try
+            {
+                return _thunesClient.VerificationAdapter().CreditPartyVerification(id, transaction_type, request);
+            }
+            catch (System.Exception e)
+            {
+                if (e.Message == "Unauthorized")
+                {
+                    return Unauthorized();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
         }
 
 
