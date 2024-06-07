@@ -33,5 +33,12 @@ namespace IMT.Thunes.Route
         public const string ListReportsAvailableUrl = "/v2/money-transfer/reports";
         public const string GetReportDetailUrl = "/v2/money-transfer/reports/{id}";
         public const string ListReportFilesAvailableUrl = "/v2/money-transfer/reports/{id}/files";
+        public const string ReportFileDetailUrl = "/v2/money-transfer/reports/{report_id}/files/{id}";
+        public const string ListServicesAvailableUrl = "/v2/money-transfer/services";
+        public const string ListPayersAvailableUrl = "/v2/money-transfer/payers";
+        public const string GetPayerDetailUrl = "/v2/money-transfer/payers/{id}";
+        public const string RetrieveRatesForAGivenPayerUrl = "/v2/money-transfer/payers/{id}/rates";
+        public const string ListCountriesAvailableUrl = "/v2/money-transfer/countries";
+        public const string BicCodeLookupUrl = "/v2/money-transfer/lookups/BIC/{swift_bic_code}";
     }
 }

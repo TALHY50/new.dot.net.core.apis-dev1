@@ -98,7 +98,27 @@ namespace IMT.Web.Controllers
                     return NotFound();
                 }
             }
+        }
 
+        [Tags("Thunes.CreditParties")]
+        [HttpPost(ThunesUrl.CreditPartyVerificationUrl)]
+        public object CreditPartyVerification(ulong id, string transaction_type, InformationRequest request)
+        {
+            try
+            {
+                return _thunesClient.VerificationAdapter().CreditPartyVerification(id, transaction_type, request);
+            }
+            catch (System.Exception e)
+            {
+                if (e.Message == "Unauthorized")
+                {
+                    return Unauthorized();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
         }
 
 
@@ -489,6 +509,153 @@ namespace IMT.Web.Controllers
             try
             {
                 return _thunesClient.GetAccountAdapter().ListReportsAvailable(id);
+            }
+            catch (System.Exception e)
+            {
+                if (e.Message == "Unauthorized")
+                {
+                    return Unauthorized();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+        }
+
+        [Tags("Thunes.Account")]
+        [HttpGet(ThunesUrl.ReportFileDetailUrl)]
+        public Object GetListReportsAvailable(ulong report_id, ulong id)
+        {
+            try
+            {
+                return _thunesClient.GetAccountAdapter().GetReportFileDetails(report_id, id);
+            }
+            catch (System.Exception e)
+            {
+                if (e.Message == "Unauthorized")
+                {
+                    return Unauthorized();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+        }
+
+        [Tags("Thunes.Discovery")]
+        [HttpGet(ThunesUrl.ListServicesAvailableUrl)]
+        public Object ServiceResponse()
+        {
+            try
+            {
+                return _thunesClient.GetDiscoveryAdapter().ServiceResponse();
+            }
+            catch (System.Exception e)
+            {
+                if (e.Message == "Unauthorized")
+                {
+                    return Unauthorized();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+        }
+
+        [Tags("Thunes.Discovery")]
+        [HttpGet(ThunesUrl.ListPayersAvailableUrl)]
+        public Object PayerResponse()
+        {
+            try
+            {
+                return _thunesClient.GetDiscoveryAdapter().PayerResponse();
+            }
+            catch (System.Exception e)
+            {
+                if (e.Message == "Unauthorized")
+                {
+                    return Unauthorized();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+        }
+
+        [Tags("Thunes.Discovery")]
+        [HttpGet(ThunesUrl.GetPayerDetailUrl)]
+        public Object PayerResponseDetails(ulong id)
+        {
+            try
+            {
+                return _thunesClient.GetDiscoveryAdapter().PayerResponseDetails(id);
+            }
+            catch (System.Exception e)
+            {
+                if (e.Message == "Unauthorized")
+                {
+                    return Unauthorized();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+        }
+
+        [Tags("Thunes.Discovery")]
+        [HttpGet(ThunesUrl.RetrieveRatesForAGivenPayerUrl)]
+        public Object PayerRateResponse(ulong id)
+        {
+            try
+            {
+                return _thunesClient.GetDiscoveryAdapter().PayerRateResponse(id);
+            }
+            catch (System.Exception e)
+            {
+                if (e.Message == "Unauthorized")
+                {
+                    return Unauthorized();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+        }
+
+        [Tags("Thunes.Discovery")]
+        [HttpGet(ThunesUrl.ListCountriesAvailableUrl)]
+        public Object CountryResponse()
+        {
+            try
+            {
+                return _thunesClient.GetDiscoveryAdapter().CountryResponse();
+            }
+            catch (System.Exception e)
+            {
+                if (e.Message == "Unauthorized")
+                {
+                    return Unauthorized();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+        }
+
+        [Tags("Thunes.Discovery")]
+        [HttpGet(ThunesUrl.BicCodeLookupUrl)]
+        public Object LookupResponse(string swift_bic_code)
+        {
+            try
+            {
+                return _thunesClient.GetDiscoveryAdapter().LookupResponse(swift_bic_code);
             }
             catch (System.Exception e)
             {
