@@ -325,6 +325,50 @@ namespace IMT.Web.Controllers
                 }
             }
         }
+        
+        [Tags("Thunes.Transaction")]
+        [HttpGet(ThunesUrl.CancelTransactionByExternalIdUrl)]
+        public object CancelTransactionByExternalId(int external_id)
+        {
+            try
+            {
+                var response = _thunesClient.CancelTransactionByExternalId(external_id);
+                return response;
+            }
+            catch (System.Exception e)
+            {
+                if (e.Message == "Unauthorized")
+                {
+                    return Unauthorized();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+        }
+
+        [Tags("Thunes.Transaction")]
+        [HttpPost(ThunesUrl.CancelTransactionByIdUrl)]
+        public object CancelTransactionById(int id)
+        {
+            try
+            {
+                var response = _thunesClient.CancelTransactionById(id);
+                return response;
+            }
+            catch (System.Exception e)
+            {
+                if (e.Message == "Unauthorized")
+                {
+                    return Unauthorized();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+        }
 
         #endregion
 

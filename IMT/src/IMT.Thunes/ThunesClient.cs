@@ -83,6 +83,15 @@ namespace IMT.Thunes
         {
             return _transactionAdapter.ListAttachmentsOfTransactionByExternalId(external_id);
         }
+        public object CancelTransactionByExternalId(int external_id)
+        {
+            return _transactionAdapter.CancelTransactionByExternalId(external_id);
+        }
+        
+        public object CancelTransactionById(int id)
+        {
+            return _transactionAdapter.CancelTransactionById(id);
+        }
 
         public object RetrieveTransactionInformationByTransactionId(int id)
         {
