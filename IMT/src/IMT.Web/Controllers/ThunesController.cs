@@ -192,8 +192,8 @@ namespace IMT.Web.Controllers
                     return NotFound();
                 }
             }
-        } 
-        
+        }
+
         [Tags("Thunes.Transaction")]
         [HttpPost(ThunesUrl.ConfirmTransactionByIdUrl)]
         public object ConfirmTransactionById(int id)
@@ -237,7 +237,7 @@ namespace IMT.Web.Controllers
                 }
             }
         }
-        
+
         [Tags("Thunes.Transaction")]
         [HttpGet(ThunesUrl.RetrieveTransactionInformationByTransactionIdUrl)]
         public object RetrieveTransactionInformationByTransactionId(int id)
@@ -258,8 +258,8 @@ namespace IMT.Web.Controllers
                     return NotFound();
                 }
             }
-        } 
-        
+        }
+
         [Tags("Thunes.Transaction")]
         [HttpGet(ThunesUrl.RetrieveTransactionInformationByExternalIdUrl)]
         public object RetrieveTransactionInformationByExternalId(int external_id)
@@ -281,7 +281,7 @@ namespace IMT.Web.Controllers
                 }
             }
         }
- 
+
         [Tags("Thunes.Transaction")]
         [HttpGet(ThunesUrl.ListAttachmentsOfATransactionByIdUrl)]
         public object ListAttachmentsOfATransactionById(int id)
@@ -325,7 +325,7 @@ namespace IMT.Web.Controllers
                 }
             }
         }
-        
+
         [Tags("Thunes.Transaction")]
         [HttpGet(ThunesUrl.CancelTransactionByExternalIdUrl)]
         public object CancelTransactionByExternalId(int external_id)
@@ -463,6 +463,27 @@ namespace IMT.Web.Controllers
             try
             {
                 return _thunesClient.GetAccountAdapter().ListReportsAvailable(id);
+            }
+            catch (System.Exception e)
+            {
+                if (e.Message == "Unauthorized")
+                {
+                    return Unauthorized();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+        }
+
+        [Tags("Thunes.Account")]
+        [HttpGet(ThunesUrl.ReportFileDetailUrl)]
+        public Object GetListReportsAvailable(ulong report_id, ulong id)
+        {
+            try
+            {
+                return _thunesClient.GetAccountAdapter().GetReportFileDetails(report_id, id);
             }
             catch (System.Exception e)
             {

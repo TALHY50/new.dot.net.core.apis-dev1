@@ -52,5 +52,12 @@ namespace IMT.Thunes.Adapter.Account
                 CreateHeaders(url, RequestOptions));
         }
 
+        public ReportFileDetailsResponse GetReportFileDetails(ulong report_id, ulong id)
+        {
+            string url = ThunesUrl.ReportFileDetailUrl.Replace("{report_id}", report_id.ToString()).Replace("{id}", id.ToString());
+            return RestClient.Get<ReportFileDetailsResponse>(RequestOptions.BaseUrl + url,
+                CreateHeaders(url, RequestOptions));
+        }
+
     }
 }

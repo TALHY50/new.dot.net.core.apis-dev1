@@ -32,5 +32,6 @@ namespace IMT.Thunes.Route
         public const string ListReportsAvailableUrl = "/v2/money-transfer/reports";
         public const string GetReportDetailUrl = "/v2/money-transfer/reports/{id}";
         public const string ListReportFilesAvailableUrl = "/v2/money-transfer/reports/{id}/files";
+        public const string ReportFileDetailUrl = "/v2/money-transfer/reports/{report_id}/files/{id}";
     }
 }
