@@ -240,7 +240,7 @@ namespace IMT.Web.Controllers
         
         [Tags("Thunes.Transaction")]
         [HttpGet(ThunesUrl.RetrieveTransactionInformationByTransactionIdUrl)]
-        public object RetrieveTransactionInformationByTransactionIdUrl(int id)
+        public object RetrieveTransactionInformationByTransactionId(int id)
         {
             try
             {
@@ -258,7 +258,30 @@ namespace IMT.Web.Controllers
                     return NotFound();
                 }
             }
+        } 
+        
+        [Tags("Thunes.Transaction")]
+        [HttpGet(ThunesUrl.RetrieveTransactionInformationByExternalIdUrl)]
+        public object RetrieveTransactionInformationByExternalId(int external_id)
+        {
+            try
+            {
+                var response = _thunesClient.RetrieveTransactionInformationByExternalId(external_id);
+                return response;
+            }
+            catch (System.Exception e)
+            {
+                if (e.Message == "Unauthorized")
+                {
+                    return Unauthorized();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
         }
+
         #endregion
 
         [Tags("Thunes.Account")]

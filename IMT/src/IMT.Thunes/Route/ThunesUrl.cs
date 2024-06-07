@@ -17,6 +17,7 @@ namespace IMT.Thunes.Route
         public const string ConfirmTransactionByIdUrl = "/v2/money-transfer/transactions/{id}/confirm";
         public const string ConfirmTransactionByExternalIdUrl = "/v2/money-transfer/transactions/ext-{external_id}/confirm";
         public const string RetrieveTransactionInformationByTransactionIdUrl = "/v2/money-transfer/transactions/{id}";
+        public const string RetrieveTransactionInformationByExternalIdUrl = "/v2/money-transfer/transactions/ext-{external_id}";
         public const string RetrieveAQuotationByIdUrl = "/v2/money-transfer/quotations/{id}";
         public const string RetrieveQuotationByExternalIdUrl = "/v2/money-transfer/quotations/ext-{external_id}";
         public const string CreditPartiesInformationUrl = "/v2/money-transfer/payers/{id}/{transaction_type}/credit-party-information";
