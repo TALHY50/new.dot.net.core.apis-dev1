@@ -284,11 +284,33 @@ namespace IMT.Web.Controllers
  
         [Tags("Thunes.Transaction")]
         [HttpGet(ThunesUrl.ListAttachmentsOfATransactionByIdUrl)]
-        public object ListAttachmentsOfATransactionById(int external_id)
+        public object ListAttachmentsOfATransactionById(int id)
         {
             try
             {
-                var response = _thunesClient.ListAttachmentsOfATransactionById(external_id);
+                var response = _thunesClient.ListAttachmentsOfATransactionById(id);
+                return response;
+            }
+            catch (System.Exception e)
+            {
+                if (e.Message == "Unauthorized")
+                {
+                    return Unauthorized();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+        }
+
+        [Tags("Thunes.Transaction")]
+        [HttpGet(ThunesUrl.ListAttachmentsOfTransactionByExternalIdUrl)]
+        public object ListAttachmentsOfTransactionByExternalId(int external_id)
+        {
+            try
+            {
+                var response = _thunesClient.ListAttachmentsOfTransactionByExternalId(external_id);
                 return response;
             }
             catch (System.Exception e)

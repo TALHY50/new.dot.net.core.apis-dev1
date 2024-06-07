@@ -58,12 +58,12 @@ namespace IMT.Thunes
         public object CreateTransactionFromQuotationExternalId(int external_id, CreateNewTransactionRequest request)
         {
             return _transactionAdapter.CreateTransactionFromQuotationExternalId(external_id, request);
-        } 
+        }
         public object CreateAttachmentToTransactionById(int id, AttachmentRequest request)
         {
             return _transactionAdapter.CreateAttachmentToTransactionById(id, request);
         }
-        
+
         public object CreateAttachmentToTransactionByExternalId(int external_id, AttachmentRequest request)
         {
             return _transactionAdapter.CreateAttachmentToTransactionByExternalId(external_id, request);
@@ -79,11 +79,16 @@ namespace IMT.Thunes
             return _transactionAdapter.ConfirmTransactionByExternalId(external_id);
         }
 
+        public object ListAttachmentsOfTransactionByExternalId(int external_id)
+        {
+            return _transactionAdapter.ListAttachmentsOfTransactionByExternalId(external_id);
+        }
+
         public object RetrieveTransactionInformationByTransactionId(int id)
         {
             return _transactionAdapter.RetrieveTransactionInformationByTransactionId(id);
         }
-        
+
         public object ListAttachmentsOfATransactionById(int id)
         {
             return _transactionAdapter.ListAttachmentsOfATransactionById(id);
