@@ -1,6 +1,7 @@
 ﻿
 using IMT.PayAll;
 using IMT.PayAll.Common;
+using IMT.PayAll.Exception;
 using IMT.PayAll.Request;
 using IMT.PayAll.Request.Common;
 using IMT.PayAll.Request.Payer;
@@ -239,8 +240,22 @@ namespace IMT.Web.Controllers
         [HttpPost(PayAllUrl.CreatePayers)]
         public object CreatePayers(PayerRequest request)
         {
-            var result = _payAllClient.Payers().CreatePayers(request);
-            return Ok(result);
+            try
+            {
+                var result = _payAllClient.Payers().CreatePayers(request);
+                return Ok(result);
+            }
+            catch (ValidationsException ex)
+            {
+                var validationErrors = new Dictionary<string, string>();
+                foreach (var error in ex.ValidationErrors)
+                {
+                    validationErrors[error.Key] = string.Join("; ", error.Value);
+                }
+                return BadRequest(validationErrors);
+            }
+            
+
         }
 
         [Tags("PayAll.Payers")]
