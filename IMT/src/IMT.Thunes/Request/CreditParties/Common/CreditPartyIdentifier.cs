@@ -8,8 +8,6 @@ namespace IMT.Thunes.Request.CreditParties.Common
 {
     public class CreditPartyIdentifier1
     {
-
-        [DefaultValue("263775892364")]
         public string msisdn { get; set; }
     }
 }
