@@ -190,6 +190,27 @@ namespace IMT.Web.Controllers
             return Ok(result);
         }
 
+        [Tags("PayAll.Discovery")]
+        [HttpGet(PayAllUrl.GetRequiredPaymentFieldsUrl)]
+        public object GetRequiredPaymentFields()
+        {
+            try
+            {
+                return _payAllClient.Discovery().GetRequiredPaymentFields();
+            }
+            catch (System.Exception e)
+            {
+                if (e.Message == "Unauthorized")
+                {
+                    return Unauthorized();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+        }
+
         private CreatePaymentRequest CreatePaymentRequest()
         {
 

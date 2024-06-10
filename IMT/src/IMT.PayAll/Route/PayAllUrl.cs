@@ -39,8 +39,9 @@ namespace IMT.PayAll.Route
         public const string UpdateRecipient = "/v2/recipients/{id}";
         public const string DeleteRecipient = "/v2/recipients/{id}";
         
+        // Discovery
 
-
+        public const string GetRequiredPaymentFieldsUrl = "/v2/discovery/fields";
 
 
     }
