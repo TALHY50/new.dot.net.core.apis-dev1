@@ -213,7 +213,7 @@ namespace IMT.Web.Controllers
         {
             try
             {
-                return _payAllClient.Compliance().UploadNewComplianceDocument(file);
+                return _payAllClient.UploadNewComplianceDocument(file);
             }
             catch (System.Exception e)
             {
