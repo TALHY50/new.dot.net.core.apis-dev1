@@ -1,4 +1,5 @@
 ﻿using IMT.PayAll.Adapter;
+using IMT.PayAll.Adapter.Compliance;
 using IMT.PayAll.Adapter.Discovery;
 using IMT.PayAll.Request.Common;
 
@@ -13,6 +14,7 @@ namespace IMT.PayAll
         private readonly AccountsAdapter _accountsAdapter;
         private readonly RecipientsAdapter _recipientsAdapter;
         private readonly DiscoveryAdapter _discoveryAdapter;
+        private readonly ComplianceAdapter _complianceAdapter;
 
         public PayAllClient(string clientId, string clientSecret)
             : this(clientId, clientSecret, BaseUrl, null)
@@ -68,7 +70,9 @@ namespace IMT.PayAll
             return _discoveryAdapter;
         }
 
-
-
+        public ComplianceAdapter Compliance()
+        {
+            return _complianceAdapter;
+        }
     }
 }
