@@ -2,6 +2,8 @@
 using IMT.PayAll.Adapter.Compliance;
 using IMT.PayAll.Adapter.Discovery;
 using IMT.PayAll.Request.Common;
+using IMT.PayAll.Response.Compliance;
+using Microsoft.AspNetCore.Http;
 
 namespace IMT.PayAll
 {
@@ -45,6 +47,7 @@ namespace IMT.PayAll
             _discoveryAdapter = new DiscoveryAdapter(requestOptions);
             _payersAdapter = new PayersAdapter(requestOptions);
 
+            _complianceAdapter = new ComplianceAdapter(requestOptions);
         }
 
         public PaymentAdapter Payment()
@@ -79,9 +82,9 @@ namespace IMT.PayAll
 
 
 
-        public ComplianceAdapter Compliance()
+        public ComplianceResponse UploadNewComplianceDocument(IFormFile file)
         {
-            return _complianceAdapter;
+            return _complianceAdapter.UploadNewComplianceDocument(file);
         }
     }
 }
