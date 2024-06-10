@@ -15,16 +15,34 @@ namespace IMT.Thunes.Sample
         public QuatationSample()
         {
             Env.NoClobber().TraversePath().Load();
-            _thunesClient = new ThunesClient(Env.GetString("API_SECRET"), Env.GetString("API_KEY"), Env.GetString("BASE_URL"));
+            string apiSecret = Env.GetString("API_SECRET");
+            string apiKey = Env.GetString("API_KEY");
+            string baseUrl = Env.GetString("BASE_URL");
+            _thunesClient = new ThunesClient(apiSecret, apiKey, baseUrl);
         }
 
         [Test]
-        public void Test1()
+        public void CreateQuatatioin()
         {
             CreateQuatationRequest request = new CreateQuatationRequest();
             var response = _thunesClient.QuotationAdapter().CreateQuatatioin(request);
+            Assert.NotNull(response);
+        }
 
-            Assert.True(true);
+        [Test]
+        public void CreateQGetQuotationByIduatatioin()
+        {
+            int id = 1;
+            var response = _thunesClient.QuotationAdapter().GetQuotationById(id);
+            Assert.NotNull(response);
+        }
+
+        [Test]
+        public void GetRetrieveQuotationByExternalId()
+        {
+            ulong id = 1234;
+            var response = _thunesClient.QuotationAdapter().GetRetrieveQuotationByExternalId(id);
+            Assert.NotNull(response);
         }
     }
 }
