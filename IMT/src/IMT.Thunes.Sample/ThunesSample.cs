@@ -8,11 +8,11 @@ using NUnit.Framework;
 
 namespace IMT.Thunes.Sample
 {
-    public class QuatationSample
+    public class ThunesSample
     {
 
         private readonly ThunesClient _thunesClient;
-        public QuatationSample()
+        public ThunesSample()
         {
             Env.NoClobber().TraversePath().Load();
             string apiSecret = Env.GetString("API_SECRET");
