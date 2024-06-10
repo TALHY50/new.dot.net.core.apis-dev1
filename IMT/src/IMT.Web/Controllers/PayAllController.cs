@@ -185,6 +185,48 @@ namespace IMT.Web.Controllers
             return Ok(result);
         }
 
+        [Tags("PayAll.Discovery")]
+        [HttpGet(PayAllUrl.GetRequiredPaymentFieldsUrl)]
+        public object GetRequiredPaymentFields()
+        {
+            try
+            {
+                return _payAllClient.Discovery().GetRequiredPaymentFields();
+            }
+            catch (System.Exception e)
+            {
+                if (e.Message == "Unauthorized")
+                {
+                    return Unauthorized();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+        }
+
+        [Tags("PayAll.Compliance")]
+        [HttpPost(PayAllUrl.UploadNewComplianceDocumentUrl)]
+        public object UploadNewComplianceDocument(IFormFile file)
+        {
+            try
+            {
+                return _payAllClient.Compliance().UploadNewComplianceDocument(file);
+            }
+            catch (System.Exception e)
+            {
+                if (e.Message == "Unauthorized")
+                {
+                    return Unauthorized();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+        }
+
         [Tags("PayAll.Payers")]
         [HttpGet(PayAllUrl.GetPayers)]
         public object GetPayers()

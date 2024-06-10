@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMT.Thunes", "src\IMT.Thune
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMT.PayAll", "src\IMT.PayAll\IMT.PayAll.csproj", "{3B738B91-E560-43E1-BE44-19660953AC79}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMT.PayAll.Sample", "src\IMT.PayAll.Sample\IMT.PayAll.Sample.csproj", "{C62A0AD1-B5A5-4723-BE1D-5FA1923798CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMT.Thunes.Sample", "src\IMT.Thunes.Sample\IMT.Thunes.Sample.csproj", "{2E2F7EF8-1A24-49EB-B99B-C8F808250365}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +55,14 @@ Global
 		{3B738B91-E560-43E1-BE44-19660953AC79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B738B91-E560-43E1-BE44-19660953AC79}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B738B91-E560-43E1-BE44-19660953AC79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C62A0AD1-B5A5-4723-BE1D-5FA1923798CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C62A0AD1-B5A5-4723-BE1D-5FA1923798CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C62A0AD1-B5A5-4723-BE1D-5FA1923798CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C62A0AD1-B5A5-4723-BE1D-5FA1923798CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E2F7EF8-1A24-49EB-B99B-C8F808250365}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E2F7EF8-1A24-49EB-B99B-C8F808250365}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E2F7EF8-1A24-49EB-B99B-C8F808250365}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E2F7EF8-1A24-49EB-B99B-C8F808250365}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -39,13 +39,17 @@ namespace IMT.PayAll.Route
         public const string UpdateRecipient = "/v2/recipients/{id}";
         public const string DeleteRecipient = "/v2/recipients/{id}";
 
+        // Discovery
+        public const string GetRequiredPaymentFieldsUrl = "/v2/discovery/fields";
+
         // Payers
         public const string GetPayers = "/v2/payers";
         public const string CreatePayers = "/v2/payers";
         public const string GetPayer = "/v2/payers/{id}";
         public const string GetPayerAccounts = "/v2/payers/{id}/accounts";
 
-
+        // Compliance
+        public const string UploadNewComplianceDocumentUrl = "/v2/documents";
 
 
     }
