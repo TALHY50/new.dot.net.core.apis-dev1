@@ -17,11 +17,11 @@ namespace IMT.PayAll.Adapter
         }
 
         // Get list of payment instruments
-        public PaymentInstrumentsListResponse GetPaymentInstrumentsList(SearchPaymentInstrumentsRequest request)
+        public List<PaymentInstrumentsResponse> GetPaymentInstrumentsList(SearchPaymentInstrumentsRequest request)
         {
             var queryParam = RequestQueryParamsBuilder.BuildQueryParam(request);
             var path = PayAllUrl.PaymentInstrumentsList + queryParam;
-            return RestClient.Get<PaymentInstrumentsListResponse>(RequestOptions.BaseUrl + path, CreateHeaders(path, RequestOptions));
+            return RestClient.Get<List<PaymentInstrumentsResponse>>(RequestOptions.BaseUrl + path, CreateHeaders(path, RequestOptions));
         }
 
         // Create a payment instrument

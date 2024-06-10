@@ -1,4 +1,5 @@
 ﻿
+using DotNetEnv;
 using IMT.PayAll;
 using IMT.PayAll.Common;
 using IMT.PayAll.Exception;
@@ -24,6 +25,7 @@ namespace IMT.Web.Controllers
         private string ServerEnvironment = "Sandbox";
         public PayAllController()
         {
+            ServerEnvironment = Env.GetString("Environment");
             var requirement = BaseRequirement.GetBaseRequirement(ServerEnvironment);
             _payAllClient = new PayAllClient(requirement.ClientID, requirement.ClientSecret, requirement.BaseUrl);
         }

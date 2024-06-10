@@ -53,7 +53,7 @@ namespace IMT.PayAll.Adapter
         {
             if (request.type == payerType.Business.ToString())
             {
-              var model =  new BusinessPayerRequest
+                var model = new BusinessPayerRequest
                 {
                     type = request.type,
                     email = request.email,
@@ -62,7 +62,8 @@ namespace IMT.PayAll.Adapter
                     phone_number = request.phone_number,
                     registration_address = request.registration_address,
                     registration_number = request.registration_number,
-                    trade_name = request.trade_name
+                    trade_name = request.trade_name,
+                    registration_date = request.registration_date
                 };
                 Validation.ValidateModel(model);
                 return model;
@@ -75,12 +76,17 @@ namespace IMT.PayAll.Adapter
                     type = request.type,
                     email = request.email,
                     first_name = request.first_name,
-                    dob = request.dob,
-                    identity_document = request.identity_document,
+                    date_of_birth = request.date_of_birth,
                     last_name = request.last_name,
                     middle_name = request.middle_name,
-                    mobile_number = request.mobile_number,
-                    registration_address = request.registration_address
+                    phone_number = request.phone_number,
+                    registration_address = request.registration_address,
+                    government_id = request.government_id,
+                    nationality = request.nationality,
+                    occupation = request.occupation,
+                    place_of_birth = request.place_of_birth,
+                    relationship_with_beneficiary = request.relationship_with_beneficiary,
+                    source_of_income = request.source_of_income
                 };
                 Validation.ValidateModel(model);
                 return model;
@@ -91,6 +97,6 @@ namespace IMT.PayAll.Adapter
 
         }
 
-       
+
     }
 }
