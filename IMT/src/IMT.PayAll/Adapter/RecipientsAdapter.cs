@@ -1,4 +1,6 @@
 ﻿
+using System.ComponentModel.DataAnnotations;
+using IMT.PayAll.Common;
 using IMT.PayAll.Net;
 using IMT.PayAll.Request.Common;
 using IMT.PayAll.Request.Recipient;
@@ -53,7 +55,7 @@ namespace IMT.PayAll.Adapter
         {
             if (request.type == recipientType.Business.ToString())
             {
-                return new BusinessRecipientRequest
+              var model = new BusinessRecipientRequest
                 {
                     type = request.type,
                     email = request.email,
@@ -64,11 +66,13 @@ namespace IMT.PayAll.Adapter
                     registration_number = request.registration_number,
                     trade_name = request.trade_name
                 };
+                Validation.ValidateModel(model);
+                return model;
 
             }
             if (request.type == recipientType.Person.ToString())
             {
-                return new PersonRecipientRequest
+                var model = new PersonRecipientRequest
                 {
                     type = request.type,
                     email = request.email,
@@ -80,10 +84,11 @@ namespace IMT.PayAll.Adapter
                     mobile_number = request.mobile_number,
                     registration_address = request.registration_address
                 };
-
+                Validation.ValidateModel(model);
+                return model;
             }
 
-            return null;
+            throw new ValidationException("Type must be Person or Business");
 
         }
 
