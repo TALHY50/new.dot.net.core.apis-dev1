@@ -10,7 +10,13 @@ namespace IMT.Thunes.Sample
 {
     public class QuatationSample
     {
-        private readonly ThunesClient _thunesClient = new ThunesClient("asdfasdf", "asdfasdf", "http://localhost:3001");
+
+        private readonly ThunesClient _thunesClient;
+        public QuatationSample()
+        {
+            Env.NoClobber().TraversePath().Load();
+            _thunesClient = new ThunesClient(Env.GetString("API_SECRET"), Env.GetString("API_KEY"), Env.GetString("BASE_URL"));
+        }
 
         [Test]
         public void Test1()
