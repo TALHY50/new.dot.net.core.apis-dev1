@@ -4,7 +4,7 @@ namespace IMT.PayAll.Response
 {
     public class RecipientsResponse
     {
-        public string id { get; set; }
+        public Guid id { get; set; }
         public string type { get; set; }
         public string email { get; set; }
         public string first_name { get; set; }

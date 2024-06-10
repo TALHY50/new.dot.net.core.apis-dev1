@@ -15,19 +15,19 @@ namespace IMT.PayAll.Adapter
         }
 
         // Get exchange rate information by its ID
-        public ExchangeResponse GetExchangeRateByID(string Id)
+        public ExchangeResponse GetExchangeRateByID(Guid Id)
         {
-            var path = PayAllUrl.GetExchangeRateByID.Replace("{id}", Id);
+            var path = PayAllUrl.GetExchangeRateByID.Replace("{id}", Id.ToString());
 
             return RestClient.Get<ExchangeResponse>(RequestOptions.BaseUrl + path, CreateHeaders(path, RequestOptions));
 
         }
 
         // Get new exchange rate based on already existing rate.
-        public ExchangeResponse GetNewRateByExistRateID(string Id)
+        public ExchangeResponse GetNewRateByExistRateID(Guid Id)
         {
 
-            var path = PayAllUrl.GetNewRateByExistRateID.Replace("{id}", Id);
+            var path = PayAllUrl.GetNewRateByExistRateID.Replace("{id}", Id.ToString());
 
             return RestClient.Get<ExchangeResponse>(RequestOptions.BaseUrl + path, CreateHeaders(path, RequestOptions));
 

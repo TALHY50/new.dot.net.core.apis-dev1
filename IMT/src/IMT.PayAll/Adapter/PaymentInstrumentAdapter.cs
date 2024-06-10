@@ -34,24 +34,24 @@ namespace IMT.PayAll.Adapter
        
 
         // Get payment instrument by its ID
-        public PaymentInstrumentsResponse GetPaymentInstrumentsByID(string Id)
+        public PaymentInstrumentsResponse GetPaymentInstrumentsByID(Guid Id)
         {
-            var path = PayAllUrl.GetPaymentInstrumentsByID.Replace("{id}", Id); 
+            var path = PayAllUrl.GetPaymentInstrumentsByID.Replace("{id}", Id.ToString()); 
             return RestClient.Get<PaymentInstrumentsResponse>(RequestOptions.BaseUrl + path, CreateHeaders(path, RequestOptions));
         }
 
         // Update a payment instrument
-        public PaymentInstrumentsResponse UpdatePaymentInstrumentsById(string Id, PaymentInstrumentsRequest request)
+        public PaymentInstrumentsResponse UpdatePaymentInstrumentsById(Guid Id, PaymentInstrumentsRequest request)
         {
-            var path = PayAllUrl.UpdatePaymentInstrumentsByID.Replace("{id}", Id);
+            var path = PayAllUrl.UpdatePaymentInstrumentsByID.Replace("{id}", Id.ToString());
 
             return RestClient.Patch<PaymentInstrumentsResponse>(RequestOptions.BaseUrl + path, CreateHeaders(request, path, RequestOptions), request);
         }
 
         // Delete a payment instrument
-        public string DeletePaymentInstrumentsByID(string Id)
+        public string DeletePaymentInstrumentsByID(Guid Id)
         {
-            var path = PayAllUrl.DeletePaymentInstrumentsByID.Replace("{id}", Id);
+            var path = PayAllUrl.DeletePaymentInstrumentsByID.Replace("{id}", Id.ToString());
             return RestClient.Delete<string>(RequestOptions.BaseUrl + path, CreateHeaders(path, RequestOptions));
         }
 

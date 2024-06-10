@@ -34,18 +34,18 @@ namespace IMT.PayAll.Adapter
         }
 
         // Update a recipient
-        public CreateRecipientResponse UpdateRecipient(string recipientId ,RecipientRequest request)
+        public CreateRecipientResponse UpdateRecipient(Guid recipientId ,RecipientRequest request)
         {
-            var path = PayAllUrl.UpdateRecipient.Replace("{id}", recipientId);
+            var path = PayAllUrl.UpdateRecipient.Replace("{id}", recipientId.ToString());
             var recipientRequest = GenerateRecipientRequest(request);
             return RestClient.Patch<CreateRecipientResponse>(RequestOptions.BaseUrl + path, CreateHeaders(recipientRequest, path, RequestOptions), recipientRequest);
 
         }
 
         //Delete a recipient
-        public string DeleteRecipient(string recipientId)
+        public string DeleteRecipient(Guid recipientId)
         {
-            var path = PayAllUrl.DeleteRecipient.Replace("{id}", recipientId);
+            var path = PayAllUrl.DeleteRecipient.Replace("{id}", recipientId.ToString());
             return RestClient.Delete<string>(RequestOptions.BaseUrl + path, CreateHeaders(path, RequestOptions));
         }
 

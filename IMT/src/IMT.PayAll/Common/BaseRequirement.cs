@@ -24,7 +24,7 @@ namespace IMT.PayAll.Common
         private const string ProductionClientSecret = "https://api.payall.com";
         private const string LocalHostClientSecret = "local-Secret";
 
-        private enum Servers{ Sandbox,Stage,Production,Local};
+        public enum Servers{ Sandbox,Stage,Production,Local};
 
         public readonly static RequestOptions RequestOptions;
 

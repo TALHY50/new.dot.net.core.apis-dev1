@@ -4,7 +4,7 @@ namespace IMT.PayAll.Response
 {
     public class PaymentInstrumentsResponse
     {
-        public string id { get; set; }
+        public Guid id { get; set; }
         public string category { get; set; }
         public string currency { get; set; }
         public string mobile_number { get; set; }

@@ -1,8 +1,12 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace IMT.PayAll.Response
+namespace IMT.PayAll.Response.Payer
 {
-    public class PaymentAccountResponse 
+    public class AccountResponse
     {
         public Guid id { get; set; }
         public string owner_id { get; set; }
@@ -12,14 +16,5 @@ namespace IMT.PayAll.Response
         public string name { get; set; }
         public string currency { get; set; }
         public Balance balance { get; set; }
-
     }
-
-    public class Balance
-    {
-        public string currency { get; set; }
-        public int value { get; set; }
-    }
-
-
 }

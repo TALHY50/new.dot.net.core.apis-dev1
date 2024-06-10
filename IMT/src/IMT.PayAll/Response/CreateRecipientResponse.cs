@@ -6,7 +6,7 @@ namespace IMT.PayAll.Response
 {
     public class CreateRecipientResponse 
     {
-        public string id { get; set; }
+        public Guid id { get; set; }
 
     }
    

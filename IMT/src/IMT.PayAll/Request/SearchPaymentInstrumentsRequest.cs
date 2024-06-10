@@ -4,7 +4,7 @@ namespace IMT.PayAll.Request
 {
     public class SearchPaymentInstrumentsRequest
     {
-        public string? recipient_id { get; set; }
+        public Guid? recipient_id { get; set; }
       
     }
 }

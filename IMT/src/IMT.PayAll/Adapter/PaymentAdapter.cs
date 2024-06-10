@@ -28,18 +28,18 @@ namespace IMT.PayAll.Adapter
         }
 
         // Get payment information by its ID
-        public PaymentInformationResponse GetPaymentById(string Id)
+        public PaymentInformationResponse GetPaymentById(Guid Id)
         {
-            var path = PayAllUrl.GetPaymentById.Replace("{id}",Id);
+            var path = PayAllUrl.GetPaymentById.Replace("{id}",Id.ToString());
 
             return RestClient.Get<PaymentInformationResponse>(RequestOptions.BaseUrl + path, CreateHeaders(path, RequestOptions));
 
         }
 
         // Update payment details
-        public UpdatePaymentResponse UpdatePaymentDetailsById(string Id, PaymentUpdateRequest request)
+        public UpdatePaymentResponse UpdatePaymentDetailsById(Guid Id, PaymentUpdateRequest request)
         {
-            var path = PayAllUrl.UpdatePaymentById.Replace("{id}", Id);
+            var path = PayAllUrl.UpdatePaymentById.Replace("{id}", Id.ToString());
 
             return RestClient.Patch<UpdatePaymentResponse>(RequestOptions.BaseUrl + path, CreateHeaders(request, path, RequestOptions), request);
 

@@ -3,11 +3,12 @@ using IMT.PayAll;
 using IMT.PayAll.Common;
 using IMT.PayAll.Request;
 using IMT.PayAll.Request.Common;
+using IMT.PayAll.Request.Payer;
 using IMT.PayAll.Request.PaymentRequest;
 using IMT.PayAll.Request.Recipient;
-using IMT.PayAll.Response;
 using IMT.PayAll.Route;
 using Microsoft.AspNetCore.Mvc;
+
 
 
 namespace IMT.Web.Controllers
@@ -35,7 +36,7 @@ namespace IMT.Web.Controllers
 
         [Tags("PayAll.Payment")]
         [HttpGet(PayAllUrl.GetPaymentById)]
-        public object GetPaymentById(string id)
+        public object GetPaymentById(Guid id)
         {
             var result = _payAllClient.Payment().GetPaymentById(id);
             return Ok(result);
@@ -43,7 +44,7 @@ namespace IMT.Web.Controllers
 
         [Tags("PayAll.Payment")]
         [HttpPatch(PayAllUrl.UpdatePaymentById)]
-        public object UpdatePaymentById(string id)
+        public object UpdatePaymentById(Guid id, PaymentUpdateRequest requests)
         {
             var request = UpdatePaymentRequest();
             var result = _payAllClient.Payment().UpdatePaymentDetailsById(id, request);
@@ -52,7 +53,7 @@ namespace IMT.Web.Controllers
 
         [Tags("PayAll.Payment Instruments")]
         [HttpGet(PayAllUrl.PaymentInstrumentsList)]
-        public object PaymentInstrumentsList(string? recipient_id)
+        public object PaymentInstrumentsList(Guid? recipient_id)
         {
             var request = new SearchPaymentInstrumentsRequest()
             {
@@ -73,7 +74,7 @@ namespace IMT.Web.Controllers
 
         [Tags("PayAll.Payment Instruments")]
         [HttpGet(PayAllUrl.GetPaymentInstrumentsByID)]
-        public object GetPaymentInstrumentsById(string id)
+        public object GetPaymentInstrumentsById(Guid id)
         {
             var result = _payAllClient.PaymentInstruments().GetPaymentInstrumentsByID(id);
             return Ok(result);
@@ -81,7 +82,7 @@ namespace IMT.Web.Controllers
 
         [Tags("PayAll.Payment Instruments")]
         [HttpPatch(PayAllUrl.UpdatePaymentInstrumentsByID)]
-        public object UpdatePaymentInstrumentsByID(string id, PaymentInstrumentsRequest requests)
+        public object UpdatePaymentInstrumentsByID(Guid id, PaymentInstrumentsRequest requests)
         {
             var request = CreatePaymentInstrumentsRequest();
             var result = _payAllClient.PaymentInstruments().UpdatePaymentInstrumentsById(id, request);
@@ -91,7 +92,7 @@ namespace IMT.Web.Controllers
 
         [Tags("PayAll.Payment Instruments")]
         [HttpDelete(PayAllUrl.DeletePaymentInstrumentsByID)]
-        public object DeletePaymentInstrumentsById(string id)
+        public object DeletePaymentInstrumentsById(Guid id)
         {
             var result = _payAllClient.PaymentInstruments().DeletePaymentInstrumentsByID(id);
             return Ok(result);
@@ -99,7 +100,7 @@ namespace IMT.Web.Controllers
 
         [Tags("PayAll.Exchange")]
         [HttpGet(PayAllUrl.GetExchangeRateByID)]
-        public object GetExchangeRateById(string id)
+        public object GetExchangeRateById(Guid id)
         {
             var result = _payAllClient.Exchanges().GetExchangeRateByID(id);
             return Ok(result);
@@ -107,7 +108,7 @@ namespace IMT.Web.Controllers
 
         [Tags("PayAll.Exchange")]
         [HttpGet(PayAllUrl.GetNewRateByExistRateID)]
-        public object GetNewRateByExistRateId(string id)
+        public object GetNewRateByExistRateId(Guid id)
         {
             var result = _payAllClient.Exchanges().GetNewRateByExistRateID(id);
             return Ok(result);
@@ -143,13 +144,6 @@ namespace IMT.Web.Controllers
             var result = _payAllClient.Exchanges().GetCardedExchangeRate();
             return Ok(result);
         }
-        [Tags("PayAll.Exchange")]
-        [HttpPost(PayAllUrl.PostCardedExchangeRate)]
-        public object PostCardedExchangeRate(string event_type, string tenant_id, CardedExchangeRateRequest request)
-        {
-            var result = _payAllClient.Exchanges().PostCardedExchangeRate(event_type, tenant_id, request);
-            return Ok(result);
-        }
 
         [Tags("PayAll.Accounts")]
         [HttpGet(PayAllUrl.GetPaymentAccountsList)]
@@ -169,24 +163,57 @@ namespace IMT.Web.Controllers
 
         [Tags("PayAll.Recipients")]
         [HttpPost(PayAllUrl.CreateRecipient)]
-        public object CreateRecipients(RecipientRequest request)
+        public object CreateRecipients(RecipientRequest requests)
         {
-            var result = _payAllClient.Recipients().CreateRecipient(request);
+            var result = _payAllClient.Recipients().CreateRecipient(requests);
             return Ok(result);
         }
 
         [Tags("PayAll.Recipients")]
         [HttpPatch(PayAllUrl.UpdateRecipient)]
-        public object UpdateRecipient(string id,RecipientRequest request)
+        public object UpdateRecipient(Guid id, RecipientRequest request)
         {
-            var result = _payAllClient.Recipients().UpdateRecipient(id,request);
+            var result = _payAllClient.Recipients().UpdateRecipient(id, request);
             return Ok(result);
         }
+
         [Tags("PayAll.Recipients")]
         [HttpDelete(PayAllUrl.DeleteRecipient)]
-        public object DeleteRecipient(string id)
+        public object DeleteRecipient(Guid id)
         {
             var result = _payAllClient.Recipients().DeleteRecipient(id);
+            return Ok(result);
+        }
+
+        [Tags("PayAll.Payers")]
+        [HttpGet(PayAllUrl.GetPayers)]
+        public object GetPayers()
+        {
+            var result = _payAllClient.Payers().GetPayers();
+            return Ok(result);
+        }
+
+        [Tags("PayAll.Payers")]
+        [HttpPost(PayAllUrl.CreatePayers)]
+        public object CreatePayers(PayerRequest request)
+        {
+            var result = _payAllClient.Payers().CreatePayers(request);
+            return Ok(result);
+        }
+
+        [Tags("PayAll.Payers")]
+        [HttpPost(PayAllUrl.GetPayer)]
+        public object GetPayer(Guid id)
+        {
+            var result = _payAllClient.Payers().GetPayerByID(id);
+            return Ok(result);
+        }
+
+        [Tags("PayAll.Payers")]
+        [HttpPost(PayAllUrl.GetPayerAccounts)]
+        public object GetPayerAccounts(Guid id)
+        {
+            var result = _payAllClient.Payers().GetPayerAccounts(id);
             return Ok(result);
         }
 
