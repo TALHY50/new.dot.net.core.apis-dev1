@@ -20,7 +20,8 @@ namespace IMT.Web.Controllers
     {
         private readonly PayAllClient _payAllClient;
 
-        private string ServerEnvironment = "Sandbox";
+        //private string ServerEnvironment = "Sandbox";
+        private string ServerEnvironment = "Local";
         public PayAllController()
         {
             var requirement = BaseRequirement.GetBaseRequirement(ServerEnvironment);
