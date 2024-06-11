@@ -1,15 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 using DotNetEnv;
-using NUnit.Framework;
+using IMT.PayAll.Common;
+
 
 namespace IMT.PayAll.Sample
 {
     public static class BaseSample
     {
-        public static string ServerEnvironment = "Local";
+        public static string ServerEnvironment = BaseRequirement.Servers.Local.ToString();
 
         public static string SetEnvironment()
         {
