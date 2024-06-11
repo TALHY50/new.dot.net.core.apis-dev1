@@ -116,5 +116,50 @@ namespace IMT.Thunes.Sample
             var response = _thunesClient.GetAccountAdapter().GetReportFileDetails(report_id, id);
             Assert.NotNull(response);
         }
+
+        [Test]
+        public void ServiceResponse()
+        {
+            var response = _thunesClient.GetDiscoveryAdapter().ServiceResponse();
+            Assert.NotNull(response);
+        }
+
+        [Test]
+        public void PayerResponse()
+        {
+            var response = _thunesClient.GetDiscoveryAdapter().PayerResponse();
+            Assert.NotNull(response);
+        }
+
+        [Test]
+        public void PayerResponseDetails()
+        {
+            ulong id = 1;
+            var response = _thunesClient.GetDiscoveryAdapter().PayerResponseDetails(id);
+            Assert.NotNull(response);
+        }
+
+        [Test]
+        public void PayerRateResponse()
+        {
+            ulong id = 1;
+            var response = _thunesClient.GetDiscoveryAdapter().PayerRateResponse(id);
+            Assert.NotNull(response);
+        }
+
+        [Test]
+        public void CountryResponse()
+        {
+            var response = _thunesClient.GetDiscoveryAdapter().CountryResponse();
+            Assert.NotNull(response);
+        }
+
+        [Test]
+        public void LookupResponse()
+        {
+            string swift_bic_code = "C2C";
+            var response = _thunesClient.GetDiscoveryAdapter().LookupResponse(swift_bic_code);
+            Assert.NotNull(response);
+        }
     }
 }
