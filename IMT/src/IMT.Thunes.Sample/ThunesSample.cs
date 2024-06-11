@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DotNetEnv;
 using IMT.Thunes.Request.CreditParties;
 using IMT.Thunes.Request.Transaction.Quoatation;
+using IMT.Thunes.Request.Transaction.Transfer;
 using NUnit.Framework;
 
 namespace IMT.Thunes.Sample
@@ -64,6 +65,24 @@ namespace IMT.Thunes.Sample
             string transaction_type = "C2C";
             _thunesClient.GetInformationAdapter().CreditPartyInformation(request, id, transaction_type);
             var response = _thunesClient.VerificationAdapter().CreditPartyVerification(id, transaction_type, request);
+            Assert.NotNull(response);
+        }
+
+        [Test]
+        public void CreateTransactionFromQuotationId()
+        {
+            CreateNewTransactionRequest request = new CreateNewTransactionRequest
+            {
+                credit_party_identifier = new CreditPartyIdentifier(),
+                sender = new Sender(),
+                beneficiary = new Beneficiary(),
+                sending_business = new SendingBussiness(),
+                receiving_business = new RecievingBussiness(),
+                external_id = "1",
+                purpose_of_remittance = "test"
+            };
+            int id = 1;
+            var response = _thunesClient.CreateTransaction(id,request);
             Assert.NotNull(response);
         }
     }
