@@ -188,5 +188,13 @@ namespace IMT.Thunes.Sample
             var response = _thunesClient.ConfirmTransactionByExternalId(id);
             Assert.NotNull(response);
         }
+
+        [Test]
+        public void RetrieveTransactionInformationByTransactionId()
+        {
+            int id = 1;
+            var response = _thunesClient.RetrieveTransactionInformationByTransactionId(id);
+            Assert.NotNull(response);
+        }
     }
 }
