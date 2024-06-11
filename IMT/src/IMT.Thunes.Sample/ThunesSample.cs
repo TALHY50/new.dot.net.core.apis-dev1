@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DotNetEnv;
+using IMT.Thunes.Request.Common;
 using IMT.Thunes.Request.CreditParties;
 using IMT.Thunes.Request.Transaction.Quoatation;
 using IMT.Thunes.Request.Transaction.Transfer;
@@ -82,7 +83,34 @@ namespace IMT.Thunes.Sample
                 purpose_of_remittance = "test"
             };
             int id = 1;
-            var response = _thunesClient.CreateTransaction(id,request);
+            var response = _thunesClient.CreateTransaction(id, request);
+            Assert.NotNull(response);
+        }
+
+        [Test]
+        public void CreateTransactionFromQuotationExternalId()
+        {
+            CreateNewTransactionRequest request = new CreateNewTransactionRequest
+            {
+                credit_party_identifier = new CreditPartyIdentifier(),
+                sender = new Sender(),
+                beneficiary = new Beneficiary(),
+                sending_business = new SendingBussiness(),
+                receiving_business = new RecievingBussiness(),
+                external_id = "1",
+                purpose_of_remittance = "test"
+            };
+            int id = 1;
+            var response = _thunesClient.CreateTransactionFromQuotationExternalId(id, request);
+            Assert.NotNull(response);
+        }
+
+        [Test]
+        public void CreateAttachmentToTransactionById()
+        {
+            AttachmentRequest request = new AttachmentRequest();
+            int id = 1;
+            var response = _thunesClient.CreateAttachmentToTransactionById(id, request);
             Assert.NotNull(response);
         }
     }
