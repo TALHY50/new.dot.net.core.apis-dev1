@@ -72,7 +72,7 @@ namespace IMT.Web.Controllers
         public object PaymentInstrumentsCreate(PaymentInstrumentsRequest requests)
         {
             var request = CreatePaymentInstrumentsRequest();
-            var result = _payAllClient.PaymentInstruments().CreatePaymentInstruments(request);
+            var result = _payAllClient.PaymentInstruments().CreatePaymentInstruments(requests);
             return Ok(result);
         }
 
@@ -275,7 +275,7 @@ namespace IMT.Web.Controllers
             var result = _payAllClient.Payers().GetPayerAccounts(id);
             return Ok(result);
         }
-        /*
+
         private CreatePaymentRequest CreatePaymentRequest()
         {
 
@@ -356,7 +356,7 @@ namespace IMT.Web.Controllers
             };
             return paymentData;
         }
-        */
+
         private PaymentUpdateRequest UpdatePaymentRequest()
         {
             return new PaymentUpdateRequest

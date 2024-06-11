@@ -7,9 +7,9 @@ using NUnit.Framework;
 
 namespace IMT.PayAll.Sample
 {
-    public class PaymentSample
+    public class PayerSample
     {
-        public PaymentSample() {
+        public PayerSample() {
             Env.NoClobber().TraversePath().Load();
             var s = Env.GetString("THUNES_API_SECRET");
             var data = "";       
