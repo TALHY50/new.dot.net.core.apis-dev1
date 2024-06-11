@@ -66,5 +66,55 @@ namespace IMT.Thunes.Sample
             var response = _thunesClient.VerificationAdapter().CreditPartyVerification(id, transaction_type, request);
             Assert.NotNull(response);
         }
+
+        [Test]
+        public void GetBalanceResponse()
+        {
+            var response = _thunesClient.GetAccountAdapter().GetBalanceResponse();
+            Assert.NotNull(response);
+        }
+
+        [Test]
+        public void GetBalanceMovement()
+        {
+            ulong id = 1;
+            DateTime from_date = DateTime.UtcNow;
+            DateTime to_date = DateTime.UtcNow;
+            var response = _thunesClient.GetAccountAdapter().GetBalanceMovement(id, from_date, to_date);
+            Assert.NotNull(response);
+        }
+
+        [Test]
+        public void ListReportsAvailable()
+        {
+            string queryParams = null;
+            var response = _thunesClient.GetAccountAdapter().ListReportsAvailable(queryParams);
+            Assert.NotNull(response);
+        }
+
+        [Test]
+        public void GetReportDetail()
+        {
+            ulong id = 1;
+            var response = _thunesClient.GetAccountAdapter().GetReportDetail(id);
+            Assert.NotNull(response);
+        }
+
+        [Test]
+        public void ListReportsAvailableById()
+        {
+            ulong id = 1;
+            var response = _thunesClient.GetAccountAdapter().ListReportsAvailable(id);
+            Assert.NotNull(response);
+        }
+
+        [Test]
+        public void GetReportFileDetails()
+        {
+            ulong id = 1;
+            ulong report_id = 1;
+            var response = _thunesClient.GetAccountAdapter().GetReportFileDetails(report_id, id);
+            Assert.NotNull(response);
+        }
     }
 }
