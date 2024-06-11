@@ -120,47 +120,47 @@ namespace IMT.Thunes.Sample
         }
 
         [Test]
-        public void CreateTransactionFromQuotationId()
+        public void ServiceResponse()
         {
-            CreateNewTransactionRequest request = new CreateNewTransactionRequest
-            {
-                credit_party_identifier = new CreditPartyIdentifier(),
-                sender = new Sender(),
-                beneficiary = new Beneficiary(),
-                sending_business = new SendingBussiness(),
-                receiving_business = new RecievingBussiness(),
-                external_id = "1",
-                purpose_of_remittance = "test"
-            };
-            int id = 1;
-            var response = _thunesClient.CreateTransaction(id, request);
+            var response = _thunesClient.GetDiscoveryAdapter().ServiceResponse();
             Assert.NotNull(response);
         }
 
         [Test]
-        public void CreateTransactionFromQuotationExternalId()
+        public void PayerResponse()
         {
-            CreateNewTransactionRequest request = new CreateNewTransactionRequest
-            {
-                credit_party_identifier = new CreditPartyIdentifier(),
-                sender = new Sender(),
-                beneficiary = new Beneficiary(),
-                sending_business = new SendingBussiness(),
-                receiving_business = new RecievingBussiness(),
-                external_id = "1",
-                purpose_of_remittance = "test"
-            };
-            int id = 1;
-            var response = _thunesClient.CreateTransactionFromQuotationExternalId(id, request);
+            var response = _thunesClient.GetDiscoveryAdapter().PayerResponse();
             Assert.NotNull(response);
         }
 
         [Test]
-        public void CreateAttachmentToTransactionById()
+        public void PayerResponseDetails()
         {
-            AttachmentRequest request = new AttachmentRequest();
-            int id = 1;
-            var response = _thunesClient.CreateAttachmentToTransactionById(id, request);
+            ulong id = 1;
+            var response = _thunesClient.GetDiscoveryAdapter().PayerResponseDetails(id);
+            Assert.NotNull(response);
+        }
+
+        [Test]
+        public void PayerRateResponse()
+        {
+            ulong id = 1;
+            var response = _thunesClient.GetDiscoveryAdapter().PayerRateResponse(id);
+            Assert.NotNull(response);
+        }
+
+        [Test]
+        public void CountryResponse()
+        {
+            var response = _thunesClient.GetDiscoveryAdapter().CountryResponse();
+            Assert.NotNull(response);
+        }
+
+        [Test]
+        public void LookupResponse()
+        {
+            string swift_bic_code = "C2C";
+            var response = _thunesClient.GetDiscoveryAdapter().LookupResponse(swift_bic_code);
             Assert.NotNull(response);
         }
     }
