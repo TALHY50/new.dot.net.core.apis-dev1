@@ -1,4 +1,5 @@
 
+using IMT.PayAll.Common;
 using IMT.PayAll.Net;
 using IMT.PayAll.Request;
 using IMT.PayAll.Request.Common;
@@ -35,8 +36,8 @@ namespace IMT.PayAll.Adapter
 
         // Request exchange rate information.
         public ExchangeResponse RequestExchangeRate(RequestExchangeRate request)
-        {
-
+        {   
+            Validation.ValidateModel(request);
             var path = PayAllUrl.RequestExchangeRate;
             return RestClient.Post<ExchangeResponse>(RequestOptions.BaseUrl + path, CreateHeaders(request, path, RequestOptions), request);
         }

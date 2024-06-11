@@ -35,6 +35,7 @@ namespace IMT.PayAll.Adapter
 
         }
 
+
         // Get payer by its ID
         public PayersResponse GetPayerByID(Guid payerId)
         {

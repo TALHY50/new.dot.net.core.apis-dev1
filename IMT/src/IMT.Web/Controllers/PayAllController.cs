@@ -6,6 +6,7 @@ using IMT.PayAll.Exception;
 using IMT.PayAll.Request;
 using IMT.PayAll.Request.Common;
 using IMT.PayAll.Request.Payer;
+using IMT.PayAll.Request.PaymentInstructionUpdateRequest;
 using IMT.PayAll.Request.PaymentRequest;
 using IMT.PayAll.Request.Recipient;
 using IMT.PayAll.Route;
@@ -31,9 +32,8 @@ namespace IMT.Web.Controllers
         }
         [Tags("PayAll.Payment")]
         [HttpPost(PayAllUrl.SinglePayment)]
-        public object SinglePayment(CreatePaymentRequest requests)
+        public object SinglePayment(CreatePaymentRequest request)
         {
-            var request = CreatePaymentRequest();
             return _payAllClient.Payment().SinglePayment(request);
         }
 
@@ -85,9 +85,8 @@ namespace IMT.Web.Controllers
 
         [Tags("PayAll.Payment Instruments")]
         [HttpPatch(PayAllUrl.UpdatePaymentInstrumentsByID)]
-        public object UpdatePaymentInstrumentsByID(Guid id, PaymentInstrumentsRequest requests)
+        public object UpdatePaymentInstrumentsByID(Guid id, PaymentInstrumentsUpdateRequest request)
         {
-            var request = CreatePaymentInstrumentsRequest();
             var result = _payAllClient.PaymentInstruments().UpdatePaymentInstrumentsById(id, request);
             return Ok(result);
         }
@@ -275,7 +274,7 @@ namespace IMT.Web.Controllers
             var result = _payAllClient.Payers().GetPayerAccounts(id);
             return Ok(result);
         }
-
+        /*
         private CreatePaymentRequest CreatePaymentRequest()
         {
 
@@ -356,7 +355,7 @@ namespace IMT.Web.Controllers
             };
             return paymentData;
         }
-
+        */
         private PaymentUpdateRequest UpdatePaymentRequest()
         {
             return new PaymentUpdateRequest
