@@ -1,8 +1,12 @@
 
+using System.ComponentModel.DataAnnotations;
+using System.Reflection;
+using IMT.PayAll.Common;
 using IMT.PayAll.Net;
 using IMT.PayAll.Request;
 using IMT.PayAll.Request.Common;
 using IMT.PayAll.Request.PaymentInstructionRequest;
+using IMT.PayAll.Request.PaymentInstructionUpdateRequest;
 using IMT.PayAll.Response;
 using IMT.PayAll.Response.Common;
 using IMT.PayAll.Route;
@@ -31,21 +35,21 @@ namespace IMT.PayAll.Adapter
             var paymentInstrumentsRequest = PaymentInstruments(request);
             return RestClient.Post<PaymentInstrumentsCreateResponse>(RequestOptions.BaseUrl + path, CreateHeaders(paymentInstrumentsRequest, path, RequestOptions), paymentInstrumentsRequest);
         }
-       
+
 
         // Get payment instrument by its ID
         public PaymentInstrumentsResponse GetPaymentInstrumentsByID(Guid Id)
         {
-            var path = PayAllUrl.GetPaymentInstrumentsByID.Replace("{id}", Id.ToString()); 
+            var path = PayAllUrl.GetPaymentInstrumentsByID.Replace("{id}", Id.ToString());
             return RestClient.Get<PaymentInstrumentsResponse>(RequestOptions.BaseUrl + path, CreateHeaders(path, RequestOptions));
         }
 
         // Update a payment instrument
-        public PaymentInstrumentsResponse UpdatePaymentInstrumentsById(Guid Id, PaymentInstrumentsRequest request)
+        public PaymentInstrumentsResponse UpdatePaymentInstrumentsById(Guid Id, PaymentInstrumentsUpdateRequest request)
         {
             var path = PayAllUrl.UpdatePaymentInstrumentsByID.Replace("{id}", Id.ToString());
-
-            return RestClient.Patch<PaymentInstrumentsResponse>(RequestOptions.BaseUrl + path, CreateHeaders(request, path, RequestOptions), request);
+            var paymentInstrumentsRequest = PaymentInstrumentsUpdate(request);
+            return RestClient.Patch<PaymentInstrumentsResponse>(RequestOptions.BaseUrl + path, CreateHeaders(paymentInstrumentsRequest, path, RequestOptions), paymentInstrumentsRequest);
         }
 
         // Delete a payment instrument
@@ -61,7 +65,7 @@ namespace IMT.PayAll.Adapter
         {
             if (request.category == "MobileWallet")
             {
-                return new MobileWalletRequest()
+                var model = new MobileWalletRequest()
                 {
                     category = request.category,
                     currency = request.currency,
@@ -69,39 +73,134 @@ namespace IMT.PayAll.Adapter
                     recipient_id = request.recipient_id
 
                 };
+                Validation.ValidateModel(model);
+                return model;
             }
             if (request.category == "BankAccount")
             {
-                return new BankAccountRequest()
+                var model = new BankAccountRequest()
                 {
                     category = request.category,
                     currency = request.currency,
                     recipient_id = request.recipient_id,
                     account_id = request.account_id,
+                    account_name = request.account_name,
+                    account_number = request.account_number,
+                    account_type = request.account_type,
+                    bank_address = request.bank_address,
+                    bank_branch_name = request.bank_branch_name,
+                    bank_country = request.bank_country,
+                    bank_domestic_code = request.bank_domestic_code,
+                    bank_name = request.bank_name,
+                    iban = request.iban,
+                    iban_intermediary = request.iban_intermediary,
+                    routing_number = request.routing_number,
+                    routing_number_intermediary = request.routing_number_intermediary,
+                    sub_account_number = request.sub_account_number,
+                    swift_bic_code = request.swift_bic_code,
+                    swift_intermediary = request.swift_intermediary,
+                    urgency_flag_preference = request.urgency_flag_preference
 
                 };
+                Validation.ValidateModel(model);
+                return model;
             }
             if (request.category == "CashPickup")
             {
-                return new CashPickupRequest()
+                var model = new CashPickupRequest()
                 {
                     category = request.category,
                     currency = request.currency,
                     recipient_id = request.recipient_id,
+                    first_name = request.first_name,
+                    last_name = request.last_name
                 };
+                Validation.ValidateModel(model);
+                return model;
             }
             if (request.category == "Card")
             {
-                return new CardRequest()
+                var model = new CardRequest()
                 {
                     category = request.category,
                     currency = request.currency,
                     recipient_id = request.recipient_id,
-                    token = request.token,
+                    token = request.token
                 };
+                Validation.ValidateModel(model);
+                return model;
             }
 
-            return null;
+            throw new ValidationException("Category must be MobileWallet,BankAccount,CashPickup,Card");
+
+        }
+
+        private object PaymentInstrumentsUpdate(PaymentInstrumentsUpdateRequest request)
+        {
+            if (request.category == "MobileWallet")
+            {
+                var model = new MobileWalletUpdateRequest()
+                {
+                    category = request.category,
+                    currency = request.currency,
+                    mobile_number = request.mobile_number
+                   
+                };
+                Validation.ValidateModel(model);
+                return model;
+            }
+            if (request.category == "BankAccount")
+            {
+                var model = new BankAccountUpdateRequest()
+                {
+                    category = request.category,
+                    currency = request.currency,
+                    account_id = request.account_id,
+                    account_name = request.account_name,
+                    account_number = request.account_number,
+                    account_type = request.account_type,
+                    bank_address = request.bank_address,
+                    bank_branch_name = request.bank_branch_name,
+                    bank_country = request.bank_country,
+                    bank_domestic_code = request.bank_domestic_code,
+                    bank_name = request.bank_name,
+                    iban = request.iban,
+                    iban_intermediary = request.iban_intermediary,
+                    routing_number = request.routing_number,
+                    routing_number_intermediary = request.routing_number_intermediary,
+                    sub_account_number = request.sub_account_number,
+                    swift_bic_code = request.swift_bic_code,
+                    swift_intermediary = request.swift_intermediary,
+                    urgency_flag_preference = request.urgency_flag_preference
+
+                };
+                Validation.ValidateModel(model);
+                return model;
+            }
+            if (request.category == "CashPickup")
+            {
+                var model = new CashPickupUpdateRequest()
+                {
+                    category = request.category,
+                    currency = request.currency,
+                    first_name = request.first_name,
+                    last_name = request.last_name
+                };
+                Validation.ValidateModel(model);
+                return model;
+            }
+            if (request.category == "Card")
+            {
+                var model = new CardUpdateRequest()
+                {
+                    category = request.category,
+                    currency = request.currency
+                };
+                Validation.ValidateModel(model);
+                return model;
+            }
+
+            throw new ValidationException("Category must be MobileWallet,BankAccount,CashPickup,Card");
 
         }
 

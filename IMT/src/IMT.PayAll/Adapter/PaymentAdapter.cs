@@ -1,9 +1,13 @@
 
+using System.ComponentModel.DataAnnotations;
+using System.Reflection;
+using IMT.PayAll.Common;
 using IMT.PayAll.Net;
 using IMT.PayAll.Request;
 using IMT.PayAll.Request.Common;
 using IMT.PayAll.Request.PaymentRequest;
 using IMT.PayAll.Request.Recipient;
+
 using IMT.PayAll.Response;
 using IMT.PayAll.Route;
 
@@ -56,8 +60,15 @@ namespace IMT.PayAll.Adapter
             singlePayment.exchange_rate_id = request.exchange_rate_id;
             singlePayment.carded_rate_id = request.carded_rate_id;
             singlePayment.kyt = request.kyt;
-            singlePayment.payment_instrument = PaymentInstruments(request.payment_instrument);
-            singlePayment.recipient = GetRecipient(request.recipient);
+            if (request.payment_instrument != null)
+            {
+                singlePayment.payment_instrument = PaymentInstruments(request.payment_instrument);
+            }
+            if (request.recipient != null)
+            {
+                singlePayment.recipient = GetRecipient(request.recipient);
+            }
+            Validation.ValidateModel(singlePayment);
             return singlePayment;
         }
 
@@ -65,11 +76,13 @@ namespace IMT.PayAll.Adapter
         {
             if (request.category == paymentInstrumentCategory.MobileWallet.ToString())
             {
-                return new MobileWalletRequest { category = request.category, currency = request.currency, mobile_number = request.mobile_number };
+                var model = new MobileWalletRequest { category = request.category, currency = request.currency, mobile_number = request.mobile_number };
+                Validation.ValidateModel(model);
+                return model;
             }
             if (request.category == paymentInstrumentCategory.BankAccount.ToString())
             {
-                return new BankAccountRequest
+                var model = new BankAccountRequest
                 {
                     category = request.category,
                     currency = request.currency,
@@ -91,29 +104,34 @@ namespace IMT.PayAll.Adapter
                     swift_intermediary = request.swift_intermediary,
                     urgency_flag_preference = request.urgency_flag_preference
                 };
+                Validation.ValidateModel(model);
+                return model;
 
             }
             if (request.category == paymentInstrumentCategory.CashPickup.ToString())
             {
-                return new CashPickupRequest
+                var model = new CashPickupRequest
                 {
                     category = request.category,
                     currency = request.currency,
                     first_name = request.first_name,
                     last_name = request.last_name
                 };
-
+                Validation.ValidateModel(model);
+                return model;
             }
             if (request.category == paymentInstrumentCategory.Card.ToString()) {
 
-              return  new CardRequest
+              var model =  new CardRequest
                 {
                     category = request.category,
                     currency = request.currency
                 };
+                Validation.ValidateModel(model);
+                return model;
             }
 
-            return null;
+            throw new ValidationException("Category must be MobileWallet,BankAccount,CashPickup,Card");
 
         }
 
@@ -121,7 +139,7 @@ namespace IMT.PayAll.Adapter
         {
             if (request.type == recipientType.Business.ToString())
             {
-               return new BusinessRecipientRequest
+               var model = new BusinessRecipientRequest
                {
                     type = request.type,
                     email = request.email,
@@ -132,11 +150,12 @@ namespace IMT.PayAll.Adapter
                     registration_number = request.registration_number,
                     trade_name = request.trade_name
                 };
-
+                Validation.ValidateModel(model);
+                return model;
             }
             if (request.type == recipientType.Person.ToString())
             {
-                return new PersonRecipientRequest
+                var model = new PersonRecipientRequest
                 {
                     type = request.type,
                     email = request.email,
@@ -148,10 +167,12 @@ namespace IMT.PayAll.Adapter
                     mobile_number = request.mobile_number,
                     registration_address = request.registration_address
                 };
+                Validation.ValidateModel(model);
+                return model;
 
             }
-           
-            return null;
+
+            throw new ValidationException("Type must be Person or Business");
 
         }
 

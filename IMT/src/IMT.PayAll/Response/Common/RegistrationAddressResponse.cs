@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IMT.PayAll.Response.Payer
+namespace IMT.PayAll.Response.Common
 {
     public class RegistrationAddressResponse
     {
@@ -16,5 +16,7 @@ namespace IMT.PayAll.Response.Payer
         public string building_name { get; set; }
         public string state_province { get; set; }
         public string building_number { get; set; }
+
+      
     }
 }
