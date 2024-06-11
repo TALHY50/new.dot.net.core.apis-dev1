@@ -284,5 +284,12 @@ namespace IMT.Thunes.Sample
             Assert.NotNull(response);
         }
         #endregion
+
+        [Test]
+        public void Ping()
+        {
+            var response = _thunesClient.Ping();
+            Assert.NotNull(response);
+        }
     }
 }
