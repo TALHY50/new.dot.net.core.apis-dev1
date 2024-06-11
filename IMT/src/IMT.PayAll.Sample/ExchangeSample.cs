@@ -14,11 +14,7 @@ namespace IMT.PayAll.Sample
             var requirement = BaseRequirement.GetBaseRequirement(BaseSample.ServerEnvironment);
             _payAllClient = new PayAllClient(requirement.ClientID, requirement.ClientSecret, requirement.BaseUrl);
         }
-        [Test]
-        public void Test1()
-        {
-            Assert.True(true);
-        }
+
 
         [Test]
         public void GetExchangeRateById()
