@@ -163,6 +163,44 @@ namespace IMT.Thunes.Sample
             var response = _thunesClient.GetDiscoveryAdapter().LookupResponse(swift_bic_code);
             Assert.NotNull(response);
         }
+
+        #region Transaction Transfer
+       
+        [Test]
+        public void CreateTransaction()
+        {
+            CreateNewTransactionRequest request = new CreateNewTransactionRequest
+            {
+                credit_party_identifier = new CreditPartyIdentifier(),
+                sender = new Sender(),
+                beneficiary = new Beneficiary(),
+                sending_business = new SendingBussiness(),
+                receiving_business = new RecievingBussiness(),
+                external_id = "1",
+                purpose_of_remittance = "test"
+            };
+            int id = 1;
+            var response = _thunesClient.CreateTransaction(id, request);
+            Assert.NotNull(response);
+        } 
+        
+        [Test]
+        public void CreateTransactionFromQuotationExternalId()
+        {
+            CreateNewTransactionRequest request = new CreateNewTransactionRequest
+            {
+                credit_party_identifier = new CreditPartyIdentifier(),
+                sender = new Sender(),
+                beneficiary = new Beneficiary(),
+                sending_business = new SendingBussiness(),
+                receiving_business = new RecievingBussiness(),
+                external_id = "1",
+                purpose_of_remittance = "test"
+            };
+            int id = 1;
+            var response = _thunesClient.CreateTransactionFromQuotationExternalId(id, request);
+            Assert.NotNull(response);
+        } 
         
         [Test]
         public void CreateAttachmentToTransactionById()
@@ -245,6 +283,6 @@ namespace IMT.Thunes.Sample
             var response = _thunesClient.CancelTransactionByExternalId(id);
             Assert.NotNull(response);
         }
-
+        #endregion
     }
 }
