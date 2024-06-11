@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DotNetEnv;
+using IMT.Thunes.Request.CreditParties;
 using IMT.Thunes.Request.Transaction.Quoatation;
 using NUnit.Framework;
 
@@ -42,6 +43,27 @@ namespace IMT.Thunes.Sample
         {
             ulong id = 1234;
             var response = _thunesClient.QuotationAdapter().GetRetrieveQuotationByExternalId(id);
+            Assert.NotNull(response);
+        }
+
+        [Test]
+        public void CreditPartyInformation()
+        {
+            InformationRequest request = new InformationRequest();
+            ulong id = 1;
+            string transaction_type = "C2C";
+            var response = _thunesClient.GetInformationAdapter().CreditPartyInformation(request, id, transaction_type);
+            Assert.NotNull(response);
+        }
+
+        [Test]
+        public void CreditPartyVerification()
+        {
+            InformationRequest request = new InformationRequest();
+            ulong id = 1;
+            string transaction_type = "C2C";
+            _thunesClient.GetInformationAdapter().CreditPartyInformation(request, id, transaction_type);
+            var response = _thunesClient.VerificationAdapter().CreditPartyVerification(id, transaction_type, request);
             Assert.NotNull(response);
         }
     }
