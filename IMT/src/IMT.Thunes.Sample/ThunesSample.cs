@@ -163,5 +163,14 @@ namespace IMT.Thunes.Sample
             var response = _thunesClient.CreateAttachmentToTransactionById(id, request);
             Assert.NotNull(response);
         }
+        
+        [Test]
+        public void CreateAttachmentToTransactionByExternalId()
+        {
+            AttachmentRequest request = new AttachmentRequest();
+            int id = 1;
+            var response = _thunesClient.CreateAttachmentToTransactionByExternalId(id, request);
+            Assert.NotNull(response);
+        }
     }
 }
