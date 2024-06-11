@@ -220,5 +220,13 @@ namespace IMT.Thunes.Sample
             var response = _thunesClient.ListAttachmentsOfTransactionByExternalId(id);
             Assert.NotNull(response);
         }
+
+        [Test]
+        public void CancelTransactionById()
+        {
+            int id = 1;
+            var response = _thunesClient.CancelTransactionById(id);
+            Assert.NotNull(response);
+        }
     }
 }
