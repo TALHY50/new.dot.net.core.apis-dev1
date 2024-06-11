@@ -8,6 +8,6 @@ namespace IMT.PayAll.Request
 {
     public class ConfirmExchangeRateRequest
     {
-        public string exchange_rate_id { get; set; }
+        public Guid exchange_rate_id { get; set; }
     }
 }
