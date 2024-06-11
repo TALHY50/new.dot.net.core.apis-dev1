@@ -163,5 +163,133 @@ namespace IMT.Thunes.Sample
             var response = _thunesClient.GetDiscoveryAdapter().LookupResponse(swift_bic_code);
             Assert.NotNull(response);
         }
+
+        #region Transaction Transfer
+       
+        [Test]
+        public void CreateTransaction()
+        {
+            CreateNewTransactionRequest request = new CreateNewTransactionRequest
+            {
+                credit_party_identifier = new CreditPartyIdentifier(),
+                sender = new Sender(),
+                beneficiary = new Beneficiary(),
+                sending_business = new SendingBussiness(),
+                receiving_business = new RecievingBussiness(),
+                external_id = "1",
+                purpose_of_remittance = "test"
+            };
+            int id = 1;
+            var response = _thunesClient.CreateTransaction(id, request);
+            Assert.NotNull(response);
+        } 
+        
+        [Test]
+        public void CreateTransactionFromQuotationExternalId()
+        {
+            CreateNewTransactionRequest request = new CreateNewTransactionRequest
+            {
+                credit_party_identifier = new CreditPartyIdentifier(),
+                sender = new Sender(),
+                beneficiary = new Beneficiary(),
+                sending_business = new SendingBussiness(),
+                receiving_business = new RecievingBussiness(),
+                external_id = "1",
+                purpose_of_remittance = "test"
+            };
+            int id = 1;
+            var response = _thunesClient.CreateTransactionFromQuotationExternalId(id, request);
+            Assert.NotNull(response);
+        } 
+        
+        [Test]
+        public void CreateAttachmentToTransactionById()
+        {
+            AttachmentRequest request = new AttachmentRequest();
+            int id = 1;
+            var response = _thunesClient.CreateAttachmentToTransactionById(id, request);
+            Assert.NotNull(response);
+        } 
+
+        [Test]
+        public void CreateAttachmentToTransactionByExternalId()
+        {
+            AttachmentRequest request = new AttachmentRequest();
+            int id = 1;
+            var response = _thunesClient.CreateAttachmentToTransactionByExternalId(id, request);
+            Assert.NotNull(response);
+        } 
+
+        [Test]
+        public void ConfirmTransactionById()
+        {
+            int id = 1;
+            var response = _thunesClient.ConfirmTransactionById(id);
+            Assert.NotNull(response);
+        }
+
+        [Test]
+        public void ConfirmTransactionByExternalId()
+        {
+            int id = 1;
+            var response = _thunesClient.ConfirmTransactionByExternalId(id);
+            Assert.NotNull(response);
+        }
+
+        [Test]
+        public void RetrieveTransactionInformationByTransactionId()
+        {
+            int id = 1;
+            var response = _thunesClient.RetrieveTransactionInformationByTransactionId(id);
+            Assert.NotNull(response);
+        }
+
+        [Test]
+        public void RetrieveTransactionInformationByExternalId()
+        {
+            int id = 1;
+            var response = _thunesClient.RetrieveTransactionInformationByExternalId(id);
+            Assert.NotNull(response);
+        }
+
+        [Test]
+        public void ListAttachmentsOfATransactionById()
+        {
+            int id = 1;
+            var response = _thunesClient.ListAttachmentsOfATransactionById(id);
+            Assert.NotNull(response);
+        }
+
+        [Test]
+        public void ListAttachmentsOfTransactionByExternalId()
+        {
+            int id = 1;
+            var response = _thunesClient.ListAttachmentsOfTransactionByExternalId(id);
+            Assert.NotNull(response);
+        }
+
+        [Test]
+        public void CancelTransactionById()
+        {
+            int id = 1;
+            var response = _thunesClient.CancelTransactionById(id);
+            Assert.NotNull(response);
+        }
+
+        [Test]
+        public void CancelTransactionByExternalId()
+        {
+            int id = 1;
+            var response = _thunesClient.CancelTransactionByExternalId(id);
+            Assert.NotNull(response);
+        }
+        #endregion
+
+        [Test]
+        public void Ping()
+        {
+            var response = _thunesClient.Ping();
+            Assert.NotNull(response);
+        }
     }
 }
