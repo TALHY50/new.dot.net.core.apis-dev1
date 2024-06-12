@@ -1,14 +1,13 @@
 
 using System.ComponentModel.DataAnnotations;
-using System.Reflection;
 using IMT.PayAll.Common;
+using IMT.PayAll.Model;
 using IMT.PayAll.Net;
-using IMT.PayAll.Request;
 using IMT.PayAll.Request.Common;
+using IMT.PayAll.Request.Payment;
 using IMT.PayAll.Request.PaymentRequest;
 using IMT.PayAll.Request.Recipient;
-
-using IMT.PayAll.Response;
+using IMT.PayAll.Response.Payment;
 using IMT.PayAll.Route;
 
 
@@ -16,8 +15,6 @@ namespace IMT.PayAll.Adapter
 {
     public class PaymentAdapter : BaseAdapter
     {
-        private enum recipientType { Person, Business };
-        private enum paymentInstrumentCategory { MobileWallet, BankAccount, CashPickup, Card };
         public PaymentAdapter(RequestOptions requestOptions) : base(requestOptions)
         {
         }
@@ -74,13 +71,13 @@ namespace IMT.PayAll.Adapter
 
         private object PaymentInstruments(PaymentInstrumentRequest request)
         {
-            if (request.category == paymentInstrumentCategory.MobileWallet.ToString())
+            if (request.category == PaymentInstrumentCategory.MobileWallet.ToString())
             {
                 var model = new MobileWalletRequest { category = request.category, currency = request.currency, mobile_number = request.mobile_number };
                 Validation.ValidateModel(model);
                 return model;
             }
-            if (request.category == paymentInstrumentCategory.BankAccount.ToString())
+            if (request.category == PaymentInstrumentCategory.BankAccount.ToString())
             {
                 var model = new BankAccountRequest
                 {
@@ -108,7 +105,7 @@ namespace IMT.PayAll.Adapter
                 return model;
 
             }
-            if (request.category == paymentInstrumentCategory.CashPickup.ToString())
+            if (request.category == PaymentInstrumentCategory.CashPickup.ToString())
             {
                 var model = new CashPickupRequest
                 {
@@ -120,7 +117,7 @@ namespace IMT.PayAll.Adapter
                 Validation.ValidateModel(model);
                 return model;
             }
-            if (request.category == paymentInstrumentCategory.Card.ToString()) {
+            if (request.category == PaymentInstrumentCategory.Card.ToString()) {
 
               var model =  new CardRequest
                 {
@@ -137,7 +134,7 @@ namespace IMT.PayAll.Adapter
 
         private object GetRecipient(RecipientRequest request)
         {
-            if (request.type == recipientType.Business.ToString())
+            if (request.type == AccountType.Business.ToString())
             {
                var model = new BusinessRecipientRequest
                {
@@ -153,7 +150,7 @@ namespace IMT.PayAll.Adapter
                 Validation.ValidateModel(model);
                 return model;
             }
-            if (request.type == recipientType.Person.ToString())
+            if (request.type == AccountType.Person.ToString())
             {
                 var model = new PersonRecipientRequest
                 {

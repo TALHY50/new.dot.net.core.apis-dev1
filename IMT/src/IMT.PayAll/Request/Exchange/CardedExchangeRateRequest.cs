@@ -1,14 +1,12 @@
-﻿
-
-namespace IMT.PayAll.Response
+﻿namespace IMT.PayAll.Request.Exchange
 {
-    public class GetCardedExchangeRateResponse
+    public class CardedExchangeRateRequest
     {
         public List<Rate> rates { get; set; }
     }
     public class Rate
     {
-        public Guid id { get; set; }
+        public string id { get; set; }
         public string from_currency { get; set; }
         public string to_currency { get; set; }
         public DateTime valid_from { get; set; }
@@ -19,7 +17,7 @@ namespace IMT.PayAll.Response
     }
     public class Tier
     {
-        public Guid id { get; set; }
+        public string id { get; set; }
         public int from_amount { get; set; }
         public double rate { get; set; }
     }

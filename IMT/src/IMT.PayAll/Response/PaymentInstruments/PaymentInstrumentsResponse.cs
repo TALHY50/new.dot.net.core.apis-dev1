@@ -1,6 +1,4 @@
-﻿
-
-namespace IMT.PayAll.Response
+﻿namespace IMT.PayAll.Response.PaymentInstruments
 {
     public class PaymentInstrumentsResponse
     {
@@ -32,6 +30,6 @@ namespace IMT.PayAll.Response
         public string expiration_date { get; set; }
 
     }
-   
+
 
 }

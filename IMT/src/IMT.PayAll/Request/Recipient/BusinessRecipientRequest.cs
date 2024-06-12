@@ -9,6 +9,7 @@ namespace IMT.PayAll.Request.Recipient
         [Required]
         public string legal_name { get; set; }
         [Required]
+        [RegularExpression("^[A-Z]{2}$", ErrorMessage = "The country code must be exactly two uppercase letters.")]
         public string country { get; set; }
         [Required]
         public string trade_name { get; set; }

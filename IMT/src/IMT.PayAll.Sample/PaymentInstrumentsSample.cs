@@ -1,6 +1,8 @@
 
 using IMT.PayAll.Common;
+using IMT.PayAll.Model;
 using IMT.PayAll.Request;
+using IMT.PayAll.Request.PaymentInstructionRequest;
 using IMT.PayAll.Request.PaymentInstructionUpdateRequest;
 using NUnit.Framework;
 
@@ -23,7 +25,7 @@ namespace IMT.PayAll.Sample
                 recipient_id = recipient_id
             };
             var result = _payAllClient.PaymentInstruments().GetPaymentInstrumentsList(request);
-          
+
             Assert.NotNull(result);
         }
 
@@ -63,9 +65,10 @@ namespace IMT.PayAll.Sample
 
         private PaymentInstrumentsRequest CreatePaymentInstrumentsRequest()
         {
-            return new PaymentInstrumentsRequest {
-                category = "MobileWallet",
-                currency = "USD",
+            return new PaymentInstrumentsRequest
+            {
+                category = PaymentInstrumentCategory.MobileWallet.ToString(),
+                currency = Currency.USD.ToString(),
                 routing_number = "123456789",
                 swift_bic_code = "ABCDEF12",
                 bank_domestic_code = "123",
@@ -93,10 +96,10 @@ namespace IMT.PayAll.Sample
         }
         private PaymentInstrumentsUpdateRequest UpdateModel()
         {
-           return new PaymentInstrumentsUpdateRequest
+            return new PaymentInstrumentsUpdateRequest
             {
-                 category = "MobileWallet",
-                  currency = "USD",
+                category = PaymentInstrumentCategory.MobileWallet.ToString(),
+                currency = Currency.USD.ToString(),
                 routing_number = "123456789",
                 swift_bic_code = "ABCDEF12",
                 bank_domestic_code = "123",

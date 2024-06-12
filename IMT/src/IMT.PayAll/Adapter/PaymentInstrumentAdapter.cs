@@ -1,14 +1,12 @@
 
 using System.ComponentModel.DataAnnotations;
-using System.Reflection;
 using IMT.PayAll.Common;
+using IMT.PayAll.Model;
 using IMT.PayAll.Net;
-using IMT.PayAll.Request;
 using IMT.PayAll.Request.Common;
 using IMT.PayAll.Request.PaymentInstructionRequest;
 using IMT.PayAll.Request.PaymentInstructionUpdateRequest;
-using IMT.PayAll.Response;
-using IMT.PayAll.Response.Common;
+using IMT.PayAll.Response.PaymentInstruments;
 using IMT.PayAll.Route;
 
 
@@ -63,7 +61,7 @@ namespace IMT.PayAll.Adapter
 
         private object PaymentInstruments(PaymentInstrumentsRequest request)
         {
-            if (request.category == "MobileWallet")
+            if (request.category == PaymentInstrumentCategory.MobileWallet.ToString())
             {
                 var model = new MobileWalletRequest()
                 {
@@ -76,7 +74,7 @@ namespace IMT.PayAll.Adapter
                 Validation.ValidateModel(model);
                 return model;
             }
-            if (request.category == "BankAccount")
+            if (request.category == PaymentInstrumentCategory.BankAccount.ToString())
             {
                 var model = new BankAccountRequest()
                 {
@@ -105,7 +103,7 @@ namespace IMT.PayAll.Adapter
                 Validation.ValidateModel(model);
                 return model;
             }
-            if (request.category == "CashPickup")
+            if (request.category == PaymentInstrumentCategory.CashPickup.ToString())
             {
                 var model = new CashPickupRequest()
                 {
@@ -118,7 +116,7 @@ namespace IMT.PayAll.Adapter
                 Validation.ValidateModel(model);
                 return model;
             }
-            if (request.category == "Card")
+            if (request.category == PaymentInstrumentCategory.Card.ToString())
             {
                 var model = new CardRequest()
                 {
@@ -137,7 +135,7 @@ namespace IMT.PayAll.Adapter
 
         private object PaymentInstrumentsUpdate(PaymentInstrumentsUpdateRequest request)
         {
-            if (request.category == "MobileWallet")
+            if (request.category == PaymentInstrumentCategory.MobileWallet.ToString())
             {
                 var model = new MobileWalletUpdateRequest()
                 {
@@ -149,7 +147,7 @@ namespace IMT.PayAll.Adapter
                 Validation.ValidateModel(model);
                 return model;
             }
-            if (request.category == "BankAccount")
+            if (request.category == PaymentInstrumentCategory.BankAccount.ToString())
             {
                 var model = new BankAccountUpdateRequest()
                 {
@@ -177,7 +175,7 @@ namespace IMT.PayAll.Adapter
                 Validation.ValidateModel(model);
                 return model;
             }
-            if (request.category == "CashPickup")
+            if (request.category == PaymentInstrumentCategory.CashPickup.ToString())
             {
                 var model = new CashPickupUpdateRequest()
                 {
@@ -189,7 +187,7 @@ namespace IMT.PayAll.Adapter
                 Validation.ValidateModel(model);
                 return model;
             }
-            if (request.category == "Card")
+            if (request.category == PaymentInstrumentCategory.Card.ToString())
             {
                 var model = new CardUpdateRequest()
                 {
