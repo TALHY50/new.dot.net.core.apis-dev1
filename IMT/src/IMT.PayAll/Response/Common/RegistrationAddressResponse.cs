@@ -8,15 +8,13 @@ namespace IMT.PayAll.Response.Common
 {
     public class RegistrationAddressResponse
     {
-        public string city { get; set; }
-        public string street { get; set; }
-        public string country { get; set; }
-        public string postal_code { get; set; }
-        public string unit_number { get; set; }
-        public string building_name { get; set; }
-        public string state_province { get; set; }
-        public string building_number { get; set; }
-
-      
+        public string City { get; set; }
+        public string Street { get; set; }
+        public string Country { get; set; }
+        public string PostalCode { get; set; }
+        public string UnitNumber { get; set; }
+        public string BuildingName { get; set; }
+        public string StateProvince { get; set; }
+        public string BuildingNumber { get; set; }
     }
 }
