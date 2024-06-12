@@ -1,5 +1,6 @@
 
 using IMT.PayAll.Common;
+using IMT.PayAll.Model;
 using IMT.PayAll.Request.PaymentRequest;
 using IMT.PayAll.Request.Recipient;
 using NUnit.Framework;
@@ -81,7 +82,7 @@ namespace IMT.PayAll.Sample
 
             return new RecipientRequest
             {
-                type = "Person",
+                type = AccountType.Person.ToString(),
                 email = "john.doe@example.com",
                 registration_address = new List<RegistrationAddressRequest> { registrationAddress },
                 first_name = "John",

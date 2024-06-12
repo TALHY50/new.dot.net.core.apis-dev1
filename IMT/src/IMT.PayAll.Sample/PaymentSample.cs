@@ -4,6 +4,7 @@ using IMT.PayAll.Request.Common;
 using IMT.PayAll.Request.PaymentRequest;
 using NUnit.Framework;
 using IMT.PayAll.Request.Payment;
+using IMT.PayAll.Model;
 
 namespace IMT.PayAll.Sample
 {
@@ -105,7 +106,7 @@ namespace IMT.PayAll.Sample
                 source_account_id = "SA12345",
                 amount = new Amount
                 {
-                    currency = "USD",
+                    currency = Currency.USD.ToString(),
                     value = 1000
                 },
                 exchange_rate_id = "ER12345",
