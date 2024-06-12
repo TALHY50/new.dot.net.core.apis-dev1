@@ -18,11 +18,11 @@ namespace IMT.PayAll.Adapter
         }
 
         // Get list of recipients
-        public IEnumerable<RecipientsResponse> GetRecipients()
+        public List<RecipientsResponse> GetRecipients()
         {
             var path = PayAllUrl.GetRecipientList;
 
-            return RestClient.Get<IEnumerable<RecipientsResponse>>(RequestOptions.BaseUrl + path, CreateHeaders(path, RequestOptions));
+            return RestClient.Get<List<RecipientsResponse>>(RequestOptions.BaseUrl + path, CreateHeaders(path, RequestOptions));
 
         }
 
