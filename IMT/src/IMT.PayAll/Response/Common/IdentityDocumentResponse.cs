@@ -4,19 +4,19 @@ namespace IMT.PayAll.Response.Common
 {
     public class IdentityDocumentResponse
     {
-        public string type { get; set; }
-        public string type_version_number { get; set; }
-        public string country_issuing { get; set; }
-        public string number { get; set; }
-        public string national_id_number { get; set; }
-        public string national_id_number_type { get; set; }
-        public string series { get; set; }
-        public DateTime issue_date { get; set; }
-        public string place_of_issue { get; set; }
-        public string authority_of_issue { get; set; }
-        public DateTime expiry_date { get; set; }
-        public string driver_license_number { get; set; }
-        public string driver_license_serial_number { get; set; }
-        public string driver_license_version_number { get; set; }
+        public string Type { get; set; }
+        public string TypeVersionNumber { get; set; }
+        public string CountryIssuing { get; set; }
+        public string Number { get; set; }
+        public string NationalIdNumber { get; set; }
+        public string NationalIdNumberType { get; set; }
+        public string Series { get; set; }
+        public DateTime IssueDate { get; set; }
+        public string PlaceOfIssue { get; set; }
+        public string AuthorityOfIssue { get; set; }
+        public DateTime ExpiryDate { get; set; }
+        public string DriverLicenseNumber { get; set; }
+        public string DriverLicenseSerialNumber { get; set; }
+        public string DriverLicenseVersionNumber { get; set; }
     }
 }
