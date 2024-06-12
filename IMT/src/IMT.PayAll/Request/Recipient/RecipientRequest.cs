@@ -13,6 +13,7 @@ namespace IMT.PayAll.Request.Recipient
         public string mobile_number { get; set; }
         public DateOnly dob { get; set; }
         public string legal_name { get; set; }
+        [RegularExpression("^[A-Z]{2}$", ErrorMessage = "The country code must be exactly two uppercase letters.")]
         public string country { get; set; }
         public string trade_name { get; set; }
         public string phone_number { get; set; }
