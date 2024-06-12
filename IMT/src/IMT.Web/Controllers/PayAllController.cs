@@ -261,7 +261,7 @@ namespace IMT.Web.Controllers
         }
 
         [Tags("PayAll.Payers")]
-        [HttpPost(PayAllUrl.GetPayer)]
+        [HttpGet(PayAllUrl.GetPayer)]
         public object GetPayer(Guid id)
         {
             var result = _payAllClient.Payers().GetPayerByID(id);
@@ -269,7 +269,7 @@ namespace IMT.Web.Controllers
         }
 
         [Tags("PayAll.Payers")]
-        [HttpPost(PayAllUrl.GetPayerAccounts)]
+        [HttpGet(PayAllUrl.GetPayerAccounts)]
         public object GetPayerAccounts(Guid id)
         {
             var result = _payAllClient.Payers().GetPayerAccounts(id);
