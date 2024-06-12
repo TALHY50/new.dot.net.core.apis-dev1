@@ -10,24 +10,21 @@ namespace IMT.PayAll.Response
 {
     public class RecipientsResponse
     {
-        public string Id { get; set; }
-        public string Type { get; set; }
-        public string Email { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string MiddleName { get; set; }
-        public string MobileNumber { get; set; }
-        public string Dob { get; set; }
-
-        [JsonConverter(typeof(ListOrSingleItemConverter<RegistrationAddress>))]
-        public List<RegistrationAddress> RegistrationAddress { get; set; }
-    
-        public IdentityDocumentResponse IdentityDocument { get; set; }
-
-        public string LegalName { get; set; }
-        public string Country { get; set; }
-        public string TradeName { get; set; }
-        public string PhoneNumber { get; set; }
-        public string RegistrationNumber { get; set; }
+        public Guid id { get; set; }
+        public string type { get; set; }
+        public string email { get; set; }
+        public string first_name { get; set; }
+        public string last_name { get; set; }
+        public string middle_name { get; set; }
+        public string mobile_number { get; set; }
+        public string dob { get; set; }
+       [JsonConverter(typeof(ListOrSingleItemConverter<RegistrationAddressResponse>))]
+        public List<RegistrationAddressResponse> registration_address { get; set; }
+        public IdentityDocumentResponse identity_document { get; set; }
+        public string legal_name { get; set; }
+        public string country { get; set; }
+        public string trade_name { get; set; }
+        public string phone_number { get; set; }
+        public string registration_number { get; set; }
     }
 }
