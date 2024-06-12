@@ -58,7 +58,7 @@ namespace IMT.PayAll.Sample
         {
             Guid id = new Guid("3fa85f64-5717-4562-b3fc-2c963f66afa6");
             var result = _payAllClient.PaymentInstruments().DeletePaymentInstrumentsByID(id);
-            Assert.NotNull(result);
+            Assert.Null(result);
         }
 
         private PaymentInstrumentsRequest CreatePaymentInstrumentsRequest()

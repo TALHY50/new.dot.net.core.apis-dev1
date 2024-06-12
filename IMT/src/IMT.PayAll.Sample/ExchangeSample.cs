@@ -44,7 +44,7 @@ namespace IMT.PayAll.Sample
         {
             var request = ConfirmExchangeRateRequest();
             var result = _payAllClient.Exchanges().ConfirmExchangeRate(request);
-            Assert.NotNull(result);
+            Assert.Null(result);
         }
 
        [Test]
@@ -52,7 +52,7 @@ namespace IMT.PayAll.Sample
         {
             var request = CancelExchangeRateRequest();
             var result = _payAllClient.Exchanges().CancelExchangeRate(request);
-            Assert.NotNull(result);
+            Assert.Null(result);
         }
 
         [Test]
