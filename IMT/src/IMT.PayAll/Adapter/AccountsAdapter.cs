@@ -1,7 +1,7 @@
 ﻿
 using IMT.PayAll.Net;
 using IMT.PayAll.Request.Common;
-using IMT.PayAll.Response;
+using IMT.PayAll.Response.Payment;
 using IMT.PayAll.Route;
 
 namespace IMT.PayAll.Adapter

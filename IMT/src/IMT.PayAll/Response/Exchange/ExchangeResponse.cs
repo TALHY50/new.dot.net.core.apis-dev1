@@ -1,8 +1,6 @@
-﻿
+﻿using IMT.PayAll.Response.Common;
 
-using IMT.PayAll.Response.Common;
-
-namespace IMT.PayAll.Response
+namespace IMT.PayAll.Response.Exchange
 {
     public class ExchangeResponse
     {
@@ -11,5 +9,5 @@ namespace IMT.PayAll.Response
         public TargetAmount target_amount { get; set; }
         public DateTime expiration_date { get; set; }
     }
-    
+
 }

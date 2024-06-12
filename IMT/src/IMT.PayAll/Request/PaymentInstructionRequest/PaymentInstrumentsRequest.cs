@@ -3,9 +3,9 @@
 using System.ComponentModel.DataAnnotations;
 
 
-namespace IMT.PayAll.Request
+namespace IMT.PayAll.Request.PaymentInstructionRequest
 {
-    public class PaymentInstrumentsRequest  
+    public class PaymentInstrumentsRequest
     {
         [Required]
         public string category { get; set; }

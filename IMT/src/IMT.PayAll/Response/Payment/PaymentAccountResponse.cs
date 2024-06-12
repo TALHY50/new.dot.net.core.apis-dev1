@@ -1,8 +1,6 @@
-﻿
-
-namespace IMT.PayAll.Response
+﻿namespace IMT.PayAll.Response.Payment
 {
-    public class PaymentAccountResponse 
+    public class PaymentAccountResponse
     {
         public Guid id { get; set; }
         public string owner_id { get; set; }

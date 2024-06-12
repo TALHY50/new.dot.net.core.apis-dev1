@@ -5,7 +5,7 @@ using IMT.PayAll.Request.PaymentRequest;
 using IMT.PayAll.Request.Recipient;
 
 
-namespace IMT.PayAll.Request
+namespace IMT.PayAll.Request.Payment
 {
     public class SinglePaymentRequest
     {

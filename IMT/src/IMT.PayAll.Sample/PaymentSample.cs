@@ -2,8 +2,8 @@
 using IMT.PayAll.Common;
 using IMT.PayAll.Request.Common;
 using IMT.PayAll.Request.PaymentRequest;
-using IMT.PayAll.Request;
 using NUnit.Framework;
+using IMT.PayAll.Request.Payment;
 
 namespace IMT.PayAll.Sample
 {

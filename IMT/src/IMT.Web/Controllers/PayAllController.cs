@@ -5,7 +5,10 @@ using IMT.PayAll.Common;
 using IMT.PayAll.Exception;
 using IMT.PayAll.Request;
 using IMT.PayAll.Request.Common;
+using IMT.PayAll.Request.Exchange;
 using IMT.PayAll.Request.Payer;
+using IMT.PayAll.Request.Payment;
+using IMT.PayAll.Request.PaymentInstructionRequest;
 using IMT.PayAll.Request.PaymentInstructionUpdateRequest;
 using IMT.PayAll.Request.PaymentRequest;
 using IMT.PayAll.Request.Recipient;
@@ -168,16 +171,42 @@ namespace IMT.Web.Controllers
         [HttpPost(PayAllUrl.CreateRecipient)]
         public object CreateRecipients(RecipientRequest requests)
         {
-            var result = _payAllClient.Recipients().CreateRecipient(requests);
-            return Ok(result);
+            try
+            {
+                var result = _payAllClient.Recipients().CreateRecipient(requests);
+                return Ok(result);
+            }
+            catch (ValidationsException ex)
+            {
+                var validationErrors = new Dictionary<string, string>();
+                foreach (var error in ex.ValidationErrors)
+                {
+                    validationErrors[error.Key] = string.Join("; ", error.Value);
+                }
+                return BadRequest(validationErrors);
+            }
+           
         }
 
         [Tags("PayAll.Recipients")]
         [HttpPatch(PayAllUrl.UpdateRecipient)]
         public object UpdateRecipient(Guid id, RecipientRequest request)
         {
-            var result = _payAllClient.Recipients().UpdateRecipient(id, request);
-            return Ok(result);
+          
+            try
+            {
+                var result = _payAllClient.Recipients().UpdateRecipient(id, request);
+                return Ok(result);
+            }
+            catch (ValidationsException ex)
+            {
+                var validationErrors = new Dictionary<string, string>();
+                foreach (var error in ex.ValidationErrors)
+                {
+                    validationErrors[error.Key] = string.Join("; ", error.Value);
+                }
+                return BadRequest(validationErrors);
+            }
         }
 
         [Tags("PayAll.Recipients")]

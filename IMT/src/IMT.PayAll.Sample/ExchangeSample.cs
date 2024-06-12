@@ -1,6 +1,7 @@
 
 using IMT.PayAll.Common;
-using IMT.PayAll.Request;
+using IMT.PayAll.Model;
+using IMT.PayAll.Request.Exchange;
 using IMT.PayAll.Response.Common;
 using NUnit.Framework;
 
@@ -35,7 +36,8 @@ namespace IMT.PayAll.Sample
         [Test]
         public void RequestExchangeRate()
         {
-            var result = _payAllClient.Exchanges().RequestExchangeRate(RequestData());
+            var request = RequestData();
+            var result = _payAllClient.Exchanges().RequestExchangeRate(request);
             Assert.NotNull(result);
         }
 
@@ -68,20 +70,20 @@ namespace IMT.PayAll.Sample
             {
                 source_amount = new SourceAmount
                 {
-                     currency = "USD",
+                     currency = Currency.USD.ToString(),
                       value = 123
                 },
                 target_amount = new TargetAmount
                 {
-                    currency = "USD",
+                    currency = Currency.USD.ToString(),
                     value = 123
                 },
                 source_account_id = "acc12345",
-                source_currency = "USD",
+                source_currency = Currency.USD.ToString(),
                 recipient_instrument_id = "recip67890",
-                payment_instrument_category = "BankTransfer",
-                payment_type = "International",
-                target_currency = "EUR",
+                payment_instrument_category = PaymentInstrumentCategory.MobileWallet.ToString(),
+                payment_type = PaymentType.B2B.ToString(),
+                target_currency = Currency.USD.ToString(),
                 destination_country = "DE"
             };
         }

@@ -1,9 +1,9 @@
 
 using IMT.PayAll.Common;
 using IMT.PayAll.Net;
-using IMT.PayAll.Request;
 using IMT.PayAll.Request.Common;
-using IMT.PayAll.Response;
+using IMT.PayAll.Request.Exchange;
+using IMT.PayAll.Response.Exchange;
 using IMT.PayAll.Route;
 
 

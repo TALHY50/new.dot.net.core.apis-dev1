@@ -10,7 +10,7 @@ namespace IMT.PayAll.Common
         private const string Sandbox = "https://api.sandbox.payall.com";
         private const string Stage = "https://api.stage.payall.com";
         private const string Production = "https://api.payall.com";
-        private const string LocalHost = "http://localhost:3000";
+        private const string LocalHost = "http://localhost:3001";
 
         // ClientId
         private const string SandboxClientId = "sandbox";

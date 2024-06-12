@@ -1,10 +1,8 @@
-﻿
-
-using IMT.PayAll.Response.Common;
+﻿using IMT.PayAll.Response.Common;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace IMT.PayAll.Response
+namespace IMT.PayAll.Response.Recipient
 {
     public class RecipientsResponse
     {
@@ -16,7 +14,7 @@ namespace IMT.PayAll.Response
         public string middle_name { get; set; }
         public string mobile_number { get; set; }
         public string dob { get; set; }
-        [JsonConverter(typeof(RegistrationAddressConverter))]
+        [JsonConverter(typeof(RegistrationAddressConverter<RegistrationAddressResponse>))]
         public List<RegistrationAddressResponse> registration_address { get; set; }
         public IdentityDocumentResponse identity_document { get; set; }
         public string legal_name { get; set; }
@@ -28,27 +26,27 @@ namespace IMT.PayAll.Response
 
     #region Json Custom Converter By porosh
 
- 
 
-    public class RegistrationAddressConverter : JsonConverter
+
+    public class RegistrationAddressConverter<T> : JsonConverter
     {
         public override bool CanConvert(Type objectType)
         {
-            return objectType == typeof(List<RegistrationAddressResponse>);
+            return objectType == typeof(List<T>);
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             JToken token = JToken.Load(reader);
-            List<RegistrationAddressResponse> addresses = new List<RegistrationAddressResponse>();
+            List<T> addresses = new List<T>();
 
             if (token.Type == JTokenType.Array)
             {
-                addresses = token.ToObject<List<RegistrationAddressResponse>>();
+                addresses = token.ToObject<List<T>>();
             }
             else if (token.Type == JTokenType.Object)
             {
-                addresses.Add(token.ToObject<RegistrationAddressResponse>());
+                addresses.Add(token.ToObject<T>());
             }
 
             return addresses;
@@ -56,7 +54,7 @@ namespace IMT.PayAll.Response
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            List<RegistrationAddressResponse> addresses = (List<RegistrationAddressResponse>)value;
+            List<T> addresses = (List<T>)value;
 
             if (addresses.Count == 1)
             {

@@ -1,17 +1,17 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
 using IMT.PayAll.Common;
+using IMT.PayAll.Model;
 using IMT.PayAll.Net;
 using IMT.PayAll.Request.Common;
 using IMT.PayAll.Request.Recipient;
-using IMT.PayAll.Response;
+using IMT.PayAll.Response.Recipient;
 using IMT.PayAll.Route;
 
 namespace IMT.PayAll.Adapter
 {
     public class RecipientsAdapter : BaseAdapter
     {
-        private enum recipientType { Person, Business };
         public RecipientsAdapter(RequestOptions requestOptions) : base(requestOptions)
         {
 
@@ -53,7 +53,7 @@ namespace IMT.PayAll.Adapter
 
         private object GenerateRecipientRequest(RecipientRequest request)
         {
-            if (request.type == recipientType.Business.ToString())
+            if (request.type == AccountType.Business.ToString())
             {
               var model = new BusinessRecipientRequest
                 {
@@ -70,7 +70,7 @@ namespace IMT.PayAll.Adapter
                 return model;
 
             }
-            if (request.type == recipientType.Person.ToString())
+            if (request.type == AccountType.Person.ToString())
             {
                 var model = new PersonRecipientRequest
                 {

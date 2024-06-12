@@ -1,6 +1,7 @@
 
 using IMT.PayAll.Common;
 using IMT.PayAll.Request;
+using IMT.PayAll.Request.PaymentInstructionRequest;
 using IMT.PayAll.Request.PaymentInstructionUpdateRequest;
 using NUnit.Framework;
 

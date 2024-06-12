@@ -1,6 +1,7 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
 using IMT.PayAll.Common;
+using IMT.PayAll.Model;
 using IMT.PayAll.Net;
 using IMT.PayAll.Request.Common;
 using IMT.PayAll.Request.Payer;
@@ -11,7 +12,6 @@ namespace IMT.PayAll.Adapter
 {
     public class PayersAdapter : BaseAdapter
     {
-        private enum payerType { Person, Business };
         public PayersAdapter(RequestOptions requestOptions) : base(requestOptions)
         {
 
@@ -52,7 +52,7 @@ namespace IMT.PayAll.Adapter
 
         private object GeneratePayerRequest(PayerRequest request)
         {
-            if (request.type == payerType.Business.ToString())
+            if (request.type == AccountType.Business.ToString())
             {
                 var model = new BusinessPayerRequest
                 {
@@ -70,7 +70,7 @@ namespace IMT.PayAll.Adapter
                 return model;
 
             }
-            if (request.type == payerType.Person.ToString())
+            if (request.type == AccountType.Person.ToString())
             {
                 var model = new PersonPayerRequest
                 {

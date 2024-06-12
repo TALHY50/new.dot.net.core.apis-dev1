@@ -1,5 +1,6 @@
 ﻿
 
+using System.ComponentModel.DataAnnotations;
 using IMT.PayAll.Request.PaymentRequest;
 
 namespace IMT.PayAll.Request.Recipient
