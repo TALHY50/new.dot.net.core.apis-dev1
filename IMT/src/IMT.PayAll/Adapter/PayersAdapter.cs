@@ -44,10 +44,10 @@ namespace IMT.PayAll.Adapter
         }
 
         // Get list of payer's accounts
-        public PayersResponse GetPayerAccounts(Guid payerId)
+        public List<AccountResponse> GetPayerAccounts(Guid payerId)
         {
             var path = PayAllUrl.GetPayerAccounts.Replace("{id}", payerId.ToString());
-            return RestClient.Get<PayersResponse>(RequestOptions.BaseUrl + path, CreateHeaders(path, RequestOptions));
+            return RestClient.Get<List<AccountResponse>>(RequestOptions.BaseUrl + path, CreateHeaders(path, RequestOptions));
         }
 
         private object GeneratePayerRequest(PayerRequest request)

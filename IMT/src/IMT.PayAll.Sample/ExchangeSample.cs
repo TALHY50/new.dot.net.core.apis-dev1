@@ -88,11 +88,11 @@ namespace IMT.PayAll.Sample
 
         private ConfirmExchangeRateRequest ConfirmExchangeRateRequest()
         {
-            return new ConfirmExchangeRateRequest { exchange_rate_id = new Guid("3fa85f64 - 5717 - 4562 - b3fc - 2c963f66afa6") };
+            return new ConfirmExchangeRateRequest { exchange_rate_id = new Guid("3fa85f64-5717-4562-b3fc-2c963f66afa6") };
         }
         private CancelExchangeRateRequest CancelExchangeRateRequest()
         {
-            return new CancelExchangeRateRequest { exchange_rate_id = new Guid("3fa85f64 - 5717 - 4562 - b3fc - 2c963f66afa6") };
+            return new CancelExchangeRateRequest { exchange_rate_id = new Guid("3fa85f64-5717-4562-b3fc-2c963f66afa6") };
         }
     }
 }

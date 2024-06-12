@@ -81,7 +81,7 @@ namespace IMT.PayAll.Sample
 
             return new RecipientRequest
             {
-                type = "Individual",
+                type = "Person",
                 email = "john.doe@example.com",
                 registration_address = new List<RegistrationAddressRequest> { registrationAddress },
                 first_name = "John",
