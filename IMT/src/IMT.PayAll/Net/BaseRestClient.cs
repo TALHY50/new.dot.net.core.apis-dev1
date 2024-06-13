@@ -95,7 +95,5 @@ namespace IMT.PayAll.Net
                 Data = apiResponse
             };
         }
-
-        
     }
 }
