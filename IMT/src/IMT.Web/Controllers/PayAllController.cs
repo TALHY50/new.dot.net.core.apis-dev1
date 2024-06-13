@@ -1,9 +1,7 @@
 ﻿
-using DotNetEnv;
 using IMT.PayAll;
 using IMT.PayAll.Common;
 using IMT.PayAll.Exception;
-using IMT.PayAll.Request;
 using IMT.PayAll.Request.Common;
 using IMT.PayAll.Request.Exchange;
 using IMT.PayAll.Request.Payer;
@@ -26,11 +24,9 @@ namespace IMT.Web.Controllers
     {
         private readonly PayAllClient _payAllClient;
 
-        //private string ServerEnvironment = "Sandbox";
-        private string ServerEnvironment = "Local";
+        private string ServerEnvironment = BaseRequirement.Servers.Local.ToString();
         public PayAllController()
         {
-            ServerEnvironment = Env.GetString("Environment");
             var requirement = BaseRequirement.GetBaseRequirement(ServerEnvironment);
             _payAllClient = new PayAllClient(requirement.ClientID, requirement.ClientSecret, requirement.BaseUrl);
         }

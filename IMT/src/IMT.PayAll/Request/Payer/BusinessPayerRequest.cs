@@ -14,7 +14,7 @@ namespace IMT.PayAll.Request.Payer
         public string country { get; set; }
         [Required]
         public string registration_number { get; set; }
-
+        [MaxLength(30)]
         public string phone_number { get; set; }
         public DateOnly registration_date { get; set; }
 

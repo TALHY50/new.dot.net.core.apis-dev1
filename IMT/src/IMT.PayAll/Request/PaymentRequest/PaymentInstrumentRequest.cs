@@ -1,11 +1,41 @@
 ﻿
 
+using IMT.PayAll.Model;
+using System.ComponentModel.DataAnnotations;
+
 namespace IMT.PayAll.Request.PaymentRequest
 {
     public class PaymentInstrumentRequest
     {
-        public string category { get; set; }
-        public string currency { get; set; }
+        private string _category;
+        private string _currency;
+       
+        public string category
+        {
+            get => _category;
+            set
+            {
+                if (!string.IsNullOrEmpty(value) && !Enum.GetNames(typeof(PaymentInstrumentCategory)).Contains(value))
+                {
+                    throw new InvalidOperationException($"Invalid Payment Instrument Category: {value}");
+                }
+                _category = value;
+            }
+        }
+
+       
+        public string currency
+        {
+            get => _currency;
+            set
+            {
+                if (!string.IsNullOrEmpty(value) && !Enum.GetNames(typeof(Currency)).Contains(value))
+                {
+                    throw new InvalidOperationException($"Invalid Currency: {value}");
+                }
+                _currency = value;
+            }
+        }
 
         public string mobile_number { get; set; }
 

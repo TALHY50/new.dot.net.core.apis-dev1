@@ -60,7 +60,7 @@ namespace IMT.PayAll.Net
         private static void RequireSuccess<T>(HttpResponseMessage httpResponseMessage, string content)
         {
             if (httpResponseMessage.StatusCode < HttpStatusCode.BadRequest) return;
-            
+           
             if(httpResponseMessage.StatusCode == HttpStatusCode.Unauthorized)
             {
                 throw new PayAllException(((int)httpResponseMessage.StatusCode).ToString(), httpResponseMessage.StatusCode.ToString(), content);

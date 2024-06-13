@@ -5,7 +5,7 @@ using Newtonsoft.Json.Converters;
 namespace IMT.PayAll.Model
 {
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum Currency
+    public enum Currency 
     {
         [EnumMember(Value = "TRY")] TRY,
         [EnumMember(Value = "USD")] USD,

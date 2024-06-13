@@ -52,7 +52,7 @@ namespace IMT.PayAll.Sample
                 /*
                 recipient = new RecipientRequest()
                 {
-                    type = "Business",
+                    type = AccountType.Business.ToString(),
                     email = "john.doe@example.com",
                     first_name = "John",
                     last_name = "Doe",
@@ -97,7 +97,7 @@ namespace IMT.PayAll.Sample
                 payment_instrument = new PaymentInstrumentRequest
                 {
                     category = "Credit Card",
-                    currency = "USD",
+                    currency = Currency.USD.ToString(),
                     mobile_number = "+123456789"
                 },*/
 
@@ -114,8 +114,8 @@ namespace IMT.PayAll.Sample
                 kyt = new KytRequest
                 {
                     destination_country = "USA",
-                    payment_purpose = "Business",
-                    commercial_activity = "IT Services",
+                    payment_purpose = PaymentPurpose.business_investment.ToString(),
+                    commercial_activity = CommercialActivity.banking_and_finance.ToString(),
                     payment_description = "Invoice Payment",
                     supporting_documents = new List<SupportingDocument>
                 {
