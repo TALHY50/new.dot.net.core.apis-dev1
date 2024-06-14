@@ -1,6 +1,8 @@
 
 
+using IMT.PayAll.Net;
 using IMT.PayAll.Request.Common;
+using IMT.PayAll.Response;
 using IMT.PayAll.Route;
 
 
@@ -44,6 +46,12 @@ namespace IMT.PayAll.Adapter
             headers.Add(Authorization, BearerToken);
             return headers;
         }
+        private static Dictionary<string, string> LoginHeaders(string path, RequestOptions options)
+        {
+            var headers = new Dictionary<string, string>();
+            headers.Add(Accept, acceptHeader);
+            return headers;
+        }
         private static Dictionary<string, string> CreateHttpEventHeaders(object request, string path, RequestOptions options)
         {
             var headers = new Dictionary<string, string>();
@@ -53,8 +61,11 @@ namespace IMT.PayAll.Adapter
 
         private static string PrepareAuthorization(RequestOptions options)
         {
-            var path = PayAllUrl.Auth;
-            //RestClient.Post(RequestOptions.BaseUrl + path, CreateHeaders(null, path, RequestOptions), null);
+            var data = options.ClientID + options.ClientSecret;
+            var path = PayAllUrl.Auth.Replace("{data}", data.ToString());
+
+            //var response = RestClient.Get<TokenResponse>(options.BaseUrl + path, LoginHeaders(path, options));
+            //return "Bearer " + response.access_token;
 
             return "Bearer 123456789adffsfsfsfasfdfsdfadfsfsf";
         }
