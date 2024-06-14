@@ -1,0 +1,6 @@
+@NOTIFICATION.Web_HostAddress = http://localhost:5112
+
+GET {{NOTIFICATION.Web_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
