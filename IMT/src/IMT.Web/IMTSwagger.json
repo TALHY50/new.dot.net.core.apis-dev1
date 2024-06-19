@@ -96,10 +96,6 @@
           "uuid": "8ac8825b-cf33-4e2e-acb4-c1f7961da077"
         },
         {
-          "type": "route",
-          "uuid": "040179e8-381f-486e-b901-5aea35d038be"
-        },
-        {
           "type": "folder",
           "uuid": "9d425fe5-bc5d-42ea-97e2-f76718b5969d"
         }
@@ -228,7 +224,12 @@
     {
       "uuid": "8ac8825b-cf33-4e2e-acb4-c1f7961da077",
       "name": "Information",
-      "children": []
+      "children": [
+        {
+          "type": "route",
+          "uuid": "040179e8-381f-486e-b901-5aea35d038be"
+        }
+      ]
     },
     {
       "uuid": "9d425fe5-bc5d-42ea-97e2-f76718b5969d",
@@ -2617,17 +2618,39 @@
       "endpoint": "v2/money-transfer/payers/:id/:transaction_type/credit-party-information",
       "responses": [
         {
-          "uuid": "5139195f-4c42-4fbc-b6cc-5ff398e66526",
-          "body": "{\r\n    \"beneficiary\": {\r\n        \"address\": \"3 Norfolk Road\",\r\n        \"bank_account_holder_name\": null,\r\n        \"city\": \"Harare\",\r\n        \"code\": null,\r\n        \"country_iso_code\": \"ZWE\",\r\n        \"country_of_birth_iso_code\": \"ZWE\",\r\n        \"date_of_birth\": \"1971-01-01\",\r\n        \"email\": \"jane.doe@mail.com\",\r\n        \"firstname\": \"Jane\",\r\n        \"gender\": \"MALE\",\r\n        \"id_country_iso_code\": \"ZWE\",\r\n        \"id_delivery_date\": null,\r\n        \"id_expiration_date\": null,\r\n        \"id_number\": \"178027317681327\",\r\n        \"id_type\": \"SOCIAL_SECURITY\",\r\n        \"lastname\": \"Doe\",\r\n        \"lastname2\": null,\r\n        \"middlename\": null,\r\n        \"msisdn\": \"263775892364\",\r\n        \"nationality_country_iso_code\": \"FRA\",\r\n        \"nativename\": null,\r\n        \"occupation\": \"Sales Executive\",\r\n        \"postal_code\": \"4581\",\r\n        \"province_state\": null\r\n    },\r\n    \"id\": 10252292\r\n}",
+          "uuid": "91f671fb-8df7-4bf0-9e51-cfab30e03dea",
+          "body": "{\r\n    \"beneficiary\": {\r\n        \"address\": \"3 Norfolk Road\",\r\n        \"bank_account_holder_name\": null,\r\n        \"city\": \"Harare\",\r\n        \"code\": null,\r\n        \"country_iso_code\": \"ZWE\",\r\n        \"country_of_birth_iso_code\": \"ZWE\",\r\n        \"date_of_birth\": \"1971-01-01\",\r\n        \"email\": \"jane.doe@mail.com\",\r\n        \"firstname\": \"Jane\",\r\n        \"gender\": \"MALE\",\r\n        \"id_country_iso_code\": \"ZWE\",\r\n        \"id_delivery_date\": null,\r\n        \"id_expiration_date\": null,\r\n        \"id_number\": \"178027317681327\",\r\n        \"id_type\": \"SOCIAL_SECURITY\",\r\n        \"lastname\": \"Doe\",\r\n        \"lastname2\": null,\r\n        \"middlename\": null,\r\n        \"msisdn\": \"263775892364\",\r\n        \"nationality_country_iso_code\": \"FRA\",\r\n        \"nativename\": null,\r\n        \"occupation\": \"Sales Executive\",\r\n        \"postal_code\": \"4581\",\r\n        \"province_state\": null\r\n    }\r\n    \"id\": 10252292\r\n}",
           "latency": 0,
           "statusCode": 200,
-          "label": "OK",
-          "headers": [
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
             {
-              "key": "Content-Type",
-              "value": "application/json"
+              "target": "body",
+              "modifier": "credit_party_identifier.msisdn",
+              "value": "263775892364",
+              "invert": false,
+              "operator": "equals"
             }
           ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "d3fd75d9-deb2-46ee-ab78-7958c72cd0fd",
+          "body": "{\r\n    \"message\": \"Very Bad\"\r\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "",
+          "headers": [],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
