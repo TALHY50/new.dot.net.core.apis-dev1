@@ -2,7 +2,7 @@
 
 namespace ACL.Application.Ports.Repositories.Company
 {
-     /// <inheritdoc/>
+    /// <inheritdoc/>
     public interface IAclBranchRepository
     {
         /// <inheritdoc/>
