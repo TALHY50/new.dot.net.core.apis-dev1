@@ -10,6 +10,8 @@ namespace ADMIN.Web.Controllers.V1
     [ApiController]
     public class AdminProviderController : Controller
     {
+
+        
         
     }
 }
