@@ -17,7 +17,7 @@ namespace ADMIN.Infrastructure.Persistence.Configurations
         {
         }
 
-        public virtual DbSet<AdminProvider> AdminProviders { get; set; }
+        public virtual DbSet<AdminProvider> Admin_Providers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -36,9 +36,7 @@ namespace ADMIN.Infrastructure.Persistence.Configurations
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Configure your entities, relationships, etc.
             modelBuilder.Entity<AdminProvider>().HasKey(e => e.Id);
-            // Additional configurations as needed
         }
     }
 }

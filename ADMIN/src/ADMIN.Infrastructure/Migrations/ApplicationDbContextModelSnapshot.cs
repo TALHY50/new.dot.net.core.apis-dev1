@@ -31,11 +31,11 @@ namespace ADMIN.Infrastructure.Migrations
                     b.Property<string>("Code")
                         .HasColumnType("longtext");
 
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<ulong?>("CreatedBy")
                         .HasColumnType("bigint unsigned");
-
-                    b.Property<DateTime?>("CretedAt")
-                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -49,7 +49,7 @@ namespace ADMIN.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AdminProviders");
+                    b.ToTable("Admin_Providers");
                 });
 #pragma warning restore 612, 618
         }

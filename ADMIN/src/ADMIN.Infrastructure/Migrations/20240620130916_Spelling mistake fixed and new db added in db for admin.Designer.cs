@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ADMIN.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240620113811_init")]
-    partial class init
+    [Migration("20240620130916_Spelling mistake fixed and new db added in db for admin")]
+    partial class Spellingmistakefixedandnewdbaddedindbforadmin
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,11 +34,11 @@ namespace ADMIN.Infrastructure.Migrations
                     b.Property<string>("Code")
                         .HasColumnType("longtext");
 
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<ulong?>("CreatedBy")
                         .HasColumnType("bigint unsigned");
-
-                    b.Property<DateTime?>("CretedAt")
-                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -52,7 +52,7 @@ namespace ADMIN.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AdminProviders");
+                    b.ToTable("Admin_Providers");
                 });
 #pragma warning restore 612, 618
         }
