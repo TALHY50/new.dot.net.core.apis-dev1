@@ -1,5 +1,7 @@
 
+using ADMIN.Application.Ports.Repositories.Interface;
 using ADMIN.Infrastructure.Persistence.Configurations;
+using ADMIN.Infrastructure.Persistence.Repositories.Provider;
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
 
@@ -35,6 +37,9 @@ namespace ADMIN
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            // dependency start
+            builder.Services.AddScoped<IProviderRepository, ProviderRepository>();
+            // dependency end
 
             var app = builder.Build();
 

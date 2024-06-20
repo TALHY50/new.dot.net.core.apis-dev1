@@ -13,6 +13,5 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\ADMIN.Contracts\ADMIN.Contracts.csproj" />
 	  <ProjectReference Include="..\ADMIN.Core\ADMIN.Core.csproj" />
-	  <ProjectReference Include="..\ADMIN.Infrastructure\ADMIN.Infrastructure.csproj" />
 	</ItemGroup>
 </Project>
