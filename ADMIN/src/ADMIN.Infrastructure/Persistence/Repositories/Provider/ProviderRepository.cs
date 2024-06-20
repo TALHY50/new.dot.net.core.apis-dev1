@@ -4,10 +4,11 @@ using ADMIN.Application.Ports.Repositories.Interface;
 using ADMIN.Contracts.Requests;
 using ADMIN.Core.Entities.AdminProvider;
 using ADMIN.Infrastructure.Persistence.Configurations;
+using SharedLibrary.Services;
 
 namespace ADMIN.Infrastructure.Persistence.Repositories.Provider
 {
-    public class ProviderRepository : IProviderRepository
+    public class ProviderRepository : GenericRepository<AdminProvider,ApplicationDbContext>(AdminProvider,ApplicationDbContext)
     {
 
         private readonly ApplicationDbContext _dbContext;

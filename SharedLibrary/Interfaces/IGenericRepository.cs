@@ -4,7 +4,7 @@ namespace SharedLibrary.Interfaces
 {
     public interface IGenericRepository<T> where T : class
     {
-        Task<IEnumerable<T>> All();
+        Task<IEnumerable<T>?> All();
         Task<T?> GetById(ulong id);
         Task<T> AddAsync(T entity);
         T Add(T entity);

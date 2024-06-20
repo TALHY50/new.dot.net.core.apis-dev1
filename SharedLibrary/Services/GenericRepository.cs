@@ -9,18 +9,7 @@ using System.Linq.Expressions;
 
 namespace SharedLibrary.Services
 {
-    //public class GenericRepository<T, TDbContext,TUnitOfWork> : IGenericRepository<T> where T : class where TDbContext : DbContext where TUnitOfWork: class
-    //{
-    //    protected IUnitOfWork<TDbContext> _unitOfWork;
-    //    protected TUnitOfWork _customUnitOfWork;
-    //    internal DbSet<T> _dbSet;
-    //    public GenericRepository(IUnitOfWork<TDbContext> unitOfWork, TUnitOfWork customUnitOfWork)
-    //    {
-    //        _unitOfWork = unitOfWork;
-    //        _customUnitOfWork = customUnitOfWork;
-    //        _dbSet = unitOfWork.ApplicationDbContext.Set<T>();
-
-    //    }
+ 
     public class GenericRepository<T, TDbContext, TUnitOfWork>(TUnitOfWork unitOfWork, TDbContext dbContext)
         : IGenericRepository<T>
         where T : class
@@ -50,7 +39,7 @@ namespace SharedLibrary.Services
                 throw ex;
             }
         }
-        public virtual async Task<IEnumerable<T>> All()
+        public virtual async Task<IEnumerable<T>?> All()
         {
             try
             {
