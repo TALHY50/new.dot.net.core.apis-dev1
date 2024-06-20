@@ -19,18 +19,18 @@ namespace ADMIN.Infrastructure.Persistence.Repositories.Provider
 
         public List<AdminProvider> All()
         {
-            return _dbContext.AdminProviders.ToList();
+            return _dbContext.Admin_Providers.ToList();
         }
         /// <inheritdoc/>
         public AdminProvider? Find(ulong id)
         {
-            return _dbContext.AdminProviders.Find(id);
+            return _dbContext.Admin_Providers.Find(id);
         }
         /// <inheritdoc/>
         public AdminProvider? Add(ProviderRequest request)
         {
             AdminProvider adminProvider = PrepareData(request);
-            _dbContext.AdminProviders.Add(adminProvider);
+            _dbContext.Admin_Providers.Add(adminProvider);
             _dbContext.SaveChanges();
             _dbContext.Entry(adminProvider).Reload();
             return adminProvider;
@@ -42,7 +42,7 @@ namespace ADMIN.Infrastructure.Persistence.Repositories.Provider
             if (adminProvider != null)
             {
                 AdminProvider prePareData = PrepareData(request, adminProvider);
-                _dbContext.AdminProviders.Update(prePareData);
+                _dbContext.Admin_Providers.Update(prePareData);
                 _dbContext.SaveChanges();
                 _dbContext.Entry(adminProvider).Reload();
                 return prePareData;
@@ -55,8 +55,9 @@ namespace ADMIN.Infrastructure.Persistence.Repositories.Provider
             var adminProvider = Find(id);
             if (adminProvider != null)
             {
-                _dbContext.AdminProviders.Remove(adminProvider);
+                _dbContext.Admin_Providers.Remove(adminProvider);
                 _dbContext.SaveChangesAsync();
+                _dbContext.Entry(adminProvider).Reload();
                 return adminProvider;
             }
             else
@@ -72,7 +73,6 @@ namespace ADMIN.Infrastructure.Persistence.Repositories.Provider
                 adminProvider.Name = request.Name;
                 adminProvider.Code = request.Code;
                 adminProvider.BaseUrl = request.BaseUrl;
-                adminProvider.CreatedBy = 1;
                 adminProvider.UpdatedBy = 1;
                 adminProvider.UpdatedAt = DateTime.Now;
                 return adminProvider;
@@ -87,7 +87,7 @@ namespace ADMIN.Infrastructure.Persistence.Repositories.Provider
                     CreatedBy = 1,
                     UpdatedBy = 1,
                     UpdatedAt = DateTime.Now,
-                    CretedAt = DateTime.Now,
+                    CreatedAt = DateTime.Now,
                 };
             }
         }

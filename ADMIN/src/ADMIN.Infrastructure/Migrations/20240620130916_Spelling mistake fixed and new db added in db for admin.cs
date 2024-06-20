@@ -7,7 +7,7 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace ADMIN.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class Spellingmistakefixedandnewdbaddedindbforadmin : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,7 +16,7 @@ namespace ADMIN.Infrastructure.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "AdminProviders",
+                name: "Admin_Providers",
                 columns: table => new
                 {
                     Id = table.Column<ulong>(type: "bigint unsigned", nullable: false)
@@ -26,12 +26,12 @@ namespace ADMIN.Infrastructure.Migrations
                     BaseUrl = table.Column<string>(type: "longtext", nullable: true),
                     CreatedBy = table.Column<ulong>(type: "bigint unsigned", nullable: true),
                     UpdatedBy = table.Column<ulong>(type: "bigint unsigned", nullable: true),
-                    CretedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AdminProviders", x => x.Id);
+                    table.PrimaryKey("PK_Admin_Providers", x => x.Id);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
         }
@@ -40,7 +40,7 @@ namespace ADMIN.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AdminProviders");
+                name: "Admin_Providers");
         }
     }
 }
