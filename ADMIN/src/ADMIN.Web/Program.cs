@@ -1,4 +1,8 @@
 
+using ADMIN.Infrastructure.Persistence.Configurations;
+using DotNetEnv;
+using Microsoft.EntityFrameworkCore;
+
 namespace ADMIN
 {
     public class Program
@@ -10,6 +14,24 @@ namespace ADMIN
             // Add services to the container.
 
             builder.Services.AddControllers();
+
+            Env.NoClobber().TraversePath().Load();
+
+            var server = Env.GetString("DB_HOST");
+            var database = Env.GetString("DB_DATABASE");
+            var userName = Env.GetString("DB_USERNAME");
+            var password = Env.GetString("DB_PASSWORD");
+            var port = Env.GetString("DB_PORT");
+
+            var connectionString = $"server={server};database={database};User ID={userName};Password={password};CharSet=utf8mb4;" ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseMySQL(connectionString, options =>
+                {
+                    options.EnableRetryOnFailure();
+                }), ServiceLifetime.Transient);
+
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -27,9 +49,7 @@ namespace ADMIN
 
             app.UseAuthorization();
 
-
             app.MapControllers();
-
             app.Run();
         }
     }
