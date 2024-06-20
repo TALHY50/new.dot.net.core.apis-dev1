@@ -31,7 +31,8 @@ namespace ADMIN.Infrastructure.Persistence.Repositories.Provider
         {
             AdminProvider adminProvider = PrepareData(request);
             _dbContext.AdminProviders.Add(adminProvider);
-            _dbContext.SaveChangesAsync();
+            _dbContext.SaveChanges();
+            _dbContext.Entry(adminProvider).Reload();
             return adminProvider;
         }
         /// <inheritdoc/>
@@ -42,7 +43,8 @@ namespace ADMIN.Infrastructure.Persistence.Repositories.Provider
             {
                 AdminProvider prePareData = PrepareData(request, adminProvider);
                 _dbContext.AdminProviders.Update(prePareData);
-                _dbContext.SaveChangesAsync();
+                _dbContext.SaveChanges();
+                _dbContext.Entry(adminProvider).Reload();
                 return prePareData;
             }
             return null;
