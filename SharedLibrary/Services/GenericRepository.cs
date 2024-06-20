@@ -234,8 +234,31 @@ namespace SharedLibrary.Services
                 throw new ArgumentNullException(nameof(entity));
             }
 
-            await _dbSet.Entry(entity).ReloadAsync();
+            await _dbContext.Entry(entity).ReloadAsync();
         }
+
+        public virtual async Task<T[]> ReloadAndGetEntitiesAsync(T[] entities)
+        {
+            if (entities == null)
+            {
+                throw new ArgumentNullException(nameof(entities));
+            }
+
+            var reloadedEntities = new List<T>();
+            foreach (var entity in entities)
+            {
+                if (entity == null)
+                {
+                    throw new ArgumentNullException(nameof(entity));
+                }
+
+                await _dbContext.Entry(entity).ReloadAsync();
+                reloadedEntities.Add(entity);
+            }
+
+            return reloadedEntities.ToArray();
+        }
+
 
         public void Detach(T entity)
         {
@@ -243,7 +266,7 @@ namespace SharedLibrary.Services
             {
                 throw new ArgumentNullException(nameof(entity));
             }
-            var entry = _dbSet.Entry(entity);
+            var entry = _dbContext.Entry(entity);
             if (entry != null)
             {
                 entry.State = EntityState.Detached;

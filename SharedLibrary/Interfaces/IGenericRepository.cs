@@ -19,6 +19,7 @@ namespace SharedLibrary.Interfaces
         Task<IEnumerable<T>> RemoveRange(IEnumerable<T> entities);
         Task<IEnumerable<T>> AddRange(params T[] entities);
         Task ReloadAsync(T entity);
+        Task<T[]> ReloadAndGetEntitiesAsync(T[] entities);
         void Detach(T entity);
         IQueryable<T> Where(Expression<Func<T, bool>> predicate);
         Task ReloadEntitiesAsync(IEnumerable<T> entities);

@@ -18,18 +18,18 @@ var app = builder.Build();
 //app.UseMiddleware<GlobalExceptionHandler>();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+//if (app.Environment.IsDevelopment())
+//{
     app.UseSwagger();
     app.UseSwaggerUI(options =>
     {
         options.DefaultModelsExpandDepth(-1);
     });
-}
+//}
 
 Env.NoClobber().TraversePath().Load();
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
