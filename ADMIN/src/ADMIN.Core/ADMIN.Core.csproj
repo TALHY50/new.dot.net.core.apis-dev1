@@ -14,4 +14,9 @@
 		<PackageReference Include="MediatR" Version="12.2.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.1" />
 	</ItemGroup>
+	<ItemGroup>
+	  <Reference Include="SharedLibrary">
+	    <HintPath>..\..\..\SharedLibrary\bin\Debug\net8.0\SharedLibrary.dll</HintPath>
+	  </Reference>
+	</ItemGroup>
 </Project>

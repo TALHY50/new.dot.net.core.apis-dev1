@@ -34,7 +34,7 @@ namespace ACL.Application.Ports.Repositories.Module
         /// <inheritdoc/>
         bool ExistById(ulong? id, ulong value);
 
-       bool IsModuleNameAlreadyExist(string name, ulong? requestId = null);
-       bool IsModuleIdAlreadyExist(ulong id, ulong? requestId = null);
+        bool IsModuleNameAlreadyExist(string name, ulong? requestId = null);
+        bool IsModuleIdAlreadyExist(ulong id, ulong? requestId = null);
     }
 }

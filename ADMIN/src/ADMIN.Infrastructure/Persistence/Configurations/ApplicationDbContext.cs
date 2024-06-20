@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 using ADMIN.Core.Entities.AdminProvider;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,7 +14,7 @@ namespace ADMIN.Infrastructure.Persistence.Configurations
         {
         }
 
-        public DbSet<AdminProvider> AdminProviders { get; set; }
+        public virtual DbSet<AdminProvider> AdminProviders { get; set; }
 
 
     }
