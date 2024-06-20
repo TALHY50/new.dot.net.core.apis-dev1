@@ -57,7 +57,6 @@ namespace ADMIN.Infrastructure.Persistence.Repositories.Provider
             {
                 _dbContext.Admin_Providers.Remove(adminProvider);
                 _dbContext.SaveChangesAsync();
-                _dbContext.Entry(adminProvider).Reload();
                 return adminProvider;
             }
             else
