@@ -11,6 +11,8 @@ namespace ADMIN.Application.Ports.Repositories.Interface
 {
     public interface IProviderRepository : IGenericRepository<AdminProvider>
     {
-
+        AdminProvider? AddProvider(ProviderRequest request);
+        AdminProvider? UpdateProvider(ulong id, ProviderRequest request);
+        AdminProvider? DeleteProvider(ulong id);
     }
 }

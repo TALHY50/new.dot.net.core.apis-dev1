@@ -29,25 +29,25 @@ namespace ADMIN.Web.Controllers.V1
         [HttpPost(AdminRoutesUrl.AdminProviderUrl.Add, Name = AdminRoutesNames.AdminProviderNames.Add)]
         public IActionResult Add(ProviderRequest request)
         {
-            return Ok(_repository.Add(request));
+            return Ok(_repository.AddProvider(request));
         }        
         
         [HttpPut(AdminRoutesUrl.AdminProviderUrl.Edit, Name = AdminRoutesNames.AdminProviderNames.Edit)]
         public IActionResult Edit(ulong id, ProviderRequest request)
         {
-            return Ok(_repository.Update(id, request));
+            return Ok(_repository.UpdateProvider(id, request));
         }        
         
         [HttpGet(AdminRoutesUrl.AdminProviderUrl.Find, Name = AdminRoutesNames.AdminProviderNames.Find)]
         public IActionResult Find(ulong id)
         {
-            return Ok(_repository.Find(id));
+            return Ok(_repository.GetById(id));
         }        
         
         [HttpDelete(AdminRoutesUrl.AdminProviderUrl.Delete, Name = AdminRoutesNames.AdminProviderNames.Delete)]
         public IActionResult Delete(ulong id)
         {
-            return Ok(_repository.Delete(id));
+            return Ok(_repository.DeleteProvider(id));
         }
     }
 }

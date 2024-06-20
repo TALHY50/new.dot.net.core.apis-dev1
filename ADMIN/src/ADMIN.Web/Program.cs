@@ -2,6 +2,8 @@
 using ADMIN.Application.Ports.Repositories.Interface;
 using ADMIN.Infrastructure.Persistence.Configurations;
 using ADMIN.Infrastructure.Persistence.Repositories.Provider;
+using ADMIN.Infrastructure.Persistence.UnitOfWork;
+using ADMIN.Infrastructure.Persistence.UnitOfWork.Interface;
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
 
@@ -38,7 +40,7 @@ namespace ADMIN
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             // dependency start
-            builder.Services.AddScoped<IProviderRepository, ProviderRepository>();
+            builder.Services.AddScoped<ICustomUnitOfWork, CustomUnitOfWork>();
             // dependency end
 
             var app = builder.Build();

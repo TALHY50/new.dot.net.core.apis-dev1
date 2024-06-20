@@ -60,31 +60,43 @@ namespace SharedLibrary.Services
         public virtual async Task<T> AddAsync(T entity)
         {
             await _dbSet.AddAsync(entity);
+            _dbContext.SaveChanges();
             return entity;
         }
 
         public virtual Task<T> UpdateAsync(T entity)
         {
             _dbSet.Update(entity);
+            _dbContext.SaveChanges();
             return Task.FromResult(entity);
         }
 
         public T Add(T entity)
         {
             _dbSet.Add(entity);
+            _dbContext.SaveChanges();
+            _dbContext.Entry(entity).Reload();
             return entity;
         }
 
         public T Update(T entity)
         {
             _dbSet.Update(entity);
-
+            _dbContext.SaveChanges();
+            _dbContext.Entry(entity).Reload();
             return entity;
         }
 
         public virtual Task<bool> DeleteAsync(T entity)
         {
             _dbSet.Remove(entity);
+            _dbContext.SaveChanges();
+            return Task.FromResult(true);
+        }
+        public virtual Task<bool> Delete(T entity)
+        {
+            _dbSet.Remove(entity);
+            _dbContext.SaveChanges();
             return Task.FromResult(true);
         }
         public async Task<IEnumerable<T>> ExecuteSqlQuery(string sqlQuery, params object[] parameters)
@@ -199,12 +211,14 @@ namespace SharedLibrary.Services
             var entitiesToDelete = await _dbSet.Where(predicate).ToListAsync();
             _dbSet.RemoveRange(entitiesToDelete);
              await _dbSet.SingleAsync();
+             _dbContext.SaveChanges();
             return entitiesToDelete.Count;
         }
         public async Task<IEnumerable<T>> RemoveRange(IEnumerable<T> entities)
         {
             _dbSet.RemoveRange(entities);
             await _dbSet.SingleAsync();
+            _dbContext.SaveChanges();
             return entities;
         }
 
@@ -213,6 +227,7 @@ namespace SharedLibrary.Services
         {
             await _dbSet.AddRangeAsync(entities);
              await _dbSet.SingleAsync();
+             _dbContext.SaveChanges();
             return entities;
         }
 

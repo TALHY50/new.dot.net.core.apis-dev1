@@ -4,61 +4,44 @@ using ADMIN.Application.Ports.Repositories.Interface;
 using ADMIN.Contracts.Requests;
 using ADMIN.Core.Entities.AdminProvider;
 using ADMIN.Infrastructure.Persistence.Configurations;
+using ADMIN.Infrastructure.Persistence.UnitOfWork;
+using ADMIN.Infrastructure.Persistence.UnitOfWork.Interface;
+using Microsoft.Extensions.Configuration;
 using SharedLibrary.Services;
 
 namespace ADMIN.Infrastructure.Persistence.Repositories.Provider
 {
-    public class ProviderRepository : GenericRepository<AdminProvider,ApplicationDbContext>(AdminProvider,ApplicationDbContext)
+    public class ProviderRepository: GenericRepository<AdminProvider, ApplicationDbContext, ICustomUnitOfWork>, IProviderRepository
     {
-
-        private readonly ApplicationDbContext _dbContext;
-
-        public ProviderRepository(ApplicationDbContext dbContext)
+        public ProviderRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork,
+            _unitOfWork.ApplicationDbContext)
         {
-            _dbContext = dbContext;
-        }
 
-        public List<AdminProvider> All()
-        {
-            return _dbContext.Admin_Providers.ToList();
         }
         /// <inheritdoc/>
-        public AdminProvider? Find(ulong id)
-        {
-            return _dbContext.Admin_Providers.Find(id);
-        }
-        /// <inheritdoc/>
-        public AdminProvider? Add(ProviderRequest request)
+        public AdminProvider? AddProvider(ProviderRequest request)
         {
             AdminProvider adminProvider = PrepareData(request);
-            _dbContext.Admin_Providers.Add(adminProvider);
-            _dbContext.SaveChanges();
-            _dbContext.Entry(adminProvider).Reload();
-            return adminProvider;
+           return base.Add(adminProvider);
         }
         /// <inheritdoc/>
-        public AdminProvider? Update(ulong id, ProviderRequest request)
+        public AdminProvider? UpdateProvider(ulong id, ProviderRequest request)
         {
-            var adminProvider = Find(id);
+            var adminProvider = base.GetById(id).Result;
             if (adminProvider != null)
             {
                 AdminProvider prePareData = PrepareData(request, adminProvider);
-                _dbContext.Admin_Providers.Update(prePareData);
-                _dbContext.SaveChanges();
-                _dbContext.Entry(adminProvider).Reload();
-                return prePareData;
+                return base.Update(prePareData);
             }
             return null;
         }
         /// <inheritdoc/>
-        public AdminProvider? Delete(ulong id)
+        public AdminProvider? DeleteProvider(ulong id)
         {
-            var adminProvider = Find(id);
+            var adminProvider = base.GetById(id).Result;
             if (adminProvider != null)
             {
-                _dbContext.Admin_Providers.Remove(adminProvider);
-                _dbContext.SaveChangesAsync();
-                return adminProvider;
+                return (base.Delete(adminProvider).Result == true)?adminProvider:null;
             }
             else
             {

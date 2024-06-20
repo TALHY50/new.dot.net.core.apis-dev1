@@ -3,17 +3,14 @@ using ADMIN.Core.Entities.AdminProvider;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using MySql.EntityFrameworkCore.Extensions;
+using SharedLibrary.Interfaces;
 
 
 namespace ADMIN.Infrastructure.Persistence.Configurations
 {
-    public partial class ApplicationDbContext : DbContext
+    public partial class ApplicationDbContext : DbContext,IApplicationDbContext
     {
-        public ApplicationDbContext()
-        {
-        }
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-    : base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options):base(options)
         {
         }
 
