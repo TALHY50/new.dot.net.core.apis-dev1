@@ -9,25 +9,18 @@ using System.Linq.Expressions;
 
 namespace SharedLibrary.Services
 {
-    //public class GenericRepository<T, TDbContext,TUnitOfWork> : IGenericRepository<T> where T : class where TDbContext : DbContext where TUnitOfWork: class
-    //{
-    //    protected IUnitOfWork<TDbContext> _unitOfWork;
-    //    protected TUnitOfWork _customUnitOfWork;
-    //    internal DbSet<T> _dbSet;
-    //    public GenericRepository(IUnitOfWork<TDbContext> unitOfWork, TUnitOfWork customUnitOfWork)
-    //    {
-    //        _unitOfWork = unitOfWork;
-    //        _customUnitOfWork = customUnitOfWork;
-    //        _dbSet = unitOfWork.ApplicationDbContext.Set<T>();
 
-    //    }
-    public class GenericRepository<T, TDbContext, TUnitOfWork>(TUnitOfWork unitOfWork, TDbContext dbContext)
+    //public class GenericRepository<T, TDbContext, TUnitOfWork>(TUnitOfWork unitOfWork, TDbContext dbContext)
+    //    : IGenericRepository<T>
+    //    where T : class
+    //    where TDbContext : DbContext
+    //    where TUnitOfWork : class
+    public class GenericRepository<T, TDbContext>(TDbContext dbContext)
         : IGenericRepository<T>
         where T : class
         where TDbContext : DbContext
-        where TUnitOfWork : class
     {
-        protected TUnitOfWork _unitOfWork = unitOfWork;
+        //    protected TUnitOfWork _unitOfWork = unitOfWork;
         protected DbSet<T> _dbSet = dbContext.Set<T>();
         protected TDbContext _dbContext = dbContext;
 #pragma warning disable CS8603 // Possible null reference argument.
@@ -50,11 +43,11 @@ namespace SharedLibrary.Services
                 throw ex;
             }
         }
-        public virtual async Task<IEnumerable<T>> All()
+        public virtual IEnumerable<T>? All()
         {
             try
             {
-                return await _dbSet.ToListAsync();
+                return _dbSet.ToList();
             }
             catch (Exception ex)
             {
@@ -63,39 +56,90 @@ namespace SharedLibrary.Services
             }
         }
 
-        public virtual async Task<T?> GetById(ulong id)
+        public virtual T? GetById(ulong id)
         {
-            return await _dbSet.FindAsync(id);
+            try
+            {
+                return _dbSet.Find(id);
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+            }
         }
 
         public virtual async Task<T> AddAsync(T entity)
         {
-            await _dbSet.AddAsync(entity);
-            return entity;
+            try
+            {
+                await _dbSet.AddAsync(entity);
+                await _dbContext.SaveChangesAsync();
+                return await Task.FromResult(entity);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         public virtual Task<T> UpdateAsync(T entity)
         {
-            _dbSet.Update(entity);
-            return Task.FromResult(entity);
+            try
+            {
+                _dbSet.Update(entity);
+                _dbContext.SaveChanges();
+                return Task.FromResult(entity);
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
         }
 
         public T Add(T entity)
         {
-            _dbSet.Add(entity);
-            return entity;
+            try
+            {
+                _dbSet.Add(entity);
+                _dbContext.SaveChanges();
+                _dbContext.Entry(entity).Reload();
+                return entity;
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
         }
 
         public T Update(T entity)
         {
-            _dbSet.Update(entity);
+            try
+            {
+                _dbSet.Update(entity);
+                _dbContext.SaveChanges();
+                _dbContext.Entry(entity).Reload();
+                return entity;
+            }
+            catch (Exception)
+            {
 
-            return entity;
+                return null;
+            }
         }
 
         public virtual Task<bool> DeleteAsync(T entity)
         {
             _dbSet.Remove(entity);
+            _dbContext.SaveChanges();
+            return Task.FromResult(true);
+        }
+        public virtual Task<bool> Delete(T entity)
+        {
+            _dbSet.Remove(entity);
+            _dbContext.SaveChanges();
             return Task.FromResult(true);
         }
         public async Task<IEnumerable<T>> ExecuteSqlQuery(string sqlQuery, params object[] parameters)
@@ -203,19 +247,22 @@ namespace SharedLibrary.Services
         public async Task<IEnumerable<T>> AddAll(IEnumerable<T> entities)
         {
             await _dbSet.AddRangeAsync(entities);
+            _dbContext.SaveChanges();
             return entities;
         }
         public async Task<int> DeleteAll(Expression<Func<T, bool>> predicate)
         {
             var entitiesToDelete = await _dbSet.Where(predicate).ToListAsync();
             _dbSet.RemoveRange(entitiesToDelete);
-             await _dbSet.SingleAsync();
+            await _dbSet.SingleAsync();
+            _dbContext.SaveChanges();
             return entitiesToDelete.Count;
         }
         public async Task<IEnumerable<T>> RemoveRange(IEnumerable<T> entities)
         {
             _dbSet.RemoveRange(entities);
             await _dbSet.SingleAsync();
+            _dbContext.SaveChanges();
             return entities;
         }
 
@@ -223,7 +270,8 @@ namespace SharedLibrary.Services
         public async Task<IEnumerable<T>> AddRange(params T[] entities)
         {
             await _dbSet.AddRangeAsync(entities);
-             await _dbSet.SingleAsync();
+            await _dbSet.SingleAsync();
+            _dbContext.SaveChanges();
             return entities;
         }
 

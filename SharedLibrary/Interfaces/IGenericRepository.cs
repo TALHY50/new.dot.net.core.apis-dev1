@@ -4,8 +4,8 @@ namespace SharedLibrary.Interfaces
 {
     public interface IGenericRepository<T> where T : class
     {
-        Task<IEnumerable<T>> All();
-        Task<T?> GetById(ulong id);
+        IEnumerable<T>? All();
+        T? GetById(ulong id);
         Task<T> AddAsync(T entity);
         T Add(T entity);
         Task<T> FirstOrDefault();
@@ -13,6 +13,7 @@ namespace SharedLibrary.Interfaces
         T Update(T entity);
         Task<T> UpdateAsync(T entity);
         Task<bool> DeleteAsync(T entity);
+        Task<bool> Delete(T entity);
         Task<IEnumerable<T>> ExecuteSqlQuery(string sqlQuery, params object[] parameters);
         Task<IEnumerable<T>> ExecuteSqlQuery(string sqlQuery);
         Task<IEnumerable<T>> AddAll(IEnumerable<T> entities);
