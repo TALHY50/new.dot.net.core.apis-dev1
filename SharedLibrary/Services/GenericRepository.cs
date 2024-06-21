@@ -39,11 +39,11 @@ namespace SharedLibrary.Services
                 throw ex;
             }
         }
-        public virtual async Task<IEnumerable<T>?> All()
+        public virtual IEnumerable<T>? All()
         {
             try
             {
-                return await _dbSet.ToListAsync();
+                return _dbSet.ToList();
             }
             catch (Exception ex)
             {
@@ -52,9 +52,17 @@ namespace SharedLibrary.Services
             }
         }
 
-        public virtual async Task<T?> GetById(ulong id)
+        public virtual T? GetById(ulong id)
         {
-            return await _dbSet.FindAsync(id);
+            try
+            {
+                return  _dbSet.Find(id);
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+            }
         }
 
         public virtual async Task<T> AddAsync(T entity)
@@ -204,6 +212,7 @@ namespace SharedLibrary.Services
         public async Task<IEnumerable<T>> AddAll(IEnumerable<T> entities)
         {
             await _dbSet.AddRangeAsync(entities);
+            _dbContext.SaveChanges();
             return entities;
         }
         public async Task<int> DeleteAll(Expression<Func<T, bool>> predicate)

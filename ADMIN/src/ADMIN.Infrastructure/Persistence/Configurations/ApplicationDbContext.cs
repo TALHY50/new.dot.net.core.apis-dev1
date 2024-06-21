@@ -18,8 +18,8 @@ namespace ADMIN.Infrastructure.Persistence.Configurations
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
+           // if (!optionsBuilder.IsConfigured)
+           // {
                 string server = Environment.GetEnvironmentVariable("DB_HOST") ?? throw new InvalidOperationException("DB_HOST environment variable not found.");
             string database = Environment.GetEnvironmentVariable("DB_DATABASE") ?? throw new InvalidOperationException("DB_DATABASE environment variable not found.");
             string userName = Environment.GetEnvironmentVariable("DB_USERNAME") ?? throw new InvalidOperationException("DB_USERNAME environment variable not found.");
@@ -28,7 +28,7 @@ namespace ADMIN.Infrastructure.Persistence.Configurations
             string connectionString = $"server={server};database={database};user={userName};password={password};CharSet=utf8mb4;";
 
             optionsBuilder.UseMySQL(connectionString);
-             }
+          //   }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

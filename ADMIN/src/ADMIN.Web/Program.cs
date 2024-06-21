@@ -6,6 +6,8 @@ using ADMIN.Infrastructure.Persistence.UnitOfWork;
 using ADMIN.Infrastructure.Persistence.UnitOfWork.Interface;
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
+using SharedLibrary.Interfaces;
+using SharedLibrary.Services;
 
 namespace ADMIN
 {
@@ -41,6 +43,7 @@ namespace ADMIN
             builder.Services.AddSwaggerGen();
             // dependency start
             builder.Services.AddScoped<ICustomUnitOfWork, CustomUnitOfWork>();
+            builder.Services.AddScoped<IUnitOfWork<ApplicationDbContext, ICustomUnitOfWork>, UnitOfWork<ApplicationDbContext, ICustomUnitOfWork>>();
             // dependency end
 
             var app = builder.Build();

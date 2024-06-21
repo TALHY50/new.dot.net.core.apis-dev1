@@ -16,7 +16,6 @@ namespace ACL.Application.Ports.Services
         AclResponse Edit(ulong id, AclBranchRequest request);
         /// <inheritdoc/>
         AclResponse Find(ulong id);
-
         /// <inheritdoc/>
         new AclResponse Delete(ulong id);
     }

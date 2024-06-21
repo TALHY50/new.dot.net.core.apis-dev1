@@ -27,7 +27,7 @@ namespace ADMIN.Infrastructure.Persistence.Repositories.Provider
         /// <inheritdoc/>
         public AdminProvider? UpdateProvider(ulong id, ProviderRequest request)
         {
-            var adminProvider = base.GetById(id).Result;
+            var adminProvider = base.GetById(id);
             if (adminProvider != null)
             {
                 AdminProvider prePareData = PrepareData(request, adminProvider);
@@ -38,7 +38,7 @@ namespace ADMIN.Infrastructure.Persistence.Repositories.Provider
         /// <inheritdoc/>
         public AdminProvider? DeleteProvider(ulong id)
         {
-            var adminProvider = base.GetById(id).Result;
+            var adminProvider = base.GetById(id);
             if (adminProvider != null)
             {
                 return (base.Delete(adminProvider).Result == true)?adminProvider:null;

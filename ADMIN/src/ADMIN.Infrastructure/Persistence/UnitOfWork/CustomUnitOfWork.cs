@@ -53,6 +53,10 @@ namespace ADMIN.Infrastructure.Persistence.UnitOfWork
             get { return this.context; }
             set { this.context = value; }
         }
+
+        public IUnitOfWork<ApplicationDbContext, CustomUnitOfWork> _baseUnitOfWork { get; }
+
+     
         public IProviderRepository ProviderRepository
         {
             get { return new ProviderRepository(this); }
