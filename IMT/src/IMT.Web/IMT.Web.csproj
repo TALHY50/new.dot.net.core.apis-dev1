@@ -42,7 +42,6 @@
 	<ItemGroup>
 		<Folder Include="Http\" />
 		<Folder Include="Logs\" />
-		<Folder Include="Deployment\" />
 	</ItemGroup>
 
 	<ItemGroup>
