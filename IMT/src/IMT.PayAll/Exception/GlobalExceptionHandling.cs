@@ -1,6 +1,7 @@
 ﻿
 using Microsoft.AspNetCore.Http;
 using System.Text.Json;
+using exception = System.Exception;
 
 namespace IMT.PayAll.Exception
 {
@@ -22,16 +23,31 @@ namespace IMT.PayAll.Exception
             }
             catch (PayAllException ex)
             {
-                await HandleExceptionAsync(context, ex);
+                await HandleExceptionAsync(context, ex,null);
+            }
+            catch (exception ex)
+            {
+                await HandleExceptionAsync(context, null,ex);
             }
         }
 
-        private async Task HandleExceptionAsync(HttpContext context, PayAllException exception)
+        private async Task HandleExceptionAsync(HttpContext context, PayAllException exception, exception ex)
         {
-
-            var payload = JsonSerializer.Serialize(exception.Message);
+            string message = string.Empty;
+            int ErrorCode = 0;
+            if (exception != null)
+            {
+                message = exception.Message;
+                ErrorCode = Convert.ToInt16(exception.ErrorCode);
+            }
+            if(ex != null)
+            {
+                message = ex.Message;
+                ErrorCode = context.Response.StatusCode;
+            }
+            var payload = JsonSerializer.Serialize(message);
             context.Response.ContentType = "application/json";
-            context.Response.StatusCode = exception.ErrorCode!= null ? Convert.ToInt16(exception.ErrorCode) : context.Response.StatusCode;
+            context.Response.StatusCode = ErrorCode;
             
             await context.Response.WriteAsync(payload);
 
