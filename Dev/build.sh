@@ -1,3 +1,7 @@
 sudo rsync -avzh --progress "dev/" "/root/new.dot.net.core.apis"
-#sudo cd /root/new.dot.net.core.apis/IMT/src/IMT.Web
-#sudo dotnet run
+ 
+app="new.dot.net.core.apis/IMT/src/IMT.Web"
+rdir="root"
+cd /$rdir/$app
+sudo pkill dotnet
+sudo dotnet run
