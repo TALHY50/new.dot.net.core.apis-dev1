@@ -4,8 +4,6 @@ using ADMIN.Application.Ports.Repositories.Interface;
 using ADMIN.Contracts.Requests;
 using ADMIN.Core.Entities.AdminProvider;
 using ADMIN.Infrastructure.Persistence.Configurations;
-using ADMIN.Infrastructure.Persistence.UnitOfWork;
-using ADMIN.Infrastructure.Persistence.UnitOfWork.Interface;
 using Microsoft.Extensions.Configuration;
 using SharedLibrary.Services;
 
@@ -13,8 +11,8 @@ namespace ADMIN.Infrastructure.Persistence.Repositories.Provider
 {
     public class ProviderRepository: GenericRepository<AdminProvider, ApplicationDbContext>, IProviderRepository
     {
-        public ProviderRepository(ICustomUnitOfWork _unitOfWork) : base(
-            _unitOfWork.ApplicationDbContext)
+        public ProviderRepository(ApplicationDbContext dbcontext) : base(
+            dbcontext)
         {
 
         }
