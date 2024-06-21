@@ -11,9 +11,9 @@ using SharedLibrary.Services;
 
 namespace ADMIN.Infrastructure.Persistence.Repositories.Provider
 {
-    public class ProviderRepository: GenericRepository<AdminProvider, ApplicationDbContext, ICustomUnitOfWork>, IProviderRepository
+    public class ProviderRepository: GenericRepository<AdminProvider, ApplicationDbContext>, IProviderRepository
     {
-        public ProviderRepository(ICustomUnitOfWork _unitOfWork) : base(_unitOfWork,
+        public ProviderRepository(ICustomUnitOfWork _unitOfWork) : base(
             _unitOfWork.ApplicationDbContext)
         {
 

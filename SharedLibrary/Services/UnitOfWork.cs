@@ -184,7 +184,8 @@ namespace SharedLibrary.Services
         }
         public IGenericRepository<T> GenericRepository<T>() where T : class
         {
-            return new GenericRepository<T, TDbContext, TUnitOfWork>(_customUnitOfWork, ApplicationDbContext);
+            //return new GenericRepository<T, TDbContext, TUnitOfWork>(_customUnitOfWork, ApplicationDbContext);
+            return new GenericRepository<T, TDbContext>( ApplicationDbContext);
         }
         //public virtual ILogger Logger
         //{
