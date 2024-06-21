@@ -9,18 +9,18 @@ using System.Linq.Expressions;
 
 namespace SharedLibrary.Services
 {
- 
+
     //public class GenericRepository<T, TDbContext, TUnitOfWork>(TUnitOfWork unitOfWork, TDbContext dbContext)
     //    : IGenericRepository<T>
     //    where T : class
     //    where TDbContext : DbContext
     //    where TUnitOfWork : class
-    public class GenericRepository<T, TDbContext>( TDbContext dbContext)
+    public class GenericRepository<T, TDbContext>(TDbContext dbContext)
         : IGenericRepository<T>
         where T : class
         where TDbContext : DbContext
     {
-    //    protected TUnitOfWork _unitOfWork = unitOfWork;
+        //    protected TUnitOfWork _unitOfWork = unitOfWork;
         protected DbSet<T> _dbSet = dbContext.Set<T>();
         protected TDbContext _dbContext = dbContext;
 #pragma warning disable CS8603 // Possible null reference argument.
@@ -60,7 +60,7 @@ namespace SharedLibrary.Services
         {
             try
             {
-                return  _dbSet.Find(id);
+                return _dbSet.Find(id);
             }
             catch (Exception ex)
             {
@@ -71,32 +71,63 @@ namespace SharedLibrary.Services
 
         public virtual async Task<T> AddAsync(T entity)
         {
-            await _dbSet.AddAsync(entity);
-            _dbContext.SaveChanges();
-            return entity;
+            try
+            {
+                await _dbSet.AddAsync(entity);
+                await _dbContext.SaveChangesAsync();
+                return await Task.FromResult(entity);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         public virtual Task<T> UpdateAsync(T entity)
         {
-            _dbSet.Update(entity);
-            _dbContext.SaveChanges();
-            return Task.FromResult(entity);
+            try
+            {
+                _dbSet.Update(entity);
+                _dbContext.SaveChanges();
+                return Task.FromResult(entity);
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
         }
 
         public T Add(T entity)
         {
-            _dbSet.Add(entity);
-            _dbContext.SaveChanges();
-            _dbContext.Entry(entity).Reload();
-            return entity;
+            try
+            {
+                _dbSet.Add(entity);
+                _dbContext.SaveChanges();
+                _dbContext.Entry(entity).Reload();
+                return entity;
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
         }
 
         public T Update(T entity)
         {
-            _dbSet.Update(entity);
-            _dbContext.SaveChanges();
-            _dbContext.Entry(entity).Reload();
-            return entity;
+            try
+            {
+                _dbSet.Update(entity);
+                _dbContext.SaveChanges();
+                _dbContext.Entry(entity).Reload();
+                return entity;
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
         }
 
         public virtual Task<bool> DeleteAsync(T entity)
@@ -223,8 +254,8 @@ namespace SharedLibrary.Services
         {
             var entitiesToDelete = await _dbSet.Where(predicate).ToListAsync();
             _dbSet.RemoveRange(entitiesToDelete);
-             await _dbSet.SingleAsync();
-             _dbContext.SaveChanges();
+            await _dbSet.SingleAsync();
+            _dbContext.SaveChanges();
             return entitiesToDelete.Count;
         }
         public async Task<IEnumerable<T>> RemoveRange(IEnumerable<T> entities)
@@ -239,8 +270,8 @@ namespace SharedLibrary.Services
         public async Task<IEnumerable<T>> AddRange(params T[] entities)
         {
             await _dbSet.AddRangeAsync(entities);
-             await _dbSet.SingleAsync();
-             _dbContext.SaveChanges();
+            await _dbSet.SingleAsync();
+            _dbContext.SaveChanges();
             return entities;
         }
 
