@@ -3,13 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ADMIN.Application.Ports.Services.Interfaces.Provider;
 using ADMIN.Contracts.Requests;
 using ADMIN.Contracts.Response;
-using SharedLibrary.Models.Admin.Provider;
-using SharedLibrary.Persistence.Configurations;
-using SharedLibrary.Repositories.Admin.Provider;
 using SharedLibrary.Response.CustomStatusCode;
+
+using ADMIN.Application.Ports.Services.Interfaces.Provider;
+using ADMIN.Core.Entities.Provider;
+using ADMIN.Infrastructure.Persistence.Configurations;
+using ADMIN.Infrastructure.Persistence.Repositories.Provider;
+
+//using SharedLibrary.Models.Admin.Provider;
+//using SharedLibrary.Persistence.Configurations;
+//using SharedLibrary.Repositories.Admin.Provider;
 
 namespace ADMIN.Infrastructure.Persistence.Services.Provider
 {

@@ -3,8 +3,11 @@ using ADMIN.Infrastructure.Persistence.Services.Provider;
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Interfaces;
-using SharedLibrary.Persistence.Configurations;
 using SharedLibrary.Services;
+
+using ADMIN.Infrastructure.Persistence.Configurations;
+
+//using SharedLibrary.Persistence.Configurations;
 
 namespace ADMIN
 {
@@ -39,7 +42,7 @@ namespace ADMIN
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             // dependency start
-            builder.Services.AddScoped<IProviderService, ProviderService>();
+            builder.Services.AddTransient<IProviderService, ProviderService>();
             // dependency end
 
             var app = builder.Build();
