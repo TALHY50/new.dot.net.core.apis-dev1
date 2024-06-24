@@ -1,36 +1,36 @@
-using DotNetEnv;
+using Microsoft.EntityFrameworkCore;
+using MySql.EntityFrameworkCore.Extensions;
 using SharedLibrary.Interfaces;
 using SharedLibrary.Models.Admin.Provider;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
-using MySql.EntityFrameworkCore.Extensions;
+using System;
 
-namespace ADMIN.Infrastructure.Persistence.Configurations
+namespace SharedLibrary.Persistence.Configurations
 {
-    public partial class ApplicationDbContext : DbContext,IApplicationDbContext
+    public partial class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        : DbContext(options), IApplicationDbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options):base(options)
-        {
-        }
-
         public virtual DbSet<AdminProvider> Admin_Providers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-           // if (!optionsBuilder.IsConfigured)
-           // {
-           //Env.NoClobber().TraversePath().Load();
-           string server1 = Environment.GetEnvironmentVariable("DB_HOST");
-           string? server = Env.GetString("DB_HOST")??"127.0.0.1";
-           string? database = Env.GetString("DB_DATABASE")??"acl_dot_net";
-           string? userName = Env.GetString("DB_USERNAME")??"root";
-           string? password = Env.GetString("DB_PASSWORD");
-           string? port = Env.GetString("DB_PORT")??"3306";
+            try
+            {
+                DotNetEnv.Env.Load();
+                DotNetEnv.Env.NoClobber().TraversePath().Load();
+                string server = DotNetEnv.Env.GetString("DB_HOST")??"127.0.0.1";
+                string database = DotNetEnv.Env.GetString("DB_DATABASE")??"acl_dot_net";
+                string userName = DotNetEnv.Env.GetString("DB_USERNAME")??"root";
+                string password = DotNetEnv.Env.GetString("DB_PASSWORD");
+                string port = DotNetEnv.Env.GetString("DB_PORT")??"3306";
 
-           var connectionString = $"server={server};database={database};User ID={userName};Password={password};CharSet=utf8mb4;";
+                var connectionString = $"server={server};port={port};database={database};user={userName};password={password};charset=utf8mb4;";
 
-            optionsBuilder.UseMySQL(connectionString);
-          //   }
+                optionsBuilder.UseMySQL(connectionString);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using ADMIN.Application.Ports.Services.Interfaces.Provider;
 using ADMIN.Contracts.Requests;
 using ADMIN.Contracts.Response;
-using ADMIN.Infrastructure.Persistence.Configurations;
 using SharedLibrary.Models.Admin.Provider;
+using SharedLibrary.Persistence.Configurations;
 using SharedLibrary.Repositories.Admin.Provider;
 using SharedLibrary.Response.CustomStatusCode;
 

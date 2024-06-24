@@ -1,7 +1,6 @@
-
-using ADMIN.Infrastructure.Persistence.Configurations;
 using Microsoft.Extensions.Configuration;
 using SharedLibrary.Models.Admin.Provider;
+using SharedLibrary.Persistence.Configurations;
 using SharedLibrary.Repositories.Admin.Interface.Provider;
 using SharedLibrary.Services;
 

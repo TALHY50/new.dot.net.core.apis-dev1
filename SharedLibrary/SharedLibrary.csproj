@@ -13,6 +13,14 @@
     <None Remove="Views\**" />
   </ItemGroup>
   <ItemGroup>
+    <None Update=".env" />
+  </ItemGroup>
+	<ItemGroup>
+		<None Update=".env">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+  <ItemGroup>
     <PackageReference Include="HtmlAgilityPack" Version="1.11.54" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.1.1" />
     <PackageReference Include="Craftgate" Version="1.0.48" />
@@ -46,7 +54,6 @@
 		<PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0" />
 	</ItemGroup>
-
   <ItemGroup>
     <Folder Include="Constants\" />
     <Folder Include="Middlewares\" />

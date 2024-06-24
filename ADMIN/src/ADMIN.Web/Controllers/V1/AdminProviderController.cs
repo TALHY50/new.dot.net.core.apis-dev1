@@ -16,7 +16,7 @@ namespace ADMIN.Web.Controllers.V1
         [HttpGet(AdminRoutesUrl.AdminProviderUrl.List, Name = AdminRoutesNames.AdminProviderNames.List)]
         public IActionResult Index()
         {
-            return Ok(providerService.All());
+            return Ok(providerService.GetAll());
         }
 
         [HttpPost(AdminRoutesUrl.AdminProviderUrl.Add, Name = AdminRoutesNames.AdminProviderNames.Add)]
@@ -34,7 +34,7 @@ namespace ADMIN.Web.Controllers.V1
         [HttpGet(AdminRoutesUrl.AdminProviderUrl.Find, Name = AdminRoutesNames.AdminProviderNames.Find)]
         public IActionResult Find(ulong id)
         {
-            return Ok(providerService.GetById(id));
+            return Ok(providerService.Find(id));
         }        
         
         [HttpDelete(AdminRoutesUrl.AdminProviderUrl.Delete, Name = AdminRoutesNames.AdminProviderNames.Delete)]
