@@ -1,11 +1,13 @@
 
 
+using DotNetEnv;
 using IMT.PayAll.Request.Common;
 
 namespace IMT.PayAll.Common
 {
     public static class BaseRequirement
     {
+        
         // Server
         private const string Sandbox = "https://api.sandbox.payall.com";
         private const string Stage = "https://api.stage.payall.com";
@@ -24,7 +26,7 @@ namespace IMT.PayAll.Common
         private const string ProductionClientSecret = "https://api.payall.com";
         private const string LocalHostClientSecret = "local-Secret";
 
-        public enum Servers{ Sandbox,Stage,Production,Local};
+        public enum Servers{ Server, Sandbox,Stage,Production,Local};
 
         public readonly static RequestOptions RequestOptions;
 
@@ -35,9 +37,9 @@ namespace IMT.PayAll.Common
             {
                 return GetLocalBaseRequirement();
             }
-            if(environment == Servers.Sandbox.ToString())
+            if(environment == Servers.Server.ToString())
             {
-                return GetSandboxBaseRequirement();
+                return GetServerBaseRequirement();
             }
             if(environment == Servers.Stage.ToString())
             {
@@ -57,13 +59,15 @@ namespace IMT.PayAll.Common
             RequestOptions.ClientSecret = LocalHostClientSecret;
             return RequestOptions;
         }
-        private static RequestOptions GetSandboxBaseRequirement()
+        private static RequestOptions GetServerBaseRequirement()
         {
+            Env.NoClobber().TraversePath().Load();
+            
             var RequestOptions = new RequestOptions();
-            RequestOptions.BaseUrl = Sandbox;
-            RequestOptions.ClientID = SandboxClientId;
-            RequestOptions.ClientSecret = SandboxClientSecret;
-            return RequestOptions;
+            RequestOptions.BaseUrl = Env.GetString("PAYALL_BASE_URL");
+            RequestOptions.ClientID = Env.GetString("PAYALL_API_KEY");
+            RequestOptions.ClientSecret = Env.GetString("PAYALL_API_SECRET");
+            return RequestOptions; 
         }
         private static RequestOptions GetStageBaseRequirement()
         {
