@@ -2,11 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ADMIN.Application.Ports.Repositories.Interface;
-using ADMIN.Application.Ports.Repositories.Interface.Provider;
 using ADMIN.Application.Ports.Services.Interfaces.Provider;
 using ADMIN.Contracts.Requests;
-using ADMIN.Infrastructure.Persistence.Repositories.Provider;
 using ADMIN.Infrastructure.Route;
 using Microsoft.AspNetCore.Mvc;
 

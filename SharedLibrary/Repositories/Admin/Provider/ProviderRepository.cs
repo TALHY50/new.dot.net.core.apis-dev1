@@ -1,11 +1,11 @@
-using ADMIN.Application.Ports.Repositories.Interface.Provider;
-using ADMIN.Contracts.Requests;
-using ADMIN.Core.Entities.AdminProvider;
+
 using ADMIN.Infrastructure.Persistence.Configurations;
 using Microsoft.Extensions.Configuration;
+using SharedLibrary.Models.Admin.Provider;
+using SharedLibrary.Repositories.Admin.Interface.Provider;
 using SharedLibrary.Services;
 
-namespace ADMIN.Infrastructure.Persistence.Repositories.Provider
+namespace SharedLibrary.Repositories.Admin.Provider
 {
     public class ProviderRepository(ApplicationDbContext dbContext)
         : GenericRepository<AdminProvider, ApplicationDbContext>(dbContext), IProviderRepository

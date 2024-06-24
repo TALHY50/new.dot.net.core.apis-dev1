@@ -1,8 +1,5 @@
-
-using ADMIN.Application.Ports.Repositories.Interface;
 using ADMIN.Application.Ports.Services.Interfaces.Provider;
 using ADMIN.Infrastructure.Persistence.Configurations;
-using ADMIN.Infrastructure.Persistence.Repositories.Provider;
 using ADMIN.Infrastructure.Persistence.Services.Provider;
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;

@@ -1,9 +1,8 @@
-
-using ADMIN.Core.Entities.AdminProvider;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using MySql.EntityFrameworkCore.Extensions;
 using SharedLibrary.Interfaces;
+using SharedLibrary.Models.Admin.Provider;
+//using MySql.EntityFrameworkCore.Extensions;
 
 
 namespace ADMIN.Infrastructure.Persistence.Configurations
@@ -27,7 +26,7 @@ namespace ADMIN.Infrastructure.Persistence.Configurations
 
             string connectionString = $"server={server};database={database};user={userName};password={password};CharSet=utf8mb4;";
 
-            optionsBuilder.UseMySQL(connectionString);
+           // optionsBuilder.UseMySQL(connectionString);
           //   }
         }
 

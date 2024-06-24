@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using ADMIN.Application.Ports.Services.Interfaces.Provider;
 using ADMIN.Contracts.Requests;
 using ADMIN.Contracts.Response;
-using ADMIN.Core.Entities.AdminProvider;
 using ADMIN.Infrastructure.Persistence.Configurations;
-using ADMIN.Infrastructure.Persistence.Repositories.Provider;
+using SharedLibrary.Models.Admin.Provider;
+using SharedLibrary.Repositories.Admin.Provider;
 using SharedLibrary.Response.CustomStatusCode;
 
 namespace ADMIN.Infrastructure.Persistence.Services.Provider
