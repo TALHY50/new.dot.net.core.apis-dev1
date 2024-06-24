@@ -24,20 +24,20 @@ namespace IMT.Web.Controllers
     {
         private readonly PayAllClient _payAllClient;
 
-        private string ServerEnvironment = BaseRequirement.Servers.Sandbox.ToString();
+        private string ServerEnvironment = BaseRequirement.Servers.Server.ToString();
         public PayAllController()
         {
             var requirement = BaseRequirement.GetBaseRequirement(ServerEnvironment);
             _payAllClient = new PayAllClient(requirement.ClientID, requirement.ClientSecret, requirement.BaseUrl);
         }
-        [Tags("PayAllDoc.Payment")]
+        [Tags("PayAll.Payment")]
         [HttpPost(PayAllUrl.SinglePayment)]
         public object SinglePayment(CreatePaymentRequest request)
         {
             return _payAllClient.Payment().SinglePayment(request);
         }
 
-        [Tags("PayAllDoc.Payment")]
+        [Tags("PayAll.Payment")]
         [HttpGet(PayAllUrl.GetPaymentById)]
         public object GetPaymentById(Guid id)
         {
@@ -45,7 +45,7 @@ namespace IMT.Web.Controllers
             return Ok(result);
         }
 
-        [Tags("PayAllDoc.Payment")]
+        [Tags("PayAll.Payment")]
         [HttpPatch(PayAllUrl.UpdatePaymentById)]
         public object UpdatePaymentById(Guid id, PaymentUpdateRequest requests)
         {
@@ -54,7 +54,7 @@ namespace IMT.Web.Controllers
             return Ok(result);
         }
 
-        [Tags("PayAllDoc.Payment Instruments")]
+        [Tags("PayAll.Payment Instruments")]
         [HttpGet(PayAllUrl.PaymentInstrumentsList)]
         public object PaymentInstrumentsList(Guid? recipient_id)
         {
@@ -66,7 +66,7 @@ namespace IMT.Web.Controllers
             return Ok(result);
         }
 
-        [Tags("PayAllDoc.Payment Instruments")]
+        [Tags("PayAll.Payment Instruments")]
         [HttpPost(PayAllUrl.CreatePaymentInstruments)]
         public object PaymentInstrumentsCreate(PaymentInstrumentsRequest requests)
         {
@@ -75,7 +75,7 @@ namespace IMT.Web.Controllers
             return Ok(result);
         }
 
-        [Tags("PayAllDoc.Payment Instruments")]
+        [Tags("PayAll.Payment Instruments")]
         [HttpGet(PayAllUrl.GetPaymentInstrumentsByID)]
         public object GetPaymentInstrumentsById(Guid id)
         {
@@ -83,7 +83,7 @@ namespace IMT.Web.Controllers
             return Ok(result);
         }
 
-        [Tags("PayAllDoc.Payment Instruments")]
+        [Tags("PayAll.Payment Instruments")]
         [HttpPatch(PayAllUrl.UpdatePaymentInstrumentsByID)]
         public object UpdatePaymentInstrumentsByID(Guid id, PaymentInstrumentsUpdateRequest request)
         {
@@ -92,7 +92,7 @@ namespace IMT.Web.Controllers
         }
 
 
-        [Tags("PayAllDoc.Payment Instruments")]
+        [Tags("PayAll.Payment Instruments")]
         [HttpDelete(PayAllUrl.DeletePaymentInstrumentsByID)]
         public object DeletePaymentInstrumentsById(Guid id)
         {
@@ -100,7 +100,7 @@ namespace IMT.Web.Controllers
             return Ok(result);
         }
 
-        [Tags("PayAllDoc.Exchange")]
+        [Tags("PayAll.Exchange")]
         [HttpGet(PayAllUrl.GetExchangeRateByID)]
         public object GetExchangeRateById(Guid id)
         {
@@ -108,7 +108,7 @@ namespace IMT.Web.Controllers
             return Ok(result);
         }
 
-        [Tags("PayAllDoc.Exchange")]
+        [Tags("PayAll.Exchange")]
         [HttpGet(PayAllUrl.GetNewRateByExistRateID)]
         public object GetNewRateByExistRateId(Guid id)
         {
@@ -116,7 +116,7 @@ namespace IMT.Web.Controllers
             return Ok(result);
         }
 
-        [Tags("PayAllDoc.Exchange")]
+        [Tags("PayAll.Exchange")]
         [HttpPost(PayAllUrl.RequestExchangeRate)]
         public object RequestExchangeRate(RequestExchangeRate request)
         {
@@ -124,7 +124,7 @@ namespace IMT.Web.Controllers
             return Ok(result);
         }
 
-        [Tags("PayAllDoc.Exchange")]
+        [Tags("PayAll.Exchange")]
         [HttpPost(PayAllUrl.ConfirmExchangeRate)]
         public object ConfirmExchangeRate(ConfirmExchangeRateRequest request)
         {
@@ -132,14 +132,14 @@ namespace IMT.Web.Controllers
             return Ok(result);
         }
 
-        [Tags("PayAllDoc.Exchange")]
+        [Tags("PayAll.Exchange")]
         [HttpPost(PayAllUrl.CancelExchangeRate)]
         public object CancelExchangeRate(CancelExchangeRateRequest request)
         {
             var result = _payAllClient.Exchanges().CancelExchangeRate(request);
             return Ok(result);
         }
-        [Tags("PayAllDoc.Exchange")]
+        [Tags("PayAll.Exchange")]
         [HttpGet(PayAllUrl.GetCardedExchangeRate)]
         public object GetCardedExchangeRate()
         {
@@ -147,7 +147,7 @@ namespace IMT.Web.Controllers
             return Ok(result);
         }
 
-        [Tags("PayAllDoc.Accounts")]
+        [Tags("PayAll.Accounts")]
         [HttpGet(PayAllUrl.GetPaymentAccountsList)]
         public object GetPaymentAccountsList()
         {
@@ -155,7 +155,7 @@ namespace IMT.Web.Controllers
             return Ok(result);
         }
 
-        [Tags("PayAllDoc.Recipients")]
+        [Tags("PayAll.Recipients")]
         [HttpGet(PayAllUrl.GetRecipientList)]
         public object GetRecipients()
         {
@@ -163,7 +163,7 @@ namespace IMT.Web.Controllers
             return Ok(result);
         }
 
-        [Tags("PayAllDoc.Recipients")]
+        [Tags("PayAll.Recipients")]
         [HttpPost(PayAllUrl.CreateRecipient)]
         public object CreateRecipients(RecipientRequest requests)
         {
@@ -184,7 +184,7 @@ namespace IMT.Web.Controllers
            
         }
 
-        [Tags("PayAllDoc.Recipients")]
+        [Tags("PayAll.Recipients")]
         [HttpPatch(PayAllUrl.UpdateRecipient)]
         public object UpdateRecipient(Guid id, RecipientRequest request)
         {
@@ -205,7 +205,7 @@ namespace IMT.Web.Controllers
             }
         }
 
-        [Tags("PayAllDoc.Recipients")]
+        [Tags("PayAll.Recipients")]
         [HttpDelete(PayAllUrl.DeleteRecipient)]
         public object DeleteRecipient(Guid id)
         {
@@ -213,7 +213,7 @@ namespace IMT.Web.Controllers
             return Ok(result);
         }
 
-        [Tags("PayAllDoc.Discovery")]
+        [Tags("PayAll.Discovery")]
         [HttpGet(PayAllUrl.GetRequiredPaymentFieldsUrl)]
         public object GetRequiredPaymentFields()
         {
@@ -234,7 +234,7 @@ namespace IMT.Web.Controllers
             }
         }
 
-        [Tags("PayAllDoc.Compliance")]
+        [Tags("PayAll.Compliance")]
         [HttpPost(PayAllUrl.UploadNewComplianceDocumentUrl)]
         public object UploadNewComplianceDocument(IFormFile file)
         {
@@ -255,7 +255,7 @@ namespace IMT.Web.Controllers
             }
         }
 
-        [Tags("PayAllDoc.Payers")]
+        [Tags("PayAll.Payers")]
         [HttpGet(PayAllUrl.GetPayers)]
         public object GetPayers()
         {
@@ -263,7 +263,7 @@ namespace IMT.Web.Controllers
             return Ok(result);
         }
 
-        [Tags("PayAllDoc.Payers")]
+        [Tags("PayAll.Payers")]
         [HttpPost(PayAllUrl.CreatePayers)]
         public object CreatePayers(PayerRequest request)
         {
@@ -285,7 +285,7 @@ namespace IMT.Web.Controllers
 
         }
 
-        [Tags("PayAllDoc.Payers")]
+        [Tags("PayAll.Payers")]
         [HttpGet(PayAllUrl.GetPayer)]
         public object GetPayer(Guid id)
         {
@@ -293,7 +293,7 @@ namespace IMT.Web.Controllers
             return Ok(result);
         }
 
-        [Tags("PayAllDoc.Payers")]
+        [Tags("PayAll.Payers")]
         [HttpGet(PayAllUrl.GetPayerAccounts)]
         public object GetPayerAccounts(Guid id)
         {
