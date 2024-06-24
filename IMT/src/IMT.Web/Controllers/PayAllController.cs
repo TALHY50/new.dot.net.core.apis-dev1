@@ -234,7 +234,7 @@ namespace IMT.Web.Controllers
             }
         }
 
-        [Tags("PayAll.Compliance")]
+        [Tags("PayAllDoc.Compliance")]
         [HttpPost(PayAllUrl.UploadNewComplianceDocumentUrl)]
         public object UploadNewComplianceDocument(IFormFile file)
         {
