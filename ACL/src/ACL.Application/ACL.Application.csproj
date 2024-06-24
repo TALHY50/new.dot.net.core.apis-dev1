@@ -10,7 +10,7 @@
   <ItemGroup>
     <PackageReference Include="Ardalis.Result" Version="9.0.1" />
     <PackageReference Include="MediatR" Version="12.2.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.6" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,6 +19,12 @@
   
   <ItemGroup>
     <ProjectReference Include="..\ACL.Contracts\ACL.Contracts.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="Ports\Services\Module\" />
+    <Folder Include="Ports\Services\UserGroup\" />
+    <Folder Include="Ports\Services\Role\" />
   </ItemGroup>
   
 </Project>

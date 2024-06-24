@@ -3,7 +3,7 @@ using ACL.Application.Ports.Repositories.Company;
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response;
 
-namespace ACL.Application.Ports.Services
+namespace ACL.Application.Ports.Services.Company
 {
     /// <inheritdoc/>
     public interface IAclBranchService : IAclBranchRepository

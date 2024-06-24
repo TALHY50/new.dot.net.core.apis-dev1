@@ -7,7 +7,6 @@ using ACL.Application.Ports.Repositories.Company;
 using ACL.Application.Ports.Repositories.Module;
 using ACL.Application.Ports.Repositories.Role;
 using ACL.Application.Ports.Repositories.UserGroup;
-using ACL.Application.Ports.Services;
 using ACL.Application.Ports.Services.Cryptography;
 using ACL.Application.Ports.Services.Token;
 using ACL.Application.UseCases.Auth.Authorize;
@@ -32,7 +31,6 @@ using ACL.Infrastructure.Persistence.Repositories.Module;
 using ACL.Infrastructure.Persistence.Repositories.Role;
 using ACL.Infrastructure.Persistence.Repositories.UserGroup;
 using ACL.Infrastructure.Security;
-using ACL.Infrastructure.Services;
 using ACL.Infrastructure.Services.Cryptography;
 using ACL.Infrastructure.Services.Jwt;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -48,6 +46,8 @@ using Microsoft.IdentityModel.Tokens;
 using AuthenticationService = Microsoft.AspNetCore.Authentication.AuthenticationService;
 using Microsoft.OpenApi.Models;
 using StackExchange.Redis;
+using ACL.Infrastructure.Services.Company;
+using ACL.Application.Ports.Services.Company;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -241,6 +241,7 @@ builder.Services.AddSerilog();
 
 
 builder.Services.AddScoped<IAclBranchService,AclBranchService>();
+builder.Services.AddScoped<IAclCompanyModuleService,AclCompanyModuleService>();
 
 
 builder.Services.AddScoped<IAclUserRepository, AclUserRepository>();

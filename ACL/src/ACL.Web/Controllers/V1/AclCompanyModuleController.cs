@@ -1,5 +1,6 @@
 ﻿using ACL.Application.Ports.Repositories;
 using ACL.Application.Ports.Repositories.Company;
+using ACL.Application.Ports.Services.Company;
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response;
 using ACL.Infrastructure.Route;
@@ -15,46 +16,46 @@ namespace ACL.Web.Controllers.V1
     public class AclCompanyModuleController : ControllerBase
     {
 
-      private readonly IAclCompanyModuleRepository AclCompanyModuleRepository;
+      private readonly IAclCompanyModuleService AclCompanyModuleService;
         /// <inheritdoc/>
-        public AclCompanyModuleController(IAclCompanyModuleRepository _AclCompanyModuleRepository)
+        public AclCompanyModuleController(IAclCompanyModuleService aclCompanyModuleService)
         {
-            this.AclCompanyModuleRepository = _AclCompanyModuleRepository;
+            this.AclCompanyModuleService = aclCompanyModuleService;
         }
          /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclCompanyModuleRouteUrl.List, Name = AclRoutesName.AclCompanyModuleRouteNames.List)]
-        public Task<AclResponse> Index()
+        public AclResponse Index()
         {
-            return  this.AclCompanyModuleRepository.GetAll();
+            return  this.AclCompanyModuleService.GetAll();
         }
          /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPost(AclRoutesUrl.AclCompanyModuleRouteUrl.Add, Name = AclRoutesName.AclCompanyModuleRouteNames.Add)]
-        public Task<AclResponse> Create(AclCompanyModuleRequest request)
+        public AclResponse Create(AclCompanyModuleRequest request)
         {
-            return this.AclCompanyModuleRepository.AddAclCompanyModule(request);
+            return this.AclCompanyModuleService.AddAclCompanyModule(request);
         }
          /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPut(AclRoutesUrl.AclCompanyModuleRouteUrl.Edit, Name = AclRoutesName.AclCompanyModuleRouteNames.Edit)]
-        public Task<AclResponse> Edit(ulong id, AclCompanyModuleRequest request)
+        public AclResponse Edit(ulong id, AclCompanyModuleRequest request)
         {
-            return this.AclCompanyModuleRepository.EditAclCompanyModule(id, request);
+            return this.AclCompanyModuleService.EditAclCompanyModule(id, request);
         }
          /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclCompanyModuleRouteUrl.View, Name = AclRoutesName.AclCompanyModuleRouteNames.View)]
-        public Task<AclResponse> View(ulong id)
+        public AclResponse View(ulong id)
         {
-            return this.AclCompanyModuleRepository.FindById(id);
+            return this.AclCompanyModuleService.FindById(id);
         }
          /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpDelete(AclRoutesUrl.AclCompanyModuleRouteUrl.Destroy, Name = AclRoutesName.AclCompanyModuleRouteNames.Destroy)]
-        public Task<AclResponse> Destroy(ulong id)
+        public AclResponse Destroy(ulong id)
         {
-            return this.AclCompanyModuleRepository.DeleteCompanyModule(id);
+            return this.AclCompanyModuleService.DeleteCompanyModule(id);
         }
     }
 }
