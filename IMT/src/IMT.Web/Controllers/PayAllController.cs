@@ -30,7 +30,7 @@ namespace IMT.Web.Controllers
             var requirement = BaseRequirement.GetBaseRequirement(ServerEnvironment);
             _payAllClient = new PayAllClient(requirement.ClientID, requirement.ClientSecret, requirement.BaseUrl);
         }
-        [Tags("PayAll.Payment")]
+        [Tags("PayAllDoc.Payment")]
         [HttpPost(PayAllUrl.SinglePayment)]
         public object SinglePayment(CreatePaymentRequest request)
         {
