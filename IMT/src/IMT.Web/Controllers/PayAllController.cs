@@ -18,7 +18,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace IMT.Web.Controllers
 {
     [ApiController]
-    [Tags("PayAll")]
+    [Tags("PayAll Apis")]
     [Route("[controller]")]
     public class PayAllController : ControllerBase
     {
