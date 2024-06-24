@@ -1,10 +1,9 @@
 using DotNetEnv;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
 using SharedLibrary.Interfaces;
 using SharedLibrary.Models.Admin.Provider;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using MySql.EntityFrameworkCore.Extensions;
-
 
 namespace ADMIN.Infrastructure.Persistence.Configurations
 {
@@ -20,15 +19,15 @@ namespace ADMIN.Infrastructure.Persistence.Configurations
         {
            // if (!optionsBuilder.IsConfigured)
            // {
-           Env.NoClobber().TraversePath().Load();
-
+           //Env.NoClobber().TraversePath().Load();
+           string server1 = Environment.GetEnvironmentVariable("DB_HOST");
            string? server = Env.GetString("DB_HOST")??"127.0.0.1";
            string? database = Env.GetString("DB_DATABASE")??"acl_dot_net";
            string? userName = Env.GetString("DB_USERNAME")??"root";
            string? password = Env.GetString("DB_PASSWORD");
            string? port = Env.GetString("DB_PORT")??"3306";
 
-           var connectionString = $"server={server};database={database};User ID={userName};Password={password};CharSet=utf8mb4;" ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+           var connectionString = $"server={server};database={database};User ID={userName};Password={password};CharSet=utf8mb4;";
 
             optionsBuilder.UseMySQL(connectionString);
           //   }
