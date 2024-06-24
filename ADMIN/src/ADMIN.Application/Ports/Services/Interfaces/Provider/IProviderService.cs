@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ADMIN.Application.Ports.Repositories.Interface;
-using ADMIN.Application.Ports.Repositories.Interface.Provider;
 using ADMIN.Contracts.Requests;
 using ADMIN.Contracts.Response;
-using ADMIN.Core.Entities.AdminProvider;
+using SharedLibrary.Models.Admin.Provider;
+using SharedLibrary.Repositories.Admin.Interface.Provider;
 
 namespace ADMIN.Application.Ports.Services.Interfaces.Provider
 {
