@@ -1,8 +1,9 @@
+using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using SharedLibrary.Interfaces;
 using SharedLibrary.Models.Admin.Provider;
-//using MySql.EntityFrameworkCore.Extensions;
+using MySql.EntityFrameworkCore.Extensions;
 
 
 namespace ADMIN.Infrastructure.Persistence.Configurations
@@ -19,14 +20,17 @@ namespace ADMIN.Infrastructure.Persistence.Configurations
         {
            // if (!optionsBuilder.IsConfigured)
            // {
-                string server = Environment.GetEnvironmentVariable("DB_HOST") ?? throw new InvalidOperationException("DB_HOST environment variable not found.");
-            string database = Environment.GetEnvironmentVariable("DB_DATABASE") ?? throw new InvalidOperationException("DB_DATABASE environment variable not found.");
-            string userName = Environment.GetEnvironmentVariable("DB_USERNAME") ?? throw new InvalidOperationException("DB_USERNAME environment variable not found.");
-            string? password = Environment.GetEnvironmentVariable("DB_PASSWORD");
+           Env.NoClobber().TraversePath().Load();
 
-            string connectionString = $"server={server};database={database};user={userName};password={password};CharSet=utf8mb4;";
+           string? server = Env.GetString("DB_HOST")??"127.0.0.1";
+           string? database = Env.GetString("DB_DATABASE")??"acl_dot_net";
+           string? userName = Env.GetString("DB_USERNAME")??"root";
+           string? password = Env.GetString("DB_PASSWORD");
+           string? port = Env.GetString("DB_PORT")??"3306";
 
-           // optionsBuilder.UseMySQL(connectionString);
+           var connectionString = $"server={server};database={database};User ID={userName};Password={password};CharSet=utf8mb4;" ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+
+            optionsBuilder.UseMySQL(connectionString);
           //   }
         }
 
