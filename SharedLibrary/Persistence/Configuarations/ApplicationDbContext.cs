@@ -15,13 +15,12 @@ namespace SharedLibrary.Persistence.Configurations
         {
             try
             {
-                DotNetEnv.Env.Load();
                 DotNetEnv.Env.NoClobber().TraversePath().Load();
-                string server = DotNetEnv.Env.GetString("DB_HOST")??"127.0.0.1";
-                string database = DotNetEnv.Env.GetString("DB_DATABASE")??"acl_dot_net";
-                string userName = DotNetEnv.Env.GetString("DB_USERNAME")??"root";
+                string server = DotNetEnv.Env.GetString("DB_HOST");
+                string database = DotNetEnv.Env.GetString("DB_DATABASE");
+                string userName = DotNetEnv.Env.GetString("DB_USERNAME");
                 string password = DotNetEnv.Env.GetString("DB_PASSWORD");
-                string port = DotNetEnv.Env.GetString("DB_PORT")??"3306";
+                string port = DotNetEnv.Env.GetString("DB_PORT");
 
                 var connectionString = $"server={server};port={port};database={database};user={userName};password={password};charset=utf8mb4;";
 
