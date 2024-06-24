@@ -147,7 +147,7 @@ namespace IMT.Web.Controllers
             return Ok(result);
         }
 
-        [Tags("PayAll.Accounts")]
+        [Tags("PayAllDoc.Accounts")]
         [HttpGet(PayAllUrl.GetPaymentAccountsList)]
         public object GetPaymentAccountsList()
         {
