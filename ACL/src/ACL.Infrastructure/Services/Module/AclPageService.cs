@@ -32,7 +32,6 @@ namespace ACL.Infrastructure.Services.Module
         public AclPageService(ApplicationDbContext dbContext, IAclPageRouteRepository routeRepository, IAclUserRepository aclUserRepository, IHttpContextAccessor httpContextAccessor) : base(dbContext, routeRepository, aclUserRepository, httpContextAccessor)
         {
             _dbContext = dbContext;
-            AclPage = new AclPage();
             AclResponse = new AclResponse();
             _routeRepository = routeRepository;
             _aclUserRepository = aclUserRepository;
@@ -168,6 +167,10 @@ namespace ACL.Infrastructure.Services.Module
                 AclPage = new AclPage();
                 AclPage.Id = request.Id;
                 AclPage.CreatedAt = DateTime.Now;
+            }
+            else
+            {
+                AclPage = aclPage;
             }
             if (!IsModuleIdExist(request.ModuleId))
             {
