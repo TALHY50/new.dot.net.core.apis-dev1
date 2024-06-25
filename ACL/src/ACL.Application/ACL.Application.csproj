@@ -22,8 +22,7 @@
   </ItemGroup>
   
   <ItemGroup>
-    <Folder Include="Ports\Services\UserGroup\" />
-    <Folder Include="Ports\Services\Role\" />
+    <Folder Include="Ports\Services\Auth\" />
   </ItemGroup>
   
 </Project>

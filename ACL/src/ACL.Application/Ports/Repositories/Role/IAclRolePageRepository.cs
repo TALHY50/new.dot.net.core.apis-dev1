@@ -9,12 +9,6 @@ namespace ACL.Application.Ports.Repositories.Role
     public interface IAclRolePageRepository
     {
         /// <inheritdoc/>
-        Task<AclResponse> GetAllById(ulong Id);
-        /// <inheritdoc/>
-        Task<AclResponse> UpdateAll(AclRoleAndPageAssocUpdateRequest rolePageAssociationRequest);
-        /// <inheritdoc/>
-        AclRolePage[] PrepareData(AclRoleAndPageAssocUpdateRequest rolePageAssociationRequest);
-        /// <inheritdoc/>
         List<AclRolePage>? All();
         /// <inheritdoc/>
         AclRolePage? Find(ulong id);
