@@ -19,7 +19,7 @@ namespace ADMIN.Web.Controllers.V1
         [HttpGet(AdminRoutesUrl.AdminProviderUrl.List, Name = AdminRoutesNames.AdminProviderNames.List)]
         public IActionResult Index()
         {
-            return Ok(providerService.All());
+            return Ok(providerService.GetAll());
         }
 
         [HttpPost(AdminRoutesUrl.AdminProviderUrl.Add, Name = AdminRoutesNames.AdminProviderNames.Add)]
