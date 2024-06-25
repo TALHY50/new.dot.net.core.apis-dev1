@@ -26,7 +26,7 @@ namespace SharedLibrary.Persistence.Configurations
 
                 optionsBuilder.UseMySQL(connectionString);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

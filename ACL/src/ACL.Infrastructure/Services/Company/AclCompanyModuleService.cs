@@ -24,45 +24,45 @@ namespace ACL.Infrastructure.Services.Company
         public MessageResponse MessageResponse;
         private readonly string _modelName = "Company Module";
         readonly ApplicationDbContext _dbContext;
-        public static IHttpContextAccessor HttpContextAccessor;
+        public new static IHttpContextAccessor HttpContextAccessor;
         /// <inheritdoc/>
         public AclCompanyModuleService(ApplicationDbContext dbContext, IHttpContextAccessor httpContextAccessor):base(dbContext, httpContextAccessor) 
         {
             _dbContext = dbContext;
-            this.AclResponse = new AclResponse();
+            AclResponse = new AclResponse();
             HttpContextAccessor = httpContextAccessor;
             AppAuth.Initialize(HttpContextAccessor, dbContext);
             AppAuth.SetAuthInfo(HttpContextAccessor);
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8604 // Possible null reference argument.
 
-            this.MessageResponse = new MessageResponse(this._modelName, AppAuth.GetAuthInfo().Language);
+            MessageResponse = new MessageResponse(_modelName, AppAuth.GetAuthInfo().Language);
         }
         /// <inheritdoc/>
         public AclResponse GetAll()
         {
-            this.AclResponse.Data = base.All();
-            this.AclResponse.Message = (AclResponse.Data != null) ?MessageResponse.fetchMessage : MessageResponse.notFoundMessage;
-            this.AclResponse.StatusCode = (AclResponse.Data != null) ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
-            this.AclResponse.Timestamp = DateTime.Now;
-            return this.AclResponse;
+            AclResponse.Data = base.All();
+            AclResponse.Message = (AclResponse.Data != null) ?MessageResponse.fetchMessage : MessageResponse.notFoundMessage;
+            AclResponse.StatusCode = (AclResponse.Data != null) ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
+            AclResponse.Timestamp = DateTime.Now;
+            return AclResponse;
         }
         /// <inheritdoc/>
         public AclResponse AddAclCompanyModule(AclCompanyModuleRequest request)
         {
             try
             {
-                this.AclResponse.Data = base.Add(PrepareInputData(request));
-                this.AclResponse.Message = MessageResponse.createMessage;
-                this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
+                AclResponse.Data = base.Add(PrepareInputData(request));
+                AclResponse.Message = MessageResponse.createMessage;
+                AclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             catch (Exception ex)
             {
-                this.AclResponse.Message = ex.Message;
-                this.AclResponse.StatusCode = AppStatusCode.FAIL;
+                AclResponse.Message = ex.Message;
+                AclResponse.StatusCode = AppStatusCode.FAIL;
             }
-            this.AclResponse.Timestamp = DateTime.Now;
-            return this.AclResponse;
+            AclResponse.Timestamp = DateTime.Now;
+            return AclResponse;
         }
         /// <inheritdoc/>
         public AclResponse EditAclCompanyModule(ulong id, AclCompanyModuleRequest request)
@@ -70,8 +70,8 @@ namespace ACL.Infrastructure.Services.Company
             try
             {
                 var aclCompanyModule = base.Find(id) ?? throw new Exception("company module not exist");
-                this.AclResponse.Message = (aclCompanyModule != null) ? this.MessageResponse.editMessage : this.MessageResponse.notFoundMessage;
-                this.AclResponse.StatusCode = (aclCompanyModule != null) ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
+                AclResponse.Message = (aclCompanyModule != null) ? MessageResponse.editMessage : MessageResponse.notFoundMessage;
+                AclResponse.StatusCode = (aclCompanyModule != null) ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
                 if (aclCompanyModule != null)
                 {
                    AclResponse.Data = base.Update(PrepareInputData(request, id, aclCompanyModule));

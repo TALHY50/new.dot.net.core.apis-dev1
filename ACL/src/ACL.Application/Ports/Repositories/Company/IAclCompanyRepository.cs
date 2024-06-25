@@ -7,15 +7,7 @@ namespace ACL.Application.Ports.Repositories.Company
     /// <inheritdoc/>
     public interface IAclCompanyRepository
     {
-        /// <inheritdoc/>
-        Task<AclResponse> GetAll();
-        /// <inheritdoc/>
-        Task<AclResponse> AddAclCompany(AclCompanyCreateRequest module);
-        /// <inheritdoc/>
-        AclResponse EditAclCompany(ulong id, AclCompanyEditRequest module);
-        /// <inheritdoc/>
-        AclResponse FindById(ulong id);
-        /// <inheritdoc/>
+       
         List<AclCompany>? All();
         /// <inheritdoc/>
         AclCompany? Find(ulong id);
@@ -25,10 +17,6 @@ namespace ACL.Application.Ports.Repositories.Company
         AclCompany? Update(AclCompany aclCompany);
         /// <inheritdoc/>
         AclCompany? Delete(AclCompany aclCompany);
-        /// <inheritdoc/>
-        Task<AclResponse> DeleteCompany(ulong id);
-        /// <inheritdoc/>
-        AclCompany PrepareInputData(AclCompanyCreateRequest? request = null, AclCompanyEditRequest? editRequest = null, AclCompany? company = null);
         /// <inheritdoc/>
         bool IsCompanyNameUnique(string CompanyName, ulong? CompanyId = null);
 

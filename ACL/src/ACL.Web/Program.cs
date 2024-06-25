@@ -242,13 +242,14 @@ builder.Services.AddSerilog();
 
 builder.Services.AddScoped<IAclBranchService,AclBranchService>();
 builder.Services.AddScoped<IAclCompanyModuleService,AclCompanyModuleService>();
+builder.Services.AddScoped<IAclCompanyService,AclCompanyService>();
 
 
 builder.Services.AddScoped<IAclUserRepository, AclUserRepository>();
 builder.Services.AddScoped<IAclBranchRepository, AclBranchRepository>();
 
-builder.Services.AddScoped<IAclCompanyModuleRepository, AclCompanyModuleRepository>();
-builder.Services.AddScoped<IAclCompanyRepository, AclCompanyRepository>();
+//builder.Services.AddScoped<IAclCompanyModuleRepository, AclCompanyModuleRepository>();
+//builder.Services.AddScoped<IAclCompanyRepository, AclCompanyRepository>();
 builder.Services.AddScoped<IAclCountryRepository, AclCountryRepository>();
 builder.Services.AddScoped<IAclModuleRepository, AclModuleRepository>();
 builder.Services.AddScoped<IAclPageRepository, AclPageRepository>();

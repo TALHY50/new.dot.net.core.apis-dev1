@@ -15,25 +15,18 @@ namespace ACL.Infrastructure.Persistence.Repositories.Company
     /// <inheritdoc/>
     public class AclCompanyModuleRepository : IAclCompanyModuleRepository
     {
-        /// <inheritdoc/>
-        public AclResponse AclResponse;
-        /// <inheritdoc/>
-        public MessageResponse MessageResponse;
-        private readonly string _modelName = "Company Module";
         readonly ApplicationDbContext _dbContext;
         public static IHttpContextAccessor HttpContextAccessor;
         /// <inheritdoc/>
         public AclCompanyModuleRepository(ApplicationDbContext dbContext, IHttpContextAccessor httpContextAccessor)
         {
             _dbContext = dbContext;
-            this.AclResponse = new AclResponse();
             HttpContextAccessor = httpContextAccessor;
             AppAuth.Initialize(HttpContextAccessor, dbContext);
             AppAuth.SetAuthInfo(HttpContextAccessor);
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8604 // Possible null reference argument.
 
-            this.MessageResponse = new MessageResponse(this._modelName, AppAuth.GetAuthInfo().Language);
         }
 
         public bool CompanyModuleValid(ulong companyId, ulong moduleId, ulong id = 0)
