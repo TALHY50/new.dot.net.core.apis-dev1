@@ -9,16 +9,6 @@ namespace ACL.Application.Ports.Repositories.Company
     public interface IAclCountryRepository
     {
         /// <inheritdoc/>
-        AclResponse GetAll();
-        /// <inheritdoc/>
-        AclResponse Add(AclCountryRequest countryRequest);
-        /// <inheritdoc/>
-        AclResponse Edit(ulong id, AclCountryRequest countryRequest);
-        /// <inheritdoc/>
-        AclResponse FindById(ulong id);
-        /// <inheritdoc/>
-        AclResponse DeleteById(ulong id);
-        /// <inheritdoc/>
         bool ExistById(ulong id);
         /// <inheritdoc/>
         List<AclCountry>? All();
