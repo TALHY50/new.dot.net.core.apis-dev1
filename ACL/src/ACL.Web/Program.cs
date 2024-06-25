@@ -254,6 +254,7 @@ builder.Services.AddScoped<IAclModuleService, AclModuleService>();
 builder.Services.AddScoped<IAclUserRepository, AclUserRepository>();
 builder.Services.AddScoped<IAclBranchRepository, AclBranchRepository>();
 builder.Services.AddScoped<IAclPageService, AclPageService>();
+builder.Services.AddScoped<IAclSubModuleService, AclSubModuleService>();
 
 //builder.Services.AddScoped<IAclCompanyModuleRepository, AclCompanyModuleRepository>();
 //builder.Services.AddScoped<IAclCompanyRepository, AclCompanyRepository>();
@@ -267,7 +268,7 @@ builder.Services.AddScoped<IAclPasswordRepository, AclPasswordRepository>();
 builder.Services.AddScoped<IAclRolePageRepository, AclRolePageRepository>();
 builder.Services.AddScoped<IAclRoleRepository, AclRoleRepository>();
 
-builder.Services.AddScoped<IAclSubModuleRepository, AclSubModuleRepository>();
+//builder.Services.AddScoped<IAclSubModuleRepository, AclSubModuleRepository>();
 builder.Services.AddScoped<IAclUserGroupRepository, AclUserGroupRepository>();
 builder.Services.AddScoped<IAclUserGroupRoleRepository, AclUserGroupRoleRepository>();
 builder.Services.AddScoped<IAclUserUserGroupRepository, AclUserUserGroupRepository>();

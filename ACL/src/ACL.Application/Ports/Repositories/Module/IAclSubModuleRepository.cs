@@ -8,16 +8,6 @@ namespace ACL.Application.Ports.Repositories.Module
     public interface IAclSubModuleRepository
     {
         /// <inheritdoc/>
-        AclResponse GetAll();
-        /// <inheritdoc/>
-        AclResponse Add(AclSubModuleRequest subModuleRequest);
-        /// <inheritdoc/>
-        AclResponse Edit(AclSubModuleRequest subModuleRequest);
-        /// <inheritdoc/>
-        AclResponse FindById(ulong id);
-        /// <inheritdoc/>
-        AclResponse DeleteById(ulong id);
-        /// <inheritdoc/>
         List<AclSubModule>? All();
         /// <inheritdoc/>
         AclSubModule? Find(ulong id);
