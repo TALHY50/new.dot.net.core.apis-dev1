@@ -1,10 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using MySql.EntityFrameworkCore.Extensions;
 using SharedLibrary.Interfaces;
+using SharedLibrary.Models.Admin.Provider;
 using System;
-using ADMIN.Core.Entities.Provider;
 
-namespace ADMIN.Infrastructure.Persistence.Configurations
+namespace SharedLibrary.Persistence.Configurations
 {
     public partial class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : DbContext(options), IApplicationDbContext

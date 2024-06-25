@@ -2,12 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ADMIN.Contracts.Requests;
-using ADMIN.Contracts.Response;
-using ADMIN.Core.Entities.AdminProvider;
 using SharedLibrary.Interfaces;
+using SharedLibrary.Models.Admin.Provider;
 
-namespace ADMIN.Application.Ports.Repositories.Interface.Provider
+namespace SharedLibrary.Repositories.Admin.Interface.Provider
 {
     public interface IProviderRepository : IGenericRepository<AdminProvider>
     {
