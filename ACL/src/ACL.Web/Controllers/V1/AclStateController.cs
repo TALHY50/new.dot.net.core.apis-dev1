@@ -1,5 +1,6 @@
 using ACL.Application.Ports.Repositories;
 using ACL.Application.Ports.Repositories.Company;
+using ACL.Application.Ports.Services.Company;
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response;
 using ACL.Infrastructure.Route;
@@ -14,32 +15,32 @@ namespace ACL.Web.Controllers.V1
     [ApiController]
     public class AclStateController : ControllerBase
     {
-        private readonly IAclStateRepository _repository;
+        private readonly IAclStateService AclStateService;
         /// <inheritdoc/>
-        public AclStateController(IAclStateRepository repository)
+        public AclStateController(IAclStateService aclStateService)
         {
-            this._repository = repository;
+            this.AclStateService = aclStateService;
         }
         /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclStateRouteUrl.List, Name = AclRoutesName.AclStateRouteNames.List)]
         public AclResponse Index()
         {
-            return  this._repository.GetAll();
+            return  this.AclStateService.GetAll();
         }
         /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
         [HttpPost(AclRoutesUrl.AclStateRouteUrl.Add, Name = AclRoutesName.AclStateRouteNames.Add)]
         public AclResponse Create(AclStateRequest objState)
         {
-            return this._repository.Add(objState);
+            return this.AclStateService.Add(objState);
         }
         /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclStateRouteUrl.View, Name = AclRoutesName.AclStateRouteNames.View)]
         public AclResponse View(ulong id)
         {
-            return this._repository.FindById(id);
+            return this.AclStateService.FindById(id);
 
         }
         /// <inheritdoc/>
@@ -47,7 +48,7 @@ namespace ACL.Web.Controllers.V1
         [HttpPut(AclRoutesUrl.AclStateRouteUrl.Edit, Name = AclRoutesName.AclStateRouteNames.Edit)]
         public AclResponse Edit(ulong id, AclStateRequest objState)
         {
-            return this._repository.Edit(id, objState);
+            return this.AclStateService.Edit(id, objState);
 
         }
         /// <inheritdoc/>
@@ -55,7 +56,7 @@ namespace ACL.Web.Controllers.V1
         [HttpDelete(AclRoutesUrl.AclStateRouteUrl.Destroy, Name = AclRoutesName.AclStateRouteNames.Destroy)]
         public AclResponse Destroy(ulong id)
         {
-            return this._repository.DeleteById(id);
+            return this.AclStateService.DeleteById(id);
         }
 
 

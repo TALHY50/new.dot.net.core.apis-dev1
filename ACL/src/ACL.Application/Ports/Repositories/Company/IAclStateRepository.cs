@@ -8,16 +8,6 @@ namespace ACL.Application.Ports.Repositories.Company
     public interface IAclStateRepository
     {
         /// <inheritdoc/>
-        AclResponse GetAll();
-        /// <inheritdoc/>
-        AclResponse Add(AclStateRequest stateRequest);
-        /// <inheritdoc/>
-        AclResponse Edit(ulong id, AclStateRequest stateRequest);
-        /// <inheritdoc/>
-        AclResponse FindById(ulong id);
-        /// <inheritdoc/>
-        AclResponse DeleteById(ulong id);
-        /// <inheritdoc/>
         List<AclState>? All();
         /// <inheritdoc/>
         AclState? Find(ulong id);
