@@ -48,6 +48,8 @@ using Microsoft.OpenApi.Models;
 using StackExchange.Redis;
 using ACL.Infrastructure.Services.Company;
 using ACL.Application.Ports.Services.Company;
+using ACL.Infrastructure.Services.Module;
+using ACL.Application.Ports.Services.Module;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -114,7 +116,7 @@ builder.Services.AddAuthorization(options =>
 builder.Services.AddSingleton<IAuthorizationHandler, PermissionAuthorizationHandler>();
 //builder.Services.AddAuthentication();
 //builder.Services.AddAuthorization(); // Add authorization services
-builder.Services.AddHttpContextAccessor(); 
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllers();
 
 
@@ -167,7 +169,8 @@ if (cacheDriver == "redis")
 builder.Services.AddAntiforgery(options => options.HeaderName = "X-CSRF-TOKEN");
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c => {
+builder.Services.AddSwaggerGen(c =>
+{
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
     {
         Name = "Authorization",
@@ -240,11 +243,12 @@ builder.Host.UseSerilog((hostingContext, loggerConfiguration) =>
 builder.Services.AddSerilog();
 
 
-builder.Services.AddScoped<IAclBranchService,AclBranchService>();
-builder.Services.AddScoped<IAclCompanyModuleService,AclCompanyModuleService>();
-builder.Services.AddScoped<IAclCompanyService,AclCompanyService>();
+builder.Services.AddScoped<IAclBranchService, AclBranchService>();
+builder.Services.AddScoped<IAclCompanyModuleService, AclCompanyModuleService>();
+builder.Services.AddScoped<IAclCompanyService, AclCompanyService>();
 builder.Services.AddScoped<IAclCountryService, AclCountryService>();
 builder.Services.AddScoped<IAclStateService, AclStateService>();
+builder.Services.AddScoped<IAclModuleService, AclModuleService>();
 
 builder.Services.AddScoped<IAclUserRepository, AclUserRepository>();
 builder.Services.AddScoped<IAclBranchRepository, AclBranchRepository>();
@@ -252,7 +256,7 @@ builder.Services.AddScoped<IAclBranchRepository, AclBranchRepository>();
 //builder.Services.AddScoped<IAclCompanyModuleRepository, AclCompanyModuleRepository>();
 //builder.Services.AddScoped<IAclCompanyRepository, AclCompanyRepository>();
 //builder.Services.AddScoped<IAclCountryRepository, AclCountryRepository>();
-builder.Services.AddScoped<IAclModuleRepository, AclModuleRepository>();
+//builder.Services.AddScoped<IAclModuleRepository, AclModuleRepository>();
 builder.Services.AddScoped<IAclPageRepository, AclPageRepository>();
 builder.Services.AddScoped<IAclPageRouteRepository, AclPageRouteRepository>();
 builder.Services.AddScoped<IAclPasswordRepository, AclPasswordRepository>();

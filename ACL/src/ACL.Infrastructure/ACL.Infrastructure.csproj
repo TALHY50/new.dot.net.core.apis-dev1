@@ -62,7 +62,6 @@
   </ItemGroup>
   
   <ItemGroup>
-    <Folder Include="Services\Module\" />
     <Folder Include="Services\UserGroup\" />
     <Folder Include="Services\Role\" />
     <Folder Include="Services\Permission\" />

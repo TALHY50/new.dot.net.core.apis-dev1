@@ -22,7 +22,6 @@
   </ItemGroup>
   
   <ItemGroup>
-    <Folder Include="Ports\Services\Module\" />
     <Folder Include="Ports\Services\UserGroup\" />
     <Folder Include="Ports\Services\Role\" />
   </ItemGroup>
