@@ -7,7 +7,6 @@ using ACL.Application.Ports.Repositories.Company;
 using ACL.Application.Ports.Repositories.Module;
 using ACL.Application.Ports.Repositories.Role;
 using ACL.Application.Ports.Repositories.UserGroup;
-using ACL.Application.Ports.Services;
 using ACL.Application.Ports.Services.Cryptography;
 using ACL.Application.Ports.Services.Token;
 using ACL.Application.UseCases.Auth.Authorize;
@@ -32,7 +31,6 @@ using ACL.Infrastructure.Persistence.Repositories.Module;
 using ACL.Infrastructure.Persistence.Repositories.Role;
 using ACL.Infrastructure.Persistence.Repositories.UserGroup;
 using ACL.Infrastructure.Security;
-using ACL.Infrastructure.Services;
 using ACL.Infrastructure.Services.Cryptography;
 using ACL.Infrastructure.Services.Jwt;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -48,6 +46,16 @@ using Microsoft.IdentityModel.Tokens;
 using AuthenticationService = Microsoft.AspNetCore.Authentication.AuthenticationService;
 using Microsoft.OpenApi.Models;
 using StackExchange.Redis;
+using ACL.Infrastructure.Services.Company;
+using ACL.Application.Ports.Services.Company;
+using ACL.Infrastructure.Services.Module;
+using ACL.Application.Ports.Services.Module;
+using ACL.Infrastructure.Services.Auth;
+using ACL.Application.Ports.Services.Auth;
+using ACL.Infrastructure.Services.Role;
+using ACL.Application.Ports.Services.Role;
+using ACL.Application.Ports.Services.UserGroup;
+using ACL.Infrastructure.Services.UserGroup;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -114,7 +122,7 @@ builder.Services.AddAuthorization(options =>
 builder.Services.AddSingleton<IAuthorizationHandler, PermissionAuthorizationHandler>();
 //builder.Services.AddAuthentication();
 //builder.Services.AddAuthorization(); // Add authorization services
-builder.Services.AddHttpContextAccessor(); 
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllers();
 
 
@@ -167,7 +175,8 @@ if (cacheDriver == "redis")
 builder.Services.AddAntiforgery(options => options.HeaderName = "X-CSRF-TOKEN");
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c => {
+builder.Services.AddSwaggerGen(c =>
+{
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
     {
         Name = "Authorization",
@@ -240,23 +249,39 @@ builder.Host.UseSerilog((hostingContext, loggerConfiguration) =>
 builder.Services.AddSerilog();
 
 
-builder.Services.AddScoped<IAclBranchService,AclBranchService>();
+builder.Services.AddScoped<IAclBranchService, AclBranchService>();
+builder.Services.AddScoped<IAclCompanyModuleService, AclCompanyModuleService>();
+builder.Services.AddScoped<IAclCompanyService, AclCompanyService>();
+builder.Services.AddScoped<IAclCountryService, AclCountryService>();
+builder.Services.AddScoped<IAclStateService, AclStateService>();
+builder.Services.AddScoped<IAclModuleService, AclModuleService>();
+builder.Services.AddScoped<IAclSubModuleService, AclSubModuleService>();
+builder.Services.AddScoped<IAclUserService, AclUserService>();
+builder.Services.AddScoped<IAclUserGroupRoleService, AclUserGroupRoleService>();
+builder.Services.AddScoped<IAclUserGroupService, AclUserGroupService>();
 
+builder.Services.AddScoped<IAclSubModuleService, AclSubModuleService>();
+builder.Services.AddScoped<IAclSubModuleService, AclSubModuleService>();
 
 builder.Services.AddScoped<IAclUserRepository, AclUserRepository>();
 builder.Services.AddScoped<IAclBranchRepository, AclBranchRepository>();
+builder.Services.AddScoped<IAclPageService, AclPageService>();
 
-builder.Services.AddScoped<IAclCompanyModuleRepository, AclCompanyModuleRepository>();
-builder.Services.AddScoped<IAclCompanyRepository, AclCompanyRepository>();
-builder.Services.AddScoped<IAclCountryRepository, AclCountryRepository>();
-builder.Services.AddScoped<IAclModuleRepository, AclModuleRepository>();
+
+
+//builder.Services.AddScoped<IAclCompanyModuleRepository, AclCompanyModuleRepository>();
+//builder.Services.AddScoped<IAclCompanyRepository, AclCompanyRepository>();
+//builder.Services.AddScoped<IAclCountryRepository, AclCountryRepository>();
+//builder.Services.AddScoped<IAclModuleRepository, AclModuleRepository>();
+//builder.Services.AddScoped<IAclStateRepository, AclStateRepository>();
+
 builder.Services.AddScoped<IAclPageRepository, AclPageRepository>();
 builder.Services.AddScoped<IAclPageRouteRepository, AclPageRouteRepository>();
 builder.Services.AddScoped<IAclPasswordRepository, AclPasswordRepository>();
 builder.Services.AddScoped<IAclRolePageRepository, AclRolePageRepository>();
 builder.Services.AddScoped<IAclRoleRepository, AclRoleRepository>();
-builder.Services.AddScoped<IAclStateRepository, AclStateRepository>();
-builder.Services.AddScoped<IAclSubModuleRepository, AclSubModuleRepository>();
+
+//builder.Services.AddScoped<IAclSubModuleRepository, AclSubModuleRepository>();
 builder.Services.AddScoped<IAclUserGroupRepository, AclUserGroupRepository>();
 builder.Services.AddScoped<IAclUserGroupRoleRepository, AclUserGroupRoleRepository>();
 builder.Services.AddScoped<IAclUserUserGroupRepository, AclUserUserGroupRepository>();

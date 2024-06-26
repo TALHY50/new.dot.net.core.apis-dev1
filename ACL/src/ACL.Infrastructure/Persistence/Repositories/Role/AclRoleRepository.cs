@@ -17,9 +17,6 @@ namespace ACL.Infrastructure.Persistence.Repositories.Role
     /// <inheritdoc/>
     public class AclRoleRepository : IAclRoleRepository
     {
-        public AclResponse AclResponse;
-        public MessageResponse MessageResponse;
-        private readonly string _modelName = "Role";
         private readonly ApplicationDbContext _dbContext;
         private readonly IAclUserRepository _aclUserRepository;
         public static IHttpContextAccessor HttpContextAccessor;
@@ -27,122 +24,14 @@ namespace ACL.Infrastructure.Persistence.Repositories.Role
         public AclRoleRepository(ApplicationDbContext dbContext,IAclUserRepository aclUserRepository, IHttpContextAccessor httpContextAccessor)
         {
             _aclUserRepository = aclUserRepository;
-            AclResponse = new AclResponse();
             _dbContext = dbContext;
             HttpContextAccessor = httpContextAccessor;
             AppAuth.Initialize(HttpContextAccessor, _dbContext);
             AppAuth.SetAuthInfo(HttpContextAccessor);
-            MessageResponse = new MessageResponse(_modelName, AppAuth.GetAuthInfo().Language);
-        }
-        /// <inheritdoc/>
-        public AclResponse GetAll()
-        {
-            var aclRoles = All().Select(x => new
-            {
-                x.Id,
-                x.Name,
-                x.Status,
-                x.CompanyId
-
-            }).ToList();
-            if (aclRoles.Any())
-            {
-                AclResponse.Message = MessageResponse.fetchMessage;
-            }
-            AclResponse.Data = aclRoles;
-            AclResponse.StatusCode = AppStatusCode.SUCCESS;
-
-            return AclResponse;
-        }
-        /// <inheritdoc/>
-        public AclResponse Add(AclRoleRequest request)
-        {
-            var aclRole = PrepareInputData(request);
-            AclResponse.Data = Add(aclRole);
-            AclResponse.Message = MessageResponse.createMessage;
-            AclResponse.StatusCode = AppStatusCode.SUCCESS;
-            return AclResponse;
-        }
-        /// <inheritdoc/>
-        public AclResponse Edit(ulong id, AclRoleRequest request)
-        {
-            var aclRole = Find(id) ;
-
-            if (aclRole == null)
-            {
-                AclResponse.Message = MessageResponse.notFoundMessage;
-                AclResponse.StatusCode = AppStatusCode.NOTFOUND;
-                return AclResponse;
-            }
-
-            aclRole = PrepareInputData(request, aclRole);
-            _dbContext.AclRoles.Update(aclRole);
-            _dbContext.SaveChanges();
-            _dbContext.Entry(aclRole).Reload();
-            List<ulong>? userIds = _aclUserRepository?.GetUserIdByChangePermission(null, null, null, id);
-            if (userIds.Count() > 0)
-            {
-                _aclUserRepository.UpdateUserPermissionVersion(userIds);
-            }
-            AclResponse.Data = aclRole;
-            AclResponse.Message = MessageResponse.editMessage;
-            AclResponse.StatusCode = AppStatusCode.SUCCESS;
-            return AclResponse;
-
-        }
-        /// <inheritdoc/>
-        public AclResponse FindById(ulong id)
-        {
-
-            var aclRole = Find(id);
-            AclResponse.Data = aclRole;
-            AclResponse.Message = MessageResponse.fetchMessage;
-            AclResponse.StatusCode = AppStatusCode.SUCCESS;
-            if (aclRole == null)
-            {
-                AclResponse.Message = MessageResponse.notFoundMessage;
-                AclResponse.StatusCode = AppStatusCode.NOTFOUND;
-            }
-            return AclResponse;
-
-        }
-        /// <inheritdoc/>
-        public AclResponse DeleteById(ulong id)
-        {
-            var aclRole = Find(id);
-
-            if (aclRole != null && !RoleIdNotToDelete(id))
-            {
-                AclResponse.Data = Delete(id);
-                AclResponse.Message = MessageResponse.deleteMessage;
-                AclResponse.StatusCode = AppStatusCode.SUCCESS;
-                List<ulong>? userIds = _aclUserRepository.GetUserIdByChangePermission(null, null, null, id);
-                _aclUserRepository.UpdateUserPermissionVersion(userIds);
-            }
-
-            return AclResponse;
-
-        }
-        private AclRole PrepareInputData(AclRoleRequest request, AclRole? aclRole = null)
-        {
-            if (aclRole == null)
-            {
-                aclRole = new AclRole();
-                aclRole.CreatedById = AppAuth.GetAuthInfo().UserId;
-                aclRole.CreatedAt = DateTime.Now;
-            }
-            aclRole.Title = ExistByTitle(aclRole.Id,request.Title);
-            aclRole.Name = ExistByName(aclRole.Id,request.Name);
-            aclRole.Status = request.Status;
-            aclRole.CompanyId = AppAuth.GetAuthInfo().CompanyId;
-            aclRole.UpdatedById = AppAuth.GetAuthInfo().UserId;
-            aclRole.UpdatedAt = DateTime.Now;
-
-            return aclRole;
         }
 
         /// <inheritdoc/>
-        private bool RoleIdNotToDelete(ulong roleId)
+        public bool RoleIdNotToDelete(ulong roleId)
         {
             bool exists = Enum.IsDefined(typeof(RoleIds), roleId);
             if (exists)
@@ -153,7 +42,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Role
         }
 
         /// <inheritdoc/>
-        private string ExistByName(ulong? id, string name)
+        public string ExistByName(ulong? id, string name)
         {
             var valid = _dbContext.AclRoles.Any(x => x.Name.ToLower() == name.ToLower());
             if (id > 0)
@@ -167,7 +56,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Role
             return name;
         }
         /// <inheritdoc/>
-        private string ExistByTitle(ulong? id, string title)
+        public string ExistByTitle(ulong? id, string title)
         {
             var valid = _dbContext.AclRoles.Any(x => x.Title.ToLower() == title.ToLower());
             if (id > 0)

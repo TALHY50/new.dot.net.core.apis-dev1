@@ -8,20 +8,9 @@ namespace ACL.Application.Ports.Repositories.Auth
     /// <inheritdoc/>
     public interface IAclUserRepository
     {
-        /// <inheritdoc/>
-        AclResponse GetAll();
-        /// <inheritdoc/>
-        Task<AclResponse> AddUser(AclUserRequest request);
-        /// <inheritdoc/>
-        Task<AclResponse> Edit(ulong id, AclUserRequest request);
-        /// <inheritdoc/>
-        AclResponse FindById(ulong id);
-        /// <inheritdoc/>
         AclUser? FindByIdAsync(ulong id);
         /// <inheritdoc/>
         AclUser? FindByEmail(string email);
-        /// <inheritdoc/>
-        AclResponse DeleteById(ulong id);
         /// <inheritdoc/>
         uint SetCompanyId(uint companyId);
         /// <inheritdoc/>

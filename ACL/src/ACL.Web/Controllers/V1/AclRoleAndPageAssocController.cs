@@ -1,5 +1,6 @@
 ﻿using ACL.Application.Ports.Repositories;
 using ACL.Application.Ports.Repositories.Role;
+using ACL.Application.Ports.Services.Role;
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response;
 using ACL.Infrastructure.Route;
@@ -14,25 +15,25 @@ namespace ACL.Web.Controllers.V1
     [ApiController]
     public class AclRoleAndPageAssocController : ControllerBase
     {
-        private readonly IAclRolePageRepository _repository;
+        private readonly IAclRolePageService AclRolePageService;
          /// <inheritdoc/>
-        public AclRoleAndPageAssocController(IAclRolePageRepository repository)
+        public AclRoleAndPageAssocController(IAclRolePageService _AclRolePageService)
         {
-            this._repository = repository;
+           AclRolePageService = _AclRolePageService;
         }
          /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclRolePageRouteUrl.List, Name = AclRoutesName.AclRolePageRouteNames.List)]
         public async Task<AclResponse> Index(ulong id)
         {
-            return await this._repository.GetAllById(id);
+            return await AclRolePageService.GetAllById(id);
         }
          /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPut(AclRoutesUrl.AclRolePageRouteUrl.Edit, Name = AclRoutesName.AclRolePageRouteNames.Edit)]
         public async Task<AclResponse> Update(AclRoleAndPageAssocUpdateRequest req)
         {
-            return await this._repository.UpdateAll(req);
+            return await AclRolePageService.UpdateAll(req);
         }
     }
 }

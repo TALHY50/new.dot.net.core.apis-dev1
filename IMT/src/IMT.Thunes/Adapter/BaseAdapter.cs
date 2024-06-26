@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using IMT.Thunes.Request.Common;
 
@@ -12,8 +13,8 @@ namespace IMT.Thunes.Adapter
         private const int RandomStringSize = 8;
         private const string ApiVersionHeaderValue = "v1";
         private const string ClientVersionHeaderValue = "craftgate-dotnet-client";
-        private const string ApiKeyHeaderName = "x-api-key";
-        private const string RandomHeaderName = "x-rnd-key";
+        private const string ApiKey = "Username";
+        private const string ApiSecret = "Password";
         private const string AuthVersionHeaderName = "x-auth-version";
         private const string ClientVersionHeaderName = "x-client-version";
         private const string SignatureHeaderName = "x-signature";
@@ -43,22 +44,14 @@ namespace IMT.Thunes.Adapter
         {
             var headers = new Dictionary<string, string>();
 
-            var randomString = RandomString(RandomStringSize);
-            headers.Add(ApiKeyHeaderName, options.ApiKey);
-            headers.Add(RandomHeaderName, randomString);
-            headers.Add(AuthVersionHeaderName, ApiVersionHeaderValue);
-            headers.Add(ClientVersionHeaderName, ClientVersionHeaderValue + ":1.0.59");
-            headers.Add(SignatureHeaderName, PrepareAuthorizationString(request, path, randomString, options));
-            if (options.Language != null)
-            {
-                headers.Add(LanguageHeaderName, options.Language);
-            }
-            //// Add Authorization header
-            //headers.Add("Authorization", "Basic " + PrepareAuthorizationString(request, path, RandomString(RandomStringSize), options));
-            //// Add Content-Type header
-            //headers.Add("Content-Type", "application/xml; charset=utf-8");
-            //// Add accept header
-            //headers.Add("accept", "application/json");
+            headers.Add(ApiKey, options.ApiKey);
+            headers.Add(ApiSecret, options.SecretKey);
+
+            // Basic Authentication
+            string credentials = $"{options.ApiKey}:{options.SecretKey}";
+            string basicAuthValue = Convert.ToBase64String(Encoding.UTF8.GetBytes(credentials));
+            headers.Add("Authorization", "Basic " + basicAuthValue);
+
             return headers;
         }
 

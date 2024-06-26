@@ -1,5 +1,6 @@
 
 using ACL.Application.Ports.Repositories.Module;
+using ACL.Application.Ports.Services.Module;
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response;
 using ACL.Infrastructure.Route;
@@ -14,32 +15,32 @@ namespace ACL.Web.Controllers.V1
     [ApiController]
     public class AclSubModuleController : ControllerBase
     {
-        private readonly IAclSubModuleRepository _repository;
+        private readonly IAclSubModuleService AclSubModuleService;
         /// <inheritdoc/>
-        public AclSubModuleController(IAclSubModuleRepository repository)
+        public AclSubModuleController(IAclSubModuleService _AclSubModuleService)
         {
-            this._repository = repository;
+            AclSubModuleService = _AclSubModuleService;
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclSubmoduleRouteUrl.List, Name = AclRoutesName.AclSubmoduleRouteNames.List)]
         public AclResponse Index()
         {
-            return this._repository.GetAll();
+            return AclSubModuleService.GetAll();
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPost(AclRoutesUrl.AclSubmoduleRouteUrl.Add, Name = AclRoutesName.AclSubmoduleRouteNames.Add)]
         public AclResponse Create(AclSubModuleRequest objSubModule)
         {
-            return this._repository.Add(objSubModule);
+            return AclSubModuleService.Add(objSubModule);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclSubmoduleRouteUrl.View, Name = AclRoutesName.AclSubmoduleRouteNames.View)]
         public AclResponse View(ulong id)
         {
-            return this._repository.FindById(id);
+            return AclSubModuleService.FindById(id);
 
         }
         /// <inheritdoc/>
@@ -47,7 +48,7 @@ namespace ACL.Web.Controllers.V1
         [HttpPut(AclRoutesUrl.AclSubmoduleRouteUrl.Edit, Name = AclRoutesName.AclSubmoduleRouteNames.Edit)]
         public AclResponse Edit( AclSubModuleRequest objSubModule)
         {
-            return this._repository.Edit( objSubModule);
+            return AclSubModuleService.Edit( objSubModule);
 
         }
         /// <inheritdoc/>
@@ -55,7 +56,7 @@ namespace ACL.Web.Controllers.V1
         [HttpDelete(AclRoutesUrl.AclSubmoduleRouteUrl.Destroy, Name = AclRoutesName.AclSubmoduleRouteNames.Destroy)]
         public AclResponse Destroy(ulong id)
         {
-            return this._repository.DeleteById(id);
+            return AclSubModuleService.DeleteById(id);
         }
     }
 }

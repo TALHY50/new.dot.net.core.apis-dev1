@@ -13,13 +13,18 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IMT.Core", "src\IMT.Core\IM
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IMT.Infrastructure", "src\IMT.Infrastructure\IMT.Infrastructure.csproj", "{E5867EC1-BB40-41FE-A172-FFC4E38788A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMT.Thunes", "src\IMT.Thunes\IMT.Thunes.csproj", "{35A4051E-4CE8-4F9D-A122-887A877E5DEC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IMT.Thunes", "src\IMT.Thunes\IMT.Thunes.csproj", "{35A4051E-4CE8-4F9D-A122-887A877E5DEC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMT.PayAll", "src\IMT.PayAll\IMT.PayAll.csproj", "{3B738B91-E560-43E1-BE44-19660953AC79}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IMT.PayAll", "src\IMT.PayAll\IMT.PayAll.csproj", "{3B738B91-E560-43E1-BE44-19660953AC79}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMT.PayAll.Sample", "src\IMT.PayAll.Sample\IMT.PayAll.Sample.csproj", "{C62A0AD1-B5A5-4723-BE1D-5FA1923798CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IMT.PayAll.Sample", "src\IMT.PayAll.Sample\IMT.PayAll.Sample.csproj", "{C62A0AD1-B5A5-4723-BE1D-5FA1923798CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMT.Thunes.Sample", "src\IMT.Thunes.Sample\IMT.Thunes.Sample.csproj", "{2E2F7EF8-1A24-49EB-B99B-C8F808250365}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IMT.Thunes.Sample", "src\IMT.Thunes.Sample\IMT.Thunes.Sample.csproj", "{2E2F7EF8-1A24-49EB-B99B-C8F808250365}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AE8D3859-CD9B-4DA9-A452-E58535EB0CC7}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

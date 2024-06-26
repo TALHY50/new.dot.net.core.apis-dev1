@@ -180,7 +180,7 @@ namespace IMT.Thunes.Sample
                 purpose_of_remittance = "test"
             };
             int id = 1;
-            var response = _thunesClient.CreateTransaction(id, request);
+            var response = _thunesClient.GetTransactionAdapter().CreateTransaction(id, request);
             Assert.NotNull(response);
         } 
         
@@ -198,7 +198,7 @@ namespace IMT.Thunes.Sample
                 purpose_of_remittance = "test"
             };
             int id = 1;
-            var response = _thunesClient.CreateTransactionFromQuotationExternalId(id, request);
+            var response = _thunesClient.GetTransactionAdapter().CreateTransactionFromQuotationExternalId(id, request);
             Assert.NotNull(response);
         } 
         
@@ -207,7 +207,7 @@ namespace IMT.Thunes.Sample
         {
             AttachmentRequest request = new AttachmentRequest();
             int id = 1;
-            var response = _thunesClient.CreateAttachmentToTransactionById(id, request);
+            var response = _thunesClient.GetTransactionAdapter().CreateAttachmentToTransactionById(id, request);
             Assert.NotNull(response);
         } 
 
@@ -216,7 +216,7 @@ namespace IMT.Thunes.Sample
         {
             AttachmentRequest request = new AttachmentRequest();
             int id = 1;
-            var response = _thunesClient.CreateAttachmentToTransactionByExternalId(id, request);
+            var response = _thunesClient.GetTransactionAdapter().CreateAttachmentToTransactionByExternalId(id, request);
             Assert.NotNull(response);
         } 
 
@@ -224,7 +224,7 @@ namespace IMT.Thunes.Sample
         public void ConfirmTransactionById()
         {
             int id = 1;
-            var response = _thunesClient.ConfirmTransactionById(id);
+            var response = _thunesClient.GetTransactionAdapter().ConfirmTransactionById(id);
             Assert.NotNull(response);
         }
 
@@ -232,7 +232,7 @@ namespace IMT.Thunes.Sample
         public void ConfirmTransactionByExternalId()
         {
             int id = 1;
-            var response = _thunesClient.ConfirmTransactionByExternalId(id);
+            var response = _thunesClient.GetTransactionAdapter().ConfirmTransactionByExternalId(id);
             Assert.NotNull(response);
         }
 
@@ -240,7 +240,7 @@ namespace IMT.Thunes.Sample
         public void RetrieveTransactionInformationByTransactionId()
         {
             int id = 1;
-            var response = _thunesClient.RetrieveTransactionInformationByTransactionId(id);
+            var response = _thunesClient.GetTransactionAdapter().RetrieveTransactionInformationByTransactionId(id);
             Assert.NotNull(response);
         }
 
@@ -248,7 +248,7 @@ namespace IMT.Thunes.Sample
         public void RetrieveTransactionInformationByExternalId()
         {
             int id = 1;
-            var response = _thunesClient.RetrieveTransactionInformationByExternalId(id);
+            var response = _thunesClient.GetTransactionAdapter().RetrieveTransactionInformationByExternalId(id);
             Assert.NotNull(response);
         }
 
@@ -256,7 +256,7 @@ namespace IMT.Thunes.Sample
         public void ListAttachmentsOfATransactionById()
         {
             int id = 1;
-            var response = _thunesClient.ListAttachmentsOfATransactionById(id);
+            var response = _thunesClient.GetTransactionAdapter().ListAttachmentsOfATransactionById(id);
             Assert.NotNull(response);
         }
 
@@ -264,7 +264,7 @@ namespace IMT.Thunes.Sample
         public void ListAttachmentsOfTransactionByExternalId()
         {
             int id = 1;
-            var response = _thunesClient.ListAttachmentsOfTransactionByExternalId(id);
+            var response = _thunesClient.GetTransactionAdapter().ListAttachmentsOfTransactionByExternalId(id);
             Assert.NotNull(response);
         }
 
@@ -272,7 +272,7 @@ namespace IMT.Thunes.Sample
         public void CancelTransactionById()
         {
             int id = 1;
-            var response = _thunesClient.CancelTransactionById(id);
+            var response = _thunesClient.GetTransactionAdapter().CancelTransactionById(id);
             Assert.NotNull(response);
         }
 
@@ -280,7 +280,7 @@ namespace IMT.Thunes.Sample
         public void CancelTransactionByExternalId()
         {
             int id = 1;
-            var response = _thunesClient.CancelTransactionByExternalId(id);
+            var response = _thunesClient.GetTransactionAdapter().CancelTransactionByExternalId(id);
             Assert.NotNull(response);
         }
         #endregion
@@ -288,7 +288,7 @@ namespace IMT.Thunes.Sample
         [Test]
         public void Ping()
         {
-            var response = _thunesClient.Ping();
+            var response = _thunesClient.GetConnectivityAdapter().Ping();
             Assert.NotNull(response);
         }
     }

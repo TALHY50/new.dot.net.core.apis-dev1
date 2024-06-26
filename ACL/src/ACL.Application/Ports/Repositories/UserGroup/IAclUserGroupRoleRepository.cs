@@ -8,10 +8,6 @@ namespace ACL.Application.Ports.Repositories.UserGroup
     public interface IAclUserGroupRoleRepository
     {
         /// <inheritdoc/>
-        AclResponse GetRolesByUserGroupId(ulong groupId);
-        /// <inheritdoc/>
-        Task<AclResponse> Update(AclUserGroupRoleRequest userGroupRole);
-        /// <inheritdoc/>
         List<AclUsergroupRole>? All();
         /// <inheritdoc/>
         AclUsergroupRole? Find(ulong id);

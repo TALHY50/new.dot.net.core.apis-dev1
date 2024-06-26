@@ -1,5 +1,6 @@
 ﻿using ACL.Application.Ports.Repositories;
 using ACL.Application.Ports.Repositories.Company;
+using ACL.Application.Ports.Services.Company;
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response;
 using ACL.Infrastructure.Route;
@@ -14,32 +15,32 @@ namespace ACL.Web.Controllers.V1
     [ApiController]
     public class AclCountryController : ControllerBase
     {
-        private IAclCountryRepository AclCountryRepository;
+        private IAclCountryService AclCountryService;
          /// <inheritdoc/>
-        public AclCountryController(IAclCountryRepository repository)
+        public AclCountryController(IAclCountryService repository)
         {
-            this.AclCountryRepository = repository;
+            AclCountryService = repository;
         }
          /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclCountryRouteUrl.List, Name = AclRoutesName.AclCountryRouteNames.List)]
         public AclResponse Index()
         {
-            return this.AclCountryRepository.GetAll();
+            return AclCountryService.GetAll();
         }
          /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
         [HttpPost(AclRoutesUrl.AclCountryRouteUrl.Add, Name = AclRoutesName.AclCountryRouteNames.Add)]
         public AclResponse Create(AclCountryRequest request)
         {
-            return this.AclCountryRepository.Add(request);
+            return AclCountryService.Add(request);
         }
          /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclCountryRouteUrl.View, Name = AclRoutesName.AclCountryRouteNames.View)]
         public AclResponse View(ulong id)
         {
-            return this.AclCountryRepository.FindById(id);
+            return AclCountryService.FindById(id);
 
         }
          /// <inheritdoc/>
@@ -47,7 +48,7 @@ namespace ACL.Web.Controllers.V1
         [HttpPut(AclRoutesUrl.AclCountryRouteUrl.Edit, Name = AclRoutesName.AclCountryRouteNames.Edit)]
         public AclResponse Edit(ulong id, AclCountryRequest request)
         {
-            return this.AclCountryRepository.Edit(id, request);
+            return AclCountryService.Edit(id, request);
 
         }
          /// <inheritdoc/>
@@ -55,7 +56,7 @@ namespace ACL.Web.Controllers.V1
         [HttpDelete(AclRoutesUrl.AclCountryRouteUrl.Destroy, Name = AclRoutesName.AclCountryRouteNames.Destroy)]
         public AclResponse Destroy(ulong id)
         {
-            return this.AclCountryRepository.DeleteById(id);
+            return AclCountryService.DeleteById(id);
         }
 
     }

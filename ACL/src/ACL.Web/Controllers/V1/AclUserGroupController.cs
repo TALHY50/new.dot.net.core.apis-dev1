@@ -1,5 +1,6 @@
 ﻿using ACL.Application.Ports.Repositories;
 using ACL.Application.Ports.Repositories.UserGroup;
+using ACL.Application.Ports.Services.UserGroup;
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response;
 using ACL.Infrastructure.Route;
@@ -14,46 +15,46 @@ namespace ACL.Web.Controllers.V1
     [ApiController]
     public class AclUserGroupController : Controller
     {
-        private readonly IAclUserGroupRepository _repository;
+        private readonly IAclUserGroupService AclUserGroupService;
         /// <inheritdoc/>
-        public AclUserGroupController(IAclUserGroupRepository repository)
+        public AclUserGroupController(IAclUserGroupService _AclUserGroupService)
         {
-            this._repository = repository;
+            AclUserGroupService = _AclUserGroupService;
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclUserGroupRouteUrl.List, Name = AclRoutesName.AclUserGroupRouteNames.List)]
         public AclResponse Index()
         {
-            return this._repository.GetAll();
+            return AclUserGroupService.GetAll();
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPost(AclRoutesUrl.AclUserGroupRouteUrl.Add, Name = AclRoutesName.AclUserGroupRouteNames.Add)]
         public AclResponse AclResponseCreate(AclUserGroupRequest request)
         {
-            return this._repository.AddUserGroup(request);
+            return AclUserGroupService.AddUserGroup(request);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPut(AclRoutesUrl.AclUserGroupRouteUrl.Edit, Name = AclRoutesName.AclUserGroupRouteNames.Edit)]
         public AclResponse Edit(ulong id, AclUserGroupRequest request)
         {
-            return this._repository.UpdateUserGroup(id, request);
+            return AclUserGroupService.UpdateUserGroup(id, request);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclUserGroupRouteUrl.View, Name = AclRoutesName.AclUserGroupRouteNames.View)]
         public AclResponse View(ulong id)
         {
-            return  this._repository.FindById(id);
+            return  AclUserGroupService.FindById(id);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpDelete(AclRoutesUrl.AclUserGroupRouteUrl.Destroy, Name = AclRoutesName.AclUserGroupRouteNames.Destroy)]
         public AclResponse Destroy(ulong id)
         {
-            return this._repository.Delete(id);
+            return AclUserGroupService.Delete(id);
         }
     }
 }

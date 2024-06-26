@@ -1,5 +1,6 @@
 ﻿using ACL.Application.Ports.Repositories;
 using ACL.Application.Ports.Repositories.Company;
+using ACL.Application.Ports.Services.Company;
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response;
 using ACL.Infrastructure.Route;
@@ -15,46 +16,46 @@ namespace ACL.Web.Controllers.V1
     public class AclCompanyController : Controller
     {
         /// <inheritdoc/>
-        public  required IAclCompanyRepository AclCompanyRepository;
+        public  required IAclCompanyService AclCompanyService;
         /// <inheritdoc/>
-        public AclCompanyController(IAclCompanyRepository _AclCompanyRepository)
+        public AclCompanyController(IAclCompanyService _AclCompanyService)
         {
-            this.AclCompanyRepository = _AclCompanyRepository;
+            AclCompanyService = _AclCompanyService;
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclCompanyRouteUrl.List, Name = AclRoutesName.AclCompanyRouteNames.List)]
-        public async Task<AclResponse> Index()
+        public AclResponse Index()
         {
-            return await this.AclCompanyRepository.GetAll();
+            return  AclCompanyService.GetAll();
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPost(AclRoutesUrl.AclCompanyRouteUrl.Add, Name = AclRoutesName.AclCompanyRouteNames.Add)]
         public Task<AclResponse> Create(AclCompanyCreateRequest request)
         {
-            return  this.AclCompanyRepository.AddAclCompany(request);
+            return  AclCompanyService.AddAclCompany(request);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPut(AclRoutesUrl.AclCompanyRouteUrl.Edit, Name = AclRoutesName.AclCompanyRouteNames.Edit)]
         public AclResponse Edit(ulong id, AclCompanyEditRequest request)
         {
-            return  this.AclCompanyRepository.EditAclCompany(id, request);
+            return  AclCompanyService.EditAclCompany(id, request);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclCompanyRouteUrl.View, Name = AclRoutesName.AclCompanyRouteNames.View)]
         public AclResponse View(ulong id)
         {
-            return this.AclCompanyRepository.FindById(id);
+            return AclCompanyService.FindById(id);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpDelete(AclRoutesUrl.AclCompanyRouteUrl.Destroy, Name = AclRoutesName.AclCompanyRouteNames.Destroy)]
-        public async Task<AclResponse> Destroy(ulong id)
+        public AclResponse Destroy(ulong id)
         {
-            return await this.AclCompanyRepository.DeleteCompany(id);
+            return  AclCompanyService.DeleteCompany(id);
         }
     }
 }
