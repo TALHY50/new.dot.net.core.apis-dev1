@@ -21,8 +21,4 @@
     <ProjectReference Include="..\ACL.Contracts\ACL.Contracts.csproj" />
   </ItemGroup>
   
-  <ItemGroup>
-    <Folder Include="Ports\Services\Auth\" />
-  </ItemGroup>
-  
 </Project>

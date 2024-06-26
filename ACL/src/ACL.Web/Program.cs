@@ -50,6 +50,12 @@ using ACL.Infrastructure.Services.Company;
 using ACL.Application.Ports.Services.Company;
 using ACL.Infrastructure.Services.Module;
 using ACL.Application.Ports.Services.Module;
+using ACL.Infrastructure.Services.Auth;
+using ACL.Application.Ports.Services.Auth;
+using ACL.Infrastructure.Services.Role;
+using ACL.Application.Ports.Services.Role;
+using ACL.Application.Ports.Services.UserGroup;
+using ACL.Infrastructure.Services.UserGroup;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -249,12 +255,19 @@ builder.Services.AddScoped<IAclCompanyService, AclCompanyService>();
 builder.Services.AddScoped<IAclCountryService, AclCountryService>();
 builder.Services.AddScoped<IAclStateService, AclStateService>();
 builder.Services.AddScoped<IAclModuleService, AclModuleService>();
+builder.Services.AddScoped<IAclSubModuleService, AclSubModuleService>();
+builder.Services.AddScoped<IAclUserService, AclUserService>();
+builder.Services.AddScoped<IAclUserGroupRoleService, AclUserGroupRoleService>();
+builder.Services.AddScoped<IAclUserGroupService, AclUserGroupService>();
 
+builder.Services.AddScoped<IAclSubModuleService, AclSubModuleService>();
+builder.Services.AddScoped<IAclSubModuleService, AclSubModuleService>();
 
 builder.Services.AddScoped<IAclUserRepository, AclUserRepository>();
 builder.Services.AddScoped<IAclBranchRepository, AclBranchRepository>();
 builder.Services.AddScoped<IAclPageService, AclPageService>();
-builder.Services.AddScoped<IAclSubModuleService, AclSubModuleService>();
+
+
 
 //builder.Services.AddScoped<IAclCompanyModuleRepository, AclCompanyModuleRepository>();
 //builder.Services.AddScoped<IAclCompanyRepository, AclCompanyRepository>();

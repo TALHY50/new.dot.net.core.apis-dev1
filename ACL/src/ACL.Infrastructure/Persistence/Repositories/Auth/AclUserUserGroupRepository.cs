@@ -12,9 +12,6 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
     /// <inheritdoc/>
     public class AclUserUserGroupRepository : IAclUserUserGroupRepository
     {
-        public AclResponse AclResponse;
-        public MessageResponse MessageResponse;
-        private readonly string _modelName = "User User Group";
         readonly ApplicationDbContext _dbContext;
         public static IHttpContextAccessor HttpContextAccessor;
         public AclUserUserGroupRepository(ApplicationDbContext dbContext, IHttpContextAccessor httpContextAccessor)
@@ -23,10 +20,8 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
             HttpContextAccessor = httpContextAccessor;
             AppAuth.Initialize(HttpContextAccessor, _dbContext);
             AppAuth.SetAuthInfo(HttpContextAccessor);
-            this.AclResponse = new AclResponse();
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8604 // Possible null reference argument.
-            this.MessageResponse = new MessageResponse(this._modelName, AppAuth.GetAuthInfo().Language);
         }
         /// <inheritdoc/>
         public AclUserUsergroup? Add(AclUserUsergroup request)
@@ -170,7 +165,7 @@ namespace ACL.Infrastructure.Persistence.Repositories.Auth
         {
             try
             {
-                return _dbContext.AclUserUsergroups
+                return GetAll()
                     .Where(u => u.UserId == userid)
                     .ToArray();
             }

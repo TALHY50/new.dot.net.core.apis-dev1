@@ -31,10 +31,10 @@ namespace ACL.Web.Controllers.V1
             SignOutUseCase signOutUseCase,
             RegisterUseCase registerUseCase)
         {
-            this._loginUseCase = loginUseCase;
-            this._refreshTokenUseCase = refreshTokenUseCase;
-            this._signOutUseCase = signOutUseCase;
-            this._registerUseCase = registerUseCase;
+            _loginUseCase = loginUseCase;
+            _refreshTokenUseCase = refreshTokenUseCase;
+            _signOutUseCase = signOutUseCase;
+            _registerUseCase = registerUseCase;
         }
         /// <inheritdoc/>
         [AllowAnonymous]
@@ -42,7 +42,7 @@ namespace ACL.Web.Controllers.V1
         [Route("login")]
         public async Task<LoginResponse> Login(LoginRequest request)
         {
-            return await this._loginUseCase.Execute(request);
+            return await _loginUseCase.Execute(request);
         }
         /// <inheritdoc/>
         [Authorize]
@@ -51,7 +51,7 @@ namespace ACL.Web.Controllers.V1
         [Route("refresh-token")]
         public async Task<RefreshTokenResponse> RefreshToken(RefreshTokenRequest request)
         {
-            return await this._refreshTokenUseCase.Execute(request);
+            return await _refreshTokenUseCase.Execute(request);
         }
         /// <inheritdoc/>
         [Authorize]
@@ -60,7 +60,7 @@ namespace ACL.Web.Controllers.V1
         [Route("sign-out")]
         public Task<SignOutResponse> SignOut(SignOutRequest request)
         {
-            return this._signOutUseCase.Execute(request);
+            return _signOutUseCase.Execute(request);
         }
         ///// <inheritdoc/>
         //[AllowAnonymous]
@@ -68,7 +68,7 @@ namespace ACL.Web.Controllers.V1
         //[Route("register")]
         //public async Task<RegisterResponse> Register(RegisterRequest request)
         //{
-        //    return await this._registerUseCase.Execute(request);
+        //    return await _registerUseCase.Execute(request);
         //}
     }
 }

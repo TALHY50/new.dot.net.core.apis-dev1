@@ -1,5 +1,6 @@
 ﻿using ACL.Application.Ports.Repositories;
 using ACL.Application.Ports.Repositories.UserGroup;
+using ACL.Application.Ports.Services.UserGroup;
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response;
 using ACL.Infrastructure.Route;
@@ -14,25 +15,25 @@ namespace ACL.Web.Controllers.V1
     [ApiController]
     public class AclUserGroupRoleController : ControllerBase
     {
-        private readonly IAclUserGroupRoleRepository _repository;
+        private readonly IAclUserGroupRoleService AclUserGroupRoleService;
         /// <inheritdoc/>
-        public AclUserGroupRoleController(IAclUserGroupRoleRepository repository)
+        public AclUserGroupRoleController(IAclUserGroupRoleService _AclUserGroupRoleService)
         {
-            this._repository = repository;
+            AclUserGroupRoleService = _AclUserGroupRoleService;
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclUserGroupRoleRouteUrl.List, Name = AclRoutesName.AclUserGroupRoleRouteNames.List)]
         public AclResponse Index(ulong userGroupId)
         {
-            return this._repository.GetRolesByUserGroupId(userGroupId);
+            return AclUserGroupRoleService.GetRolesByUserGroupId(userGroupId);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPost(AclRoutesUrl.AclUserGroupRoleRouteUrl.Update, Name = AclRoutesName.AclUserGroupRoleRouteNames.Update)]
         public async Task<AclResponse> Update(AclUserGroupRoleRequest objUserGroupRole)
         {
-            return await this._repository.Update(objUserGroupRole);
+            return await AclUserGroupRoleService.Update(objUserGroupRole);
         }
 
 
