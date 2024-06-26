@@ -16,7 +16,7 @@ namespace IMT.Web.Controllers
     public class ThunesController : ControllerBase
     {
 
-        private readonly ThunesClient _thunesClient = new ThunesClient(Env.GetString("THUNES_API_SECRET"), Env.GetString("THUNES_API_KEY"), Env.GetString("THUNES_BASE_URL"));
+        private readonly ThunesClient _thunesClient = new(Env.GetString("THUNES_API_SECRET"), Env.GetString("THUNES_API_KEY"), Env.GetString("THUNES_BASE_URL"));
 
         [Tags("Thunes.Quatation")]
         [HttpPost(ThunesUrl.CreateQuatationUrl)]
@@ -130,7 +130,7 @@ namespace IMT.Web.Controllers
         {
             try
             {
-                return _thunesClient.Ping();
+                return _thunesClient.GetConnectivityAdapter().Ping();
             }
             catch (System.Exception e)
             {
@@ -156,7 +156,7 @@ namespace IMT.Web.Controllers
             try
             {
                 if (id == 1) request = null;
-                var response = _thunesClient.CreateTransaction(id, request);
+                var response = _thunesClient.GetTransactionAdapter().CreateTransaction(id, request);
                 return response;
             }
             catch (System.Exception e)
@@ -178,7 +178,7 @@ namespace IMT.Web.Controllers
             try
             {
                 if (external_id == 1) request = null;
-                var response = _thunesClient.CreateTransactionFromQuotationExternalId(external_id, request);
+                var response = _thunesClient.GetTransactionAdapter().CreateTransactionFromQuotationExternalId(external_id, request);
                 return response;
             }
             catch (System.Exception e)
@@ -201,7 +201,7 @@ namespace IMT.Web.Controllers
             try
             {
                 if (id == 1) attachmentRequest = null;
-                var response = _thunesClient.CreateAttachmentToTransactionById(id, attachmentRequest);
+                var response = _thunesClient.GetTransactionAdapter().CreateAttachmentToTransactionById(id, attachmentRequest);
                 return response;
             }
             catch (System.Exception e)
@@ -224,7 +224,7 @@ namespace IMT.Web.Controllers
             try
             {
                 if (external_id == 1) attachmentRequest = null;
-                var response = _thunesClient.CreateAttachmentToTransactionByExternalId(external_id, attachmentRequest);
+                var response = _thunesClient.GetTransactionAdapter().CreateAttachmentToTransactionByExternalId(external_id, attachmentRequest);
                 return response;
             }
             catch (System.Exception e)
@@ -246,7 +246,7 @@ namespace IMT.Web.Controllers
         {
             try
             {
-                var response = _thunesClient.ConfirmTransactionById(id);
+                var response = _thunesClient.GetTransactionAdapter().ConfirmTransactionById(id);
                 return response;
             }
             catch (System.Exception e)
@@ -268,7 +268,7 @@ namespace IMT.Web.Controllers
         {
             try
             {
-                var response = _thunesClient.ConfirmTransactionByExternalId(external_id);
+                var response = _thunesClient.GetTransactionAdapter().ConfirmTransactionByExternalId(external_id);
                 return response;
             }
             catch (System.Exception e)
@@ -290,7 +290,7 @@ namespace IMT.Web.Controllers
         {
             try
             {
-                var response = _thunesClient.RetrieveTransactionInformationByTransactionId(id);
+                var response = _thunesClient.GetTransactionAdapter().RetrieveTransactionInformationByTransactionId(id);
                 return response;
             }
             catch (System.Exception e)
@@ -312,7 +312,7 @@ namespace IMT.Web.Controllers
         {
             try
             {
-                var response = _thunesClient.RetrieveTransactionInformationByExternalId(external_id);
+                var response = _thunesClient.GetTransactionAdapter().RetrieveTransactionInformationByExternalId(external_id);
                 return response;
             }
             catch (System.Exception e)
@@ -334,7 +334,7 @@ namespace IMT.Web.Controllers
         {
             try
             {
-                var response = _thunesClient.ListAttachmentsOfATransactionById(id);
+                var response = _thunesClient.GetTransactionAdapter().ListAttachmentsOfATransactionById(id);
                 return response;
             }
             catch (System.Exception e)
@@ -356,7 +356,7 @@ namespace IMT.Web.Controllers
         {
             try
             {
-                var response = _thunesClient.ListAttachmentsOfTransactionByExternalId(external_id);
+                var response = _thunesClient.GetTransactionAdapter().ListAttachmentsOfTransactionByExternalId(external_id);
                 return response;
             }
             catch (System.Exception e)
@@ -378,7 +378,7 @@ namespace IMT.Web.Controllers
         {
             try
             {
-                var response = _thunesClient.CancelTransactionByExternalId(external_id);
+                var response = _thunesClient.GetTransactionAdapter().CancelTransactionByExternalId(external_id);
                 return response;
             }
             catch (System.Exception e)
@@ -400,7 +400,7 @@ namespace IMT.Web.Controllers
         {
             try
             {
-                var response = _thunesClient.CancelTransactionById(id);
+                var response = _thunesClient.GetTransactionAdapter().CancelTransactionById(id);
                 return response;
             }
             catch (System.Exception e)
@@ -462,7 +462,7 @@ namespace IMT.Web.Controllers
 
         [Tags("Thunes.Account")]
         [HttpGet(ThunesUrl.ListReportsAvailableUrl)]
-        public Object ListReportsAvailable(string queryParams = null)
+        public Object ListReportsAvailable(string? queryParams = null)
         {
             try
             {

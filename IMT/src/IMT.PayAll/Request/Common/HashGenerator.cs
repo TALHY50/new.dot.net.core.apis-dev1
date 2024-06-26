@@ -73,7 +73,7 @@ namespace IMT.PayAll.Request.Common
             }
             catch (exception e)
             {
-                return null;
+                throw e;
             }
         }
         

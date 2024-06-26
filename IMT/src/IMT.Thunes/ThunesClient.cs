@@ -24,11 +24,11 @@ namespace IMT.Thunes
         private readonly DiscoveryAdapter _discoveryAdapter;
 
         public ThunesClient(string apiKey, string secretKey)
-            : this(apiKey, secretKey, BaseUrl, null)
+            : this(apiKey, secretKey, BaseUrl)
         {
         }
 
-        public ThunesClient(string apiKey, string secretKey, string baseUrl, string language = null)
+        public ThunesClient(string apiKey, string secretKey, string baseUrl, string? language = null)
         {
             var requestOptions = new RequestOptions
             {
@@ -37,99 +37,47 @@ namespace IMT.Thunes
                 BaseUrl = baseUrl,
                 Language = language
             };
-            this._quotationAdapter = new QuotationAdapter(requestOptions);
-            this._information_adapter = new InformationAdapter(requestOptions);
+            _quotationAdapter = new QuotationAdapter(requestOptions);
+            _information_adapter = new InformationAdapter(requestOptions);
             _transactionAdapter = new TransactionAdapter(requestOptions);
-            this._verificationAdapter = new VerificationAdapter(requestOptions);
-            this._accountAdapter = new AccountAdapter(requestOptions);
+            _verificationAdapter = new VerificationAdapter(requestOptions);
+            _accountAdapter = new AccountAdapter(requestOptions);
             _connectivityAdapter = new ConnectivityAdapter(requestOptions);
-            this._discoveryAdapter = new DiscoveryAdapter(requestOptions);
+            _discoveryAdapter = new DiscoveryAdapter(requestOptions);
         }
 
         public QuotationAdapter QuotationAdapter()
         {
-            return this._quotationAdapter;
+            return _quotationAdapter;
         }
 
         public InformationAdapter GetInformationAdapter()
         {
-            return this._information_adapter;
+            return _information_adapter;
         }
 
-        public object CreateTransaction(int id, CreateNewTransactionRequest request)
+        public TransactionAdapter GetTransactionAdapter()
         {
-            return _transactionAdapter.CreateTransaction(id, request);
+            return _transactionAdapter;
         }
-
-        public object CreateTransactionFromQuotationExternalId(int external_id, CreateNewTransactionRequest request)
+        public ConnectivityAdapter GetConnectivityAdapter()
         {
-            return _transactionAdapter.CreateTransactionFromQuotationExternalId(external_id, request);
-        }
-        public object CreateAttachmentToTransactionById(int id, AttachmentRequest request)
-        {
-            return _transactionAdapter.CreateAttachmentToTransactionById(id, request);
-        }
-
-        public object CreateAttachmentToTransactionByExternalId(int external_id, AttachmentRequest request)
-        {
-            return _transactionAdapter.CreateAttachmentToTransactionByExternalId(external_id, request);
-        }
-
-        public object ConfirmTransactionById(int id)
-        {
-            return _transactionAdapter.ConfirmTransactionById(id);
-        }
-
-        public object ConfirmTransactionByExternalId(int external_id)
-        {
-            return _transactionAdapter.ConfirmTransactionByExternalId(external_id);
-        }
-
-        public object ListAttachmentsOfTransactionByExternalId(int external_id)
-        {
-            return _transactionAdapter.ListAttachmentsOfTransactionByExternalId(external_id);
-        }
-        public object CancelTransactionByExternalId(int external_id)
-        {
-            return _transactionAdapter.CancelTransactionByExternalId(external_id);
-        }
-
-        public object CancelTransactionById(int id)
-        {
-            return _transactionAdapter.CancelTransactionById(id);
-        }
-
-        public object RetrieveTransactionInformationByTransactionId(int id)
-        {
-            return _transactionAdapter.RetrieveTransactionInformationByTransactionId(id);
-        }
-
-        public object ListAttachmentsOfATransactionById(int id)
-        {
-            return _transactionAdapter.ListAttachmentsOfATransactionById(id);
-        }
-        public object RetrieveTransactionInformationByExternalId(int external_id)
-        {
-            return _transactionAdapter.RetrieveTransactionInformationByExternalId(external_id);
+            return _connectivityAdapter;
         }
 
         public VerificationAdapter VerificationAdapter()
         {
-            return this._verificationAdapter;
+            return _verificationAdapter;
         }
 
         public AccountAdapter GetAccountAdapter()
         {
-            return this._accountAdapter;
+            return _accountAdapter;
         }
 
-        public object Ping()
-        {
-            return _connectivityAdapter.Ping();
-        }
         public DiscoveryAdapter GetDiscoveryAdapter()
         {
-            return this._discoveryAdapter;
+            return _discoveryAdapter;
         }
 
 
