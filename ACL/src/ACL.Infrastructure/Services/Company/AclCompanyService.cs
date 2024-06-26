@@ -4,6 +4,7 @@ using ACL.Application.Ports.Repositories.Role;
 using ACL.Application.Ports.Repositories.UserGroup;
 using ACL.Application.Ports.Services.Company;
 using ACL.Application.Ports.Services.Cryptography;
+using ACL.Application.Ports.Services.UserGroup;
 using ACL.Contracts.Requests.V1;
 using ACL.Contracts.Response;
 using ACL.Core.Entities.Auth;
@@ -35,7 +36,7 @@ namespace ACL.Infrastructure.Services.Company
         private readonly string _modelName = "Company";
         private readonly IConfiguration _config;
         private readonly ICryptographyService _cryptographyService;
-        private readonly IAclUserGroupRepository _aclUserGroupRepository;
+        private readonly IAclUserGroupService _aclUserGroupService;
         private readonly IAclUserRepository _aclUserRepository;
         private readonly IAclUserUserGroupRepository _aclUserUserGroupRepository;
         private readonly IAclRoleRepository _aclRoleRepository;
@@ -48,7 +49,7 @@ namespace ACL.Infrastructure.Services.Company
 
 
         /// <inheritdoc/>
-        public AclCompanyService(ApplicationDbContext dbContext, IConfiguration config, ICryptographyService cryptographyService, IAclUserGroupRepository aclUserGroupRepository, IAclUserRepository aclUserRepository, IAclUserUserGroupRepository aclUserUserGroupRepository, IAclRoleRepository aclRoleRepository, IAclUserGroupRoleRepository aclUserGroupRoleRepository, IAclPageRepository aclPageRepository, IAclRolePageRepository aclRolePageRepository, IHttpContextAccessor httpContextAccessor):base(dbContext,httpContextAccessor)
+        public AclCompanyService(ApplicationDbContext dbContext, IConfiguration config, ICryptographyService cryptographyService, IAclUserGroupService aclUserGroupRepository, IAclUserRepository aclUserRepository, IAclUserUserGroupRepository aclUserUserGroupRepository, IAclRoleRepository aclRoleRepository, IAclUserGroupRoleRepository aclUserGroupRoleRepository, IAclPageRepository aclPageRepository, IAclRolePageRepository aclRolePageRepository, IHttpContextAccessor httpContextAccessor):base(dbContext,httpContextAccessor)
 
         {
             AclResponse = new AclResponse();
@@ -58,7 +59,7 @@ namespace ACL.Infrastructure.Services.Company
             MessageResponse = new MessageResponse(_modelName, AppAuth.GetAuthInfo().Language);
             _dbContext = dbContext;
             _cryptographyService = cryptographyService;
-            _aclUserGroupRepository = aclUserGroupRepository;
+            _aclUserGroupService = aclUserGroupRepository;
             _aclUserRepository = aclUserRepository;
             _aclUserUserGroupRepository = aclUserUserGroupRepository;
             _aclRoleRepository = aclRoleRepository;
@@ -105,10 +106,10 @@ namespace ACL.Infrastructure.Services.Company
                         GroupName = _config["USER_GROUP_NAME"] ?? "ADMIN_USERGROUP",
                         Status = 1
                     };
-                    _aclUserGroupRepository.SetCompanyId(aclCompany.Id);
-                    var userGroup = _aclUserGroupRepository.PrepareInputData(userGroupRequest);
+                    _aclUserGroupService.SetCompanyId(aclCompany.Id);
+                    var userGroup = _aclUserGroupService.PrepareInputData(userGroupRequest);
                     userGroup.CompanyId = aclCompany.Id;
-                    userGroup = _aclUserGroupRepository.Add(userGroup);
+                    userGroup = _aclUserGroupService.Add(userGroup);
                     var salt = _cryptographyService.GenerateSalt();
                     string[] nameArr = request.Name.Split(' ');
                     string firstName = (nameArr.Length > 0) ? nameArr[0] : "";

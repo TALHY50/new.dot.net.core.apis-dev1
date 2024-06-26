@@ -7,6 +7,11 @@ using Bogus;
 using SharedLibrary.Response.CustomStatusCode;
 using Newtonsoft.Json;
 
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
+#pragma warning disable CS8602 // Converting null literal or possible null value to non-nullable type.
+#pragma warning disable CS8604 // Converting null literal or possible null value to non-nullable type.
+#pragma warning disable CS0414 // Converting null literal or possible null value to non-nullable type.
+#pragma warning disable CS1998 // Converting null literal or possible null value to non-nullable type.
 namespace ACL.Tests.V1
 {
     public class AclPageUnitTest
@@ -31,7 +36,9 @@ namespace ACL.Tests.V1
 
 
             //// Assert
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
                        AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
 
         }
         [Fact]
@@ -49,7 +56,9 @@ namespace ACL.Tests.V1
 
 
             //// Assert
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
                        AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
 
         }
         [Fact]
@@ -69,7 +78,9 @@ namespace ACL.Tests.V1
 
 
             //// Assert
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
                        AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
 
         }
         [Fact]
@@ -86,7 +97,9 @@ namespace ACL.Tests.V1
 
 
             //// Assert
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
                        AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
 
         }
 
@@ -103,7 +116,9 @@ namespace ACL.Tests.V1
             RestResponse response = restClient.Execute(request);
 
             // Assert
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
                        AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
 
         }
 
