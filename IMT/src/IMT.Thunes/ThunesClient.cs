@@ -13,7 +13,7 @@ namespace IMT.Thunes
 {
     public class ThunesClient
     {
-        private const string BaseUrl = "https://xyz";
+        private const string BaseUrl = "https://api-mt.pre.thunes.com";
 
         private readonly QuotationAdapter _quotationAdapter;
         private readonly InformationAdapter _information_adapter;
@@ -35,7 +35,7 @@ namespace IMT.Thunes
                 ApiKey = apiKey,
                 SecretKey = secretKey,
                 BaseUrl = baseUrl,
-                Language = language
+                //Language = language
             };
             _quotationAdapter = new QuotationAdapter(requestOptions);
             _information_adapter = new InformationAdapter(requestOptions);
