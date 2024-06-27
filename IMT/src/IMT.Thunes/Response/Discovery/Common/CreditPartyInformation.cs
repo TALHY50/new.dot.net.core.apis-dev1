@@ -7,6 +7,6 @@ namespace IMT.Thunes.Response.Discovery.Common
 {
     public class CreditPartyInformation
     {
-        public List<List<string>> credit_party_identifiers_accepted { get; set; }
+        public List<List<object>> credit_party_identifiers_accepted { get; set; }
     }
 }
