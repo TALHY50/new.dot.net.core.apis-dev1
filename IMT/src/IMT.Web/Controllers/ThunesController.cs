@@ -161,7 +161,7 @@ namespace IMT.Web.Controllers
             }
             catch (ThunesException e)
             {
-                return StatusCode(400, e.Errors);
+                return StatusCode(e.ErrorCode, e.Errors);
                 //return BadRequest(e.Errors);
                 //if (e.Message == "Unauthorized")
                 //{
