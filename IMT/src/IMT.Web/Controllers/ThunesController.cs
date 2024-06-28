@@ -116,7 +116,7 @@ namespace IMT.Web.Controllers
 
         [Tags("Thunes.Transaction")]
         [HttpPost(ThunesUrl.CreateTransactionUrl)]
-        public Object TransactionPost(int id, CreateNewTransactionRequest request)
+        public Object TransactionPost(ulong id, CreateNewTransactionFromQuotationIdRequest request)
         {
             try
             {

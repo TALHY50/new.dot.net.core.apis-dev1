@@ -169,14 +169,12 @@ namespace IMT.Thunes.Sample
         [Test]
         public void CreateTransaction()
         {
-            CreateNewTransactionRequest request = new CreateNewTransactionRequest
+            CreateNewTransactionFromQuotationIdRequest request = new CreateNewTransactionFromQuotationIdRequest
             {
-                credit_party_identifier = new CreditPartyIdentifier(),
-                sender = new Sender(),
-                beneficiary = new Beneficiary(),
-                sending_business = new SendingBussiness(),
-                receiving_business = new RecievingBussiness(),
-                external_id = "1",
+                credit_party_identifier = new CreditPartyIdentifierWithQotationId(),
+                sending_business = new SendingBusinessQuotationId(),
+                receiving_business = new ReceivingBusinessQuotationId(),
+                external_id = 1,
                 purpose_of_remittance = "test"
             };
             int id = 1;
