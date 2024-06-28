@@ -26,7 +26,7 @@ namespace IMT.Thunes.Response.Transfer.Transaction
         public Payer payer { get; set; }
         public Sender sender { get; set; }
         public Beneficiary beneficiary { get; set; }
-        public string callback_url { get; set; }
+        public string? callback_url { get; set; }
         public SentAmount sent_amount { get; set; }
         public double wholesale_fx_rate { get; set; }
         public object retail_rate { get; set; }
@@ -39,6 +39,11 @@ namespace IMT.Thunes.Response.Transfer.Transaction
         public object? additional_information_2 { get; set; }
         public object? additional_information_3 { get; set; }
         public object reference { get; set; }
+
+        public ReceivingBusiness? receiving_business { get; set; }
+
+        public SendingBusiness? sending_business { get; set; }
+
     }
 
 
@@ -75,9 +80,10 @@ namespace IMT.Thunes.Response.Transfer.Transaction
 
     public class CreditPartyIdentifier
     {
-        public string msisdn { get; set; }
-        public string bank_account_number { get; set; }
-        public string swift_bic_code { get; set; }
+        public string? msisdn { get; set; }
+        public string? bank_account_number { get; set; }
+        public string? swift_bic_code { get; set; }
+        public string? iban { get; set; }
     }
 
     public class Destination
@@ -134,7 +140,7 @@ namespace IMT.Thunes.Response.Transfer.Transaction
     public class SentAmount
     {
         public string currency { get; set; }
-        public int amount { get; set; }
+        public double? amount { get; set; }
     }
 
     public class Service
