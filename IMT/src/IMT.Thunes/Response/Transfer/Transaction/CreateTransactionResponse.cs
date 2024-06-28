@@ -14,10 +14,10 @@ namespace IMT.Thunes.Response.Transfer.Transaction
         public string status_class { get; set; }
         public string status_class_message { get; set; }
         public string external_id { get; set; }
-        public object external_code { get; set; }
+        public object? external_code { get; set; }
         public string transaction_type { get; set; }
-        public object payer_transaction_reference { get; set; }
-        public object payer_transaction_code { get; set; }
+        public object? payer_transaction_reference { get; set; }
+        public object? payer_transaction_code { get; set; }
         public DateTime creation_date { get; set; }
         public DateTime expiration_date { get; set; }
         public CreditPartyIdentifier credit_party_identifier { get; set; }
@@ -35,9 +35,9 @@ namespace IMT.Thunes.Response.Transfer.Transaction
         public Fee fee { get; set; }
         public string purpose_of_remittance { get; set; }
         public string document_reference_number { get; set; }
-        public object additional_information_1 { get; set; }
-        public object additional_information_2 { get; set; }
-        public object additional_information_3 { get; set; }
+        public object? additional_information_1 { get; set; }
+        public object? additional_information_2 { get; set; }
+        public object? additional_information_3 { get; set; }
         public object reference { get; set; }
     }
 
@@ -83,7 +83,7 @@ namespace IMT.Thunes.Response.Transfer.Transaction
     public class Destination
     {
         public string currency { get; set; }
-        public double amount { get; set; }
+        public double? amount { get; set; }
     }
 
     public class Fee
@@ -147,7 +147,7 @@ namespace IMT.Thunes.Response.Transfer.Transaction
     {
         public string country_iso_code { get; set; }
         public string currency { get; set; }
-        public int amount { get; set; }
+        public double? amount { get; set; }
     }
 
     #endregion
