@@ -1,8 +1,7 @@
-using ACL.Contracts.Requests.V1;
-using ACL.Contracts.Response;
-using ACL.Core.Entities;
-using ACL.Core.Entities.Role;
-using ACL.Infrastructure.Route;
+using ACL.Application.Contracts.Requests;
+using ACL.Application.Contracts.Response;
+using ACL.Application.Domain.Role;
+using ACL.Application.Infrastructure.Route;
 using Microsoft.EntityFrameworkCore;
 using RestSharp;
 using Bogus;

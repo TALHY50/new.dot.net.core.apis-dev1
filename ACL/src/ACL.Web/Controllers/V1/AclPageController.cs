@@ -1,9 +1,7 @@
-﻿using ACL.Application.Ports.Repositories;
-using ACL.Application.Ports.Repositories.Module;
-using ACL.Application.Ports.Services.Module;
-using ACL.Contracts.Requests.V1;
-using ACL.Contracts.Response;
-using ACL.Infrastructure.Route;
+﻿using ACL.Application.Contracts.Requests;
+using ACL.Application.Contracts.Response;
+using ACL.Application.Domain.Ports.Services.Module;
+using ACL.Application.Infrastructure.Route;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

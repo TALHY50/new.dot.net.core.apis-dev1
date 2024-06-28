@@ -71,7 +71,6 @@
   </ItemGroup>
   
   <ItemGroup>
-	<ProjectReference Include="..\ACL.Infrastructure\ACL.Infrastructure.csproj" />
 	<ProjectReference Include="..\ACL.Application\ACL.Application.csproj" />
   </ItemGroup>
 

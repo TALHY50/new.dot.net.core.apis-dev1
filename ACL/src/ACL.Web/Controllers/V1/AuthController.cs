@@ -1,15 +1,13 @@
-using ACL.Application.UseCases.Auth.Login;
-using ACL.Application.UseCases.Auth.Login.Request;
-using ACL.Application.UseCases.Auth.Login.Response;
-using ACL.Application.UseCases.Auth.RefreshToken;
-using ACL.Application.UseCases.Auth.RefreshToken.Request;
-using ACL.Application.UseCases.Auth.RefreshToken.Response;
-using ACL.Application.UseCases.Auth.Register;
-using ACL.Application.UseCases.Auth.Register.Request;
-using ACL.Application.UseCases.Auth.Register.Response;
-using ACL.Application.UseCases.Auth.SignOut;
-using ACL.Application.UseCases.Auth.SignOut.Request;
-using ACL.Application.UseCases.Auth.SignOut.Response;
+using ACL.Application.Features.Auth.Login;
+using ACL.Application.Features.Auth.Login.Request;
+using ACL.Application.Features.Auth.Login.Response;
+using ACL.Application.Features.Auth.RefreshToken;
+using ACL.Application.Features.Auth.RefreshToken.Request;
+using ACL.Application.Features.Auth.RefreshToken.Response;
+using ACL.Application.Features.Auth.Register;
+using ACL.Application.Features.Auth.SignOut;
+using ACL.Application.Features.Auth.SignOut.Request;
+using ACL.Application.Features.Auth.SignOut.Response;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
