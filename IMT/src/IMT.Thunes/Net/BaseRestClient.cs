@@ -113,7 +113,7 @@ namespace IMT.Thunes.Net
             var response = JsonConvert.DeserializeObject<Response<T>>(content, ThunesJsonSerializerSettings.Settings);
             if (httpResponseMessage.StatusCode == HttpStatusCode.Unauthorized)
             {
-                throw new UnauthorizeException(((int)httpResponseMessage.StatusCode).ToString(), httpResponseMessage.StatusCode.ToString());
+                throw new ThunesException((int)httpResponseMessage.StatusCode, httpResponseMessage.StatusCode.ToString());
             }
             if(httpResponseMessage.StatusCode == HttpStatusCode.BadRequest)
             {

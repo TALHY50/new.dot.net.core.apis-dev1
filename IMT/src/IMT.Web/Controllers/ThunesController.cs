@@ -428,16 +428,13 @@ namespace IMT.Web.Controllers
             {
                 return _thunesClient.GetAccountAdapter().GetBalanceResponse();
             }
-            catch (System.Exception e)
+            catch (ThunesException e)
             {
-                if (e.Message == "Unauthorized")
+                if (e.ErrorCode == Unauthorized().StatusCode)
                 {
-                    return Unauthorized();
+                    return StatusCode(e.ErrorCode, e.ErrorDescription);
                 }
-                else
-                {
-                    return NotFound();
-                }
+                return StatusCode(e.ErrorCode, e.Errors);
             }
         }
 
@@ -449,16 +446,13 @@ namespace IMT.Web.Controllers
             {
                 return _thunesClient.GetAccountAdapter().GetBalanceMovement(id, from_date, to_date);
             }
-            catch (System.Exception e)
+            catch (ThunesException e)
             {
-                if (e.Message == "Unauthorized")
+                if (e.ErrorCode == Unauthorized().StatusCode)
                 {
-                    return Unauthorized();
+                    return StatusCode(e.ErrorCode, e.ErrorDescription);
                 }
-                else
-                {
-                    return NotFound();
-                }
+                return StatusCode(e.ErrorCode, e.Errors);
             }
         }
 
@@ -470,16 +464,13 @@ namespace IMT.Web.Controllers
             {
                 return _thunesClient.GetAccountAdapter().ListReportsAvailable(queryParams);
             }
-            catch (System.Exception e)
+            catch (ThunesException e)
             {
-                if (e.Message == "Unauthorized")
+                if(e.ErrorCode == Unauthorized().StatusCode)
                 {
-                    return Unauthorized();
+                    return StatusCode(e.ErrorCode, e.ErrorDescription);
                 }
-                else
-                {
-                    return NotFound();
-                }
+                return StatusCode(e.ErrorCode, e.Errors);
             }
         }
 
@@ -491,16 +482,13 @@ namespace IMT.Web.Controllers
             {
                 return _thunesClient.GetAccountAdapter().GetReportDetail(id);
             }
-            catch (System.Exception e)
+            catch (ThunesException e)
             {
-                if (e.Message == "Unauthorized")
+                if (e.ErrorCode == Unauthorized().StatusCode)
                 {
-                    return Unauthorized();
+                    return StatusCode(e.ErrorCode, e.ErrorDescription);
                 }
-                else
-                {
-                    return NotFound();
-                }
+                return StatusCode(e.ErrorCode, e.Errors);
             }
         }
 
@@ -512,16 +500,13 @@ namespace IMT.Web.Controllers
             {
                 return _thunesClient.GetAccountAdapter().ListReportsAvailable(id);
             }
-            catch (System.Exception e)
+            catch (ThunesException e)
             {
-                if (e.Message == "Unauthorized")
+                if (e.ErrorCode == Unauthorized().StatusCode)
                 {
-                    return Unauthorized();
+                    return StatusCode(e.ErrorCode, e.ErrorDescription);
                 }
-                else
-                {
-                    return NotFound();
-                }
+                return StatusCode(e.ErrorCode, e.Errors);
             }
         }
 
@@ -533,16 +518,13 @@ namespace IMT.Web.Controllers
             {
                 return _thunesClient.GetAccountAdapter().GetReportFileDetails(report_id, id);
             }
-            catch (System.Exception e)
+            catch (ThunesException e)
             {
-                if (e.Message == "Unauthorized")
+                if (e.ErrorCode == Unauthorized().StatusCode)
                 {
-                    return Unauthorized();
+                    return StatusCode(e.ErrorCode, e.ErrorDescription);
                 }
-                else
-                {
-                    return NotFound();
-                }
+                return StatusCode(e.ErrorCode, e.Errors);
             }
         }
 
