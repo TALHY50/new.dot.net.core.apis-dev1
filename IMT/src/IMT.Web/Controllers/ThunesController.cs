@@ -1,5 +1,6 @@
 ﻿using DotNetEnv;
 using IMT.Thunes;
+using IMT.Thunes.Exception;
 using IMT.Thunes.Request.Common;
 using IMT.Thunes.Request.CreditParties;
 using IMT.Thunes.Request.Transaction.Quoatation;
@@ -158,16 +159,18 @@ namespace IMT.Web.Controllers
                 var response = _thunesClient.GetTransactionAdapter().CreateTransaction(id, request);
                 return response;
             }
-            catch (System.Exception e)
+            catch (ThunesException e)
             {
-                if (e.Message == "Unauthorized")
-                {
-                    return Unauthorized();
-                }
-                else
-                {
-                    return NotFound();
-                }
+                return StatusCode(400, e.Errors);
+                //return BadRequest(e.Errors);
+                //if (e.Message == "Unauthorized")
+                //{
+                //    return Unauthorized();
+                //}
+                //else
+                //{
+                //    return NotFound();
+                //}
             }
         }
         [Tags("Thunes.Transaction")]

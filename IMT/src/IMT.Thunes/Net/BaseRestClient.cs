@@ -67,9 +67,9 @@ namespace IMT.Thunes.Net
             if (apiResponse.Data == null)
             {
                 apiResponse = new Response<T>();
-                apiResponse.Errors = new ErrorResponse();
-                apiResponse.Errors.ErrorCode = ((int)httpResponseMessage.StatusCode).ToString();
-                apiResponse.Errors.ErrorDescription = httpResponseMessage.ReasonPhrase ?? httpResponseMessage.StatusCode.ToString();
+                //apiResponse.Errors = new ErrorsResponse();
+                //apiResponse.Errors.code = ((int)httpResponseMessage.StatusCode).ToString();
+                //apiResponse.Errors.message = httpResponseMessage.ReasonPhrase ?? httpResponseMessage.StatusCode.ToString();
             }
 
             return apiResponse.Data;
@@ -84,9 +84,9 @@ namespace IMT.Thunes.Net
             if (apiResponse.Data == null)
             {
                 apiResponse = new Response<T>();
-                apiResponse.Errors = new ErrorResponse();
-                apiResponse.Errors.ErrorCode = ((int)httpResponseMessage.StatusCode).ToString();
-                apiResponse.Errors.ErrorDescription = httpResponseMessage.ReasonPhrase ?? httpResponseMessage.StatusCode.ToString();
+                //apiResponse.Errors = new ErrorsResponse();
+                //apiResponse.Errors.code = ((int)httpResponseMessage.StatusCode).ToString();
+                //apiResponse.Errors.message = httpResponseMessage.ReasonPhrase ?? httpResponseMessage.StatusCode.ToString();
                 return apiResponse.Errors;
             }
 
@@ -115,6 +115,11 @@ namespace IMT.Thunes.Net
             {
                 throw new UnauthorizeException(((int)httpResponseMessage.StatusCode).ToString(), httpResponseMessage.StatusCode.ToString());
             }
+            if(httpResponseMessage.StatusCode == HttpStatusCode.BadRequest)
+            {
+                throw new ThunesException((int)httpResponseMessage.StatusCode, response.Errors);
+            }
+           
             // more condition will written below
         }
 
