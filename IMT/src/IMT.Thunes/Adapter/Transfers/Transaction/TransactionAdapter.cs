@@ -42,16 +42,16 @@ namespace IMT.Thunes.Adapter.Transfers.Transaction
             return RestClient.Post<TransactionAttachmentResponse>(RequestOptions.BaseUrl + url, CreateHeaders(request, ThunesUrl.CreateAttachmentToTransactionByExternalIdUrl, RequestOptions), request);
         } 
         
-        public object ConfirmTransactionById(int id)
+        public ConfirmTransactionResponse ConfirmTransactionById(int id)
         {
             var url = ThunesUrl.ConfirmTransactionByIdUrl.Replace("{id}", id.ToString());
-           return RestClient.Post<CreateTransactionResponse>(RequestOptions.BaseUrl + url, CreateHeaders( ThunesUrl.ConfirmTransactionByIdUrl, RequestOptions),null);
+           return RestClient.Post<ConfirmTransactionResponse>(RequestOptions.BaseUrl + url, CreateHeaders( ThunesUrl.ConfirmTransactionByIdUrl, RequestOptions),null);
         }
         
         public object ConfirmTransactionByExternalId(int external_id)
         {
             var url = ThunesUrl.ConfirmTransactionByExternalIdUrl.Replace("{external_id}", external_id.ToString());
-           return RestClient.Post<CreateTransactionResponse>(RequestOptions.BaseUrl + url, CreateHeaders( ThunesUrl.ConfirmTransactionByExternalIdUrl, RequestOptions),null);
+           return RestClient.Post<ConfirmTransactionResponse>(RequestOptions.BaseUrl + url, CreateHeaders( ThunesUrl.ConfirmTransactionByExternalIdUrl, RequestOptions),null);
         }
         
         public object CancelTransactionByExternalId(int external_id)
