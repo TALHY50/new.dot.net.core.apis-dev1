@@ -6,9 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ACL.Contracts.Requests.V1;
-using ACL.Contracts.Response;
-using ACL.Infrastructure.Route;
+using ACL.Application.Contracts.Requests;
+using ACL.Application.Contracts.Response;
+using ACL.Application.Infrastructure.Route;
 using SharedLibrary.Response.CustomStatusCode;
 using Newtonsoft.Json;
 

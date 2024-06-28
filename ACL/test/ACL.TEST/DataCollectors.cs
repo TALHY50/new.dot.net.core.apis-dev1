@@ -1,13 +1,12 @@
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
 using System.Runtime.Caching;
-using ACL.Application.UseCases.Auth.Login.Request;
-using ACL.Infrastructure;
-using ACL.Infrastructure.Persistence.Configurations;
+using ACL.Application.Features.Auth.Login.Request;
+using ACL.Application.Features.Auth.Login.Response;
+using ACL.Application.Infrastructure.Persistence.Configurations;
 using Newtonsoft.Json;
 using RestSharp;
 using Microsoft.Extensions.Caching.Distributed;
-using ACL.Application.UseCases.Auth.Login.Response;
 
 
 namespace ACL.Tests

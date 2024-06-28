@@ -53,15 +53,26 @@
   </ItemGroup>
   
   <ItemGroup>
-    <EmbeddedResource Update="Resources\en-US.resx">
-      <CustomToolNamespace>en-US</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\bn-BD.resx">
-      <CustomToolNamespace>bn-BD</CustomToolNamespace>
-    </EmbeddedResource>
-  </ItemGroup>
-  
-  <ItemGroup>
+    <Folder Include="Persistence\Configurations\" />
+    <Folder Include="Persistence\Dtos\" />
+    <Folder Include="Persistence\Extensions\" />
+    <Folder Include="Persistence\Migrations\Patch\" />
+    <Folder Include="Persistence\Repositories\Auth\" />
+    <Folder Include="Persistence\Repositories\Company\" />
+    <Folder Include="Persistence\Repositories\Module\" />
+    <Folder Include="Persistence\Repositories\Role\" />
+    <Folder Include="Persistence\Repositories\UserGroup\" />
+    <Folder Include="Resources\" />
+    <Folder Include="Route\" />
+    <Folder Include="Security\CustomDataAnotator\" />
+    <Folder Include="Services\Auth\" />
+    <Folder Include="Services\Company\" />
+    <Folder Include="Services\Cryptography\" />
+    <Folder Include="Services\Jwt\" />
+    <Folder Include="Services\Module\" />
     <Folder Include="Services\Permission\" />
+    <Folder Include="Services\Role\" />
+    <Folder Include="Services\UserGroup\" />
+    <Folder Include="Utilities\" />
   </ItemGroup>
 </Project>

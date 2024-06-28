@@ -11,9 +11,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ACL.Contracts.Requests.V1;
-using ACL.Contracts.Response;
-using ACL.Infrastructure.Route;
+using ACL.Application.Contracts.Requests;
+using ACL.Application.Contracts.Response;
+using ACL.Application.Infrastructure.Route;
 using YamlDotNet.Core.Tokens;
 
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.

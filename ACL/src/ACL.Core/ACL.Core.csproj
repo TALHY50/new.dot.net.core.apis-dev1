@@ -16,4 +16,13 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Entities\Auth\Events\" />
+    <Folder Include="Entities\Company\" />
+    <Folder Include="Entities\Module\" />
+    <Folder Include="Entities\Role\" />
+    <Folder Include="Entities\UserGroup\" />
+    <Folder Include="Entities\Weather\" />
+  </ItemGroup>
+
 </Project>
