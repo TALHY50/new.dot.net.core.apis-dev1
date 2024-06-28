@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace IMT.Thunes.Request.Common
 {
-    public class Destination1
+    public class DestinationOne
     {
-        public required string amount { get; set; }
-        public required string currency { get; set; }
+        public double? amount { get; set; }
+        public string currency { get; set; }
     }
 }

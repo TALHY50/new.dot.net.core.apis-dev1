@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace IMT.Thunes.Request.Common
 {
-    public class Source1
+    public class SourceOne
     {
-        public required string amount { get; set; }
-        public required string currency { get; set; }
-        public required string country_iso_code { get; set; }
+        public  double? amount { get; set; }
+        public  string currency { get; set; }
+        public  string country_iso_code { get; set; }
     }
 }
