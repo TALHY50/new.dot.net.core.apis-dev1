@@ -26,16 +26,9 @@ namespace IMT.Web.Controllers
             {
                 return _thunesClient.QuotationAdapter().CreateQuatatioin(request);
             }
-            catch (System.Exception e)
+            catch (ThunesException e)
             {
-                if (e.Message == "Unauthorized")
-                {
-                    return Unauthorized();
-                }
-                else
-                {
-                    return NotFound();
-                }
+                return StatusCode(e.ErrorCode, e.Errors);
             }
         }
 
@@ -47,16 +40,9 @@ namespace IMT.Web.Controllers
             {
                 return _thunesClient.QuotationAdapter().GetQuotationById(id);
             }
-            catch (System.Exception e)
+            catch (ThunesException e)
             {
-                if (e.Message == "Unauthorized")
-                {
-                    return Unauthorized();
-                }
-                else
-                {
-                    return NotFound();
-                }
+                return StatusCode(e.ErrorCode, e.Errors);
             }
         }
         [Tags("Thunes.Quatation")]
@@ -67,16 +53,9 @@ namespace IMT.Web.Controllers
             {
                 return _thunesClient.QuotationAdapter().GetRetrieveQuotationByExternalId(external_id);
             }
-            catch (System.Exception e)
+            catch (ThunesException e)
             {
-                if (e.Message == "Unauthorized")
-                {
-                    return Unauthorized();
-                }
-                else
-                {
-                    return NotFound();
-                }
+                return StatusCode(e.ErrorCode, e.Errors);
             }
         }
         [Tags("Thunes.CreditParties")]
@@ -87,16 +66,9 @@ namespace IMT.Web.Controllers
             {
                 return _thunesClient.GetInformationAdapter().CreditPartyInformation(request, id, transaction_type);
             }
-            catch (System.Exception e)
+            catch (ThunesException e)
             {
-                if (e.Message == "Unauthorized")
-                {
-                    return Unauthorized();
-                }
-                else
-                {
-                    return NotFound();
-                }
+                return StatusCode(e.ErrorCode, e.Errors);
             }
         }
 
@@ -132,16 +104,9 @@ namespace IMT.Web.Controllers
             {
                 return _thunesClient.GetConnectivityAdapter().Ping();
             }
-            catch (System.Exception e)
+            catch (ThunesException e)
             {
-                if (e.Message == "Unauthorized")
-                {
-                    return Unauthorized();
-                }
-                else
-                {
-                    return NotFound();
-                }
+                return StatusCode(e.ErrorCode, e.Errors);
             }
         }
 
@@ -155,22 +120,11 @@ namespace IMT.Web.Controllers
         {
             try
             {
-                if (id == 1) request = null;
-                var response = _thunesClient.GetTransactionAdapter().CreateTransaction(id, request);
-                return response;
+                return _thunesClient.GetTransactionAdapter().CreateTransaction(id, request);
             }
             catch (ThunesException e)
             {
                 return StatusCode(e.ErrorCode, e.Errors);
-                //return BadRequest(e.Errors);
-                //if (e.Message == "Unauthorized")
-                //{
-                //    return Unauthorized();
-                //}
-                //else
-                //{
-                //    return NotFound();
-                //}
             }
         }
         [Tags("Thunes.Transaction")]
@@ -179,20 +133,11 @@ namespace IMT.Web.Controllers
         {
             try
             {
-                if (external_id == 1) request = null;
-                var response = _thunesClient.GetTransactionAdapter().CreateTransactionFromQuotationExternalId(external_id, request);
-                return response;
+                return _thunesClient.GetTransactionAdapter().CreateTransactionFromQuotationExternalId(external_id, request);
             }
-            catch (System.Exception e)
+            catch (ThunesException e)
             {
-                if (e.Message == "Unauthorized")
-                {
-                    return Unauthorized();
-                }
-                else
-                {
-                    return NotFound();
-                }
+                return StatusCode(e.ErrorCode, e.Errors);
             }
         }
 
@@ -202,20 +147,11 @@ namespace IMT.Web.Controllers
         {
             try
             {
-                if (id == 1) attachmentRequest = null;
-                var response = _thunesClient.GetTransactionAdapter().CreateAttachmentToTransactionById(id, attachmentRequest);
-                return response;
+                return _thunesClient.GetTransactionAdapter().CreateAttachmentToTransactionById(id, attachmentRequest);
             }
-            catch (System.Exception e)
+            catch (ThunesException e)
             {
-                if (e.Message == "Unauthorized")
-                {
-                    return Unauthorized();
-                }
-                else
-                {
-                    return NotFound();
-                }
+                return StatusCode(e.ErrorCode, e.Errors);
             }
         }
 
@@ -225,20 +161,11 @@ namespace IMT.Web.Controllers
         {
             try
             {
-                if (external_id == 1) attachmentRequest = null;
-                var response = _thunesClient.GetTransactionAdapter().CreateAttachmentToTransactionByExternalId(external_id, attachmentRequest);
-                return response;
+                return _thunesClient.GetTransactionAdapter().CreateAttachmentToTransactionByExternalId(external_id, attachmentRequest);
             }
-            catch (System.Exception e)
+            catch (ThunesException e)
             {
-                if (e.Message == "Unauthorized")
-                {
-                    return Unauthorized();
-                }
-                else
-                {
-                    return NotFound();
-                }
+                return StatusCode(e.ErrorCode, e.Errors);
             }
         }
 
@@ -248,19 +175,11 @@ namespace IMT.Web.Controllers
         {
             try
             {
-                var response = _thunesClient.GetTransactionAdapter().ConfirmTransactionById(id);
-                return response;
+                return _thunesClient.GetTransactionAdapter().ConfirmTransactionById(id);
             }
-            catch (System.Exception e)
+            catch (ThunesException e)
             {
-                if (e.Message == "Unauthorized")
-                {
-                    return Unauthorized();
-                }
-                else
-                {
-                    return NotFound();
-                }
+                return StatusCode(e.ErrorCode, e.Errors);
             }
         }
 
@@ -270,19 +189,11 @@ namespace IMT.Web.Controllers
         {
             try
             {
-                var response = _thunesClient.GetTransactionAdapter().ConfirmTransactionByExternalId(external_id);
-                return response;
+                return _thunesClient.GetTransactionAdapter().ConfirmTransactionByExternalId(external_id);
             }
-            catch (System.Exception e)
+            catch (ThunesException e)
             {
-                if (e.Message == "Unauthorized")
-                {
-                    return Unauthorized();
-                }
-                else
-                {
-                    return NotFound();
-                }
+                return StatusCode(e.ErrorCode, e.Errors);
             }
         }
 
@@ -292,19 +203,11 @@ namespace IMT.Web.Controllers
         {
             try
             {
-                var response = _thunesClient.GetTransactionAdapter().RetrieveTransactionInformationByTransactionId(id);
-                return response;
+                return _thunesClient.GetTransactionAdapter().RetrieveTransactionInformationByTransactionId(id);
             }
-            catch (System.Exception e)
+            catch (ThunesException e)
             {
-                if (e.Message == "Unauthorized")
-                {
-                    return Unauthorized();
-                }
-                else
-                {
-                    return NotFound();
-                }
+                return StatusCode(e.ErrorCode, e.Errors);
             }
         }
 
@@ -314,19 +217,11 @@ namespace IMT.Web.Controllers
         {
             try
             {
-                var response = _thunesClient.GetTransactionAdapter().RetrieveTransactionInformationByExternalId(external_id);
-                return response;
+                return _thunesClient.GetTransactionAdapter().RetrieveTransactionInformationByExternalId(external_id);
             }
-            catch (System.Exception e)
+            catch (ThunesException e)
             {
-                if (e.Message == "Unauthorized")
-                {
-                    return Unauthorized();
-                }
-                else
-                {
-                    return NotFound();
-                }
+                return StatusCode(e.ErrorCode, e.Errors);
             }
         }
 
@@ -336,19 +231,11 @@ namespace IMT.Web.Controllers
         {
             try
             {
-                var response = _thunesClient.GetTransactionAdapter().ListAttachmentsOfATransactionById(id);
-                return response;
+                return _thunesClient.GetTransactionAdapter().ListAttachmentsOfATransactionById(id);
             }
-            catch (System.Exception e)
+            catch (ThunesException e)
             {
-                if (e.Message == "Unauthorized")
-                {
-                    return Unauthorized();
-                }
-                else
-                {
-                    return NotFound();
-                }
+                return StatusCode(e.ErrorCode, e.Errors);
             }
         }
 
@@ -358,19 +245,11 @@ namespace IMT.Web.Controllers
         {
             try
             {
-                var response = _thunesClient.GetTransactionAdapter().ListAttachmentsOfTransactionByExternalId(external_id);
-                return response;
+                return _thunesClient.GetTransactionAdapter().ListAttachmentsOfTransactionByExternalId(external_id);
             }
-            catch (System.Exception e)
+            catch (ThunesException e)
             {
-                if (e.Message == "Unauthorized")
-                {
-                    return Unauthorized();
-                }
-                else
-                {
-                    return NotFound();
-                }
+                return StatusCode(e.ErrorCode, e.Errors);
             }
         }
 
@@ -380,19 +259,11 @@ namespace IMT.Web.Controllers
         {
             try
             {
-                var response = _thunesClient.GetTransactionAdapter().CancelTransactionByExternalId(external_id);
-                return response;
+                return _thunesClient.GetTransactionAdapter().CancelTransactionByExternalId(external_id);
             }
-            catch (System.Exception e)
+            catch (ThunesException e)
             {
-                if (e.Message == "Unauthorized")
-                {
-                    return Unauthorized();
-                }
-                else
-                {
-                    return NotFound();
-                }
+                return StatusCode(e.ErrorCode, e.Errors);
             }
         }
 
@@ -402,19 +273,11 @@ namespace IMT.Web.Controllers
         {
             try
             {
-                var response = _thunesClient.GetTransactionAdapter().CancelTransactionById(id);
-                return response;
+                return _thunesClient.GetTransactionAdapter().CancelTransactionById(id);
             }
-            catch (System.Exception e)
+            catch (ThunesException e)
             {
-                if (e.Message == "Unauthorized")
-                {
-                    return Unauthorized();
-                }
-                else
-                {
-                    return NotFound();
-                }
+                return StatusCode(e.ErrorCode, e.Errors);
             }
         }
 
@@ -536,16 +399,9 @@ namespace IMT.Web.Controllers
             {
                 return _thunesClient.GetDiscoveryAdapter().ServiceResponse();
             }
-            catch (System.Exception e)
+            catch (ThunesException e)
             {
-                if (e.Message == "Unauthorized")
-                {
-                    return Unauthorized();
-                }
-                else
-                {
-                    return NotFound();
-                }
+                return StatusCode(e.ErrorCode, e.Errors);
             }
         }
 
@@ -557,16 +413,9 @@ namespace IMT.Web.Controllers
             {
                 return _thunesClient.GetDiscoveryAdapter().PayerResponse();
             }
-            catch (System.Exception e)
+            catch (ThunesException e)
             {
-                if (e.Message == "Unauthorized")
-                {
-                    return Unauthorized();
-                }
-                else
-                {
-                    return NotFound();
-                }
+                return StatusCode(e.ErrorCode, e.Errors);
             }
         }
 
@@ -578,16 +427,9 @@ namespace IMT.Web.Controllers
             {
                 return _thunesClient.GetDiscoveryAdapter().PayerResponseDetails(id);
             }
-            catch (System.Exception e)
+            catch (ThunesException e)
             {
-                if (e.Message == "Unauthorized")
-                {
-                    return Unauthorized();
-                }
-                else
-                {
-                    return NotFound();
-                }
+                return StatusCode(e.ErrorCode, e.Errors);
             }
         }
 
@@ -599,16 +441,9 @@ namespace IMT.Web.Controllers
             {
                 return _thunesClient.GetDiscoveryAdapter().PayerRateResponse(id);
             }
-            catch (System.Exception e)
+            catch (ThunesException e)
             {
-                if (e.Message == "Unauthorized")
-                {
-                    return Unauthorized();
-                }
-                else
-                {
-                    return NotFound();
-                }
+                return StatusCode(e.ErrorCode, e.Errors);
             }
         }
 
@@ -620,16 +455,9 @@ namespace IMT.Web.Controllers
             {
                 return _thunesClient.GetDiscoveryAdapter().CountryResponse();
             }
-            catch (System.Exception e)
+            catch (ThunesException e)
             {
-                if (e.Message == "Unauthorized")
-                {
-                    return Unauthorized();
-                }
-                else
-                {
-                    return NotFound();
-                }
+                return StatusCode(e.ErrorCode, e.Errors);
             }
         }
 
@@ -641,25 +469,10 @@ namespace IMT.Web.Controllers
             {
                 return _thunesClient.GetDiscoveryAdapter().LookupResponse(swift_bic_code);
             }
-            catch (System.Exception e)
+            catch (ThunesException e)
             {
-                if (e.Message == "Unauthorized")
-                {
-                    return Unauthorized();
-                }
-                else
-                {
-                    return NotFound();
-                }
+                return StatusCode(e.ErrorCode, e.Errors);
             }
         }
-
-
-
-
-
     }
-
-
-
 }

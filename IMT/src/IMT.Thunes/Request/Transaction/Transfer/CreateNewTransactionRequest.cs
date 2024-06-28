@@ -10,10 +10,10 @@ namespace IMT.Thunes.Request.Transaction.Transfer
     public class CreateNewTransactionRequest
     {
         public required CreditPartyIdentifier credit_party_identifier { get; set; }
-        public Sender sender { get; set; }
+        public required Sender? sender { get; set; }
         public required Beneficiary beneficiary { get; set; }
         public required SendingBussiness sending_business { get; set; }
-        public RecievingBussiness receiving_business { get; set; }
+        public required RecievingBussiness? receiving_business { get; set; }
         public required string external_id { get; set; }
         public string? external_code { get; set; }
         public decimal? retail_fee { get; set; }
@@ -54,9 +54,10 @@ namespace IMT.Thunes.Request.Transaction.Transfer
 
     public class CreditPartyIdentifier
     {
-        public string msisdn { get; set; }
-        public string bank_account_number { get; set; }
-        public string swift_bic_code { get; set; }
+        public string? msisdn { get; set; }
+        public string? bank_account_number { get; set; }
+        public string? swift_bic_code { get; set; }
+        public string iban { get; set; }
     }
 
     public class Sender
