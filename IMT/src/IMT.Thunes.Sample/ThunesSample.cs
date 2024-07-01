@@ -174,10 +174,10 @@ namespace IMT.Thunes.Sample
                 credit_party_identifier = new CreditPartyIdentifierWithQotationId(),
                 sending_business = new SendingBusinessQuotationId(),
                 receiving_business = new ReceivingBusinessQuotationId(),
-                external_id = 1,
+                external_id = "1",
                 purpose_of_remittance = "test"
             };
-            int id = 1;
+            ulong id = 1;
             var response = _thunesClient.GetTransactionAdapter().CreateTransaction(id, request);
             Assert.NotNull(response);
         } 

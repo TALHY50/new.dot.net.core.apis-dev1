@@ -8,7 +8,7 @@ namespace IMT.Thunes.Request.Transaction.Transfer
 {
     public class CreateNewTransactionFromQuotationIdRequest
     {
-        public int external_id { get; set; }
+        public string external_id { get; set; }
         public SendingBusinessQuotationId sending_business { get; set; }
         public string document_reference_number { get; set; }
         public string purpose_of_remittance { get; set; }
