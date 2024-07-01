@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using IMT.Thunes.Net;
 using IMT.Thunes.Request.Common;
 using IMT.Thunes.Request.Transaction.Transfer;
+using IMT.Thunes.Request.Transaction.Transfer.CommonTransaction;
 using IMT.Thunes.Response.Transfer.Transaction;
 using IMT.Thunes.Route;
 using Newtonsoft.Json;
@@ -19,7 +20,7 @@ namespace IMT.Thunes.Adapter.Transfers.Transaction
 
         }
 
-        public object CreateTransaction(ulong id, CreateNewTransactionFromQuotationIdRequest request)
+        public object CreateTransaction(ulong id, CreateTransactionRequest request)
         {
             var url = ThunesUrl.CreateTransactionUrl.Replace("{id}", id.ToString());
             return RestClient.Post<CreateTransactionResponse>(RequestOptions.BaseUrl + url, CreateHeaders(request, ThunesUrl.CreateTransactionUrl, RequestOptions), request);

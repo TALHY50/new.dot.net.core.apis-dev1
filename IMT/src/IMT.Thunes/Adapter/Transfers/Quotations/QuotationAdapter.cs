@@ -22,7 +22,7 @@ namespace IMT.Thunes.Adapter.Transfers.Quotations
             return RestClient.Post<CreateContentQuatationResponse>(RequestOptions.BaseUrl + ThunesUrl.CreateQuatationUrl,
                 CreateHeaders(request, ThunesUrl.CreateQuatationUrl, RequestOptions), request);
         }
-        public CreateContentQuatationResponse GetQuotationById(int id)
+        public CreateContentQuatationResponse GetQuotationById(ulong id)
         {
             string url = ThunesUrl.RetrieveAQuotationByIdUrl.Replace("{id}", id.ToString());
             return RestClient.Get<CreateContentQuatationResponse>(RequestOptions.BaseUrl + url,

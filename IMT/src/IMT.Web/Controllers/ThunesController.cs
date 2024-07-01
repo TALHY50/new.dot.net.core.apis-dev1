@@ -5,6 +5,7 @@ using IMT.Thunes.Request.Common;
 using IMT.Thunes.Request.CreditParties;
 using IMT.Thunes.Request.Transaction.Quoatation;
 using IMT.Thunes.Request.Transaction.Transfer;
+using IMT.Thunes.Request.Transaction.Transfer.CommonTransaction;
 using IMT.Thunes.Response;
 using IMT.Thunes.Route;
 using Microsoft.AspNetCore.Mvc;
@@ -34,7 +35,7 @@ namespace IMT.Web.Controllers
 
         [Tags("Thunes.Quatation")]
         [HttpGet(ThunesUrl.RetrieveAQuotationByIdUrl)]
-        public object RetrieveAQuotationByIdUrl(int id)
+        public object RetrieveAQuotationByIdUrl(ulong id)
         {
             try
             {
@@ -116,11 +117,16 @@ namespace IMT.Web.Controllers
 
         [Tags("Thunes.Transaction")]
         [HttpPost(ThunesUrl.CreateTransactionUrl)]
-        public Object TransactionPost(ulong id, CreateNewTransactionFromQuotationIdRequest request)
+        public Object TransactionPost(ulong id, CreateTransactionRequest request)
         {
             try
             {
-                return _thunesClient.GetTransactionAdapter().CreateTransaction(id, request);
+                var transactionType = _thunesClient.QuotationAdapter().GetQuotationById(id);
+                if (request.IsValid(transactionType?.transaction_type?.ToLower()))
+                {
+                     return _thunesClient.GetTransactionAdapter().CreateTransaction(id, request);
+                }
+               return BadRequest("Request not valid");
             }
             catch (ThunesException e)
             {

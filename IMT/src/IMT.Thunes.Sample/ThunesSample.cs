@@ -7,6 +7,7 @@ using IMT.Thunes.Request.Common;
 using IMT.Thunes.Request.CreditParties;
 using IMT.Thunes.Request.Transaction.Quoatation;
 using IMT.Thunes.Request.Transaction.Transfer;
+using IMT.Thunes.Request.Transaction.Transfer.CommonTransaction;
 using NUnit.Framework;
 
 namespace IMT.Thunes.Sample
@@ -35,7 +36,7 @@ namespace IMT.Thunes.Sample
         [Test]
         public void CreateQGetQuotationByIduatatioin()
         {
-            int id = 1;
+            ulong id = 1;
             var response = _thunesClient.QuotationAdapter().GetQuotationById(id);
             Assert.NotNull(response);
         }
@@ -169,11 +170,11 @@ namespace IMT.Thunes.Sample
         [Test]
         public void CreateTransaction()
         {
-            CreateNewTransactionFromQuotationIdRequest request = new CreateNewTransactionFromQuotationIdRequest
+            CreateTransactionRequest request = new CreateTransactionRequest
             {
-                credit_party_identifier = new CreditPartyIdentifierWithQotationId(),
-                sending_business = new SendingBusinessQuotationId(),
-                receiving_business = new ReceivingBusinessQuotationId(),
+                credit_party_identifier = new IMT.Thunes.Request.Transaction.Transfer.CommonTransaction.CreditPartyIdentifier(),
+                sending_business = new IMT.Thunes.Request.Transaction.Transfer.CommonTransaction.SendingBusiness(),
+                receiving_business = new IMT.Thunes.Request.Transaction.Transfer.CommonTransaction.ReceivingBusinesss(),
                 external_id = "1",
                 purpose_of_remittance = "test"
             };
@@ -187,11 +188,11 @@ namespace IMT.Thunes.Sample
         {
             CreateNewTransactionRequest request = new CreateNewTransactionRequest
             {
-                credit_party_identifier = new CreditPartyIdentifier(),
-                sender = new Sender(),
-                beneficiary = new Beneficiary(),
-                sending_business = new SendingBussiness(),
-                receiving_business = new RecievingBussiness(),
+                credit_party_identifier = new IMT.Thunes.Request.Transaction.Transfer.CreditPartyIdentifierGeneric(),
+                sender = new IMT.Thunes.Request.Transaction.Transfer.Sendergeneric(),
+                beneficiary = new IMT.Thunes.Request.Transaction.Transfer.BeneficiaryGeneric(),
+                sending_business = new SendingBussinessGeneric(),
+                receiving_business = new RecievingBussinessGeneric(),
                 external_id = "1",
                 purpose_of_remittance = "test"
             };

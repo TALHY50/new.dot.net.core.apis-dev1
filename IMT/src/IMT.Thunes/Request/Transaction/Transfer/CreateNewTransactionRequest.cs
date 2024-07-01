@@ -9,11 +9,11 @@ namespace IMT.Thunes.Request.Transaction.Transfer
 {
     public class CreateNewTransactionRequest
     {
-        public CreditPartyIdentifier credit_party_identifier { get; set; }
-        public Sender? sender { get; set; }
-        public Beneficiary? beneficiary { get; set; }
-        public SendingBussiness? sending_business { get; set; }
-        public RecievingBussiness? receiving_business { get; set; }
+        public CreditPartyIdentifierGeneric credit_party_identifier { get; set; }
+        public Sendergeneric? sender { get; set; }
+        public BeneficiaryGeneric? beneficiary { get; set; }
+        public SendingBussinessGeneric? sending_business { get; set; }
+        public RecievingBussinessGeneric? receiving_business { get; set; }
         public string external_id { get; set; }
         public string? external_code { get; set; }
         public decimal? retail_fee { get; set; }
@@ -32,7 +32,7 @@ namespace IMT.Thunes.Request.Transaction.Transfer
 
 
     #region SubOrdinate Class
-    public class Beneficiary
+    public class BeneficiaryGeneric
     {
         public string lastname { get; set; }
         public string firstname { get; set; }
@@ -52,7 +52,7 @@ namespace IMT.Thunes.Request.Transaction.Transfer
         public string occupation { get; set; }
     }
 
-    public class CreditPartyIdentifier
+    public class CreditPartyIdentifierGeneric
     {
         public string? msisdn { get; set; }
         public string? bank_account_number { get; set; }
@@ -60,7 +60,7 @@ namespace IMT.Thunes.Request.Transaction.Transfer
         public string? iban { get; set; }
     }
 
-    public class Sender
+    public class Sendergeneric
     {
         public string lastname { get; set; }
         public string firstname { get; set; }
@@ -80,7 +80,7 @@ namespace IMT.Thunes.Request.Transaction.Transfer
         public string occupation { get; set; }
     }
 
-    public class RecievingBussiness
+    public class RecievingBussinessGeneric
     {
         public string? registered_name { get; set; }
         public string? trading_name { get; set; }
@@ -106,7 +106,7 @@ namespace IMT.Thunes.Request.Transaction.Transfer
         public string? representative_id_expiration_date { get; set; }
     }
 
-    public class SendingBussiness : RecievingBussiness
+    public class SendingBussinessGeneric : RecievingBussinessGeneric
     {
         public string? code { get; set; }
         public string? business_relationship { get; set; }
