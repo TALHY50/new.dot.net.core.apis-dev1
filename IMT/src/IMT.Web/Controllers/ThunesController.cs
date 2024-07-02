@@ -299,10 +299,6 @@ namespace IMT.Web.Controllers
             }
             catch (ThunesException e)
             {
-                if (e.ErrorCode == Unauthorized().StatusCode)
-                {
-                    return StatusCode(e.ErrorCode, e.ErrorDescription);
-                }
                 return StatusCode(e.ErrorCode, e.Errors);
             }
         }
@@ -317,10 +313,6 @@ namespace IMT.Web.Controllers
             }
             catch (ThunesException e)
             {
-                if (e.ErrorCode == Unauthorized().StatusCode)
-                {
-                    return StatusCode(e.ErrorCode, e.ErrorDescription);
-                }
                 return StatusCode(e.ErrorCode, e.Errors);
             }
         }
@@ -335,10 +327,6 @@ namespace IMT.Web.Controllers
             }
             catch (ThunesException e)
             {
-                if(e.ErrorCode == Unauthorized().StatusCode)
-                {
-                    return StatusCode(e.ErrorCode, e.ErrorDescription);
-                }
                 return StatusCode(e.ErrorCode, e.Errors);
             }
         }
@@ -353,10 +341,6 @@ namespace IMT.Web.Controllers
             }
             catch (ThunesException e)
             {
-                if (e.ErrorCode == Unauthorized().StatusCode)
-                {
-                    return StatusCode(e.ErrorCode, e.ErrorDescription);
-                }
                 return StatusCode(e.ErrorCode, e.Errors);
             }
         }
@@ -371,10 +355,6 @@ namespace IMT.Web.Controllers
             }
             catch (ThunesException e)
             {
-                if (e.ErrorCode == Unauthorized().StatusCode)
-                {
-                    return StatusCode(e.ErrorCode, e.ErrorDescription);
-                }
                 return StatusCode(e.ErrorCode, e.Errors);
             }
         }
@@ -389,10 +369,6 @@ namespace IMT.Web.Controllers
             }
             catch (ThunesException e)
             {
-                if (e.ErrorCode == Unauthorized().StatusCode)
-                {
-                    return StatusCode(e.ErrorCode, e.ErrorDescription);
-                }
                 return StatusCode(e.ErrorCode, e.Errors);
             }
         }

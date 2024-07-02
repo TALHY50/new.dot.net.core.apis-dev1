@@ -111,11 +111,7 @@ namespace IMT.Thunes.Net
         {
             if (httpResponseMessage.StatusCode < HttpStatusCode.BadRequest) return;
             var response = JsonConvert.DeserializeObject<Response<T>>(content, ThunesJsonSerializerSettings.Settings);
-            if (httpResponseMessage.StatusCode == HttpStatusCode.Unauthorized)
-            {
-                throw new ThunesException((int)httpResponseMessage.StatusCode, httpResponseMessage.StatusCode.ToString());
-            }
-            if(httpResponseMessage.StatusCode == HttpStatusCode.BadRequest)
+            if (httpResponseMessage.StatusCode == HttpStatusCode.Unauthorized || httpResponseMessage.StatusCode == HttpStatusCode.BadRequest)
             {
                 throw new ThunesException((int)httpResponseMessage.StatusCode, response.Errors);
             }
