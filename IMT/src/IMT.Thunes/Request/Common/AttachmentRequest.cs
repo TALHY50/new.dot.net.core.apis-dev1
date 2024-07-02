@@ -9,9 +9,9 @@ namespace IMT.Thunes.Request.Common
 {
     public class AttachmentRequest
     {
-        public string Name { get; set; }
-        public string Type { get; set; }
-        public IFormFile File { get; set; }
-        public int TransactionId { get; set; }
+        public string name { get; set; }
+        public string type { get; set; }
+        public IFormFile file { get; set; }
+        public int transaction_id { get; set; }
     }
 }

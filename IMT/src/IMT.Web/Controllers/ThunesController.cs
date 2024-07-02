@@ -261,7 +261,7 @@ namespace IMT.Web.Controllers
         }
 
         [Tags("Thunes.Transaction")]
-        [HttpGet(ThunesUrl.CancelTransactionByExternalIdUrl)]
+        [HttpPost(ThunesUrl.CancelTransactionByExternalIdUrl)]
         public object CancelTransactionByExternalId(int external_id)
         {
             try
