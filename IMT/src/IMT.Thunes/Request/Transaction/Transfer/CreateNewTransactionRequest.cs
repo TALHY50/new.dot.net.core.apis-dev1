@@ -9,7 +9,7 @@ namespace IMT.Thunes.Request.Transaction.Transfer
 {
     public class CreateNewTransactionRequest
     {
-        public CreditPartyIdentifierGeneric credit_party_identifier { get; set; }
+        public CreditPartyIdentifierGeneric? credit_party_identifier { get; set; }
         public Sendergeneric? sender { get; set; }
         public BeneficiaryGeneric? beneficiary { get; set; }
         public SendingBussinessGeneric? sending_business { get; set; }
@@ -34,22 +34,22 @@ namespace IMT.Thunes.Request.Transaction.Transfer
     #region SubOrdinate Class
     public class BeneficiaryGeneric
     {
-        public string lastname { get; set; }
-        public string firstname { get; set; }
-        public string nationality_country_iso_code { get; set; }
-        public string date_of_birth { get; set; }
-        public string country_of_birth_iso_code { get; set; }
-        public string gender { get; set; }
-        public string address { get; set; }
-        public string postal_code { get; set; }
-        public string city { get; set; }
-        public string country_iso_code { get; set; }
-        public string msisdn { get; set; }
-        public string email { get; set; }
-        public string id_type { get; set; }
-        public string id_country_iso_code { get; set; }
-        public string id_number { get; set; }
-        public string occupation { get; set; }
+        public string? lastname { get; set; }
+        public string? firstname { get; set; }
+        public string? nationality_country_iso_code { get; set; }
+        public string? date_of_birth { get; set; }
+        public string? country_of_birth_iso_code { get; set; }
+        public string? gender { get; set; }
+        public string? address { get; set; }
+        public string? postal_code { get; set; }
+        public string? city { get; set; }
+        public string? country_iso_code { get; set; }
+        public string? msisdn { get; set; }
+        public string? email { get; set; }
+        public string? id_type { get; set; }
+        public string? id_country_iso_code { get; set; }
+        public string? id_number { get; set; }
+        public string? occupation { get; set; }
     }
 
     public class CreditPartyIdentifierGeneric
@@ -62,22 +62,22 @@ namespace IMT.Thunes.Request.Transaction.Transfer
 
     public class Sendergeneric
     {
-        public string lastname { get; set; }
-        public string firstname { get; set; }
-        public string nationality_country_iso_code { get; set; }
-        public string date_of_birth { get; set; }
-        public string country_of_birth_iso_code { get; set; }
-        public string gender { get; set; }
-        public string address { get; set; }
-        public string postal_code { get; set; }
-        public string city { get; set; }
-        public string country_iso_code { get; set; }
-        public string msisdn { get; set; }
-        public string email { get; set; }
-        public string id_type { get; set; }
-        public string id_number { get; set; }
-        public string id_delivery_date { get; set; }
-        public string occupation { get; set; }
+        public string? lastname { get; set; }
+        public string? firstname { get; set; }
+        public string? nationality_country_iso_code { get; set; }
+        public string? date_of_birth { get; set; }
+        public string? country_of_birth_iso_code { get; set; }
+        public string? gender { get; set; }
+        public string? address { get; set; }
+        public string? postal_code { get; set; }
+        public string? city { get; set; }
+        public string? country_iso_code { get; set; }
+        public string? msisdn { get; set; }
+        public string? email { get; set; }
+        public string? id_type { get; set; }
+        public string? id_number { get; set; }
+        public string? id_delivery_date { get; set; }
+        public string? occupation { get; set; }
     }
 
     public class RecievingBussinessGeneric
