@@ -136,7 +136,7 @@ namespace IMT.Web.Controllers
         }
         [Tags("Thunes.Transaction")]
         [HttpPost(ThunesUrl.CreateTransactionFromQuotationExternalIdUrl)]
-        public Object CreateTransactionFromQuotationExternalIdPost(int external_id, CreateNewTransactionRequest request)
+        public Object CreateTransactionFromQuotationExternalIdPost(int external_id, CreateTransactionRequest request)
         {
             try
             {

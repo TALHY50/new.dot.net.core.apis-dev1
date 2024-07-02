@@ -26,7 +26,7 @@ namespace IMT.Thunes.Adapter.Transfers.Transaction
             return RestClient.Post<CreateTransactionResponse>(RequestOptions.BaseUrl + url, CreateHeaders(request, ThunesUrl.CreateTransactionUrl, RequestOptions), request);
         }
 
-        public object CreateTransactionFromQuotationExternalId(int external_id, CreateNewTransactionRequest request)
+        public object CreateTransactionFromQuotationExternalId(int external_id, CreateTransactionRequest request)
         {
             var url = ThunesUrl.CreateTransactionFromQuotationExternalIdUrl.Replace("{external_id}", external_id.ToString());
             return RestClient.Post<CreateTransactionResponse>(RequestOptions.BaseUrl + url, CreateHeaders(request, ThunesUrl.CreateTransactionFromQuotationExternalIdUrl, RequestOptions), request);
