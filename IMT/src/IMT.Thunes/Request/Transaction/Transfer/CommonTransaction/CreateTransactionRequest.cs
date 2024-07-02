@@ -158,10 +158,14 @@ namespace IMT.Thunes.Request.Transaction.Transfer.CommonTransaction
                         {
                             errors.Add(new ErrorsResponse { code = "Request invalid", message = "firstname must be valid in beneficiary" });
                         }
-                           if (string.IsNullOrWhiteSpace(beneficiary.country_iso_code))
+                        if (string.IsNullOrWhiteSpace(beneficiary.country_iso_code))
                         {
                             errors.Add(new ErrorsResponse { code = "Request invalid", message = "country_iso_code must be valid in beneficiary" });
                         }
+                    }
+                    if (string.IsNullOrWhiteSpace(purpose_of_remittance))
+                    {
+                        errors.Add(new ErrorsResponse { code = "Request invalid", message = "purpose_of_remittance must be valid" });
                     }
                     if (errors.Count > 0)
                     {
@@ -175,6 +179,7 @@ namespace IMT.Thunes.Request.Transaction.Transfer.CommonTransaction
                            sending_business != null && !string.IsNullOrEmpty(sending_business.code) &&
                            !string.IsNullOrEmpty(sending_business.country_iso_code) &&
                            !string.IsNullOrEmpty(sending_business.registered_name) &&
+                           !string.IsNullOrEmpty(purpose_of_remittance) &&
                            !string.IsNullOrEmpty(sending_business.registration_number);
 
                 case "c2c":
@@ -224,9 +229,13 @@ namespace IMT.Thunes.Request.Transaction.Transfer.CommonTransaction
                         {
                             errors.Add(new ErrorsResponse { code = "Request invalid", message = "country_of_birth_iso_code must be valid in sender" });
                         }
-                         if (string.IsNullOrWhiteSpace(sender.date_of_birth))
+                        if (string.IsNullOrWhiteSpace(sender.date_of_birth))
                         {
                             errors.Add(new ErrorsResponse { code = "Request invalid", message = "date_of_birth must be valid in sender" });
+                        }
+                        if (string.IsNullOrWhiteSpace(sender.code))
+                        {
+                            errors.Add(new ErrorsResponse { code = "Request invalid", message = "code must be valid in sender" });
                         }
                     }
                     if (beneficiary == null)
@@ -244,6 +253,10 @@ namespace IMT.Thunes.Request.Transaction.Transfer.CommonTransaction
                             errors.Add(new ErrorsResponse { code = "Request invalid", message = "firstname must be valid in beneficiary" });
                         }
                     }
+                    if (string.IsNullOrWhiteSpace(purpose_of_remittance))
+                    {
+                        errors.Add(new ErrorsResponse { code = "Request invalid", message = "purpose_of_remittance must be valid" });
+                    }
                     if (errors.Count > 0)
                     {
                         throw new ThunesException(400, errors);
@@ -258,6 +271,7 @@ namespace IMT.Thunes.Request.Transaction.Transfer.CommonTransaction
                            !string.IsNullOrEmpty(sender.city) &&
                            !string.IsNullOrEmpty(sender.firstname) &&
                            !string.IsNullOrEmpty(sender.country_of_birth_iso_code) &&
+                           !string.IsNullOrEmpty(purpose_of_remittance) &&
                            !string.IsNullOrEmpty(sender.date_of_birth);
 
                 default:
@@ -275,7 +289,7 @@ namespace IMT.Thunes.Request.Transaction.Transfer.CommonTransaction
     {
         public string lastname { get; set; }
         public string firstname { get; set; }
-        public string country_iso_code { get; set; }
+        public string? country_iso_code { get; set; }
     }
 
     public class SendingBusiness
