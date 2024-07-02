@@ -17,7 +17,8 @@ namespace IMT.Web.Controllers
     [Route("[controller]")]
     public class ThunesController : ControllerBase
     {
-        private readonly ThunesClient _thunesClient = new(Env.GetString("THUNES_API_KEY"), Env.GetString("THUNES_API_SECRET"), Env.GetString("THUNES_BASE_URL"));
+      //  private readonly ThunesClient _thunesClient = new(Env.GetString("THUNES_API_KEY"), Env.GetString("THUNES_API_SECRET"), Env.GetString("THUNES_BASE_URL"));
+        private readonly ThunesClient _thunesClient = new("f1c4a4d9-2899-4f09-b9f5-c35f09df5ffd", "bed820bd-264b-4d0f-8148-9f56e0a8b55c","https://api-mt.pre.thunes.com");
 
         [Tags("Thunes.Quatation")]
         [HttpPost(ThunesUrl.CreateQuatationUrl)]
