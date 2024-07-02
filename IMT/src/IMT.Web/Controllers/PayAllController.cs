@@ -24,12 +24,13 @@ namespace IMT.Web.Controllers
     {
         private readonly PayAllClient _payAllClient;
 
-        private string ServerEnvironment = BaseRequirement.Servers.Server.ToString();
+        private string ServerEnvironment = BaseRequirement.Servers.Sandbox.ToString();
         public PayAllController()
         {
             var requirement = BaseRequirement.GetBaseRequirement(ServerEnvironment);
             _payAllClient = new PayAllClient(requirement.ClientID, requirement.ClientSecret, requirement.BaseUrl);
         }
+
         [Tags("PayAll.Payment")]
         [HttpPost(PayAllUrl.SinglePayment)]
         public object SinglePayment(CreatePaymentRequest request)

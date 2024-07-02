@@ -41,6 +41,10 @@ namespace IMT.PayAll.Common
             {
                 return GetServerBaseRequirement();
             }
+            if(environment == Servers.Sandbox.ToString())
+            {
+                return GetSandboxBaseRequirement();
+            }
             if(environment == Servers.Stage.ToString())
             {
                 return GetStageBaseRequirement();
@@ -68,6 +72,14 @@ namespace IMT.PayAll.Common
             RequestOptions.ClientID = Env.GetString("PAYALL_API_KEY");
             RequestOptions.ClientSecret = Env.GetString("PAYALL_API_SECRET");
             return RequestOptions; 
+        }
+        private static RequestOptions GetSandboxBaseRequirement()
+        {
+            var RequestOptions = new RequestOptions();
+            RequestOptions.BaseUrl = Sandbox;
+            RequestOptions.ClientID = SandboxClientId;
+            RequestOptions.ClientSecret = SandboxClientSecret;
+            return RequestOptions;
         }
         private static RequestOptions GetStageBaseRequirement()
         {
