@@ -57,6 +57,7 @@
   <ItemGroup>
     <Folder Include="Constants\" />
     <Folder Include="Middlewares\" />
+    <Folder Include="Migrations\" />
     <Folder Include="POCOs\" />
     <Folder Include="Repositories\IMT\Interface\" />
     <Folder Include="Templates\" />
