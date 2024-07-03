@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using IMT.Thunes.Request.Common;
 
-namespace IMT.Thunes.Request.Transaction.Quoatation
+namespace IMT.Thunes.Request.Transaction.Quotation
 {
-    public class CreateQuatationRequest
+    public class CreateQuotationRequest
     {
         public string external_id { get; set; }
         public string payer_id { get; set; }

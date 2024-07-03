@@ -3,7 +3,6 @@ using IMT.Thunes;
 using IMT.Thunes.Exception;
 using IMT.Thunes.Request.Common;
 using IMT.Thunes.Request.CreditParties;
-using IMT.Thunes.Request.Transaction.Quoatation;
 using IMT.Thunes.Request.Transaction.Transfer;
 using IMT.Thunes.Request.Transaction.Transfer.CommonTransaction;
 using IMT.Thunes.Response;
@@ -20,7 +19,7 @@ namespace IMT.Web.Controllers
         //  private readonly ThunesClient _thunesClient = new(Env.GetString("THUNES_API_KEY"), Env.GetString("THUNES_API_SECRET"), Env.GetString("THUNES_BASE_URL"));
         private readonly ThunesClient _thunesClient = new("f1c4a4d9-2899-4f09-b9f5-c35f09df5ffd", "bed820bd-264b-4d0f-8148-9f56e0a8b55c", "https://api-mt.pre.thunes.com");
 
-        // [Tags("Thunes.Quatation")]
+        // [Tags("Thunes.Quotation")]
         // [HttpPost(ThunesUrl.CreateQuatationUrl)]
         // public object CreateQuatatioin(CreateQuatationRequest request)
         // {
@@ -34,7 +33,7 @@ namespace IMT.Web.Controllers
         //     }
         // }
 
-        [Tags("Thunes.Quatation")]
+        [Tags("Thunes.Quotation")]
         [HttpGet(ThunesUrl.RetrieveAQuotationByIdUrl)]
         public object RetrieveAQuotationByIdUrl(ulong id)
         {
@@ -47,7 +46,7 @@ namespace IMT.Web.Controllers
                 return StatusCode(e.ErrorCode, e.Errors);
             }
         }
-        [Tags("Thunes.Quatation")]
+        [Tags("Thunes.Quotation")]
         [HttpGet(ThunesUrl.RetrieveQuotationByExternalIdUrl)]
         public object GetByExternalId(ulong external_id)
         {

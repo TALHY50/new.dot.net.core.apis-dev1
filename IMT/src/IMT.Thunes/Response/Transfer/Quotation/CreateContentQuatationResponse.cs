@@ -12,7 +12,7 @@ using Source = IMT.Thunes.Response.Common.Source;
 
 namespace IMT.Thunes.Response.Transfer.Quotation
 {
-    public class CreateContentQuatationResponse
+    public class CreateContentQuotationResponse
     {
         public int id { get; set; }
         public string external_id { get; set; }

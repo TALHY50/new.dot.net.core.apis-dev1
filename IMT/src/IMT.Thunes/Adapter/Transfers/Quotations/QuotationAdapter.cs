@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using IMT.Thunes.Net;
 using IMT.Thunes.Request.Common;
-using IMT.Thunes.Request.Transaction.Quoatation;
+using IMT.Thunes.Request.Transaction.Quotation;
 using IMT.Thunes.Response.Transfer.Quotation;
 using IMT.Thunes.Route;
 
@@ -17,22 +17,22 @@ namespace IMT.Thunes.Adapter.Transfers.Quotations
         {
         }
 
-        public CreateContentQuatationResponse CreateQuatatioin(CreateQuatationRequest request)
+        public CreateContentQuotationResponse CreateQuotation(CreateQuotationRequest request)
         {
-            return RestClient.Post<CreateContentQuatationResponse>(RequestOptions.BaseUrl + ThunesUrl.CreateQuatationUrl,
-                CreateHeaders(request, ThunesUrl.CreateQuatationUrl, RequestOptions), request);
+            return RestClient.Post<CreateContentQuotationResponse>(RequestOptions.BaseUrl + ThunesUrl.CreateQuotationUrl,
+                CreateHeaders(request, ThunesUrl.CreateQuotationUrl, RequestOptions), request);
         }
-        public CreateContentQuatationResponse GetQuotationById(ulong id)
+        public CreateContentQuotationResponse GetQuotationById(ulong id)
         {
             string url = ThunesUrl.RetrieveAQuotationByIdUrl.Replace("{id}", id.ToString());
-            return RestClient.Get<CreateContentQuatationResponse>(RequestOptions.BaseUrl + url,
+            return RestClient.Get<CreateContentQuotationResponse>(RequestOptions.BaseUrl + url,
                 CreateHeaders(url, RequestOptions));
         }
 
-        public CreateContentQuatationResponse GetRetrieveQuotationByExternalId(ulong external_id)
+        public CreateContentQuotationResponse GetRetrieveQuotationByExternalId(ulong external_id)
         {
             string url = ThunesUrl.RetrieveQuotationByExternalIdUrl.Replace("{external_id}", external_id.ToString());
-            return RestClient.Get<CreateContentQuatationResponse>(RequestOptions.BaseUrl + url,
+            return RestClient.Get<CreateContentQuotationResponse>(RequestOptions.BaseUrl + url,
                 CreateHeaders(url, RequestOptions));
         }
 

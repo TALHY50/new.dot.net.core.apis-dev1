@@ -9,7 +9,7 @@ namespace IMT.Thunes.Response.Transfer.Quotation
     {
         public int StatusCode { get; set; }
         public string ReasonPhrase { get; set; }
-        public CreateContentQuatationResponse Content { get; set; }
+        public CreateContentQuotationResponse Content { get; set; }
         public string Version { get; set; }
 
     }
