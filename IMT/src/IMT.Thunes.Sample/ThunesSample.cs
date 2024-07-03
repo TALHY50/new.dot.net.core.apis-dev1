@@ -170,7 +170,7 @@ namespace IMT.Thunes.Sample
         [Test]
         public void CreateTransaction()
         {
-            CreateTransactionRequest request = new CreateTransactionRequest
+            MoneyTransferDTO request = new MoneyTransferDTO
             {
                 credit_party_identifier = new IMT.Thunes.Request.Transaction.Transfer.CommonTransaction.CreditPartyIdentifier(),
                 sending_business = new IMT.Thunes.Request.Transaction.Transfer.CommonTransaction.SendingBusiness(),
@@ -186,13 +186,13 @@ namespace IMT.Thunes.Sample
         [Test]
         public void CreateTransactionFromQuotationExternalId()
         {
-            CreateNewTransactionRequest request = new CreateNewTransactionRequest
+            MoneyTransferDTO request = new MoneyTransferDTO
             {
-                credit_party_identifier = new IMT.Thunes.Request.Transaction.Transfer.CreditPartyIdentifierGeneric(),
-                sender = new IMT.Thunes.Request.Transaction.Transfer.Sendergeneric(),
-                beneficiary = new IMT.Thunes.Request.Transaction.Transfer.BeneficiaryGeneric(),
-                sending_business = new SendingBussinessGeneric(),
-                receiving_business = new RecievingBussinessGeneric(),
+                credit_party_identifier = new CreditPartyIdentifier(),
+                sender = new Sender(),
+                beneficiary = new Beneficiary(),
+                sending_business = new SendingBusiness(),
+                receiving_business = new ReceivingBusinesss(),
                 external_id = "1",
                 purpose_of_remittance = "test"
             };

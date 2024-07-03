@@ -118,7 +118,7 @@ namespace IMT.Web.Controllers
 
         [Tags("Thunes.Transaction")]
         [HttpPost(ThunesUrl.CreateTransactionUrl)]
-        public Object TransactionPost(ulong id, CreateTransactionRequest request)
+        public Object TransactionPost(ulong id, MoneyTransferDTO request)
         {
             try
             {
@@ -136,11 +136,15 @@ namespace IMT.Web.Controllers
         }
         [Tags("Thunes.Transaction")]
         [HttpPost(ThunesUrl.CreateTransactionFromQuotationExternalIdUrl)]
-        public Object CreateTransactionFromQuotationExternalIdPost(int external_id, CreateNewTransactionRequest request)
+        public Object CreateTransactionFromQuotationExternalIdPost(int external_id, MoneyTransferDTO request)
         {
             try
             {
-                return _thunesClient.GetTransactionAdapter().CreateTransactionFromQuotationExternalId(external_id, request);
+                if (request.IsValid(null))
+                {
+                    return _thunesClient.GetTransactionAdapter().CreateTransactionFromQuotationExternalId(external_id, request);
+                }
+                return BadRequest("Request not valid");
             }
             catch (ThunesException e)
             {
