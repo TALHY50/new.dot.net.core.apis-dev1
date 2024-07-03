@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace IMT.Thunes.Request.Transaction.Transfer.CommonTransaction
 {
-    public class CreateTransactionRequest
+    public class MoneyTransferDTO
     {
         public string external_id { get; set; }
         public CreditPartyIdentifier? credit_party_identifier { get; set; }

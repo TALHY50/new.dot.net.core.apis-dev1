@@ -20,13 +20,13 @@ namespace IMT.Thunes.Adapter.Transfers.Transaction
 
         }
 
-        public object CreateTransaction(ulong id, CreateTransactionRequest request)
+        public object CreateTransaction(ulong id, MoneyTransferDTO request)
         {
             var url = ThunesUrl.CreateTransactionUrl.Replace("{id}", id.ToString());
             return RestClient.Post<CreateTransactionResponse>(RequestOptions.BaseUrl + url, CreateHeaders(request, ThunesUrl.CreateTransactionUrl, RequestOptions), request);
         }
 
-        public object CreateTransactionFromQuotationExternalId(int external_id, CreateTransactionRequest request)
+        public object CreateTransactionFromQuotationExternalId(int external_id, MoneyTransferDTO request)
         {
             var url = ThunesUrl.CreateTransactionFromQuotationExternalIdUrl.Replace("{external_id}", external_id.ToString());
             return RestClient.Post<CreateTransactionResponse>(RequestOptions.BaseUrl + url, CreateHeaders(request, ThunesUrl.CreateTransactionFromQuotationExternalIdUrl, RequestOptions), request);
