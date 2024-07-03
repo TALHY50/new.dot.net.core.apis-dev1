@@ -25,7 +25,7 @@ namespace IMT.Web.Controllers.Quatatioin
         {
             try
             {
-                return _thunesClient.QuotationAdapter().CreateQuatatioin(request);
+                return this._thunesClient.QuotationAdapter().CreateQuatatioin(request);
             }
             catch (ThunesException e)
             {
