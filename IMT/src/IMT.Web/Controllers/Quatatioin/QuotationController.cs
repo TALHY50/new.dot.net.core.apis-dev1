@@ -33,5 +33,32 @@ namespace IMT.Web.Controllers.Quotation
             }
         }
 
+        [Tags("Thunes.Quotation")]
+        [HttpGet(ThunesUrl.RetrieveAQuotationByIdUrl)]
+        public object RetrieveAQuotationByIdUrl(ulong id)
+        {
+            try
+            {
+                return this._thunesClient.QuotationAdapter().GetQuotationById(id);
+            }
+            catch (ThunesException e)
+            {
+                return StatusCode(e.ErrorCode, e.Errors);
+            }
+        }
+        [Tags("Thunes.Quotation")]
+        [HttpGet(ThunesUrl.RetrieveQuotationByExternalIdUrl)]
+        public object GetByExternalId(ulong external_id)
+        {
+            try
+            {
+                return this._thunesClient.QuotationAdapter().GetRetrieveQuotationByExternalId(external_id);
+            }
+            catch (ThunesException e)
+            {
+                return StatusCode(e.ErrorCode, e.Errors);
+            }
+        }
+
     }
 }
