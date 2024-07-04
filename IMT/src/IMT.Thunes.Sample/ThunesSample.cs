@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using DotNetEnv;
 using IMT.Thunes.Request.Common;
 using IMT.Thunes.Request.CreditParties;
-using IMT.Thunes.Request.Transaction.Quoatation;
+using IMT.Thunes.Request.Transaction.Quotation;
 using IMT.Thunes.Request.Transaction.Transfer;
 using IMT.Thunes.Request.Transaction.Transfer.CommonTransaction;
 using NUnit.Framework;
@@ -28,8 +28,8 @@ namespace IMT.Thunes.Sample
         [Test]
         public void CreateQuatatioin()
         {
-            CreateQuatationRequest request = new CreateQuatationRequest();
-            var response = _thunesClient.QuotationAdapter().CreateQuatatioin(request);
+            CreateQuotationRequest request = new CreateQuotationRequest();
+            var response = _thunesClient.QuotationAdapter().CreateQuotation(request);
             Assert.NotNull(response);
         }
 

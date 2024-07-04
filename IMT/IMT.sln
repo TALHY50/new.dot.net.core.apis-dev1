@@ -26,6 +26,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedLibrary", "..\SharedLibrary\SharedLibrary.csproj", "{0D7883EA-DAB8-45FF-8A4B-8774A6B32F31}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -68,6 +70,10 @@ Global
 		{2E2F7EF8-1A24-49EB-B99B-C8F808250365}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E2F7EF8-1A24-49EB-B99B-C8F808250365}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E2F7EF8-1A24-49EB-B99B-C8F808250365}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D7883EA-DAB8-45FF-8A4B-8774A6B32F31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D7883EA-DAB8-45FF-8A4B-8774A6B32F31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D7883EA-DAB8-45FF-8A4B-8774A6B32F31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D7883EA-DAB8-45FF-8A4B-8774A6B32F31}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
