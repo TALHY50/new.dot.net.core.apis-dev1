@@ -70,8 +70,4 @@
     <ProjectReference Include="..\..\..\SharedLibrary\SharedLibrary.csproj" />
   </ItemGroup>
   
-  <ItemGroup>
-    <ProjectReference Include="..\ACL.Contracts\ACL.Contracts.csproj" />
-  </ItemGroup>
-  
 </Project>
