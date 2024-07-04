@@ -19,46 +19,6 @@ namespace IMT.Web.Controllers
         //  private readonly ThunesClient _thunesClient = new(Env.GetString("THUNES_API_KEY"), Env.GetString("THUNES_API_SECRET"), Env.GetString("THUNES_BASE_URL"));
         private readonly ThunesClient _thunesClient = new("f1c4a4d9-2899-4f09-b9f5-c35f09df5ffd", "bed820bd-264b-4d0f-8148-9f56e0a8b55c", "https://api-mt.pre.thunes.com");
 
-        // [Tags("Thunes.Quotation")]
-        // [HttpPost(ThunesUrl.CreateQuatationUrl)]
-        // public object CreateQuatatioin(CreateQuatationRequest request)
-        // {
-        //     try
-        //     {
-        //         return _thunesClient.QuotationAdapter().CreateQuatatioin(request);
-        //     }
-        //     catch (ThunesException e)
-        //     {
-        //         return StatusCode(e.ErrorCode, e.Errors);
-        //     }
-        // }
-
-        [Tags("Thunes.Quotation")]
-        [HttpGet(ThunesUrl.RetrieveAQuotationByIdUrl)]
-        public object RetrieveAQuotationByIdUrl(ulong id)
-        {
-            try
-            {
-                return _thunesClient.QuotationAdapter().GetQuotationById(id);
-            }
-            catch (ThunesException e)
-            {
-                return StatusCode(e.ErrorCode, e.Errors);
-            }
-        }
-        [Tags("Thunes.Quotation")]
-        [HttpGet(ThunesUrl.RetrieveQuotationByExternalIdUrl)]
-        public object GetByExternalId(ulong external_id)
-        {
-            try
-            {
-                return _thunesClient.QuotationAdapter().GetRetrieveQuotationByExternalId(external_id);
-            }
-            catch (ThunesException e)
-            {
-                return StatusCode(e.ErrorCode, e.Errors);
-            }
-        }
         [Tags("Thunes.CreditParties")]
         [HttpPost(ThunesUrl.CreditPartiesInformationUrl)]
         public object GetInformationAdapter(ulong id, string transaction_type, InformationRequest request)
