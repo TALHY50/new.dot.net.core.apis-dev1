@@ -10,9 +10,11 @@ using IMT.Thunes.Request.Common;
 using IMT.Thunes.Request.Transaction.Quotation;
 using IMT.Thunes.Response.Common;
 using IMT.Thunes.Route;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SharedLibrary.Models.IMT;
 using SharedLibrary.Persistence.Configurations;
+using SharedLibrary.Response.CustomStatusCode;
 
 namespace IMT.Web.Controllers.Quotation
 {
@@ -40,15 +42,33 @@ namespace IMT.Web.Controllers.Quotation
                 var SourceCountry = _applicationDBContext.ImtCountries.Find(request.ImtSourceCountryId);
                 var DestinationCurrency = _applicationDBContext.ImtCurrencies.Find(request.ImtDestinationCurrencyId);
 
+                List<ErrorsResponse> errors = new List<ErrorsResponse>();
+                if (SourceCurrency?.Code == null)
+                {
+                    errors.Add(new ErrorsResponse { code = "Request invalid", message = "ImtSourceCurrencyId must be valid" });
+                }
+                if (SourceCountry?.IsoCode == null)
+                {
+                    errors.Add(new ErrorsResponse { code = "Request invalid", message = "ImtSourceCountryId must be valid" });
+                }
+                if (DestinationCurrency?.Code == null)
+                {
+                     errors.Add(new ErrorsResponse { code = "Request invalid", message = "ImtDestinationCurrencyId must be valid" });
+                }
+                if (errors.Count > 0)
+                {
+                    return UnprocessableEntity(errors);
+                }
+
                 SourceOne SourceOne = new SourceOne
                 {
-                    currency = SourceCurrency.Code,
-                    country_iso_code = SourceCountry.IsoCode
+                    currency = SourceCurrency?.Code,
+                    country_iso_code = SourceCountry?.IsoCode
                 };
                 DestinationOne DestinationOne = new DestinationOne
                 {
                     amount = (double?)((request.DestinationAmount == null) ? 0 : request.DestinationAmount),
-                    currency = DestinationCurrency.Code,
+                    currency = DestinationCurrency?.Code,
                 };
 
                 CreateQuotationRequest QuotationRequest = new CreateQuotationRequest
