@@ -1,10 +1,11 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace IMT.Contracts.Request.Quotation
+namespace IMT.Application.Contracts.Requests.Quotation
 {
     public class QuotationRequest
     {
@@ -38,6 +39,5 @@ namespace IMT.Contracts.Request.Quotation
 
         public int? ImtDestinationCurrencyId { get; set; }
 
-        public DateTime? CreatedAt { get; set; }
     }
 }

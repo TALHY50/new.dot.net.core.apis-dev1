@@ -56,7 +56,6 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\IMT.Application\IMT.Application.csproj" />
-	  <ProjectReference Include="..\IMT.Infrastructure\IMT.Infrastructure.csproj" />
 	  <ProjectReference Include="..\IMT.PayAll\IMT.PayAll.csproj" />
 	  <ProjectReference Include="..\IMT.Thunes\IMT.Thunes.csproj" />
 	  <ProjectReference Include="..\..\..\SharedLibrary\SharedLibrary.csproj" />

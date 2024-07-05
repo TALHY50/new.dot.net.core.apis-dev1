@@ -52,7 +52,5 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\IMT.Application\IMT.Application.csproj" />
-	  <ProjectReference Include="..\IMT.Contracts\IMT.Contracts.csproj" />
-	  <ProjectReference Include="..\IMT.Core\IMT.Core.csproj" />
 	</ItemGroup>
 </Project>

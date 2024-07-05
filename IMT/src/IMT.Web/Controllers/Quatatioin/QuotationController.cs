@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DotNetEnv;
-using IMT.Contracts.Request.Quotation;
+using IMT.Application.Contracts.Requests.Quotation;
+using IMT.Application.Domain.Ports.Services.Quotation;
 using IMT.Thunes;
 using IMT.Thunes.Exception;
 using IMT.Thunes.Request.Common;
@@ -25,10 +26,11 @@ namespace IMT.Web.Controllers.Quotation
     public class QuotationController : BaseController
     {
 
-        private readonly ApplicationDbContext _applicationDBContext;
-        public QuotationController(ApplicationDbContext applicationDBContext)
+#pragma warning disable CS1717 // Assignment made to same variable
+        private readonly IImtQuotationService _quotationService;
+        public QuotationController(IImtQuotationService quotationService)
         {
-            _applicationDBContext = applicationDBContext;
+            _quotationService = quotationService;
         }
 
         [Tags("Thunes.Quotation")]
@@ -37,70 +39,12 @@ namespace IMT.Web.Controllers.Quotation
         {
             try
             {
-
-                var SourceCurrency = _applicationDBContext.ImtCurrencies.Find(request.ImtSourceCurrencyId);
-                var SourceCountry = _applicationDBContext.ImtCountries.Find(request.ImtSourceCountryId);
-                var DestinationCurrency = _applicationDBContext.ImtCurrencies.Find(request.ImtDestinationCurrencyId);
-
-                List<ErrorsResponse> errors = new List<ErrorsResponse>();
-                if (SourceCurrency?.Code == null)
+                if (_quotationService.IsValid(request))
                 {
-                    errors.Add(new ErrorsResponse { code = "Request invalid", message = "ImtSourceCurrencyId must be valid" });
+                    _quotationService.Add(_quotationService.PrepareImtQuotation(request));
+                    return _quotationService.CreateQuotation(_quotationService.PrepareThunesCreateQuotationRequest(request));
                 }
-                if (SourceCountry?.IsoCode == null)
-                {
-                    errors.Add(new ErrorsResponse { code = "Request invalid", message = "ImtSourceCountryId must be valid" });
-                }
-                if (DestinationCurrency?.Code == null)
-                {
-                     errors.Add(new ErrorsResponse { code = "Request invalid", message = "ImtDestinationCurrencyId must be valid" });
-                }
-                if (errors.Count > 0)
-                {
-                    return UnprocessableEntity(errors);
-                }
-
-                SourceOne SourceOne = new SourceOne
-                {
-                    currency = SourceCurrency?.Code,
-                    country_iso_code = SourceCountry?.IsoCode
-                };
-                DestinationOne DestinationOne = new DestinationOne
-                {
-                    amount = (double?)((request.DestinationAmount == null) ? 0 : request.DestinationAmount),
-                    currency = DestinationCurrency?.Code,
-                };
-
-                CreateQuotationRequest QuotationRequest = new CreateQuotationRequest
-                {
-                    external_id = request.OrderId,
-                    payer_id = request.PayerId,
-                    mode = request.Mode,
-                    transaction_type = request.TransactionType,
-                    source = SourceOne,
-                    destination = DestinationOne
-                };
-
-                ImtQuotation prepareData = new ImtQuotation
-                {
-                    OrderId = request.OrderId,
-                    PayerId = request.PayerId,
-                    Mode = request.Mode,
-                    TransactionType = request.TransactionType,
-                    SourceAmount = request.SourceAmount,
-                    ImtSourceCurrencyId = request.ImtSourceCurrencyId,
-                    ImtProviderId = request.ImtProviderId,
-                    ImtProviderServiceId = request.ImtProviderServiceId,
-                    ImtSourceCountryId = request.ImtSourceCountryId,
-                    DestinationAmount = request.DestinationAmount,
-                    ImtDestinationCurrencyId = request.ImtDestinationCurrencyId,
-                    CreatedAt = DateTime.UtcNow,
-                };
-
-                _applicationDBContext.ImtQuotations.Add(prepareData);
-                _applicationDBContext.SaveChanges();
-
-                return this._thunesClient.QuotationAdapter().CreateQuotation(QuotationRequest);
+                return NotFound();
             }
             catch (ThunesException e)
             {
