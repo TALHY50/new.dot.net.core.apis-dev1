@@ -45,6 +45,7 @@ namespace SharedLibrary.Persistence.Configurations
         public virtual DbSet<ImtTransactionState> ImtTransactionStates { get; set; }
 
         public virtual DbSet<ImtTransactionType> ImtTransactionTypes { get; set; }
+        public virtual DbSet<ImtProviderErrorDetail> ImtProviderErrorDetails { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

@@ -131,7 +131,7 @@ namespace IMT.Web.Controllers
                 return StatusCode(e.ErrorCode, e.Errors);
             }
         }
-
+        /*
         [Tags("Thunes.Transaction")]
         [HttpPost(ThunesUrl.ConfirmTransactionByIdUrl)]
         public object ConfirmTransactionById(int id)
@@ -159,7 +159,7 @@ namespace IMT.Web.Controllers
                 return StatusCode(e.ErrorCode, e.Errors);
             }
         }
-
+        */
         [Tags("Thunes.Transaction")]
         [HttpGet(ThunesUrl.RetrieveTransactionInformationByTransactionIdUrl)]
         public object RetrieveTransactionInformationByTransactionId(int id)

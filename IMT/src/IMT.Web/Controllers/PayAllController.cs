@@ -31,6 +31,7 @@ namespace IMT.Web.Controllers
             _payAllClient = new PayAllClient(requirement.ClientID, requirement.ClientSecret, requirement.BaseUrl);
         }
 
+        /*
         [Tags("PayAll.Payment")]
         [HttpPost(PayAllUrl.SinglePayment)]
         public object SinglePayment(CreatePaymentRequest request)
@@ -404,5 +405,7 @@ namespace IMT.Web.Controllers
 
             return request;
         }
+
+        */
     }
 }
