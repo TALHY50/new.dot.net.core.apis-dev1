@@ -4,6 +4,11 @@ using DotNetEnv;
 using Microsoft.OpenApi.Models;
 using SharedLibrary.Persistence.Configurations;
 using Microsoft.EntityFrameworkCore;
+using IMT.Application.Domain.Ports.Services.Quotation;
+using IMT.Application.Infrastructure.Persistence.Services.QuotationService;
+using IMT.Application.Domain.Ports.Repositories.ImtCurrency;
+using IMT.Application.Infrastructure.Persistence.Repositories.ImtCountry;
+using IMT.Application.Infrastructure.Persistence.Repositories.ImtCurrency;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -39,7 +44,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
    {
        options.EnableRetryOnFailure();
    }));
-
+//builder.Services.AddScoped<IImtCurrencyRepository, ImtCurrencyRepository>();
+//builder.Services.AddScoped<IImtCountryRepository, ImtCountryRepository>();
+builder.Services.AddScoped<IImtQuotationService, ImtQuotationService>();
 var app = builder.Build();
 
 app.UseMiddleware<GlobalExceptionHandler>();

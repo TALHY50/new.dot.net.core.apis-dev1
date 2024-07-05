@@ -12,17 +12,14 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\..\..\SharedLibrary\SharedLibrary.csproj" />
-	  <ProjectReference Include="..\IMT.Contracts\IMT.Contracts.csproj" />
-	  <ProjectReference Include="..\IMT.Core\IMT.Core.csproj" />
+	  <ProjectReference Include="..\IMT.PayAll\IMT.PayAll.csproj" />
+	  <ProjectReference Include="..\IMT.Thunes\IMT.Thunes.csproj" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Common\" />
 	  <Folder Include="Contracts\Response\" />
-	  <Folder Include="Contracts\Requests\" />
-	  <Folder Include="Domain\Ports\Services\" />
 	  <Folder Include="Features\" />
 	  <Folder Include="Infrastructure\Persistence\Configuarations\" />
-	  <Folder Include="Infrastructure\Persistence\Services\" />
 	  <Folder Include="Infrastructure\Persistence\Route\" />
 	</ItemGroup>
 </Project>
