@@ -29,7 +29,7 @@ namespace IMT.Thunes.Adapter.Transfers.Quotations
                 CreateHeaders(url, RequestOptions));
         }
 
-        public CreateContentQuotationResponse GetRetrieveQuotationByExternalId(ulong external_id)
+        public CreateContentQuotationResponse GetQuotationByExternalId(ulong external_id)
         {
             string url = ThunesUrl.RetrieveQuotationByExternalIdUrl.Replace("{external_id}", external_id.ToString());
             return RestClient.Get<CreateContentQuotationResponse>(RequestOptions.BaseUrl + url,

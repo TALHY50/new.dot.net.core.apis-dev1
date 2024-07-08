@@ -39,12 +39,7 @@ namespace IMT.Web.Controllers.Quotation
         {
             try
             {
-                if (_quotationService.IsValid(request))
-                {
-                    _quotationService.Add(_quotationService.PrepareImtQuotation(request));
-                    return _quotationService.CreateQuotation(_quotationService.PrepareThunesCreateQuotationRequest(request));
-                }
-                return NotFound();
+               return _quotationService.CreateQuotationCombined(request);
             }
             catch (ThunesException e)
             {
@@ -54,11 +49,11 @@ namespace IMT.Web.Controllers.Quotation
 
         [Tags("Thunes.Quotation")]
         [HttpGet(ThunesUrl.RetrieveAQuotationByIdUrl)]
-        public object RetrieveAQuotationByIdUrl(ulong id)
+        public object RetrieveAQuotationById(ulong id)
         {
             try
             {
-                return this._thunesClient.QuotationAdapter().GetQuotationById(id);
+                return _quotationService.GetQuotationById(id);
             }
             catch (ThunesException e)
             {
@@ -71,7 +66,7 @@ namespace IMT.Web.Controllers.Quotation
         {
             try
             {
-                return this._thunesClient.QuotationAdapter().GetRetrieveQuotationByExternalId(external_id);
+                return _quotationService.GetQuotationByExternalId(external_id);
             }
             catch (ThunesException e)
             {
