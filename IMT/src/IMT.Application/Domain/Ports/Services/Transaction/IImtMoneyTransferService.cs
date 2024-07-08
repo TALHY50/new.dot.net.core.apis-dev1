@@ -3,6 +3,7 @@ using IMT.Application.Contracts.Requests.Transfer;
 using IMT.Application.Domain.Ports.Repositories.ImtMoneyTransfer;
 using IMT.Thunes.Request.Transaction.Quotation;
 using IMT.Thunes.Request.Transaction.Transfer.CommonTransaction;
+using IMT.Thunes.Response.Transfer.Transaction;
 using SharedLibrary.Models.IMT;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace IMT.Application.Domain.Ports.Services.Transaction
     public interface IImtMoneyTransferService : IImtMoneyTransferRepository
     {
         public ImtMoneyTransfer PrepareImtTransaction(MoneyTransferDTO request);
-        public object CreateTransactionByQuotationId(ulong quotationId, MoneyTransferDTO request);
-        public object CreateTransactionByExternalId(int external_id, MoneyTransferDTO request);
+        public CreateTransactionResponse CreateTransactionByQuotationId(ulong quotationId, MoneyTransferDTO request);
+        public CreateTransactionResponse CreateTransactionByExternalId(int external_id, MoneyTransferDTO request);
     }
 }

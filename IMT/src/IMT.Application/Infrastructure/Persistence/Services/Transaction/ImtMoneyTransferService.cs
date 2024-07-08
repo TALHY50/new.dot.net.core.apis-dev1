@@ -58,7 +58,7 @@ namespace IMT.Application.Infrastructure.Persistence.Services.Transaction
                 UpdatedAt = DateTime.Now
             };
         }
-        public object CreateTransactionByQuotationId(ulong quotationId, MoneyTransferDTO request)
+        public CreateTransactionResponse CreateTransactionByQuotationId(ulong quotationId, MoneyTransferDTO request)
         {
             var transactionType = _thunesClient.QuotationAdapter().GetQuotationById(quotationId);
             if (request.IsValid(transactionType?.transaction_type?.ToLower()))
@@ -68,7 +68,7 @@ namespace IMT.Application.Infrastructure.Persistence.Services.Transaction
             return null;
         }
 
-        public object CreateTransactionByExternalId(int external_id, MoneyTransferDTO request)
+        public CreateTransactionResponse CreateTransactionByExternalId(int external_id, MoneyTransferDTO request)
         {
             if (request.IsValid(null))
             {
