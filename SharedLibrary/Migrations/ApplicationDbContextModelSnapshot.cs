@@ -930,6 +930,59 @@ namespace SharedLibrary.Migrations
                     b.ToTable("imt_provider_commissions", (string)null);
                 });
 
+            modelBuilder.Entity("SharedLibrary.Models.IMT.ImtProviderErrorDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int(11)")
+                        .HasColumnName("id");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasColumnName("created_at")
+                        .HasDefaultValueSql("'NULL'");
+
+                    b.Property<string>("ErrorCode")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)")
+                        .HasColumnName("error_code")
+                        .HasDefaultValueSql("'NULL'");
+
+                    b.Property<string>("ErrorMessage")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("error_message")
+                        .HasDefaultValueSql("'NULL'");
+
+                    b.Property<int>("ImtProviderId")
+                        .HasColumnType("int(11)")
+                        .HasColumnName("imt_provider_id");
+
+                    b.Property<int>("ReferenceId")
+                        .HasColumnType("int(11)")
+                        .HasColumnName("reference_id")
+                        .HasComment("type-reference table primary key id");
+
+                    b.Property<sbyte>("Type")
+                        .HasColumnType("tinyint(4)")
+                        .HasColumnName("type")
+                        .HasComment("1: quotation,2: money_transfer");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasColumnName("updated_at")
+                        .HasDefaultValueSql("'NULL'");
+
+                    b.HasKey("Id")
+                        .HasName("PRIMARY");
+
+                    b.ToTable("imt_provider_error_details", (string)null);
+                });
+
             modelBuilder.Entity("SharedLibrary.Models.IMT.ImtProviderPayer", b =>
                 {
                     b.Property<int>("Id")
