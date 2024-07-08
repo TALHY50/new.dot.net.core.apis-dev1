@@ -934,7 +934,7 @@ namespace SharedLibrary.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int(11) unsigned")
+                        .HasColumnType("int(11)")
                         .HasColumnName("id");
 
                     b.Property<DateTime?>("CreatedAt")
@@ -944,7 +944,6 @@ namespace SharedLibrary.Migrations
                         .HasDefaultValueSql("'NULL'");
 
                     b.Property<string>("ErrorCode")
-                        .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(20)
                         .HasColumnType("varchar(20)")
@@ -952,7 +951,6 @@ namespace SharedLibrary.Migrations
                         .HasDefaultValueSql("'NULL'");
 
                     b.Property<string>("ErrorMessage")
-                        .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(255)
                         .HasColumnType("varchar(255)")
@@ -960,24 +958,18 @@ namespace SharedLibrary.Migrations
                         .HasDefaultValueSql("'NULL'");
 
                     b.Property<int>("ImtProviderId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int(11)")
-                        .HasColumnName("imt_provider_id")
-                        .HasDefaultValueSql("'NULL'");
+                        .HasColumnName("imt_provider_id");
 
                     b.Property<int>("ReferenceId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int(11) unsigned")
+                        .HasColumnType("int(11)")
                         .HasColumnName("reference_id")
-                        .HasDefaultValueSql("'NULL'")
                         .HasComment("type-reference table primary key id");
 
                     b.Property<sbyte>("Type")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("tinyint(4)")
                         .HasColumnName("type")
-                        .HasDefaultValueSql("'NULL'")
-                        .HasComment("'1: quotation,2: money_transfer'");
+                        .HasComment("1: quotation,2: money_transfer");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .ValueGeneratedOnAdd()
