@@ -63,7 +63,7 @@ namespace IMT.Application.Infrastructure.Persistence.Services.Transaction
             var transactionType = _thunesClient.QuotationAdapter().GetQuotationById(quotationId);
             if (request.IsValid(transactionType?.transaction_type?.ToLower()))
             {
-                return _thunesClient.GetTransactionAdapter().CreateTransaction(quotationId, request);
+                return (CreateTransactionResponse)_thunesClient.GetTransactionAdapter().CreateTransaction(quotationId, request);
             }
             return null;
         }
@@ -72,7 +72,7 @@ namespace IMT.Application.Infrastructure.Persistence.Services.Transaction
         {
             if (request.IsValid(null))
             {
-                return _thunesClient.GetTransactionAdapter().CreateTransactionFromQuotationExternalId(external_id, request);
+                return (CreateTransactionResponse)_thunesClient.GetTransactionAdapter().CreateTransactionFromQuotationExternalId(external_id, request);
             }
             return null;
         }
