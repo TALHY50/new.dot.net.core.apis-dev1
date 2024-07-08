@@ -1,4 +1,5 @@
-﻿using IMT.Application.Domain.Ports.Repositories.ImtCurrency;
+﻿using IMT.Application.Domain.Ports.Repositories.ConfirmTransaction;
+using IMT.Application.Domain.Ports.Repositories.ImtCurrency;
 using IMT.Application.Domain.Ports.Repositories.ImtMoneyTransfer;
 using IMT.Application.Domain.Ports.Services.Quotation;
 using IMT.Application.Domain.Ports.Services.Transaction;
@@ -43,6 +44,7 @@ namespace IMT.Application.Infrastructure.Utility
             services.AddScoped<IImtCurrencyRepository, ImtCurrencyRepository>();
             services.AddScoped<IImtCountryRepository, ImtCountryRepository>();
             services.AddScoped<IImtMoneyTransferRepository, IImtMoneyTransferRepository>();
+            services.AddScoped<IImtConfirmTransactionRepository, ImtConfirmTransactionRepository>();
         //  services.AddScoped<IImtQuotationService, ImtQuotationService>(); 
         //  services.AddScoped<IImtMoneyTransferService, ImtMoneyTransferService>(); 
 
