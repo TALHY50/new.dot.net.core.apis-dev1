@@ -20,6 +20,7 @@ using System.Threading.Tasks;
 using IMT.Thunes.Exception;
 using IMT.Application.Infrastructure.Utility;
 using IMT.PayAll.Request.Common;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace IMT.Application.Infrastructure.Persistence.Services.QuotationService
 {
@@ -114,7 +115,16 @@ namespace IMT.Application.Infrastructure.Persistence.Services.QuotationService
         }
         public object GetQuotationByExternalId(ulong external_id)
         {
-              return _thunesClient.QuotationAdapter().GetQuotationByExternalId(external_id);
+            return _thunesClient.QuotationAdapter().GetQuotationByExternalId(external_id);
+        }
+        public object CreateQuotationCombined(QuotationRequest quotationRequest)
+        {
+            if (IsValid(quotationRequest))
+            {
+                Add(PrepareImtQuotation(quotationRequest));
+                return CreateQuotation(PrepareThunesCreateQuotationRequest(quotationRequest));
+            }
+            return null;
         }
     }
 }

@@ -39,12 +39,7 @@ namespace IMT.Web.Controllers.Quotation
         {
             try
             {
-                if (_quotationService.IsValid(request))
-                {
-                    _quotationService.Add(_quotationService.PrepareImtQuotation(request));
-                    return _quotationService.CreateQuotation(_quotationService.PrepareThunesCreateQuotationRequest(request));
-                }
-                return NotFound();
+               return _quotationService.CreateQuotationCombined(request);
             }
             catch (ThunesException e)
             {
