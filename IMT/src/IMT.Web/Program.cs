@@ -13,6 +13,8 @@ using IMT.Application.Domain.Ports.Services.Transaction;
 using IMT.Application.Infrastructure.Persistence.Services.Transaction;
 using IMT.Application.Domain.Ports.Services.ConfirmTransaction;
 using IMT.Application.Infrastructure.Persistence.Services.ConfirmTransactionService;
+using IMT.Application.Domain.Ports.Services.SendMoney;
+using IMT.Application.Infrastructure.Persistence.Services.SendMoney;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -53,6 +55,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<IImtQuotationService, ImtQuotationService>();
 builder.Services.AddScoped<IImtMoneyTransferService, ImtMoneyTransferService>();
 builder.Services.AddScoped<IImtConfirmTransactionService, ImtConfirmTransactionService>();
+builder.Services.AddScoped<IImtSendMoneyService, ImtSendMoneyService>();
 var app = builder.Build();
 
 app.UseMiddleware<GlobalExceptionHandler>();
