@@ -74,9 +74,8 @@ namespace IMT.Application.Infrastructure.Persistence.Services.SendMoney
                 return null;
             }
 
-            _imtConfirmTransactionService.ConfirmTrasaction(transactionResponse.id);
+           return _imtConfirmTransactionService.ConfirmTrasaction(transactionResponse.id);
 
-            return null;
         }
     }
 }
