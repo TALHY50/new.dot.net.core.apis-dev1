@@ -22,5 +22,6 @@ namespace IMT.Application.Domain.Ports.Services.Quotation
         public object CreateQuotation(CreateQuotationRequest request);
         public object GetQuotationById(ulong id);
         public object GetQuotationByExternalId(ulong external_id);
+        public object CreateQuotationCombined(QuotationRequest quotationRequest);
     }
 }
