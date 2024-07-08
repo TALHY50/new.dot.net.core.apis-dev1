@@ -1065,17 +1065,16 @@ namespace SharedLibrary.Persistence.Configurations
                     .HasDefaultValueSql("'NULL'")
                     .HasColumnType("int(11)")
                     .HasColumnName("imt_provider_id");
-                entity.Property(e => e.CreatedAt)
-                    .HasDefaultValueSql("'NULL'")
-                    .HasColumnType("datetime")
-                    .HasColumnName("created_at");
+
                 entity.Property(e => e.Type)
                     .HasDefaultValueSql("'NULL'")
                     .HasColumnType("tinyint(4)")
+                    .HasComment("'1: quotation,2: money_transfer'")
                     .HasColumnName("type");
                 entity.Property(e => e.ReferenceId)
                    .HasDefaultValueSql("'NULL'")
                    .HasColumnType("int(11) unsigned")
+                   .HasComment("type-reference table primary key id")
                    .HasColumnName("reference_id");
                 entity.Property(e => e.ErrorCode)
                     .HasMaxLength(20)
@@ -1085,11 +1084,15 @@ namespace SharedLibrary.Persistence.Configurations
                     .HasMaxLength(255)
                     .HasDefaultValueSql("'NULL'")
                     .HasColumnName("error_message");
+                entity.Property(e => e.CreatedAt)
+                        .HasDefaultValueSql("'NULL'")
+                        .HasColumnType("datetime")
+                        .HasColumnName("created_at");
                 entity.Property(e => e.UpdatedAt)
                     .HasDefaultValueSql("'NULL'")
                     .HasColumnType("datetime")
                     .HasColumnName("updated_at");
-               
+
             });
 
             OnModelCreatingPartial(modelBuilder);

@@ -11,8 +11,8 @@ using SharedLibrary.Persistence.Configurations;
 namespace SharedLibrary.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240708070425_imtporvidererrordetails")]
-    partial class imtporvidererrordetails
+    [Migration("20240708074828_imtprovidererrordetail")]
+    partial class imtprovidererrordetail
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -972,13 +972,15 @@ namespace SharedLibrary.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int(11) unsigned")
                         .HasColumnName("reference_id")
-                        .HasDefaultValueSql("'NULL'");
+                        .HasDefaultValueSql("'NULL'")
+                        .HasComment("type-reference table primary key id");
 
                     b.Property<sbyte>("Type")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("tinyint(4)")
                         .HasColumnName("type")
-                        .HasDefaultValueSql("'NULL'");
+                        .HasDefaultValueSql("'NULL'")
+                        .HasComment("'1: quotation,2: money_transfer'");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .ValueGeneratedOnAdd()

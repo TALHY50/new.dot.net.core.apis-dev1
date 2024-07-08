@@ -5,7 +5,7 @@
 namespace SharedLibrary.Migrations
 {
     /// <inheritdoc />
-    public partial class imtporvidererrordetails : Migration
+    public partial class imtprovidererrordetail : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
