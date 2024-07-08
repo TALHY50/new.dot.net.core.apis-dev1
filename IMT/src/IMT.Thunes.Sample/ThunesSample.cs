@@ -45,7 +45,7 @@ namespace IMT.Thunes.Sample
         public void GetRetrieveQuotationByExternalId()
         {
             ulong id = 1234;
-            var response = _thunesClient.QuotationAdapter().GetRetrieveQuotationByExternalId(id);
+            var response = _thunesClient.QuotationAdapter().GetQuotationByExternalId(id);
             Assert.NotNull(response);
         }
 

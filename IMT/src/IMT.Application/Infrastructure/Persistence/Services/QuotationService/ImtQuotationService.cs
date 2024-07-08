@@ -96,7 +96,7 @@ namespace IMT.Application.Infrastructure.Persistence.Services.QuotationService
                 transaction_type = request.TransactionType,
                 source = new SourceOne
                 {
-                    amount = (request.Mode=="SOURCE_AMOUNT")?(double?)((request.SourceAmount == null) ? 0 : request.SourceAmount):null,
+                    amount = (request.Mode == "SOURCE_AMOUNT") ? (double?)((request.SourceAmount == null) ? 0 : request.SourceAmount) : null,
                     currency = _currencyRepository.GetCurrencyCodeById((int)request.ImtSourceCurrencyId),
                     country_iso_code = _countryRepository.GetCountryIsoCodeByCountryId((int)request.ImtSourceCountryId)
                 },
@@ -106,6 +106,15 @@ namespace IMT.Application.Infrastructure.Persistence.Services.QuotationService
                     currency = _currencyRepository.GetCurrencyCodeById((int)request.ImtDestinationCurrencyId),
                 }
             };
+        }
+
+        public object GetQuotationById(ulong id)
+        {
+            return _thunesClient.QuotationAdapter().GetQuotationById(id);
+        }
+        public object GetQuotationByExternalId(ulong external_id)
+        {
+              return _thunesClient.QuotationAdapter().GetQuotationByExternalId(external_id);
         }
     }
 }

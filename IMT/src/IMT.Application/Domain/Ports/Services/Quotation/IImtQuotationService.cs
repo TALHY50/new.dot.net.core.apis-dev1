@@ -20,5 +20,7 @@ namespace IMT.Application.Domain.Ports.Services.Quotation
         public IMT.Thunes.Request.Transaction.Quotation.CreateQuotationRequest PrepareThunesCreateQuotationRequest(QuotationRequest request);
         public ImtQuotation PrepareImtQuotation(QuotationRequest request);
         public object CreateQuotation(CreateQuotationRequest request);
+        public object GetQuotationById(ulong id);
+        public object GetQuotationByExternalId(ulong external_id);
     }
 }
