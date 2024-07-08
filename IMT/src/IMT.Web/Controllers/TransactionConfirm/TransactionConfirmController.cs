@@ -1,4 +1,5 @@
 ﻿using IMT.Thunes.Exception;
+using IMT.Thunes.Request.ConfirmTrasaction;
 using IMT.Thunes.Response.Common;
 using IMT.Thunes.Route;
 using Microsoft.AspNetCore.Mvc;
@@ -21,15 +22,12 @@ namespace IMT.Web.Controllers.Transaction
         [HttpPost(ThunesUrl.ConfirmTransactionByIdUrl)]
         public object ConfirmTransactionById(int id)
         {
-            try
-            {
-                return _thunesClient.GetTransactionAdapter().ConfirmTransactionById(id);
-            }
-            catch (ThunesException e)
-            {
-                ErrorStore(e.Errors,id);
-                return StatusCode(e.ErrorCode, e.Errors);
-            }
+            var trasactionDTO = new ConfirmTrasactionDTO { 
+             TrasactionId = id,
+              Type = 2,
+               ProviderId = 1,
+            };
+          return  ConfirmTransactionByTrasactionId(trasactionDTO);
         }
 
         [Tags("Thunes.Transaction")]
@@ -42,12 +40,24 @@ namespace IMT.Web.Controllers.Transaction
             }
             catch (ThunesException e)
             {
-                ErrorStore(e.Errors, external_id);
                 return StatusCode(e.ErrorCode, e.Errors);
             }
         }
 
-        private void ErrorStore(List<ErrorsResponse> Errors,int id)
+
+        private object ConfirmTransactionByTrasactionId(ConfirmTrasactionDTO trasactionDTO)
+        {
+            try
+            {
+                return _thunesClient.GetTransactionAdapter().ConfirmTransactionById(trasactionDTO.TrasactionId);
+            }
+            catch (ThunesException e)
+            {
+                ErrorStore(e.Errors, trasactionDTO);
+                return StatusCode(e.ErrorCode, e.Errors);
+            }
+        }
+        private void ErrorStore(List<ErrorsResponse> Errors, ConfirmTrasactionDTO trasactionDTO)
         {
             foreach (var error in Errors)
             {
@@ -55,9 +65,9 @@ namespace IMT.Web.Controllers.Transaction
                 {
                     ErrorCode = error.code,
                     ErrorMessage = error.message,
-                    ImtProviderId = 1,
-                    ReferenceId = id,
-                    Type = 2,
+                    ImtProviderId = trasactionDTO.ProviderId,
+                    ReferenceId = trasactionDTO.TrasactionId,
+                    Type = trasactionDTO.Type,
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow
                 };
