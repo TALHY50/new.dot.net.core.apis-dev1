@@ -12,7 +12,6 @@ using IMT.Thunes.Response.Transfer.Quotation;
 using IMT.Thunes.Response.Transfer.Transaction;
 using IMT.Application.Contracts.Requests.Quotation;
 using Microsoft.AspNetCore.Http.HttpResults;
-using IMT.Application.Domain.Ports.Repositories.ConfirmTransaction;
 using IMT.Application.Domain.Ports.Services.ConfirmTransaction;
 
 namespace IMT.Application.Infrastructure.Persistence.Services.SendMoney
@@ -22,8 +21,8 @@ namespace IMT.Application.Infrastructure.Persistence.Services.SendMoney
 
         private readonly IImtQuotationService _quotationService;
         private readonly IImtMoneyTransferService _moneyTransferService;
-        private readonly IImtConfirmTransactionService _imtConfirmTransactionService;
-        public ImtSendMoneyService(IImtQuotationService quotationService, IImtMoneyTransferService imtMoneyTransferService, IImtConfirmTransactionService confirmTransactionService)
+        private readonly ImtConfirmTransactionService _imtConfirmTransactionService;
+        public ImtSendMoneyService(IImtQuotationService quotationService, IImtMoneyTransferService imtMoneyTransferService, ImtConfirmTransactionService imtConfirmTransactionService)
         {
             _quotationService = quotationService;
             _moneyTransferService = imtMoneyTransferService;
@@ -75,9 +74,7 @@ namespace IMT.Application.Infrastructure.Persistence.Services.SendMoney
                 return null;
             }
 
-            _imtConfirmTransactionService.ConfirmTrasaction(transactionResponse.id);
-
-            return null;
+           return _imtConfirmTransactionService.ConfirmTrasaction(transactionResponse.id);
         }
     }
 }
