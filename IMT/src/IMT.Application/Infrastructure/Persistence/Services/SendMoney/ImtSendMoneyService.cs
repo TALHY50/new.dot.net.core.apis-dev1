@@ -26,7 +26,7 @@ namespace IMT.Application.Infrastructure.Persistence.Services.SendMoney
         {
             _quotationService = quotationService;
             _moneyTransferService = imtMoneyTransferService;
-            _imtConfirmTransactionService = confirmTransactionService;
+            _imtConfirmTransactionService = imtConfirmTransactionService;
         }
 
         public object SendMoney(SendMoneyRequest request)
