@@ -8,6 +8,7 @@ using IMT.Thunes.Route;
 using Microsoft.AspNetCore.Mvc;
 using SharedLibrary.Models.IMT;
 using IMT.Thunes.Request.Transaction.Transfer.CommonTransaction;
+using IMT.Application.Domain.Ports.Services.Transaction;
 
 namespace IMT.Web.Controllers.SendMoney
 {
@@ -19,9 +20,11 @@ namespace IMT.Web.Controllers.SendMoney
     {
 
         private readonly IImtQuotationService _quotationService;
-        public SendMoneyController(IImtQuotationService quotationService)
+        private readonly IImtMoneyTransferService _moneyTransferService;
+        public SendMoneyController(IImtQuotationService quotationService, IImtMoneyTransferService imtMoneyTransferService)
         {
             _quotationService = quotationService;
+            _moneyTransferService = imtMoneyTransferService;
         }
 
         [Tags("Thunes.SendMoney")]
@@ -44,6 +47,9 @@ namespace IMT.Web.Controllers.SendMoney
                 DestinationAmount = request.DestinationAmount,
                 ImtDestinationCurrencyId = request.ImtDestinationCurrencyId
             };
+
+            var quoatation = _quotationService.CreateQuotationCombined(QuotationRequest);
+
             MoneyTransferDTO MoneyTransferDTO = new MoneyTransferDTO
             {
                 external_id = request.OrderId,
@@ -58,8 +64,8 @@ namespace IMT.Web.Controllers.SendMoney
                 retail_fee_currency = request.retail_fee_currency,
                 retail_fee = request.retail_fee,
             };
+            // _moneyTransferService.CreateTransactionByQuotationId(quoatation.id, )
 
-            
 
 
             return null;
