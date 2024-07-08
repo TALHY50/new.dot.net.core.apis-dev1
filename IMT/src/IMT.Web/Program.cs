@@ -9,6 +9,8 @@ using IMT.Application.Infrastructure.Persistence.Services.QuotationService;
 using IMT.Application.Domain.Ports.Repositories.ImtCurrency;
 using IMT.Application.Infrastructure.Persistence.Repositories.ImtCountry;
 using IMT.Application.Infrastructure.Persistence.Repositories.ImtCurrency;
+using IMT.Application.Domain.Ports.Services.Transaction;
+using IMT.Application.Infrastructure.Persistence.Services.Transaction;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -47,6 +49,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 //builder.Services.AddScoped<IImtCurrencyRepository, ImtCurrencyRepository>();
 //builder.Services.AddScoped<IImtCountryRepository, ImtCountryRepository>();
 builder.Services.AddScoped<IImtQuotationService, ImtQuotationService>();
+builder.Services.AddScoped<IImtMoneyTransferService, ImtMoneyTransferService>();
 var app = builder.Build();
 
 app.UseMiddleware<GlobalExceptionHandler>();
