@@ -934,36 +934,59 @@ namespace SharedLibrary.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int(11) unsigned")
+                        .HasColumnName("id");
 
                     b.Property<DateTime?>("CreatedAt")
-                        .HasColumnType("datetime(6)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasColumnName("created_at")
+                        .HasDefaultValueSql("'NULL'");
 
                     b.Property<string>("ErrorCode")
                         .IsRequired()
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(20)
-                        .HasColumnType("varchar(20)");
+                        .HasColumnType("varchar(20)")
+                        .HasColumnName("error_code")
+                        .HasDefaultValueSql("'NULL'");
 
                     b.Property<string>("ErrorMessage")
                         .IsRequired()
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("error_message")
+                        .HasDefaultValueSql("'NULL'");
 
                     b.Property<int>("ImtProviderId")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int(11)")
+                        .HasColumnName("imt_provider_id")
+                        .HasDefaultValueSql("'NULL'");
 
                     b.Property<int>("ReferenceId")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int(11) unsigned")
+                        .HasColumnName("reference_id")
+                        .HasDefaultValueSql("'NULL'");
 
                     b.Property<sbyte>("Type")
-                        .HasColumnType("tinyint");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("tinyint(4)")
+                        .HasColumnName("type")
+                        .HasDefaultValueSql("'NULL'");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime(6)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasColumnName("updated_at")
+                        .HasDefaultValueSql("'NULL'");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("PRIMARY");
 
-                    b.ToTable("imt_provider_error_details");
+                    b.ToTable("imt_provider_error_details", (string)null);
                 });
 
             modelBuilder.Entity("SharedLibrary.Models.IMT.ImtProviderPayer", b =>

@@ -8,21 +8,14 @@ using System.Threading.Tasks;
 
 namespace SharedLibrary.Models.IMT
 {
-    [Table("imt_provider_error_details")]
     public class ImtProviderErrorDetail
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Required]
         public int ImtProviderId { get; set; }
 
-        [Required]
-        [Column(TypeName = "tinyint")]
-        public int Type { get; set; }
+        public sbyte Type { get; set; }
 
-        [Required]
         public int ReferenceId { get; set; }
 
         [StringLength(20)]
