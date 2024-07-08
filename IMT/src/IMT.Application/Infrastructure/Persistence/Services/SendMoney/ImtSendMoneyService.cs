@@ -21,8 +21,8 @@ namespace IMT.Application.Infrastructure.Persistence.Services.SendMoney
 
         private readonly IImtQuotationService _quotationService;
         private readonly IImtMoneyTransferService _moneyTransferService;
-        private readonly IImtMoneyTransferService _imtConfirmTransactionService;
-        public ImtSendMoneyService(IImtQuotationService quotationService, IImtMoneyTransferService imtMoneyTransferService, IImtMoneyTransferService imtConfirmTransactionService)
+        private readonly IImtConfirmTransactionService _imtConfirmTransactionService;
+        public ImtSendMoneyService(IImtQuotationService quotationService, IImtMoneyTransferService imtMoneyTransferService, IImtConfirmTransactionService imtConfirmTransactionService)
         {
             _quotationService = quotationService;
             _moneyTransferService = imtMoneyTransferService;
