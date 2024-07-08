@@ -21,6 +21,7 @@ using IMT.Thunes.Exception;
 using IMT.Application.Infrastructure.Utility;
 using IMT.PayAll.Request.Common;
 using Microsoft.AspNetCore.Http.HttpResults;
+using IMT.Thunes.Response.Transfer.Quotation;
 
 namespace IMT.Application.Infrastructure.Persistence.Services.QuotationService
 {
@@ -39,7 +40,7 @@ namespace IMT.Application.Infrastructure.Persistence.Services.QuotationService
             _currencyRepository = DependencyContainer.GetService<IImtCurrencyRepository>();
             _countryRepository = DependencyContainer.GetService<IImtCountryRepository>();
         }
-        public object CreateQuotation(CreateQuotationRequest CreateQuotationRequest)
+        public CreateContentQuotationResponse CreateQuotation(CreateQuotationRequest CreateQuotationRequest)
         {
             return _thunesClient.QuotationAdapter().CreateQuotation(CreateQuotationRequest);
         }
@@ -109,15 +110,15 @@ namespace IMT.Application.Infrastructure.Persistence.Services.QuotationService
             };
         }
 
-        public object GetQuotationById(ulong id)
+        public CreateContentQuotationResponse GetQuotationById(ulong id)
         {
             return _thunesClient.QuotationAdapter().GetQuotationById(id);
         }
-        public object GetQuotationByExternalId(ulong external_id)
+        public CreateContentQuotationResponse GetQuotationByExternalId(ulong external_id)
         {
             return _thunesClient.QuotationAdapter().GetQuotationByExternalId(external_id);
         }
-        public object CreateQuotationCombined(QuotationRequest quotationRequest)
+        public CreateContentQuotationResponse CreateQuotationCombined(QuotationRequest quotationRequest)
         {
             if (IsValid(quotationRequest))
             {

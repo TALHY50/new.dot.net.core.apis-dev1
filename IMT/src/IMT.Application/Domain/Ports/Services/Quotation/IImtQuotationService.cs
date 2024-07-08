@@ -2,6 +2,7 @@
 using IMT.Application.Domain.Ports.Repositories.Quotation;
 using IMT.Application.Infrastructure.Persistence.Repositories;
 using IMT.Thunes.Request.Transaction.Quotation;
+using IMT.Thunes.Response.Transfer.Quotation;
 using SharedLibrary.Interfaces;
 using SharedLibrary.Models.IMT;
 using SharedLibrary.Persistence.Configurations;
@@ -19,9 +20,9 @@ namespace IMT.Application.Domain.Ports.Services.Quotation
         public bool IsValid(QuotationRequest request);
         public IMT.Thunes.Request.Transaction.Quotation.CreateQuotationRequest PrepareThunesCreateQuotationRequest(QuotationRequest request);
         public ImtQuotation PrepareImtQuotation(QuotationRequest request);
-        public object CreateQuotation(CreateQuotationRequest request);
-        public object GetQuotationById(ulong id);
-        public object GetQuotationByExternalId(ulong external_id);
-        public object CreateQuotationCombined(QuotationRequest quotationRequest);
+        public CreateContentQuotationResponse CreateQuotation(CreateQuotationRequest request);
+        public CreateContentQuotationResponse GetQuotationById(ulong id);
+        public CreateContentQuotationResponse GetQuotationByExternalId(ulong external_id);
+        public CreateContentQuotationResponse CreateQuotationCombined(QuotationRequest quotationRequest);
     }
 }
