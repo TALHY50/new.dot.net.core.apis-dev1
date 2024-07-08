@@ -4,26 +4,31 @@ using IMT.Thunes.Route;
 using IMT.Thunes;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using IMT.Application.Domain.Ports.Services.Quotation;
+using IMT.Application.Domain.Ports.Services.ConfirmTransaction;
+using IMT.Application.Domain.Ports.Services.Transaction;
 
 namespace IMT.Web.Controllers.Transaction
 {
     [Tags("Thunes")]
     [ApiController]
     [Route("[controller]")]
-    public class TransactionController :BaseController
+    public class TransactionController : BaseController
     {
+#pragma warning disable CS1717 // Assignment made to same variable
+        private readonly IImtMoneyTransferService _transactionService;
+        public TransactionController(IImtMoneyTransferService transactionService)
+        {
+            _transactionService = transactionService;
+        }
+
         [Tags("Thunes.Transaction")]
         [HttpPost(ThunesUrl.CreateTransactionUrl)]
         public Object TransactionPost(ulong id, MoneyTransferDTO request)
         {
             try
             {
-                var transactionType = _thunesClient.QuotationAdapter().GetQuotationById(id);
-                if (request.IsValid(transactionType?.transaction_type?.ToLower()))
-                {
-                    return _thunesClient.GetTransactionAdapter().CreateTransaction(id, request);
-                }
-                return BadRequest("Request not valid");
+              return  _transactionService.CreateTransactionByQuotationId(id, request);
             }
             catch (ThunesException e)
             {
@@ -36,11 +41,7 @@ namespace IMT.Web.Controllers.Transaction
         {
             try
             {
-                if (request.IsValid(null))
-                {
-                    return _thunesClient.GetTransactionAdapter().CreateTransactionFromQuotationExternalId(external_id, request);
-                }
-                return BadRequest("Request not valid");
+                return _transactionService.CreateTransactionByExternalId(external_id, request);
             }
             catch (ThunesException e)
             {
