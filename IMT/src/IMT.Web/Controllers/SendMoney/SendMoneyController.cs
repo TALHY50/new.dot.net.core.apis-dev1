@@ -9,6 +9,10 @@ using Microsoft.AspNetCore.Mvc;
 using SharedLibrary.Models.IMT;
 using IMT.Thunes.Request.Transaction.Transfer.CommonTransaction;
 using IMT.Application.Domain.Ports.Services.Transaction;
+using IMT.Thunes.Response.Transfer.Quotation;
+using IMT.Thunes.Response.Transfer.Transaction;
+using IMT.Web.Controllers.Transaction;
+using IMT.Application.Infrastructure.Persistence.Services.ConfirmTransactionService;
 
 namespace IMT.Web.Controllers.SendMoney
 {
@@ -21,10 +25,12 @@ namespace IMT.Web.Controllers.SendMoney
 
         private readonly IImtQuotationService _quotationService;
         private readonly IImtMoneyTransferService _moneyTransferService;
-        public SendMoneyController(IImtQuotationService quotationService, IImtMoneyTransferService imtMoneyTransferService)
+        private readonly ImtConfirmTransactionService _imtConfirmTransactionService;
+        public SendMoneyController(IImtQuotationService quotationService, IImtMoneyTransferService imtMoneyTransferService, ImtConfirmTransactionService imtConfirmTransactionService)
         {
             _quotationService = quotationService;
             _moneyTransferService = imtMoneyTransferService;
+            _imtConfirmTransactionService = imtConfirmTransactionService;
         }
 
         [Tags("Thunes.SendMoney")]
@@ -48,9 +54,14 @@ namespace IMT.Web.Controllers.SendMoney
                 ImtDestinationCurrencyId = request.ImtDestinationCurrencyId
             };
 
-            var quoatation = _quotationService.CreateQuotationCombined(QuotationRequest);
+            CreateContentQuotationResponse? quoatation = _quotationService.CreateQuotationCombined(QuotationRequest);
 
-            MoneyTransferDTO MoneyTransferDTO = new MoneyTransferDTO
+            if (quoatation == null)
+            {
+                return null;
+            }
+
+            MoneyTransferDTO money_transfer_dto = new MoneyTransferDTO
             {
                 external_id = request.OrderId,
                 credit_party_identifier = request.credit_party_identifier,
@@ -64,9 +75,13 @@ namespace IMT.Web.Controllers.SendMoney
                 retail_fee_currency = request.retail_fee_currency,
                 retail_fee = request.retail_fee,
             };
-            // _moneyTransferService.CreateTransactionByQuotationId(quoatation.id, )
+            CreateTransactionResponse? transactionResponse = _moneyTransferService.CreateTransactionByQuotationId(quoatation.id, money_transfer_dto);
+            if (transactionResponse == null)
+            {
+                return null;
+            }
 
-
+            _imtConfirmTransactionService.ConfirmTrasaction(transactionResponse.id);
 
             return null;
         }

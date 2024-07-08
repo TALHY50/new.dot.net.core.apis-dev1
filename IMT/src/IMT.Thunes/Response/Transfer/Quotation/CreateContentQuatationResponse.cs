@@ -14,7 +14,7 @@ namespace IMT.Thunes.Response.Transfer.Quotation
 {
     public class CreateContentQuotationResponse
     {
-        public int id { get; set; }
+        public ulong id { get; set; }
         public string external_id { get; set; }
         public Payer payer { get; set; }
         public string mode { get; set; }
