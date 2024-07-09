@@ -13,6 +13,7 @@ using IMT.Thunes.Response.Transfer.Transaction;
 using IMT.Application.Contracts.Requests.Quotation;
 using Microsoft.AspNetCore.Http.HttpResults;
 using IMT.Application.Domain.Ports.Services.ConfirmTransaction;
+using IMT.Thunes.Request.ConfirmTrasaction;
 
 namespace IMT.Application.Infrastructure.Persistence.Services.SendMoney
 {
@@ -31,8 +32,36 @@ namespace IMT.Application.Infrastructure.Persistence.Services.SendMoney
 
         public object SendMoney(SendMoneyRequest request)
         {
-            // prepare create quotation
-            QuotationRequest QuotationRequest = new QuotationRequest
+
+            CreateContentQuotationResponse? quoatation = _quotationService.CreateQuotationCombined(PrepareQuotation(request));
+
+            if (quoatation == null)
+            {
+                return null;
+            }
+
+            CreateTransactionResponse? transactionResponse = _moneyTransferService.CreateTransactionByQuotationId(quoatation.id, PrepareTransaction(request));
+
+            var trasactionDTO = new ConfirmTrasactionDTO
+            {
+                TrasactionId = transactionResponse.id,
+                Type = 2,
+                ProviderId = 1 // for thunes hard coded
+            };
+
+            if (transactionResponse == null)
+            {
+                
+                return null;
+            }
+
+            return _imtConfirmTransactionService.ConfirmTrasaction(trasactionDTO);
+
+        }
+
+        public QuotationRequest PrepareQuotation(SendMoneyRequest request)
+        {
+            return new QuotationRequest
             {
                 OrderId = request.OrderId,
                 PayerId = request.PayerId,
@@ -46,15 +75,11 @@ namespace IMT.Application.Infrastructure.Persistence.Services.SendMoney
                 DestinationAmount = request.DestinationAmount,
                 ImtDestinationCurrencyId = request.ImtDestinationCurrencyId
             };
+        }
 
-            CreateContentQuotationResponse? quoatation = _quotationService.CreateQuotationCombined(QuotationRequest);
-
-            if (quoatation == null)
-            {
-                return null;
-            }
-
-            MoneyTransferDTO money_transfer_dto = new MoneyTransferDTO
+        public MoneyTransferDTO PrepareTransaction(SendMoneyRequest request)
+        {
+            return new MoneyTransferDTO
             {
                 external_id = request.OrderId,
                 credit_party_identifier = request.credit_party_identifier,
@@ -68,14 +93,6 @@ namespace IMT.Application.Infrastructure.Persistence.Services.SendMoney
                 retail_fee_currency = request.retail_fee_currency,
                 retail_fee = request.retail_fee,
             };
-            CreateTransactionResponse? transactionResponse = _moneyTransferService.CreateTransactionByQuotationId(quoatation.id, money_transfer_dto);
-            if (transactionResponse == null)
-            {
-                return null;
-            }
-
-           return _imtConfirmTransactionService.ConfirmTrasaction(transactionResponse.id);
-
         }
     }
 }
