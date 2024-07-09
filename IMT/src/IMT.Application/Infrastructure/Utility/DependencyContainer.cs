@@ -42,10 +42,11 @@ namespace IMT.Application.Infrastructure.Utility
         {
             options.UseMySQL(connectionString);
         });
+            
+            services.AddScoped<IImtProviderErrorDetailsRepository, ImtProviderErrorDetailsRepository>();
             services.AddScoped<IImtCurrencyRepository, ImtCurrencyRepository>();
             services.AddScoped<IImtCountryRepository, ImtCountryRepository>();
             services.AddScoped<IImtMoneyTransferRepository, ImtMoneyTransferRepository>();
-            services.AddScoped<IImtConfirmTransactionRepository, ImtConfirmTransactionRepository>();
         //  services.AddScoped<IImtQuotationService, ImtQuotationService>(); 
         //  services.AddScoped<IImtMoneyTransferService, ImtMoneyTransferService>(); 
 

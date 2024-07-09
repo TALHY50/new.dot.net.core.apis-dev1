@@ -5,7 +5,7 @@ using SharedLibrary.Services;
 
 namespace IMT.Application.Domain.Ports.Repositories.ConfirmTransaction
 {
-    public class ImtConfirmTransactionRepository(ApplicationDbContext dbContext) : GenericRepository<ImtProviderErrorDetail, ApplicationDbContext>(dbContext), IImtConfirmTransactionRepository
+    public class ImtProviderErrorDetailsRepository(ApplicationDbContext dbContext) : GenericRepository<ImtProviderErrorDetail, ApplicationDbContext>(dbContext), IImtProviderErrorDetailsRepository
     {
     }
 }

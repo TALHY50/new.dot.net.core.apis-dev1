@@ -4,7 +4,7 @@ using SharedLibrary.Models.IMT;
 
 namespace IMT.Application.Domain.Ports.Repositories.ConfirmTransaction
 {
-    public interface IImtConfirmTransactionRepository : IGenericRepository<ImtProviderErrorDetail>
+    public interface IImtProviderErrorDetailsRepository : IGenericRepository<ImtProviderErrorDetail>
     {
     }
 }

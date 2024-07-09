@@ -22,6 +22,7 @@ using IMT.Application.Infrastructure.Utility;
 using IMT.PayAll.Request.Common;
 using Microsoft.AspNetCore.Http.HttpResults;
 using IMT.Thunes.Response.Transfer.Quotation;
+using IMT.Application.Domain.Ports.Repositories.ConfirmTransaction;
 
 namespace IMT.Application.Infrastructure.Persistence.Services.QuotationService
 {
@@ -33,18 +34,45 @@ namespace IMT.Application.Infrastructure.Persistence.Services.QuotationService
         public readonly ThunesClient _thunesClient = new("f1c4a4d9-2899-4f09-b9f5-c35f09df5ffd", "bed820bd-264b-4d0f-8148-9f56e0a8b55c", "https://api-mt.pre.thunes.com");
         public IImtCountryRepository _countryRepository;
         public IImtCurrencyRepository _currencyRepository;
+        public IImtProviderErrorDetailsRepository _errorRepository;
+        public ImtQuotation _imtQuotation = null;
 
         public ImtQuotationService(ApplicationDbContext dbContext) : base(dbContext)
         {
             DependencyContainer.Initialize();
-            _currencyRepository = DependencyContainer.GetService<IImtCurrencyRepository>();
+                _currencyRepository = DependencyContainer.GetService<IImtCurrencyRepository>();
             _countryRepository = DependencyContainer.GetService<IImtCountryRepository>();
+            _errorRepository = DependencyContainer.GetService<IImtProviderErrorDetailsRepository>();
         }
         public CreateContentQuotationResponse CreateQuotation(CreateQuotationRequest CreateQuotationRequest)
         {
-            return _thunesClient.QuotationAdapter().CreateQuotation(CreateQuotationRequest);
+            try
+            {
+                return _thunesClient.QuotationAdapter().CreateQuotation(CreateQuotationRequest);
+            }
+            catch (ThunesException e)
+            {
+                ErrorStore(e.Errors);
+                throw e;
+            }
         }
-
+        private void ErrorStore(List<ErrorsResponse> Errors)
+        {
+            foreach (var error in Errors)
+            {
+                ImtProviderErrorDetail prepareData = new ImtProviderErrorDetail
+                {
+                    ErrorCode = error.code,
+                    ErrorMessage = error.message,
+                    ImtProviderId = (int)_imtQuotation.ImtProviderId,
+                    ReferenceId = _imtQuotation.Id,
+                    Type = 1,
+                    CreatedAt = DateTime.UtcNow,
+                    UpdatedAt = DateTime.UtcNow
+                };
+                _errorRepository.Add(prepareData);
+            }
+        }
         public bool IsValid(QuotationRequest request)
         {
             List<ErrorsResponse> errors = new List<ErrorsResponse>();
@@ -122,7 +150,7 @@ namespace IMT.Application.Infrastructure.Persistence.Services.QuotationService
         {
             if (IsValid(quotationRequest))
             {
-                Add(PrepareImtQuotation(quotationRequest));
+                _imtQuotation = Add(PrepareImtQuotation(quotationRequest));
                 return CreateQuotation(PrepareThunesCreateQuotationRequest(quotationRequest));
             }
             return null;

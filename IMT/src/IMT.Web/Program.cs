@@ -52,10 +52,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
    }));
 //builder.Services.AddScoped<IImtCurrencyRepository, ImtCurrencyRepository>();
 //builder.Services.AddScoped<IImtCountryRepository, ImtCountryRepository>();
-builder.Services.AddScoped<IImtQuotationService, ImtQuotationService>();
-builder.Services.AddScoped<IImtMoneyTransferService, ImtMoneyTransferService>();
-builder.Services.AddScoped<IImtConfirmTransactionService, ImtConfirmTransactionService>();
-builder.Services.AddScoped<IImtSendMoneyService, ImtSendMoneyService>();
+
+builder.Services.AddTransient<IImtConfirmTransactionService, ImtConfirmTransactionService>();
+builder.Services.AddTransient<IImtQuotationService, ImtQuotationService>();
+builder.Services.AddTransient<IImtMoneyTransferService, ImtMoneyTransferService>();
+builder.Services.AddTransient<IImtSendMoneyService, ImtSendMoneyService>();
 var app = builder.Build();
 
 app.UseMiddleware<GlobalExceptionHandler>();
