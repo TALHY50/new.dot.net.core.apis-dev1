@@ -13,7 +13,8 @@ namespace IMT.Application.Infrastructure.Persistence.Repositories.ImtCurrency
     {
         public string? GetCurrencyCodeById(int imtSourceCurrencyId)
         {
-            return _dbSet.Find(imtSourceCurrencyId).Code;
+            var currency = _dbSet.Find(imtSourceCurrencyId);
+            return (currency != null) ? currency.Code : null;
         }
     }
 }
