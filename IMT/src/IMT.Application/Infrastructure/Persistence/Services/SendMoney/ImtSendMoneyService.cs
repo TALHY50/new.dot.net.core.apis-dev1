@@ -13,6 +13,7 @@ using IMT.Thunes.Response.Transfer.Transaction;
 using IMT.Application.Contracts.Requests.Quotation;
 using Microsoft.AspNetCore.Http.HttpResults;
 using IMT.Application.Domain.Ports.Services.ConfirmTransaction;
+using IMT.Thunes.Request.ConfirmTrasaction;
 
 namespace IMT.Application.Infrastructure.Persistence.Services.SendMoney
 {
@@ -41,12 +42,20 @@ namespace IMT.Application.Infrastructure.Persistence.Services.SendMoney
 
             CreateTransactionResponse? transactionResponse = _moneyTransferService.CreateTransactionByQuotationId(quoatation.id, PrepareTransaction(request));
 
+            var trasactionDTO = new ConfirmTrasactionDTO
+            {
+                TrasactionId = transactionResponse.id,
+                Type = 2,
+                ProviderId = 1 // for thunes hard coded
+            };
+
             if (transactionResponse == null)
             {
+                
                 return null;
             }
 
-            return _imtConfirmTransactionService.ConfirmTrasaction(transactionResponse.id);
+            return _imtConfirmTransactionService.ConfirmTrasaction(trasactionDTO);
 
         }
 
