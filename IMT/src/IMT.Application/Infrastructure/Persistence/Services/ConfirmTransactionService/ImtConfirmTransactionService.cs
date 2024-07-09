@@ -39,7 +39,7 @@ namespace IMT.Application.Infrastructure.Persistence.Services.ConfirmTransaction
             }
         }
 
-        private void ErrorStore(List<ErrorsResponse> Errors, ConfirmTrasactionDTO trasactionDTO)
+        public void ErrorStore(List<ErrorsResponse> Errors, ConfirmTrasactionDTO trasactionDTO)
         {
             foreach (var error in Errors)
             {
