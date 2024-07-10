@@ -70,12 +70,13 @@ namespace IMT.Application.Infrastructure.Persistence.Services.SendMoney
             return new QuotationRequest
             {
                 invoice_id = request.invoice_id,
+                customer_id = request.customer_id,
                 payer_id = request.payer_id,
                 mode = request.mode,
                 transaction_type = request.transaction_type,
                 source_amount = request.source_amount,
                 source_currency_code =  request.source_currency_code,
-                source_country_iso_code = request.source_currency_code,
+                source_country_iso_code = request.source_country_iso_code,
                 destination_amount = request.destination_amount,
                 destination_currency_code = request.destination_currency_code
 

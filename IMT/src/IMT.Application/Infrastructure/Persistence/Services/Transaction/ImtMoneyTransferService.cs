@@ -28,7 +28,7 @@ namespace IMT.Application.Infrastructure.Persistence.Services.Transaction
         public readonly ThunesClient _thunesClient = new("f1c4a4d9-2899-4f09-b9f5-c35f09df5ffd", "bed820bd-264b-4d0f-8148-9f56e0a8b55c", "https://api-mt.pre.thunes.com");
         public IImtProviderErrorDetailsRepository _errorRepository;
         public IImtQuotationRepository _quotationRepository;
-        public ImtQuotation _imtQuotation = null;
+        public ImtQuotation? _imtQuotation;
         public ImtMoneyTransferService(ApplicationDbContext dbContext) : base(dbContext)
         {
             DependencyContainer.Initialize();
@@ -69,9 +69,9 @@ namespace IMT.Application.Infrastructure.Persistence.Services.Transaction
         }
         public CreateTransactionResponse CreateTransactionByQuotationId(ulong quotationId, MoneyTransferDTO request)
         {
-            var transactionType = _thunesClient.QuotationAdapter().GetQuotationById(quotationId);
-            _imtQuotation = _quotationRepository.GetById(quotationId);
-            if (request.IsValid(transactionType?.transaction_type?.ToLower()))
+            var transaction = _thunesClient.QuotationAdapter().GetQuotationById(quotationId);
+            _imtQuotation = _quotationRepository.Where(c=>c.OrderId == request.external_id).ToList()?.OrderBy(c=>c.Id)?.Last();
+            if (request.IsValid(transaction?.transaction_type?.ToLower()))
             {
                 try
                 {

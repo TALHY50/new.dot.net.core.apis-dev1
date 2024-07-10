@@ -13,6 +13,9 @@ namespace IMT.Application.Contracts.Requests.SendMoiney
         public string invoice_id { get; set; }
 
         [MaxLength(50)]
+        public string customer_id { get; set; }
+
+        [MaxLength(50)]
         public string payer_id { get; set; }
 
         [MaxLength(50)]

@@ -1,11 +1,13 @@
 ﻿using IMT.Application.Domain.Ports.Repositories.ConfirmTransaction;
 using IMT.Application.Domain.Ports.Repositories.ImtCurrency;
 using IMT.Application.Domain.Ports.Repositories.ImtMoneyTransfer;
+using IMT.Application.Domain.Ports.Repositories.Quotation;
 using IMT.Application.Domain.Ports.Services.Quotation;
 using IMT.Application.Domain.Ports.Services.Transaction;
 using IMT.Application.Infrastructure.Persistence.Repositories.ImtCountry;
 using IMT.Application.Infrastructure.Persistence.Repositories.ImtCurrency;
 using IMT.Application.Infrastructure.Persistence.Repositories.ImtMoneyTransfer;
+using IMT.Application.Infrastructure.Persistence.Repositories.Quotation;
 using IMT.Application.Infrastructure.Persistence.Services.QuotationService;
 using IMT.Application.Infrastructure.Persistence.Services.Transaction;
 using Microsoft.EntityFrameworkCore;
@@ -47,6 +49,7 @@ namespace IMT.Application.Infrastructure.Utility
             services.AddScoped<IImtCurrencyRepository, ImtCurrencyRepository>();
             services.AddScoped<IImtCountryRepository, ImtCountryRepository>();
             services.AddScoped<IImtMoneyTransferRepository, ImtMoneyTransferRepository>();
+            services.AddScoped<IImtQuotationRepository, ImtQuotationRepository>();
         //  services.AddScoped<IImtQuotationService, ImtQuotationService>(); 
         //  services.AddScoped<IImtMoneyTransferService, ImtMoneyTransferService>(); 
 

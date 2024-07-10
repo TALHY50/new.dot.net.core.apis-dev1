@@ -106,12 +106,12 @@ namespace IMT.Application.Infrastructure.Persistence.Services.QuotationService
                 Mode = request.mode,
                 TransactionType = request.transaction_type,
                 SourceAmount = request.source_amount,
-                ImtSourceCurrencyId = _currencyRepository.Where(c=>c.IsoCode == request.source_currency_code).LastOrDefault()?.Id,
+                ImtSourceCurrencyId = _currencyRepository.Where(c=>c.IsoCode == request.source_currency_code).ToList().OrderBy(c=>c.Id)?.Last().Id,
                 ImtProviderId = 1, // hardcoded for thunes
                 ImtProviderServiceId = 1,// hardcoded for thunes
-                ImtSourceCountryId = _countryRepository.Where(c => c.IsoCode == request.source_country_iso_code).LastOrDefault()?.Id,
+                ImtSourceCountryId = _countryRepository.Where(c => c.IsoCode == request.source_country_iso_code).ToList().OrderBy(c=>c.Id)?.Last().Id,
                 DestinationAmount = request.destination_amount,
-                ImtDestinationCurrencyId = _currencyRepository.Where(c => c.IsoCode == request.destination_currency_code).LastOrDefault()?.Id,
+                ImtDestinationCurrencyId = _currencyRepository.Where(c => c.IsoCode == request.destination_currency_code).ToList().OrderBy(c=>c.Id)?.Last().Id,
                 CreatedAt = DateTime.UtcNow,
             };
         }
