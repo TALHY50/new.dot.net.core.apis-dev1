@@ -164,7 +164,6 @@ namespace IMT.Application.Infrastructure.Persistence.Services.QuotationService
                 }
                 catch (ThunesException e)
                 {
-                    ErrorStore(e.Errors);
                     throw new ThunesException(e.ErrorCode, e.Errors);
                 }
             }
