@@ -10,5 +10,6 @@ namespace IMT.Application.Domain.Ports.Repositories.Quotation
 {
     public interface IImtQuotationRepository : IGenericRepository<ImtQuotation>
     {
+        public ImtQuotation? GetImtQuotationByInvoiceId(string invoiceId);
     }
 }
