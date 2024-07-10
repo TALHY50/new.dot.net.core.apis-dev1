@@ -10,6 +10,7 @@ namespace IMT.Application.Domain.Ports.Services.Quotation
 {
     public interface IImtCountryRepository : IGenericRepository<ImtCountry>
     {
-        public string GetCountryIsoCodeByCountryId(int imtSourceCountryId);
+        public string? GetCountryIsoCodeByCountryId(int imtSourceCountryId);
+        public int? GetCountryIdByCountryIsoCode(string imtSourceCountryId);
     }
 }

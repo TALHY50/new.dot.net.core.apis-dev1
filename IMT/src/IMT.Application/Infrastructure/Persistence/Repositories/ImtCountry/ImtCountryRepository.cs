@@ -13,8 +13,12 @@ namespace IMT.Application.Infrastructure.Persistence.Repositories.ImtCountry
     {
         public string? GetCountryIsoCodeByCountryId(int imtSourceCountryId)
         {
-            var country = _dbSet.Find(imtSourceCountryId);
-            return (country != null) ? country.IsoCode : null;
+           return _dbSet.Find(imtSourceCountryId)?.IsoCode;
+        }
+
+        public int? GetCountryIdByCountryIsoCode(string imtSourceCountryIsoCode)
+        {
+            return _dbSet.Where(c=>c.IsoCode == imtSourceCountryIsoCode)?.LastOrDefault()?.Id;
         }
     }
 }

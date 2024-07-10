@@ -76,15 +76,15 @@ namespace IMT.Application.Infrastructure.Persistence.Services.QuotationService
         public bool IsValid(QuotationRequest request)
         {
             List<ErrorsResponse> errors = new List<ErrorsResponse>();
-            if (_currencyRepository.GetCurrencyCodeById((int)request.ImtSourceCurrencyId) == null)
+            if (_currencyRepository.Where(c=>c.IsoCode == request.source_currency_code).ToList()?.OrderBy(c=>c.Id).Last()?.Id == null)
             {
                 errors.Add(new ErrorsResponse { code = "Request invalid", message = "ImtSourceCurrencyId must be valid" });
             }
-            if (_countryRepository.GetCountryIsoCodeByCountryId((int)request.ImtSourceCountryId) == null)
+            if (_countryRepository.Where(c=>c.IsoCode == request.source_country_iso_code).ToList()?.OrderBy(c=>c.Id).Last()?.Id == null)
             {
                 errors.Add(new ErrorsResponse { code = "Request invalid", message = "ImtSourceCountryId must be valid" });
             }
-            if (_currencyRepository.GetCurrencyCodeById((int)request.ImtDestinationCurrencyId) == null)
+            if (_currencyRepository.Where(c=>c.IsoCode == request.destination_currency_code).ToList()?.OrderBy(c=>c.Id).Last()?.Id == null)
             {
                 errors.Add(new ErrorsResponse { code = "Request invalid", message = "ImtDestinationCurrencyId must be valid" });
             }
@@ -101,17 +101,17 @@ namespace IMT.Application.Infrastructure.Persistence.Services.QuotationService
         {
             return new ImtQuotation
             {
-                OrderId = request.OrderId,
-                PayerId = request.PayerId,
-                Mode = request.Mode,
-                TransactionType = request.TransactionType,
-                SourceAmount = request.SourceAmount,
-                ImtSourceCurrencyId = request.ImtSourceCurrencyId,
-                ImtProviderId = request.ImtProviderId,
-                ImtProviderServiceId = request.ImtProviderServiceId,
-                ImtSourceCountryId = request.ImtSourceCountryId,
-                DestinationAmount = request.DestinationAmount,
-                ImtDestinationCurrencyId = request.ImtDestinationCurrencyId,
+                OrderId = request.invoice_id,
+                PayerId = request.payer_id,
+                Mode = request.mode,
+                TransactionType = request.transaction_type,
+                SourceAmount = request.source_amount,
+                ImtSourceCurrencyId = _currencyRepository.Where(c=>c.IsoCode == request.source_currency_code).LastOrDefault()?.Id,
+                ImtProviderId = 1, // hardcoded for thunes
+                ImtProviderServiceId = 1,// hardcoded for thunes
+                ImtSourceCountryId = _countryRepository.Where(c => c.IsoCode == request.source_country_iso_code).LastOrDefault()?.Id,
+                DestinationAmount = request.destination_amount,
+                ImtDestinationCurrencyId = _currencyRepository.Where(c => c.IsoCode == request.destination_currency_code).LastOrDefault()?.Id,
                 CreatedAt = DateTime.UtcNow,
             };
         }
@@ -120,20 +120,20 @@ namespace IMT.Application.Infrastructure.Persistence.Services.QuotationService
         {
             return new CreateQuotationRequest
             {
-                external_id = request.OrderId,
-                payer_id = request.PayerId,
-                mode = request.Mode,
-                transaction_type = request.TransactionType,
+                external_id = request.invoice_id,
+                payer_id = request.payer_id,
+                mode = request.mode,
+                transaction_type = request.transaction_type,
                 source = new SourceOne
                 {
-                    amount = (request.Mode == "SOURCE_AMOUNT") ? (double?)((request.SourceAmount == null) ? 0 : request.SourceAmount) : null,
-                    currency = _currencyRepository.GetCurrencyCodeById((int)request.ImtSourceCurrencyId),
-                    country_iso_code = _countryRepository.GetCountryIsoCodeByCountryId((int)request.ImtSourceCountryId)
+                    amount = (request.mode == "SOURCE_AMOUNT") ? (double?)((request.source_amount == null) ? 0 : request.source_amount) : null,
+                    currency = request.source_currency_code,
+                    country_iso_code = request.source_country_iso_code
                 },
                 destination = new DestinationOne
                 {
-                    amount = (double?)((request.DestinationAmount == null) ? 0 : request.DestinationAmount),
-                    currency = _currencyRepository.GetCurrencyCodeById((int)request.ImtDestinationCurrencyId),
+                    amount = (double?)((request.destination_amount == null) ? 0 : request.destination_amount),
+                    currency = request.destination_currency_code,
                 }
             };
         }

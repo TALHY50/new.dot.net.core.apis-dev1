@@ -15,6 +15,9 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using IMT.Application.Domain.Ports.Services.ConfirmTransaction;
 using IMT.Thunes.Request.ConfirmTrasaction;
 using IMT.Thunes.Exception;
+using IMT.Application.Domain.Ports.Repositories.ImtCurrency;
+using Microsoft.EntityFrameworkCore;
+using IMT.Application.Infrastructure.Utility;
 
 namespace IMT.Application.Infrastructure.Persistence.Services.SendMoney
 {
@@ -24,12 +27,15 @@ namespace IMT.Application.Infrastructure.Persistence.Services.SendMoney
         private readonly IImtQuotationService _quotationService;
         private readonly IImtMoneyTransferService _moneyTransferService;
         private readonly IImtConfirmTransactionService _imtConfirmTransactionService;
-        private readonly ConfirmTrasactionDTO _trasactionDTO;
+        private readonly IImtCountryRepository _countryRepository;
+        private readonly IImtCurrencyRepository _currencyRepository;
         public ImtSendMoneyService(IImtQuotationService quotationService, IImtMoneyTransferService imtMoneyTransferService, IImtConfirmTransactionService imtConfirmTransactionService)
         {
             _quotationService = quotationService;
             _moneyTransferService = imtMoneyTransferService;
             _imtConfirmTransactionService = imtConfirmTransactionService;
+          _currencyRepository = DependencyContainer.GetService<IImtCurrencyRepository>();
+            _countryRepository = DependencyContainer.GetService<IImtCountryRepository>();
         }
 
         public object SendMoney(SendMoneyRequest request)
@@ -42,7 +48,7 @@ namespace IMT.Application.Infrastructure.Persistence.Services.SendMoney
             }
             catch (ThunesException e)
             {
-                throw new ThunesException(e.ErrorCode,e.Errors);
+                throw new ThunesException(e.ErrorCode, e.Errors);
             }
 
 
@@ -63,17 +69,16 @@ namespace IMT.Application.Infrastructure.Persistence.Services.SendMoney
         {
             return new QuotationRequest
             {
-                OrderId = request.InvoiceId,
-                PayerId = request.PayerId,
-                Mode = request.Mode,
-                TransactionType = request.TransactionType,
-                SourceAmount = request.SourceAmount,
-                ImtSourceCurrencyId = request.ImtSourceCurrencyId,
-                ImtProviderId = request.ImtProviderId,
-                ImtProviderServiceId = request.ImtProviderServiceId,
-                ImtSourceCountryId = request.ImtSourceCountryId,
-                DestinationAmount = request.DestinationAmount,
-                ImtDestinationCurrencyId = request.ImtDestinationCurrencyId
+                invoice_id = request.invoice_id,
+                payer_id = request.payer_id,
+                mode = request.mode,
+                transaction_type = request.transaction_type,
+                source_amount = request.source_amount,
+                source_currency_code =  request.source_currency_code,
+                source_country_iso_code = request.source_currency_code,
+                destination_amount = request.destination_amount,
+                destination_currency_code = request.destination_currency_code
+
             };
         }
 
@@ -81,7 +86,7 @@ namespace IMT.Application.Infrastructure.Persistence.Services.SendMoney
         {
             return new MoneyTransferDTO
             {
-                external_id = request.InvoiceId,
+                external_id = request.invoice_id,
                 credit_party_identifier = request.credit_party_identifier,
                 beneficiary = request.beneficiary,
                 sending_business = request.sending_business,
