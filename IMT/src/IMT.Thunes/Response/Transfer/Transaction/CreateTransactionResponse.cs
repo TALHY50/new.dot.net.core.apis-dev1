@@ -141,11 +141,6 @@ namespace IMT.Thunes.Response.Transfer.Transaction
     {
         public string currency { get; set; }
         public double? amount { get; set; }
-
-        public static implicit operator object?(SentAmount? v)
-        {
-            throw new NotImplementedException();
-        }
     }
 
     public class Service

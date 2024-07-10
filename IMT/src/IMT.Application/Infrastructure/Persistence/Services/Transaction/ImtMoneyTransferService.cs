@@ -71,7 +71,7 @@ namespace IMT.Application.Infrastructure.Persistence.Services.Transaction
         {
             return new ImtMoneyTransfer
             {
-                PaymentId = transaction?.id?.ToString(),
+                PaymentId = transaction?.id.ToString(),
                 TransactionStateId = (transaction?.id != null) ? 2 : 1,
                 ReasonId = 1, // hard coded value cause we dont know from where we will get it
                 PaymentMethodId = 1, // hard coded value cause we dont know from where we will get it
