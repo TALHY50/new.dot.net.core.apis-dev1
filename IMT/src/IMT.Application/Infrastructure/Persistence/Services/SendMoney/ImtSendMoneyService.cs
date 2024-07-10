@@ -18,6 +18,7 @@ using IMT.Thunes.Exception;
 using IMT.Application.Domain.Ports.Repositories.ImtCurrency;
 using Microsoft.EntityFrameworkCore;
 using IMT.Application.Infrastructure.Utility;
+using Microsoft.Extensions.Configuration;
 
 namespace IMT.Application.Infrastructure.Persistence.Services.SendMoney
 {
@@ -29,12 +30,13 @@ namespace IMT.Application.Infrastructure.Persistence.Services.SendMoney
         private readonly IImtConfirmTransactionService _imtConfirmTransactionService;
         private readonly IImtCountryRepository _countryRepository;
         private readonly IImtCurrencyRepository _currencyRepository;
-        public ImtSendMoneyService(IImtQuotationService quotationService, IImtMoneyTransferService imtMoneyTransferService, IImtConfirmTransactionService imtConfirmTransactionService)
+        public ImtSendMoneyService(IImtQuotationService quotationService, IImtMoneyTransferService imtMoneyTransferService, IImtConfirmTransactionService imtConfirmTransactionService
+        )
         {
             _quotationService = quotationService;
             _moneyTransferService = imtMoneyTransferService;
             _imtConfirmTransactionService = imtConfirmTransactionService;
-          _currencyRepository = DependencyContainer.GetService<IImtCurrencyRepository>();
+            _currencyRepository = DependencyContainer.GetService<IImtCurrencyRepository>();
             _countryRepository = DependencyContainer.GetService<IImtCountryRepository>();
         }
 
@@ -69,16 +71,16 @@ namespace IMT.Application.Infrastructure.Persistence.Services.SendMoney
         {
             return new QuotationRequest
             {
-                invoice_id = request.invoice_id,
-                customer_id = request.customer_id,
-                payer_id = request.payer_id,
-                mode = request.mode,
-                transaction_type = request.transaction_type,
-                source_amount = request.source_amount,
-                source_currency_code =  request.source_currency_code,
-                source_country_iso_code = request.source_country_iso_code,
-                destination_amount = request.destination_amount,
-                destination_currency_code = request.destination_currency_code
+                invoice_id = request.quotation.invoice_id,
+                customer_id = request.quotation.customer_id,
+                payer_id = request.quotation.payer_id,
+                mode = request.quotation.mode,
+                transaction_type = request.quotation.transaction_type,
+                source_amount = request.quotation.source_amount,
+                source_currency_code = request.quotation.source_currency_code,
+                source_country_iso_code = request.quotation.source_country_iso_code,
+                destination_amount = request.quotation.destination_amount,
+                destination_currency_code = request.quotation.destination_currency_code
 
             };
         }
@@ -87,17 +89,17 @@ namespace IMT.Application.Infrastructure.Persistence.Services.SendMoney
         {
             return new MoneyTransferDTO
             {
-                external_id = request.invoice_id,
-                credit_party_identifier = request.credit_party_identifier,
-                beneficiary = request.beneficiary,
-                sending_business = request.sending_business,
-                sender = request.sender,
-                receiving_business = request.receiving_business,
-                document_reference_number = request.document_reference_number,
-                purpose_of_remittance = request.purpose_of_remittance,
-                callback_url = request.callback_url,
-                retail_fee_currency = request.retail_fee_currency,
-                retail_fee = request.retail_fee,
+                external_id = request.quotation.invoice_id,
+                credit_party_identifier = request.money_transfer.credit_party_identifier,
+                beneficiary = request.money_transfer.beneficiary,
+                sending_business = request.money_transfer.sending_business,
+                sender = request.money_transfer.sender,
+                receiving_business = request.money_transfer.receiving_business,
+                document_reference_number = request.money_transfer.document_reference_number,
+                purpose_of_remittance = request.money_transfer.purpose_of_remittance,
+                callback_url = request.money_transfer.callback_url,
+                retail_fee_currency = request.money_transfer.retail_fee_currency,
+                retail_fee = request.money_transfer.retail_fee,
             };
         }
     }

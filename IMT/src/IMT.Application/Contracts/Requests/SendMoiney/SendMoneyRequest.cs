@@ -9,6 +9,19 @@ namespace IMT.Application.Contracts.Requests.SendMoiney
 {
     public class SendMoneyRequest
     {
+
+        // Create quoatation request start
+        public Quotation quotation { get; set; }
+        // Create quoatation request End
+
+        // create money transfer request start
+        public MoneyTransfer money_transfer { get; set; }
+        // create money transfer request end
+
+    }
+
+    public class Quotation
+    {
         [MaxLength(50)]
         public string invoice_id { get; set; }
 
@@ -33,10 +46,10 @@ namespace IMT.Application.Contracts.Requests.SendMoiney
         public decimal? destination_amount { get; set; }
 
         public string? destination_currency_code { get; set; }
+    }
 
-        // Create quoatation request End
-
-        // create money transfer request start
+    public class MoneyTransfer
+    {
         public CreditPartyIdentifier? credit_party_identifier { get; set; }
         public Beneficiary? beneficiary { get; set; }
         public SendingBusiness? sending_business { get; set; }
@@ -48,8 +61,5 @@ namespace IMT.Application.Contracts.Requests.SendMoiney
         public string? callback_url { get; set; }
         public string? retail_fee_currency { get; set; }
         public double? retail_fee { get; set; }
-
-        // create money transfer request end
-
     }
 }
