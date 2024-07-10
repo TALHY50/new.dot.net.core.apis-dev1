@@ -14,6 +14,7 @@ using IMT.Application.Contracts.Requests.Quotation;
 using Microsoft.AspNetCore.Http.HttpResults;
 using IMT.Application.Domain.Ports.Services.ConfirmTransaction;
 using IMT.Thunes.Request.ConfirmTrasaction;
+using IMT.Thunes.Exception;
 
 namespace IMT.Application.Infrastructure.Persistence.Services.SendMoney
 {
@@ -23,6 +24,7 @@ namespace IMT.Application.Infrastructure.Persistence.Services.SendMoney
         private readonly IImtQuotationService _quotationService;
         private readonly IImtMoneyTransferService _moneyTransferService;
         private readonly IImtConfirmTransactionService _imtConfirmTransactionService;
+        private readonly ConfirmTrasactionDTO _trasactionDTO;
         public ImtSendMoneyService(IImtQuotationService quotationService, IImtMoneyTransferService imtMoneyTransferService, IImtConfirmTransactionService imtConfirmTransactionService)
         {
             _quotationService = quotationService;
@@ -32,38 +34,36 @@ namespace IMT.Application.Infrastructure.Persistence.Services.SendMoney
 
         public object SendMoney(SendMoneyRequest request)
         {
-
-            CreateContentQuotationResponse? quoatation = _quotationService.CreateQuotationCombined(PrepareQuotation(request));
-
-            if (quoatation == null)
+            try
             {
-                return null;
+                CreateContentQuotationResponse? quoatation = _quotationService.CreateQuotationCombined(PrepareQuotation(request));
+                CreateTransactionResponse? transactionResponse = _moneyTransferService.CreateTransactionByQuotationId(quoatation.id, PrepareTransaction(request));
+                return _imtConfirmTransactionService.ConfirmTrasaction(PrepareConfirmTransaction(transactionResponse));
+            }
+            catch (ThunesException e)
+            {
+                throw new ThunesException(e.ErrorCode,e.Errors);
             }
 
-            CreateTransactionResponse? transactionResponse = _moneyTransferService.CreateTransactionByQuotationId(quoatation.id, PrepareTransaction(request));
 
-            var trasactionDTO = new ConfirmTrasactionDTO
+
+        }
+
+        public ConfirmTrasactionDTO PrepareConfirmTransaction(CreateTransactionResponse? transactionResponse)
+        {
+            return new ConfirmTrasactionDTO
             {
                 TrasactionId = transactionResponse.id,
                 Type = 2,
                 ProviderId = 1 // for thunes hard coded
             };
-
-            if (transactionResponse == null)
-            {
-                
-                return null;
-            }
-
-            return _imtConfirmTransactionService.ConfirmTrasaction(trasactionDTO);
-
         }
 
         public QuotationRequest PrepareQuotation(SendMoneyRequest request)
         {
             return new QuotationRequest
             {
-                OrderId = request.OrderId,
+                OrderId = request.InvoiceId,
                 PayerId = request.PayerId,
                 Mode = request.Mode,
                 TransactionType = request.TransactionType,
@@ -81,7 +81,7 @@ namespace IMT.Application.Infrastructure.Persistence.Services.SendMoney
         {
             return new MoneyTransferDTO
             {
-                external_id = request.OrderId,
+                external_id = request.InvoiceId,
                 credit_party_identifier = request.credit_party_identifier,
                 beneficiary = request.beneficiary,
                 sending_business = request.sending_business,

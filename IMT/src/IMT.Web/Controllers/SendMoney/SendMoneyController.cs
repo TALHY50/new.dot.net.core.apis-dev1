@@ -3,6 +3,7 @@ using IMT.Application.Contracts.Requests.SendMoiney;
 using IMT.Thunes.Route;
 using Microsoft.AspNetCore.Mvc;
 using IMT.Application.Domain.Ports.Services.SendMoney;
+using IMT.Thunes.Exception;
 
 namespace IMT.Web.Controllers.SendMoney
 {
@@ -23,7 +24,14 @@ namespace IMT.Web.Controllers.SendMoney
         [HttpPost(ThunesUrl.SendMoney)]
         public object SendMoney(SendMoneyRequest request)
         {
-            return _send_money_service.SendMoney(request);
+            try
+            {
+                return _send_money_service.SendMoney(request);
+            }
+            catch (ThunesException e)
+            {
+                return StatusCode(e.ErrorCode,e.Errors);
+            }
         }
 
     }

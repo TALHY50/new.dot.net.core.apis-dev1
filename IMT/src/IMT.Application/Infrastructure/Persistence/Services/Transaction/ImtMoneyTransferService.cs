@@ -83,7 +83,7 @@ namespace IMT.Application.Infrastructure.Persistence.Services.Transaction
                     throw e;
                 }
             }
-            return null;
+          throw new ThunesException(422,"Not a valid request");
         }
 
         public CreateTransactionResponse CreateTransactionByExternalId(int external_id, MoneyTransferDTO request)
@@ -100,7 +100,7 @@ namespace IMT.Application.Infrastructure.Persistence.Services.Transaction
                     throw e;
                 }
             }
-            return null;
+           throw new ThunesException(422,"Not a valid request");
         }
 
         private void ErrorStore(List<ErrorsResponse> Errors)

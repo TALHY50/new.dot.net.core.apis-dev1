@@ -40,7 +40,7 @@ namespace IMT.Application.Infrastructure.Persistence.Services.QuotationService
         public ImtQuotationService(ApplicationDbContext dbContext) : base(dbContext)
         {
             DependencyContainer.Initialize();
-                _currencyRepository = DependencyContainer.GetService<IImtCurrencyRepository>();
+            _currencyRepository = DependencyContainer.GetService<IImtCurrencyRepository>();
             _countryRepository = DependencyContainer.GetService<IImtCountryRepository>();
             _errorRepository = DependencyContainer.GetService<IImtProviderErrorDetailsRepository>();
         }
@@ -53,7 +53,7 @@ namespace IMT.Application.Infrastructure.Persistence.Services.QuotationService
             catch (ThunesException e)
             {
                 ErrorStore(e.Errors);
-                throw e;
+               throw new ThunesException(e.ErrorCode,e.Errors);
             }
         }
         private void ErrorStore(List<ErrorsResponse> Errors)
@@ -151,9 +151,17 @@ namespace IMT.Application.Infrastructure.Persistence.Services.QuotationService
             if (IsValid(quotationRequest))
             {
                 _imtQuotation = Add(PrepareImtQuotation(quotationRequest));
-                return CreateQuotation(PrepareThunesCreateQuotationRequest(quotationRequest));
+                try
+                {
+                    return CreateQuotation(PrepareThunesCreateQuotationRequest(quotationRequest));
+                }
+                catch (ThunesException e)
+                {
+                    ErrorStore(e.Errors);
+                   throw new ThunesException(e.ErrorCode,e.Errors);
+                }
             }
-            return null;
+            throw new ThunesException(422,"Not a valid request");
         }
     }
 }

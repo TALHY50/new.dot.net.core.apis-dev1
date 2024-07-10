@@ -12,7 +12,7 @@ namespace IMT.Application.Contracts.Requests.SendMoiney
         // Create quoatation request start
         [Required]
         [MaxLength(50)]
-        public string OrderId { get; set; }
+        public string InvoiceId { get; set; }
 
         [Required]
         [MaxLength(50)]
