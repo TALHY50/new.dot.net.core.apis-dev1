@@ -22,7 +22,7 @@ namespace SharedLibrary.Interfaces
         Task ReloadAsync(T entity);
         Task<T[]> ReloadAndGetEntitiesAsync(T[] entities);
         void Detach(T entity);
-        IQueryable<T> Where(Expression<Func<T, bool>> predicate);
+        IQueryable<T?> Where(Expression<Func<T, bool>> predicate);
         Task ReloadEntitiesAsync(IEnumerable<T> entities);
         Task<List<T>> GetAllWhere(Expression<Func<T, bool>> predicate);
         Task<List<dynamic>> ExecuteObjectSqlQuery(string sqlQuery);

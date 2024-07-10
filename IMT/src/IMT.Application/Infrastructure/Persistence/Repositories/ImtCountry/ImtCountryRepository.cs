@@ -18,7 +18,7 @@ namespace IMT.Application.Infrastructure.Persistence.Repositories.ImtCountry
 
         public int? GetCountryIdByCountryIsoCode(string imtSourceCountryIsoCode)
         {
-            return _dbSet.Where(c=>c.IsoCode == imtSourceCountryIsoCode)?.LastOrDefault()?.Id;
+            return _dbSet.Where(c=>c.IsoCode == imtSourceCountryIsoCode)?.ToList().OrderBy(c=>c.Id).LastOrDefault()?.Id;
         }
     }
 }

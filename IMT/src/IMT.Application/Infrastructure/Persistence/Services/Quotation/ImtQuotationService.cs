@@ -53,7 +53,7 @@ namespace IMT.Application.Infrastructure.Persistence.Services.QuotationService
             catch (ThunesException e)
             {
                 ErrorStore(e.Errors);
-               throw new ThunesException(e.ErrorCode,e.Errors);
+                throw new ThunesException(e.ErrorCode, e.Errors);
             }
         }
         private void ErrorStore(List<ErrorsResponse> Errors)
@@ -76,25 +76,32 @@ namespace IMT.Application.Infrastructure.Persistence.Services.QuotationService
         public bool IsValid(QuotationRequest request)
         {
             List<ErrorsResponse> errors = new List<ErrorsResponse>();
-            if (_currencyRepository.Where(c=>c.IsoCode == request.source_currency_code).ToList()?.OrderBy(c=>c.Id).Last()?.Id == null)
+            try
             {
-                errors.Add(new ErrorsResponse { code = "Request invalid", message = "ImtSourceCurrencyId must be valid" });
-            }
-            if (_countryRepository.Where(c=>c.IsoCode == request.source_country_iso_code).ToList()?.OrderBy(c=>c.Id).Last()?.Id == null)
-            {
-                errors.Add(new ErrorsResponse { code = "Request invalid", message = "ImtSourceCountryId must be valid" });
-            }
-            if (_currencyRepository.Where(c=>c.IsoCode == request.destination_currency_code).ToList()?.OrderBy(c=>c.Id).Last()?.Id == null)
-            {
-                errors.Add(new ErrorsResponse { code = "Request invalid", message = "ImtDestinationCurrencyId must be valid" });
-            }
+                if (_currencyRepository.GetCurrencyIdByCode(request.source_currency_code) == null)
+                {
+                    errors.Add(new ErrorsResponse { code = "Request invalid", message = "source_currency_code must be valid" });
+                }
+                if (_countryRepository.GetCountryIdByCountryIsoCode(request.source_country_iso_code) == null)
+                {
+                    errors.Add(new ErrorsResponse { code = "Request invalid", message = "source_country_iso_code must be valid" });
+                }
+                if (_currencyRepository.GetCurrencyIdByCode(request.destination_currency_code) == null)
+                {
+                    errors.Add(new ErrorsResponse { code = "Request invalid", message = "destination_currency_code must be valid" });
+                }
 
-            if (errors.Count > 0)
-            {
-                //return false;
-                throw new ThunesException(422, errors);
+                if (errors.Count > 0)
+                {
+                    //return false;
+                    throw new ThunesException(422, errors);
+                }
+                return true;
             }
-            return true;
+            catch (ThunesException e)
+            {
+                throw new ThunesException(e.ErrorCode, e.Errors);
+            }
         }
 
         public ImtQuotation PrepareImtQuotation(QuotationRequest request)
@@ -106,12 +113,12 @@ namespace IMT.Application.Infrastructure.Persistence.Services.QuotationService
                 Mode = request.mode,
                 TransactionType = request.transaction_type,
                 SourceAmount = request.source_amount,
-                ImtSourceCurrencyId = _currencyRepository.Where(c=>c.IsoCode == request.source_currency_code).ToList().OrderBy(c=>c.Id)?.Last().Id,
+                ImtSourceCurrencyId = _currencyRepository.Where(c => c.IsoCode == request.source_currency_code).ToList().OrderBy(c => c.Id)?.Last().Id,
                 ImtProviderId = 1, // hardcoded for thunes
                 ImtProviderServiceId = 1,// hardcoded for thunes
-                ImtSourceCountryId = _countryRepository.Where(c => c.IsoCode == request.source_country_iso_code).ToList().OrderBy(c=>c.Id)?.Last().Id,
+                ImtSourceCountryId = _countryRepository.Where(c => c.IsoCode == request.source_country_iso_code).ToList().OrderBy(c => c.Id)?.Last().Id,
                 DestinationAmount = request.destination_amount,
-                ImtDestinationCurrencyId = _currencyRepository.Where(c => c.IsoCode == request.destination_currency_code).ToList().OrderBy(c=>c.Id)?.Last().Id,
+                ImtDestinationCurrencyId = _currencyRepository.Where(c => c.IsoCode == request.destination_currency_code).ToList().OrderBy(c => c.Id)?.Last().Id,
                 CreatedAt = DateTime.UtcNow,
             };
         }
@@ -158,10 +165,10 @@ namespace IMT.Application.Infrastructure.Persistence.Services.QuotationService
                 catch (ThunesException e)
                 {
                     ErrorStore(e.Errors);
-                   throw new ThunesException(e.ErrorCode,e.Errors);
+                    throw new ThunesException(e.ErrorCode, e.Errors);
                 }
             }
-            throw new ThunesException(422,"Not a valid request");
+            throw new ThunesException(422, "Not a valid request");
         }
     }
 }

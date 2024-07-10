@@ -13,8 +13,12 @@ namespace IMT.Application.Infrastructure.Persistence.Repositories.ImtCurrency
     {
         public string? GetCurrencyCodeById(int imtSourceCurrencyId)
         {
-            var currency = _dbSet.Find(imtSourceCurrencyId);
-            return (currency != null) ? currency.Code : null;
+           return _dbSet.Find(imtSourceCurrencyId)?.Code;
+        }
+
+        public int? GetCurrencyIdByCode(string currencyIsoCode)
+        {
+             return _dbSet.Where(c=>c.IsoCode == currencyIsoCode)?.ToList()?.OrderBy(c=>c.Id)?.LastOrDefault()?.Id;
         }
     }
 }
