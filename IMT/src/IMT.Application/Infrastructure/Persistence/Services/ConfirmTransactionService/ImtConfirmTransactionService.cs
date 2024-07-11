@@ -94,7 +94,7 @@ namespace IMT.Application.Infrastructure.Persistence.Services.ConfirmTransaction
         {
             var transaction = new ImtTransaction
             {
-                PaymentId = moneyTransferObj.RemoteOrderId,
+                PaymentId = moneyTransferObj.PaymentId,
                 TransactionStateId = moneyTransferObj.TransactionStateId,
                 CustomerId = 1, // hard coded dont know from where it will come
                 TransactionType = 1, // hard coded value cause we dont know from where we will get it
