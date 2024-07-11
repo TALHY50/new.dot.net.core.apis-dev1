@@ -61,7 +61,8 @@ namespace IMT.Application.Infrastructure.Persistence.Services.SendMoney
         {
             return new ConfirmTrasactionDTO
             {
-                TrasactionId = transactionResponse.id,
+                InvoiceId = transactionResponse.external_id,
+                RemoteTrasactionId = transactionResponse.id,
                 Type = 2,
                 ProviderId = 1 // for thunes hard coded
             };

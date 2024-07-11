@@ -23,9 +23,11 @@ namespace IMT.Web.Controllers.Transaction
         public object ConfirmTransactionById(int id)
         {
             var trasactionDTO = new ConfirmTrasactionDTO { 
-             TrasactionId = id,
+              RemoteTrasactionId = id,
               Type = 2,
-               ProviderId = 1,
+               ProviderId = 1
+                
+
             };
           return  ConfirmTransactionByTrasactionId(trasactionDTO);
         }
@@ -49,7 +51,7 @@ namespace IMT.Web.Controllers.Transaction
         {
             try
             {
-                return _thunesClient.GetTransactionAdapter().ConfirmTransactionById(trasactionDTO.TrasactionId);
+                return _thunesClient.GetTransactionAdapter().ConfirmTransactionById(trasactionDTO.RemoteTrasactionId);
             }
             catch (ThunesException e)
             {
@@ -66,7 +68,7 @@ namespace IMT.Web.Controllers.Transaction
                     ErrorCode = error.code,
                     ErrorMessage = error.message,
                     ImtProviderId = trasactionDTO.ProviderId,
-                    ReferenceId = trasactionDTO.TrasactionId,
+                    ReferenceId = trasactionDTO.RemoteTrasactionId,
                     Type = trasactionDTO.Type,
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow
