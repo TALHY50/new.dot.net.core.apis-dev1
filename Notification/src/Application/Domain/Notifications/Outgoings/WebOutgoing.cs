@@ -1,5 +1,5 @@
 #nullable disable
-namespace Notification.Application.Domain.Notifications
+namespace Notification.Application.Domain.Notifications.Outgoings
 {
     public class WebOutgoing
     {

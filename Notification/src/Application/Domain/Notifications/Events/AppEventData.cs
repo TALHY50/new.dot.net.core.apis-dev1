@@ -1,6 +1,6 @@
 #nullable disable
 
-namespace Notification.Application.Domain.Notifications;
+namespace Notification.Application.Domain.Notifications.Events;
 
 public class AppEventData
 {

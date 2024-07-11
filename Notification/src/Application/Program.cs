@@ -1,4 +1,6 @@
-using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 using Notification.Application;
 
@@ -55,4 +57,7 @@ app.MapControllers();
 
 app.Run();
 
-public partial class Program { }
+namespace Notification.Application
+{
+    public partial class Program { }
+}

@@ -1,5 +1,5 @@
 #nullable disable
-namespace Notification.Application.Domain.Events;
+namespace Notification.Application.Domain.Notifications.Events;
 
 public class EmailEvent
 {
