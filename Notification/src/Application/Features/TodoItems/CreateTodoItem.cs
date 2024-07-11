@@ -13,15 +13,15 @@ namespace Notification.Application.Features.TodoItems;
 public class CreateTodoItemController : ApiControllerBase
 {
     [HttpPost("/api/create-outgoing")]
-    public async Task<ActionResult<int>> Create(CreateOutgoingCommand command)
+    public async Task<ActionResult<int>> Create(CreateTodoItemCommand command)
     {
         return await Mediator.Send(command);
     }
 }
 
-public record CreateOutgoingCommand(int ListId, string? Title) : IRequest<int>;
+public record CreateTodoItemCommand(int ListId, string? Title) : IRequest<int>;
 
-internal sealed class CreateTodoItemCommandValidator : AbstractValidator<CreateOutgoingCommand>
+internal sealed class CreateTodoItemCommandValidator : AbstractValidator<CreateTodoItemCommand>
 {
     public CreateTodoItemCommandValidator()
     {
@@ -31,11 +31,11 @@ internal sealed class CreateTodoItemCommandValidator : AbstractValidator<CreateO
     }
 }
 
-internal sealed class CreateToDoItemCommandHandler(ApplicationDbContext context) : IRequestHandler<CreateOutgoingCommand, int>
+internal sealed class CreateToDoItemCommandHandler(ApplicationDbContext context) : IRequestHandler<CreateTodoItemCommand, int>
 {
     private readonly ApplicationDbContext _context = context;
 
-    public async Task<int> Handle(CreateOutgoingCommand request, CancellationToken cancellationToken)
+    public async Task<int> Handle(CreateTodoItemCommand request, CancellationToken cancellationToken)
     {
         var entity = new TodoItem
         {

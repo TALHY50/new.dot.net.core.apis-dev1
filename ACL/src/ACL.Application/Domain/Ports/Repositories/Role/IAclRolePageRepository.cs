@@ -1,5 +1,5 @@
-﻿using ACL.Application.Domain.Module;
-using ACL.Application.Domain.Role;
+﻿using Notification.Application.Domain.Module;
+using Notification.Application.Domain.Role;
 
 namespace ACL.Application.Domain.Ports.Repositories.Role
 {

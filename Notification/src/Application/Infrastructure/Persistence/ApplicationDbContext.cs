@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 using Notification.Application.Common;
 using Notification.Application.Common.Interfaces;
+using Notification.Application.Domain.Notifications.Events;
 using Notification.Application.Domain.Todos;
 
 namespace Notification.Application.Infrastructure.Persistence;
@@ -30,6 +31,17 @@ public class ApplicationDbContext : DbContext
     public DbSet<TodoList> TodoLists => Set<TodoList>();
 
     public DbSet<TodoItem> TodoItems => Set<TodoItem>();
+    public DbSet<Event> Event => Set<Event>();
+
+    public DbSet<AppEventData> AppEventData => Set<AppEventData>();
+
+    public DbSet<EmailEvent> EmailEvent => Set<EmailEvent>();
+
+    public DbSet<WebEvent> WebEvent => Set<WebEvent>();
+
+    public DbSet<SmsEvent> SmsEvent => Set<SmsEvent>();
+
+    public DbSet<EventTemplate> EventTemplate => Set<EventTemplate>();
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
     {

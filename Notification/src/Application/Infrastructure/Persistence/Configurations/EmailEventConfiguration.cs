@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Notification.Application.Domain.Events;
+
+using Notification.Application.Domain.Notifications.Events;
 
 namespace Notification.Application.Infrastructure.Persistence.Configurations
 {
@@ -10,54 +11,64 @@ namespace Notification.Application.Infrastructure.Persistence.Configurations
         {
             builder.ToTable("notification_email_events");
 
-            builder.HasKey(nee => nee.Id);
+            builder.HasKey(e => e.Id);
 
-            builder.Property(nee => nee.Id)
-                .ValueGeneratedOnAdd()
-                .HasColumnType("int(11) unsigned");
-
-            builder.Property(nee => nee.NotificationEventId)
+            builder.Property(e => e.Id)
+                .HasColumnName("id")
+                .HasColumnType("int(11) unsigned")
                 .IsRequired()
-                .HasColumnType("int(11)");
+                .ValueGeneratedOnAdd();
 
-            builder.Property(nee => nee.NotificationCredentialId)
-                .IsRequired()
-                .HasDefaultValue(0)
-                .HasColumnType("int(11)");
+            builder.Property(e => e.NotificationEventId)
+                .HasColumnName("notification_event_id")
+                .HasColumnType("int(11)")
+                .IsRequired();
 
-            builder.Property(nee => nee.NotificationReceiverGroupId)
+            builder.Property(e => e.NotificationCredentialId)
+                .HasColumnName("notification_credential_id")
+                .HasColumnType("int(11)")
                 .IsRequired()
-                .HasDefaultValue(0)
-                .HasColumnType("int(11)");
+                .HasDefaultValue(0);
 
-            builder.Property(nee => nee.Name)
+            builder.Property(e => e.NotificationReceiverGroupId)
+                .HasColumnName("notification_receiver_group_id")
+                .HasColumnType("int(11)")
                 .IsRequired()
-                .HasMaxLength(100)
+                .HasDefaultValue(0);
+
+            builder.Property(e => e.Name)
+                .HasColumnName("name")
                 .HasColumnType("varchar(100)")
+                .IsRequired()
                 .HasComment("Deposit Approve, Deposit Reject etc");
 
-            builder.Property(nee => nee.IsAllowFromApp)
+            builder.Property(e => e.IsAllowFromApp)
+                .HasColumnName("is_allow_from_app")
+                .HasColumnType("tinyint(1)")
                 .IsRequired()
                 .HasDefaultValue(true)
-                .HasColumnType("tinyint(1)")
                 .HasComment("1= allows manual receivers, 0= does not allow manual receivers");
 
-            builder.Property(nee => nee.IsAllowCc)
+            builder.Property(e => e.IsAllowCc)
+                .HasColumnName("is_allow_cc")
+                .HasColumnType("tinyint(1)")
                 .IsRequired()
                 .HasDefaultValue(true)
-                .HasColumnType("tinyint(1)")
                 .HasComment("notification_receivers_groups cc can be on/off from here");
 
-            builder.Property(nee => nee.IsAllowBcc)
+            builder.Property(e => e.IsAllowBcc)
+                .HasColumnName("is_allow_bcc")
+                .HasColumnType("tinyint(1)")
                 .IsRequired()
                 .HasDefaultValue(true)
-                .HasColumnType("tinyint(1)")
                 .HasComment("notification_receivers_groups bcc can be on/off from here");
 
-            builder.Property(nee => nee.CreatedAt)
+            builder.Property(e => e.CreatedAt)
+                .HasColumnName("created_at")
                 .HasColumnType("datetime");
 
-            builder.Property(nee => nee.UpdatedAt)
+            builder.Property(e => e.UpdatedAt)
+                .HasColumnName("updated_at")
                 .HasColumnType("datetime");
         }
     }

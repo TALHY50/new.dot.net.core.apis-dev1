@@ -1,4 +1,4 @@
-﻿using ACL.Application.Infrastructure.Persistence.Configurations;
+﻿using Notification.Application.Infrastructure.Persistence.Configurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;

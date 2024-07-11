@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +17,26 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
+        Console.WriteLine("rifat");
+        Console.WriteLine(Path.GetFullPath("wwwroot"));
+
+        var webRoot = Path.GetFullPath("wwwroot");
+        webRoot = "/var/www/html/new.dot.net.core.apis/Notification/src/Application/wwwroot";
+
+        var pathToFile = webRoot
+                         + Path.DirectorySeparatorChar.ToString()
+                         + "Templates"
+                         + Path.DirectorySeparatorChar.ToString()
+                         + "Email"
+                         + Path.DirectorySeparatorChar.ToString()
+                         + "Welcome.html";
+        Console.WriteLine(pathToFile);
+        using (StreamReader sourceReader = System.IO.File.OpenText(pathToFile))
+        {
+            string body = sourceReader.ReadToEnd();
+            Console.WriteLine(body);
+        }
+
         services.AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly);
 
         services.AddMediatR(options =>
@@ -40,9 +61,11 @@ public static class DependencyInjection
         }
         else
         {
+            var c = configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
+                options.UseMySql(
                     configuration.GetConnectionString("DefaultConnection"),
+                    ServerVersion.AutoDetect(configuration.GetConnectionString("DefaultConnection")),
                     b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
         }
 

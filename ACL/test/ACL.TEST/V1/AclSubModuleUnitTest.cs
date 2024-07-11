@@ -1,7 +1,7 @@
-using ACL.Application.Contracts.Requests;
-using ACL.Application.Contracts.Response;
-using ACL.Application.Domain.Module;
-using ACL.Application.Infrastructure.Route;
+using Notification.Application.Contracts.Requests;
+using Notification.Application.Contracts.Response;
+using Notification.Application.Domain.Module;
+using Notification.Application.Infrastructure.Route;
 using Microsoft.EntityFrameworkCore;
 using RestSharp;
 using Bogus;

@@ -1,7 +1,7 @@
-﻿using ACL.Application.Domain.Company;
-using ACL.Application.Domain.Ports.Repositories.Company;
-using ACL.Application.Infrastructure.Persistence.Configurations;
-using ACL.Application.Infrastructure.Utilities;
+﻿using Notification.Application.Domain.Company;
+using Notification.Application.Domain.Ports.Repositories.Company;
+using Notification.Application.Infrastructure.Persistence.Configurations;
+using Notification.Application.Infrastructure.Utilities;
 using Microsoft.AspNetCore.Http;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 

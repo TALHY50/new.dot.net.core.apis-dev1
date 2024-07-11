@@ -12,7 +12,7 @@ namespace Notification.Application.Features.TodoItems;
 
 public class SendNotificationController : ApiControllerBase
 {
-    [HttpPost("/api/send-notification")]
+    [HttpPost("/api/notification/send")]
     public async Task<ActionResult<int>> Create(SendNotificationCommand command)
     {
         return await Mediator.Send(command);

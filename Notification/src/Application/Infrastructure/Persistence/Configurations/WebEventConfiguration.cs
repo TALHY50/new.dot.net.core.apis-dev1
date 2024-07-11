@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-using Notification.Application.Domain.Events;
+using Notification.Application.Domain.Notifications.Events;
 
 namespace Notification.Application.Infrastructure.Persistence.Configurations
 {
@@ -9,14 +9,15 @@ namespace Notification.Application.Infrastructure.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<WebEvent> builder)
         {
-            builder.ToTable("web_events");
+            builder.ToTable("notification_web_events");
 
             builder.HasKey(e => e.Id);
 
             builder.Property(e => e.Id)
                 .HasColumnName("id")
                 .HasColumnType("int(11) unsigned")
-                .IsRequired();
+                .IsRequired()
+                .ValueGeneratedOnAdd();
 
             builder.Property(e => e.NotificationEventId)
                 .HasColumnName("notification_event_id")

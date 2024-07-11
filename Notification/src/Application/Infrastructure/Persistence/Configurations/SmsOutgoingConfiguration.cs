@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Notification.Application.Domain.Notifications;
+using Notification.Application.Domain.Notifications.Outgoings;
 
 namespace Notification.Application.Infrastructure.Persistence.Configurations
 {

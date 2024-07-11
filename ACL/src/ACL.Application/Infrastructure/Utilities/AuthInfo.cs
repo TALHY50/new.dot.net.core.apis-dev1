@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
-using ACL.Application.Domain.Auth;
-using ACL.Application.Infrastructure.Persistence.Configurations;
+using Notification.Application.Domain.Auth;
+using Notification.Application.Infrastructure.Persistence.Configurations;
 using Microsoft.AspNetCore.Http;
 
 namespace ACL.Application.Infrastructure.Utilities

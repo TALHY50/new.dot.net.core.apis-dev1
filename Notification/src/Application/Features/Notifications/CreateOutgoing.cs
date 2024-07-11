@@ -5,6 +5,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 using Notification.Application.Common;
+using Notification.Application.Domain.Notifications.Events;
 using Notification.Application.Domain.Todos;
 using Notification.Application.Features.TodoItems;
 using Notification.Application.Infrastructure.Persistence;
@@ -13,20 +14,20 @@ namespace Notification.Application.Features.Notifications;
 
 public class CreateOutgoingController : ApiControllerBase
 {
-    [HttpPost("/api/todo-items")]
+    [HttpPost("/api/notification/outgoing/create")]
     public async Task<ActionResult<int>> Create(CreateOutgoingCommand command)
     {
         return await Mediator.Send(command);
     }
 }
 
-public record CreateOutgoingsCommand(int ListId, string? Title) : IRequest<int>;
+public record CreateOutgoingCommand(Event Event) : IRequest<int>;
 
 internal sealed class CreateOutgoingCommandValidator : AbstractValidator<CreateOutgoingCommand>
 {
     public CreateOutgoingCommandValidator()
     {
-        RuleFor(v => v.Title)
+        RuleFor(v => v.Event.Category)
             .MaximumLength(200)
             .NotEmpty();
     }
@@ -40,9 +41,6 @@ internal sealed class CreateOutgoingCommandHandler(ApplicationDbContext context)
     {
         var entity = new TodoItem
         {
-            ListId = request.ListId,
-            Title = request.Title,
-            Done = false,
         };
 
         entity.DomainEvents.Add(new TodoItemCreatedEvent(entity));

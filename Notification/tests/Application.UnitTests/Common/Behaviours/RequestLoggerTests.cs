@@ -4,6 +4,8 @@ using Moq;
 
 using Notification.Application.Common.Behaviours;
 using Notification.Application.Common.Interfaces;
+using Notification.Application.Domain.Notifications.Events;
+using Notification.Application.Features.Notifications;
 using Notification.Application.Features.TodoItems;
 
 namespace Notification.Application.UnitTests.Common.Behaviours;
@@ -26,7 +28,7 @@ public class RequestLoggerTests
 
         var requestLogger = new LoggingBehaviour<CreateOutgoingCommand>(_logger.Object, _currentUserService.Object);
 
-        await requestLogger.Process(new CreateOutgoingCommand(1, "title"), CancellationToken.None);
+        await requestLogger.Process(new CreateOutgoingCommand(new Event()), CancellationToken.None);
     }
 
     [Fact]
@@ -34,6 +36,6 @@ public class RequestLoggerTests
     {
         var requestLogger = new LoggingBehaviour<CreateOutgoingCommand>(_logger.Object, _currentUserService.Object);
 
-        await requestLogger.Process(new CreateOutgoingCommand(1, "title"), CancellationToken.None);
+        await requestLogger.Process(new CreateOutgoingCommand(new Event()), CancellationToken.None);
     }
 }

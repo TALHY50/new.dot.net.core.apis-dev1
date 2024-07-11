@@ -1,4 +1,4 @@
-using ACL.Application.Domain.Company;
+using Notification.Application.Domain.Company;
 
 namespace ACL.Application.Domain.Ports.Repositories.Company
 {

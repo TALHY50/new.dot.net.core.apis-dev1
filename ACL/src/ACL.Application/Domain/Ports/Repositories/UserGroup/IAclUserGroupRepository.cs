@@ -1,4 +1,4 @@
-﻿using ACL.Application.Domain.UserGroup;
+﻿using Notification.Application.Domain.UserGroup;
 
 namespace ACL.Application.Domain.Ports.Repositories.UserGroup
 {

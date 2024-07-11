@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-using Notification.Application.Domain.Events;
 using Notification.Application.Domain.Notifications;
+using Notification.Application.Domain.Notifications.Events;
 
 namespace Notification.Application.Infrastructure.Persistence.Configurations
 {
@@ -10,7 +10,7 @@ namespace Notification.Application.Infrastructure.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<AppEventData> builder)
         {
-            builder.ToTable("app_event_data");
+            builder.ToTable("notification_app_event_data");
 
             builder.HasKey(an => an.Id);
 

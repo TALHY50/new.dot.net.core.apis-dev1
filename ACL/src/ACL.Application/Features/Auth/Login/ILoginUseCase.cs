@@ -1,5 +1,5 @@
-﻿using ACL.Application.Features.Auth.Login.Request;
-using ACL.Application.Features.Auth.Login.Response;
+﻿using Notification.Application.Features.Auth.Login.Request;
+using Notification.Application.Features.Auth.Login.Response;
 
 namespace ACL.Application.Features.Auth.Login
 {

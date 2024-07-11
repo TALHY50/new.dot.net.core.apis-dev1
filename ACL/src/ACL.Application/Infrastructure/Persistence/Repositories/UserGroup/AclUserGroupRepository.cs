@@ -1,8 +1,8 @@
-﻿using ACL.Application.Domain.Ports.Repositories.Auth;
-using ACL.Application.Domain.Ports.Repositories.UserGroup;
-using ACL.Application.Domain.UserGroup;
-using ACL.Application.Infrastructure.Persistence.Configurations;
-using ACL.Application.Infrastructure.Utilities;
+﻿using Notification.Application.Domain.Ports.Repositories.Auth;
+using Notification.Application.Domain.Ports.Repositories.UserGroup;
+using Notification.Application.Domain.UserGroup;
+using Notification.Application.Infrastructure.Persistence.Configurations;
+using Notification.Application.Infrastructure.Utilities;
 using Microsoft.AspNetCore.Http;
 
 namespace ACL.Application.Infrastructure.Persistence.Repositories.UserGroup

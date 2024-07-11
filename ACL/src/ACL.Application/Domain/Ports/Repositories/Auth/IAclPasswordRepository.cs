@@ -1,5 +1,5 @@
-﻿using ACL.Application.Contracts.Requests;
-using ACL.Application.Contracts.Response;
+﻿using Notification.Application.Contracts.Requests;
+using Notification.Application.Contracts.Response;
 
 namespace ACL.Application.Domain.Ports.Repositories.Auth
 {

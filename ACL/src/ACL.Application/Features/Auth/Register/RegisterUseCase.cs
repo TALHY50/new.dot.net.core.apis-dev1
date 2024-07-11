@@ -1,10 +1,10 @@
-﻿using ACL.Application.Common.Enums;
-using ACL.Application.Domain.Auth;
-using ACL.Application.Domain.Ports.Repositories.Auth;
-using ACL.Application.Domain.Ports.Services.Cryptography;
-using ACL.Application.Domain.Ports.Services.Token;
-using ACL.Application.Features.Auth.Register.Request;
-using ACL.Application.Features.Auth.Register.Response;
+﻿using Notification.Application.Common.Enums;
+using Notification.Application.Domain.Auth;
+using Notification.Application.Domain.Ports.Repositories.Auth;
+using Notification.Application.Domain.Ports.Services.Cryptography;
+using Notification.Application.Domain.Ports.Services.Token;
+using Notification.Application.Features.Auth.Register.Request;
+using Notification.Application.Features.Auth.Register.Response;
 using Microsoft.Extensions.Logging;
 using Claim = ACL.Application.Domain.Auth.Claim;
 

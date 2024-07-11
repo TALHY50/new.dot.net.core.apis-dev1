@@ -1,10 +1,10 @@
-﻿using ACL.Application.Domain.Module;
-using ACL.Application.Domain.Ports.Repositories.Auth;
-using ACL.Application.Domain.Ports.Repositories.Module;
-using ACL.Application.Domain.Ports.Repositories.Role;
-using ACL.Application.Domain.Role;
-using ACL.Application.Infrastructure.Persistence.Configurations;
-using ACL.Application.Infrastructure.Utilities;
+﻿using Notification.Application.Domain.Module;
+using Notification.Application.Domain.Ports.Repositories.Auth;
+using Notification.Application.Domain.Ports.Repositories.Module;
+using Notification.Application.Domain.Ports.Repositories.Role;
+using Notification.Application.Domain.Role;
+using Notification.Application.Infrastructure.Persistence.Configurations;
+using Notification.Application.Infrastructure.Utilities;
 using Microsoft.AspNetCore.Http;
 using static ACL.Application.Infrastructure.Route.AclRoutesUrl;
 

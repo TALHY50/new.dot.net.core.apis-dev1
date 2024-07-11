@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Notification.Application.Domain.Notifications;
+using Notification.Application.Domain.Notifications.Events;
 
 namespace Notification.Application.Infrastructure.Persistence.Configurations
 {
@@ -8,75 +9,87 @@ namespace Notification.Application.Infrastructure.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<EventTemplate> builder)
         {
-            builder.ToTable("event_templates");
+            builder.ToTable("notification_event_templates");
 
-            builder.HasKey(et => et.Id);
+            builder.HasKey(e => e.Id);
 
-            builder.Property(et => et.Id)
-                .ValueGeneratedOnAdd()
-                .HasColumnType("int(11) unsigned");
-
-            builder.Property(et => et.NotificationEventId)
+            builder.Property(e => e.Id)
+                .HasColumnName("id")
+                .HasColumnType("int(11)")
                 .IsRequired()
-                .HasColumnType("int(11)");
+                .ValueGeneratedOnAdd();
 
-            builder.Property(et => et.Subject)
-                .IsRequired()
-                .HasMaxLength(255)
-                .HasDefaultValue(string.Empty)
+            builder.Property(e => e.NotificationEventId)
+                .HasColumnName("notification_event_id")
+                .HasColumnType("int(11)")
+                .IsRequired();
+
+            builder.Property(e => e.Subject)
+                .HasColumnName("subject")
                 .HasColumnType("varchar(255)")
+                .IsRequired()
+                .HasDefaultValue(string.Empty)
                 .HasComment("Email subject or Web Title");
 
-            builder.Property(et => et.Content)
-                .IsRequired()
-                .HasColumnType("text");
+            builder.Property(e => e.Content)
+                .HasColumnName("content")
+                .HasColumnType("text")
+                .IsRequired();
 
-            builder.Property(et => et.Path)
-                .HasMaxLength(255)
+            builder.Property(e => e.Path)
+                .HasColumnName("path")
                 .HasColumnType("varchar(255)");
 
-            builder.Property(et => et.Type)
+            builder.Property(e => e.Type)
+                .HasColumnName("type")
+                .HasColumnType("tinyint(4)")
                 .IsRequired()
                 .HasDefaultValue(1)
-                .HasColumnType("tinyint(4)")
                 .HasComment("1=email, 2=sms, 3=web");
 
-            builder.Property(et => et.Variables)
+            builder.Property(e => e.Variables)
+                .HasColumnName("variables")
                 .HasColumnType("text")
                 .HasComment("Must be set as comma(,) separator {{$var1}},{{$var2}}");
 
-            builder.Property(et => et.CreatedById)
+            builder.Property(e => e.CreatedById)
+                .HasColumnName("created_by_id")
+                .HasColumnType("int(11)")
                 .IsRequired()
-                .HasDefaultValue(1)
-                .HasColumnType("int(11)");
+                .HasDefaultValue(1);
 
-            builder.Property(et => et.UpdatedById)
+            builder.Property(e => e.UpdatedById)
+                .HasColumnName("updated_by_id")
+                .HasColumnType("int(11)")
                 .IsRequired()
-                .HasDefaultValue(1)
-                .HasColumnType("int(11)");
+                .HasDefaultValue(1);
 
-            builder.Property(et => et.Status)
-                .IsRequired()
-                .HasDefaultValue(1)
+            builder.Property(e => e.Status)
+                .HasColumnName("status")
                 .HasColumnType("tinyint(4)")
+                .IsRequired()
+                .HasDefaultValue(1)
                 .HasComment("1= active, 0=inactive");
 
-            builder.Property(et => et.Language)
-                .IsRequired()
-                .HasMaxLength(3)
-                .HasDefaultValue("eng")
+            builder.Property(e => e.Language)
+                .HasColumnName("language")
                 .HasColumnType("varchar(3)")
+                .IsRequired()
+                .HasDefaultValue("eng")
                 .HasComment("3 digit iso code");
 
-            builder.Property(et => et.CreatedAt)
+            builder.Property(e => e.CreatedAt)
+                .HasColumnName("created_at")
                 .HasColumnType("datetime");
 
-            builder.Property(et => et.UpdatedAt)
+            builder.Property(e => e.UpdatedAt)
+                .HasColumnName("updated_at")
                 .HasColumnType("datetime");
 
-            builder.Property(et => et.CompanyId)
-                .IsRequired()
-                .HasColumnType("int(11)");
+            builder.Property(e => e.CompanyId)
+                .HasColumnName("company_id")
+                .HasColumnType("int(11)")
+                .IsRequired();
         }
     }
 }
