@@ -35,7 +35,7 @@ namespace IMT.Application.Infrastructure.Persistence.Services.ConfirmTransaction
         }
         public object ConfirmTrasaction(ConfirmTrasactionDTO trasactionDTO)
         {
-            moneyTransferObj = _moneyTransferService.Where(x => x.InvoiceId == trasactionDTO.InvoiceId).FirstOrDefault();
+            moneyTransferObj = _moneyTransferService.Where(x => x.PaymentId == trasactionDTO.RemoteTrasactionId.ToString()).FirstOrDefault();
             try
             {
                 confirmTransactionResponse = _thunesClient.GetTransactionAdapter().ConfirmTransactionById(trasactionDTO.RemoteTrasactionId);
@@ -64,6 +64,8 @@ namespace IMT.Application.Infrastructure.Persistence.Services.ConfirmTransaction
                      moneyTransferObj.TransactionStateId = (int)TransactionStates.FAILED;
                      moneyTransferObj.UpdatedAt = DateTime.Now;
                     _moneyTransferService.Update(moneyTransferObj);
+
+                    _transactionRepository.Add(PrepareTransaction(moneyTransferObj));
                 }
 
                 throw e;
