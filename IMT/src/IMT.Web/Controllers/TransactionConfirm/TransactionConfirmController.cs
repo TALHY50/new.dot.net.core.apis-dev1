@@ -1,4 +1,6 @@
-﻿using IMT.Thunes.Exception;
+﻿using IMT.Application.Domain.Ports.Services.ConfirmTransaction;
+using IMT.Application.Infrastructure.Persistence.Services.ConfirmTransactionService;
+using IMT.Thunes.Exception;
 using IMT.Thunes.Request.ConfirmTrasaction;
 using IMT.Thunes.Response.Common;
 using IMT.Thunes.Route;
@@ -14,22 +16,25 @@ namespace IMT.Web.Controllers.Transaction
     public class TransactionConfirmController : BaseController
     {
         private readonly ApplicationDbContext _context;
-        public TransactionConfirmController(ApplicationDbContext context)
+        private readonly IImtConfirmTransactionService _imtConfirmTransactionService;
+
+        public TransactionConfirmController(ApplicationDbContext context, IImtConfirmTransactionService imtConfirmTransactionService)
         {
+            _imtConfirmTransactionService = imtConfirmTransactionService;
             _context = context;
         }
         [Tags("Thunes.Transaction")]
         [HttpPost(ThunesUrl.ConfirmTransactionByIdUrl)]
         public object ConfirmTransactionById(int id)
         {
-            var trasactionDTO = new ConfirmTrasactionDTO { 
-              RemoteTrasactionId = id,
-              Type = 2,
-               ProviderId = 1
-                
-
+            var trasactionDTO = new ConfirmTrasactionDTO
+            {
+                RemoteTrasactionId = id,
+                Type = 2,
+                ProviderId = 1
             };
-          return  ConfirmTransactionByTrasactionId(trasactionDTO);
+
+            return ConfirmTransactionByTrasactionId(trasactionDTO);
         }
 
         [Tags("Thunes.Transaction")]
@@ -51,11 +56,12 @@ namespace IMT.Web.Controllers.Transaction
         {
             try
             {
-                return _thunesClient.GetTransactionAdapter().ConfirmTransactionById(trasactionDTO.RemoteTrasactionId);
+                return _imtConfirmTransactionService.ConfirmTrasaction(trasactionDTO);
+                //return _thunesClient.GetTransactionAdapter().ConfirmTransactionById(trasactionDTO.RemoteTrasactionId);
             }
             catch (ThunesException e)
             {
-                ErrorStore(e.Errors, trasactionDTO);
+                //ErrorStore(e.Errors, trasactionDTO);
                 return StatusCode(e.ErrorCode, e.Errors);
             }
         }

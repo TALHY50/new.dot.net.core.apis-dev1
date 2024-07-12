@@ -26,7 +26,7 @@ namespace IMT.Application.Infrastructure.Persistence.Services.ConfirmTransaction
         private ImtTransaction imtTransaction;
         private ConfirmTransactionResponse confirmTransactionResponse;
         public IImtTransactionRepository _transactionRepository;
-        private enum TransactionStates { PENDING = 1,CONFIRMED = 2,FAILED = 3 };
+        private enum TransactionStates { PENDING = 1, CONFIRMED = 2, FAILED = 3 };
         public ImtConfirmTransactionService(ApplicationDbContext dbContext, IImtMoneyTransferService moneyTransferService) : base(dbContext)
         {
             DependencyContainer.Initialize();
@@ -39,7 +39,7 @@ namespace IMT.Application.Infrastructure.Persistence.Services.ConfirmTransaction
             try
             {
                 confirmTransactionResponse = _thunesClient.GetTransactionAdapter().ConfirmTransactionById(trasactionDTO.RemoteTrasactionId);
-                
+
                 if (moneyTransferObj != null)
                 {
                     if (confirmTransactionResponse.status == "20000" && confirmTransactionResponse.status_message == "CONFIRMED")
@@ -51,18 +51,18 @@ namespace IMT.Application.Infrastructure.Persistence.Services.ConfirmTransaction
                     _moneyTransferService.Update(moneyTransferObj);
                     _transactionRepository.Add(PrepareTransaction(moneyTransferObj));
                 }
-               
+
                 return confirmTransactionResponse;
             }
             catch (ThunesException e)
             {
 
-                ErrorStore(e.Errors, trasactionDTO);
                 if (moneyTransferObj != null)
                 {
-                   
-                     moneyTransferObj.TransactionStateId = (int)TransactionStates.FAILED;
-                     moneyTransferObj.UpdatedAt = DateTime.Now;
+                    ErrorStore(e.Errors, trasactionDTO);
+
+                    moneyTransferObj.TransactionStateId = (int)TransactionStates.FAILED;
+                    moneyTransferObj.UpdatedAt = DateTime.Now;
                     _moneyTransferService.Update(moneyTransferObj);
 
                     _transactionRepository.Add(PrepareTransaction(moneyTransferObj));
