@@ -1,8 +1,6 @@
+using ACL.Application.Domain.Notifications.Outgoings;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
-using ACL.Application.Domain.Notifications;
-using ACL.Application.Domain.Notifications.Outgoings;
 
 namespace ACL.Application.Infrastructure.Persistence.Configurations
 {

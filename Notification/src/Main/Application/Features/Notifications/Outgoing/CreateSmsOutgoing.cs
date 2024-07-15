@@ -1,12 +1,9 @@
-using FluentValidation;
-
-using MediatR;
-
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-
 using ACL.Application.Domain.Notifications.Events;
 using ACL.Application.Infrastructure.Persistence;
+using FluentValidation;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Notification.Main.Application.Common;
 using Notification.Main.Infrastructure.Persistence;
 

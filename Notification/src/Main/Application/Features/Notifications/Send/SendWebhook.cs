@@ -1,10 +1,7 @@
-using FluentValidation;
-
-using MediatR;
-
-using Microsoft.AspNetCore.Mvc;
-
 using ACL.Application.Contracts;
+using FluentValidation;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Notification.Main.Application.Common;
 using Notification.Main.Domain.Todos;
 using Notification.Main.Infrastructure.Persistence;

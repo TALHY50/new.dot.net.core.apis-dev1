@@ -1,24 +1,13 @@
-using System.Text.Json.Nodes;
-using System.Text.Json.Serialization;
-
+using ACL.Application.Domain.Notifications.Outgoings;
 using FluentValidation;
-
 using MediatR;
-
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
-
-using Newtonsoft.Json;
-
-using ACL.Application.Domain.Notifications.Events;
-using ACL.Application.Domain.Notifications.Outgoings;
-using ACL.Application.Infrastructure.Persistence;
 using Notification.Main.Application.Common;
 using Notification.Main.Application.Common.Interfaces;
 using Notification.Main.Infrastructure.Persistence;
-using Notification.Main.Infrastructure.Services;
 
 using EventId = ACL.Application.Contracts.EventId;
 

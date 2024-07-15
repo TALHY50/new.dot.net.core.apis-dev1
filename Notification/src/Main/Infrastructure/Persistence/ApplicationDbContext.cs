@@ -1,11 +1,9 @@
 ﻿using System.Reflection;
 
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-
 using ACL.Application.Domain.Notifications.Events;
 using ACL.Application.Domain.Notifications.Outgoings;
 using ACL.Application.Domain.Setups;
+using Microsoft.EntityFrameworkCore;
 using Notification.Main.Application.Common;
 using Notification.Main.Application.Common.Interfaces;
 using Notification.Main.Domain.Todos;

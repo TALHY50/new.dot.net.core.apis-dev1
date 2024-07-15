@@ -1,8 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
-
+﻿using ACL.Application.Domain.Notifications.Events;
+using Microsoft.Extensions.Logging;
 using Moq;
-
-using ACL.Application.Domain.Notifications.Events;
 using Notification.Main.Application.Common.Behaviours;
 using Notification.Main.Application.Common.Interfaces;
 using Notification.Main.Application.Features.Notifications.Outgoing;

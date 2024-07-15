@@ -1,8 +1,7 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
 using ACL.Application.Domain.Setups;
 using ACL.Application.Domain.ValueObjects;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Notification.Main.Domain.ValueObjects;
 
 namespace ACL.Application.Infrastructure.Persistence.Configurations

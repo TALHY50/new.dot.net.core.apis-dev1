@@ -1,11 +1,8 @@
+using ACL.Application.Infrastructure.Persistence;
 using FluentValidation;
-
 using MediatR;
-
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
-using ACL.Application.Infrastructure.Persistence;
 using Notification.Main.Application.Common;
 using Notification.Main.Infrastructure.Persistence;
 

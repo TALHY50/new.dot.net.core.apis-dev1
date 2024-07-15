@@ -1,15 +1,11 @@
+using ACL.Application.Contracts;
+using ACL.Application.Domain.Notifications.Outgoings;
 using ErrorOr;
-
 using FluentValidation;
-
 using MediatR;
-
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-
-using ACL.Application.Contracts;
-using ACL.Application.Domain.Notifications.Outgoings;
 using Notification.Main.Application.Common;
 using Notification.Main.Application.Common.Interfaces;
 using Notification.Main.Application.Common.Interfaces.Repositories;
