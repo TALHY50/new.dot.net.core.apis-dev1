@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using Notification.Main.Application.Common;
 using Notification.Main.Application.Common.Interfaces;
 using Notification.Main.Infrastructure.Persistence;
+using Notification.RazorTemplateEngine.Services;
 
 using EventId = ACL.Application.Contracts.EventId;
 

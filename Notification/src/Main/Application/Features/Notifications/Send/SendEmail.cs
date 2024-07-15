@@ -1,3 +1,6 @@
+using System.Net.Mail;
+using System.Reflection;
+
 using ACL.Application.Contracts;
 using ACL.Application.Domain.Notifications.Outgoings;
 using ErrorOr;
@@ -5,12 +8,16 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Notification.Main.Application.Common;
 using Notification.Main.Application.Common.Interfaces;
 using Notification.Main.Application.Common.Interfaces.Repositories;
 using Notification.Main.Domain.Todos;
 using Notification.Main.Infrastructure.Persistence;
+using Notification.RazorTemplateEngine.Services;
+
+using RazorHtmlEmails.RazorClassLib.Views.Emails.ConfirmAccount;
 
 namespace Notification.Main.Application.Features.Notifications.Send;
 
@@ -40,6 +47,8 @@ internal sealed class SendEmailCommandHandler(
     ApplicationDbContext context,
     IEmailOutgoingRepository emailOutgoingRepository,
     ICredentialRepository credentialRepository,
+    IRazorViewToStringRenderer razorViewToStringRenderer,
+    IHostEnvironment environment,
     IEmailService emailService) : IRequestHandler<SendEmailCommand, ErrorOr<bool>>
 {
     private readonly ApplicationDbContext _context = context;
@@ -47,6 +56,8 @@ internal sealed class SendEmailCommandHandler(
     private readonly IEmailOutgoingRepository _emailOutgoingRepository = emailOutgoingRepository;
     private readonly ICredentialRepository _credentialRepository = credentialRepository;
     private readonly IEmailService _emailService = emailService;
+    private readonly IRazorViewToStringRenderer _razorViewToStringRenderer = razorViewToStringRenderer;
+    private readonly IHostEnvironment _environment = environment;
 
     public async Task<ErrorOr<bool>> Handle(SendEmailCommand request, CancellationToken cancellationToken)
     {
@@ -73,9 +84,8 @@ internal sealed class SendEmailCommandHandler(
             return Error.NotFound(description: "email sender not found");
         }
 
-        await emailSender.SendEmailAsync(emailOutgoing.To, credential.FromAddress, emailOutgoing.Subject, emailOutgoing.Content).ConfigureAwait(false);
+        await emailSender.SendEmailAsync(emailOutgoing.To.Split(',').ToList(), credential.FromAddress, emailOutgoing.Subject, emailOutgoing.Content).ConfigureAwait(false);
 
-        // await Task.CompletedTask.ConfigureAwait(false);
         return false;
     }
 }
