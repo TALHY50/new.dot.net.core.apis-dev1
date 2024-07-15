@@ -1,4 +1,4 @@
-using Notification.Application.Domain.Notifications.Outgoings;
+using ACL.Application.Domain.Notifications.Outgoings;
 
 namespace Notification.Main.Application.Common.Interfaces.Repositories;
 

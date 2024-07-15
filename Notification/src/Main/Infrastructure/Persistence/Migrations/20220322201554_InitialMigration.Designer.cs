@@ -5,12 +5,12 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Notification.Application.Infrastructure.Persistence;
+using ACL.Application.Infrastructure.Persistence;
 using Notification.Main.Infrastructure.Persistence;
 
 #nullable disable
 
-namespace Notification.Application.Infrastructure.Persistence.Migrations
+namespace ACL.Application.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20220322201554_InitialMigration")]

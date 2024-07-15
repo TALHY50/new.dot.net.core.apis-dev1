@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
-using Notification.Application;
+using ACL.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -58,7 +58,7 @@ app.MapControllers();
 
 app.Run();
 
-namespace Notification.Application
+namespace ACL.Application
 {
     public partial class Program { }
 }

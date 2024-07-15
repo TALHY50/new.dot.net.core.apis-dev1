@@ -1,7 +1,7 @@
-﻿using Notification.Application.Contracts.Requests;
-using Notification.Application.Contracts.Response;
-using Notification.Application.Domain.Ports.Repositories.UserGroup;
-using Notification.Application.Domain.UserGroup;
+﻿using ACL.Application.Contracts.Requests;
+using ACL.Application.Contracts.Response;
+using ACL.Application.Domain.Ports.Repositories.UserGroup;
+using ACL.Application.Domain.UserGroup;
 
 namespace ACL.Application.Domain.Ports.Services.UserGroup
 {

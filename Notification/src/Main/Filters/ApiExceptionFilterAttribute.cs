@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 using Notification.Main.Application.Common.Exceptions;
 
-namespace Notification.Application.Filters;
+namespace ACL.Application.Filters;
 
 public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
 {

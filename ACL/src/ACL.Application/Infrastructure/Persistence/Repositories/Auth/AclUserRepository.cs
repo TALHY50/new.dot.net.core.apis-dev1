@@ -1,10 +1,10 @@
-﻿using Notification.Application.Common.Enums;
-using Notification.Application.Domain.Auth;
-using Notification.Application.Domain.Ports.Repositories.Auth;
-using Notification.Application.Domain.Ports.Services.Cryptography;
-using Notification.Application.Infrastructure.Persistence.Configurations;
-using Notification.Application.Infrastructure.Persistence.Dtos;
-using Notification.Application.Infrastructure.Utilities;
+﻿using ACL.Application.Common.Enums;
+using ACL.Application.Domain.Auth;
+using ACL.Application.Domain.Ports.Repositories.Auth;
+using ACL.Application.Domain.Ports.Services.Cryptography;
+using ACL.Application.Infrastructure.Persistence.Configurations;
+using ACL.Application.Infrastructure.Persistence.Dtos;
+using ACL.Application.Infrastructure.Utilities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;

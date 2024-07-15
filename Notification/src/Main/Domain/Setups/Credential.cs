@@ -1,8 +1,8 @@
 #nullable disable
-using Notification.Application.Domain.ValueObjects;
+using ACL.Application.Domain.ValueObjects;
 using Notification.Main.Domain.ValueObjects;
 
-namespace Notification.Application.Domain.Setups;
+namespace ACL.Application.Domain.Setups;
 
 public class Credential
 {

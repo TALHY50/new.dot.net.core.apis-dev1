@@ -1,11 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-using Notification.Application.Domain.Setups;
-using Notification.Application.Domain.ValueObjects;
+using ACL.Application.Domain.Setups;
+using ACL.Application.Domain.ValueObjects;
 using Notification.Main.Domain.ValueObjects;
 
-namespace Notification.Application.Infrastructure.Persistence.Configurations
+namespace ACL.Application.Infrastructure.Persistence.Configurations
 {
     public class CredentialConfiguration : IEntityTypeConfiguration<Credential>
     {

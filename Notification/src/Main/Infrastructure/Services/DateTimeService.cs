@@ -2,7 +2,7 @@
 
 using Notification.Main.Application.Common.Interfaces;
 
-namespace Notification.Application.Infrastructure.Services;
+namespace ACL.Application.Infrastructure.Services;
 
 public class DateTimeService : IDateTime
 {

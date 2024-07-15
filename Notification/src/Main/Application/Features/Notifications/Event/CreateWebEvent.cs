@@ -5,11 +5,11 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-using Notification.Application.Contracts;
-using Notification.Application.Domain.Notifications.Events;
-using Notification.Application.Domain.Setups;
-using Notification.Application.Domain.ValueObjects;
-using Notification.Application.Infrastructure.Persistence;
+using ACL.Application.Contracts;
+using ACL.Application.Domain.Notifications.Events;
+using ACL.Application.Domain.Setups;
+using ACL.Application.Domain.ValueObjects;
+using ACL.Application.Infrastructure.Persistence;
 using Notification.Main.Application.Common;
 using Notification.Main.Infrastructure.Persistence;
 
@@ -46,7 +46,7 @@ internal sealed class CreateWebEventCommandHandler(ApplicationDbContext context)
     public async Task<int> Handle(CreateWebEventCommand request, CancellationToken cancellationToken)
     {
         var now = DateTime.UtcNow;
-        var @event = new Notification.Application.Domain.Notifications.Events.Event
+        var @event = new ACL.Application.Domain.Notifications.Events.Event
         {
             Category = request.CategoricalData.Category,
             Name = request.CategoricalData.Name,

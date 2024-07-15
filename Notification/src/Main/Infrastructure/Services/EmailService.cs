@@ -6,14 +6,14 @@ using Microsoft.Identity.Client.Platforms.Features.DesktopOs.Kerberos;
 
 using Newtonsoft.Json;
 
-using Notification.Application.Domain.Notifications.Outgoings;
+using ACL.Application.Domain.Notifications.Outgoings;
 using Notification.Main.Application.Common.Interfaces;
 using Notification.Main.Application.Common.Models;
 using Notification.Main.Infrastructure.Email;
 
 using RazorLight;
 
-using Credential = Notification.Application.Domain.Setups.Credential;
+using Credential = ACL.Application.Domain.Setups.Credential;
 
 namespace Notification.Main.Infrastructure.Services;
 

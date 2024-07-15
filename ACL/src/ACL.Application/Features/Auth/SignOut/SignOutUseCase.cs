@@ -1,7 +1,7 @@
-﻿using Notification.Application.Common.Enums;
-using Notification.Application.Domain.Ports.Repositories.Auth;
-using Notification.Application.Features.Auth.SignOut.Request;
-using Notification.Application.Features.Auth.SignOut.Response;
+﻿using ACL.Application.Common.Enums;
+using ACL.Application.Domain.Ports.Repositories.Auth;
+using ACL.Application.Features.Auth.SignOut.Request;
+using ACL.Application.Features.Auth.SignOut.Response;
 using Microsoft.Extensions.Logging;
 
 namespace ACL.Application.Features.Auth.SignOut

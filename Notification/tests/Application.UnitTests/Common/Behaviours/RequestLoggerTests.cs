@@ -2,13 +2,13 @@
 
 using Moq;
 
-using Notification.Application.Domain.Notifications.Events;
+using ACL.Application.Domain.Notifications.Events;
 using Notification.Main.Application.Common.Behaviours;
 using Notification.Main.Application.Common.Interfaces;
 using Notification.Main.Application.Features.Notifications.Outgoing;
 using Notification.Main.Application.Features.TodoItems;
 
-namespace Notification.Application.UnitTests.Common.Behaviours;
+namespace ACL.Application.UnitTests.Common.Behaviours;
 
 public class RequestLoggerTests
 {

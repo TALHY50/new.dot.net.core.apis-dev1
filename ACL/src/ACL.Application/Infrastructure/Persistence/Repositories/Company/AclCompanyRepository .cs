@@ -1,9 +1,9 @@
-﻿using Notification.Application.Contracts.Response;
-using Notification.Application.Domain.Auth;
-using Notification.Application.Domain.Company;
-using Notification.Application.Domain.Ports.Repositories.Company;
-using Notification.Application.Infrastructure.Persistence.Configurations;
-using Notification.Application.Infrastructure.Utilities;
+﻿using ACL.Application.Contracts.Response;
+using ACL.Application.Domain.Auth;
+using ACL.Application.Domain.Company;
+using ACL.Application.Domain.Ports.Repositories.Company;
+using ACL.Application.Infrastructure.Persistence.Configurations;
+using ACL.Application.Infrastructure.Utilities;
 using Microsoft.AspNetCore.Http;
 using Claim = ACL.Application.Domain.Auth.Claim;
 

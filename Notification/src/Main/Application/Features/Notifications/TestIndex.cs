@@ -5,7 +5,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-using Notification.Application.Infrastructure.Persistence;
+using ACL.Application.Infrastructure.Persistence;
 using Notification.Main.Application.Common;
 using Notification.Main.Infrastructure.Persistence;
 

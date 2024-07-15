@@ -1,10 +1,10 @@
 ﻿using System.Reflection;
-using Notification.Application.Domain.Auth;
-using Notification.Application.Domain.Company;
-using Notification.Application.Domain.Module;
-using Notification.Application.Domain.Role;
-using Notification.Application.Domain.UserGroup;
-using Notification.Application.Infrastructure.Persistence.Migrations;
+using ACL.Application.Domain.Auth;
+using ACL.Application.Domain.Company;
+using ACL.Application.Domain.Module;
+using ACL.Application.Domain.Role;
+using ACL.Application.Domain.UserGroup;
+using ACL.Application.Infrastructure.Persistence.Migrations;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Interfaces;
 

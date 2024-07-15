@@ -1,4 +1,4 @@
-﻿using Notification.Application.Domain.Role;
+﻿using ACL.Application.Domain.Role;
 
 namespace ACL.Application.Domain.Ports.Repositories.Role
 

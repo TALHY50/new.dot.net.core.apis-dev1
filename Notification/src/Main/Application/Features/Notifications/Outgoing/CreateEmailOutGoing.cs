@@ -12,15 +12,15 @@ using Microsoft.IdentityModel.Tokens;
 
 using Newtonsoft.Json;
 
-using Notification.Application.Domain.Notifications.Events;
-using Notification.Application.Domain.Notifications.Outgoings;
-using Notification.Application.Infrastructure.Persistence;
+using ACL.Application.Domain.Notifications.Events;
+using ACL.Application.Domain.Notifications.Outgoings;
+using ACL.Application.Infrastructure.Persistence;
 using Notification.Main.Application.Common;
 using Notification.Main.Application.Common.Interfaces;
 using Notification.Main.Infrastructure.Persistence;
 using Notification.Main.Infrastructure.Services;
 
-using EventId = Notification.Application.Contracts.EventId;
+using EventId = ACL.Application.Contracts.EventId;
 
 namespace Notification.Main.Application.Features.Notifications.Outgoing;
 

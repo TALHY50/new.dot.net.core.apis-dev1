@@ -1,4 +1,4 @@
-namespace Notification.Application.Contracts;
+namespace ACL.Application.Contracts;
 
 public record MiscellaneousInformation(
     int CreatedById = 0,

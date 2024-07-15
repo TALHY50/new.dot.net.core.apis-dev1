@@ -1,8 +1,8 @@
-﻿using Notification.Application.Domain.ValueObjects;
+﻿using ACL.Application.Domain.ValueObjects;
 using Notification.Main.Application.Common.Exceptions;
 using Notification.Main.Domain.ValueObjects;
 
-namespace Notification.Application.UnitTests.ValueObjects;
+namespace ACL.Application.UnitTests.ValueObjects;
 
 public class ColourTests
 {

@@ -1,6 +1,6 @@
 using System.Security.Claims;
-using Notification.Application.Common;
-using Notification.Application.Domain.Ports.Repositories.Auth;
+using ACL.Application.Common;
+using ACL.Application.Domain.Ports.Repositories.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;

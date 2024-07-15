@@ -1,5 +1,5 @@
-using Notification.Application.Domain.Auth;
-using Notification.Application.Infrastructure.Persistence.Extensions;
+using ACL.Application.Domain.Auth;
+using ACL.Application.Infrastructure.Persistence.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Claim = ACL.Application.Domain.Auth.Claim;

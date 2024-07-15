@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-using Notification.Application.Infrastructure.Services;
+using ACL.Application.Infrastructure.Services;
 using Notification.Main.Application.Common.Behaviours;
 using Notification.Main.Application.Common.Interfaces;
 using Notification.Main.Application.Common.Interfaces.Repositories;
@@ -14,7 +14,7 @@ using Notification.Main.Infrastructure.Persistence;
 using Notification.Main.Infrastructure.Persistence.Repositories;
 using Notification.Main.Infrastructure.Services;
 
-namespace Notification.Application;
+namespace ACL.Application;
 
 public static class DependencyInjection
 {

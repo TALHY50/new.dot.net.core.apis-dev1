@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Notification.Application.Domain.Notifications;
-using Notification.Application.Domain.Setups;
+using ACL.Application.Domain.Notifications;
+using ACL.Application.Domain.Setups;
 
-namespace Notification.Application.Infrastructure.Persistence.Configurations
+namespace ACL.Application.Infrastructure.Persistence.Configurations
 {
     public class LayoutConfiguration : IEntityTypeConfiguration<Layout>
     {

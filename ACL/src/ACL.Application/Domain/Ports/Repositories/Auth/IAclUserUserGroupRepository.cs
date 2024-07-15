@@ -1,4 +1,4 @@
-﻿using Notification.Application.Domain.Auth;
+﻿using ACL.Application.Domain.Auth;
 
 namespace ACL.Application.Domain.Ports.Repositories.Auth
 {

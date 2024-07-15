@@ -8,8 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-using Notification.Application.Contracts;
-using Notification.Application.Domain.Notifications.Outgoings;
+using ACL.Application.Contracts;
+using ACL.Application.Domain.Notifications.Outgoings;
 using Notification.Main.Application.Common;
 using Notification.Main.Application.Common.Interfaces;
 using Notification.Main.Application.Common.Interfaces.Repositories;

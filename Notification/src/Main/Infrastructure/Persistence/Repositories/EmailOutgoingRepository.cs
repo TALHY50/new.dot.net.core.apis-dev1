@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-using Notification.Application.Domain.Notifications.Outgoings;
+using ACL.Application.Domain.Notifications.Outgoings;
 using Notification.Main.Application.Common.Interfaces.Repositories;
 
 namespace Notification.Main.Infrastructure.Persistence.Repositories;

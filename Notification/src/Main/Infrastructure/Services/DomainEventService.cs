@@ -6,7 +6,7 @@ using Notification.Main.Application.Common;
 using Notification.Main.Application.Common.Interfaces;
 using Notification.Main.Application.Common.Models;
 
-namespace Notification.Application.Infrastructure.Services;
+namespace ACL.Application.Infrastructure.Services;
 
 public class DomainEventService : IDomainEventService
 {

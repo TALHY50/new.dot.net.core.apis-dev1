@@ -2,7 +2,7 @@
 
 using Notification.Main.Application.Common.Exceptions;
 
-namespace Notification.Application.UnitTests.Common.Exceptions;
+namespace ACL.Application.UnitTests.Common.Exceptions;
 
 public class ValidationExceptionTests
 {

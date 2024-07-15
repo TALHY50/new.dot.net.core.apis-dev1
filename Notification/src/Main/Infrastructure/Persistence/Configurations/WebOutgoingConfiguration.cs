@@ -1,10 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-using Notification.Application.Domain.Notifications;
-using Notification.Application.Domain.Notifications.Outgoings;
+using ACL.Application.Domain.Notifications;
+using ACL.Application.Domain.Notifications.Outgoings;
 
-namespace Notification.Application.Infrastructure.Persistence.Configurations
+namespace ACL.Application.Infrastructure.Persistence.Configurations
 {
     public class WebOutgoingConfiguration : IEntityTypeConfiguration<WebOutgoing>
     {
