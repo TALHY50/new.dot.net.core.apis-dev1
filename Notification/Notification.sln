@@ -16,6 +16,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{5F44F0AC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.UnitTests", "tests\Application.UnitTests\Application.UnitTests.csproj", "{24BF57AE-47C4-4065-BAB0-72ACB562D22E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RazorTemplateEngine", "src\RazorTemplateEngine\RazorTemplateEngine.csproj", "{A7409CC6-DA25-4E2E-9F61-E3C2757E2D4A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +36,10 @@ Global
 		{24BF57AE-47C4-4065-BAB0-72ACB562D22E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24BF57AE-47C4-4065-BAB0-72ACB562D22E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24BF57AE-47C4-4065-BAB0-72ACB562D22E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7409CC6-DA25-4E2E-9F61-E3C2757E2D4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7409CC6-DA25-4E2E-9F61-E3C2757E2D4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7409CC6-DA25-4E2E-9F61-E3C2757E2D4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7409CC6-DA25-4E2E-9F61-E3C2757E2D4A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,6 +47,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{34C0FACD-F3D9-400C-8945-554DD6B0819A} = {6ED356A7-8B47-4613-AD01-C85CF28491BD}
 		{24BF57AE-47C4-4065-BAB0-72ACB562D22E} = {5F44F0AC-5482-4A73-9CAE-6A550E23B510}
+		{A7409CC6-DA25-4E2E-9F61-E3C2757E2D4A} = {6ED356A7-8B47-4613-AD01-C85CF28491BD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3CB609D9-5D54-4C11-A371-DAAC8B74E430}

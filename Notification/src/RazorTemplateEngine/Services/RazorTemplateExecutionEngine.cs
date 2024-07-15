@@ -9,12 +9,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Routing;
+
 using Newtonsoft.Json;
-using Notification.Main.Application.Common.Interfaces;
-using Notification.Main.Application.Common.Models;
+
 using RazorLight;
 
-namespace Notification.Main.Infrastructure.Services;
+namespace Notification.RazorTemplateEngine.Services;
 
 public class RazorTemplateExecutionEngine : ITemplateExecutionEngine
 {
@@ -22,7 +22,7 @@ public class RazorTemplateExecutionEngine : ITemplateExecutionEngine
     private readonly ITempDataProvider _tempDataProvider;
     private readonly IServiceProvider _serviceProvider;
     private readonly RazorLightEngine _engine;
-    private static readonly string RootNamespace = "Notification.Main.Infrastructure.Templates";
+    private static readonly string RootNamespace = "Notification.RazorTemplateEngine.Templates";
 
     public RazorTemplateExecutionEngine(
         IRazorViewEngine viewEngine,
@@ -79,7 +79,7 @@ public class RazorTemplateExecutionEngine : ITemplateExecutionEngine
 
         if (viewModel != null)
         {
-            html = await RenderTemplate(templatePath, viewModel).ConfigureAwait(false);
+            html = await RenderTemplate(templatePath, (object)viewModel).ConfigureAwait(false);
         }
 
         return html;

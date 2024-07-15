@@ -66,7 +66,6 @@
   </ItemGroup>
   
   <ItemGroup>
-   <EmbeddedResource Include="Infrastructure\Templates\Email\Welcome.cshtml" />
    <EmbeddedResource Include="Templates\**" />
   </ItemGroup>
   
@@ -74,5 +73,9 @@
    <PreserveCompilationReferences>true</PreserveCompilationReferences>
    <PreserveCompilationContext>true</PreserveCompilationContext>
   </PropertyGroup>
+  
+  <ItemGroup>
+	<ProjectReference Include="..\RazorTemplateEngine\RazorTemplateEngine.csproj" />
+  </ItemGroup>
 
 </Project>
