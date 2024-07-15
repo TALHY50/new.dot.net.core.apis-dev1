@@ -5,12 +5,13 @@ using IMT.Application.Infrastructure.Utility;
 using IMT.Application.Domain.Ports.Services.ConfirmTransaction;
 using IMT.Thunes.Exception;
 using IMT.Thunes.Response.Common;
-using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Models.IMT;
-using SharedLibrary.Interfaces;
-using IMT.Application.Infrastructure.Persistence.Repositories.Quotation;
 using IMT.Application.Domain.Ports.Repositories.ConfirmTransaction;
 using IMT.Thunes.Request.ConfirmTrasaction;
+using IMT.Application.Domain.Ports.Services.Transaction;
+using IMT.Thunes.Response.Transfer.Transaction;
+using IMT.Application.Domain.Ports.Repositories.ImtTransaction;
+
 
 namespace IMT.Application.Infrastructure.Persistence.Services.ConfirmTransactionService
 {
@@ -20,22 +21,54 @@ namespace IMT.Application.Infrastructure.Persistence.Services.ConfirmTransaction
     {
         // public readonly ThunesClient _thunesClient = new(Env.GetString("THUNES_API_KEY"), Env.GetString("THUNES_API_SECRET"), Env.GetString("THUNES_BASE_URL"));
         public readonly ThunesClient _thunesClient = new("f1c4a4d9-2899-4f09-b9f5-c35f09df5ffd", "bed820bd-264b-4d0f-8148-9f56e0a8b55c", "https://api-mt.pre.thunes.com");
-
-        public ImtConfirmTransactionService(ApplicationDbContext dbContext) : base(dbContext) 
+        private readonly IImtMoneyTransferService _moneyTransferService;
+        private ImtMoneyTransfer moneyTransferObj;
+        private ImtTransaction imtTransaction;
+        private ConfirmTransactionResponse confirmTransactionResponse;
+        public IImtTransactionRepository _transactionRepository;
+        private enum TransactionStates { PENDING = 1, CONFIRMED = 2, FAILED = 3 };
+        public ImtConfirmTransactionService(ApplicationDbContext dbContext, IImtMoneyTransferService moneyTransferService) : base(dbContext)
         {
             DependencyContainer.Initialize();
+            _moneyTransferService = moneyTransferService;
+            _transactionRepository = DependencyContainer.GetService<IImtTransactionRepository>();
         }
         public object ConfirmTrasaction(ConfirmTrasactionDTO trasactionDTO)
         {
+            moneyTransferObj = _moneyTransferService.Where(x => x.PaymentId == trasactionDTO.RemoteTrasactionId.ToString()).FirstOrDefault();
             try
             {
-                return _thunesClient.GetTransactionAdapter().ConfirmTransactionById(trasactionDTO.TrasactionId);
+                confirmTransactionResponse = _thunesClient.GetTransactionAdapter().ConfirmTransactionById(trasactionDTO.RemoteTrasactionId);
+
+                if (moneyTransferObj != null)
+                {
+                    if (confirmTransactionResponse.status == "20000" && confirmTransactionResponse.status_message == "CONFIRMED")
+                    {
+                        moneyTransferObj.TransactionStateId = (int)TransactionStates.CONFIRMED;
+                        moneyTransferObj.UpdatedAt = DateTime.Now;
+                    }
+
+                    _moneyTransferService.Update(moneyTransferObj);
+                    _transactionRepository.Add(PrepareTransaction(moneyTransferObj));
+                }
+
+                return confirmTransactionResponse;
             }
             catch (ThunesException e)
             {
-                ErrorStore(e.Errors, trasactionDTO);
-                //return StatusCode(e.ErrorCode, e.Errors);
-                return null;
+
+                if (moneyTransferObj != null)
+                {
+                    ErrorStore(e.Errors, trasactionDTO);
+
+                    moneyTransferObj.TransactionStateId = (int)TransactionStates.FAILED;
+                    moneyTransferObj.UpdatedAt = DateTime.Now;
+                    _moneyTransferService.Update(moneyTransferObj);
+
+                    _transactionRepository.Add(PrepareTransaction(moneyTransferObj));
+                }
+
+                throw e;
             }
         }
 
@@ -48,13 +81,36 @@ namespace IMT.Application.Infrastructure.Persistence.Services.ConfirmTransaction
                     ErrorCode = error.code,
                     ErrorMessage = error.message,
                     ImtProviderId = trasactionDTO.ProviderId,
-                    ReferenceId = trasactionDTO.TrasactionId,
+                    ReferenceId = trasactionDTO.RemoteTrasactionId,
                     Type = trasactionDTO.Type,
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow
                 };
                 Add(prepareData);
             }
+        }
+
+        public ImtTransaction PrepareTransaction(ImtMoneyTransfer moneyTransferObj)
+        {
+            var transaction = new ImtTransaction
+            {
+                PaymentId = moneyTransferObj.PaymentId,
+                TransactionStateId = moneyTransferObj.TransactionStateId,
+                CustomerId = 1, // hard coded dont know from where it will come
+                TransactionType = 1, // hard coded value cause we dont know from where we will get it
+                MoneyFlow = 2,
+                Amount = (decimal)100.00, // dont know which amount it will be
+                TransactionId = moneyTransferObj.Id,
+                Fee = moneyTransferObj.Fee,
+                Gross = (decimal)1000.00, // dont know what is this and from where it will come
+                CurrencyId = 1, //hard coded need to call the api and hold the data here
+                CurrentBalance = (decimal)1000.00, //hard coded need to call the api and hold the data here
+                PreviousBalance = (decimal)1000.00, //hard coded need to call the api and hold the data here
+                Status = 1, // hard coded need to know from where And when depends what to update and what value to put from where
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now
+            };
+            return transaction;
         }
 
 
