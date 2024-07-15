@@ -65,14 +65,7 @@
   <Folder Include="Properties\" />
   </ItemGroup>
   
-  <ItemGroup>
-   <EmbeddedResource Include="Templates\**" />
-  </ItemGroup>
-  
-  <PropertyGroup>
-   <PreserveCompilationReferences>true</PreserveCompilationReferences>
-   <PreserveCompilationContext>true</PreserveCompilationContext>
-  </PropertyGroup>
+
   
   <ItemGroup>
 	<ProjectReference Include="..\RazorTemplateEngine\RazorTemplateEngine.csproj" />

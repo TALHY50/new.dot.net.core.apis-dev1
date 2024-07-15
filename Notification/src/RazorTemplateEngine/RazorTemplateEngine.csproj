@@ -9,7 +9,6 @@
   <ItemGroup>
     <Compile Remove="Views\**\*.cs" />
     <Compile Include="Views\**\*.cs" DependentUpon="%(Filename).cshtml" />
-    <EmbeddedResource Include="Templates\Email\Welcome.cshtml" />
     <EmbeddedResource Include="Views\**\*.cshtml" />
   </ItemGroup>
 
@@ -38,5 +37,14 @@
     <None Include="Templates\Email\Shared\EmailLayout.cshtml" />
     <None Include="Templates\Email\_ViewStart.cshtml" />
   </ItemGroup>
+  
+  <ItemGroup>
+   <EmbeddedResource Include="Templates\**" />
+  </ItemGroup>
+  
+  <PropertyGroup>
+   <PreserveCompilationReferences>true</PreserveCompilationReferences>
+   <PreserveCompilationContext>true</PreserveCompilationContext>
+  </PropertyGroup>
   
 </Project>

@@ -19,27 +19,29 @@ public class SmtpEmailSender : IEmailSender
         _logger = logger;
     }
 
-    public async Task SendEmailAsync(string to, string from, string subject, string body)
+    public async Task SendEmailAsync(List<string> to, string from, string subject, string body)
     {
         using var email = new MimeMessage();
 
-        email.From.Add(new MailboxAddress("Sender Name", "rifat.simoom@gmail.com"));
+        to.ForEach(x => email.To.Add(new MailboxAddress(string.Empty, x.Trim())));
 
-        email.To.Add(new MailboxAddress("Fakkir", "rifat.simoom@gmail.com"));
+        email.From.Add(new MailboxAddress(string.Empty, from));
 
-        email.Subject = "Notification";
+        email.Subject = subject;
 
-        var builder = new BodyBuilder() { TextBody = @"Hey, Just Hi!" };
+        var builder = new BodyBuilder() { HtmlBody = body };
 
         email.Body = builder.ToMessageBody();
 
         using var smtp = new MailKit.Net.Smtp.SmtpClient();
 
-        await smtp.ConnectAsync("sandbox.smtp.mailtrap.io", 587, false).ConfigureAwait(false);
+        await smtp.ConnectAsync(_mailserverConfiguration.Hostname, _mailserverConfiguration.Port, false).ConfigureAwait(false);
 
-        await smtp.AuthenticateAsync("92e0ae7a791f20", "17d5b1ee026744").ConfigureAwait(false);
+        await smtp.AuthenticateAsync(_mailserverConfiguration.UserName, _mailserverConfiguration.Password).ConfigureAwait(false);
 
-        await smtp.SendAsync(email).ConfigureAwait(false);
+        var result = await smtp.SendAsync(email).ConfigureAwait(false);
+
+        await smtp.DisconnectAsync(true).ConfigureAwait(false);
 
         _logger.LogWarning("Sending email to {to} from {from} with subject {subject} using {type}.", to, from, subject, this.ToString());
     }

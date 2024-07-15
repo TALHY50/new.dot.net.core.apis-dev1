@@ -1,3 +1,4 @@
+using System.Net.Mail;
 using System.Reflection;
 
 using ACL.Application.Contracts;
@@ -83,16 +84,8 @@ internal sealed class SendEmailCommandHandler(
             return Error.NotFound(description: "email sender not found");
         }
 
-        string contentRootPath = _environment.ContentRootPath;
-        var path = Assembly.GetEntryAssembly()!.Location;
-        var path1 = System.AppDomain.CurrentDomain.BaseDirectory;
-        var confirmAccountModel = new ConfirmAccountEmailViewModel($"https://github.com/LionelVallet/ReHackt.RazorEmails");
+        await emailSender.SendEmailAsync(emailOutgoing.To.Split(',').ToList(), credential.FromAddress, emailOutgoing.Subject, emailOutgoing.Content).ConfigureAwait(false);
 
-        string body = await _razorViewToStringRenderer.RenderViewToStringAsync("/Views/Emails/ConfirmAccount/ConfirmAccountEmail.cshtml", confirmAccountModel);
-
-        await emailSender.SendEmailAsync(emailOutgoing.To, credential.FromAddress, emailOutgoing.Subject, emailOutgoing.Content).ConfigureAwait(false);
-
-        // await Task.CompletedTask.ConfigureAwait(false);
         return false;
     }
 }
