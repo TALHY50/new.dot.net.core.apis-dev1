@@ -1,8 +1,8 @@
 ﻿using FluentValidation.Results;
 
-using Notification.Application.Common.Exceptions;
+using Notification.Main.Application.Common.Exceptions;
 
-namespace Notification.Application.UnitTests.Common.Exceptions;
+namespace ACL.Application.UnitTests.Common.Exceptions;
 
 public class ValidationExceptionTests
 {
