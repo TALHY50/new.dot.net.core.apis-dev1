@@ -1,5 +1,6 @@
-﻿using Notification.Application.Common.Exceptions;
-using Notification.Application.Domain.ValueObjects;
+﻿using Notification.Application.Domain.ValueObjects;
+using Notification.Main.Application.Common.Exceptions;
+using Notification.Main.Domain.ValueObjects;
 
 namespace Notification.Application.UnitTests.ValueObjects;
 

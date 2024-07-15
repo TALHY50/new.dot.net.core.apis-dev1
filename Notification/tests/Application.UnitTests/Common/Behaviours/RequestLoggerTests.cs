@@ -2,22 +2,22 @@
 
 using Moq;
 
-using Notification.Application.Common.Behaviours;
-using Notification.Application.Common.Interfaces;
 using Notification.Application.Domain.Notifications.Events;
-using Notification.Application.Features.Notifications;
-using Notification.Application.Features.TodoItems;
+using Notification.Main.Application.Common.Behaviours;
+using Notification.Main.Application.Common.Interfaces;
+using Notification.Main.Application.Features.Notifications.Outgoing;
+using Notification.Main.Application.Features.TodoItems;
 
 namespace Notification.Application.UnitTests.Common.Behaviours;
 
 public class RequestLoggerTests
 {
-    private readonly Mock<ILogger<CreateOutgoingCommand>> _logger;
+    private readonly Mock<ILogger<CreateTodoItemCommand>> _logger;
     private readonly Mock<ICurrentUserService> _currentUserService;
 
     public RequestLoggerTests()
     {
-        _logger = new Mock<ILogger<CreateOutgoingCommand>>();
+        _logger = new Mock<ILogger<CreateTodoItemCommand>>();
         _currentUserService = new Mock<ICurrentUserService>();
     }
 
@@ -26,16 +26,16 @@ public class RequestLoggerTests
     {
         _currentUserService.Setup(x => x.UserId).Returns(Guid.NewGuid().ToString());
 
-        var requestLogger = new LoggingBehaviour<CreateOutgoingCommand>(_logger.Object, _currentUserService.Object);
+        var requestLogger = new LoggingBehaviour<CreateTodoItemCommand>(_logger.Object, _currentUserService.Object);
 
-        await requestLogger.Process(new CreateOutgoingCommand(new Event()), CancellationToken.None);
+        await requestLogger.Process(new CreateTodoItemCommand(1, "Log Test"), CancellationToken.None);
     }
 
     [Fact]
     public async Task ShouldNotCallGetUserNameAsyncOnceIfUnauthenticated()
     {
-        var requestLogger = new LoggingBehaviour<CreateOutgoingCommand>(_logger.Object, _currentUserService.Object);
+        var requestLogger = new LoggingBehaviour<CreateTodoItemCommand>(_logger.Object, _currentUserService.Object);
 
-        await requestLogger.Process(new CreateOutgoingCommand(new Event()), CancellationToken.None);
+        await requestLogger.Process(new CreateTodoItemCommand(1, "UnitTest"), CancellationToken.None);
     }
 }
