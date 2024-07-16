@@ -1,10 +1,9 @@
-﻿using ACL.Application.Domain.Notifications.Events;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Moq;
-using Notification.Main.Application.Common.Behaviours;
-using Notification.Main.Application.Common.Interfaces;
-using Notification.Main.Application.Features.Notifications.Outgoing;
-using Notification.Main.Application.Features.TodoItems;
+
+using Notification.App.Application.Common.Behaviours;
+using Notification.App.Application.Common.Interfaces;
+using Notification.App.Application.Features.TodoItems;
 
 namespace ACL.Application.UnitTests.Common.Behaviours;
 

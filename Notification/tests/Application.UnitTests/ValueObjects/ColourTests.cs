@@ -1,6 +1,5 @@
-﻿using ACL.Application.Domain.ValueObjects;
-using Notification.Main.Application.Common.Exceptions;
-using Notification.Main.Domain.ValueObjects;
+﻿using Notification.App.Application.Common.Exceptions;
+using Notification.App.Domain.ValueObjects;
 
 namespace ACL.Application.UnitTests.ValueObjects;
 
