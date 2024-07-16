@@ -1,6 +1,5 @@
 using Notification.Main.Application.Common.Interfaces;
 using Notification.Main.Infrastructure.Email;
-using Notification.RazorTemplateEngine.Services;
 
 using Credential = ACL.Application.Domain.Setups.Credential;
 

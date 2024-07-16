@@ -17,7 +17,7 @@ using Notification.Main.Application.Common.Interfaces.Repositories;
 using Notification.Main.Application.Common.Models;
 using Notification.Main.Domain.Todos;
 using Notification.Main.Infrastructure.Persistence;
-using Notification.RazorTemplateEngine.Services;
+using Notification.Renderer.Services;
 
 using Result = Notification.Main.Application.Common.Models.Result;
 
@@ -49,7 +49,7 @@ internal sealed class SendEmailCommandHandler(
     ApplicationDbContext context,
     IEmailOutgoingRepository emailOutgoingRepository,
     ICredentialRepository credentialRepository,
-    IRazorViewToStringRenderer razorViewToStringRenderer,
+    IRenderer renderer,
     IHostEnvironment environment,
     IEmailService emailService) : IRequestHandler<SendEmailCommand, ErrorOr<bool>>
 {
@@ -58,7 +58,7 @@ internal sealed class SendEmailCommandHandler(
     private readonly IEmailOutgoingRepository _emailOutgoingRepository = emailOutgoingRepository;
     private readonly ICredentialRepository _credentialRepository = credentialRepository;
     private readonly IEmailService _emailService = emailService;
-    private readonly IRazorViewToStringRenderer _razorViewToStringRenderer = razorViewToStringRenderer;
+    private readonly IRenderer _renderer = renderer;
     private readonly IHostEnvironment _environment = environment;
 
     public async Task<ErrorOr<bool>> Handle(SendEmailCommand request, CancellationToken cancellationToken)

@@ -70,7 +70,7 @@
 
   
   <ItemGroup>
-	<ProjectReference Include="..\RazorTemplateEngine\RazorTemplateEngine.csproj" />
+	<ProjectReference Include="..\Renderer\Renderer.csproj" />
   </ItemGroup>
 
 </Project>

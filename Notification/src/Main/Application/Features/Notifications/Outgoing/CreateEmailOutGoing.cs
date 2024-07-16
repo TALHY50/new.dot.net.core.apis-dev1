@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 using Notification.Main.Application.Common;
 using Notification.Main.Application.Common.Interfaces;
 using Notification.Main.Infrastructure.Persistence;
-using Notification.RazorTemplateEngine.Services;
+using Notification.Renderer.Services;
 
 using EventId = ACL.Application.Contracts.EventId;
 
@@ -38,10 +38,10 @@ internal sealed class CreateEmailOutgoingCommandValidator : AbstractValidator<Cr
     }
 }
 
-internal sealed class CreateEmailOutgoingCommandHandler(ILogger<CreateSmsOutgoingCommandHandler> logger, ApplicationDbContext context, IRazorViewToStringRenderer razorViewToStringRenderer) : IRequestHandler<CreateEmailOutgoingCommand, int>
+internal sealed class CreateEmailOutgoingCommandHandler(ILogger<CreateSmsOutgoingCommandHandler> logger, ApplicationDbContext context, IRenderer renderer) : IRequestHandler<CreateEmailOutgoingCommand, int>
 {
      private readonly ApplicationDbContext _context = context;
-     private readonly IRazorViewToStringRenderer _razorViewToStringRenderer = razorViewToStringRenderer;
+     private readonly IRenderer _renderer = renderer;
      private readonly ILogger _logger = logger;
      public async Task<int> Handle(CreateEmailOutgoingCommand request, CancellationToken cancellationToken)
     {
@@ -108,7 +108,7 @@ internal sealed class CreateEmailOutgoingCommandHandler(ILogger<CreateSmsOutgoin
             bcc = receiverGroup.BccEmails;
         }
 
-        var viewModelType = TemplateMap.GetViewModelType(eventTemplate.Content);
+        var viewModelType = TemplateMap.GetModelType(eventTemplate.Content);
         if (viewModelType == null)
         {
             throw new ArgumentException("Template not registered or ViewModel type not found for the specified template path.");
@@ -116,7 +116,7 @@ internal sealed class CreateEmailOutgoingCommandHandler(ILogger<CreateSmsOutgoin
 
         var viewModel = JsonConvert.DeserializeObject(eventTemplate.Variables, viewModelType);
 
-        string content = await _razorViewToStringRenderer.RenderViewToStringAsync($"{eventTemplate.Path + eventTemplate.Content}.cshtml", viewModel).ConfigureAwait(false);
+        string content = await _renderer.RenderViewToStringAsync($"{eventTemplate.Path + eventTemplate.Content}.cshtml", viewModel).ConfigureAwait(false);
 
        // content = await _engine.RenderTemplate($"{eventTemplate.Content}.cshtml", eventTemplate.Variables).ConfigureAwait(false);
         var emailOutgoing = new EmailOutgoing()

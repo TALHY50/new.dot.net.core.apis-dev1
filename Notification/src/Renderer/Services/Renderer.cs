@@ -8,16 +8,16 @@ using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Routing;
 
-namespace Notification.RazorTemplateEngine.Services;
+namespace Notification.Renderer.Services;
 
-// Code from: https://github.com/aspnet/Entropy/blob/master/samples/Mvc.RenderViewToString/RazorViewToStringRenderer.cs
-public class RazorViewToStringRenderer : IRazorViewToStringRenderer
+// Code from: https://github.com/aspnet/Entropy/blob/master/samples/Mvc.RenderViewToString/Renderer.cs
+public class Renderer : IRenderer
 {
     private readonly IRazorViewEngine _viewEngine;
     private readonly ITempDataProvider _tempDataProvider;
     private readonly IServiceProvider _serviceProvider;
 
-    public RazorViewToStringRenderer(
+    public Renderer(
         IRazorViewEngine viewEngine,
         ITempDataProvider tempDataProvider,
         IServiceProvider serviceProvider)

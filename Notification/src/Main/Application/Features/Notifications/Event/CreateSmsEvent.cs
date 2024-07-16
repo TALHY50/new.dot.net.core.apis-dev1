@@ -85,16 +85,13 @@ internal sealed class CreateSmsEventCommandHandler(ApplicationDbContext context)
         ReceiverGroup? receiverGroup = null;
         int receiverGroupId = 0;
 
-        if (request.Receivers.IsAllowFromApp == false)
+        receiverGroup = await _context.ReceiverGroups.FirstAsync(e => e != null && e.Type == NotificationType.Sms, cancellationToken: cancellationToken).ConfigureAwait(false);
+        if (receiverGroup == null)
         {
-            receiverGroup = await _context.ReceiverGroups.FirstAsync(e => e != null && e.Type == NotificationType.Sms, cancellationToken: cancellationToken).ConfigureAwait(false);
-            if (receiverGroup == null)
-            {
-                throw new Exception("receiver group not found");
-            }
-
-            receiverGroupId = receiverGroup.Id;
+            throw new Exception("receiver group not found");
         }
+
+        receiverGroupId = receiverGroup.Id;
 
         var smsEvent = new SmsEvent
         {

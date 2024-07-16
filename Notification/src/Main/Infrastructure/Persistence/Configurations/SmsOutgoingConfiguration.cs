@@ -1,15 +1,15 @@
-using ACL.Application.Domain.Notifications;
 using ACL.Application.Domain.Notifications.Outgoings;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace ACL.Application.Infrastructure.Persistence.Configurations
+namespace Notification.Main.Infrastructure.Persistence.Configurations
 {
     public class SmsOutgoingConfiguration : IEntityTypeConfiguration<SmsOutgoing>
     {
         public void Configure(EntityTypeBuilder<SmsOutgoing> builder)
         {
-            builder.ToTable("sms_outgoings");
+            builder.ToTable("notification_sms_outgoings");
 
             builder.HasKey(so => so.Id);
 
@@ -20,6 +20,7 @@ namespace ACL.Application.Infrastructure.Persistence.Configurations
             builder.Property(so => so.NotificationCredentialId)
                 .IsRequired()
                 .HasDefaultValue(0)
+                .HasColumnName("notification_credential_id")
                 .HasColumnType("int(11)");
 
             builder.Property(so => so.Content)
@@ -45,26 +46,32 @@ namespace ACL.Application.Infrastructure.Persistence.Configurations
 
             builder.Property(so => so.SentAt)
                 .HasColumnType("datetime")
+                .HasColumnName("sent_at")
                 .HasComment("The moment when sms sent successfully");
 
             builder.Property(so => so.NotificationEventId)
                 .IsRequired()
+                .HasColumnName("notification_event_id")
                 .HasColumnType("int(11)");
 
             builder.Property(so => so.NotificationEventName)
                 .IsRequired()
                 .HasMaxLength(50)
+                .HasColumnName("notification_event_name")
                 .HasColumnType("varchar(50)");
 
             builder.Property(so => so.CreatedAt)
+                .HasColumnName("created_at")
                 .HasColumnType("datetime");
 
             builder.Property(so => so.UpdatedAt)
+                .HasColumnName("updated_at")
                 .HasColumnType("datetime");
 
             builder.Property(so => so.CompanyId)
                 .IsRequired()
                 .HasColumnType("int(11)")
+                .HasColumnName("company_id")
                 .HasDefaultValue(0);
         }
     }

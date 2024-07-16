@@ -13,8 +13,7 @@ using Notification.Main.Infrastructure.Files;
 using Notification.Main.Infrastructure.Persistence;
 using Notification.Main.Infrastructure.Persistence.Repositories;
 using Notification.Main.Infrastructure.Services;
-using Notification.RazorTemplateEngine;
-using Notification.RazorTemplateEngine.Services;
+using Notification.Renderer;
 
 namespace Notification.Main;
 
@@ -46,6 +45,7 @@ public static class DependencyInjection
         services.AddScoped<IDomainEventService, DomainEventService>();
         services.AddTransient<IDateTime, DateTimeService>();
         services.AddTransient<IEmailService, EmailService>();
+        services.AddTransient<ISmsService, SmsService>();
         services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();
         services.AddSingleton<ICurrentUserService, CurrentUserService>();
 
@@ -72,6 +72,7 @@ public static class DependencyInjection
         services.AddScoped<IAppEventDataRepository, AppEventDataRepository>();
         services.AddScoped<IEventRepository, EventRepository>();
         services.AddScoped<IEmailOutgoingRepository, EmailOutgoingRepository>();
+        services.AddScoped<ISmsOutgoingRepository, SmsOutgoingRepository>();
         services.AddScoped<ICredentialRepository, CredentialRepository>();
 
         return services;
