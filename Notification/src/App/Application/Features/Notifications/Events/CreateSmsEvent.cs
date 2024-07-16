@@ -1,7 +1,4 @@
-using ACL.Application.Contracts;
-using ACL.Application.Domain.Notifications.Events;
-using ACL.Application.Domain.Setups;
-using ACL.Application.Domain.ValueObjects;
+using ErrorOr;
 
 using FluentValidation;
 
@@ -11,29 +8,35 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 using Notification.App.Application.Common;
-using Notification.Main.Infrastructure.Persistence;
+using Notification.App.Contracts;
+using Notification.App.Domain.Notifications.Events;
+using Notification.App.Domain.Setups;
+using Notification.App.Domain.ValueObjects;
+using Notification.App.Infrastructure.Persistence;
+
+using Result = Notification.App.Application.Common.Models.Result;
 
 namespace Notification.App.Application.Features.Notifications.Event;
 
-public class CreateEmailEventController : ApiControllerBase
+public class CreateSmsEventController : ApiControllerBase
 {
-    [HttpPost("/api/notification/event/email/create")]
-    public async Task<ActionResult<int>> Create(CreateEmailEventCommand command)
+    [HttpPost("/api/notification/event/sms/create")]
+    public async Task<ActionResult<ErrorOr<Result>>> Create(CreateSmsEventCommand command)
     {
         return await Mediator.Send(command);
     }
 }
 
-public record CreateEmailEventCommand(
+public record CreateSmsEventCommand(
     ReferenceUniqueId ReferenceUniqueId,
     CategoricalData CategoricalData,
     Content Content,
-    EmailReceivers Receivers,
-    MiscellaneousInformation Information) : IRequest<int>;
+    SmsReceivers Receivers,
+    MiscellaneousInformation Information) : IRequest<ErrorOr<Result>>;
 
-internal sealed class CreateEmailEventCommandValidator : AbstractValidator<CreateEmailEventCommand>
+internal sealed class CreateSmsEventCommandValidator : AbstractValidator<CreateSmsEventCommand>
 {
-    public CreateEmailEventCommandValidator()
+    public CreateSmsEventCommandValidator()
     {
         RuleFor(v => v.CategoricalData.Category)
             .MaximumLength(200)
@@ -41,22 +44,22 @@ internal sealed class CreateEmailEventCommandValidator : AbstractValidator<Creat
     }
 }
 
-internal sealed class CreateEmailEventCommandHandler(ApplicationDbContext context) : IRequestHandler<CreateEmailEventCommand, int>
+internal sealed class CreateSmsEventCommandHandler(ApplicationDbContext context) : IRequestHandler<CreateSmsEventCommand, ErrorOr<Result>>
 {
     private readonly ApplicationDbContext _context = context;
 
-    public async Task<int> Handle(CreateEmailEventCommand request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<Domain.Notifications.Events.Event>> Handle(CreateSmsEventCommand request, CancellationToken cancellationToken)
     {
         var now = DateTime.UtcNow;
-        var @event = new ACL.Application.Domain.Notifications.Events.Event
+        var @event = new Domain.Notifications.Events.Event
         {
             Category = request.CategoricalData.Category,
             Name = request.CategoricalData.Name,
-            IsEmail = true,
+            IsSms = true,
             IsAllowFromApp = request.Receivers.IsAllowFromApp,
+            Status = 0,
             CreatedById = request.Information.CreatedById,
             UpdatedById = request.Information.CreatedById,
-            Status = 0,
             CreatedAt = now,
             UpdatedAt = now,
         };
@@ -69,7 +72,6 @@ internal sealed class CreateEmailEventCommandHandler(ApplicationDbContext contex
             NotificationEventId = @event.Id,
             ReferenceUniqueId = request.ReferenceUniqueId.Value,
             Data = request.CategoricalData.Data,
-            AttachmentInfo = request.Content.AttachmentInfo,
             Receivers = request.Receivers.Receivers,
             CreatedAt = now,
             UpdatedAt = now,
@@ -79,17 +81,17 @@ internal sealed class CreateEmailEventCommandHandler(ApplicationDbContext contex
 
         await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
-        var credential = await _context.Credentials.FirstAsync(e => e.Type == NotificationType.Mail, cancellationToken: cancellationToken).ConfigureAwait(false);
+        var credential = await _context.Credentials.FirstAsync(e => e.Type == NotificationType.Sms, cancellationToken: cancellationToken).ConfigureAwait(false);
 
         if (credential == null)
         {
-            throw new Exception("credential not found");
+            throw new Exception("Credential not found");
         }
 
         ReceiverGroup? receiverGroup = null;
         int receiverGroupId = 0;
 
-        receiverGroup = await _context.ReceiverGroups.FirstAsync(e => e != null && e.Type == NotificationType.Mail, cancellationToken: cancellationToken).ConfigureAwait(false);
+        receiverGroup = await _context.ReceiverGroups.FirstAsync(e => e != null && e.Type == NotificationType.Sms, cancellationToken: cancellationToken).ConfigureAwait(false);
         if (receiverGroup == null)
         {
             throw new Exception("receiver group not found");
@@ -97,39 +99,36 @@ internal sealed class CreateEmailEventCommandHandler(ApplicationDbContext contex
 
         receiverGroupId = receiverGroup.Id;
 
-        var emailEvent = new EmailEvent
+        var smsEvent = new SmsEvent
         {
             NotificationEventId = @event.Id,
             NotificationCredentialId = credential.Id,
             NotificationReceiverGroupId = receiverGroupId,
             Name = request.CategoricalData.Name,
             IsAllowFromApp = request.Receivers.IsAllowFromApp,
-            IsAllowCc = request.Receivers.IsAllowCc,
-            IsAllowBcc = request.Receivers.IsAllowBcc,
             CreatedAt = now,
             UpdatedAt = now,
         };
 
-        _context.EmailEvents.Add(emailEvent);
+        _context.SmsEvents.Add(smsEvent);
 
         await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
-        var entity = new EventTemplate
-        {
-            NotificationEventId = @event.Id,
-            Type = NotificationType.Mail,
-            Language = request.Content.Language,
-            Subject = request.Content.Subject,
-            Content = request.Content.ContentTemplateName,
-            Path = request.Content.ContentTemplatePath,
-            Variables = request.Content.ContentTemplateModel.ToString(),
-            Status = 0,
-            CompanyId = request.Information.CompanyId,
-            CreatedById = request.Information.CreatedById,
-            UpdatedById = request.Information.CreatedById,
-            CreatedAt = now,
-            UpdatedAt = now,
-        };
+        var entity = new EventTemplate();
+
+        entity.NotificationEventId = @event.Id;
+        entity.Language = request.Content.Language;
+        entity.Subject = request.Content.Subject;
+        entity.Content = request.Content.ContentTemplateName;
+        entity.Path = request.Content.ContentTemplatePath;
+        entity.Type = NotificationType.Sms;
+        entity.Variables = request.Content.ContentTemplateModel.ToString();
+        entity.CompanyId = request.Information.CompanyId;
+        entity.Status = 0;
+        entity.CreatedById = request.Information.CreatedById;
+        entity.UpdatedById = request.Information.CreatedById;
+        entity.CreatedAt = now;
+        entity.UpdatedAt = now;
 
         _context.EventTemplates.Add(entity);
 
