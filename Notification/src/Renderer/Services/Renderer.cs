@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Routing;
 
+using Notification.Renderer.Views.Texts;
+
 namespace Notification.Renderer.Services;
 
 // Code from: https://github.com/aspnet/Entropy/blob/master/samples/Mvc.RenderViewToString/Renderer.cs
@@ -51,6 +53,18 @@ public class Renderer : IRenderer
         await view.RenderAsync(viewContext).ConfigureAwait(false);
 
         return output.ToString();
+    }
+
+    public Task<string> GetSmsText<TModel>(TModel model, string lang)
+    {
+        var text = string.Empty;
+        if (model is ISmsTextModel)
+        {
+            var textModel = (ISmsTextModel)model;
+            text = textModel.Message(lang);
+        }
+
+        return Task.FromResult(text);
     }
 
     private IView FindView(ActionContext actionContext, string viewName)
