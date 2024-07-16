@@ -3,6 +3,7 @@ using System.Reflection;
 
 using ACL.Application.Contracts;
 using ACL.Application.Domain.Notifications.Outgoings;
+
 using ErrorOr;
 using FluentValidation;
 using MediatR;
@@ -13,11 +14,12 @@ using Microsoft.Extensions.Logging;
 using Notification.Main.Application.Common;
 using Notification.Main.Application.Common.Interfaces;
 using Notification.Main.Application.Common.Interfaces.Repositories;
+using Notification.Main.Application.Common.Models;
 using Notification.Main.Domain.Todos;
 using Notification.Main.Infrastructure.Persistence;
 using Notification.RazorTemplateEngine.Services;
 
-using RazorHtmlEmails.RazorClassLib.Views.Emails.ConfirmAccount;
+using Result = Notification.Main.Application.Common.Models.Result;
 
 namespace Notification.Main.Application.Features.Notifications.Send;
 
@@ -61,12 +63,11 @@ internal sealed class SendEmailCommandHandler(
 
     public async Task<ErrorOr<bool>> Handle(SendEmailCommand request, CancellationToken cancellationToken)
     {
-        var now = DateTime.UtcNow;
         var emailOutgoing = await _emailOutgoingRepository.FindActiveRecordByIdAsync(request.OutgoingId.Value, cancellationToken).ConfigureAwait(false);
 
         if (emailOutgoing is null)
         {
-            return Error.NotFound(description: "outgoing record not found");
+            return Error.NotFound(description: "Record not found!");
         }
 
         var credential =
@@ -74,18 +75,29 @@ internal sealed class SendEmailCommandHandler(
 
         if (credential is null)
         {
-            return Error.NotFound(description: "credential not found");
+            return Error.NotFound(description: "Credential not found!");
         }
 
         IEmailSender? emailSender = await _emailService.GetEmailSender(credential).ConfigureAwait(false);
 
         if (emailSender is null)
         {
-            return Error.NotFound(description: "email sender not found");
+            return Error.NotFound(description: "Sender not found!");
         }
 
-        await emailSender.SendEmailAsync(emailOutgoing.To.Split(',').ToList(), credential.FromAddress, emailOutgoing.Subject, emailOutgoing.Content).ConfigureAwait(false);
+        Result result = await emailSender.SendEmailAsync(emailOutgoing.To.Split(',').ToList(), credential.FromAddress, emailOutgoing.Subject, emailOutgoing.Content).ConfigureAwait(false);
 
-        return false;
+        if (result.Succeeded.Type == Status.Completed.Type)
+        {
+            emailOutgoing.Status = Status.Completed.Type;
+        }
+        else
+        {
+            emailOutgoing.Status = Status.Failed.Type;
+        }
+
+        await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+
+        return true;
     }
 }

@@ -1,6 +1,8 @@
+using Notification.Main.Application.Common.Models;
+
 namespace Notification.Main.Application.Common.Interfaces;
 
 public interface IEmailSender
 {
-    Task SendEmailAsync(List<string> to, string from, string subject, string body);
+    Task<Result> SendEmailAsync(List<string> to, string from, string subject, string body);
 }

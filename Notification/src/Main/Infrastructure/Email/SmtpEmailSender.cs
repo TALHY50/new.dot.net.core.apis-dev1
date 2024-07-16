@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using MimeKit;
 
 using Notification.Main.Application.Common.Interfaces;
+using Notification.Main.Application.Common.Models;
 
 namespace Notification.Main.Infrastructure.Email;
 
@@ -19,8 +20,9 @@ public class SmtpEmailSender : IEmailSender
         _logger = logger;
     }
 
-    public async Task SendEmailAsync(List<string> to, string from, string subject, string body)
+    public async Task<Result> SendEmailAsync(List<string> to, string from, string subject, string body)
     {
+        _logger.LogWarning("Sending email to {to} from {from} with subject {subject} using {type}.", to, from, subject, this.ToString());
         using var email = new MimeMessage();
 
         to.ForEach(x => email.To.Add(new MailboxAddress(string.Empty, x.Trim())));
@@ -43,6 +45,6 @@ public class SmtpEmailSender : IEmailSender
 
         await smtp.DisconnectAsync(true).ConfigureAwait(false);
 
-        _logger.LogWarning("Sending email to {to} from {from} with subject {subject} using {type}.", to, from, subject, this.ToString());
+        return Result.Success();
     }
 }

@@ -71,7 +71,7 @@ namespace ACL.Application.Infrastructure.Persistence.Configurations
                 .HasColumnName("status")
                 .HasColumnType("tinyint(4)")
                 .IsRequired()
-                .HasDefaultValue(1)
+                .HasDefaultValue(0)
                 .HasComment("1= active, 0=inactive");
 
             builder.Property(e => e.Language)

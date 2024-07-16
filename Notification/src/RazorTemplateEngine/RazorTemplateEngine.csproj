@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
+
   
   <ItemGroup>
     <Compile Remove="Views\**\*.cs" />
@@ -13,34 +14,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <FrameworkReference Include="Microsoft.AspNetCore.App" />
-  </ItemGroup>
-  
-  
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.9" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.9" />
-    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="6.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.7" />
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="8.0.7" />
     <PackageReference Include="Newtonsoft.Json" />
     <PackageReference Include="RazorLight" />
   </ItemGroup>
-  
-  
+
   <ItemGroup>
-    <PackageVersion Update="Microsoft.AspNetCore.Components.Web" Version="8.0.7" />
-    <PackageVersion Update="Microsoft.Extensions.FileProviders.Embedded" Version="8.0.7" />
+    <Folder Include="wwwroot\" />
   </ItemGroup>
   
-  
-  <ItemGroup>
-    <None Include="Templates\Email\Shared\EmailButton.cshtml" />
-    <None Include="Templates\Email\Shared\EmailLayout.cshtml" />
-    <None Include="Templates\Email\_ViewStart.cshtml" />
-  </ItemGroup>
-  
-  <ItemGroup>
-   <EmbeddedResource Include="Templates\**" />
-  </ItemGroup>
+
   
   <PropertyGroup>
    <PreserveCompilationReferences>true</PreserveCompilationReferences>

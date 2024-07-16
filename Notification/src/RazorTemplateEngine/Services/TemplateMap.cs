@@ -1,10 +1,12 @@
+using Notification.RazorTemplateEngine.Views.Emails.Welcome;
+
 namespace Notification.RazorTemplateEngine.Services;
 
 public class TemplateMap
 {
     private static readonly Dictionary<string, Type> _templateMappings = new Dictionary<string, Type>
     {
-        { "Email.Welcome.cshtml", typeof(WelcomeViewModel) },
+        { "WelcomeEmail", typeof(WelcomeEmailViewModel) },
 
         // Add more mappings as needed
     };

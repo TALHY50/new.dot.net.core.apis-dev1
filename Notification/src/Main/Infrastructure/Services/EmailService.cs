@@ -8,16 +8,8 @@ namespace Notification.Main.Infrastructure.Services;
 
 public class EmailService : IEmailService
 {
-    private readonly ITemplateExecutionEngine _engine;
-
-    public EmailService(ITemplateExecutionEngine engine)
+    public EmailService()
     {
-        _engine = engine;
-    }
-
-    public async Task<string> GenerateEmailBody(string templatePath, string jsonData)
-    {
-        return await _engine.RenderTemplate(templatePath, jsonData).ConfigureAwait(false);
     }
 
     public Task<IEmailSender?> GetEmailSender(Credential credential)
