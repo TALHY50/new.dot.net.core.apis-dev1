@@ -1,9 +1,9 @@
-using ACL.Application.Domain.Notifications;
-using ACL.Application.Domain.Notifications.Events;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace ACL.Application.Infrastructure.Persistence.Configurations
+using Notification.App.Domain.Notifications.Events;
+
+namespace Notification.App.Infrastructure.Persistence.Configurations
 {
     public class AppEventDataConfiguration : IEntityTypeConfiguration<AppEventData>
     {

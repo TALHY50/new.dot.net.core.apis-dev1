@@ -1,6 +1,6 @@
 ﻿using Notification.App.Application.Common;
 
-namespace Notification.Main.Domain.Todos;
+namespace Notification.App.Domain.Todos;
 
 public class TodoItem : AuditableEntity, IHasDomainEvent
 {

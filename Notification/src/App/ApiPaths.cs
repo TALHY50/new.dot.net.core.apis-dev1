@@ -1,4 +1,4 @@
-namespace ACL.Application;
+namespace Notification.App;
 
 internal static class ApiPaths
 {

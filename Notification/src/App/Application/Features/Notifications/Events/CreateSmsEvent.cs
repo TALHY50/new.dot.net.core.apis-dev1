@@ -16,14 +16,14 @@ using Notification.App.Infrastructure.Persistence;
 
 using Result = Notification.App.Application.Common.Models.Result;
 
-namespace Notification.App.Application.Features.Notifications.Event;
+namespace Notification.App.Application.Features.Notifications.Events;
 
 public class CreateSmsEventController : ApiControllerBase
 {
     [HttpPost("/api/notification/event/sms/create")]
-    public async Task<ActionResult<ErrorOr<Result>>> Create(CreateSmsEventCommand command)
+    public async Task<ActionResult<ErrorOr<Event>>> Create(CreateSmsEventCommand command)
     {
-        return await Mediator.Send(command);
+        return await Mediator.Send(command).ConfigureAwait(false);
     }
 }
 
@@ -32,7 +32,7 @@ public record CreateSmsEventCommand(
     CategoricalData CategoricalData,
     Content Content,
     SmsReceivers Receivers,
-    MiscellaneousInformation Information) : IRequest<ErrorOr<Result>>;
+    MiscellaneousInformation Information) : IRequest<ErrorOr<Event>>;
 
 internal sealed class CreateSmsEventCommandValidator : AbstractValidator<CreateSmsEventCommand>
 {
@@ -44,11 +44,11 @@ internal sealed class CreateSmsEventCommandValidator : AbstractValidator<CreateS
     }
 }
 
-internal sealed class CreateSmsEventCommandHandler(ApplicationDbContext context) : IRequestHandler<CreateSmsEventCommand, ErrorOr<Result>>
+internal sealed class CreateSmsEventCommandHandler(ApplicationDbContext context) : IRequestHandler<CreateSmsEventCommand, ErrorOr<Event>>
 {
     private readonly ApplicationDbContext _context = context;
 
-    public async Task<ErrorOr<Domain.Notifications.Events.Event>> Handle(CreateSmsEventCommand request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<Event>> Handle(CreateSmsEventCommand request, CancellationToken cancellationToken)
     {
         var now = DateTime.UtcNow;
         var @event = new Domain.Notifications.Events.Event
@@ -71,7 +71,7 @@ internal sealed class CreateSmsEventCommandHandler(ApplicationDbContext context)
         {
             NotificationEventId = @event.Id,
             ReferenceUniqueId = request.ReferenceUniqueId.Value,
-            Data = request.CategoricalData.Data,
+            Data = request.CategoricalData.Data.ToString(),
             Receivers = request.Receivers.Receivers,
             CreatedAt = now,
             UpdatedAt = now,
@@ -83,18 +83,19 @@ internal sealed class CreateSmsEventCommandHandler(ApplicationDbContext context)
 
         var credential = await _context.Credentials.FirstAsync(e => e.Type == NotificationType.Sms, cancellationToken: cancellationToken).ConfigureAwait(false);
 
-        if (credential == null)
+        if (credential is null)
         {
-            throw new Exception("Credential not found");
+            return Error.NotFound("Credential not found!");
         }
 
         ReceiverGroup? receiverGroup = null;
         int receiverGroupId = 0;
 
         receiverGroup = await _context.ReceiverGroups.FirstAsync(e => e != null && e.Type == NotificationType.Sms, cancellationToken: cancellationToken).ConfigureAwait(false);
+
         if (receiverGroup == null)
         {
-            throw new Exception("receiver group not found");
+            return Error.NotFound("Receiver group not found!");
         }
 
         receiverGroupId = receiverGroup.Id;
@@ -134,6 +135,6 @@ internal sealed class CreateSmsEventCommandHandler(ApplicationDbContext context)
 
         await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
-        return @event.Id;
+        return @event;
     }
 }

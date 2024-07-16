@@ -1,8 +1,7 @@
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Hosting;
 
-namespace ACL.Application;
+namespace Notification.App;
 
 public class ErrorController : ControllerBase
 {

@@ -3,10 +3,9 @@
 using CsvHelper;
 
 using Notification.App.Application.Common.Interfaces;
-using Notification.Main.Domain.Todos;
-using Notification.Main.Infrastructure.Files;
+using Notification.App.Domain.Todos;
 
-namespace Notification.Main.Infrastructure.Files;
+namespace Notification.App.Infrastructure.Files;
 
 public class CsvFileBuilder : ICsvFileBuilder
 {

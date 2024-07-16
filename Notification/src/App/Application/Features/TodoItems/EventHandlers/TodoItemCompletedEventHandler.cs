@@ -1,7 +1,7 @@
 ﻿using MediatR;
 
 using Notification.App.Application.Common.Models;
-using Notification.Main.Domain.Todos;
+using Notification.App.Domain.Todos;
 
 namespace Notification.App.Application.Features.TodoItems.EventHandlers;
 

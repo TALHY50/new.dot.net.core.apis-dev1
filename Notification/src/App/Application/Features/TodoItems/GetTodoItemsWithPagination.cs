@@ -7,7 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Notification.App.Application.Common;
 using Notification.App.Application.Common.Mappings;
 using Notification.App.Application.Common.Models;
-using Notification.Main.Domain.Todos;
+using Notification.App.Domain.Todos;
+using Notification.App.Infrastructure.Persistence;
 using Notification.Main.Infrastructure.Persistence;
 
 namespace Notification.App.Application.Features.TodoItems;

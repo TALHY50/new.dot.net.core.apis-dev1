@@ -1,4 +1,4 @@
-using ACL.Application.Domain.Notifications.Outgoings;
+using ErrorOr;
 
 using FluentValidation;
 
@@ -11,23 +11,25 @@ using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 
 using Notification.App.Application.Common;
+using Notification.App.Domain.Notifications.Outgoings;
+using Notification.App.Infrastructure.Persistence;
 using Notification.Main.Infrastructure.Persistence;
 using Notification.Renderer.Services;
 
-using EventId = ACL.Application.Contracts.EventId;
+using EventId = Notification.App.Contracts.EventId;
 
 namespace Notification.App.Application.Features.Notifications.Outgoing;
 
 public class CreateEmailOutgoingController : ApiControllerBase
 {
     [HttpPost("/api/notification/outgoing/email/create")]
-    public async Task<ActionResult<int>> Create(CreateEmailOutgoingCommand command)
+    public async Task<ActionResult<ErrorOr<EmailOutgoing>>> Create(CreateEmailOutgoingCommand command)
     {
-        return await Mediator.Send(command);
+        return await Mediator.Send(command).ConfigureAwait(false);
     }
 }
 
-public record CreateEmailOutgoingCommand(EventId EventId) : IRequest<int>;
+public record CreateEmailOutgoingCommand(EventId EventId) : IRequest<ErrorOr<EmailOutgoing>>;
 
 internal sealed class CreateEmailOutgoingCommandValidator : AbstractValidator<CreateEmailOutgoingCommand>
 {
@@ -39,19 +41,19 @@ internal sealed class CreateEmailOutgoingCommandValidator : AbstractValidator<Cr
     }
 }
 
-internal sealed class CreateEmailOutgoingCommandHandler(ILogger<CreateSmsOutgoingCommandHandler> logger, ApplicationDbContext context, IRenderer renderer) : IRequestHandler<CreateEmailOutgoingCommand, int>
+internal sealed class CreateEmailOutgoingCommandHandler(ILogger<CreateSmsOutgoingCommandHandler> logger, ApplicationDbContext context, IRenderer renderer) : IRequestHandler<CreateEmailOutgoingCommand, ErrorOr<EmailOutgoing>>
 {
      private readonly ApplicationDbContext _context = context;
      private readonly IRenderer _renderer = renderer;
      private readonly ILogger _logger = logger;
-     public async Task<int> Handle(CreateEmailOutgoingCommand request, CancellationToken cancellationToken)
+     public async Task<ErrorOr<EmailOutgoing>> Handle(CreateEmailOutgoingCommand request, CancellationToken cancellationToken)
     {
         var now = DateTime.UtcNow;
         var @event = await _context.Events.Where(e => e.Id == request.EventId.Value).Where(e => e.Status == 0).Where(e => e.IsEmail == true).FirstOrDefaultAsync(cancellationToken).ConfigureAwait(false);
 
         if (@event == null)
         {
-            throw new Exception("event not found");
+            return Error.NotFound("Base event not found!");
         }
 
         var emailEvent = await _context.EmailEvents.Where(e => e.NotificationEventId == @event.Id).FirstOrDefaultAsync(cancellationToken)
@@ -59,7 +61,7 @@ internal sealed class CreateEmailOutgoingCommandHandler(ILogger<CreateSmsOutgoin
 
         if (emailEvent == null)
         {
-            throw new Exception("email event not found");
+            return Error.NotFound("Main event not found");
         }
 
         var appEventData = await _context.AppEventData.Where(e => e.NotificationEventId == @event.Id)
@@ -67,7 +69,7 @@ internal sealed class CreateEmailOutgoingCommandHandler(ILogger<CreateSmsOutgoin
 
         if (appEventData == null)
         {
-            throw new Exception("app event data not found");
+            return Error.NotFound("Event data not found!");
         }
 
         var eventTemplate = await _context.EventTemplates.Where(e => e.NotificationEventId == @event.Id)
@@ -75,7 +77,7 @@ internal sealed class CreateEmailOutgoingCommandHandler(ILogger<CreateSmsOutgoin
 
         if (eventTemplate == null)
         {
-            throw new Exception("event template not found");
+            return Error.NotFound("Template not found!");
         }
 
         var receiverGroup = await _context.ReceiverGroups.Where(e => e.Id == emailEvent.NotificationReceiverGroupId)
@@ -83,7 +85,7 @@ internal sealed class CreateEmailOutgoingCommandHandler(ILogger<CreateSmsOutgoin
 
         if (receiverGroup == null)
         {
-            throw new Exception("receiver group not found");
+            return Error.NotFound("Receiver group not found!");
         }
 
         bool isAttachment = !appEventData.AttachmentInfo.IsNullOrEmpty();
@@ -119,7 +121,6 @@ internal sealed class CreateEmailOutgoingCommandHandler(ILogger<CreateSmsOutgoin
 
         string content = await _renderer.RenderViewToStringAsync($"{eventTemplate.Path + eventTemplate.Content}.cshtml", viewModel).ConfigureAwait(false);
 
-       // content = await _engine.RenderTemplate($"{eventTemplate.Content}.cshtml", eventTemplate.Variables).ConfigureAwait(false);
         var emailOutgoing = new EmailOutgoing()
         {
             NotificationEventId = @event.Id,
@@ -157,6 +158,6 @@ internal sealed class CreateEmailOutgoingCommandHandler(ILogger<CreateSmsOutgoin
         _context.AppEventData.Remove(appEventData);
         await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
-        return emailOutgoing.Id;
+        return emailOutgoing;
     }
 }

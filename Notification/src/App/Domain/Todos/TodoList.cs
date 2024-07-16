@@ -1,7 +1,7 @@
 ﻿using Notification.App.Application.Common;
-using Notification.Main.Domain.ValueObjects;
+using Notification.App.Domain.ValueObjects;
 
-namespace Notification.Main.Domain.Todos;
+namespace Notification.App.Domain.Todos;
 
 public class TodoList : AuditableEntity
 {

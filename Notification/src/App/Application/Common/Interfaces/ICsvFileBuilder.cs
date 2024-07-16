@@ -1,4 +1,4 @@
-﻿using Notification.Main.Domain.Todos;
+﻿using Notification.App.Domain.Todos;
 
 namespace Notification.App.Application.Common.Interfaces;
 

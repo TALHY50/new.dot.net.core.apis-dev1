@@ -1,9 +1,10 @@
-using ACL.Application.Domain.Setups;
-using ACL.Application.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace ACL.Application.Infrastructure.Persistence.Configurations
+using Notification.App.Domain.Setups;
+using Notification.App.Domain.ValueObjects;
+
+namespace Notification.App.Infrastructure.Persistence.Configurations
 {
     public class ReceiverGroupConfiguration : IEntityTypeConfiguration<ReceiverGroup>
     {

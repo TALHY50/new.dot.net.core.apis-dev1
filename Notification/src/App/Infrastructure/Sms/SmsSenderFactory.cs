@@ -1,7 +1,7 @@
 using Notification.App.Application.Common.Interfaces;
-using Notification.Main.Domain.ValueObjects;
+using Notification.App.Domain.ValueObjects;
 
-namespace Notification.Main.Infrastructure.Sms;
+namespace Notification.App.Infrastructure.Sms;
 
 public class SmsSenderFactory
 {

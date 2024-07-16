@@ -1,4 +1,4 @@
-namespace ACL.Application.Contracts;
+namespace Notification.App.Contracts;
 
 public record ReferenceUniqueId(
     string Value = "");

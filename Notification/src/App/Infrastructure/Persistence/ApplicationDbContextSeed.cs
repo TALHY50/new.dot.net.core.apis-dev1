@@ -1,7 +1,7 @@
-﻿using Notification.Main.Domain.Todos;
-using Notification.Main.Domain.ValueObjects;
+﻿using Notification.App.Domain.Todos;
+using Notification.App.Domain.ValueObjects;
 
-namespace Notification.Main.Infrastructure.Persistence;
+namespace Notification.App.Infrastructure.Persistence;
 
 public static class ApplicationDbContextSeed
 {

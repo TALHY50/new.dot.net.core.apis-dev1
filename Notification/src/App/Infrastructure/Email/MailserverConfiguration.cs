@@ -1,6 +1,6 @@
-using Notification.Main.Domain.ValueObjects;
+using Notification.App.Domain.ValueObjects;
 
-namespace Notification.Main.Infrastructure.Email;
+namespace Notification.App.Infrastructure.Email;
 
 public class MailserverConfiguration
 {

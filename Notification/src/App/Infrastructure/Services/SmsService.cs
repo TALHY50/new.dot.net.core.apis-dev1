@@ -1,12 +1,10 @@
-using Microsoft.Identity.Client.Platforms.Features.DesktopOs.Kerberos;
-
 using Notification.App.Application.Common.Interfaces;
-using Notification.Main.Domain.ValueObjects;
-using Notification.Main.Infrastructure.Sms;
+using Notification.App.Domain.ValueObjects;
+using Notification.App.Infrastructure.Sms;
 
-using Credential = ACL.Application.Domain.Setups.Credential;
+using Credential = Notification.App.Domain.Setups.Credential;
 
-namespace Notification.Main.Infrastructure.Services;
+namespace Notification.App.Infrastructure.Services;
 
 public class SmsService : ISmsService
 {
@@ -21,7 +19,7 @@ public class SmsService : ISmsService
         return Task.FromResult(emailSender);
     }
 
-    private SmsProviderConfiguration GetMailServerConfiguration(ACL.Application.Domain.Setups.Credential credential)
+    private SmsProviderConfiguration GetMailServerConfiguration(Credential credential)
     {
         var config = new SmsProviderConfiguration();
         config.Name = ProviderName.From(credential.Title);

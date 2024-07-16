@@ -1,11 +1,9 @@
-using Microsoft.Extensions.Logging;
-
 using MimeKit;
 
 using Notification.App.Application.Common.Interfaces;
 using Notification.App.Application.Common.Models;
 
-namespace Notification.Main.Infrastructure.Email;
+namespace Notification.App.Infrastructure.Email;
 
 public class SmtpEmailSender : IEmailSender
 {

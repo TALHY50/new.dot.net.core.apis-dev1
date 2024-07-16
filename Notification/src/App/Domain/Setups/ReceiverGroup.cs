@@ -1,7 +1,7 @@
 #nullable disable
-using ACL.Application.Domain.ValueObjects;
+using Notification.App.Domain.ValueObjects;
 
-namespace ACL.Application.Domain.Setups
+namespace Notification.App.Domain.Setups
 {
     public class ReceiverGroup
     {

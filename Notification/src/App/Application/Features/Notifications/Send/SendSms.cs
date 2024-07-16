@@ -1,5 +1,3 @@
-using ACL.Application.Contracts;
-
 using ErrorOr;
 
 using FluentValidation;
@@ -12,6 +10,8 @@ using Notification.App.Application.Common;
 using Notification.App.Application.Common.Interfaces;
 using Notification.App.Application.Common.Interfaces.Repositories;
 using Notification.App.Application.Common.Models;
+using Notification.App.Contracts;
+using Notification.App.Infrastructure.Persistence;
 using Notification.Main.Infrastructure.Persistence;
 
 using Result = Notification.App.Application.Common.Models.Result;
@@ -21,13 +21,13 @@ namespace Notification.App.Application.Features.Notifications.Send;
 public class SendSmsController : ApiControllerBase
 {
     [HttpPost("/api/notification/send/sms")]
-    public async Task<ActionResult<ErrorOr<bool>>> Create(SendSmsCommand command)
+    public async Task<ActionResult<ErrorOr<Result>>> Create(SendSmsCommand command)
     {
-        return await Mediator.Send(command);
+        return await Mediator.Send(command).ConfigureAwait(false);
     }
 }
 
-public record SendSmsCommand(OutgoingId OutgoingId) : IRequest<ErrorOr<bool>>;
+public record SendSmsCommand(OutgoingId OutgoingId) : IRequest<ErrorOr<Result>>;
 
 internal sealed class SendSmsCommandValidator : AbstractValidator<SendSmsCommand>
 {
@@ -44,7 +44,7 @@ internal sealed class SendSmsCommandHandler(
     ApplicationDbContext context,
     ISmsOutgoingRepository smsOutgoingRepository,
     ICredentialRepository credentialRepository,
-    ISmsService smsService) : IRequestHandler<SendSmsCommand, ErrorOr<bool>>
+    ISmsService smsService) : IRequestHandler<SendSmsCommand, ErrorOr<Result>>
 {
     private readonly ApplicationDbContext _context = context;
     private readonly ILogger _logger = logger;
@@ -52,7 +52,7 @@ internal sealed class SendSmsCommandHandler(
     private readonly ICredentialRepository _credentialRepository = credentialRepository;
     private readonly ISmsService _smsService = smsService;
 
-    public async Task<ErrorOr<bool>> Handle(SendSmsCommand request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<Result>> Handle(SendSmsCommand request, CancellationToken cancellationToken)
     {
         var outgoing = await _emailOutgoingRepository.FindActiveRecordByIdAsync(request.OutgoingId.Value, cancellationToken).ConfigureAwait(false);
 
@@ -89,6 +89,6 @@ internal sealed class SendSmsCommandHandler(
 
         await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
-        return true;
+        return result;
     }
 }

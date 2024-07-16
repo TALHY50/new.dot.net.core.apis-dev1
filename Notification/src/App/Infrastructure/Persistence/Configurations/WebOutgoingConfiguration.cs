@@ -1,14 +1,15 @@
-using ACL.Application.Domain.Notifications.Outgoings;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace ACL.Application.Infrastructure.Persistence.Configurations
+using Notification.App.Domain.Notifications.Outgoings;
+
+namespace Notification.App.Infrastructure.Persistence.Configurations
 {
     public class WebOutgoingConfiguration : IEntityTypeConfiguration<WebOutgoing>
     {
         public void Configure(EntityTypeBuilder<WebOutgoing> builder)
         {
-            builder.ToTable("web_outgoings");
+            builder.ToTable("notification_web_outgoings");
 
             builder.HasKey(e => e.Id);
 
@@ -25,14 +26,12 @@ namespace ACL.Application.Infrastructure.Persistence.Configurations
             builder.Property(e => e.Subject)
                 .HasColumnName("subject")
                 .HasColumnType("varchar(255)")
-                .IsRequired()
-                .HasDefaultValue("0")
+                .HasDefaultValue(string.Empty)
                 .HasComment("Title of the web notification");
 
             builder.Property(e => e.Content)
                 .HasColumnName("content")
                 .HasColumnType("longtext")
-                .IsRequired()
                 .HasComment("payload of web notification");
 
             builder.Property(e => e.Host)

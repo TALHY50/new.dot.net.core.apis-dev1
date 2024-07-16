@@ -1,6 +1,6 @@
-namespace ACL.Application.Contracts;
+namespace Notification.App.Contracts;
 
 public record CategoricalData(
     string Category,
     string Name,
-    string Data = "");
+    object Data);

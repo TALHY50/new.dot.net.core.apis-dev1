@@ -1,5 +1,5 @@
 #nullable disable
-namespace ACL.Application.Domain.Setups
+namespace Notification.App.Domain.Setups
 {
     public class Variable
     {

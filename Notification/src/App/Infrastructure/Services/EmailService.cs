@@ -1,9 +1,9 @@
 using Notification.App.Application.Common.Interfaces;
-using Notification.Main.Infrastructure.Email;
+using Notification.App.Infrastructure.Email;
 
-using Credential = ACL.Application.Domain.Setups.Credential;
+using Credential = Notification.App.Domain.Setups.Credential;
 
-namespace Notification.Main.Infrastructure.Services;
+namespace Notification.App.Infrastructure.Services;
 
 public class EmailService : IEmailService
 {

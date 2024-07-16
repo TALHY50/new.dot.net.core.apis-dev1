@@ -1,6 +1,6 @@
 ﻿using FluentValidation.Results;
 
-using Notification.Main.Application.Common.Exceptions;
+using Notification.App.Application.Common.Exceptions;
 
 namespace ACL.Application.UnitTests.Common.Exceptions;
 

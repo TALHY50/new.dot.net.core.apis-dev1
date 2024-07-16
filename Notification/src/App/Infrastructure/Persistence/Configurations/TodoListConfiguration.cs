@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-using Notification.Main.Domain.Todos;
+using Notification.App.Domain.Todos;
 
-namespace Notification.Main.Infrastructure.Persistence.Configurations;
+namespace Notification.App.Infrastructure.Persistence.Configurations;
 
 public class TodoListConfiguration : IEntityTypeConfiguration<TodoList>
 {

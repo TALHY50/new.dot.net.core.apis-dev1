@@ -1,10 +1,9 @@
-using ACL.Application.Domain.Notifications.Outgoings;
-
 using Microsoft.EntityFrameworkCore;
 
 using Notification.App.Application.Common.Interfaces.Repositories;
+using Notification.App.Domain.Notifications.Outgoings;
 
-namespace Notification.Main.Infrastructure.Persistence.Repositories;
+namespace Notification.App.Infrastructure.Persistence.Repositories;
 
 public class SmsOutgoingRepository(ApplicationDbContext _dbContext) : ISmsOutgoingRepository
 {

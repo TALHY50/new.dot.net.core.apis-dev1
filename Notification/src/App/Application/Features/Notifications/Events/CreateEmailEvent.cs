@@ -1,3 +1,5 @@
+using ErrorOr;
+
 using FluentValidation;
 
 using MediatR;
@@ -11,16 +13,15 @@ using Notification.App.Domain.Notifications.Events;
 using Notification.App.Domain.Setups;
 using Notification.App.Domain.ValueObjects;
 using Notification.App.Infrastructure.Persistence;
-using Notification.Main.Infrastructure.Persistence;
 
-namespace Notification.App.Application.Features.Notifications.Event;
+namespace Notification.App.Application.Features.Notifications.Events;
 
 public class CreateEmailEventController : ApiControllerBase
 {
     [HttpPost("/api/notification/event/email/create")]
-    public async Task<ActionResult<int>> Create(CreateEmailEventCommand command)
+    public async Task<ActionResult<ErrorOr<Event>>> Create(CreateEmailEventCommand command)
     {
-        return await Mediator.Send(command);
+        return await Mediator.Send(command).ConfigureAwait(false);
     }
 }
 
@@ -29,7 +30,7 @@ public record CreateEmailEventCommand(
     CategoricalData CategoricalData,
     Content Content,
     EmailReceivers Receivers,
-    MiscellaneousInformation Information) : IRequest<int>;
+    MiscellaneousInformation Information) : IRequest<ErrorOr<Event>>;
 
 internal sealed class CreateEmailEventCommandValidator : AbstractValidator<CreateEmailEventCommand>
 {
@@ -41,11 +42,11 @@ internal sealed class CreateEmailEventCommandValidator : AbstractValidator<Creat
     }
 }
 
-internal sealed class CreateEmailEventCommandHandler(ApplicationDbContext context) : IRequestHandler<CreateEmailEventCommand, int>
+internal sealed class CreateEmailEventCommandHandler(ApplicationDbContext context) : IRequestHandler<CreateEmailEventCommand, ErrorOr<Event>>
 {
     private readonly ApplicationDbContext _context = context;
 
-    public async Task<int> Handle(CreateEmailEventCommand request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<Event>> Handle(CreateEmailEventCommand request, CancellationToken cancellationToken)
     {
         var now = DateTime.UtcNow;
         var @event = new Domain.Notifications.Events.Event
@@ -68,7 +69,7 @@ internal sealed class CreateEmailEventCommandHandler(ApplicationDbContext contex
         {
             NotificationEventId = @event.Id,
             ReferenceUniqueId = request.ReferenceUniqueId.Value,
-            Data = request.CategoricalData.Data,
+            Data = request.CategoricalData.Data.ToString(),
             AttachmentInfo = request.Content.AttachmentInfo,
             Receivers = request.Receivers.Receivers,
             CreatedAt = now,
@@ -83,7 +84,7 @@ internal sealed class CreateEmailEventCommandHandler(ApplicationDbContext contex
 
         if (credential == null)
         {
-            throw new Exception("credential not found");
+            return Error.NotFound("Credential not found!");
         }
 
         ReceiverGroup? receiverGroup = null;
@@ -92,7 +93,7 @@ internal sealed class CreateEmailEventCommandHandler(ApplicationDbContext contex
         receiverGroup = await _context.ReceiverGroups.FirstAsync(e => e != null && e.Type == NotificationType.Mail, cancellationToken: cancellationToken).ConfigureAwait(false);
         if (receiverGroup == null)
         {
-            throw new Exception("receiver group not found");
+            return Error.NotFound("Receiver group not found!");
         }
 
         receiverGroupId = receiverGroup.Id;
@@ -135,6 +136,6 @@ internal sealed class CreateEmailEventCommandHandler(ApplicationDbContext contex
 
         await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
-        return @event.Id;
+        return @event;
     }
 }

@@ -1,7 +1,7 @@
 #nullable disable
-using ACL.Application.Domain.ValueObjects;
+using Notification.App.Domain.ValueObjects;
 
-namespace ACL.Application.Domain.Notifications.Events
+namespace Notification.App.Domain.Notifications.Events
 {
     public class EventTemplate
     {

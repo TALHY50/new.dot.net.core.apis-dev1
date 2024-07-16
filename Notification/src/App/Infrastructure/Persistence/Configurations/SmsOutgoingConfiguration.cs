@@ -1,9 +1,9 @@
-using ACL.Application.Domain.Notifications.Outgoings;
-
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Notification.Main.Infrastructure.Persistence.Configurations
+using Notification.App.Domain.Notifications.Outgoings;
+
+namespace Notification.App.Infrastructure.Persistence.Configurations
 {
     public class SmsOutgoingConfiguration : IEntityTypeConfiguration<SmsOutgoing>
     {

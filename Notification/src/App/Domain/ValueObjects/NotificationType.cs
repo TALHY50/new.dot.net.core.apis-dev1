@@ -1,7 +1,7 @@
 using Notification.App.Application.Common;
 using Notification.App.Application.Common.Exceptions;
 
-namespace ACL.Application.Domain.ValueObjects;
+namespace Notification.App.Domain.ValueObjects;
 
 public class NotificationType : ValueObject
 {

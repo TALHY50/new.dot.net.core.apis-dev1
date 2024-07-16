@@ -1,21 +1,17 @@
-﻿using ACL.Application.Infrastructure.Services;
-
-using FluentValidation;
+﻿using FluentValidation;
 
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
 using Notification.App.Application.Common.Behaviours;
 using Notification.App.Application.Common.Interfaces;
 using Notification.App.Application.Common.Interfaces.Repositories;
-using Notification.Main.Infrastructure.Files;
-using Notification.Main.Infrastructure.Persistence;
-using Notification.Main.Infrastructure.Persistence.Repositories;
-using Notification.Main.Infrastructure.Services;
+using Notification.App.Infrastructure.Files;
+using Notification.App.Infrastructure.Persistence;
+using Notification.App.Infrastructure.Persistence.Repositories;
+using Notification.App.Infrastructure.Services;
 using Notification.Renderer;
 
-namespace Notification.Main;
+namespace Notification.App;
 
 public static class DependencyInjection
 {
@@ -46,6 +42,7 @@ public static class DependencyInjection
         services.AddTransient<IDateTime, DateTimeService>();
         services.AddTransient<IEmailService, EmailService>();
         services.AddTransient<ISmsService, SmsService>();
+        services.AddTransient<IWebService, WebService>();
         services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();
         services.AddSingleton<ICurrentUserService, CurrentUserService>();
 
@@ -73,6 +70,7 @@ public static class DependencyInjection
         services.AddScoped<IEventRepository, EventRepository>();
         services.AddScoped<IEmailOutgoingRepository, EmailOutgoingRepository>();
         services.AddScoped<ISmsOutgoingRepository, SmsOutgoingRepository>();
+        services.AddScoped<IWebOutgoingRepository, WebOutgoingRepository>();
         services.AddScoped<ICredentialRepository, CredentialRepository>();
 
         return services;

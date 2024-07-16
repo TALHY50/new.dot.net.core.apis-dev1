@@ -1,12 +1,10 @@
 ﻿using MediatR;
 
-using Microsoft.Extensions.Logging;
-
 using Notification.App.Application.Common;
 using Notification.App.Application.Common.Interfaces;
 using Notification.App.Application.Common.Models;
 
-namespace ACL.Application.Infrastructure.Services;
+namespace Notification.App.Infrastructure.Services;
 
 public class DomainEventService : IDomainEventService
 {

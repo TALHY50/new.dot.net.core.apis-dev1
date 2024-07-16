@@ -1,10 +1,8 @@
 using System.Security.Claims;
 
-using Microsoft.AspNetCore.Http;
-
 using Notification.App.Application.Common.Interfaces;
 
-namespace ACL.Application.Infrastructure.Services;
+namespace Notification.App.Infrastructure.Services;
 
 public class CurrentUserService : ICurrentUserService
 {

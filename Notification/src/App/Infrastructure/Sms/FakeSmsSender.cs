@@ -1,7 +1,7 @@
 using Notification.App.Application.Common.Interfaces;
 using Notification.App.Application.Common.Models;
 
-namespace Notification.Main.Infrastructure.Sms;
+namespace Notification.App.Infrastructure.Sms;
 
 public class FakeSmsSender(ILogger<FakeSmsSender> _logger) : ISmsSender
 {

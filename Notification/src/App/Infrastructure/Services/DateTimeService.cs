@@ -1,8 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using Notification.App.Application.Common.Interfaces;
 
-using Notification.App.Application.Common.Interfaces;
-
-namespace ACL.Application.Infrastructure.Services;
+namespace Notification.App.Infrastructure.Services;
 
 public class DateTimeService : IDateTime
 {

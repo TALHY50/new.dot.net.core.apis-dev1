@@ -1,15 +1,15 @@
 ﻿using System.Reflection;
 
-using ACL.Application.Domain.Notifications.Events;
-using ACL.Application.Domain.Notifications.Outgoings;
-using ACL.Application.Domain.Setups;
 using Microsoft.EntityFrameworkCore;
 
 using Notification.App.Application.Common;
 using Notification.App.Application.Common.Interfaces;
-using Notification.Main.Domain.Todos;
+using Notification.App.Domain.Notifications.Events;
+using Notification.App.Domain.Notifications.Outgoings;
+using Notification.App.Domain.Setups;
+using Notification.App.Domain.Todos;
 
-namespace Notification.Main.Infrastructure.Persistence;
+namespace Notification.App.Infrastructure.Persistence;
 
 public class ApplicationDbContext : DbContext
 {

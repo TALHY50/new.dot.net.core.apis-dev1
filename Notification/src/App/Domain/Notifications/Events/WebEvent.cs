@@ -1,6 +1,6 @@
 #nullable disable
 
-namespace ACL.Application.Domain.Notifications.Events
+namespace Notification.App.Domain.Notifications.Events
 {
     public class WebEvent
     {

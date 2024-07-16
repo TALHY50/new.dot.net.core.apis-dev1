@@ -1,3 +1,5 @@
+using ErrorOr;
+
 using FluentValidation;
 
 using MediatR;
@@ -5,21 +7,29 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+using Newtonsoft.Json;
+
 using Notification.App.Application.Common;
+using Notification.App.Application.Common.Models;
+using Notification.App.Domain.Notifications.Outgoings;
+using Notification.App.Infrastructure.Persistence;
 using Notification.Main.Infrastructure.Persistence;
+using Notification.Renderer.Services;
+
+using EventId = Notification.App.Contracts.EventId;
 
 namespace Notification.App.Application.Features.Notifications.Outgoing;
 
 public class CreateWebOutgoingController : ApiControllerBase
 {
     [HttpPost("/api/notification/outgoing/web/create")]
-    public async Task<ActionResult<int>> Create(CreateWebOutgoingCommand command)
+    public async Task<ActionResult<ErrorOr<WebOutgoing>>> Create(CreateWebOutgoingCommand command)
     {
-        return await Mediator.Send(command);
+        return await Mediator.Send(command).ConfigureAwait(false);
     }
 }
 
-public record CreateWebOutgoingCommand() : IRequest<int>;
+public record CreateWebOutgoingCommand(EventId EventId) : IRequest<ErrorOr<WebOutgoing>>;
 
 internal sealed class CreateWebOutgoingCommandValidator : AbstractValidator<CreateWebOutgoingCommand>
 {
@@ -31,19 +41,80 @@ internal sealed class CreateWebOutgoingCommandValidator : AbstractValidator<Crea
     }
 }
 
-internal sealed class CreateWebOutgoingCommandHandler(ApplicationDbContext context) : IRequestHandler<CreateWebOutgoingCommand, int>
+internal sealed class CreateWebOutgoingCommandHandler(ILogger<CreateWebOutgoingCommandHandler> logger, ApplicationDbContext context, IRenderer renderer) : IRequestHandler<CreateWebOutgoingCommand, ErrorOr<WebOutgoing>>
 {
-    private readonly ApplicationDbContext _context = context;
-
-    public async Task<int> Handle(CreateWebOutgoingCommand request, CancellationToken cancellationToken)
+     private readonly ApplicationDbContext _context = context;
+     private readonly IRenderer _renderer = renderer;
+     private readonly ILogger _logger = logger;
+     public async Task<ErrorOr<WebOutgoing>> Handle(CreateWebOutgoingCommand request, CancellationToken cancellationToken)
     {
-        var events = await _context.Events.Where(e => e.Status == 0).ToListAsync(cancellationToken: cancellationToken);
+        var now = DateTime.UtcNow;
+        var baseEvent = await _context.Events.Where(e => e.Id == request.EventId.Value).Where(e => e.Status == 0).Where(e => e.IsWeb == true).FirstOrDefaultAsync(cancellationToken).ConfigureAwait(false);
 
-        foreach (var @event in events)
+        if (baseEvent == null)
         {
-            return 1;
+            return Error.NotFound("Base event not found");
         }
 
-        return 0;
+        var mainEvent = await _context.WebEvents.Where(e => e.NotificationEventId == baseEvent.Id).FirstOrDefaultAsync(cancellationToken)
+            .ConfigureAwait(false);
+
+        if (mainEvent == null)
+        {
+            return Error.NotFound("Main event not found!");
+        }
+
+        var appEventData = await _context.AppEventData.Where(e => e.NotificationEventId == baseEvent.Id)
+            .FirstOrDefaultAsync(cancellationToken).ConfigureAwait(false);
+
+        if (appEventData == null)
+        {
+            return Error.NotFound("Event data not found!");
+        }
+
+        var receiverGroup = await _context.ReceiverGroups.Where(e => e.Id == mainEvent.NotificationReceiverGroupId)
+            .FirstOrDefaultAsync(cancellationToken).ConfigureAwait(false);
+
+        if (receiverGroup == null)
+        {
+            return Error.NotFound("Receiver group not found!");
+        }
+
+        var to = receiverGroup.To;
+
+        if (mainEvent.IsAllowFromApp)
+        {
+            to = to + "," + appEventData.Url;
+        }
+
+        var outgoing = new WebOutgoing()
+        {
+            NotificationEventId = baseEvent.Id,
+            NotificationEventName = mainEvent.Name,
+            NotificationCredentialId = mainEvent.NotificationCredentialId,
+            Host = to,
+            Content = appEventData.Data,
+            CompanyId = receiverGroup.CompanyId,
+            Status = 0,
+            CreatedAt = now,
+            UpdatedAt = now,
+        };
+
+        _context.WebOutgoings.Add(outgoing);
+
+        await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+
+        baseEvent.Status = Status.Completed.Type;
+
+        _context.Events.Remove(baseEvent);
+        await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+
+        _context.WebEvents.Remove(mainEvent);
+        await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+
+        _context.AppEventData.Remove(appEventData);
+        await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+
+        return outgoing;
     }
 }

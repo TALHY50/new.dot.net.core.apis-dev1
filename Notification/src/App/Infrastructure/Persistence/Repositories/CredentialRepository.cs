@@ -1,9 +1,9 @@
-using ACL.Application.Domain.Setups;
 using Microsoft.EntityFrameworkCore;
 
 using Notification.App.Application.Common.Interfaces.Repositories;
+using Notification.App.Domain.Setups;
 
-namespace Notification.Main.Infrastructure.Persistence.Repositories;
+namespace Notification.App.Infrastructure.Persistence.Repositories;
 
 public class CredentialRepository(ApplicationDbContext _dbContext) : ICredentialRepository
 {

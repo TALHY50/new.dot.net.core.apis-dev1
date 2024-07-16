@@ -2,9 +2,9 @@
 
 using CsvHelper.Configuration;
 
-using Notification.Main.Domain.Todos;
+using Notification.App.Domain.Todos;
 
-namespace Notification.Main.Infrastructure.Files;
+namespace Notification.App.Infrastructure.Files;
 
 public class TodoItemRecordMap : ClassMap<TodoItemRecord>
 {

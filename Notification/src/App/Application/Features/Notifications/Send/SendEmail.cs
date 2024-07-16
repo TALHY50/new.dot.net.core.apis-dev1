@@ -1,5 +1,3 @@
-using ACL.Application.Contracts;
-
 using ErrorOr;
 
 using FluentValidation;
@@ -12,6 +10,8 @@ using Notification.App.Application.Common;
 using Notification.App.Application.Common.Interfaces;
 using Notification.App.Application.Common.Interfaces.Repositories;
 using Notification.App.Application.Common.Models;
+using Notification.App.Contracts;
+using Notification.App.Infrastructure.Persistence;
 using Notification.Main.Infrastructure.Persistence;
 using Notification.Renderer.Services;
 
@@ -22,13 +22,13 @@ namespace Notification.App.Application.Features.Notifications.Send;
 public class SendEmailController : ApiControllerBase
 {
     [HttpPost("/api/notification/send/email")]
-    public async Task<ActionResult<ErrorOr<bool>>> Create(SendEmailCommand command)
+    public async Task<ErrorOr<Result>> Create(SendEmailCommand command)
     {
-        return await Mediator.Send(command);
+        return await Mediator.Send(command).ConfigureAwait(false);
     }
 }
 
-public record SendEmailCommand(OutgoingId OutgoingId) : IRequest<ErrorOr<bool>>;
+public record SendEmailCommand(OutgoingId OutgoingId) : IRequest<ErrorOr<Result>>;
 
 internal sealed class SendEmailCommandValidator : AbstractValidator<SendEmailCommand>
 {
@@ -47,7 +47,7 @@ internal sealed class SendEmailCommandHandler(
     ICredentialRepository credentialRepository,
     IRenderer renderer,
     IHostEnvironment environment,
-    IEmailService emailService) : IRequestHandler<SendEmailCommand, ErrorOr<bool>>
+    IEmailService emailService) : IRequestHandler<SendEmailCommand, ErrorOr<Result>>
 {
     private readonly ApplicationDbContext _context = context;
     private readonly ILogger _logger = logger;
@@ -57,7 +57,7 @@ internal sealed class SendEmailCommandHandler(
     private readonly IRenderer _renderer = renderer;
     private readonly IHostEnvironment _environment = environment;
 
-    public async Task<ErrorOr<bool>> Handle(SendEmailCommand request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<Result>> Handle(SendEmailCommand request, CancellationToken cancellationToken)
     {
         var emailOutgoing = await _emailOutgoingRepository.FindActiveRecordByIdAsync(request.OutgoingId.Value, cancellationToken).ConfigureAwait(false);
 
@@ -94,6 +94,6 @@ internal sealed class SendEmailCommandHandler(
 
         await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
-        return true;
+        return result;
     }
 }

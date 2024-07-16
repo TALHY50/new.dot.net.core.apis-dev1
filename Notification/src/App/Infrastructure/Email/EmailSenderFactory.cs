@@ -1,11 +1,7 @@
-using ErrorOr;
-
-using Microsoft.Extensions.Logging;
-
 using Notification.App.Application.Common.Interfaces;
-using Notification.Main.Domain.ValueObjects;
+using Notification.App.Domain.ValueObjects;
 
-namespace Notification.Main.Infrastructure.Email;
+namespace Notification.App.Infrastructure.Email;
 
 public class EmailSenderFactory
 {

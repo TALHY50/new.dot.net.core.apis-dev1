@@ -1,10 +1,10 @@
-using ACL.Application.Domain.Notifications;
-using ACL.Application.Domain.Notifications.Events;
-using ACL.Application.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace ACL.Application.Infrastructure.Persistence.Configurations
+using Notification.App.Domain.Notifications.Events;
+using Notification.App.Domain.ValueObjects;
+
+namespace Notification.App.Infrastructure.Persistence.Configurations
 {
     public class EventTemplateConfiguration : IEntityTypeConfiguration<EventTemplate>
     {

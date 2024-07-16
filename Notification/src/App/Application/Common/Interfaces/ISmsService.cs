@@ -1,4 +1,4 @@
-using Credential = ACL.Application.Domain.Setups.Credential;
+using Credential = Notification.App.Domain.Setups.Credential;
 
 namespace Notification.App.Application.Common.Interfaces;
 

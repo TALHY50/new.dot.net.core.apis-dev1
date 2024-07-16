@@ -1,9 +1,7 @@
-using Microsoft.Extensions.Logging;
-
 using Notification.App.Application.Common.Interfaces;
 using Notification.App.Application.Common.Models;
 
-namespace Notification.Main.Infrastructure.Email;
+namespace Notification.App.Infrastructure.Email;
 
 public class FakeEmailSender(ILogger<FakeEmailSender> _logger) : IEmailSender
 {
