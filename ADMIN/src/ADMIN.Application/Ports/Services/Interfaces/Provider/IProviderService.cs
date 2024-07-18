@@ -9,8 +9,8 @@ using ADMIN.Contracts.Response;
 using ADMIN.Application.Ports.Repositories.Provider;
 using ADMIN.Core.Entities.Provider;
 
-//using SharedLibrary.Models.Admin.Provider;
-//using SharedLibrary.Repositories.Admin.Interface.Provider;
+//using SharedKernel.Models.Admin.Provider;
+//using SharedKernel.Repositories.Admin.Interface.Provider;
 
 namespace ADMIN.Application.Ports.Services.Interfaces.Provider
 {

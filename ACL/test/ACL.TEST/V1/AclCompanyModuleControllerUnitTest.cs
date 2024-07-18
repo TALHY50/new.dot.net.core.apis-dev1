@@ -4,7 +4,7 @@ using ACL.Application.Infrastructure.Route;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using RestSharp;
-using SharedLibrary.Response.CustomStatusCode;
+using SharedKernel.Contracts.Response;
 using static ACL.Application.Infrastructure.Route.AclRoutesUrl;
 
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.

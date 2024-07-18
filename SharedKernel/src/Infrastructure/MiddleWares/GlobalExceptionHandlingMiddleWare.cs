@@ -2,8 +2,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using MySqlConnector;
-using SharedKernel.Contracts.Response.CustomStatusCode;
-using SharedKernel.Contracts.Response.V1;
+using SharedKernel.Contracts.Response;
 
 namespace SharedKernel.Infrastructure.MiddleWares
 {

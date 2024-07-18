@@ -36,7 +36,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\SharedLibrary\SharedLibrary.csproj" />
+    <ProjectReference Include="..\..\..\SharedKernel\src\SharedKernel.csproj" />
     <ProjectReference Include="..\..\src\ACL.Web\ACL.Web.csproj" />
   </ItemGroup>
 

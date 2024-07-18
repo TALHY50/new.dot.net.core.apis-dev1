@@ -42,16 +42,16 @@ msbuild.wrn
 ./Logs/.*
 src/ACL/Logs/
 
-./SharedLibrary/obj/
-./SharedLibrary/bin/
-/SharedLibrary/obj/Debug/net8.0/SharedLibrary.AssemblyInfo.cs
-/SharedLibrary/obj/Debug/net8.0/SharedLibrary.AssemblyInfoInputs.cache
-/SharedLibrary/obj/Debug/net8.0/SharedLibrary.assets.cache
-/SharedLibrary/obj/project.assets.json
-/SharedLibrary/obj/project.nuget.cache
-/SharedLibrary/obj/SharedLibrary.csproj.nuget.dgspec.json
-/SharedLibrary/obj/SharedLibrary.csproj.nuget.g.props
-/SharedLibrary/obj/SharedLibrary.csproj.nuget.g.targets
+./SharedKernel/obj/
+./SharedKernel/bin/
+/SharedKernel/obj/Debug/net8.0/SharedKernel.AssemblyInfo.cs
+/SharedKernel/obj/Debug/net8.0/SharedKernel.AssemblyInfoInputs.cache
+/SharedKernel/obj/Debug/net8.0/SharedKernel.assets.cache
+/SharedKernel/obj/project.assets.json
+/SharedKernel/obj/project.nuget.cache
+/SharedKernel/obj/SharedKernel.csproj.nuget.dgspec.json
+/SharedKernel/obj/SharedKernel.csproj.nuget.g.props
+/SharedKernel/obj/SharedKernel.csproj.nuget.g.targets
 /src/ACL/Logs/2024-04-22_log.txt
 /src/ACL/Logs/2024-04-22_querylog.txt
 /src/ACL/Logs/2024-04-23_querylog.txt

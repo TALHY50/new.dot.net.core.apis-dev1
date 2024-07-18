@@ -1,4 +1,4 @@
-﻿namespace SharedKernel.Contracts.Response.CustomStatusCode
+﻿namespace SharedKernel.Contracts.Response
 {
     public static partial class AppStatusCode
     {

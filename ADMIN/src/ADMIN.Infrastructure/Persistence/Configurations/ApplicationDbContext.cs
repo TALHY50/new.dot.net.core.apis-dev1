@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using MySql.EntityFrameworkCore.Extensions;
-using SharedLibrary.Interfaces;
+using SharedKernel.Interfaces;
 using System;
 using ADMIN.Core.Entities.Provider;
 

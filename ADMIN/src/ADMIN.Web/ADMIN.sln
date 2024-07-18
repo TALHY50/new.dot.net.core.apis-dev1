@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ADMIN.Core", "..\ADMIN.Core
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ADMIN.Infrastructure", "..\ADMIN.Infrastructure\ADMIN.Infrastructure.csproj", "{A30E63B5-295F-4507-84D6-8E576EC6A886}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedLibrary", "..\..\..\SharedLibrary\SharedLibrary.csproj", "{030E172A-1759-49F6-ACB8-BFE73A6CCE2D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedKernel", "..\..\..\SharedKernel\SharedKernel.csproj", "{030E172A-1759-49F6-ACB8-BFE73A6CCE2D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

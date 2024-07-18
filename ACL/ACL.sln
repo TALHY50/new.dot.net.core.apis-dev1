@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{ACD2BD24-4
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ACL.TEST", "test\ACL.TEST\ACL.TEST.csproj", "{64B2EAFB-3BCE-40BA-B7DA-5A19A5C02883}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedLibrary", "..\SharedLibrary\SharedLibrary.csproj", "{BB3EC72C-0B71-4506-A8ED-884A526A4A35}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedKernel", "..\SharedKernel\src\SharedKernel.csproj", "{BB3EC72C-0B71-4506-A8ED-884A526A4A35}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2B38B16A-C160-46D9-A2A0-623736A98415}"
 	ProjectSection(SolutionItems) = preProject

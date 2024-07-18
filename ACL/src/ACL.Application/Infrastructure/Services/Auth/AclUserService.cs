@@ -11,7 +11,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
-using SharedLibrary.Response.CustomStatusCode;
+using SharedKernel.Contracts.Response;
+
 
 namespace ACL.Application.Infrastructure.Services.Auth
 {

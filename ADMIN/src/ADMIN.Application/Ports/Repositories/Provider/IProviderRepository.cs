@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ADMIN.Core.Entities.Provider;
-using SharedLibrary.Interfaces;
+using SharedKernel.Interfaces;
 
 namespace ADMIN.Application.Ports.Repositories.Provider
 {

@@ -5,16 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using ADMIN.Contracts.Requests;
 using ADMIN.Contracts.Response;
-using SharedLibrary.Response.CustomStatusCode;
+using SharedKernel.Response.CustomStatusCode;
 
 using ADMIN.Application.Ports.Services.Interfaces.Provider;
 using ADMIN.Core.Entities.Provider;
 using ADMIN.Infrastructure.Persistence.Configurations;
 using ADMIN.Infrastructure.Persistence.Repositories.Provider;
 
-//using SharedLibrary.Models.Admin.Provider;
-//using SharedLibrary.Persistence.Configurations;
-//using SharedLibrary.Repositories.Admin.Provider;
+//using SharedKernel.Models.Admin.Provider;
+//using SharedKernel.Persistence.Configurations;
+//using SharedKernel.Repositories.Admin.Provider;
 
 namespace ADMIN.Infrastructure.Persistence.Services.Provider
 {

@@ -8,7 +8,7 @@ using ACL.Application.Infrastructure.Persistence.Configurations;
 using ACL.Application.Infrastructure.Persistence.Repositories.Module;
 using ACL.Application.Infrastructure.Utilities;
 using Microsoft.AspNetCore.Http;
-using SharedLibrary.Response.CustomStatusCode;
+using SharedKernel.Contracts.Response;
 
 namespace ACL.Application.Infrastructure.Services.Module
 {

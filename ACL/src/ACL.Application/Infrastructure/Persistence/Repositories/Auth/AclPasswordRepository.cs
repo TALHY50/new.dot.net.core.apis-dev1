@@ -5,8 +5,8 @@ using ACL.Application.Domain.Ports.Services.Cryptography;
 using ACL.Application.Infrastructure.Persistence.Configurations;
 using ACL.Application.Infrastructure.Utilities;
 using Microsoft.AspNetCore.Http;
-using SharedLibrary.Response.CustomStatusCode;
-using SharedLibrary.Utilities;
+using SharedKernel.Contracts.Response;
+using SharedKernel.Infrastructure.Utilities;
 
 namespace ACL.Application.Infrastructure.Persistence.Repositories.Auth
 {

@@ -2,7 +2,7 @@ using ADMIN.Application.Ports.Repositories.Provider;
 using ADMIN.Core.Entities.Provider;
 using ADMIN.Infrastructure.Persistence.Configurations;
 using Microsoft.Extensions.Configuration;
-using SharedLibrary.Services;
+using SharedKernel.Services;
 
 namespace ADMIN.Infrastructure.Persistence.Repositories.Provider
 {

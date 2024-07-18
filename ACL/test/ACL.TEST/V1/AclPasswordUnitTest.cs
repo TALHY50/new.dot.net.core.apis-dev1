@@ -4,9 +4,9 @@ using ACL.Application.Infrastructure.Route;
 using Microsoft.EntityFrameworkCore;
 using RestSharp;
 using Newtonsoft.Json;
-using SharedLibrary.Utilities;
-using SharedLibrary.Services;
-using SharedLibrary.Response.CustomStatusCode;
+using SharedKernel.Contracts.Response;
+using SharedKernel.Infrastructure.Services;
+using SharedKernel.Infrastructure.Utilities;
 
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
 #pragma warning disable CS8601 // Converting null literal or possible null value to non-nullable type.

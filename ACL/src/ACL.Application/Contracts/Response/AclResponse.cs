@@ -1,4 +1,4 @@
-﻿using SharedLibrary.Response;
+﻿using SharedKernel.Contracts.Response;
 
 namespace ACL.Application.Contracts.Response
 {

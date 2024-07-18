@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ADMIN.Core.Entities.Provider
 {
-    public class AdminProvider : SharedLibrary.Models.Admin.Provider.AdminProvider
+    public class AdminProvider : SharedKernel.Models.Admin.Provider.AdminProvider
     {
     }
 }

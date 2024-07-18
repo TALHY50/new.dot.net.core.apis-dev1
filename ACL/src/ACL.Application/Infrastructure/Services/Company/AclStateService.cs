@@ -6,7 +6,7 @@ using ACL.Application.Infrastructure.Persistence.Configurations;
 using ACL.Application.Infrastructure.Persistence.Repositories.Company;
 using ACL.Application.Infrastructure.Utilities;
 using Microsoft.AspNetCore.Http;
-using SharedLibrary.Response.CustomStatusCode;
+using SharedKernel.Contracts.Response;
 
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8604 // Possible null reference argument.

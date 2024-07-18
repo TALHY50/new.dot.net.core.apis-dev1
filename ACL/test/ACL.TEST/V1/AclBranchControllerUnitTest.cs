@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 using ACL.Application.Contracts.Requests;
 using ACL.Application.Contracts.Response;
 using ACL.Application.Infrastructure.Route;
-using SharedLibrary.Response.CustomStatusCode;
 using Newtonsoft.Json;
+using SharedKernel.Contracts.Response;
 
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
 #pragma warning disable CS8602 // Converting null literal or possible null value to non-nullable type.

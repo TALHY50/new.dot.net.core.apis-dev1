@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using SharedLibrary.Response;
+using SharedKernel.Response;
 
 namespace ADMIN.Contracts.Response
 {

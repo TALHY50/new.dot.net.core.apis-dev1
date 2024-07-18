@@ -10,7 +10,7 @@ using ACL.Application.Infrastructure.Persistence.Repositories.Role;
 using ACL.Application.Infrastructure.Utilities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using SharedLibrary.Response.CustomStatusCode;
+using SharedKernel.Contracts.Response;
 
 namespace ACL.Application.Infrastructure.Services.Role
 {

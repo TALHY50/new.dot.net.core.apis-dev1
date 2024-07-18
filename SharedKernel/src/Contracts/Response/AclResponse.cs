@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace SharedKernel.Contracts.Response.V1
+namespace SharedKernel.Contracts.Response
 {
     public class BaseResponse
     {

@@ -2,12 +2,12 @@ using ADMIN.Application.Ports.Services.Interfaces.Provider;
 using ADMIN.Infrastructure.Persistence.Services.Provider;
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
-using SharedLibrary.Interfaces;
-using SharedLibrary.Services;
+using SharedKernel.Interfaces;
+using SharedKernel.Services;
 
 using ADMIN.Infrastructure.Persistence.Configurations;
 
-//using SharedLibrary.Persistence.Configurations;
+//using SharedKernel.Persistence.Configurations;
 
 namespace ADMIN
 {

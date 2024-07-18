@@ -6,7 +6,8 @@ using ACL.Application.Domain.Role;
 using ACL.Application.Domain.UserGroup;
 using ACL.Application.Infrastructure.Persistence.Migrations;
 using Microsoft.EntityFrameworkCore;
-using SharedLibrary.Interfaces;
+using SharedKernel.Application.Interfaces;
+
 
 namespace ACL.Application.Infrastructure.Persistence.Configurations;
 

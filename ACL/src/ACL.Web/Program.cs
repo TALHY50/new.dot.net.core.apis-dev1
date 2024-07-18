@@ -35,20 +35,16 @@ using Serilog;
 using Serilog.Events;
 using DotNetEnv;
 using Microsoft.AspNetCore.Authentication;
-using SharedLibrary.Interfaces;
-using SharedLibrary.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using SharedLibrary.CustomMiddleWare;
-using SharedLibrary.CustomDataAnotator;
 using Microsoft.AspNetCore.Mvc;
-using SharedLibrary.Response.CustomStatusCode;
-using Microsoft.Extensions.DependencyInjection;
-
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.IdentityModel.Tokens;
 using AuthenticationService = Microsoft.AspNetCore.Authentication.AuthenticationService;
 using Microsoft.OpenApi.Models;
+using SharedKernel.Application.Interfaces;
+using SharedKernel.Contracts.Response;
+using SharedKernel.Infrastructure.MiddleWares;
+using SharedKernel.Infrastructure.Services;
 using StackExchange.Redis;
 
 

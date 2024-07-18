@@ -45,7 +45,7 @@
 	  <ProjectReference Include="..\ADMIN.Application\ADMIN.Application.csproj" />
 	  <ProjectReference Include="..\ADMIN.Contracts\ADMIN.Contracts.csproj" />
 	  <ProjectReference Include="..\ADMIN.Core\ADMIN.Core.csproj" />
-	  <ProjectReference Include="..\..\..\SharedLibrary\SharedLibrary.csproj" />
+	  <ProjectReference Include="..\..\..\SharedKernel\SharedKernel.csproj" />
 
 	</ItemGroup>
 
