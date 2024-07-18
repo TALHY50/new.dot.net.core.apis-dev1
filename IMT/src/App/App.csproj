@@ -2,13 +2,13 @@
 
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
-		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
 		<UserSecretsId>1b988c5a-53fa-4f5a-a54a-e24e33000278</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 		<DockerfileContext>.</DockerfileContext>
+		<RootNamespace>IMT.Application</RootNamespace>
 	</PropertyGroup>
-
 	<ItemGroup>
 		<PackageReference Include="DotNetEnv" Version="3.0.0" />
 		<PackageReference Include="FakeItEasy" Version="8.2.0" />
@@ -48,13 +48,12 @@
 		<PackageReference Include="MediatR" Version="12.2.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.6" />
 	</ItemGroup>
-
 	<ItemGroup>
-	  <ProjectReference Include="..\App\App.csproj" />
+	  <ProjectReference Include="..\..\..\SharedKernel\src\SharedKernel.csproj" />
 	  <ProjectReference Include="..\PayAll\PayAll.csproj" />
 	  <ProjectReference Include="..\Thunes\Thunes.csproj" />
-	  <ProjectReference Include="..\..\..\SharedKernel\SharedKernel.csproj" />
 	</ItemGroup>
-
-
+	<ItemGroup>
+	  <Folder Include="Domain\" />
+	</ItemGroup>
 </Project>
