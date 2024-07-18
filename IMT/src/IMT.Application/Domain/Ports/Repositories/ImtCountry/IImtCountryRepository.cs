@@ -1,10 +1,10 @@
-﻿using SharedLibrary.Interfaces;
-using SharedLibrary.Models.IMT;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SharedKernel.Application.Interfaces;
+using SharedKernel.Domain.IMT;
 
 namespace IMT.Application.Domain.Ports.Services.Quotation
 {

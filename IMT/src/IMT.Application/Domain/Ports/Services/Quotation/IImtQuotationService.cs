@@ -3,15 +3,12 @@ using IMT.Application.Domain.Ports.Repositories.Quotation;
 using IMT.Application.Infrastructure.Persistence.Repositories;
 using IMT.Thunes.Request.Transaction.Quotation;
 using IMT.Thunes.Response.Transfer.Quotation;
-using SharedLibrary.Interfaces;
-using SharedLibrary.Models.IMT;
-using SharedLibrary.Persistence.Configurations;
-using SharedLibrary.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SharedKernel.Domain.IMT;
 
 namespace IMT.Application.Domain.Ports.Services.Quotation
 {

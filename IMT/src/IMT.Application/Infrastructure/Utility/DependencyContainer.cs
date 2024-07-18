@@ -14,12 +14,12 @@ using IMT.Application.Infrastructure.Persistence.Services.QuotationService;
 using IMT.Application.Infrastructure.Persistence.Services.Transaction;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using SharedLibrary.Persistence.Configurations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SharedKernel.Infrastructure.Persistence.Configurations;
 
 namespace IMT.Application.Infrastructure.Utility
 {

@@ -2,7 +2,6 @@
 using IMT.PayAll.Exception;
 using DotNetEnv;
 using Microsoft.OpenApi.Models;
-using SharedLibrary.Persistence.Configurations;
 using Microsoft.EntityFrameworkCore;
 using IMT.Application.Domain.Ports.Services.Quotation;
 using IMT.Application.Infrastructure.Persistence.Services.QuotationService;
@@ -15,6 +14,7 @@ using IMT.Application.Domain.Ports.Services.ConfirmTransaction;
 using IMT.Application.Infrastructure.Persistence.Services.ConfirmTransactionService;
 using IMT.Application.Domain.Ports.Services.SendMoney;
 using IMT.Application.Infrastructure.Persistence.Services.SendMoney;
+using SharedKernel.Infrastructure.Persistence.Configurations;
 
 
 var builder = WebApplication.CreateBuilder(args);

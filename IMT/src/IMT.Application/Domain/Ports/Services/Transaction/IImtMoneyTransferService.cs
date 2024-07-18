@@ -5,12 +5,12 @@ using IMT.Thunes.Request.Transaction.Quotation;
 using IMT.Thunes.Request.Transaction.Transfer.CommonTransaction;
 using IMT.Thunes.Response.Transfer.Quotation;
 using IMT.Thunes.Response.Transfer.Transaction;
-using SharedLibrary.Models.IMT;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SharedKernel.Domain.IMT;
 
 namespace IMT.Application.Domain.Ports.Services.Transaction
 {

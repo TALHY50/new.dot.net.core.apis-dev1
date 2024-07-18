@@ -1,6 +1,5 @@
-﻿
-using SharedLibrary.Interfaces;
-using SharedLibrary.Models.IMT;
+﻿using SharedKernel.Application.Interfaces;
+using SharedKernel.Domain.IMT;
 
 namespace IMT.Application.Domain.Ports.Repositories.ConfirmTransaction
 {

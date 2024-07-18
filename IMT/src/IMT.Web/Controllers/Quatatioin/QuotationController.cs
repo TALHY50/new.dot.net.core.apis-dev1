@@ -13,9 +13,6 @@ using IMT.Thunes.Response.Common;
 using IMT.Thunes.Route;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SharedLibrary.Models.IMT;
-using SharedLibrary.Persistence.Configurations;
-using SharedLibrary.Response.CustomStatusCode;
 
 namespace IMT.Web.Controllers.Quotation
 {

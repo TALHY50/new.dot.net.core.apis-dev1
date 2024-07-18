@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IMT.PayAll.Sample", "src\IM
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IMT.Thunes.Sample", "src\IMT.Thunes.Sample\IMT.Thunes.Sample.csproj", "{2E2F7EF8-1A24-49EB-B99B-C8F808250365}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedLibrary", "..\SharedLibrary\SharedLibrary.csproj", "{F15FB5F3-24BB-4CE8-A06B-CB223CD0313A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedKernel", "..\SharedKernel\SharedKernel.csproj", "{F15FB5F3-24BB-4CE8-A06B-CB223CD0313A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AE8D3859-CD9B-4DA9-A452-E58535EB0CC7}"
 	ProjectSection(SolutionItems) = preProject

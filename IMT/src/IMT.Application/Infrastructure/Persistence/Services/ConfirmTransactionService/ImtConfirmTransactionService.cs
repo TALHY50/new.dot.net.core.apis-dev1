@@ -1,16 +1,16 @@
 ﻿
 using IMT.Thunes;
-using SharedLibrary.Persistence.Configurations;
 using IMT.Application.Infrastructure.Utility;
 using IMT.Application.Domain.Ports.Services.ConfirmTransaction;
 using IMT.Thunes.Exception;
 using IMT.Thunes.Response.Common;
-using SharedLibrary.Models.IMT;
 using IMT.Application.Domain.Ports.Repositories.ConfirmTransaction;
 using IMT.Thunes.Request.ConfirmTrasaction;
 using IMT.Application.Domain.Ports.Services.Transaction;
 using IMT.Thunes.Response.Transfer.Transaction;
 using IMT.Application.Domain.Ports.Repositories.ImtTransaction;
+using SharedKernel.Domain.IMT;
+using SharedKernel.Infrastructure.Persistence.Configurations;
 
 
 namespace IMT.Application.Infrastructure.Persistence.Services.ConfirmTransactionService

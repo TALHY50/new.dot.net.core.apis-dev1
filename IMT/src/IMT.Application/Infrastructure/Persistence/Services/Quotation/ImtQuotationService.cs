@@ -8,10 +8,6 @@ using IMT.Thunes;
 using IMT.Thunes.Request.Transaction.Quotation;
 using IMT.Thunes.Response.Common;
 using IMT.Thunes.Request.Common;
-using SharedLibrary.Interfaces;
-using SharedLibrary.Models.IMT;
-using SharedLibrary.Persistence.Configurations;
-using SharedLibrary.Repositories.Admin.Provider;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +19,8 @@ using IMT.PayAll.Request.Common;
 using Microsoft.AspNetCore.Http.HttpResults;
 using IMT.Thunes.Response.Transfer.Quotation;
 using IMT.Application.Domain.Ports.Repositories.ConfirmTransaction;
+using SharedKernel.Domain.IMT;
+using SharedKernel.Infrastructure.Persistence.Configurations;
 
 namespace IMT.Application.Infrastructure.Persistence.Services.QuotationService
 {

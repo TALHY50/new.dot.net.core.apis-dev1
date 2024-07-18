@@ -11,14 +11,12 @@
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.6" />
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\..\..\SharedLibrary\SharedLibrary.csproj" />
+	  <ProjectReference Include="..\..\..\SharedKernel\SharedKernel.csproj" />
 	  <ProjectReference Include="..\IMT.PayAll\IMT.PayAll.csproj" />
 	  <ProjectReference Include="..\IMT.Thunes\IMT.Thunes.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Folder Include="Common\" />
 	  <Folder Include="Contracts\Response\" />
-	  <Folder Include="Features\" />
 	  <Folder Include="Infrastructure\Persistence\Configuarations\" />
 	  <Folder Include="Infrastructure\Persistence\Route\" />
 	</ItemGroup>

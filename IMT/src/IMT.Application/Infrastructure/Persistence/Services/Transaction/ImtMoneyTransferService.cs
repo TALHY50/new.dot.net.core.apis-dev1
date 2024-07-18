@@ -15,13 +15,13 @@ using IMT.Thunes.Response.Common;
 using IMT.Thunes.Response.Transfer.Quotation;
 using IMT.Thunes.Response.Transfer.Transaction;
 using Mysqlx.Crud;
-using SharedLibrary.Models.IMT;
-using SharedLibrary.Persistence.Configurations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SharedKernel.Domain.IMT;
+using SharedKernel.Infrastructure.Persistence.Configurations;
 
 #pragma warning disable CS8629 // Nullable value type may be null.
 namespace IMT.Application.Infrastructure.Persistence.Services.Transaction

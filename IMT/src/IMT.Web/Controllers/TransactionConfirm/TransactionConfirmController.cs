@@ -5,8 +5,8 @@ using IMT.Thunes.Request.ConfirmTrasaction;
 using IMT.Thunes.Response.Common;
 using IMT.Thunes.Route;
 using Microsoft.AspNetCore.Mvc;
-using SharedLibrary.Models.IMT;
-using SharedLibrary.Persistence.Configurations;
+using SharedKernel.Domain.IMT;
+using SharedKernel.Infrastructure.Persistence.Configurations;
 
 namespace IMT.Web.Controllers.Transaction
 {

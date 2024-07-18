@@ -1,7 +1,6 @@
-﻿
-using SharedLibrary.Models.IMT;
-using SharedLibrary.Persistence.Configurations;
-using SharedLibrary.Services;
+﻿using SharedKernel.Domain.IMT;
+using SharedKernel.Infrastructure.Persistence.Configurations;
+using SharedKernel.Infrastructure.Services;
 
 namespace IMT.Application.Domain.Ports.Repositories.ConfirmTransaction
 {
