@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App", "src/SharedKernel/SharedKernel.csproj", "{C4A50D5F-91F3-4EC7-9C4A-73378BC28350}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9BCAD10D-678E-463C-82EC-C5FF89E46E7C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedKernel", "src\SharedKernel\SharedKernel.csproj", "{6238F5BE-A49E-4DD9-B259-F847B0CA2E74}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,7 +20,12 @@ Global
 		{C4A50D5F-91F3-4EC7-9C4A-73378BC28350}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4A50D5F-91F3-4EC7-9C4A-73378BC28350}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4A50D5F-91F3-4EC7-9C4A-73378BC28350}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6238F5BE-A49E-4DD9-B259-F847B0CA2E74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6238F5BE-A49E-4DD9-B259-F847B0CA2E74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6238F5BE-A49E-4DD9-B259-F847B0CA2E74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6238F5BE-A49E-4DD9-B259-F847B0CA2E74}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{6238F5BE-A49E-4DD9-B259-F847B0CA2E74} = {9BCAD10D-678E-463C-82EC-C5FF89E46E7C}
 	EndGlobalSection
 EndGlobal
