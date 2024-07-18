@@ -1,19 +1,16 @@
-﻿using ACL.Application.Common.Enums;
-using ACL.Application.Domain.Auth;
-using ACL.Application.Domain.Ports.Repositories.Auth;
-using ACL.Application.Domain.Ports.Services.Cryptography;
-using ACL.Application.Infrastructure.Persistence.Configurations;
-using ACL.Application.Infrastructure.Persistence.Dtos;
-using ACL.Application.Infrastructure.Utilities;
-using Microsoft.AspNetCore.Http;
+﻿using App.Application.Common.Enums;
+using App.Domain.Auth;
+using App.Domain.Ports.Repositories.Auth;
+using App.Domain.Ports.Services.Cryptography;
+using App.Infrastructure.Persistence.Configurations;
+using App.Infrastructure.Persistence.Dtos;
+using App.Infrastructure.Utilities;
 using Microsoft.Extensions.Caching.Distributed;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 //using ACL.Infrastructure.Persistence.DTOs;
-using Claim = ACL.Application.Domain.Auth.Claim;
 
-namespace ACL.Application.Infrastructure.Persistence.Repositories.Auth
+namespace App.Infrastructure.Persistence.Repositories.Auth
 {
     /// <inheritdoc/>
     public class AclUserRepository : IAclUserRepository
@@ -36,20 +33,20 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Auth
         public AclUserRepository(ApplicationDbContext dbContext, IConfiguration config, IDistributedCache distributedCache, ICryptographyService cryptographyService, IAclUserUserGroupRepository aclUserUserGroupRepository, IHttpContextAccessor httpContextAccessor)
         {
 
-            AclUserUserGroupRepository = aclUserUserGroupRepository;
-            _config = config;
+            this.AclUserUserGroupRepository = aclUserUserGroupRepository;
+            this._config = config;
             var user = _httpContextAccessor?.HttpContext?.User;
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8604 // Possible null reference argument.
-            _distributedCache = distributedCache;
-            _dbContext = dbContext;
-            _cryptographyService = cryptographyService;
+            this._distributedCache = distributedCache;
+            this._dbContext = dbContext;
+            this._cryptographyService = cryptographyService;
             _httpContextAccessor = httpContextAccessor;
             AppAuth.Initialize(_httpContextAccessor, dbContext);
             AppAuth.SetAuthInfo(_httpContextAccessor);
-            _companyId = (uint)AppAuth.GetAuthInfo().CompanyId;
+            this._companyId = (uint)AppAuth.GetAuthInfo().CompanyId;
 #pragma warning disable CS8629 // Nullable value type may be null.
-            _userType = (uint)AppAuth.GetAuthInfo().UserType;
+            this._userType = (uint)AppAuth.GetAuthInfo().UserType;
 #pragma warning restore CS8629 // Nullable value type may be null.
         }
        
@@ -57,7 +54,7 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Auth
         {
             try
             {
-                return _dbContext.AclUsers.FirstOrDefault(m => m.Email == email);
+                return this._dbContext.AclUsers.FirstOrDefault(m => m.Email == email);
             }
             catch (Exception)
             {
@@ -69,7 +66,7 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Auth
         {
             try
             {
-                return _dbContext.AclUsers.FirstOrDefault(m => m.Id == id);
+                return this._dbContext.AclUsers.FirstOrDefault(m => m.Id == id);
             }
             catch (Exception e)
             {
@@ -81,13 +78,13 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Auth
         /// <inheritdoc/>
         public uint SetCompanyId(uint companyId)
         {
-            _companyId = companyId;
-            return _companyId;
+            this._companyId = companyId;
+            return this._companyId;
         }
         /// <inheritdoc/>
         public uint SetUserType(bool is_user_type_created_by_company)
         {
-            return _userType = is_user_type_created_by_company ? uint.Parse(_config["USER_TYPE_S_ADMIN"]) : uint.Parse(_config["USER_TYPE_USER"]);
+            return this._userType = is_user_type_created_by_company ? uint.Parse(this._config["USER_TYPE_S_ADMIN"]) : uint.Parse(this._config["USER_TYPE_USER"]);
         }
         /// <inheritdoc/>
         public AclUser? AddAndSaveAsync(AclUser entity)
@@ -112,10 +109,10 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Auth
 
             var key = $"{Enum.GetName(CacheKeys.UserIdPermissionVersion)}-{userId}_{userPermissionVersion}";
 
-            if (_distributedCache is IDistributedCache)
+            if (this._distributedCache is IDistributedCache)
             {
 
-                string? cachedPermittedRoutes = await _distributedCache.GetStringAsync(key);
+                string? cachedPermittedRoutes = await this._distributedCache.GetStringAsync(key);
 
                 if (cachedPermittedRoutes != null)
                 {
@@ -126,15 +123,15 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Auth
 
             if (routeNames.IsNullOrEmpty())
             {
-                var result = (from userUsergroup in _dbContext.AclUserUsergroups
-                              join usergroup in _dbContext.AclUsergroups on userUsergroup.UsergroupId equals usergroup.Id
-                              join usergroupRole in _dbContext.AclUsergroupRoles on usergroup.Id equals usergroupRole.UsergroupId
-                              join role in _dbContext.AclRoles on usergroupRole.RoleId equals role.Id
-                              join rolePage in _dbContext.AclRolePages on role.Id equals rolePage.RoleId
-                              join page in _dbContext.AclPages on rolePage.PageId equals page.Id
-                              join pageRoute in _dbContext.AclPageRoutes on page.Id equals pageRoute.PageId
-                              join subModule in _dbContext.AclSubModules on page.SubModuleId equals subModule.Id
-                              join module in _dbContext.AclModules on subModule.ModuleId equals module.Id
+                var result = (from userUsergroup in this._dbContext.AclUserUsergroups
+                              join usergroup in this._dbContext.AclUsergroups on userUsergroup.UsergroupId equals usergroup.Id
+                              join usergroupRole in this._dbContext.AclUsergroupRoles on usergroup.Id equals usergroupRole.UsergroupId
+                              join role in this._dbContext.AclRoles on usergroupRole.RoleId equals role.Id
+                              join rolePage in this._dbContext.AclRolePages on role.Id equals rolePage.RoleId
+                              join page in this._dbContext.AclPages on rolePage.PageId equals page.Id
+                              join pageRoute in this._dbContext.AclPageRoutes on page.Id equals pageRoute.PageId
+                              join subModule in this._dbContext.AclSubModules on page.SubModuleId equals subModule.Id
+                              join module in this._dbContext.AclModules on subModule.ModuleId equals module.Id
                               where userUsergroup.UserId == user.Id
                               select new PermissionQueryResult()
                               {
@@ -160,9 +157,9 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Auth
                     routeNames = new HashSet<string>(result.Select(q => q.PageRouteName)!);
                 }
 
-                if (_distributedCache is IDistributedCache)
+                if (this._distributedCache is IDistributedCache)
                 {
-                    await _distributedCache.SetStringAsync(key, JsonConvert.SerializeObject(routeNames));
+                    await this._distributedCache.SetStringAsync(key, JsonConvert.SerializeObject(routeNames));
                 }
             }
 
@@ -177,7 +174,7 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Auth
         {
             try
             {
-                return _dbContext.AclUsers.ToList();
+                return this._dbContext.AclUsers.ToList();
             }
             catch (Exception)
             {
@@ -190,7 +187,7 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Auth
         {
             try
             {
-                return _dbContext.AclUsers.FirstOrDefault(x => x.Id == id && x.CreatedById == AppAuth.GetAuthInfo().UserId);
+                return this._dbContext.AclUsers.FirstOrDefault(x => x.Id == id && x.CreatedById == AppAuth.GetAuthInfo().UserId);
             }
             catch (Exception)
             {
@@ -202,9 +199,9 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Auth
         {
             try
             {
-                _dbContext.AclUsers.Add(aclUser);
-                _dbContext.SaveChanges();
-                _dbContext.Entry(aclUser).Reload();
+                this._dbContext.AclUsers.Add(aclUser);
+                this._dbContext.SaveChanges();
+                this._dbContext.Entry(aclUser).Reload();
                 return aclUser;
             }
             catch (Exception)
@@ -217,9 +214,9 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Auth
         {
             try
             {
-                _dbContext.AclUsers.Update(aclUser);
-                _dbContext.SaveChanges();
-                _dbContext.Entry(aclUser).Reload();
+                this._dbContext.AclUsers.Update(aclUser);
+                this._dbContext.SaveChanges();
+                this._dbContext.Entry(aclUser).Reload();
                 return aclUser;
             }
             catch (Exception)
@@ -232,8 +229,8 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Auth
         {
             try
             {
-                _dbContext.AclUsers.Remove(aclUser);
-                _dbContext.SaveChanges();
+                this._dbContext.AclUsers.Remove(aclUser);
+                this._dbContext.SaveChanges();
                 return aclUser;
             }
             catch (Exception)
@@ -248,8 +245,8 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Auth
             try
             {
                 var delete = Find(id);
-                _dbContext.AclUsers.Remove(delete);
-                _dbContext.SaveChanges();
+                this._dbContext.AclUsers.Remove(delete);
+                this._dbContext.SaveChanges();
                 return delete;
             }
             catch (Exception)
@@ -262,11 +259,11 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Auth
         /// <inheritdoc/>
         public async Task ReloadEntitiesAsync(IEnumerable<AclUserUsergroup> entities)
         {
-            await Task.WhenAll(entities.Select(entity => _dbContext.Entry(entity).ReloadAsync()));
+            await Task.WhenAll(entities.Select(entity => this._dbContext.Entry(entity).ReloadAsync()));
         }
         public Task ReloadEntities(IEnumerable<AclUserUsergroup> entities)
         {
-            Task.WaitAll(entities.Select<AclUserUsergroup, Task>(entity => _dbContext.Entry(entity).ReloadAsync()).ToArray());
+            Task.WaitAll(entities.Select<AclUserUsergroup, Task>(entity => this._dbContext.Entry(entity).ReloadAsync()).ToArray());
             return Task.CompletedTask;
         }
 
@@ -274,16 +271,16 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Auth
         public List<ulong>? GetUserIdByChangePermission(ulong? module_id = null, ulong? sub_module_id = null, ulong? page_id = null, ulong? role_id = null, ulong? user_group_id = null)
         {
 
-            var query = from aclUser in _dbContext.AclUsers
-                        join userUsergroup in _dbContext.AclUserUsergroups on aclUser.Id equals userUsergroup.UserId
-                        join usergroup in _dbContext.AclUsergroups on userUsergroup.UsergroupId equals usergroup.Id
-                        join usergroupRole in _dbContext.AclUsergroupRoles on usergroup.Id equals usergroupRole.UsergroupId
-                        join role in _dbContext.AclRoles on usergroupRole.RoleId equals role.Id
-                        join rolePage in _dbContext.AclRolePages on role.Id equals rolePage.RoleId
-                        join page in _dbContext.AclPages on rolePage.PageId equals page.Id
-                        join pageRoute in _dbContext.AclPageRoutes on page.Id equals pageRoute.PageId
-                        join subModule in _dbContext.AclSubModules on page.SubModuleId equals subModule.Id
-                        join module in _dbContext.AclModules on subModule.ModuleId equals module.Id
+            var query = from aclUser in this._dbContext.AclUsers
+                        join userUsergroup in this._dbContext.AclUserUsergroups on aclUser.Id equals userUsergroup.UserId
+                        join usergroup in this._dbContext.AclUsergroups on userUsergroup.UsergroupId equals usergroup.Id
+                        join usergroupRole in this._dbContext.AclUsergroupRoles on usergroup.Id equals usergroupRole.UsergroupId
+                        join role in this._dbContext.AclRoles on usergroupRole.RoleId equals role.Id
+                        join rolePage in this._dbContext.AclRolePages on role.Id equals rolePage.RoleId
+                        join page in this._dbContext.AclPages on rolePage.PageId equals page.Id
+                        join pageRoute in this._dbContext.AclPageRoutes on page.Id equals pageRoute.PageId
+                        join subModule in this._dbContext.AclSubModules on page.SubModuleId equals subModule.Id
+                        join module in this._dbContext.AclModules on subModule.ModuleId equals module.Id
                         select new { aclUser, usergroup, subModule, role, page, module };
 
             if (module_id != null)
@@ -318,13 +315,13 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Auth
         {
             foreach (var userId in userIds)
             {
-                AclUser? aclUser = _dbContext.AclUsers.Find(userId);
+                AclUser? aclUser = this._dbContext.AclUsers.Find(userId);
                 if (aclUser != null)
                 {
                     aclUser.PermissionVersion = aclUser.PermissionVersion + 1;
                 }
-                _dbContext.AclUsers.Update(aclUser);
-                _dbContext.SaveChanges();
+                this._dbContext.AclUsers.Update(aclUser);
+                this._dbContext.SaveChanges();
             }
         }
 
@@ -334,17 +331,17 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Auth
 
             if (isUserId == null)
             {
-                return _dbContext.AclUsers.Any(x => x.Email == email);
+                return this._dbContext.AclUsers.Any(x => x.Email == email);
             }
             else
             {
-                return _dbContext.AclUsers.Any(x => x.Email == email && x.Id != isUserId);
+                return this._dbContext.AclUsers.Any(x => x.Email == email && x.Id != isUserId);
             }
         }
 
         public bool IsExist(ulong id)
         {
-            return _dbContext.AclUsers.Any(m => m.Id == id);
+            return this._dbContext.AclUsers.Any(m => m.Id == id);
         }
 
 

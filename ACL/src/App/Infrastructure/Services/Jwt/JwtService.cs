@@ -1,14 +1,14 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
-using ACL.Application.Common.Exceptions;
-using ACL.Application.Domain.Auth;
-using ACL.Application.Domain.Ports.Services.Token;
+using App.Application.Common.Exceptions;
+using App.Domain.Auth;
+using App.Domain.Ports.Services.Token;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Claim = ACL.Application.Domain.Auth.Claim;
+using Claim = App.Domain.Auth.Claim;
 
-namespace ACL.Application.Infrastructure.Services.Jwt
+namespace App.Infrastructure.Services.Jwt
 {
     public class JwtService(IOptions<JwtSettings> settings, RsaSecurityKey rsaSecurityKey)
         : IAuthTokenService

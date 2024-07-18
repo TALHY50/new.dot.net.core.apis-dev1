@@ -1,14 +1,13 @@
-﻿using ACL.Application.Contracts.Requests;
-using ACL.Application.Contracts.Response;
-using ACL.Application.Domain.Ports.Repositories.Auth;
-using ACL.Application.Domain.Ports.Services.Cryptography;
-using ACL.Application.Infrastructure.Persistence.Configurations;
-using ACL.Application.Infrastructure.Utilities;
-using Microsoft.AspNetCore.Http;
+﻿using App.Contracts.Requests;
+using App.Contracts.Response;
+using App.Domain.Ports.Repositories.Auth;
+using App.Domain.Ports.Services.Cryptography;
+using App.Infrastructure.Persistence.Configurations;
+using App.Infrastructure.Utilities;
 using SharedKernel.Contracts.Response;
 using SharedKernel.Infrastructure.Utilities;
 
-namespace ACL.Application.Infrastructure.Persistence.Repositories.Auth
+namespace App.Infrastructure.Persistence.Repositories.Auth
 {
     /// <inheritdoc/>
     public class AclPasswordRepository : IAclPasswordRepository
@@ -25,15 +24,15 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Auth
         public AclPasswordRepository(ApplicationDbContext dbContext, ICryptographyService cryptographyService, IAclUserRepository aclUserRepository, IHttpContextAccessor httpContextAccessor)
         {
 
-            _dbContext = dbContext;
-            AclUserRepository = aclUserRepository;
+            this._dbContext = dbContext;
+            this.AclUserRepository = aclUserRepository;
             this._cryptographyService = cryptographyService;
             this.AclResponse = new AclResponse();
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8604 // Possible null reference argument.
 
             HttpContextAccessor = httpContextAccessor;
-            AppAuth.Initialize(HttpContextAccessor, _dbContext);
+            AppAuth.Initialize(HttpContextAccessor, this._dbContext);
             AppAuth.SetAuthInfo(HttpContextAccessor);
             this.Response = new MessageResponse(this._modelName, AppAuth.GetAuthInfo().Language);
         }
@@ -48,12 +47,12 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Auth
                 return this.AclResponse;
             }
 
-            var aclUser = _dbContext.AclUsers.Where(x => x.Id == request.UserId && x.Status == 1).FirstOrDefault();
+            var aclUser = this._dbContext.AclUsers.Where(x => x.Id == request.UserId && x.Status == 1).FirstOrDefault();
 
             if (aclUser != null)
             {
                 // password checking
-                var password = _cryptographyService.HashPassword(request.CurrentPassword, aclUser.Salt);
+                var password = this._cryptographyService.HashPassword(request.CurrentPassword, aclUser.Salt);
 
                 if (aclUser.Password != password)
                 {
@@ -64,10 +63,10 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Auth
 
                 // password update
 
-                aclUser.Password = _cryptographyService.HashPassword(request.NewPassword, aclUser.Salt);
-                _dbContext.AclUsers.Update(aclUser);
-                await _dbContext.SaveChangesAsync();
-                await _dbContext.Entry(aclUser).ReloadAsync();
+                aclUser.Password = this._cryptographyService.HashPassword(request.NewPassword, aclUser.Salt);
+                this._dbContext.AclUsers.Update(aclUser);
+                await this._dbContext.SaveChangesAsync();
+                await this._dbContext.Entry(aclUser).ReloadAsync();
 
                 this.AclResponse.Message = "Password Reset Succesfully.";
                 this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
@@ -79,7 +78,7 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Auth
         /// <inheritdoc/>
         public AclResponse Forget(AclForgetPasswordRequest request)
         {
-            var aclUser = _dbContext.AclUsers.Where(x => x.Email == request.Email).FirstOrDefault();
+            var aclUser = this._dbContext.AclUsers.Where(x => x.Email == request.Email).FirstOrDefault();
 
             if (aclUser != null)
             {
@@ -113,13 +112,13 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Auth
           
             // password update
 
-            var aclUser = _dbContext.AclUsers?.Where(x => x.Email == email).FirstOrDefault();
+            var aclUser = this._dbContext.AclUsers?.Where(x => x.Email == email).FirstOrDefault();
             if (aclUser != null)
             {
-                aclUser.Password = _cryptographyService.HashPassword(request.NewPassword, aclUser.Salt);
-                _dbContext.AclUsers.Update(aclUser);
-                await _dbContext.SaveChangesAsync();
-                await _dbContext.Entry(aclUser).ReloadAsync();
+                aclUser.Password = this._cryptographyService.HashPassword(request.NewPassword, aclUser.Salt);
+                this._dbContext.AclUsers.Update(aclUser);
+                await this._dbContext.SaveChangesAsync();
+                await this._dbContext.Entry(aclUser).ReloadAsync();
 
                 CacheHelper.Remove(request.Token);
                 this.AclResponse.Message = "Password Reset Succesfully.";

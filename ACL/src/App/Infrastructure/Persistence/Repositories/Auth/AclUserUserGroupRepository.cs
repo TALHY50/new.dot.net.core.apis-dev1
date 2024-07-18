@@ -1,10 +1,9 @@
-﻿using ACL.Application.Domain.Auth;
-using ACL.Application.Domain.Ports.Repositories.Auth;
-using ACL.Application.Infrastructure.Persistence.Configurations;
-using ACL.Application.Infrastructure.Utilities;
-using Microsoft.AspNetCore.Http;
+﻿using App.Domain.Auth;
+using App.Domain.Ports.Repositories.Auth;
+using App.Infrastructure.Persistence.Configurations;
+using App.Infrastructure.Utilities;
 
-namespace ACL.Application.Infrastructure.Persistence.Repositories.Auth
+namespace App.Infrastructure.Persistence.Repositories.Auth
 {
     /// <inheritdoc/>
     public class AclUserUserGroupRepository : IAclUserUserGroupRepository
@@ -13,9 +12,9 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Auth
         public static IHttpContextAccessor HttpContextAccessor;
         public AclUserUserGroupRepository(ApplicationDbContext dbContext, IHttpContextAccessor httpContextAccessor)
         {
-            _dbContext = dbContext;
+            this._dbContext = dbContext;
             HttpContextAccessor = httpContextAccessor;
-            AppAuth.Initialize(HttpContextAccessor, _dbContext);
+            AppAuth.Initialize(HttpContextAccessor, this._dbContext);
             AppAuth.SetAuthInfo(HttpContextAccessor);
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8604 // Possible null reference argument.
@@ -23,45 +22,45 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Auth
         /// <inheritdoc/>
         public AclUserUsergroup? Add(AclUserUsergroup request)
         {
-            _dbContext.Add(request);
-            _dbContext.SaveChanges();
-            _dbContext.Entry(request).Reload();
+            this._dbContext.Add(request);
+            this._dbContext.SaveChanges();
+            this._dbContext.Entry(request).Reload();
             return request;
         }
         /// <inheritdoc/>
         public AclUserUsergroup DeleteById(ulong id)
         {
-            AclUserUsergroup? request = _dbContext.AclUserUsergroups.Find(id);
-            _dbContext.AclUserUsergroups.Remove(request);
-            _dbContext.SaveChanges();
+            AclUserUsergroup? request = this._dbContext.AclUserUsergroups.Find(id);
+            this._dbContext.AclUserUsergroups.Remove(request);
+            this._dbContext.SaveChanges();
             return request;
         }
         /// <inheritdoc/>
         public AclUserUsergroup Edit(ulong id, AclUserUsergroup? request)
         {
-            AclUserUsergroup? requestOne = _dbContext.AclUserUsergroups.Find(id);
+            AclUserUsergroup? requestOne = this._dbContext.AclUserUsergroups.Find(id);
             request ??= requestOne;
-            _dbContext.AclUserUsergroups.Update(request);
-            _dbContext.SaveChanges();
-            _dbContext.Entry(request).Reload();
+            this._dbContext.AclUserUsergroups.Update(request);
+            this._dbContext.SaveChanges();
+            this._dbContext.Entry(request).Reload();
             return request;
         }
         /// <inheritdoc/>
         public AclUserUsergroup? FindById(ulong id)
         {
-            return _dbContext.AclUserUsergroups.Find(id);
+            return this._dbContext.AclUserUsergroups.Find(id);
         }
         /// <inheritdoc/>
         public List<AclUserUsergroup> GetAll()
         {
-            return _dbContext.AclUserUsergroups.ToList();
+            return this._dbContext.AclUserUsergroups.ToList();
         }
         /// <inheritdoc/>
         public List<AclUserUsergroup>? All()
         {
             try
             {
-                return _dbContext.AclUserUsergroups.ToList();
+                return this._dbContext.AclUserUsergroups.ToList();
             }
             catch (Exception)
             {
@@ -73,7 +72,7 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Auth
         {
             try
             {
-                return _dbContext.AclUserUsergroups.Find(id);
+                return this._dbContext.AclUserUsergroups.Find(id);
             }
             catch (Exception)
             {
@@ -85,9 +84,9 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Auth
         {
             try
             {
-                _dbContext.AclUserUsergroups.Update(aclUserUserGroup);
-                _dbContext.SaveChanges();
-                _dbContext.Entry(aclUserUserGroup).Reload();
+                this._dbContext.AclUserUsergroups.Update(aclUserUserGroup);
+                this._dbContext.SaveChanges();
+                this._dbContext.Entry(aclUserUserGroup).Reload();
                 return aclUserUserGroup;
             }
             catch (Exception)
@@ -100,8 +99,8 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Auth
         {
             try
             {
-                _dbContext.AclUserUsergroups.Remove(aclUserUserGroup);
-                _dbContext.SaveChanges();
+                this._dbContext.AclUserUsergroups.Remove(aclUserUserGroup);
+                this._dbContext.SaveChanges();
                 return aclUserUserGroup;
             }
             catch (Exception)
@@ -116,8 +115,8 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Auth
             try
             {
                 var delete = Find(id);
-                _dbContext.AclUserUsergroups.Remove(delete);
-                _dbContext.SaveChanges();
+                this._dbContext.AclUserUsergroups.Remove(delete);
+                this._dbContext.SaveChanges();
                 return delete;
             }
             catch (Exception)
@@ -132,8 +131,8 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Auth
                 return null;
             try
             {
-                _dbContext.AclUserUsergroups.AddRange(userUserGroups);
-                _dbContext.SaveChanges();
+                this._dbContext.AclUserUsergroups.AddRange(userUserGroups);
+                this._dbContext.SaveChanges();
                 return userUserGroups;
             }
             catch (Exception)
@@ -148,8 +147,8 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Auth
                 return null;
             try
             {
-                _dbContext.AclUserUsergroups.RemoveRange(userUserGroups);
-                _dbContext.SaveChanges();
+                this._dbContext.AclUserUsergroups.RemoveRange(userUserGroups);
+                this._dbContext.SaveChanges();
                 return userUserGroups;
             }
             catch (Exception)
@@ -196,11 +195,11 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Auth
 
         public bool UserIsExist(ulong userId)
         {
-            return _dbContext.AclUsers.Any(i => i.Id == userId);
+            return this._dbContext.AclUsers.Any(i => i.Id == userId);
         }
         public bool UserGroupIsExist(ulong id)
         {
-            return _dbContext.AclUserUsergroups.Any(m=> m.Id == id);
+            return this._dbContext.AclUserUsergroups.Any(m=> m.Id == id);
         }
     }
 }

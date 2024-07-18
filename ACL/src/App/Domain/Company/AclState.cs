@@ -1,4 +1,4 @@
-﻿namespace ACL.Application.Domain.Company;
+﻿namespace App.Domain.Company;
 
 public partial class AclState
 {

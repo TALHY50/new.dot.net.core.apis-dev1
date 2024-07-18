@@ -1,3 +1,6 @@
+using ADMIN.Application.Application.Ports.Services.Interfaces.Provider;
+using ADMIN.Application.Infrastructure.Persistence.Configurations;
+using ADMIN.Application.Infrastructure.Persistence.Services.Provider;
 using DotNetEnv;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;

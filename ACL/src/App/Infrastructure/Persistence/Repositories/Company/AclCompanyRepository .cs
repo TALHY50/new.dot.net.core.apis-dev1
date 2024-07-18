@@ -1,13 +1,11 @@
-﻿using ACL.Application.Contracts.Response;
-using ACL.Application.Domain.Auth;
-using ACL.Application.Domain.Company;
-using ACL.Application.Domain.Ports.Repositories.Company;
-using ACL.Application.Infrastructure.Persistence.Configurations;
-using ACL.Application.Infrastructure.Utilities;
-using Microsoft.AspNetCore.Http;
-using Claim = ACL.Application.Domain.Auth.Claim;
+﻿using App.Contracts.Response;
+using App.Domain.Auth;
+using App.Domain.Company;
+using App.Domain.Ports.Repositories.Company;
+using App.Infrastructure.Persistence.Configurations;
+using App.Infrastructure.Utilities;
 
-namespace ACL.Application.Infrastructure.Persistence.Repositories.Company
+namespace App.Infrastructure.Persistence.Repositories.Company
 {
     /// <inheritdoc/>
     public class AclCompanyRepository : IAclCompanyRepository
@@ -23,15 +21,15 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Company
         /// <inheritdoc/>
         public AclCompanyRepository(ApplicationDbContext dbContext, IHttpContextAccessor httpContextAccessor)
         {
-            _dbContext = dbContext;
-            AclResponse = new AclResponse();
+            this._dbContext = dbContext;
+            this.AclResponse = new AclResponse();
             HttpContextAccessor = httpContextAccessor;
             AppAuth.Initialize(HttpContextAccessor, dbContext);
             AppAuth.SetAuthInfo(HttpContextAccessor);
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8604 // Possible null reference argument.
 
-            MessageResponse = new MessageResponse(_modelName, AppAuth.GetAuthInfo().Language);
+            this.MessageResponse = new MessageResponse(this._modelName, AppAuth.GetAuthInfo().Language);
         }
         /// <inheritdoc/>
         public AclUserUsergroup PrepareDataForUserUserGroups(ulong? userGroup, ulong? userId)
@@ -60,7 +58,7 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Company
         {
             try
             {
-                return _dbContext.AclCompanies.ToList();
+                return this._dbContext.AclCompanies.ToList();
             }
             catch (Exception)
             {
@@ -73,7 +71,7 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Company
         {
             try
             {
-                return _dbContext.AclCompanies.Find(id);
+                return this._dbContext.AclCompanies.Find(id);
             }
             catch (Exception)
             {
@@ -87,9 +85,9 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Company
             try
             {
                 IsCompanyNameUnique(aclCompany.Name);
-                _dbContext.AclCompanies.Add(aclCompany);
-                _dbContext.SaveChanges();
-                _dbContext.Entry(aclCompany).ReloadAsync();
+                this._dbContext.AclCompanies.Add(aclCompany);
+                this._dbContext.SaveChanges();
+                this._dbContext.Entry(aclCompany).ReloadAsync();
                 return aclCompany;
             }
             catch (Exception)
@@ -104,9 +102,9 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Company
             try
             {
                 IsCompanyNameUnique(aclCompany.Name, aclCompany.Id);
-                _dbContext.AclCompanies.Update(aclCompany);
-                _dbContext.SaveChanges();
-                _dbContext.Entry(aclCompany).ReloadAsync();
+                this._dbContext.AclCompanies.Update(aclCompany);
+                this._dbContext.SaveChanges();
+                this._dbContext.Entry(aclCompany).ReloadAsync();
                 return aclCompany;
             }
             catch (Exception)
@@ -119,8 +117,8 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Company
         {
             try
             {
-                _dbContext.AclCompanies.Remove(aclCompany);
-                _dbContext.SaveChangesAsync();
+                this._dbContext.AclCompanies.Remove(aclCompany);
+                this._dbContext.SaveChangesAsync();
                 return aclCompany;
             }
             catch (Exception)
@@ -136,8 +134,8 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Company
             {
                 var aclCompany = Find(id);
                 if (aclCompany != null)
-                    _dbContext.AclCompanies.Remove(aclCompany);
-                _dbContext.SaveChangesAsync();
+                    this._dbContext.AclCompanies.Remove(aclCompany);
+                this._dbContext.SaveChangesAsync();
                 return aclCompany;
             }
             catch (Exception)
@@ -151,21 +149,21 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Company
         {
             if (CompanyId == null)
             {
-                return _dbContext.AclCompanies.Any(i => i.Name == CompanyName);
+                return this._dbContext.AclCompanies.Any(i => i.Name == CompanyName);
             }
             else
             {
-                return _dbContext.AclCompanies.Any(i => i.Name == CompanyName && i.Id != CompanyId);
+                return this._dbContext.AclCompanies.Any(i => i.Name == CompanyName && i.Id != CompanyId);
             }
         }
 
         public bool UserIsExist(ulong userId)
         {
-            return _dbContext.AclUsers.Any(i => i.Id == userId);
+            return this._dbContext.AclUsers.Any(i => i.Id == userId);
         }
         public bool UserGroupIsExist(ulong id)
         {
-            return _dbContext.AclUsergroups.Any(m => m.Id == id);
+            return this._dbContext.AclUsergroups.Any(m => m.Id == id);
         }
     }
 }

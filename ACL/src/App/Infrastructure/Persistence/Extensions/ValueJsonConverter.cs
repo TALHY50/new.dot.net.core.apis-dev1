@@ -2,7 +2,7 @@ using System.Text.Json;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace ACL.Application.Infrastructure.Persistence.Extensions;
+namespace App.Infrastructure.Persistence.Extensions;
 
 public class ValueJsonConverter<T>(ConverterMappingHints? mappingHints = null)
     : ValueConverter<T, string>(

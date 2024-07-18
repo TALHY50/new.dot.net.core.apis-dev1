@@ -1,6 +1,6 @@
-﻿using ACL.Application.Domain.Module;
+﻿using App.Domain.Module;
 
-namespace ACL.Application.Domain.Ports.Repositories.Module
+namespace App.Domain.Ports.Repositories.Module
 {
     /// <inheritdoc/>
     public interface IAclModuleRepository

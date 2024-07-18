@@ -1,6 +1,6 @@
 using System.Reflection;
 
-namespace ACL.Application.Infrastructure.Utilities;
+namespace App.Infrastructure.Utilities;
 
 public class Paths
 {

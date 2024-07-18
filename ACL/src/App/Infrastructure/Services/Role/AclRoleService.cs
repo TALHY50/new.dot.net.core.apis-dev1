@@ -1,15 +1,14 @@
-﻿using ACL.Application.Contracts.Requests;
-using ACL.Application.Contracts.Response;
-using ACL.Application.Domain.Ports.Repositories.Auth;
-using ACL.Application.Domain.Ports.Services.Role;
-using ACL.Application.Domain.Role;
-using ACL.Application.Infrastructure.Persistence.Configurations;
-using ACL.Application.Infrastructure.Persistence.Repositories.Role;
-using ACL.Application.Infrastructure.Utilities;
-using Microsoft.AspNetCore.Http;
+﻿using App.Contracts.Requests;
+using App.Contracts.Response;
+using App.Domain.Ports.Repositories.Auth;
+using App.Domain.Ports.Services.Role;
+using App.Domain.Role;
+using App.Infrastructure.Persistence.Configurations;
+using App.Infrastructure.Persistence.Repositories.Role;
+using App.Infrastructure.Utilities;
 using SharedKernel.Contracts.Response;
 
-namespace ACL.Application.Infrastructure.Services.Role
+namespace App.Infrastructure.Services.Role
 {
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8604 // Possible null reference argument.
@@ -24,13 +23,13 @@ namespace ACL.Application.Infrastructure.Services.Role
         private enum RoleIds : ulong { super_super_admin = 1, ADMIN_ROLE = 2 };
         public AclRoleService(ApplicationDbContext dbContext, IAclUserRepository aclUserRepository, IHttpContextAccessor httpContextAccessor) : base(dbContext, aclUserRepository, httpContextAccessor)
         {
-            _aclUserRepository = aclUserRepository;
-            AclResponse = new AclResponse();
-            _dbContext = dbContext;
+            this._aclUserRepository = aclUserRepository;
+            this.AclResponse = new AclResponse();
+            this._dbContext = dbContext;
             HttpContextAccessor = httpContextAccessor;
-            AppAuth.Initialize(HttpContextAccessor, _dbContext);
+            AppAuth.Initialize(HttpContextAccessor, this._dbContext);
             AppAuth.SetAuthInfo(HttpContextAccessor);
-            MessageResponse = new MessageResponse(_modelName, AppAuth.GetAuthInfo().Language);
+            this.MessageResponse = new MessageResponse(this._modelName, AppAuth.GetAuthInfo().Language);
         }
         /// <inheritdoc/>
         public AclResponse GetAll()
@@ -45,21 +44,21 @@ namespace ACL.Application.Infrastructure.Services.Role
             }).ToList();
             if (aclRoles.Any())
             {
-                AclResponse.Message = MessageResponse.fetchMessage;
+                this.AclResponse.Message = this.MessageResponse.fetchMessage;
             }
-            AclResponse.Data = aclRoles;
-            AclResponse.StatusCode = AppStatusCode.SUCCESS;
+            this.AclResponse.Data = aclRoles;
+            this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
 
-            return AclResponse;
+            return this.AclResponse;
         }
         /// <inheritdoc/>
         public AclResponse Add(AclRoleRequest request)
         {
             var aclRole = PrepareInputData(request);
-            AclResponse.Data = Add(aclRole);
-            AclResponse.Message = MessageResponse.createMessage;
-            AclResponse.StatusCode = AppStatusCode.SUCCESS;
-            return AclResponse;
+            this.AclResponse.Data = Add(aclRole);
+            this.AclResponse.Message = this.MessageResponse.createMessage;
+            this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
+            return this.AclResponse;
         }
         /// <inheritdoc/>
         public AclResponse Edit(ulong id, AclRoleRequest request)
@@ -68,24 +67,24 @@ namespace ACL.Application.Infrastructure.Services.Role
 
             if (aclRole == null)
             {
-                AclResponse.Message = MessageResponse.notFoundMessage;
-                AclResponse.StatusCode = AppStatusCode.NOTFOUND;
-                return AclResponse;
+                this.AclResponse.Message = this.MessageResponse.notFoundMessage;
+                this.AclResponse.StatusCode = AppStatusCode.NOTFOUND;
+                return this.AclResponse;
             }
 
             aclRole = PrepareInputData(request, aclRole);
-            _dbContext.AclRoles.Update(aclRole);
-            _dbContext.SaveChanges();
-            _dbContext.Entry(aclRole).Reload();
-            List<ulong>? userIds = _aclUserRepository?.GetUserIdByChangePermission(null, null, null, id);
+            this._dbContext.AclRoles.Update(aclRole);
+            this._dbContext.SaveChanges();
+            this._dbContext.Entry(aclRole).Reload();
+            List<ulong>? userIds = this._aclUserRepository?.GetUserIdByChangePermission(null, null, null, id);
             if (userIds.Count() > 0)
             {
-                _aclUserRepository.UpdateUserPermissionVersion(userIds);
+                this._aclUserRepository.UpdateUserPermissionVersion(userIds);
             }
-            AclResponse.Data = aclRole;
-            AclResponse.Message = MessageResponse.editMessage;
-            AclResponse.StatusCode = AppStatusCode.SUCCESS;
-            return AclResponse;
+            this.AclResponse.Data = aclRole;
+            this.AclResponse.Message = this.MessageResponse.editMessage;
+            this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
+            return this.AclResponse;
 
         }
         /// <inheritdoc/>
@@ -93,15 +92,15 @@ namespace ACL.Application.Infrastructure.Services.Role
         {
 
             var aclRole = Find(id);
-            AclResponse.Data = aclRole;
-            AclResponse.Message = MessageResponse.fetchMessage;
-            AclResponse.StatusCode = AppStatusCode.SUCCESS;
+            this.AclResponse.Data = aclRole;
+            this.AclResponse.Message = this.MessageResponse.fetchMessage;
+            this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
             if (aclRole == null)
             {
-                AclResponse.Message = MessageResponse.notFoundMessage;
-                AclResponse.StatusCode = AppStatusCode.NOTFOUND;
+                this.AclResponse.Message = this.MessageResponse.notFoundMessage;
+                this.AclResponse.StatusCode = AppStatusCode.NOTFOUND;
             }
-            return AclResponse;
+            return this.AclResponse;
 
         }
         /// <inheritdoc/>
@@ -111,14 +110,14 @@ namespace ACL.Application.Infrastructure.Services.Role
 
             if (aclRole != null && !RoleIdNotToDelete(id))
             {
-                AclResponse.Data = Delete(id);
-                AclResponse.Message = MessageResponse.deleteMessage;
-                AclResponse.StatusCode = AppStatusCode.SUCCESS;
-                List<ulong>? userIds = _aclUserRepository.GetUserIdByChangePermission(null, null, null, id);
-                _aclUserRepository.UpdateUserPermissionVersion(userIds);
+                this.AclResponse.Data = Delete(id);
+                this.AclResponse.Message = this.MessageResponse.deleteMessage;
+                this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
+                List<ulong>? userIds = this._aclUserRepository.GetUserIdByChangePermission(null, null, null, id);
+                this._aclUserRepository.UpdateUserPermissionVersion(userIds);
             }
 
-            return AclResponse;
+            return this.AclResponse;
 
         }
         private AclRole PrepareInputData(AclRoleRequest request, AclRole? aclRole = null)

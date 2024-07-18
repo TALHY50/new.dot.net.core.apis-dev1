@@ -1,20 +1,17 @@
-﻿using ACL.Application.Contracts.Requests;
-using ACL.Application.Contracts.Response;
-using ACL.Application.Domain.Auth;
-using ACL.Application.Domain.Ports.Repositories.Auth;
-using ACL.Application.Domain.Ports.Services.Auth;
-using ACL.Application.Domain.Ports.Services.Cryptography;
-using ACL.Application.Infrastructure.Persistence.Configurations;
-using ACL.Application.Infrastructure.Persistence.Repositories.Auth;
-using ACL.Application.Infrastructure.Utilities;
-using Microsoft.AspNetCore.Http;
+﻿using App.Contracts.Requests;
+using App.Contracts.Response;
+using App.Domain.Auth;
+using App.Domain.Ports.Repositories.Auth;
+using App.Domain.Ports.Services.Auth;
+using App.Domain.Ports.Services.Cryptography;
+using App.Infrastructure.Persistence.Configurations;
+using App.Infrastructure.Persistence.Repositories.Auth;
+using App.Infrastructure.Utilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
-using Microsoft.Extensions.Configuration;
 using SharedKernel.Contracts.Response;
 
-
-namespace ACL.Application.Infrastructure.Services.Auth
+namespace App.Infrastructure.Services.Auth
 {
     public class AclUserService : AclUserRepository, IAclUserService
     {
@@ -37,29 +34,29 @@ namespace ACL.Application.Infrastructure.Services.Auth
 
         public AclUserService(ApplicationDbContext dbContext, IConfiguration config, IDistributedCache distributedCache, ICryptographyService cryptographyService, IAclUserUserGroupRepository aclUserUserGroupRepository, IHttpContextAccessor httpContextAccessor) : base(dbContext, config, distributedCache, cryptographyService, aclUserUserGroupRepository, httpContextAccessor)
         {
-            AclUserUserGroupRepository = aclUserUserGroupRepository;
-            _config = config;
-            AclResponse = new AclResponse();
+            this.AclUserUserGroupRepository = aclUserUserGroupRepository;
+            this._config = config;
+            this.AclResponse = new AclResponse();
             var user = _httpContextAccessor?.HttpContext?.User;
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8604 // Possible null reference argument.
 
-            MessageResponse = new MessageResponse(_modelName, AppAuth.GetAuthInfo().Language);
-            _distributedCache = distributedCache;
-            _dbContext = dbContext;
-            _cryptographyService = cryptographyService;
+            this.MessageResponse = new MessageResponse(this._modelName, AppAuth.GetAuthInfo().Language);
+            this._distributedCache = distributedCache;
+            this._dbContext = dbContext;
+            this._cryptographyService = cryptographyService;
             _httpContextAccessor = httpContextAccessor;
             AppAuth.Initialize(_httpContextAccessor, dbContext);
             AppAuth.SetAuthInfo(_httpContextAccessor);
-            _companyId = (uint)AppAuth.GetAuthInfo().CompanyId;
+            this._companyId = (uint)AppAuth.GetAuthInfo().CompanyId;
 #pragma warning disable CS8629 // Nullable value type may be null.
-            _userType = (uint)AppAuth.GetAuthInfo().UserType;
+            this._userType = (uint)AppAuth.GetAuthInfo().UserType;
 #pragma warning restore CS8629 // Nullable value type may be null.
         }
         /// <inheritdoc/>
         public AclResponse GetAll()
         {
-            List<AclUser>? aclUser = All()?.Where(u => _companyId == 0 || (u.CompanyId == _companyId && u.CreatedById == _companyId))?.ToList();
+            List<AclUser>? aclUser = All()?.Where(u => this._companyId == 0 || (u.CompanyId == this._companyId && u.CreatedById == this._companyId))?.ToList();
             aclUser?.ForEach(user =>
            {
                user.Password = "**********";
@@ -73,24 +70,24 @@ namespace ACL.Application.Infrastructure.Services.Auth
             IEnumerable<AclUser>? result = aclUser.Where(i => i.Id != 1 && i.Status == 1);
             if (aclUser.Any())
             {
-                AclResponse.Message = MessageResponse.fetchMessage;
+                this.AclResponse.Message = this.MessageResponse.fetchMessage;
             }
-            AclResponse.Data = result;
-            AclResponse.StatusCode = AppStatusCode.SUCCESS;
-            AclResponse.Timestamp = DateTime.Now;
+            this.AclResponse.Data = result;
+            this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
+            this.AclResponse.Timestamp = DateTime.Now;
 
-            return AclResponse;
+            return this.AclResponse;
         }
         /// <inheritdoc/>
         public Task<AclResponse> AddUser(AclUserRequest request)
         {
-            var strategy = _dbContext.Database.CreateExecutionStrategy();
+            var strategy = this._dbContext.Database.CreateExecutionStrategy();
 
             try
             {
                 strategy.Execute(() =>
                {
-                   var transaction = _dbContext.Database.BeginTransaction();
+                   var transaction = this._dbContext.Database.BeginTransaction();
                    try
                    {
                        AclUser? aclUser = PrepareInputData(request);
@@ -98,7 +95,7 @@ namespace ACL.Application.Infrastructure.Services.Auth
 
                        // Need to insert user user group
                        AclUserUsergroup[] userUserGroups = PrepareDataForUserUserGroups(request, aclUser?.Id);
-                       _dbContext.AclUserUsergroups.AddRange(userUserGroups);
+                       this._dbContext.AclUserUsergroups.AddRange(userUserGroups);
                        ReloadEntities(userUserGroups);
 
                        if (aclUser != null)
@@ -108,41 +105,41 @@ namespace ACL.Application.Infrastructure.Services.Auth
 #pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
                            aclUser.Claims = null;
                            aclUser.RefreshToken = null;
-                           AclResponse.Data = aclUser;
+                           this.AclResponse.Data = aclUser;
                        }
 
-                       AclResponse.Message = MessageResponse.createMessage;
-                       AclResponse.StatusCode = AppStatusCode.SUCCESS;
+                       this.AclResponse.Message = this.MessageResponse.createMessage;
+                       this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
 
                        transaction.CommitAsync();
                    }
                    catch (Exception ex)
                    {
                        transaction?.RollbackAsync();
-                       AclResponse.Message = ex.Message;
-                       AclResponse.StatusCode = AppStatusCode.FAIL;
+                       this.AclResponse.Message = ex.Message;
+                       this.AclResponse.StatusCode = AppStatusCode.FAIL;
                    }
 
                });
             }
             catch (Exception ex)
             {
-                AclResponse.Message = ex.Message;
-                AclResponse.StatusCode = AppStatusCode.FAIL;
+                this.AclResponse.Message = ex.Message;
+                this.AclResponse.StatusCode = AppStatusCode.FAIL;
             }
 
-            AclResponse.Timestamp = DateTime.Now;
-            return Task.FromResult(AclResponse);
+            this.AclResponse.Timestamp = DateTime.Now;
+            return Task.FromResult(this.AclResponse);
         }
 
         /// <inheritdoc/>
         public async Task<AclResponse> Edit(ulong id, AclUserRequest request)
         {
             AclUser? aclUser = Find(id);
-            var strategy = _dbContext.Database.CreateExecutionStrategy();
+            var strategy = this._dbContext.Database.CreateExecutionStrategy();
             await strategy.ExecuteAsync(() =>
             {
-                using (Microsoft.EntityFrameworkCore.Storage.IDbContextTransaction transaction = _dbContext.Database.BeginTransaction())
+                using (Microsoft.EntityFrameworkCore.Storage.IDbContextTransaction transaction = this._dbContext.Database.BeginTransaction())
                 {
                     try
                     {
@@ -151,11 +148,11 @@ namespace ACL.Application.Infrastructure.Services.Auth
                             aclUser = PrepareInputData(request, aclUser);
                             aclUser = Update(aclUser);
                             // first delete all user user group
-                            AclUserUsergroup[] userUserGroups = AclUserUserGroupRepository.Where(id).ToArray();
-                            AclUserUserGroupRepository.RemoveRange(userUserGroups);
+                            AclUserUsergroup[] userUserGroups = this.AclUserUserGroupRepository.Where(id).ToArray();
+                            this.AclUserUserGroupRepository.RemoveRange(userUserGroups);
                             // need to insert user user group
                             AclUserUsergroup[]? userGroupPrepareData = PrepareDataForUserUserGroups(request, aclUser?.Id);
-                            AclUserUserGroupRepository.AddRange(userGroupPrepareData);
+                            this.AclUserUserGroupRepository.AddRange(userGroupPrepareData);
                             //if (aclUser != null)
                             //{
                             //    aclUser.Password = "******************"; //request.Password
@@ -163,8 +160,8 @@ namespace ACL.Application.Infrastructure.Services.Auth
                             //    aclUser.Claims = null;
                             //    AclResponse.Data = aclUser;
                             //}
-                            AclResponse.Message = MessageResponse.editMessage;
-                            AclResponse.StatusCode = AppStatusCode.SUCCESS;
+                            this.AclResponse.Message = this.MessageResponse.editMessage;
+                            this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
 
                             List<ulong> users = new List<ulong> { aclUser.Id };
                             UpdateUserPermissionVersion(users);
@@ -173,15 +170,15 @@ namespace ACL.Application.Infrastructure.Services.Auth
                         else
                         {
                             transaction.Rollback();
-                            AclResponse.Message = MessageResponse.notFoundMessage;
-                            AclResponse.StatusCode = AppStatusCode.FAIL;
+                            this.AclResponse.Message = this.MessageResponse.notFoundMessage;
+                            this.AclResponse.StatusCode = AppStatusCode.FAIL;
                         }
                     }
                     catch (Exception ex)
                     {
                         transaction.Rollback();
-                        AclResponse.Message = ex.Message;
-                        AclResponse.StatusCode = AppStatusCode.FAIL;
+                        this.AclResponse.Message = ex.Message;
+                        this.AclResponse.StatusCode = AppStatusCode.FAIL;
                     }
                 }
 
@@ -189,18 +186,18 @@ namespace ACL.Application.Infrastructure.Services.Auth
             });
             if (aclUser == null)
             {
-                AclResponse.Message = MessageResponse.notFoundMessage;
+                this.AclResponse.Message = this.MessageResponse.notFoundMessage;
             }
             else
             {
                 aclUser.Password = "***********";
                 aclUser.Salt = "***********";
                 aclUser.Claims = null;
-                AclResponse.Message = MessageResponse.editMessage;
-                AclResponse.Data = aclUser;
+                this.AclResponse.Message = this.MessageResponse.editMessage;
+                this.AclResponse.Data = aclUser;
             }
-            AclResponse.Timestamp = DateTime.Now;
-            return AclResponse;
+            this.AclResponse.Timestamp = DateTime.Now;
+            return this.AclResponse;
         }
 
         /// <inheritdoc/>
@@ -211,26 +208,26 @@ namespace ACL.Application.Infrastructure.Services.Auth
                 AclUser? aclUser = Find(id);
                 if (aclUser == null)
                 {
-                    AclResponse.Message = MessageResponse.notFoundMessage;
+                    this.AclResponse.Message = this.MessageResponse.notFoundMessage;
                 }
                 else
                 {
                     aclUser.Password = "***********";
                     aclUser.Salt = "***********";
                     aclUser.Claims = null;
-                    AclResponse.Message = MessageResponse.fetchMessage;
-                    AclResponse.Data = aclUser;
+                    this.AclResponse.Message = this.MessageResponse.fetchMessage;
+                    this.AclResponse.Data = aclUser;
                 }
-                AclResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             catch (Exception ex)
             {
-                AclResponse.Message = ex.Message;
-                AclResponse.StatusCode = AppStatusCode.FAIL;
+                this.AclResponse.Message = ex.Message;
+                this.AclResponse.StatusCode = AppStatusCode.FAIL;
             }
 
-            AclResponse.Timestamp = DateTime.Now;
-            return AclResponse;
+            this.AclResponse.Timestamp = DateTime.Now;
+            return this.AclResponse;
 
         }
         /// <inheritdoc/>
@@ -241,21 +238,21 @@ namespace ACL.Application.Infrastructure.Services.Auth
             {
                 Delete(aclUser);
                 // delete all item for user user group
-                AclUserUsergroup[]? userUserGroups = AclUserUserGroupRepository?.Where(id)?.ToArray();
+                AclUserUsergroup[]? userUserGroups = this.AclUserUserGroupRepository?.Where(id)?.ToArray();
                 if (userUserGroups?.Count() > 0)
                 {
-                    AclUserUserGroupRepository?.RemoveRange(userUserGroups);
+                    this.AclUserUserGroupRepository?.RemoveRange(userUserGroups);
                 }
 
-                AclResponse.Message = MessageResponse.deleteMessage;
-                AclResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.AclResponse.Message = this.MessageResponse.deleteMessage;
+                this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
-            return AclResponse;
+            return this.AclResponse;
         }
 
         public AclUser PrepareInputData(AclUserRequest request, AclUser? aclUser = null)
         {
-            var salt = _cryptographyService.GenerateSalt();
+            var salt = this._cryptographyService.GenerateSalt();
             if (aclUser == null)
             {
 
@@ -268,7 +265,7 @@ namespace ACL.Application.Infrastructure.Services.Auth
                     FirstName = request.FirstName,
                     LastName = request.LastName,
                     Email = request.Email,
-                    Password = _cryptographyService.HashPassword(request.Password, salt),
+                    Password = this._cryptographyService.HashPassword(request.Password, salt),
                     Avatar = request.Avatar,
                     Dob = request.DOB,
                     Gender = request.Gender,
@@ -283,8 +280,8 @@ namespace ACL.Application.Infrastructure.Services.Auth
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now,
                     CreatedById = (uint)AppAuth.GetAuthInfo().UserId,
-                    CompanyId = (_companyId != 0) ? _companyId : (uint)AppAuth.GetAuthInfo().CompanyId,
-                    UserType = (_companyId == 0) ? uint.Parse(_config["USER_TYPE_S_ADMIN"]) : uint.Parse(_config["USER_TYPE_USER"]),
+                    CompanyId = (this._companyId != 0) ? this._companyId : (uint)AppAuth.GetAuthInfo().CompanyId,
+                    UserType = (this._companyId == 0) ? uint.Parse(this._config["USER_TYPE_S_ADMIN"]) : uint.Parse(this._config["USER_TYPE_USER"]),
                     Salt = salt,
                     Claims = new Claim[] { }
                 };
@@ -314,8 +311,8 @@ namespace ACL.Application.Infrastructure.Services.Auth
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8604 // Possible null reference argument.
 #pragma warning disable CS8629 // Possible null reference argument.
-                aclUser.CompanyId = (_companyId != 0) ? _companyId : (uint)AppAuth.GetAuthInfo().CompanyId;
-                aclUser.UserType = (_userType != 0) ? _userType : (uint)AppAuth.GetAuthInfo().UserType;
+                aclUser.CompanyId = (this._companyId != 0) ? this._companyId : (uint)AppAuth.GetAuthInfo().CompanyId;
+                aclUser.UserType = (this._userType != 0) ? this._userType : (uint)AppAuth.GetAuthInfo().UserType;
                 aclUser.Salt = aclUser.Salt;
                 aclUser.Claims = aclUser.Claims;
             }

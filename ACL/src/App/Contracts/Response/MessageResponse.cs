@@ -1,6 +1,6 @@
 ﻿using SharedKernel.Contracts.Response;
 
-namespace ACL.Application.Contracts.Response
+namespace App.Contracts.Response
 {
     public class MessageResponse : BaseMessageResponse
     {

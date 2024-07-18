@@ -1,4 +1,4 @@
-﻿namespace ACL.Application.Domain.Module;
+﻿namespace App.Domain.Module;
 
 public partial class AclSubModule
 {

@@ -1,9 +1,9 @@
-﻿using ACL.Application.Contracts.Requests;
-using ACL.Application.Contracts.Response;
-using ACL.Application.Domain.Ports.Repositories.UserGroup;
-using ACL.Application.Domain.UserGroup;
+﻿using App.Contracts.Requests;
+using App.Contracts.Response;
+using App.Domain.Ports.Repositories.UserGroup;
+using App.Domain.UserGroup;
 
-namespace ACL.Application.Domain.Ports.Services.UserGroup
+namespace App.Domain.Ports.Services.UserGroup
 {
     public interface IAclUserGroupService : IAclUserGroupRepository
     {

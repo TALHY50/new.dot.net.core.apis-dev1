@@ -1,6 +1,6 @@
-﻿using ACL.Application.Domain.UserGroup;
+﻿using App.Domain.UserGroup;
 
-namespace ACL.Application.Domain.Ports.Repositories.UserGroup
+namespace App.Domain.Ports.Repositories.UserGroup
 {
     /// <inheritdoc/>
     public interface IAclUserGroupRepository

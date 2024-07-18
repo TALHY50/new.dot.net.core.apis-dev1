@@ -1,6 +1,6 @@
-﻿using ACL.Application.Domain.Company;
+﻿using App.Domain.Company;
 
-namespace ACL.Application.Domain.Ports.Repositories.Company
+namespace App.Domain.Ports.Repositories.Company
 
 {
     /// <inheritdoc/>

@@ -1,18 +1,17 @@
-﻿using ACL.Application.Contracts.Requests;
-using ACL.Application.Contracts.Response;
-using ACL.Application.Domain.Ports.Repositories.Auth;
-using ACL.Application.Domain.Ports.Repositories.Module;
-using ACL.Application.Domain.Ports.Repositories.Role;
-using ACL.Application.Domain.Ports.Services.Role;
-using ACL.Application.Domain.Role;
-using ACL.Application.Infrastructure.Persistence.Configurations;
-using ACL.Application.Infrastructure.Persistence.Repositories.Role;
-using ACL.Application.Infrastructure.Utilities;
-using Microsoft.AspNetCore.Http;
+﻿using App.Contracts.Requests;
+using App.Contracts.Response;
+using App.Domain.Ports.Repositories.Auth;
+using App.Domain.Ports.Repositories.Module;
+using App.Domain.Ports.Repositories.Role;
+using App.Domain.Ports.Services.Role;
+using App.Domain.Role;
+using App.Infrastructure.Persistence.Configurations;
+using App.Infrastructure.Persistence.Repositories.Role;
+using App.Infrastructure.Utilities;
 using Microsoft.EntityFrameworkCore;
 using SharedKernel.Contracts.Response;
 
-namespace ACL.Application.Infrastructure.Services.Role
+namespace App.Infrastructure.Services.Role
 {
     public class AclRolePageService : AclRolePageRepository, IAclRolePageService
     {
@@ -33,9 +32,9 @@ namespace ACL.Application.Infrastructure.Services.Role
         /// <inheritdoc/>
         public AclRolePageService(ApplicationDbContext dbContext, IAclUserRepository aclUserRepository, IHttpContextAccessor httpContextAccessor, IAclRoleRepository aclRoleRepository, IAclPageRepository aclPageRepository) : base(dbContext, aclUserRepository, httpContextAccessor, aclRoleRepository, aclPageRepository)
         {
-             _aclUserRepository = aclUserRepository;
-            _aclRoleRepository = aclRoleRepository;
-            _aclPageRepository = aclPageRepository;
+             this._aclUserRepository = aclUserRepository;
+            this._aclRoleRepository = aclRoleRepository;
+            this._aclPageRepository = aclPageRepository;
             this.AclResponse = new AclResponse();
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8604 // Dereference of a possibly null reference.
@@ -77,10 +76,10 @@ namespace ACL.Application.Infrastructure.Services.Role
                     this.AclResponse.Data = AddAll(check);
                     this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
                     this.AclResponse.Message = this.MessageResponse.editMessage;
-                    List<ulong>? userIds = _aclUserRepository.GetUserIdByChangePermission(null, null, req.RoleId);
+                    List<ulong>? userIds = this._aclUserRepository.GetUserIdByChangePermission(null, null, req.RoleId);
                     if (userIds != null)
                     {
-                        _aclUserRepository.UpdateUserPermissionVersion(userIds);
+                        this._aclUserRepository.UpdateUserPermissionVersion(userIds);
                     }
                 }
                 else
@@ -103,13 +102,13 @@ namespace ACL.Application.Infrastructure.Services.Role
         public AclRolePage[] PrepareData(AclRoleAndPageAssocUpdateRequest req)
         {
             IList<AclRolePage> res = new List<AclRolePage>();
-            bool roleExist = _aclRoleRepository.IsExist(req.RoleId);
+            bool roleExist = this._aclRoleRepository.IsExist(req.RoleId);
             if (roleExist)
             {
                 foreach (ulong page in req.PageIds)
                 {
                     bool exists = res.Any(r => r.RoleId == page);
-                    bool pageExist = _aclPageRepository.IsExist(page);
+                    bool pageExist = this._aclPageRepository.IsExist(page);
                     if (!pageExist)
                     {
                         throw new Exception("Page Id "+page +"  not valid!");

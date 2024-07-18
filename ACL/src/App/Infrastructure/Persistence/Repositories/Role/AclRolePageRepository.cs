@@ -1,14 +1,12 @@
-﻿using ACL.Application.Domain.Module;
-using ACL.Application.Domain.Ports.Repositories.Auth;
-using ACL.Application.Domain.Ports.Repositories.Module;
-using ACL.Application.Domain.Ports.Repositories.Role;
-using ACL.Application.Domain.Role;
-using ACL.Application.Infrastructure.Persistence.Configurations;
-using ACL.Application.Infrastructure.Utilities;
-using Microsoft.AspNetCore.Http;
-using static ACL.Application.Infrastructure.Route.AclRoutesUrl;
+﻿using App.Domain.Module;
+using App.Domain.Ports.Repositories.Auth;
+using App.Domain.Ports.Repositories.Module;
+using App.Domain.Ports.Repositories.Role;
+using App.Domain.Role;
+using App.Infrastructure.Persistence.Configurations;
+using App.Infrastructure.Utilities;
 
-namespace ACL.Application.Infrastructure.Persistence.Repositories.Role
+namespace App.Infrastructure.Persistence.Repositories.Role
 {
     /// <inheritdoc/>
     public class AclRolePageRepository : IAclRolePageRepository
@@ -24,9 +22,9 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Role
         /// <inheritdoc/>
         public AclRolePageRepository(ApplicationDbContext dbContext, IAclUserRepository aclUserRepository, IHttpContextAccessor httpContextAccessor, IAclRoleRepository aclRoleRepository, IAclPageRepository aclPageRepository)
         {
-            _aclUserRepository = aclUserRepository;
-            _aclRoleRepository = aclRoleRepository;
-            _aclPageRepository = aclPageRepository;
+            this._aclUserRepository = aclUserRepository;
+            this._aclRoleRepository = aclRoleRepository;
+            this._aclPageRepository = aclPageRepository;
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8604 // Dereference of a possibly null reference.
             Context = dbContext;

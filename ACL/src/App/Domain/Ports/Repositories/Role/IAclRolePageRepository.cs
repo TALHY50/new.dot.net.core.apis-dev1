@@ -1,7 +1,7 @@
-﻿using ACL.Application.Domain.Module;
-using ACL.Application.Domain.Role;
+﻿using App.Domain.Module;
+using App.Domain.Role;
 
-namespace ACL.Application.Domain.Ports.Repositories.Role
+namespace App.Domain.Ports.Repositories.Role
 {
     /// <inheritdoc/>
     public interface IAclRolePageRepository

@@ -1,9 +1,9 @@
-﻿using ADMIN.Application.Contracts.Requests;
+﻿using ADMIN.Application.Application.Ports.Services.Interfaces.Provider;
+using ADMIN.Application.Contracts.Requests;
 using ADMIN.Application.Contracts.Response;
 using ADMIN.Application.Domain.Provider;
 using ADMIN.Application.Infrastructure.Persistence.Configurations;
 using ADMIN.Application.Infrastructure.Persistence.Repositories.Provider;
-using ADMIN.Application.Ports.Services.Interfaces.Provider;
 using SharedKernel.Contracts.Response;
 
 //using SharedKernel.Models.Admin.Provider;

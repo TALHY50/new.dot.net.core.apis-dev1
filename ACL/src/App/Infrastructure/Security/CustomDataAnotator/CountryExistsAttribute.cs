@@ -1,6 +1,6 @@
 ﻿//using System.ComponentModel.DataAnnotations;
-//using ACL.Application.Ports.Repositories;
-//using ACL.Application.Ports.Repositories.Company;
+//using App.Ports.Repositories;
+//using App.Ports.Repositories.Company;
 
 //namespace ACL.Infrastructure.Security.CustomDataAnotator
 //{
@@ -26,4 +26,4 @@
 //    }
 //}
 
-namespace ACL.Application.Infrastructure.Security.CustomDataAnotator;
+namespace App.Infrastructure.Security.CustomDataAnotator;

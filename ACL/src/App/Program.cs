@@ -1,38 +1,40 @@
 using System.Security.Cryptography;
-using ACL.Application.Domain.Ports.Repositories.Auth;
-using ACL.Application.Domain.Ports.Repositories.Company;
-using ACL.Application.Domain.Ports.Repositories.Module;
-using ACL.Application.Domain.Ports.Repositories.Role;
-using ACL.Application.Domain.Ports.Repositories.UserGroup;
-using ACL.Application.Domain.Ports.Services.Auth;
-using ACL.Application.Domain.Ports.Services.Company;
-using ACL.Application.Domain.Ports.Services.Cryptography;
-using ACL.Application.Domain.Ports.Services.Module;
-using ACL.Application.Domain.Ports.Services.Token;
-using ACL.Application.Domain.Ports.Services.UserGroup;
-using ACL.Application.Features.Auth.Authorize;
-using ACL.Application.Features.Auth.Login;
-using ACL.Application.Features.Auth.RefreshToken;
-using ACL.Application.Features.Auth.Register;
-using ACL.Application.Features.Auth.SignOut;
-using ACL.Application.Infrastructure.Persistence.Configurations;
-using ACL.Application.Infrastructure.Persistence.Migrations;
-using ACL.Application.Infrastructure.Persistence.Repositories.Auth;
-using ACL.Application.Infrastructure.Persistence.Repositories.Company;
-using ACL.Application.Infrastructure.Persistence.Repositories.Module;
-using ACL.Application.Infrastructure.Persistence.Repositories.Role;
-using ACL.Application.Infrastructure.Persistence.Repositories.UserGroup;
-using ACL.Application.Infrastructure.Services.Auth;
-using ACL.Application.Infrastructure.Services.Company;
-using ACL.Application.Infrastructure.Services.Cryptography;
-using ACL.Application.Infrastructure.Services.Jwt;
-using ACL.Application.Infrastructure.Services.Module;
-using ACL.Application.Infrastructure.Services.UserGroup;
+using App.Application.Features.Auth.Authorize;
+using App.Application.Features.Auth.Login;
+using App.Application.Features.Auth.RefreshToken;
+using App.Application.Features.Auth.Register;
+using App.Application.Features.Auth.SignOut;
+using App.Domain.Ports.Repositories.Auth;
+using App.Domain.Ports.Repositories.Company;
+using App.Domain.Ports.Repositories.Module;
+using App.Domain.Ports.Repositories.Role;
+using App.Domain.Ports.Repositories.UserGroup;
+using App.Domain.Ports.Services.Auth;
+using App.Domain.Ports.Services.Company;
+using App.Domain.Ports.Services.Cryptography;
+using App.Domain.Ports.Services.Module;
+using App.Domain.Ports.Services.Token;
+using App.Domain.Ports.Services.UserGroup;
+using App.Infrastructure.Persistence.Configurations;
+using App.Infrastructure.Persistence.Migrations;
+using App.Infrastructure.Persistence.Repositories.Auth;
+using App.Infrastructure.Persistence.Repositories.Company;
+using App.Infrastructure.Persistence.Repositories.Module;
+using App.Infrastructure.Persistence.Repositories.Role;
+using App.Infrastructure.Persistence.Repositories.UserGroup;
+using App.Infrastructure.Services.Auth;
+using App.Infrastructure.Services.Company;
+using App.Infrastructure.Services.Cryptography;
+using App.Infrastructure.Services.Jwt;
+using App.Infrastructure.Services.Module;
+using App.Infrastructure.Services.UserGroup;
 using DotNetEnv;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using Serilog.Events;
@@ -335,6 +337,6 @@ app.UseCors(builder =>
 
 app.Run();
 
-namespace ACL.Application
+namespace App
 {
 }

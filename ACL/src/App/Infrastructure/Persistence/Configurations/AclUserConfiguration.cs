@@ -1,12 +1,12 @@
-using ACL.Application.Domain.Auth;
-using ACL.Application.Infrastructure.Persistence.Extensions;
+using App.Domain.Auth;
+using App.Infrastructure.Persistence.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Claim = ACL.Application.Domain.Auth.Claim;
+using Claim = App.Domain.Auth.Claim;
 
 //using Claim = ACL.Database.Models.Claim;
 
-namespace ACL.Application.Infrastructure.Persistence.Configurations;
+namespace App.Infrastructure.Persistence.Configurations;
 
 public class AclUserConfiguration : IEntityTypeConfiguration<AclUser>
 {

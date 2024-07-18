@@ -1,11 +1,10 @@
-﻿using ACL.Application.Domain.Ports.Repositories.Auth;
-using ACL.Application.Domain.Ports.Repositories.UserGroup;
-using ACL.Application.Domain.UserGroup;
-using ACL.Application.Infrastructure.Persistence.Configurations;
-using ACL.Application.Infrastructure.Utilities;
-using Microsoft.AspNetCore.Http;
+﻿using App.Domain.Ports.Repositories.Auth;
+using App.Domain.Ports.Repositories.UserGroup;
+using App.Domain.UserGroup;
+using App.Infrastructure.Persistence.Configurations;
+using App.Infrastructure.Utilities;
 
-namespace ACL.Application.Infrastructure.Persistence.Repositories.UserGroup
+namespace App.Infrastructure.Persistence.Repositories.UserGroup
 {
     /// <inheritdoc/>
     public class AclUserGroupRepository : IAclUserGroupRepository
@@ -21,10 +20,10 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.UserGroup
         /// <inheritdoc/>
         public AclUserGroupRepository(ApplicationDbContext dbContext, IAclUserRepository aclUserRepository, IHttpContextAccessor httpContextAccessor)
         {
-            _aclUserRepository = aclUserRepository;
-            _dbContext = dbContext;
+            this._aclUserRepository = aclUserRepository;
+            this._dbContext = dbContext;
             _httpContextAccessor = httpContextAccessor;
-            AppAuth.Initialize(_httpContextAccessor, _dbContext);
+            AppAuth.Initialize(_httpContextAccessor, this._dbContext);
             AppAuth.SetAuthInfo(_httpContextAccessor);
         }
         /// <inheritdoc/>
@@ -38,7 +37,7 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.UserGroup
         {
             try
             {
-                return _dbContext.AclUsergroups.ToList();
+                return this._dbContext.AclUsergroups.ToList();
             }
             catch (Exception)
             {
@@ -51,7 +50,7 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.UserGroup
         {
             try
             {
-                return _dbContext.AclUsergroups.Find(id);
+                return this._dbContext.AclUsergroups.Find(id);
             }
             catch (Exception)
             {
@@ -64,9 +63,9 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.UserGroup
         {
             try
             {
-                _dbContext.AclUsergroups.Add(aclUsergroup);
-                _dbContext.SaveChanges();
-                _dbContext.Entry(aclUsergroup).Reload();
+                this._dbContext.AclUsergroups.Add(aclUsergroup);
+                this._dbContext.SaveChanges();
+                this._dbContext.Entry(aclUsergroup).Reload();
                 return aclUsergroup;
             }
             catch (Exception)
@@ -79,9 +78,9 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.UserGroup
         {
             try
             {
-                _dbContext.AclUsergroups.Update(aclUsergroup);
-                _dbContext.SaveChanges();
-                _dbContext.Entry(aclUsergroup).Reload();
+                this._dbContext.AclUsergroups.Update(aclUsergroup);
+                this._dbContext.SaveChanges();
+                this._dbContext.Entry(aclUsergroup).Reload();
                 return aclUsergroup;
             }
             catch (Exception)
@@ -94,8 +93,8 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.UserGroup
         {
             try
             {
-                _dbContext.AclUsergroups.Remove(aclUsergroup);
-                _dbContext.SaveChanges();
+                this._dbContext.AclUsergroups.Remove(aclUsergroup);
+                this._dbContext.SaveChanges();
                 return aclUsergroup;
             }
             catch (Exception)
@@ -110,8 +109,8 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.UserGroup
             try
             {
                 var delete = Find(id);
-                _dbContext.AclUsergroups.Remove(delete);
-                _dbContext.SaveChanges();
+                this._dbContext.AclUsergroups.Remove(delete);
+                this._dbContext.SaveChanges();
                 return delete;
             }
             catch (Exception)
@@ -123,7 +122,7 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.UserGroup
 
         public bool IsExist(ulong id)
         {
-            return _dbContext.AclUserUsergroups.Any(m=> m.Id == id);
+            return this._dbContext.AclUserUsergroups.Any(m=> m.Id == id);
         }
     }
 }

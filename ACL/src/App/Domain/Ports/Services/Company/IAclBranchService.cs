@@ -1,8 +1,8 @@
-﻿using ACL.Application.Contracts.Requests;
-using ACL.Application.Contracts.Response;
-using ACL.Application.Domain.Ports.Repositories.Company;
+﻿using App.Contracts.Requests;
+using App.Contracts.Response;
+using App.Domain.Ports.Repositories.Company;
 
-namespace ACL.Application.Domain.Ports.Services.Company
+namespace App.Domain.Ports.Services.Company
 {
     /// <inheritdoc/>
     public interface IAclBranchService : IAclBranchRepository

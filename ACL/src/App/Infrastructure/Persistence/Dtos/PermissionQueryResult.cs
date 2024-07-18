@@ -1,4 +1,4 @@
-namespace ACL.Application.Infrastructure.Persistence.Dtos;
+namespace App.Infrastructure.Persistence.Dtos;
 
 public class PermissionQueryResult
 {

@@ -1,13 +1,12 @@
-﻿using ACL.Application.Domain.Company;
-using ACL.Application.Domain.Ports.Repositories.Company;
-using ACL.Application.Infrastructure.Persistence.Configurations;
-using ACL.Application.Infrastructure.Utilities;
-using Microsoft.AspNetCore.Http;
+﻿using App.Domain.Company;
+using App.Domain.Ports.Repositories.Company;
+using App.Infrastructure.Persistence.Configurations;
+using App.Infrastructure.Utilities;
 
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8604 // Possible null reference argument.
 #pragma warning disable CS8629 // Possible null reference argument
-namespace ACL.Application.Infrastructure.Persistence.Repositories.Company
+namespace App.Infrastructure.Persistence.Repositories.Company
 {
     /// <inheritdoc/>
     public class AclStateRepository : IAclStateRepository
@@ -18,7 +17,7 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Company
         /// <inheritdoc/>
         public AclStateRepository(ApplicationDbContext dbContext, IHttpContextAccessor httpContextAccessor)
         {
-            _dbContext = dbContext;
+            this._dbContext = dbContext;
             HttpContextAccessor = httpContextAccessor;
             AppAuth.Initialize(HttpContextAccessor, dbContext);
             AppAuth.SetAuthInfo(HttpContextAccessor);
@@ -27,10 +26,10 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Company
         /// <inheritdoc/>
         public string ExistByName(ulong? id, string name)
         {
-            var valid = _dbContext.AclStates.Any(x => x.Name.ToLower() == name.ToLower());
+            var valid = this._dbContext.AclStates.Any(x => x.Name.ToLower() == name.ToLower());
             if (id > 0)
             {
-                valid = _dbContext.AclStates.Any(x => x.Name.ToLower() == name.ToLower() && x.Id != id);
+                valid = this._dbContext.AclStates.Any(x => x.Name.ToLower() == name.ToLower() && x.Id != id);
             }
             if (valid)
             {
@@ -41,7 +40,7 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Company
         /// <inheritdoc/>
         public ulong CountryIdExist(ulong countryId)
         {
-            var valid = _dbContext.AclCountries.Any(x => x.Id == countryId);
+            var valid = this._dbContext.AclCountries.Any(x => x.Id == countryId);
 
             if (!valid)
             {
@@ -54,31 +53,31 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Company
         public List<AclState> All()
         {
 
-            return _dbContext.AclStates.ToList();
+            return this._dbContext.AclStates.ToList();
 
         }
         /// <inheritdoc/>
         public AclState? Find(ulong id)
         {
 
-            return _dbContext.AclStates.Find(id);
+            return this._dbContext.AclStates.Find(id);
 
         }
         /// <inheritdoc/>
         public AclState? Add(AclState aclState)
         {
-            _dbContext.AclStates.Add(aclState);
-            _dbContext.SaveChanges();
-            _dbContext.Entry(aclState).Reload();
+            this._dbContext.AclStates.Add(aclState);
+            this._dbContext.SaveChanges();
+            this._dbContext.Entry(aclState).Reload();
             return aclState;
         }
         /// <inheritdoc/>
         public AclState? Update(AclState aclState)
         {
 
-            _dbContext.AclStates.Update(aclState);
-            _dbContext.SaveChanges();
-            _dbContext.Entry(aclState).Reload();
+            this._dbContext.AclStates.Update(aclState);
+            this._dbContext.SaveChanges();
+            this._dbContext.Entry(aclState).Reload();
             return aclState;
 
         }
@@ -86,8 +85,8 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Company
         public AclState? Delete(AclState aclState)
         {
 
-            _dbContext.AclStates.Remove(aclState);
-            _dbContext.SaveChangesAsync();
+            this._dbContext.AclStates.Remove(aclState);
+            this._dbContext.SaveChangesAsync();
             return aclState;
 
 
@@ -96,9 +95,9 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Company
         public AclState? Delete(ulong id)
         {
 
-            var delete = _dbContext.AclStates.Find(id);
-            _dbContext.AclStates.Remove(delete);
-            _dbContext.SaveChanges();
+            var delete = this._dbContext.AclStates.Find(id);
+            this._dbContext.AclStates.Remove(delete);
+            this._dbContext.SaveChanges();
             return delete;
 
         }

@@ -1,4 +1,4 @@
-namespace ACL.Application.Domain.Weather;
+namespace App.Domain.Weather;
 
 public class WeatherForecast
 {

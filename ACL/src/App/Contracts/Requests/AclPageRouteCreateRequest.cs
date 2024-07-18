@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace ACL.Application.Contracts.Requests
+namespace App.Contracts.Requests
 {
     public class AclPageRouteRequest
     {

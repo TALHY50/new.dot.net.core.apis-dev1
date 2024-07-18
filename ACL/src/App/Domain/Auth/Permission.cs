@@ -1,4 +1,4 @@
-namespace ACL.Application.Domain.Auth;
+namespace App.Domain.Auth;
 
 public class Permission
 {

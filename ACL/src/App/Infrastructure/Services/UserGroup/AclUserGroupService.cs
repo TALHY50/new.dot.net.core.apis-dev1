@@ -1,15 +1,14 @@
-﻿using ACL.Application.Contracts.Requests;
-using ACL.Application.Contracts.Response;
-using ACL.Application.Domain.Ports.Repositories.Auth;
-using ACL.Application.Domain.Ports.Services.UserGroup;
-using ACL.Application.Domain.UserGroup;
-using ACL.Application.Infrastructure.Persistence.Configurations;
-using ACL.Application.Infrastructure.Persistence.Repositories.UserGroup;
-using ACL.Application.Infrastructure.Utilities;
-using Microsoft.AspNetCore.Http;
+﻿using App.Contracts.Requests;
+using App.Contracts.Response;
+using App.Domain.Ports.Repositories.Auth;
+using App.Domain.Ports.Services.UserGroup;
+using App.Domain.UserGroup;
+using App.Infrastructure.Persistence.Configurations;
+using App.Infrastructure.Persistence.Repositories.UserGroup;
+using App.Infrastructure.Utilities;
 using SharedKernel.Contracts.Response;
 
-namespace ACL.Application.Infrastructure.Services.UserGroup
+namespace App.Infrastructure.Services.UserGroup
 {
     public class AclUserGroupService : AclUserGroupRepository, IAclUserGroupService
     {
@@ -30,12 +29,12 @@ namespace ACL.Application.Infrastructure.Services.UserGroup
         /// <inheritdoc/>
         public AclUserGroupService(ApplicationDbContext dbContext, IAclUserRepository aclUserRepository, IHttpContextAccessor httpContextAccessor) : base(dbContext, aclUserRepository, httpContextAccessor)
         {
-            _aclUserRepository = aclUserRepository;
-            aclResponse = new AclResponse();
-            messageResponse = new MessageResponse(modelName, AppAuth.GetAuthInfo().Language);
-            _dbContext = dbContext;
+            this._aclUserRepository = aclUserRepository;
+            this.aclResponse = new AclResponse();
+            this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
+            this._dbContext = dbContext;
             _httpContextAccessor = httpContextAccessor;
-            AppAuth.Initialize(_httpContextAccessor, _dbContext);
+            AppAuth.Initialize(_httpContextAccessor, this._dbContext);
             AppAuth.SetAuthInfo(_httpContextAccessor);
         }
         /// <inheritdoc/>
@@ -44,17 +43,17 @@ namespace ACL.Application.Infrastructure.Services.UserGroup
             List<AclUsergroup>? result = All().Where(x => x.CompanyId == AppAuth.GetAuthInfo().CompanyId).ToList();
             if (result.Any())
             {
-                aclResponse.Data = result;
-                aclResponse.Message = messageResponse.fetchMessage;
-                aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.aclResponse.Data = result;
+                this.aclResponse.Message = this.messageResponse.fetchMessage;
+                this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             else
             {
-                aclResponse.Message = messageResponse.notFoundMessage;
-                aclResponse.StatusCode = AppStatusCode.FAIL;
+                this.aclResponse.Message = this.messageResponse.notFoundMessage;
+                this.aclResponse.StatusCode = AppStatusCode.FAIL;
             }
-            aclResponse.Timestamp = DateTime.Now;
-            return aclResponse;
+            this.aclResponse.Timestamp = DateTime.Now;
+            return this.aclResponse;
         }
         /// <inheritdoc/>
         public AclResponse AddUserGroup(AclUserGroupRequest usergroup)
@@ -62,17 +61,17 @@ namespace ACL.Application.Infrastructure.Services.UserGroup
             try
             {
                 AclUsergroup? result = PrepareInputData(usergroup);
-                aclResponse.Data = Add(result);
-                aclResponse.Message = messageResponse.createMessage;
-                aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.aclResponse.Data = Add(result);
+                this.aclResponse.Message = this.messageResponse.createMessage;
+                this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             catch (Exception)
             {
-                aclResponse.Message = messageResponse.createFail;
-                aclResponse.StatusCode = AppStatusCode.FAIL;
+                this.aclResponse.Message = this.messageResponse.createFail;
+                this.aclResponse.StatusCode = AppStatusCode.FAIL;
             }
-            aclResponse.Timestamp = DateTime.Now;
-            return aclResponse;
+            this.aclResponse.Timestamp = DateTime.Now;
+            return this.aclResponse;
         }
         /// <inheritdoc/>
         public AclResponse UpdateUserGroup(ulong id, AclUserGroupRequest userGroup)
@@ -89,22 +88,22 @@ namespace ACL.Application.Infrastructure.Services.UserGroup
             if (result != null)
             {
                 result = PrepareInputData(userGroup, result);
-                aclResponse.Data = Update(result);
-                aclResponse.Message = messageResponse.editMessage;
-                aclResponse.StatusCode = AppStatusCode.SUCCESS;
-                List<ulong>? userIds = _aclUserRepository.GetUserIdByChangePermission(null, null, null, null, id);
+                this.aclResponse.Data = Update(result);
+                this.aclResponse.Message = this.messageResponse.editMessage;
+                this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                List<ulong>? userIds = this._aclUserRepository.GetUserIdByChangePermission(null, null, null, null, id);
                 if (userIds != null)
                 {
-                    _aclUserRepository.UpdateUserPermissionVersion(userIds);
+                    this._aclUserRepository.UpdateUserPermissionVersion(userIds);
                 }
             }
             else
             {
-                aclResponse.Message = messageResponse.notFoundMessage;
-                aclResponse.StatusCode = AppStatusCode.FAIL;
+                this.aclResponse.Message = this.messageResponse.notFoundMessage;
+                this.aclResponse.StatusCode = AppStatusCode.FAIL;
             }
-            aclResponse.Timestamp = DateTime.Now;
-            return aclResponse;
+            this.aclResponse.Timestamp = DateTime.Now;
+            return this.aclResponse;
         }
         /// <inheritdoc/>
         public AclResponse FindById(ulong id)
@@ -128,17 +127,17 @@ namespace ACL.Application.Infrastructure.Services.UserGroup
             }
             if (result != null)
             {
-                aclResponse.Data = result;
-                aclResponse.Message = messageResponse.fetchMessage;
-                aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.aclResponse.Data = result;
+                this.aclResponse.Message = this.messageResponse.fetchMessage;
+                this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             else
             {
-                aclResponse.Message = messageResponse.notFoundMessage;
-                aclResponse.StatusCode = AppStatusCode.FAIL;
+                this.aclResponse.Message = this.messageResponse.notFoundMessage;
+                this.aclResponse.StatusCode = AppStatusCode.FAIL;
             }
-            aclResponse.Timestamp = DateTime.Now;
-            return aclResponse;
+            this.aclResponse.Timestamp = DateTime.Now;
+            return this.aclResponse;
         }
         /// <inheritdoc/>
         public AclResponse Delete(ulong id)
@@ -154,22 +153,22 @@ namespace ACL.Application.Infrastructure.Services.UserGroup
             }
             if (result != null)
             {
-                aclResponse.Data = Deleted(id);
-                aclResponse.Message = messageResponse.deleteMessage;
-                aclResponse.StatusCode = AppStatusCode.SUCCESS;
-                List<ulong>? userIds = _aclUserRepository.GetUserIdByChangePermission(null, null, null, null, id);
+                this.aclResponse.Data = Deleted(id);
+                this.aclResponse.Message = this.messageResponse.deleteMessage;
+                this.aclResponse.StatusCode = AppStatusCode.SUCCESS;
+                List<ulong>? userIds = this._aclUserRepository.GetUserIdByChangePermission(null, null, null, null, id);
                 if (userIds != null)
                 {
-                    _aclUserRepository.UpdateUserPermissionVersion(userIds);
+                    this._aclUserRepository.UpdateUserPermissionVersion(userIds);
                 }
             }
             else
             {
-                aclResponse.Message = messageResponse.notFoundMessage;
-                aclResponse.StatusCode = AppStatusCode.FAIL;
+                this.aclResponse.Message = this.messageResponse.notFoundMessage;
+                this.aclResponse.StatusCode = AppStatusCode.FAIL;
             }
-            aclResponse.Timestamp = DateTime.Now;
-            return aclResponse;
+            this.aclResponse.Timestamp = DateTime.Now;
+            return this.aclResponse;
         }
         /// <inheritdoc/>
         public AclUsergroup PrepareInputData(AclUserGroupRequest request, AclUsergroup? aclUserGroup = null)

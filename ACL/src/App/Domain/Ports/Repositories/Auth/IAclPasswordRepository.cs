@@ -1,7 +1,7 @@
-﻿using ACL.Application.Contracts.Requests;
-using ACL.Application.Contracts.Response;
+﻿using App.Contracts.Requests;
+using App.Contracts.Response;
 
-namespace ACL.Application.Domain.Ports.Repositories.Auth
+namespace App.Domain.Ports.Repositories.Auth
 {
     /// <inheritdoc/>
     public interface IAclPasswordRepository

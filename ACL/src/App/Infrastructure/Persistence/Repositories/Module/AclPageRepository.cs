@@ -1,11 +1,10 @@
-﻿using ACL.Application.Domain.Module;
-using ACL.Application.Domain.Ports.Repositories.Auth;
-using ACL.Application.Domain.Ports.Repositories.Module;
-using ACL.Application.Infrastructure.Persistence.Configurations;
-using ACL.Application.Infrastructure.Utilities;
-using Microsoft.AspNetCore.Http;
+﻿using App.Domain.Module;
+using App.Domain.Ports.Repositories.Auth;
+using App.Domain.Ports.Repositories.Module;
+using App.Infrastructure.Persistence.Configurations;
+using App.Infrastructure.Utilities;
 
-namespace ACL.Application.Infrastructure.Persistence.Repositories.Module
+namespace App.Infrastructure.Persistence.Repositories.Module
 {
     /// <inheritdoc/>
     public class AclPageRepository : IAclPageRepository
@@ -18,25 +17,25 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Module
         /// <inheritdoc/>
         public AclPageRepository(ApplicationDbContext dbContext, IAclPageRouteRepository routeRepository, IAclUserRepository aclUserRepository, IHttpContextAccessor httpContextAccessor)
         {
-            _dbContext = dbContext;
-            _routeRepository = routeRepository;
-            _aclUserRepository = aclUserRepository;
+            this._dbContext = dbContext;
+            this._routeRepository = routeRepository;
+            this._aclUserRepository = aclUserRepository;
             ContextAccessor = httpContextAccessor;
-            AppAuth.Initialize(ContextAccessor, _dbContext);
+            AppAuth.Initialize(ContextAccessor, this._dbContext);
             AppAuth.SetAuthInfo(ContextAccessor);
         }
 
         /// <inheritdoc/>
         public void DeletePageRouteByPageId(ulong pageId)
         {
-            _routeRepository.DeleteAllByPageId(pageId);
+            this._routeRepository.DeleteAllByPageId(pageId);
         }
         /// <inheritdoc/>
         public List<AclPage>? All()
         {
             try
             {
-                return _dbContext.AclPages.ToList();
+                return this._dbContext.AclPages.ToList();
             }
             catch (Exception)
             {
@@ -49,7 +48,7 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Module
         {
             try
             {
-                return _dbContext.AclPages.Find(id);
+                return this._dbContext.AclPages.Find(id);
             }
             catch (Exception)
             {
@@ -61,9 +60,9 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Module
         {
             try
             {
-                _dbContext.AclPages.Add(aclPage);
-                _dbContext.SaveChanges();
-                _dbContext.Entry(aclPage).ReloadAsync();
+                this._dbContext.AclPages.Add(aclPage);
+                this._dbContext.SaveChanges();
+                this._dbContext.Entry(aclPage).ReloadAsync();
                 return aclPage;
             }
             catch (Exception)
@@ -76,9 +75,9 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Module
         {
             try
             {
-                _dbContext.AclPages.Update(aclPage);
-                _dbContext.SaveChanges();
-                _dbContext.Entry(aclPage).ReloadAsync();
+                this._dbContext.AclPages.Update(aclPage);
+                this._dbContext.SaveChanges();
+                this._dbContext.Entry(aclPage).ReloadAsync();
                 return aclPage;
             }
             catch (Exception)
@@ -91,8 +90,8 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Module
         {
             try
             {
-                _dbContext.AclPages.Remove(aclPage);
-                _dbContext.SaveChangesAsync();
+                this._dbContext.AclPages.Remove(aclPage);
+                this._dbContext.SaveChangesAsync();
                 return aclPage;
             }
             catch (Exception)
@@ -105,10 +104,10 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Module
         {
             try
             {
-                var delete = _dbContext.AclPages.Find(id);
+                var delete = this._dbContext.AclPages.Find(id);
                 if (delete != null)
-                    _dbContext.AclPages.Remove(delete);
-                _dbContext.SaveChangesAsync();
+                    this._dbContext.AclPages.Remove(delete);
+                this._dbContext.SaveChangesAsync();
                 return delete;
             }
             catch (Exception)
@@ -120,21 +119,21 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Module
 
         public bool IsAclPageIdExist(ulong id)
         {
-            return _dbContext.AclPages.Any(x => x.Id == id);
+            return this._dbContext.AclPages.Any(x => x.Id == id);
         }
 
         public bool IsModuleIdExist(ulong id)
         {
-            return _dbContext.AclModules.Any(x => x.Id == id);
+            return this._dbContext.AclModules.Any(x => x.Id == id);
         }
 
         public bool IsSubModuleIdExist(ulong id)
         {
-            return _dbContext.AclSubModules.Any(x => x.Id == id);
+            return this._dbContext.AclSubModules.Any(x => x.Id == id);
         }
         public bool IsExist(ulong id)
         {
-            return _dbContext.AclPages.Any(i => i.Id == id);
+            return this._dbContext.AclPages.Any(i => i.Id == id);
         }
     }
 }

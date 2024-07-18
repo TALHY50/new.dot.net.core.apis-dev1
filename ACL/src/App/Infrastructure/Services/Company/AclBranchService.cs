@@ -1,16 +1,14 @@
-﻿using ACL.Application.Contracts.Requests;
-using ACL.Application.Contracts.Response;
-using ACL.Application.Domain.Company;
-using ACL.Application.Domain.Ports.Repositories.Company;
-using ACL.Application.Domain.Ports.Services.Company;
-using ACL.Application.Infrastructure.Persistence.Configurations;
-using ACL.Application.Infrastructure.Persistence.Repositories.Company;
-using ACL.Application.Infrastructure.Utilities;
-using Microsoft.AspNetCore.Http;
+﻿using App.Contracts.Requests;
+using App.Contracts.Response;
+using App.Domain.Company;
+using App.Domain.Ports.Repositories.Company;
+using App.Domain.Ports.Services.Company;
+using App.Infrastructure.Persistence.Configurations;
+using App.Infrastructure.Persistence.Repositories.Company;
+using App.Infrastructure.Utilities;
 using SharedKernel.Contracts.Response;
 
-
-namespace ACL.Application.Infrastructure.Services.Company
+namespace App.Infrastructure.Services.Company
 {
     /// <inheritdoc/>
     public class AclBranchService : AclBranchRepository, IAclBranchService
@@ -25,27 +23,27 @@ namespace ACL.Application.Infrastructure.Services.Company
         /// <inheritdoc/>
         public AclBranchService(ApplicationDbContext dbContext, IAclBranchRepository repository, IHttpContextAccessor httpContextAccessor) : base(dbContext, httpContextAccessor)
         {
-            _repository = repository;
-            aclResponse = new AclResponse();
+            this._repository = repository;
+            this.aclResponse = new AclResponse();
             _httpContextAccessor = httpContextAccessor;
             AppAuth.Initialize(_httpContextAccessor, dbContext);
             AppAuth.SetAuthInfo(_httpContextAccessor);
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8604 // Possible null reference argument.
-            messageResponse = new MessageResponse(modelName, AppAuth.GetAuthInfo().Language);
+            this.messageResponse = new MessageResponse(this.modelName, AppAuth.GetAuthInfo().Language);
         }
 
         /// <inheritdoc/>
         public AclResponse Get()
         {
-            var aclBranches = _repository.All();
+            var aclBranches = this._repository.All();
 
-            aclResponse.Message = aclBranches.Any() ? messageResponse.fetchMessage : messageResponse.notFoundMessage;
-            aclResponse.Data = aclBranches;
-            aclResponse.StatusCode = aclBranches.Any() ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
-            aclResponse.Timestamp = DateTime.Now;
+            this.aclResponse.Message = aclBranches.Any() ? this.messageResponse.fetchMessage : this.messageResponse.notFoundMessage;
+            this.aclResponse.Data = aclBranches;
+            this.aclResponse.StatusCode = aclBranches.Any() ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
+            this.aclResponse.Timestamp = DateTime.Now;
 
-            return aclResponse;
+            return this.aclResponse;
         }
         /// <inheritdoc/>
         public AclResponse Add(AclBranchRequest request)
@@ -53,19 +51,19 @@ namespace ACL.Application.Infrastructure.Services.Company
             try
             {
                 AclBranch _aclBranch = PrepareInputData(request);
-                aclResponse.Data = _repository.Add(_aclBranch);
-                aclResponse.Message = _aclBranch != null ? messageResponse.createMessage : messageResponse.createFail;
+                this.aclResponse.Data = this._repository.Add(_aclBranch);
+                this.aclResponse.Message = _aclBranch != null ? this.messageResponse.createMessage : this.messageResponse.createFail;
 
-                aclResponse.StatusCode = _aclBranch != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
+                this.aclResponse.StatusCode = _aclBranch != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
             }
             catch (Exception ex)
             {
                 // base.Logger.LogError(ex, "Error at BRANCH_ADD", new { data = request, message = ex.Message, });
-                aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = AppStatusCode.FAIL;
+                this.aclResponse.Message = ex.Message;
+                this.aclResponse.StatusCode = AppStatusCode.FAIL;
             }
-            aclResponse.Timestamp = DateTime.Now;
-            return aclResponse;
+            this.aclResponse.Timestamp = DateTime.Now;
+            return this.aclResponse;
         }
 
         /// <inheritdoc/>
@@ -73,58 +71,58 @@ namespace ACL.Application.Infrastructure.Services.Company
         {
             try
             {
-                var _aclBranch = _repository.GetById(id);
+                var _aclBranch = this._repository.GetById(id);
                 if (_aclBranch == null)
                 {
                     throw new Exception("Branch id Not Exist");
                 }
                 _aclBranch = PrepareInputData(request, _aclBranch);
-                aclResponse.Data = _repository.Update(_aclBranch);
-                aclResponse.Message = _aclBranch != null ? messageResponse.editMessage : messageResponse.notFoundMessage;
-                aclResponse.StatusCode = _aclBranch != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
+                this.aclResponse.Data = this._repository.Update(_aclBranch);
+                this.aclResponse.Message = _aclBranch != null ? this.messageResponse.editMessage : this.messageResponse.notFoundMessage;
+                this.aclResponse.StatusCode = _aclBranch != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
             }
             catch (Exception ex)
             {
                 // base.Logger.LogError(ex, "Error at BRANCH_EDIT", new { data = request, message = ex.Message, });
-                aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = AppStatusCode.FAIL;
+                this.aclResponse.Message = ex.Message;
+                this.aclResponse.StatusCode = AppStatusCode.FAIL;
             }
-            aclResponse.Timestamp = DateTime.Now;
-            return aclResponse;
+            this.aclResponse.Timestamp = DateTime.Now;
+            return this.aclResponse;
         }
         /// <inheritdoc/>
         public AclResponse Find(ulong id)
         {
             try
             {
-                var aclCompanyModule = _repository.GetById(id);
-                var message = aclCompanyModule != null ? messageResponse.fetchMessage : messageResponse.notFoundMessage;
-                aclResponse.Data = aclCompanyModule;
-                aclResponse.Message = message;
-                aclResponse.StatusCode = aclCompanyModule != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
-                aclResponse.Timestamp = DateTime.Now;
+                var aclCompanyModule = this._repository.GetById(id);
+                var message = aclCompanyModule != null ? this.messageResponse.fetchMessage : this.messageResponse.notFoundMessage;
+                this.aclResponse.Data = aclCompanyModule;
+                this.aclResponse.Message = message;
+                this.aclResponse.StatusCode = aclCompanyModule != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
+                this.aclResponse.Timestamp = DateTime.Now;
             }
             catch (Exception ex)
             {
-                aclResponse.Message = ex.Message;
-                aclResponse.StatusCode = AppStatusCode.FAIL;
-                aclResponse.Timestamp = DateTime.Now;
+                this.aclResponse.Message = ex.Message;
+                this.aclResponse.StatusCode = AppStatusCode.FAIL;
+                this.aclResponse.Timestamp = DateTime.Now;
             }
-            return aclResponse;
+            return this.aclResponse;
         }
 
         /// <inheritdoc/>
         public new AclResponse Delete(ulong id)
         {
-            var aclCompanyModule = _repository.Delete(id);
-            aclResponse.StatusCode = aclCompanyModule != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
-            aclResponse.Message = aclCompanyModule != null ? messageResponse.deleteMessage : messageResponse.notFoundMessage;
-            aclResponse.Data = aclCompanyModule;
+            var aclCompanyModule = this._repository.Delete(id);
+            this.aclResponse.StatusCode = aclCompanyModule != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
+            this.aclResponse.Message = aclCompanyModule != null ? this.messageResponse.deleteMessage : this.messageResponse.notFoundMessage;
+            this.aclResponse.Data = aclCompanyModule;
             if (aclCompanyModule != null)
             {
-                _repository.Delete(aclCompanyModule);
+                this._repository.Delete(aclCompanyModule);
             }
-            return aclResponse;
+            return this.aclResponse;
         }
 
         private AclBranch PrepareInputData(AclBranchRequest request, AclBranch? branch = null)

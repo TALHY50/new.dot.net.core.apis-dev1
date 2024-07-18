@@ -1,13 +1,12 @@
-﻿using ACL.Application.Contracts.Requests;
-using ACL.Application.Contracts.Response;
-using ACL.Application.Domain.Module;
-using ACL.Application.Domain.Ports.Repositories.Auth;
-using ACL.Application.Domain.Ports.Repositories.Module;
-using ACL.Application.Infrastructure.Persistence.Configurations;
-using ACL.Application.Infrastructure.Utilities;
-using Microsoft.AspNetCore.Http;
+﻿using App.Contracts.Requests;
+using App.Contracts.Response;
+using App.Domain.Module;
+using App.Domain.Ports.Repositories.Auth;
+using App.Domain.Ports.Repositories.Module;
+using App.Infrastructure.Persistence.Configurations;
+using App.Infrastructure.Utilities;
 
-namespace ACL.Application.Infrastructure.Persistence.Repositories.Module
+namespace App.Infrastructure.Persistence.Repositories.Module
 {
     /// <inheritdoc/>
     public class AclPageRouteRepository : IAclPageRouteRepository
@@ -24,11 +23,11 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Module
         /// <inheritdoc/>
         public AclPageRouteRepository(ApplicationDbContext dbContext, IAclUserRepository aclUserRepository, IHttpContextAccessor httpContextAccessor)
         {
-            _aclUserRepository = aclUserRepository;
-            _dbContext = dbContext;
+            this._aclUserRepository = aclUserRepository;
+            this._dbContext = dbContext;
             this.AclResponse = new AclResponse();
             ContextAccessor = httpContextAccessor;
-            AppAuth.Initialize(ContextAccessor, _dbContext);
+            AppAuth.Initialize(ContextAccessor, this._dbContext);
             AppAuth.SetAuthInfo(ContextAccessor);
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8604 // Possible null reference argument.
@@ -39,9 +38,9 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Module
         {
             try
             {
-                _dbContext.AclPageRoutes.Add(aclPageRoute);
-                _dbContext.SaveChanges();
-                _dbContext.Entry(aclPageRoute).ReloadAsync();
+                this._dbContext.AclPageRoutes.Add(aclPageRoute);
+                this._dbContext.SaveChanges();
+                this._dbContext.Entry(aclPageRoute).ReloadAsync();
                 return aclPageRoute;
             }
             catch (Exception)
@@ -54,7 +53,7 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Module
         {
             try
             {
-                return _dbContext.AclPageRoutes.ToList();
+                return this._dbContext.AclPageRoutes.ToList();
             }
             catch (Exception)
             {
@@ -67,8 +66,8 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Module
         {
             try
             {
-                _dbContext.AclPageRoutes.Remove(aclPageRoute);
-                _dbContext.SaveChangesAsync();
+                this._dbContext.AclPageRoutes.Remove(aclPageRoute);
+                this._dbContext.SaveChangesAsync();
                 return aclPageRoute;
             }
             catch (Exception)
@@ -82,9 +81,9 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Module
         {
             try
             {
-                var delete = _dbContext.AclPageRoutes.Find(id);
-                _dbContext.AclPageRoutes.Remove(delete);
-                _dbContext.SaveChangesAsync();
+                var delete = this._dbContext.AclPageRoutes.Find(id);
+                this._dbContext.AclPageRoutes.Remove(delete);
+                this._dbContext.SaveChangesAsync();
                 return delete;
             }
             catch (Exception)
@@ -97,9 +96,9 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Module
         {
             try
             {
-                List<AclPageRoute>? pageRoutes = _dbContext.AclPageRoutes.Where(r => r.PageId == pageId).ToList();
-                _dbContext.AclPageRoutes.RemoveRange(pageRoutes);
-                _dbContext.SaveChanges();
+                List<AclPageRoute>? pageRoutes = this._dbContext.AclPageRoutes.Where(r => r.PageId == pageId).ToList();
+                this._dbContext.AclPageRoutes.RemoveRange(pageRoutes);
+                this._dbContext.SaveChanges();
                 return pageRoutes.ToArray();
             }
             catch (Exception)
@@ -113,7 +112,7 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Module
         {
             try
             {
-                return _dbContext.AclPageRoutes.Find(id);
+                return this._dbContext.AclPageRoutes.Find(id);
             }
             catch (Exception)
             {
@@ -149,9 +148,9 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Module
         {
             try
             {
-                _dbContext.AclPageRoutes.Update(aclPageRoute);
-                _dbContext.SaveChanges();
-                _dbContext.Entry(aclPageRoute).ReloadAsync();
+                this._dbContext.AclPageRoutes.Update(aclPageRoute);
+                this._dbContext.SaveChanges();
+                this._dbContext.Entry(aclPageRoute).ReloadAsync();
                 return aclPageRoute;
             }
             catch (Exception)

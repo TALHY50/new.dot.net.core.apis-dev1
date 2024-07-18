@@ -1,15 +1,14 @@
-﻿using ACL.Application.Contracts.Requests;
-using ACL.Application.Contracts.Response;
-using ACL.Application.Domain.Ports.Repositories.Auth;
-using ACL.Application.Domain.Ports.Services.UserGroup;
-using ACL.Application.Infrastructure.Persistence.Configurations;
-using ACL.Application.Infrastructure.Persistence.Repositories.UserGroup;
-using ACL.Application.Infrastructure.Utilities;
-using Microsoft.AspNetCore.Http;
+﻿using App.Contracts.Requests;
+using App.Contracts.Response;
+using App.Domain.Ports.Repositories.Auth;
+using App.Domain.Ports.Services.UserGroup;
+using App.Infrastructure.Persistence.Configurations;
+using App.Infrastructure.Persistence.Repositories.UserGroup;
+using App.Infrastructure.Utilities;
 using Microsoft.EntityFrameworkCore;
 using SharedKernel.Contracts.Response;
 
-namespace ACL.Application.Infrastructure.Services.UserGroup
+namespace App.Infrastructure.Services.UserGroup
 {
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8604 // Possible null reference argument.
@@ -26,19 +25,19 @@ namespace ACL.Application.Infrastructure.Services.UserGroup
         /// <inheritdoc/>
         public AclUserGroupRoleService(ApplicationDbContext dbContext, IAclUserRepository aclUserRepository, IHttpContextAccessor httpContextAccessor) : base(dbContext, aclUserRepository, httpContextAccessor)
         {
-            _aclUserRepository = aclUserRepository;
-            _dbContext = dbContext;
+            this._aclUserRepository = aclUserRepository;
+            this._dbContext = dbContext;
             HttpContextAccessor = httpContextAccessor;
             AppAuth.Initialize(HttpContextAccessor, dbContext);
             AppAuth.SetAuthInfo(HttpContextAccessor);
-            AclResponse = new AclResponse();
-            MessageResponse = new MessageResponse(_modelName, AppAuth.GetAuthInfo().Language);
+            this.AclResponse = new AclResponse();
+            this.MessageResponse = new MessageResponse(this._modelName, AppAuth.GetAuthInfo().Language);
         }
 
         /// <inheritdoc/>
         public AclResponse GetRolesByUserGroupId(ulong userGroupId)
         {
-            var roles = _dbContext.AclRoles.Where(x => x.CompanyId == AppAuth.GetAuthInfo().CompanyId).Select(role => new { role.Id, role.Title }).ToList();
+            var roles = this._dbContext.AclRoles.Where(x => x.CompanyId == AppAuth.GetAuthInfo().CompanyId).Select(role => new { role.Id, role.Title }).ToList();
             var associatedRoles = All().Where(ugr => ugr.UsergroupId == userGroupId && ugr.CompanyId == AppAuth.GetAuthInfo().CompanyId)
                 .Join(roles, ugr => ugr.RoleId, r => r.Id,
                 (ugr, r) => new
@@ -47,10 +46,10 @@ namespace ACL.Application.Infrastructure.Services.UserGroup
                     RoleTitle = r.Title,
                     RoleId = ugr.RoleId
                 }).ToList();
-            AclResponse.Message = MessageResponse.fetchMessage;
-            AclResponse.Data = new { UsergroupRoles = associatedRoles, Roles = roles };
-            AclResponse.StatusCode = AppStatusCode.SUCCESS;
-            return AclResponse;
+            this.AclResponse.Message = this.MessageResponse.fetchMessage;
+            this.AclResponse.Data = new { UsergroupRoles = associatedRoles, Roles = roles };
+            this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
+            return this.AclResponse;
         }
         /// <inheritdoc/>
         public Task<AclResponse> Update(AclUserGroupRoleRequest request)
@@ -58,28 +57,28 @@ namespace ACL.Application.Infrastructure.Services.UserGroup
 
             var userGroupRoles = GetUserGroupRoles(request);
             var aclUserGroupRole = All().Where(x => x.UsergroupId == request.UserGroupId).ToList();
-            var executionStrategy = _dbContext.Database.CreateExecutionStrategy();
+            var executionStrategy = this._dbContext.Database.CreateExecutionStrategy();
 
             executionStrategy.Execute(() =>
            {
-               using var transaction = _dbContext.Database.BeginTransaction();
+               using var transaction = this._dbContext.Database.BeginTransaction();
                try
                {
                    if (aclUserGroupRole != null && aclUserGroupRole.Count != 0)
                    {
-                       _dbContext.AclUsergroupRoles.RemoveRange(aclUserGroupRole);
-                       _dbContext.SaveChanges();
+                       this._dbContext.AclUsergroupRoles.RemoveRange(aclUserGroupRole);
+                       this._dbContext.SaveChanges();
                    }
-                   _dbContext.AclUsergroupRoles.AddRange(userGroupRoles);
-                   _dbContext.SaveChanges();
+                   this._dbContext.AclUsergroupRoles.AddRange(userGroupRoles);
+                   this._dbContext.SaveChanges();
                    ReloadEntities(userGroupRoles);
-                   AclResponse.Data = userGroupRoles;
-                   AclResponse.Message = MessageResponse.createMessage;
-                   AclResponse.StatusCode = AppStatusCode.SUCCESS;
-                   List<ulong>? userIds = _aclUserRepository.GetUserIdByChangePermission(null, null, null, null, request.UserGroupId);
+                   this.AclResponse.Data = userGroupRoles;
+                   this.AclResponse.Message = this.MessageResponse.createMessage;
+                   this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
+                   List<ulong>? userIds = this._aclUserRepository.GetUserIdByChangePermission(null, null, null, null, request.UserGroupId);
                    if (userIds != null)
                    {
-                       _aclUserRepository.UpdateUserPermissionVersion(userIds);
+                       this._aclUserRepository.UpdateUserPermissionVersion(userIds);
                    }
 
                    transaction.Commit();
@@ -87,12 +86,12 @@ namespace ACL.Application.Infrastructure.Services.UserGroup
                catch (Exception ex)
                {
                    transaction.Rollback();
-                   AclResponse.Message = ex.Message;
-                   AclResponse.StatusCode = AppStatusCode.FAIL;
+                   this.AclResponse.Message = ex.Message;
+                   this.AclResponse.StatusCode = AppStatusCode.FAIL;
                }
            });
 
-            return Task.FromResult(AclResponse);
+            return Task.FromResult(this.AclResponse);
         }
 
 

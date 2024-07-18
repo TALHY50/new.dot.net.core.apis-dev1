@@ -28,4 +28,4 @@
 //    }
 //}
 
-namespace ACL.Application.Infrastructure.Security.CustomDataAnotator;
+namespace App.Infrastructure.Security.CustomDataAnotator;

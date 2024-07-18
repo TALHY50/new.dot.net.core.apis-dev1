@@ -1,8 +1,7 @@
-using ACL.Application.Common;
-using ACL.Application.Domain.Ports.Services.Token;
-using Microsoft.AspNetCore.Http;
+using App.Application.Common;
+using App.Domain.Ports.Services.Token;
 
-namespace ACL.Application.Infrastructure.Services;
+namespace App.Infrastructure.Services;
 
 public class CurrentUser : IUser
 {

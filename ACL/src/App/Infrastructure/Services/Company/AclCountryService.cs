@@ -1,14 +1,13 @@
-﻿using ACL.Application.Contracts.Requests;
-using ACL.Application.Contracts.Response;
-using ACL.Application.Domain.Company;
-using ACL.Application.Domain.Ports.Services.Company;
-using ACL.Application.Infrastructure.Persistence.Configurations;
-using ACL.Application.Infrastructure.Persistence.Repositories.Company;
-using ACL.Application.Infrastructure.Utilities;
-using Microsoft.AspNetCore.Http;
+﻿using App.Contracts.Requests;
+using App.Contracts.Response;
+using App.Domain.Company;
+using App.Domain.Ports.Services.Company;
+using App.Infrastructure.Persistence.Configurations;
+using App.Infrastructure.Persistence.Repositories.Company;
+using App.Infrastructure.Utilities;
 using SharedKernel.Contracts.Response;
 
-namespace ACL.Application.Infrastructure.Services.Company
+namespace App.Infrastructure.Services.Company
 {
     public class AclCountryService : AclCountryRepository, IAclCountryService
     {
@@ -23,11 +22,11 @@ namespace ACL.Application.Infrastructure.Services.Company
         /// <inheritdoc/>
         public AclCountryService(ApplicationDbContext dbContext, IHttpContextAccessor httpContextAccessor):base(dbContext,httpContextAccessor)
         {
-            _dbContext = dbContext;
-            AclResponse = new AclResponse();
+            this._dbContext = dbContext;
+            this.AclResponse = new AclResponse();
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8604 // Possible null reference argument.
-            MessageResponse = new MessageResponse(_modelName, AppAuth.GetAuthInfo().Language);
+            this.MessageResponse = new MessageResponse(this._modelName, AppAuth.GetAuthInfo().Language);
             ContextAccessor = httpContextAccessor;
         }
         /// <inheritdoc/>
@@ -36,12 +35,12 @@ namespace ACL.Application.Infrastructure.Services.Company
             var aclCountry = All();
             if (aclCountry.Any())
             {
-                AclResponse.Message = MessageResponse.fetchMessage;
+                this.AclResponse.Message = this.MessageResponse.fetchMessage;
             }
-            AclResponse.Data = aclCountry;
-            AclResponse.StatusCode = AppStatusCode.SUCCESS;
+            this.AclResponse.Data = aclCountry;
+            this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
 
-            return AclResponse;
+            return this.AclResponse;
         }
         /// <inheritdoc/>
         public AclResponse Add(AclCountryRequest request)
@@ -49,16 +48,16 @@ namespace ACL.Application.Infrastructure.Services.Company
             try
             {
                 var aclCountry = PrepareInputData(request);
-                AclResponse.Data = Add(aclCountry);
-                AclResponse.Message = MessageResponse.createMessage;
-                AclResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.AclResponse.Data = Add(aclCountry);
+                this.AclResponse.Message = this.MessageResponse.createMessage;
+                this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             catch (Exception ex)
             {
-                AclResponse.Message = ex.Message;
-                AclResponse.StatusCode = AppStatusCode.FAIL;
+                this.AclResponse.Message = ex.Message;
+                this.AclResponse.StatusCode = AppStatusCode.FAIL;
             }
-            return AclResponse;
+            return this.AclResponse;
 
 
         }
@@ -68,22 +67,22 @@ namespace ACL.Application.Infrastructure.Services.Company
             var aclCountry = Find(id);
             if (aclCountry == null)
             {
-                AclResponse.Message = MessageResponse.notFoundMessage;
-                return AclResponse;
+                this.AclResponse.Message = this.MessageResponse.notFoundMessage;
+                return this.AclResponse;
             }
             try
             {
                 aclCountry = PrepareInputData(request, aclCountry);
-                AclResponse.Data = Update(aclCountry);
-                AclResponse.Message = MessageResponse.editMessage;
-                AclResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.AclResponse.Data = Update(aclCountry);
+                this.AclResponse.Message = this.MessageResponse.editMessage;
+                this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             catch (Exception ex)
             {
-                AclResponse.Message = ex.Message;
-                AclResponse.StatusCode = AppStatusCode.FAIL;
+                this.AclResponse.Message = ex.Message;
+                this.AclResponse.StatusCode = AppStatusCode.FAIL;
             }
-            return AclResponse;
+            return this.AclResponse;
 
         }
         /// <inheritdoc/>
@@ -92,21 +91,21 @@ namespace ACL.Application.Infrastructure.Services.Company
             try
             {
                 var aclCountry = Find(id);
-                AclResponse.Data = aclCountry;
-                AclResponse.Message = MessageResponse.fetchMessage;
+                this.AclResponse.Data = aclCountry;
+                this.AclResponse.Message = this.MessageResponse.fetchMessage;
                 if (aclCountry == null)
                 {
-                    AclResponse.Message = MessageResponse.notFoundMessage;
+                    this.AclResponse.Message = this.MessageResponse.notFoundMessage;
                 }
 
-                AclResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             catch (Exception ex)
             {
-                AclResponse.Message = ex.Message;
-                AclResponse.StatusCode = AppStatusCode.FAIL;
+                this.AclResponse.Message = ex.Message;
+                this.AclResponse.StatusCode = AppStatusCode.FAIL;
             }
-            return AclResponse;
+            return this.AclResponse;
 
         }
         /// <inheritdoc/>
@@ -115,11 +114,11 @@ namespace ACL.Application.Infrastructure.Services.Company
             var aclCountry = Delete(id);
             if (aclCountry != null)
             {
-                AclResponse.Data = aclCountry;
-                AclResponse.Message = MessageResponse.deleteMessage;
-                AclResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.AclResponse.Data = aclCountry;
+                this.AclResponse.Message = this.MessageResponse.deleteMessage;
+                this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
-            return AclResponse;
+            return this.AclResponse;
         }
         private AclCountry PrepareInputData(AclCountryRequest request, AclCountry? aclCountry = null)
         {

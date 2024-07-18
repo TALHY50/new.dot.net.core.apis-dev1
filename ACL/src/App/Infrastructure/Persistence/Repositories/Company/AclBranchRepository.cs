@@ -1,10 +1,9 @@
-﻿using ACL.Application.Domain.Company;
-using ACL.Application.Domain.Ports.Repositories.Company;
-using ACL.Application.Infrastructure.Persistence.Configurations;
-using ACL.Application.Infrastructure.Utilities;
-using Microsoft.AspNetCore.Http;
+﻿using App.Domain.Company;
+using App.Domain.Ports.Repositories.Company;
+using App.Infrastructure.Persistence.Configurations;
+using App.Infrastructure.Utilities;
 
-namespace ACL.Application.Infrastructure.Persistence.Repositories.Company
+namespace App.Infrastructure.Persistence.Repositories.Company
 {
     /// <inheritdoc/>
     public class AclBranchRepository : IAclBranchRepository
@@ -15,9 +14,9 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Company
         /// <inheritdoc/>
         public AclBranchRepository(ApplicationDbContext dbContext, IHttpContextAccessor httpContextAccessor)
         {
-            _dbContext = dbContext;
+            this._dbContext = dbContext;
             _httpContextAccessor = httpContextAccessor;
-            AppAuth.Initialize(_httpContextAccessor, _dbContext);
+            AppAuth.Initialize(_httpContextAccessor, this._dbContext);
             AppAuth.SetAuthInfo(_httpContextAccessor);
         }
         /// <inheritdoc/>
@@ -25,9 +24,9 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Company
         {
             try
             {
-                _dbContext.AclBranches.Add(entity);
-                _dbContext.SaveChanges();
-                _dbContext.Entry(entity).ReloadAsync();
+                this._dbContext.AclBranches.Add(entity);
+                this._dbContext.SaveChanges();
+                this._dbContext.Entry(entity).ReloadAsync();
                 return entity;
             }
             catch (Exception)
@@ -40,7 +39,7 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Company
         {
             try
             {
-                return _dbContext.AclBranches.ToList();
+                return this._dbContext.AclBranches.ToList();
             }
             catch (Exception)
             {
@@ -52,8 +51,8 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Company
         {
             try
             {
-                _dbContext.AclBranches.Remove(entity);
-                _dbContext.SaveChangesAsync();
+                this._dbContext.AclBranches.Remove(entity);
+                this._dbContext.SaveChangesAsync();
                 return true;
             }
             catch (Exception)
@@ -66,11 +65,11 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Company
         {
             try
             {
-                var delete = _dbContext.AclBranches.Find(id);
+                var delete = this._dbContext.AclBranches.Find(id);
 #pragma warning disable CS8604 // Possible null reference argument.
-                _dbContext.AclBranches.Remove(delete);
+                this._dbContext.AclBranches.Remove(delete);
 #pragma warning restore CS8604 // Possible null reference argument.
-                _dbContext.SaveChangesAsync();
+                this._dbContext.SaveChangesAsync();
                 return delete;
             }
             catch (Exception)
@@ -84,7 +83,7 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Company
         {
             try
             {
-                return _dbContext.AclBranches.Find(id);
+                return this._dbContext.AclBranches.Find(id);
             }
             catch (Exception)
             {
@@ -97,9 +96,9 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Company
         {
             try
             {
-                _dbContext.AclBranches.Update(entity);
-                _dbContext.SaveChanges();
-                _dbContext.Entry(entity).ReloadAsync();
+                this._dbContext.AclBranches.Update(entity);
+                this._dbContext.SaveChanges();
+                this._dbContext.Entry(entity).ReloadAsync();
                 return entity;
             }
             catch (Exception)

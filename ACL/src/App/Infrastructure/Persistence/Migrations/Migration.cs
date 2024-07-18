@@ -1,4 +1,4 @@
-﻿namespace ACL.Application.Infrastructure.Persistence.Migrations;
+﻿namespace App.Infrastructure.Persistence.Migrations;
 
 public partial class Migration
 {

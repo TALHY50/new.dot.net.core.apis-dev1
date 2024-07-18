@@ -1,9 +1,9 @@
-﻿using ACL.Application.Contracts.Requests;
-using ACL.Application.Contracts.Response;
-using ACL.Application.Domain.Module;
-using ACL.Application.Domain.Ports.Repositories.Module;
+﻿using App.Contracts.Requests;
+using App.Contracts.Response;
+using App.Domain.Module;
+using App.Domain.Ports.Repositories.Module;
 
-namespace ACL.Application.Domain.Ports.Services.Module
+namespace App.Domain.Ports.Services.Module
 {
     public interface IAclPageService : IAclPageRepository
     {

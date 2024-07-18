@@ -1,11 +1,10 @@
-﻿using ACL.Application.Domain.Module;
-using ACL.Application.Domain.Ports.Repositories.Auth;
-using ACL.Application.Domain.Ports.Repositories.Module;
-using ACL.Application.Infrastructure.Persistence.Configurations;
-using ACL.Application.Infrastructure.Utilities;
-using Microsoft.AspNetCore.Http;
+﻿using App.Domain.Module;
+using App.Domain.Ports.Repositories.Auth;
+using App.Domain.Ports.Repositories.Module;
+using App.Infrastructure.Persistence.Configurations;
+using App.Infrastructure.Utilities;
 
-namespace ACL.Application.Infrastructure.Persistence.Repositories.Module
+namespace App.Infrastructure.Persistence.Repositories.Module
 {
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8604 // Possible null reference argument.
@@ -20,10 +19,10 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Module
         /// <inheritdoc/>
         public AclSubModuleRepository(ApplicationDbContext dbContext, IAclUserRepository aclUserRepository, IHttpContextAccessor httpContextAccessor)
         {
-            _aclUserRepository = aclUserRepository;
-            _dbContext = dbContext;
+            this._aclUserRepository = aclUserRepository;
+            this._dbContext = dbContext;
             _httpContextAccessor = httpContextAccessor;
-            AppAuth.Initialize(_httpContextAccessor, _dbContext);
+            AppAuth.Initialize(_httpContextAccessor, this._dbContext);
             AppAuth.SetAuthInfo(_httpContextAccessor);
         }
        
@@ -43,7 +42,7 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Module
         {
             try
             {
-                return _dbContext.AclSubModules.ToList();
+                return this._dbContext.AclSubModules.ToList();
             }
             catch (Exception)
             {
@@ -54,15 +53,15 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Module
         /// <inheritdoc/>
         public AclSubModule? Find(ulong id)
         {
-            return _dbContext.AclSubModules.Find(id);
+            return this._dbContext.AclSubModules.Find(id);
         }
         /// <inheritdoc/>
         public AclSubModule? Add(AclSubModule aclSubModule)
         {
 
-            _dbContext.AclSubModules.Add(aclSubModule);
-            _dbContext.SaveChanges();
-            _dbContext.Entry(aclSubModule).Reload();
+            this._dbContext.AclSubModules.Add(aclSubModule);
+            this._dbContext.SaveChanges();
+            this._dbContext.Entry(aclSubModule).Reload();
             return aclSubModule;
 
         }
@@ -70,9 +69,9 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Module
         public AclSubModule? Update(AclSubModule aclSubModule)
         {
 
-            _dbContext.AclSubModules.Update(aclSubModule);
-            _dbContext.SaveChanges();
-            _dbContext.Entry(aclSubModule).Reload();
+            this._dbContext.AclSubModules.Update(aclSubModule);
+            this._dbContext.SaveChanges();
+            this._dbContext.Entry(aclSubModule).Reload();
             return aclSubModule;
 
         }
@@ -80,8 +79,8 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Module
         public AclSubModule? Delete(AclSubModule aclSubModule)
         {
 
-            _dbContext.AclSubModules.Remove(aclSubModule);
-            _dbContext.SaveChanges();
+            this._dbContext.AclSubModules.Remove(aclSubModule);
+            this._dbContext.SaveChanges();
             return aclSubModule;
 
         }
@@ -89,18 +88,18 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Module
         public AclSubModule? Delete(ulong id)
         {
             var delete = Find(id);
-            _dbContext.AclSubModules.Remove(delete);
-            _dbContext.SaveChanges();
+            this._dbContext.AclSubModules.Remove(delete);
+            this._dbContext.SaveChanges();
             return delete;
         }
 
         /// <inheritdoc/>
         public string ExistByName(ulong? id, string name)
         {
-            var valid = _dbContext.AclSubModules.Any(x => x.Name.ToLower() == name.ToLower());
+            var valid = this._dbContext.AclSubModules.Any(x => x.Name.ToLower() == name.ToLower());
             if (id > 0)
             {
-                valid = _dbContext.AclSubModules.Any(x => x.Name.ToLower() == name.ToLower() && x.Id != id);
+                valid = this._dbContext.AclSubModules.Any(x => x.Name.ToLower() == name.ToLower() && x.Id != id);
             }
             if (valid)
             {
@@ -111,7 +110,7 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Module
         /// <inheritdoc/>
         public ulong ModuleIdExist(ulong moduleId)
         {
-            var valid = _dbContext.AclModules.Any(x => x.Id == moduleId);
+            var valid = this._dbContext.AclModules.Any(x => x.Id == moduleId);
 
             if (!valid)
             {

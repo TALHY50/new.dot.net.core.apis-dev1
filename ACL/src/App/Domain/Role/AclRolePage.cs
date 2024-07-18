@@ -1,4 +1,4 @@
-﻿namespace ACL.Application.Domain.Role;
+﻿namespace App.Domain.Role;
 
 public partial class AclRolePage
 {

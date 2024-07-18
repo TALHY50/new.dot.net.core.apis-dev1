@@ -1,4 +1,4 @@
-﻿namespace ACL.Application.Domain.UserGroup;
+﻿namespace App.Domain.UserGroup;
 
 public partial class AclUsergroup
 {

@@ -1,4 +1,4 @@
-namespace ACL.Application.Infrastructure.Services.Jwt
+namespace App.Infrastructure.Services.Jwt
 {
     public class JwtSettings
     {

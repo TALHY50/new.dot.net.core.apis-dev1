@@ -1,14 +1,13 @@
-﻿using ACL.Application.Contracts.Requests;
-using ACL.Application.Contracts.Response;
-using ACL.Application.Domain.Company;
-using ACL.Application.Domain.Ports.Services.Company;
-using ACL.Application.Infrastructure.Persistence.Configurations;
-using ACL.Application.Infrastructure.Persistence.Repositories.Company;
-using ACL.Application.Infrastructure.Utilities;
-using Microsoft.AspNetCore.Http;
+﻿using App.Contracts.Requests;
+using App.Contracts.Response;
+using App.Domain.Company;
+using App.Domain.Ports.Services.Company;
+using App.Infrastructure.Persistence.Configurations;
+using App.Infrastructure.Persistence.Repositories.Company;
+using App.Infrastructure.Utilities;
 using SharedKernel.Contracts.Response;
 
-namespace ACL.Application.Infrastructure.Services.Company
+namespace App.Infrastructure.Services.Company
 {
     public class AclCompanyModuleService : AclCompanyModuleRepository, IAclCompanyModuleService
     {
@@ -22,41 +21,41 @@ namespace ACL.Application.Infrastructure.Services.Company
         /// <inheritdoc/>
         public AclCompanyModuleService(ApplicationDbContext dbContext, IHttpContextAccessor httpContextAccessor):base(dbContext, httpContextAccessor) 
         {
-            _dbContext = dbContext;
-            AclResponse = new AclResponse();
+            this._dbContext = dbContext;
+            this.AclResponse = new AclResponse();
             HttpContextAccessor = httpContextAccessor;
             AppAuth.Initialize(HttpContextAccessor, dbContext);
             AppAuth.SetAuthInfo(HttpContextAccessor);
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8604 // Possible null reference argument.
 
-            MessageResponse = new MessageResponse(_modelName, AppAuth.GetAuthInfo().Language);
+            this.MessageResponse = new MessageResponse(this._modelName, AppAuth.GetAuthInfo().Language);
         }
         /// <inheritdoc/>
         public AclResponse GetAll()
         {
-            AclResponse.Data = base.All();
-            AclResponse.Message = (AclResponse.Data != null) ?MessageResponse.fetchMessage : MessageResponse.notFoundMessage;
-            AclResponse.StatusCode = (AclResponse.Data != null) ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
-            AclResponse.Timestamp = DateTime.Now;
-            return AclResponse;
+            this.AclResponse.Data = base.All();
+            this.AclResponse.Message = (this.AclResponse.Data != null) ?this.MessageResponse.fetchMessage : this.MessageResponse.notFoundMessage;
+            this.AclResponse.StatusCode = (this.AclResponse.Data != null) ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
+            this.AclResponse.Timestamp = DateTime.Now;
+            return this.AclResponse;
         }
         /// <inheritdoc/>
         public AclResponse AddAclCompanyModule(AclCompanyModuleRequest request)
         {
             try
             {
-                AclResponse.Data = base.Add(PrepareInputData(request));
-                AclResponse.Message = MessageResponse.createMessage;
-                AclResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.AclResponse.Data = base.Add(PrepareInputData(request));
+                this.AclResponse.Message = this.MessageResponse.createMessage;
+                this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
             catch (Exception ex)
             {
-                AclResponse.Message = ex.Message;
-                AclResponse.StatusCode = AppStatusCode.FAIL;
+                this.AclResponse.Message = ex.Message;
+                this.AclResponse.StatusCode = AppStatusCode.FAIL;
             }
-            AclResponse.Timestamp = DateTime.Now;
-            return AclResponse;
+            this.AclResponse.Timestamp = DateTime.Now;
+            return this.AclResponse;
         }
         /// <inheritdoc/>
         public AclResponse EditAclCompanyModule(ulong id, AclCompanyModuleRequest request)
@@ -64,47 +63,47 @@ namespace ACL.Application.Infrastructure.Services.Company
             try
             {
                 var aclCompanyModule = base.Find(id) ?? throw new Exception("company module not exist");
-                AclResponse.Message = (aclCompanyModule != null) ? MessageResponse.editMessage : MessageResponse.notFoundMessage;
-                AclResponse.StatusCode = (aclCompanyModule != null) ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
+                this.AclResponse.Message = (aclCompanyModule != null) ? this.MessageResponse.editMessage : this.MessageResponse.notFoundMessage;
+                this.AclResponse.StatusCode = (aclCompanyModule != null) ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
                 if (aclCompanyModule != null)
                 {
-                   AclResponse.Data = base.Update(PrepareInputData(request, id, aclCompanyModule));
+                   this.AclResponse.Data = base.Update(PrepareInputData(request, id, aclCompanyModule));
                 }
             }
             catch (Exception ex)
             {
-               AclResponse.Message = ex.Message;
+               this.AclResponse.Message = ex.Message;
             }
-            AclResponse.Timestamp = DateTime.Now;
-            return AclResponse;
+            this.AclResponse.Timestamp = DateTime.Now;
+            return this.AclResponse;
         }
         /// <inheritdoc/>
         public AclResponse FindById(ulong id)
         {
             try
             {
-               AclResponse.Data = base.Find(id);
-                var message = (AclResponse.Data != null) ? MessageResponse.fetchMessage : MessageResponse.notFoundMessage;
-                AclResponse.Message = message;
-                AclResponse.StatusCode = (AclResponse.Data != null) ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
-                AclResponse.Timestamp = DateTime.Now;
+               this.AclResponse.Data = base.Find(id);
+                var message = (this.AclResponse.Data != null) ? this.MessageResponse.fetchMessage : this.MessageResponse.notFoundMessage;
+                this.AclResponse.Message = message;
+                this.AclResponse.StatusCode = (this.AclResponse.Data != null) ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
+                this.AclResponse.Timestamp = DateTime.Now;
             }
             catch (Exception ex)
             {
-               AclResponse.Message = ex.Message;
-                AclResponse.StatusCode = AppStatusCode.FAIL;
-               AclResponse.Timestamp = DateTime.Now;
+               this.AclResponse.Message = ex.Message;
+                this.AclResponse.StatusCode = AppStatusCode.FAIL;
+               this.AclResponse.Timestamp = DateTime.Now;
             }
-            return AclResponse;
+            return this.AclResponse;
         }
         /// <inheritdoc/>
         public  AclResponse DeleteCompanyModule(ulong id)
         {
             var check = base.Find(id) ?? throw new Exception("company module not exist");
-            AclResponse.Data = base.Delete(id);
-            AclResponse.StatusCode = (AclResponse.Data != null) ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
-            AclResponse.Message = (AclResponse.Data != null) ? MessageResponse.deleteMessage : MessageResponse.notFoundMessage;
-            return AclResponse;
+            this.AclResponse.Data = base.Delete(id);
+            this.AclResponse.StatusCode = (this.AclResponse.Data != null) ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
+            this.AclResponse.Message = (this.AclResponse.Data != null) ? this.MessageResponse.deleteMessage : this.MessageResponse.notFoundMessage;
+            return this.AclResponse;
         }
         /// <inheritdoc/>
         public bool IsValidForCreateOrUpdate(ulong companyId, ulong moduleId, ulong id = 0)

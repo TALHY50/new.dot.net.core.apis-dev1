@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace ACL.Application.Contracts.Requests
+namespace App.Contracts.Requests
 {
     public class AclUserGroupRequest
     {

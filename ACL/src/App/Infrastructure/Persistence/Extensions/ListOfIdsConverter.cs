@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace ACL.Application.Infrastructure.Persistence.Extensions;
+namespace App.Infrastructure.Persistence.Extensions;
 
 public class ListOfIdsConverter(ConverterMappingHints? mappingHints = null)
     : ValueConverter<List<Guid>, string>(

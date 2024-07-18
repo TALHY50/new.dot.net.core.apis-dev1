@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using Ardalis.SharedKernel;
 
-namespace ACL.Application.Domain.Auth;
+namespace App.Domain.Auth;
 
 public partial class AclUser : EntityBase, IAggregateRoot
 {

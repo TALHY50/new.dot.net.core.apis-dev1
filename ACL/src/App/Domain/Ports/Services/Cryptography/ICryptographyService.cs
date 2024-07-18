@@ -1,4 +1,4 @@
-namespace ACL.Application.Domain.Ports.Services.Cryptography
+namespace App.Domain.Ports.Services.Cryptography
 
 {
     public interface ICryptographyService

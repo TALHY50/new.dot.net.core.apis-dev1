@@ -1,9 +1,8 @@
 ﻿using System.Security.Claims;
-using ACL.Application.Domain.Auth;
-using ACL.Application.Infrastructure.Persistence.Configurations;
-using Microsoft.AspNetCore.Http;
+using App.Domain.Auth;
+using App.Infrastructure.Persistence.Configurations;
 
-namespace ACL.Application.Infrastructure.Utilities
+namespace App.Infrastructure.Utilities
 {
     public class AuthInfoModel
     {

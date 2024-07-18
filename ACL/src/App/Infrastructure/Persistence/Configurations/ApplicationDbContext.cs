@@ -1,15 +1,14 @@
 ﻿using System.Reflection;
-using ACL.Application.Domain.Auth;
-using ACL.Application.Domain.Company;
-using ACL.Application.Domain.Module;
-using ACL.Application.Domain.Role;
-using ACL.Application.Domain.UserGroup;
-using ACL.Application.Infrastructure.Persistence.Migrations;
+using App.Domain.Auth;
+using App.Domain.Company;
+using App.Domain.Module;
+using App.Domain.Role;
+using App.Domain.UserGroup;
+using App.Infrastructure.Persistence.Migrations;
 using Microsoft.EntityFrameworkCore;
 using SharedKernel.Application.Interfaces;
 
-
-namespace ACL.Application.Infrastructure.Persistence.Configurations;
+namespace App.Infrastructure.Persistence.Configurations;
 
 public partial class ApplicationDbContext : DbContext, IApplicationDbContext
 {

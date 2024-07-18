@@ -1,10 +1,9 @@
-﻿using ACL.Application.Domain.Company;
-using ACL.Application.Domain.Ports.Repositories.Company;
-using ACL.Application.Infrastructure.Persistence.Configurations;
-using ACL.Application.Infrastructure.Utilities;
-using Microsoft.AspNetCore.Http;
+﻿using App.Domain.Company;
+using App.Domain.Ports.Repositories.Company;
+using App.Infrastructure.Persistence.Configurations;
+using App.Infrastructure.Utilities;
 
-namespace ACL.Application.Infrastructure.Persistence.Repositories.Company
+namespace App.Infrastructure.Persistence.Repositories.Company
 {
     /// <inheritdoc/>
     public class AclCountryRepository : IAclCountryRepository
@@ -15,7 +14,7 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Company
         /// <inheritdoc/>
         public AclCountryRepository(ApplicationDbContext dbContext, IHttpContextAccessor httpContextAccessor)
         {
-            _dbContext = dbContext;
+            this._dbContext = dbContext;
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8604 // Possible null reference argument.
             ContextAccessor = httpContextAccessor;
@@ -26,7 +25,7 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Company
         public bool ExistById(ulong id)
         {
             bool exist = false;
-            var aclCountry = _dbContext.AclCountries.Find(id);
+            var aclCountry = this._dbContext.AclCountries.Find(id);
             if (aclCountry != null)
             {
                 exist = true;
@@ -39,7 +38,7 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Company
         {
             try
             {
-                return _dbContext.AclCountries.ToList();
+                return this._dbContext.AclCountries.ToList();
             }
             catch (Exception)
             {
@@ -52,7 +51,7 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Company
         {
             try
             {
-                return _dbContext.AclCountries.Find(id);
+                return this._dbContext.AclCountries.Find(id);
             }
             catch (Exception)
             {
@@ -65,9 +64,9 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Company
         {
             try
             {
-                _dbContext.AclCountries.Add(aclCountry);
-                _dbContext.SaveChanges();
-                _dbContext.Entry(aclCountry).ReloadAsync();
+                this._dbContext.AclCountries.Add(aclCountry);
+                this._dbContext.SaveChanges();
+                this._dbContext.Entry(aclCountry).ReloadAsync();
                 return aclCountry;
             }
             catch (Exception)
@@ -81,9 +80,9 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Company
         {
             try
             {
-                _dbContext.AclCountries.Update(aclCountry);
-                _dbContext.SaveChanges();
-                _dbContext.Entry(aclCountry).ReloadAsync();
+                this._dbContext.AclCountries.Update(aclCountry);
+                this._dbContext.SaveChanges();
+                this._dbContext.Entry(aclCountry).ReloadAsync();
                 return aclCountry;
             }
             catch (Exception)
@@ -96,8 +95,8 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Company
         {
             try
             {
-                _dbContext.AclCountries.Remove(aclCountry);
-                _dbContext.SaveChangesAsync();
+                this._dbContext.AclCountries.Remove(aclCountry);
+                this._dbContext.SaveChangesAsync();
                 return aclCountry;
             }
             catch (Exception)
@@ -113,9 +112,9 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Company
             {
                 var delete = Find(id);
 #pragma warning disable CS8604 // Possible null reference argument.
-                _dbContext.AclCountries.Remove(delete);
+                this._dbContext.AclCountries.Remove(delete);
 #pragma warning restore CS8604 // Possible null reference argument.
-                _dbContext.SaveChanges();
+                this._dbContext.SaveChanges();
                 return delete;
             }
             catch (Exception)

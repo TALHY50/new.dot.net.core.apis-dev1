@@ -1,17 +1,16 @@
-﻿using ACL.Application.Contracts.Requests;
-using ACL.Application.Contracts.Response;
-using ACL.Application.Domain.Company;
-using ACL.Application.Domain.Ports.Services.Company;
-using ACL.Application.Infrastructure.Persistence.Configurations;
-using ACL.Application.Infrastructure.Persistence.Repositories.Company;
-using ACL.Application.Infrastructure.Utilities;
-using Microsoft.AspNetCore.Http;
+﻿using App.Contracts.Requests;
+using App.Contracts.Response;
+using App.Domain.Company;
+using App.Domain.Ports.Services.Company;
+using App.Infrastructure.Persistence.Configurations;
+using App.Infrastructure.Persistence.Repositories.Company;
+using App.Infrastructure.Utilities;
 using SharedKernel.Contracts.Response;
 
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8604 // Possible null reference argument.
 #pragma warning disable CS8629 // Possible null reference argument
-namespace ACL.Application.Infrastructure.Services.Company
+namespace App.Infrastructure.Services.Company
 {
     public class AclStateService : AclStateRepository, IAclStateService
     {
@@ -23,17 +22,17 @@ namespace ACL.Application.Infrastructure.Services.Company
         public new static IHttpContextAccessor HttpContextAccessor;
         public AclStateService(ApplicationDbContext dbContext, IHttpContextAccessor httpContextAccessor) : base(dbContext, httpContextAccessor)
         {
-            AclResponse = new AclResponse();
+            this.AclResponse = new AclResponse();
             HttpContextAccessor = httpContextAccessor;
             AppAuth.Initialize(HttpContextAccessor, dbContext);
             AppAuth.SetAuthInfo(HttpContextAccessor);
-            MessageResponse = new MessageResponse(_modelName, AppAuth.GetAuthInfo().Language);
+            this.MessageResponse = new MessageResponse(this._modelName, AppAuth.GetAuthInfo().Language);
         }
           /// <inheritdoc/>
         public AclResponse GetAll()
         {
-            var aclStates = _dbContext.AclStates
-                .Join(_dbContext.AclCountries, s => s.CountryId, c => c.Id, (s, c) => new
+            var aclStates = this._dbContext.AclStates
+                .Join(this._dbContext.AclCountries, s => s.CountryId, c => c.Id, (s, c) => new
                 {
                     state = s,
                     country = c
@@ -41,25 +40,25 @@ namespace ACL.Application.Infrastructure.Services.Company
                 }).ToList();
             if (aclStates.Any())
             {
-                AclResponse.Message = MessageResponse.fetchMessage;
+                this.AclResponse.Message = this.MessageResponse.fetchMessage;
             }
-            AclResponse.Data = aclStates;
-            AclResponse.StatusCode = AppStatusCode.SUCCESS;
-            AclResponse.Timestamp = DateTime.Now;
+            this.AclResponse.Data = aclStates;
+            this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
+            this.AclResponse.Timestamp = DateTime.Now;
 
-            return AclResponse;
+            return this.AclResponse;
         }
         /// <inheritdoc/>
         public AclResponse Add(AclStateRequest request)
         {
 
             var aclState = PrepareInputData(request);
-            AclResponse.Data = Add(aclState);
-            AclResponse.Message = MessageResponse.createMessage;
-            AclResponse.StatusCode = AppStatusCode.SUCCESS;
+            this.AclResponse.Data = Add(aclState);
+            this.AclResponse.Message = this.MessageResponse.createMessage;
+            this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
 
-            AclResponse.Timestamp = DateTime.Now;
-            return AclResponse;
+            this.AclResponse.Timestamp = DateTime.Now;
+            return this.AclResponse;
 
 
         }
@@ -69,18 +68,18 @@ namespace ACL.Application.Infrastructure.Services.Company
             var aclState = Find(id);
             if (aclState == null)
             {
-                AclResponse.Message = MessageResponse.notFoundMessage;
-                AclResponse.StatusCode = AppStatusCode.NOTFOUND;
-                return AclResponse;
+                this.AclResponse.Message = this.MessageResponse.notFoundMessage;
+                this.AclResponse.StatusCode = AppStatusCode.NOTFOUND;
+                return this.AclResponse;
             }
 
             aclState = PrepareInputData(request, aclState);
-            AclResponse.Data = Update(aclState);
-            AclResponse.Message = MessageResponse.editMessage;
-            AclResponse.StatusCode = AppStatusCode.SUCCESS;
+            this.AclResponse.Data = Update(aclState);
+            this.AclResponse.Message = this.MessageResponse.editMessage;
+            this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
 
-            AclResponse.Timestamp = DateTime.Now;
-            return AclResponse;
+            this.AclResponse.Timestamp = DateTime.Now;
+            return this.AclResponse;
 
         }
         /// <inheritdoc/>
@@ -88,35 +87,35 @@ namespace ACL.Application.Infrastructure.Services.Company
         {
 
             var aclState = All().Where(x => x.Id == id)
-                .Join(_dbContext.AclCountries, s => s.CountryId, c => c.Id, (s, c) => new
+                .Join(this._dbContext.AclCountries, s => s.CountryId, c => c.Id, (s, c) => new
                 {
                     state = s,
                     country = c
                 }).FirstOrDefault();
-            AclResponse.Data = aclState;
-            AclResponse.StatusCode = AppStatusCode.SUCCESS;
-            AclResponse.Message = MessageResponse.fetchMessage;
+            this.AclResponse.Data = aclState;
+            this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
+            this.AclResponse.Message = this.MessageResponse.fetchMessage;
             if (aclState == null)
             {
-                AclResponse.StatusCode = AppStatusCode.NOTFOUND;
-                AclResponse.Message = MessageResponse.notFoundMessage;
+                this.AclResponse.StatusCode = AppStatusCode.NOTFOUND;
+                this.AclResponse.Message = this.MessageResponse.notFoundMessage;
             }
-            AclResponse.Timestamp = DateTime.Now;
-            return AclResponse;
+            this.AclResponse.Timestamp = DateTime.Now;
+            return this.AclResponse;
 
         }
         /// <inheritdoc/>
         public AclResponse DeleteById(ulong id)
         {
-            AclResponse.StatusCode = AppStatusCode.NOTFOUND;
+            this.AclResponse.StatusCode = AppStatusCode.NOTFOUND;
             var aclState = Find(id);
             if (aclState != null)
             {
-                AclResponse.Data = Delete(id);
-                AclResponse.Message = MessageResponse.deleteMessage;
-                AclResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.AclResponse.Data = Delete(id);
+                this.AclResponse.Message = this.MessageResponse.deleteMessage;
+                this.AclResponse.StatusCode = AppStatusCode.SUCCESS;
             }
-            return AclResponse;
+            return this.AclResponse;
         }
 
         private AclState PrepareInputData(AclStateRequest request, AclState? aclState = null)

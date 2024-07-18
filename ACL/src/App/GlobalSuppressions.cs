@@ -7,4 +7,4 @@ using System.Diagnostics.CodeAnalysis;
 
 [assembly: SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>", Scope = "member", Target = "~M:ACL.Repositories.AclModuleRepository.PrepareInputData(ACL.Requests.V1.AclModuleRequest,System.UInt64,ACL.Database.Models.AclModule)~ACL.Database.Models.AclModule")]
 
-namespace ACL.Application;
+namespace App;

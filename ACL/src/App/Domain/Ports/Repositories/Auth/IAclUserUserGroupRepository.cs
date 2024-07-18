@@ -1,6 +1,6 @@
-﻿using ACL.Application.Domain.Auth;
+﻿using App.Domain.Auth;
 
-namespace ACL.Application.Domain.Ports.Repositories.Auth
+namespace App.Domain.Ports.Repositories.Auth
 {
     /// <inheritdoc/>
     public interface IAclUserUserGroupRepository

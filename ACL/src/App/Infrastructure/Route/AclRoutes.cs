@@ -1,4 +1,4 @@
-﻿namespace ACL.Application.Infrastructure.Route
+﻿namespace App.Infrastructure.Route
 {
     public class AclRoutesUrl
     {

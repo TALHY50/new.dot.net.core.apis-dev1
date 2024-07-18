@@ -1,6 +1,6 @@
-﻿using ACL.Application.Domain.Role;
+﻿using App.Domain.Role;
 
-namespace ACL.Application.Domain.Ports.Repositories.Role
+namespace App.Domain.Ports.Repositories.Role
 
 {
     /// <inheritdoc/>

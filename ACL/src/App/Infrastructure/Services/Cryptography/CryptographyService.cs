@@ -1,9 +1,9 @@
 using System.Security.Cryptography;
 using System.Text;
-using ACL.Application.Domain.Ports.Services.Cryptography;
+using App.Domain.Ports.Services.Cryptography;
 using Konscious.Security.Cryptography;
 
-namespace ACL.Application.Infrastructure.Services.Cryptography
+namespace App.Infrastructure.Services.Cryptography
 {
     // For good password practices go here: https://crackstation.net/hashing-security.htm
     // https://github.com/kmaragon/Konscious.Security.Cryptography

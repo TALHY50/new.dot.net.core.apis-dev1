@@ -1,8 +1,8 @@
-﻿using ACL.Application.Contracts.Requests;
-using ACL.Application.Contracts.Response;
-using ACL.Application.Domain.Ports.Repositories.Auth;
+﻿using App.Contracts.Requests;
+using App.Contracts.Response;
+using App.Domain.Ports.Repositories.Auth;
 
-namespace ACL.Application.Domain.Ports.Services.Auth
+namespace App.Domain.Ports.Services.Auth
 {
     public interface IAclUserService : IAclUserRepository
     {

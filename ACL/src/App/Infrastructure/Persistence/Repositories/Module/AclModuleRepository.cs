@@ -1,11 +1,10 @@
-﻿using ACL.Application.Domain.Module;
-using ACL.Application.Domain.Ports.Repositories.Auth;
-using ACL.Application.Domain.Ports.Repositories.Module;
-using ACL.Application.Infrastructure.Persistence.Configurations;
-using ACL.Application.Infrastructure.Utilities;
-using Microsoft.AspNetCore.Http;
+﻿using App.Domain.Module;
+using App.Domain.Ports.Repositories.Auth;
+using App.Domain.Ports.Repositories.Module;
+using App.Infrastructure.Persistence.Configurations;
+using App.Infrastructure.Utilities;
 
-namespace ACL.Application.Infrastructure.Persistence.Repositories.Module
+namespace App.Infrastructure.Persistence.Repositories.Module
 {
     /// <inheritdoc/>
     public class AclModuleRepository : IAclModuleRepository
@@ -17,11 +16,11 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Module
         /// <inheritdoc/>
         public AclModuleRepository(ApplicationDbContext dbContext, IAclUserRepository aclUserRepository, IHttpContextAccessor httpContextAccessor)
         {
-            _dbContext = dbContext;
+            this._dbContext = dbContext;
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8604 // Possible null reference argument.
-            _aclUserRepository = aclUserRepository;
+            this._aclUserRepository = aclUserRepository;
             HttpContextAccessor = httpContextAccessor;
             AppAuth.Initialize(HttpContextAccessor, dbContext);
             AppAuth.SetAuthInfo(HttpContextAccessor);
@@ -33,18 +32,18 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Module
         {
             if (id > 0)
             {
-                return _dbContext.AclModules.Any(x => x.Id == value && x.Id != id);
+                return this._dbContext.AclModules.Any(x => x.Id == value && x.Id != id);
             }
-            return _dbContext.AclModules.Any(x => x.Id == value);
+            return this._dbContext.AclModules.Any(x => x.Id == value);
         }
         /// <inheritdoc/>
         public bool ExistByName(ulong id, string name)
         {
             if (id > 0)
             {
-                return _dbContext.AclModules.Any(x => x.Name.ToLower() == name.ToLower() && x.Id != id);
+                return this._dbContext.AclModules.Any(x => x.Name.ToLower() == name.ToLower() && x.Id != id);
             }
-            return _dbContext.AclModules.Any(x => x.Name.ToLower() == name.ToLower());
+            return this._dbContext.AclModules.Any(x => x.Name.ToLower() == name.ToLower());
         }
 
         /// <inheritdoc/>
@@ -52,7 +51,7 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Module
         {
             try
             {
-                return _dbContext.AclModules.ToList();
+                return this._dbContext.AclModules.ToList();
             }
             catch (Exception)
             {
@@ -65,7 +64,7 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Module
         {
             try
             {
-                return _dbContext.AclModules.Find(id);
+                return this._dbContext.AclModules.Find(id);
             }
             catch (Exception)
             {
@@ -77,9 +76,9 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Module
         {
             try
             {
-                _dbContext.AclModules.Add(aclModule);
-                _dbContext.SaveChanges();
-                _dbContext.Entry(aclModule).ReloadAsync();
+                this._dbContext.AclModules.Add(aclModule);
+                this._dbContext.SaveChanges();
+                this._dbContext.Entry(aclModule).ReloadAsync();
                 return aclModule;
             }
             catch (Exception)
@@ -93,9 +92,9 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Module
         {
             try
             {
-                _dbContext.AclModules.Update(aclModule);
-                _dbContext.SaveChanges();
-                _dbContext.Entry(aclModule).ReloadAsync();
+                this._dbContext.AclModules.Update(aclModule);
+                this._dbContext.SaveChanges();
+                this._dbContext.Entry(aclModule).ReloadAsync();
                 return aclModule;
             }
             catch (Exception)
@@ -108,8 +107,8 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Module
         {
             try
             {
-                _dbContext.AclModules.Remove(aclModule);
-                _dbContext.SaveChanges();
+                this._dbContext.AclModules.Remove(aclModule);
+                this._dbContext.SaveChanges();
                 return aclModule;
             }
             catch (Exception)
@@ -124,8 +123,8 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Module
             try
             {
                 var delete = Find(id);
-                _dbContext.AclModules.Remove(delete);
-                _dbContext.SaveChangesAsync();
+                this._dbContext.AclModules.Remove(delete);
+                this._dbContext.SaveChangesAsync();
                 return delete;
             }
             catch (Exception)
@@ -139,22 +138,22 @@ namespace ACL.Application.Infrastructure.Persistence.Repositories.Module
         {
             if (requestId == null)
             {
-                return _dbContext.AclModules.Any(i => i.Id == id);
+                return this._dbContext.AclModules.Any(i => i.Id == id);
             }
             else
             {
-                return _dbContext.AclModules.Any(i => i.Id == id && i.Id != requestId);
+                return this._dbContext.AclModules.Any(i => i.Id == id && i.Id != requestId);
             }
         }
         public bool IsModuleNameAlreadyExist(string name, ulong? requestId = null)
         {
             if (requestId == null)
             {
-                return _dbContext.AclModules.Any(i => i.Name == name);
+                return this._dbContext.AclModules.Any(i => i.Name == name);
             }
             else
             {
-                return _dbContext.AclModules.Any(i => i.Name == name && i.Id != requestId);
+                return this._dbContext.AclModules.Any(i => i.Name == name && i.Id != requestId);
             }
         }
     }

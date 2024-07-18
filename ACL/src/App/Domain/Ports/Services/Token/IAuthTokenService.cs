@@ -1,6 +1,6 @@
-using ACL.Application.Domain.Auth;
+using App.Domain.Auth;
 
-namespace ACL.Application.Domain.Ports.Services.Token;
+namespace App.Domain.Ports.Services.Token;
 
 public interface IAuthTokenService
 {
