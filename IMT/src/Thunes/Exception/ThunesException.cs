@@ -1,7 +1,7 @@
-using IMT.Thunes.Response.Common;
+using Thunes.Response.Common;
 using exception = System.Exception;
 
-namespace IMT.Thunes.Exception
+namespace Thunes.Exception
 {
     public class ThunesException : exception
     {

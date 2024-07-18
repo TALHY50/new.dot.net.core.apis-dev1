@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace IMT.Application.Contracts.Requests
+namespace App.Contracts.Requests
 {
     public class QuotationRequest
     {

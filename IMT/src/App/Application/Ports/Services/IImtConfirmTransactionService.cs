@@ -1,8 +1,8 @@
-﻿using IMT.Application.Application.Ports.Repositories;
-using IMT.Thunes.Request.ConfirmTrasaction;
-using IMT.Thunes.Response.Common;
+﻿using App.Application.Ports.Repositories;
+using Thunes.Request.ConfirmTrasaction;
+using Thunes.Response.Common;
 
-namespace IMT.Application.Application.Ports.Services
+namespace App.Application.Ports.Services
 {
     public interface IImtConfirmTransactionService: IImtProviderErrorDetailsRepository
     {

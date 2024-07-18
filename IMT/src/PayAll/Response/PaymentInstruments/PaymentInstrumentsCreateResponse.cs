@@ -1,6 +1,4 @@
-﻿using IMT.PayAll.Response.Common;
-
-namespace IMT.PayAll.Response.PaymentInstruments
+﻿namespace PayAll.Response.PaymentInstruments
 {
     public class PaymentInstrumentsCreateResponse
     {

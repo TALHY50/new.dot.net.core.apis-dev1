@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using IMT.PayAll.Net;
-using IMT.PayAll.Request.Common;
-using IMT.PayAll.Response.Compliance;
-using IMT.PayAll.Route;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
+using PayAll.Net;
+using PayAll.Request.Common;
+using PayAll.Response.Compliance;
+using PayAll.Route;
 
-namespace IMT.PayAll.Adapter.Compliance
+namespace PayAll.Adapter.Compliance
 {
     public class ComplianceAdapter : BaseAdapter
     {

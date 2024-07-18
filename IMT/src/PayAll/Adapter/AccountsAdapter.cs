@@ -1,10 +1,9 @@
-﻿
-using IMT.PayAll.Net;
-using IMT.PayAll.Request.Common;
-using IMT.PayAll.Response.Payment;
-using IMT.PayAll.Route;
+﻿using PayAll.Net;
+using PayAll.Request.Common;
+using PayAll.Response.Payment;
+using PayAll.Route;
 
-namespace IMT.PayAll.Adapter
+namespace PayAll.Adapter
 {
     public class AccountsAdapter : BaseAdapter
     {

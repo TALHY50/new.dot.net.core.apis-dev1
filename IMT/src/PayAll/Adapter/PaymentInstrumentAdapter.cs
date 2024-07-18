@@ -1,16 +1,14 @@
-
 using System.ComponentModel.DataAnnotations;
-using IMT.PayAll.Common;
-using IMT.PayAll.Model;
-using IMT.PayAll.Net;
-using IMT.PayAll.Request.Common;
-using IMT.PayAll.Request.PaymentInstructionRequest;
-using IMT.PayAll.Request.PaymentInstructionUpdateRequest;
-using IMT.PayAll.Response.PaymentInstruments;
-using IMT.PayAll.Route;
+using PayAll.Common;
+using PayAll.Model;
+using PayAll.Net;
+using PayAll.Request.Common;
+using PayAll.Request.PaymentInstructionRequest;
+using PayAll.Request.PaymentInstructionUpdateRequest;
+using PayAll.Response.PaymentInstruments;
+using PayAll.Route;
 
-
-namespace IMT.PayAll.Adapter
+namespace PayAll.Adapter
 {
     public class PaymentInstrumentAdapter : BaseAdapter
     {

@@ -2,7 +2,7 @@
 
 using System.ComponentModel.DataAnnotations;
 
-namespace IMT.PayAll.Request.Payer
+namespace PayAll.Request.Payer
 {
     public class BusinessPayerRequest : BasePayerRequest
     {

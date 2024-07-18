@@ -1,11 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace IMT.Thunes.Request.Common
+namespace Thunes.Request.Common
 {
     public class AttachmentRequest
     {

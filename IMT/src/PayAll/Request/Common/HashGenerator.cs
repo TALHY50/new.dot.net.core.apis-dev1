@@ -1,12 +1,11 @@
-
 using System.Security.Cryptography;
 using System.Text;
-using IMT.PayAll.Common;
-using IMT.PayAll.Exception;
 using Newtonsoft.Json;
+using PayAll.Common;
+using PayAll.Exception;
 using exception = System.Exception;
 
-namespace IMT.PayAll.Request.Common
+namespace PayAll.Request.Common
 {
     public static class HashGenerator
     {

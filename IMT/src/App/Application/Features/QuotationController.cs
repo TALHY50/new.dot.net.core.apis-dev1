@@ -1,10 +1,10 @@
-using IMT.Application.Application.Ports.Services;
-using IMT.Application.Contracts.Requests;
-using IMT.Thunes.Exception;
-using IMT.Thunes.Route;
+using App.Application.Ports.Services;
+using App.Contracts.Requests;
 using Microsoft.AspNetCore.Mvc;
+using Thunes.Exception;
+using Thunes.Route;
 
-namespace IMT.Application.Application.Features
+namespace App.Application.Features
 {
 
     [ApiController]

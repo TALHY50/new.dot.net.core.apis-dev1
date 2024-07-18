@@ -1,9 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
 
-namespace IMT.PayAll.Common
+namespace PayAll.Common
 {
     public class ListOrSingleItemConverter<T> : JsonConverter
     {

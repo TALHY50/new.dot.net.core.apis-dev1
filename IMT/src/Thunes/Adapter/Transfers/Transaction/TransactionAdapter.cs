@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using IMT.Thunes.Net;
-using IMT.Thunes.Request.Common;
-using IMT.Thunes.Request.Transaction.Transfer;
-using IMT.Thunes.Request.Transaction.Transfer.CommonTransaction;
-using IMT.Thunes.Response.Transfer.Transaction;
-using IMT.Thunes.Route;
-using Newtonsoft.Json;
+﻿using Thunes.Net;
+using Thunes.Request.Common;
+using Thunes.Request.Transaction.Transfer.CommonTransaction;
+using Thunes.Response.Transfer.Transaction;
+using Thunes.Route;
 
-namespace IMT.Thunes.Adapter.Transfers.Transaction
+namespace Thunes.Adapter.Transfers.Transaction
 {
     public class TransactionAdapter : BaseAdapter
     {

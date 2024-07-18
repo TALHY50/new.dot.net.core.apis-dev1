@@ -1,21 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using IMT.Application.Application.Ports.Repositories;
-using IMT.Application.Application.Ports.Services;
-using IMT.Application.Contracts.Requests;
-using IMT.Application.Infrastructure.Persistence.Services.ConfirmTransactionService;
-using IMT.Thunes.Request.Transaction.Transfer.CommonTransaction;
-using IMT.Thunes.Response.Transfer.Quotation;
-using IMT.Thunes.Response.Transfer.Transaction;
-using Microsoft.AspNetCore.Http.HttpResults;
-using IMT.Thunes.Request.ConfirmTrasaction;
-using IMT.Thunes.Exception;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+using App.Application.Ports.Repositories;
+using App.Application.Ports.Services;
+using App.Contracts.Requests;
+using Thunes.Exception;
+using Thunes.Request.ConfirmTrasaction;
+using Thunes.Request.Transaction.Transfer.CommonTransaction;
+using Thunes.Response.Transfer.Quotation;
+using Thunes.Response.Transfer.Transaction;
 
-namespace IMT.Application.Infrastructure.Persistence.Services.SendMoney
+namespace App.Infrastructure.Persistence.Services.SendMoney
 {
     public class ImtSendMoneyService : IImtSendMoneyService
     {

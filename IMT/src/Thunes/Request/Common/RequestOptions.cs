@@ -1,4 +1,4 @@
-namespace IMT.Thunes.Request.Common
+namespace Thunes.Request.Common
 {
     public class RequestOptions
     {

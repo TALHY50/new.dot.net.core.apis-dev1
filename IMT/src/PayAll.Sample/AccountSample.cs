@@ -1,8 +1,7 @@
-
-using IMT.PayAll.Common;
 using NUnit.Framework;
+using PayAll.Common;
 
-namespace IMT.PayAll.Sample
+namespace PayAll.Sample
 {
     public class AccountSample
     {

@@ -1,8 +1,7 @@
-﻿
-using System.ComponentModel.DataAnnotations;
-using IMT.PayAll.Model;
+﻿using System.ComponentModel.DataAnnotations;
+using PayAll.Model;
 
-namespace IMT.PayAll.Request.Common
+namespace PayAll.Request.Common
 {
     public class Amount
     {

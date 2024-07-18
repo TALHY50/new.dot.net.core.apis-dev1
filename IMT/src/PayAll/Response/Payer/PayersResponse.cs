@@ -1,7 +1,7 @@
 ﻿
-using IMT.PayAll.Response.Common;
+using PayAll.Response.Common;
 
-namespace IMT.PayAll.Response.Payer
+namespace PayAll.Response.Payer
 {
     public class PayersResponse
     {

@@ -1,12 +1,11 @@
-
-using IMT.PayAll.Common;
-using IMT.PayAll.Request.Common;
-using IMT.PayAll.Request.PaymentRequest;
 using NUnit.Framework;
-using IMT.PayAll.Request.Payment;
-using IMT.PayAll.Model;
+using PayAll.Common;
+using PayAll.Model;
+using PayAll.Request.Common;
+using PayAll.Request.Payment;
+using PayAll.Request.PaymentRequest;
 
-namespace IMT.PayAll.Sample
+namespace PayAll.Sample
 {
     public class PaymentSample
     {

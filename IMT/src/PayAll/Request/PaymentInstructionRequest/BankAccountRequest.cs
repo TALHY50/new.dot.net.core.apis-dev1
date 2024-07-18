@@ -1,7 +1,5 @@
 
-using IMT.PayAll.Request.Common;
-
-namespace IMT.PayAll.Request.PaymentInstructionRequest
+namespace PayAll.Request.PaymentInstructionRequest
 {
     public class BankAccountRequest : BaseCategory
     {

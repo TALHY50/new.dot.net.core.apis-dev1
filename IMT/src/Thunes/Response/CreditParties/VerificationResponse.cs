@@ -1,10 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using IMT.Thunes.Response.CreditParties.Common;
-
-namespace IMT.Thunes.Response.CreditParties
+namespace Thunes.Response.CreditParties
 {
     public class VerificationResponse
     {

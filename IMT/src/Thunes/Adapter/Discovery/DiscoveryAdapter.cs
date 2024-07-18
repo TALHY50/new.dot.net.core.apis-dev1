@@ -1,13 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using IMT.Thunes.Net;
-using IMT.Thunes.Request.Common;
-using IMT.Thunes.Response.Discovery;
-using IMT.Thunes.Route;
+using Thunes.Net;
+using Thunes.Request.Common;
+using Thunes.Response.Discovery;
+using Thunes.Route;
 
-namespace IMT.Thunes.Adapter.Discovery
+namespace Thunes.Adapter.Discovery
 {
     public class DiscoveryAdapter : BaseAdapter
     {

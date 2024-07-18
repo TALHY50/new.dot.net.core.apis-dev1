@@ -1,4 +1,4 @@
-﻿namespace IMT.PayAll.Response.Payment
+﻿namespace PayAll.Response.Payment
 {
     public class PaymentAccountResponse
     {

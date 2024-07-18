@@ -7,7 +7,6 @@
 		<UserSecretsId>1b988c5a-53fa-4f5a-a54a-e24e33000278</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 		<DockerfileContext>.</DockerfileContext>
-		<RootNamespace>IMT.Application</RootNamespace>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="DotNetEnv" Version="3.0.0" />

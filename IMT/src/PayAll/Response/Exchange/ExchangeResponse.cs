@@ -1,6 +1,6 @@
-﻿using IMT.PayAll.Response.Common;
+﻿using PayAll.Response.Common;
 
-namespace IMT.PayAll.Response.Exchange
+namespace PayAll.Response.Exchange
 {
     public class ExchangeResponse
     {

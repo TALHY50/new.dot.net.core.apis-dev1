@@ -1,7 +1,7 @@
 ﻿using SharedKernel.Application.Interfaces;
 using SharedKernel.Domain.IMT;
 
-namespace IMT.Application.Application.Ports.Repositories
+namespace App.Application.Ports.Repositories
 {
     public interface IImtQuotationRepository : IGenericRepository<ImtQuotation>
     {

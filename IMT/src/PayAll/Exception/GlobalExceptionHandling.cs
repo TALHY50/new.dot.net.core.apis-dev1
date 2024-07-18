@@ -1,9 +1,8 @@
-﻿
+﻿using System.Text.Json;
 using Microsoft.AspNetCore.Http;
-using System.Text.Json;
 using exception = System.Exception;
 
-namespace IMT.PayAll.Exception
+namespace PayAll.Exception
 {
     public class GlobalExceptionHandler
     {

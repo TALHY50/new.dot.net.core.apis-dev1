@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace IMT.Thunes.Response.Discovery.Common
+namespace Thunes.Response.Discovery.Common
 {
     public class CreditPartyVerification
     {

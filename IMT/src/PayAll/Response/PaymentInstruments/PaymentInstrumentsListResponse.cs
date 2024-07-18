@@ -1,6 +1,6 @@
-﻿using IMT.PayAll.Response.Common;
+﻿using PayAll.Response.Common;
 
-namespace IMT.PayAll.Response.PaymentInstruments
+namespace PayAll.Response.PaymentInstruments
 {
     public class PaymentInstrumentsListResponse : ListResponse<PaymentInstrumentsResponse>
     {

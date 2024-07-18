@@ -1,7 +1,7 @@
 
 using System.ComponentModel.DataAnnotations;
 
-namespace IMT.PayAll.Request.PaymentInstructionUpdateRequest
+namespace PayAll.Request.PaymentInstructionUpdateRequest
 {
     public class MobileWalletUpdateRequest : UpdateBaseCategory
     {

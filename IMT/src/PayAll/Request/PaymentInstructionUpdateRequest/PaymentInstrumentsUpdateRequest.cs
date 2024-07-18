@@ -1,6 +1,6 @@
 
 
-namespace IMT.PayAll.Request.PaymentInstructionUpdateRequest
+namespace PayAll.Request.PaymentInstructionUpdateRequest
 {
     public class PaymentInstrumentsUpdateRequest : UpdateBaseCategory  
     {

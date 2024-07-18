@@ -1,15 +1,11 @@
-using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Net.Http;
 using System.Text;
-using IMT.Thunes.Common;
-using IMT.Thunes.Exception;
-using IMT.Thunes.Response;
-using IMT.Thunes.Response.Common;
 using Newtonsoft.Json;
+using Thunes.Common;
+using Thunes.Exception;
+using Thunes.Response.Common;
 
-namespace IMT.Thunes.Net
+namespace Thunes.Net
 {
     public abstract class BaseRestClient
     {

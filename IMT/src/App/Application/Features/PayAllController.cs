@@ -1,8 +1,8 @@
-﻿using IMT.PayAll;
-using IMT.PayAll.Common;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using PayAll;
+using PayAll.Common;
 
-namespace IMT.Application.Application.Features
+namespace App.Application.Features
 {
     [ApiController]
     [Tags("PayAll")]

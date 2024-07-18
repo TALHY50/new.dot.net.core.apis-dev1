@@ -1,9 +1,6 @@
-﻿
+﻿using System.ComponentModel.DataAnnotations;
 
-using System.ComponentModel.DataAnnotations;
-using IMT.PayAll.Request.PaymentRequest;
-
-namespace IMT.PayAll.Request.Payer
+namespace PayAll.Request.Payer
 {
     public class PersonPayerRequest : BasePayerRequest
     {

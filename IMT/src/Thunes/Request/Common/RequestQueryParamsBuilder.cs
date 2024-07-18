@@ -1,12 +1,9 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace IMT.Thunes.Request.Common
+namespace Thunes.Request.Common
 {
     public static class RequestQueryParamsBuilder
     {

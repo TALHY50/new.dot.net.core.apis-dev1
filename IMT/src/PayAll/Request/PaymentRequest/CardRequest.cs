@@ -1,6 +1,6 @@
 
 
-namespace IMT.PayAll.Request.PaymentRequest
+namespace PayAll.Request.PaymentRequest
 {
     public class CardRequest : BaseCategory
     {

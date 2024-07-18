@@ -1,9 +1,9 @@
-
 using System.ComponentModel.DataAnnotations;
-using IMT.PayAll.Request.Common;
-using IMT.PayAll.Request.PaymentRequest;
-using IMT.PayAll.Request.Recipient;
-namespace IMT.PayAll.Request.Payment
+using PayAll.Request.Common;
+using PayAll.Request.PaymentRequest;
+using PayAll.Request.Recipient;
+
+namespace PayAll.Request.Payment
 {
     public class CreatePaymentRequest
     {

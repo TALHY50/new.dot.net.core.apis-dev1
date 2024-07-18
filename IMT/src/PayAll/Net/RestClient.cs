@@ -1,8 +1,7 @@
-
-using IMT.PayAll.Exception;
+using PayAll.Exception;
 using exception = System.Exception;
 
-namespace IMT.PayAll.Net
+namespace PayAll.Net
 {
     public class RestClient : BaseRestClient
     {

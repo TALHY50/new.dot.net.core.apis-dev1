@@ -1,9 +1,7 @@
-
 using DotNetEnv;
-using IMT.PayAll.Common;
+using PayAll.Common;
 
-
-namespace IMT.PayAll.Sample
+namespace PayAll.Sample
 {
     public static class BaseSample
     {

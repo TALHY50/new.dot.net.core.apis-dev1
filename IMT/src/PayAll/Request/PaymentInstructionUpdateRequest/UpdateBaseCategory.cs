@@ -1,9 +1,7 @@
-
-
 using System.ComponentModel.DataAnnotations;
-using IMT.PayAll.Model;
+using PayAll.Model;
 
-namespace IMT.PayAll.Request.PaymentInstructionUpdateRequest
+namespace PayAll.Request.PaymentInstructionUpdateRequest
 {
     public class UpdateBaseCategory
     {

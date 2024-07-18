@@ -1,11 +1,11 @@
-﻿using IMT.PayAll.Adapter;
-using IMT.PayAll.Adapter.Compliance;
-using IMT.PayAll.Adapter.Discovery;
-using IMT.PayAll.Request.Common;
-using IMT.PayAll.Response.Compliance;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
+using PayAll.Adapter;
+using PayAll.Adapter.Compliance;
+using PayAll.Adapter.Discovery;
+using PayAll.Request.Common;
+using PayAll.Response.Compliance;
 
-namespace IMT.PayAll
+namespace PayAll
 {
     public class PayAllClient
     {

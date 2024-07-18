@@ -1,6 +1,6 @@
 using exception = System.Exception;
 
-namespace IMT.Thunes.Exception
+namespace Thunes.Exception
 {
     public class UnauthorizeException : exception
     {

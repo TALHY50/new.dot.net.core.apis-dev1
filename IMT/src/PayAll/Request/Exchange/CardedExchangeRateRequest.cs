@@ -1,4 +1,4 @@
-﻿namespace IMT.PayAll.Request.Exchange
+﻿namespace PayAll.Request.Exchange
 {
     public class CardedExchangeRateRequest
     {

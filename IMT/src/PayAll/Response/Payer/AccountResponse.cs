@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using IMT.PayAll.Response.Payment;
+﻿using PayAll.Response.Payment;
 
-namespace IMT.PayAll.Response.Payer
+namespace PayAll.Response.Payer
 {
     public class AccountResponse
     {

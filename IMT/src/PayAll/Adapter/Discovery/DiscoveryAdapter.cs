@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using IMT.PayAll.Net;
-using IMT.PayAll.Request.Common;
-using IMT.PayAll.Response;
-using IMT.PayAll.Response.Discovery;
-using IMT.PayAll.Route;
+﻿using PayAll.Net;
+using PayAll.Request.Common;
+using PayAll.Response.Discovery;
+using PayAll.Route;
 
-namespace IMT.PayAll.Adapter.Discovery
+namespace PayAll.Adapter.Discovery
 {
     public class DiscoveryAdapter : BaseAdapter
     {

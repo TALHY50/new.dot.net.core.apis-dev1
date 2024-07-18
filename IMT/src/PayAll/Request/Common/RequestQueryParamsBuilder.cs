@@ -1,10 +1,9 @@
-
 using System.Collections;
 using System.Globalization;
 using System.Reflection;
 using System.Text;
 
-namespace IMT.PayAll.Request.Common
+namespace PayAll.Request.Common
 {
     public static class RequestQueryParamsBuilder
     {

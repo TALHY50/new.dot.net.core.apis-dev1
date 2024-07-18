@@ -1,12 +1,8 @@
-﻿
+﻿using Newtonsoft.Json;
+using PayAll.Common;
+using PayAll.Response.Common;
 
-using IMT.PayAll.Common;
-using IMT.PayAll.Response.Common;
-using IMT.PayAll.Response.Discovery;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-
-namespace IMT.PayAll.Response.Recipient
+namespace PayAll.Response.Recipient
 {
     public class RecipientsResponse
     {

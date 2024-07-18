@@ -1,6 +1,6 @@
-using IMT.PayAll.Request.Common;
+using PayAll.Request.Common;
 
-namespace IMT.PayAll.Request.Payment
+namespace PayAll.Request.Payment
 {
     public class PaymentUpdateRequest
     {

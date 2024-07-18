@@ -2,7 +2,7 @@
 
 using System.ComponentModel.DataAnnotations;
 
-namespace IMT.PayAll.Request.PaymentInstructionRequest
+namespace PayAll.Request.PaymentInstructionRequest
 {
     public class CardRequest : BaseCategory
     {

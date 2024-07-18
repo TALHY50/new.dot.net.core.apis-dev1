@@ -1,9 +1,6 @@
-﻿
+﻿using PayAll.Model;
 
-using IMT.PayAll.Model;
-using System.ComponentModel.DataAnnotations;
-
-namespace IMT.PayAll.Request.PaymentRequest
+namespace PayAll.Request.PaymentRequest
 {
     public class PaymentInstrumentRequest
     {

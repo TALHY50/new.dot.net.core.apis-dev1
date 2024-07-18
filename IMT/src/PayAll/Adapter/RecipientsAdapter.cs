@@ -1,14 +1,13 @@
-﻿
-using System.ComponentModel.DataAnnotations;
-using IMT.PayAll.Common;
-using IMT.PayAll.Model;
-using IMT.PayAll.Net;
-using IMT.PayAll.Request.Common;
-using IMT.PayAll.Request.Recipient;
-using IMT.PayAll.Response.Recipient;
-using IMT.PayAll.Route;
+﻿using System.ComponentModel.DataAnnotations;
+using PayAll.Common;
+using PayAll.Model;
+using PayAll.Net;
+using PayAll.Request.Common;
+using PayAll.Request.Recipient;
+using PayAll.Response.Recipient;
+using PayAll.Route;
 
-namespace IMT.PayAll.Adapter
+namespace PayAll.Adapter
 {
     public class RecipientsAdapter : BaseAdapter
     {

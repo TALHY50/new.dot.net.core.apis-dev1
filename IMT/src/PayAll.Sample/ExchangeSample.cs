@@ -1,11 +1,10 @@
-
-using IMT.PayAll.Common;
-using IMT.PayAll.Model;
-using IMT.PayAll.Request.Exchange;
-using IMT.PayAll.Response.Common;
 using NUnit.Framework;
+using PayAll.Common;
+using PayAll.Model;
+using PayAll.Request.Exchange;
+using PayAll.Response.Common;
 
-namespace IMT.PayAll.Sample
+namespace PayAll.Sample
 {
     public class ExchangeSample
     {

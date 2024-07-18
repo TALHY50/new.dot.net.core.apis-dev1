@@ -1,12 +1,12 @@
+using App.Application.Ports.Services;
+using App.Infrastructure.Persistence.Services.ConfirmTransactionService;
+using App.Infrastructure.Persistence.Services.Quotation;
+using App.Infrastructure.Persistence.Services.SendMoney;
+using App.Infrastructure.Persistence.Services.Transaction;
 using DotNetEnv;
-using IMT.Application.Application.Ports.Services;
-using IMT.Application.Infrastructure.Persistence.Services.ConfirmTransactionService;
-using IMT.Application.Infrastructure.Persistence.Services.QuotationService;
-using IMT.Application.Infrastructure.Persistence.Services.SendMoney;
-using IMT.Application.Infrastructure.Persistence.Services.Transaction;
-using IMT.PayAll.Exception;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using PayAll.Exception;
 using SharedKernel.Infrastructure.Persistence.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -73,6 +73,6 @@ app.MapControllers();
 
 app.Run();
 
-namespace IMT.Application
+namespace App
 {
 }

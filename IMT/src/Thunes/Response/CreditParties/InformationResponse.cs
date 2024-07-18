@@ -1,12 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using IMT.Thunes.Response.CreditParties.Common;
-using IMT.Thunes.Response.Transfer.Transaction;
-using Beneficiary = IMT.Thunes.Response.CreditParties.Common.Beneficiary;
+using Beneficiary = Thunes.Response.CreditParties.Common.Beneficiary;
 
-namespace IMT.Thunes.Response.CreditParties
+namespace Thunes.Response.CreditParties
 {
     public class InformationResponse
     {

@@ -1,9 +1,7 @@
-﻿
+﻿using System.ComponentModel.DataAnnotations;
+using PayAll.Request.PaymentRequest;
 
-using System.ComponentModel.DataAnnotations;
-using IMT.PayAll.Request.PaymentRequest;
-
-namespace IMT.PayAll.Request.Recipient
+namespace PayAll.Request.Recipient
 {
     public class RecipientRequest : BaseRecipientRequest
     {

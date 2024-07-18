@@ -1,7 +1,7 @@
-using IMT.Application.Contracts.Requests;
-using IMT.Thunes.Request.Transaction.Transfer.CommonTransaction;
+using App.Contracts.Requests;
+using Thunes.Request.Transaction.Transfer.CommonTransaction;
 
-namespace IMT.Application.Application.Ports.Services
+namespace App.Application.Ports.Services
 {
     public interface IImtSendMoneyService
     {

@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using IMT.Thunes.Response.Discovery.Common;
+using Thunes.Response.Discovery.Common;
 
-namespace IMT.Thunes.Response.Discovery
+namespace Thunes.Response.Discovery
 {
     public class PayerResponse
     {

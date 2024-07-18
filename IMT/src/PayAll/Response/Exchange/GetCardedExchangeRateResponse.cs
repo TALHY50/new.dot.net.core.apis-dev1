@@ -1,4 +1,4 @@
-﻿namespace IMT.PayAll.Response.Exchange
+﻿namespace PayAll.Response.Exchange
 {
     public class GetCardedExchangeRateResponse
     {

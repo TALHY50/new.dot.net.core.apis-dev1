@@ -1,4 +1,4 @@
-namespace IMT.PayAll.Request.Common
+namespace PayAll.Request.Common
 {
     public class RequestOptions
     {

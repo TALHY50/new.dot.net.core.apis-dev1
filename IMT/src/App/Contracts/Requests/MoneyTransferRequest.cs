@@ -1,4 +1,4 @@
-﻿namespace IMT.Application.Contracts.Requests
+﻿namespace App.Contracts.Requests
 {
     public class MoneyTransferRequest
     {

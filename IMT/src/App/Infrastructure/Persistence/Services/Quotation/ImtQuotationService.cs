@@ -1,26 +1,17 @@
-﻿using DotNetEnv;
-using IMT.Application.Infrastructure.Persistence.Repositories.Quotation;
-using IMT.Thunes;
-using IMT.Thunes.Request.Transaction.Quotation;
-using IMT.Thunes.Response.Common;
-using IMT.Thunes.Request.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using IMT.Application.Application.Ports.Repositories;
-using IMT.Application.Application.Ports.Services;
-using IMT.Application.Contracts.Requests;
-using IMT.Thunes.Exception;
-using IMT.PayAll.Request.Common;
-using Microsoft.AspNetCore.Http.HttpResults;
-using IMT.Thunes.Response.Transfer.Quotation;
-using IMT.Application.Domain.Ports.Repositories.ConfirmTransaction;
+﻿using App.Application.Ports.Repositories;
+using App.Application.Ports.Services;
+using App.Contracts.Requests;
+using App.Infrastructure.Persistence.Repositories.Quotation;
 using SharedKernel.Domain.IMT;
 using SharedKernel.Infrastructure.Persistence.Configurations;
+using Thunes;
+using Thunes.Exception;
+using Thunes.Request.Common;
+using Thunes.Request.Transaction.Quoatation;
+using Thunes.Response.Common;
+using Thunes.Response.Transfer.Quotation;
 
-namespace IMT.Application.Infrastructure.Persistence.Services.QuotationService
+namespace App.Infrastructure.Persistence.Services.Quotation
 {
 
 #pragma warning disable CS8629 // Nullable value type may be null.

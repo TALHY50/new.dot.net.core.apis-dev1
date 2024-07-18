@@ -1,11 +1,4 @@
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Net.Http.Json;
-using IMT.Thunes.Exception;
-using IMT.Thunes.Response;
-using _exception = System.Exception;
-
-namespace IMT.Thunes.Net
+namespace Thunes.Net
 {
     public class RestClient : BaseRestClient
     {

@@ -1,16 +1,15 @@
-﻿using IMT.Application.Application.Ports.Repositories;
-using IMT.Application.Application.Ports.Services;
-using IMT.Thunes;
-using IMT.Thunes.Exception;
-using IMT.Thunes.Response.Common;
-using IMT.Application.Domain.Ports.Repositories.ConfirmTransaction;
-using IMT.Thunes.Request.ConfirmTrasaction;
-using IMT.Thunes.Response.Transfer.Transaction;
+﻿using App.Application.Ports.Repositories;
+using App.Application.Ports.Services;
+using App.Infrastructure.Persistence.Repositories.ConfirmTransaction;
 using SharedKernel.Domain.IMT;
 using SharedKernel.Infrastructure.Persistence.Configurations;
+using Thunes;
+using Thunes.Exception;
+using Thunes.Request.ConfirmTrasaction;
+using Thunes.Response.Common;
+using Thunes.Response.Transfer.Transaction;
 
-
-namespace IMT.Application.Infrastructure.Persistence.Services.ConfirmTransactionService
+namespace App.Infrastructure.Persistence.Services.ConfirmTransactionService
 {
 
 #pragma warning disable CS8629 // Nullable value type may be null.

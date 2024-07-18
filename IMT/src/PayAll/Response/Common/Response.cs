@@ -1,4 +1,4 @@
-namespace IMT.PayAll.Response.Common
+namespace PayAll.Response.Common
 {
     public class Response<T>
     {

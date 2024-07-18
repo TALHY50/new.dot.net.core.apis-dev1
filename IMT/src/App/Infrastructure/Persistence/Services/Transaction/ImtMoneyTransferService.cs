@@ -1,24 +1,17 @@
-﻿using IMT.Application.Domain.Ports.Repositories.ConfirmTransaction;
-using IMT.Application.Infrastructure.Persistence.Repositories.ImtMoneyTransfer;
-using IMT.Thunes;
-using IMT.Thunes.Exception;
-using IMT.Thunes.Request.Transaction.Transfer.CommonTransaction;
-using IMT.Thunes.Response.Common;
-using IMT.Thunes.Response.Transfer.Quotation;
-using IMT.Thunes.Response.Transfer.Transaction;
-using Mysqlx.Crud;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using IMT.Application.Application.Ports.Repositories;
-using IMT.Application.Application.Ports.Services;
+﻿using App.Application.Ports.Repositories;
+using App.Application.Ports.Services;
+using App.Infrastructure.Persistence.Repositories.ImtMoneyTransfer;
 using SharedKernel.Domain.IMT;
 using SharedKernel.Infrastructure.Persistence.Configurations;
+using Thunes;
+using Thunes.Exception;
+using Thunes.Request.Transaction.Transfer.CommonTransaction;
+using Thunes.Response.Common;
+using Thunes.Response.Transfer.Quotation;
+using Thunes.Response.Transfer.Transaction;
 
 #pragma warning disable CS8629 // Nullable value type may be null.
-namespace IMT.Application.Infrastructure.Persistence.Services.Transaction
+namespace App.Infrastructure.Persistence.Services.Transaction
 {
     public class ImtMoneyTransferService : ImtMoneyTransferRepository, IImtMoneyTransferService
     {

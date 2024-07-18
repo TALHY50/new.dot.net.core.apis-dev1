@@ -1,16 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using IMT.Thunes.Response.Common;
-using IMT.Thunes.Response.Transfer.Transaction;
-using Destination = IMT.Thunes.Response.Common.Destination;
-using Fee = IMT.Thunes.Response.Common.Fee;
-using Payer = IMT.Thunes.Response.Common.Payer;
-using SentAmount = IMT.Thunes.Response.Common.SentAmount;
-using Source = IMT.Thunes.Response.Common.Source;
+using Destination = Thunes.Response.Common.Destination;
+using Fee = Thunes.Response.Common.Fee;
+using Payer = Thunes.Response.Common.Payer;
+using SentAmount = Thunes.Response.Common.SentAmount;
+using Source = Thunes.Response.Common.Source;
 
-namespace IMT.Thunes.Response.Transfer.Quotation
+namespace Thunes.Response.Transfer.Quotation
 {
     public class CreateContentQuotationResponse
     {

@@ -1,9 +1,8 @@
-
-using IMT.PayAll.Exception;
-using IMT.PayAll.Response.Common;
+using PayAll.Exception;
+using PayAll.Response.Common;
 using exception = System.Exception;
 
-namespace IMT.PayAll.Net
+namespace PayAll.Net
 {
     public class CustomHttpClient : BaseRestClient
     {

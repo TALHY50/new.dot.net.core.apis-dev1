@@ -1,13 +1,12 @@
-using System;
 using System.Security.Cryptography;
 using System.Text;
-using IMT.Thunes.Common;
-using IMT.Thunes.Exception;
 using Newtonsoft.Json;
+using Thunes.Common;
+using Thunes.Exception;
 using exception = System.Exception;
 
 
-namespace IMT.Thunes.Request.Common
+namespace Thunes.Request.Common
 {
     public static class HashGenerator
     {

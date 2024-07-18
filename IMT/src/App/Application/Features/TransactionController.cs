@@ -1,10 +1,10 @@
-﻿using IMT.Application.Application.Ports.Services;
-using IMT.Thunes.Exception;
-using IMT.Thunes.Request.Transaction.Transfer.CommonTransaction;
-using IMT.Thunes.Route;
+﻿using App.Application.Ports.Services;
 using Microsoft.AspNetCore.Mvc;
+using Thunes.Exception;
+using Thunes.Request.Transaction.Transfer.CommonTransaction;
+using Thunes.Route;
 
-namespace IMT.Application.Application.Features
+namespace App.Application.Features
 {
     [Tags("Thunes")]
     [ApiController]

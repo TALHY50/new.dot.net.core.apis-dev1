@@ -1,15 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using IMT.Thunes.Net;
-using IMT.Thunes.Request.Common;
-using IMT.Thunes.Request.Transaction.Quotation;
-using IMT.Thunes.Response.Transfer.Quotation;
-using IMT.Thunes.Route;
+using Thunes.Net;
+using Thunes.Request.Common;
+using Thunes.Request.Transaction.Quoatation;
+using Thunes.Response.Transfer.Quotation;
+using Thunes.Route;
 
-
-namespace IMT.Thunes.Adapter.Transfers.Quotations
+namespace Thunes.Adapter.Transfers.Quotations
 {
     public class QuotationAdapter : BaseAdapter
     {

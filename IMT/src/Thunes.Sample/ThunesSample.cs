@@ -1,16 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using DotNetEnv;
-using IMT.Thunes.Request.Common;
-using IMT.Thunes.Request.CreditParties;
-using IMT.Thunes.Request.Transaction.Quotation;
-using IMT.Thunes.Request.Transaction.Transfer;
-using IMT.Thunes.Request.Transaction.Transfer.CommonTransaction;
 using NUnit.Framework;
+using Thunes.Request.Common;
+using Thunes.Request.CreditParties;
+using Thunes.Request.Transaction.Quoatation;
+using Thunes.Request.Transaction.Transfer.CommonTransaction;
 
-namespace IMT.Thunes.Sample
+namespace Thunes.Sample
 {
     public class ThunesSample
     {
@@ -172,9 +167,9 @@ namespace IMT.Thunes.Sample
         {
             MoneyTransferDTO request = new MoneyTransferDTO
             {
-                credit_party_identifier = new IMT.Thunes.Request.Transaction.Transfer.CommonTransaction.CreditPartyIdentifier(),
-                sending_business = new IMT.Thunes.Request.Transaction.Transfer.CommonTransaction.SendingBusiness(),
-                receiving_business = new IMT.Thunes.Request.Transaction.Transfer.CommonTransaction.ReceivingBusinesss(),
+                credit_party_identifier = new CreditPartyIdentifier(),
+                sending_business = new SendingBusiness(),
+                receiving_business = new ReceivingBusinesss(),
                 external_id = "1",
                 purpose_of_remittance = "test"
             };

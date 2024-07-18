@@ -1,9 +1,7 @@
-
-
 using DotNetEnv;
-using IMT.PayAll.Request.Common;
+using PayAll.Request.Common;
 
-namespace IMT.PayAll.Common
+namespace PayAll.Common
 {
     public static class BaseRequirement
     {

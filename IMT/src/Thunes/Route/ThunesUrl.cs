@@ -1,12 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Linq;
-using System.Net.Mail;
-using System.Threading.Tasks;
-using System.Transactions;
-
-namespace IMT.Thunes.Route
+namespace Thunes.Route
 {
     public class ThunesUrl
     {

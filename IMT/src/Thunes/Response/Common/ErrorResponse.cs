@@ -1,4 +1,4 @@
-namespace IMT.Thunes.Response.Common
+namespace Thunes.Response.Common
 {
     public class ErrorResponse
     {

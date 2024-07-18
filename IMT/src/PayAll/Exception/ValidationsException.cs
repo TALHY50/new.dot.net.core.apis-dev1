@@ -1,6 +1,6 @@
 ﻿using exception = System.Exception;
 
-namespace IMT.PayAll.Exception
+namespace PayAll.Exception
 {
     public class ValidationsException : exception
     {

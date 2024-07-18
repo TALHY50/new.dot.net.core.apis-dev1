@@ -1,8 +1,7 @@
 ﻿
 using System.Runtime.Serialization;
 
-
-namespace IMT.PayAll.Model
+namespace PayAll.Model
 {
     public enum AccountType
     {

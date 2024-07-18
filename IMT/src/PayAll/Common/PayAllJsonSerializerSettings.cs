@@ -1,9 +1,8 @@
-
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 
-namespace IMT.PayAll.Common
+namespace PayAll.Common
 {
     public class PayAllJsonSerializerSettings
     {

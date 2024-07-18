@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
-using IMT.PayAll.Model;
-using IMT.PayAll.Response.Common;
+using PayAll.Model;
+using PayAll.Response.Common;
 
-namespace IMT.PayAll.Request.Exchange
+namespace PayAll.Request.Exchange
 {
     public class RequestExchangeRate
     {

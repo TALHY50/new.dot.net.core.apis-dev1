@@ -1,9 +1,8 @@
-﻿
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 using Newtonsoft.Json.Converters;
 
-namespace IMT.PayAll.Model
+namespace PayAll.Model
 {
     [JsonConverter(typeof(StringEnumConverter))]
     public enum PaymentPurpose

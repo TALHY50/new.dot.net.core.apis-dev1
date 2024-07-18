@@ -1,15 +1,7 @@
-﻿using IMT.Thunes.Exception;
-using IMT.Thunes.Response.Common;
-using IMT.Thunes.Response.Transfer.Transaction;
-using RestSharp;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Thunes.Exception;
+using Thunes.Response.Common;
 
-namespace IMT.Thunes.Request.Transaction.Transfer.CommonTransaction
+namespace Thunes.Request.Transaction.Transfer.CommonTransaction
 {
     public class MoneyTransferDTO
     {

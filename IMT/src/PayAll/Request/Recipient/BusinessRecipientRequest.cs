@@ -2,7 +2,7 @@
 
 using System.ComponentModel.DataAnnotations;
 
-namespace IMT.PayAll.Request.Recipient
+namespace PayAll.Request.Recipient
 {
     public class BusinessRecipientRequest : BaseRecipientRequest
     {

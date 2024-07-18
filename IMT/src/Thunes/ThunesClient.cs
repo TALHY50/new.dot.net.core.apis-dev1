@@ -1,15 +1,14 @@
 ﻿//using Thunes.Adapter;
-using IMT.Thunes.Adapter.Account;
-using IMT.Thunes.Adapter.Connectivity;
-using IMT.Thunes.Adapter.CreditParties;
-using IMT.Thunes.Adapter.Discovery;
-using IMT.Thunes.Adapter.Transfers.Quotations;
-using IMT.Thunes.Adapter.Transfers.Transaction;
-using IMT.Thunes.Request.Common;
-using IMT.Thunes.Request.Transaction.Transfer;
-using IMT.Thunes.Response;
 
-namespace IMT.Thunes
+using Thunes.Adapter.Account;
+using Thunes.Adapter.Connectivity;
+using Thunes.Adapter.CreditParties;
+using Thunes.Adapter.Discovery;
+using Thunes.Adapter.Transfers.Quotations;
+using Thunes.Adapter.Transfers.Transaction;
+using Thunes.Request.Common;
+
+namespace Thunes
 {
     public class ThunesClient
     {

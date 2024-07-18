@@ -1,15 +1,15 @@
-﻿using IMT.Application.Application.Ports.Repositories;
-using IMT.Application.Contracts.Requests;
-using IMT.Thunes.Request.Transaction.Quotation;
-using IMT.Thunes.Response.Transfer.Quotation;
+﻿using App.Application.Ports.Repositories;
+using App.Contracts.Requests;
 using SharedKernel.Domain.IMT;
+using Thunes.Request.Transaction.Quoatation;
+using Thunes.Response.Transfer.Quotation;
 
-namespace IMT.Application.Application.Ports.Services
+namespace App.Application.Ports.Services
 {
     public interface IImtQuotationService : IImtQuotationRepository
     {
         public bool IsValid(QuotationRequest request);
-        public IMT.Thunes.Request.Transaction.Quotation.CreateQuotationRequest PrepareThunesCreateQuotationRequest(QuotationRequest request);
+        public CreateQuotationRequest PrepareThunesCreateQuotationRequest(QuotationRequest request);
         public ImtQuotation PrepareImtQuotation(QuotationRequest request);
         public CreateContentQuotationResponse CreateQuotation(CreateQuotationRequest request);
         public CreateContentQuotationResponse GetQuotationById(ulong id);

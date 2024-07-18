@@ -1,7 +1,7 @@
-using IMT.Thunes;
 using Microsoft.AspNetCore.Mvc;
+using Thunes;
 
-namespace IMT.Application.Application.Features
+namespace App.Application.Features
 {
     public class BaseController : ControllerBase
     {

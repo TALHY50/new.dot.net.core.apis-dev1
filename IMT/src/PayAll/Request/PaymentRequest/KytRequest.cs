@@ -1,9 +1,8 @@
-﻿
-using System.ComponentModel.DataAnnotations;
-using IMT.PayAll.Model;
-using IMT.PayAll.Request.Common;
+﻿using System.ComponentModel.DataAnnotations;
+using PayAll.Model;
+using PayAll.Request.Common;
 
-namespace IMT.PayAll.Request.PaymentRequest
+namespace PayAll.Request.PaymentRequest
 {
     public class KytRequest
     {

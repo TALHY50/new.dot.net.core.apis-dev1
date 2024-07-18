@@ -1,13 +1,11 @@
+using PayAll.Common;
+using PayAll.Net;
+using PayAll.Request.Common;
+using PayAll.Request.Exchange;
+using PayAll.Response.Exchange;
+using PayAll.Route;
 
-using IMT.PayAll.Common;
-using IMT.PayAll.Net;
-using IMT.PayAll.Request.Common;
-using IMT.PayAll.Request.Exchange;
-using IMT.PayAll.Response.Exchange;
-using IMT.PayAll.Route;
-
-
-namespace IMT.PayAll.Adapter
+namespace PayAll.Adapter
 {
     public class ExchangeAdapter : BaseAdapter
     {

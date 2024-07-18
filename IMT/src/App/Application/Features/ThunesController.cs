@@ -1,11 +1,11 @@
-﻿using IMT.Thunes;
-using IMT.Thunes.Exception;
-using IMT.Thunes.Request.Common;
-using IMT.Thunes.Request.CreditParties;
-using IMT.Thunes.Route;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Thunes;
+using Thunes.Exception;
+using Thunes.Request.Common;
+using Thunes.Request.CreditParties;
+using Thunes.Route;
 
-namespace IMT.Application.Application.Features
+namespace App.Application.Features
 {
     [Tags("Thunes")]
     [ApiController]
@@ -37,7 +37,7 @@ namespace IMT.Application.Application.Features
             {
                 return _thunesClient.VerificationAdapter().CreditPartyVerification(id, transaction_type, request);
             }
-              catch (ThunesException e)
+            catch (ThunesException e)
             {
                 return StatusCode(e.ErrorCode, e.Errors);
             }

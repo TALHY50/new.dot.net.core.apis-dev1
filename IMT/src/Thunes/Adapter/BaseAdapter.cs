@@ -1,11 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using IMT.Thunes.Request.Common;
+using Thunes.Request.Common;
 
-namespace IMT.Thunes.Adapter
+namespace Thunes.Adapter
 {
     public abstract class BaseAdapter
     {

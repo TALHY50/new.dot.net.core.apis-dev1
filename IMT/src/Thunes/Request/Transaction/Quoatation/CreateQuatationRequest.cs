@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using IMT.Thunes.Request.Common;
+using Thunes.Request.Common;
 
-namespace IMT.Thunes.Request.Transaction.Quotation
+namespace Thunes.Request.Transaction.Quoatation
 {
     public class CreateQuotationRequest
     {

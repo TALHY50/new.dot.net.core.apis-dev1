@@ -2,7 +2,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace IMT.PayAll.Model
+namespace PayAll.Model
 {
     [JsonConverter(typeof(StringEnumConverter))]
     public enum Currency 

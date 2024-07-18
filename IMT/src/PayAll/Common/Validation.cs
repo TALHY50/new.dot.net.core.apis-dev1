@@ -1,9 +1,7 @@
-﻿
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using PayAll.Exception;
 
-using IMT.PayAll.Exception;
-
-namespace IMT.PayAll.Common
+namespace PayAll.Common
 {
     public static class Validation
     {

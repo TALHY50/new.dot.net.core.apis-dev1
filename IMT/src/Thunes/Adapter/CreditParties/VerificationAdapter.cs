@@ -1,15 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using IMT.Thunes.Exception;
-using IMT.Thunes.Net;
-using IMT.Thunes.Request.Common;
-using IMT.Thunes.Request.CreditParties;
-using IMT.Thunes.Response.CreditParties;
-using IMT.Thunes.Route;
+using Thunes.Net;
+using Thunes.Request.Common;
+using Thunes.Request.CreditParties;
+using Thunes.Response.CreditParties;
+using Thunes.Route;
 
-namespace IMT.Thunes.Adapter.CreditParties
+namespace Thunes.Adapter.CreditParties
 {
     public class VerificationAdapter : BaseAdapter
     {
