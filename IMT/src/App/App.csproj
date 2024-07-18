@@ -48,7 +48,7 @@
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.6" />
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\..\..\SharedKernel\src\SharedKernel.csproj" />
+	  <ProjectReference Include="..\..\..\SharedKernel\src\SharedKernel\SharedKernel.csproj" />
 	  <ProjectReference Include="..\PayAll\PayAll.csproj" />
 	  <ProjectReference Include="..\Thunes\Thunes.csproj" />
 	</ItemGroup>

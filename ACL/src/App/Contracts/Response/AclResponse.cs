@@ -1,4 +1,5 @@
-﻿using SharedKernel.Contracts.Response;
+﻿
+using SharedKernel.Contracts.Response;
 
 namespace App.Contracts.Response
 {

@@ -83,7 +83,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\SharedKernel\src\SharedKernel.csproj" />
+    <ProjectReference Include="..\..\..\SharedKernel\src\SharedKernel\SharedKernel.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -139,10 +139,6 @@
     <Folder Include="Http\" />
     <Folder Include="Logs\" />
     <Folder Include="Properties\PublishProfiles\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\SharedKernel\src\SharedKernel.csproj" />
   </ItemGroup>
   
   <ItemGroup>

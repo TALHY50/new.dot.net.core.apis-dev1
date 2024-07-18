@@ -85,7 +85,7 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.1" />
 	</ItemGroup>
 		<ItemGroup>
-	  <ProjectReference Include="..\..\..\SharedKernel\src\SharedKernel.csproj" />
+	  <ProjectReference Include="..\..\..\SharedKernel\src\SharedKernel\SharedKernel.csproj" />
 	</ItemGroup>
 	<ItemGroup>
 	  <None Update="Properties\launchSettings.json">

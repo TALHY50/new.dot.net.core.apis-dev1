@@ -38,7 +38,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\App\App.csproj" />
-    <ProjectReference Include="..\..\..\SharedKernel\src\SharedKernel.csproj" />
+    <ProjectReference Include="..\..\..\SharedKernel\src\SharedKernel\SharedKernel.csproj" />
   </ItemGroup>
 
   <ItemGroup>
