@@ -5,18 +5,18 @@ VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{53FAD28D-1F24-44B9-BF75-139E96A95E07}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App", "src\App\App.csproj", "{BB1873E1-5F6C-4064-AE5F-37CC29E7E6BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ACL.App", "src\ACL.App\ACL.App.csproj", "{BB1873E1-5F6C-4064-AE5F-37CC29E7E6BC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{ACD2BD24-4495-4D8A-B26C-D5D3B3717BA1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test", "test\Test\Test.csproj", "{64B2EAFB-3BCE-40BA-B7DA-5A19A5C02883}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ACL.Test", "test\ACL.Test\ACL.Test.csproj", "{64B2EAFB-3BCE-40BA-B7DA-5A19A5C02883}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2B38B16A-C160-46D9-A2A0-623736A98415}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedKernel", "..\SharedKernel\src\SharedKernel\SharedKernel.csproj", "{9ED2F1F6-0B63-4A44-8DFA-EBBCD57FA627}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedKernel", "..\SharedKernel\src\SharedKernel.Main\SharedKernel.Main.csproj", "{9ED2F1F6-0B63-4A44-8DFA-EBBCD57FA627}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
