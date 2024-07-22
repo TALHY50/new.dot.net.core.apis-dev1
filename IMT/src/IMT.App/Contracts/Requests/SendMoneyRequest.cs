@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Thunes.Request.Transaction.Transfer.CommonTransaction;
 
-namespace App.Contracts.Requests
+namespace IMT.App.Contracts.Requests
 {
     public class SendMoneyRequest
     {

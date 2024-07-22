@@ -1,6 +1,6 @@
-﻿using App.Application.Ports.Repositories;
-using App.Application.Ports.Services;
-using App.Infrastructure.Persistence.Repositories.ImtMoneyTransfer;
+﻿using IMT.App.Application.Ports.Repositories;
+using IMT.App.Application.Ports.Services;
+using IMT.App.Infrastructure.Persistence.Repositories.ImtMoneyTransfer;
 using SharedKernel.Main.Domain.IMT;
 using SharedKernel.Main.Infrastructure.Persistence.Configurations;
 using Thunes;
@@ -11,7 +11,7 @@ using Thunes.Response.Transfer.Quotation;
 using Thunes.Response.Transfer.Transaction;
 
 #pragma warning disable CS8629 // Nullable value type may be null.
-namespace App.Infrastructure.Persistence.Services.Transaction
+namespace IMT.App.Infrastructure.Persistence.Services.Transaction
 {
     public class ImtMoneyTransferService : ImtMoneyTransferRepository, IImtMoneyTransferService
     {

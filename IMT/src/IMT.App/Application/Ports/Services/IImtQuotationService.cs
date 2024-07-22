@@ -1,10 +1,10 @@
-﻿using App.Application.Ports.Repositories;
-using App.Contracts.Requests;
+﻿using IMT.App.Application.Ports.Repositories;
+using IMT.App.Contracts.Requests;
 using SharedKernel.Main.Domain.IMT;
 using Thunes.Request.Transaction.Quoatation;
 using Thunes.Response.Transfer.Quotation;
 
-namespace App.Application.Ports.Services
+namespace IMT.App.Application.Ports.Services
 {
     public interface IImtQuotationService : IImtQuotationRepository
     {

@@ -1,8 +1,8 @@
-﻿using App.Application.Ports.Repositories;
+﻿using IMT.App.Application.Ports.Repositories;
 using SharedKernel.Main.Infrastructure.Persistence.Configurations;
 using SharedKernel.Main.Infrastructure.Services;
 
-namespace App.Infrastructure.Persistence.Repositories.ImtCountry
+namespace IMT.App.Infrastructure.Persistence.Repositories.ImtCountry
 {
     public class ImtCountryRepository(ApplicationDbContext dbContext) : GenericRepository<SharedKernel.Main.Domain.IMT.ImtCountry, ApplicationDbContext>(dbContext), IImtCountryRepository
     {

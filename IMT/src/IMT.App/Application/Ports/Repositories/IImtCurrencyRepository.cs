@@ -1,6 +1,6 @@
 ﻿using SharedKernel.Main.Application.Interfaces;
 
-namespace App.Application.Ports.Repositories
+namespace IMT.App.Application.Ports.Repositories
 {
     public interface IImtCurrencyRepository : IGenericRepository<SharedKernel.Main.Domain.IMT.ImtCurrency>
     {

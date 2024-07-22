@@ -1,13 +1,13 @@
-using App.Application.Ports.Repositories;
-using App.Application.Ports.Services;
-using App.Contracts.Requests;
+using IMT.App.Application.Ports.Repositories;
+using IMT.App.Application.Ports.Services;
+using IMT.App.Contracts.Requests;
 using Thunes.Exception;
 using Thunes.Request.ConfirmTrasaction;
 using Thunes.Request.Transaction.Transfer.CommonTransaction;
 using Thunes.Response.Transfer.Quotation;
 using Thunes.Response.Transfer.Transaction;
 
-namespace App.Infrastructure.Persistence.Services.SendMoney
+namespace IMT.App.Infrastructure.Persistence.Services.SendMoney
 {
     public class ImtSendMoneyService : IImtSendMoneyService
     {

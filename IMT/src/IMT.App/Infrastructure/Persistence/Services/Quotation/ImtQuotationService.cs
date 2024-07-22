@@ -1,7 +1,7 @@
-﻿using App.Application.Ports.Repositories;
-using App.Application.Ports.Services;
-using App.Contracts.Requests;
-using App.Infrastructure.Persistence.Repositories.Quotation;
+﻿using IMT.App.Application.Ports.Repositories;
+using IMT.App.Application.Ports.Services;
+using IMT.App.Contracts.Requests;
+using IMT.App.Infrastructure.Persistence.Repositories.Quotation;
 using SharedKernel.Main.Domain.IMT;
 using SharedKernel.Main.Infrastructure.Persistence.Configurations;
 using Thunes;
@@ -11,7 +11,7 @@ using Thunes.Request.Transaction.Quoatation;
 using Thunes.Response.Common;
 using Thunes.Response.Transfer.Quotation;
 
-namespace App.Infrastructure.Persistence.Services.Quotation
+namespace IMT.App.Infrastructure.Persistence.Services.Quotation
 {
 
 #pragma warning disable CS8629 // Nullable value type may be null.

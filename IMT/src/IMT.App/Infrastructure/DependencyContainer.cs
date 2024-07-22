@@ -1,14 +1,14 @@
-﻿using App.Application.Ports.Repositories;
-using App.Infrastructure.Persistence.Repositories.ConfirmTransaction;
-using App.Infrastructure.Persistence.Repositories.ImtCountry;
-using App.Infrastructure.Persistence.Repositories.ImtCurrency;
-using App.Infrastructure.Persistence.Repositories.ImtMoneyTransfer;
-using App.Infrastructure.Persistence.Repositories.ImtTransaction;
-using App.Infrastructure.Persistence.Repositories.Quotation;
+﻿using IMT.App.Application.Ports.Repositories;
+using IMT.App.Infrastructure.Persistence.Repositories.ConfirmTransaction;
+using IMT.App.Infrastructure.Persistence.Repositories.ImtCountry;
+using IMT.App.Infrastructure.Persistence.Repositories.ImtCurrency;
+using IMT.App.Infrastructure.Persistence.Repositories.ImtMoneyTransfer;
+using IMT.App.Infrastructure.Persistence.Repositories.ImtTransaction;
+using IMT.App.Infrastructure.Persistence.Repositories.Quotation;
 using Microsoft.EntityFrameworkCore;
 using SharedKernel.Main.Infrastructure.Persistence.Configurations;
 
-namespace App.Infrastructure
+namespace IMT.App.Infrastructure
 {
     public static class DependencyContainer
     {

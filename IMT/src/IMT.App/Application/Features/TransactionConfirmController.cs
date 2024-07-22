@@ -1,4 +1,4 @@
-﻿using App.Application.Ports.Services;
+﻿using IMT.App.Application.Ports.Services;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Domain.IMT;
 using SharedKernel.Main.Infrastructure.Persistence.Configurations;
@@ -7,7 +7,7 @@ using Thunes.Request.ConfirmTrasaction;
 using Thunes.Response.Common;
 using Thunes.Route;
 
-namespace App.Application.Features
+namespace IMT.App.Application.Features
 {
     [Tags("Thunes")]
     [ApiController]

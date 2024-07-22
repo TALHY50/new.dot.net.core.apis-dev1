@@ -1,6 +1,6 @@
-﻿using App.Application.Ports.Repositories;
-using App.Application.Ports.Services;
-using App.Infrastructure.Persistence.Repositories.ConfirmTransaction;
+﻿using IMT.App.Application.Ports.Repositories;
+using IMT.App.Application.Ports.Services;
+using IMT.App.Infrastructure.Persistence.Repositories.ConfirmTransaction;
 using SharedKernel.Main.Domain.IMT;
 using SharedKernel.Main.Infrastructure.Persistence.Configurations;
 using Thunes;
@@ -9,7 +9,7 @@ using Thunes.Request.ConfirmTrasaction;
 using Thunes.Response.Common;
 using Thunes.Response.Transfer.Transaction;
 
-namespace App.Infrastructure.Persistence.Services.ConfirmTransactionService
+namespace IMT.App.Infrastructure.Persistence.Services.ConfirmTransactionService
 {
 
 #pragma warning disable CS8629 // Nullable value type may be null.

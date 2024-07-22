@@ -2,7 +2,7 @@
 using PayAll;
 using PayAll.Common;
 
-namespace App.Application.Features
+namespace IMT.App.Application.Features
 {
     [ApiController]
     [Tags("PayAll")]

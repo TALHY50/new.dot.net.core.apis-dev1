@@ -1,8 +1,8 @@
-﻿using App.Application.Ports.Repositories;
+﻿using IMT.App.Application.Ports.Repositories;
 using SharedKernel.Main.Infrastructure.Persistence.Configurations;
 using SharedKernel.Main.Infrastructure.Services;
 
-namespace App.Infrastructure.Persistence.Repositories.ImtCurrency
+namespace IMT.App.Infrastructure.Persistence.Repositories.ImtCurrency
 {
     public class ImtCurrencyRepository(ApplicationDbContext dbContext) : GenericRepository<SharedKernel.Main.Domain.IMT.ImtCurrency, ApplicationDbContext>(dbContext), IImtCurrencyRepository
     {

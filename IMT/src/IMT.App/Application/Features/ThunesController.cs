@@ -5,7 +5,7 @@ using Thunes.Request.Common;
 using Thunes.Request.CreditParties;
 using Thunes.Route;
 
-namespace App.Application.Features
+namespace IMT.App.Application.Features
 {
     [Tags("Thunes")]
     [ApiController]

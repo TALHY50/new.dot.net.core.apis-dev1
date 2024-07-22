@@ -1,9 +1,9 @@
-﻿using App.Application.Ports.Repositories;
+﻿using IMT.App.Application.Ports.Repositories;
 using SharedKernel.Main.Domain.IMT;
 using SharedKernel.Main.Infrastructure.Persistence.Configurations;
 using SharedKernel.Main.Infrastructure.Services;
 
-namespace App.Infrastructure.Persistence.Repositories.Quotation
+namespace IMT.App.Infrastructure.Persistence.Repositories.Quotation
 {
     public class ImtQuotationRepository(ApplicationDbContext dbContext) : GenericRepository<ImtQuotation, ApplicationDbContext>(dbContext), IImtQuotationRepository
     {
