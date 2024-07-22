@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 
-using Notification.Renderer.Services;
+using View.App.Services;
 
 namespace Notification.Renderer;
 
@@ -11,7 +11,7 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddRazorEngine(this IServiceCollection services, IConfiguration configuration)
     {
-        var fileProvider = new EmbeddedFileProvider(typeof(Services.Renderer).Assembly);
+        var fileProvider = new EmbeddedFileProvider(typeof(View.App.Services.Renderer).Assembly);
         services.Configure<MvcRazorRuntimeCompilationOptions>(options =>
         {
             options.FileProviders.Clear();
@@ -26,7 +26,7 @@ public static class DependencyInjection
         });*/
 
         // services.AddRazorPages();
-        services.AddTransient<IRenderer, Services.Renderer>();
+        services.AddTransient<IRenderer, View.App.Services.Renderer>();
 
         return services;
     }

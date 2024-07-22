@@ -1,5 +1,5 @@
 #nullable disable
-namespace Notification.Renderer.Views.Texts.Welcome;
+namespace View.App.Views.Texts.Welcome;
 
 public class WelcomeSmsTextModel : ISmsTextModel
 {

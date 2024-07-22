@@ -8,9 +8,9 @@ using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Routing;
 
-using Notification.Renderer.Views.Texts;
+using View.App.Views.Texts;
 
-namespace Notification.Renderer.Services;
+namespace View.App.Services;
 
 // Code from: https://github.com/aspnet/Entropy/blob/master/samples/Mvc.RenderViewToString/View.App.cs
 public class Renderer : IRenderer

@@ -1,7 +1,7 @@
-using Notification.Renderer.Views.Emails.Welcome;
-using Notification.Renderer.Views.Texts.Welcome;
+using View.App.Views.Emails.Welcome;
+using View.App.Views.Texts.Welcome;
 
-namespace Notification.Renderer.Services;
+namespace View.App.Services;
 
 public class TemplateMap
 {

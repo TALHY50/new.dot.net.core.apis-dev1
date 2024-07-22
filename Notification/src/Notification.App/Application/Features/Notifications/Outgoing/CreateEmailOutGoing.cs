@@ -14,7 +14,8 @@ using Notification.App.Application.Common;
 using Notification.App.Domain.Notifications.Outgoings;
 using Notification.App.Infrastructure.Persistence;
 using Notification.Main.Infrastructure.Persistence;
-using Notification.Renderer.Services;
+
+using View.App.Services;
 
 using EventId = Notification.App.Contracts.EventId;
 

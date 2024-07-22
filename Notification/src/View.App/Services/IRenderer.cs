@@ -1,4 +1,4 @@
-namespace Notification.Renderer.Services;
+namespace View.App.Services;
 
 public interface IRenderer
 {

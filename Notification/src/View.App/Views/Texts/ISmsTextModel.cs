@@ -1,4 +1,4 @@
-namespace Notification.Renderer.Views.Texts;
+namespace View.App.Views.Texts;
 
 public interface ISmsTextModel
 {
