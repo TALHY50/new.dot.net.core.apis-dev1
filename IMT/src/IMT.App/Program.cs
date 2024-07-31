@@ -1,13 +1,6 @@
-using DotNetEnv;
-using IMT.App.Application.Ports.Services;
-using IMT.App.Infrastructure.Persistence.Services.ConfirmTransactionService;
-using IMT.App.Infrastructure.Persistence.Services.Quotation;
-using IMT.App.Infrastructure.Persistence.Services.SendMoney;
-using IMT.App.Infrastructure.Persistence.Services.Transaction;
-using Microsoft.EntityFrameworkCore;
+using IMT.App;
 using Microsoft.OpenApi.Models;
 using PayAll.Exception;
-using SharedKernel.Main.Infrastructure.Persistence.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,29 +19,8 @@ builder.Services.AddSwaggerGen(c =>
 
     });
 });
-
-Env.NoClobber().TraversePath().Load();
-
-var server = Env.GetString("DB_HOST");
-var database = Env.GetString("DB_DATABASE");
-var userName = Env.GetString("DB_USERNAME");
-var password = Env.GetString("DB_PASSWORD");
-var port = Env.GetString("DB_PORT");
-
-var connectionString = $"server={server};database={database};User ID={userName};Password={password};CharSet=utf8mb4;" ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseMySQL(connectionString, options =>
-    {
-        options.EnableRetryOnFailure();
-    }));
-//builder.Services.AddScoped<IImtCurrencyRepository, ImtCurrencyRepository>();
-//builder.Services.AddScoped<IImtCountryRepository, ImtCountryRepository>();
-
-builder.Services.AddTransient<IImtConfirmTransactionService, ImtConfirmTransactionService>();
-builder.Services.AddTransient<IImtQuotationService, ImtQuotationService>();
-builder.Services.AddTransient<IImtMoneyTransferService, ImtMoneyTransferService>();
-builder.Services.AddTransient<IImtSendMoneyService, ImtSendMoneyService>();
+builder.Services.AddApplication();
+builder.Services.AddInfrastructure(builder.Configuration);
 var app = builder.Build();
 
 app.UseMiddleware<GlobalExceptionHandler>();
