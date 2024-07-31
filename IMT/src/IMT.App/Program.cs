@@ -6,7 +6,6 @@ using IMT.App.Infrastructure.Persistence.Services.SendMoney;
 using IMT.App.Infrastructure.Persistence.Services.Transaction;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using PayAll.Exception;
 using SharedKernel.Main.Infrastructure.Persistence.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -51,7 +50,6 @@ builder.Services.AddTransient<IImtMoneyTransferService, ImtMoneyTransferService>
 builder.Services.AddTransient<IImtSendMoneyService, ImtSendMoneyService>();
 var app = builder.Build();
 
-app.UseMiddleware<GlobalExceptionHandler>();
 
 // Configure the HTTP request pipeline.
 //if (app.Environment.IsDevelopment())
