@@ -1,22 +1,15 @@
 using ErrorOr;
-
 using FluentValidation;
-
 using MediatR;
-
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-
 using IMT.App.Application.Common;
-using IMT.App.Contracts;
-using IMT.App.Infrastructure.Persistence;
 using SharedKernel.Main.Infrastructure.Persistence.Configurations;
 
 namespace IMT.App.Application.Features;
 
-public class CreateMoneyTransferController : ApiControllerBase
+public class ConfirmTransferController : ApiControllerBase
 {
-    [HttpPost("/api/notification/event/sms/create")]
+    [HttpPost("/api/international/transfer/confirm")]
     public async Task<ActionResult<ErrorOr<object>>> Create(ConfirmMoneyTransfer command)
     {
         return await Mediator.Send(command).ConfigureAwait(false);
@@ -25,17 +18,17 @@ public class CreateMoneyTransferController : ApiControllerBase
 
 public record ConfirmMoneyTransfer(int Id) : IRequest<ErrorOr<object>>;
 
-internal sealed class CConfirmMoneyTransferValidator : AbstractValidator<ConfirmMoneyTransfer>
+internal sealed class ConfirmMoneyTransferValidator : AbstractValidator<ConfirmMoneyTransfer>
 {
-    public CConfirmMoneyTransferValidator()
+    public ConfirmMoneyTransferValidator()
     {
-        /*RuleFor(v => v.CategoricalData.Category)
-            .MaximumLength(200)
-            .NotEmpty();*/
+        RuleFor(v => v.Id)
+            .GreaterThan(0)
+            .NotEmpty();
     }
 }
 
-internal sealed class CConfirmMoneyTransferHandler(ApplicationDbContext context)
+internal sealed class ConfirmMoneyTransferHandler(ApplicationDbContext context)
     : IRequestHandler<ConfirmMoneyTransfer, ErrorOr<object>>
 {
     private readonly ApplicationDbContext _context = context;
