@@ -9,7 +9,7 @@ namespace IMT.App.Application.Features;
 
 public class ConfirmTransferController : ApiControllerBase
 {
-    [HttpPost("/api/international/transfer/confirm")]
+    [HttpPost("/api/money-transfer/international/confirm")]
     public async Task<ActionResult<ErrorOr<object>>> Create(ConfirmMoneyTransfer command)
     {
         return await Mediator.Send(command).ConfigureAwait(false);
