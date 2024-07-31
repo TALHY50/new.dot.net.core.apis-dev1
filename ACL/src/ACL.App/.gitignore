@@ -37,6 +37,6 @@ msbuild.wrn
 **/obj/.*
 SharedKernel/bin/.*
 SharedKernel/obj/.*
-Migrations/
-Migrations/*
+# Migrations/
+# Migrations/*
 ./idea/*
