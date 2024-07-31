@@ -290,18 +290,18 @@ app.UseAuthentication();
 
 
 
-// Seeding Data
-using (var serviceScope = app.Services.CreateScope())
-{
-    var services = serviceScope.ServiceProvider;
-    var dbContext = services.GetRequiredService<ApplicationDbContext>();
+//// Seeding Data
+//using (var serviceScope = app.Services.CreateScope())
+//{
+//    var services = serviceScope.ServiceProvider;
+//    var dbContext = services.GetRequiredService<ApplicationDbContext>();
 
-    // Ensure the database is created
-    dbContext.Database.EnsureCreated();
+//    // Ensure the database is created
+//    dbContext.Database.EnsureCreated();
 
-    // Perform the seeding
-    SeedData.Initialize(services);
-}
+//    // Perform the seeding
+//    SeedData.Initialize(services);
+//}
 
 app.UseSwagger();
 app.UseSwaggerUI(options =>
