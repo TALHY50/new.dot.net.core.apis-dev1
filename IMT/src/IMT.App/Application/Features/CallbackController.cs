@@ -8,6 +8,7 @@ namespace IMT.App.Application.Features
         [HttpPost("/api/v1/callback")]
         public IActionResult Callback(MoneyTransferDTO transferDTO)
         {
+            //todo need to insert or update db according to the request
             return View();
         }
     }
