@@ -3,8 +3,8 @@ using SharedKernel.Main.Domain.IMT;
 
 namespace IMT.App.Application.Ports.Repositories
 {
-    public interface IImtQuotationRepository : IGenericRepository<ImtQuotation>
+    public interface IImtQuotationRepository : IGenericRepository<Quotation>
     {
-        public ImtQuotation? GetImtQuotationByInvoiceId(string invoiceId);
+        public Quotation? GetImtQuotationByInvoiceId(string invoiceId);
     }
 }

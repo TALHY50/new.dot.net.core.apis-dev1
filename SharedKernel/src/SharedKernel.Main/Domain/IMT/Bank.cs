@@ -1,19 +1,24 @@
 ﻿namespace SharedKernel.Main.Domain.IMT;
 
-public partial class ImtTransactionType
+public partial class Bank
 {
     public int Id { get; set; }
 
-    /// <summary>
-    /// send money, receive money, withdrawal etc
-    /// </summary>
+    public string? Code { get; set; }
+
     public string? Name { get; set; }
 
-    public sbyte? Status { get; set; }
+    public string? DisplayName { get; set; }
+
+    public string? Url { get; set; }
+
+    public string? Logo { get; set; }
 
     public int? CreatedById { get; set; }
 
     public int? UpdatedById { get; set; }
+
+    public sbyte Status { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 

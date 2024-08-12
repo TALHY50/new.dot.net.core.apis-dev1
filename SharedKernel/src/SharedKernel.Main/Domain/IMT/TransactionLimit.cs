@@ -1,6 +1,6 @@
 ﻿namespace SharedKernel.Main.Domain.IMT;
 
-public partial class ImtTransactionLimit
+public partial class TransactionLimit
 {
     public int Id { get; set; }
 

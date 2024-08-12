@@ -1,21 +1,13 @@
 ﻿namespace SharedKernel.Main.Domain.IMT;
 
-public partial class ImtProvider
+public partial class TransactionType
 {
     public int Id { get; set; }
 
-    public string? Code { get; set; }
-
-    public string? Name { get; set; }
-
-    public string? BaseUrl { get; set; }
-
     /// <summary>
-    /// api key and secret must be encrypted
+    /// send money, receive money, withdrawal etc
     /// </summary>
-    public string? ApiKey { get; set; }
-
-    public string? ApiSecret { get; set; }
+    public string? Name { get; set; }
 
     public sbyte? Status { get; set; }
 

@@ -2,7 +2,7 @@
 
 namespace IMT.App.Application.Ports.Repositories
 {
-    public interface IImtCurrencyRepository : IGenericRepository<SharedKernel.Main.Domain.IMT.ImtCurrency>
+    public interface IImtCurrencyRepository : IGenericRepository<SharedKernel.Main.Domain.IMT.Currency>
     {
         public string? GetCurrencyCodeById(int id);
 

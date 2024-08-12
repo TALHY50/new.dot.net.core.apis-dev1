@@ -1,6 +1,6 @@
 ﻿namespace SharedKernel.Main.Domain.IMT;
 
-public partial class ImtPaymentMethod
+public partial class PaymentMethod
 {
     public int Id { get; set; }
 

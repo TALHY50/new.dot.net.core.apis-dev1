@@ -1,14 +1,12 @@
 ﻿namespace SharedKernel.Main.Domain.IMT;
 
-public partial class ImtCountry
+public partial class City
 {
     public int Id { get; set; }
 
-    public string? Code { get; set; }
-
-    public string? IsoCode { get; set; }
-
     public string? Name { get; set; }
+
+    public int? CountryId { get; set; }
 
     public int? CreatedById { get; set; }
 

@@ -1,6 +1,6 @@
 ﻿namespace SharedKernel.Main.Domain.IMT;
 
-public partial class ImtQuotation
+public partial class Quotation
 {
     public int Id { get; set; }
 

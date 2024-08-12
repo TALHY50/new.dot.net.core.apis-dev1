@@ -68,7 +68,7 @@ namespace IMT.App.Application.Features
         {
             foreach (var error in Errors)
             {
-                ImtProviderErrorDetail prepareData = new ImtProviderErrorDetail
+                ProviderErrorDetail prepareData = new ProviderErrorDetail
                 {
                     ErrorCode = error.code,
                     ErrorMessage = error.message,

@@ -4,7 +4,7 @@ using SharedKernel.Main.Infrastructure.Services;
 
 namespace IMT.App.Infrastructure.Persistence.Repositories.ImtCurrency
 {
-    public class ImtCurrencyRepository(ApplicationDbContext dbContext) : GenericRepository<SharedKernel.Main.Domain.IMT.ImtCurrency, ApplicationDbContext>(dbContext), IImtCurrencyRepository
+    public class ImtCurrencyRepository(ApplicationDbContext dbContext) : GenericRepository<SharedKernel.Main.Domain.IMT.Currency, ApplicationDbContext>(dbContext), IImtCurrencyRepository
     {
         public string? GetCurrencyCodeById(int imtSourceCurrencyId)
         {
