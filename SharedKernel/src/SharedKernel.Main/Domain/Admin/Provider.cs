@@ -1,4 +1,4 @@
-namespace SharedKernel.Main.Domain.Admin.Provider
+namespace SharedKernel.Main.Domain.Admin
 {
     public class Provider
     {

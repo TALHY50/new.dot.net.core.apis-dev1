@@ -92,7 +92,6 @@
 	  <Folder Include="Application\Constants\" />
 	  <Folder Include="Application\Interfaces\" />
 	  <Folder Include="Contracts\Response\" />
-	  <Folder Include="Domain\Admin\Provider\" />
 	  <Folder Include="Domain\IMT\" />
 	  <Folder Include="Infrastructure\Attributes\" />
 	  <Folder Include="Infrastructure\MiddleWares\" />
