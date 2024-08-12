@@ -44,13 +44,13 @@ public partial class ImtMoneyTransfer
 
     public decimal? Vat { get; set; }
 
-    public string? CommissionPaidBy { get; set; }
+    public sbyte? CommissionPaidBy { get; set; }
 
     public int? SenderCustomerId { get; set; }
 
     public int? ReceiverCustomerId { get; set; }
 
-    public string? Source { get; set; }
+    public sbyte? Source { get; set; }
 
     public string? OrderId { get; set; }
 
