@@ -1,6 +1,6 @@
 ﻿namespace SharedKernel.Main.Domain.IMT;
 
-public partial class ImtBank
+public partial class Provider
 {
     public int Id { get; set; }
 
@@ -8,17 +8,20 @@ public partial class ImtBank
 
     public string? Name { get; set; }
 
-    public string? DisplayName { get; set; }
+    public string? BaseUrl { get; set; }
 
-    public string? Url { get; set; }
+    /// <summary>
+    /// api key and secret must be encrypted
+    /// </summary>
+    public string? ApiKey { get; set; }
 
-    public string? Logo { get; set; }
+    public string? ApiSecret { get; set; }
+
+    public sbyte? Status { get; set; }
 
     public int? CreatedById { get; set; }
 
     public int? UpdatedById { get; set; }
-
-    public sbyte Status { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 

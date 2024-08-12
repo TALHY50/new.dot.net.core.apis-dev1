@@ -7,7 +7,7 @@ namespace ADMIN.Application.Infrastructure.Persistence.Configurations
     public partial class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : DbContext(options), IApplicationDbContext
     {
-        public virtual DbSet<AdminProvider> Admin_Providers { get; set; }
+        public virtual DbSet<Provider> Admin_Providers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -32,7 +32,7 @@ namespace ADMIN.Application.Infrastructure.Persistence.Configurations
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<AdminProvider>().HasKey(e => e.Id);
+            modelBuilder.Entity<Provider>().HasKey(e => e.Id);
         }
     }
 }

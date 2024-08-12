@@ -5,7 +5,7 @@ using SharedKernel.Main.Infrastructure.Services;
 
 namespace IMT.App.Infrastructure.Persistence.Repositories.ConfirmTransaction
 {
-    public class ImtProviderErrorDetailsRepository(ApplicationDbContext dbContext) : GenericRepository<ImtProviderErrorDetail, ApplicationDbContext>(dbContext), IImtProviderErrorDetailsRepository
+    public class ImtProviderErrorDetailsRepository(ApplicationDbContext dbContext) : GenericRepository<ProviderErrorDetail, ApplicationDbContext>(dbContext), IImtProviderErrorDetailsRepository
     {
     }
 }

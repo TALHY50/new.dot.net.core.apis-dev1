@@ -1,15 +1,15 @@
 ﻿namespace SharedKernel.Main.Domain.IMT;
 
-public partial class ImtProviderService
+public partial class TransactionState
 {
     public int Id { get; set; }
 
-    public int ImtProviderId { get; set; }
+    public string? Name { get; set; }
 
     /// <summary>
-    /// BankAccount, WalletTransfer etc
+    /// 1=completed, 2=pending, 3=approved, 4=
     /// </summary>
-    public string? Name { get; set; }
+    public sbyte? Status { get; set; }
 
     public int? CreatedById { get; set; }
 

@@ -1,13 +1,17 @@
 ﻿namespace SharedKernel.Main.Domain.IMT;
 
-public partial class ImtTransactionState
+public partial class Reason
 {
     public int Id { get; set; }
 
-    public string? Name { get; set; }
+    public string? Code { get; set; }
+
+    public string? Title { get; set; }
+
+    public string? Description { get; set; }
 
     /// <summary>
-    /// 1=completed, 2=pending, 3=approved, 4=
+    /// default value 0 means &quot;Others&quot;
     /// </summary>
     public sbyte? Status { get; set; }
 

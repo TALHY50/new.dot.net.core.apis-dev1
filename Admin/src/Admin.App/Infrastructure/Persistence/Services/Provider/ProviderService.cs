@@ -64,7 +64,7 @@ namespace ADMIN.Application.Infrastructure.Persistence.Services.Provider
             return Response;
         }
 
-        public AdminProvider PrepareData(ProviderRequest request, AdminProvider? adminProvider = null)
+        public Domain.Provider.Provider PrepareData(ProviderRequest request, Domain.Provider.Provider? adminProvider = null)
         {
             if (adminProvider != null)
             {
@@ -77,7 +77,7 @@ namespace ADMIN.Application.Infrastructure.Persistence.Services.Provider
             }
             else
             {
-                return new AdminProvider
+                return new Domain.Provider.Provider
                 {
                     Name = request.Name,
                     Code = request.Code,

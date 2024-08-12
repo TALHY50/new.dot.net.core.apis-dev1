@@ -22,7 +22,7 @@ namespace IMT.App.Infrastructure.Persistence.Services.Transaction
         public IImtMoneyTransferRepository _moneyTransferRepository;
         public IImtCountryRepository _countryRepository;
         public IImtCurrencyRepository _currencyRepository;
-        public ImtQuotation? _imtQuotation;
+        public SharedKernel.Main.Domain.IMT.Quotation? _imtQuotation;
         public ImtMoneyTransferService(ApplicationDbContext dbContext) : base(dbContext)
         {
             DependencyContainer.Initialize();
@@ -33,9 +33,9 @@ namespace IMT.App.Infrastructure.Persistence.Services.Transaction
             _moneyTransferRepository = DependencyContainer.GetService<IImtMoneyTransferRepository>();
             _transactionRepository = DependencyContainer.GetService<IImtTransactionRepository>();
         }
-        public ImtTransaction PrepareImtTransaction(MoneyTransferDTO request, CreateContentQuotationResponse quotation, CreateTransactionResponse transaction)
+        public SharedKernel.Main.Domain.IMT.Transaction PrepareImtTransaction(MoneyTransferDTO request, CreateContentQuotationResponse quotation, CreateTransactionResponse transaction)
         {
-            return new ImtTransaction
+            return new SharedKernel.Main.Domain.IMT.Transaction
             {
                 PaymentId = transaction?.id.ToString(),
                 TransactionStateId = (transaction?.id != null) ? 2 : 1,
@@ -54,9 +54,9 @@ namespace IMT.App.Infrastructure.Persistence.Services.Transaction
                 UpdatedAt = DateTime.Now
             };
         }
-        public ImtMoneyTransfer PrepareImtMoneyTransfer(MoneyTransferDTO request, CreateContentQuotationResponse quotation, CreateTransactionResponse transaction)
+        public MoneyTransfer PrepareImtMoneyTransfer(MoneyTransferDTO request, CreateContentQuotationResponse quotation, CreateTransactionResponse transaction)
         {
-            return new ImtMoneyTransfer
+            return new MoneyTransfer
             {
                 PaymentId = transaction?.id.ToString(),
                 TransactionStateId = (transaction?.id != null) ? 2 : 1,
@@ -131,7 +131,7 @@ namespace IMT.App.Infrastructure.Persistence.Services.Transaction
             foreach (var error in Errors)
             {
 
-                ImtProviderErrorDetail prepareData = new ImtProviderErrorDetail
+                ProviderErrorDetail prepareData = new ProviderErrorDetail
                 {
                     ErrorCode = error.code,
                     ErrorMessage = error.message,

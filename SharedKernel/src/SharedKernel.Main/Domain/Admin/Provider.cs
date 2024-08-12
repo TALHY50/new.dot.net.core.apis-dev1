@@ -1,6 +1,6 @@
-namespace SharedKernel.Main.Domain.Admin.Provider
+namespace SharedKernel.Main.Domain.Admin
 {
-    public class AdminProvider
+    public class Provider
     {
         public ulong Id { get; set; }
         public required string Name { get; set; }
