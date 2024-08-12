@@ -1,10 +1,13 @@
 ﻿using IMT.App.Application.Ports.Repositories;
+using IMT.App.Application.Ports.Services;
 using IMT.App.Infrastructure.Persistence.Repositories.ConfirmTransaction;
 using IMT.App.Infrastructure.Persistence.Repositories.ImtCountry;
 using IMT.App.Infrastructure.Persistence.Repositories.ImtCurrency;
 using IMT.App.Infrastructure.Persistence.Repositories.ImtMoneyTransfer;
 using IMT.App.Infrastructure.Persistence.Repositories.ImtTransaction;
 using IMT.App.Infrastructure.Persistence.Repositories.Quotation;
+using IMT.App.Infrastructure.Persistence.Services.Quotation;
+using IMT.App.Infrastructure.Persistence.Services.Transaction;
 using Microsoft.EntityFrameworkCore;
 using SharedKernel.Main.Infrastructure.Persistence.Configurations;
 
@@ -33,15 +36,15 @@ namespace IMT.App.Infrastructure
         {
             options.UseMySQL(connectionString);
         });
-            
+
             services.AddScoped<IImtProviderErrorDetailsRepository, ImtProviderErrorDetailsRepository>();
             services.AddScoped<IImtCurrencyRepository, ImtCurrencyRepository>();
             services.AddScoped<IImtCountryRepository, ImtCountryRepository>();
             services.AddScoped<IImtMoneyTransferRepository, ImtMoneyTransferRepository>();
             services.AddScoped<IImtQuotationRepository, ImtQuotationRepository>();
             services.AddScoped<IImtTransactionRepository, ImtTransactionRepository>();
-        //  services.AddScoped<IImtQuotationService, ImtQuotationService>(); 
-        //  services.AddScoped<IImtMoneyTransferService, ImtMoneyTransferService>(); 
+            services.AddScoped<IImtQuotationService, ImtQuotationService>();
+            services.AddScoped<IImtMoneyTransferService, ImtMoneyTransferService>();
 
             _serviceProvider = services.BuildServiceProvider();
         }

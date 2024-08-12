@@ -76,10 +76,10 @@ namespace IMT.App.Infrastructure.Persistence.Services.Transaction
                 ExchangedAmount = (decimal?)(quotation?.destination?.amount), // hardcoded dont know what is it so putting a random
                 Fee = (decimal?)(quotation?.fee?.amount),
                 Vat = (decimal?)(quotation?.destination?.amount), // hardcoded dont know what is it so putting a random
-                CommissionPaidBy = "1", // hard coded dont know where it will come from
+                CommissionPaidBy = (sbyte?)1, // hard coded dont know where it will come from
                 SenderCustomerId = 1, // hard coded dont know where it will come from
                 ReceiverCustomerId = 1, // hard coded dont know where it will come from
-                Source = transaction?.source?.currency, // hard coded dont know where it will come from
+                Source = (sbyte?)0, // hard coded dont know where it will come from
                 OrderId = quotation?.external_id, // hard coded dont know where it will come from
                 RemoteOrderId = quotation?.external_id, // hard coded dont know where it will come from
                 InvoiceId = quotation?.external_id,
