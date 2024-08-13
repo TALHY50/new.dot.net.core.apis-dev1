@@ -4,8 +4,10 @@ using IMT.App.Infrastructure.Persistence.Repositories.ConfirmTransaction;
 using IMT.App.Infrastructure.Persistence.Repositories.ImtCountry;
 using IMT.App.Infrastructure.Persistence.Repositories.ImtCurrency;
 using IMT.App.Infrastructure.Persistence.Repositories.ImtMoneyTransfer;
+using IMT.App.Infrastructure.Persistence.Repositories.ImtProviderPayers;
 using IMT.App.Infrastructure.Persistence.Repositories.ImtTransaction;
 using IMT.App.Infrastructure.Persistence.Repositories.Quotation;
+using IMT.App.Infrastructure.Persistence.Services.ImtProviderPayers;
 using IMT.App.Infrastructure.Persistence.Services.Quotation;
 using IMT.App.Infrastructure.Persistence.Services.Transaction;
 using Microsoft.EntityFrameworkCore;
@@ -37,6 +39,8 @@ namespace IMT.App.Infrastructure
             options.UseMySQL(connectionString);
         });
 
+            services.AddScoped<IImtProviderPayersRepository, ImtProviderPayersRepository>();
+            services.AddScoped<IImtProviderPayersService, ImtProviderPayersService>();
             services.AddScoped<IImtProviderErrorDetailsRepository, ImtProviderErrorDetailsRepository>();
             services.AddScoped<IImtCurrencyRepository, ImtCurrencyRepository>();
             services.AddScoped<IImtCountryRepository, ImtCountryRepository>();

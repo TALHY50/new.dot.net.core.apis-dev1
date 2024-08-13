@@ -1,0 +1,306 @@
+2024-08-13 11:05:49.780 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-08-13 11:05:49.867 +06:00 [WRN] The WebRootPath was not found: C:\Users\HP\Documents\Received Files\new.dot.net.core.apis(08_09_2024)\new.dot.net.core.apis\ACL\src\ACL.App\wwwroot. Static files may be unavailable.
+2024-08-13 11:05:49.959 +06:00 [INF] Now listening on: https://localhost:7125
+2024-08-13 11:05:49.959 +06:00 [INF] Now listening on: http://localhost:5229
+2024-08-13 11:05:49.959 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-08-13 11:05:49.960 +06:00 [INF] Hosting environment: Development
+2024-08-13 11:05:49.960 +06:00 [INF] Content root path: C:\Users\HP\Documents\Received Files\new.dot.net.core.apis(08_09_2024)\new.dot.net.core.apis\ACL\src\ACL.App
+2024-08-13 11:05:50.947 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/index.html - null null
+2024-08-13 11:05:51.250 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/index.html - 200 null text/html;charset=utf-8 305.338ms
+2024-08-13 11:05:51.270 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_vs/browserLink - null null
+2024-08-13 11:05:51.270 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - null null
+2024-08-13 11:05:51.279 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - 200 13750 application/javascript; charset=utf-8 8.4532ms
+2024-08-13 11:05:51.348 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_vs/browserLink - 200 null text/javascript; charset=UTF-8 77.572ms
+2024-08-13 11:05:51.435 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - null null
+2024-08-13 11:05:51.449 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/favicon-32x32.png - null null
+2024-08-13 11:05:51.460 +06:00 [INF] Sending file. Request path: '/favicon-32x32.png'. Physical path: 'N/A'
+2024-08-13 11:05:51.460 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/favicon-32x32.png - 200 628 image/png 11.1866ms
+2024-08-13 11:05:51.564 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 129.8454ms
+2024-08-13 11:06:09.624 +06:00 [INF] Request starting HTTP/2 POST https://localhost:7125/api/v1/auth/login - application/json 65
+2024-08-13 11:06:09.632 +06:00 [INF] [Request] POST: /api/v1/auth/login
+[Request Body] {
+  "email": "ssadmin@sipay.com.tr",
+  "password": "Nop@ss1234"
+}
+
+2024-08-13 11:06:09.666 +06:00 [INF] Executing endpoint 'ACL.App.Application.Controllers.V1.AuthController.Login (ACL.App)'
+2024-08-13 11:06:09.680 +06:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[ACL.App.Application.Features.Auth.Login.Response.LoginResponse] Login(ACL.App.Application.Features.Auth.Login.Request.LoginRequest) on controller ACL.App.Application.Controllers.V1.AuthController (ACL.App).
+2024-08-13 11:06:09.885 +06:00 [INF] Executing action method ACL.App.Application.Controllers.V1.AuthController.Login (ACL.App) - Validation state: "Valid"
+2024-08-13 11:06:15.735 +06:00 [INF] Executed DbCommand (11ms) [Parameters=[@__email_0='?' (Size = 50)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`activated_at`, `a`.`address`, `a`.`auth_identifier`, `a`.`avatar`, `a`.`city`, `a`.`claims`, `a`.`company_id`, `a`.`country`, `a`.`created_at`, `a`.`created_by_id`, `a`.`dob`, `a`.`email`, `a`.`first_name`, `a`.`gender`, `a`.`img_path`, `a`.`is_admin_verified`, `a`.`language`, `a`.`last_name`, `a`.`login_at`, `a`.`otp_channel`, `a`.`password`, `a`.`permission_version`, `a`.`phone`, `a`.`refresh_token`, `a`.`remember_token`, `a`.`salt`, `a`.`status`, `a`.`updated_at`, `a`.`user_type`, `a`.`username`
+FROM `acl_users` AS `a`
+WHERE `a`.`email` = @__email_0
+LIMIT 1
+2024-08-13 11:06:16.266 +06:00 [INF] Executed DbCommand (9ms) [Parameters=[@p30='?' (DbType = Int64), @p0='?' (DbType = DateTime), @p1='?' (Size = 255), @p2='?' (Size = 150), @p3='?' (Size = 255), @p4='?' (Size = 100), @p5='?' (Size = 4000), @p6='?' (DbType = Int32), @p7='?' (DbType = Int32), @p8='?' (DbType = DateTime), @p9='?' (DbType = Int32), @p10='?' (DbType = DateTime), @p11='?' (Size = 50), @p12='?' (Size = 100), @p13='?' (DbType = SByte), @p14='?' (Size = 4000), @p15='?' (DbType = SByte), @p16='?' (Size = 10), @p17='?' (Size = 100), @p18='?' (DbType = DateTime), @p19='?' (DbType = SByte), @p20='?' (Size = 255), @p21='?' (DbType = Int32), @p22='?' (Size = 20), @p23='?' (Size = 4000), @p24='?' (Size = 100), @p25='?' (Size = 4000), @p26='?' (DbType = SByte), @p27='?' (DbType = DateTime), @p28='?' (DbType = Int32), @p29='?' (Size = 20)], CommandType='"Text"', CommandTimeout='30']
+UPDATE `acl_users` SET `activated_at` = @p0, `address` = @p1, `auth_identifier` = @p2, `avatar` = @p3, `city` = @p4, `claims` = @p5, `company_id` = @p6, `country` = @p7, `created_at` = @p8, `created_by_id` = @p9, `dob` = @p10, `email` = @p11, `first_name` = @p12, `gender` = @p13, `img_path` = @p14, `is_admin_verified` = @p15, `language` = @p16, `last_name` = @p17, `login_at` = @p18, `otp_channel` = @p19, `password` = @p20, `permission_version` = @p21, `phone` = @p22, `refresh_token` = @p23, `remember_token` = @p24, `salt` = @p25, `status` = @p26, `updated_at` = @p27, `user_type` = @p28, `username` = @p29
+WHERE `id` = @p30;
+2024-08-13 11:06:16.299 +06:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`activated_at`, `a`.`address`, `a`.`auth_identifier`, `a`.`avatar`, `a`.`city`, `a`.`claims`, `a`.`company_id`, `a`.`country`, `a`.`created_at`, `a`.`created_by_id`, `a`.`dob`, `a`.`email`, `a`.`first_name`, `a`.`gender`, `a`.`img_path`, `a`.`is_admin_verified`, `a`.`language`, `a`.`last_name`, `a`.`login_at`, `a`.`otp_channel`, `a`.`password`, `a`.`permission_version`, `a`.`phone`, `a`.`refresh_token`, `a`.`remember_token`, `a`.`salt`, `a`.`status`, `a`.`updated_at`, `a`.`user_type`, `a`.`username`
+FROM `acl_users` AS `a`
+WHERE `a`.`id` = @__p_0
+LIMIT 1
+2024-08-13 11:06:16.332 +06:00 [INF] Executed action method ACL.App.Application.Controllers.V1.AuthController.Login (ACL.App), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 6444.8273ms.
+2024-08-13 11:06:16.336 +06:00 [INF] Executing ObjectResult, writing value of type 'ACL.App.Application.Features.Auth.Login.Response.LoginSuccessResponse'.
+2024-08-13 11:06:16.341 +06:00 [INF] Executed action ACL.App.Application.Controllers.V1.AuthController.Login (ACL.App) in 6658.1223ms
+2024-08-13 11:06:16.341 +06:00 [INF] Executed endpoint 'ACL.App.Application.Controllers.V1.AuthController.Login (ACL.App)'
+2024-08-13 11:06:16.342 +06:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 6707.3677 ms
+2024-08-13 11:06:16.343 +06:00 [INF] [Response] POST: /api/v1/auth/login
+[Response Body] {"idToken":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwidW5pcXVlX25hbWUiOiJhZG1pbjEiLCJlbWFpbCI6InNzYWRtaW5Ac2lwYXkuY29tLnRyIiwiZ2l2ZW5fbmFtZSI6ImFkbWluMSIsImZhbWlseV9uYW1lIjoiYWRtaW4xIiwibmJmIjoxNzIzNTI1NTc2LCJleHAiOjE3MjM1MjU4NzYsImlhdCI6MTcyMzUyNTU3NiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDAxLyIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3QvIn0.xNKt1HHoIAL3QrztaqAP94fFNQMq6sBtrfNwbSaMvtBnJwKyDAqm0pvgC_Rt5qJqWoMkw4530wv18tx0tcjnh0DXiJz3LgJFifHn06jcq5PYX8uw9C2mZHLghu4P5OB00C7SO7_ov0fnOTNQ6l_juLQTldqIXZVjSFEl1KRFQkgZRORNAfmlfufr7pe9_XBeo7WY9FpUZx8ZAZIw5BEY82o2-A4RfpDFgpzJNXOfeqnaMCVsno1mfynkCesmDf_gp7kv4hqlDraseykZpD1teKCZKNouS9cgIkx9HRMS2JpUwCnKsY8uHeE6IC-0C96l8o1wLmU0xyyClJx54zgM3w","accessToken":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwibmJmIjoxNzIzNTI1NTc2LCJleHAiOjE3MjQ1MjU1NzUsImlhdCI6MTcyMzUyNTU3NiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDAxLyIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3QvIn0.sfS_EVASeHVCfEjXdcKJv-HukIlmnIdOc419CNsr5hoicdZtBsO9DCYuKELx-sqEhUQ_MFtdwDuuBILxWQ3MBHWo_doHeFWSuych_4WSWHJ8fnUbKT7SHG23ZoGorOK2yY-XVuJnRLd8bGA0nLWxwq0eWVF3HjWSNIV5_jx-loT4Xvb6q_WyqhnJxcHCGj1H__vFVRD0QFPVXaYWbCw9TvlDJ-1sxJVqHMwKRD9LhI-sba68Tjim330KREpAho4zr4ajOmHbtan2z-p0ezqkm9_CM5z6fkRFYB4-B8u6GnfUft7uiOlmI6DRkAJ_j2w1pww06KAl3c72UwKTyqvAAg","refreshToken":"d4S5JDUFFTVPjod+8w+B629daqBk7fZDn9vE5134PGVahi3R7RMqmqgoEBo9E8PK/NJksGpoIihTFEenI3c6VA=="}
+
+2024-08-13 11:06:16.351 +06:00 [INF] Request finished HTTP/2 POST https://localhost:7125/api/v1/auth/login - 200 null application/json; charset=utf-8 6727.2939ms
+2024-08-13 11:09:16.864 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/api/v1/branches - null null
+2024-08-13 11:09:16.895 +06:00 [INF] [Request] GET: /api/v1/branches
+[Request Body] 
+
+2024-08-13 11:09:16.899 +06:00 [INF] Executing endpoint 'ACL.App.Application.Controllers.V1.AclBranchController.Index (ACL.App)'
+2024-08-13 11:09:16.900 +06:00 [INF] Route matched with {action = "Index", controller = "AclBranch"}. Executing controller action with signature ACL.App.Contracts.Response.AclResponse Index() on controller ACL.App.Application.Controllers.V1.AclBranchController (ACL.App).
+2024-08-13 11:09:16.930 +06:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`activated_at`, `a`.`address`, `a`.`auth_identifier`, `a`.`avatar`, `a`.`city`, `a`.`claims`, `a`.`company_id`, `a`.`country`, `a`.`created_at`, `a`.`created_by_id`, `a`.`dob`, `a`.`email`, `a`.`first_name`, `a`.`gender`, `a`.`img_path`, `a`.`is_admin_verified`, `a`.`language`, `a`.`last_name`, `a`.`login_at`, `a`.`otp_channel`, `a`.`password`, `a`.`permission_version`, `a`.`phone`, `a`.`refresh_token`, `a`.`remember_token`, `a`.`salt`, `a`.`status`, `a`.`updated_at`, `a`.`user_type`, `a`.`username`
+FROM `acl_users` AS `a`
+WHERE `a`.`id` = @__p_0
+LIMIT 1
+2024-08-13 11:09:16.948 +06:00 [INF] Executed DbCommand (5ms) [Parameters=[@__userId_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT CONVERT(`a`.`usergroup_id`, CHAR(19))
+FROM `acl_user_usergroups` AS `a`
+WHERE `a`.`user_id` = @__userId_0
+2024-08-13 11:09:16.994 +06:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`activated_at`, `a`.`address`, `a`.`auth_identifier`, `a`.`avatar`, `a`.`city`, `a`.`claims`, `a`.`company_id`, `a`.`country`, `a`.`created_at`, `a`.`created_by_id`, `a`.`dob`, `a`.`email`, `a`.`first_name`, `a`.`gender`, `a`.`img_path`, `a`.`is_admin_verified`, `a`.`language`, `a`.`last_name`, `a`.`login_at`, `a`.`otp_channel`, `a`.`password`, `a`.`permission_version`, `a`.`phone`, `a`.`refresh_token`, `a`.`remember_token`, `a`.`salt`, `a`.`status`, `a`.`updated_at`, `a`.`user_type`, `a`.`username`
+FROM `acl_users` AS `a`
+WHERE `a`.`id` = @__p_0
+LIMIT 1
+2024-08-13 11:09:16.996 +06:00 [INF] Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT CONVERT(`a`.`usergroup_id`, CHAR(19))
+FROM `acl_user_usergroups` AS `a`
+WHERE `a`.`user_id` = @__userId_0
+2024-08-13 11:09:16.998 +06:00 [INF] Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT CONVERT(`a`.`usergroup_id`, CHAR(19))
+FROM `acl_user_usergroups` AS `a`
+WHERE `a`.`user_id` = @__userId_0
+2024-08-13 11:09:19.962 +06:00 [INF] Executed action ACL.App.Application.Controllers.V1.AclBranchController.Index (ACL.App) in 3062.2968ms
+2024-08-13 11:09:19.964 +06:00 [INF] Executed endpoint 'ACL.App.Application.Controllers.V1.AclBranchController.Index (ACL.App)'
+2024-08-13 11:09:20.017 +06:00 [INF] HTTP GET /api/v1/branches responded 200 in 3122.1277 ms
+2024-08-13 11:09:20.018 +06:00 [INF] [Response] GET: /api/v1/branches
+[Response Body] {"StatusCode":99,"Message":"Could not find the resource \u0022App.Resources.en-US.resources\u0022 among the resources \u0022SharedKernel.Main.Infrastructure.Resources.bn-BD.resources\u0022, \u0022SharedKernel.Main.Infrastructure.Resources.en-US.resources\u0022 embedded in the assembly \u0022SharedKernel.Main\u0022, nor among the resources in any satellite assemblies for the specified culture. Perhaps the resources were embedded with an incorrect name.","Data":null,"Timestamp":"2024-08-13T11:05:49.8722202+06:00"}
+
+2024-08-13 11:09:20.018 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/api/v1/branches - 200 null application/json 3156.5465ms
+2024-08-13 11:09:37.833 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/api/v1/countries - null null
+2024-08-13 11:09:37.834 +06:00 [INF] [Request] GET: /api/v1/countries
+[Request Body] 
+
+2024-08-13 11:09:37.836 +06:00 [INF] Executing endpoint 'ACL.App.Application.Controllers.V1.AclCountryController.Index (ACL.App)'
+2024-08-13 11:09:37.837 +06:00 [INF] Route matched with {action = "Index", controller = "AclCountry"}. Executing controller action with signature ACL.App.Contracts.Response.AclResponse Index() on controller ACL.App.Application.Controllers.V1.AclCountryController (ACL.App).
+2024-08-13 11:09:37.840 +06:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`activated_at`, `a`.`address`, `a`.`auth_identifier`, `a`.`avatar`, `a`.`city`, `a`.`claims`, `a`.`company_id`, `a`.`country`, `a`.`created_at`, `a`.`created_by_id`, `a`.`dob`, `a`.`email`, `a`.`first_name`, `a`.`gender`, `a`.`img_path`, `a`.`is_admin_verified`, `a`.`language`, `a`.`last_name`, `a`.`login_at`, `a`.`otp_channel`, `a`.`password`, `a`.`permission_version`, `a`.`phone`, `a`.`refresh_token`, `a`.`remember_token`, `a`.`salt`, `a`.`status`, `a`.`updated_at`, `a`.`user_type`, `a`.`username`
+FROM `acl_users` AS `a`
+WHERE `a`.`id` = @__p_0
+LIMIT 1
+2024-08-13 11:09:37.842 +06:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT CONVERT(`a`.`usergroup_id`, CHAR(19))
+FROM `acl_user_usergroups` AS `a`
+WHERE `a`.`user_id` = @__userId_0
+2024-08-13 11:12:02.594 +06:00 [INF] Executed action ACL.App.Application.Controllers.V1.AclCountryController.Index (ACL.App) in 144757.2619ms
+2024-08-13 11:12:02.595 +06:00 [INF] Executed endpoint 'ACL.App.Application.Controllers.V1.AclCountryController.Index (ACL.App)'
+2024-08-13 11:12:02.619 +06:00 [INF] HTTP GET /api/v1/countries responded 200 in 144784.2115 ms
+2024-08-13 11:12:02.619 +06:00 [INF] [Response] GET: /api/v1/countries
+[Response Body] {"StatusCode":99,"Message":"Could not find the resource \u0022App.Resources.en-US.resources\u0022 among the resources \u0022SharedKernel.Main.Infrastructure.Resources.bn-BD.resources\u0022, \u0022SharedKernel.Main.Infrastructure.Resources.en-US.resources\u0022 embedded in the assembly \u0022SharedKernel.Main\u0022, nor among the resources in any satellite assemblies for the specified culture. Perhaps the resources were embedded with an incorrect name.","Data":null,"Timestamp":"2024-08-13T11:05:49.8722202+06:00"}
+
+2024-08-13 11:12:02.619 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/api/v1/countries - 200 null application/json 144785.7514ms
+2024-08-13 11:12:13.894 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/api/v1/branches - null null
+2024-08-13 11:12:13.895 +06:00 [INF] [Request] GET: /api/v1/branches
+[Request Body] 
+
+2024-08-13 11:12:13.896 +06:00 [INF] Executing endpoint 'ACL.App.Application.Controllers.V1.AclBranchController.Index (ACL.App)'
+2024-08-13 11:12:13.897 +06:00 [INF] Route matched with {action = "Index", controller = "AclBranch"}. Executing controller action with signature ACL.App.Contracts.Response.AclResponse Index() on controller ACL.App.Application.Controllers.V1.AclBranchController (ACL.App).
+2024-08-13 11:12:13.900 +06:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`activated_at`, `a`.`address`, `a`.`auth_identifier`, `a`.`avatar`, `a`.`city`, `a`.`claims`, `a`.`company_id`, `a`.`country`, `a`.`created_at`, `a`.`created_by_id`, `a`.`dob`, `a`.`email`, `a`.`first_name`, `a`.`gender`, `a`.`img_path`, `a`.`is_admin_verified`, `a`.`language`, `a`.`last_name`, `a`.`login_at`, `a`.`otp_channel`, `a`.`password`, `a`.`permission_version`, `a`.`phone`, `a`.`refresh_token`, `a`.`remember_token`, `a`.`salt`, `a`.`status`, `a`.`updated_at`, `a`.`user_type`, `a`.`username`
+FROM `acl_users` AS `a`
+WHERE `a`.`id` = @__p_0
+LIMIT 1
+2024-08-13 11:12:13.903 +06:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT CONVERT(`a`.`usergroup_id`, CHAR(19))
+FROM `acl_user_usergroups` AS `a`
+WHERE `a`.`user_id` = @__userId_0
+2024-08-13 11:12:13.905 +06:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`activated_at`, `a`.`address`, `a`.`auth_identifier`, `a`.`avatar`, `a`.`city`, `a`.`claims`, `a`.`company_id`, `a`.`country`, `a`.`created_at`, `a`.`created_by_id`, `a`.`dob`, `a`.`email`, `a`.`first_name`, `a`.`gender`, `a`.`img_path`, `a`.`is_admin_verified`, `a`.`language`, `a`.`last_name`, `a`.`login_at`, `a`.`otp_channel`, `a`.`password`, `a`.`permission_version`, `a`.`phone`, `a`.`refresh_token`, `a`.`remember_token`, `a`.`salt`, `a`.`status`, `a`.`updated_at`, `a`.`user_type`, `a`.`username`
+FROM `acl_users` AS `a`
+WHERE `a`.`id` = @__p_0
+LIMIT 1
+2024-08-13 11:12:13.907 +06:00 [INF] Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT CONVERT(`a`.`usergroup_id`, CHAR(19))
+FROM `acl_user_usergroups` AS `a`
+WHERE `a`.`user_id` = @__userId_0
+2024-08-13 11:12:13.908 +06:00 [INF] Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT CONVERT(`a`.`usergroup_id`, CHAR(19))
+FROM `acl_user_usergroups` AS `a`
+WHERE `a`.`user_id` = @__userId_0
+2024-08-13 11:12:19.757 +06:00 [INF] Executed action ACL.App.Application.Controllers.V1.AclBranchController.Index (ACL.App) in 5859.875ms
+2024-08-13 11:12:19.757 +06:00 [INF] Executed endpoint 'ACL.App.Application.Controllers.V1.AclBranchController.Index (ACL.App)'
+2024-08-13 11:12:19.784 +06:00 [INF] HTTP GET /api/v1/branches responded 200 in 5888.6917 ms
+2024-08-13 11:12:19.784 +06:00 [INF] [Response] GET: /api/v1/branches
+[Response Body] {"StatusCode":99,"Message":"Could not find the resource \u0022App.Resources.en-US.resources\u0022 among the resources \u0022SharedKernel.Main.Infrastructure.Resources.bn-BD.resources\u0022, \u0022SharedKernel.Main.Infrastructure.Resources.en-US.resources\u0022 embedded in the assembly \u0022SharedKernel.Main\u0022, nor among the resources in any satellite assemblies for the specified culture. Perhaps the resources were embedded with an incorrect name.","Data":null,"Timestamp":"2024-08-13T11:05:49.8722202+06:00"}
+
+2024-08-13 11:12:19.784 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/api/v1/branches - 200 null application/json 5890.2576ms
+2024-08-13 11:12:52.716 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/api/v1/countries - null null
+2024-08-13 11:12:52.725 +06:00 [INF] [Request] GET: /api/v1/countries
+[Request Body] 
+
+2024-08-13 11:12:52.725 +06:00 [INF] Executing endpoint 'ACL.App.Application.Controllers.V1.AclCountryController.Index (ACL.App)'
+2024-08-13 11:12:52.725 +06:00 [INF] Route matched with {action = "Index", controller = "AclCountry"}. Executing controller action with signature ACL.App.Contracts.Response.AclResponse Index() on controller ACL.App.Application.Controllers.V1.AclCountryController (ACL.App).
+2024-08-13 11:12:52.727 +06:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`activated_at`, `a`.`address`, `a`.`auth_identifier`, `a`.`avatar`, `a`.`city`, `a`.`claims`, `a`.`company_id`, `a`.`country`, `a`.`created_at`, `a`.`created_by_id`, `a`.`dob`, `a`.`email`, `a`.`first_name`, `a`.`gender`, `a`.`img_path`, `a`.`is_admin_verified`, `a`.`language`, `a`.`last_name`, `a`.`login_at`, `a`.`otp_channel`, `a`.`password`, `a`.`permission_version`, `a`.`phone`, `a`.`refresh_token`, `a`.`remember_token`, `a`.`salt`, `a`.`status`, `a`.`updated_at`, `a`.`user_type`, `a`.`username`
+FROM `acl_users` AS `a`
+WHERE `a`.`id` = @__p_0
+LIMIT 1
+2024-08-13 11:12:52.728 +06:00 [INF] Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT CONVERT(`a`.`usergroup_id`, CHAR(19))
+FROM `acl_user_usergroups` AS `a`
+WHERE `a`.`user_id` = @__userId_0
+2024-08-13 11:13:18.398 +06:00 [INF] Executed action ACL.App.Application.Controllers.V1.AclCountryController.Index (ACL.App) in 25672.8729ms
+2024-08-13 11:13:18.399 +06:00 [INF] Executed endpoint 'ACL.App.Application.Controllers.V1.AclCountryController.Index (ACL.App)'
+2024-08-13 11:13:18.419 +06:00 [INF] HTTP GET /api/v1/countries responded 200 in 25694.7816 ms
+2024-08-13 11:13:18.423 +06:00 [INF] [Response] GET: /api/v1/countries
+[Response Body] {"StatusCode":99,"Message":"Could not find the resource \u0022App.Resources.en-US.resources\u0022 among the resources \u0022SharedKernel.Main.Infrastructure.Resources.bn-BD.resources\u0022, \u0022SharedKernel.Main.Infrastructure.Resources.en-US.resources\u0022 embedded in the assembly \u0022SharedKernel.Main\u0022, nor among the resources in any satellite assemblies for the specified culture. Perhaps the resources were embedded with an incorrect name.","Data":null,"Timestamp":"2024-08-13T11:05:49.8722202+06:00"}
+
+2024-08-13 11:13:18.447 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/api/v1/countries - 200 null application/json 25708.7582ms
+2024-08-13 11:13:27.864 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/api/v1/modules - null null
+2024-08-13 11:13:27.866 +06:00 [INF] [Request] GET: /api/v1/modules
+[Request Body] 
+
+2024-08-13 11:13:27.872 +06:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`activated_at`, `a`.`address`, `a`.`auth_identifier`, `a`.`avatar`, `a`.`city`, `a`.`claims`, `a`.`company_id`, `a`.`country`, `a`.`created_at`, `a`.`created_by_id`, `a`.`dob`, `a`.`email`, `a`.`first_name`, `a`.`gender`, `a`.`img_path`, `a`.`is_admin_verified`, `a`.`language`, `a`.`last_name`, `a`.`login_at`, `a`.`otp_channel`, `a`.`password`, `a`.`permission_version`, `a`.`phone`, `a`.`refresh_token`, `a`.`remember_token`, `a`.`salt`, `a`.`status`, `a`.`updated_at`, `a`.`user_type`, `a`.`username`
+FROM `acl_users` AS `a`
+WHERE `a`.`id` = @__p_0
+LIMIT 1
+2024-08-13 11:13:27.873 +06:00 [INF] Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT CONVERT(`a`.`usergroup_id`, CHAR(19))
+FROM `acl_user_usergroups` AS `a`
+WHERE `a`.`user_id` = @__userId_0
+2024-08-13 11:13:27.875 +06:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`activated_at`, `a`.`address`, `a`.`auth_identifier`, `a`.`avatar`, `a`.`city`, `a`.`claims`, `a`.`company_id`, `a`.`country`, `a`.`created_at`, `a`.`created_by_id`, `a`.`dob`, `a`.`email`, `a`.`first_name`, `a`.`gender`, `a`.`img_path`, `a`.`is_admin_verified`, `a`.`language`, `a`.`last_name`, `a`.`login_at`, `a`.`otp_channel`, `a`.`password`, `a`.`permission_version`, `a`.`phone`, `a`.`refresh_token`, `a`.`remember_token`, `a`.`salt`, `a`.`status`, `a`.`updated_at`, `a`.`user_type`, `a`.`username`
+FROM `acl_users` AS `a`
+WHERE `a`.`id` = @__p_0
+LIMIT 1
+2024-08-13 11:13:27.876 +06:00 [INF] Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT CONVERT(`a`.`usergroup_id`, CHAR(19))
+FROM `acl_user_usergroups` AS `a`
+WHERE `a`.`user_id` = @__userId_0
+2024-08-13 11:13:27.890 +06:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`activated_at`, `a`.`address`, `a`.`auth_identifier`, `a`.`avatar`, `a`.`city`, `a`.`claims`, `a`.`company_id`, `a`.`country`, `a`.`created_at`, `a`.`created_by_id`, `a`.`dob`, `a`.`email`, `a`.`first_name`, `a`.`gender`, `a`.`img_path`, `a`.`is_admin_verified`, `a`.`language`, `a`.`last_name`, `a`.`login_at`, `a`.`otp_channel`, `a`.`password`, `a`.`permission_version`, `a`.`phone`, `a`.`refresh_token`, `a`.`remember_token`, `a`.`salt`, `a`.`status`, `a`.`updated_at`, `a`.`user_type`, `a`.`username`
+FROM `acl_users` AS `a`
+WHERE `a`.`id` = @__id_0
+LIMIT 1
+2024-08-13 11:14:24.771 +06:00 [INF] HTTP GET /api/v1/modules responded 200 in 56902.8893 ms
+2024-08-13 11:14:24.772 +06:00 [INF] [Response] GET: /api/v1/modules
+[Response Body] {"StatusCode":99,"Message":"One or more errors occurred. (The message timed out in the backlog attempting to send because no connection became available (5000ms) - Last Connection Exception: UnableToConnect on 127.0.0.1:6379/Interactive, Initializing/NotStarted, last: NONE, origin: BeginConnectAsync, outstanding: 0, last-read: 2s ago, last-write: 2s ago, keep-alive: 60s, state: Connecting, mgr: 10 of 10 available, last-heartbeat: never, global: 2s ago, v: 2.7.27.49176, command=HMGET, timeout: 5000, inst: 0, qu: 0, qs: 0, aw: False, bw: CheckingForTimeout, rs: NotStarted, ws: Initializing, in: 0, last-in: 0, cur-in: 0, sync-ops: 0, async-ops: 1, serverEndpoint: 127.0.0.1:6379, conn-sec: n/a, aoc: 0, mc: 1/1/0, mgr: 10 of 10 available, clientName: DESKTOP-B4M1LHJ(SE.Redis-v2.7.27.49176), IOCP: (Busy=0,Free=1000,Min=1,Max=1000), WORKER: (Busy=1,Free=32766,Min=12,Max=32767), POOL: (Threads=6,QueuedItems=0,CompletedItems=3276,Timers=6), v: 2.7.27.49176 (Please take a look at this article for some common client-side issues that can cause timeouts: https://stackexchange.github.io/StackExchange.Redis/Timeouts))","Data":null,"Timestamp":"2024-08-13T11:05:49.8722202+06:00"}
+
+2024-08-13 11:14:24.772 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/api/v1/modules - 200 null application/json 56907.562ms
+2024-08-13 11:14:33.189 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/api/v1/branches - null null
+2024-08-13 11:14:33.189 +06:00 [INF] [Request] GET: /api/v1/branches
+[Request Body] 
+
+2024-08-13 11:14:33.189 +06:00 [INF] Executing endpoint 'ACL.App.Application.Controllers.V1.AclBranchController.Index (ACL.App)'
+2024-08-13 11:14:33.189 +06:00 [INF] Route matched with {action = "Index", controller = "AclBranch"}. Executing controller action with signature ACL.App.Contracts.Response.AclResponse Index() on controller ACL.App.Application.Controllers.V1.AclBranchController (ACL.App).
+2024-08-13 11:14:33.192 +06:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`activated_at`, `a`.`address`, `a`.`auth_identifier`, `a`.`avatar`, `a`.`city`, `a`.`claims`, `a`.`company_id`, `a`.`country`, `a`.`created_at`, `a`.`created_by_id`, `a`.`dob`, `a`.`email`, `a`.`first_name`, `a`.`gender`, `a`.`img_path`, `a`.`is_admin_verified`, `a`.`language`, `a`.`last_name`, `a`.`login_at`, `a`.`otp_channel`, `a`.`password`, `a`.`permission_version`, `a`.`phone`, `a`.`refresh_token`, `a`.`remember_token`, `a`.`salt`, `a`.`status`, `a`.`updated_at`, `a`.`user_type`, `a`.`username`
+FROM `acl_users` AS `a`
+WHERE `a`.`id` = @__p_0
+LIMIT 1
+2024-08-13 11:14:33.194 +06:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT CONVERT(`a`.`usergroup_id`, CHAR(19))
+FROM `acl_user_usergroups` AS `a`
+WHERE `a`.`user_id` = @__userId_0
+2024-08-13 11:14:33.198 +06:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`activated_at`, `a`.`address`, `a`.`auth_identifier`, `a`.`avatar`, `a`.`city`, `a`.`claims`, `a`.`company_id`, `a`.`country`, `a`.`created_at`, `a`.`created_by_id`, `a`.`dob`, `a`.`email`, `a`.`first_name`, `a`.`gender`, `a`.`img_path`, `a`.`is_admin_verified`, `a`.`language`, `a`.`last_name`, `a`.`login_at`, `a`.`otp_channel`, `a`.`password`, `a`.`permission_version`, `a`.`phone`, `a`.`refresh_token`, `a`.`remember_token`, `a`.`salt`, `a`.`status`, `a`.`updated_at`, `a`.`user_type`, `a`.`username`
+FROM `acl_users` AS `a`
+WHERE `a`.`id` = @__p_0
+LIMIT 1
+2024-08-13 11:14:33.200 +06:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT CONVERT(`a`.`usergroup_id`, CHAR(19))
+FROM `acl_user_usergroups` AS `a`
+WHERE `a`.`user_id` = @__userId_0
+2024-08-13 11:14:33.202 +06:00 [INF] Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT CONVERT(`a`.`usergroup_id`, CHAR(19))
+FROM `acl_user_usergroups` AS `a`
+WHERE `a`.`user_id` = @__userId_0
+2024-08-13 11:21:08.322 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-08-13 11:21:08.395 +06:00 [WRN] The WebRootPath was not found: C:\Users\HP\Documents\Received Files\new.dot.net.core.apis(08_09_2024)\new.dot.net.core.apis\ACL\src\ACL.App\wwwroot. Static files may be unavailable.
+2024-08-13 11:21:08.474 +06:00 [INF] Now listening on: https://localhost:7125
+2024-08-13 11:21:08.474 +06:00 [INF] Now listening on: http://localhost:5229
+2024-08-13 11:21:08.474 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-08-13 11:21:08.474 +06:00 [INF] Hosting environment: Development
+2024-08-13 11:21:08.474 +06:00 [INF] Content root path: C:\Users\HP\Documents\Received Files\new.dot.net.core.apis(08_09_2024)\new.dot.net.core.apis\ACL\src\ACL.App
+2024-08-13 11:21:09.140 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/index.html - null null
+2024-08-13 11:21:09.439 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/index.html - 200 null text/html;charset=utf-8 302.9821ms
+2024-08-13 11:21:09.453 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - null null
+2024-08-13 11:21:09.456 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_vs/browserLink - null null
+2024-08-13 11:21:09.458 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - 200 13750 application/javascript; charset=utf-8 5.5963ms
+2024-08-13 11:21:09.509 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_vs/browserLink - 200 null text/javascript; charset=UTF-8 55.0165ms
+2024-08-13 11:21:09.555 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - null null
+2024-08-13 11:21:09.675 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 119.9375ms
+2024-08-13 11:21:15.344 +06:00 [INF] Request starting HTTP/2 POST https://localhost:7125/api/v1/auth/login - application/json 65
+2024-08-13 11:21:15.380 +06:00 [INF] [Request] POST: /api/v1/auth/login
+[Request Body] {
+  "email": "ssadmin@sipay.com.tr",
+  "password": "Nop@ss1234"
+}
+
+2024-08-13 11:21:15.468 +06:00 [INF] Executing endpoint 'ACL.App.Application.Controllers.V1.AuthController.Login (ACL.App)'
+2024-08-13 11:21:15.506 +06:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[ACL.App.Application.Features.Auth.Login.Response.LoginResponse] Login(ACL.App.Application.Features.Auth.Login.Request.LoginRequest) on controller ACL.App.Application.Controllers.V1.AuthController (ACL.App).
+2024-08-13 11:21:15.908 +06:00 [INF] Executing action method ACL.App.Application.Controllers.V1.AuthController.Login (ACL.App) - Validation state: "Valid"
+2024-08-13 11:21:26.342 +06:00 [INF] Executed DbCommand (15ms) [Parameters=[@__email_0='?' (Size = 50)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`activated_at`, `a`.`address`, `a`.`auth_identifier`, `a`.`avatar`, `a`.`city`, `a`.`claims`, `a`.`company_id`, `a`.`country`, `a`.`created_at`, `a`.`created_by_id`, `a`.`dob`, `a`.`email`, `a`.`first_name`, `a`.`gender`, `a`.`img_path`, `a`.`is_admin_verified`, `a`.`language`, `a`.`last_name`, `a`.`login_at`, `a`.`otp_channel`, `a`.`password`, `a`.`permission_version`, `a`.`phone`, `a`.`refresh_token`, `a`.`remember_token`, `a`.`salt`, `a`.`status`, `a`.`updated_at`, `a`.`user_type`, `a`.`username`
+FROM `acl_users` AS `a`
+WHERE `a`.`email` = @__email_0
+LIMIT 1
+2024-08-13 11:21:31.732 +06:00 [INF] Executed DbCommand (14ms) [Parameters=[@p30='?' (DbType = Int64), @p0='?' (DbType = DateTime), @p1='?' (Size = 255), @p2='?' (Size = 150), @p3='?' (Size = 255), @p4='?' (Size = 100), @p5='?' (Size = 4000), @p6='?' (DbType = Int32), @p7='?' (DbType = Int32), @p8='?' (DbType = DateTime), @p9='?' (DbType = Int32), @p10='?' (DbType = DateTime), @p11='?' (Size = 50), @p12='?' (Size = 100), @p13='?' (DbType = SByte), @p14='?' (Size = 4000), @p15='?' (DbType = SByte), @p16='?' (Size = 10), @p17='?' (Size = 100), @p18='?' (DbType = DateTime), @p19='?' (DbType = SByte), @p20='?' (Size = 255), @p21='?' (DbType = Int32), @p22='?' (Size = 20), @p23='?' (Size = 4000), @p24='?' (Size = 100), @p25='?' (Size = 4000), @p26='?' (DbType = SByte), @p27='?' (DbType = DateTime), @p28='?' (DbType = Int32), @p29='?' (Size = 20)], CommandType='"Text"', CommandTimeout='30']
+UPDATE `acl_users` SET `activated_at` = @p0, `address` = @p1, `auth_identifier` = @p2, `avatar` = @p3, `city` = @p4, `claims` = @p5, `company_id` = @p6, `country` = @p7, `created_at` = @p8, `created_by_id` = @p9, `dob` = @p10, `email` = @p11, `first_name` = @p12, `gender` = @p13, `img_path` = @p14, `is_admin_verified` = @p15, `language` = @p16, `last_name` = @p17, `login_at` = @p18, `otp_channel` = @p19, `password` = @p20, `permission_version` = @p21, `phone` = @p22, `refresh_token` = @p23, `remember_token` = @p24, `salt` = @p25, `status` = @p26, `updated_at` = @p27, `user_type` = @p28, `username` = @p29
+WHERE `id` = @p30;
+2024-08-13 11:21:31.860 +06:00 [INF] Executed DbCommand (2ms) [Parameters=[@__p_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`activated_at`, `a`.`address`, `a`.`auth_identifier`, `a`.`avatar`, `a`.`city`, `a`.`claims`, `a`.`company_id`, `a`.`country`, `a`.`created_at`, `a`.`created_by_id`, `a`.`dob`, `a`.`email`, `a`.`first_name`, `a`.`gender`, `a`.`img_path`, `a`.`is_admin_verified`, `a`.`language`, `a`.`last_name`, `a`.`login_at`, `a`.`otp_channel`, `a`.`password`, `a`.`permission_version`, `a`.`phone`, `a`.`refresh_token`, `a`.`remember_token`, `a`.`salt`, `a`.`status`, `a`.`updated_at`, `a`.`user_type`, `a`.`username`
+FROM `acl_users` AS `a`
+WHERE `a`.`id` = @__p_0
+LIMIT 1
+2024-08-13 11:21:32.082 +06:00 [INF] Executed action method ACL.App.Application.Controllers.V1.AuthController.Login (ACL.App), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 16168.1318ms.
+2024-08-13 11:21:32.093 +06:00 [INF] Executing ObjectResult, writing value of type 'ACL.App.Application.Features.Auth.Login.Response.LoginSuccessResponse'.
+2024-08-13 11:21:32.103 +06:00 [INF] Executed action ACL.App.Application.Controllers.V1.AuthController.Login (ACL.App) in 16590.3072ms
+2024-08-13 11:21:32.103 +06:00 [INF] Executed endpoint 'ACL.App.Application.Controllers.V1.AuthController.Login (ACL.App)'
+2024-08-13 11:21:32.105 +06:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 16720.1957 ms
+2024-08-13 11:21:32.110 +06:00 [INF] [Response] POST: /api/v1/auth/login
+[Response Body] {"idToken":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwidW5pcXVlX25hbWUiOiJhZG1pbjEiLCJlbWFpbCI6InNzYWRtaW5Ac2lwYXkuY29tLnRyIiwiZ2l2ZW5fbmFtZSI6ImFkbWluMSIsImZhbWlseV9uYW1lIjoiYWRtaW4xIiwibmJmIjoxNzIzNTI2NDkxLCJleHAiOjE3MjM1MjY3OTEsImlhdCI6MTcyMzUyNjQ5MSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDAxLyIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3QvIn0.IcRLQtcApvuITqwAWPIA4vDRNI8RjK1S1dmbkqO3Cyf1Zc-3GkF2iYhiBWaW_1U_jtNTOSFU8n7mo41XI-cX-c2OKxSJ-KLHLu2PUIvz7hn9v_rnNieFJXIa-1ZcwEZRqTIIVE9HNy48MYtC3-JsFXrqJm19022zD53OhfxqbnIUYaDT0WFrOzM21OzSAfz4a0rMfHVw-BNyhRz5mfvuNQOdW9KN-dFCKKMPsf5oZkXMED5Mr4-l0_jseL_5Np6RLZ6t0HYqm_0PBVb6yzPNPBasKhhZhGfnE2zXGovcu9zTW9wS_jQPY6iX40i5rW-BJrd0f0PrQtaH1LpdAC8oJw","accessToken":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwibmJmIjoxNzIzNTI2NDkyLCJleHAiOjE3MjQ1MjY0OTEsImlhdCI6MTcyMzUyNjQ5MiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDAxLyIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3QvIn0.QEK5nQKJEzHC5Ktvcpls80bsKojWybDAjo4Dl7Jhtc9Zaw8_GP-VypLzcDQ1CffPRK2YdQTMdZmBPPyNQ92JYPa4diL98mWmNGbNZIy65YtJL6UIgbfg30B8_zJPtZAmAJMirHcvJyS0FeI5hKE51PQFJUzxkPYJh2qJTvPieae5sl-Gujhj6DYe_LOVq3qhwEMQTRcsR2c7nFgSRczYD2HKR_9SYxc6RKt-E_cucUAryKPvFnUjqHfM6dMGfBzjq0AGbPCNMIf7MfPjevxv032BYfnIQCL2edsgoREtR1IYfKPOT10mMR5r6gG8rpiLAZeJHWMaaRA5wlesCD0dCA","refreshToken":"6Tt/hsY0kx4YiaV7qcKoLJ0+MAplwCGE29ELoI7+yHJSsU1dPnJj9MpwylFI17Sovfcz3LeFp16YlsPz4gwSdQ=="}
+
+2024-08-13 11:21:32.125 +06:00 [INF] Request finished HTTP/2 POST https://localhost:7125/api/v1/auth/login - 200 null application/json; charset=utf-8 16781.7256ms
+2024-08-13 11:21:50.690 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/api/v1/branches - null null
+2024-08-13 11:21:50.750 +06:00 [INF] [Request] GET: /api/v1/branches
+[Request Body] 
+
+2024-08-13 11:21:50.766 +06:00 [INF] Executing endpoint 'ACL.App.Application.Controllers.V1.AclBranchController.Index (ACL.App)'
+2024-08-13 11:21:50.770 +06:00 [INF] Route matched with {action = "Index", controller = "AclBranch"}. Executing controller action with signature ACL.App.Contracts.Response.AclResponse Index() on controller ACL.App.Application.Controllers.V1.AclBranchController (ACL.App).
+2024-08-13 11:21:50.822 +06:00 [INF] Executed DbCommand (2ms) [Parameters=[@__p_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`activated_at`, `a`.`address`, `a`.`auth_identifier`, `a`.`avatar`, `a`.`city`, `a`.`claims`, `a`.`company_id`, `a`.`country`, `a`.`created_at`, `a`.`created_by_id`, `a`.`dob`, `a`.`email`, `a`.`first_name`, `a`.`gender`, `a`.`img_path`, `a`.`is_admin_verified`, `a`.`language`, `a`.`last_name`, `a`.`login_at`, `a`.`otp_channel`, `a`.`password`, `a`.`permission_version`, `a`.`phone`, `a`.`refresh_token`, `a`.`remember_token`, `a`.`salt`, `a`.`status`, `a`.`updated_at`, `a`.`user_type`, `a`.`username`
+FROM `acl_users` AS `a`
+WHERE `a`.`id` = @__p_0
+LIMIT 1
+2024-08-13 11:21:50.850 +06:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT CONVERT(`a`.`usergroup_id`, CHAR(19))
+FROM `acl_user_usergroups` AS `a`
+WHERE `a`.`user_id` = @__userId_0
+2024-08-13 11:21:50.941 +06:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`activated_at`, `a`.`address`, `a`.`auth_identifier`, `a`.`avatar`, `a`.`city`, `a`.`claims`, `a`.`company_id`, `a`.`country`, `a`.`created_at`, `a`.`created_by_id`, `a`.`dob`, `a`.`email`, `a`.`first_name`, `a`.`gender`, `a`.`img_path`, `a`.`is_admin_verified`, `a`.`language`, `a`.`last_name`, `a`.`login_at`, `a`.`otp_channel`, `a`.`password`, `a`.`permission_version`, `a`.`phone`, `a`.`refresh_token`, `a`.`remember_token`, `a`.`salt`, `a`.`status`, `a`.`updated_at`, `a`.`user_type`, `a`.`username`
+FROM `acl_users` AS `a`
+WHERE `a`.`id` = @__p_0
+LIMIT 1
+2024-08-13 11:21:50.943 +06:00 [INF] Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT CONVERT(`a`.`usergroup_id`, CHAR(19))
+FROM `acl_user_usergroups` AS `a`
+WHERE `a`.`user_id` = @__userId_0
+2024-08-13 11:21:50.946 +06:00 [INF] Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT CONVERT(`a`.`usergroup_id`, CHAR(19))
+FROM `acl_user_usergroups` AS `a`
+WHERE `a`.`user_id` = @__userId_0
+2024-08-13 11:23:36.520 +06:00 [INF] Executed action ACL.App.Application.Controllers.V1.AclBranchController.Index (ACL.App) in 105749.5339ms
+2024-08-13 11:23:38.193 +06:00 [INF] Executed endpoint 'ACL.App.Application.Controllers.V1.AclBranchController.Index (ACL.App)'
+2024-08-13 11:24:11.986 +06:00 [INF] HTTP GET /api/v1/branches responded 200 in 141235.7583 ms
+2024-08-13 11:24:11.986 +06:00 [INF] [Response] GET: /api/v1/branches
+[Response Body] {"StatusCode":99,"Message":"Could not find the resource \u0022App.Resources.en-US.resources\u0022 among the resources \u0022SharedKernel.Main.Infrastructure.Resources.bn-BD.resources\u0022, \u0022SharedKernel.Main.Infrastructure.Resources.en-US.resources\u0022 embedded in the assembly \u0022SharedKernel.Main\u0022, nor among the resources in any satellite assemblies for the specified culture. Perhaps the resources were embedded with an incorrect name.","Data":null,"Timestamp":"2024-08-13T11:21:08.3998837+06:00"}
+
+2024-08-13 11:24:11.986 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/api/v1/branches - 200 null application/json 141297.0532ms

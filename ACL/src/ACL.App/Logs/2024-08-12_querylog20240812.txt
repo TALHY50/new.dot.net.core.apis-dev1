@@ -1,0 +1,136 @@
+2024-08-12 16:28:36.479 +06:00 [INF] User profile is available. Using 'C:\Users\HP\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-08-12 16:28:36.733 +06:00 [WRN] The WebRootPath was not found: C:\Users\HP\Documents\Received Files\new.dot.net.core.apis(08_09_2024)\new.dot.net.core.apis\ACL\src\ACL.App\wwwroot. Static files may be unavailable.
+2024-08-12 16:28:36.973 +06:00 [INF] Now listening on: https://localhost:7125
+2024-08-12 16:28:36.973 +06:00 [INF] Now listening on: http://localhost:5229
+2024-08-12 16:28:36.974 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-08-12 16:28:36.975 +06:00 [INF] Hosting environment: Development
+2024-08-12 16:28:36.976 +06:00 [INF] Content root path: C:\Users\HP\Documents\Received Files\new.dot.net.core.apis(08_09_2024)\new.dot.net.core.apis\ACL\src\ACL.App
+2024-08-12 16:28:37.716 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/index.html - null null
+2024-08-12 16:28:38.300 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/index.html - 200 null text/html;charset=utf-8 595.605ms
+2024-08-12 16:28:38.315 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - null null
+2024-08-12 16:28:38.315 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_vs/browserLink - null null
+2024-08-12 16:28:38.338 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - 200 13750 application/javascript; charset=utf-8 24.1331ms
+2024-08-12 16:28:38.410 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_vs/browserLink - 200 null text/javascript; charset=UTF-8 94.6025ms
+2024-08-12 16:28:38.460 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - null null
+2024-08-12 16:28:38.816 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 356.1938ms
+2024-08-12 16:28:43.561 +06:00 [INF] Request starting HTTP/2 POST https://localhost:7125/api/v1/auth/login - application/json 65
+2024-08-12 16:28:43.573 +06:00 [INF] [Request] POST: /api/v1/auth/login
+[Request Body] {
+  "email": "ssadmin@sipay.com.tr",
+  "password": "Nop@ss1234"
+}
+
+2024-08-12 16:28:43.652 +06:00 [INF] Executing endpoint 'ACL.App.Application.Controllers.V1.AuthController.Login (ACL.App)'
+2024-08-12 16:28:43.692 +06:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[ACL.App.Application.Features.Auth.Login.Response.LoginResponse] Login(ACL.App.Application.Features.Auth.Login.Request.LoginRequest) on controller ACL.App.Application.Controllers.V1.AuthController (ACL.App).
+2024-08-12 16:28:45.216 +06:00 [INF] Executing action method ACL.App.Application.Controllers.V1.AuthController.Login (ACL.App) - Validation state: "Valid"
+2024-08-12 16:28:59.781 +06:00 [ERR] An error occurred using the connection to database 'acl_dot_net1' on server '127.0.0.1'.
+2024-08-12 16:28:59.798 +06:00 [ERR] An exception occurred while iterating over the results of a query for context type 'ACL.App.Infrastructure.Persistence.Configurations.ApplicationDbContext'.
+MySql.Data.MySqlClient.MySqlException (0x80004005): Authentication to host '127.0.0.1' for user 'root' using method 'caching_sha2_password' failed with message: Unknown database 'acl_dot_net1'
+ ---> MySql.Data.MySqlClient.MySqlException (0x80004005): Unknown database 'acl_dot_net1'
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacketAsync(Boolean execAsync)
+   at MySql.Data.MySqlClient.NativeDriver.ReadPacketAsync(Boolean execAsync)
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.ReadPacketAsync(Boolean execAsync)
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.AuthenticationFailed(MySqlException ex)
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.ReadPacketAsync(Boolean execAsync)
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.ContinueAuthenticationAsync(Boolean execAsync, Byte[] data)
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.AuthenticateAsync(Boolean reset, Boolean execAsync)
+   at MySql.Data.MySqlClient.NativeDriver.AuthenticateAsync(String authMethod, Boolean reset, Boolean execAsync)
+   at MySql.Data.MySqlClient.NativeDriver.OpenAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.NativeDriver.OpenAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.Driver.OpenAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.Driver.CreateAsync(MySqlConnectionStringBuilder settings, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.Driver.CreateAsync(MySqlConnectionStringBuilder settings, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlPool.CreateNewPooledConnectionAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlPool.GetPooledConnectionAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlPool.TryToGetDriverAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlPool.GetConnectionAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlConnection.OpenAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlConnection.Open()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenDbConnection(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternal(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.Open(Boolean errorsExpected)
+   at MySql.EntityFrameworkCore.Storage.Internal.MySQLRelationalConnection.Open(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.InitializeReader(Enumerator enumerator)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.<>c.<MoveNext>b__21_0(DbContext _, Enumerator enumerator)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.<>c__DisplayClass28_0`2.<Execute>b__0(DbContext context, TState state)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementation[TState,TResult](Func`3 operation, Func`3 verifySucceeded, TState state)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+MySql.Data.MySqlClient.MySqlException (0x80004005): Authentication to host '127.0.0.1' for user 'root' using method 'caching_sha2_password' failed with message: Unknown database 'acl_dot_net1'
+ ---> MySql.Data.MySqlClient.MySqlException (0x80004005): Unknown database 'acl_dot_net1'
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacketAsync(Boolean execAsync)
+   at MySql.Data.MySqlClient.NativeDriver.ReadPacketAsync(Boolean execAsync)
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.ReadPacketAsync(Boolean execAsync)
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.AuthenticationFailed(MySqlException ex)
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.ReadPacketAsync(Boolean execAsync)
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.ContinueAuthenticationAsync(Boolean execAsync, Byte[] data)
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.AuthenticateAsync(Boolean reset, Boolean execAsync)
+   at MySql.Data.MySqlClient.NativeDriver.AuthenticateAsync(String authMethod, Boolean reset, Boolean execAsync)
+   at MySql.Data.MySqlClient.NativeDriver.OpenAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.NativeDriver.OpenAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.Driver.OpenAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.Driver.CreateAsync(MySqlConnectionStringBuilder settings, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.Driver.CreateAsync(MySqlConnectionStringBuilder settings, Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlPool.CreateNewPooledConnectionAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlPool.GetPooledConnectionAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlPool.TryToGetDriverAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlPool.GetConnectionAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlConnection.OpenAsync(Boolean execAsync, CancellationToken cancellationToken)
+   at MySql.Data.MySqlClient.MySqlConnection.Open()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenDbConnection(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternal(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.Open(Boolean errorsExpected)
+   at MySql.EntityFrameworkCore.Storage.Internal.MySQLRelationalConnection.Open(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.InitializeReader(Enumerator enumerator)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.<>c.<MoveNext>b__21_0(DbContext _, Enumerator enumerator)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.<>c__DisplayClass28_0`2.<Execute>b__0(DbContext context, TState state)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementation[TState,TResult](Func`3 operation, Func`3 verifySucceeded, TState state)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+2024-08-12 16:29:08.165 +06:00 [ERR] Exception of type 'System.Exception' was thrown.
+System.Exception: Exception of type 'System.Exception' was thrown.
+   at ACL.App.Infrastructure.Persistence.Repositories.Auth.AclUserRepository.FindByEmail(String email) in C:\Users\HP\Documents\Received Files\new.dot.net.core.apis(08_09_2024)\new.dot.net.core.apis\ACL\src\ACL.App\Infrastructure\Persistence\Repositories\Auth\AclUserRepository.cs:line 62
+   at ACL.App.Application.Features.Auth.Login.LoginUseCase.Execute(LoginRequest request) in C:\Users\HP\Documents\Received Files\new.dot.net.core.apis(08_09_2024)\new.dot.net.core.apis\ACL\src\ACL.App\Application\Features\Auth\Login\LoginUseCase.cs:line 35
+2024-08-12 16:29:08.185 +06:00 [INF] Executed action method ACL.App.Application.Controllers.V1.AuthController.Login (ACL.App), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 22961.4756ms.
+2024-08-12 16:29:08.197 +06:00 [INF] Executing ObjectResult, writing value of type 'ACL.App.Application.Features.Auth.Login.Response.LoginErrorResponse'.
+2024-08-12 16:29:08.210 +06:00 [INF] Executed action ACL.App.Application.Controllers.V1.AuthController.Login (ACL.App) in 24510.4254ms
+2024-08-12 16:29:08.210 +06:00 [INF] Executed endpoint 'ACL.App.Application.Controllers.V1.AuthController.Login (ACL.App)'
+2024-08-12 16:29:08.213 +06:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 24634.5429 ms
+2024-08-12 16:29:08.215 +06:00 [INF] [Response] POST: /api/v1/auth/login
+[Response Body] {"message":"AnUnexpectedErrorOccurred","code":"99"}
+
+2024-08-12 16:29:08.239 +06:00 [INF] Request finished HTTP/2 POST https://localhost:7125/api/v1/auth/login - 200 null application/json; charset=utf-8 24678.6946ms
+2024-08-12 16:33:33.766 +06:00 [INF] Request starting HTTP/2 POST https://localhost:7125/api/v1/auth/login - application/json 65
+2024-08-12 16:33:33.770 +06:00 [INF] [Request] POST: /api/v1/auth/login
+[Request Body] {
+  "email": "ssadmin@sipay.com.tr",
+  "password": "Nop@ss1234"
+}
+
+2024-08-12 16:33:33.774 +06:00 [INF] Executing endpoint 'ACL.App.Application.Controllers.V1.AuthController.Login (ACL.App)'
+2024-08-12 16:33:33.775 +06:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[ACL.App.Application.Features.Auth.Login.Response.LoginResponse] Login(ACL.App.Application.Features.Auth.Login.Request.LoginRequest) on controller ACL.App.Application.Controllers.V1.AuthController (ACL.App).
+2024-08-12 16:33:33.802 +06:00 [INF] Executing action method ACL.App.Application.Controllers.V1.AuthController.Login (ACL.App) - Validation state: "Valid"
+2024-08-12 16:33:44.563 +06:00 [INF] Executed DbCommand (22ms) [Parameters=[@__email_0='?' (Size = 50)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`activated_at`, `a`.`address`, `a`.`auth_identifier`, `a`.`avatar`, `a`.`city`, `a`.`claims`, `a`.`company_id`, `a`.`country`, `a`.`created_at`, `a`.`created_by_id`, `a`.`dob`, `a`.`email`, `a`.`first_name`, `a`.`gender`, `a`.`img_path`, `a`.`is_admin_verified`, `a`.`language`, `a`.`last_name`, `a`.`login_at`, `a`.`otp_channel`, `a`.`password`, `a`.`permission_version`, `a`.`phone`, `a`.`refresh_token`, `a`.`remember_token`, `a`.`salt`, `a`.`status`, `a`.`updated_at`, `a`.`user_type`, `a`.`username`
+FROM `acl_users` AS `a`
+WHERE `a`.`email` = @__email_0
+LIMIT 1
+2024-08-12 16:33:56.628 +06:00 [INF] Executed DbCommand (13ms) [Parameters=[@p30='?' (DbType = Int64), @p0='?' (DbType = DateTime), @p1='?' (Size = 255), @p2='?' (Size = 150), @p3='?' (Size = 255), @p4='?' (Size = 100), @p5='?' (Size = 4000), @p6='?' (DbType = Int32), @p7='?' (DbType = Int32), @p8='?' (DbType = DateTime), @p9='?' (DbType = Int32), @p10='?' (DbType = DateTime), @p11='?' (Size = 50), @p12='?' (Size = 100), @p13='?' (DbType = SByte), @p14='?' (Size = 4000), @p15='?' (DbType = SByte), @p16='?' (Size = 10), @p17='?' (Size = 100), @p18='?' (DbType = DateTime), @p19='?' (DbType = SByte), @p20='?' (Size = 255), @p21='?' (DbType = Int32), @p22='?' (Size = 20), @p23='?' (Size = 4000), @p24='?' (Size = 100), @p25='?' (Size = 4000), @p26='?' (DbType = SByte), @p27='?' (DbType = DateTime), @p28='?' (DbType = Int32), @p29='?' (Size = 20)], CommandType='"Text"', CommandTimeout='30']
+UPDATE `acl_users` SET `activated_at` = @p0, `address` = @p1, `auth_identifier` = @p2, `avatar` = @p3, `city` = @p4, `claims` = @p5, `company_id` = @p6, `country` = @p7, `created_at` = @p8, `created_by_id` = @p9, `dob` = @p10, `email` = @p11, `first_name` = @p12, `gender` = @p13, `img_path` = @p14, `is_admin_verified` = @p15, `language` = @p16, `last_name` = @p17, `login_at` = @p18, `otp_channel` = @p19, `password` = @p20, `permission_version` = @p21, `phone` = @p22, `refresh_token` = @p23, `remember_token` = @p24, `salt` = @p25, `status` = @p26, `updated_at` = @p27, `user_type` = @p28, `username` = @p29
+WHERE `id` = @p30;
+2024-08-12 16:33:56.746 +06:00 [INF] Executed DbCommand (2ms) [Parameters=[@__p_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`activated_at`, `a`.`address`, `a`.`auth_identifier`, `a`.`avatar`, `a`.`city`, `a`.`claims`, `a`.`company_id`, `a`.`country`, `a`.`created_at`, `a`.`created_by_id`, `a`.`dob`, `a`.`email`, `a`.`first_name`, `a`.`gender`, `a`.`img_path`, `a`.`is_admin_verified`, `a`.`language`, `a`.`last_name`, `a`.`login_at`, `a`.`otp_channel`, `a`.`password`, `a`.`permission_version`, `a`.`phone`, `a`.`refresh_token`, `a`.`remember_token`, `a`.`salt`, `a`.`status`, `a`.`updated_at`, `a`.`user_type`, `a`.`username`
+FROM `acl_users` AS `a`
+WHERE `a`.`id` = @__p_0
+LIMIT 1
+2024-08-12 16:33:56.855 +06:00 [INF] Executed action method ACL.App.Application.Controllers.V1.AuthController.Login (ACL.App), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 23052.8728ms.
+2024-08-12 16:33:56.856 +06:00 [INF] Executing ObjectResult, writing value of type 'ACL.App.Application.Features.Auth.Login.Response.LoginSuccessResponse'.
+2024-08-12 16:33:56.868 +06:00 [INF] Executed action ACL.App.Application.Controllers.V1.AuthController.Login (ACL.App) in 23093.1651ms
+2024-08-12 16:33:56.869 +06:00 [INF] Executed endpoint 'ACL.App.Application.Controllers.V1.AuthController.Login (ACL.App)'
+2024-08-12 16:33:56.869 +06:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 23098.1050 ms
+2024-08-12 16:33:56.869 +06:00 [INF] [Response] POST: /api/v1/auth/login
+[Response Body] {"idToken":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwidW5pcXVlX25hbWUiOiJhZG1pbjEiLCJlbWFpbCI6InNzYWRtaW5Ac2lwYXkuY29tLnRyIiwiZ2l2ZW5fbmFtZSI6ImFkbWluMSIsImZhbWlseV9uYW1lIjoiYWRtaW4xIiwibmJmIjoxNzIzNDU4ODM2LCJleHAiOjE3MjM0NTkxMzYsImlhdCI6MTcyMzQ1ODgzNiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDAxLyIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3QvIn0.uZiocszcIsVSjoqvZ-8Vu9A545Xu_WWFsxYlm1XmdzURaZhPSq_EaVZ3mpBHYcxKPja7GMWZCE7SegqMU2tuTraVvhDIsUYcP-Z69-gULNEolOnh2QxF_D7EOwxcOngyFBw4_KoBQnhF96WWVGKODEE_sV_OA-CSNLbh0ObdxnCAEGWtkBS3Ym_pxen1asDvImfr25_pW4h5iduAuwXTP55etQ1mAjG3Mdo_ETLz1hCHJB5KqU_iXPdK6u11PvOki1eWEa1N19rFsCWFt9ygunOobDOhBOcYdx9oH68drFDPLWsSsZwaAY7jCXa9wSqsjaW9yniJiHpc1fH_iq57iQ","accessToken":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwibmJmIjoxNzIzNDU4ODM2LCJleHAiOjE3MjQ0NTg4MzUsImlhdCI6MTcyMzQ1ODgzNiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1MDAxLyIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3QvIn0.aX24SxYKygIlnHNSOmCIdv_T-_nA4zFhL_AWlYOXUOrB20wOjv3WDUSMtKrLm8TfVjEqMCRTCnwzrbVat31nG2QHdRmDC9P3FvwUwZD2DVAD9uqh8XeoGsy420KhIbxW40l14VpjhZadw34P53arsSOLeRQ-_Ejamvw2IjKHJxKM54w5z9G6F76AQ7ez3AMwa_20A8yFEMK2G4ixAvTjY2I5sdyGA15pITZRj9rGclyexh6rgxC84poQTkwRfIUh8u-YHnsLOflDH0VxzrvXMTHfiSbQCp8NoWBYn2EnNBrmbY6oj4I1D5n-NSr-WlLGppDLlOLHZpBz9XiNRsJXrA","refreshToken":"mXCO4m/2nw5jkiyywAnmQJbW6eypO3ERJo7d3Y75YUDBoPS4rWfivDis7NSG9A9RVkjYiNs5hszb8BO4vbrgEw=="}
+
+2024-08-12 16:33:56.870 +06:00 [INF] Request finished HTTP/2 POST https://localhost:7125/api/v1/auth/login - 200 null application/json; charset=utf-8 23110.8571ms
