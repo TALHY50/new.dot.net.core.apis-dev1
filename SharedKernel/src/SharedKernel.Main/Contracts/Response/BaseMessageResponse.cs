@@ -28,8 +28,8 @@ namespace SharedKernel.Main.Contracts.Response
         {
             _cultureInfo = new CultureInfo(language);
             _assembly = Assembly.GetExecutingAssembly();
-            _resourceManager = new ResourceManager("App.Resources."+language + _cultureInfo.Name, _assembly);
-            localizationService = new LocalizationService("App.Resources."+language, _assembly, language);
+            _resourceManager = new ResourceManager("SharedKernel.Main.Infrastructure.Resources."+language + _cultureInfo.Name, _assembly);
+            localizationService = new LocalizationService("SharedKernel.Main.Infrastructure.Resources."+language, _assembly, language);
       
                 FetchMessage = localizationService.GetLocalizedStringWithCulture(model, _cultureInfo) + " " + localizationService.GetLocalizedStringWithCulture("fetchMessage", _cultureInfo);
 
