@@ -1,0 +1,56 @@
+2024-08-13 12:21:24.615 +06:00 [INF] User profile is available. Using 'C:\Users\88016\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-08-13 12:21:24.797 +06:00 [WRN] The WebRootPath was not found: D:\Porosh\ACL\new.dot.net.core.apis\ACL\src\ACL.App\wwwroot. Static files may be unavailable.
+2024-08-13 12:21:24.999 +06:00 [INF] Now listening on: https://localhost:7125
+2024-08-13 12:21:24.999 +06:00 [INF] Now listening on: http://localhost:5229
+2024-08-13 12:21:24.999 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-08-13 12:21:24.999 +06:00 [INF] Hosting environment: Development
+2024-08-13 12:21:24.999 +06:00 [INF] Content root path: D:\Porosh\ACL\new.dot.net.core.apis\ACL\src\ACL.App
+2024-08-13 12:21:25.653 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/index.html - null null
+2024-08-13 12:21:26.443 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/index.html - 200 null text/html;charset=utf-8 797.2464ms
+2024-08-13 12:21:26.596 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_vs/browserLink - null null
+2024-08-13 12:21:26.596 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - null null
+2024-08-13 12:21:26.606 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_framework/aspnetcore-browser-refresh.js - 200 13750 application/javascript; charset=utf-8 10.8534ms
+2024-08-13 12:21:26.699 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/_vs/browserLink - 200 null text/javascript; charset=UTF-8 103.7605ms
+2024-08-13 12:21:27.280 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - null null
+2024-08-13 12:21:27.646 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 367.1131ms
+2024-08-13 12:21:32.643 +06:00 [INF] Request starting HTTP/2 GET https://localhost:7125/api/v1/branches - null null
+2024-08-13 12:21:32.803 +06:00 [INF] [Request] GET: /api/v1/branches
+[Request Body] 
+
+2024-08-13 12:21:32.896 +06:00 [INF] Executing endpoint 'ACL.App.Application.Controllers.V1.AclBranchController.Index (ACL.App)'
+2024-08-13 12:21:32.926 +06:00 [INF] Route matched with {action = "Index", controller = "AclBranch"}. Executing controller action with signature ACL.App.Contracts.Response.AclResponse Index() on controller ACL.App.Application.Controllers.V1.AclBranchController (ACL.App).
+2024-08-13 12:21:35.886 +06:00 [INF] Executed DbCommand (23ms) [Parameters=[@__p_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`activated_at`, `a`.`address`, `a`.`auth_identifier`, `a`.`avatar`, `a`.`city`, `a`.`claims`, `a`.`company_id`, `a`.`country`, `a`.`created_at`, `a`.`created_by_id`, `a`.`dob`, `a`.`email`, `a`.`first_name`, `a`.`gender`, `a`.`img_path`, `a`.`is_admin_verified`, `a`.`language`, `a`.`last_name`, `a`.`login_at`, `a`.`otp_channel`, `a`.`password`, `a`.`permission_version`, `a`.`phone`, `a`.`refresh_token`, `a`.`remember_token`, `a`.`salt`, `a`.`status`, `a`.`updated_at`, `a`.`user_type`, `a`.`username`
+FROM `acl_users` AS `a`
+WHERE `a`.`id` = @__p_0
+LIMIT 1
+2024-08-13 12:21:36.151 +06:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT CONVERT(`a`.`usergroup_id`, CHAR(19))
+FROM `acl_user_usergroups` AS `a`
+WHERE `a`.`user_id` = @__userId_0
+2024-08-13 12:21:36.186 +06:00 [INF] Executed DbCommand (2ms) [Parameters=[@__p_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`activated_at`, `a`.`address`, `a`.`auth_identifier`, `a`.`avatar`, `a`.`city`, `a`.`claims`, `a`.`company_id`, `a`.`country`, `a`.`created_at`, `a`.`created_by_id`, `a`.`dob`, `a`.`email`, `a`.`first_name`, `a`.`gender`, `a`.`img_path`, `a`.`is_admin_verified`, `a`.`language`, `a`.`last_name`, `a`.`login_at`, `a`.`otp_channel`, `a`.`password`, `a`.`permission_version`, `a`.`phone`, `a`.`refresh_token`, `a`.`remember_token`, `a`.`salt`, `a`.`status`, `a`.`updated_at`, `a`.`user_type`, `a`.`username`
+FROM `acl_users` AS `a`
+WHERE `a`.`id` = @__p_0
+LIMIT 1
+2024-08-13 12:21:36.190 +06:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT CONVERT(`a`.`usergroup_id`, CHAR(19))
+FROM `acl_user_usergroups` AS `a`
+WHERE `a`.`user_id` = @__userId_0
+2024-08-13 12:21:36.193 +06:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT CONVERT(`a`.`usergroup_id`, CHAR(19))
+FROM `acl_user_usergroups` AS `a`
+WHERE `a`.`user_id` = @__userId_0
+2024-08-13 12:21:36.311 +06:00 [INF] Executing action method ACL.App.Application.Controllers.V1.AclBranchController.Index (ACL.App) - Validation state: "Valid"
+2024-08-13 12:21:36.323 +06:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`address`, `a`.`company_id`, `a`.`created_at`, `a`.`created_by_id`, `a`.`description`, `a`.`name`, `a`.`sequence`, `a`.`status`, `a`.`updated_at`, `a`.`updated_by_id`
+FROM `acl_branches` AS `a`
+2024-08-13 12:21:36.362 +06:00 [INF] Executed action method ACL.App.Application.Controllers.V1.AclBranchController.Index (ACL.App), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 45.8513ms.
+2024-08-13 12:21:36.375 +06:00 [INF] Executing ObjectResult, writing value of type 'ACL.App.Contracts.Response.AclResponse'.
+2024-08-13 12:21:36.414 +06:00 [INF] Executed action ACL.App.Application.Controllers.V1.AclBranchController.Index (ACL.App) in 3480.1139ms
+2024-08-13 12:21:36.414 +06:00 [INF] Executed endpoint 'ACL.App.Application.Controllers.V1.AclBranchController.Index (ACL.App)'
+2024-08-13 12:21:36.417 +06:00 [INF] HTTP GET /api/v1/branches responded 200 in 3607.4774 ms
+2024-08-13 12:21:36.419 +06:00 [INF] [Response] GET: /api/v1/branches
+[Response Body] {"statusCode":100,"message":"Branch fetched succesfully","data":[{"id":1,"companyId":2,"name":"Test","address":"Dhaka","description":"Test","status":1,"sequence":1,"createdById":1,"updatedById":1,"createdAt":"2015-11-04T01:52:01","updatedAt":"2019-03-28T13:29:33"},{"id":2,"companyId":0,"name":"Uttara Branch","address":"Uttara sector 11","description":"This is sub branch.","status":1,"sequence":1,"createdById":0,"updatedById":0,"createdAt":"2024-05-20T17:53:44.930363","updatedAt":"2024-05-20T17:53:44.930291"}],"timestamp":"2024-08-13T12:21:36.3570493+06:00"}
+
+2024-08-13 12:21:36.437 +06:00 [INF] Request finished HTTP/2 GET https://localhost:7125/api/v1/branches - 200 null application/json; charset=utf-8 3794.6389ms
