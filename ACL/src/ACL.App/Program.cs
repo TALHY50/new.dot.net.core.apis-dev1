@@ -119,7 +119,7 @@ var userName = Env.GetString("DB_USERNAME");
 var password = Env.GetString("DB_PASSWORD");
 var port = Env.GetString("DB_PORT");
 
-var connectionString = $"server={server};database={database};User ID={userName};Password={password};CharSet=utf8mb4;" ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+var connectionString = $"server={server};database={database};port={port} ;User ID={userName};Password={password};CharSet=utf8mb4;" ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
 //builder.Services.AddDbContext<ApplicationDbContext>(options =>
 //    options.UseMySQL(connectionString, options =>
