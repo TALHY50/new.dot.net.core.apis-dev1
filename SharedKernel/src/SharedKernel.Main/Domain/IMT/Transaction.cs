@@ -3,7 +3,7 @@
 /// <summary>
 /// transaction_type = 1,2,3; 1= send money, 2=receive money etc.transaction_id is sender table id.money_flow = 1/2; 1= incoming and 2 = outgoing, event_type = send money request, send money approved, send money rejected etc.
 /// </summary>
-public partial class ImtTransaction
+public partial class Transaction
 {
     public int Id { get; set; }
 

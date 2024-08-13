@@ -1,6 +1,6 @@
 ﻿namespace SharedKernel.Main.Domain.IMT;
 
-public partial class ImtCurrency
+public partial class Country
 {
     public int Id { get; set; }
 
@@ -9,8 +9,6 @@ public partial class ImtCurrency
     public string? IsoCode { get; set; }
 
     public string? Name { get; set; }
-
-    public string? Symbol { get; set; }
 
     public int? CreatedById { get; set; }
 

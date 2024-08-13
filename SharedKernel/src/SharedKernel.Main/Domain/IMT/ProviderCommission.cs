@@ -1,6 +1,6 @@
 ﻿namespace SharedKernel.Main.Domain.IMT;
 
-public partial class ImtProviderCommission
+public partial class ProviderCommission
 {
     public int Id { get; set; }
 

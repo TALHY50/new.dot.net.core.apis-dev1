@@ -3,7 +3,7 @@ using SharedKernel.Main.Domain.IMT;
 
 namespace IMT.App.Application.Ports.Repositories
 {
-    public interface IImtProviderErrorDetailsRepository : IGenericRepository<ImtProviderErrorDetail>
+    public interface IImtProviderErrorDetailsRepository : IGenericRepository<ProviderErrorDetail>
     {
     }
 }

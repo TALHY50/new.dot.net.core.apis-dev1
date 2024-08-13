@@ -5,9 +5,9 @@ using SharedKernel.Main.Infrastructure.Services;
 
 namespace IMT.App.Infrastructure.Persistence.Repositories.Quotation
 {
-    public class ImtQuotationRepository(ApplicationDbContext dbContext) : GenericRepository<ImtQuotation, ApplicationDbContext>(dbContext), IImtQuotationRepository
+    public class ImtQuotationRepository(ApplicationDbContext dbContext) : GenericRepository<SharedKernel.Main.Domain.IMT.Quotation, ApplicationDbContext>(dbContext), IImtQuotationRepository
     {
-        public ImtQuotation? GetImtQuotationByInvoiceId(string invoiceId)
+        public SharedKernel.Main.Domain.IMT.Quotation? GetImtQuotationByInvoiceId(string invoiceId)
         {
             return _dbSet.Where(c=>c.OrderId == invoiceId)?.ToList()?.OrderBy(c=>c.Id)?.Last();
         }

@@ -18,7 +18,7 @@ namespace SharedKernel.App.Infrastructure.Persistence.Migrations
                 .HasAnnotation("ProductVersion", "8.0.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("App.Models.IMT.ImtBank", b =>
+            modelBuilder.Entity("App.Models.IMT.Bank", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -96,7 +96,7 @@ namespace SharedKernel.App.Infrastructure.Persistence.Migrations
                     b.ToTable("imt_banks", (string)null);
                 });
 
-            modelBuilder.Entity("App.Models.IMT.ImtCity", b =>
+            modelBuilder.Entity("App.Models.IMT.City", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -152,7 +152,7 @@ namespace SharedKernel.App.Infrastructure.Persistence.Migrations
                     b.ToTable("imt_cities", (string)null);
                 });
 
-            modelBuilder.Entity("App.Models.IMT.ImtCountry", b =>
+            modelBuilder.Entity("App.Models.IMT.Country", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -216,7 +216,7 @@ namespace SharedKernel.App.Infrastructure.Persistence.Migrations
                     b.ToTable("imt_countries", (string)null);
                 });
 
-            modelBuilder.Entity("App.Models.IMT.ImtCurrency", b =>
+            modelBuilder.Entity("App.Models.IMT.Currency", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -287,7 +287,7 @@ namespace SharedKernel.App.Infrastructure.Persistence.Migrations
                     b.ToTable("imt_currencies", (string)null);
                 });
 
-            modelBuilder.Entity("App.Models.IMT.ImtCustomer", b =>
+            modelBuilder.Entity("App.Models.IMT.Customer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -428,7 +428,7 @@ namespace SharedKernel.App.Infrastructure.Persistence.Migrations
                     b.ToTable("imt_customers", (string)null);
                 });
 
-            modelBuilder.Entity("App.Models.IMT.ImtCustomerBank", b =>
+            modelBuilder.Entity("App.Models.IMT.CustomerBank", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -517,7 +517,7 @@ namespace SharedKernel.App.Infrastructure.Persistence.Migrations
                     b.ToTable("imt_customer_banks", (string)null);
                 });
 
-            modelBuilder.Entity("App.Models.IMT.ImtMoneyTransfer", b =>
+            modelBuilder.Entity("App.Models.IMT.MoneyTransfer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -703,7 +703,7 @@ namespace SharedKernel.App.Infrastructure.Persistence.Migrations
                     b.ToTable("imt_money_transfers", (string)null);
                 });
 
-            modelBuilder.Entity("App.Models.IMT.ImtPaymentMethod", b =>
+            modelBuilder.Entity("App.Models.IMT.PaymentMethod", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -761,7 +761,7 @@ namespace SharedKernel.App.Infrastructure.Persistence.Migrations
                     b.ToTable("imt_payment_methods", (string)null);
                 });
 
-            modelBuilder.Entity("App.Models.IMT.ImtProvider", b =>
+            modelBuilder.Entity("App.Models.IMT.Provider", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -840,7 +840,7 @@ namespace SharedKernel.App.Infrastructure.Persistence.Migrations
                     b.ToTable("imt_providers", (string)null);
                 });
 
-            modelBuilder.Entity("App.Models.IMT.ImtProviderCommission", b =>
+            modelBuilder.Entity("App.Models.IMT.ProviderCommission", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -929,7 +929,7 @@ namespace SharedKernel.App.Infrastructure.Persistence.Migrations
                     b.ToTable("imt_provider_commissions", (string)null);
                 });
 
-            modelBuilder.Entity("App.Models.IMT.ImtProviderErrorDetail", b =>
+            modelBuilder.Entity("App.Models.IMT.ProviderErrorDetail", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -982,7 +982,7 @@ namespace SharedKernel.App.Infrastructure.Persistence.Migrations
                     b.ToTable("imt_provider_error_details", (string)null);
                 });
 
-            modelBuilder.Entity("App.Models.IMT.ImtProviderPayer", b =>
+            modelBuilder.Entity("App.Models.IMT.ProviderPayer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1046,7 +1046,7 @@ namespace SharedKernel.App.Infrastructure.Persistence.Migrations
                     b.ToTable("imt_provider_payers", (string)null);
                 });
 
-            modelBuilder.Entity("App.Models.IMT.ImtProviderService", b =>
+            modelBuilder.Entity("App.Models.IMT.ProviderService", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1095,7 +1095,7 @@ namespace SharedKernel.App.Infrastructure.Persistence.Migrations
                     b.ToTable("imt_provider_services", (string)null);
                 });
 
-            modelBuilder.Entity("App.Models.IMT.ImtQuotation", b =>
+            modelBuilder.Entity("App.Models.IMT.Quotation", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1184,7 +1184,7 @@ namespace SharedKernel.App.Infrastructure.Persistence.Migrations
                     b.ToTable("imt_quotations", (string)null);
                 });
 
-            modelBuilder.Entity("App.Models.IMT.ImtReason", b =>
+            modelBuilder.Entity("App.Models.IMT.Reason", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1249,7 +1249,7 @@ namespace SharedKernel.App.Infrastructure.Persistence.Migrations
                     b.ToTable("imt_reasons", (string)null);
                 });
 
-            modelBuilder.Entity("App.Models.IMT.ImtTransaction", b =>
+            modelBuilder.Entity("App.Models.IMT.Transaction", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1364,7 +1364,7 @@ namespace SharedKernel.App.Infrastructure.Persistence.Migrations
                         });
                 });
 
-            modelBuilder.Entity("App.Models.IMT.ImtTransactionLimit", b =>
+            modelBuilder.Entity("App.Models.IMT.TransactionLimit", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1445,7 +1445,7 @@ namespace SharedKernel.App.Infrastructure.Persistence.Migrations
                     b.ToTable("imt_transaction_limits", (string)null);
                 });
 
-            modelBuilder.Entity("App.Models.IMT.ImtTransactionState", b =>
+            modelBuilder.Entity("App.Models.IMT.TransactionState", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1496,7 +1496,7 @@ namespace SharedKernel.App.Infrastructure.Persistence.Migrations
                     b.ToTable("imt_transaction_states", (string)null);
                 });
 
-            modelBuilder.Entity("App.Models.IMT.ImtTransactionType", b =>
+            modelBuilder.Entity("App.Models.IMT.TransactionType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

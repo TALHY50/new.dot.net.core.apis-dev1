@@ -1,6 +1,6 @@
 ﻿namespace SharedKernel.Main.Domain.IMT
 {
-    public partial class ImtProviderErrorDetail
+    public partial class ProviderErrorDetail
     {
         public int Id { get; set; }
 

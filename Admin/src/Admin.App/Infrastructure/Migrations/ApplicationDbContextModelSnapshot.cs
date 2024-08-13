@@ -18,7 +18,7 @@ namespace ADMIN.Application.Infrastructure.Migrations
                 .HasAnnotation("ProductVersion", "8.0.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("ADMIN.Core.Entities.Provider.AdminProvider", b =>
+            modelBuilder.Entity("ADMIN.Core.Entities.Provider.Provider", b =>
                 {
                     b.Property<ulong>("Id")
                         .ValueGeneratedOnAdd()

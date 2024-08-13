@@ -15,6 +15,6 @@ namespace ADMIN.Application.Application.Ports.Services.Interfaces.Provider
         AdminResponse AddProvider(ProviderRequest request);
         AdminResponse UpdateProvider(ulong id, ProviderRequest request);
         AdminResponse DeleteProvider(ulong id);
-        AdminProvider PrepareData(ProviderRequest request, AdminProvider? adminProvider = null);
+        Domain.Provider.Provider PrepareData(ProviderRequest request, Domain.Provider.Provider? adminProvider = null);
     }
 }

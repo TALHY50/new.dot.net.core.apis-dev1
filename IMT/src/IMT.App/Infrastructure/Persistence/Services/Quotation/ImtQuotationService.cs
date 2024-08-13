@@ -22,7 +22,7 @@ namespace IMT.App.Infrastructure.Persistence.Services.Quotation
         public IImtCountryRepository _countryRepository;
         public IImtCurrencyRepository _currencyRepository;
         public IImtProviderErrorDetailsRepository _errorRepository;
-        public ImtQuotation _imtQuotation = null;
+        public SharedKernel.Main.Domain.IMT.Quotation Quotation = null;
 
         public ImtQuotationService(ApplicationDbContext dbContext) : base(dbContext)
         {
@@ -47,12 +47,12 @@ namespace IMT.App.Infrastructure.Persistence.Services.Quotation
         {
             foreach (var error in Errors)
             {
-                ImtProviderErrorDetail prepareData = new ImtProviderErrorDetail
+                ProviderErrorDetail prepareData = new ProviderErrorDetail
                 {
                     ErrorCode = error.code,
                     ErrorMessage = error.message,
-                    ImtProviderId = (int)_imtQuotation.ImtProviderId,
-                    ReferenceId = _imtQuotation.Id,
+                    ImtProviderId = (int)Quotation.ImtProviderId,
+                    ReferenceId = Quotation.Id,
                     Type = 1,
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow
@@ -91,9 +91,9 @@ namespace IMT.App.Infrastructure.Persistence.Services.Quotation
             }
         }
 
-        public ImtQuotation PrepareImtQuotation(QuotationRequest request)
+        public SharedKernel.Main.Domain.IMT.Quotation PrepareImtQuotation(QuotationRequest request)
         {
-            return new ImtQuotation
+            return new SharedKernel.Main.Domain.IMT.Quotation
             {
                 OrderId = request.invoice_id,
                 PayerId = request.payer_id,
@@ -144,7 +144,7 @@ namespace IMT.App.Infrastructure.Persistence.Services.Quotation
         {
             if (IsValid(quotationRequest))
             {
-                _imtQuotation = Add(PrepareImtQuotation(quotationRequest));
+                Quotation = Add(PrepareImtQuotation(quotationRequest));
                 try
                 {
                     return CreateQuotation(PrepareThunesCreateQuotationRequest(quotationRequest));

@@ -4,7 +4,7 @@ using SharedKernel.Main.Infrastructure.Services;
 
 namespace IMT.App.Infrastructure.Persistence.Repositories.ImtCountry
 {
-    public class ImtCountryRepository(ApplicationDbContext dbContext) : GenericRepository<SharedKernel.Main.Domain.IMT.ImtCountry, ApplicationDbContext>(dbContext), IImtCountryRepository
+    public class ImtCountryRepository(ApplicationDbContext dbContext) : GenericRepository<SharedKernel.Main.Domain.IMT.Country, ApplicationDbContext>(dbContext), IImtCountryRepository
     {
         public string? GetCountryIsoCodeByCountryId(int imtSourceCountryId)
         {

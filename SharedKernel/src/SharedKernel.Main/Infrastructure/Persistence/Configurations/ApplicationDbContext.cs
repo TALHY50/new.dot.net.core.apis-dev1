@@ -7,42 +7,42 @@ namespace SharedKernel.Main.Infrastructure.Persistence.Configurations
     public partial class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : DbContext(options), IApplicationDbContext
     {
-        public virtual DbSet<ImtBank> ImtBanks { get; set; }
+        public virtual DbSet<Bank> ImtBanks { get; set; }
 
-        public virtual DbSet<ImtCity> ImtCities { get; set; }
+        public virtual DbSet<City> ImtCities { get; set; }
 
-        public virtual DbSet<ImtCountry> ImtCountries { get; set; }
+        public virtual DbSet<Country> ImtCountries { get; set; }
 
-        public virtual DbSet<ImtCurrency> ImtCurrencies { get; set; }
+        public virtual DbSet<Currency> ImtCurrencies { get; set; }
 
-        public virtual DbSet<ImtCustomer> ImtCustomers { get; set; }
+        public virtual DbSet<Customer> ImtCustomers { get; set; }
 
-        public virtual DbSet<ImtCustomerBank> ImtCustomerBanks { get; set; }
+        public virtual DbSet<CustomerBank> ImtCustomerBanks { get; set; }
 
-        public virtual DbSet<ImtMoneyTransfer> ImtMoneyTransfers { get; set; }
+        public virtual DbSet<MoneyTransfer> ImtMoneyTransfers { get; set; }
 
-        public virtual DbSet<ImtPaymentMethod> ImtPaymentMethods { get; set; }
+        public virtual DbSet<PaymentMethod> ImtPaymentMethods { get; set; }
 
-        public virtual DbSet<ImtProvider> ImtProviders { get; set; }
+        public virtual DbSet<Provider> ImtProviders { get; set; }
 
-        public virtual DbSet<ImtProviderCommission> ImtProviderCommissions { get; set; }
+        public virtual DbSet<ProviderCommission> ImtProviderCommissions { get; set; }
 
-        public virtual DbSet<ImtProviderPayer> ImtProviderPayers { get; set; }
+        public virtual DbSet<ProviderPayer> ImtProviderPayers { get; set; }
 
-        public virtual DbSet<ImtProviderService> ImtProviderServices { get; set; }
+        public virtual DbSet<ProviderService> ImtProviderServices { get; set; }
 
-        public virtual DbSet<ImtQuotation> ImtQuotations { get; set; }
+        public virtual DbSet<Quotation> ImtQuotations { get; set; }
 
-        public virtual DbSet<ImtReason> ImtReasons { get; set; }
+        public virtual DbSet<Reason> ImtReasons { get; set; }
 
-        public virtual DbSet<ImtTransaction> ImtTransactions { get; set; }
+        public virtual DbSet<Transaction> ImtTransactions { get; set; }
 
-        public virtual DbSet<ImtTransactionLimit> ImtTransactionLimits { get; set; }
+        public virtual DbSet<TransactionLimit> ImtTransactionLimits { get; set; }
 
-        public virtual DbSet<ImtTransactionState> ImtTransactionStates { get; set; }
+        public virtual DbSet<TransactionState> ImtTransactionStates { get; set; }
 
-        public virtual DbSet<ImtTransactionType> ImtTransactionTypes { get; set; }
-        public virtual DbSet<ImtProviderErrorDetail> ImtProviderErrorDetails { get; set; }
+        public virtual DbSet<TransactionType> ImtTransactionTypes { get; set; }
+        public virtual DbSet<ProviderErrorDetail> ImtProviderErrorDetails { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -67,7 +67,7 @@ namespace SharedKernel.Main.Infrastructure.Persistence.Configurations
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ImtBank>(entity =>
+            modelBuilder.Entity<Bank>(entity =>
             {
                 entity.HasKey(e => e.Id).HasName("PRIMARY");
 
@@ -118,7 +118,7 @@ namespace SharedKernel.Main.Infrastructure.Persistence.Configurations
                     .HasColumnName("url");
             });
 
-            modelBuilder.Entity<ImtCity>(entity =>
+            modelBuilder.Entity<City>(entity =>
             {
                 entity.HasKey(e => e.Id).HasName("PRIMARY");
 
@@ -157,7 +157,7 @@ namespace SharedKernel.Main.Infrastructure.Persistence.Configurations
                     .HasColumnName("updated_by_id");
             });
 
-            modelBuilder.Entity<ImtCountry>(entity =>
+            modelBuilder.Entity<Country>(entity =>
             {
                 entity.HasKey(e => e.Id).HasName("PRIMARY");
 
@@ -200,7 +200,7 @@ namespace SharedKernel.Main.Infrastructure.Persistence.Configurations
                     .HasColumnName("updated_by_id");
             });
 
-            modelBuilder.Entity<ImtCurrency>(entity =>
+            modelBuilder.Entity<Currency>(entity =>
             {
                 entity.HasKey(e => e.Id).HasName("PRIMARY");
 
@@ -247,7 +247,7 @@ namespace SharedKernel.Main.Infrastructure.Persistence.Configurations
                     .HasColumnName("updated_by_id");
             });
 
-            modelBuilder.Entity<ImtCustomer>(entity =>
+            modelBuilder.Entity<Customer>(entity =>
             {
                 entity.HasKey(e => e.Id).HasName("PRIMARY");
 
@@ -338,7 +338,7 @@ namespace SharedKernel.Main.Infrastructure.Persistence.Configurations
                     .HasColumnName("username");
             });
 
-            modelBuilder.Entity<ImtCustomerBank>(entity =>
+            modelBuilder.Entity<CustomerBank>(entity =>
             {
                 entity.HasKey(e => e.Id).HasName("PRIMARY");
 
@@ -398,7 +398,7 @@ namespace SharedKernel.Main.Infrastructure.Persistence.Configurations
                     .HasColumnName("updated_by_id");
             });
 
-            modelBuilder.Entity<ImtMoneyTransfer>(entity =>
+            modelBuilder.Entity<MoneyTransfer>(entity =>
             {
                 entity.HasKey(e => e.Id).HasName("PRIMARY");
 
@@ -515,7 +515,7 @@ namespace SharedKernel.Main.Infrastructure.Persistence.Configurations
                     .HasColumnName("vat");
             });
 
-            modelBuilder.Entity<ImtPaymentMethod>(entity =>
+            modelBuilder.Entity<PaymentMethod>(entity =>
             {
                 entity.HasKey(e => e.Id).HasName("PRIMARY");
 
@@ -555,7 +555,7 @@ namespace SharedKernel.Main.Infrastructure.Persistence.Configurations
                     .HasColumnName("updated_by_id");
             });
 
-            modelBuilder.Entity<ImtProvider>(entity =>
+            modelBuilder.Entity<Provider>(entity =>
             {
                 entity.HasKey(e => e.Id).HasName("PRIMARY");
 
@@ -607,7 +607,7 @@ namespace SharedKernel.Main.Infrastructure.Persistence.Configurations
                     .HasColumnName("updated_by_id");
             });
 
-            modelBuilder.Entity<ImtProviderCommission>(entity =>
+            modelBuilder.Entity<ProviderCommission>(entity =>
             {
                 entity.HasKey(e => e.Id).HasName("PRIMARY");
 
@@ -666,7 +666,7 @@ namespace SharedKernel.Main.Infrastructure.Persistence.Configurations
                     .HasColumnName("updated_by_id");
             });
 
-            modelBuilder.Entity<ImtProviderPayer>(entity =>
+            modelBuilder.Entity<ProviderPayer>(entity =>
             {
                 entity.HasKey(e => e.Id).HasName("PRIMARY");
 
@@ -712,7 +712,7 @@ namespace SharedKernel.Main.Infrastructure.Persistence.Configurations
                     .HasColumnName("updated_at");
             });
 
-            modelBuilder.Entity<ImtProviderService>(entity =>
+            modelBuilder.Entity<ProviderService>(entity =>
             {
                 entity.HasKey(e => e.Id).HasName("PRIMARY");
 
@@ -747,7 +747,7 @@ namespace SharedKernel.Main.Infrastructure.Persistence.Configurations
                     .HasColumnName("updated_by_id");
             });
 
-            modelBuilder.Entity<ImtQuotation>(entity =>
+            modelBuilder.Entity<Quotation>(entity =>
             {
                 entity.HasKey(e => e.Id).HasName("PRIMARY");
 
@@ -804,7 +804,7 @@ namespace SharedKernel.Main.Infrastructure.Persistence.Configurations
                     .HasColumnName("transaction_type");
             });
 
-            modelBuilder.Entity<ImtReason>(entity =>
+            modelBuilder.Entity<Reason>(entity =>
             {
                 entity.HasKey(e => e.Id).HasName("PRIMARY");
 
@@ -848,7 +848,7 @@ namespace SharedKernel.Main.Infrastructure.Persistence.Configurations
                     .HasColumnName("updated_by_id");
             });
 
-            modelBuilder.Entity<ImtTransaction>(entity =>
+            modelBuilder.Entity<Transaction>(entity =>
             {
                 entity.HasKey(e => e.Id).HasName("PRIMARY");
 
@@ -922,7 +922,7 @@ namespace SharedKernel.Main.Infrastructure.Persistence.Configurations
                     .HasColumnName("updated_at");
             });
 
-            modelBuilder.Entity<ImtTransactionLimit>(entity =>
+            modelBuilder.Entity<TransactionLimit>(entity =>
             {
                 entity.HasKey(e => e.Id).HasName("PRIMARY");
 
@@ -977,7 +977,7 @@ namespace SharedKernel.Main.Infrastructure.Persistence.Configurations
                     .HasColumnName("user_category");
             });
 
-            modelBuilder.Entity<ImtTransactionState>(entity =>
+            modelBuilder.Entity<TransactionState>(entity =>
             {
                 entity.HasKey(e => e.Id).HasName("PRIMARY");
 
@@ -1013,7 +1013,7 @@ namespace SharedKernel.Main.Infrastructure.Persistence.Configurations
                     .HasColumnName("updated_by_id");
             });
 
-            modelBuilder.Entity<ImtTransactionType>(entity =>
+            modelBuilder.Entity<TransactionType>(entity =>
             {
                 entity.HasKey(e => e.Id).HasName("PRIMARY");
 
@@ -1049,7 +1049,7 @@ namespace SharedKernel.Main.Infrastructure.Persistence.Configurations
                     .HasColumnName("updated_by_id");
             });
 
-            modelBuilder.Entity<ImtProviderErrorDetail>(entity =>
+            modelBuilder.Entity<ProviderErrorDetail>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 

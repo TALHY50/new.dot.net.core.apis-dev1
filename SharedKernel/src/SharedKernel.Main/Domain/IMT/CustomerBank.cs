@@ -1,6 +1,6 @@
 ﻿namespace SharedKernel.Main.Domain.IMT;
 
-public partial class ImtCustomerBank
+public partial class CustomerBank
 {
     public int Id { get; set; }
 

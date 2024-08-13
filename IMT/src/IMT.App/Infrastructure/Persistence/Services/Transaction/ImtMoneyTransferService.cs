@@ -22,7 +22,7 @@ namespace IMT.App.Infrastructure.Persistence.Services.Transaction
         public IImtMoneyTransferRepository _moneyTransferRepository;
         public IImtCountryRepository _countryRepository;
         public IImtCurrencyRepository _currencyRepository;
-        public ImtQuotation? _imtQuotation;
+        public SharedKernel.Main.Domain.IMT.Quotation? _imtQuotation;
         public ImtMoneyTransferService(ApplicationDbContext dbContext) : base(dbContext)
         {
             DependencyContainer.Initialize();
@@ -33,9 +33,9 @@ namespace IMT.App.Infrastructure.Persistence.Services.Transaction
             _moneyTransferRepository = DependencyContainer.GetService<IImtMoneyTransferRepository>();
             _transactionRepository = DependencyContainer.GetService<IImtTransactionRepository>();
         }
-        public ImtTransaction PrepareImtTransaction(MoneyTransferDTO request, CreateContentQuotationResponse quotation, CreateTransactionResponse transaction)
+        public SharedKernel.Main.Domain.IMT.Transaction PrepareImtTransaction(MoneyTransferDTO request, CreateContentQuotationResponse quotation, CreateTransactionResponse transaction)
         {
-            return new ImtTransaction
+            return new SharedKernel.Main.Domain.IMT.Transaction
             {
                 PaymentId = transaction?.id.ToString(),
                 TransactionStateId = (transaction?.id != null) ? 2 : 1,
@@ -54,9 +54,9 @@ namespace IMT.App.Infrastructure.Persistence.Services.Transaction
                 UpdatedAt = DateTime.Now
             };
         }
-        public ImtMoneyTransfer PrepareImtMoneyTransfer(MoneyTransferDTO request, CreateContentQuotationResponse quotation, CreateTransactionResponse transaction)
+        public MoneyTransfer PrepareImtMoneyTransfer(MoneyTransferDTO request, CreateContentQuotationResponse quotation, CreateTransactionResponse transaction)
         {
-            return new ImtMoneyTransfer
+            return new MoneyTransfer
             {
                 PaymentId = transaction?.id.ToString(),
                 TransactionStateId = (transaction?.id != null) ? 2 : 1,
@@ -76,10 +76,10 @@ namespace IMT.App.Infrastructure.Persistence.Services.Transaction
                 ExchangedAmount = (decimal?)(quotation?.destination?.amount), // hardcoded dont know what is it so putting a random
                 Fee = (decimal?)(quotation?.fee?.amount),
                 Vat = (decimal?)(quotation?.destination?.amount), // hardcoded dont know what is it so putting a random
-                CommissionPaidBy = "1", // hard coded dont know where it will come from
+                CommissionPaidBy = (sbyte?)1, // hard coded dont know where it will come from
                 SenderCustomerId = 1, // hard coded dont know where it will come from
                 ReceiverCustomerId = 1, // hard coded dont know where it will come from
-                Source = transaction?.source?.currency, // hard coded dont know where it will come from
+                Source = (sbyte?)0, // hard coded dont know where it will come from
                 OrderId = quotation?.external_id, // hard coded dont know where it will come from
                 RemoteOrderId = quotation?.external_id, // hard coded dont know where it will come from
                 InvoiceId = quotation?.external_id,
@@ -131,7 +131,7 @@ namespace IMT.App.Infrastructure.Persistence.Services.Transaction
             foreach (var error in Errors)
             {
 
-                ImtProviderErrorDetail prepareData = new ImtProviderErrorDetail
+                ProviderErrorDetail prepareData = new ProviderErrorDetail
                 {
                     ErrorCode = error.code,
                     ErrorMessage = error.message,
