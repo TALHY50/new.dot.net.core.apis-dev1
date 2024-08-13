@@ -80,10 +80,10 @@ namespace IMT.App.Infrastructure.Persistence.Services.ImtProviderPayers
                     RemotePayerId = request.remote_payer_id,
                     Precision = request.precision,
                     Increment = request.increment,
-                    //CreatedAt = providerPayer == null ? DateTime.Now : providerPayer.CreatedAt,
-                    //UpdatedAt = providerPayer != null ? DateTime.Now : DateTime.UtcNow
-                    CreatedAt = DateTime.UtcNow,
-                    UpdatedAt = DateTime.UtcNow
+                    CreatedAt = providerPayer == null ? DateTime.Now : providerPayer.CreatedAt,
+                    UpdatedAt = providerPayer != null ? DateTime.Now : DateTime.UtcNow
+                    //CreatedAt = DateTime.UtcNow,
+                    //UpdatedAt = DateTime.UtcNow
                 };
             }
             else
