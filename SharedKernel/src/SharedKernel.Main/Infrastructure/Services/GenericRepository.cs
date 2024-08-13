@@ -105,7 +105,7 @@ namespace SharedKernel.Main.Infrastructure.Services
                 _dbContext.Entry(entity).Reload();
                 return entity;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 return null;

@@ -33,5 +33,7 @@ namespace Thunes.Route
         public const string ListCountriesAvailableUrl = "/v2/money-transfer/countries";
         public const string BicCodeLookupUrl = "/v2/money-transfer/lookups/BIC/{swift_bic_code}";
         public const string SendMoney = "/v2/send-money";
+
+        public const string CreateProvidersUrl = "/v2/providers";
     }
 }

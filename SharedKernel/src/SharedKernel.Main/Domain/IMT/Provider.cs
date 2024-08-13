@@ -2,7 +2,7 @@
 
 public partial class Provider
 {
-    public int Id { get; set; }
+    public ulong Id { get; set; }
 
     public string? Code { get; set; }
 

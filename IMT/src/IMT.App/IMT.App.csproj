@@ -9,6 +9,10 @@
 		<DockerfileContext>.</DockerfileContext>
 		<RootNamespace>IMT.App</RootNamespace>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Include="..\..\..\Notification\src\Notification.App\Infrastructure\Persistence\ApplicationDbContext.cs" Link="ApplicationDbContext.cs" />
+	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="DotNetEnv" Version="3.0.0" />
 		<PackageReference Include="FakeItEasy" Version="8.2.0" />
