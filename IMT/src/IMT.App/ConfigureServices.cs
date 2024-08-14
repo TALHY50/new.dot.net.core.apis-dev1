@@ -1,6 +1,7 @@
 ﻿using DotNetEnv;
 using IMT.App.Application.Ports.Services;
 using IMT.App.Infrastructure.Persistence.Services.ConfirmTransactionService;
+using IMT.App.Infrastructure.Persistence.Services.ProviderPrayers;
 using IMT.App.Infrastructure.Persistence.Services.Providers;
 using IMT.App.Infrastructure.Persistence.Services.ProviderService;
 using IMT.App.Infrastructure.Persistence.Services.Quotation;
@@ -67,6 +68,7 @@ public static class DependencyInjection
         services.AddTransient<IImtSendMoneyService, ImtSendMoneyService>();
         services.AddTransient<IImtProvidersService, ImtProvidersService>();
         services.AddTransient<IImtProviderServiceService, ImtProviderServiceService>();
+        services.AddTransient<IImtProviderPrayersService, ImtProviderPrayersService>();
 
         return services;
     }

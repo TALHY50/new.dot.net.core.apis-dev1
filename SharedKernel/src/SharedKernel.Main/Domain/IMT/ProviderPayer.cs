@@ -2,17 +2,17 @@
 
 public partial class ProviderPayer
 {
-    public int Id { get; set; }
+    public ulong Id { get; set; }
 
-    public int ImtProviderId { get; set; }
+    public ulong ImtProviderId { get; set; }
 
-    public int ImtCountryId { get; set; }
+    public ulong ImtCountryId { get; set; }
 
-    public int ImtCurrencyId { get; set; }
+    public ulong ImtCurrencyId { get; set; }
 
-    public int? ImtProviderServiceId { get; set; }
+    public ulong? ImtProviderServiceId { get; set; }
 
-    public int? RemotePayerId { get; set; }
+    public ulong? RemotePayerId { get; set; }
 
     /// <summary>
     /// for declaring precision point after decimal

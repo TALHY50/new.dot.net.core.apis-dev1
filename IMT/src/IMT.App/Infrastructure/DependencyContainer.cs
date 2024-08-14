@@ -4,10 +4,12 @@ using IMT.App.Infrastructure.Persistence.Repositories.ConfirmTransaction;
 using IMT.App.Infrastructure.Persistence.Repositories.ImtCountry;
 using IMT.App.Infrastructure.Persistence.Repositories.ImtCurrency;
 using IMT.App.Infrastructure.Persistence.Repositories.ImtMoneyTransfer;
+using IMT.App.Infrastructure.Persistence.Repositories.ImtProviderPrayers;
 using IMT.App.Infrastructure.Persistence.Repositories.ImtProviders;
 using IMT.App.Infrastructure.Persistence.Repositories.ImtProviderService;
 using IMT.App.Infrastructure.Persistence.Repositories.ImtTransaction;
 using IMT.App.Infrastructure.Persistence.Repositories.Quotation;
+using IMT.App.Infrastructure.Persistence.Services.ProviderPrayers;
 using IMT.App.Infrastructure.Persistence.Services.Providers;
 using IMT.App.Infrastructure.Persistence.Services.ProviderService;
 using IMT.App.Infrastructure.Persistence.Services.Quotation;
@@ -53,6 +55,8 @@ namespace IMT.App.Infrastructure
             services.AddScoped<IImtProvidersService, ImtProvidersService>();
             services.AddScoped<IImtProviderServiceRepository, ImtProviderServiceRepository>();
             services.AddScoped<IImtProviderServiceService, ImtProviderServiceService>();
+            services.AddScoped<IImtProviderPrayersRepository, ImtProviderPrayersRepository>();
+            services.AddScoped<IImtProviderPrayersService, ImtProviderPrayersService>();
 
             _serviceProvider = services.BuildServiceProvider();
         }
