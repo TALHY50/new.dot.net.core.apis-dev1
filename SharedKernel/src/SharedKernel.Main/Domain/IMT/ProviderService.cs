@@ -2,9 +2,9 @@
 
 public partial class ProviderService
 {
-    public int Id { get; set; }
+    public ulong Id { get; set; }
 
-    public int ImtProviderId { get; set; }
+    public ulong ImtProviderId { get; set; }
 
     /// <summary>
     /// BankAccount, WalletTransfer etc
