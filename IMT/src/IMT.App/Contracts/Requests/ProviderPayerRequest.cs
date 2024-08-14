@@ -2,7 +2,7 @@
 {
     public class ProviderPayerRequest
     {
-        public ulong id { get; set; }
+        //public ulong id { get; set; }
       //  public int imt_provider_id { get; set; } = 1;
       //  public int imt_country_id { get; set; } = 1;
       //  public int imt_currency_id { get; set; } = 1;

@@ -7,6 +7,7 @@ using IMT.App.Infrastructure.Persistence.Repositories.ImtMoneyTransfer;
 using IMT.App.Infrastructure.Persistence.Repositories.ImtProviderPayers;
 using IMT.App.Infrastructure.Persistence.Repositories.ImtTransaction;
 using IMT.App.Infrastructure.Persistence.Repositories.Quotation;
+using IMT.App.Infrastructure.Persistence.Services.ImtProvider;
 using IMT.App.Infrastructure.Persistence.Services.ImtProviderPayers;
 using IMT.App.Infrastructure.Persistence.Services.Quotation;
 using IMT.App.Infrastructure.Persistence.Services.Transaction;
@@ -49,6 +50,8 @@ namespace IMT.App.Infrastructure
             services.AddScoped<IImtTransactionRepository, ImtTransactionRepository>();
             services.AddScoped<IImtQuotationService, ImtQuotationService>();
             services.AddScoped<IImtMoneyTransferService, ImtMoneyTransferService>();
+            services.AddScoped<IImtProviderRepository, ImtProviderService>();
+            services.AddScoped<IImtProviderService, ImtProviderService>();
 
             _serviceProvider = services.BuildServiceProvider();
         }
