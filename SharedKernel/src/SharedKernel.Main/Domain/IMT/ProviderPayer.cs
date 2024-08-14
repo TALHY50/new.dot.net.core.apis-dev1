@@ -2,7 +2,7 @@
 
 public partial class ProviderPayer
 {
-    public int Id { get; set; }
+    public ulong Id { get; set; }
 
     public int ImtProviderId { get; set; }
 

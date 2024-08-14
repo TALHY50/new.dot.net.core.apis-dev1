@@ -4,8 +4,13 @@ using IMT.App.Infrastructure.Persistence.Repositories.ConfirmTransaction;
 using IMT.App.Infrastructure.Persistence.Repositories.ImtCountry;
 using IMT.App.Infrastructure.Persistence.Repositories.ImtCurrency;
 using IMT.App.Infrastructure.Persistence.Repositories.ImtMoneyTransfer;
+using IMT.App.Infrastructure.Persistence.Repositories.ImtProvider;
+using IMT.App.Infrastructure.Persistence.Repositories.ImtProviderPayer;
+using IMT.App.Infrastructure.Persistence.Repositories.ImtProviderService;
 using IMT.App.Infrastructure.Persistence.Repositories.ImtTransaction;
 using IMT.App.Infrastructure.Persistence.Repositories.Quotation;
+using IMT.App.Infrastructure.Persistence.Services.ImtProviderService;
+using IMT.App.Infrastructure.Persistence.Services.ProviderPayer;
 using IMT.App.Infrastructure.Persistence.Services.ProviderService;
 using IMT.App.Infrastructure.Persistence.Services.Quotation;
 using IMT.App.Infrastructure.Persistence.Services.Transaction;
@@ -44,9 +49,16 @@ namespace IMT.App.Infrastructure
             services.AddScoped<IImtMoneyTransferRepository, ImtMoneyTransferRepository>();
             services.AddScoped<IImtQuotationRepository, ImtQuotationRepository>();
             services.AddScoped<IImtTransactionRepository, ImtTransactionRepository>();
+            services.AddScoped<IImtProviderServiceRepository, ImtProviderServiceRepository>();
+            services.AddScoped<IImtProviderRepository, ImtProviderRepository>();
+            services.AddScoped<IImtProviderPayerRepository, ImtProviderPayerRepository>();
+
+
             services.AddScoped<IImtQuotationService, ImtQuotationService>();
             services.AddScoped<IImtMoneyTransferService, ImtMoneyTransferService>();
             services.AddScoped<IImtProviderServiceService, ImtProviderServiceService>();
+            services.AddScoped<IImtProviderService, ImtProviderService>();
+            services.AddScoped<IImtProviderPayerService, ImtProviderPayerService>();
 
             _serviceProvider = services.BuildServiceProvider();
         }
