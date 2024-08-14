@@ -205,7 +205,7 @@ builder.Services.AddLogging(loggingBuilder =>
 });
 
 builder.Services.AddSingleton<Serilog.ILogger>(_ => Log.Logger);
-builder.Services.AddSingleton<ILocalizationService>(new LocalizationService("ACL.Resources.en-US", typeof(Program).Assembly, "en-US"));
+builder.Services.AddSingleton<ILocalizationService>(new LocalizationService("SharedKernel.Main.Infrastructure.Resources.en-US", typeof(Program).Assembly, "en-US"));
 builder.Services.AddSingleton<Microsoft.Extensions.Logging.ILogger>(_ => (Microsoft.Extensions.Logging.ILogger)Log.Logger);
 builder.Services.AddScoped<ILogService, LogService>();
 
