@@ -32,7 +32,7 @@ namespace SharedKernel.Main.Infrastructure.Services
         }
         public ResourceManager SetReourceManager(CultureInfo resource, Assembly assembly1)
         {
-            return _resourceManager = new ResourceManager("ACL.Resources." + resource.Name, assembly ?? assembly1);
+            return _resourceManager = new ResourceManager("SharedKernel.Main.Infrastructure.Resources." + resource.Name, assembly ?? assembly1);
         }
     }
 }
