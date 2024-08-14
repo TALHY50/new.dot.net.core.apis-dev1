@@ -5,10 +5,12 @@ using IMT.App.Infrastructure.Persistence.Repositories.ImtCountry;
 using IMT.App.Infrastructure.Persistence.Repositories.ImtCurrency;
 using IMT.App.Infrastructure.Persistence.Repositories.ImtMoneyTransfer;
 using IMT.App.Infrastructure.Persistence.Repositories.ImtProviderPayers;
+using IMT.App.Infrastructure.Persistence.Repositories.ImtProviderServices;
 using IMT.App.Infrastructure.Persistence.Repositories.ImtTransaction;
 using IMT.App.Infrastructure.Persistence.Repositories.Quotation;
 using IMT.App.Infrastructure.Persistence.Services.ImtProvider;
 using IMT.App.Infrastructure.Persistence.Services.ImtProviderPayers;
+using IMT.App.Infrastructure.Persistence.Services.ImtProviderServices;
 using IMT.App.Infrastructure.Persistence.Services.Quotation;
 using IMT.App.Infrastructure.Persistence.Services.Transaction;
 using Microsoft.EntityFrameworkCore;
@@ -52,6 +54,8 @@ namespace IMT.App.Infrastructure
             services.AddScoped<IImtMoneyTransferService, ImtMoneyTransferService>();
             services.AddScoped<IImtProviderRepository, ImtProviderService>();
             services.AddScoped<IImtProviderService, ImtProviderService>();
+            services.AddScoped<IImtProviderServicesRepository, ImtProviderServicesRepository>();
+            services.AddScoped<IImtProviderServicesService, ImtProviderServicesService>();
 
             _serviceProvider = services.BuildServiceProvider();
         }

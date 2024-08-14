@@ -3,6 +3,7 @@ using IMT.App.Application.Ports.Services;
 using IMT.App.Infrastructure.Persistence.Services.ConfirmTransactionService;
 using IMT.App.Infrastructure.Persistence.Services.ImtProvider;
 using IMT.App.Infrastructure.Persistence.Services.ImtProviderPayers;
+using IMT.App.Infrastructure.Persistence.Services.ImtProviderServices;
 using IMT.App.Infrastructure.Persistence.Services.Quotation;
 using IMT.App.Infrastructure.Persistence.Services.SendMoney;
 using IMT.App.Infrastructure.Persistence.Services.Transaction;
@@ -67,7 +68,7 @@ public static class DependencyInjection
         services.AddTransient<IImtSendMoneyService, ImtSendMoneyService>();
         services.AddScoped<IImtProviderPayersService, ImtProviderPayersService>();
         services.AddScoped<IImtProviderService, ImtProviderService>();
-
+        services.AddScoped<IImtProviderServicesService, ImtProviderServicesService>();
 
         return services;
     }
