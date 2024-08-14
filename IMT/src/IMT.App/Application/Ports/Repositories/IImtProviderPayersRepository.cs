@@ -2,7 +2,7 @@
 
 namespace IMT.App.Application.Ports.Repositories
 {
-    public interface IImtProviderPrayersRepository : IGenericRepository<SharedKernel.Main.Domain.IMT.ProviderPayer>
+    public interface IImtProviderPayersRepository : IGenericRepository<SharedKernel.Main.Domain.IMT.ProviderPayer>
     {
     }
 }

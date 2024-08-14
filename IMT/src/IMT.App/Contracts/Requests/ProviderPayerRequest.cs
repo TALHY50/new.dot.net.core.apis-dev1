@@ -2,7 +2,7 @@
 
 namespace IMT.App.Contracts.Requests
 {
-    public class ProviderPrayerRequest
+    public class ProviderPayerRequest
     {
         public ulong imt_provider_service_id { get; set; }
         public ulong remote_payer_id { get; set; }

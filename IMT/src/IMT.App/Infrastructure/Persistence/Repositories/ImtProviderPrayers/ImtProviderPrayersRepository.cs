@@ -2,9 +2,9 @@
 using SharedKernel.Main.Infrastructure.Persistence.Configurations;
 using SharedKernel.Main.Infrastructure.Services;
 
-namespace IMT.App.Infrastructure.Persistence.Repositories.ImtProviderPrayers
+namespace IMT.App.Infrastructure.Persistence.Repositories.ImtProviderPayers
 {
-    public class ImtProviderPrayersRepository(ApplicationDbContext dbContext) : GenericRepository<SharedKernel.Main.Domain.IMT.ProviderPayer, ApplicationDbContext>(dbContext), IImtProviderPrayersRepository
+    public class ImtProviderPayersRepository(ApplicationDbContext dbContext) : GenericRepository<SharedKernel.Main.Domain.IMT.ProviderPayer, ApplicationDbContext>(dbContext), IImtProviderPayersRepository
     {
     }
 }
