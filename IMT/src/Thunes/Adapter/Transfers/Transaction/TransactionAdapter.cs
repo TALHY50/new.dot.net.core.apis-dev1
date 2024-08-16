@@ -19,9 +19,9 @@ namespace Thunes.Adapter.Transfers.Transaction
             return RestClient.Post<CreateTransactionResponse>(RequestOptions.BaseUrl + url, CreateHeaders(request, ThunesUrl.CreateTransactionUrl, RequestOptions), request);
         }
 
-        public object CreateTransactionFromQuotationExternalId(int external_id, MoneyTransferDTO request)
+        public object CreateTransactionFromQuotationExternalId(string invoice_id, MoneyTransferDTO request)
         {
-            var url = ThunesUrl.CreateTransactionFromQuotationExternalIdUrl.Replace("{external_id}", external_id.ToString());
+            var url = ThunesUrl.CreateTransactionFromQuotationExternalIdUrl.Replace("{invoice_id}", invoice_id.ToString());
             return RestClient.Post<CreateTransactionResponse>(RequestOptions.BaseUrl + url, CreateHeaders(request, ThunesUrl.CreateTransactionFromQuotationExternalIdUrl, RequestOptions), request);
         } 
         
@@ -30,9 +30,9 @@ namespace Thunes.Adapter.Transfers.Transaction
             var url = ThunesUrl.CreateAttachmentToTransactionByIdUrl.Replace("{id}", id.ToString());
             return RestClient.Post<TransactionAttachmentResponse>(RequestOptions.BaseUrl + url, CreateHeaders(request, ThunesUrl.CreateAttachmentToTransactionByIdUrl, RequestOptions), request);
         }  
-        public object CreateAttachmentToTransactionByExternalId(int external_id, AttachmentRequest request)
+        public object CreateAttachmentToTransactionByExternalId(string invoice_id, AttachmentRequest request)
         {
-            var url = ThunesUrl.CreateAttachmentToTransactionByExternalIdUrl.Replace("{external_id}", external_id.ToString());
+            var url = ThunesUrl.CreateAttachmentToTransactionByExternalIdUrl.Replace("{invoice_id}", invoice_id.ToString());
             return RestClient.Post<TransactionAttachmentResponse>(RequestOptions.BaseUrl + url, CreateHeaders(request, ThunesUrl.CreateAttachmentToTransactionByExternalIdUrl, RequestOptions), request);
         } 
         
@@ -42,15 +42,15 @@ namespace Thunes.Adapter.Transfers.Transaction
            return RestClient.Post<ConfirmTransactionResponse>(RequestOptions.BaseUrl + url, CreateHeaders( ThunesUrl.ConfirmTransactionByIdUrl, RequestOptions),null);
         }
         
-        public object ConfirmTransactionByExternalId(int external_id)
+        public object ConfirmTransactionByExternalId(string invoice_id)
         {
-            var url = ThunesUrl.ConfirmTransactionByExternalIdUrl.Replace("{external_id}", external_id.ToString());
+            var url = ThunesUrl.ConfirmTransactionByExternalIdUrl.Replace("{invoice_id}", invoice_id.ToString());
            return RestClient.Post<ConfirmTransactionResponse>(RequestOptions.BaseUrl + url, CreateHeaders( ThunesUrl.ConfirmTransactionByExternalIdUrl, RequestOptions),null);
         }
         
-        public object CancelTransactionByExternalId(int external_id)
+        public object CancelTransactionByExternalId(string invoice_id)
         {
-            var url = ThunesUrl.CancelTransactionByExternalIdUrl.Replace("{external_id}", external_id.ToString());
+            var url = ThunesUrl.CancelTransactionByExternalIdUrl.Replace("{invoice_id}", invoice_id.ToString());
            return RestClient.Post<CreateTransactionResponse>(RequestOptions.BaseUrl + url, CreateHeaders( ThunesUrl.CancelTransactionByExternalIdUrl, RequestOptions),null);
         }
  
@@ -60,9 +60,9 @@ namespace Thunes.Adapter.Transfers.Transaction
            return RestClient.Post<CreateTransactionResponse>(RequestOptions.BaseUrl + url, CreateHeaders( ThunesUrl.CancelTransactionByIdUrl, RequestOptions),null);
         }
 
-        public object ListAttachmentsOfTransactionByExternalId(int external_id)
+        public object ListAttachmentsOfTransactionByExternalId(string invoice_id)
         {
-            var url = ThunesUrl.ListAttachmentsOfTransactionByExternalIdUrl.Replace("{external_id}", external_id.ToString());
+            var url = ThunesUrl.ListAttachmentsOfTransactionByExternalIdUrl.Replace("{invoice_id}", invoice_id.ToString());
            return RestClient.Get<List<TransactionAttachmentResponse>>(RequestOptions.BaseUrl + url, CreateHeaders( ThunesUrl.ListAttachmentsOfTransactionByExternalIdUrl, RequestOptions));
         }
 
@@ -77,9 +77,9 @@ namespace Thunes.Adapter.Transfers.Transaction
            return RestClient.Get<List<TransactionAttachmentResponse>>(RequestOptions.BaseUrl + url, CreateHeaders( ThunesUrl.ListAttachmentsOfATransactionByIdUrl, RequestOptions));
         }
 
-        public object RetrieveTransactionInformationByExternalId(int external_id)
+        public object RetrieveTransactionInformationByExternalId(string invoice_id)
         {
-            var url = ThunesUrl.RetrieveTransactionInformationByExternalIdUrl.Replace("{external_id}", external_id.ToString());
+            var url = ThunesUrl.RetrieveTransactionInformationByExternalIdUrl.Replace("{invoice_id}", invoice_id.ToString());
            return RestClient.Get<CreateTransactionResponse>(RequestOptions.BaseUrl + url, CreateHeaders( ThunesUrl.RetrieveTransactionInformationByExternalIdUrl, RequestOptions));
         }
     }
