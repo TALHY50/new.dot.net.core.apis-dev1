@@ -1971,11 +1971,26 @@
 								{
 									"name": "Send Money C2C",
 									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "bed820bd-264b-4d0f-8148-9f56e0a8b55c",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "f1c4a4d9-2899-4f09-b9f5-c35f09df5ffd",
+													"type": "string"
+												}
+											]
+										},
 										"method": "POST",
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"quotation\": {\r\n    \"invoice_id\": \"12001C2C\",\r\n    \"customer_id\": \"1\",\r\n    \"payer_id\": \"1809\",\r\n    \"mode\": \"SOURCE_AMOUNT\",\r\n    \"transaction_type\": \"C2C\",\r\n    \"source_amount\": 1,\r\n    \"source_currency_code\": \"USD\",\r\n    \"source_country_iso_code\": \"TUR\",\r\n    \"destination_amount\": 1,\r\n    \"destination_currency_code\": \"EUR\"\r\n  },\r\n  \"money_transfer\": {\r\n    \"credit_party_identifier\": {\r\n      \"iban\": \"DE05975683053163247100\"\r\n    },\r\n   \"beneficiary\" : {\r\n      \"lastname\" : \"Anderson\",\r\n      \"firstname\" : \"Anderson\",\r\n      \"country_iso_code\":\"TUR\"\r\n   },\r\n    \"sending_business\": {\r\n      \"country_iso_code\" : \"TUR\",\r\n      \"code\" : \"code placeholder...\",\r\n      \"registered_name\" : \"ABC COMPANY\",\r\n      \"registration_number\" : \"ABC12345T\"\r\n    },\r\n    \"receiving_business\": {\r\n      \"registered_name\" : \"XYZ COMPANY\",\r\n      \"country_iso_code\" : \"DEU\"\r\n    },\r\n   \"sender\" : {\r\n      \"address\" : \"12B Baker Street\",\r\n      \"country_iso_code\" : \"TUR\",\r\n      \"city\" : \"Amsterdam\",\r\n      \"lastname\" : \"Smith\",\r\n      \"date_of_birth\" : \"1980-12-19\",\r\n      \"code\" : \"code placeholder...\",\r\n      \"firstname\" : \"Smith\",\r\n      \"country_of_birth_iso_code\" : \"TUR\"\r\n   },\r\n    \"document_reference_number\": \"ABC1234-9876\",\r\n    \"purpose_of_remittance\": \"ADVISORY_FEES\"\r\n  }\r\n}",
+											"raw": "{\r\n  \"quotation\": {\r\n    \"invoice_id\": \"1213C2C\",\r\n    \"customer_id\": \"1\",\r\n    \"payer_id\": \"1809\",\r\n    \"mode\": \"SOURCE_AMOUNT\",\r\n    \"transaction_type\": \"C2C\",\r\n    \"source_amount\": 1,\r\n    \"source_currency_code\": \"USD\",\r\n    \"source_country_iso_code\": \"TUR\",\r\n    \"destination_amount\": 1,\r\n    \"destination_currency_code\": \"EUR\"\r\n  },\r\n  \"money_transfer\": {\r\n    \"credit_party_identifier\": {\r\n      \"iban\": \"DE05975683053163247100\"\r\n    },\r\n   \"beneficiary\" : {\r\n      \"lastname\" : \"Anderson\",\r\n      \"firstname\" : \"Anderson\",\r\n      \"country_iso_code\":\"TUR\"\r\n   },\r\n    \"sending_business\": {\r\n      \"country_iso_code\" : \"TUR\",\r\n      \"code\" : \"code placeholder...\",\r\n      \"registered_name\" : \"ABC COMPANY\",\r\n      \"registration_number\" : \"ABC12345T\"\r\n    },\r\n    \"receiving_business\": {\r\n      \"registered_name\" : \"XYZ COMPANY\",\r\n      \"country_iso_code\" : \"DEU\"\r\n    },\r\n   \"sender\" : {\r\n      \"address\" : \"12B Baker Street\",\r\n      \"country_iso_code\" : \"TUR\",\r\n      \"city\" : \"Amsterdam\",\r\n      \"lastname\" : \"Smith\",\r\n      \"date_of_birth\" : \"1980-12-19\",\r\n      \"code\" : \"code placeholder...\",\r\n      \"firstname\" : \"Smith\",\r\n      \"country_of_birth_iso_code\" : \"TUR\"\r\n   },\r\n    \"document_reference_number\": \"ABC1234-9876\",\r\n    \"purpose_of_remittance\": \"ADVISORY_FEES\"\r\n  }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
