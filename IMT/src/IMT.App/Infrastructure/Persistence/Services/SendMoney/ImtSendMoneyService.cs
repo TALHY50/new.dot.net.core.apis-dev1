@@ -59,7 +59,7 @@ namespace IMT.App.Infrastructure.Persistence.Services.SendMoney
         {
             return new QuotationRequest
             {
-                invoice_id = request.quotation.invoice_id,
+                external_id = request.quotation.invoice_id,
                 customer_id = request.quotation.customer_id,
                 payer_id = request.quotation.payer_id,
                 mode = request.quotation.mode,
@@ -77,7 +77,7 @@ namespace IMT.App.Infrastructure.Persistence.Services.SendMoney
         {
             return new MoneyTransferDTO
             {
-                external_id = request.quotation.invoice_id,
+                invoice_id = request.quotation.invoice_id,
                 credit_party_identifier = request.money_transfer.credit_party_identifier,
                 beneficiary = request.money_transfer.beneficiary,
                 sending_business = request.money_transfer.sending_business,

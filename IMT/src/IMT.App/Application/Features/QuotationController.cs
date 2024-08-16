@@ -49,11 +49,11 @@ namespace IMT.App.Application.Features
         }
         [Tags("Thunes.Quotation")]
         [HttpGet(ThunesUrl.RetrieveQuotationByExternalIdUrl)]
-        public object GetByExternalId(ulong external_id)
+        public object GetByExternalId(string invoice_id)
         {
             try
             {
-                return _quotationService.GetQuotationByExternalId(external_id);
+                return _quotationService.GetQuotationByExternalId(invoice_id);
             }
             catch (ThunesException e)
             {

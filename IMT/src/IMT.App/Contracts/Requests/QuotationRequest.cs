@@ -1,11 +1,31 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
 namespace IMT.App.Contracts.Requests
 {
     public class QuotationRequest
     {
         [MaxLength(50)]
-        public string invoice_id { get; set; }
+        public string invoice_id { get; private set; }
+
+        // This property will hold the actual value used internally.
+        [JsonProperty("external_id")]
+        private string _externalId;
+
+        // Ensure external_id is serialized, but invoice_id is derived from it.
+        [JsonIgnore]
+        public string external_id
+        {
+            get
+            {
+                return _externalId;
+            }
+            set
+            {
+                _externalId = value;
+                invoice_id = value; // Set invoice_id to the value of external_id
+            }
+        }
 
         [MaxLength(50)]
         public string customer_id { get; set; }
