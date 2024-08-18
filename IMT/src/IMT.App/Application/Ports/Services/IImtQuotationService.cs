@@ -14,7 +14,7 @@ namespace IMT.App.Application.Ports.Services
         public Quotation PrepareImtQuotation(QuotationRequest request);
         public CreateContentQuotationResponse CreateQuotation(CreateQuotationRequest request);
         public CreateContentQuotationResponse GetQuotationById(ulong id);
-        public CreateContentQuotationResponse GetQuotationByExternalId(ulong external_id);
+        public CreateContentQuotationResponse GetQuotationByExternalId(string invoice_id);
         public CreateContentQuotationResponse CreateQuotationCombined(QuotationRequest quotationRequest);
     }
 }

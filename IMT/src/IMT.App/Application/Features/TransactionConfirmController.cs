@@ -38,11 +38,11 @@ namespace IMT.App.Application.Features
 
         [Tags("Thunes.Transaction")]
         [HttpPost(ThunesUrl.ConfirmTransactionByExternalIdUrl)]
-        public object ConfirmTransactionByExternalId(int external_id)
+        public object ConfirmTransactionByExternalId(string invoice_id)
         {
             try
             {
-                return _thunesClient.GetTransactionAdapter().ConfirmTransactionByExternalId(external_id);
+                return _thunesClient.GetTransactionAdapter().ConfirmTransactionByExternalId(invoice_id);
             }
             catch (ThunesException e)
             {
