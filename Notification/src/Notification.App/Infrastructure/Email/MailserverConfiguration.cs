@@ -1,4 +1,4 @@
-using Notification.App.Domain.ValueObjects;
+using SharedKernel.Main.Domain.Notification.ValueObjects;
 
 namespace Notification.App.Infrastructure.Email;
 

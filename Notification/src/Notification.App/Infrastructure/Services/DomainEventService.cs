@@ -1,8 +1,8 @@
 ﻿using MediatR;
 
-using Notification.App.Application.Common;
-using Notification.App.Application.Common.Interfaces;
-using Notification.App.Application.Common.Models;
+using SharedKernel.Main.Application.Common.Common;
+using SharedKernel.Main.Application.Common.Common.Interfaces;
+using SharedKernel.Main.Application.Common.Common.Models;
 
 namespace Notification.App.Infrastructure.Services;
 

@@ -2,7 +2,7 @@
 
 using CsvHelper.Configuration;
 
-using Notification.App.Domain.Todos;
+using SharedKernel.Main.Domain.Notification.Todos;
 
 namespace Notification.App.Infrastructure.Files;
 

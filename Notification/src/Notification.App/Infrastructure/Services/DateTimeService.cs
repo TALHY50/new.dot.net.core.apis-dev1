@@ -1,4 +1,4 @@
-﻿using Notification.App.Application.Common.Interfaces;
+﻿using SharedKernel.Main.Application.Common.Common.Interfaces;
 
 namespace Notification.App.Infrastructure.Services;
 

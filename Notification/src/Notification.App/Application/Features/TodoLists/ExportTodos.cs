@@ -3,11 +3,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-using Notification.App.Application.Common;
-using Notification.App.Application.Common.Interfaces;
-using Notification.App.Domain.Todos;
 using Notification.App.Infrastructure.Persistence;
 using Notification.Main.Infrastructure.Persistence;
+
+using SharedKernel.Main.Application.Common.Common;
+using SharedKernel.Main.Application.Common.Common.Interfaces;
+using SharedKernel.Main.Domain.Notification.Todos;
 
 namespace Notification.App.Application.Features.TodoLists;
 

@@ -1,5 +1,5 @@
-using Notification.App.Application.Common.Interfaces;
-using Notification.App.Domain.ValueObjects;
+using SharedKernel.Main.Application.Common.Common.Interfaces;
+using SharedKernel.Main.Domain.Notification.ValueObjects;
 
 namespace Notification.App.Infrastructure.Email;
 

@@ -2,8 +2,8 @@
 
 using CsvHelper;
 
-using Notification.App.Application.Common.Interfaces;
-using Notification.App.Domain.Todos;
+using SharedKernel.Main.Application.Common.Common.Interfaces;
+using SharedKernel.Main.Domain.Notification.Todos;
 
 namespace Notification.App.Infrastructure.Files;
 

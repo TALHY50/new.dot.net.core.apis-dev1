@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-using Notification.App.Domain.Notifications.Events;
-using Notification.App.Domain.ValueObjects;
+using SharedKernel.Main.Domain.Notification.Notifications.Events;
+using SharedKernel.Main.Domain.Notification.ValueObjects;
 
 namespace Notification.App.Infrastructure.Persistence.Configurations
 {

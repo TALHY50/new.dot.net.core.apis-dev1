@@ -2,8 +2,8 @@ using System.Net.Mime;
 
 using Microsoft.EntityFrameworkCore;
 
-using Notification.App.Application.Common.Interfaces.Repositories;
-using Notification.App.Domain.Notifications.Outgoings;
+using SharedKernel.Main.Application.Common.Common.Interfaces.Repositories;
+using SharedKernel.Main.Domain.Notification.Notifications.Outgoings;
 
 namespace Notification.App.Infrastructure.Persistence.Repositories;
 

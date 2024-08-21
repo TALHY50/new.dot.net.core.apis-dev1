@@ -1,4 +1,4 @@
-using Notification.App.Application.Common.Interfaces.Repositories;
+using SharedKernel.Main.Application.Common.Common.Interfaces.Repositories;
 
 namespace Notification.App.Infrastructure.Persistence.Repositories;
 

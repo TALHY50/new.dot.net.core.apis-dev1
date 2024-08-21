@@ -64,6 +64,18 @@
   </ItemGroup>
   
   <ItemGroup>
+  <Folder Include="Application\Common\Behaviours\" />
+  <Folder Include="Application\Common\Exceptions\" />
+  <Folder Include="Application\Common\Interfaces\Repositories\" />
+  <Folder Include="Application\Common\Mappings\" />
+  <Folder Include="Application\Common\Models\" />
+  <Folder Include="Application\Common\Security\" />
+  <Folder Include="Contracts\" />
+  <Folder Include="Domain\Notifications\Events\" />
+  <Folder Include="Domain\Notifications\Outgoings\" />
+  <Folder Include="Domain\Setups\" />
+  <Folder Include="Domain\Todos\" />
+  <Folder Include="Domain\ValueObjects\" />
   <Folder Include="Filters\" />
   <Folder Include="Properties\" />
   </ItemGroup>
@@ -71,6 +83,7 @@
 
   
   <ItemGroup>
+	<ProjectReference Include="..\..\..\SharedKernel\src\SharedKernel.Main\SharedKernel.Main.csproj" />
 	<ProjectReference Include="..\View.App\View.App.csproj" />
   </ItemGroup>
 

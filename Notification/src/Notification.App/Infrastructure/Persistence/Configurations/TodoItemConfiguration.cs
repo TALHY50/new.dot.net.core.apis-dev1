@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-using Notification.App.Domain.Todos;
+using SharedKernel.Main.Domain.Notification.Todos;
 
 namespace Notification.App.Infrastructure.Persistence.Configurations;
 

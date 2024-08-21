@@ -10,14 +10,15 @@ using Microsoft.IdentityModel.Tokens;
 
 using Newtonsoft.Json;
 
-using Notification.App.Application.Common;
-using Notification.App.Domain.Notifications.Outgoings;
 using Notification.App.Infrastructure.Persistence;
 using Notification.Main.Infrastructure.Persistence;
 
+using SharedKernel.Main.Application.Common.Common;
+using SharedKernel.Main.Domain.Notification.Notifications.Outgoings;
+
 using View.App.Services;
 
-using EventId = Notification.App.Contracts.EventId;
+using EventId = SharedKernel.Main.Contracts.Notificaiton.Contracts.EventId;
 
 namespace Notification.App.Application.Features.Notifications.Outgoing;
 

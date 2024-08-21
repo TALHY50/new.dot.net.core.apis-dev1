@@ -1,8 +1,9 @@
-using Notification.App.Application.Common.Interfaces;
-using Notification.App.Domain.ValueObjects;
 using Notification.App.Infrastructure.Sms;
 
-using Credential = Notification.App.Domain.Setups.Credential;
+using SharedKernel.Main.Application.Common.Common.Interfaces;
+using SharedKernel.Main.Domain.Notification.ValueObjects;
+
+using Credential = SharedKernel.Main.Domain.Notification.Setups.Credential;
 
 namespace Notification.App.Infrastructure.Services;
 

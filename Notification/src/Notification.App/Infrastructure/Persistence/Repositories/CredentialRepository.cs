@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 
-using Notification.App.Application.Common.Interfaces.Repositories;
-using Notification.App.Domain.Setups;
+using SharedKernel.Main.Application.Common.Common.Interfaces.Repositories;
+using SharedKernel.Main.Domain.Notification.Setups;
 
 namespace Notification.App.Infrastructure.Persistence.Repositories;
 

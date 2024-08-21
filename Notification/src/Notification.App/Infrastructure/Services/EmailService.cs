@@ -1,7 +1,8 @@
-using Notification.App.Application.Common.Interfaces;
 using Notification.App.Infrastructure.Email;
 
-using Credential = Notification.App.Domain.Setups.Credential;
+using SharedKernel.Main.Application.Common.Common.Interfaces;
+
+using Credential = SharedKernel.Main.Domain.Notification.Setups.Credential;
 
 namespace Notification.App.Infrastructure.Services;
 

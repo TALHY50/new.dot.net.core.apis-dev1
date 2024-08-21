@@ -1,5 +1,5 @@
-﻿using Notification.App.Domain.Todos;
-using Notification.App.Domain.ValueObjects;
+﻿using SharedKernel.Main.Domain.Notification.Todos;
+using SharedKernel.Main.Domain.Notification.ValueObjects;
 
 namespace Notification.App.Infrastructure.Persistence;
 

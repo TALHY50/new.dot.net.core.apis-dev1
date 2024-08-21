@@ -2,12 +2,12 @@
 
 using Microsoft.EntityFrameworkCore;
 
-using Notification.App.Application.Common;
-using Notification.App.Application.Common.Interfaces;
-using Notification.App.Domain.Notifications.Events;
-using Notification.App.Domain.Notifications.Outgoings;
-using Notification.App.Domain.Setups;
-using Notification.App.Domain.Todos;
+using SharedKernel.Main.Application.Common.Common;
+using SharedKernel.Main.Application.Common.Common.Interfaces;
+using SharedKernel.Main.Domain.Notification.Notifications.Events;
+using SharedKernel.Main.Domain.Notification.Notifications.Outgoings;
+using SharedKernel.Main.Domain.Notification.Setups;
+using SharedKernel.Main.Domain.Notification.Todos;
 
 namespace Notification.App.Infrastructure.Persistence;
 
