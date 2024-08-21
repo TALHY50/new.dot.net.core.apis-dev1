@@ -7,14 +7,14 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Contracts;
-using SharedKernel.Main.Domain.Notifications.Events;
-using SharedKernel.Main.Domain.Setups;
-using SharedKernel.Main.Domain.ValueObjects;
-using SharedKernel.Main.Infrastructure.Persistence;
+using Notification.App.Application.Common;
+using Notification.App.Contracts;
+using Notification.App.Domain.Notifications.Events;
+using Notification.App.Domain.Setups;
+using Notification.App.Domain.ValueObjects;
+using Notification.App.Infrastructure.Persistence;
 
-namespace SharedKernel.Main.Application.Features.Notifications.Events;
+namespace Notification.App.Application.Features.Notifications.Events;
 
 public class CreateEmailEventController : ApiControllerBase
 {

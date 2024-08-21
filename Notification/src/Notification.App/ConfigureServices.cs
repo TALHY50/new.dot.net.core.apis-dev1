@@ -2,13 +2,14 @@
 
 using Microsoft.EntityFrameworkCore;
 
-using SharedKernel.Main.Application.Common.Behaviours;
-using SharedKernel.Main.Application.Common.Interfaces;
-using SharedKernel.Main.Application.Common.Interfaces.Repositories;
-using SharedKernel.Main.Infrastructure.Files;
-using SharedKernel.Main.Infrastructure.Persistence;
-using SharedKernel.Main.Infrastructure.Persistence.Repositories;
-using SharedKernel.Main.Infrastructure.Services;
+using Notification.App.Application.Common.Behaviours;
+using Notification.App.Application.Common.Interfaces;
+using Notification.App.Application.Common.Interfaces.Repositories;
+using Notification.App.Infrastructure.Files;
+using Notification.App.Infrastructure.Persistence;
+using Notification.App.Infrastructure.Persistence.Repositories;
+using Notification.App.Infrastructure.Services;
+using Notification.Renderer;
 
 namespace Notification.App;
 
@@ -34,6 +35,9 @@ public static class DependencyInjection
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddPersistence(configuration);
+
+        services.AddRazorEngine(configuration);
+
         services.AddScoped<IDomainEventService, DomainEventService>();
         services.AddTransient<IDateTime, DateTimeService>();
         services.AddTransient<IEmailService, EmailService>();
