@@ -2,7 +2,7 @@
 using IMT.App.Application.Ports.Services;
 using IMT.App.Infrastructure.Persistence.Repositories.ImtMoneyTransfer;
 using SharedKernel.Main.Domain.IMT;
-using SharedKernel.Main.Infrastructure.Persistence.Configurations;
+using SharedKernel.Main.Infrastructure.Persistence;
 using Thunes;
 using Thunes.Exception;
 using Thunes.Request.Transaction.Transfer.CommonTransaction;
@@ -80,9 +80,9 @@ namespace IMT.App.Infrastructure.Persistence.Services.Transaction
                 SenderCustomerId = 1, // hard coded dont know where it will come from
                 ReceiverCustomerId = 1, // hard coded dont know where it will come from
                 Source = (sbyte?)0, // hard coded dont know where it will come from
-                OrderId = quotation?.invoice_id, // hard coded dont know where it will come from
-                RemoteOrderId = quotation?.invoice_id, // hard coded dont know where it will come from
-                InvoiceId = quotation?.invoice_id,
+                OrderId = quotation?.external_id, // hard coded dont know where it will come from
+                RemoteOrderId = quotation?.external_id, // hard coded dont know where it will come from
+                InvoiceId = quotation?.external_id,
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now
             };
@@ -90,7 +90,7 @@ namespace IMT.App.Infrastructure.Persistence.Services.Transaction
         public CreateTransactionResponse CreateTransactionByQuotationId(ulong quotationId, MoneyTransferDTO request)
         {
             var quotation = _thunesClient.QuotationAdapter().GetQuotationById(quotationId);
-            _imtQuotation = _quotationRepository.GetImtQuotationByInvoiceId(quotation.invoice_id);
+            _imtQuotation = _quotationRepository.GetImtQuotationByInvoiceId(quotation.external_id);
             if (request.IsValid(quotation?.transaction_type?.ToLower()))
             {
                 try
@@ -109,13 +109,13 @@ namespace IMT.App.Infrastructure.Persistence.Services.Transaction
             throw new ThunesException(422, "Not a valid request");
         }
 
-        public CreateTransactionResponse CreateTransactionByExternalId(string invoice_id, MoneyTransferDTO request)
+        public CreateTransactionResponse CreateTransactionByExternalId(int external_id, MoneyTransferDTO request)
         {
             if (request.IsValid(null))
             {
                 try
                 {
-                    return (CreateTransactionResponse)_thunesClient.GetTransactionAdapter().CreateTransactionFromQuotationExternalId(invoice_id, request);
+                    return (CreateTransactionResponse)_thunesClient.GetTransactionAdapter().CreateTransactionFromQuotationExternalId(external_id, request);
                 }
                 catch (ThunesException e)
                 {
