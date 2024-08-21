@@ -4,8 +4,8 @@ using SharedKernel.Main.Infrastructure.Services;
 
 namespace SharedKernel.Main.Infrastructure.Persistence.Repositories.Admin.Provider
 {
-    public class ProviderRepository(ApplicationDbContext dbContext)
-        : GenericRepository<Domain.Admin.Provider, ApplicationDbContext>(dbContext), IProviderRepository
+    public class ProviderRepository(Configurations.ApplicationDbContext dbContext)
+        : GenericRepository<Domain.Admin.Provider, Configurations.ApplicationDbContext>(dbContext), IProviderRepository
     {
         
     }

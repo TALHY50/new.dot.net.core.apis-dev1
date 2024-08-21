@@ -2,15 +2,15 @@
 
 using Microsoft.EntityFrameworkCore;
 
-using Notification.App.Infrastructure.Files;
-using Notification.App.Infrastructure.Persistence;
-using Notification.App.Infrastructure.Persistence.Repositories;
-using Notification.App.Infrastructure.Services;
 using Notification.Renderer;
 
 using SharedKernel.Main.Application.Common.Common.Behaviours;
 using SharedKernel.Main.Application.Common.Common.Interfaces;
 using SharedKernel.Main.Application.Common.Common.Interfaces.Repositories;
+using SharedKernel.Main.Infrastructure.Files;
+using SharedKernel.Main.Infrastructure.Persistence;
+using SharedKernel.Main.Infrastructure.Persistence.Repositories;
+using SharedKernel.Main.Infrastructure.Services;
 
 namespace Notification.App;
 

@@ -27,6 +27,10 @@
         <Folder Include="wwwroot\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\SharedKernel\src\SharedKernel.Main\SharedKernel.Main.csproj" />
+    </ItemGroup>
+
 
 
     <PropertyGroup>

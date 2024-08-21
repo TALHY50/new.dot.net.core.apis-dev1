@@ -6,14 +6,12 @@ using MediatR;
 
 using Microsoft.AspNetCore.Mvc;
 
-using Notification.App.Infrastructure.Persistence;
-using Notification.Main.Infrastructure.Persistence;
-
 using SharedKernel.Main.Application.Common.Common;
 using SharedKernel.Main.Application.Common.Common.Interfaces;
 using SharedKernel.Main.Application.Common.Common.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common.Common.Models;
 using SharedKernel.Main.Contracts.Notificaiton.Contracts;
+using SharedKernel.Main.Infrastructure.Persistence;
 
 using View.App.Services;
 
