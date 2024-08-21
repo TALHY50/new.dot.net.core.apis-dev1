@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using SharedKernel.Main.Application.Common.Common.Exceptions;
+using SharedKernel.Main.Application.Common.Exceptions;
 
 namespace SharedKernel.Main.Infrastructure.Filters;
 

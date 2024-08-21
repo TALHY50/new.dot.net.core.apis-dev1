@@ -1,4 +1,5 @@
-using SharedKernel.Main.Application.Common.Common.Interfaces;
+using SharedKernel.Main.Application.Common.Interfaces;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
 using SharedKernel.Main.Domain.Notification.ValueObjects;
 using SharedKernel.Main.Infrastructure.Sms;
 using Credential = SharedKernel.Main.Domain.Notification.Setups.Credential;

@@ -1,9 +1,8 @@
-﻿using ACL.App.Application.Common.Enums;
-using ACL.App.Application.Features.Auth.Register.Request;
+﻿using ACL.App.Application.Features.Auth.Register.Request;
 using ACL.App.Application.Features.Auth.Register.Response;
-using ACL.App.Application.Interfaces.Repositories.Auth;
-using ACL.App.Application.Interfaces.Services.Cryptography;
-using ACL.App.Application.Interfaces.Services.Token;
+using SharedKernel.Main.Application.Common.Enums;
+using SharedKernel.Main.Application.Common.Interfaces.Repositories.ACL.Auth;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
 using SharedKernel.Main.Domain.ACL.Domain.Auth;
 using Claim = SharedKernel.Main.Domain.ACL.Domain.Auth.Claim;
 

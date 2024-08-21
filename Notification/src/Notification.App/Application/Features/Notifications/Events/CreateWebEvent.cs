@@ -7,7 +7,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-using SharedKernel.Main.Application.Common.Common;
+using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Contracts.Notificaiton.Contracts;
 using SharedKernel.Main.Domain.Notification.Notifications.Events;
 using SharedKernel.Main.Domain.Notification.Setups;

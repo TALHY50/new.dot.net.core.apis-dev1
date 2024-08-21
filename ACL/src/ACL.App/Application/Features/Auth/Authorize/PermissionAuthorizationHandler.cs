@@ -1,7 +1,7 @@
 using System.Security.Claims;
-using ACL.App.Application.Common;
-using ACL.App.Application.Interfaces.Repositories.Auth;
 using Microsoft.AspNetCore.Authorization;
+using SharedKernel.Main.Application.Common;
+using SharedKernel.Main.Application.Common.Interfaces.Repositories.ACL.Auth;
 
 namespace ACL.App.Application.Features.Auth.Authorize
 {

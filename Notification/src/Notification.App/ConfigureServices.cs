@@ -4,9 +4,10 @@ using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 
-using SharedKernel.Main.Application.Common.Common.Behaviours;
-using SharedKernel.Main.Application.Common.Common.Interfaces;
-using SharedKernel.Main.Application.Common.Common.Interfaces.Repositories;
+using SharedKernel.Main.Application.Common.Behaviours;
+using SharedKernel.Main.Application.Common.Interfaces;
+using SharedKernel.Main.Application.Common.Interfaces.Notification;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
 using SharedKernel.Main.Infrastructure.Files;
 using SharedKernel.Main.Infrastructure.Persistence;
 using SharedKernel.Main.Infrastructure.Persistence.Repositories;

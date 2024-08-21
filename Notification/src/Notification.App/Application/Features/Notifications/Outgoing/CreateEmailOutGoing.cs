@@ -10,7 +10,7 @@ using Microsoft.IdentityModel.Tokens;
 
 using Newtonsoft.Json;
 
-using SharedKernel.Main.Application.Common.Common;
+using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Domain.Notification.Notifications.Outgoings;
 using SharedKernel.Main.Infrastructure.Persistence;
 using SharedKernel.Main.Services;

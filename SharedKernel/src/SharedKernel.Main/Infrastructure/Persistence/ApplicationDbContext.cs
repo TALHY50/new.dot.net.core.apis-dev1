@@ -1,7 +1,8 @@
 ﻿using System.Reflection;
 using Microsoft.EntityFrameworkCore;
-using SharedKernel.Main.Application.Common.Common;
-using SharedKernel.Main.Application.Common.Common.Interfaces;
+using SharedKernel.Main.Application.Common;
+using SharedKernel.Main.Application.Common.Interfaces;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
 using SharedKernel.Main.Domain.Notification.Notifications.Events;
 using SharedKernel.Main.Domain.Notification.Notifications.Outgoings;
 using SharedKernel.Main.Domain.Notification.Setups;

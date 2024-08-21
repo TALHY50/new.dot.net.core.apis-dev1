@@ -1,4 +1,4 @@
-﻿using SharedKernel.Main.Application.Common.Common;
+﻿using SharedKernel.Main.Application.Common;
 
 namespace SharedKernel.Main.Domain.Notification.Todos;
 

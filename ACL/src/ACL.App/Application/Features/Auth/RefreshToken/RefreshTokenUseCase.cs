@@ -1,9 +1,9 @@
-﻿using ACL.App.Application.Common.Enums;
-using ACL.App.Application.Common.Exceptions;
-using ACL.App.Application.Features.Auth.RefreshToken.Request;
+﻿using ACL.App.Application.Features.Auth.RefreshToken.Request;
 using ACL.App.Application.Features.Auth.RefreshToken.Response;
-using ACL.App.Application.Interfaces.Repositories.Auth;
-using ACL.App.Application.Interfaces.Services.Token;
+using SharedKernel.Main.Application.Common.Enums;
+using SharedKernel.Main.Application.Common.Exceptions;
+using SharedKernel.Main.Application.Common.Interfaces.Repositories.ACL.Auth;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
 
 namespace ACL.App.Application.Features.Auth.RefreshToken
 {

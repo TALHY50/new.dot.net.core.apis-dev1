@@ -1,4 +1,5 @@
-using SharedKernel.Main.Application.Common.Common.Interfaces;
+using SharedKernel.Main.Application.Common.Interfaces;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
 using SharedKernel.Main.Infrastructure.Email;
 using Credential = SharedKernel.Main.Domain.Notification.Setups.Credential;
 

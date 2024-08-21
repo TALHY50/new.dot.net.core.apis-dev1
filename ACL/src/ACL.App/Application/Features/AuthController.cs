@@ -63,7 +63,7 @@ namespace ACL.App.Application.Features
         ///// <inheritdoc/>
         //[AllowAnonymous]
         //[HttpPost]
-        //[Route("register")]
+        //[Routes("register")]
         //public async Task<RegisterResponse> Register(RegisterRequest request)
         //{
         //    return await _registerUseCase.Execute(request);

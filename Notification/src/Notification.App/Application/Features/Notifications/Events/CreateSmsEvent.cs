@@ -7,14 +7,14 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-using SharedKernel.Main.Application.Common.Common;
+using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Contracts.Notificaiton.Contracts;
 using SharedKernel.Main.Domain.Notification.Notifications.Events;
 using SharedKernel.Main.Domain.Notification.Setups;
 using SharedKernel.Main.Domain.Notification.ValueObjects;
 using SharedKernel.Main.Infrastructure.Persistence;
 
-using Result = SharedKernel.Main.Application.Common.Common.Models.Result;
+using Result = SharedKernel.Main.Application.Common.Models.Result;
 
 namespace Notification.App.Application.Features.Notifications.Events;
 

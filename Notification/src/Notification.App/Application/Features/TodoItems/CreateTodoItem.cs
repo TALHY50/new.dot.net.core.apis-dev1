@@ -4,7 +4,7 @@ using MediatR;
 
 using Microsoft.AspNetCore.Mvc;
 
-using SharedKernel.Main.Application.Common.Common;
+using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Domain.Notification.Todos;
 using SharedKernel.Main.Infrastructure.Persistence;
 

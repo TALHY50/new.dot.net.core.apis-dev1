@@ -1,8 +1,9 @@
 using System.Text;
 using System.Web;
 using Microsoft.Extensions.Logging;
-using SharedKernel.Main.Application.Common.Common.Interfaces;
-using SharedKernel.Main.Application.Common.Common.Models;
+using SharedKernel.Main.Application.Common.Interfaces;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Application.Common.Models;
 
 namespace SharedKernel.Main.Infrastructure.Sms;
 
