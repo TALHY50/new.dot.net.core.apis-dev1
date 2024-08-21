@@ -9,13 +9,14 @@ using Microsoft.EntityFrameworkCore;
 
 using Newtonsoft.Json;
 
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Domain.Notifications.Outgoings;
-using SharedKernel.Main.Infrastructure.Persistence;
+using Notification.App.Application.Common;
+using Notification.App.Domain.Notifications.Outgoings;
+using Notification.App.Infrastructure.Persistence;
+using Notification.Main.Infrastructure.Persistence;
 
 using View.App.Services;
 
-using EventId = SharedKernel.Main.Contracts.EventId;
+using EventId = Notification.App.Contracts.EventId;
 
 namespace Notification.App.Application.Features.Notifications.Outgoing;
 
