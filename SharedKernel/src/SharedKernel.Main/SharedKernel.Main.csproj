@@ -90,12 +90,10 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Application\Constants\" />
-	  <Folder Include="Application\Interfaces\" />
 	  <Folder Include="Contracts\Response\" />
 	  <Folder Include="Domain\IMT\" />
 	  <Folder Include="Infrastructure\Attributes\" />
 	  <Folder Include="Infrastructure\MiddleWares\" />
-	  <Folder Include="Infrastructure\Persistence\Configurations\" />
 	  <Folder Include="Infrastructure\Persistence\Migrations\" />
 	  <Folder Include="Infrastructure\Persistence\Repositories\Admin\Interface\Provider\" />
 	  <Folder Include="Infrastructure\Persistence\Repositories\Admin\Provider\" />
