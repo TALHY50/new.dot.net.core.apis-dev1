@@ -2,13 +2,10 @@ using Microsoft.OpenApi.Models;
 
 using Notification.App;
 
-using View.App.Services;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
-builder.Services.AddControllersWithViews();
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddCors(options => options.AddDefaultPolicy(
@@ -28,7 +25,6 @@ builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddHealthChecks();
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddTransient<View.App.Services.IRenderer, Renderer>();
 var app = builder.Build();
 
 // Enable middleware to serve generated Swagger as a JSON endpoint.
