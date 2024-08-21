@@ -44,6 +44,8 @@ namespace SharedKernel.Main.Infrastructure.Persistence.Configurations
         public virtual DbSet<TransactionType> ImtTransactionTypes { get; set; }
         public virtual DbSet<ProviderErrorDetail> ImtProviderErrorDetails { get; set; }
 
+        public DbSet<Regions> Regions => Set<Regions>();
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             try
