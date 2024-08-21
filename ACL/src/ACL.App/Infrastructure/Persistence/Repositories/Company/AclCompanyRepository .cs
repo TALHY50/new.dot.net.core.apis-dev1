@@ -1,9 +1,9 @@
-﻿using ACL.App.Contracts.Response;
-using ACL.App.Domain.Auth;
-using ACL.App.Domain.Company;
-using ACL.App.Domain.Ports.Repositories.Company;
+﻿using ACL.App.Application.Interfaces.Repositories.Company;
 using ACL.App.Infrastructure.Persistence.Configurations;
 using ACL.App.Infrastructure.Utilities;
+using SharedKernel.Main.Contracts.ACL.Contracts.Response;
+using SharedKernel.Main.Domain.ACL.Domain.Auth;
+using SharedKernel.Main.Domain.ACL.Domain.Company;
 
 namespace ACL.App.Infrastructure.Persistence.Repositories.Company
 {

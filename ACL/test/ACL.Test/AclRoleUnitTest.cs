@@ -1,11 +1,11 @@
-using ACL.App.Contracts.Requests;
-using ACL.App.Contracts.Response;
-using ACL.App.Domain.Role;
 using ACL.App.Infrastructure.Route;
 using Bogus;
 using Newtonsoft.Json;
 using RestSharp;
+using SharedKernel.Main.Contracts.ACL.Contracts.Requests;
+using SharedKernel.Main.Contracts.ACL.Contracts.Response;
 using SharedKernel.Main.Contracts.Response;
+using SharedKernel.Main.Domain.ACL.Domain.Role;
 
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
 #pragma warning disable CS8602 // Converting null literal or possible null value to non-nullable type.

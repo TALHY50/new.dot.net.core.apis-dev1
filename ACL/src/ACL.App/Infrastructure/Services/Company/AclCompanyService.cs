@@ -1,22 +1,22 @@
-﻿using ACL.App.Contracts.Requests;
-using ACL.App.Contracts.Response;
-using ACL.App.Domain.Auth;
-using ACL.App.Domain.Company;
-using ACL.App.Domain.Module;
-using ACL.App.Domain.Ports.Repositories.Auth;
-using ACL.App.Domain.Ports.Repositories.Module;
-using ACL.App.Domain.Ports.Repositories.Role;
-using ACL.App.Domain.Ports.Repositories.UserGroup;
-using ACL.App.Domain.Ports.Services.Company;
-using ACL.App.Domain.Ports.Services.Cryptography;
-using ACL.App.Domain.Ports.Services.UserGroup;
-using ACL.App.Domain.Role;
-using ACL.App.Domain.UserGroup;
+﻿using ACL.App.Application.Interfaces.Repositories.Auth;
+using ACL.App.Application.Interfaces.Repositories.Module;
+using ACL.App.Application.Interfaces.Repositories.Role;
+using ACL.App.Application.Interfaces.Repositories.UserGroup;
+using ACL.App.Application.Interfaces.Services.Company;
+using ACL.App.Application.Interfaces.Services.Cryptography;
+using ACL.App.Application.Interfaces.Services.UserGroup;
 using ACL.App.Infrastructure.Persistence.Configurations;
 using ACL.App.Infrastructure.Persistence.Repositories.Company;
 using ACL.App.Infrastructure.Utilities;
 using Microsoft.EntityFrameworkCore;
+using SharedKernel.Main.Contracts.ACL.Contracts.Requests;
+using SharedKernel.Main.Contracts.ACL.Contracts.Response;
 using SharedKernel.Main.Contracts.Response;
+using SharedKernel.Main.Domain.ACL.Domain.Auth;
+using SharedKernel.Main.Domain.ACL.Domain.Company;
+using SharedKernel.Main.Domain.ACL.Domain.Module;
+using SharedKernel.Main.Domain.ACL.Domain.Role;
+using SharedKernel.Main.Domain.ACL.Domain.UserGroup;
 
 namespace ACL.App.Infrastructure.Services.Company
 {

@@ -2,8 +2,8 @@
 using ACL.App.Application.Common.Exceptions;
 using ACL.App.Application.Features.Auth.RefreshToken.Request;
 using ACL.App.Application.Features.Auth.RefreshToken.Response;
-using ACL.App.Domain.Ports.Repositories.Auth;
-using ACL.App.Domain.Ports.Services.Token;
+using ACL.App.Application.Interfaces.Repositories.Auth;
+using ACL.App.Application.Interfaces.Services.Token;
 
 namespace ACL.App.Application.Features.Auth.RefreshToken
 {

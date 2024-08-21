@@ -2,11 +2,11 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using ACL.App.Application.Common.Exceptions;
-using ACL.App.Domain.Auth;
-using ACL.App.Domain.Ports.Services.Token;
+using ACL.App.Application.Interfaces.Services.Token;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Claim = ACL.App.Domain.Auth.Claim;
+using SharedKernel.Main.Domain.ACL.Domain.Auth;
+using Claim = SharedKernel.Main.Domain.ACL.Domain.Auth.Claim;
 
 namespace ACL.App.Infrastructure.Services.Jwt
 {

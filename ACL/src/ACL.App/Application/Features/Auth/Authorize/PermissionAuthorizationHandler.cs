@@ -1,6 +1,6 @@
 using System.Security.Claims;
 using ACL.App.Application.Common;
-using ACL.App.Domain.Ports.Repositories.Auth;
+using ACL.App.Application.Interfaces.Repositories.Auth;
 using Microsoft.AspNetCore.Authorization;
 
 namespace ACL.App.Application.Features.Auth.Authorize

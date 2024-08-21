@@ -1,8 +1,8 @@
-using ACL.App.Domain.Auth;
 using ACL.App.Infrastructure.Persistence.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Claim = ACL.App.Domain.Auth.Claim;
+using SharedKernel.Main.Domain.ACL.Domain.Auth;
+using Claim = SharedKernel.Main.Domain.ACL.Domain.Auth.Claim;
 
 //using Claim = ACL.Database.Models.Claim;
 

@@ -1,12 +1,12 @@
-﻿using ACL.App.Contracts.Requests;
-using ACL.App.Contracts.Response;
-using ACL.App.Domain.Ports.Repositories.Auth;
-using ACL.App.Domain.Ports.Services.UserGroup;
-using ACL.App.Domain.UserGroup;
+﻿using ACL.App.Application.Interfaces.Repositories.Auth;
+using ACL.App.Application.Interfaces.Services.UserGroup;
 using ACL.App.Infrastructure.Persistence.Configurations;
 using ACL.App.Infrastructure.Persistence.Repositories.UserGroup;
 using ACL.App.Infrastructure.Utilities;
+using SharedKernel.Main.Contracts.ACL.Contracts.Requests;
+using SharedKernel.Main.Contracts.ACL.Contracts.Response;
 using SharedKernel.Main.Contracts.Response;
+using SharedKernel.Main.Domain.ACL.Domain.UserGroup;
 
 namespace ACL.App.Infrastructure.Services.UserGroup
 {

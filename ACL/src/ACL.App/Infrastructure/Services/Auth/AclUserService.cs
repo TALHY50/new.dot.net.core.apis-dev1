@@ -1,15 +1,15 @@
-﻿using ACL.App.Contracts.Requests;
-using ACL.App.Contracts.Response;
-using ACL.App.Domain.Auth;
-using ACL.App.Domain.Ports.Repositories.Auth;
-using ACL.App.Domain.Ports.Services.Auth;
-using ACL.App.Domain.Ports.Services.Cryptography;
+﻿using ACL.App.Application.Interfaces.Repositories.Auth;
+using ACL.App.Application.Interfaces.Services.Auth;
+using ACL.App.Application.Interfaces.Services.Cryptography;
 using ACL.App.Infrastructure.Persistence.Configurations;
 using ACL.App.Infrastructure.Persistence.Repositories.Auth;
 using ACL.App.Infrastructure.Utilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
+using SharedKernel.Main.Contracts.ACL.Contracts.Requests;
+using SharedKernel.Main.Contracts.ACL.Contracts.Response;
 using SharedKernel.Main.Contracts.Response;
+using SharedKernel.Main.Domain.ACL.Domain.Auth;
 
 namespace ACL.App.Infrastructure.Services.Auth
 {

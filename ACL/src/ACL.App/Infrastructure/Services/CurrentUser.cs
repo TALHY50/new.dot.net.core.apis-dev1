@@ -1,5 +1,5 @@
 using ACL.App.Application.Common;
-using ACL.App.Domain.Ports.Services.Token;
+using ACL.App.Application.Interfaces.Services.Token;
 
 namespace ACL.App.Infrastructure.Services;
 

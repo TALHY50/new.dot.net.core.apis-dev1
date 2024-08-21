@@ -1,13 +1,13 @@
-﻿using ACL.App.Contracts.Requests;
-using ACL.App.Contracts.Response;
-using ACL.App.Domain.Module;
-using ACL.App.Domain.Ports.Repositories.Auth;
-using ACL.App.Domain.Ports.Repositories.Module;
-using ACL.App.Domain.Ports.Services.Module;
+﻿using ACL.App.Application.Interfaces.Repositories.Auth;
+using ACL.App.Application.Interfaces.Repositories.Module;
+using ACL.App.Application.Interfaces.Services.Module;
 using ACL.App.Infrastructure.Persistence.Configurations;
 using ACL.App.Infrastructure.Persistence.Repositories.Module;
 using ACL.App.Infrastructure.Utilities;
+using SharedKernel.Main.Contracts.ACL.Contracts.Requests;
+using SharedKernel.Main.Contracts.ACL.Contracts.Response;
 using SharedKernel.Main.Contracts.Response;
+using SharedKernel.Main.Domain.ACL.Domain.Module;
 
 namespace ACL.App.Infrastructure.Services.Module
 {

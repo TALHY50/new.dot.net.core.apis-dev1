@@ -1,7 +1,7 @@
-﻿using ACL.App.Domain.Auth;
-using ACL.App.Domain.Ports.Repositories.Auth;
+﻿using ACL.App.Application.Interfaces.Repositories.Auth;
 using ACL.App.Infrastructure.Persistence.Configurations;
 using ACL.App.Infrastructure.Utilities;
+using SharedKernel.Main.Domain.ACL.Domain.Auth;
 
 namespace ACL.App.Infrastructure.Persistence.Repositories.Auth
 {

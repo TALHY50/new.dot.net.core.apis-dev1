@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
-using ACL.App.Domain.Auth;
 using ACL.App.Infrastructure.Persistence.Configurations;
+using SharedKernel.Main.Domain.ACL.Domain.Auth;
 
 namespace ACL.App.Infrastructure.Utilities
 {

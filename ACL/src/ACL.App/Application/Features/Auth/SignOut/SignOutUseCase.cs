@@ -1,7 +1,7 @@
 ﻿using ACL.App.Application.Common.Enums;
 using ACL.App.Application.Features.Auth.SignOut.Request;
 using ACL.App.Application.Features.Auth.SignOut.Response;
-using ACL.App.Domain.Ports.Repositories.Auth;
+using ACL.App.Application.Interfaces.Repositories.Auth;
 
 namespace ACL.App.Application.Features.Auth.SignOut
 {

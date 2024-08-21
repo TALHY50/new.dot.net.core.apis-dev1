@@ -1,12 +1,12 @@
 ﻿using System.Reflection;
-using ACL.App.Domain.Auth;
-using ACL.App.Domain.Company;
-using ACL.App.Domain.Module;
-using ACL.App.Domain.Role;
-using ACL.App.Domain.UserGroup;
 using ACL.App.Infrastructure.Persistence.Migrations;
 using Microsoft.EntityFrameworkCore;
 using SharedKernel.Main.Application.Interfaces;
+using SharedKernel.Main.Domain.ACL.Domain.Auth;
+using SharedKernel.Main.Domain.ACL.Domain.Company;
+using SharedKernel.Main.Domain.ACL.Domain.Module;
+using SharedKernel.Main.Domain.ACL.Domain.Role;
+using SharedKernel.Main.Domain.ACL.Domain.UserGroup;
 
 namespace ACL.App.Infrastructure.Persistence.Configurations;
 

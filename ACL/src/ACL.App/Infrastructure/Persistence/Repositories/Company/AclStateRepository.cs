@@ -1,7 +1,7 @@
-﻿using ACL.App.Domain.Company;
-using ACL.App.Domain.Ports.Repositories.Company;
+﻿using ACL.App.Application.Interfaces.Repositories.Company;
 using ACL.App.Infrastructure.Persistence.Configurations;
 using ACL.App.Infrastructure.Utilities;
+using SharedKernel.Main.Domain.ACL.Domain.Company;
 
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8604 // Possible null reference argument.

@@ -1,11 +1,11 @@
-﻿using ACL.App.Contracts.Requests;
-using ACL.App.Contracts.Response;
-using ACL.App.Domain.Company;
-using ACL.App.Domain.Ports.Services.Company;
+﻿using ACL.App.Application.Interfaces.Services.Company;
 using ACL.App.Infrastructure.Persistence.Configurations;
 using ACL.App.Infrastructure.Persistence.Repositories.Company;
 using ACL.App.Infrastructure.Utilities;
+using SharedKernel.Main.Contracts.ACL.Contracts.Requests;
+using SharedKernel.Main.Contracts.ACL.Contracts.Response;
 using SharedKernel.Main.Contracts.Response;
+using SharedKernel.Main.Domain.ACL.Domain.Company;
 
 namespace ACL.App.Infrastructure.Services.Company
 {
