@@ -98,7 +98,6 @@
 	  <Folder Include="Infrastructure\Persistence\Repositories\Admin\Interface\Provider\" />
 	  <Folder Include="Infrastructure\Persistence\Repositories\Admin\Provider\" />
 	  <Folder Include="Infrastructure\Resources\" />
-	  <Folder Include="Infrastructure\Services\" />
 	  <Folder Include="Infrastructure\Utilities\" />
 	</ItemGroup>
 

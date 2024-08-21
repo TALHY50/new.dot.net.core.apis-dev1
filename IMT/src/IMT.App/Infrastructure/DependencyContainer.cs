@@ -9,7 +9,7 @@ using IMT.App.Infrastructure.Persistence.Repositories.Quotation;
 using IMT.App.Infrastructure.Persistence.Services.Quotation;
 using IMT.App.Infrastructure.Persistence.Services.Transaction;
 using Microsoft.EntityFrameworkCore;
-using SharedKernel.Main.Infrastructure.Persistence.Configurations;
+using SharedKernel.Main.Infrastructure.Persistence;
 
 namespace IMT.App.Infrastructure
 {
