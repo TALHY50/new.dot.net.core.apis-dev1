@@ -1,8 +1,8 @@
 using SharedKernel.Main.Application.Common.Interfaces;
-using SharedKernel.Main.Domain.ValueObjects;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Domain.Notification.ValueObjects;
 using SharedKernel.Main.Infrastructure.Sms;
-
-using Credential = SharedKernel.Main.Domain.Setups.Credential;
+using Credential = SharedKernel.Main.Domain.Notification.Setups.Credential;
 
 namespace SharedKernel.Main.Infrastructure.Services;
 

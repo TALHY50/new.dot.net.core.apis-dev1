@@ -6,15 +6,15 @@ using MediatR;
 
 using Microsoft.AspNetCore.Mvc;
 
-using Notification.App.Application.Common;
-using Notification.App.Application.Common.Interfaces;
-using Notification.App.Application.Common.Interfaces.Repositories;
-using Notification.App.Application.Common.Models;
-using Notification.App.Contracts;
-using Notification.App.Infrastructure.Persistence;
-using Notification.Main.Infrastructure.Persistence;
+using SharedKernel.Main.Application.Common;
+using SharedKernel.Main.Application.Common.Interfaces;
+using SharedKernel.Main.Application.Common.Interfaces.Notification;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Application.Common.Models;
+using SharedKernel.Main.Contracts.Notificaiton.Contracts;
+using SharedKernel.Main.Infrastructure.Persistence;
 
-using Result = Notification.App.Application.Common.Models.Result;
+using Result = SharedKernel.Main.Application.Common.Models.Result;
 
 namespace Notification.App.Application.Features.Notifications.Send;
 

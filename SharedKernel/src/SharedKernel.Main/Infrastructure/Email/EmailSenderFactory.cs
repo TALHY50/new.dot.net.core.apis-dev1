@@ -1,6 +1,8 @@
-using SharedKernel.Main.Application.Common.Interfaces;
-using SharedKernel.Main.Domain.ValueObjects;
 using Microsoft.Extensions.Logging;
+using SharedKernel.Main.Application.Common.Interfaces;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Domain.Notification.ValueObjects;
+
 namespace SharedKernel.Main.Infrastructure.Email;
 
 public class EmailSenderFactory

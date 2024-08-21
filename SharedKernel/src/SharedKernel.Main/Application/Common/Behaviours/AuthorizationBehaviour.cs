@@ -1,37 +1,36 @@
 ﻿using System.Reflection;
-
 using MediatR;
 using SharedKernel.Main.Application.Common.Interfaces;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
 using SharedKernel.Main.Application.Common.Security;
 
-namespace SharedKernel.Main.Application.Common.Behaviours
-{
-    public class AuthorizationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+namespace SharedKernel.Main.Application.Common.Behaviours;
+
+public class AuthorizationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>
+{
+    private readonly ICurrentUserService _currentUserService;
+
+    public AuthorizationBehaviour(
+        ICurrentUserService currentUserService)
     {
-        private readonly ICurrentUserService _currentUserService;
+        _currentUserService = currentUserService;
+    }
 
-        public AuthorizationBehaviour(
-            ICurrentUserService currentUserService)
+    public Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
+    {
+        var authorizeAttributes = request.GetType().GetCustomAttributes<AuthorizeAttribute>();
+
+        if (authorizeAttributes.Any())
         {
-            _currentUserService = currentUserService;
-        }
-
-        public Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
-        {
-            var authorizeAttributes = request.GetType().GetCustomAttributes<AuthorizeAttribute>();
-
-            if (authorizeAttributes.Any())
+            // Must be authenticated user
+            if (_currentUserService.UserId == null)
             {
-                // Must be authenticated user
-                if (_currentUserService.UserId == null)
-                {
-                    throw new UnauthorizedAccessException();
-                }
+                throw new UnauthorizedAccessException();
             }
-
-            // User is authorized / authorization not required
-            return next();
         }
+
+        // User is authorized / authorization not required
+        return next();
     }
 }

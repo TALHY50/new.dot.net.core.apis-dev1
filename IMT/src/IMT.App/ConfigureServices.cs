@@ -5,7 +5,7 @@ using IMT.App.Infrastructure.Persistence.Services.Quotation;
 using IMT.App.Infrastructure.Persistence.Services.SendMoney;
 using IMT.App.Infrastructure.Persistence.Services.Transaction;
 using Microsoft.EntityFrameworkCore;
-using SharedKernel.Main.Infrastructure.Persistence;
+using SharedKernel.Main.Infrastructure.Persistence.Configurations;
 
 namespace IMT.App;
 

@@ -71,7 +71,6 @@
   
   <ItemGroup>
 	<ProjectReference Include="..\..\..\SharedKernel\src\SharedKernel.Main\SharedKernel.Main.csproj" />
-	<ProjectReference Include="..\View.App\View.App.csproj" />
   </ItemGroup>
 
 </Project>

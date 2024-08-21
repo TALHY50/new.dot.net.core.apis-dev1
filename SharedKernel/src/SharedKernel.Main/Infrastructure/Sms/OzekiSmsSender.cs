@@ -1,9 +1,10 @@
 using System.Text;
 using System.Web;
-
-using SharedKernel.Main.Application.Common.Interfaces;
-using SharedKernel.Main.Application.Common.Models;
 using Microsoft.Extensions.Logging;
+using SharedKernel.Main.Application.Common.Interfaces;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Application.Common.Models;
+
 namespace SharedKernel.Main.Infrastructure.Sms;
 
 public class OzekiSmsSender(ILogger<OzekiSmsSender> _logger, SmsProviderConfiguration _provider) : ISmsSender

@@ -2,7 +2,7 @@
 using IMT.App.Application.Ports.Services;
 using IMT.App.Infrastructure.Persistence.Repositories.ConfirmTransaction;
 using SharedKernel.Main.Domain.IMT;
-using SharedKernel.Main.Infrastructure.Persistence;
+using SharedKernel.Main.Infrastructure.Persistence.Configurations;
 using Thunes;
 using Thunes.Exception;
 using Thunes.Request.ConfirmTrasaction;

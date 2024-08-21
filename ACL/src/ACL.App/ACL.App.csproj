@@ -74,12 +74,6 @@
     <EmbeddedResource Update="Resources\en-US.resx">
       <CustomToolNamespace>en-US</CustomToolNamespace>
     </EmbeddedResource>
-    <EmbeddedResource Update="Infrastructure\Resources\bn-BD.resx">
-      <CustomToolNamespace>bn-BD</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Infrastructure\Resources\en-US.resx">
-      <CustomToolNamespace>en-US</CustomToolNamespace>
-    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>

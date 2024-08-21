@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
-using SharedKernel.Main.Domain.Setups;
+using SharedKernel.Main.Domain.Notification.Setups;
 
 namespace SharedKernel.Main.Infrastructure.Persistence.Configurations
 {
@@ -13,52 +12,52 @@ namespace SharedKernel.Main.Infrastructure.Persistence.Configurations
 
             builder.HasKey(l => l.Id);
 
-            builder.Property(l => l.Id)
-                .ValueGeneratedOnAdd()
-                .HasColumnType("bigint(20) unsigned");
+            RelationalPropertyBuilderExtensions
+                .HasColumnType<long>(builder.Property(l => l.Id)
+                    .ValueGeneratedOnAdd(), "bigint(20) unsigned");
 
-            builder.Property(l => l.Name)
-                .IsRequired()
-                .HasMaxLength(50)
-                .HasColumnType("varchar(50)");
+            RelationalPropertyBuilderExtensions
+                .HasColumnType<string>(builder.Property(l => l.Name)
+                    .IsRequired()
+                    .HasMaxLength(50), "varchar(50)");
 
-            builder.Property(l => l.Content)
-                .IsRequired()
-                .HasColumnType("text")
+            RelationalPropertyBuilderExtensions
+                .HasColumnType<string>(builder.Property(l => l.Content)
+                    .IsRequired(), "text")
                 .HasComment("content must contain a variable name {{$template}} . one and only once");
 
-            builder.Property(l => l.FilePath)
-                .IsRequired()
-                .HasMaxLength(255)
-                .HasDefaultValue(string.Empty)
+            RelationalPropertyBuilderExtensions
+                .HasDefaultValue<string>(builder.Property(l => l.FilePath)
+                    .IsRequired()
+                    .HasMaxLength(255), string.Empty)
                 .HasColumnType("varchar(255)");
 
-            builder.Property(l => l.IsDefault)
-                .IsRequired()
-                .HasDefaultValue(0)
+            RelationalPropertyBuilderExtensions
+                .HasDefaultValue<bool>(builder.Property(l => l.IsDefault)
+                    .IsRequired(), 0)
                 .HasColumnType("tinyint(1)");
 
-            builder.Property(l => l.CreatedById)
-                .IsRequired()
-                .HasDefaultValue(0)
+            RelationalPropertyBuilderExtensions
+                .HasDefaultValue<int>(builder.Property(l => l.CreatedById)
+                    .IsRequired(), 0)
                 .HasColumnType("int(11)")
                 .HasComment("The person who created the layout");
 
-            builder.Property(l => l.UpdatedById)
-                .IsRequired()
-                .HasDefaultValue(0)
+            RelationalPropertyBuilderExtensions
+                .HasDefaultValue<int>(builder.Property(l => l.UpdatedById)
+                    .IsRequired(), 0)
                 .HasColumnType("int(11)")
                 .HasComment("The person who updated the layout");
 
-            builder.Property(l => l.CreatedAt)
-                .HasColumnType("datetime");
+            RelationalPropertyBuilderExtensions
+                .HasColumnType<DateTime?>(builder.Property(l => l.CreatedAt), "datetime");
 
-            builder.Property(l => l.UpdatedAt)
-                .HasColumnType("datetime");
+            RelationalPropertyBuilderExtensions
+                .HasColumnType<DateTime?>(builder.Property(l => l.UpdatedAt), "datetime");
 
-            builder.Property(l => l.CompanyId)
-                .IsRequired()
-                .HasColumnType("bigint(20)");
+            RelationalPropertyBuilderExtensions
+                .HasColumnType<long>(builder.Property(l => l.CompanyId)
+                    .IsRequired(), "bigint(20)");
         }
     }
 }
