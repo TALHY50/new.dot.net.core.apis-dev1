@@ -1,4 +1,6 @@
-﻿namespace Thunes.Response.Transfer.Transaction
+﻿using Newtonsoft.Json;
+
+namespace Thunes.Response.Transfer.Transaction
 {
     public class ConfirmTransactionResponse
     {
@@ -12,6 +14,14 @@
         public string document_reference_number { get; set; }
         public DateTime expiration_date { get; set; }
         public object? external_code { get; set; }
+        [JsonProperty("invoice_id")]
+        public string invoice_id
+        {
+            get { return external_id; }
+            set { external_id = value; }
+        }
+
+        //[JsonIgnore]
         public string external_id { get; set; }
         public FeeConfirm fee { get; set; }
         public int id { get; set; }

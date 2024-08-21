@@ -24,9 +24,9 @@ namespace Thunes.Adapter.Transfers.Quotations
                 CreateHeaders(url, RequestOptions));
         }
 
-        public CreateContentQuotationResponse GetQuotationByExternalId(ulong external_id)
+        public CreateContentQuotationResponse GetQuotationByExternalId(string invoice_id)
         {
-            string url = ThunesUrl.RetrieveQuotationByExternalIdUrl.Replace("{external_id}", external_id.ToString());
+            string url = ThunesUrl.RetrieveQuotationByExternalIdUrl.Replace("{invoice_id}", invoice_id);
             return RestClient.Get<CreateContentQuotationResponse>(RequestOptions.BaseUrl + url,
                 CreateHeaders(url, RequestOptions));
         }

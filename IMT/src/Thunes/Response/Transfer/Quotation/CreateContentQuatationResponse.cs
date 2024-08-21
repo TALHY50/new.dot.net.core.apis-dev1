@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using Destination = Thunes.Response.Common.Destination;
 using Fee = Thunes.Response.Common.Fee;
 using Payer = Thunes.Response.Common.Payer;
@@ -9,6 +10,14 @@ namespace Thunes.Response.Transfer.Quotation
     public class CreateContentQuotationResponse
     {
         public ulong id { get; set; }
+        [JsonProperty("invoice_id")]
+        public string invoice_id
+        {
+            get { return external_id; }
+            set { external_id = value; }
+        }
+
+        //[JsonIgnore]
         public string external_id { get; set; }
         public Payer payer { get; set; }
         public string mode { get; set; }

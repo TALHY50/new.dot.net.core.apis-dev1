@@ -47,6 +47,6 @@ app.MapControllers();
 
 app.Run();
 
-namespace IMT.App
-{
-}
+//namespace IMT.App
+//{
+//}

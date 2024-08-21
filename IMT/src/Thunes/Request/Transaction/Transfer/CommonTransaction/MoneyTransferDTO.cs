@@ -5,7 +5,15 @@ namespace Thunes.Request.Transaction.Transfer.CommonTransaction
 {
     public class MoneyTransferDTO
     {
-        public string external_id { get; set; }
+        public string invoice_id { get; set; }
+
+        public string external_id
+        {
+            get
+            {
+                return invoice_id;
+            }
+        }
         public CreditPartyIdentifier? credit_party_identifier { get; set; }
         public Beneficiary? beneficiary { get; set; }
         public SendingBusiness? sending_business { get; set; }
