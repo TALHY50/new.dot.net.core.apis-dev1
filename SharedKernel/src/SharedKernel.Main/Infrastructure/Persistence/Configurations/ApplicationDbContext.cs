@@ -11,7 +11,7 @@ namespace SharedKernel.Main.Infrastructure.Persistence.Configurations
 
         public virtual DbSet<City> ImtCities { get; set; }
 
-        public virtual DbSet<Country> ImtCountries { get; set; }
+        //public virtual DbSet<Country> ImtCountries { get; set; }
 
         public virtual DbSet<Currency> ImtCurrencies { get; set; }
 
@@ -43,6 +43,8 @@ namespace SharedKernel.Main.Infrastructure.Persistence.Configurations
 
         public virtual DbSet<TransactionType> ImtTransactionTypes { get; set; }
         public virtual DbSet<ProviderErrorDetail> ImtProviderErrorDetails { get; set; }
+
+        public DbSet<Country> Country => Set<Country>();
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
