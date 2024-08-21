@@ -14,7 +14,7 @@ using SharedKernel.Main.Domain.Setups;
 using SharedKernel.Main.Domain.ValueObjects;
 using SharedKernel.Main.Infrastructure.Persistence;
 
-namespace SharedKernel.Main.Application.Features.Notifications.Events;
+namespace Notification.App.Application.Features.Notifications.Events;
 
 public class CreateEmailEventController : ApiControllerBase
 {
@@ -49,7 +49,7 @@ internal sealed class CreateEmailEventCommandHandler(ApplicationDbContext contex
     public async Task<ErrorOr<Event>> Handle(CreateEmailEventCommand request, CancellationToken cancellationToken)
     {
         var now = DateTime.UtcNow;
-        var @event = new Domain.Notifications.Events.Event
+        var @event = new SharedKernel.Main.Domain.Notifications.Events.Event
         {
             Category = request.CategoricalData.Category,
             Name = request.CategoricalData.Name,
