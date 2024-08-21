@@ -7,10 +7,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Routing;
+using SharedKernel.Main.Views.Texts;
 
-using View.App.Views.Texts;
-
-namespace View.App.Services;
+namespace SharedKernel.Main.Services;
 
 // Code from: https://github.com/aspnet/Entropy/blob/master/samples/Mvc.RenderViewToString/View.App.cs
 public class Renderer : IRenderer

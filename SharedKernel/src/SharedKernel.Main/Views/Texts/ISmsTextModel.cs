@@ -1,4 +1,4 @@
-namespace View.App.Views.Texts;
+namespace SharedKernel.Main.Views.Texts;
 
 public interface ISmsTextModel
 {

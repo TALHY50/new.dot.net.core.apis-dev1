@@ -19,11 +19,8 @@
   
   <ItemGroup>
     <Compile Remove="Externals\**" />
-    <Compile Remove="Views\**" />
     <EmbeddedResource Remove="Externals\**" />
-    <EmbeddedResource Remove="Views\**" />
     <None Remove="Externals\**" />
-    <None Remove="Views\**" />
     <EmbeddedResource Update="src\Infrastructure\Resources\bn-BD.resx">
       <CustomToolNamespace>bn-BD</CustomToolNamespace>
       <SubType>Designer</SubType>

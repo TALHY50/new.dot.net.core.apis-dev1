@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
 
-namespace Notification.App;
+namespace SharedKernel.Main;
 
 public class ErrorController : ControllerBase
 {

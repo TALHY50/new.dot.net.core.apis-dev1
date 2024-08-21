@@ -12,8 +12,7 @@ using SharedKernel.Main.Application.Common.Common.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common.Common.Models;
 using SharedKernel.Main.Contracts.Notificaiton.Contracts;
 using SharedKernel.Main.Infrastructure.Persistence;
-
-using View.App.Services;
+using SharedKernel.Main.Services;
 
 using Result = SharedKernel.Main.Application.Common.Common.Models.Result;
 

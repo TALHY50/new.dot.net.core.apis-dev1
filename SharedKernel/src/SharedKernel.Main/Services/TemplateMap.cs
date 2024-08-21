@@ -1,7 +1,7 @@
-using View.App.Views.Emails.Welcome;
-using View.App.Views.Texts.Welcome;
+using SharedKernel.Main.Views.Emails.Welcome;
+using SharedKernel.Main.Views.Texts.Welcome;
 
-namespace View.App.Services;
+namespace SharedKernel.Main.Services;
 
 public class TemplateMap
 {

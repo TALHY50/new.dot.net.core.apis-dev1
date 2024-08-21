@@ -13,8 +13,7 @@ using SharedKernel.Main.Application.Common.Common;
 using SharedKernel.Main.Application.Common.Common.Models;
 using SharedKernel.Main.Domain.Notification.Notifications.Outgoings;
 using SharedKernel.Main.Infrastructure.Persistence;
-
-using View.App.Services;
+using SharedKernel.Main.Services;
 
 using EventId = SharedKernel.Main.Contracts.Notificaiton.Contracts.EventId;
 

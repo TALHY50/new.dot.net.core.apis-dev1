@@ -1,4 +1,4 @@
-namespace View.App.Services;
+namespace SharedKernel.Main.Services;
 
 public interface IRenderer
 {

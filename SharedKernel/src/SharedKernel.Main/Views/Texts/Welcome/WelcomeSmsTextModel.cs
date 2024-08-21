@@ -1,5 +1,5 @@
 #nullable disable
-namespace View.App.Views.Texts.Welcome;
+namespace SharedKernel.Main.Views.Texts.Welcome;
 
 public class WelcomeSmsTextModel : ISmsTextModel
 {
