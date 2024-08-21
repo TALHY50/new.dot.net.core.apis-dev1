@@ -4,7 +4,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using SharedKernel.Main.Infrastructure.Persistence.Configurations;
+using SharedKernel.Main.Infrastructure.Persistence;
 
 namespace SharedKernel.App.Infrastructure.Persistence.Migrations
 {
