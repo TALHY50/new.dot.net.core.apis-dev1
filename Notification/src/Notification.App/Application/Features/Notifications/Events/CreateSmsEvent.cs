@@ -7,14 +7,14 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-using Notification.App.Application.Common;
-using Notification.App.Contracts;
-using Notification.App.Domain.Notifications.Events;
-using Notification.App.Domain.Setups;
-using Notification.App.Domain.ValueObjects;
-using Notification.App.Infrastructure.Persistence;
+using SharedKernel.Main.Application.Common;
+using SharedKernel.Main.Contracts;
+using SharedKernel.Main.Domain.Notifications.Events;
+using SharedKernel.Main.Domain.Setups;
+using SharedKernel.Main.Domain.ValueObjects;
+using SharedKernel.Main.Infrastructure.Persistence;
 
-using Result = Notification.App.Application.Common.Models.Result;
+using Result = SharedKernel.Main.Application.Common.Models.Result;
 
 namespace Notification.App.Application.Features.Notifications.Events;
 
@@ -51,7 +51,7 @@ internal sealed class CreateSmsEventCommandHandler(ApplicationDbContext context)
     public async Task<ErrorOr<Event>> Handle(CreateSmsEventCommand request, CancellationToken cancellationToken)
     {
         var now = DateTime.UtcNow;
-        var @event = new Domain.Notifications.Events.Event
+        var @event = new SharedKernel.Main.Domain.Notifications.Events.Event
         {
             Category = request.CategoricalData.Category,
             Name = request.CategoricalData.Name,
