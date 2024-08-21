@@ -33,11 +33,11 @@ namespace IMT.App.Application.Features
         }
         [Tags("Thunes.Transaction")]
         [HttpPost(ThunesUrl.CreateTransactionFromQuotationExternalIdUrl)]
-        public Object CreateTransactionFromQuotationExternalIdPost(int external_id, MoneyTransferDTO request)
+        public Object CreateTransactionFromQuotationExternalIdPost(string invoice_id, MoneyTransferDTO request)
         {
             try
             {
-                return _transactionService.CreateTransactionByExternalId(external_id, request);
+                return _transactionService.CreateTransactionByExternalId(invoice_id, request);
             }
             catch (ThunesException e)
             {
