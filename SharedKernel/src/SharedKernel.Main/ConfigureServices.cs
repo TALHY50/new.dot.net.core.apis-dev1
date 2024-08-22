@@ -1,0 +1,101 @@
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
+using SharedKernel.Main.Application.Common.Behaviours;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Application.Interfaces.Repositories.Notification;
+using SharedKernel.Main.Infrastructure.Files;
+using SharedKernel.Main.Infrastructure.Persistence.Notification.Context;
+using SharedKernel.Main.Infrastructure.Persistence.Notification.Repositories;
+using SharedKernel.Main.Infrastructure.Services;
+
+namespace SharedKernel.Main;
+
+public static class DependencyInjection
+{
+    public static IServiceCollection AddApplication(this IServiceCollection services)
+    {
+        services.AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly);
+
+        services.AddMediatR(options =>
+        {
+            options.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly);
+
+            options.AddOpenBehavior(typeof(AuthorizationBehaviour<,>));
+            options.AddOpenBehavior(typeof(ValidationBehaviour<,>));
+            options.AddOpenBehavior(typeof(PerformanceBehaviour<,>));
+            options.AddOpenBehavior(typeof(UnhandledExceptionBehaviour<,>));
+        });
+
+        return services;
+    }
+
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddPersistence(configuration);
+
+        services.AddRazorEngine(configuration);
+
+        services.AddScoped<IDomainEventService, DomainEventService>();
+        services.AddTransient<IDateTime, DateTimeService>();
+        services.AddTransient<IEmailService, EmailService>();
+        services.AddTransient<ISmsService, SmsService>();
+        services.AddTransient<IWebService, WebService>();
+        services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();
+        services.AddSingleton<ICurrentUserService, CurrentUserService>();
+
+        return services;
+    }
+
+    public static IServiceCollection AddRazorEngine(this IServiceCollection services, IConfiguration configuration)
+    {
+        var fileProvider = new EmbeddedFileProvider(typeof(Renderer).Assembly);
+        services.Configure<MvcRazorRuntimeCompilationOptions>(options =>
+        {
+            options.FileProviders.Clear();
+            options.FileProviders.Add(fileProvider);
+        });
+        services.AddMvcCore().AddRazorViewEngine();
+        /*services.Configure<Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions>(o =>
+        {
+            o.ViewLocationFormats.Add("/Views/{0}" + Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine.ViewExtension);
+
+            // o.FileProviders.Add(new Microsoft.Extensions.FileProviders.PhysicalFileProvider(AppContext.BaseDirectory));
+        });*/
+
+        // services.AddRazorPages();
+        services.AddTransient<IRenderer, Renderer>();
+
+        return services;
+    }
+
+    private static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
+    {
+        if (configuration.GetValue<bool>("UseInMemoryDatabase"))
+        {
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseInMemoryDatabase("VerticalSliceDb"));
+        }
+        else
+        {
+            var c = configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseMySql(
+                    configuration.GetConnectionString("DefaultConnection"),
+                    ServerVersion.AutoDetect(configuration.GetConnectionString("DefaultConnection")),
+                    b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+        }
+
+        services.AddScoped<IAppEventDataRepository, AppEventDataRepository>();
+        services.AddScoped<IEventRepository, EventRepository>();
+        services.AddScoped<IEmailOutgoingRepository, EmailOutgoingRepository>();
+        services.AddScoped<ISmsOutgoingRepository, SmsOutgoingRepository>();
+        services.AddScoped<IWebOutgoingRepository, WebOutgoingRepository>();
+        services.AddScoped<ICredentialRepository, CredentialRepository>();
+
+        return services;
+    }
+}

@@ -1,8 +1,9 @@
-using MimeKit;
-
-using SharedKernel.Main.Application.Common.Interfaces;
-using SharedKernel.Main.Application.Common.Models;
 using Microsoft.Extensions.Logging;
+using MimeKit;
+using SharedKernel.Main.Application.Common.Interfaces;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Application.Common.Models;
+
 namespace SharedKernel.Main.Infrastructure.Email;
 
 public class SmtpEmailSender : IEmailSender

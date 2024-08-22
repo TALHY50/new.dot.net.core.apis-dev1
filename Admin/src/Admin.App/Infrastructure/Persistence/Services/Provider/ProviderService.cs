@@ -4,7 +4,7 @@ using ADMIN.Application.Contracts.Response;
 using ADMIN.Application.Domain.Provider;
 using ADMIN.Application.Infrastructure.Persistence.Configurations;
 using ADMIN.Application.Infrastructure.Persistence.Repositories.Provider;
-using SharedKernel.Main.Contracts.Response;
+using SharedKernel.Main.Contracts.Common;
 
 //using SharedKernel.Models.Admin.Provider;
 //using SharedKernel.Persistence.Configurations;

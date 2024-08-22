@@ -1,9 +1,8 @@
 ﻿using System.Globalization;
-
 using CsvHelper;
-using SharedKernel.Main.Infrastructure.Files;
 using SharedKernel.Main.Application.Common.Interfaces;
-using SharedKernel.Main.Domain.Todos;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Domain.Notification.Todos;
 
 namespace SharedKernel.Main.Infrastructure.Files;
 
@@ -16,7 +15,7 @@ public class CsvFileBuilder : ICsvFileBuilder
         {
             using var csvWriter = new CsvWriter(streamWriter, CultureInfo.InvariantCulture);
 
-           // csvWriter.Configuration.RegisterClassMap<TodoItemRecordMap>();
+            csvWriter.Context.RegisterClassMap<TodoItemRecordMap>();
             csvWriter.WriteRecords(records);
         }
 

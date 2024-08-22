@@ -1,9 +1,9 @@
-﻿using IMT.App.Application.Ports.Repositories;
-using IMT.App.Application.Ports.Services;
+﻿using IMT.App.Application.Ports.Services;
 using IMT.App.Contracts.Requests;
 using IMT.App.Infrastructure.Persistence.Repositories.Quotation;
-using SharedKernel.Main.Domain.IMT;
-using SharedKernel.Main.Infrastructure.Persistence;
+using SharedKernel.Main.Application.Interfaces.Repositories.IMT.Repositories;
+using SharedKernel.Main.Domain.IMT.Entities;
+using SharedKernel.Main.Infrastructure.Persistence.Notification.Configurations;
 using Thunes;
 using Thunes.Exception;
 using Thunes.Request.Common;
@@ -22,7 +22,7 @@ namespace IMT.App.Infrastructure.Persistence.Services.Quotation
         public IImtCountryRepository _countryRepository;
         public IImtCurrencyRepository _currencyRepository;
         public IImtProviderErrorDetailsRepository _errorRepository;
-        public SharedKernel.Main.Domain.IMT.Quotation Quotation = null;
+        public SharedKernel.Main.Domain.IMT.Entities.Quotation Quotation = null;
 
         public ImtQuotationService(ApplicationDbContext dbContext) : base(dbContext)
         {
@@ -91,9 +91,9 @@ namespace IMT.App.Infrastructure.Persistence.Services.Quotation
             }
         }
 
-        public SharedKernel.Main.Domain.IMT.Quotation PrepareImtQuotation(QuotationRequest request)
+        public SharedKernel.Main.Domain.IMT.Entities.Quotation PrepareImtQuotation(QuotationRequest request)
         {
-            return new SharedKernel.Main.Domain.IMT.Quotation
+            return new SharedKernel.Main.Domain.IMT.Entities.Quotation
             {
                 OrderId = request.invoice_id,
                 PayerId = request.payer_id,
@@ -136,9 +136,9 @@ namespace IMT.App.Infrastructure.Persistence.Services.Quotation
         {
             return _thunesClient.QuotationAdapter().GetQuotationById(id);
         }
-        public CreateContentQuotationResponse GetQuotationByExternalId(ulong external_id)
+        public CreateContentQuotationResponse GetQuotationByExternalId(string invoice_id)
         {
-            return _thunesClient.QuotationAdapter().GetQuotationByExternalId(external_id);
+            return _thunesClient.QuotationAdapter().GetQuotationByExternalId(invoice_id);
         }
         public CreateContentQuotationResponse CreateQuotationCombined(QuotationRequest quotationRequest)
         {

@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using SharedKernel.Main.Application.Common.Interfaces;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
 
 namespace SharedKernel.Main.Infrastructure.Services;
 

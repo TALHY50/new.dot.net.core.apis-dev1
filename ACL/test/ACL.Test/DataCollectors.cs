@@ -1,11 +1,12 @@
 using System.Runtime.Caching;
-using ACL.App.Application.Features.Auth.Login.Request;
-using ACL.App.Application.Features.Auth.Login.Response;
-using ACL.App.Infrastructure.Persistence.Configurations;
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using RestSharp;
+using SharedKernel.Main.Contracts.ACL.Request;
+using SharedKernel.Main.Contracts.ACL.Response;
+using SharedKernel.Main.Infrastructure.Persistence.ACL.Configurations;
+using SharedKernel.Main.Infrastructure.Persistence.ACL.Context;
 
 namespace ACL.TEST
 {
@@ -17,7 +18,7 @@ namespace ACL.TEST
     {
         public static string baseUrl = Env.GetString("APP_URL");
         private static string connectionString;
-        public static ApplicationDbContext dbContext;
+        public static AclApplicationDbContext dbContext;
         public static string Authorization;
         static MemoryCache _cache = new MemoryCache("cache");
         public static void SetDatabase(bool isLocalDb = false)
@@ -33,14 +34,14 @@ namespace ACL.TEST
 
             connectionString = $"server={server};database={database};User ID={userName};Password={password};" ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseMySQL(connectionString).Options;
+            var options = new DbContextOptionsBuilder<AclApplicationDbContext>().UseMySQL(connectionString).Options;
 
             if (isLocalDb)
             {
-                options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(databaseName: "acl").Options;
+                options = new DbContextOptionsBuilder<AclApplicationDbContext>().UseInMemoryDatabase(databaseName: "acl").Options;
             }
 
-            dbContext = new ApplicationDbContext(options);
+            dbContext = new AclApplicationDbContext(options);
             //unitOfWork = new CustomUnitOfWork(dbContext);
             //dbContext = dbContext;
 
