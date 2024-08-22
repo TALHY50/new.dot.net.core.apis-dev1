@@ -1,11 +1,9 @@
-using ADMIN.Application.Application.Ports.Services.Interfaces.Provider;
-using ADMIN.Application.Infrastructure.Persistence.Configurations;
-using ADMIN.Application.Infrastructure.Persistence.Services.Provider;
 using DotNetEnv;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SharedKernel.Main.Infrastructure.Persistence;
 
 //using SharedKernel.Persistence.Configurations;
 
@@ -42,7 +40,7 @@ namespace ADMIN.Application
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             // dependency start
-            builder.Services.AddTransient<IProviderService, ProviderService>();
+            //builder.Services.AddTransient<IProviderService, ProviderService>();
             // dependency end
 
             var app = builder.Build();

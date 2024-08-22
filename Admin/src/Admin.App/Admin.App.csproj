@@ -106,4 +106,10 @@
 	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
 	  </Content>
 	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Application\Features\" />
+	  <Folder Include="Contracts\" />
+	  <Folder Include="Domain\" />
+	  <Folder Include="Infrastructure\" />
+	</ItemGroup>
 </Project>
