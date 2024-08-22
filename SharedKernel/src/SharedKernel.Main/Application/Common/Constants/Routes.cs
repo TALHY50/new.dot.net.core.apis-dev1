@@ -1,4 +1,4 @@
-﻿namespace ACL.App.Routes
+﻿namespace SharedKernel.Main.Application.Common.Constants
 {
     public class AclRoutesUrl
     {
@@ -296,4 +296,13 @@
   
 
     }
+
+    public class Routes
+    {
+        public const string CreateEmailEventRouteName = "create-email-event";
+        public const string CreateEmailEventRoute = "/api/notification/event/email/create";
+
+    }
+    
+    
 }
