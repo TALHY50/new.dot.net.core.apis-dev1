@@ -136,6 +136,8 @@
 
 	<ItemGroup>
 		<Folder Include="Application\Common\Security\" />
+		<Folder Include="Contracts\IMT\Requests\" />
+		<Folder Include="Domain\IMT\Services\" />
 		<Folder Include="Infrastructure\Persistence\ACL\Seeds\" />
 		<Folder Include="wwwroot\" />
 	</ItemGroup>

@@ -1,6 +1,6 @@
-using IMT.App.Application.Ports.Repositories;
 using IMT.App.Application.Ports.Services;
 using IMT.App.Contracts.Requests;
+using SharedKernel.Main.Application.Interfaces.Repositories.IMT.Repositories;
 using Thunes.Exception;
 using Thunes.Request.ConfirmTrasaction;
 using Thunes.Request.Transaction.Transfer.CommonTransaction;
