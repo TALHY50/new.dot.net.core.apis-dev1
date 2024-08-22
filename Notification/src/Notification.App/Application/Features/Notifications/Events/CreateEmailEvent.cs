@@ -4,10 +4,12 @@ using FluentValidation;
 
 using MediatR;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 using SharedKernel.Main.Application.Common;
+using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Contracts.Notificaiton;
 using SharedKernel.Main.Domain.Notification.Notifications.Events;
 using SharedKernel.Main.Domain.Notification.Setups;
@@ -19,7 +21,8 @@ namespace Notification.App.Application.Features.Notifications.Events;
 
 public class CreateEmailEventController : ApiControllerBase
 {
-    [HttpPost("/api/notification/event/email/create")]
+    [Authorize(Policy = "HasPermission")]
+    [HttpPost(Routes.CreateEmailEventRoute, Name = Routes.CreateEmailEventRouteName)]
     public async Task<ActionResult<ErrorOr<Event>>> Create(CreateEmailEventCommand command)
     {
         return await Mediator.Send(command).ConfigureAwait(false);

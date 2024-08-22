@@ -1,6 +1,6 @@
-﻿using ACL.App.Routes;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Contracts.ACL.Requests;
 using SharedKernel.Main.Contracts.ACL.Response;
 using SharedKernel.Main.Domain.ACL.Services.Company;
@@ -20,7 +20,7 @@ namespace ACL.App.Application.Features
             this.AclBranchService = aclBranchService;
         }
         /// <inheritdoc/>
-        //[Authorize(Policy = "HasPermission")]
+        [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclBranchRouteUrl.List, Name = AclRoutesName.AclBranchRouteNames.List)]
         public AclResponse Index()
         {

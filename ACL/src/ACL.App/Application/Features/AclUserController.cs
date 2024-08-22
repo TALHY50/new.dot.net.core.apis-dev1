@@ -1,6 +1,6 @@
-﻿using ACL.App.Routes;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Contracts.ACL.Requests;
 using SharedKernel.Main.Contracts.ACL.Response;
 using SharedKernel.Main.Domain.ACL.Services.Auth;
@@ -8,7 +8,6 @@ using SharedKernel.Main.Domain.ACL.Services.Auth;
 namespace ACL.App.Application.Features
 {
     /// <inheritdoc/>
-    [Authorize]
     [Tags("User")]
     [ApiController]
     public class AclUserController : ControllerBase
@@ -27,7 +26,7 @@ namespace ACL.App.Application.Features
             return this.AclUserService.GetAll();
         }
         /// <inheritdoc/>
-        [Authorize(Policy = "HasPermission")]
+       // [Authorize(Policy = "HasPermission")]
         [HttpPost(AclRoutesUrl.AclUserRouteUrl.Add, Name = AclRoutesName.AclUserRouteNames.Add)]
         public async Task<AclResponse> Create(AclUserRequest request)
         {

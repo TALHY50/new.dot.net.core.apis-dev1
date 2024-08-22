@@ -4,6 +4,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
+using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
 using SharedKernel.Main.Application.Interfaces.Repositories.IMT.Services;
 using SharedKernel.Main.Domain.IMT.Entities;
@@ -16,7 +17,7 @@ namespace ADMIN.App.Features
     {
 
         //[Authorize(Policy = "HasPermission")]
-        //[HttpPost(Routes.CreateBusinessHourAndWeekendUrl, Name = Routes.CreateBusinessHourAndWeekendName)]
+        [HttpPost(AdminRoute.CreateMttsRouteUrl, Name = AdminRoute.CreateMttsRouteName)]
         public async Task<ActionResult<ErrorOr<Mtt>>> Create(CreateMttCommand command)
         {
             return await Mediator.Send(command).ConfigureAwait(false);
@@ -42,7 +43,20 @@ namespace ADMIN.App.Features
                 var entity = new Mtt
                 {
                 };
-                return await repository.AddAsync(entity);
+                if (request.Id > 0)
+                {
+                    entity = repository.GetById(request.Id);
+                    if (entity != null)
+                    {
+                        entity.PayerId = request.PayerId;
+                        return await repository.UpdateAsync(entity);
+                    }
+                }
+                else
+                {
+                     return await repository.AddAsync(entity);
+                }
+                 return await repository.AddAsync(entity);
             }
         }
     }
