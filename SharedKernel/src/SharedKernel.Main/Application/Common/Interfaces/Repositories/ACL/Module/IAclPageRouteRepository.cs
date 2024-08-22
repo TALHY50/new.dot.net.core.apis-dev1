@@ -1,4 +1,4 @@
-﻿using SharedKernel.Main.Contracts.ACL.Contracts.Requests;
+﻿using SharedKernel.Main.Contracts.ACL.Requests;
 using SharedKernel.Main.Domain.ACL.Domain.Module;
 
 namespace SharedKernel.Main.Application.Common.Interfaces.Repositories.ACL.Module

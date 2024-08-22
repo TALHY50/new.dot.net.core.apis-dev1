@@ -10,9 +10,9 @@ using SharedKernel.Main.Application.Common.Interfaces.Notification;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
 using SharedKernel.Main.Infrastructure.Files;
 using SharedKernel.Main.Infrastructure.Persistence;
-using SharedKernel.Main.Infrastructure.Persistence.Repositories;
+using SharedKernel.Main.Infrastructure.Persistence.Notification.Context;
+using SharedKernel.Main.Infrastructure.Persistence.Notification.Repositories;
 using SharedKernel.Main.Infrastructure.Services;
-using SharedKernel.Main.Services;
 
 namespace Notification.App;
 
@@ -54,7 +54,7 @@ public static class DependencyInjection
 
     public static IServiceCollection AddRazorEngine(this IServiceCollection services, IConfiguration configuration)
     {
-        var fileProvider = new EmbeddedFileProvider(typeof(SharedKernel.Main.Services.Renderer).Assembly);
+        var fileProvider = new EmbeddedFileProvider(typeof(Renderer).Assembly);
         services.Configure<MvcRazorRuntimeCompilationOptions>(options =>
         {
             options.FileProviders.Clear();
@@ -69,7 +69,7 @@ public static class DependencyInjection
         });*/
 
         // services.AddRazorPages();
-        services.AddTransient<IRenderer, SharedKernel.Main.Services.Renderer>();
+        services.AddTransient<IRenderer, Renderer>();
 
         return services;
     }

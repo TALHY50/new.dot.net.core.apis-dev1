@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using SharedKernel.Main.Application.Common.Interfaces.Repositories.ACL.Auth;
 using SharedKernel.Main.Application.Common.Interfaces.Repositories.ACL.UserGroup;
-using SharedKernel.Main.Contracts.ACL.Contracts.Requests;
+using SharedKernel.Main.Contracts.ACL.Requests;
 using SharedKernel.Main.Domain.ACL.Domain.UserGroup;
 using SharedKernel.Main.Infrastructure.Auth;
 using SharedKernel.Main.Infrastructure.Persistence.ACL.Configurations;
+using SharedKernel.Main.Infrastructure.Persistence.ACL.Context;
 
 namespace SharedKernel.Main.Infrastructure.Persistence.ACL.Repositories.UserGroup
 {

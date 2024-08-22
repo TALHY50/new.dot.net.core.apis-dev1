@@ -6,6 +6,7 @@ using SharedKernel.Main.Domain.ACL.Domain.Module;
 using SharedKernel.Main.Domain.ACL.Domain.Role;
 using SharedKernel.Main.Infrastructure.Auth;
 using SharedKernel.Main.Infrastructure.Persistence.ACL.Configurations;
+using SharedKernel.Main.Infrastructure.Persistence.ACL.Context;
 
 namespace SharedKernel.Main.Infrastructure.Persistence.ACL.Repositories.Role
 {

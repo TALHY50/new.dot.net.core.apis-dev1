@@ -1,10 +1,11 @@
 ﻿using IMT.App.Application.Ports.Repositories;
-using SharedKernel.Main.Infrastructure.Persistence.Configurations;
+using SharedKernel.Main.Domain.IMT.Entities;
+using SharedKernel.Main.Infrastructure.Persistence.Notification.Configurations;
 using SharedKernel.Main.Infrastructure.Services;
 
 namespace IMT.App.Infrastructure.Persistence.Repositories.ImtCountry
 {
-    public class ImtCountryRepository(ApplicationDbContext dbContext) : GenericRepository<SharedKernel.Main.Domain.IMT.Country, ApplicationDbContext>(dbContext), IImtCountryRepository
+    public class ImtCountryRepository(ApplicationDbContext dbContext) : GenericRepository<Country, ApplicationDbContext>(dbContext), IImtCountryRepository
     {
         public string? GetCountryIsoCodeByCountryId(int imtSourceCountryId)
         {
