@@ -1,0 +1,21 @@
+﻿using SharedKernel.Main.Application.Common.Interfaces.Repositories.ACL.Auth;
+using SharedKernel.Main.Contracts.ACL.Contracts.Requests;
+using SharedKernel.Main.Contracts.ACL.Contracts.Response;
+
+namespace SharedKernel.Main.Domain.ACL.Services.Auth
+{
+    public interface IAclUserService : IAclUserRepository
+    {
+        /// <inheritdoc/>
+        AclResponse GetAll();
+        /// <inheritdoc/>
+        Task<AclResponse> AddUser(AclUserRequest request);
+        /// <inheritdoc/>
+        Task<AclResponse> Edit(ulong id, AclUserRequest request);
+        /// <inheritdoc/>
+        AclResponse FindById(ulong id);
+          /// <inheritdoc/>
+        AclResponse DeleteById(ulong id);
+        /// <inheritdoc/>
+    }
+}

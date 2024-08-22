@@ -6,6 +6,6 @@
         public string Password { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
-        public IList<Domain.Auth.Claim> Claims { get; set; }
+        public IList<SharedKernel.Main.Domain.ACL.Domain.Auth.Claim> Claims { get; set; }
     }
 }

@@ -1,7 +1,5 @@
 ﻿using FluentValidation;
-
 using MediatR;
-
 using ValidationException = SharedKernel.Main.Application.Common.Exceptions.ValidationException;
 
 namespace SharedKernel.Main.Application.Common.Behaviours;

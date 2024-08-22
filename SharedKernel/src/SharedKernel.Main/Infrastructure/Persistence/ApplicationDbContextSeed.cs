@@ -1,5 +1,5 @@
-﻿using SharedKernel.Main.Domain.Todos;
-using SharedKernel.Main.Domain.ValueObjects;
+﻿using SharedKernel.Main.Domain.Notification.Todos;
+using SharedKernel.Main.Domain.Notification.ValueObjects;
 
 namespace SharedKernel.Main.Infrastructure.Persistence;
 
@@ -8,7 +8,7 @@ public static class ApplicationDbContextSeed
     public static async Task SeedSampleDataAsync(ApplicationDbContext context)
     {
         // Seed, if necessary
-        if (!context.TodoLists.Any())
+        if (!Queryable.Any<TodoList>(context.TodoLists))
         {
             context.TodoLists.Add(new TodoList
             {

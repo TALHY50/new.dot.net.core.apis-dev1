@@ -1,4 +1,4 @@
-using SharedKernel.Main.Domain.ValueObjects;
+using SharedKernel.Main.Domain.Notification.ValueObjects;
 
 namespace SharedKernel.Main.Infrastructure.Email;
 

@@ -1,6 +1,8 @@
-using SharedKernel.Main.Application.Common.Interfaces;
-using SharedKernel.Main.Application.Common.Models;
 using Microsoft.Extensions.Logging;
+using SharedKernel.Main.Application.Common.Interfaces;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Application.Common.Models;
+
 namespace SharedKernel.Main.Infrastructure.Email;
 
 public class FakeEmailSender(ILogger<FakeEmailSender> _logger) : IEmailSender

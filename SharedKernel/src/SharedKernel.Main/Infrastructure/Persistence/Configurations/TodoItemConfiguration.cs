@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
-using SharedKernel.Main.Domain.Todos;
+using SharedKernel.Main.Domain.Notification.Todos;
 
 namespace SharedKernel.Main.Infrastructure.Persistence.Configurations;
 

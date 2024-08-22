@@ -1,10 +1,9 @@
-﻿using ACL.App.Application.Common.Enums;
-using ACL.App.Application.Features.Auth.Login.Request;
+﻿using ACL.App.Application.Features.Auth.Login.Request;
 using ACL.App.Application.Features.Auth.Login.Response;
-using ACL.App.Domain.Auth;
-using ACL.App.Domain.Ports.Repositories.Auth;
-using ACL.App.Domain.Ports.Services.Cryptography;
-using ACL.App.Domain.Ports.Services.Token;
+using SharedKernel.Main.Application.Common.Enums;
+using SharedKernel.Main.Application.Common.Interfaces.Repositories.ACL.Auth;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Domain.ACL.Domain.Auth;
 
 namespace ACL.App.Application.Features.Auth.Login
 {
@@ -46,7 +45,7 @@ namespace ACL.App.Application.Features.Auth.Login
 
                 if (AreCredentialsValid(request.Password, user))
                 {
-                    user.RefreshToken = new Domain.Auth.RefreshToken
+                    user.RefreshToken = new SharedKernel.Main.Domain.ACL.Domain.Auth.RefreshToken
                     {
                         Value = await this._authTokenService.GenerateRefreshToken(),
                         Active = true,

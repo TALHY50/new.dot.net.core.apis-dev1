@@ -1,9 +1,10 @@
 ﻿using MediatR;
-
+using Microsoft.Extensions.Logging;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Interfaces;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
 using SharedKernel.Main.Application.Common.Models;
-using Microsoft.Extensions.Logging;
+
 namespace SharedKernel.Main.Infrastructure.Services;
 
 public class DomainEventService : IDomainEventService

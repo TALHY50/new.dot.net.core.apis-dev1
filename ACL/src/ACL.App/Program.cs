@@ -4,30 +4,6 @@ using ACL.App.Application.Features.Auth.Login;
 using ACL.App.Application.Features.Auth.RefreshToken;
 using ACL.App.Application.Features.Auth.Register;
 using ACL.App.Application.Features.Auth.SignOut;
-using ACL.App.Domain.Ports.Repositories.Auth;
-using ACL.App.Domain.Ports.Repositories.Company;
-using ACL.App.Domain.Ports.Repositories.Module;
-using ACL.App.Domain.Ports.Repositories.Role;
-using ACL.App.Domain.Ports.Repositories.UserGroup;
-using ACL.App.Domain.Ports.Services.Auth;
-using ACL.App.Domain.Ports.Services.Company;
-using ACL.App.Domain.Ports.Services.Cryptography;
-using ACL.App.Domain.Ports.Services.Module;
-using ACL.App.Domain.Ports.Services.Token;
-using ACL.App.Domain.Ports.Services.UserGroup;
-using ACL.App.Infrastructure.Persistence.Configurations;
-using ACL.App.Infrastructure.Persistence.Migrations;
-using ACL.App.Infrastructure.Persistence.Repositories.Auth;
-using ACL.App.Infrastructure.Persistence.Repositories.Company;
-using ACL.App.Infrastructure.Persistence.Repositories.Module;
-using ACL.App.Infrastructure.Persistence.Repositories.Role;
-using ACL.App.Infrastructure.Persistence.Repositories.UserGroup;
-using ACL.App.Infrastructure.Services.Auth;
-using ACL.App.Infrastructure.Services.Company;
-using ACL.App.Infrastructure.Services.Cryptography;
-using ACL.App.Infrastructure.Services.Jwt;
-using ACL.App.Infrastructure.Services.Module;
-using ACL.App.Infrastructure.Services.UserGroup;
 using DotNetEnv;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -38,9 +14,27 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using Serilog.Events;
+using SharedKernel.Main.Application.Common.Interfaces.Repositories.ACL.Auth;
+using SharedKernel.Main.Application.Common.Interfaces.Repositories.ACL.Company;
+using SharedKernel.Main.Application.Common.Interfaces.Repositories.ACL.Module;
+using SharedKernel.Main.Application.Common.Interfaces.Repositories.ACL.Role;
+using SharedKernel.Main.Application.Common.Interfaces.Repositories.ACL.UserGroup;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
 using SharedKernel.Main.Application.Interfaces;
 using SharedKernel.Main.Contracts.Response;
+using SharedKernel.Main.Domain.ACL.Services.Auth;
+using SharedKernel.Main.Domain.ACL.Services.Company;
+using SharedKernel.Main.Domain.ACL.Services.Module;
+using SharedKernel.Main.Domain.ACL.Services.UserGroup;
+using SharedKernel.Main.Infrastructure.Cryptography;
+using SharedKernel.Main.Infrastructure.Jwt;
 using SharedKernel.Main.Infrastructure.MiddleWares;
+using SharedKernel.Main.Infrastructure.Persistence.ACL.Configurations;
+using SharedKernel.Main.Infrastructure.Persistence.ACL.Repositories.Auth;
+using SharedKernel.Main.Infrastructure.Persistence.ACL.Repositories.Company;
+using SharedKernel.Main.Infrastructure.Persistence.ACL.Repositories.Module;
+using SharedKernel.Main.Infrastructure.Persistence.ACL.Repositories.Role;
+using SharedKernel.Main.Infrastructure.Persistence.ACL.Repositories.UserGroup;
 using SharedKernel.Main.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -121,20 +115,20 @@ var port = Env.GetString("DB_PORT");
 
 var connectionString = $"server={server};database={database};User ID={userName};Password={password};CharSet=utf8mb4;" ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
-//builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//builder.Services.AddDbContext<AclApplicationDbContext>(options =>
 //    options.UseMySQL(connectionString, options =>
 //    {
 //        options.EnableRetryOnFailure();
 //    }));
 
 #if UNIT_TEST
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
+builder.Services.AddDbContext<AclApplicationDbContext>(options =>
     options.UseInMemoryDatabase("acl").ConfigureWarnings(warnings =>
     {
         warnings.Ignore(InMemoryEventId.TransactionIgnoredWarning);
     }));
 #else
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
+builder.Services.AddDbContext<AclApplicationDbContext>(options =>
     options.UseMySQL(connectionString, options =>
     {
         options.EnableRetryOnFailure();
@@ -195,7 +189,7 @@ IConfiguration configuration = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json")
     .Build();
 //builder.Services.AddScoped<ICustomUnitOfWork, CustomUnitOfWork>();
-//builder.Services.AddScoped<IUnitOfWork<ApplicationDbContext, ICustomUnitOfWork>, UnitOfWork<ApplicationDbContext, ICustomUnitOfWork>>();
+//builder.Services.AddScoped<IUnitOfWork<AclApplicationDbContext, ICustomUnitOfWork>, UnitOfWork<AclApplicationDbContext, ICustomUnitOfWork>>();
 builder.Services.AddSingleton(configuration);
 builder.Services.AddScoped<ICacheService, CacheService>();
 builder.Services.AddLogging(loggingBuilder =>
@@ -294,7 +288,7 @@ app.UseAuthentication();
 //using (var serviceScope = app.Services.CreateScope())
 //{
 //    var services = serviceScope.ServiceProvider;
-//    var dbContext = services.GetRequiredService<ApplicationDbContext>();
+//    var dbContext = services.GetRequiredService<AclApplicationDbContext>();
 
 //    // Ensure the database is created
 //    dbContext.Database.EnsureCreated();
