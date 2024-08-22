@@ -1,4 +1,4 @@
-using SharedKernel.Main.Contracts.Response;
+using SharedKernel.Main.Contracts.ACL;
 
 namespace ADMIN.Application.Contracts.Response
 {

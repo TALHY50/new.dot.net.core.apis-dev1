@@ -1,8 +1,8 @@
 ﻿using ACL.App.Routes;
 using Microsoft.AspNetCore.Mvc;
-using SharedKernel.Main.Application.Common.Interfaces.Repositories.ACL.Auth;
-using SharedKernel.Main.Contracts.ACL.Contracts.Requests;
-using SharedKernel.Main.Contracts.ACL.Contracts.Response;
+using SharedKernel.Main.Application.Interfaces.Repositories.ACL.Auth;
+using SharedKernel.Main.Contracts.ACL.Requests;
+using SharedKernel.Main.Contracts.ACL.Response;
 
 namespace ACL.App.Application.Features
 {

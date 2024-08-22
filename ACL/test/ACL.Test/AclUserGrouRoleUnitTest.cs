@@ -1,9 +1,9 @@
 using ACL.App.Routes;
 using Newtonsoft.Json;
 using RestSharp;
-using SharedKernel.Main.Contracts.ACL.Contracts.Requests;
-using SharedKernel.Main.Contracts.ACL.Contracts.Response;
-using SharedKernel.Main.Contracts.Response;
+using SharedKernel.Main.Contracts.ACL.Requests;
+using SharedKernel.Main.Contracts.ACL.Response;
+using SharedKernel.Main.Contracts.Common;
 using SharedKernel.Main.Domain.ACL.Domain.UserGroup;
 
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.

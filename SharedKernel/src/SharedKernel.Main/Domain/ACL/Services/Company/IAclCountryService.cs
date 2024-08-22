@@ -1,6 +1,6 @@
-﻿using SharedKernel.Main.Application.Common.Interfaces.Repositories.ACL.Company;
-using SharedKernel.Main.Contracts.ACL.Contracts.Requests;
-using SharedKernel.Main.Contracts.ACL.Contracts.Response;
+﻿using SharedKernel.Main.Application.Interfaces.Repositories.ACL.Company;
+using SharedKernel.Main.Contracts.ACL.Requests;
+using SharedKernel.Main.Contracts.ACL.Response;
 
 namespace SharedKernel.Main.Domain.ACL.Services.Company
 {

@@ -1,8 +1,8 @@
 ﻿using IMT.App.Application.Ports.Repositories;
 using IMT.App.Application.Ports.Services;
 using IMT.App.Infrastructure.Persistence.Repositories.ConfirmTransaction;
-using SharedKernel.Main.Domain.IMT;
-using SharedKernel.Main.Infrastructure.Persistence.Configurations;
+using SharedKernel.Main.Domain.IMT.Entities;
+using SharedKernel.Main.Infrastructure.Persistence.Notification.Configurations;
 using Thunes;
 using Thunes.Exception;
 using Thunes.Request.ConfirmTrasaction;
@@ -19,7 +19,7 @@ namespace IMT.App.Infrastructure.Persistence.Services.ConfirmTransactionService
         public readonly ThunesClient _thunesClient = new("f1c4a4d9-2899-4f09-b9f5-c35f09df5ffd", "bed820bd-264b-4d0f-8148-9f56e0a8b55c", "https://api-mt.pre.thunes.com");
         private readonly IImtMoneyTransferService _moneyTransferService;
         private MoneyTransfer moneyTransferObj;
-        private SharedKernel.Main.Domain.IMT.Transaction _transaction;
+        private SharedKernel.Main.Domain.IMT.Entities.Transaction _transaction;
         private ConfirmTransactionResponse confirmTransactionResponse;
         public IImtTransactionRepository _transactionRepository;
         private enum TransactionStates { PENDING = 1, CONFIRMED = 2, FAILED = 3 };
@@ -86,9 +86,9 @@ namespace IMT.App.Infrastructure.Persistence.Services.ConfirmTransactionService
             }
         }
 
-        public SharedKernel.Main.Domain.IMT.Transaction PrepareTransaction(MoneyTransfer moneyTransferObj)
+        public SharedKernel.Main.Domain.IMT.Entities.Transaction PrepareTransaction(MoneyTransfer moneyTransferObj)
         {
-            var transaction = new SharedKernel.Main.Domain.IMT.Transaction
+            var transaction = new SharedKernel.Main.Domain.IMT.Entities.Transaction
             {
                 PaymentId = moneyTransferObj.PaymentId,
                 TransactionStateId = moneyTransferObj.TransactionStateId,

@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Infrastructure.Persistence;
+using SharedKernel.Main.Infrastructure.Persistence.Notification.Context;
 
 namespace Notification.App.Application.Features.Notifications;
 

@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
-using SharedKernel.Main.Application.Common.Interfaces.Repositories.ACL.Auth;
-using SharedKernel.Main.Application.Common.Interfaces.Repositories.ACL.Module;
+using SharedKernel.Main.Application.Interfaces.Repositories.ACL.Auth;
+using SharedKernel.Main.Application.Interfaces.Repositories.ACL.Module;
 using SharedKernel.Main.Domain.ACL.Domain.Module;
 using SharedKernel.Main.Infrastructure.Auth;
 using SharedKernel.Main.Infrastructure.Persistence.ACL.Configurations;
+using SharedKernel.Main.Infrastructure.Persistence.ACL.Context;
 
 namespace SharedKernel.Main.Infrastructure.Persistence.ACL.Repositories.Module
 {

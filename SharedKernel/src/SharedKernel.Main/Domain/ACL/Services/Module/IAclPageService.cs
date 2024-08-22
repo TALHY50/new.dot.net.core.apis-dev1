@@ -1,6 +1,6 @@
-﻿using SharedKernel.Main.Application.Common.Interfaces.Repositories.ACL.Module;
-using SharedKernel.Main.Contracts.ACL.Contracts.Requests;
-using SharedKernel.Main.Contracts.ACL.Contracts.Response;
+﻿using SharedKernel.Main.Application.Interfaces.Repositories.ACL.Module;
+using SharedKernel.Main.Contracts.ACL.Requests;
+using SharedKernel.Main.Contracts.ACL.Response;
 using SharedKernel.Main.Domain.ACL.Domain.Module;
 
 namespace SharedKernel.Main.Domain.ACL.Services.Module

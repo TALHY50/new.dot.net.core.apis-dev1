@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
-using SharedKernel.Main.Contracts.ACL.Contracts.Requests;
-using SharedKernel.Main.Contracts.ACL.Contracts.Response;
-using SharedKernel.Main.Contracts.Response;
+using SharedKernel.Main.Contracts.ACL.Requests;
+using SharedKernel.Main.Contracts.ACL.Response;
+using SharedKernel.Main.Contracts.Common;
 using SharedKernel.Main.Domain.ACL.Domain.Company;
 using SharedKernel.Main.Infrastructure.Auth;
 using SharedKernel.Main.Infrastructure.Persistence.ACL.Configurations;
+using SharedKernel.Main.Infrastructure.Persistence.ACL.Context;
 using SharedKernel.Main.Infrastructure.Persistence.ACL.Repositories.Company;
 
 #pragma warning disable CS8602 // Dereference of a possibly null reference.

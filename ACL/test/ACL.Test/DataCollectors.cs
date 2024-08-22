@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using RestSharp;
 using SharedKernel.Main.Infrastructure.Persistence.ACL.Configurations;
+using SharedKernel.Main.Infrastructure.Persistence.ACL.Context;
 
 namespace ACL.TEST
 {

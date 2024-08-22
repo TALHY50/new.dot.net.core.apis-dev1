@@ -1,6 +1,6 @@
-﻿using SharedKernel.Main.Application.Common.Interfaces.Repositories.ACL.UserGroup;
-using SharedKernel.Main.Contracts.ACL.Contracts.Requests;
-using SharedKernel.Main.Contracts.ACL.Contracts.Response;
+﻿using SharedKernel.Main.Application.Interfaces.Repositories.ACL.UserGroup;
+using SharedKernel.Main.Contracts.ACL.Requests;
+using SharedKernel.Main.Contracts.ACL.Response;
 using SharedKernel.Main.Domain.ACL.Domain.UserGroup;
 
 namespace SharedKernel.Main.Domain.ACL.Services.UserGroup
