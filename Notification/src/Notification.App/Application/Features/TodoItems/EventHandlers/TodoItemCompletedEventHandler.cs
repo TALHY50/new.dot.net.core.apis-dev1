@@ -1,7 +1,7 @@
 ﻿using MediatR;
 
 using SharedKernel.Main.Application.Common.Models;
-using SharedKernel.Main.Domain.Todos;
+using SharedKernel.Main.Domain.Notification.Todos;
 
 namespace Notification.App.Application.Features.TodoItems.EventHandlers;
 

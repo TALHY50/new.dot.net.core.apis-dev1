@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SharedKernel.Main.Application.Common.Exceptions;
+﻿namespace SharedKernel.Main.Application.Common.Exceptions;
 
 public class ForbiddenAccessException : Exception
 {
@@ -21,4 +15,3 @@ public class ForbiddenAccessException : Exception
     {
     }
 }
-

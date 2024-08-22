@@ -1,7 +1,8 @@
 ﻿using MediatR.Pipeline;
-
-using SharedKernel.Main.Application.Common.Interfaces;
 using Microsoft.Extensions.Logging;
+using SharedKernel.Main.Application.Common.Interfaces;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
+
 namespace SharedKernel.Main.Application.Common.Behaviours;
 
 public class LoggingBehaviour<TRequest> : IRequestPreProcessor<TRequest>

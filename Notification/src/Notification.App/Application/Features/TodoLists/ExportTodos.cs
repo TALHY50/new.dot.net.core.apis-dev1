@@ -5,7 +5,8 @@ using Microsoft.EntityFrameworkCore;
 
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Interfaces;
-using SharedKernel.Main.Domain.Todos;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Domain.Notification.Todos;
 using SharedKernel.Main.Infrastructure.Persistence;
 
 namespace Notification.App.Application.Features.TodoLists;

@@ -8,10 +8,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Contracts;
-using SharedKernel.Main.Domain.Notifications.Events;
-using SharedKernel.Main.Domain.Setups;
-using SharedKernel.Main.Domain.ValueObjects;
+using SharedKernel.Main.Contracts.Notificaiton.Contracts;
+using SharedKernel.Main.Domain.Notification.Notifications.Events;
+using SharedKernel.Main.Domain.Notification.Setups;
+using SharedKernel.Main.Domain.Notification.ValueObjects;
 using SharedKernel.Main.Infrastructure.Persistence;
 
 namespace Notification.App.Application.Features.Notifications.Events;
@@ -49,7 +49,7 @@ internal sealed class CreateEmailEventCommandHandler(ApplicationDbContext contex
     public async Task<ErrorOr<Event>> Handle(CreateEmailEventCommand request, CancellationToken cancellationToken)
     {
         var now = DateTime.UtcNow;
-        var @event = new SharedKernel.Main.Domain.Notifications.Events.Event
+        var @event = new Event
         {
             Category = request.CategoricalData.Category,
             Name = request.CategoricalData.Name,

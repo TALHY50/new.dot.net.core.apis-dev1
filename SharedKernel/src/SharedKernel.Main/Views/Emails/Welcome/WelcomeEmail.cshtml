@@ -1,0 +1,26 @@
+﻿@using SharedKernel.Main.Views.Shared
+@model SharedKernel.Main.Views.Emails.Welcome.WelcomeEmailViewModel
+
+@{
+    ViewData["EmailTitle"] = "Welcome!";
+}
+
+<p>
+    We're excited to have you get started. Click for fun of facts!
+</p>
+
+<br />
+
+@await Html.PartialAsync("EmailButton", new EmailButtonViewModel("Fun Fact!", Model.Link))
+
+<br />
+
+<p>
+    If you have any questions, just reply to this email—we're always happy to help out.
+</p>
+
+<br />
+
+<p>
+    The SoftRobotics Team
+</p>

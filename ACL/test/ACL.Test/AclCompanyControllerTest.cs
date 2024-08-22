@@ -15,11 +15,11 @@
 //        #region arrange
 
 //        // Arrange
-//        var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+//        var options = new DbContextOptionsBuilder<AclApplicationDbContext>()
 //            .UseInMemoryDatabase(databaseName: "acl")
 //            .Options;
 
-//        using (var dbContext = new ApplicationDbContext(options))
+//        using (var dbContext = new AclApplicationDbContext(options))
 //        {
 //            // Populate the in-memory database with test data
 //            dbContext.AclCompanies.AddRange(new List<AclCompany>
@@ -29,7 +29,7 @@
 //            dbContext.SaveChanges();
 //        }
 //        #endregion
-//        using (var dbContext = new ApplicationDbContext(options))
+//        using (var dbContext = new AclApplicationDbContext(options))
 //        {
 //            // Use a genuine instance of UnitOfWork
 //            var unitOfWork = new CustomUnitOfWork(dbContext);
