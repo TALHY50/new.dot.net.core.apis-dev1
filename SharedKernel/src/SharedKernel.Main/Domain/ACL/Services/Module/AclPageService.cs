@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
-using SharedKernel.Main.Application.Common.Interfaces.Repositories.ACL.Auth;
-using SharedKernel.Main.Application.Common.Interfaces.Repositories.ACL.Module;
+using SharedKernel.Main.Application.Interfaces.Repositories.ACL.Auth;
+using SharedKernel.Main.Application.Interfaces.Repositories.ACL.Module;
 using SharedKernel.Main.Contracts.ACL.Requests;
 using SharedKernel.Main.Contracts.ACL.Response;
 using SharedKernel.Main.Contracts.Common;

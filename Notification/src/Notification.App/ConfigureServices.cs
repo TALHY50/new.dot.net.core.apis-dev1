@@ -6,8 +6,8 @@ using Microsoft.Extensions.FileProviders;
 
 using SharedKernel.Main.Application.Common.Behaviours;
 using SharedKernel.Main.Application.Common.Interfaces;
-using SharedKernel.Main.Application.Common.Interfaces.Notification;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Application.Interfaces.Repositories.Notification;
 using SharedKernel.Main.Infrastructure.Files;
 using SharedKernel.Main.Infrastructure.Persistence;
 using SharedKernel.Main.Infrastructure.Persistence.Notification.Context;

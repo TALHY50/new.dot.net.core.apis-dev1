@@ -1,4 +1,4 @@
-﻿using SharedKernel.Main.Application.Common.Interfaces.Repositories.ACL.UserGroup;
+﻿using SharedKernel.Main.Application.Interfaces.Repositories.ACL.UserGroup;
 using SharedKernel.Main.Contracts.ACL.Requests;
 using SharedKernel.Main.Contracts.ACL.Response;
 using SharedKernel.Main.Domain.ACL.Domain.UserGroup;

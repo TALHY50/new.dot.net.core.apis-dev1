@@ -1,4 +1,4 @@
-﻿using SharedKernel.Main.Application.Common.Interfaces.Repositories.ACL.Company;
+﻿using SharedKernel.Main.Application.Interfaces.Repositories.ACL.Company;
 using SharedKernel.Main.Contracts.ACL.Requests;
 using SharedKernel.Main.Contracts.ACL.Response;
 

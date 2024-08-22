@@ -1,4 +1,5 @@
 ﻿using ADMIN.Application.Domain.Provider;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
 using SharedKernel.Main.Application.Interfaces;
 
 namespace ADMIN.Application.Application.Ports.Repositories.Provider

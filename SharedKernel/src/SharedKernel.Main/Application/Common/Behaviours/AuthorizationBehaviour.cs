@@ -2,7 +2,7 @@
 using MediatR;
 using SharedKernel.Main.Application.Common.Interfaces;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
-using SharedKernel.Main.Application.Common.Security;
+using SharedKernel.Main.Infrastructure.Security;
 
 namespace SharedKernel.Main.Application.Common.Behaviours;
 

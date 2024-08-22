@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using SharedKernel.Main.Application.Common.Interfaces.Repositories.ACL.Auth;
-using SharedKernel.Main.Application.Common.Interfaces.Repositories.ACL.Module;
-using SharedKernel.Main.Application.Common.Interfaces.Repositories.ACL.Role;
-using SharedKernel.Main.Application.Common.Interfaces.Repositories.ACL.UserGroup;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Application.Interfaces.Repositories.ACL.Auth;
+using SharedKernel.Main.Application.Interfaces.Repositories.ACL.Module;
+using SharedKernel.Main.Application.Interfaces.Repositories.ACL.Role;
+using SharedKernel.Main.Application.Interfaces.Repositories.ACL.UserGroup;
 using SharedKernel.Main.Contracts.ACL.Requests;
 using SharedKernel.Main.Contracts.ACL.Response;
 using SharedKernel.Main.Contracts.Common;

@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using SharedKernel.Main.Application.Common.Interfaces.Notification;
+using SharedKernel.Main.Application.Interfaces.Repositories.Notification;
 using SharedKernel.Main.Domain.Notification.Notifications.Outgoings;
 using SharedKernel.Main.Infrastructure.Persistence.Notification.Context;
 

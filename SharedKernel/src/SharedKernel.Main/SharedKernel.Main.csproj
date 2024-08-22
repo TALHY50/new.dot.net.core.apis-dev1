@@ -135,6 +135,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Folder Include="Application\Common\Security\" />
 		<Folder Include="Infrastructure\Persistence\ACL\Seeds\" />
 		<Folder Include="wwwroot\" />
 	</ItemGroup>
@@ -145,17 +146,14 @@
 	</PropertyGroup>
 	
 	<ItemGroup>
-	  <Folder Include="Application\Constants\" />
-	  <Folder Include="Application\Interfaces\" />
-	  <Folder Include="Contracts\Response\" />
 	  <Folder Include="Infrastructure\Attributes\" />
 	  <Folder Include="Infrastructure\MiddleWares\" />
 	  <Folder Include="Infrastructure\Resources\" />
 	</ItemGroup>
 	
 	<ItemGroup>
-	  <AdditionalFiles Include="Application\Common\Resources\Resources\bn-BD.resx" />
-	  <AdditionalFiles Include="Application\Common\Resources\Resources\en-US.resx" />
+	  <AdditionalFiles Include="Application\Common\Resources\bn-BD.resx" />
+	  <AdditionalFiles Include="Application\Common\Resources\en-US.resx" />
 	</ItemGroup>
 	
 	
