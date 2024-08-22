@@ -1,4 +1,7 @@
-﻿namespace SharedKernel.Main.Domain.IMT.Entities;
+﻿using System;
+using System.Collections.Generic;
+
+namespace SharedKernel.Main.Domain.IMT.Entities;
 
 public partial class Currency
 {
@@ -16,6 +19,9 @@ public partial class Currency
 
     public int? UpdatedById { get; set; }
 
+    /// <summary>
+    /// 1=active, 0=inactive,2=soft-delete 
+    /// </summary>
     public sbyte? Status { get; set; }
 
     public DateTime? CreatedAt { get; set; }

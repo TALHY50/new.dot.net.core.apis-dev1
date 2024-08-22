@@ -1,4 +1,7 @@
-﻿namespace SharedKernel.Main.Domain.IMT.Entities;
+﻿using System;
+using System.Collections.Generic;
+
+namespace SharedKernel.Main.Domain.IMT.Entities;
 
 public partial class ProviderService
 {
@@ -6,9 +9,6 @@ public partial class ProviderService
 
     public int ImtProviderId { get; set; }
 
-    /// <summary>
-    /// BankAccount, WalletTransfer etc
-    /// </summary>
     public string? Name { get; set; }
 
     public int? CreatedById { get; set; }

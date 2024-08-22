@@ -1,4 +1,7 @@
-﻿namespace SharedKernel.Main.Domain.IMT.Entities;
+﻿using System;
+using System.Collections.Generic;
+
+namespace SharedKernel.Main.Domain.IMT.Entities;
 
 public partial class Reason
 {
@@ -11,7 +14,7 @@ public partial class Reason
     public string? Description { get; set; }
 
     /// <summary>
-    /// default value 0 means &quot;Others&quot;
+    /// 0 = inactive, 1=active, 2=soft=deleted
     /// </summary>
     public sbyte? Status { get; set; }
 

@@ -1,8 +1,8 @@
-﻿namespace SharedKernel.Main.Domain.IMT.Entities;
+﻿using System;
+using System.Collections.Generic;
 
-/// <summary>
-/// transaction_type = 1,2,3; 1= send money, 2=receive money etc.transaction_id is sender table id.money_flow = 1/2; 1= incoming and 2 = outgoing, event_type = send money request, send money approved, send money rejected etc.
-/// </summary>
+namespace SharedKernel.Main.Domain.IMT.Entities;
+
 public partial class Transaction
 {
     public int Id { get; set; }
@@ -16,12 +16,17 @@ public partial class Transaction
     public int? TransactionId { get; set; }
 
     /// <summary>
-    /// transaction_type = 1 for send, 2 for receive
+    /// 1= send money, 2=receive money 
     /// </summary>
     public sbyte? TransactionType { get; set; }
 
     /// <summary>
-    /// 1 for incoming, 2 for outgoing
+    /// For refund, it would be corresponding sale id
+    /// </summary>
+    public int TransactionReferenceId { get; set; }
+
+    /// <summary>
+    /// 1= incoming and 2 = outgoing
     /// </summary>
     public sbyte? MoneyFlow { get; set; }
 
@@ -38,7 +43,7 @@ public partial class Transaction
     public decimal? PreviousBalance { get; set; }
 
     /// <summary>
-    /// send money request, send money approved, etc
+    /// 0=pending, 1=approved, 2=reject
     /// </summary>
     public sbyte? Status { get; set; }
 
