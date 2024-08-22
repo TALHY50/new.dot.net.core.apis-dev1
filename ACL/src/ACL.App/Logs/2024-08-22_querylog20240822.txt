@@ -54,3 +54,4 @@ LIMIT 1
 [Response Body] {"message":"UserDoesNotExist","code":"106"}
 
 2024-08-22 11:19:55.153 +06:00 [INF] Request finished HTTP/1.1 POST http://localhost:5229/api/v1/auth/login - 200 null application/json; charset=utf-8 2195.8937ms
+2024-08-22 11:27:32.791 +06:00 [INF] Application is shutting down...
