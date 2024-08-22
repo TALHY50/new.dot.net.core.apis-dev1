@@ -1,20 +1,18 @@
 ﻿using FluentValidation;
-
 using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
-
 using SharedKernel.Main.Application.Common.Behaviours;
-using SharedKernel.Main.Application.Common.Interfaces;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
 using SharedKernel.Main.Application.Interfaces.Repositories.Notification;
 using SharedKernel.Main.Infrastructure.Files;
-using SharedKernel.Main.Infrastructure.Persistence;
 using SharedKernel.Main.Infrastructure.Persistence.Notification.Context;
 using SharedKernel.Main.Infrastructure.Persistence.Notification.Repositories;
 using SharedKernel.Main.Infrastructure.Services;
 
-namespace Notification.App;
+namespace SharedKernel.Main;
 
 public static class DependencyInjection
 {
