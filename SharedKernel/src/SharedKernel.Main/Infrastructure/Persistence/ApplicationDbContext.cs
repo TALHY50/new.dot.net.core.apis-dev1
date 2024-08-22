@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Interfaces;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Domain.IMT;
 using SharedKernel.Main.Domain.Notification.Notifications.Events;
 using SharedKernel.Main.Domain.Notification.Notifications.Outgoings;
 using SharedKernel.Main.Domain.Notification.Setups;
@@ -51,7 +52,7 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<SmsOutgoing> SmsOutgoings => Set<SmsOutgoing>();
 
-        public DbSet<Regions> Regions => Set<Regions>();
+    public DbSet<Regions> Regions => Set<Regions>();
 
         public DbSet<WebOutgoing> WebOutgoings => Set<WebOutgoing>();
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
