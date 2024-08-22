@@ -4,8 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Domain.Notification.Notifications.Events;
-using static ADMIN.App.Application.Features.BusinessHourAndWeekend.CreateBusinessHourAndWeekendController;
+using SharedKernel.Main.Domain.Admin;
 
 namespace ADMIN.App.Application.Features.BusinessHourAndWeekend;
 
@@ -13,14 +12,14 @@ public class UpdateBusinessHourAndWeekendController : ApiControllerBase
 {
     //[Authorize(Policy = "HasPermission")]
     [HttpPut(Routes.UpdateBusinessHourAndWeekendUrl, Name = Routes.UpdateBusinessHourAndWeekendName)]
-    public async Task<ActionResult<ErrorOr<Event>>> Create(UpdateBusinessHourAndWeekendCommand command)
+    public async Task<ActionResult<ErrorOr<BusinessHoursAndWeekends>>> Create(UpdateBusinessHourAndWeekendCommand command)
     {
         return await Mediator.Send(command).ConfigureAwait(false);
     }
 
     public record UpdateBusinessHourAndWeekendCommand(int id, byte HourType, int? CountryId,
     string Day, byte IsWeekend, sbyte Gmt, DateTime OpenAt, DateTime CloseAt, int CompanyId, byte Status)
-    : IRequest<ErrorOr<Event>>;
+    : IRequest<ErrorOr<BusinessHoursAndWeekends>>;
 
 
     internal sealed class UpdateBusinessHourAndWeekendCommandValidator : AbstractValidator<UpdateBusinessHourAndWeekendCommand>
@@ -31,9 +30,9 @@ public class UpdateBusinessHourAndWeekendController : ApiControllerBase
         }
     }
 
-    internal sealed class UpdateBusinessHourAndWeekendHandler() : IRequestHandler<UpdateBusinessHourAndWeekendCommand, ErrorOr<Event>>
+    internal sealed class UpdateBusinessHourAndWeekendHandler() : IRequestHandler<UpdateBusinessHourAndWeekendCommand, ErrorOr<BusinessHoursAndWeekends>>
     {
-        public Task<ErrorOr<Event>> Handle(UpdateBusinessHourAndWeekendCommand request, CancellationToken cancellationToken)
+        public Task<ErrorOr<BusinessHoursAndWeekends>> Handle(UpdateBusinessHourAndWeekendCommand request, CancellationToken cancellationToken)
         {
 
             // ToDo

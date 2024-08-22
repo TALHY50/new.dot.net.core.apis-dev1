@@ -4,8 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Domain.Notification.Notifications.Events;
-using static ADMIN.App.Application.Features.BusinessHourAndWeekend.DeleteBusinessHourAndWeekendByIdController;
+using SharedKernel.Main.Domain.Admin;
 
 namespace ADMIN.App.Application.Features.BusinessHourAndWeekend;
 
@@ -13,13 +12,13 @@ public class GetBusinessHourAndWeekendByIdController : ApiControllerBase
 {
 
     //[Authorize(Policy = "HasPermission")]
-    [HttpPost(Routes.GetBusinessHourAndWeekendByIdUrl, Name = Routes.GetBusinessHourAndWeekendByIdName)]
-    public async Task<ActionResult<ErrorOr<Event>>> Delete(GetBusinessHourAndWeekendByIdCommand command, int Id)
+    [HttpGet(Routes.GetBusinessHourAndWeekendByIdUrl, Name = Routes.GetBusinessHourAndWeekendByIdName)]
+    public async Task<ActionResult<ErrorOr<BusinessHoursAndWeekends>>> Delete(GetBusinessHourAndWeekendByIdCommand command, int Id)
     {
         return await Mediator.Send(command).ConfigureAwait(false);
     }
 
-    public record GetBusinessHourAndWeekendByIdCommand(int Id) : IRequest<ErrorOr<Event>>;
+    public record GetBusinessHourAndWeekendByIdCommand(int Id) : IRequest<ErrorOr<BusinessHoursAndWeekends>>;
 
     public class GetBusinessHourAndWeekendByIdCommandValidator : AbstractValidator<GetBusinessHourAndWeekendByIdCommand>
     {
@@ -29,9 +28,9 @@ public class GetBusinessHourAndWeekendByIdController : ApiControllerBase
         }
     }
 
-    internal sealed class GetBusinessHourAndWeekendByIdHandler() : IRequestHandler<GetBusinessHourAndWeekendByIdCommand, ErrorOr<Event>>
+    internal sealed class GetBusinessHourAndWeekendByIdHandler() : IRequestHandler<GetBusinessHourAndWeekendByIdCommand, ErrorOr<BusinessHoursAndWeekends>>
     {
-        public Task<ErrorOr<Event>> Handle(GetBusinessHourAndWeekendByIdCommand request, CancellationToken cancellationToken)
+        public Task<ErrorOr<BusinessHoursAndWeekends>> Handle(GetBusinessHourAndWeekendByIdCommand request, CancellationToken cancellationToken)
         {
             // ToDo 
             // Check this id is valid

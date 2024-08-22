@@ -4,20 +4,21 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Domain.Notification.Notifications.Events;
+using SharedKernel.Main.Domain.Admin;
+
 
 namespace ADMIN.App.Application.Features.BusinessHourAndWeekend;
 
 public class DeleteBusinessHourAndWeekendByIdController : ApiControllerBase
 {
     //[Authorize(Policy = "HasPermission")]
-    [HttpPost(Routes.DeleteBusinessHourAndWeekendUrl, Name = Routes.DeleteBusinessHourAndWeekendName)]
-    public async Task<ActionResult<ErrorOr<Event>>> Delete(DeleteBusinessHourAndWeekendCommand command, int id)
+    [HttpDelete(Routes.DeleteBusinessHourAndWeekendUrl, Name = Routes.DeleteBusinessHourAndWeekendName)]
+    public async Task<ActionResult<ErrorOr<BusinessHoursAndWeekends>>> Delete(DeleteBusinessHourAndWeekendCommand command, int id)
     {
         return await Mediator.Send(command).ConfigureAwait(false);
     }
 
-    public record DeleteBusinessHourAndWeekendCommand(int Id) : IRequest<ErrorOr<Event>>;
+    public record DeleteBusinessHourAndWeekendCommand(int Id) : IRequest<ErrorOr<BusinessHoursAndWeekends>>;
 
     public class DeleteBusinessHourAndWeekendCommandValidator : AbstractValidator<DeleteBusinessHourAndWeekendCommand>
     {
@@ -27,9 +28,9 @@ public class DeleteBusinessHourAndWeekendByIdController : ApiControllerBase
         }
     }
 
-    internal sealed class DeleteBusinessHourAndWeekendCommandHandler() : IRequestHandler<DeleteBusinessHourAndWeekendCommand, ErrorOr<Event>>
+    internal sealed class DeleteBusinessHourAndWeekendCommandHandler() : IRequestHandler<DeleteBusinessHourAndWeekendCommand, ErrorOr<BusinessHoursAndWeekends>>
     {
-        public Task<ErrorOr<Event>> Handle(DeleteBusinessHourAndWeekendCommand request, CancellationToken cancellationToken)
+        public Task<ErrorOr<BusinessHoursAndWeekends>> Handle(DeleteBusinessHourAndWeekendCommand request, CancellationToken cancellationToken)
         {
 
             // ToDo delete logic
