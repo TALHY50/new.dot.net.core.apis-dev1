@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using SharedKernel.Main.Application.Common.Interfaces.Repositories.ACL.Auth;
-using SharedKernel.Main.Application.Common.Interfaces.Repositories.ACL.Module;
-using SharedKernel.Main.Application.Common.Interfaces.Repositories.ACL.Role;
-using SharedKernel.Main.Application.Common.Interfaces.Repositories.ACL.UserGroup;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
-using SharedKernel.Main.Contracts.ACL.Contracts.Requests;
-using SharedKernel.Main.Contracts.ACL.Contracts.Response;
-using SharedKernel.Main.Contracts.Response;
+using SharedKernel.Main.Application.Interfaces.Repositories.ACL.Auth;
+using SharedKernel.Main.Application.Interfaces.Repositories.ACL.Module;
+using SharedKernel.Main.Application.Interfaces.Repositories.ACL.Role;
+using SharedKernel.Main.Application.Interfaces.Repositories.ACL.UserGroup;
+using SharedKernel.Main.Contracts.ACL.Requests;
+using SharedKernel.Main.Contracts.ACL.Response;
+using SharedKernel.Main.Contracts.Common;
 using SharedKernel.Main.Domain.ACL.Domain.Auth;
 using SharedKernel.Main.Domain.ACL.Domain.Company;
 using SharedKernel.Main.Domain.ACL.Domain.Module;
@@ -17,6 +17,7 @@ using SharedKernel.Main.Domain.ACL.Domain.UserGroup;
 using SharedKernel.Main.Domain.ACL.Services.UserGroup;
 using SharedKernel.Main.Infrastructure.Auth;
 using SharedKernel.Main.Infrastructure.Persistence.ACL.Configurations;
+using SharedKernel.Main.Infrastructure.Persistence.ACL.Context;
 using SharedKernel.Main.Infrastructure.Persistence.ACL.Repositories.Company;
 
 namespace SharedKernel.Main.Domain.ACL.Services.Company

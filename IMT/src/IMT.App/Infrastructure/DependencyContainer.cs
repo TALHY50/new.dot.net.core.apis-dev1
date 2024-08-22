@@ -1,5 +1,4 @@
-﻿using IMT.App.Application.Ports.Repositories;
-using IMT.App.Application.Ports.Services;
+﻿using IMT.App.Application.Ports.Services;
 using IMT.App.Infrastructure.Persistence.Repositories.ConfirmTransaction;
 using IMT.App.Infrastructure.Persistence.Repositories.ImtCountry;
 using IMT.App.Infrastructure.Persistence.Repositories.ImtCurrency;
@@ -9,7 +8,8 @@ using IMT.App.Infrastructure.Persistence.Repositories.Quotation;
 using IMT.App.Infrastructure.Persistence.Services.Quotation;
 using IMT.App.Infrastructure.Persistence.Services.Transaction;
 using Microsoft.EntityFrameworkCore;
-using SharedKernel.Main.Infrastructure.Persistence.Configurations;
+using SharedKernel.Main.Application.Interfaces.Repositories.IMT.Repositories;
+using SharedKernel.Main.Infrastructure.Persistence.Notification.Configurations;
 
 namespace IMT.App.Infrastructure
 {

@@ -1,7 +1,7 @@
 ﻿using IMT.App.Application.Ports.Services;
 using Microsoft.AspNetCore.Mvc;
-using SharedKernel.Main.Domain.IMT;
-using SharedKernel.Main.Infrastructure.Persistence.Configurations;
+using SharedKernel.Main.Domain.IMT.Entities;
+using SharedKernel.Main.Infrastructure.Persistence.Notification.Configurations;
 using Thunes.Exception;
 using Thunes.Request.ConfirmTrasaction;
 using Thunes.Response.Common;

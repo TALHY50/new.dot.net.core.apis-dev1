@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using SharedKernel.Main.Domain.ACL.Domain.Auth;
 using SharedKernel.Main.Infrastructure.Persistence.ACL.Configurations;
+using SharedKernel.Main.Infrastructure.Persistence.ACL.Context;
 
 namespace SharedKernel.Main.Infrastructure.Auth
 {

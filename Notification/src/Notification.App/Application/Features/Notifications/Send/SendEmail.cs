@@ -8,12 +8,12 @@ using Microsoft.AspNetCore.Mvc;
 
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Interfaces;
-using SharedKernel.Main.Application.Common.Interfaces.Notification;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
 using SharedKernel.Main.Application.Common.Models;
-using SharedKernel.Main.Contracts.Notificaiton.Contracts;
+using SharedKernel.Main.Application.Interfaces.Repositories.Notification;
+using SharedKernel.Main.Contracts.Notificaiton;
 using SharedKernel.Main.Infrastructure.Persistence;
-using SharedKernel.Main.Services;
+using SharedKernel.Main.Infrastructure.Persistence.Notification.Context;
 
 using Result = SharedKernel.Main.Application.Common.Models.Result;
 

@@ -1,4 +1,4 @@
-﻿using IMT.App.Application.Ports.Repositories;
+﻿using SharedKernel.Main.Application.Interfaces.Repositories.IMT.Repositories;
 using Thunes.Request.ConfirmTrasaction;
 using Thunes.Response.Common;
 
