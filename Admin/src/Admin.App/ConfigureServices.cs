@@ -7,7 +7,8 @@ using SharedKernel.Main.Application.Common.Interfaces.Notification;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
 using SharedKernel.Main.Infrastructure.Files;
 using SharedKernel.Main.Infrastructure.Persistence;
-using SharedKernel.Main.Infrastructure.Persistence.Repositories;
+using SharedKernel.Main.Infrastructure.Persistence.Notification.Context;
+using SharedKernel.Main.Infrastructure.Persistence.Notification.Repositories;
 using SharedKernel.Main.Infrastructure.Services;
 
 namespace ADMIN.App;

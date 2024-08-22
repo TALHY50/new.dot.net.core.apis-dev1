@@ -4,6 +4,7 @@ using SharedKernel.Main.Application.Common.Interfaces.Repositories.ACL.UserGroup
 using SharedKernel.Main.Domain.ACL.Domain.UserGroup;
 using SharedKernel.Main.Infrastructure.Auth;
 using SharedKernel.Main.Infrastructure.Persistence.ACL.Configurations;
+using SharedKernel.Main.Infrastructure.Persistence.ACL.Context;
 
 namespace SharedKernel.Main.Infrastructure.Persistence.ACL.Repositories.UserGroup
 {

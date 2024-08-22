@@ -55,3 +55,39 @@ LIMIT 1
 
 2024-08-22 11:19:55.153 +06:00 [INF] Request finished HTTP/1.1 POST http://localhost:5229/api/v1/auth/login - 200 null application/json; charset=utf-8 2195.8937ms
 2024-08-22 11:27:32.791 +06:00 [INF] Application is shutting down...
+2024-08-22 12:07:52.796 +06:00 [INF] User profile is available. Using '/home/rifat-simoom/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2024-08-22 12:07:52.839 +06:00 [WRN] The WebRootPath was not found: /var/www/html/new.dot.net.core.apis/ACL/src/ACL.App/wwwroot. Static files may be unavailable.
+2024-08-22 12:07:52.871 +06:00 [INF] Now listening on: http://localhost:5229
+2024-08-22 12:07:52.872 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-08-22 12:07:52.872 +06:00 [INF] Hosting environment: Development
+2024-08-22 12:07:52.872 +06:00 [INF] Content root path: /var/www/html/new.dot.net.core.apis/ACL/src/ACL.App
+2024-08-22 12:07:53.442 +06:00 [INF] Request starting HTTP/1.1 GET http://localhost:5229/swagger/index.html - null null
+2024-08-22 12:07:53.582 +06:00 [INF] Request finished HTTP/1.1 GET http://localhost:5229/swagger/index.html - 200 null text/html;charset=utf-8 149.4459ms
+2024-08-22 12:07:53.619 +06:00 [INF] Request starting HTTP/1.1 GET http://localhost:5229/swagger/index.js - null null
+2024-08-22 12:07:53.621 +06:00 [INF] Request finished HTTP/1.1 GET http://localhost:5229/swagger/index.js - 200 null application/javascript;charset=utf-8 2.0853ms
+2024-08-22 12:07:54.067 +06:00 [INF] Request starting HTTP/1.1 GET http://localhost:5229/swagger/v1/swagger.json - null null
+2024-08-22 12:07:54.290 +06:00 [INF] Request finished HTTP/1.1 GET http://localhost:5229/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 222.5003ms
+2024-08-22 12:08:03.193 +06:00 [INF] Request starting HTTP/1.1 POST http://localhost:5229/api/v1/auth/login - application/json 65
+2024-08-22 12:08:03.200 +06:00 [INF] [Request] POST: /api/v1/auth/login
+[Request Body] {
+  "email": "ssadmin@sipay.com.tr",
+  "password": "Nop@ss1234"
+}
+
+2024-08-22 12:08:03.227 +06:00 [INF] Executing endpoint 'ACL.App.Application.Features.AuthController.Login (ACL.App)'
+2024-08-22 12:08:03.241 +06:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[ACL.App.Application.Features.Auth.Login.Response.LoginResponse] Login(ACL.App.Application.Features.Auth.Login.Request.LoginRequest) on controller ACL.App.Application.Features.AuthController (ACL.App).
+2024-08-22 12:08:03.394 +06:00 [INF] Executing action method ACL.App.Application.Features.AuthController.Login (ACL.App) - Validation state: "Valid"
+2024-08-22 12:08:04.810 +06:00 [INF] Executed DbCommand (16ms) [Parameters=[@__email_0='?' (Size = 50)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`activated_at`, `a`.`address`, `a`.`auth_identifier`, `a`.`avatar`, `a`.`city`, `a`.`claims`, `a`.`company_id`, `a`.`country`, `a`.`created_at`, `a`.`created_by_id`, `a`.`dob`, `a`.`email`, `a`.`first_name`, `a`.`gender`, `a`.`img_path`, `a`.`is_admin_verified`, `a`.`language`, `a`.`last_name`, `a`.`login_at`, `a`.`otp_channel`, `a`.`password`, `a`.`permission_version`, `a`.`phone`, `a`.`refresh_token`, `a`.`remember_token`, `a`.`salt`, `a`.`status`, `a`.`updated_at`, `a`.`user_type`, `a`.`username`
+FROM `acl_users` AS `a`
+WHERE `a`.`email` = @__email_0
+LIMIT 1
+2024-08-22 12:08:04.836 +06:00 [INF] Executed action method ACL.App.Application.Features.AuthController.Login (ACL.App), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 1439.5638ms.
+2024-08-22 12:08:04.841 +06:00 [INF] Executing ObjectResult, writing value of type 'ACL.App.Application.Features.Auth.Login.Response.LoginErrorResponse'.
+2024-08-22 12:08:04.848 +06:00 [INF] Executed action ACL.App.Application.Features.AuthController.Login (ACL.App) in 1603.1077ms
+2024-08-22 12:08:04.848 +06:00 [INF] Executed endpoint 'ACL.App.Application.Features.AuthController.Login (ACL.App)'
+2024-08-22 12:08:04.850 +06:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 1646.2489 ms
+2024-08-22 12:08:04.851 +06:00 [INF] [Response] POST: /api/v1/auth/login
+[Response Body] {"message":"UserDoesNotExist","code":"106"}
+
+2024-08-22 12:08:04.857 +06:00 [INF] Request finished HTTP/1.1 POST http://localhost:5229/api/v1/auth/login - 200 null application/json; charset=utf-8 1664.4015ms

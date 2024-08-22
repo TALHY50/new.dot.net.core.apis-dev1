@@ -1,8 +1,8 @@
 ﻿using IMT.App.Application.Ports.Repositories;
 using IMT.App.Application.Ports.Services;
 using IMT.App.Infrastructure.Persistence.Repositories.ImtMoneyTransfer;
-using SharedKernel.Main.Domain.IMT;
-using SharedKernel.Main.Infrastructure.Persistence.Configurations;
+using SharedKernel.Main.Domain.IMT.Entities;
+using SharedKernel.Main.Infrastructure.Persistence.Notification.Configurations;
 using Thunes;
 using Thunes.Exception;
 using Thunes.Request.Transaction.Transfer.CommonTransaction;
@@ -22,7 +22,7 @@ namespace IMT.App.Infrastructure.Persistence.Services.Transaction
         public IImtMoneyTransferRepository _moneyTransferRepository;
         public IImtCountryRepository _countryRepository;
         public IImtCurrencyRepository _currencyRepository;
-        public SharedKernel.Main.Domain.IMT.Quotation? _imtQuotation;
+        public SharedKernel.Main.Domain.IMT.Entities.Quotation? _imtQuotation;
         public ImtMoneyTransferService(ApplicationDbContext dbContext) : base(dbContext)
         {
             DependencyContainer.Initialize();
@@ -33,9 +33,9 @@ namespace IMT.App.Infrastructure.Persistence.Services.Transaction
             _moneyTransferRepository = DependencyContainer.GetService<IImtMoneyTransferRepository>();
             _transactionRepository = DependencyContainer.GetService<IImtTransactionRepository>();
         }
-        public SharedKernel.Main.Domain.IMT.Transaction PrepareImtTransaction(MoneyTransferDTO request, CreateContentQuotationResponse quotation, CreateTransactionResponse transaction)
+        public SharedKernel.Main.Domain.IMT.Entities.Transaction PrepareImtTransaction(MoneyTransferDTO request, CreateContentQuotationResponse quotation, CreateTransactionResponse transaction)
         {
-            return new SharedKernel.Main.Domain.IMT.Transaction
+            return new SharedKernel.Main.Domain.IMT.Entities.Transaction
             {
                 PaymentId = transaction?.id.ToString(),
                 TransactionStateId = (transaction?.id != null) ? 2 : 1,

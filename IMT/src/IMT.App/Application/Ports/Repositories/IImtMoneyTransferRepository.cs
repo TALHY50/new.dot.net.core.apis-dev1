@@ -1,8 +1,9 @@
 ﻿using SharedKernel.Main.Application.Interfaces;
+using SharedKernel.Main.Domain.IMT.Entities;
 
 namespace IMT.App.Application.Ports.Repositories
 {
-    public interface IImtMoneyTransferRepository : IGenericRepository<SharedKernel.Main.Domain.IMT.MoneyTransfer>
+    public interface IImtMoneyTransferRepository : IGenericRepository<MoneyTransfer>
     {
     }
 }

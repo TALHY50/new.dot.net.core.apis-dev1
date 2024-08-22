@@ -4,12 +4,13 @@ using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
 using SharedKernel.Main.Application.Common.Interfaces.Repositories.ACL.Auth;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
-using SharedKernel.Main.Contracts.ACL.Contracts.Requests;
-using SharedKernel.Main.Contracts.ACL.Contracts.Response;
-using SharedKernel.Main.Contracts.Response;
+using SharedKernel.Main.Contracts.ACL.Requests;
+using SharedKernel.Main.Contracts.ACL.Response;
+using SharedKernel.Main.Contracts.Common;
 using SharedKernel.Main.Domain.ACL.Domain.Auth;
 using SharedKernel.Main.Infrastructure.Auth;
 using SharedKernel.Main.Infrastructure.Persistence.ACL.Configurations;
+using SharedKernel.Main.Infrastructure.Persistence.ACL.Context;
 using SharedKernel.Main.Infrastructure.Persistence.ACL.Repositories.Auth;
 
 namespace SharedKernel.Main.Domain.ACL.Services.Auth
