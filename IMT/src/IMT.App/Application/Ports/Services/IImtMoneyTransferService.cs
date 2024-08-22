@@ -1,4 +1,4 @@
-﻿using IMT.App.Application.Ports.Repositories;
+﻿using SharedKernel.Main.Application.Interfaces.Repositories.IMT.Repositories;
 using SharedKernel.Main.Domain.IMT.Entities;
 using Thunes.Request.Transaction.Transfer.CommonTransaction;
 using Thunes.Response.Transfer.Quotation;

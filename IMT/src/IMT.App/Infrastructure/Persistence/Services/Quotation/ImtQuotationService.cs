@@ -1,7 +1,7 @@
-﻿using IMT.App.Application.Ports.Repositories;
-using IMT.App.Application.Ports.Services;
+﻿using IMT.App.Application.Ports.Services;
 using IMT.App.Contracts.Requests;
 using IMT.App.Infrastructure.Persistence.Repositories.Quotation;
+using SharedKernel.Main.Application.Interfaces.Repositories.IMT.Repositories;
 using SharedKernel.Main.Domain.IMT.Entities;
 using SharedKernel.Main.Infrastructure.Persistence.Notification.Configurations;
 using Thunes;
