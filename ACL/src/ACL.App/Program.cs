@@ -1,5 +1,4 @@
 using System.Security.Cryptography;
-using ACL.App.Application.Features.Auth.Authorize;
 using ACL.App.Application.Features.Auth.Login;
 using ACL.App.Application.Features.Auth.RefreshToken;
 using ACL.App.Application.Features.Auth.Register;
@@ -36,6 +35,7 @@ using SharedKernel.Main.Infrastructure.Persistence.ACL.Repositories.Company;
 using SharedKernel.Main.Infrastructure.Persistence.ACL.Repositories.Module;
 using SharedKernel.Main.Infrastructure.Persistence.ACL.Repositories.Role;
 using SharedKernel.Main.Infrastructure.Persistence.ACL.Repositories.UserGroup;
+using SharedKernel.Main.Infrastructure.Security;
 using SharedKernel.Main.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
