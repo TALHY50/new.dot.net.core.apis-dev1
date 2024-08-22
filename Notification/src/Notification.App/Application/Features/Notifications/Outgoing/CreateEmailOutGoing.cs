@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Domain.Notification.Notifications.Outgoings;
+using SharedKernel.Main.Infrastructure.Extensions;
 using SharedKernel.Main.Infrastructure.Persistence;
 using SharedKernel.Main.Services;
 
@@ -87,7 +88,7 @@ internal sealed class CreateEmailOutgoingCommandHandler(ILogger<CreateSmsOutgoin
             return Error.NotFound("Receiver group not found!");
         }
 
-        bool isAttachment = !appEventData.AttachmentInfo.IsNullOrEmpty();
+        bool isAttachment = appEventData.AttachmentInfo.Safe().Any();
 
         var to = receiverGroup.To;
 

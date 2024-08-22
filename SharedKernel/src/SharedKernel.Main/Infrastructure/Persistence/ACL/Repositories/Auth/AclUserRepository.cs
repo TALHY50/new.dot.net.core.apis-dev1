@@ -8,6 +8,7 @@ using SharedKernel.Main.Application.Common.Interfaces.Repositories.ACL.Auth;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
 using SharedKernel.Main.Domain.ACL.Domain.Auth;
 using SharedKernel.Main.Infrastructure.Auth;
+using SharedKernel.Main.Infrastructure.Extensions;
 using SharedKernel.Main.Infrastructure.Persistence.ACL.Configurations;
 using SharedKernel.Main.Infrastructure.Persistence.ACL.Dtos;
 
@@ -124,7 +125,7 @@ namespace SharedKernel.Main.Infrastructure.Persistence.ACL.Repositories.Auth
                 }
             }
 
-            if (routeNames.IsNullOrEmpty())
+            if (! routeNames.Safe().Any())
             {
                 var result = (from userUsergroup in this._dbContext.AclUserUsergroups
                               join usergroup in this._dbContext.AclUsergroups on userUsergroup.UsergroupId equals usergroup.Id
@@ -155,7 +156,7 @@ namespace SharedKernel.Main.Infrastructure.Persistence.ACL.Repositories.Auth
                                   DefaultMethod = subModule.DefaultMethod
                               }).ToList();
 
-                if (!result.IsNullOrEmpty())
+                if (result.Safe().Any())
                 {
                     routeNames = new HashSet<string>(result.Select(q => q.PageRouteName)!);
                 }
