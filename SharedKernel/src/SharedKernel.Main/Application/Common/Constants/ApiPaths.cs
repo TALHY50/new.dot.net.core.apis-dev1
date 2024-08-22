@@ -1,4 +1,4 @@
-namespace Notification.App;
+namespace SharedKernel.Main.Application.Common.Constants;
 
 internal static class ApiPaths
 {
