@@ -1,10 +1,10 @@
 using System.Runtime.Caching;
-using ACL.App.Application.Features.Auth.Login.Request;
-using ACL.App.Application.Features.Auth.Login.Response;
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using RestSharp;
+using SharedKernel.Main.Contracts.ACL.Request;
+using SharedKernel.Main.Contracts.ACL.Response;
 using SharedKernel.Main.Infrastructure.Persistence.ACL.Configurations;
 using SharedKernel.Main.Infrastructure.Persistence.ACL.Context;
 

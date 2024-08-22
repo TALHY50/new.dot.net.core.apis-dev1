@@ -1,15 +1,11 @@
 using ACL.App.Application.Features.Auth.Login;
-using ACL.App.Application.Features.Auth.Login.Request;
-using ACL.App.Application.Features.Auth.Login.Response;
 using ACL.App.Application.Features.Auth.RefreshToken;
-using ACL.App.Application.Features.Auth.RefreshToken.Request;
-using ACL.App.Application.Features.Auth.RefreshToken.Response;
 using ACL.App.Application.Features.Auth.Register;
 using ACL.App.Application.Features.Auth.SignOut;
-using ACL.App.Application.Features.Auth.SignOut.Request;
-using ACL.App.Application.Features.Auth.SignOut.Response;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedKernel.Main.Contracts.ACL.Request;
+using SharedKernel.Main.Contracts.ACL.Response;
 
 namespace ACL.App.Application.Features
 {

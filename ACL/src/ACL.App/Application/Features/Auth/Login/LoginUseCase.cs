@@ -1,8 +1,9 @@
-﻿using ACL.App.Application.Features.Auth.Login.Request;
-using ACL.App.Application.Features.Auth.Login.Response;
-using SharedKernel.Main.Application.Common.Enums;
+﻿using SharedKernel.Main.Application.Common.Enums;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
 using SharedKernel.Main.Application.Interfaces.Repositories.ACL.Auth;
+using SharedKernel.Main.Application.Interfaces.UseCases.ACL;
+using SharedKernel.Main.Contracts.ACL.Request;
+using SharedKernel.Main.Contracts.ACL.Response;
 using SharedKernel.Main.Domain.ACL.Domain.Auth;
 
 namespace ACL.App.Application.Features.Auth.Login
