@@ -302,6 +302,17 @@
         public const string CreateEmailEventRouteName = "create-email-event";
         public const string CreateEmailEventRoute = "/api/notification/event/email/create";
 
+
+        public const string GetCountryName = "country";
+        public const string GetCountryUrl = "/api/admin/country";
+        public const string GetCountryByIdName = "country_by_id";
+        public const string GetCountryByIdUrl = "/api/admin/country/{id}";
+        public const string CreateCountryName = "create_country";
+        public const string CreateCountryUrl = "/api/admin/country";
+        public const string DeleteCountryName = "delete_country";
+        public const string DeleteCountryUrl = "/api/admin/country/{id}";
+        public const string UpdateCountryName = "update_country";
+        public const string UpdateCountryUrl = "/api/admin/country";
     }
     
     
