@@ -1,4 +1,4 @@
-using SharedKernel.Main.Application.Common.Interfaces.Repositories;
+using SharedKernel.Main.Application.Common.Interfaces.Notification;
 
 namespace SharedKernel.Main.Infrastructure.Persistence.Repositories;
 

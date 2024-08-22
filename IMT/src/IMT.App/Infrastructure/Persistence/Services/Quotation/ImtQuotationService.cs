@@ -3,7 +3,7 @@ using IMT.App.Application.Ports.Services;
 using IMT.App.Contracts.Requests;
 using IMT.App.Infrastructure.Persistence.Repositories.Quotation;
 using SharedKernel.Main.Domain.IMT;
-using SharedKernel.Main.Infrastructure.Persistence;
+using SharedKernel.Main.Infrastructure.Persistence.Configurations;
 using Thunes;
 using Thunes.Exception;
 using Thunes.Request.Common;
@@ -136,9 +136,9 @@ namespace IMT.App.Infrastructure.Persistence.Services.Quotation
         {
             return _thunesClient.QuotationAdapter().GetQuotationById(id);
         }
-        public CreateContentQuotationResponse GetQuotationByExternalId(ulong external_id)
+        public CreateContentQuotationResponse GetQuotationByExternalId(string invoice_id)
         {
-            return _thunesClient.QuotationAdapter().GetQuotationByExternalId(external_id);
+            return _thunesClient.QuotationAdapter().GetQuotationByExternalId(invoice_id);
         }
         public CreateContentQuotationResponse CreateQuotationCombined(QuotationRequest quotationRequest)
         {

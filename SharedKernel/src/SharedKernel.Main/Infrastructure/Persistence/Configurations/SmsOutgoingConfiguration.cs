@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
-using SharedKernel.Main.Domain.Notifications.Outgoings;
+using SharedKernel.Main.Domain.Notification.Notifications.Outgoings;
 
 namespace SharedKernel.Main.Infrastructure.Persistence.Configurations
 {
@@ -13,64 +12,64 @@ namespace SharedKernel.Main.Infrastructure.Persistence.Configurations
 
             builder.HasKey(so => so.Id);
 
-            builder.Property(so => so.Id)
-                .ValueGeneratedOnAdd()
-                .HasColumnType("int(11)");
+            RelationalPropertyBuilderExtensions
+                .HasColumnType<int>(builder.Property(so => so.Id)
+                    .ValueGeneratedOnAdd(), "int(11)");
 
-            builder.Property(so => so.NotificationCredentialId)
-                .IsRequired()
-                .HasDefaultValue(0)
+            RelationalPropertyBuilderExtensions
+                .HasDefaultValue<int>(builder.Property(so => so.NotificationCredentialId)
+                    .IsRequired(), 0)
                 .HasColumnName("notification_credential_id")
                 .HasColumnType("int(11)");
 
-            builder.Property(so => so.Content)
-                .IsRequired()
-                .HasColumnType("longtext")
+            RelationalPropertyBuilderExtensions
+                .HasColumnType<string>(builder.Property(so => so.Content)
+                    .IsRequired(), "longtext")
                 .HasComment("full sms content");
 
-            builder.Property(so => so.To)
-                .IsRequired()
-                .HasColumnType("mediumtext")
+            RelationalPropertyBuilderExtensions
+                .HasColumnType<string>(builder.Property(so => so.To)
+                    .IsRequired(), "mediumtext")
                 .HasComment("phone number must be set as comma(,) separator");
 
-            builder.Property(so => so.Status)
-                .IsRequired()
-                .HasDefaultValue(0)
+            RelationalPropertyBuilderExtensions
+                .HasDefaultValue<int>(builder.Property(so => so.Status)
+                    .IsRequired(), 0)
                 .HasColumnType("tinyint(4)")
                 .HasComment("0=pending, 1= completed, 2= failed");
 
-            builder.Property(so => so.Attempt)
-                .IsRequired()
-                .HasDefaultValue(0)
+            RelationalPropertyBuilderExtensions
+                .HasDefaultValue<int>(builder.Property(so => so.Attempt)
+                    .IsRequired(), 0)
                 .HasColumnType("int(11)");
 
-            builder.Property(so => so.SentAt)
-                .HasColumnType("datetime")
+            RelationalPropertyBuilderExtensions
+                .HasColumnType<DateTime?>(builder.Property(so => so.SentAt), "datetime")
                 .HasColumnName("sent_at")
                 .HasComment("The moment when sms sent successfully");
 
-            builder.Property(so => so.NotificationEventId)
-                .IsRequired()
-                .HasColumnName("notification_event_id")
+            RelationalPropertyBuilderExtensions
+                .HasColumnName<int>(builder.Property(so => so.NotificationEventId)
+                    .IsRequired(), "notification_event_id")
                 .HasColumnType("int(11)");
 
-            builder.Property(so => so.NotificationEventName)
-                .IsRequired()
-                .HasMaxLength(50)
-                .HasColumnName("notification_event_name")
+            RelationalPropertyBuilderExtensions
+                .HasColumnName<string>(builder.Property(so => so.NotificationEventName)
+                    .IsRequired()
+                    .HasMaxLength(50), "notification_event_name")
                 .HasColumnType("varchar(50)");
 
-            builder.Property(so => so.CreatedAt)
-                .HasColumnName("created_at")
+            RelationalPropertyBuilderExtensions
+                .HasColumnName<DateTime?>(builder.Property(so => so.CreatedAt), "created_at")
                 .HasColumnType("datetime");
 
-            builder.Property(so => so.UpdatedAt)
-                .HasColumnName("updated_at")
+            RelationalPropertyBuilderExtensions
+                .HasColumnName<DateTime?>(builder.Property(so => so.UpdatedAt), "updated_at")
                 .HasColumnType("datetime");
 
-            builder.Property(so => so.CompanyId)
-                .IsRequired()
-                .HasColumnType("int(11)")
+            RelationalPropertyBuilderExtensions
+                .HasColumnType<int>(builder.Property(so => so.CompanyId)
+                    .IsRequired(), "int(11)")
                 .HasColumnName("company_id")
                 .HasDefaultValue(0);
         }

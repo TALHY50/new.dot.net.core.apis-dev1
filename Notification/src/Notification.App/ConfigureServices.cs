@@ -1,14 +1,18 @@
 ﻿using FluentValidation;
 
+using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 
 using SharedKernel.Main.Application.Common.Behaviours;
 using SharedKernel.Main.Application.Common.Interfaces;
-using SharedKernel.Main.Application.Common.Interfaces.Repositories;
+using SharedKernel.Main.Application.Common.Interfaces.Notification;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
 using SharedKernel.Main.Infrastructure.Files;
 using SharedKernel.Main.Infrastructure.Persistence;
 using SharedKernel.Main.Infrastructure.Persistence.Repositories;
 using SharedKernel.Main.Infrastructure.Services;
+using SharedKernel.Main.Services;
 
 namespace Notification.App;
 
@@ -34,6 +38,9 @@ public static class DependencyInjection
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddPersistence(configuration);
+
+        services.AddRazorEngine(configuration);
+
         services.AddScoped<IDomainEventService, DomainEventService>();
         services.AddTransient<IDateTime, DateTimeService>();
         services.AddTransient<IEmailService, EmailService>();
@@ -41,6 +48,28 @@ public static class DependencyInjection
         services.AddTransient<IWebService, WebService>();
         services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();
         services.AddSingleton<ICurrentUserService, CurrentUserService>();
+
+        return services;
+    }
+
+    public static IServiceCollection AddRazorEngine(this IServiceCollection services, IConfiguration configuration)
+    {
+        var fileProvider = new EmbeddedFileProvider(typeof(SharedKernel.Main.Services.Renderer).Assembly);
+        services.Configure<MvcRazorRuntimeCompilationOptions>(options =>
+        {
+            options.FileProviders.Clear();
+            options.FileProviders.Add(fileProvider);
+        });
+        services.AddMvcCore().AddRazorViewEngine();
+        /*services.Configure<Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions>(o =>
+        {
+            o.ViewLocationFormats.Add("/Views/{0}" + Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine.ViewExtension);
+
+            // o.FileProviders.Add(new Microsoft.Extensions.FileProviders.PhysicalFileProvider(AppContext.BaseDirectory));
+        });*/
+
+        // services.AddRazorPages();
+        services.AddTransient<IRenderer, SharedKernel.Main.Services.Renderer>();
 
         return services;
     }

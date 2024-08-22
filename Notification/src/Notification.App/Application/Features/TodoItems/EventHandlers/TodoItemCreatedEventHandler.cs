@@ -1,10 +1,11 @@
 ﻿using MediatR;
+
 using SharedKernel.Main.Application.Common.Models;
-using SharedKernel.Main.Domain.Todos;
+using SharedKernel.Main.Domain.Notification.Todos;
 
 namespace Notification.App.Application.Features.TodoItems.EventHandlers;
 
-public class TodoItemCreatedEventHandler(ILogger<TodoItemCreatedEventHandler> logger) : INotificationHandler<DomainEventNotification<TodoItemCreatedEvent>>
+internal sealed class TodoItemCreatedEventHandler(ILogger<TodoItemCreatedEventHandler> logger) : INotificationHandler<DomainEventNotification<TodoItemCreatedEvent>>
 {
     private readonly ILogger<TodoItemCreatedEventHandler> _logger = logger;
 

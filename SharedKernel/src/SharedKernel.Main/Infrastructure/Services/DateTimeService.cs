@@ -1,4 +1,5 @@
 ﻿using SharedKernel.Main.Application.Common.Interfaces;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
 
 namespace SharedKernel.Main.Infrastructure.Services;
 

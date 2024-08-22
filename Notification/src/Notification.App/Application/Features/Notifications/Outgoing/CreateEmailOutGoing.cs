@@ -11,12 +11,12 @@ using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 
 using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Domain.Notifications.Outgoings;
+using SharedKernel.Main.Domain.Notification.Notifications.Outgoings;
+using SharedKernel.Main.Infrastructure.Extensions;
 using SharedKernel.Main.Infrastructure.Persistence;
+using SharedKernel.Main.Services;
 
-using View.App.Services;
-
-using EventId = SharedKernel.Main.Contracts.EventId;
+using EventId = SharedKernel.Main.Contracts.Notificaiton.Contracts.EventId;
 
 namespace Notification.App.Application.Features.Notifications.Outgoing;
 
@@ -88,7 +88,7 @@ internal sealed class CreateEmailOutgoingCommandHandler(ILogger<CreateSmsOutgoin
             return Error.NotFound("Receiver group not found!");
         }
 
-        bool isAttachment = !appEventData.AttachmentInfo.IsNullOrEmpty();
+        bool isAttachment = appEventData.AttachmentInfo.Safe().Any();
 
         var to = receiverGroup.To;
 
