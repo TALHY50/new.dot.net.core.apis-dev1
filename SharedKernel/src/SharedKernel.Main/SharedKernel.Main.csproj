@@ -135,6 +135,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Folder Include="Application\Common\Constants\Routes\" />
 		<Folder Include="Application\Common\Security\" />
 		<Folder Include="Contracts\IMT\Requests\" />
 		<Folder Include="Domain\IMT\Services\" />

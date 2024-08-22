@@ -16,8 +16,4 @@
 	  <ProjectReference Include="..\Thunes\Thunes.csproj" />
 	  <ProjectReference Include="..\..\..\Notification\src\Notification.App\Notification.App.csproj" />
 	</ItemGroup>
-	
-	<ItemGroup>
-	  <Folder Include="Application\Ports\Repositories\" />
-	</ItemGroup>
 </Project>

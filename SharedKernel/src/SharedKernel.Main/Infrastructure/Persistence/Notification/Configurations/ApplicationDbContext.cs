@@ -44,6 +44,8 @@ namespace SharedKernel.Main.Infrastructure.Persistence.Notification.Configuratio
 
         public virtual DbSet<TransactionType> ImtTransactionTypes { get; set; }
         public virtual DbSet<ProviderErrorDetail> ImtProviderErrorDetails { get; set; }
+        
+        
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
