@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
-using SharedKernel.Main.Application.Common.Interfaces.Repositories.ACL.Company;
+using SharedKernel.Main.Application.Interfaces.Repositories.ACL.Company;
 using SharedKernel.Main.Domain.ACL.Domain.Company;
 using SharedKernel.Main.Infrastructure.Auth;
 using SharedKernel.Main.Infrastructure.Persistence.ACL.Configurations;

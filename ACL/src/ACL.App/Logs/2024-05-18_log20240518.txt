@@ -1,9 +1,0 @@
-2024-05-18 19:12:47.121 +06:00 [ERR] An error occurred while seeding the database.
-System.FormatException: Input string was not in a correct format. Failure to parse near offset 64107. Expected an ASCII digit.
-   at System.Text.ValueStringBuilder.AppendFormatHelper(IFormatProvider provider, String format, ReadOnlySpan`1 args)
-   at System.String.FormatHelper(IFormatProvider provider, String format, ReadOnlySpan`1 args)
-   at System.String.Format(String format, Object[] args)
-   at Microsoft.EntityFrameworkCore.Storage.Internal.RawSqlCommandBuilder.Build(String sql, IEnumerable`1 parameters)
-   at Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions.ExecuteSqlRaw(DatabaseFacade databaseFacade, String sql, IEnumerable`1 parameters)
-   at Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions.ExecuteSqlRaw(DatabaseFacade databaseFacade, String sql, Object[] parameters)
-   at ACL.Infrastructure.Data.SeedData.Initialize(IServiceProvider serviceProvider) in /var/www/html/new.dot.net.core.apis/ACL/src/ACL.Infrastructure/Data/Seed.cs:line 36
