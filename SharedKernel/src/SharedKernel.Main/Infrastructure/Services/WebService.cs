@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using SharedKernel.Main.Application.Common.Interfaces;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
 using SharedKernel.Main.Application.Common.Models;
+using SharedKernel.Main.Infrastructure.Extensions;
 
 namespace SharedKernel.Main.Infrastructure.Services;
 
@@ -40,7 +41,7 @@ public class WebService : IWebService
                 }
             }
 
-            if (errors.IsNullOrEmpty())
+            if (! errors.Safe().Any())
             {
                 return Result.Success();
             }
