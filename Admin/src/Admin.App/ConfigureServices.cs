@@ -17,6 +17,7 @@ using SharedKernel.Main.Application.Interfaces.Repositories.ACL.Auth;
 using SharedKernel.Main.Application.Interfaces.Repositories.ACL.Module;
 using SharedKernel.Main.Application.Interfaces.Repositories.ACL.Role;
 using SharedKernel.Main.Application.Interfaces.Repositories.ACL.UserGroup;
+using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
 using SharedKernel.Main.Application.Interfaces.Repositories.Notification;
 using SharedKernel.Main.Infrastructure.Cryptography;
 using SharedKernel.Main.Infrastructure.Files;
@@ -26,11 +27,15 @@ using SharedKernel.Main.Infrastructure.Persistence.ACL.Repositories.Auth;
 using SharedKernel.Main.Infrastructure.Persistence.ACL.Repositories.Module;
 using SharedKernel.Main.Infrastructure.Persistence.ACL.Repositories.Role;
 using SharedKernel.Main.Infrastructure.Persistence.ACL.Repositories.UserGroup;
+using SharedKernel.Main.Infrastructure.Persistence.Admin.Repositories;
 using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 using SharedKernel.Main.Infrastructure.Persistence.Notification.Context;
 using SharedKernel.Main.Infrastructure.Persistence.Notification.Repositories;
 using SharedKernel.Main.Infrastructure.Security;
 using SharedKernel.Main.Infrastructure.Services;
+using static Admin.App.Application.Features.BusinessHourAndWeekend.CreateBusinessHourAndWeekendController;
+using static Admin.App.Application.Features.HolidaySetting.CreateHolidaySettingController;
+using static Admin.App.Application.Features.Mtts.MttsCreate;
 
 namespace Admin.App;
 
@@ -124,8 +129,8 @@ public static class DependencyInjection
                     options.EnableRetryOnFailure();
                 }),
             ServiceLifetime.Transient);
-        
-        
+
+
         services.AddDbContext<ImtApplicationDbContext>(
             options =>
                 options.UseMySQL(connectionString, options =>
@@ -133,7 +138,7 @@ public static class DependencyInjection
                     options.EnableRetryOnFailure();
                 }),
             ServiceLifetime.Transient);
-        
+
 
         var cacheDriver = Env.GetString("CACHE_DRIVER");
 
@@ -154,12 +159,23 @@ public static class DependencyInjection
         services.AddScoped<IAclRolePageRepository, AclRolePageRepository>();
         services.AddScoped<IAclRoleRepository, AclRoleRepository>();
 
-// services.AddScoped<IAclSubModuleRepository, AclSubModuleRepository>();
+        // services.AddScoped<IAclSubModuleRepository, AclSubModuleRepository>();
         services.AddScoped<IAclUserGroupRepository, AclUserGroupRepository>();
         services.AddScoped<IAclUserGroupRoleRepository, AclUserGroupRoleRepository>();
         services.AddScoped<IAclUserUserGroupRepository, AclUserUserGroupRepository>();
 
         services.AddScoped<IAclUserRepository, AclUserRepository>();
+
+        services.AddScoped<IImtMttsRepository, ImtMttsRepository>();
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateMttCommand).Assembly));
+
+        // BusinessHourAndWeekendRepository
+        services.AddScoped<IBusinessHourAndWeekendRepository, BusinessHourAndWeekendRepository>();
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateBusinessHourAndWeekendCommand).Assembly));
+        
+        // HolidaySetting
+        services.AddScoped<IHolidaySettingRepository, HolidaySettingRepository>();
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateHolidaySettingCommand).Assembly));
 
         services.AddSingleton(provider =>
         {
