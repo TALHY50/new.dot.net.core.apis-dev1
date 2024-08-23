@@ -343,15 +343,15 @@
 
 
         public const string GetCurrencyName = "get-currency";
-        public const string GetCurrencyUrl = "/api/admin/get";
+        public const string GetCurrencyUrl = "/api/admin/getCurrency";
         public const string GetCurrencyByIdName = "get-currency-by-id";
-        public const string GetCurrencyByIdUrl = "/api/admin/getById/{id}";
+        public const string GetCurrencyByIdUrl = "/api/admin/getCurrencyById/{id}";
         public const string CreateCurrencyName = "create-currency";
-        public const string CreateCurrencyUrl = "/api/admin/create";
+        public const string CreateCurrencyUrl = "/api/admin/createCurrency";
         public const string DeleteCurrencyName = "delete-currency";
-        public const string DeleteCurrencyUrl = "/api/admin/delete/{id}";
+        public const string DeleteCurrencyUrl = "/api/admin/deleteCurrency/{id}";
         public const string UpdateCurrencyName = "update-currency";
-        public const string UpdateCurrencyUrl = "/api/admin/update";
+        public const string UpdateCurrencyUrl = "/api/admin/updateCurrency";
 
         public const string GetRegionName = "get_region";
         public const string GetRegionUrl = "/api/admin/region";
@@ -365,26 +365,26 @@
         public const string UpdateRegionUrl = "/api/admin/region";
 
         public const string GetCorridorName = "get-corridor";
-        public const string GetCorridorUrl = "/api/admin/get";
+        public const string GetCorridorUrl = "/api/admin/getCorridor";
         public const string GetCorridorByIdName = "get-corridor-by-id";
-        public const string GetCorridorByIdUrl = "/api/admin/getById/{id}";
+        public const string GetCorridorByIdUrl = "/api/admin/getCorridorById/{id}";
         public const string CreateCorridorName = "create-corridor";
-        public const string CreateCorridorUrl = "/api/admin/create";
+        public const string CreateCorridorUrl = "/api/admin/createCorridor";
         public const string DeleteCorridorName = "delete-corridor";
-        public const string DeleteCorridorUrl = "/api/admin/delete/{id}";
+        public const string DeleteCorridorUrl = "/api/admin/deleteCorridor/{id}";
         public const string UpdateCorridorName = "update-corridor";
-        public const string UpdateCorridorUrl = "/api/admin/update";
+        public const string UpdateCorridorUrl = "/api/admin/updateCorridor";
 
         public const string GetPayerName = "get-payer";
-        public const string GetPayerUrl = "/api/admin/get";
+        public const string GetPayerUrl = "/api/admin/getPayer";
         public const string GetPayerByIdName = "get-payer-by-id";
-        public const string GetPayerByIdUrl = "/api/admin/getById/{id}";
+        public const string GetPayerByIdUrl = "/api/admin/getPayerById/{id}";
         public const string CreatePayerName = "create-payer";
-        public const string CreatePayerUrl = "/api/admin/create";
+        public const string CreatePayerUrl = "/api/admin/createPayer";
         public const string DeletePayerName = "delete-payer";
-        public const string DeletePayerUrl = "/api/admin/delete/{id}";
+        public const string DeletePayerUrl = "/api/admin/deletePayer/{id}";
         public const string UpdatePayerName = "update-payer";
-        public const string UpdatePayerUrl = "/api/admin/update";
+        public const string UpdatePayerUrl = "/api/admin/updatePayer";
 
     }
 
