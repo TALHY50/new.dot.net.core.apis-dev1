@@ -9,7 +9,7 @@ using SharedKernel.Main.Domain.IMT.Entities;
 using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 
 
-namespace ADMIN.App.Application.Features.Regions
+namespace Admin.App.Application.Features.Regions
 {
     public class UpdateRegionController : ApiControllerBase
     {

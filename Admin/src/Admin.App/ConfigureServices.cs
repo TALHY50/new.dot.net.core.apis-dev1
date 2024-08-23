@@ -15,7 +15,7 @@ using SharedKernel.Main.Infrastructure.Persistence.Notification.Context;
 using SharedKernel.Main.Infrastructure.Persistence.Notification.Repositories;
 using SharedKernel.Main.Infrastructure.Services;
 
-namespace ADMIN.App;
+namespace Admin.App;
 
 public static class DependencyInjection
 {

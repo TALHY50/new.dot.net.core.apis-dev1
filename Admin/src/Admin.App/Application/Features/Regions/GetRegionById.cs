@@ -8,7 +8,7 @@ using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Domain.IMT.Entities;
 
-namespace ADMIN.App.Application.Features.Regions
+namespace Admin.App.Application.Features.Regions
 {
     public class GetRegionByIdController : ApiControllerBase
     {
