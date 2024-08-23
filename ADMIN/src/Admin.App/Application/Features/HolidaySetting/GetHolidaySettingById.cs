@@ -6,6 +6,8 @@ using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Domain.Admin;
 
+using Entities = SharedKernel.Main.Domain.IMT.Entities;
+
 namespace Admin.App.Application.Features.HolidaySetting;
 
 public class GetHolidaySettingByIdController : ApiControllerBase
@@ -13,12 +15,12 @@ public class GetHolidaySettingByIdController : ApiControllerBase
 
     //[Authorize(Policy = "HasPermission")]
     [HttpGet(Routes.GetHolidaySettingByIdUrl, Name = Routes.GetHolidaySettingByIdName)]
-    public async Task<ActionResult<ErrorOr<BusinessHoursAndWeekends>>> Delete(GetHolidaySettingByIdCommand command, int Id)
+    public async Task<ActionResult<ErrorOr<Entities.HolidaySetting>>> Delete(GetHolidaySettingByIdCommand command, int Id)
     {
         return await Mediator.Send(command).ConfigureAwait(false);
     }
 
-    public record GetHolidaySettingByIdCommand(int Id) : IRequest<ErrorOr<BusinessHoursAndWeekends>>;
+    public record GetHolidaySettingByIdCommand(int Id) : IRequest<ErrorOr<Entities.HolidaySetting>>;
 
     public class GetHolidaySettingByIdCommandValidator : AbstractValidator<GetHolidaySettingByIdCommand>
     {
@@ -28,9 +30,9 @@ public class GetHolidaySettingByIdController : ApiControllerBase
         }
     }
 
-    internal sealed class GetHolidaySettingByIdHandler() : IRequestHandler<GetHolidaySettingByIdCommand, ErrorOr<BusinessHoursAndWeekends>>
+    internal sealed class GetHolidaySettingByIdHandler() : IRequestHandler<GetHolidaySettingByIdCommand, ErrorOr<Entities.HolidaySetting>>
     {
-        public Task<ErrorOr<BusinessHoursAndWeekends>> Handle(GetHolidaySettingByIdCommand request, CancellationToken cancellationToken)
+        public Task<ErrorOr<Entities.HolidaySetting>> Handle(GetHolidaySettingByIdCommand request, CancellationToken cancellationToken)
         {
             // ToDo 
             // Check this id is valid

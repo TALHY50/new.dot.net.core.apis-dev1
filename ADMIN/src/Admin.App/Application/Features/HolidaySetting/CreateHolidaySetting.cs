@@ -7,6 +7,8 @@ using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Domain.Admin;
 
+using Entities= SharedKernel.Main.Domain.IMT.Entities;
+
 namespace Admin.App.Application.Features.HolidaySetting;
 
 public class CreateHolidaySettingController : ApiControllerBase
@@ -14,13 +16,13 @@ public class CreateHolidaySettingController : ApiControllerBase
 
     //[Authorize(Policy = "HasPermission")]
     [HttpPost(Routes.CreateHolidaySettingUrl, Name = Routes.CreateHolidaySettingName)]
-    public async Task<ActionResult<ErrorOr<BusinessHoursAndWeekends>>> Create(CreateHolidaySettingCommand command)
+    public async Task<ActionResult<ErrorOr<Entities.HolidaySetting>>> Create(CreateHolidaySettingCommand command)
     {
         return await Mediator.Send(command).ConfigureAwait(false);
     }
 
-    public record CreateHolidaySettingCommand(int? CountryId, DateTime Date, byte Type, sbyte Gmt, DateTime? OpenAt, DateTime? CloseAt, int CompanyId, byte Status)
-        : IRequest<ErrorOr<BusinessHoursAndWeekends>>;
+    public record CreateHolidaySettingCommand(int? CountryId, DateTime Date, byte Type, sbyte Gmt, DateTime? OpenAt, DateTime? CloseAt, int CompanyId)
+        : IRequest<ErrorOr<Entities.HolidaySetting>>;
 
 
     internal sealed class CreateHolidaySettingCommandValidator : AbstractValidator<CreateHolidaySettingCommand>
@@ -32,9 +34,9 @@ public class CreateHolidaySettingController : ApiControllerBase
         }
     }
 
-    internal sealed class CreateHolidaySettingHandler() : IRequestHandler<CreateHolidaySettingCommand, ErrorOr<BusinessHoursAndWeekends>>
+    internal sealed class CreateHolidaySettingHandler() : IRequestHandler<CreateHolidaySettingCommand, ErrorOr<Entities.HolidaySetting>>
     {
-        public Task<ErrorOr<BusinessHoursAndWeekends>> Handle(CreateHolidaySettingCommand request, CancellationToken cancellationToken)
+        public Task<ErrorOr<Entities.HolidaySetting>> Handle(CreateHolidaySettingCommand request, CancellationToken cancellationToken)
         {
 
             //_context.Events.Add(@event);

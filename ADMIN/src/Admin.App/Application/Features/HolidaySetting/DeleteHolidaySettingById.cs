@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Domain.Admin;
-
+using Entities = SharedKernel.Main.Domain.IMT.Entities;
 
 namespace Admin.App.Application.Features.HolidaySetting;
 
@@ -13,12 +13,12 @@ public class DeleteHolidaySettingByIdController : ApiControllerBase
 {
     //[Authorize(Policy = "HasPermission")]
     [HttpDelete(Routes.DeleteHolidaySettingUrl, Name = Routes.DeleteHolidaySettingName)]
-    public async Task<ActionResult<ErrorOr<HolidaySetting>>> Delete(DeleteHolidaySettingCommand command, int id)
+    public async Task<ActionResult<ErrorOr<Entities.HolidaySetting>>> Delete(DeleteHolidaySettingCommand command, int id)
     {
         return await Mediator.Send(command).ConfigureAwait(false);
     }
 
-    public record DeleteHolidaySettingCommand(int Id) : IRequest<ErrorOr<HolidaySetting>>;
+    public record DeleteHolidaySettingCommand(int Id) : IRequest<ErrorOr<Entities.HolidaySetting>>;
 
     public class DeleteHolidaySettingCommandValidator : AbstractValidator<DeleteHolidaySettingCommand>
     {
@@ -28,9 +28,9 @@ public class DeleteHolidaySettingByIdController : ApiControllerBase
         }
     }
 
-    internal sealed class DeleteHolidaySettingCommandHandler() : IRequestHandler<DeleteHolidaySettingCommand, ErrorOr<HolidaySetting>>
+    internal sealed class DeleteHolidaySettingCommandHandler() : IRequestHandler<DeleteHolidaySettingCommand, ErrorOr<Entities.HolidaySetting>>
     {
-        public Task<ErrorOr<HolidaySetting>> Handle(DeleteHolidaySettingCommand request, CancellationToken cancellationToken)
+        public Task<ErrorOr<Entities.HolidaySetting>> Handle(DeleteHolidaySettingCommand request, CancellationToken cancellationToken)
         {
 
             // ToDo delete logic
