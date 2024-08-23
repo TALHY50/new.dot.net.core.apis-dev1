@@ -11,16 +11,10 @@ using SharedKernel.Main.Domain.IMT.Entities;
 using SharedKernel.Main.Domain.Notification.Notifications.Events;
 using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 
-namespace ADMIN.App.Application.Features.Mtts
+namespace Admin.App.Application.Features.Mtts
 {
     public class MttsCreate : ApiControllerBase
     {
-        private readonly IMediator _mediator;
-
-        public MttsCreate(IMediator mediator)
-        {
-            _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
-        }
         //[Authorize(Policy = "HasPermission")]
         [HttpPost(AdminRoute.CreateMttsRouteUrl, Name = AdminRoute.CreateMttsRouteName)]
         public async Task<ActionResult<ErrorOr<Mtt>>> Create(CreateMttCommand command)
@@ -49,29 +43,59 @@ namespace ADMIN.App.Application.Features.Mtts
             }
         }
 
-        internal sealed class CreateMttCommandHandler(ImtApplicationDbContext dbContext, IImtMttsRepository repository) : IRequestHandler<CreateMttCommand, ErrorOr<Mtt>>
+        internal sealed class CreateMttCommandHandler : IRequestHandler<CreateMttCommand, ErrorOr<Mtt>>
         {
-            private readonly ImtApplicationDbContext _context = dbContext;
+            private readonly ImtApplicationDbContext _context;
+            private readonly IImtMttsRepository _repository;
+
+            public CreateMttCommandHandler(ImtApplicationDbContext context, IImtMttsRepository repository)
+            {
+                _context = context;
+                _repository = repository;
+            }
+
             public async Task<ErrorOr<Mtt>> Handle(CreateMttCommand request, CancellationToken cancellationToken)
             {
                 var entity = new Mtt
                 {
+                    CompanyId = request.CompanyId,
+                    CorridorId = request.CorridorId,
+                    CotCurrencyId = request.CotCurrencyId,
+                    CotFixed = request.CotFixed,
+                    CotPercentage = request.CotPercentage,
+                    FxSpread = request.FxSpread,
+                    Increment = request.Increment,
+                    MarkUpCurrencyId = request.MarkUpCurrencyId,
+                    MarkUpFixed = request.MarkUpFixed,
+                    MarkUpPercentage = request.MarkUpPercentage,
+                    MoneyPrecision = request.MoneyPrecision,
+                    PayerId = request.PayerId,
+                    ServiceMethodId = request.ServiceMethodId,
+                    Status = request.Status,
+                    TransactionTypeId = request.TransactionTypeId,
+                    CreatedById= request.Id, //HardCoded value Will update later
+                    CreatedAt= DateTime.Now,
+                    UpdatedAt= DateTime.Now,
+                    Id = request.Id,
                 };
+
                 if (request.Id > 0)
                 {
-                    entity = repository.GetById(request.Id);
+                    entity = _repository.GetById(request.Id);
                     if (entity != null)
                     {
                         entity.PayerId = request.PayerId;
-                        return await repository.UpdateAsync(entity);
+                        return await _repository.UpdateAsync(entity);
                     }
                 }
                 else
                 {
-                    return await repository.AddAsync(entity);
+                    return await _repository.AddAsync(entity);
                 }
-                return await repository.AddAsync(entity);
+
+                return await _repository.AddAsync(entity);
             }
         }
+
     }
 }
