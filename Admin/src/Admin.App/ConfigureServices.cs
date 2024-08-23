@@ -33,6 +33,9 @@ using SharedKernel.Main.Infrastructure.Persistence.Notification.Context;
 using SharedKernel.Main.Infrastructure.Persistence.Notification.Repositories;
 using SharedKernel.Main.Infrastructure.Security;
 using SharedKernel.Main.Infrastructure.Services;
+using static Admin.App.Application.Features.BusinessHourAndWeekend.CreateBusinessHourAndWeekendController;
+using static Admin.App.Application.Features.HolidaySetting.CreateHolidaySettingController;
+using static Admin.App.Application.Features.Mtts.MttsCreate;
 using static Admin.App.Application.Features.Mtts.MttsCreate;
 
 namespace Admin.App;
@@ -128,6 +131,7 @@ public static class DependencyInjection
                 }),
             ServiceLifetime.Transient);
 
+
         services.AddDbContext<ImtApplicationDbContext>(
             options =>
                 options.UseMySQL(connectionString, options =>
@@ -135,6 +139,7 @@ public static class DependencyInjection
                     options.EnableRetryOnFailure();
                 }),
             ServiceLifetime.Transient);
+
 
         var cacheDriver = Env.GetString("CACHE_DRIVER");
 
@@ -155,13 +160,22 @@ public static class DependencyInjection
         services.AddScoped<IAclRolePageRepository, AclRolePageRepository>();
         services.AddScoped<IAclRoleRepository, AclRoleRepository>();
 
-// services.AddScoped<IAclSubModuleRepository, AclSubModuleRepository>();
+        // services.AddScoped<IAclSubModuleRepository, AclSubModuleRepository>();
         services.AddScoped<IAclUserGroupRepository, AclUserGroupRepository>();
         services.AddScoped<IAclUserGroupRoleRepository, AclUserGroupRoleRepository>();
         services.AddScoped<IAclUserUserGroupRepository, AclUserUserGroupRepository>();
         services.AddScoped<IAclUserRepository, AclUserRepository>();
         services.AddScoped<IImtMttsRepository, ImtMttsRepository>();
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateMttCommand).Assembly));
+
+        services.AddScoped<IImtMttsRepository, ImtMttsRepository>();
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateMttCommand).Assembly));
+
+        // BusinessHourAndWeekendRepository
+        services.AddScoped<IBusinessHourAndWeekendRepository, BusinessHourAndWeekendRepository>();
+
+        // HolidaySetting
+        services.AddScoped<IHolidaySettingRepository, HolidaySettingRepository>();
 
         services.AddSingleton(provider =>
         {
