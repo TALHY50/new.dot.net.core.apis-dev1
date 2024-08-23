@@ -58,5 +58,4 @@ namespace Admin.App.Application.Features.Countries
             return  _repository.AddAsync(country).Result;
         }
     }
-
 }

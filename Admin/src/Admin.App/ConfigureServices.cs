@@ -3,6 +3,9 @@
 // </copyright>
 
 using System.Security.Cryptography;
+using Admin.App.Application.Features.Corridors;
+using Admin.App.Application.Features.Currencies;
+using Admin.App.Application.Features.Payers;
 using Admin.App.Application.Features.Countries;
 using Admin.App.Application.Features.Currencies;
 using Admin.App.Application.Features.Providers;
@@ -41,6 +44,7 @@ using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 using SharedKernel.Main.Infrastructure.Persistence.IMT.Repositories;
 using SharedKernel.Main.Infrastructure.Persistence.Notification.Context;
 using SharedKernel.Main.Infrastructure.Persistence.Notification.Repositories;
+using SharedKernel.Main.Infrastructure.Persistence.Repositories.ImtCurrency;
 using SharedKernel.Main.Infrastructure.Security;
 using SharedKernel.Main.Infrastructure.Services;
 using static Admin.App.Application.Features.BusinessHourAndWeekend.CreateBusinessHourAndWeekendController;
@@ -192,6 +196,15 @@ public static class DependencyInjection
 
         services.AddScoped<IImtMttsRepository, ImtMttsRepository>();
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateMttCommand).Assembly));
+        services.AddScoped<IImtCorridorRepository, ImtCorridorRepository>();
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateCorridorCommand).Assembly));
+        services.AddScoped<IImtAdminCurrencyRepository, ImtAdminCurrencyRepository>();
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateCurrencyCommand).Assembly));
+
+        services.AddScoped<IImtPayerRepository, ImtPayerRepository>();
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreatePayerCommand).Assembly));
+
+
 
         // BusinessHourAndWeekendRepository
         services.AddScoped<IBusinessHourAndWeekendRepository, BusinessHourAndWeekendRepository>();
