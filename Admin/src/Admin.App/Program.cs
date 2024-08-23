@@ -1,7 +1,7 @@
 
 using Admin.App;
 using Microsoft.OpenApi.Models;
-using SharedKernel.Main;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,7 +56,7 @@ app.MapControllers();
 
 app.Run();
 
-namespace ADMIN.App
+namespace Admin.App
 {
     public partial class Program { }
 }

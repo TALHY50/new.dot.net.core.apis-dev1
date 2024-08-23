@@ -1,4 +1,4 @@
-namespace ADMIN.App.Application.Features.Countries
+namespace Admin.App.Application.Features.Countries
 {
     using ErrorOr;
     using FluentValidation;
