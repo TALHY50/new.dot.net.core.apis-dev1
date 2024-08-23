@@ -1,5 +1,5 @@
-﻿using IMT.App.Application.Ports.Services;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using SharedKernel.Main.Application.Interfaces.Repositories.IMT.Services;
 using Thunes.Exception;
 using Thunes.Request.Transaction.Transfer.CommonTransaction;
 using Thunes.Route;

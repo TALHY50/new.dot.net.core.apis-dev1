@@ -1,4 +1,7 @@
-﻿namespace SharedKernel.Main.Domain.IMT.Entities;
+﻿using System;
+using System.Collections.Generic;
+
+namespace SharedKernel.Main.Domain.IMT.Entities;
 
 public partial class Quotation
 {
@@ -8,14 +11,8 @@ public partial class Quotation
 
     public string PayerId { get; set; } = null!;
 
-    /// <summary>
-    /// DESTINATION_AMOUNT, SOURCE_AMOUNT
-    /// </summary>
     public string Mode { get; set; } = null!;
 
-    /// <summary>
-    /// B2B,B2C,C2C,C2B
-    /// </summary>
     public string TransactionType { get; set; } = null!;
 
     public decimal? SourceAmount { get; set; }
