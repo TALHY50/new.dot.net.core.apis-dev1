@@ -6,8 +6,11 @@ using System.Security.Cryptography;
 using Admin.App.Application.Features.Corridors;
 using Admin.App.Application.Features.Currencies;
 using Admin.App.Application.Features.Payers;
+using Admin.App.Application.Features.Countries;
 using DotNetEnv;
+using ErrorOr;
 using FluentValidation;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
@@ -23,6 +26,7 @@ using SharedKernel.Main.Application.Interfaces.Repositories.ACL.UserGroup;
 using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
 using SharedKernel.Main.Application.Interfaces.Repositories.IMT.Repositories;
 using SharedKernel.Main.Application.Interfaces.Repositories.Notification;
+using SharedKernel.Main.Domain.IMT.Entities;
 using SharedKernel.Main.Infrastructure.Cryptography;
 using SharedKernel.Main.Infrastructure.Files;
 using SharedKernel.Main.Infrastructure.Jwt;
@@ -33,6 +37,7 @@ using SharedKernel.Main.Infrastructure.Persistence.ACL.Repositories.Role;
 using SharedKernel.Main.Infrastructure.Persistence.ACL.Repositories.UserGroup;
 using SharedKernel.Main.Infrastructure.Persistence.Admin.Repositories;
 using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
+using SharedKernel.Main.Infrastructure.Persistence.IMT.Repositories;
 using SharedKernel.Main.Infrastructure.Persistence.Notification.Context;
 using SharedKernel.Main.Infrastructure.Persistence.Notification.Repositories;
 using SharedKernel.Main.Infrastructure.Persistence.Repositories.ImtCurrency;
@@ -180,6 +185,12 @@ public static class DependencyInjection
         services.AddScoped<IImtPayerRepository, ImtPayerRepository>();
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreatePayerCommand).Assembly));
 
+
+        services.AddScoped<IAdminCountryRepository, AdminCountryRepository>();
+        services.AddScoped<IImtServiceMethodRepository, ImtServiceMethodRepository>();
+        services.AddScoped<IImtPayerPaymentSpeedRepository, ImtPayerPaymentSpeed>();
+       // services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateCountryCommand).Assembly));  
+        //services.AddScoped<IRequestHandler<CreateCountryCommand, ErrorOr<Country>>, CreateCountryCommandHandler>();
 
 
         services.AddScoped<IImtMttsRepository, ImtMttsRepository>();

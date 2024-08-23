@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
 using SharedKernel.Main.Domain.IMT.Entities;
 using SharedKernel.Main.Infrastructure.Persistence.Notification.Context;
 
@@ -31,12 +32,22 @@ namespace Admin.App.Application.Features.Countries
         }
     }
 
-    internal sealed class DeleteCountryCommandHandler(ApplicationDbContext context) : IRequestHandler<DeleteCountryCommand, ErrorOr<Country>>
+    internal sealed class DeleteCountryCommandHandler : IRequestHandler<DeleteCountryCommand, ErrorOr<Country>>
     {
-        private readonly ApplicationDbContext _context = context;
+        private readonly IAdminCountryRepository _repository;
+
+        public DeleteCountryCommandHandler(IAdminCountryRepository repository)
+        {
+            _repository = repository;
+        }
 
         public async Task<ErrorOr<Country>> Handle(DeleteCountryCommand command, CancellationToken cancellationToken)
         {
+            //var country = _repository.GetById(command.Id);
+
+            //return _repository.Delete(country).Result;
+
+           
             throw new NotImplementedException();
         }
     }
