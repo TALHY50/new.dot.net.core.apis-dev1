@@ -1,11 +1,9 @@
-using ADMIN.Application.Application.Ports.Services.Interfaces.Provider;
-using ADMIN.Application.Infrastructure.Persistence.Configurations;
-using ADMIN.Application.Infrastructure.Persistence.Services.Provider;
 using DotNetEnv;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 
 //using SharedKernel.Persistence.Configurations;
 
@@ -29,9 +27,9 @@ namespace ADMIN.Application
             var password = Env.GetString("DB_PASSWORD");
             var port = Env.GetString("DB_PORT");
 
-            var connectionString = $"server={server};database={database};User ID={userName};Password={password};CharSet=utf8mb4;" ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+            var connectionString = $"server={server};port={port};database={database};User ID={userName};Password={password};CharSet=utf8mb4;" ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
-            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            builder.Services.AddDbContext<ImtApplicationDbContext>(options =>
                 options.UseMySQL(connectionString, options =>
                 {
                     options.EnableRetryOnFailure();
@@ -42,7 +40,6 @@ namespace ADMIN.Application
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             // dependency start
-            builder.Services.AddTransient<IProviderService, ProviderService>();
             // dependency end
 
             var app = builder.Build();

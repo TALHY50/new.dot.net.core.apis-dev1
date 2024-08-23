@@ -1,4 +1,7 @@
-﻿namespace SharedKernel.Main.Domain.IMT.Entities;
+﻿using System;
+using System.Collections.Generic;
+
+namespace SharedKernel.Main.Domain.IMT.Entities;
 
 public partial class ProviderPayer
 {
@@ -14,14 +17,8 @@ public partial class ProviderPayer
 
     public int? RemotePayerId { get; set; }
 
-    /// <summary>
-    /// for declaring precision point after decimal
-    /// </summary>
     public sbyte? Precision { get; set; }
 
-    /// <summary>
-    /// still not clear, asked client
-    /// </summary>
     public decimal? Increment { get; set; }
 
     public DateTime? CreatedAt { get; set; }

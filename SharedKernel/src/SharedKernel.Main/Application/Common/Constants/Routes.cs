@@ -3,7 +3,7 @@
     public class AclRoutesUrl
     {
         public const string Base = "api/v1/";
-        
+
         public class AclAuthRouteUrl
         {
             public const string Base = "api/v1/";
@@ -14,7 +14,7 @@
         {
             public const string GetWeatherForecast = "api/v1/GetWeatherForecast";
         }
-        
+
 
 
         public class AclModuleRouteUrl
@@ -150,7 +150,7 @@
     }
     public static class AclRoutesName
     {
-   
+
 
         public static class AclAuthRouteNames
         {
@@ -159,12 +159,12 @@
             public const string RefreshToken = "acl.auth.refreshToken";
             public const string CreateUser = "acl.auth.createUser";
         }
-        
+
         public static class AclWeatherForecastRouteNames
         {
             public const string GetWeatherForecasts = "acl.weatherForecast.getWeatherForecasts";
         }
-        
+
         public static class AclCompanyRouteNames
         {
             public const string List = "acl.company.list";
@@ -291,9 +291,9 @@
             public const string Edit = ModelName + "edit";
             public const string Destroy = ModelName + "destroy";
         }
-        
-        
-  
+
+
+
 
     }
 
@@ -314,6 +314,24 @@
         public const string UpdateRegionUrl = "/api/admin/region";
 
     }
-    
-    
+
+    public class AdminRoute
+    {
+        #region Mtts
+        public const string CreateMttsRouteUrl = "/api/admin/mtts/create";
+        public const string CreateMttsRouteName = "api.admin.mtts.create";
+
+        public const string EditMttsRouteUrl = "/api/admin/mtts/edit/{id}";
+        public const string EditMttsRouteName = "api.admin.mtts.edit";
+
+        public const string ViewMttsRouteUrl = "/api/admin/mtts/view/{id}";
+        public const string ViewMttsRouteName = "api.admin.mtts.view";
+
+        public const string AllMttsRouteUrl = "/api/admin/mtts/get";
+        public const string AllMttsRouteName = "api.admin.mtts.get";
+
+        public const string DeleteMttsRouteUrl = "/api/admin/mtts/delete/{id}";
+        public const string DeleteMttsRouteName = "api.admin.mtts.delete";
+        #endregion Mtts
+    }
 }
