@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
 using SharedKernel.Main.Domain.IMT.Entities;
 
 namespace Admin.App.Application.Features.Currencies
@@ -12,19 +13,27 @@ namespace Admin.App.Application.Features.Currencies
     {
         //[Authorize]
         [HttpGet(Routes.GetCurrencyUrl, Name = Routes.GetCurrencyName)]
-        public async Task<ActionResult<ErrorOr<Currency>>> Get()
+        public async Task<ActionResult<ErrorOr<List<Currency>>>> Get()
         {
             return await Mediator.Send(new GetCurrencyQuery()).ConfigureAwait(false);
         }
     }
-    public record GetCurrencyQuery() : IQuery<ErrorOr<Currency>>;
+    public record GetCurrencyQuery() : IQuery<ErrorOr<List<Currency>>>;
 
-    internal sealed class GetCurrencyHandler()
-        : IQueryHandler<GetCurrencyQuery, ErrorOr<Currency>>
+    internal sealed class GetCurrencyHandler
+        : IQueryHandler<GetCurrencyQuery, ErrorOr<List<Currency>>>
     {
-        public Task<ErrorOr<Currency>> Handle(GetCurrencyQuery request, CancellationToken cancellationToken)
+        private readonly IImtAdminCurrencyRepository _repository;
+
+        public GetCurrencyHandler(IImtAdminCurrencyRepository repository)
         {
-            throw new NotImplementedException();
+            _repository = repository;
+        }
+        public Task<ErrorOr<List<Currency>>> Handle(GetCurrencyQuery request, CancellationToken cancellationToken)
+        {
+            var currencies = _repository.All().ToList(); // Convert IEnumerable to List
+            return Task.FromResult<ErrorOr<List<Currency>>>(currencies); // Wrap in ErrorOr.Success
+            
         }
     }
 }

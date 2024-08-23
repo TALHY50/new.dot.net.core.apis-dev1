@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
 using SharedKernel.Main.Domain.IMT.Entities;
 using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 
@@ -25,9 +26,13 @@ namespace Admin.App.Application.Features.Corridors
         uint? DestinationCurrencyId,
         uint? CompanyId) : IRequest<ErrorOr<Corridor>>;
 
-    internal sealed class CreateCorridorCommandHandler(ImtApplicationDbContext context) : IRequestHandler<CreateCorridorCommand, ErrorOr<Corridor>>
+    internal sealed class CreateCorridorCommandHandler : IRequestHandler<CreateCorridorCommand, ErrorOr<Corridor>>
     {
-        private readonly ImtApplicationDbContext _context = context;
+        private readonly IImtCorridorRepository _repository;
+        public CreateCorridorCommandHandler(IImtCorridorRepository repository)
+        {
+            _repository = repository;
+        }
         public async Task<ErrorOr<Corridor>> Handle(CreateCorridorCommand request, CancellationToken cancellationToken)
         {
             var now = DateTime.UtcNow;
@@ -44,7 +49,7 @@ namespace Admin.App.Application.Features.Corridors
                 CreatedAt = now,
                 UpdatedAt = now,
             };
-            return @corridor;
+            return await _repository.AddAsync(@corridor);
         }
     }
 }

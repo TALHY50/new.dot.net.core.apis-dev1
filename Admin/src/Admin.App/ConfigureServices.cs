@@ -3,6 +3,9 @@
 // </copyright>
 
 using System.Security.Cryptography;
+using Admin.App.Application.Features.Corridors;
+using Admin.App.Application.Features.Currencies;
+using Admin.App.Application.Features.Payers;
 using DotNetEnv;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -18,6 +21,7 @@ using SharedKernel.Main.Application.Interfaces.Repositories.ACL.Module;
 using SharedKernel.Main.Application.Interfaces.Repositories.ACL.Role;
 using SharedKernel.Main.Application.Interfaces.Repositories.ACL.UserGroup;
 using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
+using SharedKernel.Main.Application.Interfaces.Repositories.IMT.Repositories;
 using SharedKernel.Main.Application.Interfaces.Repositories.Notification;
 using SharedKernel.Main.Infrastructure.Cryptography;
 using SharedKernel.Main.Infrastructure.Files;
@@ -31,6 +35,7 @@ using SharedKernel.Main.Infrastructure.Persistence.Admin.Repositories;
 using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 using SharedKernel.Main.Infrastructure.Persistence.Notification.Context;
 using SharedKernel.Main.Infrastructure.Persistence.Notification.Repositories;
+using SharedKernel.Main.Infrastructure.Persistence.Repositories.ImtCurrency;
 using SharedKernel.Main.Infrastructure.Security;
 using SharedKernel.Main.Infrastructure.Services;
 using static Admin.App.Application.Features.Mtts.MttsCreate;
@@ -162,6 +167,15 @@ public static class DependencyInjection
         services.AddScoped<IAclUserRepository, AclUserRepository>();
         services.AddScoped<IImtMttsRepository, ImtMttsRepository>();
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateMttCommand).Assembly));
+        services.AddScoped<IImtCorridorRepository, ImtCorridorRepository>();
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateCorridorCommand).Assembly));
+        services.AddScoped<IImtAdminCurrencyRepository, ImtAdminCurrencyRepository>();
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateCurrencyCommand).Assembly));
+
+        services.AddScoped<IImtPayerRepository, ImtPayerRepository>();
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreatePayerCommand).Assembly));
+
+
 
         services.AddSingleton(provider =>
         {

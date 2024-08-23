@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
 using SharedKernel.Main.Domain.IMT.Entities;
 using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 
@@ -60,9 +61,13 @@ namespace Admin.App.Application.Features.Payers
         }
     }
 
-    internal sealed class CreatePayerCommandHandler(ImtApplicationDbContext context) : IRequestHandler<CreatePayerCommand, ErrorOr<Payer>>
+    internal sealed class CreatePayerCommandHandler : IRequestHandler<CreatePayerCommand, ErrorOr<Payer>>
     {
-        private readonly ImtApplicationDbContext _context = context;
+        private readonly IImtPayerRepository _repository;
+        public CreatePayerCommandHandler(IImtPayerRepository repository)
+        {
+            _repository = repository;
+        }
         public async Task<ErrorOr<Payer>> Handle(CreatePayerCommand request, CancellationToken cancellationToken)
         {
             var now = DateTime.UtcNow;
@@ -93,7 +98,7 @@ namespace Admin.App.Application.Features.Payers
                 CreatedAt = now,
                 UpdatedAt = now,
             };
-            return @payer;
+            return await _repository.AddAsync(@payer);
         }
     }
 }
