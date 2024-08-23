@@ -331,5 +331,23 @@
 
     }
 
+    public class AdminRoute
+    {
+        #region Mtts
+        public const string CreateMttsRouteUrl = "/api/admin/mtts/create";
+        public const string CreateMttsRouteName = "api.admin.mtts.create";
 
+        public const string EditMttsRouteUrl = "/api/admin/mtts/edit/{id}";
+        public const string EditMttsRouteName = "api.admin.mtts.edit";
+
+        public const string ViewMttsRouteUrl = "/api/admin/mtts/view/{id}";
+        public const string ViewMttsRouteName = "api.admin.mtts.view";
+
+        public const string AllMttsRouteUrl = "/api/admin/mtts/get";
+        public const string AllMttsRouteName = "api.admin.mtts.get";
+
+        public const string DeleteMttsRouteUrl = "/api/admin/mtts/delete/{id}";
+        public const string DeleteMttsRouteName = "api.admin.mtts.delete";
+        #endregion Mtts
+    }
 }

@@ -1,4 +1,7 @@
-﻿namespace SharedKernel.Main.Domain.IMT.Entities;
+﻿using System;
+using System.Collections.Generic;
+
+namespace SharedKernel.Main.Domain.IMT.Entities;
 
 public partial class Customer
 {
@@ -14,19 +17,10 @@ public partial class Customer
 
     public string? Email { get; set; }
 
-    /// <summary>
-    /// tckn is government national id
-    /// </summary>
     public string? Tckn { get; set; }
 
-    /// <summary>
-    /// 1=individual, 2=corporate etc
-    /// </summary>
     public sbyte? Type { get; set; }
 
-    /// <summary>
-    /// 1=verified, 2=not verified, 3=verified+
-    /// </summary>
     public sbyte? Category { get; set; }
 
     public int? CreatedById { get; set; }
@@ -34,7 +28,7 @@ public partial class Customer
     public int? UpdatedById { get; set; }
 
     /// <summary>
-    /// 1=approved,2= not approvec, 3=active, 4=inactive, 5=suspended, 6=banned etc
+    /// 0=inactive, 1= active, 2= pending, 3= blocked, 4=banned, 5=expired, 6=rejected, 7 = approved but not active yet
     /// </summary>
     public sbyte? Status { get; set; }
 

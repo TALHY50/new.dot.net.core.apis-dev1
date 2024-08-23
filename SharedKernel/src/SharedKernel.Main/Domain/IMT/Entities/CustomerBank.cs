@@ -1,4 +1,7 @@
-﻿namespace SharedKernel.Main.Domain.IMT.Entities;
+﻿using System;
+using System.Collections.Generic;
+
+namespace SharedKernel.Main.Domain.IMT.Entities;
 
 public partial class CustomerBank
 {
@@ -23,7 +26,7 @@ public partial class CustomerBank
     public int? UpdatedById { get; set; }
 
     /// <summary>
-    /// can&apos;t delete if already exist
+    /// 1=active, 0=inactive, 2= soft-deleted
     /// </summary>
     public sbyte? Status { get; set; }
 
