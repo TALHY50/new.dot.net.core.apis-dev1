@@ -1,11 +1,11 @@
-﻿using ADMIN.Application.Infrastructure.Persistence.Configurations;
-using ErrorOr;
+﻿using ErrorOr;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Domain.IMT.Entities;
+using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 
 namespace ADMIN.App.Application.Features.Currencies
 {
@@ -24,10 +24,10 @@ namespace ADMIN.App.Application.Features.Currencies
     string? IsoCode,
     string? Name,
     string? Symbol) : IRequest<ErrorOr<Currency>>;
-    internal sealed class UpdateCurrencyCommandHandler(ApplicationDbContext context) 
+    internal sealed class UpdateCurrencyCommandHandler(ImtApplicationDbContext context) 
         : IRequestHandler<UpdateCurrencyCommand, ErrorOr<Currency>>
     {
-        private readonly ApplicationDbContext _context = context;
+        private readonly ImtApplicationDbContext _context = context;
         public async Task<ErrorOr<Currency>> Handle(UpdateCurrencyCommand request, CancellationToken cancellationToken)
         {
             var now = DateTime.UtcNow;

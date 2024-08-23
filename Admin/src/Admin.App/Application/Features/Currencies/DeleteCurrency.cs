@@ -1,11 +1,11 @@
-﻿using ADMIN.Application.Infrastructure.Persistence.Configurations;
-using ErrorOr;
+﻿using ErrorOr;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Domain.IMT.Entities;
+using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 
 namespace ADMIN.App.Application.Features.Currencies
 {
@@ -21,9 +21,9 @@ namespace ADMIN.App.Application.Features.Currencies
     }
     public record DeleteCurrencyCommand(int id) : IRequest;
 
-    internal sealed class DeleteCurrencyCommandHandler(ApplicationDbContext context) : IRequestHandler<DeleteCurrencyCommand>
+    internal sealed class DeleteCurrencyCommandHandler(ImtApplicationDbContext context) : IRequestHandler<DeleteCurrencyCommand>
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ImtApplicationDbContext _context;
         public async Task Handle(DeleteCurrencyCommand request, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
