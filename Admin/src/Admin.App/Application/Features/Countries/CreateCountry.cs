@@ -1,4 +1,15 @@
-﻿using Microsoft.AspNetCore.Authorization;
+namespace ADMIN.App.Application.Features.Countries
+{
+    using ErrorOr;
+    using FluentValidation;
+    using MediatR;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using SharedKernel.Main.Application.Common;
+    using SharedKernel.Main.Application.Common.Constants;
+    using SharedKernel.Main.Domain.IMT.Entities;
+    using SharedKernel.Main.Infrastructure.Persistence.Notification.Context;
+using Microsoft.AspNetCore.Authorization;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 
@@ -10,8 +21,6 @@ using FluentValidation;
 using SharedKernel.Main.Infrastructure.Persistence.Notification.Context;
 using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 
-namespace Admin.App.Application.Features.Countries
-{
     public class CreateCountryController : ApiControllerBase
     {
         [Authorize(Policy = "HasPermission")]
