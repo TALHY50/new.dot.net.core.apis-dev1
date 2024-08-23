@@ -29,10 +29,12 @@ namespace Admin.App.Application.Features.Corridors
     internal sealed class CreateCorridorCommandHandler : IRequestHandler<CreateCorridorCommand, ErrorOr<Corridor>>
     {
         private readonly IImtCorridorRepository _repository;
+
         public CreateCorridorCommandHandler(IImtCorridorRepository repository)
         {
             _repository = repository;
         }
+
         public async Task<ErrorOr<Corridor>> Handle(CreateCorridorCommand request, CancellationToken cancellationToken)
         {
             var now = DateTime.UtcNow;

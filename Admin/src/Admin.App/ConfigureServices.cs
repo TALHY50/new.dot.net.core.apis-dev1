@@ -3,14 +3,14 @@
 // </copyright>
 
 using System.Security.Cryptography;
+using Admin.App.Application.Features.Corridors;
+using Admin.App.Application.Features.Countries;
 using Admin.App.Application.Features.Currencies;
+using Admin.App.Application.Features.Currencies;
+using Admin.App.Application.Features.Payers;
 using Admin.App.Application.Features.Providers;
 using Admin.App.Application.Features.Regions;
 using Admin.App.Application.Features.TransactionTypes;
-using Admin.App.Application.Features.Corridors;
-using Admin.App.Application.Features.Currencies;
-using Admin.App.Application.Features.Payers;
-using Admin.App.Application.Features.Countries;
 using DotNetEnv;
 using ErrorOr;
 using FluentValidation;
@@ -47,10 +47,6 @@ using SharedKernel.Main.Infrastructure.Persistence.Notification.Repositories;
 using SharedKernel.Main.Infrastructure.Persistence.Repositories.ImtCurrency;
 using SharedKernel.Main.Infrastructure.Security;
 using SharedKernel.Main.Infrastructure.Services;
-using static Admin.App.Application.Features.BusinessHourAndWeekend.CreateBusinessHourAndWeekendController;
-using static Admin.App.Application.Features.HolidaySetting.CreateHolidaySettingController;
-using static Admin.App.Application.Features.Mtts.MttsCreate;
-using static Admin.App.Application.Features.Mtts.MttsCreate;
 
 namespace Admin.App;
 
@@ -145,7 +141,6 @@ public static class DependencyInjection
                 }),
             ServiceLifetime.Transient);
 
-
         services.AddDbContext<ImtApplicationDbContext>(
             options =>
                 options.UseMySQL(connectionString, options =>
@@ -153,7 +148,6 @@ public static class DependencyInjection
                     options.EnableRetryOnFailure();
                 }),
             ServiceLifetime.Transient);
-
 
         var cacheDriver = Env.GetString("CACHE_DRIVER");
 
@@ -180,7 +174,7 @@ public static class DependencyInjection
         services.AddScoped<IAclUserUserGroupRepository, AclUserUserGroupRepository>();
         services.AddScoped<IAclUserRepository, AclUserRepository>();
         services.AddScoped<IImtMttsRepository, ImtMttsRepository>();
-        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateMttCommand).Assembly));
+        // services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateMttCommand).Assembly));
         services.AddScoped<IImtRegionRepository, ImtRegionRepository>();
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateRegionCommand).Assembly));
         services.AddScoped<IImtProviderRepository, ImtProviderRepository>();
@@ -195,16 +189,15 @@ public static class DependencyInjection
         services.AddScoped<IImtPayerRepository, ImtPayerRepository>();
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreatePayerCommand).Assembly));
 
-
         services.AddScoped<IAdminCountryRepository, AdminCountryRepository>();
         services.AddScoped<IImtServiceMethodRepository, ImtServiceMethodRepository>();
         services.AddScoped<IImtPayerPaymentSpeedRepository, ImtPayerPaymentSpeed>();
        // services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateCountryCommand).Assembly));  
-        //services.AddScoped<IRequestHandler<CreateCountryCommand, ErrorOr<Country>>, CreateCountryCommandHandler>();
-
+        // services.AddScoped<IRequestHandler<CreateCountryCommand, ErrorOr<Country>>, CreateCountryCommandHandler>();
 
         services.AddScoped<IImtMttsRepository, ImtMttsRepository>();
-        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateMttCommand).Assembly));
+
+       // services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateMttCommand).Assembly));
 
         // BusinessHourAndWeekendRepository
         services.AddScoped<IBusinessHourAndWeekendRepository, BusinessHourAndWeekendRepository>();
