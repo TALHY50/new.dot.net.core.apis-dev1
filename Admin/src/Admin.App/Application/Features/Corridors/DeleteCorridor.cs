@@ -8,7 +8,7 @@ namespace Admin.App.Application.Features.Corridors
 {
     public class DeleteCorridorController : ApiControllerBase
     {
-        //[Authorize]
+        // [Authorize]
         [HttpDelete(Routes.DeleteCorridorUrl, Name = Routes.DeleteCorridorName)]
         public async Task<ActionResult> Delete(int id)
         {

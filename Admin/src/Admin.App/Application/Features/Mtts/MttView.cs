@@ -4,16 +4,12 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Common.Interfaces.Services;
 using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
 using SharedKernel.Main.Domain.IMT.Entities;
-using SharedKernel.Main.Infrastructure.Security;
-using static Admin.App.Application.Features.Countries.GetCountryByIdController;
-using static Admin.App.Application.Features.Mtts.MttsCreate;
 
 namespace Admin.App.Application.Features.Mtts
 {
-    public class MttsView : ApiControllerBase
+    public class MttView : ApiControllerBase
     {
         //[Authorize(Policy = "HasPermission")]
         [HttpGet(AdminRoute.ViewMttsRouteUrl, Name = AdminRoute.ViewMttsRouteName)]
