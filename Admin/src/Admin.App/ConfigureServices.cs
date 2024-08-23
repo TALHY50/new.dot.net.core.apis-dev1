@@ -127,7 +127,8 @@ public static class DependencyInjection
                     options.EnableRetryOnFailure();
                 }),
             ServiceLifetime.Transient);
-
+        
+        
         services.AddDbContext<ImtApplicationDbContext>(
             options =>
                 options.UseMySQL(connectionString, options =>
@@ -135,6 +136,7 @@ public static class DependencyInjection
                     options.EnableRetryOnFailure();
                 }),
             ServiceLifetime.Transient);
+        
 
         var cacheDriver = Env.GetString("CACHE_DRIVER");
 
@@ -155,14 +157,14 @@ public static class DependencyInjection
         services.AddScoped<IAclRolePageRepository, AclRolePageRepository>();
         services.AddScoped<IAclRoleRepository, AclRoleRepository>();
 
-        // services.AddScoped<IAclSubModuleRepository, AclSubModuleRepository>();
+// services.AddScoped<IAclSubModuleRepository, AclSubModuleRepository>();
         services.AddScoped<IAclUserGroupRepository, AclUserGroupRepository>();
         services.AddScoped<IAclUserGroupRoleRepository, AclUserGroupRoleRepository>();
         services.AddScoped<IAclUserUserGroupRepository, AclUserUserGroupRepository>();
+
         services.AddScoped<IAclUserRepository, AclUserRepository>();
         services.AddScoped<IImtMttsRepository, ImtMttsRepository>();
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateMttCommand).Assembly));
-
         services.AddSingleton(provider =>
         {
             var rsa = RSA.Create();
@@ -185,10 +187,10 @@ public static class DependencyInjection
         var rsaKey = new RsaSecurityKey(rsa);
 
         services.AddAuthentication(options =>
-        {
-            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        })
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
             .AddJwtBearer(options =>
             {
                 if (isDevelopment)
