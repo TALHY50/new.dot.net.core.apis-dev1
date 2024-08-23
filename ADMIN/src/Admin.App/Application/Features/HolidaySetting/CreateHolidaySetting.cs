@@ -19,8 +19,7 @@ public class CreateHolidaySettingController : ApiControllerBase
         return await Mediator.Send(command).ConfigureAwait(false);
     }
 
-    public record CreateHolidaySettingCommand(byte HourType, int? CountryId,
-        string Day, byte IsWeekend, sbyte Gmt, DateTime OpenAt, DateTime CloseAt, int CompanyId, byte Status)
+    public record CreateHolidaySettingCommand(int? CountryId, DateTime Date, byte Type, sbyte Gmt, DateTime? OpenAt, DateTime? CloseAt, int CompanyId, byte Status)
         : IRequest<ErrorOr<BusinessHoursAndWeekends>>;
 
 
@@ -28,7 +27,8 @@ public class CreateHolidaySettingController : ApiControllerBase
     {
         public CreateHolidaySettingCommandValidator()
         {
-            RuleFor(r => r.Day).NotEmpty();
+            RuleFor(r => r.Date).NotEmpty();
+            RuleFor(r => r.Gmt).NotEmpty();
         }
     }
 
