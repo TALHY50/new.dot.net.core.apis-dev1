@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
 using SharedKernel.Main.Domain.IMT.Entities;
 
 namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
@@ -21,7 +22,12 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
 
         internal sealed class GetPayerPaymentSpeedQueryHandler() : IQueryHandler<GetPayerPaymentSpeedQuery, ErrorOr<PayerPaymentSpeed>>
         {
-            // get all data 
+            private readonly IImtPayerPaymentSpeedRepository _repository;
+
+            public CreateCountryCommandHandler(IImtPayerPaymentSpeedRepository repository)
+            {
+                _repository = repository;
+            }
             public Task<ErrorOr<PayerPaymentSpeed>> Handle(GetPayerPaymentSpeedQuery request, CancellationToken cancellationToken)
             {
                 throw new NotImplementedException();

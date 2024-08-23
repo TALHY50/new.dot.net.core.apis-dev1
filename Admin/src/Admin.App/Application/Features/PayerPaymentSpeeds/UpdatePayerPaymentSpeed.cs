@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
 using SharedKernel.Main.Domain.IMT.Entities;
 using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 
@@ -35,10 +36,14 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
             }
         }
 
-        internal sealed class UpdatePayerPaymentSpeedCommandHandler(ImtApplicationDbContext context) : IRequestHandler<UpdatePayerPaymentSpeedCommand, ErrorOr<PayerPaymentSpeed>>
+        internal sealed class UpdatePayerPaymentSpeedCommandHandler : IRequestHandler<UpdatePayerPaymentSpeedCommand, ErrorOr<PayerPaymentSpeed>>
         {
-            private readonly ImtApplicationDbContext _context = context;
+            private readonly IImtPayerPaymentSpeedRepository _repository;
 
+            public UpdatePayerPaymentSpeedCommandHandler(IImtPayerPaymentSpeedRepository repository)
+            {
+                _repository = repository;
+            }
             public async Task<ErrorOr<PayerPaymentSpeed>> Handle(UpdatePayerPaymentSpeedCommand command, CancellationToken cancellationToken)
             {
                 var payerPaymentSpeed = new PayerPaymentSpeed
@@ -62,7 +67,7 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
 
                 //await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
-                return @payerPaymentSpeed;
+                return payerPaymentSpeed;
             }
         }
 

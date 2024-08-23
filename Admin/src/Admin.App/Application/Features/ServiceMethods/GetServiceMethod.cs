@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
 using SharedKernel.Main.Domain.IMT.Entities;
 
 namespace ADMIN.App.Application.Features.ServiceMethods
@@ -19,9 +20,14 @@ namespace ADMIN.App.Application.Features.ServiceMethods
 
         public record GetServiceMethodQuery() : IQuery<ErrorOr<ServiceMethod>>;
 
-        internal sealed class GetServiceMethodQueryHandler() : IQueryHandler<GetServiceMethodQuery, ErrorOr<ServiceMethod>>
+        internal sealed class GetServiceMethodQueryHandler : IQueryHandler<GetServiceMethodQuery, ErrorOr<ServiceMethod>>
         {
-            // get all data 
+            private readonly IImtServiceMethodRepository _repository;
+
+            public GetServiceMethodQueryHandler(IImtServiceMethodRepository repository)
+            {
+                _repository = repository;
+            }
             public Task<ErrorOr<ServiceMethod>> Handle(GetServiceMethodQuery request, CancellationToken cancellationToken)
             {
                 throw new NotImplementedException();

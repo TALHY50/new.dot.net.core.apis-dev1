@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
 using SharedKernel.Main.Domain.IMT.Entities;
 using SharedKernel.Main.Infrastructure.Persistence.Notification.Context;
 
@@ -34,9 +35,14 @@ namespace Admin.App.Application.Features.Countries
             }
         }
 
-        internal sealed class UpdateCountryCommandHandler(ApplicationDbContext context) : IRequestHandler<UpdateCountryCommand, ErrorOr<Country>>
+        internal sealed class UpdateCountryCommandHandler : IRequestHandler<UpdateCountryCommand, ErrorOr<Country>>
         {
-            private readonly ApplicationDbContext _context = context;
+            private readonly IAdminCountryRepository _repository;
+
+            public UpdateCountryCommandHandler(IAdminCountryRepository repository)
+            {
+                _repository = repository;
+            }
 
             public async Task<ErrorOr<Country>> Handle(UpdateCountryCommand command, CancellationToken cancellationToken)
             {

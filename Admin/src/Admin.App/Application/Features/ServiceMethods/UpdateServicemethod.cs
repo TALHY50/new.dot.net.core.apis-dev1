@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
 using SharedKernel.Main.Domain.IMT.Entities;
 using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 using static Admin.App.Application.Features.Countries.UpdateCountryController;
@@ -35,10 +36,14 @@ namespace ADMIN.App.Application.Features.ServiceMethods
             }
         }
 
-        internal sealed class UpdateServiceMethodCommandHandler(ImtApplicationDbContext context) : IRequestHandler<UpdateServiceMethodCommand, ErrorOr<ServiceMethod>>
+        internal sealed class UpdateServiceMethodCommandHandler : IRequestHandler<UpdateServiceMethodCommand, ErrorOr<ServiceMethod>>
         {
-            private readonly ImtApplicationDbContext _context = context;
+            private readonly IImtServiceMethodRepository _repository;
 
+            public UpdateServiceMethodCommandHandler(IImtServiceMethodRepository repository)
+            {
+                _repository = repository;
+            }
             public async Task<ErrorOr<ServiceMethod>> Handle(UpdateServiceMethodCommand command, CancellationToken cancellationToken)
             {
                 var serviceMethod = new ServiceMethod

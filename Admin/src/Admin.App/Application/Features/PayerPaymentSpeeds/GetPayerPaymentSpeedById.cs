@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
 using SharedKernel.Main.Domain.IMT.Entities;
 
 namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
@@ -28,9 +29,14 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
             }
         }
 
-        internal sealed class GetPayerPaymentSpeedByIdQueryHandler() : IRequestHandler<GetPayerPaymentSpeedByIdQuery, ErrorOr<PayerPaymentSpeed>>
+        internal sealed class GetPayerPaymentSpeedByIdQueryHandler : IRequestHandler<GetPayerPaymentSpeedByIdQuery, ErrorOr<PayerPaymentSpeed>>
         {
-            // get all data 
+            private readonly IImtPayerPaymentSpeedRepository _repository;
+
+            public GetPayerPaymentSpeedByIdQueryHandler(IImtPayerPaymentSpeedRepository repository)
+            {
+                _repository = repository;
+            }
             public Task<ErrorOr<PayerPaymentSpeed>> Handle(GetPayerPaymentSpeedByIdQuery request, CancellationToken cancellationToken)
             {
                 throw new NotImplementedException();

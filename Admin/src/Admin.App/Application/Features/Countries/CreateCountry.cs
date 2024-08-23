@@ -1,26 +1,15 @@
-namespace Admin.App.Application.Features.Countries
-{
-    using ErrorOr;
-    using FluentValidation;
-    using MediatR;
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Mvc;
-    using SharedKernel.Main.Application.Common;
-    using SharedKernel.Main.Application.Common.Constants;
-    using SharedKernel.Main.Domain.IMT.Entities;
-    using SharedKernel.Main.Infrastructure.Persistence.Notification.Context;
-using Microsoft.AspNetCore.Authorization;
+using ErrorOr;
+using FluentValidation;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
-
-using Microsoft.AspNetCore.Mvc;
-using ErrorOr;
-using MediatR;
 using SharedKernel.Main.Domain.IMT.Entities;
-using FluentValidation;
-using SharedKernel.Main.Infrastructure.Persistence.Notification.Context;
-using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
+using SharedKernel.Main.Application.Interfaces.Repositories.IMT.Repositories;
+using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
 
+namespace Admin.App.Application.Features.Countries
+{
     public class CreateCountryController : ApiControllerBase
     {
        // [Authorize(Policy = "HasPermission")]
@@ -32,10 +21,8 @@ using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
         }
     }
 
-    public record CreateCountryCommand(
-        string? Code,
-        string? IsoCode,
-        string? Name) : IRequest<ErrorOr<Country>>;
+    public record CreateCountryCommand(Country Country) : IRequest<ErrorOr<Country>>;
+
     internal sealed class CreateCountryCommandValidator : AbstractValidator<CreateCountryCommand>
     {
         public CreateCountryCommandValidator()
@@ -44,17 +31,23 @@ using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
         }
     }
 
-    internal sealed class CreateCountryCommandHandler(ImtApplicationDbContext context) : IRequestHandler<CreateCountryCommand, ErrorOr<Country>>
+    internal sealed class CreateCountryCommandHandler : IRequestHandler<CreateCountryCommand, ErrorOr<Country>>
     {
-        private readonly ImtApplicationDbContext _context = context;
+        //private readonly ImtApplicationDbContext _context = context;
+        private readonly IAdminCountryRepository _repository;
+
+        public CreateCountryCommandHandler(IAdminCountryRepository repository)
+        {
+            _repository = repository;
+        }
 
         public async Task<ErrorOr<Country>> Handle(CreateCountryCommand command, CancellationToken cancellationToken)
         {
-            var @country = new Country
+            var country = new Country
             {
-                Code = command.Code,
-                IsoCode = command.IsoCode,
-                Name = command.Name,
+                Code = command.Country.Code,
+                IsoCode = command.Country.IsoCode,
+                Name = command.Country.Name,
                 CreatedById = 1,
                 UpdatedById = 1,
                 Status = 1, //1=active, 0=inactive, 2=soft-deleted
@@ -62,11 +55,7 @@ using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
                 UpdatedAt = DateTime.UtcNow,
             };
 
-            //_context.Countries.Add(@country);
-
-            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-
-            return @country;
+            return  _repository.AddAsync(country).Result;
         }
     }
 

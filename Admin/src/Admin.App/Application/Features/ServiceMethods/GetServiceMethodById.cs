@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
 using SharedKernel.Main.Domain.IMT.Entities;
 using static Admin.App.Application.Features.Countries.GetCountryByIdController;
 
@@ -29,9 +30,14 @@ namespace ADMIN.App.Application.Features.ServiceMethods
             }
         }
 
-        internal sealed class GetServiceMethodByIdQueryHandler() : IRequestHandler<GetServiceMethodByIdQuery, ErrorOr<ServiceMethod>>
+        internal sealed class GetServiceMethodByIdQueryHandler : IRequestHandler<GetServiceMethodByIdQuery, ErrorOr<ServiceMethod>>
         {
-            // get all data 
+            private readonly IImtServiceMethodRepository _repository;
+
+            public GetServiceMethodByIdQueryHandler(IImtServiceMethodRepository repository)
+            {
+                _repository = repository;
+            }
             public Task<ErrorOr<ServiceMethod>> Handle(GetServiceMethodByIdQuery request, CancellationToken cancellationToken)
             {
                 throw new NotImplementedException();
