@@ -1,11 +1,7 @@
-using DotNetEnv;
-using Microsoft.EntityFrameworkCore;
+
+using Admin.App;
 using Microsoft.OpenApi.Models;
-using SharedKernel.Main;
-using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
-using SharedKernel.Main.Infrastructure.Persistence.Admin.Repositories;
-using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
-using static Admin.App.Application.Features.Mtts.MttsCreate;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,24 +25,6 @@ builder.Services.AddInfrastructure(builder.Configuration);
 
 builder.Services.AddHealthChecks();
 builder.Services.AddHttpContextAccessor();
-Env.NoClobber().TraversePath().Load();
-
-var server = Env.GetString("DB_HOST");
-var database = Env.GetString("DB_DATABASE");
-var userName = Env.GetString("DB_USERNAME");
-var password = Env.GetString("DB_PASSWORD");
-var port = Env.GetString("DB_PORT");
-
-var connectionString = $"server={server};port={port};database={database};User ID={userName};Password={password};CharSet=utf8mb4;" ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-
-builder.Services.AddDbContext<ImtApplicationDbContext>(options =>
-     options.UseMySQL(connectionString, options =>
-     {
-         options.EnableRetryOnFailure();
-     }));
-
-builder.Services.AddScoped<IImtMttsRepository, ImtMttsRepository>();
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateMttCommand).Assembly));
 
 var app = builder.Build();
 
