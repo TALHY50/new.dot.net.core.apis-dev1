@@ -327,6 +327,18 @@
         public const string UpdateServiceMethodName = "update_service_method";
         public const string UpdateServiceMethodUrl = "/api/admin/service_method";
 
+        // Payer Payment Speed
+        public const string GetPayerPaymentSpeedName = "payer_payment_speed";
+        public const string GetPayerPaymentSpeedUrl = "/api/admin/payer_payment_speed";
+        public const string GetPayerPaymentSpeedByIdName = "payer_payment_speed_by_id";
+        public const string GetPayerPaymentSpeedByIdUrl = "/api/admin/payer_payment_speed/{id}";
+        public const string CreatePayerPaymentSpeedName = "create_payer_payment_speed";
+        public const string CreatePayerPaymentSpeedUrl = "/api/admin/payer_payment_speed";
+        public const string DeletePayerPaymentSpeedName = "delete_payer_payment_speed";
+        public const string DeletePayerPaymentSpeedUrl = "/api/admin/payer_payment_speed/{id}";
+        public const string UpdatePayerPaymentSpeedName = "update_payer_payment_speed";
+        public const string UpdatePayerPaymentSpeedUrl = "/api/admin/payer_payment_speed";
+
 
         // Business hour and weekend
         public const string GetBusinessHourAndWeekendName = "get_business_hour_and_weekend";
