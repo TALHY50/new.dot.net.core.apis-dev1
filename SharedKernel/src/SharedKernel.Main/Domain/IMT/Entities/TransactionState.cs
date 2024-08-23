@@ -1,4 +1,7 @@
-﻿namespace SharedKernel.Main.Domain.IMT.Entities;
+﻿using System;
+using System.Collections.Generic;
+
+namespace SharedKernel.Main.Domain.IMT.Entities;
 
 public partial class TransactionState
 {
@@ -6,9 +9,6 @@ public partial class TransactionState
 
     public string? Name { get; set; }
 
-    /// <summary>
-    /// 1=completed, 2=pending, 3=approved, 4=
-    /// </summary>
     public sbyte? Status { get; set; }
 
     public int? CreatedById { get; set; }

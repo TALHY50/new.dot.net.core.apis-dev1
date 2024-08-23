@@ -1,4 +1,7 @@
-﻿namespace SharedKernel.Main.Domain.IMT.Entities;
+﻿using System;
+using System.Collections.Generic;
+
+namespace SharedKernel.Main.Domain.IMT.Entities;
 
 public partial class PaymentMethod
 {
@@ -13,7 +16,7 @@ public partial class PaymentMethod
     public int? UpdatedById { get; set; }
 
     /// <summary>
-    /// must be soft delete, possible entries=&gt; wallet, debit card, credit card etc
+    /// 1= active, 0=inactive, 2=soft-deleted
     /// </summary>
     public sbyte? Status { get; set; }
 
