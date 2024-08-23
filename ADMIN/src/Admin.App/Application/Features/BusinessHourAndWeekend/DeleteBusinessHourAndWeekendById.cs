@@ -2,9 +2,13 @@
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
 using SharedKernel.Main.Domain.Admin;
+using SharedKernel.Main.Domain.IMT.Entities;
+using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 
 
 namespace Admin.App.Application.Features.BusinessHourAndWeekend;
@@ -13,12 +17,12 @@ public class DeleteBusinessHourAndWeekendByIdController : ApiControllerBase
 {
     //[Authorize(Policy = "HasPermission")]
     [HttpDelete(Routes.DeleteBusinessHourAndWeekendUrl, Name = Routes.DeleteBusinessHourAndWeekendName)]
-    public async Task<ActionResult<ErrorOr<BusinessHoursAndWeekends>>> Delete(DeleteBusinessHourAndWeekendCommand command, int id)
+    public async Task<ActionResult<ErrorOr<bool>>> Delete(uint id)
     {
-        return await Mediator.Send(command).ConfigureAwait(false);
+        return await Mediator.Send(new DeleteBusinessHourAndWeekendCommand(id)).ConfigureAwait(false);
     }
 
-    public record DeleteBusinessHourAndWeekendCommand(int Id) : IRequest<ErrorOr<BusinessHoursAndWeekends>>;
+    public record DeleteBusinessHourAndWeekendCommand(uint Id) : IRequest<ErrorOr<bool>>;
 
     public class DeleteBusinessHourAndWeekendCommandValidator : AbstractValidator<DeleteBusinessHourAndWeekendCommand>
     {
@@ -28,14 +32,21 @@ public class DeleteBusinessHourAndWeekendByIdController : ApiControllerBase
         }
     }
 
-    internal sealed class DeleteBusinessHourAndWeekendCommandHandler() : IRequestHandler<DeleteBusinessHourAndWeekendCommand, ErrorOr<BusinessHoursAndWeekends>>
+    internal sealed class DeleteBusinessHourAndWeekendCommandHandler(ImtApplicationDbContext _context, IBusinessHourAndWeekendRepository repository) : IRequestHandler<DeleteBusinessHourAndWeekendCommand, ErrorOr<bool>>
     {
-        public Task<ErrorOr<BusinessHoursAndWeekends>> Handle(DeleteBusinessHourAndWeekendCommand request, CancellationToken cancellationToken)
+        public async Task<ErrorOr<bool>> Handle(DeleteBusinessHourAndWeekendCommand request, CancellationToken cancellationToken)
         {
 
             // ToDo delete logic
-
-            throw new NotImplementedException();
+            var businessHourAndWeekend = await _context.ImtBusinessHoursAndWeekends.FirstAsync(e => e.Id == request.Id, cancellationToken: cancellationToken).ConfigureAwait(false);
+            if (businessHourAndWeekend == null)
+            {
+                return Error.NotFound("Business hour and weekend not found!");
+            }
+            _context.ImtBusinessHoursAndWeekends.Remove(businessHourAndWeekend);
+            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            // need to modify return type
+            return true;
         }
     }
 

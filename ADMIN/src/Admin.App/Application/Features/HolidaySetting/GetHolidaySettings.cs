@@ -5,8 +5,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
 using SharedKernel.Main.Domain.Admin;
-
+using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 using Entities = SharedKernel.Main.Domain.IMT.Entities;
 
 namespace Admin.App.Application.Features.HolidaySetting;
@@ -22,7 +23,7 @@ public class GetHolidaySettingsController : ApiControllerBase
 
     public record GetHolidaySettingQuery() : IQuery<ErrorOr<Entities.HolidaySetting>>;
 
-    internal sealed class GetHolidaySettingsHandler() : IQueryHandler<GetHolidaySettingQuery, ErrorOr<Entities.HolidaySetting>>
+    internal sealed class GetHolidaySettingsHandler(ImtApplicationDbContext context, IHolidaySettingRepository repository) : IQueryHandler<GetHolidaySettingQuery, ErrorOr<Entities.HolidaySetting>>
     {
         // get all data 
         public Task<ErrorOr<Entities.HolidaySetting>> Handle(GetHolidaySettingQuery request, CancellationToken cancellationToken)

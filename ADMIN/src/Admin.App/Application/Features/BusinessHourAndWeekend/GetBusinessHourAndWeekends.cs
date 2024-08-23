@@ -5,7 +5,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
 using SharedKernel.Main.Domain.Admin;
+using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 
 namespace Admin.App.Application.Features.BusinessHourAndWeekend;
 
@@ -20,7 +22,7 @@ public class GetBusinessHourAndWeekendsController : ApiControllerBase
 
     public record GetBusinessHourAndWeekendQuery() : IQuery<ErrorOr<BusinessHoursAndWeekends>>;
 
-    internal sealed class GetBusinessHourAndWeekendsHandler() : IQueryHandler<GetBusinessHourAndWeekendQuery, ErrorOr<BusinessHoursAndWeekends>>
+    internal sealed class GetBusinessHourAndWeekendsHandler(ImtApplicationDbContext context, IBusinessHourAndWeekendRepository repository) : IQueryHandler<GetBusinessHourAndWeekendQuery, ErrorOr<BusinessHoursAndWeekends>>
     {
         // get all data 
         public Task<ErrorOr<BusinessHoursAndWeekends>> Handle(GetBusinessHourAndWeekendQuery request, CancellationToken cancellationToken)
