@@ -340,6 +340,30 @@
         public const string UpdateHolidaySettingName = "update_holiday_setting";
         public const string UpdateHolidaySettingUrl = "/api/admin/holiday-settings";
 
+
+
+        public const string GetCurrencyName = "get-currency";
+        public const string GetCurrencyUrl = "/api/admin/get";
+        public const string GetCurrencyByIdName = "get-currency-by-id";
+        public const string GetCurrencyByIdUrl = "/api/admin/getById/{id}";
+        public const string CreateCurrencyName = "create-currency";
+        public const string CreateCurrencyUrl = "/api/admin/create";
+        public const string DeleteCurrencyName = "delete-currency";
+        public const string DeleteCurrencyUrl = "/api/admin/delete/{id}";
+        public const string UpdateCurrencyName = "update-currency";
+        public const string UpdateCurrencyUrl = "/api/admin/update";
+
+        public const string GetRegionName = "get_region";
+        public const string GetRegionUrl = "/api/admin/region";
+        public const string GetRegionByIdName = "get_regions_by_id";
+        public const string GetRegionByIdUrl = "/api/admin/region/{id}";
+        public const string CreateRegionName = "create_region";
+        public const string CreateRegionUrl = "/api/admin/region";
+        public const string DeleteRegionName = "delete_region";
+        public const string DeleteRegionUrl = "/api/admin/region/{id}";
+        public const string UpdateRegionName = "update_region";
+        public const string UpdateRegionUrl = "/api/admin/region";
+
     }
 
     public class AdminRoute
