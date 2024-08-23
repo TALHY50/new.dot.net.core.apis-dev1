@@ -4,7 +4,7 @@ using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 
-namespace ADMIN.App.Application.Features.Corridors
+namespace Admin.App.Application.Features.Corridors
 {
     public class DeleteCorridorController : ApiControllerBase
     {

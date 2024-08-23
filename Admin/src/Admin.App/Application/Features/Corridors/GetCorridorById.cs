@@ -5,7 +5,7 @@ using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Domain.IMT.Entities;
 
-namespace ADMIN.App.Application.Features.Corridors
+namespace Admin.App.Application.Features.Corridors
 {
     public class GetCorridorById : ApiControllerBase
     {

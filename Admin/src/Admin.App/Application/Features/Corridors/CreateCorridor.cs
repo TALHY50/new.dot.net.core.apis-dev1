@@ -5,9 +5,8 @@ using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Domain.IMT.Entities;
 using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
-using System.ComponentModel.Design;
 
-namespace ADMIN.App.Application.Features.Corridors
+namespace Admin.App.Application.Features.Corridors
 {
     public class CreateCorridorController : ApiControllerBase
     {

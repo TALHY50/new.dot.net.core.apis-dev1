@@ -1,4 +1,4 @@
-﻿namespace ADMIN.App.Application.Features.Payers
+﻿namespace Admin.App.Application.Features.Payers
 {
     public class GetPayer
     {

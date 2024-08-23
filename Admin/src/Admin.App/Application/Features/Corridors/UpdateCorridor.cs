@@ -6,7 +6,7 @@ using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Domain.IMT.Entities;
 using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 
-namespace ADMIN.App.Application.Features.Corridors
+namespace Admin.App.Application.Features.Corridors
 {
     public class UpdateCorridorController : ApiControllerBase
     {
