@@ -303,6 +303,7 @@
         public const string CreateEmailEventRoute = "/api/notification/event/email/create";
 
 
+        // Country
         public const string GetCountryName = "country";
         public const string GetCountryUrl = "/api/admin/country";
         public const string GetCountryByIdName = "country_by_id";
@@ -313,6 +314,30 @@
         public const string DeleteCountryUrl = "/api/admin/country/{id}";
         public const string UpdateCountryName = "update_country";
         public const string UpdateCountryUrl = "/api/admin/country";
+
+        // Service Method
+        public const string GetServiceMethodName = "service_method";
+        public const string GetServiceMethodUrl = "/api/admin/service_method";
+        public const string GetServiceMethodByIdName = "service_method_by_id";
+        public const string GetServiceMethodByIdUrl = "/api/admin/service_method/{id}";
+        public const string CreateServiceMethodName = "create_service_method";
+        public const string CreateServiceMethodUrl = "/api/admin/service_method";
+        public const string DeleteServiceMethodName = "delete_service_method";
+        public const string DeleteServiceMethodUrl = "/api/admin/service_method/{id}";
+        public const string UpdateServiceMethodName = "update_service_method";
+        public const string UpdateServiceMethodUrl = "/api/admin/service_method";
+
+        // Payer Payment Speed
+        public const string GetPayerPaymentSpeedName = "payer_payment_speed";
+        public const string GetPayerPaymentSpeedUrl = "/api/admin/payer_payment_speed";
+        public const string GetPayerPaymentSpeedByIdName = "payer_payment_speed_by_id";
+        public const string GetPayerPaymentSpeedByIdUrl = "/api/admin/payer_payment_speed/{id}";
+        public const string CreatePayerPaymentSpeedName = "create_payer_payment_speed";
+        public const string CreatePayerPaymentSpeedUrl = "/api/admin/payer_payment_speed";
+        public const string DeletePayerPaymentSpeedName = "delete_payer_payment_speed";
+        public const string DeletePayerPaymentSpeedUrl = "/api/admin/payer_payment_speed/{id}";
+        public const string UpdatePayerPaymentSpeedName = "update_payer_payment_speed";
+        public const string UpdatePayerPaymentSpeedUrl = "/api/admin/payer_payment_speed";
 
 
         // Business hour and weekend
@@ -343,15 +368,15 @@
 
         // currency
         public const string GetCurrencyName = "get-currency";
-        public const string GetCurrencyUrl = "/api/admin/get";
+        public const string GetCurrencyUrl = "/api/admin/getCurrency";
         public const string GetCurrencyByIdName = "get-currency-by-id";
-        public const string GetCurrencyByIdUrl = "/api/admin/getById/{id}";
+        public const string GetCurrencyByIdUrl = "/api/admin/getCurrencyById/{id}";
         public const string CreateCurrencyName = "create-currency";
-        public const string CreateCurrencyUrl = "/api/admin/create";
+        public const string CreateCurrencyUrl = "/api/admin/createCurrency";
         public const string DeleteCurrencyName = "delete-currency";
-        public const string DeleteCurrencyUrl = "/api/admin/delete/{id}";
+        public const string DeleteCurrencyUrl = "/api/admin/deleteCurrency/{id}";
         public const string UpdateCurrencyName = "update-currency";
-        public const string UpdateCurrencyUrl = "/api/admin/update";
+        public const string UpdateCurrencyUrl = "/api/admin/updateCurrency";
 
         // region
         public const string GetRegionName = "get_region";
@@ -388,6 +413,28 @@
         public const string DeleteTransactionTypeUrl = "/api/admin/transaction_type/{id}";
         public const string UpdateTransactionTypeName = "update_transaction_type";
         public const string UpdateTransactionTypeUrl = "/api/admin/transaction_type";
+        public const string GetCorridorName = "get-corridor";
+        public const string GetCorridorUrl = "/api/admin/getCorridor";
+        public const string GetCorridorByIdName = "get-corridor-by-id";
+        public const string GetCorridorByIdUrl = "/api/admin/getCorridorById/{id}";
+        public const string CreateCorridorName = "create-corridor";
+        public const string CreateCorridorUrl = "/api/admin/createCorridor";
+        public const string DeleteCorridorName = "delete-corridor";
+        public const string DeleteCorridorUrl = "/api/admin/deleteCorridor/{id}";
+        public const string UpdateCorridorName = "update-corridor";
+        public const string UpdateCorridorUrl = "/api/admin/updateCorridor";
+
+        public const string GetPayerName = "get-payer";
+        public const string GetPayerUrl = "/api/admin/getPayer";
+        public const string GetPayerByIdName = "get-payer-by-id";
+        public const string GetPayerByIdUrl = "/api/admin/getPayerById/{id}";
+        public const string CreatePayerName = "create-payer";
+        public const string CreatePayerUrl = "/api/admin/createPayer";
+        public const string DeletePayerName = "delete-payer";
+        public const string DeletePayerUrl = "/api/admin/deletePayer/{id}";
+        public const string UpdatePayerName = "update-payer";
+        public const string UpdatePayerUrl = "/api/admin/updatePayer";
+
     }
 
     public class AdminRoute
