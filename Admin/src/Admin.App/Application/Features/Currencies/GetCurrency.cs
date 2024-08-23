@@ -10,7 +10,7 @@ namespace ADMIN.App.Application.Features.Currencies
 {
     public class GetCurrencyController: ApiControllerBase
     {
-        [Authorize]
+        //[Authorize]
         [HttpGet(Routes.GetCurrencyUrl, Name = Routes.GetCurrencyName)]
         public async Task<ActionResult<ErrorOr<Currency>>> Get()
         {
