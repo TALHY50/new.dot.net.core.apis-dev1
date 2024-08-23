@@ -7,7 +7,7 @@ using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Domain.Admin;
 
-using Entities= SharedKernel.Main.Domain.IMT.Entities;
+using Entities = SharedKernel.Main.Domain.IMT.Entities;
 
 namespace Admin.App.Application.Features.HolidaySetting;
 
@@ -29,8 +29,8 @@ public class CreateHolidaySettingController : ApiControllerBase
     {
         public CreateHolidaySettingCommandValidator()
         {
-            RuleFor(r => r.Date).NotEmpty();
-            RuleFor(r => r.Gmt).NotEmpty();
+            RuleFor(r => r.Date).NotEmpty().WithMessage("Date is required.");
+            RuleFor(r => r.Gmt).NotEmpty().WithMessage("Date is required.");
         }
     }
 

@@ -29,7 +29,7 @@ public class CreateBusinessHourAndWeekendController : ApiControllerBase
     {
         public CreateBusinessHourAndWeekendCommandValidator()
         {
-            RuleFor(r => r.Day).NotEmpty();
+            RuleFor(r => r.Day).NotEmpty().WithMessage("Day is required");
         }
     }
 
