@@ -8,6 +8,7 @@ using MediatR;
 using SharedKernel.Main.Domain.IMT.Entities;
 using FluentValidation;
 using SharedKernel.Main.Infrastructure.Persistence.Notification.Context;
+using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 
 namespace Admin.App.Application.Features.Countries
 {
@@ -30,15 +31,13 @@ namespace Admin.App.Application.Features.Countries
     {
         public CreateCountryCommandValidator()
         {
-            //RuleFor(v => v.CategoricalData.Category)
-            //    .MaximumLength(200)
-            //    .NotEmpty();
+
         }
     }
 
-    internal sealed class CreateCountryCommandHandler(ApplicationDbContext context) : IRequestHandler<CreateCountryCommand, ErrorOr<Country>>
+    internal sealed class CreateCountryCommandHandler(ImtApplicationDbContext context) : IRequestHandler<CreateCountryCommand, ErrorOr<Country>>
     {
-        private readonly ApplicationDbContext _context = context;
+        private readonly ImtApplicationDbContext _context = context;
 
         public async Task<ErrorOr<Country>> Handle(CreateCountryCommand command, CancellationToken cancellationToken)
         {
