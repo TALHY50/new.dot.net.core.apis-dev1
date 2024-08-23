@@ -171,11 +171,9 @@ public static class DependencyInjection
 
         // BusinessHourAndWeekendRepository
         services.AddScoped<IBusinessHourAndWeekendRepository, BusinessHourAndWeekendRepository>();
-        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateBusinessHourAndWeekendCommand).Assembly));
-        
+
         // HolidaySetting
         services.AddScoped<IHolidaySettingRepository, HolidaySettingRepository>();
-        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateHolidaySettingCommand).Assembly));
 
         services.AddSingleton(provider =>
         {
