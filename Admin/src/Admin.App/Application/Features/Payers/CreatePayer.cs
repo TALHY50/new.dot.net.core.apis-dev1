@@ -6,7 +6,6 @@ using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Domain.IMT.Entities;
 using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
-using static Admin.App.Application.Features.Countries.GetCountryByIdController;
 
 namespace ADMIN.App.Application.Features.Payers
 {
