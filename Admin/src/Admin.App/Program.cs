@@ -1,62 +1,64 @@
-using DotNetEnv;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
+using Microsoft.OpenApi.Models;
 
-//using SharedKernel.Persistence.Configurations;
+using ADMIN.App;
 
-namespace ADMIN.Application
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddCors(options => options.AddDefaultPolicy(
+        policy => policy.AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod()));
+
+// Register the Swagger generator, defining 1 or more Swagger documents
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddSwaggerGen(c =>
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "ADMIN API", Version = "v1" });
+});
 
-            // Add services to the container.
+builder.Services.AddProblemDetails();
 
-            builder.Services.AddControllers();
+builder.Services.AddApplication();
+builder.Services.AddInfrastructure(builder.Configuration);
 
-            Env.NoClobber().TraversePath().Load();
+builder.Services.AddHealthChecks();
+builder.Services.AddHttpContextAccessor();
 
-            var server = Env.GetString("DB_HOST");
-            var database = Env.GetString("DB_DATABASE");
-            var userName = Env.GetString("DB_USERNAME");
-            var password = Env.GetString("DB_PASSWORD");
-            var port = Env.GetString("DB_PORT");
+var app = builder.Build();
 
-            var connectionString = $"server={server};port={port};database={database};User ID={userName};Password={password};CharSet=utf8mb4;" ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+// Enable middleware to serve generated Swagger as a JSON endpoint.
+app.UseSwagger();
 
-            builder.Services.AddDbContext<ImtApplicationDbContext>(options =>
-                options.UseMySQL(connectionString, options =>
-                {
-                    options.EnableRetryOnFailure();
-                }), ServiceLifetime.Transient);
+// Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
+app.UseSwaggerUI(options =>
+{
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+    options.RoutePrefix = string.Empty;
+});
 
+app.UseCors();
 
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-            // dependency start
-            // dependency end
+app.UseHttpsRedirection();
 
-            var app = builder.Build();
+if (app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/error-development");
+}
+else
+{
+    app.UseExceptionHandler("/error");
+}
 
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
+app.UseAuthorization();
+app.MapControllers();
 
-            app.UseHttpsRedirection();
+app.Run();
 
-            app.UseAuthorization();
-
-            app.MapControllers();
-            app.Run();
-        }
-    }
+namespace ADMIN.App
+{
+    public partial class Program { }
 }
