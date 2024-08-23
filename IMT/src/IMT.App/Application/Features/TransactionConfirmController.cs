@@ -1,5 +1,5 @@
-﻿using IMT.App.Application.Ports.Services;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using SharedKernel.Main.Application.Interfaces.Repositories.IMT.Services;
 using SharedKernel.Main.Domain.IMT.Entities;
 using SharedKernel.Main.Infrastructure.Persistence.Notification.Configurations;
 using Thunes.Exception;

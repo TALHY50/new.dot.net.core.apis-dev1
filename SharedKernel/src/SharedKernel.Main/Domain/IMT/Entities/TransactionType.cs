@@ -1,12 +1,12 @@
-﻿namespace SharedKernel.Main.Domain.IMT.Entities;
+﻿using System;
+using System.Collections.Generic;
+
+namespace SharedKernel.Main.Domain.IMT.Entities;
 
 public partial class TransactionType
 {
     public int Id { get; set; }
 
-    /// <summary>
-    /// send money, receive money, withdrawal etc
-    /// </summary>
     public string? Name { get; set; }
 
     public sbyte? Status { get; set; }

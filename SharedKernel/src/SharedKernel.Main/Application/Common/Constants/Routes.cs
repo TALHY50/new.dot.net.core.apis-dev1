@@ -3,7 +3,7 @@
     public class AclRoutesUrl
     {
         public const string Base = "api/v1/";
-        
+
         public class AclAuthRouteUrl
         {
             public const string Base = "api/v1/";
@@ -14,7 +14,7 @@
         {
             public const string GetWeatherForecast = "api/v1/GetWeatherForecast";
         }
-        
+
 
 
         public class AclModuleRouteUrl
@@ -150,7 +150,7 @@
     }
     public static class AclRoutesName
     {
-   
+
 
         public static class AclAuthRouteNames
         {
@@ -159,12 +159,12 @@
             public const string RefreshToken = "acl.auth.refreshToken";
             public const string CreateUser = "acl.auth.createUser";
         }
-        
+
         public static class AclWeatherForecastRouteNames
         {
             public const string GetWeatherForecasts = "acl.weatherForecast.getWeatherForecasts";
         }
-        
+
         public static class AclCompanyRouteNames
         {
             public const string List = "acl.company.list";
@@ -291,9 +291,9 @@
             public const string Edit = ModelName + "edit";
             public const string Destroy = ModelName + "destroy";
         }
-        
-        
-  
+
+
+
 
     }
 
@@ -301,6 +301,57 @@
     {
         public const string CreateEmailEventRouteName = "create-email-event";
         public const string CreateEmailEventRoute = "/api/notification/event/email/create";
+
+
+        public const string GetCountryName = "country";
+        public const string GetCountryUrl = "/api/admin/country";
+        public const string GetCountryByIdName = "country_by_id";
+        public const string GetCountryByIdUrl = "/api/admin/country/{id}";
+        public const string CreateCountryName = "create_country";
+        public const string CreateCountryUrl = "/api/admin/country";
+        public const string DeleteCountryName = "delete_country";
+        public const string DeleteCountryUrl = "/api/admin/country/{id}";
+        public const string UpdateCountryName = "update_country";
+        public const string UpdateCountryUrl = "/api/admin/country";
+
+
+        // Business hour and weekend
+        public const string GetBusinessHourAndWeekendName = "get_business_hour_and_weekend";
+        public const string GetBusinessHourAndWeekendUrl = "/api/admin/business-hour-and-weekend";
+        public const string GetBusinessHourAndWeekendByIdName = "get_business_hour_and_weekend_by_id";
+        public const string GetBusinessHourAndWeekendByIdUrl = "/api/admin/business-hour-and-weekend/{id}";
+        public const string CreateBusinessHourAndWeekendName = "create_business_hour_and_weekend";
+        public const string CreateBusinessHourAndWeekendUrl = "/api/admin/business-hour-and-weekend";
+        public const string DeleteBusinessHourAndWeekendName = "delete_business_hour_and_weekend";
+        public const string DeleteBusinessHourAndWeekendUrl = "/api/admin/business-hour-and-weekend/{id}";
+        public const string UpdateBusinessHourAndWeekendName = "update_business_hour_and_weekend";
+        public const string UpdateBusinessHourAndWeekendUrl = "/api/admin/business-hour-and-weekend";
+
+
+        // holiday settings
+        public const string GetHolidaySettingName = "get_holiday_setting";
+        public const string GetHolidaySettingUrl = "/api/admin/holiday-settings";
+        public const string GetHolidaySettingByIdName = "get_holiday_setting_by_id";
+        public const string GetHolidaySettingByIdUrl = "/api/admin/holiday-settings/{id}";
+        public const string CreateHolidaySettingName = "create_holiday_setting";
+        public const string CreateHolidaySettingUrl = "/api/admin/holiday-settings";
+        public const string DeleteHolidaySettingName = "delete_holiday_setting";
+        public const string DeleteHolidaySettingUrl = "/api/admin/holiday-settings/{id}";
+        public const string UpdateHolidaySettingName = "update_holiday_setting";
+        public const string UpdateHolidaySettingUrl = "/api/admin/holiday-settings";
+
+
+
+        public const string GetCurrencyName = "get-currency";
+        public const string GetCurrencyUrl = "/api/admin/get";
+        public const string GetCurrencyByIdName = "get-currency-by-id";
+        public const string GetCurrencyByIdUrl = "/api/admin/getById/{id}";
+        public const string CreateCurrencyName = "create-currency";
+        public const string CreateCurrencyUrl = "/api/admin/create";
+        public const string DeleteCurrencyName = "delete-currency";
+        public const string DeleteCurrencyUrl = "/api/admin/delete/{id}";
+        public const string UpdateCurrencyName = "update-currency";
+        public const string UpdateCurrencyUrl = "/api/admin/update";
 
         public const string GetRegionName = "get_region";
         public const string GetRegionUrl = "/api/admin/region";
@@ -314,6 +365,24 @@
         public const string UpdateRegionUrl = "/api/admin/region";
 
     }
-    
-    
+
+    public class AdminRoute
+    {
+        #region Mtts
+        public const string CreateMttsRouteUrl = "/api/admin/mtts/create";
+        public const string CreateMttsRouteName = "api.admin.mtts.create";
+
+        public const string EditMttsRouteUrl = "/api/admin/mtts/edit/{id}";
+        public const string EditMttsRouteName = "api.admin.mtts.edit";
+
+        public const string ViewMttsRouteUrl = "/api/admin/mtts/view/{id}";
+        public const string ViewMttsRouteName = "api.admin.mtts.view";
+
+        public const string AllMttsRouteUrl = "/api/admin/mtts/get";
+        public const string AllMttsRouteName = "api.admin.mtts.get";
+
+        public const string DeleteMttsRouteUrl = "/api/admin/mtts/delete/{id}";
+        public const string DeleteMttsRouteName = "api.admin.mtts.delete";
+        #endregion Mtts
+    }
 }

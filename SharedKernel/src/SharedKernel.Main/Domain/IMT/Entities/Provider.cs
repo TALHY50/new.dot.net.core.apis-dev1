@@ -1,4 +1,7 @@
-﻿namespace SharedKernel.Main.Domain.IMT.Entities;
+﻿using System;
+using System.Collections.Generic;
+
+namespace SharedKernel.Main.Domain.IMT.Entities;
 
 public partial class Provider
 {
@@ -10,13 +13,13 @@ public partial class Provider
 
     public string? BaseUrl { get; set; }
 
-    /// <summary>
-    /// api key and secret must be encrypted
-    /// </summary>
     public string? ApiKey { get; set; }
 
     public string? ApiSecret { get; set; }
 
+    /// <summary>
+    /// 1= active, 0 =inactive, 2 =soft-deleted
+    /// </summary>
     public sbyte? Status { get; set; }
 
     public int? CreatedById { get; set; }
