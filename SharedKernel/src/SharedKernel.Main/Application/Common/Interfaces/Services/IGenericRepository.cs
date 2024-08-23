@@ -5,7 +5,10 @@ namespace SharedKernel.Main.Application.Common.Interfaces.Services
     public interface IGenericRepository<T> where T : class
     {
         IEnumerable<T>? All();
+        T? GetByUlongId(ulong id);
         T? GetById(ulong id);
+        T? GetByUintId(uint id);
+        T? GetByIntId(int id);
         Task<T> AddAsync(T entity);
         T Add(T entity);
         Task<T> FirstOrDefault();

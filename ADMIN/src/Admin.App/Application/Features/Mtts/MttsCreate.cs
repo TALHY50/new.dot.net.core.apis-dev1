@@ -81,7 +81,7 @@ namespace Admin.App.Application.Features.Mtts
 
                 if (request.Id > 0)
                 {
-                    entity = _repository.GetById(request.Id);
+                    entity = _repository.GetByUintId(request.Id);
 
                     if (entity != null)
                     {
@@ -100,7 +100,8 @@ namespace Admin.App.Application.Features.Mtts
                         entity.ServiceMethodId = request.ServiceMethodId;
                         entity.Status = request.Status;
                         entity.UpdatedAt = DateTime.Now;
-                        if (_user != null)
+                        entity.TransactionTypeId = request.TransactionTypeId;
+                        if (_user?.UserId != null)
                         {
                             entity.UpdatedById = uint.Parse(_user?.UserId??"1");
                         }
@@ -114,7 +115,7 @@ namespace Admin.App.Application.Features.Mtts
                 }
                 else
                 {
-                    if (_user != null)
+                    if (_user?.UserId != null)
                     {
                         entity.CreatedById = uint.Parse(_user?.UserId??"1");
                         entity.UpdatedById = uint.Parse(_user?.UserId??"1");
