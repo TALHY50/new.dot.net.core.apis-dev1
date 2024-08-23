@@ -2,14 +2,17 @@
 using ErrorOr;
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
 using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
 using SharedKernel.Main.Application.Interfaces.Repositories.IMT.Services;
 using SharedKernel.Main.Domain.IMT.Entities;
 using SharedKernel.Main.Domain.Notification.Notifications.Events;
 using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
+using System.ComponentModel.Design;
 
 namespace Admin.App.Application.Features.Mtts
 {
@@ -30,27 +33,27 @@ namespace Admin.App.Application.Features.Mtts
         {
             public CreateMttCommandValidator()
             {
-                //RuleFor(r => r.Day).NotEmpty();
-                //RuleFor(r => r.Day).NotEmpty();
-                //RuleFor(r => r.Day).NotEmpty();
-                //RuleFor(r => r.Day).NotEmpty();
-                //RuleFor(r => r.Day).NotEmpty();
-                //RuleFor(r => r.Day).NotEmpty();
-                //RuleFor(r => r.Day).NotEmpty();
-                //RuleFor(r => r.Day).NotEmpty();
-                //RuleFor(r => r.Day).NotEmpty();
+                RuleFor(r => r.PayerId).NotEmpty();
+                RuleFor(r => r.TransactionTypeId).NotEmpty();
+                RuleFor(r => r.CotPercentage).NotEmpty();
+                RuleFor(r => r.CotFixed).NotEmpty();
+                RuleFor(r => r.FxSpread).NotEmpty();
+                RuleFor(r => r.MarkUpPercentage).NotEmpty();
+                RuleFor(r => r.MarkUpFixed).NotEmpty();
+                RuleFor(r => r.Increment).NotEmpty();
+                RuleFor(r => r.MoneyPrecision).NotEmpty();
                 RuleFor(r => r.Status).NotEmpty();
             }
         }
 
         internal sealed class CreateMttCommandHandler : IRequestHandler<CreateMttCommand, ErrorOr<Mtt>>
         {
-            private readonly ImtApplicationDbContext _context;
+            private readonly ICurrentUserService _user;
             private readonly IImtMttsRepository _repository;
 
-            public CreateMttCommandHandler(ImtApplicationDbContext context, IImtMttsRepository repository)
+            public CreateMttCommandHandler(ICurrentUserService user, IImtMttsRepository repository)
             {
-                _context = context;
+                _user = user;
                 _repository = repository;
             }
 
@@ -73,27 +76,59 @@ namespace Admin.App.Application.Features.Mtts
                     ServiceMethodId = request.ServiceMethodId,
                     Status = request.Status,
                     TransactionTypeId = request.TransactionTypeId,
-                    CreatedById= request.Id, //HardCoded value Will update later
-                    CreatedAt= DateTime.Now,
-                    UpdatedAt= DateTime.Now,
                     Id = request.Id,
                 };
 
                 if (request.Id > 0)
                 {
                     entity = _repository.GetById(request.Id);
+
                     if (entity != null)
                     {
+                        entity.CompanyId = request.CompanyId;
+                        entity.CorridorId = request.CorridorId;
+                        entity.CotCurrencyId = request.CotCurrencyId;
+                        entity.CotFixed = request.CotFixed;
+                        entity.CotPercentage = request.CotPercentage;
+                        entity.FxSpread = request.FxSpread;
+                        entity.Increment = request.Increment;
+                        entity.MarkUpCurrencyId = request.MarkUpCurrencyId;
+                        entity.MarkUpFixed = request.MarkUpFixed;
+                        entity.MarkUpPercentage = request.MarkUpPercentage;
+                        entity.MoneyPrecision = request.MoneyPrecision;
                         entity.PayerId = request.PayerId;
-                        return await _repository.UpdateAsync(entity);
+                        entity.ServiceMethodId = request.ServiceMethodId;
+                        entity.Status = request.Status;
+                        entity.UpdatedAt = DateTime.Now;
+                        if (_user != null)
+                        {
+                            entity.UpdatedById = uint.Parse(_user?.UserId??"1");
+                        }
+                        else
+                        {
+                            entity.UpdatedById = 1;
+                        }
                     }
+
+                    return await _repository.UpdateAsync(entity);
                 }
                 else
                 {
+                    if (_user != null)
+                    {
+                        entity.CreatedById = uint.Parse(_user?.UserId??"1");
+                        entity.UpdatedById = uint.Parse(_user?.UserId??"1");
+                    }
+                    else
+                    {
+                        entity.UpdatedById = 1;
+                        entity.CreatedById = 1;
+                    }
+
+                    entity.CreatedAt = DateTime.Now;
+                    entity.UpdatedAt = DateTime.Now;
                     return await _repository.AddAsync(entity);
                 }
-
-                return await _repository.AddAsync(entity);
             }
         }
 
