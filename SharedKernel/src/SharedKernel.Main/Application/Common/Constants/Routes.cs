@@ -303,6 +303,7 @@
         public const string CreateEmailEventRoute = "/api/notification/event/email/create";
 
 
+        // Country
         public const string GetCountryName = "country";
         public const string GetCountryUrl = "/api/admin/country";
         public const string GetCountryByIdName = "country_by_id";
@@ -313,6 +314,18 @@
         public const string DeleteCountryUrl = "/api/admin/country/{id}";
         public const string UpdateCountryName = "update_country";
         public const string UpdateCountryUrl = "/api/admin/country";
+
+        // Service Method
+        public const string GetServiceMethodName = "service_method";
+        public const string GetServiceMethodUrl = "/api/admin/service_method";
+        public const string GetServiceMethodByIdName = "service_method_by_id";
+        public const string GetServiceMethodByIdUrl = "/api/admin/service_method/{id}";
+        public const string CreateServiceMethodName = "create_service_method";
+        public const string CreateServiceMethodUrl = "/api/admin/service_method";
+        public const string DeleteServiceMethodName = "delete_service_method";
+        public const string DeleteServiceMethodUrl = "/api/admin/service_method/{id}";
+        public const string UpdateServiceMethodName = "update_service_method";
+        public const string UpdateServiceMethodUrl = "/api/admin/service_method";
 
 
         // Business hour and weekend
