@@ -3,6 +3,10 @@
 // </copyright>
 
 using System.Security.Cryptography;
+using Admin.App.Application.Features.Currencies;
+using Admin.App.Application.Features.Providers;
+using Admin.App.Application.Features.Regions;
+using Admin.App.Application.Features.TransactionTypes;
 using DotNetEnv;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -162,6 +166,12 @@ public static class DependencyInjection
         services.AddScoped<IAclUserRepository, AclUserRepository>();
         services.AddScoped<IImtMttsRepository, ImtMttsRepository>();
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateMttCommand).Assembly));
+        services.AddScoped<IImtRegionRepository, ImtRegionRepository>();
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateRegionCommand).Assembly));
+        services.AddScoped<IImtProviderRepository, ImtProviderRepository>();
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateProviderCommand).Assembly));
+        services.AddScoped<IImtTransactionTypeRepository, ImtTransactionTypeRepository>();
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateTransactionTypeCommand).Assembly));
 
         services.AddSingleton(provider =>
         {
