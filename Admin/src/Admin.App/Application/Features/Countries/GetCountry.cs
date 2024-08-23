@@ -3,6 +3,7 @@ using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
 using SharedKernel.Main.Domain.IMT.Entities;
 using SharedKernel.Main.Domain.Notification.Notifications.Events;
 
@@ -19,12 +20,18 @@ namespace Admin.App.Application.Features.Countries
 
         public record GetCountryQuery() : IQuery<ErrorOr<Country>>;
 
-        internal sealed class GetCountryQueryHandler() : IQueryHandler<GetCountryQuery, ErrorOr<Country>>
+        internal sealed class GetCountryQueryHandler : IQueryHandler<GetCountryQuery, ErrorOr<Country>>
         {
-            // get all data 
-            public Task<ErrorOr<Country>> Handle(GetCountryQuery request, CancellationToken cancellationToken)
+            private readonly IAdminCountryRepository _repository;
+
+            public GetCountryQueryHandler(IAdminCountryRepository repository)
             {
-                throw new NotImplementedException();
+                _repository = repository;
+            }
+
+            public Task<ErrorOr<List<Country>>> Handle(GetCountryQuery request, CancellationToken cancellationToken)
+            {
+                return _repository.All().ToList();
             }
         }
     }

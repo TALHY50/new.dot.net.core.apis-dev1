@@ -6,6 +6,7 @@ using SharedKernel.Main.Domain.IMT.Entities;
 using MediatR;
 using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
+using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
 
 namespace Admin.App.Application.Features.Countries
 {
@@ -28,9 +29,14 @@ namespace Admin.App.Application.Features.Countries
             }
         }
 
-        internal sealed class GetCountryByIdQueryHandler() : IRequestHandler<GetCountryByIdQuery, ErrorOr<Country>>
+        internal sealed class GetCountryByIdQueryHandler : IRequestHandler<GetCountryByIdQuery, ErrorOr<Country>>
         {
-            // get all data 
+            private readonly IAdminCountryRepository _repository;
+
+            public GetCountryByIdQueryHandler(IAdminCountryRepository repository)
+            {
+                _repository = repository;
+            }
             public Task<ErrorOr<Country>> Handle(GetCountryByIdQuery request, CancellationToken cancellationToken)
             {
                 throw new NotImplementedException();
