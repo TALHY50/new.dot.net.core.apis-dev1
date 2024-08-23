@@ -12,7 +12,7 @@ namespace ADMIN.App.Application.Features.Countries
 
     public class CreateCountryController : ApiControllerBase
     {
-        [Authorize(Policy = "HasPermission")]
+       // [Authorize(Policy = "HasPermission")]
         [HttpPost(Routes.CreateCountryUrl, Name = Routes.CreateCountryName)]
 
         public async Task<ActionResult<ErrorOr<Country>>> Create(CreateCountryCommand command)

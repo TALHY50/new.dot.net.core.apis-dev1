@@ -1,15 +1,19 @@
-﻿using ErrorOr;
-using FluentValidation;
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Domain.IMT.Entities;
-using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
+﻿// <copyright file="CreateRegion.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace Admin.App.Application.Features.Regions
 {
+    using ErrorOr;
+    using FluentValidation;
+    using MediatR;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using SharedKernel.Main.Application.Common;
+    using SharedKernel.Main.Application.Common.Constants;
+    using SharedKernel.Main.Domain.IMT.Entities;
+    using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
+
     public class CreateRegionController : ApiControllerBase
     {
         [Authorize(Policy = "HasPermission")]
