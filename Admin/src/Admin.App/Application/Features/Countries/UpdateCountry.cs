@@ -13,7 +13,7 @@ namespace ADMIN.App.Application.Features.Countries
     public class UpdateCountryController : ApiControllerBase
     {
         [Authorize(Policy = "HasPermission")]
-        [HttpPost(Routes.UpdateCountryUrl, Name = Routes.UpdateCountryName)]
+        [HttpPut(Routes.UpdateCountryUrl, Name = Routes.UpdateCountryName)]
 
         public async Task<ActionResult<ErrorOr<Country>>> Update(UpdateCountryCommand command)
         {

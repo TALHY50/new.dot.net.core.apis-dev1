@@ -12,7 +12,7 @@ namespace ADMIN.App.Application.Features.Countries
     public class GetCountryByIdController : ApiControllerBase
     {
         [Authorize(Policy = "HasPermission")]
-        [HttpGet(Routes.GetCountryUrl, Name = Routes.GetCountryName)]
+        [HttpGet(Routes.GetCountryByIdUrl, Name = Routes.GetCountryByIdName)]
         public async Task<ActionResult<ErrorOr<Country>>> GetById(int Id)
         {
             return await Mediator.Send(new GetCountryByIdQuery(Id)).ConfigureAwait(false);

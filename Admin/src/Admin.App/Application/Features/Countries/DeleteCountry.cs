@@ -13,7 +13,7 @@ namespace ADMIN.App.Application.Features.Countries
     public class DeleteCountryController : ApiControllerBase
     {
         [Authorize(Policy = "HasPermission")]
-        [HttpPost(Routes.CreateCountryUrl, Name = Routes.CreateCountryName)]
+        [HttpDelete(Routes.DeleteCountryUrl, Name = Routes.DeleteCountryName)]
 
         public async Task<ActionResult<ErrorOr<Country>>> Delete(DeleteCountryCommand command)
         {
