@@ -1,4 +1,4 @@
-namespace ADMIN.App.Application.Features.Countries
+namespace Admin.App.Application.Features.Countries
 {
     using ErrorOr;
     using FluentValidation;
@@ -23,7 +23,7 @@ using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 
     public class CreateCountryController : ApiControllerBase
     {
-        [Authorize(Policy = "HasPermission")]
+       // [Authorize(Policy = "HasPermission")]
         [HttpPost(Routes.CreateCountryUrl, Name = Routes.CreateCountryName)]
 
         public async Task<ActionResult<ErrorOr<Country>>> Create(CreateCountryCommand command)
