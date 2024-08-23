@@ -1,19 +1,18 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
-
-using Microsoft.AspNetCore.Mvc;
-using ErrorOr;
-using MediatR;
-using SharedKernel.Main.Domain.IMT.Entities;
-using FluentValidation;
-using SharedKernel.Main.Infrastructure.Persistence.Notification.Context;
-
-namespace ADMIN.App.Application.Features.Countries
+namespace Admin.App.Application.Features.Countries
 {
+    using ErrorOr;
+    using FluentValidation;
+    using MediatR;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using SharedKernel.Main.Application.Common;
+    using SharedKernel.Main.Application.Common.Constants;
+    using SharedKernel.Main.Domain.IMT.Entities;
+    using SharedKernel.Main.Infrastructure.Persistence.Notification.Context;
+
     public class CreateCountryController : ApiControllerBase
     {
-        [Authorize(Policy = "HasPermission")]
+       // [Authorize(Policy = "HasPermission")]
         [HttpPost(Routes.CreateCountryUrl, Name = Routes.CreateCountryName)]
 
         public async Task<ActionResult<ErrorOr<Country>>> Create(CreateCountryCommand command)

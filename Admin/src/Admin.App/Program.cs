@@ -1,8 +1,7 @@
+
+using Admin.App;
 using Microsoft.OpenApi.Models;
 
-using Notification.App;
-
-using SharedKernel.Main;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,3 +55,8 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+namespace Admin.App
+{
+    public partial class Program { }
+}

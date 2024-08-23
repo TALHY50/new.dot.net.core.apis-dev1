@@ -8,7 +8,7 @@ using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Domain.Admin;
 using SharedKernel.Main.Domain.Notification.Notifications.Events;
 
-namespace ADMIN.App.Application.Features.BusinessHourAndWeekend;
+namespace Admin.App.Application.Features.BusinessHourAndWeekend;
 
 public class CreateBusinessHourAndWeekendController : ApiControllerBase
 {

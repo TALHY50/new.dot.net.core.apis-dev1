@@ -7,7 +7,7 @@ using MediatR;
 using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 
-namespace ADMIN.App.Application.Features.Countries
+namespace Admin.App.Application.Features.Countries
 {
     public class GetCountryByIdController : ApiControllerBase
     {

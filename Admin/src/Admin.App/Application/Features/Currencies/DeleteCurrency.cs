@@ -7,7 +7,7 @@ using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Domain.IMT.Entities;
 using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 
-namespace ADMIN.App.Application.Features.Currencies
+namespace Admin.App.Application.Features.Currencies
 {
     public class DeleteCurrencyController : ApiControllerBase
     {
