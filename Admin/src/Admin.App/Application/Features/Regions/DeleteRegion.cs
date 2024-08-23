@@ -1,9 +1,9 @@
-﻿using ADMIN.Application.Infrastructure.Persistence.Configurations;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 
 namespace ADMIN.App.Application.Features.Regions
 {
@@ -21,10 +21,10 @@ namespace ADMIN.App.Application.Features.Regions
 
     public record DeleteRegionCommand(int Id) : IRequest;
 
-    internal sealed class DeleteRegionCommandHandler(ApplicationDbContext context) 
+    internal sealed class DeleteRegionCommandHandler(ImtApplicationDbContext context) 
         : IRequestHandler<DeleteRegionCommand>
     {
-        private readonly ApplicationDbContext _context = context;
+        private readonly ImtApplicationDbContext _context = context;
 
         public async Task Handle(DeleteRegionCommand request, CancellationToken cancellationToken)
         {
