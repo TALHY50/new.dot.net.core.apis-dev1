@@ -11,7 +11,7 @@ using SharedKernel.Main.Domain.IMT.Entities;
 using SharedKernel.Main.Domain.Notification.Notifications.Events;
 using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 
-namespace ADMIN.App.Application.Features
+namespace Admin.App.Application.Features
 {
     public class MttsCreate : ApiControllerBase
     {
