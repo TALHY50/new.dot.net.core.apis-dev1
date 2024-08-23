@@ -161,9 +161,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Reference Include="Thunes">
-	    <HintPath>..\..\..\IMT\src\Thunes\bin\Debug\net8.0\Thunes.dll</HintPath>
-	  </Reference>
+	  <ProjectReference Include="..\..\..\IMT\src\Thunes\Thunes.csproj" />
 	</ItemGroup>
 
 
