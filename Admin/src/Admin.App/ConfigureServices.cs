@@ -36,6 +36,7 @@ using SharedKernel.Main.Infrastructure.Services;
 using static Admin.App.Application.Features.BusinessHourAndWeekend.CreateBusinessHourAndWeekendController;
 using static Admin.App.Application.Features.HolidaySetting.CreateHolidaySettingController;
 using static Admin.App.Application.Features.Mtts.MttsCreate;
+using static Admin.App.Application.Features.Mtts.MttsCreate;
 
 namespace Admin.App;
 
@@ -163,8 +164,9 @@ public static class DependencyInjection
         services.AddScoped<IAclUserGroupRepository, AclUserGroupRepository>();
         services.AddScoped<IAclUserGroupRoleRepository, AclUserGroupRoleRepository>();
         services.AddScoped<IAclUserUserGroupRepository, AclUserUserGroupRepository>();
-
         services.AddScoped<IAclUserRepository, AclUserRepository>();
+        services.AddScoped<IImtMttsRepository, ImtMttsRepository>();
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateMttCommand).Assembly));
 
         services.AddScoped<IImtMttsRepository, ImtMttsRepository>();
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateMttCommand).Assembly));
