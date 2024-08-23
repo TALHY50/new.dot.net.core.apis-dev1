@@ -302,33 +302,17 @@
         public const string CreateEmailEventRouteName = "create-email-event";
         public const string CreateEmailEventRoute = "/api/notification/event/email/create";
 
-        // Business hour and weekend
-        public const string GetBusinessHourAndWeekendName = "get_business_hour_and_weekend";
-        public const string GetBusinessHourAndWeekendUrl = "/api/admin/business-hour-and-weekend";
-        public const string GetBusinessHourAndWeekendByIdName = "get_business_hour_and_weekend_by_id";
-        public const string GetBusinessHourAndWeekendByIdUrl = "/api/admin/business-hour-and-weekend/{id}";
-        public const string CreateBusinessHourAndWeekendName = "create_business_hour_and_weekend";
-        public const string CreateBusinessHourAndWeekendUrl = "/api/admin/business-hour-and-weekend";
-        public const string DeleteBusinessHourAndWeekendName = "delete_business_hour_and_weekend";
-        public const string DeleteBusinessHourAndWeekendUrl = "/api/admin/business-hour-and-weekend/{id}";
-        public const string UpdateBusinessHourAndWeekendName = "update_business_hour_and_weekend";
-        public const string UpdateBusinessHourAndWeekendUrl = "/api/admin/business-hour-and-weekend";
 
-
-        // holiday settings
-        public const string GetHolidaySettingName = "get_holiday_setting";
-        public const string GetHolidaySettingUrl = "/api/admin/holiday-settings";
-        public const string GetHolidaySettingByIdName = "get_holiday_setting_by_id";
-        public const string GetHolidaySettingByIdUrl = "/api/admin/holiday-settings/{id}";
-        public const string CreateHolidaySettingName = "create_holiday_setting";
-        public const string CreateHolidaySettingUrl = "/api/admin/holiday-settings";
-        public const string DeleteHolidaySettingName = "delete_holiday_setting";
-        public const string DeleteHolidaySettingUrl = "/api/admin/holiday-settings/{id}";
-        public const string UpdateHolidaySettingName = "update_holiday_setting";
-        public const string UpdateHolidaySettingUrl = "/api/admin/holiday-settings";
-
-
-
+        public const string GetCountryName = "country";
+        public const string GetCountryUrl = "/api/admin/country";
+        public const string GetCountryByIdName = "country_by_id";
+        public const string GetCountryByIdUrl = "/api/admin/country/{id}";
+        public const string CreateCountryName = "create_country";
+        public const string CreateCountryUrl = "/api/admin/country";
+        public const string DeleteCountryName = "delete_country";
+        public const string DeleteCountryUrl = "/api/admin/country/{id}";
+        public const string UpdateCountryName = "update_country";
+        public const string UpdateCountryUrl = "/api/admin/country";
     }
 
     public class AdminRoute

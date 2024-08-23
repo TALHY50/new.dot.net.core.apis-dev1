@@ -11,11 +11,16 @@ using SharedKernel.Main.Domain.IMT.Entities;
 using SharedKernel.Main.Domain.Notification.Notifications.Events;
 using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 
-namespace ADMIN.App.Features
+namespace Admin.App.Application.Features
 {
-    public class MttsCreateController : ApiControllerBase
+    public class MttsCreate : ApiControllerBase
     {
+        private readonly IMediator _mediator;
 
+        public MttsCreate(IMediator mediator)
+        {
+            _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+        }
         //[Authorize(Policy = "HasPermission")]
         [HttpPost(AdminRoute.CreateMttsRouteUrl, Name = AdminRoute.CreateMttsRouteName)]
         public async Task<ActionResult<ErrorOr<Mtt>>> Create(CreateMttCommand command)
@@ -32,6 +37,15 @@ namespace ADMIN.App.Features
             public CreateMttCommandValidator()
             {
                 //RuleFor(r => r.Day).NotEmpty();
+                //RuleFor(r => r.Day).NotEmpty();
+                //RuleFor(r => r.Day).NotEmpty();
+                //RuleFor(r => r.Day).NotEmpty();
+                //RuleFor(r => r.Day).NotEmpty();
+                //RuleFor(r => r.Day).NotEmpty();
+                //RuleFor(r => r.Day).NotEmpty();
+                //RuleFor(r => r.Day).NotEmpty();
+                //RuleFor(r => r.Day).NotEmpty();
+                RuleFor(r => r.Status).NotEmpty();
             }
         }
 
@@ -54,9 +68,9 @@ namespace ADMIN.App.Features
                 }
                 else
                 {
-                     return await repository.AddAsync(entity);
+                    return await repository.AddAsync(entity);
                 }
-                 return await repository.AddAsync(entity);
+                return await repository.AddAsync(entity);
             }
         }
     }
