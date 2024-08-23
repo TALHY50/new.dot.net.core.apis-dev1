@@ -364,6 +364,28 @@
         public const string UpdateRegionName = "update_region";
         public const string UpdateRegionUrl = "/api/admin/region";
 
+        public const string GetCorridorName = "get-corridor";
+        public const string GetCorridorUrl = "/api/admin/get";
+        public const string GetCorridorByIdName = "get-corridor-by-id";
+        public const string GetCorridorByIdUrl = "/api/admin/getById/{id}";
+        public const string CreateCorridorName = "create-corridor";
+        public const string CreateCorridorUrl = "/api/admin/create";
+        public const string DeleteCorridorName = "delete-corridor";
+        public const string DeleteCorridorUrl = "/api/admin/delete/{id}";
+        public const string UpdateCorridorName = "update-corridor";
+        public const string UpdateCorridorUrl = "/api/admin/update";
+
+        public const string GetPayerName = "get-payer";
+        public const string GetPayerUrl = "/api/admin/get";
+        public const string GetPayerByIdName = "get-payer-by-id";
+        public const string GetPayerByIdUrl = "/api/admin/getById/{id}";
+        public const string CreatePayerName = "create-payer";
+        public const string CreatePayerUrl = "/api/admin/create";
+        public const string DeletePayerName = "delete-payer";
+        public const string DeletePayerUrl = "/api/admin/delete/{id}";
+        public const string UpdatePayerName = "update-payer";
+        public const string UpdatePayerUrl = "/api/admin/update";
+
     }
 
     public class AdminRoute
