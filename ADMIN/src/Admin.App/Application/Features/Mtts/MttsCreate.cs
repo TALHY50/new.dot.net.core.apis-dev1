@@ -100,16 +100,31 @@ namespace Admin.App.Application.Features.Mtts
                         entity.ServiceMethodId = request.ServiceMethodId;
                         entity.Status = request.Status;
                         entity.UpdatedAt = DateTime.Now;
-                        entity.UpdatedById = uint.Parse(_user?.UserId);
-                        entity.UpdatedById = uint.Parse(_user?.UserId);
+                        if (_user != null)
+                        {
+                            entity.UpdatedById = uint.Parse(_user?.UserId??"1");
+                        }
+                        else
+                        {
+                            entity.UpdatedById = 1;
+                        }
                     }
 
                     return await _repository.UpdateAsync(entity);
                 }
                 else
                 {
-                    entity.CreatedById = uint.Parse(_user?.UserId);
-                    entity.UpdatedById = uint.Parse(_user?.UserId);
+                    if (_user != null)
+                    {
+                        entity.CreatedById = uint.Parse(_user?.UserId??"1");
+                        entity.UpdatedById = uint.Parse(_user?.UserId??"1");
+                    }
+                    else
+                    {
+                        entity.UpdatedById = 1;
+                        entity.CreatedById = 1;
+                    }
+
                     entity.CreatedAt = DateTime.Now;
                     entity.UpdatedAt = DateTime.Now;
                     return await _repository.AddAsync(entity);
