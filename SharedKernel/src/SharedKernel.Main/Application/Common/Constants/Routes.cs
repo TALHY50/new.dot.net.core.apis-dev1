@@ -340,6 +340,19 @@
         public const string UpdateHolidaySettingName = "update_holiday_setting";
         public const string UpdateHolidaySettingUrl = "/api/admin/holiday-settings";
 
+
+
+        public const string GetCurrencyName = "get-currency";
+        public const string GetCurrencyUrl = "/api/admin/get";
+        public const string GetCurrencyByIdName = "get-currency-by-id";
+        public const string GetCurrencyByIdUrl = "/api/admin/getById/{id}";
+        public const string CreateCurrencyName = "create-currency";
+        public const string CreateCurrencyUrl = "/api/admin/create";
+        public const string DeleteCurrencyName = "delete-currency";
+        public const string DeleteCurrencyUrl = "/api/admin/delete/{id}";
+        public const string UpdateCurrencyName = "update-currency";
+        public const string UpdateCurrencyUrl = "/api/admin/update";
+
     }
 
     public class AdminRoute
