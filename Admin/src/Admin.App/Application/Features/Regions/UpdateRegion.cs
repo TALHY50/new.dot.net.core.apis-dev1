@@ -1,5 +1,4 @@
-﻿using ADMIN.Application.Infrastructure.Persistence.Configurations;
-using ErrorOr;
+﻿using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -7,9 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Domain.IMT.Entities;
+using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 
 
-namespace ADMIN.App.Application.Features.Regions
+namespace Admin.App.Application.Features.Regions
 {
     public class UpdateRegionController : ApiControllerBase
     {
@@ -37,7 +37,7 @@ namespace ADMIN.App.Application.Features.Regions
         }
     }
 
-    internal sealed class UpdateRegionCommandHandler(ApplicationDbContext context) 
+    internal sealed class UpdateRegionCommandHandler(ImtApplicationDbContext context) 
         : IRequestHandler<UpdateRegionCommand, ErrorOr<Region>>
     {
         
