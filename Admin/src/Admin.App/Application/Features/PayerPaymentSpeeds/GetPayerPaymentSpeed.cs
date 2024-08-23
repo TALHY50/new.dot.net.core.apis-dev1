@@ -13,24 +13,24 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
     {
         [Authorize(Policy = "HasPermission")]
         [HttpGet(Routes.GetPayerPaymentSpeedUrl, Name = Routes.GetPayerPaymentSpeedName)]
-        public async Task<ActionResult<ErrorOr<PayerPaymentSpeed>>> Get()
+        public async Task<ActionResult<List<PayerPaymentSpeed>>> Get()
         {
             return await Mediator.Send(new GetPayerPaymentSpeedQuery()).ConfigureAwait(false);
         }
 
-        public record GetPayerPaymentSpeedQuery() : IQuery<ErrorOr<PayerPaymentSpeed>>;
+        public record GetPayerPaymentSpeedQuery() : IQuery<List<PayerPaymentSpeed>>;
 
-        internal sealed class GetPayerPaymentSpeedQueryHandler() : IQueryHandler<GetPayerPaymentSpeedQuery, ErrorOr<PayerPaymentSpeed>>
+        internal sealed class GetPayerPaymentSpeedQueryHandler : IQuery<List<PayerPaymentSpeed>>
         {
             private readonly IImtPayerPaymentSpeedRepository _repository;
 
-            public CreateCountryCommandHandler(IImtPayerPaymentSpeedRepository repository)
+            public GetPayerPaymentSpeedQueryHandler(IImtPayerPaymentSpeedRepository repository)
             {
                 _repository = repository;
             }
-            public Task<ErrorOr<PayerPaymentSpeed>> Handle(GetPayerPaymentSpeedQuery request, CancellationToken cancellationToken)
+            public Task<List<PayerPaymentSpeed>> Handle(GetPayerPaymentSpeedQuery request, CancellationToken cancellationToken)
             {
-                throw new NotImplementedException();
+                 return Task.FromResult(_repository.All().ToList());
             }
         }
     }
