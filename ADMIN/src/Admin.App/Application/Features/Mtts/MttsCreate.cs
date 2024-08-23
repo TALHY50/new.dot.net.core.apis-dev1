@@ -103,7 +103,7 @@ namespace Admin.App.Application.Features.Mtts
                         entity.TransactionTypeId = request.TransactionTypeId;
                         if (_user?.UserId != null)
                         {
-                            entity.UpdatedById = uint.Parse(_user?.UserId??"1");
+                            entity.UpdatedById = uint.Parse(_user?.UserId ?? "1");
                         }
                         else
                         {
@@ -117,8 +117,8 @@ namespace Admin.App.Application.Features.Mtts
                 {
                     if (_user?.UserId != null)
                     {
-                        entity.CreatedById = uint.Parse(_user?.UserId??"1");
-                        entity.UpdatedById = uint.Parse(_user?.UserId??"1");
+                        entity.CreatedById = uint.Parse(_user?.UserId ?? "1");
+                        entity.UpdatedById = uint.Parse(_user?.UserId ?? "1");
                     }
                     else
                     {
@@ -132,6 +132,5 @@ namespace Admin.App.Application.Features.Mtts
                 }
             }
         }
-
     }
 }
