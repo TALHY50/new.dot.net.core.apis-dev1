@@ -8,7 +8,7 @@ using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Domain.IMT.Entities;
 using SharedKernel.Main.Infrastructure.Persistence.Notification.Context;
 
-namespace ADMIN.App.Application.Features.Countries
+namespace Admin.App.Application.Features.Countries
 {
     public class DeleteCountryController : ApiControllerBase
     {

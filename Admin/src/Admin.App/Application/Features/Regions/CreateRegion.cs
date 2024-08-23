@@ -1,5 +1,4 @@
-﻿using ADMIN.Application.Infrastructure.Persistence.Configurations;
-using ErrorOr;
+﻿using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -7,8 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Domain.IMT.Entities;
+using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 
-namespace ADMIN.App.Application.Features.Regions
+namespace Admin.App.Application.Features.Regions
 {
     public class CreateRegionController : ApiControllerBase
     {
@@ -34,10 +34,10 @@ namespace ADMIN.App.Application.Features.Regions
         }
     }
 
-    internal sealed class CreateRegionCommandHandler(ApplicationDbContext context) 
+    internal sealed class CreateRegionCommandHandler(ImtApplicationDbContext context) 
         : IRequestHandler<CreateRegionCommand, ErrorOr<Region>>
     {
-        private readonly ApplicationDbContext _context = context;
+        private readonly ImtApplicationDbContext _context = context;
         public async Task<ErrorOr<Region>> Handle(CreateRegionCommand request, CancellationToken cancellationToken)
         {
             var now = DateTime.UtcNow;

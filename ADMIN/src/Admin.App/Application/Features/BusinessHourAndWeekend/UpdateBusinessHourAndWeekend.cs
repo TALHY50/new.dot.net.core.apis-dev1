@@ -6,7 +6,7 @@ using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Domain.Admin;
 
-namespace ADMIN.App.Application.Features.BusinessHourAndWeekend;
+namespace Admin.App.Application.Features.BusinessHourAndWeekend;
 
 public class UpdateBusinessHourAndWeekendController : ApiControllerBase
 {
