@@ -30,7 +30,7 @@ public class CreateHolidaySettingController : ApiControllerBase
         public CreateHolidaySettingCommandValidator()
         {
             RuleFor(r => r.Date).NotEmpty().WithMessage("Date is required.");
-            RuleFor(r => r.Gmt).NotEmpty().WithMessage("Date is required.");
+            RuleFor(r => r.Gmt).NotEmpty().WithMessage("Gmt is required.");
         }
     }
 
