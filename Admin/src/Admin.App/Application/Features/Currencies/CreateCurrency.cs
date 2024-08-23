@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
 using SharedKernel.Main.Domain.IMT.Entities;
 using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 
@@ -11,7 +12,7 @@ namespace Admin.App.Application.Features.Currencies
 {
     public class CreateCurrencyController : ApiControllerBase
     {
-        [Authorize]
+        //[Authorize]
         [HttpPost(Routes.CreateCurrencyUrl, Name = Routes.CreateCurrencyName)]
         public async Task<ActionResult<ErrorOr<Currency>>> Create(CreateCurrencyCommand command)
         {
@@ -25,9 +26,15 @@ namespace Admin.App.Application.Features.Currencies
         string? Name,
         string? Symbol) : IRequest<ErrorOr<Currency>>;
 
-    internal sealed class CreateCurrencyCommandHandler(ImtApplicationDbContext context) : IRequestHandler<CreateCurrencyCommand, ErrorOr<Currency>>
+    internal sealed class CreateCurrencyCommandHandler : IRequestHandler<CreateCurrencyCommand, ErrorOr<Currency>>
     {
-        private readonly ImtApplicationDbContext _context = context;
+        private readonly IImtAdminCurrencyRepository _repository;
+
+        public CreateCurrencyCommandHandler(IImtAdminCurrencyRepository repository)
+        {
+            _repository = repository;
+        }
+
         public async Task<ErrorOr<Currency>> Handle(CreateCurrencyCommand request, CancellationToken cancellationToken)
         {
             var now = DateTime.UtcNow;
@@ -43,10 +50,8 @@ namespace Admin.App.Application.Features.Currencies
                 CreatedAt = now,
                 UpdatedAt = now,
             };
-            //_context.currencies.Add(@event);
 
-            //await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-            return @currency;
+            return await _repository.AddAsync(@currency);
         }
     }
 }
