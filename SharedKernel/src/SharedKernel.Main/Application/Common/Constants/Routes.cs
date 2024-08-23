@@ -341,7 +341,7 @@
         public const string UpdateHolidaySettingUrl = "/api/admin/holiday-settings";
 
 
-
+        // currency
         public const string GetCurrencyName = "get-currency";
         public const string GetCurrencyUrl = "/api/admin/get";
         public const string GetCurrencyByIdName = "get-currency-by-id";
@@ -353,6 +353,7 @@
         public const string UpdateCurrencyName = "update-currency";
         public const string UpdateCurrencyUrl = "/api/admin/update";
 
+        // region
         public const string GetRegionName = "get_region";
         public const string GetRegionUrl = "/api/admin/region";
         public const string GetRegionByIdName = "get_regions_by_id";
@@ -364,6 +365,29 @@
         public const string UpdateRegionName = "update_region";
         public const string UpdateRegionUrl = "/api/admin/region";
 
+        // provider
+        public const string GetProviderName = "get_provider";
+        public const string GetProviderUrl = "/api/admin/provider";
+        public const string GetProviderByIdName = "get_provider_by_id";
+        public const string GetProviderByIdUrl = "/api/admin/provider/{id}";
+        public const string CreateProviderName = "create_provider";
+        public const string CreateProviderUrl = "/api/admin/provider";
+        public const string DeleteProviderName = "delete_provider";
+        public const string DeleteProviderUrl = "/api/admin/provider/{id}";
+        public const string UpdateProviderName = "update_provider";
+        public const string UpdateProviderUrl = "/api/admin/provider";
+
+        // transaction_type
+        public const string GetTransactionTypeName = "get_transaction_type";
+        public const string GetTransactionTypeUrl = "/api/admin/transaction_type";
+        public const string GetTransactionTypeByIdName = "get_transaction_type_by_id";
+        public const string GetTransactionTypeByIdUrl = "/api/admin/transaction_type/{id}";
+        public const string CreateTransactionTypeName = "create_transaction_type";
+        public const string CreateTransactionTypeUrl = "/api/admin/transaction_type";
+        public const string DeleteTransactionTypeName = "delete_transaction_type";
+        public const string DeleteTransactionTypeUrl = "/api/admin/transaction_type/{id}";
+        public const string UpdateTransactionTypeName = "update_transaction_type";
+        public const string UpdateTransactionTypeUrl = "/api/admin/transaction_type";
     }
 
     public class AdminRoute

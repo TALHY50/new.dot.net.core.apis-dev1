@@ -1,22 +1,20 @@
-﻿// <copyright file="CreateRegion.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
-// </copyright>
+﻿using Ardalis.SharedKernel;
+using ErrorOr;
+using FluentValidation;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using SharedKernel.Main.Application.Common;
+using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
+using SharedKernel.Main.Domain.IMT.Entities;
+using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 
 namespace Admin.App.Application.Features.Regions
 {
-    using ErrorOr;
-    using FluentValidation;
-    using MediatR;
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Mvc;
-    using SharedKernel.Main.Application.Common;
-    using SharedKernel.Main.Application.Common.Constants;
-    using SharedKernel.Main.Domain.IMT.Entities;
-    using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
-
     public class CreateRegionController : ApiControllerBase
     {
-        [Authorize(Policy = "HasPermission")]
+        //[Authorize(Policy = "HasPermission")]
         [HttpPost(Routes.CreateRegionUrl, Name = Routes.CreateRegionName)]
         public async Task<ActionResult<ErrorOr<Region>>> Create(CreateRegionCommand command)
         {
@@ -25,8 +23,8 @@ namespace Admin.App.Application.Features.Regions
     }
 
     public record CreateRegionCommand(
-        string Name,
-        sbyte Status=1) : IRequest<ErrorOr<Region>>;
+        string? Name,
+        byte? Status=1) : IRequest<ErrorOr<Region>>;
 
     internal sealed class CreateRegionCommandValidator : AbstractValidator<CreateRegionCommand>
     {
@@ -38,10 +36,15 @@ namespace Admin.App.Application.Features.Regions
         }
     }
 
-    internal sealed class CreateRegionCommandHandler(ImtApplicationDbContext context) 
+    internal sealed class CreateRegionCommandHandler
         : IRequestHandler<CreateRegionCommand, ErrorOr<Region>>
     {
-        private readonly ImtApplicationDbContext _context = context;
+        private readonly IImtRegionRepository _repository;
+        public CreateRegionCommandHandler(IImtRegionRepository repository)
+        {
+            _repository = repository;
+        }
+
         public async Task<ErrorOr<Region>> Handle(CreateRegionCommand request, CancellationToken cancellationToken)
         {
             var now = DateTime.UtcNow;
@@ -55,9 +58,8 @@ namespace Admin.App.Application.Features.Regions
                 CreatedAt = now,
                 UpdatedAt = now,
             };
-           // _context.Events.Add(@region);
 
-            return region;
+            return await _repository.AddAsync(@region);
         }
     }
 }
