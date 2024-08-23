@@ -4,21 +4,26 @@ using FluentValidation;
 
 using MediatR;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-using Notification.App.Application.Common;
-using Notification.App.Contracts;
-using Notification.App.Domain.Notifications.Events;
-using Notification.App.Domain.Setups;
-using Notification.App.Domain.ValueObjects;
-using Notification.App.Infrastructure.Persistence;
+using SharedKernel.Main.Application.Common;
+using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Contracts.Notificaiton;
+using SharedKernel.Main.Domain.IMT.Entities;
+using SharedKernel.Main.Domain.Notification.Notifications.Events;
+using SharedKernel.Main.Domain.Notification.Setups;
+using SharedKernel.Main.Domain.Notification.ValueObjects;
+using SharedKernel.Main.Infrastructure.Persistence;
+using SharedKernel.Main.Infrastructure.Persistence.Notification.Context;
 
 namespace Notification.App.Application.Features.Notifications.Events;
 
 public class CreateEmailEventController : ApiControllerBase
 {
-    [HttpPost("/api/notification/event/email/create")]
+    [Authorize(Policy = "HasPermission")]
+    [HttpPost(Routes.CreateEmailEventRoute, Name = Routes.CreateEmailEventRouteName)]
     public async Task<ActionResult<ErrorOr<Event>>> Create(CreateEmailEventCommand command)
     {
         return await Mediator.Send(command).ConfigureAwait(false);
@@ -49,7 +54,7 @@ internal sealed class CreateEmailEventCommandHandler(ApplicationDbContext contex
     public async Task<ErrorOr<Event>> Handle(CreateEmailEventCommand request, CancellationToken cancellationToken)
     {
         var now = DateTime.UtcNow;
-        var @event = new Domain.Notifications.Events.Event
+        var @event = new Event
         {
             Category = request.CategoricalData.Category,
             Name = request.CategoricalData.Name,

@@ -1,5 +1,5 @@
-﻿using IMT.App.Application.Ports.Services;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using SharedKernel.Main.Application.Interfaces.Repositories.IMT.Services;
 using Thunes.Exception;
 using Thunes.Request.Transaction.Transfer.CommonTransaction;
 using Thunes.Route;
@@ -33,11 +33,11 @@ namespace IMT.App.Application.Features
         }
         [Tags("Thunes.Transaction")]
         [HttpPost(ThunesUrl.CreateTransactionFromQuotationExternalIdUrl)]
-        public Object CreateTransactionFromQuotationExternalIdPost(int external_id, MoneyTransferDTO request)
+        public Object CreateTransactionFromQuotationExternalIdPost(string invoice_id, MoneyTransferDTO request)
         {
             try
             {
-                return _transactionService.CreateTransactionByExternalId(external_id, request);
+                return _transactionService.CreateTransactionByExternalId(invoice_id, request);
             }
             catch (ThunesException e)
             {

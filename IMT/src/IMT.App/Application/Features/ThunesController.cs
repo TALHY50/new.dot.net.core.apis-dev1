@@ -116,11 +116,11 @@ namespace IMT.App.Application.Features
 
         [Tags("Thunes.Transaction")]
         [HttpPost(ThunesUrl.CreateAttachmentToTransactionByExternalIdUrl)]
-        public object AddAttachmentToTransactionByExternalId(int external_id, [FromForm] AttachmentRequest attachmentRequest)
+        public object AddAttachmentToTransactionByExternalId(string invoice_id, [FromForm] AttachmentRequest attachmentRequest)
         {
             try
             {
-                return _thunesClient.GetTransactionAdapter().CreateAttachmentToTransactionByExternalId(external_id, attachmentRequest);
+                return _thunesClient.GetTransactionAdapter().CreateAttachmentToTransactionByExternalId(invoice_id, attachmentRequest);
             }
             catch (ThunesException e)
             {
@@ -172,11 +172,11 @@ namespace IMT.App.Application.Features
 
         [Tags("Thunes.Transaction")]
         [HttpGet(ThunesUrl.RetrieveTransactionInformationByExternalIdUrl)]
-        public object RetrieveTransactionInformationByExternalId(int external_id)
+        public object RetrieveTransactionInformationByExternalId(string invoice_id)
         {
             try
             {
-                return _thunesClient.GetTransactionAdapter().RetrieveTransactionInformationByExternalId(external_id);
+                return _thunesClient.GetTransactionAdapter().RetrieveTransactionInformationByExternalId(invoice_id);
             }
             catch (ThunesException e)
             {
@@ -200,11 +200,11 @@ namespace IMT.App.Application.Features
 
         [Tags("Thunes.Transaction")]
         [HttpGet(ThunesUrl.ListAttachmentsOfTransactionByExternalIdUrl)]
-        public object ListAttachmentsOfTransactionByExternalId(int external_id)
+        public object ListAttachmentsOfTransactionByExternalId(string invoice_id)
         {
             try
             {
-                return _thunesClient.GetTransactionAdapter().ListAttachmentsOfTransactionByExternalId(external_id);
+                return _thunesClient.GetTransactionAdapter().ListAttachmentsOfTransactionByExternalId(invoice_id);
             }
             catch (ThunesException e)
             {
@@ -214,7 +214,7 @@ namespace IMT.App.Application.Features
 
         [Tags("Thunes.Transaction")]
         [HttpPost(ThunesUrl.CancelTransactionByExternalIdUrl)]
-        public object CancelTransactionByExternalId(int external_id)
+        public object CancelTransactionByExternalId(string external_id)
         {
             try
             {

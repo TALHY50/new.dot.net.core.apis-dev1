@@ -1,6 +1,6 @@
-using IMT.App.Application.Ports.Services;
-using IMT.App.Contracts.Requests;
 using Microsoft.AspNetCore.Mvc;
+using SharedKernel.Main.Application.Interfaces.Repositories.IMT.Services;
+using SharedKernel.Main.Infrastructure.Persistence.IMT.Contracts.Requests;
 using Thunes.Exception;
 using Thunes.Route;
 
@@ -49,11 +49,11 @@ namespace IMT.App.Application.Features
         }
         [Tags("Thunes.Quotation")]
         [HttpGet(ThunesUrl.RetrieveQuotationByExternalIdUrl)]
-        public object GetByExternalId(ulong external_id)
+        public object GetByExternalId(string invoice_id)
         {
             try
             {
-                return _quotationService.GetQuotationByExternalId(external_id);
+                return _quotationService.GetQuotationByExternalId(invoice_id);
             }
             catch (ThunesException e)
             {

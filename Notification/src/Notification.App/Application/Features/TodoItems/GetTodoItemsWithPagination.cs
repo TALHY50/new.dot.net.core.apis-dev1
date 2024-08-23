@@ -4,12 +4,13 @@ using MediatR;
 
 using Microsoft.AspNetCore.Mvc;
 
-using Notification.App.Application.Common;
-using Notification.App.Application.Common.Mappings;
-using Notification.App.Application.Common.Models;
-using Notification.App.Domain.Todos;
-using Notification.App.Infrastructure.Persistence;
-using Notification.Main.Infrastructure.Persistence;
+using SharedKernel.Main.Application.Common;
+using SharedKernel.Main.Application.Common.Models;
+using SharedKernel.Main.Domain.Notification.Todos;
+using SharedKernel.Main.Infrastructure.Extensions;
+using SharedKernel.Main.Infrastructure.Mappings;
+using SharedKernel.Main.Infrastructure.Persistence;
+using SharedKernel.Main.Infrastructure.Persistence.Notification.Context;
 
 namespace Notification.App.Application.Features.TodoItems;
 

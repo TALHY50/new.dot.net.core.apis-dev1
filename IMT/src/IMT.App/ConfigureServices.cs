@@ -1,11 +1,18 @@
 ﻿using DotNetEnv;
-using IMT.App.Application.Ports.Services;
-using IMT.App.Infrastructure.Persistence.Services.ConfirmTransactionService;
 using IMT.App.Infrastructure.Persistence.Services.Quotation;
 using IMT.App.Infrastructure.Persistence.Services.SendMoney;
 using IMT.App.Infrastructure.Persistence.Services.Transaction;
 using Microsoft.EntityFrameworkCore;
-using SharedKernel.Main.Infrastructure.Persistence.Configurations;
+using SharedKernel.Main.Application.Interfaces.Repositories.IMT.Repositories;
+using SharedKernel.Main.Application.Interfaces.Repositories.IMT.Services;
+using SharedKernel.Main.Infrastructure.Persistence.IMT.Repositories.ConfirmTransaction;
+using SharedKernel.Main.Infrastructure.Persistence.Notification.Configurations;
+using SharedKernel.Main.Infrastructure.Persistence.Repositories.ImtCountry;
+using SharedKernel.Main.Infrastructure.Persistence.Repositories.ImtCurrency;
+using SharedKernel.Main.Infrastructure.Persistence.Repositories.ImtMoneyTransfer;
+using SharedKernel.Main.Infrastructure.Persistence.Repositories.ImtTransaction;
+using SharedKernel.Main.Infrastructure.Persistence.Repositories.Quotation;
+using SharedKernel.Main.Infrastructure.Persistence.Services.ConfirmTransactionService;
 
 namespace IMT.App;
 
@@ -38,8 +45,8 @@ public static class DependencyInjection
         //            ServerVersion.AutoDetect(configuration.GetConnectionString("DefaultConnection")),
         //            b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
         //}
-        
-        
+
+
         Env.NoClobber().TraversePath().Load();
 
         var server = Env.GetString("DB_HOST");
@@ -48,23 +55,27 @@ public static class DependencyInjection
         var password = Env.GetString("DB_PASSWORD");
         var port = Env.GetString("DB_PORT");
 
-        var connectionString = $"server={server};database={database};User ID={userName};Password={password};CharSet=utf8mb4;" ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+        var connectionString = $"server={server};port={port};database={database};User ID={userName};Password={password};CharSet=utf8mb4;" ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
         services.AddDbContext<ApplicationDbContext>(options =>
             options.UseMySQL(connectionString, options =>
             {
                 options.EnableRetryOnFailure();
-            })); 
-        
-        //builder.Services.AddScoped<IImtCurrencyRepository, ImtCurrencyRepository>();
-        ////builder.Services.AddScoped<IImtCountryRepository, ImtCountryRepository>();
-        /// 
+            }));
+
+        services.AddScoped<IImtProviderErrorDetailsRepository, ImtProviderErrorDetailsRepository>();
+        services.AddScoped<IImtCurrencyRepository, ImtCurrencyRepository>();
+        services.AddScoped<IImtCountryRepository, ImtCountryRepository>();
+        services.AddScoped<IImtMoneyTransferRepository, ImtMoneyTransferRepository>();
+        services.AddScoped<IImtQuotationRepository, ImtQuotationRepository>();
+        services.AddScoped<IImtTransactionRepository, ImtTransactionRepository>();
+
         services.AddTransient<IImtConfirmTransactionService, ImtConfirmTransactionService>();
         services.AddTransient<IImtQuotationService, ImtQuotationService>();
         services.AddTransient<IImtMoneyTransferService, ImtMoneyTransferService>();
         services.AddTransient<IImtSendMoneyService, ImtSendMoneyService>();
 
-        
+
         return services;
     }
 }

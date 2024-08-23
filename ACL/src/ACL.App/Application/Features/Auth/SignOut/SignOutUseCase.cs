@@ -1,7 +1,8 @@
-﻿using ACL.App.Application.Common.Enums;
-using ACL.App.Application.Features.Auth.SignOut.Request;
-using ACL.App.Application.Features.Auth.SignOut.Response;
-using ACL.App.Domain.Ports.Repositories.Auth;
+﻿using SharedKernel.Main.Application.Common.Enums;
+using SharedKernel.Main.Application.Interfaces.Repositories.ACL.Auth;
+using SharedKernel.Main.Application.Interfaces.UseCases.ACL;
+using SharedKernel.Main.Contracts.ACL.Request;
+using SharedKernel.Main.Contracts.ACL.Response;
 
 namespace ACL.App.Application.Features.Auth.SignOut
 {

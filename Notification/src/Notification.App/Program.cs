@@ -2,6 +2,8 @@ using Microsoft.OpenApi.Models;
 
 using Notification.App;
 
+using SharedKernel.Main;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

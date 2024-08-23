@@ -1,6 +1,6 @@
-@ADMIN_HostAddress = http://localhost:5188
+@Admin_HostAddress = http://localhost:5188
 
-GET {{ADMIN_HostAddress}}/weatherforecast/
+GET {{Admin_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
