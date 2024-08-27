@@ -3,28 +3,34 @@ using System.Collections.Generic;
 
 namespace SharedKernel.Main.Domain.IMT.Entities;
 
+/// <summary>
+/// Type : Master, channels being used for money transfers, like Thunes, PayAll, Mastercard
+/// </summary>
 public partial class Provider
 {
-    public int Id { get; set; }
+    public uint Id { get; set; }
 
-    public string? Code { get; set; }
-
-    public string? Name { get; set; }
-
-    public string? BaseUrl { get; set; }
-
-    public string? ApiKey { get; set; }
-
-    public string? ApiSecret { get; set; }
+    public string Name { get; set; } = null!;
 
     /// <summary>
-    /// 1= active, 0 =inactive, 2 =soft-deleted
+    /// base_url of the APIs
     /// </summary>
-    public sbyte? Status { get; set; }
+    public string BaseUrl { get; set; } = null!;
 
-    public int? CreatedById { get; set; }
+    public string AppId { get; set; } = null!;
 
-    public int? UpdatedById { get; set; }
+    public string AppSecret { get; set; } = null!;
+
+    public uint? CompanyId { get; set; }
+
+    /// <summary>
+    /// 0=inactive, 1=active, 2=pending, 3=rejected 
+    /// </summary>
+    public byte Status { get; set; }
+
+    public uint? CreatedById { get; set; }
+
+    public uint? UpdatedById { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 
