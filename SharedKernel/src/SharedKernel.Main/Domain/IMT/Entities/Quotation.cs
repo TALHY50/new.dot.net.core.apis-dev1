@@ -7,27 +7,26 @@ public partial class Quotation
 {
     public int Id { get; set; }
 
+    public uint? InstitutionId { get; set; }
+
+    public uint? InvoiceId { get; set; }
+
     public string OrderId { get; set; } = null!;
 
-    public string PayerId { get; set; } = null!;
+    public uint MttId { get; set; }
 
-    public string Mode { get; set; } = null!;
-
-    public string TransactionType { get; set; } = null!;
+    /// <summary>
+    /// SOURCE_AMOUNT,DESTINATION_AMOUNT
+    /// </summary>
+    public int Mode { get; set; }
 
     public decimal? SourceAmount { get; set; }
 
-    public int? ImtSourceCurrencyId { get; set; }
-
-    public int? ImtProviderId { get; set; }
-
-    public int? ImtProviderServiceId { get; set; }
-
-    public int? ImtSourceCountryId { get; set; }
-
     public decimal? DestinationAmount { get; set; }
 
-    public int? ImtDestinationCurrencyId { get; set; }
+    public DateTime? ExpirationDate { get; set; }
 
     public DateTime? CreatedAt { get; set; }
+
+    public DateTime? UpdatedAt { get; set; }
 }

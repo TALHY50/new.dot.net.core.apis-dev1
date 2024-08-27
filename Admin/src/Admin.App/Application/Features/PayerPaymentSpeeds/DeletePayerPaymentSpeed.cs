@@ -13,16 +13,17 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
 {
     public class DeletePayerPaymentSpeedController : ApiControllerBase
     {
-        [Authorize(Policy = "HasPermission")]
+        [Tags("PayerPaymentSpeed")]
+        //[Authorize(Policy = "HasPermission")]
         [HttpDelete(Routes.DeletePayerPaymentSpeedUrl, Name = Routes.DeletePayerPaymentSpeedName)]
 
-        public async Task<ActionResult<ErrorOr<PayerPaymentSpeed>>> Delete(DeletePayerPaymentSpeedCommand command)
+        public async Task<ActionResult<bool>> Delete(DeletePayerPaymentSpeedCommand command)
         {
             return await Mediator.Send(command).ConfigureAwait(false);
         }
     }
 
-    public record DeletePayerPaymentSpeedCommand(int Id) : IRequest<ErrorOr<PayerPaymentSpeed>>;
+    public record DeletePayerPaymentSpeedCommand(uint Id) : IRequest<bool>;
 
     internal sealed class DeletePayerPaymentSpeedCommandValidator : AbstractValidator<DeletePayerPaymentSpeedCommand>
     {
@@ -32,7 +33,7 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
         }
     }
 
-    internal sealed class DeletePayerPaymentSpeedCommandHandler: IRequestHandler<DeletePayerPaymentSpeedCommand, ErrorOr<PayerPaymentSpeed>>
+    internal sealed class DeletePayerPaymentSpeedCommandHandler: IRequestHandler<DeletePayerPaymentSpeedCommand, bool>
     {
         private readonly IImtPayerPaymentSpeedRepository _repository;
 
@@ -41,9 +42,21 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
             _repository = repository;
         }
 
-        public async Task<ErrorOr<PayerPaymentSpeed>> Handle(DeletePayerPaymentSpeedCommand command, CancellationToken cancellationToken)
+        public async Task<bool> Handle(DeletePayerPaymentSpeedCommand command, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            if (command.Id > 0)
+            {
+                var payerPaymentSpeed = _repository.GetByUintId(command.Id);
+
+                if (payerPaymentSpeed != null)
+                {
+                    return await _repository.DeleteAsync(payerPaymentSpeed);
+                }
+
+                return await _repository.DeleteAsync(payerPaymentSpeed);
+            }
+
+            return false;
         }
     }
 }

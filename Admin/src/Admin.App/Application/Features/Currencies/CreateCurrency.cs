@@ -12,6 +12,7 @@ namespace Admin.App.Application.Features.Currencies
 {
     public class CreateCurrencyController : ApiControllerBase
     {
+        [Tags("Currency")]
         //[Authorize]
         [HttpPost(Routes.CreateCurrencyUrl, Name = Routes.CreateCurrencyName)]
         public async Task<ActionResult<ErrorOr<Currency>>> Create(CreateCurrencyCommand command)

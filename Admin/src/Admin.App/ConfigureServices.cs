@@ -192,6 +192,8 @@ public static class DependencyInjection
         services.AddScoped<IAdminCountryRepository, AdminCountryRepository>();
         services.AddScoped<IImtServiceMethodRepository, ImtServiceMethodRepository>();
         services.AddScoped<IImtPayerPaymentSpeedRepository, ImtPayerPaymentSpeed>();
+        services.AddScoped<IImtTaxRateRepository, ImtTaxRateRepository>();
+        services.AddScoped<IImtInstitutionFundRepository, ImtInstitutionFundRepository>();
        // services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateCountryCommand).Assembly));  
         // services.AddScoped<IRequestHandler<CreateCountryCommand, ErrorOr<Country>>, CreateCountryCommandHandler>();
 

@@ -14,7 +14,8 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
 {
     public class CreatePayerPaymentSpeedController : ApiControllerBase
     {
-        [Authorize(Policy = "HasPermission")]
+        [Tags("PayerPaymentSpeed")]
+        //[Authorize(Policy = "HasPermission")]
         [HttpPost(Routes.CreatePayerPaymentSpeedUrl, Name = Routes.CreatePayerPaymentSpeedName)]
 
         public async Task<ActionResult<ErrorOr<PayerPaymentSpeed>>> Create(CreatePayerPaymentSpeedCommand command)
@@ -23,15 +24,19 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
         }
     }
 
-    public record CreatePayerPaymentSpeedCommand(PayerPaymentSpeed PayerPaymentSpeed) : IRequest<ErrorOr<PayerPaymentSpeed>>;
+    public record CreatePayerPaymentSpeedCommand(
+        uint PayerId,
+        sbyte Gmt,
+        string WorkingDays
+        ) : IRequest<ErrorOr<PayerPaymentSpeed>>;
 
     internal sealed class CreatePayerPaymentSpeedCommandValidator : AbstractValidator<CreatePayerPaymentSpeedCommand>
     {
         public CreatePayerPaymentSpeedCommandValidator()
         {
-            RuleFor(x => x.PayerPaymentSpeed.PayerId).NotEmpty().WithMessage("Payer Id is required");
-            RuleFor(x => x.PayerPaymentSpeed.Gmt).NotEmpty().WithMessage("GMT is required");
-            RuleFor(x => x.PayerPaymentSpeed.WorkingDays).NotEmpty().WithMessage("Working Days is required");
+            RuleFor(x => x.PayerId).NotEmpty().WithMessage("Payer Id is required");
+            RuleFor(x => x.Gmt).NotEmpty().WithMessage("GMT is required");
+            RuleFor(x => x.WorkingDays).NotEmpty().WithMessage("Working Days is required");
         }
     }
 
@@ -48,12 +53,12 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
         {
             var payerPaymentSpeed = new PayerPaymentSpeed
             {
-                PayerId = command.PayerPaymentSpeed.PayerId,
+                PayerId = command.PayerId,
                 ProcessingTime = 1, //Processing time in minutes
-                Gmt = command.PayerPaymentSpeed.Gmt,
+                Gmt = command.Gmt,
                 OpenAt = DateTime.UtcNow, //Opening time
                 CloseAt = DateTime.UtcNow, // Closing time
-                WorkingDays = command.PayerPaymentSpeed.WorkingDays, // CSV of weekdays (e.g., Monday,Tuesday)
+                WorkingDays = command.WorkingDays, // CSV of weekdays (e.g., Monday,Tuesday)
                 IsProcessingDuringBankingHoliday = false, //0 = No, 1 = Yes
                 CompanyId = 0, //
                 Status = 1, //0=inactive, 1=active, 2=pending, 3=rejected
@@ -69,7 +74,7 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
 
             //return @payerPaymentSpeed;
 
-            return _repository.AddAsync(payerPaymentSpeed).Result;
+            return await _repository.AddAsync(payerPaymentSpeed);
         }
     }
 }

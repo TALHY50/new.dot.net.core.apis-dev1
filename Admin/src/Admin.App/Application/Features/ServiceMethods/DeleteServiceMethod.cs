@@ -13,16 +13,17 @@ namespace ADMIN.App.Application.Features.ServiceMethods
 {
     public class DeleteServiceMethodController : ApiControllerBase
     {
-        [Authorize(Policy = "HasPermission")]
+        [Tags("ServiceMethod")]
+        //[Authorize(Policy = "HasPermission")]
         [HttpDelete(Routes.DeleteServiceMethodUrl, Name = Routes.DeleteServiceMethodName)]
 
-        public async Task<ActionResult<ErrorOr<ServiceMethod>>> Delete(DeleteServiceMethodCommand command)
+        public async Task<ActionResult<bool>> Delete(DeleteServiceMethodCommand command)
         {
             return await Mediator.Send(command).ConfigureAwait(false);
         }
     }
 
-    public record DeleteServiceMethodCommand(int Id) : IRequest<ErrorOr<ServiceMethod>>;
+    public record DeleteServiceMethodCommand(uint Id) : IRequest<bool>;
 
     internal sealed class DeleteServiceMethodCommandValidator : AbstractValidator<DeleteServiceMethodCommand>
     {
@@ -32,7 +33,7 @@ namespace ADMIN.App.Application.Features.ServiceMethods
         }
     }
 
-    internal sealed class DeleteServiceMethodCommandHandler: IRequestHandler<DeleteServiceMethodCommand, ErrorOr<ServiceMethod>>
+    internal sealed class DeleteServiceMethodCommandHandler: IRequestHandler<DeleteServiceMethodCommand, bool>
     {
         private readonly IImtServiceMethodRepository _repository;
 
@@ -40,9 +41,21 @@ namespace ADMIN.App.Application.Features.ServiceMethods
         {
             _repository = repository;
         }
-        public async Task<ErrorOr<ServiceMethod>> Handle(DeleteServiceMethodCommand command, CancellationToken cancellationToken)
+        public async Task<bool> Handle(DeleteServiceMethodCommand command, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            if (command.Id > 0)
+            {
+                var serviceMethod = _repository.GetByUintId(command.Id);
+
+                if (serviceMethod != null)
+                {
+                    return await _repository.DeleteAsync(serviceMethod);
+                }
+
+                return await _repository.DeleteAsync(serviceMethod);
+            }
+
+            return false;
         }
     }
 }

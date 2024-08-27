@@ -30,4 +30,3 @@ public partial class Region
 
     public DateTime? UpdatedAt { get; set; }
 }
-

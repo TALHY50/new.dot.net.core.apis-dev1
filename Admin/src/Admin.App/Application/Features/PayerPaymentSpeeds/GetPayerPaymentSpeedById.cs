@@ -12,14 +12,15 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
 {
     public class GetPayerPaymentSpeedByIdController : ApiControllerBase
     {
-        [Authorize(Policy = "HasPermission")]
+        [Tags("PayerPaymentSpeed")]
+        //[Authorize(Policy = "HasPermission")]
         [HttpGet(Routes.GetPayerPaymentSpeedByIdUrl, Name = Routes.GetPayerPaymentSpeedByIdName)]
-        public async Task<ActionResult<ErrorOr<PayerPaymentSpeed>>> GetById(int Id)
+        public async Task<ActionResult<ErrorOr<PayerPaymentSpeed>>> GetById(uint Id)
         {
             return await Mediator.Send(new GetPayerPaymentSpeedByIdQuery(Id)).ConfigureAwait(false);
         }
 
-        public record GetPayerPaymentSpeedByIdQuery(int Id) : IRequest<ErrorOr<PayerPaymentSpeed>>;
+        public record GetPayerPaymentSpeedByIdQuery(uint Id) : IRequest<ErrorOr<PayerPaymentSpeed>>;
 
         internal sealed class GetPayerPaymentSpeedByIdValidator : AbstractValidator<GetPayerPaymentSpeedByIdQuery>
         {
@@ -37,9 +38,9 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
             {
                 _repository = repository;
             }
-            public Task<ErrorOr<PayerPaymentSpeed>> Handle(GetPayerPaymentSpeedByIdQuery request, CancellationToken cancellationToken)
+            public async Task<ErrorOr<PayerPaymentSpeed>> Handle(GetPayerPaymentSpeedByIdQuery request, CancellationToken cancellationToken)
             {
-                throw new NotImplementedException();
+                return _repository.GetByUintId(request.Id);
             }
         }
     }
