@@ -13,6 +13,7 @@ namespace Admin.App.Application.Features.Regions
 {
     public class CreateRegionController : ApiControllerBase
     {
+        [Tags("Regions")]
         //[Authorize(Policy = "HasPermission")]
         [HttpPost(Routes.CreateRegionUrl, Name = Routes.CreateRegionName)]
         public async Task<ActionResult<ErrorOr<Region>>> Create(CreateRegionCommand command)

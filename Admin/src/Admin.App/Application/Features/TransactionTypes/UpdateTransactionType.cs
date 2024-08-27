@@ -13,7 +13,8 @@ namespace Admin.App.Application.Features.TransactionTypes
 {
     public class UpdateTransactionTypeController : ApiControllerBase
     {
-        [Authorize(Policy = "HasPermission")]
+        [Tags("TransactionTypes")]
+        //[Authorize(Policy = "HasPermission")]
         [HttpPut(Routes.UpdateTransactionTypeUrl, Name = Routes.UpdateTransactionTypeName)]
         public async Task<ActionResult<ErrorOr<TransactionType>>> Update(UpdateTransactionTypeCommand command)
         {

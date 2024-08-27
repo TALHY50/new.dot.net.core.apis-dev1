@@ -14,6 +14,7 @@ namespace Admin.App.Application.Features.Providers
 {
     public class CreateProviderController : ApiControllerBase
     {
+        [Tags("Providers")]
         //[Authorize(Policy = "HasPermission")]
         [HttpPost(Routes.CreateProviderUrl, Name = Routes.CreateProviderName)]
         public async Task<ActionResult<ErrorOr<Provider>>> Create(CreateProviderCommand command)

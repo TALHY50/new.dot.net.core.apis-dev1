@@ -13,7 +13,8 @@ namespace Admin.App.Application.Features.Providers
 {
     public class UpdateProviderController : ApiControllerBase
     {
-        [Authorize(Policy = "HasPermission")]
+        [Tags("Providers")]
+        //[Authorize(Policy = "HasPermission")]
         [HttpPut(Routes.UpdateProviderUrl, Name = Routes.UpdateProviderName)]
         public async Task<ActionResult<ErrorOr<Provider>>> Update(UpdateProviderCommand command)
         {

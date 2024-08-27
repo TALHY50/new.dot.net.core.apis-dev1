@@ -13,7 +13,8 @@ namespace Admin.App.Application.Features.Regions
 {
     public class UpdateRegionController : ApiControllerBase
     {
-        [Authorize(Policy = "HasPermission")]
+        [Tags("Regions")]
+        //[Authorize(Policy = "HasPermission")]
         [HttpPut(Routes.UpdateRegionUrl, Name = Routes.UpdateRegionName)]
         public async Task<ActionResult<ErrorOr<Region>>> Update(UpdateRegionCommand command)
         {

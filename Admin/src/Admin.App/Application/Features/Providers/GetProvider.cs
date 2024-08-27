@@ -1,5 +1,4 @@
-﻿using Ardalis.SharedKernel;
-using ErrorOr;
+﻿using ErrorOr;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +11,7 @@ namespace Admin.App.Application.Features.Providers
 {
     public class GetProviderController : ApiControllerBase
     {
+        [Tags("Providers")]
         //[Authorize(Policy = "HasPermission")]
         [HttpGet(Routes.GetProviderUrl, Name = Routes.GetProviderName)]
         public async Task<ActionResult<ErrorOr<List<Provider>>>> Get()
@@ -19,20 +19,19 @@ namespace Admin.App.Application.Features.Providers
             return await Mediator.Send(new GetProviderQuery()).ConfigureAwait(false);
         }
 
-        public record GetProviderQuery() : IQuery<ErrorOr<List<Provider>>>;
+        public record GetProviderQuery() : IRequest<ErrorOr<List<Provider>>>;
 
         internal sealed class GetProviderHandler
-            : IQueryHandler<GetProviderQuery, ErrorOr<List<Provider>>>
+            : IRequestHandler<GetProviderQuery, ErrorOr<List<Provider>>>
         {
             private readonly IImtProviderRepository _providerRepository;
             public GetProviderHandler(IImtProviderRepository providerRepository)
             {
                 _providerRepository = providerRepository;
             }
-            public Task<ErrorOr<List<Provider>>> Handle(GetProviderQuery request, CancellationToken cancellationToken)
+            public async Task<ErrorOr<List<Provider>>> Handle(GetProviderQuery request, CancellationToken cancellationToken)
             {
-                var providers = _providerRepository.All().ToList();
-                return Task.FromResult<ErrorOr<List<Provider>>>(providers);
+                return _providerRepository.All().ToList();
             }
         }
     }
