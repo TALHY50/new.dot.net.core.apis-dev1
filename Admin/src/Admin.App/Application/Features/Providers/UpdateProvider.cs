@@ -18,19 +18,19 @@ namespace Admin.App.Application.Features.Providers
         [Tags("Providers")]
         //[Authorize(Policy = "HasPermission")]
         [HttpPut(Routes.UpdateProviderUrl, Name = Routes.UpdateProviderName)]
-        public async Task<ActionResult<ErrorOr<Provider>>> Update(int id, UpdateProviderCommand command)
+        public async Task<ActionResult<ErrorOr<Provider>>> Update(uint id, UpdateProviderCommand command)
         {
             var commandWithId = command with { id = id };
             return await Mediator.Send(commandWithId).ConfigureAwait(false);
         }
 
         public record UpdateProviderCommand(
-        int id,
-        string? Code,
-        string? Name,
-        string? BaseUrl,
-        string? ApiKey,
-        string? ApiSecret) : IRequest<ErrorOr<Provider>>;
+        uint id,
+        string Name,
+        string BaseUrl,
+        string AppId,
+        string AppSecret,
+        uint? CompanyId) : IRequest<ErrorOr<Provider>>;
 
 
         //internal sealed class UpdateProviderCommandValidator : AbstractValidator<UpdateProviderCommand>
@@ -56,25 +56,26 @@ namespace Admin.App.Application.Features.Providers
                 _providerRepository = providerRepository;
             }
 
-        public async Task<ErrorOr<Provider>> Handle(UpdateProviderCommand command, CancellationToken cancellationToken)
-        {
-            var now = DateTime.UtcNow;
-            var @provider = new Provider
+            public async Task<ErrorOr<Provider>> Handle(UpdateProviderCommand request, CancellationToken cancellationToken)
             {
-              //  Code = command.Code,
-                Name = command.Name,
-                BaseUrl = command.BaseUrl,
-                AppId = command.ApiKey,
-                AppSecret = command.ApiSecret,
-                Status = 1,
-                CreatedById = 1,
-                UpdatedById = 2,
-                CreatedAt = now,
-                UpdatedAt = now,
-            };
-            // _context.Events.Add(@region);
+                var now = DateTime.UtcNow;
+                Provider? providers = _providerRepository.GetByUintId(request.id);
 
-                return await _providerRepository.UpdateAsync(@provider);
+                if (providers != null)
+                {
+                    providers.Name = request.Name;
+                    providers.BaseUrl = request.BaseUrl;
+                    providers.AppId = request.AppId;
+                    providers.AppSecret = request.AppSecret;
+                    providers.CompanyId = request.CompanyId;
+                    providers.Status = 1;
+                    providers.CreatedById = 1;
+                    providers.UpdatedById = 1;
+                    providers.CreatedAt = now;
+                    providers.UpdatedAt = now;
+                };
+
+                return await _providerRepository.UpdateAsync(providers);
             }
         }
     }

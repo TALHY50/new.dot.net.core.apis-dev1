@@ -17,12 +17,12 @@ namespace Admin.App.Application.Features.Providers
         [Tags("Providers")]
         //[Authorize(Policy = "HasPermission")]
         [HttpGet(Routes.GetProviderByIdUrl, Name = Routes.GetProviderByIdName)]
-        public async Task<ActionResult<ErrorOr<Provider>>> Get(int id)
+        public async Task<ActionResult<ErrorOr<Provider>>> Get(uint id)
         {
             return await Mediator.Send(new GetProviderByIdQuery(id)).ConfigureAwait(false);
         }
 
-        public record GetProviderByIdQuery(int id) : IRequest<ErrorOr<Provider>>;
+        public record GetProviderByIdQuery(uint id) : IRequest<ErrorOr<Provider>>;
 
 
         internal sealed class GetProviderByIdQueryValidator : AbstractValidator<GetProviderByIdQuery>
@@ -46,7 +46,7 @@ namespace Admin.App.Application.Features.Providers
             }
             public async Task<ErrorOr<Provider>> Handle(GetProviderByIdQuery request, CancellationToken cancellationToken)
             {
-                return _providerRepository.GetByIntId(request.id);
+                return _providerRepository.GetByUintId(request.id);
             }
         }
     }

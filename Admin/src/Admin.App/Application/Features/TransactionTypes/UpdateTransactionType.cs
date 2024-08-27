@@ -18,16 +18,15 @@ namespace Admin.App.Application.Features.TransactionTypes
         [Tags("TransactionTypes")]
         //[Authorize(Policy = "HasPermission")]
         [HttpPut(Routes.UpdateTransactionTypeUrl, Name = Routes.UpdateTransactionTypeName)]
-        public async Task<ActionResult<ErrorOr<TransactionType>>> Update(int id, UpdateTransactionTypeCommand command)
+        public async Task<ActionResult<ErrorOr<TransactionType>>> Update(uint id, UpdateTransactionTypeCommand command)
         {
             var commandWithId = command with { id = id };
             return await Mediator.Send(commandWithId).ConfigureAwait(false);
         }
 
         public record UpdateTransactionTypeCommand(
-        int id,
-        string? Name,
-        sbyte? Status) : IRequest<ErrorOr<TransactionType>>;
+        uint id,
+        byte Status) : IRequest<ErrorOr<TransactionType>>;
 
         internal sealed class UpdateTransactionTypeCommandHandler
         : IRequestHandler<UpdateTransactionTypeCommand, ErrorOr<TransactionType>>
@@ -41,21 +40,21 @@ namespace Admin.App.Application.Features.TransactionTypes
                 _transactionTypeRepository = transactionTypeRepository;
             }
 
-        public async Task<ErrorOr<TransactionType>> Handle(UpdateTransactionTypeCommand command, CancellationToken cancellationToken)
-        {
-            var now = DateTime.UtcNow;
-            var @transactionType = new TransactionType
+            public async Task<ErrorOr<TransactionType>> Handle(UpdateTransactionTypeCommand request, CancellationToken cancellationToken)
             {
-                //Name = command.Name,
-                //Status = command.Status,
-                CreatedById = 1,
-                UpdatedById = 2,
-                CreatedAt = now,
-                UpdatedAt = now,
-            };
-            // _context.Events.Add(@region);
+                var now = DateTime.UtcNow;
+                TransactionType? transactionTypes = _transactionTypeRepository.GetByUintId(request.id);
 
-                return await _transactionTypeRepository.UpdateAsync(@transactionType);
+                if (transactionTypes != null)
+                {
+                    transactionTypes.Status = request.Status;
+                    transactionTypes.CreatedById = 1;
+                    transactionTypes.UpdatedById = 2;
+                    transactionTypes.CreatedAt = now;
+                    transactionTypes.UpdatedAt = now;
+                };
+
+                return await _transactionTypeRepository.UpdateAsync(transactionTypes);
             }
         }
 
