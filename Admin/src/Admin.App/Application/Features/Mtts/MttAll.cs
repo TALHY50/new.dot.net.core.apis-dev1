@@ -10,7 +10,9 @@ using SharedKernel.Main.Domain.IMT.Entities;
 namespace Admin.App.Application.Features.Mtts
 {
     public class MttAll : ApiControllerBase
-    { //[Authorize(Policy = "HasPermission")]
+    {
+        [Tags("Mtt")]
+        //[Authorize(Policy = "HasPermission")]
         [HttpGet(AdminRoute.AllMttsRouteUrl, Name = AdminRoute.AllMttsRouteName)]
         public async Task<ActionResult<ErrorOr<List<Mtt>>>> GetAll()
         {

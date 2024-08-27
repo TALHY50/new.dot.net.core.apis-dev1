@@ -11,6 +11,7 @@ namespace Admin.App.Application.Features.Mtts
 {
     public class MttView : ApiControllerBase
     {
+        [Tags("Mtt")]
         //[Authorize(Policy = "HasPermission")]
         [HttpGet(AdminRoute.ViewMttsRouteUrl, Name = AdminRoute.ViewMttsRouteName)]
         public async Task<ActionResult<ErrorOr<Mtt>>> GetById(uint id)

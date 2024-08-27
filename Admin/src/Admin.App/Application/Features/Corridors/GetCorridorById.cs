@@ -1,29 +1,45 @@
 ﻿using ErrorOr;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
 using SharedKernel.Main.Domain.IMT.Entities;
 
 namespace Admin.App.Application.Features.Corridors
 {
     public class GetCorridorById : ApiControllerBase
     {
+        [Tags("Corridor")]
         //[Authorize]
         [HttpGet(Routes.GetCorridorByIdUrl, Name = Routes.GetCorridorByIdName)]
-        public async Task<ActionResult<ErrorOr<Corridor>>> GetById(int id)
+        public async Task<ActionResult<ErrorOr<Corridor>>> GetById(uint id)
         {
             return await Mediator.Send(new GetCorridorByIdQuery(id)).ConfigureAwait(false);
         }
     }
-    public record GetCorridorByIdQuery(int id) : IRequest<ErrorOr<Corridor>>;
+    public record GetCorridorByIdQuery(uint id) : IRequest<ErrorOr<Corridor>>;
 
-    internal sealed class GetCorridorByIdQueryHandler() :
+    internal sealed class GetByIdQueryValidator : AbstractValidator<GetCorridorByIdQuery>
+    {
+        public GetByIdQueryValidator()
+        {
+            RuleFor(x => x.id).NotEmpty().WithMessage("Corridor Id is required");
+        }
+    }
+
+    internal sealed class GetCorridorByIdQueryHandler :
         IRequestHandler<GetCorridorByIdQuery, ErrorOr<Corridor>>
     {
-        public Task<ErrorOr<Corridor>> Handle(GetCorridorByIdQuery request, CancellationToken cancellationToken)
+        private readonly IImtCorridorRepository _repository;
+        public GetCorridorByIdQueryHandler(IImtCorridorRepository repository)
         {
-            throw new NotImplementedException();
+            _repository = repository;
+        }
+        public async Task<ErrorOr<Corridor>> Handle(GetCorridorByIdQuery request, CancellationToken cancellationToken)
+        {
+            return _repository.GetByUintId(request.id);
         }
     }
 }
