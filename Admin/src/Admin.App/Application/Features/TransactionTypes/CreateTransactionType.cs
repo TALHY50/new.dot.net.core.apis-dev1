@@ -42,8 +42,8 @@ namespace Admin.App.Application.Features.TransactionTypes
             var now = DateTime.UtcNow;
             var @transactionType = new TransactionType
             {
-                Name = request.Name,
-                Status = request.Status,
+                //Name = request.Name,
+                //Status = request.Status,
                 CreatedById = 1,
                 UpdatedById = 2,
                 CreatedAt = now,

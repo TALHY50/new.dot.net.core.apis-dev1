@@ -45,11 +45,11 @@ namespace Admin.App.Application.Features.Providers
             var now = DateTime.UtcNow;
             var @provider = new Provider
             {
-                Code = request.Code,
+             //   Code = request.Code,
                 Name = request.Name,
                 BaseUrl = request.BaseUrl,
-                ApiKey = request.ApiKey,
-                ApiSecret = request.ApiSecret,
+                AppId = request.ApiKey,
+                AppSecret = request.ApiSecret,
                 Status = 1,
                 CreatedById = 1,
                 UpdatedById = 2,

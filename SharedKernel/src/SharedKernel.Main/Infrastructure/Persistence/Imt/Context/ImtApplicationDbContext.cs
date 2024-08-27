@@ -1397,7 +1397,6 @@ namespace SharedKernel.Main.Infrastructure.Persistence.IMT.Context
             entity.Property(e => e.UpdatedById).HasColumnName("updated_by_id");
         });
 
-
         OnModelCreatingPartial(modelBuilder);
     }
 

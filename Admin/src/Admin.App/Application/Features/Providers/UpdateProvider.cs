@@ -42,11 +42,11 @@ namespace Admin.App.Application.Features.Providers
             var now = DateTime.UtcNow;
             var @provider = new Provider
             {
-                Code = command.Code,
+              //  Code = command.Code,
                 Name = command.Name,
                 BaseUrl = command.BaseUrl,
-                ApiKey = command.ApiKey,
-                ApiSecret = command.ApiSecret,
+                AppId = command.ApiKey,
+                AppSecret = command.ApiSecret,
                 Status = 1,
                 CreatedById = 1,
                 UpdatedById = 2,

@@ -41,7 +41,7 @@ namespace IMT.App.Infrastructure
             services.AddScoped<IImtCurrencyRepository, ImtCurrencyRepository>();
             services.AddScoped<IImtCountryRepository, ImtCountryRepository>();
             services.AddScoped<IImtMoneyTransferRepository, ImtMoneyTransferRepository>();
-            services.AddScoped<IQuotationRepository, ImtQuotationRepository>();
+            services.AddScoped<IQuotationRepository, QuotationRepository>();
             services.AddScoped<IImtTransactionRepository, ImtTransactionRepository>();
 
             _serviceProvider = services.BuildServiceProvider();

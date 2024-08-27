@@ -134,7 +134,7 @@ namespace IMT.App.Infrastructure.Persistence.Services.Transaction
                 {
                     ErrorCode = error.code,
                     ErrorMessage = error.message,
-                    ImtProviderId = (int)_imtQuotation.ImtProviderId,
+                    ImtProviderId = (int)_imtQuotation.MttId,
                     ReferenceId = _imtQuotation.Id,
                     Type = 1,
                     CreatedAt = DateTime.UtcNow,

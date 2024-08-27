@@ -1,4 +1,5 @@
 ﻿using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Domain.IMT.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SharedKernel.Main.Application.Interfaces.Repositories.IMT.Repositories
 {
-    public interface IQuotationInfoRepository : IGenericRepository<QuotationInfo>
+    public interface IQuotationRequestRepository : IGenericRepository<QuotationRequest>
     {
     }
 }

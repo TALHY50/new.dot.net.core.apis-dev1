@@ -37,8 +37,8 @@ namespace Admin.App.Application.Features.TransactionTypes
             var now = DateTime.UtcNow;
             var @transactionType = new TransactionType
             {
-                Name = command.Name,
-                Status = command.Status,
+                //Name = command.Name,
+                //Status = command.Status,
                 CreatedById = 1,
                 UpdatedById = 2,
                 CreatedAt = now,
