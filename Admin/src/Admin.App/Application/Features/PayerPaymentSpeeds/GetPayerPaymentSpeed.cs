@@ -1,5 +1,6 @@
 ﻿using Ardalis.SharedKernel;
 using ErrorOr;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
@@ -11,16 +12,16 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
 {
     public class GetPayerPaymentSpeedController : ApiControllerBase
     {
-        [Authorize(Policy = "HasPermission")]
+        //[Authorize(Policy = "HasPermission")]
         [HttpGet(Routes.GetPayerPaymentSpeedUrl, Name = Routes.GetPayerPaymentSpeedName)]
-        public async Task<ActionResult<List<PayerPaymentSpeed>>> Get()
+        public async Task<ActionResult<ErrorOr<List<PayerPaymentSpeed>>>> Get()
         {
             return await Mediator.Send(new GetPayerPaymentSpeedQuery()).ConfigureAwait(false);
         }
 
-        public record GetPayerPaymentSpeedQuery() : IQuery<List<PayerPaymentSpeed>>;
+        public record GetPayerPaymentSpeedQuery() : IRequest<ErrorOr<List<PayerPaymentSpeed>>>;
 
-        internal sealed class GetPayerPaymentSpeedQueryHandler : IQuery<List<PayerPaymentSpeed>>
+        internal sealed class GetPayerPaymentSpeedQueryHandler : IRequestHandler<GetPayerPaymentSpeedQuery, ErrorOr<List<PayerPaymentSpeed>>>
         {
             private readonly IImtPayerPaymentSpeedRepository _repository;
 
@@ -28,9 +29,9 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
             {
                 _repository = repository;
             }
-            public Task<List<PayerPaymentSpeed>> Handle(GetPayerPaymentSpeedQuery request, CancellationToken cancellationToken)
+            public async Task<ErrorOr<List<PayerPaymentSpeed>>> Handle(GetPayerPaymentSpeedQuery request, CancellationToken cancellationToken)
             {
-                 return Task.FromResult(_repository.All().ToList());
+                return _repository.All().ToList();
             }
         }
     }

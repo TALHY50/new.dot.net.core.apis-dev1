@@ -13,7 +13,7 @@ namespace ADMIN.App.Application.Features.ServiceMethods
 {
     public class GetServiceMethodByIdController : ApiControllerBase
     {
-        [Authorize(Policy = "HasPermission")]
+        //[Authorize(Policy = "HasPermission")]
         [HttpGet(Routes.GetServiceMethodByIdUrl, Name = Routes.GetServiceMethodByIdName)]
         public async Task<ActionResult<ErrorOr<ServiceMethod>>> GetById(int Id)
         {
@@ -38,9 +38,9 @@ namespace ADMIN.App.Application.Features.ServiceMethods
             {
                 _repository = repository;
             }
-            public Task<ErrorOr<ServiceMethod>> Handle(GetServiceMethodByIdQuery request, CancellationToken cancellationToken)
+            public async Task<ErrorOr<ServiceMethod>> Handle(GetServiceMethodByIdQuery request, CancellationToken cancellationToken)
             {
-                throw new NotImplementedException();
+                return _repository.GetByIntId(request.Id);
             }
         }
     }

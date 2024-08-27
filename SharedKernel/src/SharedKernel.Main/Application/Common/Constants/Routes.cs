@@ -339,6 +339,29 @@
         public const string UpdatePayerPaymentSpeedName = "update_payer_payment_speed";
         public const string UpdatePayerPaymentSpeedUrl = "/api/admin/payer_payment_speed";
 
+        // Tax Rate
+        public const string GetTaxRateName = "tax_rate";
+        public const string GetTaxRateUrl = "/api/admin/tax_rate";
+        public const string GetTaxRateByIdName = "tax_rate_by_id";
+        public const string GetTaxRateByIdUrl = "/api/admin/tax_rate/{id}";
+        public const string CreateTaxRateName = "create_tax_rate";
+        public const string CreateTaxRateUrl = "/api/admin/tax_rate";
+        public const string DeleteTaxRateName = "delete_tax_rate";
+        public const string DeleteTaxRateUrl = "/api/admin/tax_rate/{id}";
+        public const string UpdateTaxRateName = "update_tax_rate";
+        public const string UpdateTaxRateUrl = "/api/admin/tax_rate";
+
+        // Institution Fund
+        public const string GetInstitutionFundName = "institution_fund";
+        public const string GetInstitutionFundUrl = "/api/admin/institution_fund";
+        public const string GetInstitutionFundByIdName = "institution_fund_by_id";
+        public const string GetInstitutionFundByIdUrl = "/api/admin/institution_fund/{id}";
+        public const string CreateInstitutionFundName = "create_institution_fund";
+        public const string CreateInstitutionFundUrl = "/api/admin/institution_fund";
+        public const string DeleteInstitutionFundName = "delete_institution_fund";
+        public const string DeleteInstitutionFundUrl = "/api/admin/institution_fund/{id}";
+        public const string UpdateInstitutionFundName = "update_institution_fund";
+        public const string UpdateInstitutionFundUrl = "/api/admin/institution_fund";
 
         // Business hour and weekend
         public const string GetBusinessHourAndWeekendName = "get_business_hour_and_weekend";

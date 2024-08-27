@@ -1,5 +1,6 @@
 ﻿using Ardalis.SharedKernel;
 using ErrorOr;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
@@ -18,10 +19,10 @@ namespace Admin.App.Application.Features.Countries
             return await Mediator.Send(new GetCountryQuery()).ConfigureAwait(false);
         }
 
-        public record GetCountryQuery() : IQuery<ErrorOr<List<Country>>>;
+        public record GetCountryQuery() : IRequest<ErrorOr<List<Country>>>;
 
         internal sealed class GetCountryQueryHandler 
-            : IQueryHandler<GetCountryQuery, ErrorOr<List<Country>>>
+            : IRequestHandler<GetCountryQuery, ErrorOr<List<Country>>>
         {
             private readonly IAdminCountryRepository _repository;
 
@@ -30,10 +31,9 @@ namespace Admin.App.Application.Features.Countries
                 _repository = repository;
             }
 
-            public Task<ErrorOr<List<Country>>> Handle(GetCountryQuery request, CancellationToken cancellationToken)
+            public async Task<ErrorOr<List<Country>>> Handle(GetCountryQuery request, CancellationToken cancellationToken)
             {
-                var countries = _repository.All().ToList();
-                return Task.FromResult<ErrorOr<List<Country>>>(countries);
+                return _repository.All().ToList();
             }
         }
     }

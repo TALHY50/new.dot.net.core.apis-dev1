@@ -12,7 +12,7 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
 {
     public class GetPayerPaymentSpeedByIdController : ApiControllerBase
     {
-        [Authorize(Policy = "HasPermission")]
+        //[Authorize(Policy = "HasPermission")]
         [HttpGet(Routes.GetPayerPaymentSpeedByIdUrl, Name = Routes.GetPayerPaymentSpeedByIdName)]
         public async Task<ActionResult<ErrorOr<PayerPaymentSpeed>>> GetById(int Id)
         {
@@ -37,9 +37,9 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
             {
                 _repository = repository;
             }
-            public Task<ErrorOr<PayerPaymentSpeed>> Handle(GetPayerPaymentSpeedByIdQuery request, CancellationToken cancellationToken)
+            public async Task<ErrorOr<PayerPaymentSpeed>> Handle(GetPayerPaymentSpeedByIdQuery request, CancellationToken cancellationToken)
             {
-                throw new NotImplementedException();
+                return _repository.GetByIntId(request.Id);
             }
         }
     }

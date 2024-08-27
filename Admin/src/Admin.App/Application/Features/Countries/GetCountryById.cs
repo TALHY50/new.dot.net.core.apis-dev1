@@ -12,7 +12,7 @@ namespace Admin.App.Application.Features.Countries
 {
     public class GetCountryByIdController : ApiControllerBase
     {
-        [Authorize(Policy = "HasPermission")]
+        //[Authorize(Policy = "HasPermission")]
         [HttpGet(Routes.GetCountryByIdUrl, Name = Routes.GetCountryByIdName)]
         public async Task<ActionResult<ErrorOr<Country>>> GetById(int Id)
         {
@@ -37,9 +37,9 @@ namespace Admin.App.Application.Features.Countries
             {
                 _repository = repository;
             }
-            public Task<ErrorOr<Country>> Handle(GetCountryByIdQuery request, CancellationToken cancellationToken)
+            public async Task<ErrorOr<Country>> Handle(GetCountryByIdQuery request, CancellationToken cancellationToken)
             {
-                throw new NotImplementedException();
+                return _repository.GetByIntId(request.Id);
             }
         }
     }

@@ -57,7 +57,4 @@ namespace Admin.App.Application.Features.Countries
             return false;
         }
     }
-
-
-
 }
