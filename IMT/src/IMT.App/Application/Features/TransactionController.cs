@@ -3,10 +3,10 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
-using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
-using SharedKernel.Main.Domain.IMT.Entities;
 using IMT.App.Application.Common;
+using SharedKernel.Main.Admin.Application.Interfaces.Repositories;
+using SharedKernel.Main.IMT.Domain.Entities.Duplicates;
+using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 
 namespace IMT.App.Application.Features
 {

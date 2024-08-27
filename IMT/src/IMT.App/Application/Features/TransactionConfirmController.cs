@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SharedKernel.Main.Application.Interfaces.Repositories.IMT.Services;
-using SharedKernel.Main.Domain.IMT.Entities;
-using SharedKernel.Main.Infrastructure.Persistence.Notification.Configurations;
+using SharedKernel.Main.IMT.Application.Interfaces.Services;
+using SharedKernel.Main.IMT.Domain.Entities;
+using SharedKernel.Main.Notification.Infrastructure.Persistence.Configurations;
 using Thunes.Exception;
 using Thunes.Request.ConfirmTrasaction;
 using Thunes.Response.Common;

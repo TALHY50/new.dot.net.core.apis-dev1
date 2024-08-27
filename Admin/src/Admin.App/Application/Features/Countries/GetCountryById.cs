@@ -2,11 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Domain.IMT.Entities;
 using MediatR;
 using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
-using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
+using SharedKernel.Main.Admin.Application.Interfaces.Repositories;
+using SharedKernel.Main.IMT.Domain.Entities;
 
 namespace Admin.App.Application.Features.Countries
 {

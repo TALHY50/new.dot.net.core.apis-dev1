@@ -3,13 +3,11 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SharedKernel.Main.Admin.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Application.Common.Models;
-using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
-using SharedKernel.Main.Contracts.Notificaiton;
-using SharedKernel.Main.Domain.IMT.Entities;
-using SharedKernel.Main.Domain.Notification.Notifications.Events;
+using SharedKernel.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 
 namespace Admin.App.Application.Features.BusinessHourAndWeekend;

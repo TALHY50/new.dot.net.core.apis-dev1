@@ -1,11 +1,11 @@
-﻿using SharedKernel.Main.Application.Common.Enums;
+﻿using SharedKernel.Main.ACL.Application.Interfaces.Repositories;
+using SharedKernel.Main.ACL.Application.Interfaces.Services;
+using SharedKernel.Main.ACL.Contracts.Requests;
+using SharedKernel.Main.ACL.Contracts.Responses;
+using SharedKernel.Main.ACL.Domain.Entities;
+using SharedKernel.Main.Application.Common.Enums;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
-using SharedKernel.Main.Application.Interfaces.Repositories.ACL.Auth;
-using SharedKernel.Main.Application.Interfaces.UseCases.ACL;
-using SharedKernel.Main.Contracts.ACL.Request;
-using SharedKernel.Main.Contracts.ACL.Response;
-using SharedKernel.Main.Domain.ACL.Domain.Auth;
-using Claim = SharedKernel.Main.Domain.ACL.Domain.Auth.Claim;
+using Claim = SharedKernel.Main.ACL.Domain.Entities.Claim;
 
 namespace ACL.App.Application.Features.Auth.Register
 {
@@ -14,13 +14,13 @@ namespace ACL.App.Application.Features.Auth.Register
     {
         private readonly ILogger _logger;
         private readonly IAuthTokenService _authTokenService;
-        private readonly IAclUserRepository _authRepository;
+        private readonly IUserRepository _authRepository;
         private readonly ICryptographyService _cryptographyService;
 /// <inheritdoc/>
         public RegisterUseCase(
             ILogger<RegisterUseCase> logger,
             IAuthTokenService authTokenService,
-            IAclUserRepository authRepository,
+            IUserRepository authRepository,
             ICryptographyService cryptographyService)
         {
             this._logger = logger;
@@ -49,7 +49,7 @@ namespace ACL.App.Application.Features.Auth.Register
                 var salt = this._cryptographyService.GenerateSalt();
                 var currentDate = DateTime.UtcNow;
 
-                user = new AclUser()
+                user = new User()
                 {
                     Status = 1,
                     Email = request.Email,

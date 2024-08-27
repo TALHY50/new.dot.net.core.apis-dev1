@@ -2,7 +2,6 @@
 using System.Reflection;
 using System.Resources;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
-using SharedKernel.Main.Application.Interfaces;
 
 namespace SharedKernel.Main.Infrastructure.Services
 {

@@ -13,28 +13,15 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using Serilog.Events;
+using SharedKernel.Main.ACL.Application.Interfaces.Repositories;
+using SharedKernel.Main.ACL.Domain.Services;
+using SharedKernel.Main.ACL.Infrastructure.Persistence.Context;
+using SharedKernel.Main.ACL.Infrastructure.Persistence.Repositories;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
-using SharedKernel.Main.Application.Interfaces;
-using SharedKernel.Main.Application.Interfaces.Repositories.ACL.Auth;
-using SharedKernel.Main.Application.Interfaces.Repositories.ACL.Company;
-using SharedKernel.Main.Application.Interfaces.Repositories.ACL.Module;
-using SharedKernel.Main.Application.Interfaces.Repositories.ACL.Role;
-using SharedKernel.Main.Application.Interfaces.Repositories.ACL.UserGroup;
 using SharedKernel.Main.Contracts.Common;
-using SharedKernel.Main.Domain.ACL.Services.Auth;
-using SharedKernel.Main.Domain.ACL.Services.Company;
-using SharedKernel.Main.Domain.ACL.Services.Module;
-using SharedKernel.Main.Domain.ACL.Services.UserGroup;
 using SharedKernel.Main.Infrastructure.Cryptography;
 using SharedKernel.Main.Infrastructure.Jwt;
 using SharedKernel.Main.Infrastructure.MiddleWares;
-using SharedKernel.Main.Infrastructure.Persistence.ACL.Configurations;
-using SharedKernel.Main.Infrastructure.Persistence.ACL.Context;
-using SharedKernel.Main.Infrastructure.Persistence.ACL.Repositories.Auth;
-using SharedKernel.Main.Infrastructure.Persistence.ACL.Repositories.Company;
-using SharedKernel.Main.Infrastructure.Persistence.ACL.Repositories.Module;
-using SharedKernel.Main.Infrastructure.Persistence.ACL.Repositories.Role;
-using SharedKernel.Main.Infrastructure.Persistence.ACL.Repositories.UserGroup;
 using SharedKernel.Main.Infrastructure.Security;
 using SharedKernel.Main.Infrastructure.Services;
 
@@ -116,20 +103,20 @@ var port = Env.GetString("DB_PORT");
 
 var connectionString = $"server={server};database={database};User ID={userName};Password={password};CharSet=utf8mb4;" ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
-//builder.Services.AddDbContext<AclApplicationDbContext>(options =>
+//builder.Services.AddDbContext<ApplicationDbContext>(options =>
 //    options.UseMySQL(connectionString, options =>
 //    {
 //        options.EnableRetryOnFailure();
 //    }));
 
 #if UNIT_TEST
-builder.Services.AddDbContext<AclApplicationDbContext>(options =>
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseInMemoryDatabase("acl").ConfigureWarnings(warnings =>
     {
         warnings.Ignore(InMemoryEventId.TransactionIgnoredWarning);
     }));
 #else
-builder.Services.AddDbContext<AclApplicationDbContext>(options =>
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySQL(connectionString, options =>
     {
         options.EnableRetryOnFailure();
@@ -190,7 +177,7 @@ IConfiguration configuration = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json")
     .Build();
 //builder.Services.AddScoped<ICustomUnitOfWork, CustomUnitOfWork>();
-//builder.Services.AddScoped<IUnitOfWork<AclApplicationDbContext, ICustomUnitOfWork>, UnitOfWork<AclApplicationDbContext, ICustomUnitOfWork>>();
+//builder.Services.AddScoped<IUnitOfWork<ApplicationDbContext, ICustomUnitOfWork>, UnitOfWork<ApplicationDbContext, ICustomUnitOfWork>>();
 builder.Services.AddSingleton(configuration);
 builder.Services.AddScoped<ICacheService, CacheService>();
 builder.Services.AddLogging(loggingBuilder =>
@@ -229,42 +216,42 @@ builder.Host.UseSerilog((hostingContext, loggerConfiguration) =>
 builder.Services.AddSerilog();
 
 
-builder.Services.AddScoped<IAclBranchService, AclBranchService>();
-builder.Services.AddScoped<IAclCompanyModuleService, AclCompanyModuleService>();
-builder.Services.AddScoped<IAclCompanyService, AclCompanyService>();
-builder.Services.AddScoped<IAclCountryService, AclCountryService>();
-builder.Services.AddScoped<IAclStateService, AclStateService>();
-builder.Services.AddScoped<IAclModuleService, AclModuleService>();
-builder.Services.AddScoped<IAclSubModuleService, AclSubModuleService>();
-builder.Services.AddScoped<IAclUserService, AclUserService>();
-builder.Services.AddScoped<IAclUserGroupRoleService, AclUserGroupRoleService>();
-builder.Services.AddScoped<IAclUserGroupService, AclUserGroupService>();
+builder.Services.AddScoped<IBranchService, BranchService>();
+builder.Services.AddScoped<ICompanyModuleService, CompanyModuleService>();
+builder.Services.AddScoped<ICompanyService, CompanyService>();
+builder.Services.AddScoped<ICountryService, CountryService>();
+builder.Services.AddScoped<IStateService, StateService>();
+builder.Services.AddScoped<IModuleService, ModuleService>();
+builder.Services.AddScoped<ISubModuleService, SubModuleService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserGroupRoleService, UserGroupRoleService>();
+builder.Services.AddScoped<IUserGroupService, UserGroupService>();
 
-builder.Services.AddScoped<IAclSubModuleService, AclSubModuleService>();
-builder.Services.AddScoped<IAclSubModuleService, AclSubModuleService>();
+builder.Services.AddScoped<ISubModuleService, SubModuleService>();
+builder.Services.AddScoped<ISubModuleService, SubModuleService>();
 
-builder.Services.AddScoped<IAclUserRepository, AclUserRepository>();
-builder.Services.AddScoped<IAclBranchRepository, AclBranchRepository>();
-builder.Services.AddScoped<IAclPageService, AclPageService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IBranchRepository, BranchRepository>();
+builder.Services.AddScoped<IPageService, PageService>();
 
 
 
-//builder.Services.AddScoped<IAclCompanyModuleRepository, AclCompanyModuleRepository>();
-//builder.Services.AddScoped<IAclCompanyRepository, AclCompanyRepository>();
-//builder.Services.AddScoped<IAclCountryRepository, AclCountryRepository>();
-//builder.Services.AddScoped<IAclModuleRepository, AclModuleRepository>();
-//builder.Services.AddScoped<IAclStateRepository, AclStateRepository>();
+//builder.Services.AddScoped<ICompanyModuleRepository, CompanyModuleRepository>();
+//builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
+//builder.Services.AddScoped<ICountryRepository, CountryRepository>();
+//builder.Services.AddScoped<IModuleRepository, ModuleRepository>();
+//builder.Services.AddScoped<IStateRepository, StateRepository>();
 
-builder.Services.AddScoped<IAclPageRepository, AclPageRepository>();
-builder.Services.AddScoped<IAclPageRouteRepository, AclPageRouteRepository>();
-builder.Services.AddScoped<IAclPasswordRepository, AclPasswordRepository>();
-builder.Services.AddScoped<IAclRolePageRepository, AclRolePageRepository>();
-builder.Services.AddScoped<IAclRoleRepository, AclRoleRepository>();
+builder.Services.AddScoped<IPageRepository, PageRepository>();
+builder.Services.AddScoped<IPageRouteRepository, PageRouteRepository>();
+builder.Services.AddScoped<IPasswordRepository, PasswordRepository>();
+builder.Services.AddScoped<IRolePageRepository, RolePageRepository>();
+builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 
-//builder.Services.AddScoped<IAclSubModuleRepository, AclSubModuleRepository>();
-builder.Services.AddScoped<IAclUserGroupRepository, AclUserGroupRepository>();
-builder.Services.AddScoped<IAclUserGroupRoleRepository, AclUserGroupRoleRepository>();
-builder.Services.AddScoped<IAclUserUserGroupRepository, AclUserUserGroupRepository>();
+//builder.Services.AddScoped<ISubModuleRepository, SubModuleRepository>();
+builder.Services.AddScoped<IUserGroupRepository, UserGroupRepository>();
+builder.Services.AddScoped<IUserGroupRoleRepository, UserGroupRoleRepository>();
+builder.Services.AddScoped<IUserUserGroupRepository, UserUserGroupRepository>();
 
 builder.Services.AddScoped<LoginUseCase>();
 builder.Services.AddScoped<RefreshTokenUseCase>();
@@ -289,7 +276,7 @@ app.UseAuthentication();
 //using (var serviceScope = app.Services.CreateScope())
 //{
 //    var services = serviceScope.ServiceProvider;
-//    var dbContext = services.GetRequiredService<AclApplicationDbContext>();
+//    var dbContext = services.GetRequiredService<ApplicationDbContext>();
 
 //    // Ensure the database is created
 //    dbContext.Database.EnsureCreated();

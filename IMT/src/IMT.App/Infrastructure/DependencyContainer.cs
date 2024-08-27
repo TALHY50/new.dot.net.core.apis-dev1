@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SharedKernel.Main.Application.Interfaces.Repositories.IMT.Repositories;
-using SharedKernel.Main.Infrastructure.Persistence.Notification.Configurations;
-using SharedKernel.Main.Infrastructure.Persistence.Repositories.Quotation;
+using SharedKernel.Main.Notification.Infrastructure.Persistence.Configurations;
 
 namespace IMT.App.Infrastructure
 {

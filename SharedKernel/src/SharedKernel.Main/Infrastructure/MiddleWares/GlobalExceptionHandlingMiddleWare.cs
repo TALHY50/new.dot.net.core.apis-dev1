@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using MySqlConnector;
-using SharedKernel.Main.Contracts.ACL;
+using SharedKernel.Main.ACL.Contracts.Responses;
 using SharedKernel.Main.Contracts.Common;
 
 namespace SharedKernel.Main.Infrastructure.MiddleWares
@@ -65,10 +65,10 @@ namespace SharedKernel.Main.Infrastructure.MiddleWares
             //var response = new { message = errorMessage };
             //var payload = JsonSerializer.Serialize(response);
 
-            //context.Response.ContentType = "application/json";
-            //context.Response.StatusCode = (int)statusCode;
+            //context.Responses.ContentType = "application/json";
+            //context.Responses.StatusCode = (int)statusCode;
 
-            //return context.Response.WriteAsync(payload);
+            //return context.Responses.WriteAsync(payload);
 
             context.Response.ContentType = "application/json";
             switch (exception)
@@ -86,20 +86,20 @@ namespace SharedKernel.Main.Infrastructure.MiddleWares
                     aclResponse.StatusCode = AppStatusCode.FAIL;
                     break;
                 //case ApplicationException ex:
-                //    aclResponse.Message = ex.Message;
-                //    aclResponse.StatusCode = context.Response.StatusCode;
+                //    scopeResponse.Message = ex.Message;
+                //    scopeResponse.StatusCode = context.Responses.StatusCode;
                 //    break;
                 //case FileNotFoundException ex:
-                //    aclResponse.Message = ex.Message;
-                //    aclResponse.StatusCode = context.Response.StatusCode;
+                //    scopeResponse.Message = ex.Message;
+                //    scopeResponse.StatusCode = context.Responses.StatusCode;
                 //    break;
                 //case NullReferenceException ex:
-                //    aclResponse.Message = ex.Message;
-                //    aclResponse.StatusCode = context.Response.StatusCode;
+                //    scopeResponse.Message = ex.Message;
+                //    scopeResponse.StatusCode = context.Responses.StatusCode;
                 //    break;
                 //case InvalidOperationException ex:
-                //    aclResponse.Message = ex.Message;
-                //    aclResponse.StatusCode = context.Response.StatusCode;
+                //    scopeResponse.Message = ex.Message;
+                //    scopeResponse.StatusCode = context.Responses.StatusCode;
                 //    break;
                 default:
                     aclResponse.Message = "Internal Server Error, Please retry after sometime";

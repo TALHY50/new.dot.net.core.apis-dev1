@@ -4,8 +4,8 @@ using ACL.App.Application.Features.Auth.Register;
 using ACL.App.Application.Features.Auth.SignOut;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SharedKernel.Main.Contracts.ACL.Request;
-using SharedKernel.Main.Contracts.ACL.Response;
+using SharedKernel.Main.ACL.Contracts.Requests;
+using SharedKernel.Main.ACL.Contracts.Responses;
 
 namespace ACL.App.Application.Features
 {

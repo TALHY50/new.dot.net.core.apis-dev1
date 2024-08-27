@@ -1,4 +1,4 @@
-using SharedKernel.Main.Domain.Notification.ValueObjects;
+using SharedKernel.Main.Notification.Domain.Entities.ValueObjects;
 
 namespace SharedKernel.Main.Infrastructure.Sms;
 

@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 using CsvHelper.Configuration;
-using SharedKernel.Main.Domain.Notification.Todos;
+using SharedKernel.Main.Notification.Domain.Entities.Todos;
 
 namespace SharedKernel.Main.Infrastructure.Files;
 

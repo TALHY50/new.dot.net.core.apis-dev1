@@ -3,10 +3,10 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using SharedKernel.Main.ACL.Domain.Entities;
 using SharedKernel.Main.Application.Common.Exceptions;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
-using SharedKernel.Main.Domain.ACL.Domain.Auth;
-using Claim = SharedKernel.Main.Domain.ACL.Domain.Auth.Claim;
+using Claim = SharedKernel.Main.ACL.Domain.Entities.Claim;
 
 namespace SharedKernel.Main.Infrastructure.Jwt
 {
@@ -15,7 +15,7 @@ namespace SharedKernel.Main.Infrastructure.Jwt
     {
         public static readonly string VersionClaimType = "ver";
 
-        public Task<string> GenerateAccessToken(AclUser user)
+        public Task<string> GenerateAccessToken(User user)
         {
             var signingCredentials = new SigningCredentials(
                 key: rsaSecurityKey,
@@ -54,7 +54,7 @@ namespace SharedKernel.Main.Infrastructure.Jwt
             return Task.FromResult(serializedJwt);
         }
 
-        public Task<string> GenerateIdToken(AclUser user)
+        public Task<string> GenerateIdToken(User user)
         {
             var signingCredentials = new SigningCredentials(
                 key: rsaSecurityKey,

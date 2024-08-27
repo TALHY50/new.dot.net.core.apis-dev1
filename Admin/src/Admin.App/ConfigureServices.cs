@@ -21,30 +21,22 @@ using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
+using SharedKernel.Main.ACL.Application.Interfaces.Repositories;
+using SharedKernel.Main.ACL.Infrastructure.Persistence.Repositories;
+using SharedKernel.Main.Admin.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common.Behaviours;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
-using SharedKernel.Main.Application.Interfaces.Repositories.ACL.Auth;
-using SharedKernel.Main.Application.Interfaces.Repositories.ACL.Module;
-using SharedKernel.Main.Application.Interfaces.Repositories.ACL.Role;
-using SharedKernel.Main.Application.Interfaces.Repositories.ACL.UserGroup;
-using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
-using SharedKernel.Main.Application.Interfaces.Repositories.IMT.Repositories;
-using SharedKernel.Main.Application.Interfaces.Repositories.Notification;
-using SharedKernel.Main.Domain.IMT.Entities;
 using SharedKernel.Main.Infrastructure.Cryptography;
 using SharedKernel.Main.Infrastructure.Files;
 using SharedKernel.Main.Infrastructure.Jwt;
-using SharedKernel.Main.Infrastructure.Persistence.ACL.Context;
-using SharedKernel.Main.Infrastructure.Persistence.ACL.Repositories.Auth;
-using SharedKernel.Main.Infrastructure.Persistence.ACL.Repositories.Module;
-using SharedKernel.Main.Infrastructure.Persistence.ACL.Repositories.Role;
-using SharedKernel.Main.Infrastructure.Persistence.ACL.Repositories.UserGroup;
-using SharedKernel.Main.Infrastructure.Persistence.Admin.Repositories;
 using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
-using SharedKernel.Main.Infrastructure.Persistence.Notification.Context;
-using SharedKernel.Main.Infrastructure.Persistence.Notification.Repositories;
+using SharedKernel.Main.Infrastructure.Persistence.Imt.Repositories.Repositories;
 using SharedKernel.Main.Infrastructure.Security;
 using SharedKernel.Main.Infrastructure.Services;
+using SharedKernel.Main.Notification.Application.Interfaces.Repositories;
+using SharedKernel.Main.Notification.Infrastructure.Persistence.Repositories;
+using ApplicationDbContext = SharedKernel.Main.ACL.Infrastructure.Persistence.Context.ApplicationDbContext;
+using CountryRepository = SharedKernel.Main.Infrastructure.Persistence.Imt.Repositories.Repositories.CountryRepository;
 
 namespace Admin.App;
 
@@ -131,7 +123,7 @@ public static class DependencyInjection
             $"server={server};database={database};User ID={userName};Password={password};CharSet=utf8mb4;" ??
             throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
-        services.AddDbContext<AclApplicationDbContext>(
+        services.AddDbContext<ApplicationDbContext>(
             options =>
                 options.UseMySQL(connectionString, options =>
                 {
@@ -160,42 +152,42 @@ public static class DependencyInjection
                 redisOptions => { redisOptions.Configuration = redistConnectionString; });
         }
 
-        services.AddScoped<IAclPageRepository, AclPageRepository>();
-        services.AddScoped<IAclPageRouteRepository, AclPageRouteRepository>();
-        services.AddScoped<IAclPasswordRepository, AclPasswordRepository>();
-        services.AddScoped<IAclRolePageRepository, AclRolePageRepository>();
-        services.AddScoped<IAclRoleRepository, AclRoleRepository>();
+        services.AddScoped<IPageRepository, PageRepository>();
+        services.AddScoped<IPageRouteRepository, PageRouteRepository>();
+        services.AddScoped<IPasswordRepository, PasswordRepository>();
+        services.AddScoped<IRolePageRepository, RolePageRepository>();
+        services.AddScoped<IRoleRepository, RoleRepository>();
 
-        // services.AddScoped<IAclSubModuleRepository, AclSubModuleRepository>();
-        services.AddScoped<IAclUserGroupRepository, AclUserGroupRepository>();
-        services.AddScoped<IAclUserGroupRoleRepository, AclUserGroupRoleRepository>();
-        services.AddScoped<IAclUserUserGroupRepository, AclUserUserGroupRepository>();
-        services.AddScoped<IAclUserRepository, AclUserRepository>();
-        services.AddScoped<IImtMttsRepository, ImtMttsRepository>();
+        // services.AddScoped<ISubModuleRepository, SubModuleRepository>();
+        services.AddScoped<IUserGroupRepository, UserGroupRepository>();
+        services.AddScoped<IUserGroupRoleRepository, UserGroupRoleRepository>();
+        services.AddScoped<IUserUserGroupRepository, UserUserGroupRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IImtMttsRepository, MttRepository>();
         // services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateMttCommand).Assembly));
-        services.AddScoped<IImtRegionRepository, ImtRegionRepository>();
+        services.AddScoped<IImtRegionRepository, RegionRepository>();
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateRegionCommand).Assembly));
-        services.AddScoped<IImtProviderRepository, ImtProviderRepository>();
+        services.AddScoped<IImtProviderRepository, ProviderRepository>();
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateProviderCommand).Assembly));
-        services.AddScoped<IImtTransactionTypeRepository, ImtTransactionTypeRepository>();
+        services.AddScoped<IImtTransactionTypeRepository, TransactionTypeRepository>();
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateTransactionTypeCommand).Assembly));
-        services.AddScoped<IImtCorridorRepository, ImtCorridorRepository>();
+        services.AddScoped<IImtCorridorRepository, CorridorRepository>();
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateCorridorCommand).Assembly));
-        services.AddScoped<IImtAdminCurrencyRepository, ImtAdminCurrencyRepository>();
+        services.AddScoped<IImtAdminCurrencyRepository, AdminCurrencyRepository>();
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateCurrencyCommand).Assembly));
 
-        services.AddScoped<IImtPayerRepository, ImtPayerRepository>();
+        services.AddScoped<IImtPayerRepository, PayerRepository>();
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreatePayerCommand).Assembly));
 
-        services.AddScoped<IAdminCountryRepository, AdminCountryRepository>();
-        services.AddScoped<IImtServiceMethodRepository, ImtServiceMethodRepository>();
-        services.AddScoped<IImtPayerPaymentSpeedRepository, ImtPayerPaymentSpeed>();
-        services.AddScoped<IImtTaxRateRepository, ImtTaxRateRepository>();
-        services.AddScoped<IImtInstitutionFundRepository, ImtInstitutionFundRepository>();
+        services.AddScoped<IAdminCountryRepository, CountryRepository>();
+        services.AddScoped<IImtServiceMethodRepository, ServiceMethodRepository>();
+        services.AddScoped<IImtPayerPaymentSpeedRepository, PayerPaymentSpeed>();
+        services.AddScoped<IImtTaxRateRepository, TaxRateRepository>();
+        services.AddScoped<IImtInstitutionFundRepository, InstitutionFundRepository>();
        // services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateCountryCommand).Assembly));  
         // services.AddScoped<IRequestHandler<CreateCountryCommand, ErrorOr<Country>>, CreateCountryCommandHandler>();
 
-        services.AddScoped<IImtMttsRepository, ImtMttsRepository>();
+        services.AddScoped<IImtMttsRepository, MttRepository>();
 
        // services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateMttCommand).Assembly));
 
@@ -268,17 +260,17 @@ public static class DependencyInjection
     {
         if (configuration.GetValue<bool>("UseInMemoryDatabase"))
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<SharedKernel.Main.Notification.Infrastructure.Persistence.Context.ApplicationDbContext>(options =>
                 options.UseInMemoryDatabase("VerticalSliceDb"));
         }
         else
         {
             var c = configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<SharedKernel.Main.Notification.Infrastructure.Persistence.Context.ApplicationDbContext>(options =>
                 options.UseMySql(
                     configuration.GetConnectionString("DefaultConnection"),
                     ServerVersion.AutoDetect(configuration.GetConnectionString("DefaultConnection")),
-                    b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+                    b => b.MigrationsAssembly(typeof(SharedKernel.Main.Notification.Infrastructure.Persistence.Context.ApplicationDbContext).Assembly.FullName)));
         }
 
         services.AddScoped<IAppEventDataRepository, AppEventDataRepository>();

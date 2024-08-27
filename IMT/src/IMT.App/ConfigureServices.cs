@@ -1,6 +1,6 @@
 ﻿using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
-using SharedKernel.Main.Infrastructure.Persistence.Notification.Configurations;
+using SharedKernel.Main.Notification.Infrastructure.Persistence.Configurations;
 
 
 namespace IMT.App;

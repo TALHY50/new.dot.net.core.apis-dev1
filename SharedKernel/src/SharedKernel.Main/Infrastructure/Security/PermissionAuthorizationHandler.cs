@@ -2,8 +2,8 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using SharedKernel.Main.ACL.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Interfaces.Repositories.ACL.Auth;
 
 namespace SharedKernel.Main.Infrastructure.Security
 {
@@ -17,8 +17,8 @@ namespace SharedKernel.Main.Infrastructure.Security
             {
                 using IServiceScope scope = serviceScopeFactory.CreateScope();
                 
-                IAclUserRepository userRepo =
-                    scope.ServiceProvider.GetRequiredService<IAclUserRepository>();
+                IUserRepository userRepo =
+                    scope.ServiceProvider.GetRequiredService<IUserRepository>();
                 
                 var userId = Convert.ToUInt32(context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
 #pragma warning disable CS8604 // Possible null reference argument.

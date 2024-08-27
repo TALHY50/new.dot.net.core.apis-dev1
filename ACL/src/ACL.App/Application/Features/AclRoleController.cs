@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedKernel.Main.ACL.Contracts.Requests;
+using SharedKernel.Main.ACL.Contracts.Responses;
+using SharedKernel.Main.ACL.Domain.Services;
 using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Contracts.ACL.Requests;
-using SharedKernel.Main.Contracts.ACL.Response;
-using SharedKernel.Main.Domain.ACL.Services.Role;
 
 namespace ACL.App.Application.Features
 {
@@ -13,48 +13,48 @@ namespace ACL.App.Application.Features
     [ApiController]
     public class AclRoleController : ControllerBase
     {
-        private readonly IAclRoleService AclRoleService;
+        private readonly IRoleService _roleService;
          /// <inheritdoc/>
-        public AclRoleController(IAclRoleService _AclRoleService)
+        public AclRoleController(IRoleService roleService)
         {
-            this.AclRoleService = _AclRoleService;
+            this._roleService = roleService;
         }
          /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclRoleRouteUrl.List, Name = AclRoutesName.AclRoleRouteNames.List)]
-        public AclResponse Index()
+        public ScopeResponse Index()
         {
-            return this.AclRoleService.GetAll();
+            return this._roleService.GetAll();
         }
          /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPost(AclRoutesUrl.AclRoleRouteUrl.Add, Name = AclRoutesName.AclRoleRouteNames.Add)]
-        public AclResponse Create(AclRoleRequest objRole)
+        public ScopeResponse Create(AclRoleRequest objRole)
         {
-            return this.AclRoleService.Add(objRole);
+            return this._roleService.Add(objRole);
         }
          /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclRoleRouteUrl.View, Name = AclRoutesName.AclRoleRouteNames.View)]
-        public AclResponse View(ulong id)
+        public ScopeResponse View(ulong id)
         {
-            return  this.AclRoleService.FindById(id);
+            return  this._roleService.FindById(id);
 
         }
          /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPut(AclRoutesUrl.AclRoleRouteUrl.Edit, Name = AclRoutesName.AclRoleRouteNames.Edit)]
-        public AclResponse Edit(ulong id, AclRoleRequest objRole)
+        public ScopeResponse Edit(ulong id, AclRoleRequest objRole)
         {
-            return  this.AclRoleService.Edit(id, objRole);
+            return  this._roleService.Edit(id, objRole);
 
         }
          /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpDelete(AclRoutesUrl.AclRoleRouteUrl.Destroy, Name = AclRoutesName.AclRoleRouteNames.Destroy)]
-        public AclResponse Destroy(ulong id)
+        public ScopeResponse Destroy(ulong id)
         {
-            return this.AclRoleService.DeleteById(id);
+            return this._roleService.DeleteById(id);
         }
 
     }

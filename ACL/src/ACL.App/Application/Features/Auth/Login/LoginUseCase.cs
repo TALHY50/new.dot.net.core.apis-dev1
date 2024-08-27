@@ -1,10 +1,10 @@
-﻿using SharedKernel.Main.Application.Common.Enums;
+﻿using SharedKernel.Main.ACL.Application.Interfaces.Repositories;
+using SharedKernel.Main.ACL.Application.Interfaces.Services;
+using SharedKernel.Main.ACL.Contracts.Requests;
+using SharedKernel.Main.ACL.Contracts.Responses;
+using SharedKernel.Main.ACL.Domain.Entities;
+using SharedKernel.Main.Application.Common.Enums;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
-using SharedKernel.Main.Application.Interfaces.Repositories.ACL.Auth;
-using SharedKernel.Main.Application.Interfaces.UseCases.ACL;
-using SharedKernel.Main.Contracts.ACL.Request;
-using SharedKernel.Main.Contracts.ACL.Response;
-using SharedKernel.Main.Domain.ACL.Domain.Auth;
 
 namespace ACL.App.Application.Features.Auth.Login
 {
@@ -13,13 +13,13 @@ namespace ACL.App.Application.Features.Auth.Login
     {
         private readonly ILogger _logger;
         private readonly IAuthTokenService _authTokenService;
-        private readonly IAclUserRepository _authRepository;
+        private readonly IUserRepository _authRepository;
         private readonly ICryptographyService _cryptographyService;
         /// <inheritdoc/>
         public LoginUseCase(
             ILogger<LoginUseCase> logger,
             IAuthTokenService authTokenService,
-            IAclUserRepository authRepository,
+            IUserRepository authRepository,
             ICryptographyService cryptographyService)
         {
             this._logger = logger;
@@ -46,7 +46,7 @@ namespace ACL.App.Application.Features.Auth.Login
 
                 if (AreCredentialsValid(request.Password, user))
                 {
-                    user.RefreshToken = new SharedKernel.Main.Domain.ACL.Domain.Auth.RefreshToken
+                    user.RefreshToken = new SharedKernel.Main.ACL.Domain.Entities.RefreshToken
                     {
                         Value = await this._authTokenService.GenerateRefreshToken(),
                         Active = true,
@@ -92,7 +92,7 @@ namespace ACL.App.Application.Features.Auth.Login
             }
         }
 
-        private bool AreCredentialsValid(string testPassword, AclUser user)
+        private bool AreCredentialsValid(string testPassword, User user)
         {
 #pragma warning disable CS8604 // Possible null reference argument.
             var hash = this._cryptographyService.HashPassword(testPassword, user.Salt);

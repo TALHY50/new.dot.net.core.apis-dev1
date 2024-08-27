@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
-using SharedKernel.Main.Application.Interfaces;
 
 #pragma warning disable CS8765 // Possible null reference argument.
 namespace SharedKernel.Main.Infrastructure.Attributes

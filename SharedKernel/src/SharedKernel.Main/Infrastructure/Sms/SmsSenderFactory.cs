@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Logging;
 using SharedKernel.Main.Application.Common.Interfaces;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
-using SharedKernel.Main.Domain.Notification.ValueObjects;
+using SharedKernel.Main.Notification.Domain.Entities.ValueObjects;
 
 namespace SharedKernel.Main.Infrastructure.Sms;
 

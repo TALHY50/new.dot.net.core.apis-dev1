@@ -4,11 +4,10 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedKernel.Main.Admin.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
-using SharedKernel.Main.Domain.IMT.Entities;
-using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
+using SharedKernel.Main.IMT.Domain.Entities;
 
 namespace Admin.App.Application.Features.TransactionTypes
 {

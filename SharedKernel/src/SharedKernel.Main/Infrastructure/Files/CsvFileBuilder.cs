@@ -2,7 +2,7 @@
 using CsvHelper;
 using SharedKernel.Main.Application.Common.Interfaces;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
-using SharedKernel.Main.Domain.Notification.Todos;
+using SharedKernel.Main.Notification.Domain.Entities.Todos;
 
 namespace SharedKernel.Main.Infrastructure.Files;
 

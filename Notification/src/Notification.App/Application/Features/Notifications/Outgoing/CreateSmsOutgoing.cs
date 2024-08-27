@@ -11,12 +11,12 @@ using Newtonsoft.Json;
 
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
-using SharedKernel.Main.Domain.Notification.Notifications.Outgoings;
 using SharedKernel.Main.Infrastructure.Mappings;
 using SharedKernel.Main.Infrastructure.Persistence;
-using SharedKernel.Main.Infrastructure.Persistence.Notification.Context;
+using SharedKernel.Main.Notification.Domain.Entities.Outgoings;
+using SharedKernel.Main.Notification.Infrastructure.Persistence.Context;
 
-using EventId = SharedKernel.Main.Contracts.Notificaiton.EventId;
+using EventId = SharedKernel.Main.Notification.Contracts.EventId;
 
 namespace Notification.App.Application.Features.Notifications.Outgoing;
 

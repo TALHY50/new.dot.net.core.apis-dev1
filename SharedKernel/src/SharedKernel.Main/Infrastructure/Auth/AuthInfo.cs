@@ -1,8 +1,7 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
-using SharedKernel.Main.Domain.ACL.Domain.Auth;
-using SharedKernel.Main.Infrastructure.Persistence.ACL.Configurations;
-using SharedKernel.Main.Infrastructure.Persistence.ACL.Context;
+using SharedKernel.Main.ACL.Domain.Entities;
+using SharedKernel.Main.ACL.Infrastructure.Persistence.Context;
 
 namespace SharedKernel.Main.Infrastructure.Auth
 {
@@ -25,9 +24,9 @@ namespace SharedKernel.Main.Infrastructure.Auth
         private static AuthInfoModel? _authInfo;
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         private static IHttpContextAccessor _httpContextAccessor;
-        private static AclApplicationDbContext _dbContext;
+        private static ApplicationDbContext _dbContext;
 
-        public static void Initialize(IHttpContextAccessor httpContextAccessor, AclApplicationDbContext dbContext)
+        public static void Initialize(IHttpContextAccessor httpContextAccessor, ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
             _httpContextAccessor = httpContextAccessor;
@@ -45,7 +44,7 @@ namespace SharedKernel.Main.Infrastructure.Auth
                     if (userIdClaim != null)
                     {
                         var userId = ulong.Parse(userIdClaim.Value);
-                        AclUser? userFromDb = _dbContext.AclUsers.Find(userId); // Fetch user data from the database
+                        User? userFromDb = _dbContext.AclUsers.Find(userId); // Fetch user data from the database
                         var userGroupIds = (from auu in _dbContext.AclUserUsergroups
                                             where auu.UserId == userId
                                             select auu.UsergroupId.ToString()).ToList();

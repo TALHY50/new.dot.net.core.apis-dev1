@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedKernel.Main.ACL.Contracts.Requests;
+using SharedKernel.Main.ACL.Contracts.Responses;
+using SharedKernel.Main.ACL.Domain.Services;
 using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Contracts.ACL.Requests;
-using SharedKernel.Main.Contracts.ACL.Response;
-using SharedKernel.Main.Domain.ACL.Services.Module;
 
 namespace ACL.App.Application.Features
 {
@@ -13,67 +13,67 @@ namespace ACL.App.Application.Features
     [ApiController]
     public class AclPageController : ControllerBase
     {
-        private readonly IAclPageService AclPageService;
+        private readonly IPageService _pageService;
         /// <inheritdoc/>
-        public AclPageController(IAclPageService _AclPageService)
+        public AclPageController(IPageService pageService)
         {
-            this.AclPageService = _AclPageService;
+            this._pageService = pageService;
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclPageRouteUrl.List, Name = AclRoutesName.AclPageNamesRouteNames.List)]
-        public AclResponse Index()
+        public ScopeResponse Index()
         {
-            return this.AclPageService.GetAll();
+            return this._pageService.GetAll();
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPost(AclRoutesUrl.AclPageRouteUrl.Add, Name = AclRoutesName.AclPageNamesRouteNames.Add)]
-        public AclResponse Create(AclPageRequest request)
+        public ScopeResponse Create(AclPageRequest request)
         {
-            return this.AclPageService.AddAclPage(request);
+            return this._pageService.AddAclPage(request);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPut(AclRoutesUrl.AclPageRouteUrl.Edit, Name = AclRoutesName.AclPageNamesRouteNames.Edit)]
-        public AclResponse Edit(AclPageRequest request)
+        public ScopeResponse Edit(AclPageRequest request)
         {
-            return this.AclPageService.EditAclPage(request);
+            return this._pageService.EditAclPage(request);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpDelete(AclRoutesUrl.AclPageRouteUrl.Destroy, Name = AclRoutesName.AclPageNamesRouteNames.Destroy)]
-        public AclResponse Destroy(ulong id)
+        public ScopeResponse Destroy(ulong id)
         {
-            return this.AclPageService.DeleteById(id);
+            return this._pageService.DeleteById(id);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclPageRouteUrl.View, Name = AclRoutesName.AclPageNamesRouteNames.View)]
-        public AclResponse View(ulong id)
+        public ScopeResponse View(ulong id)
         {
-            return this.AclPageService.FindById(id);
+            return this._pageService.FindById(id);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPost(AclRoutesUrl.AclPageRouteRouteUrl.Add, Name = AclRoutesName.AclPageRouteRouteNames.Add)]
-        public AclResponse AddPageRoute(AclPageRouteRequest request)
+        public ScopeResponse AddPageRoute(AclPageRouteRequest request)
         {
-            return this.AclPageService.PageRouteCreate(request);
+            return this._pageService.PageRouteCreate(request);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPut(AclRoutesUrl.AclPageRouteRouteUrl.Edit, Name = AclRoutesName.AclPageRouteRouteNames.Edit)]
-        public AclResponse EditPageRoute(ulong id, AclPageRouteRequest request)
+        public ScopeResponse EditPageRoute(ulong id, AclPageRouteRequest request)
         {
-            return this.AclPageService.PageRouteEdit(id, request);
+            return this._pageService.PageRouteEdit(id, request);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpDelete(AclRoutesUrl.AclPageRouteRouteUrl.Destroy, Name = AclRoutesName.AclPageRouteRouteNames.Destroy)]
-        public AclResponse DeletePageRoute(ulong id)
+        public ScopeResponse DeletePageRoute(ulong id)
         {
-            return this.AclPageService.PageRouteDelete(id);
+            return this._pageService.PageRouteDelete(id);
         }
 
 

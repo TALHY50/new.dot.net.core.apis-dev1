@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedKernel.Main.ACL.Contracts.Requests;
+using SharedKernel.Main.ACL.Contracts.Responses;
+using SharedKernel.Main.ACL.Domain.Services;
 using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Contracts.ACL.Requests;
-using SharedKernel.Main.Contracts.ACL.Response;
-using SharedKernel.Main.Domain.ACL.Services.UserGroup;
 
 namespace ACL.App.Application.Features
 {
@@ -13,46 +13,46 @@ namespace ACL.App.Application.Features
     [ApiController]
     public class AclUserGroupController : Controller
     {
-        private readonly IAclUserGroupService AclUserGroupService;
+        private readonly IUserGroupService _userGroupService;
         /// <inheritdoc/>
-        public AclUserGroupController(IAclUserGroupService _AclUserGroupService)
+        public AclUserGroupController(IUserGroupService userGroupService)
         {
-            this.AclUserGroupService = _AclUserGroupService;
+            this._userGroupService = userGroupService;
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclUserGroupRouteUrl.List, Name = AclRoutesName.AclUserGroupRouteNames.List)]
-        public AclResponse Index()
+        public ScopeResponse Index()
         {
-            return this.AclUserGroupService.GetAll();
+            return this._userGroupService.GetAll();
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPost(AclRoutesUrl.AclUserGroupRouteUrl.Add, Name = AclRoutesName.AclUserGroupRouteNames.Add)]
-        public AclResponse AclResponseCreate(AclUserGroupRequest request)
+        public ScopeResponse AclResponseCreate(AclUserGroupRequest request)
         {
-            return this.AclUserGroupService.AddUserGroup(request);
+            return this._userGroupService.AddUserGroup(request);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPut(AclRoutesUrl.AclUserGroupRouteUrl.Edit, Name = AclRoutesName.AclUserGroupRouteNames.Edit)]
-        public AclResponse Edit(ulong id, AclUserGroupRequest request)
+        public ScopeResponse Edit(ulong id, AclUserGroupRequest request)
         {
-            return this.AclUserGroupService.UpdateUserGroup(id, request);
+            return this._userGroupService.UpdateUserGroup(id, request);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclUserGroupRouteUrl.View, Name = AclRoutesName.AclUserGroupRouteNames.View)]
-        public AclResponse View(ulong id)
+        public ScopeResponse View(ulong id)
         {
-            return  this.AclUserGroupService.FindById(id);
+            return  this._userGroupService.FindById(id);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpDelete(AclRoutesUrl.AclUserGroupRouteUrl.Destroy, Name = AclRoutesName.AclUserGroupRouteNames.Destroy)]
-        public AclResponse Destroy(ulong id)
+        public ScopeResponse Destroy(ulong id)
         {
-            return this.AclUserGroupService.Delete(id);
+            return this._userGroupService.Delete(id);
         }
     }
 }

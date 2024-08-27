@@ -1,4 +1,4 @@
-﻿using SharedKernel.Main.Domain.Notification.Todos;
+﻿using SharedKernel.Main.Notification.Domain.Entities.Todos;
 
 namespace SharedKernel.Main.Application.Common.Interfaces.Services;
 

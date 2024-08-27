@@ -1,4 +1,4 @@
-using Credential = SharedKernel.Main.Domain.Notification.Setups.Credential;
+using Credential = SharedKernel.Main.Notification.Domain.Entities.Setups.Credential;
 
 namespace SharedKernel.Main.Application.Common.Interfaces.Services;
 

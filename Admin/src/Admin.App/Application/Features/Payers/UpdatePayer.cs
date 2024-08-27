@@ -5,10 +5,9 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
-using SharedKernel.Main.Domain.Admin;
-using SharedKernel.Main.Domain.IMT.Entities;
 using System.ComponentModel.Design;
+using SharedKernel.Main.Admin.Application.Interfaces.Repositories;
+using SharedKernel.Main.IMT.Domain.Entities;
 using Thunes.Response.Discovery.Common;
 
 namespace Admin.App.Application.Features.Payers

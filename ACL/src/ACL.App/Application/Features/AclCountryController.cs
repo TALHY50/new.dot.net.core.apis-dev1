@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedKernel.Main.ACL.Contracts.Requests;
+using SharedKernel.Main.ACL.Contracts.Responses;
+using SharedKernel.Main.ACL.Domain.Services;
 using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Contracts.ACL.Requests;
-using SharedKernel.Main.Contracts.ACL.Response;
-using SharedKernel.Main.Domain.ACL.Services.Company;
 
 namespace ACL.App.Application.Features
 {
@@ -13,48 +13,48 @@ namespace ACL.App.Application.Features
     [ApiController]
     public class AclCountryController : ControllerBase
     {
-        private IAclCountryService AclCountryService;
+        private ICountryService _countryService;
          /// <inheritdoc/>
-        public AclCountryController(IAclCountryService repository)
+        public AclCountryController(ICountryService repository)
         {
-            this.AclCountryService = repository;
+            this._countryService = repository;
         }
          /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclCountryRouteUrl.List, Name = AclRoutesName.AclCountryRouteNames.List)]
-        public AclResponse Index()
+        public ScopeResponse Index()
         {
-            return this.AclCountryService.GetAll();
+            return this._countryService.GetAll();
         }
          /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
         [HttpPost(AclRoutesUrl.AclCountryRouteUrl.Add, Name = AclRoutesName.AclCountryRouteNames.Add)]
-        public AclResponse Create(AclCountryRequest request)
+        public ScopeResponse Create(AclCountryRequest request)
         {
-            return this.AclCountryService.Add(request);
+            return this._countryService.Add(request);
         }
          /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclCountryRouteUrl.View, Name = AclRoutesName.AclCountryRouteNames.View)]
-        public AclResponse View(ulong id)
+        public ScopeResponse View(ulong id)
         {
-            return this.AclCountryService.FindById(id);
+            return this._countryService.FindById(id);
 
         }
          /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
         [HttpPut(AclRoutesUrl.AclCountryRouteUrl.Edit, Name = AclRoutesName.AclCountryRouteNames.Edit)]
-        public AclResponse Edit(ulong id, AclCountryRequest request)
+        public ScopeResponse Edit(ulong id, AclCountryRequest request)
         {
-            return this.AclCountryService.Edit(id, request);
+            return this._countryService.Edit(id, request);
 
         }
          /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
         [HttpDelete(AclRoutesUrl.AclCountryRouteUrl.Destroy, Name = AclRoutesName.AclCountryRouteNames.Destroy)]
-        public AclResponse Destroy(ulong id)
+        public ScopeResponse Destroy(ulong id)
         {
-            return this.AclCountryService.DeleteById(id);
+            return this._countryService.DeleteById(id);
         }
 
     }

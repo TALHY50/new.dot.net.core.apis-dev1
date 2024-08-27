@@ -1,4 +1,4 @@
-using SharedKernel.Main.Domain.Notification.Setups;
+using SharedKernel.Main.Notification.Domain.Entities.Setups;
 
 namespace SharedKernel.Main.Application.Common.Interfaces.Services;
 

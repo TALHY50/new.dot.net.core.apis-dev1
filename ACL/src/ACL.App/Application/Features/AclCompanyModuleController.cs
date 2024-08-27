@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedKernel.Main.ACL.Contracts.Requests;
+using SharedKernel.Main.ACL.Contracts.Responses;
+using SharedKernel.Main.ACL.Domain.Services;
 using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Contracts.ACL.Requests;
-using SharedKernel.Main.Contracts.ACL.Response;
-using SharedKernel.Main.Domain.ACL.Services.Company;
 
 namespace ACL.App.Application.Features
 {
@@ -14,46 +14,46 @@ namespace ACL.App.Application.Features
     public class AclCompanyModuleController : ControllerBase
     {
 
-      private readonly IAclCompanyModuleService AclCompanyModuleService;
+      private readonly ICompanyModuleService _companyModuleService;
         /// <inheritdoc/>
-        public AclCompanyModuleController(IAclCompanyModuleService aclCompanyModuleService)
+        public AclCompanyModuleController(ICompanyModuleService companyModuleService)
         {
-            this.AclCompanyModuleService = aclCompanyModuleService;
+            this._companyModuleService = companyModuleService;
         }
          /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclCompanyModuleRouteUrl.List, Name = AclRoutesName.AclCompanyModuleRouteNames.List)]
-        public AclResponse Index()
+        public ScopeResponse Index()
         {
-            return  this.AclCompanyModuleService.GetAll();
+            return  this._companyModuleService.GetAll();
         }
          /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPost(AclRoutesUrl.AclCompanyModuleRouteUrl.Add, Name = AclRoutesName.AclCompanyModuleRouteNames.Add)]
-        public AclResponse Create(AclCompanyModuleRequest request)
+        public ScopeResponse Create(AclCompanyModuleRequest request)
         {
-            return this.AclCompanyModuleService.AddAclCompanyModule(request);
+            return this._companyModuleService.AddAclCompanyModule(request);
         }
          /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPut(AclRoutesUrl.AclCompanyModuleRouteUrl.Edit, Name = AclRoutesName.AclCompanyModuleRouteNames.Edit)]
-        public AclResponse Edit(ulong id, AclCompanyModuleRequest request)
+        public ScopeResponse Edit(ulong id, AclCompanyModuleRequest request)
         {
-            return this.AclCompanyModuleService.EditAclCompanyModule(id, request);
+            return this._companyModuleService.EditAclCompanyModule(id, request);
         }
          /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclCompanyModuleRouteUrl.View, Name = AclRoutesName.AclCompanyModuleRouteNames.View)]
-        public AclResponse View(ulong id)
+        public ScopeResponse View(ulong id)
         {
-            return this.AclCompanyModuleService.FindById(id);
+            return this._companyModuleService.FindById(id);
         }
          /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpDelete(AclRoutesUrl.AclCompanyModuleRouteUrl.Destroy, Name = AclRoutesName.AclCompanyModuleRouteNames.Destroy)]
-        public AclResponse Destroy(ulong id)
+        public ScopeResponse Destroy(ulong id)
         {
-            return this.AclCompanyModuleService.DeleteCompanyModule(id);
+            return this._companyModuleService.DeleteCompanyModule(id);
         }
     }
 }
