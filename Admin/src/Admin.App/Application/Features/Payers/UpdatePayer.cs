@@ -2,5 +2,6 @@
 {
     public class UpdatePayer
     {
+        //[Tags("Payer")]
     }
 }

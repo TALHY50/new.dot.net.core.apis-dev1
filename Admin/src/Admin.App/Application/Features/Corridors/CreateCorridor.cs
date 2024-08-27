@@ -11,6 +11,7 @@ namespace Admin.App.Application.Features.Corridors
 {
     public class CreateCorridorController : ApiControllerBase
     {
+        [Tags("Corridor")]
         //[Authorize]
         [HttpPost(Routes.CreateCorridorUrl, Name = Routes.CreateCorridorName)]
         public async Task<ActionResult<ErrorOr<Corridor>>> Create(CreateCorridorCommand command)

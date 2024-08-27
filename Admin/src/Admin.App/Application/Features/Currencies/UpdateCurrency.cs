@@ -11,7 +11,8 @@ namespace Admin.App.Application.Features.Currencies
 {
     public class UpdateCurrencyController : ApiControllerBase
     {
-        [Authorize]//(Policy = "HasPermission")]
+        [Tags("Currency")]
+        //[Authorize]//(Policy = "HasPermission")]
         [HttpPost(Routes.UpdateCurrencyUrl, Name = Routes.UpdateCurrencyName)]
 
         public async Task<ActionResult<ErrorOr<Currency>>> Update(UpdateCurrencyCommand command)

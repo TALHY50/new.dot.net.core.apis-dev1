@@ -11,6 +11,7 @@ namespace Admin.App.Application.Features.Corridors
 {
     public class GetCorridorById : ApiControllerBase
     {
+        [Tags("Corridor")]
         //[Authorize]
         [HttpGet(Routes.GetCorridorByIdUrl, Name = Routes.GetCorridorByIdName)]
         public async Task<ActionResult<ErrorOr<Corridor>>> GetById(uint id)

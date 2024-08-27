@@ -12,6 +12,7 @@ namespace Admin.App.Application.Features.Payers
 {
     public class CreatePayerController : ApiControllerBase
     {
+        [Tags("Payer")]
         //[Authorize]
         [HttpPost(Routes.CreatePayerUrl, Name = Routes.CreatePayerName)]
         public async Task<ActionResult<ErrorOr<Payer>>> Create(CreatePayerCommand command)

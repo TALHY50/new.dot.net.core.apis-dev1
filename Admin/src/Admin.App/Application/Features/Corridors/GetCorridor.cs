@@ -10,6 +10,7 @@ namespace Admin.App.Application.Features.Corridors
 {
     public class GetCorridorController : ApiControllerBase
     {
+        [Tags("Corridor")]
         //[Authorize]
         [HttpGet(Routes.GetCorridorUrl, Name = Routes.GetCorridorName)]
         public async Task<ActionResult<ErrorOr<List<Corridor>>>> Get()

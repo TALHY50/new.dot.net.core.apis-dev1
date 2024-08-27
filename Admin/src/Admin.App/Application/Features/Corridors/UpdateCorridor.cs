@@ -10,6 +10,7 @@ namespace Admin.App.Application.Features.Corridors
 {
     public class UpdateCorridorController : ApiControllerBase
     {
+        [Tags("Corridor")]
         //[Authorize]//(Policy = "HasPermission")]
         [HttpPost(Routes.UpdateCorridorUrl, Name = Routes.UpdateCorridorName)]
 

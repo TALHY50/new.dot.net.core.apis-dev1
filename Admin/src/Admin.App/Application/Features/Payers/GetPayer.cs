@@ -10,6 +10,7 @@ namespace Admin.App.Application.Features.Payers
 {
     public class GetPayerController: ApiControllerBase
     {
+        [Tags("Payer")]
         [HttpGet(Routes.GetPayerUrl, Name = Routes.GetPayerName)]
         public async Task<ActionResult<ErrorOr<List<Payer>>>> Get()
         {
@@ -27,10 +28,9 @@ namespace Admin.App.Application.Features.Payers
             _repository = repository;
         }
 
-        public Task<ErrorOr<List<Payer>>> Handle(GetPayerQuery request, CancellationToken cancellationToken)
+        public async Task<ErrorOr<List<Payer>>> Handle(GetPayerQuery request, CancellationToken cancellationToken)
         {
-            var payer = _repository.All().ToList();
-            return Task.FromResult<ErrorOr<List<Payer>>>(payer);
+            return _repository.All().ToList();
         }
     }
 }
