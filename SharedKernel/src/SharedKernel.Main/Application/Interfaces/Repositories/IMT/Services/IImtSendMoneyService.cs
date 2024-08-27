@@ -1,3 +1,4 @@
+using SharedKernel.Main.Domain.IMT.Entities;
 using SharedKernel.Main.Infrastructure.Persistence.IMT.Contracts.Requests;
 using Thunes.Request.Transaction.Transfer.CommonTransaction;
 

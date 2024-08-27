@@ -410,10 +410,6 @@ namespace SharedKernel.Main.Infrastructure.Persistence.Notification.Configuratio
                 entity.Property(e => e.Id)
                     .HasColumnType("int(11) unsigned")
                     .HasColumnName("id");
-                entity.Property(e => e.CommissionPaidBy)
-                    .HasMaxLength(50)
-                    .HasDefaultValueSql("'NULL'")
-                    .HasColumnName("commission_paid_by");
                 entity.Property(e => e.CreatedAt)
                     .HasDefaultValueSql("'NULL'")
                     .HasColumnType("datetime")
@@ -422,14 +418,7 @@ namespace SharedKernel.Main.Infrastructure.Persistence.Notification.Configuratio
                     .HasPrecision(12, 4)
                     .HasDefaultValueSql("'NULL'")
                     .HasColumnName("exchange_rate");
-                entity.Property(e => e.ExchangedAmount)
-                    .HasPrecision(12, 4)
-                    .HasDefaultValueSql("'NULL'")
-                    .HasColumnName("exchanged_amount");
-                entity.Property(e => e.Fee)
-                    .HasPrecision(12, 4)
-                    .HasDefaultValueSql("'NULL'")
-                    .HasColumnName("fee");
+                
                 entity.Property(e => e.InvoiceId)
                     .HasMaxLength(50)
                     .HasDefaultValueSql("'NULL'")
@@ -442,34 +431,7 @@ namespace SharedKernel.Main.Infrastructure.Persistence.Notification.Configuratio
                     .HasMaxLength(50)
                     .HasDefaultValueSql("'NULL'")
                     .HasColumnName("payment_id");
-                entity.Property(e => e.PaymentMethodId)
-                    .HasDefaultValueSql("'NULL'")
-                    .HasColumnType("int(11) unsigned")
-                    .HasColumnName("payment_method_id");
-                entity.Property(e => e.ReasonCode)
-                    .HasMaxLength(10)
-                    .HasDefaultValueSql("'NULL'")
-                    .HasColumnName("reason_code");
-                entity.Property(e => e.ReasonId)
-                    .HasDefaultValueSql("'NULL'")
-                    .HasColumnType("int(11) unsigned")
-                    .HasColumnName("reason_id");
-                entity.Property(e => e.ReceiveAmount)
-                    .HasPrecision(12, 4)
-                    .HasDefaultValueSql("'NULL'")
-                    .HasColumnName("receive_amount");
-                entity.Property(e => e.ReceiverCurrencyId)
-                    .HasDefaultValueSql("'NULL'")
-                    .HasColumnType("int(11) unsigned")
-                    .HasColumnName("receiver_currency_id");
-                entity.Property(e => e.ReceiverCustomerId)
-                    .HasDefaultValueSql("'NULL'")
-                    .HasColumnType("int(11) unsigned")
-                    .HasColumnName("receiver_customer_id");
-                entity.Property(e => e.ReceiverName)
-                    .HasMaxLength(50)
-                    .HasDefaultValueSql("'NULL'")
-                    .HasColumnName("receiver_name");
+                
                 entity.Property(e => e.RemoteOrderId)
                     .HasMaxLength(40)
                     .HasDefaultValueSql("'NULL'")
@@ -478,44 +440,17 @@ namespace SharedKernel.Main.Infrastructure.Persistence.Notification.Configuratio
                     .HasPrecision(12, 4)
                     .HasDefaultValueSql("'NULL'")
                     .HasColumnName("send_amount");
-                entity.Property(e => e.SenderCurrencyId)
-                    .HasDefaultValueSql("'NULL'")
-                    .HasColumnType("int(11) unsigned")
-                    .HasColumnName("sender_currency_id");
-                entity.Property(e => e.SenderCustomerId)
-                    .HasDefaultValueSql("'NULL'")
-                    .HasColumnType("int(11) unsigned")
-                    .HasColumnName("sender_customer_id");
-                entity.Property(e => e.SenderName)
-                    .HasMaxLength(50)
-                    .HasDefaultValueSql("'NULL'")
-                    .HasColumnName("sender_name");
-                entity.Property(e => e.Source)
-                    .HasMaxLength(50)
-                    .HasDefaultValueSql("'NULL'")
-                    .HasColumnName("source");
+
                 entity.Property(e => e.TransactionStateId)
                     .HasDefaultValueSql("'NULL'")
                     .HasColumnType("int(11) unsigned")
                     .HasColumnName("transaction_state_id");
-                entity.Property(e => e.TransferType)
-                    .HasDefaultValueSql("'NULL'")
-                    .HasComment("1=instant, 2=regular, 3=same_day etc.")
-                    .HasColumnType("tinyint(4)")
-                    .HasColumnName("transfer_type");
-                entity.Property(e => e.Type)
-                    .HasDefaultValueSql("'NULL'")
-                    .HasComment("type 1 = b2b, 2 = c2c, 3=c2b, 4=b2c etc")
-                    .HasColumnType("tinyint(4)")
-                    .HasColumnName("type");
+                
                 entity.Property(e => e.UpdatedAt)
                     .HasDefaultValueSql("'NULL'")
                     .HasColumnType("datetime")
                     .HasColumnName("updated_at");
-                entity.Property(e => e.Vat)
-                    .HasPrecision(12, 4)
-                    .HasDefaultValueSql("'NULL'")
-                    .HasColumnName("vat");
+
             });
 
             modelBuilder.Entity<PaymentMethod>(entity =>

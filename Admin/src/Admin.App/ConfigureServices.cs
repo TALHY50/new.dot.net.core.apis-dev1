@@ -41,10 +41,8 @@ using SharedKernel.Main.Infrastructure.Persistence.ACL.Repositories.Role;
 using SharedKernel.Main.Infrastructure.Persistence.ACL.Repositories.UserGroup;
 using SharedKernel.Main.Infrastructure.Persistence.Admin.Repositories;
 using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
-using SharedKernel.Main.Infrastructure.Persistence.IMT.Repositories;
 using SharedKernel.Main.Infrastructure.Persistence.Notification.Context;
 using SharedKernel.Main.Infrastructure.Persistence.Notification.Repositories;
-using SharedKernel.Main.Infrastructure.Persistence.Repositories.ImtCurrency;
 using SharedKernel.Main.Infrastructure.Security;
 using SharedKernel.Main.Infrastructure.Services;
 

@@ -1,4 +1,5 @@
 ﻿using SharedKernel.Main.Application.Interfaces.Repositories.IMT.Repositories;
+using SharedKernel.Main.Domain.IMT.Entities;
 using SharedKernel.Main.Infrastructure.Persistence.IMT.Contracts.Requests;
 using Thunes.Request.Transaction.Quoatation;
 using Thunes.Response.Transfer.Quotation;
