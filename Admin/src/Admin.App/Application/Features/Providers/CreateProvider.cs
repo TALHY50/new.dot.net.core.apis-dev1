@@ -27,8 +27,8 @@ namespace Admin.App.Application.Features.Providers
         string? Code,
         string? Name,
         string? BaseUrl,
-        string? ApiKey,
-        string? ApiSecret,
+        string? AppId,
+        string? AppSecret,
         sbyte? Status = 1) : IRequest<ErrorOr<Provider>>;
 
 
@@ -46,11 +46,11 @@ namespace Admin.App.Application.Features.Providers
             var now = DateTime.UtcNow;
             var @provider = new Provider
             {
-                Code = request.Code,
+             //   Code = request.Code,
                 Name = request.Name,
                 BaseUrl = request.BaseUrl,
-                ApiKey = request.ApiKey,
-                ApiSecret = request.ApiSecret,
+                AppId = request.AppId,
+                AppSecret = request.AppSecret,
                 Status = 1,
                 CreatedById = 1,
                 UpdatedById = 2,

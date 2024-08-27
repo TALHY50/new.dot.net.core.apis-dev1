@@ -12,12 +12,12 @@ namespace IMT.App.Infrastructure.Persistence.Services.SendMoney
     public class ImtSendMoneyService : IImtSendMoneyService
     {
 
-        private readonly IImtQuotationService _quotationService;
+        private readonly IQuotationService _quotationService;
         private readonly IImtMoneyTransferService _moneyTransferService;
         private readonly IImtConfirmTransactionService _imtConfirmTransactionService;
         private readonly IImtCountryRepository _countryRepository;
         private readonly IImtCurrencyRepository _currencyRepository;
-        public ImtSendMoneyService(IImtQuotationService quotationService, IImtMoneyTransferService imtMoneyTransferService, IImtConfirmTransactionService imtConfirmTransactionService,IImtCurrencyRepository currencyRepository,IImtCountryRepository countryRepository)
+        public ImtSendMoneyService(IQuotationService quotationService, IImtMoneyTransferService imtMoneyTransferService, IImtConfirmTransactionService imtConfirmTransactionService,IImtCurrencyRepository currencyRepository,IImtCountryRepository countryRepository)
         {
             _quotationService = quotationService;
             _moneyTransferService = imtMoneyTransferService;
