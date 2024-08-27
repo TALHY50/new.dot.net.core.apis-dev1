@@ -18,19 +18,19 @@ namespace Admin.App.Application.Features.Providers
         [Tags("Providers")]
         //[Authorize(Policy = "HasPermission")]
         [HttpPut(Routes.UpdateProviderUrl, Name = Routes.UpdateProviderName)]
-        public async Task<ActionResult<ErrorOr<Provider>>> Update(int id, UpdateProviderCommand command)
+        public async Task<ActionResult<ErrorOr<Provider>>> Update(uint id, UpdateProviderCommand command)
         {
             var commandWithId = command with { id = id };
             return await Mediator.Send(commandWithId).ConfigureAwait(false);
         }
 
         public record UpdateProviderCommand(
-        int id,
-        string? Code,
-        string? Name,
-        string? BaseUrl,
-        string? ApiKey,
-        string? ApiSecret) : IRequest<ErrorOr<Provider>>;
+        uint id,
+        string Name,
+        string BaseUrl,
+        string AppId,
+        string AppSecret,
+        uint? CompanyId) : IRequest<ErrorOr<Provider>>;
 
 
         //internal sealed class UpdateProviderCommandValidator : AbstractValidator<UpdateProviderCommand>
@@ -59,15 +59,15 @@ namespace Admin.App.Application.Features.Providers
             public async Task<ErrorOr<Provider>> Handle(UpdateProviderCommand request, CancellationToken cancellationToken)
             {
                 var now = DateTime.UtcNow;
-                Provider? providers = _providerRepository.GetByIntId(request.id);
+                Provider? providers = _providerRepository.GetByUintId(request.id);
 
                 if (providers != null)
                 {
-                    providers.Code = request.Code;
                     providers.Name = request.Name;
                     providers.BaseUrl = request.BaseUrl;
-                    providers.ApiKey = request.ApiKey;
-                    providers.ApiSecret = request.ApiSecret;
+                    providers.AppId = request.AppId;
+                    providers.AppSecret = request.AppSecret;
+                    providers.CompanyId = request.CompanyId;
                     providers.Status = 1;
                     providers.CreatedById = 1;
                     providers.UpdatedById = 1;

@@ -18,16 +18,15 @@ namespace Admin.App.Application.Features.TransactionTypes
         [Tags("TransactionTypes")]
         //[Authorize(Policy = "HasPermission")]
         [HttpPut(Routes.UpdateTransactionTypeUrl, Name = Routes.UpdateTransactionTypeName)]
-        public async Task<ActionResult<ErrorOr<TransactionType>>> Update(int id, UpdateTransactionTypeCommand command)
+        public async Task<ActionResult<ErrorOr<TransactionType>>> Update(uint id, UpdateTransactionTypeCommand command)
         {
             var commandWithId = command with { id = id };
             return await Mediator.Send(commandWithId).ConfigureAwait(false);
         }
 
         public record UpdateTransactionTypeCommand(
-        int id,
-        string? Name,
-        sbyte? Status) : IRequest<ErrorOr<TransactionType>>;
+        uint id,
+        byte Status) : IRequest<ErrorOr<TransactionType>>;
 
         internal sealed class UpdateTransactionTypeCommandHandler
         : IRequestHandler<UpdateTransactionTypeCommand, ErrorOr<TransactionType>>
@@ -44,11 +43,10 @@ namespace Admin.App.Application.Features.TransactionTypes
             public async Task<ErrorOr<TransactionType>> Handle(UpdateTransactionTypeCommand request, CancellationToken cancellationToken)
             {
                 var now = DateTime.UtcNow;
-                TransactionType? transactionTypes = _transactionTypeRepository.GetByIntId(request.id);
-                
+                TransactionType? transactionTypes = _transactionTypeRepository.GetByUintId(request.id);
+
                 if (transactionTypes != null)
                 {
-                    transactionTypes.Name = request.Name;
                     transactionTypes.Status = request.Status;
                     transactionTypes.CreatedById = 1;
                     transactionTypes.UpdatedById = 2;

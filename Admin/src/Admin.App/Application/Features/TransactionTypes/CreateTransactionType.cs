@@ -24,8 +24,7 @@ namespace Admin.App.Application.Features.TransactionTypes
     }
 
     public record CreateTransactionTypeCommand(
-        string? Name,
-        sbyte? Status) : IRequest<ErrorOr<TransactionType>>;
+        byte Status) : IRequest<ErrorOr<TransactionType>>;
 
 
     internal sealed class CreateTransactionTypeCommandHandler
@@ -43,7 +42,6 @@ namespace Admin.App.Application.Features.TransactionTypes
             var now = DateTime.UtcNow;
             var @transactionType = new TransactionType
             {
-                Name = request.Name,
                 Status = request.Status,
                 CreatedById = 1,
                 UpdatedById = 2,

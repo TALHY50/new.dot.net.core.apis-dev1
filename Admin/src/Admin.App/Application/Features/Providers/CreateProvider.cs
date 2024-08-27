@@ -24,12 +24,12 @@ namespace Admin.App.Application.Features.Providers
     }
 
     public record CreateProviderCommand(
-        string? Code,
-        string? Name,
-        string? BaseUrl,
-        string? ApiKey,
-        string? ApiSecret,
-        sbyte? Status = 1) : IRequest<ErrorOr<Provider>>;
+        string Name,
+        string BaseUrl,
+        string AppId,
+        string AppSecret,
+        uint? CompanyId,
+        byte Status = 1) : IRequest<ErrorOr<Provider>>;
 
 
     internal sealed class CreateProviderCommandHandler
@@ -46,12 +46,12 @@ namespace Admin.App.Application.Features.Providers
             var now = DateTime.UtcNow;
             var @provider = new Provider
             {
-                Code = request.Code,
                 Name = request.Name,
                 BaseUrl = request.BaseUrl,
-                ApiKey = request.ApiKey,
-                ApiSecret = request.ApiSecret,
+                AppId = request.AppId,
+                AppSecret = request.AppSecret,
                 Status = 1,
+                CompanyId = request.CompanyId,
                 CreatedById = 1,
                 UpdatedById = 2,
                 CreatedAt = now,
