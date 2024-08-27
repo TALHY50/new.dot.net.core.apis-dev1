@@ -6,7 +6,7 @@ using Quotation = SharedKernel.Main.Domain.IMT.Entities.Quotation;
 
 namespace SharedKernel.Main.Application.Interfaces.Repositories.IMT.Services
 {
-    public interface IImtQuotationService : IImtQuotationRepository
+    public interface IQuotationService : IQuotationRepository
     {
         public bool IsValid(QuotationRequest request);
         public CreateQuotationRequest PrepareThunesCreateQuotationRequest(QuotationRequest request);

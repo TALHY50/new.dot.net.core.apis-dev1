@@ -4,7 +4,7 @@ using SharedKernel.Main.Infrastructure.Services;
 
 namespace SharedKernel.Main.Infrastructure.Persistence.Repositories.Quotation
 {
-    public class ImtQuotationRepository(ApplicationDbContext dbContext) : GenericRepository<SharedKernel.Main.Domain.IMT.Entities.Quotation, ApplicationDbContext>(dbContext), IImtQuotationRepository
+    public class QuotationRepository(ApplicationDbContext dbContext) : GenericRepository<SharedKernel.Main.Domain.IMT.Entities.Quotation, ApplicationDbContext>(dbContext), IQuotationRepository
     {
         public SharedKernel.Main.Domain.IMT.Entities.Quotation? GetImtQuotationByInvoiceId(string invoiceId)
         {

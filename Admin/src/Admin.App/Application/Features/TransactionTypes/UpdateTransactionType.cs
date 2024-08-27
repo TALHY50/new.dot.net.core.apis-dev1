@@ -41,22 +41,21 @@ namespace Admin.App.Application.Features.TransactionTypes
                 _transactionTypeRepository = transactionTypeRepository;
             }
 
-            public async Task<ErrorOr<TransactionType>> Handle(UpdateTransactionTypeCommand request, CancellationToken cancellationToken)
+        public async Task<ErrorOr<TransactionType>> Handle(UpdateTransactionTypeCommand command, CancellationToken cancellationToken)
+        {
+            var now = DateTime.UtcNow;
+            var @transactionType = new TransactionType
             {
-                var now = DateTime.UtcNow;
-                TransactionType? transactionTypes = _transactionTypeRepository.GetByIntId(request.id);
-                
-                if (transactionTypes != null)
-                {
-                    transactionTypes.Name = request.Name;
-                    transactionTypes.Status = request.Status;
-                    transactionTypes.CreatedById = 1;
-                    transactionTypes.UpdatedById = 2;
-                    transactionTypes.CreatedAt = now;
-                    transactionTypes.UpdatedAt = now;
-                };
+                //Name = command.Name,
+                //Status = command.Status,
+                CreatedById = 1,
+                UpdatedById = 2,
+                CreatedAt = now,
+                UpdatedAt = now,
+            };
+            // _context.Events.Add(@region);
 
-                return await _transactionTypeRepository.UpdateAsync(transactionTypes);
+                return await _transactionTypeRepository.UpdateAsync(@transactionType);
             }
         }
 

@@ -56,26 +56,25 @@ namespace Admin.App.Application.Features.Providers
                 _providerRepository = providerRepository;
             }
 
-            public async Task<ErrorOr<Provider>> Handle(UpdateProviderCommand request, CancellationToken cancellationToken)
+        public async Task<ErrorOr<Provider>> Handle(UpdateProviderCommand command, CancellationToken cancellationToken)
+        {
+            var now = DateTime.UtcNow;
+            var @provider = new Provider
             {
-                var now = DateTime.UtcNow;
-                Provider? providers = _providerRepository.GetByIntId(request.id);
+              //  Code = command.Code,
+                Name = command.Name,
+                BaseUrl = command.BaseUrl,
+                AppId = command.ApiKey,
+                AppSecret = command.ApiSecret,
+                Status = 1,
+                CreatedById = 1,
+                UpdatedById = 2,
+                CreatedAt = now,
+                UpdatedAt = now,
+            };
+            // _context.Events.Add(@region);
 
-                if (providers != null)
-                {
-                    providers.Code = request.Code;
-                    providers.Name = request.Name;
-                    providers.BaseUrl = request.BaseUrl;
-                    providers.ApiKey = request.ApiKey;
-                    providers.ApiSecret = request.ApiSecret;
-                    providers.Status = 1;
-                    providers.CreatedById = 1;
-                    providers.UpdatedById = 1;
-                    providers.CreatedAt = now;
-                    providers.UpdatedAt = now;
-                };
-
-                return await _providerRepository.UpdateAsync(providers);
+                return await _providerRepository.UpdateAsync(@provider);
             }
         }
     }

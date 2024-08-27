@@ -10,12 +10,13 @@ using Thunes.Request.Common;
 using Thunes.Request.Transaction.Quoatation;
 using Thunes.Response.Common;
 using Thunes.Response.Transfer.Quotation;
+using QuotationRequest = SharedKernel.Main.Infrastructure.Persistence.IMT.Contracts.Requests.QuotationRequest;
 
 namespace IMT.App.Infrastructure.Persistence.Services.Quotation
 {
 
 #pragma warning disable CS8629 // Nullable value type may be null.
-    public class ImtQuotationService : ImtQuotationRepository, IImtQuotationService
+    public class ImtQuotationService : QuotationRepository, IQuotationService
     {
         // public readonly ThunesClient _thunesClient = new(Env.GetString("THUNES_API_KEY"), Env.GetString("THUNES_API_SECRET"), Env.GetString("THUNES_BASE_URL"));
         public readonly ThunesClient _thunesClient = new("f1c4a4d9-2899-4f09-b9f5-c35f09df5ffd", "bed820bd-264b-4d0f-8148-9f56e0a8b55c", "https://api-mt.pre.thunes.com");
@@ -50,7 +51,7 @@ namespace IMT.App.Infrastructure.Persistence.Services.Quotation
                 {
                     ErrorCode = error.code,
                     ErrorMessage = error.message,
-                    ImtProviderId = (int)Quotation.ImtProviderId,
+                    ImtProviderId = (int)Quotation.MttId,
                     ReferenceId = Quotation.Id,
                     Type = 1,
                     CreatedAt = DateTime.UtcNow,
@@ -95,16 +96,16 @@ namespace IMT.App.Infrastructure.Persistence.Services.Quotation
             return new SharedKernel.Main.Domain.IMT.Entities.Quotation
             {
                 OrderId = request.invoice_id,
-                PayerId = request.payer_id,
-                Mode = request.mode,
-                TransactionType = request.transaction_type,
+              //  PayerId = request.payer_id,
+            //    Mode = request.mode,
+           //     TransactionType = request.transaction_type,
                 SourceAmount = request.source_amount,
-                ImtSourceCurrencyId = _currencyRepository.Where(c => c.IsoCode == request.source_currency_code).ToList().OrderBy(c => c.Id)?.Last().Id,
-                ImtProviderId = 1, // hardcoded for thunes
-                ImtProviderServiceId = 1,// hardcoded for thunes
-                ImtSourceCountryId = _countryRepository.Where(c => c.IsoCode == request.source_country_iso_code).ToList().OrderBy(c => c.Id)?.Last().Id,
+           //     ImtSourceCurrencyId = _currencyRepository.Where(c => c.IsoCode == request.source_currency_code).ToList().OrderBy(c => c.Id)?.Last().Id,
+          //      ImtProviderId = 1, // hardcoded for thunes
+           //     ImtProviderServiceId = 1,// hardcoded for thunes
+           //     ImtSourceCountryId = _countryRepository.Where(c => c.IsoCode == request.source_country_iso_code).ToList().OrderBy(c => c.Id)?.Last().Id,
                 DestinationAmount = request.destination_amount,
-                ImtDestinationCurrencyId = _currencyRepository.Where(c => c.IsoCode == request.destination_currency_code).ToList().OrderBy(c => c.Id)?.Last().Id,
+            //    ImtDestinationCurrencyId = _currencyRepository.Where(c => c.IsoCode == request.destination_currency_code).ToList().OrderBy(c => c.Id)?.Last().Id,
                 CreatedAt = DateTime.UtcNow,
             };
         }
