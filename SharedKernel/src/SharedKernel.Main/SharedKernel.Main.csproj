@@ -140,7 +140,6 @@
 		<Folder Include="Contracts\IMT\Requests\" />
 		<Folder Include="Domain\IMT\Services\" />
 		<Folder Include="Infrastructure\Persistence\ACL\Seeds\" />
-		<Folder Include="Infrastructure\Persistence\IMT\Configurations\" />
 		<Folder Include="wwwroot\" />
 	</ItemGroup>
 

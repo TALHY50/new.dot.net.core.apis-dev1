@@ -67,7 +67,7 @@ public static class DependencyInjection
         services.AddScoped<IImtCurrencyRepository, ImtCurrencyRepository>();
         services.AddScoped<IImtCountryRepository, ImtCountryRepository>();
         services.AddScoped<IImtMoneyTransferRepository, ImtMoneyTransferRepository>();
-        services.AddScoped<IImtQuotationRepository, ImtQuotationRepository>();
+        services.AddScoped<IQuotationRepository, ImtQuotationRepository>();
         services.AddScoped<IImtTransactionRepository, ImtTransactionRepository>();
 
         services.AddTransient<IImtConfirmTransactionService, ImtConfirmTransactionService>();
