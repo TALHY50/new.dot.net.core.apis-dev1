@@ -61,7 +61,8 @@ namespace Admin.App.Application.Features.Payers
         }
     }
 
-    internal sealed class CreatePayerCommandHandler : IRequestHandler<CreatePayerCommand, ErrorOr<Payer>>
+    internal sealed class CreatePayerCommandHandler 
+        : IRequestHandler<CreatePayerCommand, ErrorOr<Payer>>
     {
         private readonly IImtPayerRepository _repository;
         public CreatePayerCommandHandler(IImtPayerRepository repository)
