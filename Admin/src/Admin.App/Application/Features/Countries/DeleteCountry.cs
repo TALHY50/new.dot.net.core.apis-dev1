@@ -13,6 +13,7 @@ namespace Admin.App.Application.Features.Countries
 {
     public class DeleteCountryController : ApiControllerBase
     {
+        [Tags("Country")]
         //[Authorize(Policy = "HasPermission")]
         [HttpDelete(Routes.DeleteCountryUrl, Name = Routes.DeleteCountryName)]
 

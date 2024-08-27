@@ -11,6 +11,7 @@ namespace Admin.App.Application.Features.Countries
 {
     public class CreateCountryController : ApiControllerBase
     {
+        [Tags("Country")]
        // [Authorize(Policy = "HasPermission")]
         [HttpPost(Routes.CreateCountryUrl, Name = Routes.CreateCountryName)]
 

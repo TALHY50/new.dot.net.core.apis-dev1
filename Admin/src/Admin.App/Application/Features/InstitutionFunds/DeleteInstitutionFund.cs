@@ -18,7 +18,7 @@ namespace Admin.App.Application.Features.InstitutionFunds
             return await Mediator.Send(command).ConfigureAwait(false);
         }
     }
-    public record DeleteInstitutionFundCommand(int Id) : IRequest<bool>;
+    public record DeleteInstitutionFundCommand(uint Id) : IRequest<bool>;
 
     internal sealed class DeleteInstitutionFundCommandValidator : AbstractValidator<DeleteInstitutionFundCommand>
     {
@@ -40,7 +40,7 @@ namespace Admin.App.Application.Features.InstitutionFunds
         {
             if (command.Id > 0)
             {
-                var institutionFund = _repository.GetByIntId(command.Id);
+                var institutionFund = _repository.GetByUintId(command.Id);
 
                 if (institutionFund != null)
                 {

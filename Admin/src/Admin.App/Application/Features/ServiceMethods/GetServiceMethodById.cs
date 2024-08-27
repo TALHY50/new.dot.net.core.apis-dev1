@@ -13,14 +13,15 @@ namespace ADMIN.App.Application.Features.ServiceMethods
 {
     public class GetServiceMethodByIdController : ApiControllerBase
     {
+        [Tags("ServiceMethod")]
         //[Authorize(Policy = "HasPermission")]
         [HttpGet(Routes.GetServiceMethodByIdUrl, Name = Routes.GetServiceMethodByIdName)]
-        public async Task<ActionResult<ErrorOr<ServiceMethod>>> GetById(int Id)
+        public async Task<ActionResult<ErrorOr<ServiceMethod>>> GetById(uint Id)
         {
             return await Mediator.Send(new GetServiceMethodByIdQuery(Id)).ConfigureAwait(false);
         }
 
-        public record GetServiceMethodByIdQuery(int Id) : IRequest<ErrorOr<ServiceMethod>>;
+        public record GetServiceMethodByIdQuery(uint Id) : IRequest<ErrorOr<ServiceMethod>>;
 
         internal sealed class GetServiceMethodByIdValidator : AbstractValidator<GetServiceMethodByIdQuery>
         {
@@ -40,7 +41,7 @@ namespace ADMIN.App.Application.Features.ServiceMethods
             }
             public async Task<ErrorOr<ServiceMethod>> Handle(GetServiceMethodByIdQuery request, CancellationToken cancellationToken)
             {
-                return _repository.GetByIntId(request.Id);
+                return _repository.GetByUintId(request.Id);
             }
         }
     }

@@ -14,6 +14,7 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
 {
     public class CreatePayerPaymentSpeedController : ApiControllerBase
     {
+        [Tags("PayerPaymentSpeed")]
         //[Authorize(Policy = "HasPermission")]
         [HttpPost(Routes.CreatePayerPaymentSpeedUrl, Name = Routes.CreatePayerPaymentSpeedName)]
 

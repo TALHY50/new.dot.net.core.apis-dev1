@@ -12,6 +12,7 @@ namespace ADMIN.App.Application.Features.ServiceMethods
 {
     public class GetServiceMethodController : ApiControllerBase
     {
+        [Tags("ServiceMethod")]
         //[Authorize(Policy = "HasPermission")]
         [HttpGet(Routes.GetServiceMethodUrl, Name = Routes.GetServiceMethodName)]
         public async Task<ActionResult<ErrorOr<List<ServiceMethod>>>> Get()

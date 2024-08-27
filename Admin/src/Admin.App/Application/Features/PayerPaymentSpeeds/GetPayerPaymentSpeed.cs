@@ -12,6 +12,7 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
 {
     public class GetPayerPaymentSpeedController : ApiControllerBase
     {
+        [Tags("PayerPaymentSpeed")]
         //[Authorize(Policy = "HasPermission")]
         [HttpGet(Routes.GetPayerPaymentSpeedUrl, Name = Routes.GetPayerPaymentSpeedName)]
         public async Task<ActionResult<ErrorOr<List<PayerPaymentSpeed>>>> Get()

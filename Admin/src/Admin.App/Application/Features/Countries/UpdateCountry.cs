@@ -13,19 +13,22 @@ namespace Admin.App.Application.Features.Countries
 {
     public class UpdateCountryController : ApiControllerBase
     {
-        [Authorize(Policy = "HasPermission")]
+        [Tags("Country")]
+        //[Authorize(Policy = "HasPermission")]
         [HttpPut(Routes.UpdateCountryUrl, Name = Routes.UpdateCountryName)]
 
-        public async Task<ActionResult<ErrorOr<Country>>> Update(UpdateCountryCommand command)
+        public async Task<ActionResult<ErrorOr<Country>>> Update(int Id, UpdateCountryCommand command)
         {
-            return await Mediator.Send(command).ConfigureAwait(false);
+            var commandWithId = command with { Id = Id };
+            return await Mediator.Send(commandWithId).ConfigureAwait(false);
         }
 
         public record UpdateCountryCommand(
             int Id,
             string? Code,
             string? IsoCode,
-            string? Name) : IRequest<ErrorOr<Country>>;
+            string? Name,
+            sbyte Status) : IRequest<ErrorOr<Country>>;
 
         internal sealed class UpdateCountryCommandValidator : AbstractValidator<UpdateCountryCommand>
         {
@@ -46,23 +49,25 @@ namespace Admin.App.Application.Features.Countries
 
             public async Task<ErrorOr<Country>> Handle(UpdateCountryCommand command, CancellationToken cancellationToken)
             {
-                var @country = new Country
+                Country? country = _repository.GetByIntId(command.Id);
+                if (country != null)
                 {
-                    Code = command.Code,
-                    IsoCode = command.IsoCode,
-                    Name = command.Name,
-                    CreatedById = 1,
-                    UpdatedById = 1,
-                    Status = 1, //1=active, 0=inactive, 2=soft-deleted
-                    CreatedAt = DateTime.UtcNow,
-                    UpdatedAt = DateTime.UtcNow,
-                };
+                    country.Code = command.Code;
+                    country.IsoCode = command.IsoCode;
+                    country.Name = command.Name;
+                    country.Status = command.Status;
+                    
+                    //if (_user?.UserId != null)
+                    //{
+                    //    entity.UpdatedById = uint.Parse(_user?.UserId ?? "1");
+                    //}
+                    //else
+                    //{
+                    //    entity.UpdatedById = 1;
+                    //}
+                }
 
-                //_context.Countries.Add(@country);
-
-                //await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-
-                return @country;
+                return await _repository.UpdateAsync(country);
             }
         }
     }

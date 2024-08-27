@@ -307,61 +307,61 @@
         public const string GetCountryName = "country";
         public const string GetCountryUrl = "/api/admin/country";
         public const string GetCountryByIdName = "country_by_id";
-        public const string GetCountryByIdUrl = "/api/admin/country/{id}";
+        public const string GetCountryByIdUrl = "/api/admin/country/{Id}";
         public const string CreateCountryName = "create_country";
         public const string CreateCountryUrl = "/api/admin/country";
         public const string DeleteCountryName = "delete_country";
-        public const string DeleteCountryUrl = "/api/admin/country/{id}";
+        public const string DeleteCountryUrl = "/api/admin/country/{Id}";
         public const string UpdateCountryName = "update_country";
-        public const string UpdateCountryUrl = "/api/admin/country";
+        public const string UpdateCountryUrl = "/api/admin/country/{Id}";
 
         // Service Method
         public const string GetServiceMethodName = "service_method";
         public const string GetServiceMethodUrl = "/api/admin/service_method";
         public const string GetServiceMethodByIdName = "service_method_by_id";
-        public const string GetServiceMethodByIdUrl = "/api/admin/service_method/{id}";
+        public const string GetServiceMethodByIdUrl = "/api/admin/service_method/{Id}";
         public const string CreateServiceMethodName = "create_service_method";
         public const string CreateServiceMethodUrl = "/api/admin/service_method";
         public const string DeleteServiceMethodName = "delete_service_method";
-        public const string DeleteServiceMethodUrl = "/api/admin/service_method/{id}";
+        public const string DeleteServiceMethodUrl = "/api/admin/service_method/{Id}";
         public const string UpdateServiceMethodName = "update_service_method";
-        public const string UpdateServiceMethodUrl = "/api/admin/service_method";
+        public const string UpdateServiceMethodUrl = "/api/admin/service_method/{Id}";
 
         // Payer Payment Speed
         public const string GetPayerPaymentSpeedName = "payer_payment_speed";
         public const string GetPayerPaymentSpeedUrl = "/api/admin/payer_payment_speed";
         public const string GetPayerPaymentSpeedByIdName = "payer_payment_speed_by_id";
-        public const string GetPayerPaymentSpeedByIdUrl = "/api/admin/payer_payment_speed/{id}";
+        public const string GetPayerPaymentSpeedByIdUrl = "/api/admin/payer_payment_speed/{Id}";
         public const string CreatePayerPaymentSpeedName = "create_payer_payment_speed";
         public const string CreatePayerPaymentSpeedUrl = "/api/admin/payer_payment_speed";
         public const string DeletePayerPaymentSpeedName = "delete_payer_payment_speed";
-        public const string DeletePayerPaymentSpeedUrl = "/api/admin/payer_payment_speed/{id}";
+        public const string DeletePayerPaymentSpeedUrl = "/api/admin/payer_payment_speed/{Id}";
         public const string UpdatePayerPaymentSpeedName = "update_payer_payment_speed";
-        public const string UpdatePayerPaymentSpeedUrl = "/api/admin/payer_payment_speed";
+        public const string UpdatePayerPaymentSpeedUrl = "/api/admin/payer_payment_speed/{Id}";
 
         // Tax Rate
         public const string GetTaxRateName = "tax_rate";
         public const string GetTaxRateUrl = "/api/admin/tax_rate";
         public const string GetTaxRateByIdName = "tax_rate_by_id";
-        public const string GetTaxRateByIdUrl = "/api/admin/tax_rate/{id}";
+        public const string GetTaxRateByIdUrl = "/api/admin/tax_rate/{Id}";
         public const string CreateTaxRateName = "create_tax_rate";
         public const string CreateTaxRateUrl = "/api/admin/tax_rate";
         public const string DeleteTaxRateName = "delete_tax_rate";
-        public const string DeleteTaxRateUrl = "/api/admin/tax_rate/{id}";
+        public const string DeleteTaxRateUrl = "/api/admin/tax_rate/{Id}";
         public const string UpdateTaxRateName = "update_tax_rate";
-        public const string UpdateTaxRateUrl = "/api/admin/tax_rate";
+        public const string UpdateTaxRateUrl = "/api/admin/tax_rate/{Id}";
 
         // Institution Fund
         public const string GetInstitutionFundName = "institution_fund";
         public const string GetInstitutionFundUrl = "/api/admin/institution_fund";
         public const string GetInstitutionFundByIdName = "institution_fund_by_id";
-        public const string GetInstitutionFundByIdUrl = "/api/admin/institution_fund/{id}";
+        public const string GetInstitutionFundByIdUrl = "/api/admin/institution_fund/{Id}";
         public const string CreateInstitutionFundName = "create_institution_fund";
         public const string CreateInstitutionFundUrl = "/api/admin/institution_fund";
         public const string DeleteInstitutionFundName = "delete_institution_fund";
-        public const string DeleteInstitutionFundUrl = "/api/admin/institution_fund/{id}";
+        public const string DeleteInstitutionFundUrl = "/api/admin/institution_fund/{Id}";
         public const string UpdateInstitutionFundName = "update_institution_fund";
-        public const string UpdateInstitutionFundUrl = "/api/admin/institution_fund";
+        public const string UpdateInstitutionFundUrl = "/api/admin/institution_fund/{Id}";
 
         // Business hour and weekend
         public const string GetBusinessHourAndWeekendName = "get_business_hour_and_weekend";

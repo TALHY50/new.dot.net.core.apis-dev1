@@ -12,6 +12,7 @@ namespace Admin.App.Application.Features.Countries
 {
     public class GetCountryByIdController : ApiControllerBase
     {
+        [Tags("Country")]
         //[Authorize(Policy = "HasPermission")]
         [HttpGet(Routes.GetCountryByIdUrl, Name = Routes.GetCountryByIdName)]
         public async Task<ActionResult<ErrorOr<Country>>> GetById(int Id)

@@ -13,6 +13,7 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
 {
     public class DeletePayerPaymentSpeedController : ApiControllerBase
     {
+        [Tags("PayerPaymentSpeed")]
         //[Authorize(Policy = "HasPermission")]
         [HttpDelete(Routes.DeletePayerPaymentSpeedUrl, Name = Routes.DeletePayerPaymentSpeedName)]
 
@@ -22,7 +23,7 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
         }
     }
 
-    public record DeletePayerPaymentSpeedCommand(int Id) : IRequest<bool>;
+    public record DeletePayerPaymentSpeedCommand(uint Id) : IRequest<bool>;
 
     internal sealed class DeletePayerPaymentSpeedCommandValidator : AbstractValidator<DeletePayerPaymentSpeedCommand>
     {
@@ -45,7 +46,7 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
         {
             if (command.Id > 0)
             {
-                var payerPaymentSpeed = _repository.GetByIntId(command.Id);
+                var payerPaymentSpeed = _repository.GetByUintId(command.Id);
 
                 if (payerPaymentSpeed != null)
                 {

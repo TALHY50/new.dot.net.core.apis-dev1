@@ -20,7 +20,7 @@ namespace Admin.App.Application.Features.TaxRates
             return await Mediator.Send(command).ConfigureAwait(false);
         }
     }
-    public record DeleteTaxRateCommand(int Id) : IRequest<bool>;
+    public record DeleteTaxRateCommand(uint Id) : IRequest<bool>;
 
     internal sealed class DeleteTaxRateCommandValidator : AbstractValidator<DeleteTaxRateCommand>
     {
@@ -43,7 +43,7 @@ namespace Admin.App.Application.Features.TaxRates
         {
             if (command.Id > 0)
             {
-                var taxRate = _repository.GetByIntId(command.Id);
+                var taxRate = _repository.GetByUintId(command.Id);
 
                 if (taxRate != null)
                 {

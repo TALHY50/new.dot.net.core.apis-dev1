@@ -14,12 +14,12 @@ namespace Admin.App.Application.Features.TaxRates
         [Tags("TaxRate")]
         //[Authorize(Policy = "HasPermission")]
         [HttpGet(Routes.GetTaxRateByIdUrl, Name = Routes.GetTaxRateByIdName)]
-        public async Task<ActionResult<ErrorOr<TaxRate>>> GetById(int Id)
+        public async Task<ActionResult<ErrorOr<TaxRate>>> GetById(uint Id)
         {
             return await Mediator.Send(new GetTaxRateByIdQuery(Id)).ConfigureAwait(false);
         }
 
-        public record GetTaxRateByIdQuery(int Id) : IRequest<ErrorOr<TaxRate>>;
+        public record GetTaxRateByIdQuery(uint Id) : IRequest<ErrorOr<TaxRate>>;
 
         internal sealed class GetTaxRateByIdCommandValidator : AbstractValidator<GetTaxRateByIdQuery>
         {
@@ -39,7 +39,7 @@ namespace Admin.App.Application.Features.TaxRates
             }
             public async Task<ErrorOr<TaxRate>> Handle(GetTaxRateByIdQuery request, CancellationToken cancellationToken)
             {
-                return _repository.GetByIntId(request.Id);
+                return _repository.GetByUintId(request.Id);
             }
         }
     }

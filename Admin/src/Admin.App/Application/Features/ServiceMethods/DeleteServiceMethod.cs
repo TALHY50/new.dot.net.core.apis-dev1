@@ -13,6 +13,7 @@ namespace ADMIN.App.Application.Features.ServiceMethods
 {
     public class DeleteServiceMethodController : ApiControllerBase
     {
+        [Tags("ServiceMethod")]
         //[Authorize(Policy = "HasPermission")]
         [HttpDelete(Routes.DeleteServiceMethodUrl, Name = Routes.DeleteServiceMethodName)]
 
@@ -22,7 +23,7 @@ namespace ADMIN.App.Application.Features.ServiceMethods
         }
     }
 
-    public record DeleteServiceMethodCommand(int Id) : IRequest<bool>;
+    public record DeleteServiceMethodCommand(uint Id) : IRequest<bool>;
 
     internal sealed class DeleteServiceMethodCommandValidator : AbstractValidator<DeleteServiceMethodCommand>
     {
@@ -44,7 +45,7 @@ namespace ADMIN.App.Application.Features.ServiceMethods
         {
             if (command.Id > 0)
             {
-                var serviceMethod = _repository.GetByIntId(command.Id);
+                var serviceMethod = _repository.GetByUintId(command.Id);
 
                 if (serviceMethod != null)
                 {

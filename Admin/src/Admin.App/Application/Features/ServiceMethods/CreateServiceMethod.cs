@@ -13,6 +13,7 @@ namespace ADMIN.App.Application.Features.ServiceMethods
 {
     public class CreateServiceMethodController : ApiControllerBase
     {
+        [Tags("ServiceMethod")]
         //[Authorize(Policy = "HasPermission")]
         [HttpPost(Routes.CreateServiceMethodUrl, Name = Routes.CreateServiceMethodName)]
 

@@ -14,12 +14,12 @@ namespace Admin.App.Application.Features.InstitutionFunds
         [Tags("InstitutionFund")]
         //[Authorize(Policy = "HasPermission")]
         [HttpGet(Routes.GetInstitutionFundByIdUrl, Name = Routes.GetInstitutionFundByIdName)]
-        public async Task<ActionResult<ErrorOr<InstitutionFund>>> GetById(int Id)
+        public async Task<ActionResult<ErrorOr<InstitutionFund>>> GetById(uint Id)
         {
             return await Mediator.Send(new GetInstitutionFundByIdQuery(Id)).ConfigureAwait(false);
         }
 
-        public record GetInstitutionFundByIdQuery(int Id) : IRequest<ErrorOr<InstitutionFund>>;
+        public record GetInstitutionFundByIdQuery(uint Id) : IRequest<ErrorOr<InstitutionFund>>;
 
         internal sealed class GetInstitutionFundByIdValidator : AbstractValidator<GetInstitutionFundByIdQuery>
         {
@@ -39,7 +39,7 @@ namespace Admin.App.Application.Features.InstitutionFunds
             }
             public async Task<ErrorOr<InstitutionFund>> Handle(GetInstitutionFundByIdQuery request, CancellationToken cancellationToken)
             {
-                return _repository.GetByIntId(request.Id);
+                return _repository.GetByUintId(request.Id);
             }
         }
     }
