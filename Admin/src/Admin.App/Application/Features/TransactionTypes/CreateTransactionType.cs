@@ -14,6 +14,7 @@ namespace Admin.App.Application.Features.TransactionTypes
 {
     public class CreateTransactionTypeController : ApiControllerBase
     {
+        [Tags("TransactionTypes")]
         //[Authorize(Policy = "HasPermission")]
         [HttpPost(Routes.CreateTransactionTypeUrl, Name = Routes.CreateTransactionTypeName)]
         public async Task<ActionResult<ErrorOr<TransactionType>>> Create(CreateTransactionTypeCommand command)
@@ -23,8 +24,7 @@ namespace Admin.App.Application.Features.TransactionTypes
     }
 
     public record CreateTransactionTypeCommand(
-        string? Name,
-        sbyte? Status) : IRequest<ErrorOr<TransactionType>>;
+        byte Status) : IRequest<ErrorOr<TransactionType>>;
 
 
     internal sealed class CreateTransactionTypeCommandHandler
@@ -42,7 +42,6 @@ namespace Admin.App.Application.Features.TransactionTypes
             var now = DateTime.UtcNow;
             var @transactionType = new TransactionType
             {
-                Name = request.Name,
                 Status = request.Status,
                 CreatedById = 1,
                 UpdatedById = 2,

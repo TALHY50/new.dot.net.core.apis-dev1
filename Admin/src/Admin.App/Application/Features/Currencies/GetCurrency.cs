@@ -11,6 +11,7 @@ namespace Admin.App.Application.Features.Currencies
 {
     public class GetCurrencyController: ApiControllerBase
     {
+        [Tags("Currency")]
         //[Authorize]
         [HttpGet(Routes.GetCurrencyUrl, Name = Routes.GetCurrencyName)]
         public async Task<ActionResult<ErrorOr<List<Currency>>>> Get()
@@ -29,11 +30,9 @@ namespace Admin.App.Application.Features.Currencies
         {
             _repository = repository;
         }
-        public Task<ErrorOr<List<Currency>>> Handle(GetCurrencyQuery request, CancellationToken cancellationToken)
+        public async Task<ErrorOr<List<Currency>>> Handle(GetCurrencyQuery request, CancellationToken cancellationToken)
         {
-            var currencies = _repository.All().ToList(); // Convert IEnumerable to List
-            return Task.FromResult<ErrorOr<List<Currency>>>(currencies); // Wrap in ErrorOr.Success
-            
+            return _repository.All().ToList();
         }
     }
 }

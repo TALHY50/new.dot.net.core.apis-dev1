@@ -14,8 +14,8 @@ namespace IMT.App.Application.Features
     {
 
 #pragma warning disable CS1717 // Assignment made to same variable
-        private readonly IImtQuotationService _quotationService;
-        public QuotationController(IImtQuotationService quotationService)
+        private readonly IQuotationService _quotationService;
+        public QuotationController(IQuotationService quotationService)
         {
             _quotationService = quotationService;
         }

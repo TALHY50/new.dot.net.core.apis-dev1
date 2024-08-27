@@ -12,6 +12,7 @@ namespace Admin.App.Application.Features.Payers
 {
     public class CreatePayerController : ApiControllerBase
     {
+        [Tags("Payer")]
         //[Authorize]
         [HttpPost(Routes.CreatePayerUrl, Name = Routes.CreatePayerName)]
         public async Task<ActionResult<ErrorOr<Payer>>> Create(CreatePayerCommand command)
@@ -61,7 +62,8 @@ namespace Admin.App.Application.Features.Payers
         }
     }
 
-    internal sealed class CreatePayerCommandHandler : IRequestHandler<CreatePayerCommand, ErrorOr<Payer>>
+    internal sealed class CreatePayerCommandHandler 
+        : IRequestHandler<CreatePayerCommand, ErrorOr<Payer>>
     {
         private readonly IImtPayerRepository _repository;
         public CreatePayerCommandHandler(IImtPayerRepository repository)

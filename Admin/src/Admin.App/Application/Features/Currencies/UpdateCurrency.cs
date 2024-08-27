@@ -1,52 +1,70 @@
 ﻿using ErrorOr;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
 using SharedKernel.Main.Domain.IMT.Entities;
 using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
+using System.Reflection.Metadata;
 
 namespace Admin.App.Application.Features.Currencies
 {
     public class UpdateCurrencyController : ApiControllerBase
     {
-        [Authorize]//(Policy = "HasPermission")]
-        [HttpPost(Routes.UpdateCurrencyUrl, Name = Routes.UpdateCurrencyName)]
+        [Tags("Currency")]
+        //[Authorize]//(Policy = "HasPermission")]
+        [HttpPut(Routes.UpdateCurrencyUrl, Name = Routes.UpdateCurrencyName)]
 
-        public async Task<ActionResult<ErrorOr<Currency>>> Update(UpdateCurrencyCommand command)
+        public async Task<ActionResult<ErrorOr<Currency>>> Update(int id, UpdateCurrencyCommand command)
         {
-            return await Mediator.Send(command).ConfigureAwait(false);
+            var commandWithId = command with { id = id };
+            return await Mediator.Send(commandWithId).ConfigureAwait(false);
         }
     }
-    public record UpdateCurrencyCommand(
+    public record UpdateCurrencyCommand(int id,
     string? Code,
     string? IsoCode,
     string? Name,
     string? Symbol) : IRequest<ErrorOr<Currency>>;
-    internal sealed class UpdateCurrencyCommandHandler(ImtApplicationDbContext context) 
+
+    internal sealed class UpdateCurrencyValidator : AbstractValidator<GetCurrencyByIdQuery>
+    {
+        public UpdateCurrencyValidator()
+        {
+            RuleFor(x => x.id).NotEmpty().WithMessage("Currencyts ID is required");
+        }
+    }
+
+    internal sealed class UpdateCurrencyCommandHandler 
         : IRequestHandler<UpdateCurrencyCommand, ErrorOr<Currency>>
     {
-        private readonly ImtApplicationDbContext _context = context;
+        private readonly IImtAdminCurrencyRepository _repository;
+        public UpdateCurrencyCommandHandler(IImtAdminCurrencyRepository repository)
+        {
+            _repository = repository;
+        }
         public async Task<ErrorOr<Currency>> Handle(UpdateCurrencyCommand request, CancellationToken cancellationToken)
         {
+            Currency? entity = _repository.GetByIntId(request.id);
             var now = DateTime.UtcNow;
-            var @currency = new Currency
+            if (entity != null)
             {
-                Code = request.Code,
-                IsoCode = request.IsoCode,
-                Name = request.Name,
-                Symbol = request.Symbol,
-                CreatedById = 1,
-                UpdatedById = 2,
-                Status = 1,
-                CreatedAt = now,
-                UpdatedAt = now,
-            };
-            //_context.currencies.Add(@event);
-
-            //await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-            return @currency;
+                entity.Code = request.Code;
+                entity.IsoCode = request.IsoCode;
+                entity.Name = request.Name;
+                entity.Symbol = request.Symbol;
+                entity.CreatedById = 1;
+                entity.UpdatedById = 2;
+                entity.Status = 1;
+                entity.CreatedAt = now;
+                entity.UpdatedAt = now;
+            }
+            return await _repository.UpdateAsync(entity);
         }
     }
 }

@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
 using SharedKernel.Main.Domain.IMT.Entities;
 using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 
@@ -13,41 +15,49 @@ namespace Admin.App.Application.Features.TransactionTypes
 {
     public class UpdateTransactionTypeController : ApiControllerBase
     {
-        [Authorize(Policy = "HasPermission")]
+        [Tags("TransactionTypes")]
+        //[Authorize(Policy = "HasPermission")]
         [HttpPut(Routes.UpdateTransactionTypeUrl, Name = Routes.UpdateTransactionTypeName)]
-        public async Task<ActionResult<ErrorOr<TransactionType>>> Update(UpdateTransactionTypeCommand command)
+        public async Task<ActionResult<ErrorOr<TransactionType>>> Update(uint id, UpdateTransactionTypeCommand command)
         {
-            return await Mediator.Send(command).ConfigureAwait(false);
+            var commandWithId = command with { id = id };
+            return await Mediator.Send(commandWithId).ConfigureAwait(false);
         }
 
-    }
+        public record UpdateTransactionTypeCommand(
+        uint id,
+        byte Status) : IRequest<ErrorOr<TransactionType>>;
 
-    public record UpdateTransactionTypeCommand(
-        int Id,
-        string? Name,
-        sbyte Status) : IRequest<ErrorOr<TransactionType>>;
-
-    internal sealed class UpdateTransactionTypeCommandHandler(ImtApplicationDbContext context)
+        internal sealed class UpdateTransactionTypeCommandHandler
         : IRequestHandler<UpdateTransactionTypeCommand, ErrorOr<TransactionType>>
-    {
-
-
-        public async Task<ErrorOr<TransactionType>> Handle(UpdateTransactionTypeCommand command, CancellationToken cancellationToken)
         {
-            var now = DateTime.UtcNow;
-            var @transactionType = new TransactionType
-            {
-                Name = command.Name,
-                Status = command.Status,
-                CreatedById = 1,
-                UpdatedById = 2,
-                CreatedAt = now,
-                UpdatedAt = now,
-            };
-            // _context.Events.Add(@region);
+            private readonly ICurrentUserService _user;
+            private readonly IImtTransactionTypeRepository _transactionTypeRepository;
 
-            return @transactionType;
+            public UpdateTransactionTypeCommandHandler(ICurrentUserService user, IImtTransactionTypeRepository transactionTypeRepository)
+            {
+                _user = user;
+                _transactionTypeRepository = transactionTypeRepository;
+            }
+
+            public async Task<ErrorOr<TransactionType>> Handle(UpdateTransactionTypeCommand request, CancellationToken cancellationToken)
+            {
+                var now = DateTime.UtcNow;
+                TransactionType? transactionTypes = _transactionTypeRepository.GetByUintId(request.id);
+
+                if (transactionTypes != null)
+                {
+                    transactionTypes.Status = request.Status;
+                    transactionTypes.CreatedById = 1;
+                    transactionTypes.UpdatedById = 2;
+                    transactionTypes.CreatedAt = now;
+                    transactionTypes.UpdatedAt = now;
+                };
+
+                return await _transactionTypeRepository.UpdateAsync(transactionTypes);
+            }
         }
+
     }
 }
 

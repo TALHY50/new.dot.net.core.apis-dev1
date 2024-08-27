@@ -28,7 +28,7 @@ internal sealed class ConfirmMoneyTransferValidator : AbstractValidator<ConfirmM
     }
 }
 
-internal sealed class ConfirmMoneyTransferHandler(ApplicationDbContext context)
+internal sealed class Handler(ApplicationDbContext context)
     : IRequestHandler<ConfirmMoneyTransfer, ErrorOr<object>>
 {
     private readonly ApplicationDbContext _context = context;

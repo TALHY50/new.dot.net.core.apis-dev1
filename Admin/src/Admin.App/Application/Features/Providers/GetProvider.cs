@@ -1,32 +1,37 @@
-﻿using Ardalis.SharedKernel;
-using ErrorOr;
+﻿using ErrorOr;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
 using SharedKernel.Main.Domain.IMT.Entities;
 
 namespace Admin.App.Application.Features.Providers
 {
     public class GetProviderController : ApiControllerBase
     {
-        [Authorize]//(Policy = "HasPermission")]
+        [Tags("Providers")]
+        //[Authorize(Policy = "HasPermission")]
         [HttpGet(Routes.GetProviderUrl, Name = Routes.GetProviderName)]
-        public async Task<ActionResult<ErrorOr<Provider>>> Get()
+        public async Task<ActionResult<ErrorOr<List<Provider>>>> Get()
         {
             return await Mediator.Send(new GetProviderQuery()).ConfigureAwait(false);
         }
 
-        public record GetProviderQuery() : IQuery<ErrorOr<Provider>>;
+        public record GetProviderQuery() : IRequest<ErrorOr<List<Provider>>>;
 
-        internal sealed class GetProviderHandler()
-            : IQueryHandler<GetProviderQuery, ErrorOr<Provider>>
+        internal sealed class GetProviderHandler
+            : IRequestHandler<GetProviderQuery, ErrorOr<List<Provider>>>
         {
-            // get all data 
-            public Task<ErrorOr<Provider>> Handle(GetProviderQuery request, CancellationToken cancellationToken)
+            private readonly IImtProviderRepository _providerRepository;
+            public GetProviderHandler(IImtProviderRepository providerRepository)
             {
-                throw new NotImplementedException();
+                _providerRepository = providerRepository;
+            }
+            public async Task<ErrorOr<List<Provider>>> Handle(GetProviderQuery request, CancellationToken cancellationToken)
+            {
+                return _providerRepository.All().ToList();
             }
         }
     }

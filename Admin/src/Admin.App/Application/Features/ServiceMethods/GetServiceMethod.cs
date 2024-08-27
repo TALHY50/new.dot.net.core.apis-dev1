@@ -1,5 +1,6 @@
 ﻿using Ardalis.SharedKernel;
 using ErrorOr;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
@@ -11,16 +12,17 @@ namespace ADMIN.App.Application.Features.ServiceMethods
 {
     public class GetServiceMethodController : ApiControllerBase
     {
-        [Authorize(Policy = "HasPermission")]
+        [Tags("ServiceMethod")]
+        //[Authorize(Policy = "HasPermission")]
         [HttpGet(Routes.GetServiceMethodUrl, Name = Routes.GetServiceMethodName)]
-        public async Task<ActionResult<ErrorOr<ServiceMethod>>> Get()
+        public async Task<ActionResult<ErrorOr<List<ServiceMethod>>>> Get()
         {
             return await Mediator.Send(new GetServiceMethodQuery()).ConfigureAwait(false);
         }
 
-        public record GetServiceMethodQuery() : IQuery<ErrorOr<ServiceMethod>>;
+        public record GetServiceMethodQuery() : IRequest<ErrorOr<List<ServiceMethod>>>;
 
-        internal sealed class GetServiceMethodQueryHandler : IQueryHandler<GetServiceMethodQuery, ErrorOr<ServiceMethod>>
+        internal sealed class GetServiceMethodQueryHandler : IRequestHandler<GetServiceMethodQuery, ErrorOr<List<ServiceMethod>>>
         {
             private readonly IImtServiceMethodRepository _repository;
 
@@ -28,9 +30,9 @@ namespace ADMIN.App.Application.Features.ServiceMethods
             {
                 _repository = repository;
             }
-            public Task<ErrorOr<ServiceMethod>> Handle(GetServiceMethodQuery request, CancellationToken cancellationToken)
+            public async Task<ErrorOr<List<ServiceMethod>>> Handle(GetServiceMethodQuery request, CancellationToken cancellationToken)
             {
-                throw new NotImplementedException();
+                return _repository.All().ToList();
             }
         }
     }

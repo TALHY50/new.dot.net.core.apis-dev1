@@ -11,6 +11,7 @@ namespace Admin.App.Application.Features.Mtts
 {
     public class MttsDelete : ApiControllerBase
     {
+        [Tags("Mtt")]
         //[Authorize(Policy = "HasPermission")]
         [HttpDelete(AdminRoute.DeleteMttsRouteUrl, Name = AdminRoute.DeleteMttsRouteName)]
         public async Task<bool> Delete(DeleteMttCommand command)
