@@ -15,7 +15,6 @@ using Notification.App.Infrastructure.Persistence.Context;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
 using SharedKernel.Main.Infrastructure.Mappings;
-using SharedKernel.Main.Infrastructure.Persistence;
 
 using EventId = Notification.App.Contracts.EventId;
 

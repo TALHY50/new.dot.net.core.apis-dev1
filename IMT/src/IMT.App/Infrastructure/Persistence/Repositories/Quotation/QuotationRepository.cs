@@ -1,7 +1,6 @@
 ﻿using SharedKernel.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 using SharedKernel.Main.Infrastructure.Services;
-using ApplicationDbContext = SharedKernel.Main.Infrastructure.Persistence.IMT.Context.ApplicationDbContext;
 
 namespace SharedKernel.Main.Infrastructure.Persistence.Repositories.Quotation
 {

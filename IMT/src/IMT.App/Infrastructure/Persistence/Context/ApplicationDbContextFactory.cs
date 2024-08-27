@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.Extensions.Configuration;
 using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 
 namespace SharedKernel.Main.IMT.Infrastructure.Persistence.Context

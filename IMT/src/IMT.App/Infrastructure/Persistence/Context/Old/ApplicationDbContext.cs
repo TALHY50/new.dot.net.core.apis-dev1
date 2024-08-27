@@ -1,9 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
 using SharedKernel.Main.IMT.Domain.Entities;
-using Provider = SharedKernel.Main.IMT.Domain.Entities.Duplicates.Provider;
 
-namespace SharedKernel.Main.IMT.Infrastructure.Persistence.Context.New
+namespace SharedKernel.Main.IMT.Infrastructure.Persistence.Context.Old
 {
     public partial class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : DbContext(options), IApplicationDbContext
@@ -24,7 +23,7 @@ namespace SharedKernel.Main.IMT.Infrastructure.Persistence.Context.New
 
         public virtual DbSet<PaymentMethod> ImtPaymentMethods { get; set; }
 
-        public virtual DbSet<Provider> ImtProviders { get; set; }
+        public virtual DbSet<SharedKernel.Main.IMT.Domain.Entities.Duplicates.Provider> ImtProviders { get; set; }
 
         public virtual DbSet<ProviderCommission> ImtProviderCommissions { get; set; }
 
@@ -491,7 +490,7 @@ namespace SharedKernel.Main.IMT.Infrastructure.Persistence.Context.New
                     .HasColumnName("updated_by_id");
             });
 
-            modelBuilder.Entity<Provider>(entity =>
+            modelBuilder.Entity<SharedKernel.Main.IMT.Domain.Entities.Duplicates.Provider>(entity =>
             {
                 entity.HasKey(e => e.Id).HasName("PRIMARY");
 

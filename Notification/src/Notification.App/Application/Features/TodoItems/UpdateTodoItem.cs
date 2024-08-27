@@ -9,7 +9,6 @@ using Notification.App.Infrastructure.Persistence.Context;
 
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Exceptions;
-using SharedKernel.Main.Infrastructure.Persistence;
 
 namespace Notification.App.Application.Features.TodoItems;
 

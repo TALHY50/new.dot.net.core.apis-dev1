@@ -62,12 +62,4 @@ public class CreateBusinessHourAndWeekendController : ApiControllerBase
         }
     }
 
-
-
-
-
-
-
-
-
 }

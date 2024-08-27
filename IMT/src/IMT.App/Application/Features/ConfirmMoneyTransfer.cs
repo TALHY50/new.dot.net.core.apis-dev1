@@ -4,7 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using IMT.App.Application.Common;
 using Notification.App.Infrastructure.Persistence.Configurations;
-using SharedKernel.Main.IMT.Infrastructure.Persistence.Context.New;
+using SharedKernel.Main.IMT.Infrastructure.Persistence.Context.Old;
 
 namespace IMT.App.Application.Features;
 

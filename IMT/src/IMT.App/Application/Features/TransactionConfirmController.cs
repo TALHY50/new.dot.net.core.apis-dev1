@@ -2,7 +2,7 @@
 using Notification.App.Infrastructure.Persistence.Configurations;
 using SharedKernel.Main.IMT.Application.Interfaces.Services;
 using SharedKernel.Main.IMT.Domain.Entities;
-using SharedKernel.Main.IMT.Infrastructure.Persistence.Context.New;
+using SharedKernel.Main.IMT.Infrastructure.Persistence.Context.Old;
 using Thunes.Exception;
 using Thunes.Request.ConfirmTrasaction;
 using Thunes.Response.Common;

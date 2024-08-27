@@ -11,7 +11,6 @@ using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Models;
 using SharedKernel.Main.Infrastructure.Extensions;
 using SharedKernel.Main.Infrastructure.Mappings;
-using SharedKernel.Main.Infrastructure.Persistence;
 
 namespace Notification.App.Application.Features.TodoItems;
 

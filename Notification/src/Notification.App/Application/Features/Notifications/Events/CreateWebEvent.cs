@@ -14,7 +14,6 @@ using Notification.App.Domain.Entities.ValueObjects;
 using Notification.App.Infrastructure.Persistence.Context;
 
 using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Infrastructure.Persistence;
 
 namespace Notification.App.Application.Features.Notifications.Events;
 

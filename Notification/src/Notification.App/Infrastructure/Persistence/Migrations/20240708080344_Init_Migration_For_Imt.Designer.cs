@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-using SharedKernel.Main.IMT.Infrastructure.Persistence.Context.New;
+using ApplicationDbContext = Notification.App.Infrastructure.Persistence.Context.ApplicationDbContext;
 
 namespace Notification.App.Infrastructure.Persistence.Migrations
 {
