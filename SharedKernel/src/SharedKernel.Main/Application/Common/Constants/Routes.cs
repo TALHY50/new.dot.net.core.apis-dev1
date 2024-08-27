@@ -459,6 +459,11 @@
         public const string UpdateTransactionTypeName = "update_transaction_type";
         public const string UpdateTransactionTypeUrl = "/api/admin/transaction_type";
 
+        // CreateMoneyTransferTransaction
+        public const string CreateMoneyTransferTransactionName = "create_money_transaction";
+        public const string CreateMoneyTransferTransactionUrl = "/v2/money-transfer/transaction/create";
+
+
     }
 
     public class AdminRoute
