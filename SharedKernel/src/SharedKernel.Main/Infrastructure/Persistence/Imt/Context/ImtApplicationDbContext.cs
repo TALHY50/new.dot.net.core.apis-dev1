@@ -586,22 +586,22 @@ namespace SharedKernel.Main.Infrastructure.Persistence.IMT.Context
             entity.ToTable("imt_money_transfers");
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.CommissionPaidBy)
+            /*entity.Property(e => e.CommissionPaidBy)
                 .HasDefaultValueSql("'1'")
                 .HasComment("1=paid by sender, 2=paid by receiver")
-                .HasColumnName("commission_paid_by");
+                .HasColumnName("commission_paid_by");*/
             entity.Property(e => e.CreatedAt)
                 .HasColumnType("datetime")
                 .HasColumnName("created_at");
             entity.Property(e => e.ExchangeRate)
                 .HasPrecision(12, 4)
                 .HasColumnName("exchange_rate");
-            entity.Property(e => e.ExchangedAmount)
+            /*entity.Property(e => e.ExchangedAmount)
                 .HasPrecision(12, 4)
-                .HasColumnName("exchanged_amount");
-            entity.Property(e => e.Fee)
+                .HasColumnName("exchanged_amount");*/
+            /*entity.Property(e => e.Fee)
                 .HasPrecision(12, 4)
-                .HasColumnName("fee");
+                .HasColumnName("fee");*/
             entity.Property(e => e.InvoiceId)
                 .HasMaxLength(50)
                 .HasColumnName("invoice_id");
@@ -611,26 +611,26 @@ namespace SharedKernel.Main.Infrastructure.Persistence.IMT.Context
             entity.Property(e => e.PaymentId)
                 .HasMaxLength(50)
                 .HasColumnName("payment_id");
-            entity.Property(e => e.PaymentMethodId).HasColumnName("payment_method_id");
+            /*entity.Property(e => e.PaymentMethodId).HasColumnName("payment_method_id");
             entity.Property(e => e.ReasonCode)
                 .HasMaxLength(10)
-                .HasColumnName("reason_code");
-            entity.Property(e => e.ReasonId).HasColumnName("reason_id");
+                .HasColumnName("reason_code");*/
+            /*entity.Property(e => e.ReasonId).HasColumnName("reason_id");
             entity.Property(e => e.ReceiveAmount)
                 .HasPrecision(12, 4)
-                .HasColumnName("receive_amount");
-            entity.Property(e => e.ReceiverCurrencyId).HasColumnName("receiver_currency_id");
+                .HasColumnName("receive_amount");*/
+            /*entity.Property(e => e.ReceiverCurrencyId).HasColumnName("receiver_currency_id");
             entity.Property(e => e.ReceiverCustomerId).HasColumnName("receiver_customer_id");
             entity.Property(e => e.ReceiverName)
                 .HasMaxLength(50)
-                .HasColumnName("receiver_name");
+                .HasColumnName("receiver_name");*/
             entity.Property(e => e.RemoteOrderId)
                 .HasMaxLength(50)
                 .HasColumnName("remote_order_id");
             entity.Property(e => e.SendAmount)
                 .HasPrecision(12, 4)
                 .HasColumnName("send_amount");
-            entity.Property(e => e.SenderCurrencyId).HasColumnName("sender_currency_id");
+            /*entity.Property(e => e.SenderCurrencyId).HasColumnName("sender_currency_id");
             entity.Property(e => e.SenderCustomerId).HasColumnName("sender_customer_id");
             entity.Property(e => e.SenderName)
                 .HasMaxLength(50)
@@ -638,22 +638,22 @@ namespace SharedKernel.Main.Infrastructure.Persistence.IMT.Context
             entity.Property(e => e.Source)
                 .HasDefaultValueSql("'1'")
                 .HasComment("1=from api, 2= from admin")
-                .HasColumnName("source");
+                .HasColumnName("source");*/
             entity.Property(e => e.TransactionStateId).HasColumnName("transaction_state_id");
-            entity.Property(e => e.TransferType)
+            /*entity.Property(e => e.TransferType)
                 .HasDefaultValueSql("'1'")
                 .HasComment("1=regular, 2 = instant, 3 = same day")
-                .HasColumnName("transfer_type");
-            entity.Property(e => e.Type)
+                .HasColumnName("transfer_type");*/
+            /*entity.Property(e => e.Type)
                 .HasDefaultValueSql("'2'")
                 .HasComment("1 = b2b, 2 = c2c, 3=c2b, 4=b2c ")
-                .HasColumnName("type");
+                .HasColumnName("type");*/
             entity.Property(e => e.UpdatedAt)
                 .HasColumnType("datetime")
                 .HasColumnName("updated_at");
-            entity.Property(e => e.Vat)
+            /*entity.Property(e => e.Vat)
                 .HasPrecision(12, 4)
-                .HasColumnName("vat");
+                .HasColumnName("vat");*/
         });
 
         modelBuilder.Entity<MoneyTransferReport>(entity =>

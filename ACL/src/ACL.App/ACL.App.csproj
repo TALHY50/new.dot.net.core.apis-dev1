@@ -58,7 +58,9 @@
   
 
   <ItemGroup>
+    <Folder Include="Domain\" />
     <Folder Include="Http\" />
+    <Folder Include="Infrastructure\" />
     <Folder Include="Logs\" />
   </ItemGroup>
   

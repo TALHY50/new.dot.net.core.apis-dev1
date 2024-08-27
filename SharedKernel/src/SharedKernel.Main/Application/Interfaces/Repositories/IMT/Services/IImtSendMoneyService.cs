@@ -6,10 +6,10 @@ namespace SharedKernel.Main.Application.Interfaces.Repositories.IMT.Services
 {
     public interface IImtSendMoneyService
     {
-        public object SendMoney(SendMoneyRequest request);
+        /*public object SendMoney(SendMoneyRequest request);
 
         public QuotationRequest PrepareQuotation(SendMoneyRequest request);
 
-        public MoneyTransferDTO PrepareTransaction(SendMoneyRequest request);
+        public MoneyTransferDTO PrepareTransaction(SendMoneyRequest request);*/
     }
 }

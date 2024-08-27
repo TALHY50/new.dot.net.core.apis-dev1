@@ -1,18 +1,7 @@
 ﻿using DotNetEnv;
-using IMT.App.Infrastructure.Persistence.Services.Quotation;
-using IMT.App.Infrastructure.Persistence.Services.SendMoney;
-using IMT.App.Infrastructure.Persistence.Services.Transaction;
 using Microsoft.EntityFrameworkCore;
-using SharedKernel.Main.Application.Interfaces.Repositories.IMT.Repositories;
-using SharedKernel.Main.Application.Interfaces.Repositories.IMT.Services;
-using SharedKernel.Main.Infrastructure.Persistence.IMT.Repositories.ConfirmTransaction;
 using SharedKernel.Main.Infrastructure.Persistence.Notification.Configurations;
-using SharedKernel.Main.Infrastructure.Persistence.Repositories.ImtCountry;
-using SharedKernel.Main.Infrastructure.Persistence.Repositories.ImtCurrency;
-using SharedKernel.Main.Infrastructure.Persistence.Repositories.ImtMoneyTransfer;
-using SharedKernel.Main.Infrastructure.Persistence.Repositories.ImtTransaction;
-using SharedKernel.Main.Infrastructure.Persistence.Repositories.Quotation;
-using SharedKernel.Main.Infrastructure.Persistence.Services.ConfirmTransactionService;
+
 
 namespace IMT.App;
 
@@ -63,7 +52,7 @@ public static class DependencyInjection
                 options.EnableRetryOnFailure();
             }));
 
-        services.AddScoped<IImtProviderErrorDetailsRepository, ImtProviderErrorDetailsRepository>();
+        /*services.AddScoped<IImtProviderErrorDetailsRepository, ImtProviderErrorDetailsRepository>();
         services.AddScoped<IImtCurrencyRepository, ImtCurrencyRepository>();
         services.AddScoped<IImtCountryRepository, ImtCountryRepository>();
         services.AddScoped<IImtMoneyTransferRepository, ImtMoneyTransferRepository>();
@@ -73,7 +62,7 @@ public static class DependencyInjection
         services.AddTransient<IImtConfirmTransactionService, ImtConfirmTransactionService>();
         services.AddTransient<IQuotationService, ImtQuotationService>();
         services.AddTransient<IImtMoneyTransferService, ImtMoneyTransferService>();
-        services.AddTransient<IImtSendMoneyService, ImtSendMoneyService>();
+        services.AddTransient<IImtSendMoneyService, ImtSendMoneyService>();*/
 
 
         return services;
