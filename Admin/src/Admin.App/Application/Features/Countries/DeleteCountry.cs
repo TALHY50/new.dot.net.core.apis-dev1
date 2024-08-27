@@ -13,16 +13,16 @@ namespace Admin.App.Application.Features.Countries
 {
     public class DeleteCountryController : ApiControllerBase
     {
-        [Authorize(Policy = "HasPermission")]
+        //[Authorize(Policy = "HasPermission")]
         [HttpDelete(Routes.DeleteCountryUrl, Name = Routes.DeleteCountryName)]
 
-        public async Task<ActionResult<ErrorOr<Country>>> Delete(DeleteCountryCommand command)
+        public async Task<bool> Delete(DeleteCountryCommand command)
         {
             return await Mediator.Send(command).ConfigureAwait(false);
         }
     }
 
-    public record DeleteCountryCommand(int Id) : IRequest<ErrorOr<Country>>;
+    public record DeleteCountryCommand(int Id) : IRequest<bool>;
 
     internal sealed class DeleteCountryCommandValidator : AbstractValidator<DeleteCountryCommand>
     {
@@ -32,7 +32,7 @@ namespace Admin.App.Application.Features.Countries
         }
     }
 
-    internal sealed class DeleteCountryCommandHandler : IRequestHandler<DeleteCountryCommand, ErrorOr<Country>>
+    internal sealed class DeleteCountryCommandHandler : IRequestHandler<DeleteCountryCommand, bool>
     {
         private readonly IAdminCountryRepository _repository;
 
@@ -41,14 +41,20 @@ namespace Admin.App.Application.Features.Countries
             _repository = repository;
         }
 
-        public async Task<ErrorOr<Country>> Handle(DeleteCountryCommand command, CancellationToken cancellationToken)
+        public async Task<bool> Handle(DeleteCountryCommand command, CancellationToken cancellationToken)
         {
-            //var country = _repository.GetById(command.Id);
+            if(command.Id > 0)
+            {
+                var country = _repository.GetByIntId(command.Id);
 
-            //return _repository.Delete(country).Result;
+                if(country != null)
+                {
+                    return await _repository.DeleteAsync(country);
+                }
+                return await _repository.DeleteAsync(country);
+            }
 
-           
-            throw new NotImplementedException();
+            return false;
         }
     }
 

@@ -13,14 +13,15 @@ namespace Admin.App.Application.Features.Countries
     {
         // [Authorize(Policy = "HasPermission")]
         [HttpGet(Routes.GetCountryUrl, Name = Routes.GetCountryName)]
-        public async Task<ActionResult<List<Country>>> Get()
+        public async Task<ActionResult<ErrorOr<List<Country>>>> Get()
         {
             return await Mediator.Send(new GetCountryQuery()).ConfigureAwait(false);
         }
 
-        public record GetCountryQuery() : IQuery<List<Country>>;
+        public record GetCountryQuery() : IQuery<ErrorOr<List<Country>>>;
 
-        internal sealed class GetCountryQueryHandler : IQuery<List<Country>>
+        internal sealed class GetCountryQueryHandler 
+            : IQueryHandler<GetCountryQuery, ErrorOr<List<Country>>>
         {
             private readonly IAdminCountryRepository _repository;
 
@@ -31,7 +32,8 @@ namespace Admin.App.Application.Features.Countries
 
             public Task<ErrorOr<List<Country>>> Handle(GetCountryQuery request, CancellationToken cancellationToken)
             {
-                return Task.FromResult(_repository.All().ToList().ToErrorOr());
+                var countries = _repository.All().ToList();
+                return Task.FromResult<ErrorOr<List<Country>>>(countries);
             }
         }
     }
