@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
 using SharedKernel.Main.Domain.IMT.Entities;
 using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 
@@ -16,47 +18,65 @@ namespace Admin.App.Application.Features.Providers
         [Tags("Providers")]
         //[Authorize(Policy = "HasPermission")]
         [HttpPut(Routes.UpdateProviderUrl, Name = Routes.UpdateProviderName)]
-        public async Task<ActionResult<ErrorOr<Provider>>> Update(UpdateProviderCommand command)
+        public async Task<ActionResult<ErrorOr<Provider>>> Update(int id, UpdateProviderCommand command)
         {
-            return await Mediator.Send(command).ConfigureAwait(false);
+            var commandWithId = command with { id = id };
+            return await Mediator.Send(commandWithId).ConfigureAwait(false);
         }
 
-    }
-
-    public record UpdateProviderCommand(
-        int Id,
+        public record UpdateProviderCommand(
+        int id,
         string? Code,
         string? Name,
         string? BaseUrl,
         string? ApiKey,
-        string? ApiSecret,
-        sbyte? Status = 1) : IRequest<ErrorOr<Provider>>;
+        string? ApiSecret) : IRequest<ErrorOr<Provider>>;
 
 
-    internal sealed class UpdateProviderCommandHandler(ImtApplicationDbContext context)
+        //internal sealed class UpdateProviderCommandValidator : AbstractValidator<UpdateProviderCommand>
+        //{
+        //    public UpdateProviderCommandValidator()
+        //    {
+        //        RuleFor(v => v.Status)
+        //            .NotEmpty()
+        //            .WithMessage("Status is required.");
+        //    }
+        //}
+
+
+        internal sealed class UpdateProviderCommandHandler
         : IRequestHandler<UpdateProviderCommand, ErrorOr<Provider>>
-    {
-
-
-        public async Task<ErrorOr<Provider>> Handle(UpdateProviderCommand command, CancellationToken cancellationToken)
         {
-            var now = DateTime.UtcNow;
-            var @provider = new Provider
-            {
-                Code = command.Code,
-                Name = command.Name,
-                BaseUrl = command.BaseUrl,
-                ApiKey = command.ApiKey,
-                ApiSecret = command.ApiSecret,
-                Status = 1,
-                CreatedById = 1,
-                UpdatedById = 2,
-                CreatedAt = now,
-                UpdatedAt = now,
-            };
-            // _context.Events.Add(@region);
+            private readonly ICurrentUserService _user;
+            private readonly IImtProviderRepository _providerRepository;
 
-            return provider;
+            public UpdateProviderCommandHandler(ICurrentUserService user, IImtProviderRepository providerRepository)
+            {
+                _user = user;
+                _providerRepository = providerRepository;
+            }
+
+            public async Task<ErrorOr<Provider>> Handle(UpdateProviderCommand request, CancellationToken cancellationToken)
+            {
+                var now = DateTime.UtcNow;
+                Provider? providers = _providerRepository.GetByIntId(request.id);
+
+                if (providers != null)
+                {
+                    providers.Code = request.Code;
+                    providers.Name = request.Name;
+                    providers.BaseUrl = request.BaseUrl;
+                    providers.ApiKey = request.ApiKey;
+                    providers.ApiSecret = request.ApiSecret;
+                    providers.Status = 1;
+                    providers.CreatedById = 1;
+                    providers.UpdatedById = 1;
+                    providers.CreatedAt = now;
+                    providers.UpdatedAt = now;
+                };
+
+                return await _providerRepository.UpdateAsync(providers);
+            }
         }
     }
 }
