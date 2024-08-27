@@ -24,18 +24,17 @@ namespace Admin.App.Application.Features.Regions
 
     public record UpdateRegionCommand(
         int Id,
-        string? Name,
-        sbyte Status = 1) : IRequest<ErrorOr<Region>>;
+        string? Name) : IRequest<ErrorOr<Region>>;
 
-    internal sealed class UpdateRegionCommandValidator : AbstractValidator<UpdateRegionCommand>
-    {
-        public UpdateRegionCommandValidator()
-        {
-            RuleFor(v => v.Status)
-                .NotEmpty()
-                .WithMessage("Status is required.");
-        }
-    }
+    //internal sealed class UpdateRegionCommandValidator : AbstractValidator<UpdateRegionCommand>
+    //{
+    //    public UpdateRegionCommandValidator()
+    //    {
+    //        RuleFor(v => v.Status)
+    //            .NotEmpty()
+    //            .WithMessage("Status is required.");
+    //    }
+    //}
 
     internal sealed class UpdateRegionCommandHandler(ImtApplicationDbContext context) 
         : IRequestHandler<UpdateRegionCommand, ErrorOr<Region>>

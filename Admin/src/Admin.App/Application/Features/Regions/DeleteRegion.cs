@@ -1,32 +1,44 @@
-﻿using MediatR;
+﻿using FluentValidation;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
+using static Admin.App.Application.Features.Mtts.MttsDelete;
 
 namespace Admin.App.Application.Features.Regions
 {
     public class DeleteRegionController : ApiControllerBase
     {
-        [Authorize(Policy = "HasPermission")]
+        //[Authorize(Policy = "HasPermission")]
         [HttpPost(Routes.DeleteRegionUrl, Name = Routes.DeleteRegionName)]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<bool> Delete(DeleteRegionCommand command)
         {
-            await Mediator.Send(new DeleteRegionCommand(id));
-
-            return NoContent();
+            return await Mediator.Send(command).ConfigureAwait(false);
         }
     }
 
-    public record DeleteRegionCommand(int Id) : IRequest;
+    public record DeleteRegionCommand(uint id) 
+        : IRequest<bool>;
 
-    internal sealed class DeleteRegionCommandHandler(ImtApplicationDbContext context) 
-        : IRequestHandler<DeleteRegionCommand>
+    internal sealed class DeleteRegionCommandValidator : AbstractValidator<DeleteRegionCommand>
     {
-        private readonly ImtApplicationDbContext _context = context;
+        public DeleteRegionCommandValidator()
+        {
+            RuleFor(r => r.id).NotEmpty();
+        }
+    }
 
-        public async Task Handle(DeleteRegionCommand request, CancellationToken cancellationToken)
+    internal sealed class DeleteRegionCommandHandler 
+        : IRequestHandler<DeleteRegionCommand, bool>
+    {
+        public DeleteRegionCommandHandler()
+        {
+            
+        }
+
+        public async Task<bool> Handle(DeleteRegionCommand request, CancellationToken cancellationToken)
         {
             
         }

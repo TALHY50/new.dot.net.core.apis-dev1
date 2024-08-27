@@ -1,5 +1,4 @@
-﻿using Ardalis.SharedKernel;
-using ErrorOr;
+﻿using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -23,18 +22,17 @@ namespace Admin.App.Application.Features.Regions
     }
 
     public record CreateRegionCommand(
-        string? Name,
-        byte? Status=1) : IRequest<ErrorOr<Region>>;
+        string? Name) : IRequest<ErrorOr<Region>>;
 
-    internal sealed class CreateRegionCommandValidator : AbstractValidator<CreateRegionCommand>
-    {
-        public CreateRegionCommandValidator()
-        {
-            RuleFor(v => v.Status)
-                .NotEmpty()
-                .WithMessage("Status is required.");
-        }
-    }
+    //internal sealed class CreateRegionCommandValidator : AbstractValidator<CreateRegionCommand>
+    //{
+    //    public CreateRegionCommandValidator()
+    //    {
+    //        RuleFor(v => v.Status)
+    //            .NotEmpty()
+    //            .WithMessage("Status is required.");
+    //    }
+    //}
 
     internal sealed class CreateRegionCommandHandler
         : IRequestHandler<CreateRegionCommand, ErrorOr<Region>>
