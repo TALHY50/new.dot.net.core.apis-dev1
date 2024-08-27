@@ -3,9 +3,9 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SharedKernel.Main.Admin.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 
 
@@ -30,7 +30,7 @@ public class DeleteBusinessHourAndWeekendByIdController : ApiControllerBase
         }
     }
 
-    internal sealed class DeleteBusinessHourAndWeekendCommandHandler(ImtApplicationDbContext _context, IBusinessHourAndWeekendRepository repository) : IRequestHandler<DeleteBusinessHourAndWeekendCommand, ErrorOr<bool>>
+    internal sealed class DeleteBusinessHourAndWeekendCommandHandler(ApplicationDbContext _context, IBusinessHourAndWeekendRepository repository) : IRequestHandler<DeleteBusinessHourAndWeekendCommand, ErrorOr<bool>>
     {
         public async Task<ErrorOr<bool>> Handle(DeleteBusinessHourAndWeekendCommand request, CancellationToken cancellationToken)
         {

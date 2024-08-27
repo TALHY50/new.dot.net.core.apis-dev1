@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using SharedKernel.Main.ACL.Application.Interfaces.Repositories;
-using SharedKernel.Main.ACL.Contracts.Requests;
-using SharedKernel.Main.ACL.Contracts.Responses;
+﻿using ACL.App.Application.Interfaces.Repositories;
+using ACL.App.Contracts.Requests;
+using ACL.App.Contracts.Responses;
+using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common.Constants;
 
 namespace ACL.App.Application.Features

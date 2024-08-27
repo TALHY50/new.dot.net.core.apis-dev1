@@ -1,8 +1,8 @@
+using ACL.App.Contracts.Requests;
+using ACL.App.Contracts.Responses;
+using ACL.App.Domain.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SharedKernel.Main.ACL.Contracts.Requests;
-using SharedKernel.Main.ACL.Contracts.Responses;
-using SharedKernel.Main.ACL.Domain.Services;
 using SharedKernel.Main.Application.Common.Constants;
 
 namespace ACL.App.Application.Features

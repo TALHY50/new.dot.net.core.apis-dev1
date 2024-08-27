@@ -58,10 +58,7 @@
   
 
   <ItemGroup>
-    <Folder Include="Contracts\" />
-    <Folder Include="Domain\" />
     <Folder Include="Http\" />
-    <Folder Include="Infrastructure\Persistence\" />
     <Folder Include="Logs\" />
   </ItemGroup>
   

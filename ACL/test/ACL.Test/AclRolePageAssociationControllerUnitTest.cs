@@ -1,6 +1,6 @@
-﻿using Bogus;
+﻿using ACL.App.Contracts.Requests;
+using Bogus;
 using RestSharp;
-using SharedKernel.Main.ACL.Contracts.Requests;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Contracts.Common;
 

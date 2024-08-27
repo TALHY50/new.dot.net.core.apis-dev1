@@ -50,10 +50,10 @@ internal sealed class CreateMoneyTransferQuotationValidator : AbstractValidator<
     }
 }
 
-internal sealed class ConfirmMoneyTransferHandler(ImtApplicationDbContext context)
+internal sealed class ConfirmMoneyTransferHandler(ApplicationDbContext context)
     : IRequestHandler<ConfirmMoneyTransfer, ErrorOr<object>>
 {
-    private readonly ImtApplicationDbContext _context = context;
+    private readonly ApplicationDbContext _context = context;
 
     public async Task<ErrorOr<object>> Handle(ConfirmMoneyTransfer request, CancellationToken cancellationToken)
     {

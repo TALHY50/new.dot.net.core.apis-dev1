@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using SharedKernel.Main.Admin.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.IMT.Application.Interfaces.Repositories;
 
 namespace Admin.App.Application.Features.Payers
 {

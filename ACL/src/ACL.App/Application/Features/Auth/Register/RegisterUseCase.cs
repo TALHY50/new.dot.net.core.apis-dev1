@@ -1,11 +1,11 @@
-﻿using SharedKernel.Main.ACL.Application.Interfaces.Repositories;
-using SharedKernel.Main.ACL.Application.Interfaces.Services;
-using SharedKernel.Main.ACL.Contracts.Requests;
-using SharedKernel.Main.ACL.Contracts.Responses;
-using SharedKernel.Main.ACL.Domain.Entities;
+﻿using ACL.App.Application.Interfaces.Repositories;
+using ACL.App.Application.Interfaces.Services;
+using ACL.App.Contracts.Requests;
+using ACL.App.Contracts.Responses;
+using ACL.App.Domain.Entities;
 using SharedKernel.Main.Application.Common.Enums;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
-using Claim = SharedKernel.Main.ACL.Domain.Entities.Claim;
+using Claim = ACL.App.Domain.Entities.Claim;
 
 namespace ACL.App.Application.Features.Auth.Register
 {

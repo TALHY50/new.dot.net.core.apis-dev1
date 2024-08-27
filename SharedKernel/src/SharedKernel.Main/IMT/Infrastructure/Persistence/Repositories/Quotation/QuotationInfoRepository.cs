@@ -5,7 +5,7 @@ using SharedKernel.Main.Infrastructure.Services;
 
 namespace SharedKernel.Main.Infrastructure.Persistence.Repositories.Quotation
 {
-    public class QuotationInfoRepository(ImtApplicationDbContext dbContext) : GenericRepository<QuotationInfo, ImtApplicationDbContext>(dbContext), IQuotationInfoRepository
+    public class QuotationInfoRepository(ApplicationDbContext dbContext) : GenericRepository<QuotationInfo, ApplicationDbContext>(dbContext), IQuotationInfoRepository
     {
        
     }

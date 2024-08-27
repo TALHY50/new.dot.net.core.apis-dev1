@@ -8,7 +8,7 @@ using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
 using System.ComponentModel.Design;
-using SharedKernel.Main.Admin.Application.Interfaces.Repositories;
+using SharedKernel.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.IMT.Domain.Entities;
 
 namespace Admin.App.Application.Features.Mtts

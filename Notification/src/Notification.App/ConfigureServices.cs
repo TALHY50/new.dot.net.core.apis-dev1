@@ -1,5 +1,11 @@
 ﻿using System.Security.Cryptography;
 
+using ACL.App.Application.Interfaces.Repositories;
+using ACL.App.Application.Interfaces.Services;
+using ACL.App.Infrastructure.Jwt;
+using ACL.App.Infrastructure.Persistence.Repositories;
+using ACL.App.Infrastructure.Security;
+
 using DotNetEnv;
 
 using FluentValidation;
@@ -11,19 +17,20 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 
-using SharedKernel.Main.ACL.Application.Interfaces.Repositories;
-using SharedKernel.Main.ACL.Infrastructure.Persistence.Repositories;
+using Notification.App.Application.Interfaces.Repositories;
+using Notification.App.Application.Interfaces.Services;
+using Notification.App.Infrastructure.Email;
+using Notification.App.Infrastructure.Files;
+using Notification.App.Infrastructure.Persistence.Repositories;
+using Notification.App.Infrastructure.Sms;
+
 using SharedKernel.Main.Application.Common.Behaviours;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
 using SharedKernel.Main.Infrastructure.Cryptography;
-using SharedKernel.Main.Infrastructure.Files;
-using SharedKernel.Main.Infrastructure.Jwt;
 using SharedKernel.Main.Infrastructure.Security;
 using SharedKernel.Main.Infrastructure.Services;
-using SharedKernel.Main.Notification.Application.Interfaces.Repositories;
-using SharedKernel.Main.Notification.Infrastructure.Persistence.Repositories;
 
-using ApplicationDbContext = SharedKernel.Main.ACL.Infrastructure.Persistence.Context.ApplicationDbContext;
+using ApplicationDbContext = ACL.App.Infrastructure.Persistence.Context.ApplicationDbContext;
 
 namespace Notification.App;
 
@@ -207,17 +214,17 @@ public static class DependencyInjection
     {
         if (configuration.GetValue<bool>("UseInMemoryDatabase"))
         {
-            services.AddDbContext<SharedKernel.Main.Notification.Infrastructure.Persistence.Context.ApplicationDbContext>(options =>
+            services.AddDbContext<Infrastructure.Persistence.Context.ApplicationDbContext>(options =>
                 options.UseInMemoryDatabase("VerticalSliceDb"));
         }
         else
         {
             var c = configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<SharedKernel.Main.Notification.Infrastructure.Persistence.Context.ApplicationDbContext>(options =>
+            services.AddDbContext<Infrastructure.Persistence.Context.ApplicationDbContext>(options =>
                 options.UseMySql(
                     configuration.GetConnectionString("DefaultConnection"),
                     ServerVersion.AutoDetect(configuration.GetConnectionString("DefaultConnection")),
-                    b => b.MigrationsAssembly(typeof(SharedKernel.Main.Notification.Infrastructure.Persistence.Context.ApplicationDbContext).Assembly.FullName)));
+                    b => b.MigrationsAssembly(typeof(Infrastructure.Persistence.Context.ApplicationDbContext).Assembly.FullName)));
         }
 
         services.AddScoped<IAppEventDataRepository, AppEventDataRepository>();

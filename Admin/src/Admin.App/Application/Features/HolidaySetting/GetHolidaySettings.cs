@@ -4,9 +4,9 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SharedKernel.Main.Admin.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 using Duplicates_HolidaySetting = SharedKernel.Main.IMT.Domain.Entities.Duplicates.HolidaySetting;
 
@@ -24,7 +24,7 @@ public class GetHolidaySettingsController : ApiControllerBase
 
     public record GetHolidaySettingQuery() : IQuery<List<Duplicates_HolidaySetting>>;
 
-    internal sealed class GetHolidaySettingsHandler(ImtApplicationDbContext _context, IHolidaySettingRepository repository) : IQueryHandler<GetHolidaySettingQuery, List<Duplicates_HolidaySetting>>
+    internal sealed class GetHolidaySettingsHandler(ApplicationDbContext _context, IHolidaySettingRepository repository) : IQueryHandler<GetHolidaySettingQuery, List<Duplicates_HolidaySetting>>
     {
         // get all data 
         public async Task<List<Duplicates_HolidaySetting>> Handle(GetHolidaySettingQuery request, CancellationToken cancellationToken)

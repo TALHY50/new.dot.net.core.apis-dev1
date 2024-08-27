@@ -1,8 +1,8 @@
-﻿using SharedKernel.Main.ACL.Application.Interfaces.Repositories;
-using SharedKernel.Main.ACL.Application.Interfaces.Services;
-using SharedKernel.Main.ACL.Contracts.Requests;
-using SharedKernel.Main.ACL.Contracts.Responses;
-using SharedKernel.Main.ACL.Domain.Entities;
+﻿using ACL.App.Application.Interfaces.Repositories;
+using ACL.App.Application.Interfaces.Services;
+using ACL.App.Contracts.Requests;
+using ACL.App.Contracts.Responses;
+using ACL.App.Domain.Entities;
 using SharedKernel.Main.Application.Common.Enums;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
 
@@ -46,7 +46,7 @@ namespace ACL.App.Application.Features.Auth.Login
 
                 if (AreCredentialsValid(request.Password, user))
                 {
-                    user.RefreshToken = new SharedKernel.Main.ACL.Domain.Entities.RefreshToken
+                    user.RefreshToken = new Domain.Entities.RefreshToken
                     {
                         Value = await this._authTokenService.GenerateRefreshToken(),
                         Active = true,

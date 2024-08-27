@@ -4,7 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common.Constants;
 using IMT.App.Application.Common;
-using SharedKernel.Main.Admin.Application.Interfaces.Repositories;
+using SharedKernel.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.IMT.Domain.Entities.Duplicates;
 using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 
@@ -125,7 +125,7 @@ namespace IMT.App.Application.Features
             }
         }
 
-        internal sealed class CreateHolidaySettingHandler(ImtApplicationDbContext context, IHolidaySettingRepository repository) : IRequestHandler<CreateTransactionCommand, ErrorOr<HolidaySetting>>
+        internal sealed class CreateHolidaySettingHandler(ApplicationDbContext context, IHolidaySettingRepository repository) : IRequestHandler<CreateTransactionCommand, ErrorOr<HolidaySetting>>
         {
             public async Task<ErrorOr<HolidaySetting>> Handle(CreateTransactionCommand request, CancellationToken cancellationToken)
             {

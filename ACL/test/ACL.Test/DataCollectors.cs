@@ -1,11 +1,11 @@
 using System.Runtime.Caching;
+using ACL.App.Contracts.Requests;
+using ACL.App.Contracts.Responses;
+using ACL.App.Infrastructure.Persistence.Context;
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using RestSharp;
-using SharedKernel.Main.ACL.Contracts.Requests;
-using SharedKernel.Main.ACL.Contracts.Responses;
-using SharedKernel.Main.ACL.Infrastructure.Persistence.Context;
 
 namespace ACL.TEST
 {

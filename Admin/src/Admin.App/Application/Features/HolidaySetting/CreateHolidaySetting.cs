@@ -3,9 +3,9 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SharedKernel.Main.Admin.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 using Duplicates_HolidaySetting = SharedKernel.Main.IMT.Domain.Entities.Duplicates.HolidaySetting;
 
@@ -35,7 +35,7 @@ public class CreateHolidaySettingController : ApiControllerBase
         }
     }
 
-    internal sealed class CreateHolidaySettingHandler(ImtApplicationDbContext context, IHolidaySettingRepository repository) : IRequestHandler<CreateHolidaySettingCommand, ErrorOr<Duplicates_HolidaySetting>>
+    internal sealed class CreateHolidaySettingHandler(ApplicationDbContext context, IHolidaySettingRepository repository) : IRequestHandler<CreateHolidaySettingCommand, ErrorOr<Duplicates_HolidaySetting>>
     {
         public async Task<ErrorOr<Duplicates_HolidaySetting>> Handle(CreateHolidaySettingCommand request, CancellationToken cancellationToken)
         {

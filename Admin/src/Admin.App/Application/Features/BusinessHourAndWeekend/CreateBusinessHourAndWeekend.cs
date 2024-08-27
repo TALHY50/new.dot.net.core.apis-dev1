@@ -4,9 +4,9 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SharedKernel.Main.Admin.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 
@@ -39,7 +39,7 @@ public class CreateBusinessHourAndWeekendController : ApiControllerBase
         }
     }
 
-    internal sealed class CreateBusinessHourAndWeekendHandler(ImtApplicationDbContext context, IBusinessHourAndWeekendRepository repository) : IRequestHandler<CreateBusinessHourAndWeekendCommand, ErrorOr<BusinessHoursAndWeekend>>
+    internal sealed class CreateBusinessHourAndWeekendHandler(ApplicationDbContext context, IBusinessHourAndWeekendRepository repository) : IRequestHandler<CreateBusinessHourAndWeekendCommand, ErrorOr<BusinessHoursAndWeekend>>
     {
 
         public async Task<ErrorOr<BusinessHoursAndWeekend>> Handle(CreateBusinessHourAndWeekendCommand request, CancellationToken cancellationToken)

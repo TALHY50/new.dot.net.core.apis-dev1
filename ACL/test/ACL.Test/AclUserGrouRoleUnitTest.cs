@@ -1,8 +1,8 @@
+using ACL.App.Contracts.Requests;
+using ACL.App.Contracts.Responses;
+using ACL.App.Domain.Entities;
 using Newtonsoft.Json;
 using RestSharp;
-using SharedKernel.Main.ACL.Contracts.Requests;
-using SharedKernel.Main.ACL.Contracts.Responses;
-using SharedKernel.Main.ACL.Domain.Entities;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Contracts.Common;
 

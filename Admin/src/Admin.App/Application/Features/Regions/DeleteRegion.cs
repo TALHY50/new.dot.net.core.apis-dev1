@@ -2,10 +2,10 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SharedKernel.Main.Admin.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.IMT.Application.Interfaces.Repositories;
 using static Admin.App.Application.Features.Mtts.MttsDelete;
 
 namespace Admin.App.Application.Features.Regions

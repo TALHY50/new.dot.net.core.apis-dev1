@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using System.ComponentModel.Design;
-using SharedKernel.Main.Admin.Application.Interfaces.Repositories;
+using SharedKernel.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.IMT.Domain.Entities;
 using Thunes.Response.Discovery.Common;
 

@@ -135,16 +135,31 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="ACL\Views\" />
-		<Folder Include="Admin\Contracts\" />
-		<Folder Include="Admin\Domain\" />
-		<Folder Include="Admin\Infrastructure\" />
-		<Folder Include="Admin\Views\" />
 		<Folder Include="Application\Common\Constants\Routes\" />
 		<Folder Include="Application\Common\Security\" />
 		<Folder Include="Domain\" />
 		<Folder Include="IMT\Views\" />
+		<Folder Include="Infrastructure\Email\" />
+		<Folder Include="Infrastructure\Files\" />
 		<Folder Include="Infrastructure\Persistence\" />
+		<Folder Include="Infrastructure\Sms\" />
+		<Folder Include="Notification\Application\Interfaces\Repositories\" />
+		<Folder Include="Notification\Application\Interfaces\Services\" />
+		<Folder Include="Notification\Contracts\" />
+		<Folder Include="Notification\Domain\Entities\Events\" />
+		<Folder Include="Notification\Domain\Entities\Outgoings\" />
+		<Folder Include="Notification\Domain\Entities\Setups\" />
+		<Folder Include="Notification\Domain\Entities\Todos\" />
+		<Folder Include="Notification\Domain\Entities\ValueObjects\" />
+		<Folder Include="Notification\Infrastructure\Email\" />
+		<Folder Include="Notification\Infrastructure\Files\" />
+		<Folder Include="Notification\Infrastructure\Persistence\Configurations\" />
+		<Folder Include="Notification\Infrastructure\Persistence\Context\" />
+		<Folder Include="Notification\Infrastructure\Persistence\Migrations\" />
+		<Folder Include="Notification\Infrastructure\Persistence\Repositories\Admin\Interface\Provider\" />
+		<Folder Include="Notification\Infrastructure\Persistence\Repositories\Admin\Provider\" />
+		<Folder Include="Notification\Infrastructure\Persistence\Seeds\" />
+		<Folder Include="Notification\Infrastructure\Sms\" />
 		<Folder Include="Notification\Views\" />
 		<Folder Include="wwwroot\" />
 	</ItemGroup>

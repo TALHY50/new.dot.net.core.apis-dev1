@@ -4,9 +4,9 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SharedKernel.Main.Admin.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 
@@ -23,7 +23,7 @@ public class GetBusinessHourAndWeekendsController : ApiControllerBase
 
     public record GetBusinessHourAndWeekendQuery() : IQuery<List<BusinessHoursAndWeekend>>;
 
-    internal sealed class GetBusinessHourAndWeekendsHandler(ImtApplicationDbContext _context, IBusinessHourAndWeekendRepository repository) : IQueryHandler<GetBusinessHourAndWeekendQuery, List<BusinessHoursAndWeekend>>
+    internal sealed class GetBusinessHourAndWeekendsHandler(ApplicationDbContext _context, IBusinessHourAndWeekendRepository repository) : IQueryHandler<GetBusinessHourAndWeekendQuery, List<BusinessHoursAndWeekend>>
     {
         // get all data 
         public async Task<List<BusinessHoursAndWeekend>> Handle(GetBusinessHourAndWeekendQuery request, CancellationToken cancellationToken)

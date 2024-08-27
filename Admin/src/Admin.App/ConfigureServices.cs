@@ -3,6 +3,11 @@
 // </copyright>
 
 using System.Security.Cryptography;
+using ACL.App.Application.Interfaces.Repositories;
+using ACL.App.Application.Interfaces.Services;
+using ACL.App.Infrastructure.Jwt;
+using ACL.App.Infrastructure.Persistence.Repositories;
+using ACL.App.Infrastructure.Security;
 using Admin.App.Application.Features.Corridors;
 using Admin.App.Application.Features.Countries;
 using Admin.App.Application.Features.Currencies;
@@ -21,21 +26,15 @@ using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
-using SharedKernel.Main.ACL.Application.Interfaces.Repositories;
-using SharedKernel.Main.ACL.Infrastructure.Persistence.Repositories;
-using SharedKernel.Main.Admin.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common.Behaviours;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Infrastructure.Cryptography;
-using SharedKernel.Main.Infrastructure.Files;
-using SharedKernel.Main.Infrastructure.Jwt;
 using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 using SharedKernel.Main.Infrastructure.Persistence.Imt.Repositories.Repositories;
 using SharedKernel.Main.Infrastructure.Security;
 using SharedKernel.Main.Infrastructure.Services;
-using SharedKernel.Main.Notification.Application.Interfaces.Repositories;
-using SharedKernel.Main.Notification.Infrastructure.Persistence.Repositories;
-using ApplicationDbContext = SharedKernel.Main.ACL.Infrastructure.Persistence.Context.ApplicationDbContext;
+using ACLApplicationDbContext = ACL.App.Infrastructure.Persistence.Context.ApplicationDbContext;
 using CountryRepository = SharedKernel.Main.Infrastructure.Persistence.Imt.Repositories.Repositories.CountryRepository;
 
 namespace Admin.App;
@@ -66,14 +65,6 @@ public static class DependencyInjection
         services.AddPersistence(configuration);
 
         services.AddRazorEngine(configuration);
-
-        services.AddScoped<IDomainEventService, DomainEventService>();
-        services.AddTransient<IDateTime, DateTimeService>();
-        services.AddTransient<IEmailService, EmailService>();
-        services.AddTransient<ISmsService, SmsService>();
-        services.AddTransient<IWebService, WebService>();
-        services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();
-        services.AddSingleton<ICurrentUserService, CurrentUserService>();
 
         return services;
     }
@@ -123,7 +114,7 @@ public static class DependencyInjection
             $"server={server};database={database};User ID={userName};Password={password};CharSet=utf8mb4;" ??
             throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
-        services.AddDbContext<ApplicationDbContext>(
+        services.AddDbContext<ACLApplicationDbContext>(
             options =>
                 options.UseMySQL(connectionString, options =>
                 {
@@ -131,7 +122,7 @@ public static class DependencyInjection
                 }),
             ServiceLifetime.Transient);
 
-        services.AddDbContext<ImtApplicationDbContext>(
+        services.AddDbContext<SharedKernel.Main.Infrastructure.Persistence.IMT.Context.ApplicationDbContext>(
             options =>
                 options.UseMySQL(connectionString, options =>
                 {
@@ -260,25 +251,20 @@ public static class DependencyInjection
     {
         if (configuration.GetValue<bool>("UseInMemoryDatabase"))
         {
-            services.AddDbContext<SharedKernel.Main.Notification.Infrastructure.Persistence.Context.ApplicationDbContext>(options =>
+            services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseInMemoryDatabase("VerticalSliceDb"));
         }
         else
         {
             var c = configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<SharedKernel.Main.Notification.Infrastructure.Persistence.Context.ApplicationDbContext>(options =>
+            services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseMySql(
                     configuration.GetConnectionString("DefaultConnection"),
                     ServerVersion.AutoDetect(configuration.GetConnectionString("DefaultConnection")),
-                    b => b.MigrationsAssembly(typeof(SharedKernel.Main.Notification.Infrastructure.Persistence.Context.ApplicationDbContext).Assembly.FullName)));
+                    b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
         }
 
-        services.AddScoped<IAppEventDataRepository, AppEventDataRepository>();
-        services.AddScoped<IEventRepository, EventRepository>();
-        services.AddScoped<IEmailOutgoingRepository, EmailOutgoingRepository>();
-        services.AddScoped<ISmsOutgoingRepository, SmsOutgoingRepository>();
-        services.AddScoped<IWebOutgoingRepository, WebOutgoingRepository>();
-        services.AddScoped<ICredentialRepository, CredentialRepository>();
+
 
         return services;
     }
