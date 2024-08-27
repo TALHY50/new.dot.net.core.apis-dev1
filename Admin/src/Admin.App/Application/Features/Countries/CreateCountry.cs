@@ -5,13 +5,13 @@ using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Domain.IMT.Entities;
-using SharedKernel.Main.Application.Interfaces.Repositories.IMT.Repositories;
 using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
 
 namespace Admin.App.Application.Features.Countries
 {
     public class CreateCountryController : ApiControllerBase
     {
+        [Tags("Country")]
        // [Authorize(Policy = "HasPermission")]
         [HttpPost(Routes.CreateCountryUrl, Name = Routes.CreateCountryName)]
 
@@ -21,7 +21,11 @@ namespace Admin.App.Application.Features.Countries
         }
     }
 
-    public record CreateCountryCommand(Country Country) : IRequest<ErrorOr<Country>>;
+    public record CreateCountryCommand(
+        string? Code,
+        string? IsoCode,
+        string? Name
+        ) : IRequest<ErrorOr<Country>>;
 
     internal sealed class CreateCountryCommandValidator : AbstractValidator<CreateCountryCommand>
     {
@@ -45,9 +49,9 @@ namespace Admin.App.Application.Features.Countries
         {
             var country = new Country
             {
-                Code = command.Country.Code,
-                IsoCode = command.Country.IsoCode,
-                Name = command.Country.Name,
+                Code = command.Code,
+                IsoCode = command.IsoCode,
+                Name = command.Name,
                 CreatedById = 1,
                 UpdatedById = 1,
                 Status = 1, //1=active, 0=inactive, 2=soft-deleted
@@ -55,7 +59,7 @@ namespace Admin.App.Application.Features.Countries
                 UpdatedAt = DateTime.UtcNow,
             };
 
-            return  _repository.AddAsync(country).Result;
+            return await _repository.AddAsync(country);
         }
     }
 }

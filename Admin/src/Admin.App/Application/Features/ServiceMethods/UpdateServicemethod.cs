@@ -1,38 +1,36 @@
 ﻿using ErrorOr;
 using FluentValidation;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
 using SharedKernel.Main.Domain.IMT.Entities;
-using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
-using static Admin.App.Application.Features.Countries.UpdateCountryController;
 
 namespace ADMIN.App.Application.Features.ServiceMethods
 {
     public class UpdateServiceMethodContorller : ApiControllerBase
     {
-        [Authorize(Policy = "HasPermission")]
+        [Tags("ServiceMethod")]
+        //[Authorize(Policy = "HasPermission")]
         [HttpPut(Routes.UpdateServiceMethodUrl, Name = Routes.UpdateServiceMethodName)]
 
-        public async Task<ActionResult<ErrorOr<ServiceMethod>>> Update(UpdateServiceMethodCommand command)
+        public async Task<ActionResult<ErrorOr<ServiceMethod>>> Update(uint Id, UpdateServiceMethodCommand command)
         {
-            return await Mediator.Send(command).ConfigureAwait(false);
+            var commandWithId = command with { Id = Id };
+            return await Mediator.Send(commandWithId).ConfigureAwait(false);
         }
 
         public record UpdateServiceMethodCommand(
-            int Id,
+            uint Id,
             byte Method,
-            uint? CompanyId
-            ) : IRequest<ErrorOr<ServiceMethod>>;
+            uint? CompanyId) : IRequest<ErrorOr<ServiceMethod>>;
+
         internal sealed class UpdateServiceMethodCommandValidator : AbstractValidator<UpdateServiceMethodCommand>
         {
             public UpdateServiceMethodCommandValidator()
             {
-                RuleFor(x => x.Id).NotEmpty().WithMessage("ID is required");
-                RuleFor(x => x.Method).NotEmpty().WithMessage("Method is required");
+                RuleFor(x => x.Id).NotEmpty().WithMessage("ServiceMethod ID is required");
             }
         }
 
@@ -44,24 +42,27 @@ namespace ADMIN.App.Application.Features.ServiceMethods
             {
                 _repository = repository;
             }
+
             public async Task<ErrorOr<ServiceMethod>> Handle(UpdateServiceMethodCommand command, CancellationToken cancellationToken)
             {
-                var serviceMethod = new ServiceMethod
+                ServiceMethod? serviceMethod = _repository.GetByUintId(command.Id);
+                if (serviceMethod != null)
                 {
-                    Method = command.Method, //1 = Bank Account, 2 = Wallet, 3 = Cash Pickup, 4 = Card
-                    CompanyId = command.CompanyId,
-                    Status = 1, //0=inactive, 1=active, 2=pending, 3=rejected 
-                    CreatedById = 1,
-                    UpdatedById = 1,
-                    CreatedAt = DateTime.UtcNow,
-                    UpdatedAt = DateTime.UtcNow
-                };
+                    serviceMethod.Method = command.Method;
+                    serviceMethod.CompanyId = command.CompanyId;
+                    
 
-                //_context.ServiceMethods.Add(@serviceMethod);
+                    //if (_user?.UserId != null)
+                    //{
+                    //    entity.UpdatedById = uint.Parse(_user?.UserId ?? "1");
+                    //}
+                    //else
+                    //{
+                    //    entity.UpdatedById = 1;
+                    //}
+                }
 
-                //await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-
-                return @serviceMethod;
+                return await _repository.UpdateAsync(serviceMethod);
             }
         }
 
