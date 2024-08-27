@@ -13,7 +13,8 @@ namespace ADMIN.App.Application.Features.ServiceMethods
 {
     public class CreateServiceMethodController : ApiControllerBase
     {
-        [Authorize(Policy = "HasPermission")]
+        [Tags("ServiceMethod")]
+        //[Authorize(Policy = "HasPermission")]
         [HttpPost(Routes.CreateServiceMethodUrl, Name = Routes.CreateServiceMethodName)]
 
         public async Task<ActionResult<ErrorOr<ServiceMethod>>> Create(CreateServiceMethodCommand command)
@@ -21,13 +22,16 @@ namespace ADMIN.App.Application.Features.ServiceMethods
             return await Mediator.Send(command).ConfigureAwait(false);
         }
     }
-    public record CreateServiceMethodCommand(ServiceMethod ServiceMethod) : IRequest<ErrorOr<ServiceMethod>>;
+    public record CreateServiceMethodCommand(
+        byte Method,
+        uint? CompanyId
+        ) : IRequest<ErrorOr<ServiceMethod>>;
 
     internal sealed class CreateServiceMethodCommandValidator : AbstractValidator<CreateServiceMethodCommand>
     {
         public CreateServiceMethodCommandValidator()
         {
-            RuleFor(x => x.ServiceMethod.Method).NotEmpty().WithMessage("Method  is required");
+            RuleFor(x => x.Method).NotEmpty().WithMessage("Method  is required");
         }
     }
 
@@ -44,8 +48,8 @@ namespace ADMIN.App.Application.Features.ServiceMethods
         {
             var serviceMethod = new ServiceMethod
             {
-                Method = command.ServiceMethod.Method, //1 = Bank Account, 2 = Wallet, 3 = Cash Pickup, 4 = Card
-                CompanyId = command.ServiceMethod.CompanyId,
+                Method = command.Method, //1 = Bank Account, 2 = Wallet, 3 = Cash Pickup, 4 = Card
+                CompanyId = command.CompanyId,
                 Status = 1, //0=inactive, 1=active, 2=pending, 3=rejected 
                 CreatedById = 1,
                 UpdatedById = 1,
@@ -53,13 +57,7 @@ namespace ADMIN.App.Application.Features.ServiceMethods
                 UpdatedAt = DateTime.UtcNow
             };
 
-            //_context.ServiceMethods.Add(@serviceMethod);
-
-            //await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-
-            //return serviceMethod;
-
-            return _repository.AddAsync(serviceMethod).Result;
+            return await _repository.AddAsync(serviceMethod);
         }
     }
 }

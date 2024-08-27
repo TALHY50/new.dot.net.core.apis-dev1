@@ -3,7 +3,7 @@ using SharedKernel.Main.Domain.IMT.Entities;
 
 namespace SharedKernel.Main.Application.Interfaces.Repositories.Admin
 {
-    public interface IImtAdminCurrencyRepository : IGenericRepository<Currency>
+    public interface IImtTaxRateRepository : IGenericRepository<TaxRate>
     {
     }
 }

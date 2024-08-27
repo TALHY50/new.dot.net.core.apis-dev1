@@ -13,26 +13,28 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
 {
     public class UpdatePayerPaymentSpeedController : ApiControllerBase
     {
-        [Authorize(Policy = "HasPermission")]
+        [Tags("PayerPaymentSpeed")]
+        //[Authorize(Policy = "HasPermission")]
         [HttpPut(Routes.UpdatePayerPaymentSpeedUrl, Name = Routes.UpdatePayerPaymentSpeedName)]
 
-        public async Task<ActionResult<ErrorOr<PayerPaymentSpeed>>> Update(UpdatePayerPaymentSpeedCommand command)
+        public async Task<ActionResult<ErrorOr<PayerPaymentSpeed>>> Update(uint Id, UpdatePayerPaymentSpeedCommand command)
         {
-            return await Mediator.Send(command).ConfigureAwait(false);
+            var commandWithId = command with { Id = Id };
+            return await Mediator.Send(commandWithId).ConfigureAwait(false);
         }
 
         public record UpdatePayerPaymentSpeedCommand(
+            uint Id,
             uint PayerId,
             sbyte Gmt,
-            string WorkingDays
-            ) : IRequest<ErrorOr<PayerPaymentSpeed>>;
+            string WorkingDays,
+            byte Status) : IRequest<ErrorOr<PayerPaymentSpeed>>;
+
         internal sealed class UpdatePayerPaymentSpeedCommandValidator : AbstractValidator<UpdatePayerPaymentSpeedCommand>
         {
             public UpdatePayerPaymentSpeedCommandValidator()
             {
-                RuleFor(x => x.PayerId).NotEmpty().WithMessage("Payer Id is required");
-                RuleFor(x => x.Gmt).NotEmpty().WithMessage("GMT is required");
-                RuleFor(x => x.WorkingDays).NotEmpty().WithMessage("Working Days is required");
+                RuleFor(x => x.Id).NotEmpty().WithMessage("PayerPaymentSpeed ID is required");
             }
         }
 
@@ -44,30 +46,28 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
             {
                 _repository = repository;
             }
+
             public async Task<ErrorOr<PayerPaymentSpeed>> Handle(UpdatePayerPaymentSpeedCommand command, CancellationToken cancellationToken)
             {
-                var payerPaymentSpeed = new PayerPaymentSpeed
+                PayerPaymentSpeed? payerPaymentSpeed = _repository.GetByUintId(command.Id);
+                if (payerPaymentSpeed != null)
                 {
-                    PayerId = command.PayerId,
-                    //ProcessingTime = 1, //Processing time in minutes
-                    Gmt = command.Gmt,
-                    //OpenAt = DateTime.UtcNow, //Opening time
-                    //CloseAt = DateTime.UtcNow, // Closing time
-                    WorkingDays = command.WorkingDays, // CSV of weekdays (e.g., Monday,Tuesday)
-                    IsProcessingDuringBankingHoliday = false, //0 = No, 1 = Yes
-                   // CompanyId = 0, //
-                 //   Status = 1, //0=inactive, 1=active, 2=pending, 3=rejected
-                    //CreatedById = 1,
-                    //UpdatedById = 1,
-                   // CreatedAt = DateTime.UtcNow,
-                    UpdatedAt = DateTime.UtcNow
-                };
+                    payerPaymentSpeed.PayerId = command.PayerId;
+                    payerPaymentSpeed.Gmt = command.Gmt;
+                    payerPaymentSpeed.WorkingDays = command.WorkingDays;
+                    payerPaymentSpeed.Status = command.Status;
 
-                //_context.PayerPaymentSpeeds.Add(@PayerPaymentSpeed);
+                    //if (_user?.UserId != null)
+                    //{
+                    //    entity.UpdatedById = uint.Parse(_user?.UserId ?? "1");
+                    //}
+                    //else
+                    //{
+                    //    entity.UpdatedById = 1;
+                    //}
+                }
 
-                //await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-
-                return payerPaymentSpeed;
+                return await _repository.UpdateAsync(payerPaymentSpeed);
             }
         }
 

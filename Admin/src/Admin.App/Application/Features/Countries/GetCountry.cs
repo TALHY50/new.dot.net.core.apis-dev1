@@ -1,5 +1,6 @@
 ﻿using Ardalis.SharedKernel;
 using ErrorOr;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
@@ -11,16 +12,18 @@ namespace Admin.App.Application.Features.Countries
 {
     public class GetCountryController : ApiControllerBase
     {
+        [Tags("Country")]
         // [Authorize(Policy = "HasPermission")]
         [HttpGet(Routes.GetCountryUrl, Name = Routes.GetCountryName)]
-        public async Task<ActionResult<List<Country>>> Get()
+        public async Task<ActionResult<ErrorOr<List<Country>>>> Get()
         {
             return await Mediator.Send(new GetCountryQuery()).ConfigureAwait(false);
         }
 
-        public record GetCountryQuery() : IQuery<List<Country>>;
+        public record GetCountryQuery() : IRequest<ErrorOr<List<Country>>>;
 
-        internal sealed class GetCountryQueryHandler : IQuery<List<Country>>
+        internal sealed class GetCountryQueryHandler 
+            : IRequestHandler<GetCountryQuery, ErrorOr<List<Country>>>
         {
             private readonly IAdminCountryRepository _repository;
 
@@ -29,9 +32,9 @@ namespace Admin.App.Application.Features.Countries
                 _repository = repository;
             }
 
-            public Task<ErrorOr<List<Country>>> Handle(GetCountryQuery request, CancellationToken cancellationToken)
+            public async Task<ErrorOr<List<Country>>> Handle(GetCountryQuery request, CancellationToken cancellationToken)
             {
-                return Task.FromResult(_repository.All().ToList().ToErrorOr());
+                return _repository.All().ToList();
             }
         }
     }

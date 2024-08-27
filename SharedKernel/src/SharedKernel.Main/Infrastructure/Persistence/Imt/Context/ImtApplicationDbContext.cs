@@ -13,73 +13,75 @@ namespace SharedKernel.Main.Infrastructure.Persistence.IMT.Context
            : DbContext(options), IApplicationDbContext
     {
 
-      public virtual DbSet<Bank> ImtBanks { get; set; }
+        public virtual DbSet<Bank> ImtBanks { get; set; }
 
-    public virtual DbSet<BusinessHoursAndWeekend> ImtBusinessHoursAndWeekends { get; set; }
+        public virtual DbSet<BusinessHoursAndWeekend> ImtBusinessHoursAndWeekends { get; set; }
 
-    public virtual DbSet<City> ImtCities { get; set; }
+        public virtual DbSet<City> ImtCities { get; set; }
 
-    public virtual DbSet<Corridor> ImtCorridors { get; set; }
+        public virtual DbSet<Corridor> ImtCorridors { get; set; }
 
-    public virtual DbSet<Country> ImtCountries { get; set; }
+        public virtual DbSet<Country> ImtCountries { get; set; }
 
-    public virtual DbSet<Currency> ImtCurrencies { get; set; }
+        public virtual DbSet<Currency> ImtCurrencies { get; set; }
 
-    public virtual DbSet<CurrencyConversionRate> ImtCurrencyConversionRates { get; set; }
+        public virtual DbSet<CurrencyConversionRate> ImtCurrencyConversionRates { get; set; }
 
-    public virtual DbSet<Customer> ImtCustomers { get; set; }
+        public virtual DbSet<Customer> ImtCustomers { get; set; }
 
-    public virtual DbSet<CustomerBank> ImtCustomerBanks { get; set; }
+        public virtual DbSet<CustomerBank> ImtCustomerBanks { get; set; }
 
-    public virtual DbSet<HolidaySetting> ImtHolidaySettings { get; set; }
+        public virtual DbSet<HolidaySetting> ImtHolidaySettings { get; set; }
 
-    public virtual DbSet<Institution> ImtInstitutions { get; set; }
+        public virtual DbSet<Institution> ImtInstitutions { get; set; }
 
-    public virtual DbSet<InstitutionFund> ImtInstitutionFunds { get; set; }
+        public virtual DbSet<InstitutionFund> ImtInstitutionFunds { get; set; }
 
-    public virtual DbSet<InstitutionMtt> ImtInstitutionMtts { get; set; }
+        public virtual DbSet<InstitutionMtt> ImtInstitutionMtts { get; set; }
 
-    public virtual DbSet<MoneyTransfer> ImtMoneyTransfers { get; set; }
+        public virtual DbSet<MoneyTransfer> ImtMoneyTransfers { get; set; }
 
-    public virtual DbSet<MoneyTransferReport> ImtMoneyTransferReports { get; set; }
+        public virtual DbSet<MoneyTransferReport> ImtMoneyTransferReports { get; set; }
 
-    public virtual DbSet<Mtt> ImtMtts { get; set; }
+        public virtual DbSet<Mtt> ImtMtts { get; set; }
 
-    public virtual DbSet<MttPaymentSpeed> ImtMttPaymentSpeeds { get; set; }
+        public virtual DbSet<MttPaymentSpeed> ImtMttPaymentSpeeds { get; set; }
 
-    public virtual DbSet<Payer> ImtPayers { get; set; }
+        public virtual DbSet<Payer> ImtPayers { get; set; }
 
-    public virtual DbSet<PayerPaymentSpeed> ImtPayerPaymentSpeeds { get; set; }
+        public virtual DbSet<PayerPaymentSpeed> ImtPayerPaymentSpeeds { get; set; }
 
-    public virtual DbSet<PaymentMethod> ImtPaymentMethods { get; set; }
+        public virtual DbSet<PaymentMethod> ImtPaymentMethods { get; set; }
 
-    public virtual DbSet<Provider> ImtProviders { get; set; }
+        public virtual DbSet<Provider> ImtProviders { get; set; }
 
-    public virtual DbSet<ProviderCommission> ImtProviderCommissions { get; set; }
+        public virtual DbSet<ProviderCommission> ImtProviderCommissions { get; set; }
 
-    public virtual DbSet<ProviderErrorDetail> ImtProviderErrorDetails { get; set; }
+        public virtual DbSet<ProviderErrorDetail> ImtProviderErrorDetails { get; set; }
 
-    public virtual DbSet<ProviderPayer> ImtProviderPayers { get; set; }
+        public virtual DbSet<ProviderPayer> ImtProviderPayers { get; set; }
 
-    public virtual DbSet<ProviderService> ImtProviderServices { get; set; }
+        public virtual DbSet<ProviderService> ImtProviderServices { get; set; }
 
-    public virtual DbSet<Quotation> ImtQuotations { get; set; }
+        public virtual DbSet<Quotation> ImtQuotations { get; set; }
+        public virtual DbSet<QuotationRequest> ImtQuotationRequests { get; set; }
+        public virtual DbSet<QuotationInfo> ImtQuotationInfos { get; set; }
 
-    public virtual DbSet<Reason> ImtReasons { get; set; }
+        public virtual DbSet<Reason> ImtReasons { get; set; }
 
-    public virtual DbSet<Region> ImtRegions { get; set; }
+        public virtual DbSet<Region> ImtRegions { get; set; }
 
-    public virtual DbSet<ServiceMethod> ImtServiceMethods { get; set; }
+        public virtual DbSet<ServiceMethod> ImtServiceMethods { get; set; }
 
-    public virtual DbSet<TaxRate> ImtTaxRates { get; set; }
+        public virtual DbSet<TaxRate> ImtTaxRates { get; set; }
 
-    public virtual DbSet<Transaction> ImtTransactions { get; set; }
+        public virtual DbSet<Transaction> ImtTransactions { get; set; }
 
-    public virtual DbSet<TransactionLimit> ImtTransactionLimits { get; set; }
+        public virtual DbSet<TransactionLimit> ImtTransactionLimits { get; set; }
 
-    public virtual DbSet<TransactionState> ImtTransactionStates { get; set; }
+        public virtual DbSet<TransactionState> ImtTransactionStates { get; set; }
 
-    public virtual DbSet<TransactionType> ImtTransactionTypes { get; set; }
+        public virtual DbSet<TransactionType> ImtTransactionTypes { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -104,9 +106,9 @@ namespace SharedKernel.Main.Infrastructure.Persistence.IMT.Context
         }
 
 
-       protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<Bank>(entity =>
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+                modelBuilder.Entity<Bank>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
@@ -1396,9 +1398,8 @@ namespace SharedKernel.Main.Infrastructure.Persistence.IMT.Context
                 .HasColumnName("updated_at");
             entity.Property(e => e.UpdatedById).HasColumnName("updated_by_id");
         });
-
-        OnModelCreatingPartial(modelBuilder);
-    }
+            OnModelCreatingPartial(modelBuilder);
+        }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }

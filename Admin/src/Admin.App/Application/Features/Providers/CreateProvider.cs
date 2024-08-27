@@ -14,6 +14,7 @@ namespace Admin.App.Application.Features.Providers
 {
     public class CreateProviderController : ApiControllerBase
     {
+        [Tags("Providers")]
         //[Authorize(Policy = "HasPermission")]
         [HttpPost(Routes.CreateProviderUrl, Name = Routes.CreateProviderName)]
         public async Task<ActionResult<ErrorOr<Provider>>> Create(CreateProviderCommand command)
@@ -26,8 +27,8 @@ namespace Admin.App.Application.Features.Providers
         string? Code,
         string? Name,
         string? BaseUrl,
-        string? ApiKey,
-        string? ApiSecret,
+        string? AppId,
+        string? AppSecret,
         sbyte? Status = 1) : IRequest<ErrorOr<Provider>>;
 
 
@@ -48,8 +49,8 @@ namespace Admin.App.Application.Features.Providers
              //   Code = request.Code,
                 Name = request.Name,
                 BaseUrl = request.BaseUrl,
-                AppId = request.ApiKey,
-                AppSecret = request.ApiSecret,
+                AppId = request.AppId,
+                AppSecret = request.AppSecret,
                 Status = 1,
                 CreatedById = 1,
                 UpdatedById = 2,

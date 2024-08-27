@@ -1,16 +1,19 @@
 ﻿using ErrorOr;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
 using SharedKernel.Main.Domain.IMT.Entities;
 
 namespace Admin.App.Application.Features.Currencies
 {
     public class GetCurrencyById : ApiControllerBase
     {
-        [Authorize]
+        [Tags("Currency")]
+        //[Authorize]
         [HttpGet(Routes.GetCurrencyByIdUrl, Name = Routes.GetCurrencyByIdName)]
         public async Task<ActionResult<ErrorOr<Currency>>> GetById(int id)
         {
@@ -19,12 +22,25 @@ namespace Admin.App.Application.Features.Currencies
     }
     public record GetCurrencyByIdQuery(int id) : IRequest<ErrorOr<Currency>>;
 
-    internal sealed class GetCurrencyByIdQueryHandler() :
+    internal sealed class GetCurrencyByIdValidator : AbstractValidator<GetCurrencyByIdQuery>
+    {
+        public GetCurrencyByIdValidator()
+        {
+            RuleFor(x => x.id).NotEmpty().WithMessage("Currencyts ID is required");
+        }
+    }
+    internal sealed class GetCurrencyByIdQueryHandler :
         IRequestHandler<GetCurrencyByIdQuery, ErrorOr<Currency>>
     {
-        public Task<ErrorOr<Currency>> Handle(GetCurrencyByIdQuery request, CancellationToken cancellationToken)
+        private readonly IImtAdminCurrencyRepository _repository;
+
+        public GetCurrencyByIdQueryHandler(IImtAdminCurrencyRepository repository)
         {
-            throw new NotImplementedException();
+            _repository = repository;
+        }
+        public async Task<ErrorOr<Currency>> Handle(GetCurrencyByIdQuery request, CancellationToken cancellationToken)
+        {
+            return _repository.GetByIntId(request.id);
         }
     }
 }

@@ -6,29 +6,44 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
 using SharedKernel.Main.Domain.IMT.Entities;
+using static Admin.App.Application.Features.Mtts.MttView;
 
 namespace Admin.App.Application.Features.TransactionTypes
 {
     public class GetTransactionTypeByIdController : ApiControllerBase
     {
-        [Authorize]//(Policy = "HasPermission")]
+        [Tags("TransactionTypes")]
+        //[Authorize(Policy = "HasPermission")]
         [HttpGet(Routes.GetTransactionTypeByIdUrl, Name = Routes.GetTransactionTypeByIdName)]
         public async Task<ActionResult<ErrorOr<TransactionType>>> Get(int id)
         {
             return await Mediator.Send(new GetTransactionTypeByIdQuery(id)).ConfigureAwait(false);
         }
 
-        public record GetTransactionTypeByIdQuery(int Id) : IRequest<ErrorOr<TransactionType>>;
+        public record GetTransactionTypeByIdQuery(int id) : IRequest<ErrorOr<TransactionType>>;
 
+        internal sealed class GetTransactionTypeByIdQueryValidator : AbstractValidator<GetTransactionTypeByIdQuery>
+        {
+            public GetTransactionTypeByIdQueryValidator()
+            {
+                RuleFor(x => x.id).NotEmpty().WithMessage("TransactionType ID is required");
+            }
+        }
 
-        internal sealed class GetTransactionTypeByIdQueryHandler()
+        internal sealed class GetTransactionTypeByIdQueryHandler
             : IRequestHandler<GetTransactionTypeByIdQuery, ErrorOr<TransactionType>>
         {
-            // get all data 
-            public Task<ErrorOr<TransactionType>> Handle(GetTransactionTypeByIdQuery request, CancellationToken cancellationToken)
+            private readonly IImtTransactionTypeRepository _transactionTypeRepository;
+
+            public GetTransactionTypeByIdQueryHandler(IImtTransactionTypeRepository transactionTypeRepository)
             {
-                throw new NotImplementedException();
+                _transactionTypeRepository = transactionTypeRepository;
+            }
+            public async Task<ErrorOr<TransactionType>> Handle(GetTransactionTypeByIdQuery request, CancellationToken cancellationToken)
+            {
+                return _transactionTypeRepository.GetByIntId(request.id);
             }
         }
     }

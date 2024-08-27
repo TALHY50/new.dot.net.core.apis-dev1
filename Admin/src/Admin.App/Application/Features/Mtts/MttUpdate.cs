@@ -13,6 +13,7 @@ namespace Admin.App.Application.Features.Mtts
 {
     public class MttUpdate : ApiControllerBase
     {
+        [Tags("Mtt")]
         //[Authorize(Policy = "HasPermission")]
         [HttpPut(AdminRoute.EditMttsRouteUrl, Name = AdminRoute.EditMttsRouteName)]
         public async Task<ActionResult<ErrorOr<Mtt>>> Update(uint id,UpdateMttCommand command)

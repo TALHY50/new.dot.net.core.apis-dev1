@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
 using SharedKernel.Main.Domain.IMT.Entities;
 using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 
@@ -13,29 +15,46 @@ namespace Admin.App.Application.Features.Providers
 {
     public class UpdateProviderController : ApiControllerBase
     {
-        [Authorize(Policy = "HasPermission")]
+        [Tags("Providers")]
+        //[Authorize(Policy = "HasPermission")]
         [HttpPut(Routes.UpdateProviderUrl, Name = Routes.UpdateProviderName)]
-        public async Task<ActionResult<ErrorOr<Provider>>> Update(UpdateProviderCommand command)
+        public async Task<ActionResult<ErrorOr<Provider>>> Update(int id, UpdateProviderCommand command)
         {
-            return await Mediator.Send(command).ConfigureAwait(false);
+            var commandWithId = command with { id = id };
+            return await Mediator.Send(commandWithId).ConfigureAwait(false);
         }
 
-    }
-
-    public record UpdateProviderCommand(
-        int Id,
+        public record UpdateProviderCommand(
+        int id,
         string? Code,
         string? Name,
         string? BaseUrl,
         string? ApiKey,
-        string? ApiSecret,
-        sbyte? Status = 1) : IRequest<ErrorOr<Provider>>;
+        string? ApiSecret) : IRequest<ErrorOr<Provider>>;
 
 
-    internal sealed class UpdateProviderCommandHandler(ImtApplicationDbContext context)
+        //internal sealed class UpdateProviderCommandValidator : AbstractValidator<UpdateProviderCommand>
+        //{
+        //    public UpdateProviderCommandValidator()
+        //    {
+        //        RuleFor(v => v.Status)
+        //            .NotEmpty()
+        //            .WithMessage("Status is required.");
+        //    }
+        //}
+
+
+        internal sealed class UpdateProviderCommandHandler
         : IRequestHandler<UpdateProviderCommand, ErrorOr<Provider>>
-    {
+        {
+            private readonly ICurrentUserService _user;
+            private readonly IImtProviderRepository _providerRepository;
 
+            public UpdateProviderCommandHandler(ICurrentUserService user, IImtProviderRepository providerRepository)
+            {
+                _user = user;
+                _providerRepository = providerRepository;
+            }
 
         public async Task<ErrorOr<Provider>> Handle(UpdateProviderCommand command, CancellationToken cancellationToken)
         {
@@ -55,7 +74,8 @@ namespace Admin.App.Application.Features.Providers
             };
             // _context.Events.Add(@region);
 
-            return provider;
+                return await _providerRepository.UpdateAsync(@provider);
+            }
         }
     }
 }
