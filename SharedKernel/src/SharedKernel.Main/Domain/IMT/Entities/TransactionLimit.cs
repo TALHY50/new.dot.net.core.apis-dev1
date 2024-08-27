@@ -3,27 +3,63 @@ using System.Collections.Generic;
 
 namespace SharedKernel.Main.Domain.IMT.Entities;
 
+/// <summary>
+/// Type : Master, transaction limits based on various entity like corridors, countries, mtts
+/// </summary>
 public partial class TransactionLimit
 {
-    public int Id { get; set; }
+    public uint Id { get; set; }
 
-    public sbyte? TransactionType { get; set; }
+    /// <summary>
+    /// Type of entity (mtts, corridors, countries)
+    /// </summary>
+    public string EntityType { get; set; } = null!;
 
-    public sbyte? UserCategory { get; set; }
+    /// <summary>
+    /// ID of the entity
+    /// </summary>
+    public uint EntityId { get; set; }
 
-    public int? DailyTotalNumber { get; set; }
+    /// <summary>
+    /// Aggregation type of transactions
+    /// </summary>
+    public string AggregationType { get; set; } = null!;
 
-    public decimal? DailyTotalAmount { get; set; }
+    /// <summary>
+    /// Transfer point (source or destination)
+    /// </summary>
+    public string TransferPoint { get; set; } = null!;
 
-    public int? MonthlyTotalNumber { get; set; }
+    /// <summary>
+    /// Periodicity of the limit
+    /// </summary>
+    public string PeriodicityType { get; set; } = null!;
 
-    public decimal? MonthlyTotalAmount { get; set; }
+    /// <summary>
+    /// Currency ID for the amount
+    /// </summary>
+    public uint AmountCurrencyId { get; set; }
 
-    public int? CurrencyId { get; set; }
+    /// <summary>
+    /// Maximum transaction amount
+    /// </summary>
+    public decimal Max { get; set; }
 
-    public int? CreatedById { get; set; }
+    /// <summary>
+    /// Minimum transaction amount
+    /// </summary>
+    public decimal Min { get; set; }
 
-    public int? UpdatedById { get; set; }
+    public uint? CompanyId { get; set; }
+
+    /// <summary>
+    /// 0=inactive, 1=active, 2=pending, 3=rejected 
+    /// </summary>
+    public byte Status { get; set; }
+
+    public uint? CreatedById { get; set; }
+
+    public uint? UpdatedById { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 
