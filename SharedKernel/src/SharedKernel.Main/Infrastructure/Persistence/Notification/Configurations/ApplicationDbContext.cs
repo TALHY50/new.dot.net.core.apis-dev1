@@ -567,12 +567,12 @@ namespace SharedKernel.Main.Infrastructure.Persistence.Notification.Configuratio
                 entity.Property(e => e.Id)
                     .HasColumnType("int(11) unsigned")
                     .HasColumnName("id");
-                entity.Property(e => e.ApiKey)
+                entity.Property(e => e.AppId)
                     .HasMaxLength(100)
                     .HasDefaultValueSql("'NULL'")
                     .HasComment("api key and secret must be encrypted")
                     .HasColumnName("api_key");
-                entity.Property(e => e.ApiSecret)
+                entity.Property(e => e.AppSecret)
                     .HasMaxLength(100)
                     .HasDefaultValueSql("'NULL'")
                     .HasColumnName("api_secret");
@@ -580,10 +580,10 @@ namespace SharedKernel.Main.Infrastructure.Persistence.Notification.Configuratio
                     .HasMaxLength(100)
                     .HasDefaultValueSql("'NULL'")
                     .HasColumnName("base_url");
-                entity.Property(e => e.Code)
-                    .HasMaxLength(50)
-                    .HasDefaultValueSql("'NULL'")
-                    .HasColumnName("code");
+                //entity.Property(e => e.Code)
+                //    .HasMaxLength(50)
+                //    .HasDefaultValueSql("'NULL'")
+                //    .HasColumnName("code");
                 entity.Property(e => e.CreatedAt)
                     .HasDefaultValueSql("'NULL'")
                     .HasColumnType("datetime")
@@ -763,30 +763,30 @@ namespace SharedKernel.Main.Infrastructure.Persistence.Notification.Configuratio
                     .HasDefaultValueSql("'NULL'")
                     .HasColumnType("datetime")
                     .HasColumnName("created_at");
-                entity.Property(e => e.DestinationAmount)
-                    .HasPrecision(12, 4)
-                    .HasDefaultValueSql("'NULL'")
-                    .HasColumnName("destination_amount");
-                entity.Property(e => e.ImtDestinationCurrencyId)
-                    .HasDefaultValueSql("'NULL'")
-                    .HasColumnType("int(11)")
-                    .HasColumnName("imt_destination_currency_id");
-                entity.Property(e => e.ImtProviderId)
-                    .HasDefaultValueSql("'NULL'")
-                    .HasColumnType("int(11)")
-                    .HasColumnName("imt_provider_id");
-                entity.Property(e => e.ImtProviderServiceId)
-                    .HasDefaultValueSql("'NULL'")
-                    .HasColumnType("int(11)")
-                    .HasColumnName("imt_provider_service_id");
-                entity.Property(e => e.ImtSourceCountryId)
-                    .HasDefaultValueSql("'NULL'")
-                    .HasColumnType("int(11)")
-                    .HasColumnName("imt_source_country_id");
-                entity.Property(e => e.ImtSourceCurrencyId)
-                    .HasDefaultValueSql("'NULL'")
-                    .HasColumnType("int(11)")
-                    .HasColumnName("imt_source_currency_id");
+                //entity.Property(e => e.DestinationAmount)
+                //    .HasPrecision(12, 4)
+                //    .HasDefaultValueSql("'NULL'")
+                //    .HasColumnName("destination_amount");
+                //entity.Property(e => e.ImtDestinationCurrencyId)
+                //    .HasDefaultValueSql("'NULL'")
+                //    .HasColumnType("int(11)")
+                //    .HasColumnName("imt_destination_currency_id");
+                //entity.Property(e => e.ImtProviderId)
+                //    .HasDefaultValueSql("'NULL'")
+                //    .HasColumnType("int(11)")
+                //    .HasColumnName("imt_provider_id");
+                //entity.Property(e => e.ImtProviderServiceId)
+                //    .HasDefaultValueSql("'NULL'")
+                //    .HasColumnType("int(11)")
+                //    .HasColumnName("imt_provider_service_id");
+                //entity.Property(e => e.ImtSourceCountryId)
+                //    .HasDefaultValueSql("'NULL'")
+                //    .HasColumnType("int(11)")
+                //    .HasColumnName("imt_source_country_id");
+                //entity.Property(e => e.ImtSourceCurrencyId)
+                //    .HasDefaultValueSql("'NULL'")
+                //    .HasColumnType("int(11)")
+                //    .HasColumnName("imt_source_currency_id");
                 entity.Property(e => e.Mode)
                     .HasMaxLength(50)
                     .HasComment("DESTINATION_AMOUNT, SOURCE_AMOUNT")
@@ -794,17 +794,17 @@ namespace SharedKernel.Main.Infrastructure.Persistence.Notification.Configuratio
                 entity.Property(e => e.OrderId)
                     .HasMaxLength(50)
                     .HasColumnName("order_id");
-                entity.Property(e => e.PayerId)
-                    .HasMaxLength(50)
-                    .HasColumnName("payer_id");
+                //entity.Property(e => e.PayerId)
+                //    .HasMaxLength(50)
+                //    .HasColumnName("payer_id");
                 entity.Property(e => e.SourceAmount)
                     .HasPrecision(12, 4)
                     .HasDefaultValueSql("'NULL'")
                     .HasColumnName("source_amount");
-                entity.Property(e => e.TransactionType)
-                    .HasMaxLength(10)
-                    .HasComment("B2B,B2C,C2C,C2B")
-                    .HasColumnName("transaction_type");
+                //entity.Property(e => e.TransactionType)
+                //    .HasMaxLength(10)
+                //    .HasComment("B2B,B2C,C2C,C2B")
+                //    .HasColumnName("transaction_type");
             });
 
             modelBuilder.Entity<Reason>(entity =>
@@ -942,30 +942,30 @@ namespace SharedKernel.Main.Infrastructure.Persistence.Notification.Configuratio
                     .HasDefaultValueSql("'NULL'")
                     .HasColumnType("int(11) unsigned")
                     .HasColumnName("created_by_id");
-                entity.Property(e => e.CurrencyId)
-                    .HasDefaultValueSql("'NULL'")
-                    .HasColumnType("int(11) unsigned")
-                    .HasColumnName("currency_id");
-                entity.Property(e => e.DailyTotalAmount)
-                    .HasPrecision(16, 4)
-                    .HasDefaultValueSql("'NULL'")
-                    .HasColumnName("daily_total_amount");
-                entity.Property(e => e.DailyTotalNumber)
-                    .HasDefaultValueSql("'NULL'")
-                    .HasColumnType("int(11)")
-                    .HasColumnName("daily_total_number");
-                entity.Property(e => e.MonthlyTotalAmount)
-                    .HasPrecision(16, 4)
-                    .HasDefaultValueSql("'NULL'")
-                    .HasColumnName("monthly_total_amount");
-                entity.Property(e => e.MonthlyTotalNumber)
-                    .HasDefaultValueSql("'NULL'")
-                    .HasColumnType("int(11)")
-                    .HasColumnName("monthly_total_number");
-                entity.Property(e => e.TransactionType)
-                    .HasDefaultValueSql("'NULL'")
-                    .HasColumnType("tinyint(4)")
-                    .HasColumnName("transaction_type");
+                //entity.Property(e => e.CurrencyId)
+                //    .HasDefaultValueSql("'NULL'")
+                //    .HasColumnType("int(11) unsigned")
+                //    .HasColumnName("currency_id");
+                //entity.Property(e => e.DailyTotalAmount)
+                //    .HasPrecision(16, 4)
+                //    .HasDefaultValueSql("'NULL'")
+                //    .HasColumnName("daily_total_amount");
+                //entity.Property(e => e.DailyTotalNumber)
+                //    .HasDefaultValueSql("'NULL'")
+                //    .HasColumnType("int(11)")
+                //    .HasColumnName("daily_total_number");
+                //entity.Property(e => e.MonthlyTotalAmount)
+                //    .HasPrecision(16, 4)
+                //    .HasDefaultValueSql("'NULL'")
+                //    .HasColumnName("monthly_total_amount");
+                //entity.Property(e => e.MonthlyTotalNumber)
+                //    .HasDefaultValueSql("'NULL'")
+                //    .HasColumnType("int(11)")
+                //    .HasColumnName("monthly_total_number");
+                //entity.Property(e => e.TransactionType)
+                //    .HasDefaultValueSql("'NULL'")
+                //    .HasColumnType("tinyint(4)")
+                //    .HasColumnName("transaction_type");
                 entity.Property(e => e.UpdatedAt)
                     .HasDefaultValueSql("'NULL'")
                     .HasColumnType("datetime")
@@ -974,10 +974,10 @@ namespace SharedKernel.Main.Infrastructure.Persistence.Notification.Configuratio
                     .HasDefaultValueSql("'NULL'")
                     .HasColumnType("int(11) unsigned")
                     .HasColumnName("updated_by_id");
-                entity.Property(e => e.UserCategory)
-                    .HasDefaultValueSql("'NULL'")
-                    .HasColumnType("tinyint(4)")
-                    .HasColumnName("user_category");
+                //entity.Property(e => e.UserCategory)
+                //    .HasDefaultValueSql("'NULL'")
+                //    .HasColumnType("tinyint(4)")
+                //    .HasColumnName("user_category");
             });
 
             modelBuilder.Entity<TransactionState>(entity =>
@@ -1033,7 +1033,7 @@ namespace SharedKernel.Main.Infrastructure.Persistence.Notification.Configuratio
                     .HasDefaultValueSql("'NULL'")
                     .HasColumnType("int(11) unsigned")
                     .HasColumnName("created_by_id");
-                entity.Property(e => e.Name)
+                entity.Property(e => e.Type)
                     .HasMaxLength(50)
                     .HasDefaultValueSql("'NULL'")
                     .HasComment("send money, receive money, withdrawal etc")

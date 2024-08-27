@@ -17,13 +17,13 @@ namespace IMT.App.Infrastructure.Persistence.Services.Transaction
     {
         public readonly ThunesClient _thunesClient = new("f1c4a4d9-2899-4f09-b9f5-c35f09df5ffd", "bed820bd-264b-4d0f-8148-9f56e0a8b55c", "https://api-mt.pre.thunes.com");
         public IImtProviderErrorDetailsRepository _errorRepository;
-        public IImtQuotationRepository _quotationRepository;
+        public IQuotationRepository _quotationRepository;
         public IImtTransactionRepository _transactionRepository;
         public IImtMoneyTransferRepository _moneyTransferRepository;
         public IImtCountryRepository _countryRepository;
         public IImtCurrencyRepository _currencyRepository;
         public SharedKernel.Main.Domain.IMT.Entities.Quotation? _imtQuotation;
-        public ImtMoneyTransferService(ApplicationDbContext dbContext,IImtQuotationRepository quotationRepository,IImtProviderErrorDetailsRepository errorRepository,IImtCurrencyRepository currencyRepository,IImtCountryRepository countryRepository,IImtMoneyTransferRepository moneyTransferRepository,IImtTransactionRepository transactionRepository) : base(dbContext)
+        public ImtMoneyTransferService(ApplicationDbContext dbContext,IQuotationRepository quotationRepository,IImtProviderErrorDetailsRepository errorRepository,IImtCurrencyRepository currencyRepository,IImtCountryRepository countryRepository,IImtMoneyTransferRepository moneyTransferRepository,IImtTransactionRepository transactionRepository) : base(dbContext)
         {
             _quotationRepository = quotationRepository;
             _errorRepository = errorRepository;
@@ -134,7 +134,7 @@ namespace IMT.App.Infrastructure.Persistence.Services.Transaction
                 {
                     ErrorCode = error.code,
                     ErrorMessage = error.message,
-                    ImtProviderId = (int)_imtQuotation.ImtProviderId,
+                    ImtProviderId = (int)_imtQuotation.MttId,
                     ReferenceId = _imtQuotation.Id,
                     Type = 1,
                     CreatedAt = DateTime.UtcNow,

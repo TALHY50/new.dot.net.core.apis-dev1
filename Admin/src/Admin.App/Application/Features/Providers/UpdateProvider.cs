@@ -75,7 +75,7 @@ namespace Admin.App.Application.Features.Providers
                     providers.UpdatedAt = now;
                 };
 
-                return await _providerRepository.UpdateAsync(providers);
+                return await _providerRepository.UpdateAsync(@provider);
             }
         }
     }
