@@ -376,7 +376,7 @@
         public const string DeleteCurrencyName = "delete-currency";
         public const string DeleteCurrencyUrl = "/api/admin/deleteCurrency/{id}";
         public const string UpdateCurrencyName = "update-currency";
-        public const string UpdateCurrencyUrl = "/api/admin/updateCurrency";
+        public const string UpdateCurrencyUrl = "/api/admin/updateCurrency/{id}";
 
         // region
         public const string GetRegionName = "get_region";
@@ -399,7 +399,7 @@
         public const string DeleteCorridorName = "delete-corridor";
         public const string DeleteCorridorUrl = "/api/admin/deleteCorridor/{id}";
         public const string UpdateCorridorName = "update-corridor";
-        public const string UpdateCorridorUrl = "/api/admin/updateCorridor";
+        public const string UpdateCorridorUrl = "/api/admin/updateCorridor/{id}";
 
         public const string GetPayerName = "get-payer";
         public const string GetPayerUrl = "/api/admin/getPayer";
@@ -410,7 +410,7 @@
         public const string DeletePayerName = "delete-payer";
         public const string DeletePayerUrl = "/api/admin/deletePayer/{id}";
         public const string UpdatePayerName = "update-payer";
-        public const string UpdatePayerUrl = "/api/admin/updatePayer";
+        public const string UpdatePayerUrl = "/api/admin/updatePayer/{id}";
 
         // provider
         public const string GetProviderName = "get_provider";

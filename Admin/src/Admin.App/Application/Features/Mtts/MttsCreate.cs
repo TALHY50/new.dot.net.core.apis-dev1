@@ -18,6 +18,7 @@ namespace Admin.App.Application.Features.Mtts
 {
     public class MttsCreate : ApiControllerBase
     {
+        [Tags("Mtt")]
         //[Authorize(Policy = "HasPermission")]
         [HttpPost(AdminRoute.CreateMttsRouteUrl, Name = AdminRoute.CreateMttsRouteName)]
         public async Task<ActionResult<ErrorOr<Mtt>>> Create(CreateMttCommand command)
