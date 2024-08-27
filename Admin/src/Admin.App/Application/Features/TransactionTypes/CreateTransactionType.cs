@@ -14,6 +14,7 @@ namespace Admin.App.Application.Features.TransactionTypes
 {
     public class CreateTransactionTypeController : ApiControllerBase
     {
+        [Tags("TransactionTypes")]
         //[Authorize(Policy = "HasPermission")]
         [HttpPost(Routes.CreateTransactionTypeUrl, Name = Routes.CreateTransactionTypeName)]
         public async Task<ActionResult<ErrorOr<TransactionType>>> Create(CreateTransactionTypeCommand command)

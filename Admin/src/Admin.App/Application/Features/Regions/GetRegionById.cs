@@ -6,38 +6,44 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
 using SharedKernel.Main.Domain.IMT.Entities;
 
 namespace Admin.App.Application.Features.Regions
 {
     public class GetRegionByIdController : ApiControllerBase
     {
-        [Authorize]//(Policy = "HasPermission")]
+        [Tags("Regions")]
+        //[Authorize(Policy = "HasPermission")]
         [HttpGet(Routes.GetRegionByIdUrl, Name = Routes.GetRegionByIdName)]
-        public async Task<ActionResult<ErrorOr<Region>>> Get(int id)
+        public async Task<ActionResult<ErrorOr<Region>>> Get(uint id)
         {
             return await Mediator.Send(new GetRegionByIdQuery(id)).ConfigureAwait(false);
         }
 
-        public record GetRegionByIdQuery(int Id) : IRequest<ErrorOr<Region>>;
+        public record GetRegionByIdQuery(uint id) : IRequest<ErrorOr<Region>>;
 
         internal sealed class GetRegionByIdCommandValidator : AbstractValidator<GetRegionByIdQuery>
         {
             public GetRegionByIdCommandValidator()
             {
-                RuleFor(x => x.Id)
+                RuleFor(x => x.id)
                     .NotEmpty()
                     .WithMessage("Region ID is required");
             }
         }
 
-        internal sealed class GetRegionByIdQueryHandler() 
+        internal sealed class GetRegionByIdQueryHandler
             : IRequestHandler<GetRegionByIdQuery, ErrorOr<Region>>
         {
-            // get all data 
-            public Task<ErrorOr<Region>> Handle(GetRegionByIdQuery request, CancellationToken cancellationToken)
+            private readonly IImtRegionRepository _repository;
+            public GetRegionByIdQueryHandler(IImtRegionRepository repository)
             {
-                throw new NotImplementedException();
+                _repository = repository;
+            }
+            public async Task<ErrorOr<Region>> Handle(GetRegionByIdQuery request, CancellationToken cancellationToken)
+            {
+                return _repository.GetByUintId(request.id);
             }
         }
     }
