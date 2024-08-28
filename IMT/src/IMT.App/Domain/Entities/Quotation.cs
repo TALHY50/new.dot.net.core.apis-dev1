@@ -6,7 +6,7 @@ public partial class Quotation
 
     public uint? InstitutionId { get; set; }
 
-    public uint? InvoiceId { get; set; }
+    public string InvoiceId { get; set; }
 
     public string OrderId { get; set; } = null!;
 
