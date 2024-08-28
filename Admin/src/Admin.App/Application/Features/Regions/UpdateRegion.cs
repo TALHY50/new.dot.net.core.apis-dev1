@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Contracts.Common;
 using static Admin.App.Application.Features.Regions.GetRegionByIdController;
 
 
@@ -68,16 +69,18 @@ namespace Admin.App.Application.Features.Regions
             {
                 var now = DateTime.UtcNow;
                 Region? regions = _repository.GetByUintId(request.id);
-                if (regions != null)
+                if (regions == null)
                 {
-                    regions.Name = request.Name;
-                    regions.CompanyId = request.CompanyId;
-                    regions.Status = request.Status;
-                    regions.CreatedById = 1;
-                    regions.UpdatedById = 2;
-                    regions.CreatedAt = now;
-                    regions.UpdatedAt = now;
-                };
+                    return Error.NotFound(description: "Region not found", code: AppStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                }
+                
+                regions.Name = request.Name;
+                regions.CompanyId = request.CompanyId;
+                regions.Status = request.Status;
+                regions.CreatedById = 1;
+                regions.UpdatedById = 2;
+                regions.CreatedAt = now;
+                regions.UpdatedAt = now;
 
                 
 

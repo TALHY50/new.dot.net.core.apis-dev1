@@ -17,9 +17,13 @@ namespace Admin.App.Application.Features.Providers
         [Tags("Providers")]
         //[Authorize(Policy = "HasPermission")]
         [HttpDelete(Routes.DeleteProviderUrl, Name = Routes.DeleteProviderName)]
-        public async Task<ErrorOr<bool>> Delete(uint id)
+        public async Task<ActionResult<ErrorOr<bool>>> Delete(uint id)
         {
-            return await Mediator.Send(new DeleteProviderCommand(id)).ConfigureAwait(false);
+            var result = await Mediator.Send(new DeleteProviderCommand(id)).ConfigureAwait(false);
+
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
 
         public record DeleteProviderCommand(uint id) 

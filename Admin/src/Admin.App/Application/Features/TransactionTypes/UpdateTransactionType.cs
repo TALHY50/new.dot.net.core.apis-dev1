@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Contracts.Common;
 
 
 namespace Admin.App.Application.Features.TransactionTypes
@@ -63,15 +64,17 @@ namespace Admin.App.Application.Features.TransactionTypes
                 var now = DateTime.UtcNow;
                 TransactionType? transactionTypes = _transactionTypeRepository.GetByUintId(request.id);
 
-                if (transactionTypes != null)
+                if (transactionTypes == null)
                 {
-                    transactionTypes.Name = request.Name;
-                    transactionTypes.Status = request.Status;
-                    transactionTypes.CreatedById = 1;
-                    transactionTypes.UpdatedById = 2;
-                    transactionTypes.CreatedAt = now;
-                    transactionTypes.UpdatedAt = now;
-                };
+                    return Error.NotFound(description: "TransactionType not found", code: AppStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                }
+
+                transactionTypes.Name = request.Name;
+                transactionTypes.Status = request.Status;
+                transactionTypes.CreatedById = 1;
+                transactionTypes.UpdatedById = 2;
+                transactionTypes.CreatedAt = now;
+                transactionTypes.UpdatedAt = now;
 
                 return await _transactionTypeRepository.UpdateAsync(transactionTypes);
             }

@@ -1,4 +1,5 @@
-﻿using ErrorOr;
+﻿using Ardalis.SharedKernel;
+using ErrorOr;
 using FluentValidation;
 using IMT.App.Application.Interfaces.Repositories;
 using IMT.App.Domain.Entities;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Contracts.Common;
 using static Admin.App.Application.Features.Providers.GetProviderByIdController;
 
 
@@ -81,19 +83,21 @@ namespace Admin.App.Application.Features.Providers
                 var now = DateTime.UtcNow;
                 Provider? providers = _providerRepository.GetByUintId(request.id);
 
-                if (providers != null)
+                if (providers == null)
                 {
-                    providers.Code = request.Code;
-                    providers.Name = request.Name;
-                    providers.BaseUrl = request.BaseUrl;
-                    providers.ApiKey = request.ApiKey;
-                    providers.ApiSecret = request.ApiSecret;
-                    providers.Status = request.Status;
-                    providers.CreatedById = 1;
-                    providers.UpdatedById = 2;
-                    providers.CreatedAt = now;
-                    providers.UpdatedAt = now;
-                };
+                    return Error.NotFound(description: "Provider not found", code: AppStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                }
+                
+                providers.Code = request.Code;
+                providers.Name = request.Name;
+                providers.BaseUrl = request.BaseUrl;
+                providers.ApiKey = request.ApiKey;
+                providers.ApiSecret = request.ApiSecret;
+                providers.Status = request.Status;
+                providers.CreatedById = 1;
+                providers.UpdatedById = 2;
+                providers.CreatedAt = now;
+                providers.UpdatedAt = now;
 
                 return await _providerRepository.UpdateAsync(providers);
             }
