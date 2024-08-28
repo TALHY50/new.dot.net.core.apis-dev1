@@ -1,4 +1,6 @@
-﻿using FluentValidation;
+﻿using ErrorOr;
+using FluentValidation;
+using FluentValidation.Results;
 using MediatR;
 using ValidationException = SharedKernel.Main.Application.Common.Exceptions.ValidationException;
 

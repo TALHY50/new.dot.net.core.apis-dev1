@@ -21,7 +21,7 @@ namespace Notification.App.Application.Features.Notifications.Events;
 
 public class CreateEmailEventController : ApiControllerBase
 {
-    [Authorize(Policy = "HasPermission")]
+   // [Authorize(Policy = "HasPermission")]
     [HttpPost(Routes.CreateEmailEventRoute, Name = Routes.CreateEmailEventRouteName)]
     public async Task<ActionResult<ErrorOr<Event>>> Create(CreateEmailEventCommand command)
     {
@@ -36,17 +36,17 @@ public record CreateEmailEventCommand(
     EmailReceivers Receivers,
     MiscellaneousInformation Information) : IRequest<ErrorOr<Event>>;
 
-internal sealed class CreateEmailEventCommandValidator : AbstractValidator<CreateEmailEventCommand>
+public class CreateEmailEventCommandValidator : AbstractValidator<CreateEmailEventCommand>
 {
     public CreateEmailEventCommandValidator()
     {
         RuleFor(v => v.CategoricalData.Category)
-            .MaximumLength(200)
+            .MaximumLength(20)
             .NotEmpty();
     }
 }
 
-internal sealed class CreateEmailEventCommandHandler(ApplicationDbContext context) : IRequestHandler<CreateEmailEventCommand, ErrorOr<Event>>
+public class CreateEmailEventCommandHandler(ApplicationDbContext context) : IRequestHandler<CreateEmailEventCommand, ErrorOr<Event>>
 {
     private readonly ApplicationDbContext _context = context;
 
