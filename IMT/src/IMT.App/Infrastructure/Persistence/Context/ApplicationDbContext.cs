@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
 using HolidaySetting = IMT.App.Domain.Entities.Duplicates.HolidaySetting;
-using Provider = IMT.App.Domain.Entities.Duplicates.Provider;
+
 
 namespace IMT.App.Infrastructure.Persistence.Context
 {
@@ -952,35 +952,53 @@ namespace IMT.App.Infrastructure.Persistence.Context
 
             entity.ToTable("imt_providers", tb => tb.HasComment("Type : Master, channels being used for money transfers, like Thunes, PayAll, Mastercard"));
 
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.AppId)
-                .HasMaxLength(255)
-                .HasColumnName("app_id");
-            entity.Property(e => e.AppSecret)
-                .HasMaxLength(255)
-                .HasColumnName("app_secret");
-            entity.Property(e => e.BaseUrl)
-                .HasMaxLength(255)
-                .HasComment("base_url of the APIs")
-                .HasColumnName("base_url");
-            entity.Property(e => e.CompanyId)
-                .HasDefaultValueSql("'0'")
-                .HasColumnName("company_id");
-            entity.Property(e => e.CreatedAt)
-                .HasColumnType("datetime")
-                .HasColumnName("created_at");
-            entity.Property(e => e.CreatedById).HasColumnName("created_by_id");
-            entity.Property(e => e.Name)
+            entity.Property(e => e.Id)
+                .HasColumnName("id")
+                .IsRequired()
+                .ValueGeneratedOnAdd(); // For AUTO_INCREMENT
+            
+            entity.Property(e => e.Code)
+                .HasColumnName("code")
                 .HasMaxLength(50)
-                .HasColumnName("name");
+                .IsUnicode(true);
+            
+            entity.Property(e => e.Name)
+                .HasColumnName("name")
+                .HasMaxLength(50)
+                .IsUnicode(true);
+            
+            entity.Property(e => e.BaseUrl)
+                .HasColumnName("base_url")
+                .HasMaxLength(100)
+                .IsUnicode(false);
+            
+            entity.Property(e => e.ApiKey)
+                .HasColumnName("api_key")
+                .HasMaxLength(100)
+                .IsUnicode(false);
+            
+            entity.Property(e => e.ApiSecret)
+                .HasColumnName("api_secret")
+                .HasMaxLength(100)
+                .IsUnicode(false);
+            
             entity.Property(e => e.Status)
-                .HasDefaultValueSql("'1'")
-                .HasComment("0=inactive, 1=active, 2=pending, 3=rejected ")
-                .HasColumnName("status");
-            entity.Property(e => e.UpdatedAt)
-                .HasColumnType("datetime")
-                .HasColumnName("updated_at");
+                .HasColumnName("status")
+                .HasDefaultValue(1)
+                .HasComment("1= active, 0 =inactive, 2 =soft-deleted");
+
+            entity.Property(e => e.CreatedById).HasColumnName("created_by_id");
+
             entity.Property(e => e.UpdatedById).HasColumnName("updated_by_id");
+
+            entity.Property(e => e.CreatedAt)
+                .HasColumnName("created_at")
+                .HasColumnType("datetime");
+
+            entity.Property(e => e.UpdatedAt)
+                .HasColumnName("updated_at")
+                .HasColumnType("datetime");
+
         });
 
         modelBuilder.Entity<ProviderCommission>(entity =>

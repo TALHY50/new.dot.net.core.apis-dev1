@@ -1,7 +1,6 @@
 using IMT.App.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
-using Provider = IMT.App.Domain.Entities.Duplicates.Provider;
 
 namespace IMT.App.Infrastructure.Persistence.Context.Old
 {
@@ -498,49 +497,56 @@ namespace IMT.App.Infrastructure.Persistence.Context.Old
                 entity.ToTable("imt_providers");
 
                 entity.Property(e => e.Id)
-                    .HasColumnType("int(11) unsigned")
-                    .HasColumnName("id");
-                entity.Property(e => e.AppId)
-                    .HasMaxLength(100)
-                    .HasDefaultValueSql("'NULL'")
-                    .HasComment("api key and secret must be encrypted")
-                    .HasColumnName("api_key");
-                entity.Property(e => e.AppSecret)
-                    .HasMaxLength(100)
-                    .HasDefaultValueSql("'NULL'")
-                    .HasColumnName("api_secret");
-                entity.Property(e => e.BaseUrl)
-                    .HasMaxLength(100)
-                    .HasDefaultValueSql("'NULL'")
-                    .HasColumnName("base_url");
-                //entity.Property(e => e.Code)
-                //    .HasMaxLength(50)
-                //    .HasDefaultValueSql("'NULL'")
-                //    .HasColumnName("code");
-                entity.Property(e => e.CreatedAt)
-                    .HasDefaultValueSql("'NULL'")
-                    .HasColumnType("datetime")
-                    .HasColumnName("created_at");
-                entity.Property(e => e.CreatedById)
-                    .HasDefaultValueSql("'NULL'")
-                    .HasColumnType("int(11) unsigned")
-                    .HasColumnName("created_by_id");
-                entity.Property(e => e.Name)
+                .HasColumnName("id")
+                .IsRequired()
+                .ValueGeneratedOnAdd(); // AUTO_INCREMENT in MySQL
+
+                // Property Configuration
+                entity.Property(e => e.Code)
+                    .HasColumnName("code")
                     .HasMaxLength(50)
-                    .HasDefaultValueSql("'NULL'")
-                    .HasColumnName("name");
+                    .IsUnicode(true);
+
+                entity.Property(e => e.Name)
+                    .HasColumnName("name")
+                    .HasMaxLength(50)
+                    .IsUnicode(true);
+
+                entity.Property(e => e.BaseUrl)
+                    .HasColumnName("base_url")
+                    .HasMaxLength(100)
+                    .IsUnicode(false); // UTF8MB3 collation
+
+                entity.Property(e => e.ApiKey)
+                    .HasColumnName("api_key")
+                    .HasMaxLength(100)
+                    .IsUnicode(false); // UTF8MB3 collation
+
+                entity.Property(e => e.ApiSecret)
+                    .HasColumnName("api_secret")
+                    .HasMaxLength(100)
+                    .IsUnicode(false); // UTF8MB3 collation
+
                 entity.Property(e => e.Status)
-                    .HasDefaultValueSql("'NULL'")
-                    .HasColumnType("tinyint(4)")
-                    .HasColumnName("status");
-                entity.Property(e => e.UpdatedAt)
-                    .HasDefaultValueSql("'NULL'")
-                    .HasColumnType("datetime")
-                    .HasColumnName("updated_at");
+                    .HasColumnName("status")
+                    .HasDefaultValue(1)
+                    .HasComment("1= active, 0 =inactive, 2 =soft-deleted");
+
+                entity.Property(e => e.CreatedById)
+                    .HasColumnName("created_by_id")
+                    .HasConversion<int?>(); // Ensuring compatibility with unsigned int in MySQL
+
                 entity.Property(e => e.UpdatedById)
-                    .HasDefaultValueSql("'NULL'")
-                    .HasColumnType("int(11) unsigned")
-                    .HasColumnName("updated_by_id");
+                    .HasColumnName("updated_by_id")
+                    .HasConversion<int?>(); // Ensuring compatibility with unsigned int in MySQL
+
+                entity.Property(e => e.CreatedAt)
+                    .HasColumnName("created_at")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.UpdatedAt)
+                    .HasColumnName("updated_at")
+                    .HasColumnType("datetime");
             });
 
             modelBuilder.Entity<ProviderCommission>(entity =>

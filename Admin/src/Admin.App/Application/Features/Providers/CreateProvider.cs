@@ -2,7 +2,7 @@
 using ErrorOr;
 using FluentValidation;
 using IMT.App.Application.Interfaces.Repositories;
-using IMT.App.Domain.Entities.Duplicates;
+using IMT.App.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -23,11 +23,11 @@ namespace Admin.App.Application.Features.Providers
     }
 
     public record CreateProviderCommand(
-        string Name,
-        string BaseUrl,
-        string AppId,
-        string AppSecret,
-        uint? CompanyId,
+        string? Code,
+        string? Name,
+        string? BaseUrl,
+        string? ApiKey,
+        string? ApiSecret,
         byte Status = 1) : IRequest<ErrorOr<Provider>>;
 
 
@@ -45,12 +45,12 @@ namespace Admin.App.Application.Features.Providers
             var now = DateTime.UtcNow;
             var @provider = new Provider
             {
+                Code = request.Code,
                 Name = request.Name,
                 BaseUrl = request.BaseUrl,
-                AppId = request.AppId,
-                AppSecret = request.AppSecret,
+                ApiKey = request.ApiKey,
+                ApiSecret = request.ApiSecret,
                 Status = 1,
-                CompanyId = request.CompanyId,
                 CreatedById = 1,
                 UpdatedById = 2,
                 CreatedAt = now,
