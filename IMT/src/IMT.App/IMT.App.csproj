@@ -12,9 +12,15 @@
 	
 	<ItemGroup>
 	  <ProjectReference Include="..\..\..\ACL\src\ACL.App\ACL.App.csproj" />
+	  <ProjectReference Include="..\..\..\SharedBusiness\src\SharedBusiness.Main\SharedBusiness.Main.csproj" />
 	  <ProjectReference Include="..\..\..\SharedKernel\src\SharedKernel.Main\SharedKernel.Main.csproj" />
 	  <ProjectReference Include="..\PayAll\PayAll.csproj" />
 	  <ProjectReference Include="..\Thunes\Thunes.csproj" />
 	  <ProjectReference Include="..\..\..\Notification\src\Notification.App\Notification.App.csproj" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <Folder Include="Application\Common\" />
+	  <Folder Include="Infrastructure\Persistence\Migrations\" />
 	</ItemGroup>
 </Project>
