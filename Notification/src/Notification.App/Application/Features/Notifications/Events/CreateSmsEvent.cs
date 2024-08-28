@@ -35,7 +35,7 @@ public record CreateSmsEventCommand(
     SmsReceivers Receivers,
     MiscellaneousInformation Information) : IRequest<ErrorOr<Event>>;
 
-internal sealed class CreateSmsEventCommandValidator : AbstractValidator<CreateSmsEventCommand>
+public class CreateSmsEventCommandValidator : AbstractValidator<CreateSmsEventCommand>
 {
     public CreateSmsEventCommandValidator()
     {
@@ -45,7 +45,7 @@ internal sealed class CreateSmsEventCommandValidator : AbstractValidator<CreateS
     }
 }
 
-internal sealed class CreateSmsEventCommandHandler(ApplicationDbContext context) : IRequestHandler<CreateSmsEventCommand, ErrorOr<Event>>
+public class CreateSmsEventCommandHandler(ApplicationDbContext context) : IRequestHandler<CreateSmsEventCommand, ErrorOr<Event>>
 {
     private readonly ApplicationDbContext _context = context;
 
