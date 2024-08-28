@@ -20,14 +20,33 @@ namespace Admin.App.Application.Features.TransactionTypes
         public async Task<ActionResult<ErrorOr<TransactionType>>> Update(uint id, UpdateTransactionTypeCommand command)
         {
             var commandWithId = command with { id = id };
-            return await Mediator.Send(commandWithId).ConfigureAwait(false);
+            var result = await Mediator.Send(commandWithId).ConfigureAwait(false);
+
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
 
         public record UpdateTransactionTypeCommand(
         uint id,
-        byte Status) : IRequest<ErrorOr<TransactionType>>;
+        string Name,
+        byte? Status) : IRequest<ErrorOr<TransactionType>>;
 
-        internal sealed class UpdateTransactionTypeCommandHandler
+        public class UpdateTransactionTypeCommandValidator : AbstractValidator<UpdateTransactionTypeCommand>
+        {
+            public UpdateTransactionTypeCommandValidator()
+            {
+                RuleFor(v => v.id)
+                    .NotEmpty()
+                    .WithMessage("ID is required.");
+                RuleFor(v => v.Name)
+                    .MaximumLength(50)
+                    .WithMessage("Maximum length can be 50.");
+            }
+        }
+
+
+        public class UpdateTransactionTypeCommandHandler
         : IRequestHandler<UpdateTransactionTypeCommand, ErrorOr<TransactionType>>
         {
             private readonly ICurrentUserService _user;
@@ -46,6 +65,7 @@ namespace Admin.App.Application.Features.TransactionTypes
 
                 if (transactionTypes != null)
                 {
+                    transactionTypes.Name = request.Name;
                     transactionTypes.Status = request.Status;
                     transactionTypes.CreatedById = 1;
                     transactionTypes.UpdatedById = 2;

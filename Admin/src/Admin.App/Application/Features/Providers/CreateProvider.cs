@@ -18,7 +18,11 @@ namespace Admin.App.Application.Features.Providers
         [HttpPost(Routes.CreateProviderUrl, Name = Routes.CreateProviderName)]
         public async Task<ActionResult<ErrorOr<Provider>>> Create(CreateProviderCommand command)
         {
-            return await Mediator.Send(command).ConfigureAwait(false);
+            var result = await Mediator.Send(command).ConfigureAwait(false);
+
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
     }
 
@@ -28,7 +32,29 @@ namespace Admin.App.Application.Features.Providers
         string? BaseUrl,
         string? ApiKey,
         string? ApiSecret,
-        byte Status = 1) : IRequest<ErrorOr<Provider>>;
+        byte? Status = 1) : IRequest<ErrorOr<Provider>>;
+
+    public class CreateProviderCommandValidator : AbstractValidator<CreateProviderCommand>
+    {
+        public CreateProviderCommandValidator()
+        {
+            RuleFor(v => v.Code)
+                .MaximumLength(50)
+                .WithMessage("Maximum length can be 50.");
+            RuleFor(v => v.Name)
+                .MaximumLength(50)
+                .WithMessage("Maximum length can be 50.");
+            RuleFor(v => v.BaseUrl)
+                .MaximumLength(100)
+                .WithMessage("Maximum length can be 100.");
+            RuleFor(v => v.ApiKey)
+                .MaximumLength(100)
+                .WithMessage("Maximum length can be 100.");
+            RuleFor(v => v.ApiSecret)
+                .MaximumLength(100)
+                .WithMessage("Maximum length can be 100.");
+        }
+    }
 
 
     public class CreateProviderCommandHandler
@@ -50,7 +76,7 @@ namespace Admin.App.Application.Features.Providers
                 BaseUrl = request.BaseUrl,
                 ApiKey = request.ApiKey,
                 ApiSecret = request.ApiSecret,
-                Status = 1,
+                Status = request.Status,
                 CreatedById = 1,
                 UpdatedById = 2,
                 CreatedAt = now,

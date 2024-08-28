@@ -24,7 +24,7 @@ namespace Admin.App.Application.Features.TransactionTypes
         public record DeleteTransactionTypeCommand(uint id) 
             : IRequest<bool>;
 
-        internal sealed class DeleteTransactionTypeCommandValidator : AbstractValidator<DeleteTransactionTypeCommand>
+        public class DeleteTransactionTypeCommandValidator : AbstractValidator<DeleteTransactionTypeCommand>
         {
             public DeleteTransactionTypeCommandValidator()
             {
@@ -32,7 +32,7 @@ namespace Admin.App.Application.Features.TransactionTypes
             }
         }
 
-        internal sealed class DeleteTransactionTypeCommandHandler
+        public class DeleteTransactionTypeCommandHandler
         : IRequestHandler<DeleteTransactionTypeCommand, bool>
         {
             private readonly ICurrentUserService _user;

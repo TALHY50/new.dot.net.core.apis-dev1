@@ -35,7 +35,7 @@ namespace Admin.App.Application.Features.Regions
         uint? CompanyId,
         byte Status) : IRequest<ErrorOr<Region>>;
 
-        internal sealed class UpdateRegionCommandValidator : AbstractValidator<UpdateRegionCommand>
+        public class UpdateRegionCommandValidator : AbstractValidator<UpdateRegionCommand>
         {
             public UpdateRegionCommandValidator()
             {
@@ -43,8 +43,8 @@ namespace Admin.App.Application.Features.Regions
                     .NotEmpty()
                     .WithMessage("ID is required.");
                 RuleFor(v => v.Name)
-                .MaximumLength(50)
-                .WithMessage("Maximum length can be 50.");
+                    .MaximumLength(50)
+                    .WithMessage("Maximum length can be 50.");
                 RuleFor(v => v.Status)
                     .NotEmpty()
                     .WithMessage("Status is required.");
@@ -52,7 +52,7 @@ namespace Admin.App.Application.Features.Regions
         }
 
 
-        internal sealed class UpdateRegionCommandHandler
+        public class UpdateRegionCommandHandler
         : IRequestHandler<UpdateRegionCommand, ErrorOr<Region>>
         {
             private readonly ICurrentUserService _user;
@@ -71,8 +71,8 @@ namespace Admin.App.Application.Features.Regions
                 if (regions != null)
                 {
                     regions.Name = request.Name;
-                    regions.CompanyId = 0;
-                    regions.Status = 1;
+                    regions.CompanyId = request.CompanyId;
+                    regions.Status = request.Status;
                     regions.CreatedById = 1;
                     regions.UpdatedById = 2;
                     regions.CreatedAt = now;

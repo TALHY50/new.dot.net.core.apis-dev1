@@ -20,8 +20,8 @@ namespace Admin.App.Application.Features.Regions
             return await Mediator.Send(new DeleteRegionCommand(id)).ConfigureAwait(false);
         }
 
-        public record DeleteRegionCommand(uint id)
-        : IRequest<bool>;
+        public record DeleteRegionCommand(uint id) 
+            : IRequest<bool>;
 
         public class DeleteRegionCommandValidator : AbstractValidator<DeleteRegionCommand>
         {

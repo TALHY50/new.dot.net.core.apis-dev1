@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
+using static Admin.App.Application.Features.Providers.GetProviderByIdController;
 
 
 namespace Admin.App.Application.Features.Providers
@@ -20,7 +21,11 @@ namespace Admin.App.Application.Features.Providers
         public async Task<ActionResult<ErrorOr<Provider>>> Update(uint id, UpdateProviderCommand command)
         {
             var commandWithId = command with { id = id };
-            return await Mediator.Send(commandWithId).ConfigureAwait(false);
+            var result = await Mediator.Send(commandWithId).ConfigureAwait(false);
+
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
 
         public record UpdateProviderCommand(
@@ -29,21 +34,37 @@ namespace Admin.App.Application.Features.Providers
         string? Name,
         string? BaseUrl,
         string? ApiKey,
-        string? ApiSecret) : IRequest<ErrorOr<Provider>>;
+        string? ApiSecret,
+        byte? Status) : IRequest<ErrorOr<Provider>>;
 
 
-        //internal sealed class UpdateProviderCommandValidator : AbstractValidator<UpdateProviderCommand>
-        //{
-        //    public UpdateProviderCommandValidator()
-        //    {
-        //        RuleFor(v => v.Status)
-        //            .NotEmpty()
-        //            .WithMessage("Status is required.");
-        //    }
-        //}
+        public class UpdateProviderCommandValidator : AbstractValidator<UpdateProviderCommand>
+        {
+            public UpdateProviderCommandValidator()
+            {
+                RuleFor(v => v.id)
+                    .NotEmpty()
+                    .WithMessage("ID is required.");
+                RuleFor(v => v.Code)
+                    .MaximumLength(50)
+                    .WithMessage("Maximum length can be 50.");
+                RuleFor(v => v.Name)
+                    .MaximumLength(50)
+                    .WithMessage("Maximum length can be 50.");
+                RuleFor(v => v.BaseUrl)
+                    .MaximumLength(100)
+                    .WithMessage("Maximum length can be 100.");
+                RuleFor(v => v.ApiKey)
+                    .MaximumLength(100)
+                    .WithMessage("Maximum length can be 100.");
+                RuleFor(v => v.ApiSecret)
+                    .MaximumLength(100)
+                    .WithMessage("Maximum length can be 100.");
+            }
+        }
 
 
-        internal sealed class UpdateProviderCommandHandler
+        public class UpdateProviderCommandHandler
         : IRequestHandler<UpdateProviderCommand, ErrorOr<Provider>>
         {
             private readonly ICurrentUserService _user;
@@ -67,7 +88,7 @@ namespace Admin.App.Application.Features.Providers
                     providers.BaseUrl = request.BaseUrl;
                     providers.ApiKey = request.ApiKey;
                     providers.ApiSecret = request.ApiSecret;
-                    providers.Status = 1;
+                    providers.Status = request.Status;
                     providers.CreatedById = 1;
                     providers.UpdatedById = 2;
                     providers.CreatedAt = now;
