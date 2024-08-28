@@ -10,6 +10,7 @@
         public static readonly int PERMISSION_DENIED = 403;
         public static readonly int NOTFOUND = 404;
         public static readonly int CONFLICT = 409;
+        public static readonly int API_ERROR_RECORD_NOT_FOUND = 1001;
 
     }
     public static partial class AppPendingStatusCode

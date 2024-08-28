@@ -53,7 +53,7 @@ namespace Admin.App.Application.Features.Regions
 
                 if (region == null)
                 {
-                    return Error.NotFound(description: "Region is not found", code: AppStatusCode.RegionNotFound.ToString());
+                    return Error.NotFound(description: "Region not found", code: AppStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
                 else
                 {

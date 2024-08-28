@@ -31,7 +31,7 @@ namespace Admin.App.Application.Features.Providers
         byte Status = 1) : IRequest<ErrorOr<Provider>>;
 
 
-    internal sealed class CreateProviderCommandHandler
+    public class CreateProviderCommandHandler
         : IRequestHandler<CreateProviderCommand, ErrorOr<Provider>>
     {
         private readonly IImtProviderRepository _providerRepository;

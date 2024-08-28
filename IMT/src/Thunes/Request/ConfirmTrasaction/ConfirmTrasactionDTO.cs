@@ -3,8 +3,8 @@
     public class ConfirmTrasactionDTO
     {
         public string InvoiceId { get; set; }
-        public int RemoteTrasactionId { get; set; }
-        public int ProviderId { get; set; }
-        public sbyte Type { get; set; }
+        public uint RemoteTrasactionId { get; set; }
+        public uint ProviderId { get; set; }
+        public byte Type { get; set; }
     }
 }
