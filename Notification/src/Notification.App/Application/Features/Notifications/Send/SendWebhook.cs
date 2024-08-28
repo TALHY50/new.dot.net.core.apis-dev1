@@ -30,7 +30,7 @@ public class SendWebhookController : ApiControllerBase
 
 public record SendWebhookCommand(OutgoingId OutgoingId) : IRequest<ErrorOr<Result>>;
 
-internal sealed class SendWebhookCommandValidator : AbstractValidator<SendWebhookCommand>
+public class SendWebhookCommandValidator : AbstractValidator<SendWebhookCommand>
 {
     public SendWebhookCommandValidator()
     {
@@ -40,7 +40,7 @@ internal sealed class SendWebhookCommandValidator : AbstractValidator<SendWebhoo
     }
 }
 
-internal sealed class SendWebhookCommandHandler(
+public class SendWebhookCommandHandler(
     ILogger<SendWebhookCommandHandler> logger,
     ApplicationDbContext context,
     IWebOutgoingRepository webOutgoingRepository,

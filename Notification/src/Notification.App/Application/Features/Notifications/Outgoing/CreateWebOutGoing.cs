@@ -31,7 +31,7 @@ public class CreateWebOutgoingController : ApiControllerBase
 
 public record CreateWebOutgoingCommand(EventId EventId) : IRequest<ErrorOr<WebOutgoing>>;
 
-internal sealed class CreateWebOutgoingCommandValidator : AbstractValidator<CreateWebOutgoingCommand>
+public class CreateWebOutgoingCommandValidator : AbstractValidator<CreateWebOutgoingCommand>
 {
     public CreateWebOutgoingCommandValidator()
     {
@@ -41,7 +41,7 @@ internal sealed class CreateWebOutgoingCommandValidator : AbstractValidator<Crea
     }
 }
 
-internal sealed class CreateWebOutgoingCommandHandler(ILogger<CreateWebOutgoingCommandHandler> logger, ApplicationDbContext context, IRenderer renderer) : IRequestHandler<CreateWebOutgoingCommand, ErrorOr<WebOutgoing>>
+public class CreateWebOutgoingCommandHandler(ILogger<CreateWebOutgoingCommandHandler> logger, ApplicationDbContext context, IRenderer renderer) : IRequestHandler<CreateWebOutgoingCommand, ErrorOr<WebOutgoing>>
 {
      private readonly ApplicationDbContext _context = context;
      private readonly IRenderer _renderer = renderer;

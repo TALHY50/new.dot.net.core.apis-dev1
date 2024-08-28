@@ -31,7 +31,7 @@ public class CreateSmsOutgoingController : ApiControllerBase
 
 public record CreateSmsOutgoingCommand(EventId EventId) : IRequest<ErrorOr<SmsOutgoing>>;
 
-internal sealed class CreateSmsOutgoingCommandValidator : AbstractValidator<CreateSmsOutgoingCommand>
+public class CreateSmsOutgoingCommandValidator : AbstractValidator<CreateSmsOutgoingCommand>
 {
     public CreateSmsOutgoingCommandValidator()
     {
@@ -41,7 +41,7 @@ internal sealed class CreateSmsOutgoingCommandValidator : AbstractValidator<Crea
     }
 }
 
-internal sealed class CreateSmsOutgoingCommandHandler(ILogger<CreateSmsOutgoingCommandHandler> logger, ApplicationDbContext context, IRenderer renderer) : IRequestHandler<CreateSmsOutgoingCommand, ErrorOr<SmsOutgoing>>
+public class CreateSmsOutgoingCommandHandler(ILogger<CreateSmsOutgoingCommandHandler> logger, ApplicationDbContext context, IRenderer renderer) : IRequestHandler<CreateSmsOutgoingCommand, ErrorOr<SmsOutgoing>>
 {
      private readonly ApplicationDbContext _context = context;
      private readonly IRenderer _renderer = renderer;

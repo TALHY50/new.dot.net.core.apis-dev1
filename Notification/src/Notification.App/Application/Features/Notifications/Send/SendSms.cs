@@ -31,7 +31,7 @@ public class SendSmsController : ApiControllerBase
 
 public record SendSmsCommand(OutgoingId OutgoingId) : IRequest<ErrorOr<Result>>;
 
-internal sealed class SendSmsCommandValidator : AbstractValidator<SendSmsCommand>
+public class SendSmsCommandValidator : AbstractValidator<SendSmsCommand>
 {
     public SendSmsCommandValidator()
     {
@@ -41,7 +41,7 @@ internal sealed class SendSmsCommandValidator : AbstractValidator<SendSmsCommand
     }
 }
 
-internal sealed class SendSmsCommandHandler(
+public class SendSmsCommandHandler(
     ILogger<SendSmsCommandHandler> logger,
     ApplicationDbContext context,
     ISmsOutgoingRepository smsOutgoingRepository,
