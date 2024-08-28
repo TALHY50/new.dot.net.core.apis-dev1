@@ -10,6 +10,7 @@ using IMT.App.Infrastructure.Persistence.Context;
 using IMT.App.Domain.Entities;
 using IMT.App.Infrastructure.Persistence.Repositories;
 using StackExchange.Redis;
+using SharedKernel.Main.Contracts.Common;
 
 namespace IMT.App.Application.Features
 {
@@ -138,8 +139,8 @@ namespace IMT.App.Application.Features
                 var quotation = _quotationRepository.Where(q => q.InvoiceId == request.invoice_id && q.OrderId == request.order_id).FirstOrDefault();
                 if (quotation is null)
                 {
-                    // invalid transaction
-
+                    // Not found Quotation
+                    return Error.NotFound("Quotation not found", AppStatusCode.API_ERROR_QUOTATIION_NOT_FOUND.ToString());
                 }
 
                 // operation on db
@@ -160,8 +161,8 @@ namespace IMT.App.Application.Features
                     //OpenAt = request.OpenAt,
                     //CloseAt = request.CloseAt,
                     //CompanyId = request.CompanyId
-                };                
-                
+                };
+
                 var moneyTransfer = new MoneyTransfer
                 {
                     //CountryId = request.CountryId,

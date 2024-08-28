@@ -1,4 +1,6 @@
-﻿namespace SharedKernel.Main.Contracts.Common
+﻿using System.Reflection.Metadata;
+
+namespace SharedKernel.Main.Contracts.Common
 {
     public static partial class AppStatusCode
     {
@@ -11,7 +13,8 @@
         public static readonly int NOTFOUND = 404;
         public static readonly int CONFLICT = 409;
 
-
+        // addded by mahmud
+        public const int API_ERROR_QUOTATIION_NOT_FOUND = 1002;
 
     }
 }
