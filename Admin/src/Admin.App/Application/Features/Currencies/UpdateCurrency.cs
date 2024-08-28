@@ -7,10 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
-using SharedKernel.Main.Domain.IMT.Entities;
-using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 using System.Reflection.Metadata;
+using IMT.App.Application.Interfaces.Repositories;
+using IMT.App.Domain.Entities;
 
 namespace Admin.App.Application.Features.Currencies
 {

@@ -5,10 +5,9 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
-using SharedKernel.Main.Domain.IMT.Entities;
-using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 using System.ComponentModel.Design;
+using IMT.App.Application.Interfaces.Repositories;
+using IMT.App.Domain.Entities;
 
 namespace Admin.App.Application.Features.Corridors
 {

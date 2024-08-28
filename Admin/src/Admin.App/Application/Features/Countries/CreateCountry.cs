@@ -1,11 +1,11 @@
 using ErrorOr;
 using FluentValidation;
+using IMT.App.Application.Interfaces.Repositories;
+using IMT.App.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Domain.IMT.Entities;
-using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
 
 namespace Admin.App.Application.Features.Countries
 {
@@ -37,7 +37,7 @@ namespace Admin.App.Application.Features.Countries
 
     internal sealed class CreateCountryCommandHandler : IRequestHandler<CreateCountryCommand, ErrorOr<Country>>
     {
-        //private readonly ImtApplicationDbContext _context = context;
+        //private readonly ApplicationDbContext _context = context;
         private readonly IAdminCountryRepository _repository;
 
         public CreateCountryCommandHandler(IAdminCountryRepository repository)

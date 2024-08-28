@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using ACL.App.Contracts.Requests;
+using ACL.App.Contracts.Responses;
+using ACL.App.Domain.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Contracts.ACL.Requests;
-using SharedKernel.Main.Contracts.ACL.Response;
-using SharedKernel.Main.Domain.ACL.Services.Auth;
 
 namespace ACL.App.Application.Features
 {
@@ -12,46 +12,46 @@ namespace ACL.App.Application.Features
     [ApiController]
     public class AclUserController : ControllerBase
     {
-        private readonly IAclUserService AclUserService;
+        private readonly IUserService _userService;
         /// <inheritdoc/>
-        public AclUserController(IAclUserService _AclUserService)
+        public AclUserController(IUserService userService)
         {
-            this.AclUserService = _AclUserService;
+            this._userService = userService;
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclUserRouteUrl.List, Name = AclRoutesName.AclUserRouteNames.List)]
-        public AclResponse Index()
+        public ScopeResponse Index()
         {
-            return this.AclUserService.GetAll();
+            return this._userService.GetAll();
         }
         /// <inheritdoc/>
        // [Authorize(Policy = "HasPermission")]
         [HttpPost(AclRoutesUrl.AclUserRouteUrl.Add, Name = AclRoutesName.AclUserRouteNames.Add)]
-        public async Task<AclResponse> Create(AclUserRequest request)
+        public async Task<ScopeResponse> Create(AclUserRequest request)
         {
-            return await this.AclUserService.AddUser(request);
+            return await this._userService.AddUser(request);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPut(AclRoutesUrl.AclUserRouteUrl.Edit, Name = AclRoutesName.AclUserRouteNames.Edit)]
-        public async Task<AclResponse> Edit(ulong id, AclUserRequest request)
+        public async Task<ScopeResponse> Edit(ulong id, AclUserRequest request)
         {
-            return await this.AclUserService.Edit(id, request);
+            return await this._userService.Edit(id, request);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpDelete(AclRoutesUrl.AclUserRouteUrl.Destroy, Name = AclRoutesName.AclUserRouteNames.Destroy)]
-        public AclResponse Destroy(ulong id)
+        public ScopeResponse Destroy(ulong id)
         {
-            return this.AclUserService.DeleteById(id);
+            return this._userService.DeleteById(id);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclUserRouteUrl.View, Name = AclRoutesName.AclUserRouteNames.View)]
-        public AclResponse View(ulong id)
+        public ScopeResponse View(ulong id)
         {
-            return this.AclUserService.FindById(id);
+            return this._userService.FindById(id);
 
         }
     }

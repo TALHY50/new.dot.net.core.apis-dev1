@@ -1,9 +1,9 @@
+using ACL.App.Contracts.Requests;
+using ACL.App.Contracts.Responses;
+using ACL.App.Domain.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Contracts.ACL.Requests;
-using SharedKernel.Main.Contracts.ACL.Response;
-using SharedKernel.Main.Domain.ACL.Services.Module;
 
 namespace ACL.App.Application.Features
 {
@@ -13,48 +13,48 @@ namespace ACL.App.Application.Features
     [ApiController]
     public class AclSubModuleController : ControllerBase
     {
-        private readonly IAclSubModuleService AclSubModuleService;
+        private readonly ISubModuleService _subModuleService;
         /// <inheritdoc/>
-        public AclSubModuleController(IAclSubModuleService _AclSubModuleService)
+        public AclSubModuleController(ISubModuleService subModuleService)
         {
-            this.AclSubModuleService = _AclSubModuleService;
+            this._subModuleService = subModuleService;
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclSubmoduleRouteUrl.List, Name = AclRoutesName.AclSubmoduleRouteNames.List)]
-        public AclResponse Index()
+        public ScopeResponse Index()
         {
-            return this.AclSubModuleService.GetAll();
+            return this._subModuleService.GetAll();
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPost(AclRoutesUrl.AclSubmoduleRouteUrl.Add, Name = AclRoutesName.AclSubmoduleRouteNames.Add)]
-        public AclResponse Create(AclSubModuleRequest objSubModule)
+        public ScopeResponse Create(AclSubModuleRequest objSubModule)
         {
-            return this.AclSubModuleService.Add(objSubModule);
+            return this._subModuleService.Add(objSubModule);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclSubmoduleRouteUrl.View, Name = AclRoutesName.AclSubmoduleRouteNames.View)]
-        public AclResponse View(ulong id)
+        public ScopeResponse View(ulong id)
         {
-            return this.AclSubModuleService.FindById(id);
+            return this._subModuleService.FindById(id);
 
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPut(AclRoutesUrl.AclSubmoduleRouteUrl.Edit, Name = AclRoutesName.AclSubmoduleRouteNames.Edit)]
-        public AclResponse Edit( AclSubModuleRequest objSubModule)
+        public ScopeResponse Edit( AclSubModuleRequest objSubModule)
         {
-            return this.AclSubModuleService.Edit( objSubModule);
+            return this._subModuleService.Edit( objSubModule);
 
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpDelete(AclRoutesUrl.AclSubmoduleRouteUrl.Destroy, Name = AclRoutesName.AclSubmoduleRouteNames.Destroy)]
-        public AclResponse Destroy(ulong id)
+        public ScopeResponse Destroy(ulong id)
         {
-            return this.AclSubModuleService.DeleteById(id);
+            return this._subModuleService.DeleteById(id);
         }
     }
 }

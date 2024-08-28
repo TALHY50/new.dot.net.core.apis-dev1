@@ -1,13 +1,12 @@
 ﻿using Ardalis.SharedKernel;
 using FluentValidation;
+using IMT.App.Application.Interfaces.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
-using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
-using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 using static Admin.App.Application.Features.Mtts.MttsDelete;
 
 namespace Admin.App.Application.Features.TransactionTypes
@@ -17,12 +16,12 @@ namespace Admin.App.Application.Features.TransactionTypes
         [Tags("TransactionTypes")]
         //[Authorize(Policy = "HasPermission")]
         [HttpDelete(Routes.DeleteTransactionTypeUrl, Name = Routes.DeleteTransactionTypeName)]
-        public async Task<bool> Delete(int id)
+        public async Task<bool> Delete(uint id)
         {
             return await Mediator.Send(new DeleteTransactionTypeCommand(id)).ConfigureAwait(false);
         }
 
-        public record DeleteTransactionTypeCommand(int id) 
+        public record DeleteTransactionTypeCommand(uint id) 
             : IRequest<bool>;
 
         internal sealed class DeleteTransactionTypeCommandValidator : AbstractValidator<DeleteTransactionTypeCommand>
@@ -49,7 +48,7 @@ namespace Admin.App.Application.Features.TransactionTypes
             {
                 if (request.id > 0)
                 {
-                    var transactionTypes = _transactiontypeRepository.GetByIntId(request.id);
+                    var transactionTypes = _transactiontypeRepository.GetByUintId(request.id);
 
                     if (transactionTypes != null)
                     {

@@ -1,12 +1,11 @@
 ﻿using FluentValidation;
+using IMT.App.Application.Interfaces.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
-using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
-using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 using static Admin.App.Application.Features.Mtts.MttsDelete;
 
 namespace Admin.App.Application.Features.Providers
@@ -16,12 +15,12 @@ namespace Admin.App.Application.Features.Providers
         [Tags("Providers")]
         //[Authorize(Policy = "HasPermission")]
         [HttpDelete(Routes.DeleteProviderUrl, Name = Routes.DeleteProviderName)]
-        public async Task<bool> Delete(int id)
+        public async Task<bool> Delete(uint id)
         {
             return await Mediator.Send(new DeleteProviderCommand(id)).ConfigureAwait(false);
         }
 
-        public record DeleteProviderCommand(int id) 
+        public record DeleteProviderCommand(uint id) 
             : IRequest<bool>;
 
         internal sealed class DeleteProviderCommandValidator : AbstractValidator<DeleteProviderCommand>
@@ -48,8 +47,8 @@ namespace Admin.App.Application.Features.Providers
             {
                 if (request.id > 0)
                 {
-                    var providers = _providerRepository.GetByIntId(request.id);
-                    
+                    var providers = _providerRepository.GetByUintId(request.id);
+
                     if (providers != null)
                     {
                         return await _providerRepository.DeleteAsync(providers);

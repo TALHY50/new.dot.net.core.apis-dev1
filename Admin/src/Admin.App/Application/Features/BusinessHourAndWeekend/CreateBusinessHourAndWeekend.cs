@@ -1,15 +1,14 @@
 ﻿using Ardalis.SharedKernel;
 using ErrorOr;
 using FluentValidation;
+using IMT.App.Application.Interfaces.Repositories;
+using IMT.App.Domain.Entities;
+using IMT.App.Infrastructure.Persistence.Context;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
-using SharedKernel.Main.Domain.Notification.Notifications.Events;
-using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
-using SharedKernel.Main.Domain.IMT.Entities;
 
 namespace Admin.App.Application.Features.BusinessHourAndWeekend;
 
@@ -40,7 +39,7 @@ public class CreateBusinessHourAndWeekendController : ApiControllerBase
         }
     }
 
-    internal sealed class CreateBusinessHourAndWeekendHandler(ImtApplicationDbContext context, IBusinessHourAndWeekendRepository repository) : IRequestHandler<CreateBusinessHourAndWeekendCommand, ErrorOr<BusinessHoursAndWeekend>>
+    internal sealed class CreateBusinessHourAndWeekendHandler(ApplicationDbContext context, IBusinessHourAndWeekendRepository repository) : IRequestHandler<CreateBusinessHourAndWeekendCommand, ErrorOr<BusinessHoursAndWeekend>>
     {
 
         public async Task<ErrorOr<BusinessHoursAndWeekend>> Handle(CreateBusinessHourAndWeekendCommand request, CancellationToken cancellationToken)
@@ -62,13 +61,5 @@ public class CreateBusinessHourAndWeekendController : ApiControllerBase
             return await repository.AddAsync(entity);
         }
     }
-
-
-
-
-
-
-
-
 
 }

@@ -1,10 +1,10 @@
 ﻿using Ardalis.SharedKernel;
 using ErrorOr;
+using IMT.App.Application.Interfaces.Repositories;
+using IMT.App.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
-using SharedKernel.Main.Domain.IMT.Entities;
 
 namespace Admin.App.Application.Features.Payers
 {

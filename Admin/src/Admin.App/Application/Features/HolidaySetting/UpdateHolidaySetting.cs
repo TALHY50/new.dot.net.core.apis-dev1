@@ -1,15 +1,13 @@
 ﻿using ErrorOr;
 using FluentValidation;
+using IMT.App.Application.Interfaces.Repositories;
+using IMT.App.Infrastructure.Persistence.Context;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
-using SharedKernel.Main.Domain.Admin;
-using SharedKernel.Main.Domain.IMT.Entities;
-using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
-using Entities = SharedKernel.Main.Domain.IMT.Entities;
+using Duplicates_HolidaySetting = IMT.App.Domain.Entities.Duplicates.HolidaySetting;
 
 namespace Admin.App.Application.Features.HolidaySetting;
 
@@ -17,13 +15,13 @@ public class UpdateHolidaySettingController : ApiControllerBase
 {
     //[Authorize(Policy = "HasPermission")]
     [HttpPut(Routes.UpdateHolidaySettingUrl, Name = Routes.UpdateHolidaySettingName)]
-    public async Task<ActionResult<ErrorOr<Entities.HolidaySetting>>> Create(UpdateHolidaySettingCommand command)
+    public async Task<ActionResult<ErrorOr<Duplicates_HolidaySetting>>> Create(UpdateHolidaySettingCommand command)
     {
         return await Mediator.Send(command).ConfigureAwait(false);
     }
 
     public record UpdateHolidaySettingCommand(int Id, uint? CountryId, DateTime Date, byte Type, sbyte Gmt, DateTime? OpenAt, DateTime? CloseAt, uint? CompanyId)
-    : IRequest<ErrorOr<Entities.HolidaySetting>>;
+    : IRequest<ErrorOr<Duplicates_HolidaySetting>>;
 
 
     internal sealed class UpdateHolidaySettingCommandValidator : AbstractValidator<UpdateHolidaySettingCommand>
@@ -36,9 +34,9 @@ public class UpdateHolidaySettingController : ApiControllerBase
         }
     }
 
-    internal sealed class UpdateHolidaySettingHandler(ImtApplicationDbContext _context, IHolidaySettingRepository repository) : IRequestHandler<UpdateHolidaySettingCommand, ErrorOr<Entities.HolidaySetting>>
+    internal sealed class UpdateHolidaySettingHandler(ApplicationDbContext _context, IHolidaySettingRepository repository) : IRequestHandler<UpdateHolidaySettingCommand, ErrorOr<Duplicates_HolidaySetting>>
     {
-        public async Task<ErrorOr<Entities.HolidaySetting>> Handle(UpdateHolidaySettingCommand request, CancellationToken cancellationToken)
+        public async Task<ErrorOr<Duplicates_HolidaySetting>> Handle(UpdateHolidaySettingCommand request, CancellationToken cancellationToken)
         {
 
             var holidaySetting = await _context.ImtHolidaySettings.FirstAsync(e => e.Id == request.Id, cancellationToken: cancellationToken).ConfigureAwait(false);

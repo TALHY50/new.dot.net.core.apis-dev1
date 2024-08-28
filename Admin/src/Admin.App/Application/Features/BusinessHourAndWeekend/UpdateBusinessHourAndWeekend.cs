@@ -1,16 +1,14 @@
 ﻿using ErrorOr;
 using FluentValidation;
+using IMT.App.Application.Interfaces.Repositories;
+using IMT.App.Domain.Entities;
+using IMT.App.Infrastructure.Persistence.Context;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Application.Common.Models;
-using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
-using SharedKernel.Main.Contracts.Notificaiton;
-using SharedKernel.Main.Domain.IMT.Entities;
-using SharedKernel.Main.Domain.Notification.Notifications.Events;
-using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 
 namespace Admin.App.Application.Features.BusinessHourAndWeekend;
 
@@ -40,7 +38,7 @@ public class UpdateBusinessHourAndWeekendController : ApiControllerBase
         }
     }
 
-    internal sealed class UpdateBusinessHourAndWeekendHandler(ImtApplicationDbContext _context, IBusinessHourAndWeekendRepository repository) : IRequestHandler<UpdateBusinessHourAndWeekendCommand, ErrorOr<BusinessHoursAndWeekend>>
+    internal sealed class UpdateBusinessHourAndWeekendHandler(ApplicationDbContext _context, IBusinessHourAndWeekendRepository repository) : IRequestHandler<UpdateBusinessHourAndWeekendCommand, ErrorOr<BusinessHoursAndWeekend>>
     {
         public async Task<ErrorOr<BusinessHoursAndWeekend>> Handle(UpdateBusinessHourAndWeekendCommand request, CancellationToken cancellationToken)
         {

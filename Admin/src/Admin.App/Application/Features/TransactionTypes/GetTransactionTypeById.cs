@@ -1,13 +1,13 @@
 ﻿using Ardalis.SharedKernel;
 using ErrorOr;
 using FluentValidation;
+using IMT.App.Application.Interfaces.Repositories;
+using IMT.App.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
-using SharedKernel.Main.Domain.IMT.Entities;
 using static Admin.App.Application.Features.Mtts.MttView;
 
 namespace Admin.App.Application.Features.TransactionTypes
@@ -17,12 +17,12 @@ namespace Admin.App.Application.Features.TransactionTypes
         [Tags("TransactionTypes")]
         //[Authorize(Policy = "HasPermission")]
         [HttpGet(Routes.GetTransactionTypeByIdUrl, Name = Routes.GetTransactionTypeByIdName)]
-        public async Task<ActionResult<ErrorOr<TransactionType>>> Get(int id)
+        public async Task<ActionResult<ErrorOr<TransactionType>>> Get(uint id)
         {
             return await Mediator.Send(new GetTransactionTypeByIdQuery(id)).ConfigureAwait(false);
         }
 
-        public record GetTransactionTypeByIdQuery(int id) : IRequest<ErrorOr<TransactionType>>;
+        public record GetTransactionTypeByIdQuery(uint id) : IRequest<ErrorOr<TransactionType>>;
 
         internal sealed class GetTransactionTypeByIdQueryValidator : AbstractValidator<GetTransactionTypeByIdQuery>
         {
@@ -43,7 +43,7 @@ namespace Admin.App.Application.Features.TransactionTypes
             }
             public async Task<ErrorOr<TransactionType>> Handle(GetTransactionTypeByIdQuery request, CancellationToken cancellationToken)
             {
-                return _transactionTypeRepository.GetByIntId(request.id);
+                return _transactionTypeRepository.GetByUintId(request.id);
             }
         }
     }

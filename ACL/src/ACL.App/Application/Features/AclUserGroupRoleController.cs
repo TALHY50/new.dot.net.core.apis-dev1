@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using ACL.App.Contracts.Requests;
+using ACL.App.Contracts.Responses;
+using ACL.App.Domain.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Contracts.ACL.Requests;
-using SharedKernel.Main.Contracts.ACL.Response;
-using SharedKernel.Main.Domain.ACL.Services.UserGroup;
 
 namespace ACL.App.Application.Features
 {
@@ -13,25 +13,25 @@ namespace ACL.App.Application.Features
     [ApiController]
     public class AclUserGroupRoleController : ControllerBase
     {
-        private readonly IAclUserGroupRoleService AclUserGroupRoleService;
+        private readonly IUserGroupRoleService _userGroupRoleService;
         /// <inheritdoc/>
-        public AclUserGroupRoleController(IAclUserGroupRoleService _AclUserGroupRoleService)
+        public AclUserGroupRoleController(IUserGroupRoleService userGroupRoleService)
         {
-            this.AclUserGroupRoleService = _AclUserGroupRoleService;
+            this._userGroupRoleService = userGroupRoleService;
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclUserGroupRoleRouteUrl.List, Name = AclRoutesName.AclUserGroupRoleRouteNames.List)]
-        public AclResponse Index(ulong userGroupId)
+        public ScopeResponse Index(ulong userGroupId)
         {
-            return this.AclUserGroupRoleService.GetRolesByUserGroupId(userGroupId);
+            return this._userGroupRoleService.GetRolesByUserGroupId(userGroupId);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPost(AclRoutesUrl.AclUserGroupRoleRouteUrl.Update, Name = AclRoutesName.AclUserGroupRoleRouteNames.Update)]
-        public async Task<AclResponse> Update(AclUserGroupRoleRequest objUserGroupRole)
+        public async Task<ScopeResponse> Update(AclUserGroupRoleRequest objUserGroupRole)
         {
-            return await this.AclUserGroupRoleService.Update(objUserGroupRole);
+            return await this._userGroupRoleService.Update(objUserGroupRole);
         }
 
 

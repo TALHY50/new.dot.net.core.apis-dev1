@@ -1,10 +1,10 @@
 using ErrorOr;
 using FluentValidation;
+using IMT.App.Infrastructure.Persistence.Context;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 using Thunes.Route;
 
 namespace IMT.App.Application.Features;
@@ -50,10 +50,10 @@ internal sealed class CreateMoneyTransferQuotationValidator : AbstractValidator<
     }
 }
 
-internal sealed class ConfirmMoneyTransferHandler(ImtApplicationDbContext context)
+internal sealed class ConfirmMoneyTransferHandler(ApplicationDbContext context)
     : IRequestHandler<ConfirmMoneyTransfer, ErrorOr<object>>
 {
-    private readonly ImtApplicationDbContext _context = context;
+    private readonly ApplicationDbContext _context = context;
 
     public async Task<ErrorOr<object>> Handle(ConfirmMoneyTransfer request, CancellationToken cancellationToken)
     {

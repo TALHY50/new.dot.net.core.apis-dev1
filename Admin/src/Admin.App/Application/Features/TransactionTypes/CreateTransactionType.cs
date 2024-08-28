@@ -1,14 +1,13 @@
 ﻿using Ardalis.SharedKernel;
 using ErrorOr;
 using FluentValidation;
+using IMT.App.Application.Interfaces.Repositories;
+using IMT.App.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
-using SharedKernel.Main.Domain.IMT.Entities;
-using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 
 namespace Admin.App.Application.Features.TransactionTypes
 {
@@ -24,8 +23,7 @@ namespace Admin.App.Application.Features.TransactionTypes
     }
 
     public record CreateTransactionTypeCommand(
-        string? Name,
-        sbyte? Status) : IRequest<ErrorOr<TransactionType>>;
+        byte Status) : IRequest<ErrorOr<TransactionType>>;
 
 
     internal sealed class CreateTransactionTypeCommandHandler
@@ -43,8 +41,7 @@ namespace Admin.App.Application.Features.TransactionTypes
             var now = DateTime.UtcNow;
             var @transactionType = new TransactionType
             {
-                //Name = request.Name,
-                //Status = request.Status,
+                Status = request.Status,
                 CreatedById = 1,
                 UpdatedById = 2,
                 CreatedAt = now,

@@ -1,13 +1,13 @@
 ﻿using Ardalis.SharedKernel;
 using ErrorOr;
 using FluentValidation;
+using IMT.App.Application.Interfaces.Repositories;
+using IMT.App.Domain.Entities.Duplicates;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
-using SharedKernel.Main.Domain.IMT.Entities;
 using static Admin.App.Application.Features.Mtts.MttView;
 
 namespace Admin.App.Application.Features.Providers
@@ -17,12 +17,12 @@ namespace Admin.App.Application.Features.Providers
         [Tags("Providers")]
         //[Authorize(Policy = "HasPermission")]
         [HttpGet(Routes.GetProviderByIdUrl, Name = Routes.GetProviderByIdName)]
-        public async Task<ActionResult<ErrorOr<Provider>>> Get(int id)
+        public async Task<ActionResult<ErrorOr<Provider>>> Get(uint id)
         {
             return await Mediator.Send(new GetProviderByIdQuery(id)).ConfigureAwait(false);
         }
 
-        public record GetProviderByIdQuery(int id) : IRequest<ErrorOr<Provider>>;
+        public record GetProviderByIdQuery(uint id) : IRequest<ErrorOr<Provider>>;
 
 
         internal sealed class GetProviderByIdQueryValidator : AbstractValidator<GetProviderByIdQuery>
@@ -46,7 +46,7 @@ namespace Admin.App.Application.Features.Providers
             }
             public async Task<ErrorOr<Provider>> Handle(GetProviderByIdQuery request, CancellationToken cancellationToken)
             {
-                return _providerRepository.GetByIntId(request.id);
+                return _providerRepository.GetByUintId(request.id);
             }
         }
     }
