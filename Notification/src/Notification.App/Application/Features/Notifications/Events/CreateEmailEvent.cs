@@ -25,7 +25,11 @@ public class CreateEmailEventController : ApiControllerBase
     [HttpPost(Routes.CreateEmailEventRoute, Name = Routes.CreateEmailEventRouteName)]
     public async Task<ActionResult<ErrorOr<Event>>> Create(CreateEmailEventCommand command)
     {
-        return await Mediator.Send(command).ConfigureAwait(false);
+        var result = await Mediator.Send(command).ConfigureAwait(false);
+
+        return result.Match(
+            reminder => Ok(result.Value),
+            Problem);
     }
 }
 
