@@ -1,4 +1,7 @@
-﻿namespace IMT.App.Domain.Entities;
+﻿using System;
+using System.Collections.Generic;
+
+namespace IMT.App.Domain.Entities;
 
 /// <summary>
 /// Type : Master, payers are the corridor setups under a provider like Thunes, a payer is acting like a bank terminal, most of the data are operational, will be set as MTT&apos;s values, here to crosscheck

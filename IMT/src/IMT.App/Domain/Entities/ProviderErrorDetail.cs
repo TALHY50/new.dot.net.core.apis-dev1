@@ -1,14 +1,17 @@
-﻿namespace IMT.App.Domain.Entities;
+﻿using System;
+using System.Collections.Generic;
+
+namespace IMT.App.Domain.Entities;
 
 public partial class ProviderErrorDetail
 {
-    public int Id { get; set; }
+    public uint Id { get; set; }
 
-    public int ImtProviderId { get; set; }
+    public uint ImtProviderId { get; set; }
 
     public sbyte Type { get; set; }
 
-    public int ReferenceId { get; set; }
+    public uint ReferenceId { get; set; }
 
     public string? ErrorCode { get; set; }
 
