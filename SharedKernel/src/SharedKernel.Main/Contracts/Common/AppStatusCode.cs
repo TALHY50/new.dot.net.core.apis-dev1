@@ -24,6 +24,6 @@
     public static partial class AppRejectedStatusCode
     {
         public static readonly int API_REJECTED_TRANSACTION = 30;
-          public static readonly int API_REJECTED_INSUFFECIENT_BALANCE = 1002;
+          public static readonly int API_REJECTED_INSUFFECIENT_BALANCE = 31;
     }
 }

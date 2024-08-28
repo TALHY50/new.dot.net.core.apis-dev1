@@ -31,7 +31,7 @@ public record CreateWebEventCommand(
     CategoricalData CategoricalData,
     WebReceivers Receivers,
     MiscellaneousInformation Information) : IRequest<ErrorOr<Event>>;
-internal sealed class CreateWebEventCommandValidator : AbstractValidator<CreateWebEventCommand>
+public class CreateWebEventCommandValidator : AbstractValidator<CreateWebEventCommand>
 {
     public CreateWebEventCommandValidator()
     {
@@ -41,7 +41,7 @@ internal sealed class CreateWebEventCommandValidator : AbstractValidator<CreateW
     }
 }
 
-internal sealed class CreateWebEventCommandHandler(ApplicationDbContext context) : IRequestHandler<CreateWebEventCommand, ErrorOr<Event>>
+public class CreateWebEventCommandHandler(ApplicationDbContext context) : IRequestHandler<CreateWebEventCommand, ErrorOr<Event>>
 {
     private readonly ApplicationDbContext _context = context;
 

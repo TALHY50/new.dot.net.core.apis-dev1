@@ -31,7 +31,7 @@ public class SendEmailController : ApiControllerBase
 
 public record SendEmailCommand(OutgoingId OutgoingId) : IRequest<ErrorOr<Result>>;
 
-internal sealed class SendEmailCommandValidator : AbstractValidator<SendEmailCommand>
+public class SendEmailCommandValidator : AbstractValidator<SendEmailCommand>
 {
     public SendEmailCommandValidator()
     {
@@ -41,7 +41,7 @@ internal sealed class SendEmailCommandValidator : AbstractValidator<SendEmailCom
     }
 }
 
-internal sealed class SendEmailCommandHandler(
+public class SendEmailCommandHandler(
     ILogger<SendEmailCommandHandler> logger,
     ApplicationDbContext context,
     IEmailOutgoingRepository emailOutgoingRepository,
