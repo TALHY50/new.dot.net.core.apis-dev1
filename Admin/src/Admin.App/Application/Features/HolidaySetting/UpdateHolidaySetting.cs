@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Contracts.Common;
 using Duplicates_HolidaySetting = IMT.App.Domain.Entities.HolidaySetting;
 
 namespace Admin.App.Application.Features.HolidaySetting;
@@ -17,7 +18,10 @@ public class UpdateHolidaySettingController : ApiControllerBase
     [HttpPut(Routes.UpdateHolidaySettingUrl, Name = Routes.UpdateHolidaySettingName)]
     public async Task<ActionResult<ErrorOr<Duplicates_HolidaySetting>>> Create(UpdateHolidaySettingCommand command)
     {
-        return await Mediator.Send(command).ConfigureAwait(false);
+        var result = await Mediator.Send(command).ConfigureAwait(false);
+        return result.Match(
+            reminder => Ok(result.Value),
+            Problem);
     }
 
     public record UpdateHolidaySettingCommand(int Id, uint? CountryId, DateTime Date, byte Type, sbyte Gmt, DateTime? OpenAt, DateTime? CloseAt, uint? CompanyId)
@@ -42,7 +46,7 @@ public class UpdateHolidaySettingController : ApiControllerBase
             var holidaySetting = await _context.ImtHolidaySettings.FirstAsync(e => e.Id == request.Id, cancellationToken: cancellationToken).ConfigureAwait(false);
             if (holidaySetting == null)
             {
-                return Error.NotFound("Holiday Setting not found!");
+                return Error.NotFound("Holiday Setting not found!", AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
             holidaySetting.CountryId = request.CountryId;
             holidaySetting.Date = request.Date;
