@@ -17,12 +17,12 @@ namespace IMT.App.Infrastructure.Persistence.Configurations
                 .IsRequired()
                 .ValueGeneratedOnAdd();  // For AUTO_INCREMENT
 
-            builder.Property(e => e.QuotationId)
-                .HasColumnName("quotation_id")
-                .IsRequired();
+            //builder.Property(e => e.QuotationId)
+            //    .HasColumnName("quotation_id")
+            //    .IsRequired();
 
-            builder.Property(e => e.InstitutionId)
-                .HasColumnName("institution_id");
+            //builder.Property(e => e.InstitutionId)
+            //    .HasColumnName("institution_id");
 
             builder.Property(e => e.InvoiceId)
                 .HasColumnName("invoice_id")
@@ -42,47 +42,47 @@ namespace IMT.App.Infrastructure.Persistence.Configurations
                 .HasMaxLength(50)
                 .HasComment("Transaction id by providers");
 
-            builder.Property(e => e.Mode)
-                .HasColumnName("mode")
-                .HasColumnType("tinyint");
+            //builder.Property(e => e.Mode)
+            //    .HasColumnName("mode")
+            //    .HasColumnType("tinyint");
 
-            builder.Property(e => e.RequestAmount)
-                .HasColumnName("request_amount")
-                .HasColumnType("decimal(12,4)");
+            //builder.Property(e => e.RequestAmount)
+            //    .HasColumnName("request_amount")
+            //    .HasColumnType("decimal(12,4)");
 
-            builder.Property(e => e.CurrencyId)
-                .HasColumnName("currency_id");
+            //builder.Property(e => e.CurrencyId)
+            //    .HasColumnName("currency_id");
 
-            builder.Property(e => e.MttId)
-                .HasColumnName("mtt_id");
+            //builder.Property(e => e.MttId)
+            //    .HasColumnName("mtt_id");
 
             builder.Property(e => e.ExchangeRate)
                 .HasColumnName("exchange_rate")
                 .HasColumnType("decimal(12,9)");
 
-            builder.Property(e => e.Commission)
-                .HasColumnName("commission")
-                .HasColumnType("decimal(12,9)");
+            //builder.Property(e => e.Commission)
+            //    .HasColumnName("commission")
+            //    .HasColumnType("decimal(12,9)");
 
-            builder.Property(e => e.Cot)
-                .HasColumnName("cot")
-                .HasColumnType("decimal(12,9)");
+            //builder.Property(e => e.Cot)
+            //    .HasColumnName("cot")
+            //    .HasColumnType("decimal(12,9)");
 
-            builder.Property(e => e.Tax)
-                .HasColumnName("tax")
-                .HasColumnType("decimal(12,9)");
+            //builder.Property(e => e.Tax)
+            //    .HasColumnName("tax")
+            //    .HasColumnType("decimal(12,9)");
 
-            builder.Property(e => e.MarkUp)
-                .HasColumnName("mark_up")
-                .HasColumnType("decimal(12,9)");
+            //builder.Property(e => e.MarkUp)
+            //    .HasColumnName("mark_up")
+            //    .HasColumnType("decimal(12,9)");
 
-            builder.Property(e => e.MarkUpPercentage)
-                .HasColumnName("mark_up_percentage")
-                .HasColumnType("decimal(12,9)");
+            //builder.Property(e => e.MarkUpPercentage)
+            //    .HasColumnName("mark_up_percentage")
+            //    .HasColumnType("decimal(12,9)");
 
-            builder.Property(e => e.MarkUpFixed)
-                .HasColumnName("mark_up_fixed")
-                .HasColumnType("decimal(12,9)");
+            //builder.Property(e => e.MarkUpFixed)
+            //    .HasColumnName("mark_up_fixed")
+            //    .HasColumnType("decimal(12,9)");
 
             builder.Property(e => e.SendAmount)
                 .HasColumnName("send_amount")

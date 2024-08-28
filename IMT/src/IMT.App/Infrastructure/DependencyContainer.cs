@@ -1,4 +1,4 @@
-﻿using IMT.App.Infrastructure.Persistence.Context.Old;
+﻿using IMT.App.Infrastructure.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Notification.App.Infrastructure.Persistence.Configurations;
 

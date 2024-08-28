@@ -1,4 +1,4 @@
-﻿using IMT.App.Domain.Entities.Duplicates;
+﻿using IMT.App.Domain.Entities;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
 
 namespace IMT.App.Application.Interfaces.Repositories

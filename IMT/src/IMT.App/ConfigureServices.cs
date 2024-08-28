@@ -116,7 +116,7 @@ public static class DependencyInjection
                 }),
             ServiceLifetime.Transient);
 
-        services.AddDbContext<IMT.App.Infrastructure.Persistence.Context.Old.ApplicationDbContext>(
+        services.AddDbContext<IMT.App.Infrastructure.Persistence.Context.ApplicationDbContext>(
             options =>
                 options.UseMySQL(connectionString, options =>
                 {

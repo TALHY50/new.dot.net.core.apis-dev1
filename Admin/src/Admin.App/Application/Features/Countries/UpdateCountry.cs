@@ -27,7 +27,7 @@ namespace Admin.App.Application.Features.Countries
             string? Code,
             string? IsoCode,
             string? Name,
-            sbyte Status) : IRequest<ErrorOr<Country>>;
+            byte Status) : IRequest<ErrorOr<Country>>;
 
         internal sealed class UpdateCountryCommandValidator : AbstractValidator<UpdateCountryCommand>
         {
