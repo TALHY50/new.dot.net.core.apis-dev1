@@ -66,7 +66,7 @@ namespace Admin.App.Application.Features.Countries
                 }
                 else
                 {
-                    return Error.NotFound(description: "Record not found!", code: AppStatusCode.CountryNotFound.ToString());
+                    return Error.NotFound(description: "Record not found!", code: AppErrorStatusCode.API_ERROR_COUNTRY_NOT_FOUND.ToString());
                 }
             }
         }

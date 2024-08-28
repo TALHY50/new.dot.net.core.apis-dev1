@@ -41,7 +41,7 @@ namespace Admin.App.Application.Features.Countries
                 var countries = _repository.All().ToList();
                 if (countries == null)
                 {
-                    return Error.NotFound(description: "Record not found!", code: AppStatusCode.CountryNotFound.ToString());
+                    return Error.NotFound(description: "Record not found!", code: AppErrorStatusCode.API_ERROR_COUNTRY_NOT_FOUND.ToString());
                 }
                 return countries;
             }

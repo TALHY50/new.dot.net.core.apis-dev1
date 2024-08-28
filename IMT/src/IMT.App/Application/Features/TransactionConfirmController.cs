@@ -1,8 +1,7 @@
 ﻿using IMT.App.Application.Interfaces.Services;
 using IMT.App.Domain.Entities;
-using IMT.App.Infrastructure.Persistence.Context.Old;
+using IMT.App.Infrastructure.Persistence.Context;
 using Microsoft.AspNetCore.Mvc;
-using Notification.App.Infrastructure.Persistence.Configurations;
 using Thunes.Exception;
 using Thunes.Request.ConfirmTrasaction;
 using Thunes.Response.Common;

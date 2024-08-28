@@ -15,7 +15,7 @@
     public static partial class AppErrorStatusCode
     {
         public static readonly int API_ERROR_INSTITUTION_NOT_FOUND = 1001;
-        public static readonly int CountryNotFound = 1001;
+        public static readonly int API_ERROR_COUNTRY_NOT_FOUND = 1010;
 
     }
     public static partial class AppPendingStatusCode
