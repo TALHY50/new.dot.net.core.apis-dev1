@@ -159,10 +159,6 @@
 		<AdditionalFiles Include="Application\Common\Resources\en-US.resx" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <ProjectReference Include="..\..\..\IMT\src\Thunes\Thunes.csproj" />
-	</ItemGroup>
-
 
 
 </Project>
