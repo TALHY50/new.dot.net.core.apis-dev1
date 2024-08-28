@@ -1,6 +1,6 @@
 ﻿using IMT.App.Application.Interfaces.Services;
 using IMT.App.Domain.Entities;
-using IMT.App.Infrastructure.Persistence.Context.Old;
+using IMT.App.Infrastructure.Persistence.Context;
 using Microsoft.AspNetCore.Mvc;
 using Notification.App.Infrastructure.Persistence.Configurations;
 using Thunes.Exception;
@@ -25,7 +25,7 @@ namespace IMT.App.Application.Features
         }
         [Tags("Thunes.Transaction")]
         [HttpPost(ThunesUrl.ConfirmTransactionByIdUrl)]
-        public object ConfirmTransactionById(int id)
+        public object ConfirmTransactionById(uint id)
         {
             var trasactionDTO = new ConfirmTrasactionDTO
             {

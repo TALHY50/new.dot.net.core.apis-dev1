@@ -32,7 +32,7 @@ public class ValidationBehaviour<TRequest, TResponse>(IValidator<TRequest>? vali
 
         var errors = validationResult.Errors
             .ConvertAll(error => Error.Validation(
-                code: error.PropertyName,
+                code: error.ErrorCode,
                 description: error.ErrorMessage));
 
         return (dynamic)errors;
