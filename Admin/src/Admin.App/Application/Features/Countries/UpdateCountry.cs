@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Contracts.Common;
 
 namespace Admin.App.Application.Features.Countries
 {
@@ -19,7 +20,10 @@ namespace Admin.App.Application.Features.Countries
         public async Task<ActionResult<ErrorOr<Country>>> Update(uint Id, UpdateCountryCommand command)
         {
             var commandWithId = command with { Id = Id };
-            return await Mediator.Send(commandWithId).ConfigureAwait(false);
+            var result = await Mediator.Send(commandWithId).ConfigureAwait(false);
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
 
         public record UpdateCountryCommand(
@@ -27,9 +31,9 @@ namespace Admin.App.Application.Features.Countries
             string? Code,
             string? IsoCode,
             string? Name,
-            sbyte Status) : IRequest<ErrorOr<Country>>;
+            byte Status) : IRequest<ErrorOr<Country>>;
 
-        internal sealed class UpdateCountryCommandValidator : AbstractValidator<UpdateCountryCommand>
+        public class UpdateCountryCommandValidator : AbstractValidator<UpdateCountryCommand>
         {
             public UpdateCountryCommandValidator()
             {
@@ -37,7 +41,7 @@ namespace Admin.App.Application.Features.Countries
             }
         }
 
-        internal sealed class UpdateCountryCommandHandler : IRequestHandler<UpdateCountryCommand, ErrorOr<Country>>
+        public class UpdateCountryCommandHandler : IRequestHandler<UpdateCountryCommand, ErrorOr<Country>>
         {
             private readonly IAdminCountryRepository _repository;
 
@@ -55,18 +59,15 @@ namespace Admin.App.Application.Features.Countries
                     country.IsoCode = command.IsoCode;
                     country.Name = command.Name;
                     country.Status = command.Status;
+                    country.UpdatedById = command.Id;
+                    country.UpdatedAt = DateTime.UtcNow;
                     
-                    //if (_user?.UserId != null)
-                    //{
-                    //    entity.UpdatedById = uint.Parse(_user?.UserId ?? "1");
-                    //}
-                    //else
-                    //{
-                    //    entity.UpdatedById = 1;
-                    //}
+                    return await _repository.UpdateAsync(country!);
                 }
-
-                return await _repository.UpdateAsync(country!);
+                else
+                {
+                    return Error.NotFound(description: "Record not found!", code: AppStatusCode.CountryNotFound.ToString());
+                }
             }
         }
     }

@@ -18,7 +18,10 @@ namespace Admin.App.Application.Features.Countries
         [HttpGet(Routes.GetCountryByIdUrl, Name = Routes.GetCountryByIdName)]
         public async Task<ActionResult<ErrorOr<Country>>> GetById(uint Id)
         {
-            return await Mediator.Send(new GetCountryByIdQuery(Id)).ConfigureAwait(false);
+            var result = await Mediator.Send(new GetCountryByIdQuery(Id)).ConfigureAwait(false);
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
 
         public record GetCountryByIdQuery(uint Id) : IRequest<ErrorOr<Country>>;
@@ -47,10 +50,8 @@ namespace Admin.App.Application.Features.Countries
                 {
                     return Error.NotFound(description: "Country not found!", code: AppStatusCode.CountryNotFound.ToString());
                 }
-                else
-                {
-                    return country;
-                }
+
+                return country;
             }
         }
     }
