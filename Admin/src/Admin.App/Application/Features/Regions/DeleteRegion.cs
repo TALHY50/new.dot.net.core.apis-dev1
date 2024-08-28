@@ -23,15 +23,17 @@ namespace Admin.App.Application.Features.Regions
         public record DeleteRegionCommand(uint id)
         : IRequest<bool>;
 
-        internal sealed class DeleteRegionCommandValidator : AbstractValidator<DeleteRegionCommand>
+        public class DeleteRegionCommandValidator : AbstractValidator<DeleteRegionCommand>
         {
             public DeleteRegionCommandValidator()
             {
-                RuleFor(r => r.id).NotEmpty();
+                RuleFor(r => r.id)
+                    .NotEmpty()
+                    .WithMessage("ID is required");
             }
         }
 
-        internal sealed class DeleteRegionCommandHandler
+        public class DeleteRegionCommandHandler
         : IRequestHandler<DeleteRegionCommand, bool>
         {
             private readonly ICurrentUserService _user;
