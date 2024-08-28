@@ -17,6 +17,8 @@ using Notification.App.Infrastructure.Persistence.Context;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 
+using ProblemDetails = FastEndpoints.ProblemDetails;
+
 namespace Notification.App.Application.Features.Notifications.Events;
 
 public class CreateEmailEventController : ApiControllerBase
@@ -46,7 +48,7 @@ public class CreateEmailEventCommandValidator : AbstractValidator<CreateEmailEve
     {
         RuleFor(v => v.CategoricalData.Category)
             .MaximumLength(20)
-            .NotEmpty();
+            .NotEmpty().WithErrorCode(ApplicationCodes.StringNullOrEmpty.Code);
     }
 }
 
@@ -92,7 +94,7 @@ public class CreateEmailEventCommandHandler(ApplicationDbContext context) : IReq
 
         if (credential == null)
         {
-            return Error.NotFound("Credential not found!");
+            return Error.NotFound(code: ApplicationCodes.RecordNotFound.Code, "Credential not found!");
         }
 
         ReceiverGroup? receiverGroup = null;
@@ -145,5 +147,6 @@ public class CreateEmailEventCommandHandler(ApplicationDbContext context) : IReq
         await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
         return @event;
+#pragma warning restore CS0162 // Unreachable code detected
     }
 }
