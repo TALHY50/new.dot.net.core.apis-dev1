@@ -1,13 +1,13 @@
 ﻿using ErrorOr;
 using FluentValidation;
+using IMT.App.Application.Interfaces.Repositories;
+using IMT.App.Infrastructure.Persistence.Context;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.IMT.Application.Interfaces.Repositories;
-using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
-using Duplicates_HolidaySetting = SharedKernel.Main.IMT.Domain.Entities.Duplicates.HolidaySetting;
+using Duplicates_HolidaySetting = IMT.App.Domain.Entities.Duplicates.HolidaySetting;
 
 
 namespace Admin.App.Application.Features.HolidaySetting;

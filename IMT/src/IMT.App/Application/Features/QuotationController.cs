@@ -1,6 +1,6 @@
+using IMT.App.Application.Interfaces.Services;
+using IMT.App.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
-using SharedKernel.Main.IMT.Application.Interfaces.Services;
-using SharedKernel.Main.IMT.Domain.Entities;
 using Thunes.Exception;
 using Thunes.Route;
 

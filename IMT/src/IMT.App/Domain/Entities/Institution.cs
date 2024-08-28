@@ -1,4 +1,4 @@
-﻿namespace SharedKernel.Main.IMT.Domain.Entities;
+﻿namespace IMT.App.Domain.Entities;
 
 /// <summary>
 /// Type : Master, we onboard an institution, and perform transactions under it, like the merchants of a payment system

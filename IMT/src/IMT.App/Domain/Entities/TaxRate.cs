@@ -1,4 +1,4 @@
-﻿namespace SharedKernel.Main.IMT.Domain.Entities;
+﻿namespace IMT.App.Domain.Entities;
 
 /// <summary>
 /// Type : Master, government tax rates based on countries for each transaction

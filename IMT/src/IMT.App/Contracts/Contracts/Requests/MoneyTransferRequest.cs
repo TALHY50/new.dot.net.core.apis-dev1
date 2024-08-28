@@ -1,1 +1,1 @@
-namespace SharedKernel.Main.IMT.Contracts.Contracts.Requests;
+namespace IMT.App.Contracts.Contracts.Requests;

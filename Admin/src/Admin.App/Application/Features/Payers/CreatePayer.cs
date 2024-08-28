@@ -1,11 +1,11 @@
 ﻿using ErrorOr;
 using FluentValidation;
+using IMT.App.Application.Interfaces.Repositories;
+using IMT.App.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.IMT.Application.Interfaces.Repositories;
-using SharedKernel.Main.IMT.Domain.Entities;
 
 namespace Admin.App.Application.Features.Payers
 {

@@ -1,7 +1,7 @@
-﻿using SharedKernel.Main.Application.Common.Interfaces.Services;
-using SharedKernel.Main.IMT.Domain.Entities;
+﻿using IMT.App.Domain.Entities;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
 
-namespace SharedKernel.Main.IMT.Application.Interfaces.Repositories
+namespace IMT.App.Application.Interfaces.Repositories
 {
     public interface IImtMttsRepository : IGenericRepository<Mtt>
     {

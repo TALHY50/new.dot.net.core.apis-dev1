@@ -1,4 +1,4 @@
-﻿namespace SharedKernel.Main.IMT.Domain.Entities;
+﻿namespace IMT.App.Domain.Entities;
 
 /// <summary>
 /// Type : Master, conversion rates based on a corridor

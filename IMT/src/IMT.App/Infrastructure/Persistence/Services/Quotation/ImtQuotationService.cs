@@ -1,1 +1,1 @@
-namespace SharedKernel.Main.IMT.Infrastructure.Persistence.Services.Quotation;
+namespace IMT.App.Infrastructure.Persistence.Services.Quotation;

@@ -8,8 +8,8 @@ using Microsoft.CodeAnalysis;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using System.Reflection.Metadata;
-using SharedKernel.Main.IMT.Application.Interfaces.Repositories;
-using SharedKernel.Main.IMT.Domain.Entities;
+using IMT.App.Application.Interfaces.Repositories;
+using IMT.App.Domain.Entities;
 
 namespace Admin.App.Application.Features.Currencies
 {

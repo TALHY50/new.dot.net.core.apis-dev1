@@ -1,4 +1,4 @@
-﻿namespace SharedKernel.Main.IMT.Domain.Entities.Duplicates;
+﻿namespace IMT.App.Domain.Entities.Duplicates;
 
 /// <summary>
 /// Type : Master, contrywise holidays

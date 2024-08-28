@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using IMT.App.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
-using SharedKernel.Main.IMT.Domain.Entities;
+using HolidaySetting = IMT.App.Domain.Entities.Duplicates.HolidaySetting;
+using Provider = IMT.App.Domain.Entities.Duplicates.Provider;
 
-namespace SharedKernel.Main.Infrastructure.Persistence.IMT.Context
+namespace IMT.App.Infrastructure.Persistence.Context
 {
     public partial class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
            : DbContext(options), IApplicationDbContext
@@ -26,7 +28,7 @@ namespace SharedKernel.Main.Infrastructure.Persistence.IMT.Context
 
         public virtual DbSet<CustomerBank> ImtCustomerBanks { get; set; }
 
-        public virtual DbSet<SharedKernel.Main.IMT.Domain.Entities.Duplicates.HolidaySetting> ImtHolidaySettings { get; set; }
+        public virtual DbSet<HolidaySetting> ImtHolidaySettings { get; set; }
 
         public virtual DbSet<Institution> ImtInstitutions { get; set; }
 
@@ -48,7 +50,7 @@ namespace SharedKernel.Main.Infrastructure.Persistence.IMT.Context
 
         public virtual DbSet<PaymentMethod> ImtPaymentMethods { get; set; }
 
-        public virtual DbSet<SharedKernel.Main.IMT.Domain.Entities.Duplicates.Provider> ImtProviders { get; set; }
+        public virtual DbSet<Provider> ImtProviders { get; set; }
 
         public virtual DbSet<ProviderCommission> ImtProviderCommissions { get; set; }
 
@@ -424,7 +426,7 @@ namespace SharedKernel.Main.Infrastructure.Persistence.IMT.Context
             entity.Property(e => e.UpdatedById).HasColumnName("updated_by_id");
         });
 
-        modelBuilder.Entity<SharedKernel.Main.IMT.Domain.Entities.Duplicates.HolidaySetting>(entity =>
+        modelBuilder.Entity<HolidaySetting>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
@@ -944,7 +946,7 @@ namespace SharedKernel.Main.Infrastructure.Persistence.IMT.Context
             entity.Property(e => e.UpdatedById).HasColumnName("updated_by_id");
         });
 
-        modelBuilder.Entity<SharedKernel.Main.IMT.Domain.Entities.Duplicates.Provider>(entity =>
+        modelBuilder.Entity<Provider>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 

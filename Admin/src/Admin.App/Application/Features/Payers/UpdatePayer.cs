@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using System.ComponentModel.Design;
-using SharedKernel.Main.IMT.Application.Interfaces.Repositories;
-using SharedKernel.Main.IMT.Domain.Entities;
+using IMT.App.Application.Interfaces.Repositories;
+using IMT.App.Domain.Entities;
 using Thunes.Response.Discovery.Common;
 
 namespace Admin.App.Application.Features.Payers

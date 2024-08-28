@@ -1,12 +1,12 @@
 ﻿using Ardalis.SharedKernel;
 using FluentValidation;
+using IMT.App.Application.Interfaces.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
-using SharedKernel.Main.IMT.Application.Interfaces.Repositories;
 using static Admin.App.Application.Features.Mtts.MttsDelete;
 
 namespace Admin.App.Application.Features.TransactionTypes

@@ -1,1 +1,1 @@
-namespace SharedKernel.Main.IMT.Infrastructure.Persistence.Services.SendMoney;
+namespace IMT.App.Infrastructure.Persistence.Services.SendMoney;

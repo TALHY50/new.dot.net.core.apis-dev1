@@ -1,8 +1,8 @@
-﻿using SharedKernel.Main.IMT.Application.Interfaces.Repositories;
+﻿using IMT.App.Application.Interfaces.Repositories;
 using Thunes.Request.ConfirmTrasaction;
 using Thunes.Response.Common;
 
-namespace SharedKernel.Main.IMT.Application.Interfaces.Services
+namespace IMT.App.Application.Interfaces.Services
 {
     public interface IImtConfirmTransactionService : IImtProviderErrorDetailsRepository
     {

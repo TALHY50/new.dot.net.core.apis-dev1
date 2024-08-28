@@ -1,1 +1,1 @@
-namespace SharedKernel.Main.IMT.Infrastructure.Persistence.Services.Transaction;
+namespace IMT.App.Infrastructure.Persistence.Services.Transaction;

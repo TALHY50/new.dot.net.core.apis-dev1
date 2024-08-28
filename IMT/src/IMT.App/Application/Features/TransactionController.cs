@@ -4,9 +4,9 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common.Constants;
 using IMT.App.Application.Common;
-using SharedKernel.Main.IMT.Application.Interfaces.Repositories;
-using SharedKernel.Main.IMT.Domain.Entities.Duplicates;
-using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
+using IMT.App.Application.Interfaces.Repositories;
+using IMT.App.Domain.Entities.Duplicates;
+using IMT.App.Infrastructure.Persistence.Context;
 
 namespace IMT.App.Application.Features
 {

@@ -1,10 +1,10 @@
-﻿using SharedKernel.Main.IMT.Application.Interfaces.Repositories;
-using SharedKernel.Main.IMT.Domain.Entities;
+﻿using IMT.App.Application.Interfaces.Repositories;
+using IMT.App.Domain.Entities;
 using Thunes.Request.Transaction.Transfer.CommonTransaction;
 using Thunes.Response.Transfer.Quotation;
 using Thunes.Response.Transfer.Transaction;
 
-namespace SharedKernel.Main.IMT.Application.Interfaces.Services
+namespace IMT.App.Application.Interfaces.Services
 {
     public interface IImtMoneyTransferService : IImtMoneyTransferRepository
     {

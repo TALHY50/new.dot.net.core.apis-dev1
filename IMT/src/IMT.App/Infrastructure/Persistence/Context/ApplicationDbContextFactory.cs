@@ -1,8 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 
-namespace SharedKernel.Main.IMT.Infrastructure.Persistence.Context
+namespace IMT.App.Infrastructure.Persistence.Context
 {
      public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
     {

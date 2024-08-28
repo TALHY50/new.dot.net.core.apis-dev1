@@ -1,4 +1,4 @@
-namespace SharedKernel.Main.IMT.Application.Interfaces.Services
+namespace IMT.App.Application.Interfaces.Services
 {
     public interface IImtSendMoneyService
     {

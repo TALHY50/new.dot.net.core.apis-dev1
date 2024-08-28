@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using IMT.App.Infrastructure.Persistence.Context.Old;
+using Microsoft.EntityFrameworkCore;
 using Notification.App.Infrastructure.Persistence.Configurations;
-using SharedKernel.Main.IMT.Infrastructure.Persistence.Context.Old;
 
 namespace IMT.App.Infrastructure
 {

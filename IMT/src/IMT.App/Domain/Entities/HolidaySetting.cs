@@ -1,5 +1,5 @@
 ﻿
-namespace SharedKernel.Main.IMT.Domain.Entities;
+namespace IMT.App.Domain.Entities;
 
 public class HolidaySetting
 {

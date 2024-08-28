@@ -1,1 +1,1 @@
-namespace SharedKernel.Main.IMT.Infrastructure.Persistence.Services.ConfirmTransactionService;
+namespace IMT.App.Infrastructure.Persistence.Services.ConfirmTransactionService;

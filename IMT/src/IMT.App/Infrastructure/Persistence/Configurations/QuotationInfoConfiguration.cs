@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using IMT.App.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using SharedKernel.Main.IMT.Domain.Entities;
 
-namespace SharedKernel.Main.Infrastructure.Persistence.IMT.Configurations
+namespace IMT.App.Infrastructure.Persistence.Configurations
 {
   public class ImtQuotationInfoConfiguration : IEntityTypeConfiguration<QuotationInfo>
 {

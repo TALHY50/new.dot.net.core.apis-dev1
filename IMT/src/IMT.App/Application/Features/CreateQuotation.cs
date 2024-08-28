@@ -1,10 +1,10 @@
 using ErrorOr;
 using FluentValidation;
+using IMT.App.Infrastructure.Persistence.Context;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 using Thunes.Route;
 
 namespace IMT.App.Application.Features;

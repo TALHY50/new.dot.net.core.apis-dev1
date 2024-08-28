@@ -19,6 +19,9 @@ using Admin.App.Application.Features.TransactionTypes;
 using DotNetEnv;
 using ErrorOr;
 using FluentValidation;
+using IMT.App.Application.Interfaces.Repositories;
+using IMT.App.Infrastructure.Persistence.Context;
+using IMT.App.Infrastructure.Persistence.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -28,14 +31,11 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using SharedKernel.Main.Application.Common.Behaviours;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
-using SharedKernel.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Infrastructure.Cryptography;
-using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
-using SharedKernel.Main.Infrastructure.Persistence.Imt.Repositories.Repositories;
 using SharedKernel.Main.Infrastructure.Security;
 using SharedKernel.Main.Infrastructure.Services;
 using ACLApplicationDbContext = ACL.App.Infrastructure.Persistence.Context.ApplicationDbContext;
-using CountryRepository = SharedKernel.Main.Infrastructure.Persistence.Imt.Repositories.Repositories.CountryRepository;
+using CountryRepository = IMT.App.Infrastructure.Persistence.Repositories.CountryRepository;
 
 namespace Admin.App;
 
@@ -65,6 +65,8 @@ public static class DependencyInjection
         services.AddPersistence(configuration);
 
         services.AddRazorEngine(configuration);
+
+        services.AddSingleton<ICurrentUserService, CurrentUserService>();
 
         return services;
     }
@@ -122,7 +124,7 @@ public static class DependencyInjection
                 }),
             ServiceLifetime.Transient);
 
-        services.AddDbContext<SharedKernel.Main.Infrastructure.Persistence.IMT.Context.ApplicationDbContext>(
+        services.AddDbContext<ApplicationDbContext>(
             options =>
                 options.UseMySQL(connectionString, options =>
                 {
@@ -175,6 +177,7 @@ public static class DependencyInjection
         services.AddScoped<IImtPayerPaymentSpeedRepository, PayerPaymentSpeed>();
         services.AddScoped<IImtTaxRateRepository, TaxRateRepository>();
         services.AddScoped<IImtInstitutionFundRepository, InstitutionFundRepository>();
+        services.AddScoped<IImtTransactionTypeRepository, TransactionTypeRepository>();
        // services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateCountryCommand).Assembly));  
         // services.AddScoped<IRequestHandler<CreateCountryCommand, ErrorOr<Country>>, CreateCountryCommandHandler>();
 
