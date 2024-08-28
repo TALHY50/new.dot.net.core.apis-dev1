@@ -19,7 +19,7 @@ public partial class Currency
     /// <summary>
     /// 1=active, 0=inactive,2=soft-delete 
     /// </summary>
-    public sbyte? Status { get; set; }
+    public byte? Status { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 

@@ -31,6 +31,16 @@ namespace Admin.App.Application.Features.Corridors
         uint? DestinationCurrencyId,
         uint? CompanyId) : IRequest<ErrorOr<Corridor>>;
 
+    public class UpdateCorridoryCommandValidator : AbstractValidator<UpdateCorridorCommand>
+    {
+        public UpdateCorridoryCommandValidator()
+        {
+            RuleFor(x => x.SourceCountryId).NotEmpty();
+            RuleFor(x => x.DestinationCountryId).NotEmpty();
+            RuleFor(x => x.SourceCurrencyId).NotEmpty();
+            RuleFor(x => x.DestinationCurrencyId).NotEmpty();
+        }
+    }
     internal sealed class UpdateCorridorValidator : AbstractValidator<UpdateCorridorCommand>
     {
         public UpdateCorridorValidator()

@@ -10,7 +10,7 @@
         public static readonly int PERMISSION_DENIED = 403;
         public static readonly int NOTFOUND = 404;
         public static readonly int CONFLICT = 409;
-
+        public static readonly int CorridorNotFound = 1101;
 
 
     }
