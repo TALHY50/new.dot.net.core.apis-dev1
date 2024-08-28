@@ -2,7 +2,7 @@
 using ErrorOr;
 using FluentValidation;
 using IMT.App.Application.Interfaces.Repositories;
-using IMT.App.Domain.Entities.Duplicates;
+using IMT.App.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -47,10 +47,10 @@ namespace Admin.App.Application.Features.Providers
             {
                 Name = request.Name,
                 BaseUrl = request.BaseUrl,
-                AppId = request.AppId,
-                AppSecret = request.AppSecret,
+                ApiKey = request.AppId,
+                ApiSecret = request.AppSecret,
                 Status = 1,
-                CompanyId = request.CompanyId,
+               // CompanyId = request.CompanyId,
                 CreatedById = 1,
                 UpdatedById = 2,
                 CreatedAt = now,

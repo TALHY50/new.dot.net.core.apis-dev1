@@ -24,7 +24,7 @@ namespace IMT.App.Application.Features
         }
         [Tags("Thunes.Transaction")]
         [HttpPost(ThunesUrl.ConfirmTransactionByIdUrl)]
-        public object ConfirmTransactionById(int id)
+        public object ConfirmTransactionById(uint id)
         {
             var trasactionDTO = new ConfirmTrasactionDTO
             {

@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
-using Duplicates_HolidaySetting = IMT.App.Domain.Entities.Duplicates.HolidaySetting;
+using Duplicates_HolidaySetting = IMT.App.Domain.Entities.HolidaySetting;
 
 
 namespace Admin.App.Application.Features.HolidaySetting;

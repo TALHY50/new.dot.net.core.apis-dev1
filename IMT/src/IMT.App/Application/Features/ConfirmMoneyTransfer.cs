@@ -3,6 +3,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using IMT.App.Application.Common;
+using Notification.App.Infrastructure.Persistence.Configurations;
 using IMT.App.Infrastructure.Persistence.Context;
 
 namespace IMT.App.Application.Features;
