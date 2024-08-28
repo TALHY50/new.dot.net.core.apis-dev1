@@ -1,14 +1,12 @@
 ﻿using ErrorOr;
 using FluentValidation;
+using IMT.App.Application.Interfaces.Repositories;
+using IMT.App.Infrastructure.Persistence.Context;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
-using SharedKernel.Main.Domain.Admin;
-using SharedKernel.Main.Domain.IMT.Entities;
-using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
 
 
 namespace Admin.App.Application.Features.BusinessHourAndWeekend;
@@ -32,7 +30,7 @@ public class DeleteBusinessHourAndWeekendByIdController : ApiControllerBase
         }
     }
 
-    internal sealed class DeleteBusinessHourAndWeekendCommandHandler(ImtApplicationDbContext _context, IBusinessHourAndWeekendRepository repository) : IRequestHandler<DeleteBusinessHourAndWeekendCommand, ErrorOr<bool>>
+    internal sealed class DeleteBusinessHourAndWeekendCommandHandler(ApplicationDbContext _context, IBusinessHourAndWeekendRepository repository) : IRequestHandler<DeleteBusinessHourAndWeekendCommand, ErrorOr<bool>>
     {
         public async Task<ErrorOr<bool>> Handle(DeleteBusinessHourAndWeekendCommand request, CancellationToken cancellationToken)
         {

@@ -1,14 +1,13 @@
 ﻿using ErrorOr;
 using FluentValidation;
+using IMT.App.Application.Interfaces.Repositories;
+using IMT.App.Infrastructure.Persistence.Context;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
-using SharedKernel.Main.Domain.Admin;
-using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
-using Entities = SharedKernel.Main.Domain.IMT.Entities;
+
 
 namespace Admin.App.Application.Features.HolidaySetting;
 
@@ -31,7 +30,7 @@ public class DeleteHolidaySettingByIdController : ApiControllerBase
         }
     }
 
-    internal sealed class DeleteHolidaySettingCommandHandler(ImtApplicationDbContext _context, IHolidaySettingRepository repository) : IRequestHandler<DeleteHolidaySettingCommand, ErrorOr<bool>>
+    internal sealed class DeleteHolidaySettingCommandHandler(ApplicationDbContext _context, IHolidaySettingRepository repository) : IRequestHandler<DeleteHolidaySettingCommand, ErrorOr<bool>>
     {
         public async Task<ErrorOr<bool>> Handle(DeleteHolidaySettingCommand request, CancellationToken cancellationToken)
         {

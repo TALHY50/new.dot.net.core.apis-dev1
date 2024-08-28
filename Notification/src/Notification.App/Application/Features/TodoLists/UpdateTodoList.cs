@@ -5,11 +5,11 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+using Notification.App.Domain.Entities.Todos;
+using Notification.App.Infrastructure.Persistence.Context;
+
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Exceptions;
-using SharedKernel.Main.Domain.Notification.Todos;
-using SharedKernel.Main.Infrastructure.Persistence;
-using SharedKernel.Main.Infrastructure.Persistence.Notification.Context;
 
 namespace Notification.App.Application.Features.TodoLists;
 

@@ -2,7 +2,7 @@
 
 public abstract class DomainEvent
 {
-    protected DomainEvent()
+    public DomainEvent()
     {
         DateOccurred = DateTimeOffset.UtcNow;
     }

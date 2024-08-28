@@ -52,7 +52,7 @@ namespace Thunes.Response.Transfer.Transaction
 
 
 
-    #region SubOrdinate Response For Create Transaction
+    #region SubOrdinate Responses For Create Transaction
 
     public class Beneficiary
     {

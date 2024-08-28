@@ -137,9 +137,11 @@
 	<ItemGroup>
 		<Folder Include="Application\Common\Constants\Routes\" />
 		<Folder Include="Application\Common\Security\" />
-		<Folder Include="Contracts\IMT\Requests\" />
-		<Folder Include="Domain\IMT\Services\" />
-		<Folder Include="Infrastructure\Persistence\ACL\Seeds\" />
+		<Folder Include="Domain\" />
+		<Folder Include="Infrastructure\Email\" />
+		<Folder Include="Infrastructure\Files\" />
+		<Folder Include="Infrastructure\Persistence\" />
+		<Folder Include="Infrastructure\Sms\" />
 		<Folder Include="wwwroot\" />
 	</ItemGroup>
 

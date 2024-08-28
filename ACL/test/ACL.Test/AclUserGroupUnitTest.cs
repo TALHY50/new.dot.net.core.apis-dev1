@@ -1,11 +1,11 @@
+using ACL.App.Contracts.Requests;
+using ACL.App.Contracts.Responses;
+using ACL.App.Domain.Entities;
 using Bogus;
 using Newtonsoft.Json;
 using RestSharp;
 using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Contracts.ACL.Requests;
-using SharedKernel.Main.Contracts.ACL.Response;
 using SharedKernel.Main.Contracts.Common;
-using SharedKernel.Main.Domain.ACL.Domain.UserGroup;
 
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
 #pragma warning disable CS8602 // Converting null literal or possible null value to non-nullable type.
@@ -39,9 +39,9 @@ namespace ACL.TEST
 
             //// Assert
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
+            ScopeResponse scopeResponse = JsonConvert.DeserializeObject<ScopeResponse>(response.Content);
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, scopeResponse.StatusCode);
 
         }
         [Fact]
@@ -60,9 +60,9 @@ namespace ACL.TEST
 
             //// Assert
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
+            ScopeResponse scopeResponse = JsonConvert.DeserializeObject<ScopeResponse>(response.Content);
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, scopeResponse.StatusCode);
 
         }
         [Fact]
@@ -71,7 +71,7 @@ namespace ACL.TEST
             //Arrange
 
             var data = GetUserGroup();
-            var id = DataCollectors.GetMaxId<AclUsergroup>(x => x.Id);
+            var id = DataCollectors.GetMaxId<Usergroup>(x => x.Id);
 
             // Act
             var request = new RestRequest(AclRoutesUrl.AclUserGroupRouteUrl.Edit.Replace("{id}", id.ToString()), Method.Put);
@@ -82,16 +82,16 @@ namespace ACL.TEST
 
             //// Assert
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
+            ScopeResponse scopeResponse = JsonConvert.DeserializeObject<ScopeResponse>(response.Content);
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, scopeResponse.StatusCode);
 
         }
         [Fact]
         public void GetByIdUserGroupTest()
         {
             //Arrange
-            var id = DataCollectors.GetMaxId<AclUsergroup>(x => x.Id);
+            var id = DataCollectors.GetMaxId<Usergroup>(x => x.Id);
 
             // Act
             var request = new RestRequest(AclRoutesUrl.AclUserGroupRouteUrl.View.Replace("{id}", id.ToString()), Method.Get);
@@ -99,9 +99,9 @@ namespace ACL.TEST
             RestResponse response = restClient.Execute(request);
             //// Assert
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
+            ScopeResponse scopeResponse = JsonConvert.DeserializeObject<ScopeResponse>(response.Content);
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, scopeResponse.StatusCode);
 
         }
 
@@ -109,7 +109,7 @@ namespace ACL.TEST
         public void DeleteByIdUserGroupTest()
         {
 
-            var id = DataCollectors.GetMaxId<AclUsergroup>(x => x.Id);
+            var id = DataCollectors.GetMaxId<Usergroup>(x => x.Id);
 
             // Act
             var request = new RestRequest(AclRoutesUrl.AclUserGroupRouteUrl.Destroy.Replace("{id}", id.ToString()), Method.Delete);
@@ -119,9 +119,9 @@ namespace ACL.TEST
 
             //// Assert
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
+            ScopeResponse scopeResponse = JsonConvert.DeserializeObject<ScopeResponse>(response.Content);
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, scopeResponse.StatusCode);
 
         }
 

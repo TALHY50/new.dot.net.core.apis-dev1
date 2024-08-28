@@ -8,15 +8,14 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+using Notification.App.Contracts;
+using Notification.App.Domain.Entities.Events;
+using Notification.App.Domain.Entities.Setups;
+using Notification.App.Domain.Entities.ValueObjects;
+using Notification.App.Infrastructure.Persistence.Context;
+
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Contracts.Notificaiton;
-using SharedKernel.Main.Domain.IMT.Entities;
-using SharedKernel.Main.Domain.Notification.Notifications.Events;
-using SharedKernel.Main.Domain.Notification.Setups;
-using SharedKernel.Main.Domain.Notification.ValueObjects;
-using SharedKernel.Main.Infrastructure.Persistence;
-using SharedKernel.Main.Infrastructure.Persistence.Notification.Context;
 
 namespace Notification.App.Application.Features.Notifications.Events;
 

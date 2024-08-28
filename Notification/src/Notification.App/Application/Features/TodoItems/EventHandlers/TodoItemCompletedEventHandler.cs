@@ -1,7 +1,8 @@
 ﻿using MediatR;
 
+using Notification.App.Domain.Entities.Todos;
+
 using SharedKernel.Main.Application.Common.Models;
-using SharedKernel.Main.Domain.Notification.Todos;
 
 namespace Notification.App.Application.Features.TodoItems.EventHandlers;
 
@@ -13,7 +14,7 @@ internal sealed class TodoItemCompletedEventHandler(ILogger<TodoItemCompletedEve
     {
         var domainEvent = notification.DomainEvent;
 
-        _logger.LogInformation("VerticalSlice Domain Event: {DomainEvent}", domainEvent.GetType().Name);
+        _logger.LogInformation("VerticalSlice Entities Event: {DomainEvent}", domainEvent.GetType().Name);
 
         return Task.CompletedTask;
     }

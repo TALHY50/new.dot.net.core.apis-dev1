@@ -11,7 +11,6 @@ using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Events;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
-using SharedKernel.Main.Application.Interfaces;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace SharedKernel.Main.Infrastructure.Services

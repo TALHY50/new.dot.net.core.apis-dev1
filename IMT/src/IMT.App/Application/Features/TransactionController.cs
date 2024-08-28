@@ -3,10 +3,10 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
-using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
-using SharedKernel.Main.Domain.IMT.Entities;
 using IMT.App.Application.Common;
+using IMT.App.Application.Interfaces.Repositories;
+using IMT.App.Domain.Entities.Duplicates;
+using IMT.App.Infrastructure.Persistence.Context;
 
 namespace IMT.App.Application.Features
 {
@@ -125,7 +125,7 @@ namespace IMT.App.Application.Features
             }
         }
 
-        internal sealed class CreateHolidaySettingHandler(ImtApplicationDbContext context, IHolidaySettingRepository repository) : IRequestHandler<CreateTransactionCommand, ErrorOr<HolidaySetting>>
+        internal sealed class CreateHolidaySettingHandler(ApplicationDbContext context, IHolidaySettingRepository repository) : IRequestHandler<CreateTransactionCommand, ErrorOr<HolidaySetting>>
         {
             public async Task<ErrorOr<HolidaySetting>> Handle(CreateTransactionCommand request, CancellationToken cancellationToken)
             {

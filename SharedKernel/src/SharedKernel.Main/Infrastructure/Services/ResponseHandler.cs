@@ -47,20 +47,20 @@
 //            return RespondJson(("Invalid Url"));
 
 //        }
-//        _unitOfWork.HttpContextAccessor.HttpContext.Response.Clear();
+//        _unitOfWork.HttpContextAccessor.HttpContext.Responses.Clear();
 
 //        var sb = new Http().BuildForm(postbackUrl, response);
 
-//       return _unitOfWork.HttpContextAccessor.HttpContext.Response.WriteAsync(sb.ToString());
+//       return _unitOfWork.HttpContextAccessor.HttpContext.Responses.WriteAsync(sb.ToString());
         
 //    }
     
     
 //    public Task RedirectPost(StringBuilder response)
 //    {
-//        _unitOfWork.HttpContextAccessor.HttpContext.Response.Clear();
+//        _unitOfWork.HttpContextAccessor.HttpContext.Responses.Clear();
         
-//        return _unitOfWork.HttpContextAccessor.HttpContext.Response.WriteAsync(response.ToString());
+//        return _unitOfWork.HttpContextAccessor.HttpContext.Responses.WriteAsync(response.ToString());
         
 //    }
     
@@ -82,9 +82,9 @@
 //        getbackUrl = new Http().BuildRedirectUrl(getbackUrl, response);
 
 //        // Asynchronously redirect to the constructed URL
-//        context.Response.Redirect(getbackUrl);
+//        context.Responses.Redirect(getbackUrl);
         
-//        return context.Response.CompleteAsync();
+//        return context.Responses.CompleteAsync();
 //    }
 
 //    public Task RespondJson<T>(T response, int httpCode = 200, JsonSerializerSettings? settings = null)
@@ -108,11 +108,11 @@
 //        var json = Json.Serialize(response as object,  settings);
 
 //        // Set the response content type to JSON
-//        context.Response.ContentType = "application/json";
-//        context.Response.HttpContext.Response.StatusCode = httpCode;
+//        context.Responses.ContentType = "application/json";
+//        context.Responses.HttpContext.Responses.StatusCode = httpCode;
 
 //        // Write the JSON response to the response stream
-//        return context.Response.WriteAsync(json); 
+//        return context.Responses.WriteAsync(json); 
 //    }
 //}
 

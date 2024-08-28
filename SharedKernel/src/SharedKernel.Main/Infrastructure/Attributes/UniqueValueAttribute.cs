@@ -80,7 +80,6 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
-using SharedKernel.Main.Application.Interfaces;
 
 #pragma warning disable CS8600 // Dereference of a possibly null reference.
 #pragma warning disable CS8602 // Possible null reference argument.

@@ -3,6 +3,11 @@
 // </copyright>
 
 using System.Security.Cryptography;
+using ACL.App.Application.Interfaces.Repositories;
+using ACL.App.Application.Interfaces.Services;
+using ACL.App.Infrastructure.Jwt;
+using ACL.App.Infrastructure.Persistence.Repositories;
+using ACL.App.Infrastructure.Security;
 using Admin.App.Application.Features.Corridors;
 using Admin.App.Application.Features.Countries;
 using Admin.App.Application.Features.Currencies;
@@ -14,6 +19,9 @@ using Admin.App.Application.Features.TransactionTypes;
 using DotNetEnv;
 using ErrorOr;
 using FluentValidation;
+using IMT.App.Application.Interfaces.Repositories;
+using IMT.App.Infrastructure.Persistence.Context;
+using IMT.App.Infrastructure.Persistence.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -23,30 +31,11 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using SharedKernel.Main.Application.Common.Behaviours;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
-using SharedKernel.Main.Application.Interfaces.Repositories.ACL.Auth;
-using SharedKernel.Main.Application.Interfaces.Repositories.ACL.Module;
-using SharedKernel.Main.Application.Interfaces.Repositories.ACL.Role;
-using SharedKernel.Main.Application.Interfaces.Repositories.ACL.UserGroup;
-using SharedKernel.Main.Application.Interfaces.Repositories.Admin;
-using SharedKernel.Main.Application.Interfaces.Repositories.IMT.Repositories;
-using SharedKernel.Main.Application.Interfaces.Repositories.Notification;
-using SharedKernel.Main.Domain.IMT.Entities;
 using SharedKernel.Main.Infrastructure.Cryptography;
-using SharedKernel.Main.Infrastructure.Files;
-using SharedKernel.Main.Infrastructure.Jwt;
-using SharedKernel.Main.Infrastructure.Persistence.ACL.Context;
-using SharedKernel.Main.Infrastructure.Persistence.ACL.Repositories.Auth;
-using SharedKernel.Main.Infrastructure.Persistence.ACL.Repositories.Module;
-using SharedKernel.Main.Infrastructure.Persistence.ACL.Repositories.Role;
-using SharedKernel.Main.Infrastructure.Persistence.ACL.Repositories.UserGroup;
-using SharedKernel.Main.Infrastructure.Persistence.Admin.Repositories;
-using SharedKernel.Main.Infrastructure.Persistence.IMT.Context;
-using SharedKernel.Main.Infrastructure.Persistence.IMT.Repositories;
-using SharedKernel.Main.Infrastructure.Persistence.Notification.Context;
-using SharedKernel.Main.Infrastructure.Persistence.Notification.Repositories;
-using SharedKernel.Main.Infrastructure.Persistence.Repositories.ImtCurrency;
 using SharedKernel.Main.Infrastructure.Security;
 using SharedKernel.Main.Infrastructure.Services;
+using ACLApplicationDbContext = ACL.App.Infrastructure.Persistence.Context.ApplicationDbContext;
+using CountryRepository = IMT.App.Infrastructure.Persistence.Repositories.CountryRepository;
 
 namespace Admin.App;
 
@@ -77,12 +66,6 @@ public static class DependencyInjection
 
         services.AddRazorEngine(configuration);
 
-        services.AddScoped<IDomainEventService, DomainEventService>();
-        services.AddTransient<IDateTime, DateTimeService>();
-        services.AddTransient<IEmailService, EmailService>();
-        services.AddTransient<ISmsService, SmsService>();
-        services.AddTransient<IWebService, WebService>();
-        services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();
         services.AddSingleton<ICurrentUserService, CurrentUserService>();
 
         return services;
@@ -133,7 +116,7 @@ public static class DependencyInjection
             $"server={server};database={database};User ID={userName};Password={password};CharSet=utf8mb4;" ??
             throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
-        services.AddDbContext<AclApplicationDbContext>(
+        services.AddDbContext<ACLApplicationDbContext>(
             options =>
                 options.UseMySQL(connectionString, options =>
                 {
@@ -141,7 +124,7 @@ public static class DependencyInjection
                 }),
             ServiceLifetime.Transient);
 
-        services.AddDbContext<ImtApplicationDbContext>(
+        services.AddDbContext<ApplicationDbContext>(
             options =>
                 options.UseMySQL(connectionString, options =>
                 {
@@ -162,42 +145,43 @@ public static class DependencyInjection
                 redisOptions => { redisOptions.Configuration = redistConnectionString; });
         }
 
-        services.AddScoped<IAclPageRepository, AclPageRepository>();
-        services.AddScoped<IAclPageRouteRepository, AclPageRouteRepository>();
-        services.AddScoped<IAclPasswordRepository, AclPasswordRepository>();
-        services.AddScoped<IAclRolePageRepository, AclRolePageRepository>();
-        services.AddScoped<IAclRoleRepository, AclRoleRepository>();
+        services.AddScoped<IPageRepository, PageRepository>();
+        services.AddScoped<IPageRouteRepository, PageRouteRepository>();
+        services.AddScoped<IPasswordRepository, PasswordRepository>();
+        services.AddScoped<IRolePageRepository, RolePageRepository>();
+        services.AddScoped<IRoleRepository, RoleRepository>();
 
-        // services.AddScoped<IAclSubModuleRepository, AclSubModuleRepository>();
-        services.AddScoped<IAclUserGroupRepository, AclUserGroupRepository>();
-        services.AddScoped<IAclUserGroupRoleRepository, AclUserGroupRoleRepository>();
-        services.AddScoped<IAclUserUserGroupRepository, AclUserUserGroupRepository>();
-        services.AddScoped<IAclUserRepository, AclUserRepository>();
-        services.AddScoped<IImtMttsRepository, ImtMttsRepository>();
+        // services.AddScoped<ISubModuleRepository, SubModuleRepository>();
+        services.AddScoped<IUserGroupRepository, UserGroupRepository>();
+        services.AddScoped<IUserGroupRoleRepository, UserGroupRoleRepository>();
+        services.AddScoped<IUserUserGroupRepository, UserUserGroupRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IImtMttsRepository, MttRepository>();
         // services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateMttCommand).Assembly));
-        services.AddScoped<IImtRegionRepository, ImtRegionRepository>();
+        services.AddScoped<IImtRegionRepository, RegionRepository>();
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateRegionCommand).Assembly));
-        services.AddScoped<IImtProviderRepository, ImtProviderRepository>();
+        services.AddScoped<IImtProviderRepository, ProviderRepository>();
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateProviderCommand).Assembly));
-        services.AddScoped<IImtTransactionTypeRepository, ImtTransactionTypeRepository>();
+        services.AddScoped<IImtTransactionTypeRepository, TransactionTypeRepository>();
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateTransactionTypeCommand).Assembly));
-        services.AddScoped<IImtCorridorRepository, ImtCorridorRepository>();
+        services.AddScoped<IImtCorridorRepository, CorridorRepository>();
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateCorridorCommand).Assembly));
-        services.AddScoped<IImtAdminCurrencyRepository, ImtAdminCurrencyRepository>();
+        services.AddScoped<IImtAdminCurrencyRepository, AdminCurrencyRepository>();
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateCurrencyCommand).Assembly));
 
-        services.AddScoped<IImtPayerRepository, ImtPayerRepository>();
+        services.AddScoped<IImtPayerRepository, PayerRepository>();
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreatePayerCommand).Assembly));
 
-        services.AddScoped<IAdminCountryRepository, AdminCountryRepository>();
-        services.AddScoped<IImtServiceMethodRepository, ImtServiceMethodRepository>();
-        services.AddScoped<IImtPayerPaymentSpeedRepository, ImtPayerPaymentSpeed>();
-        services.AddScoped<IImtTaxRateRepository, ImtTaxRateRepository>();
-        services.AddScoped<IImtInstitutionFundRepository, ImtInstitutionFundRepository>();
+        services.AddScoped<IAdminCountryRepository, CountryRepository>();
+        services.AddScoped<IImtServiceMethodRepository, ServiceMethodRepository>();
+        services.AddScoped<IImtPayerPaymentSpeedRepository, PayerPaymentSpeed>();
+        services.AddScoped<IImtTaxRateRepository, TaxRateRepository>();
+        services.AddScoped<IImtInstitutionFundRepository, InstitutionFundRepository>();
+        services.AddScoped<IImtTransactionTypeRepository, TransactionTypeRepository>();
        // services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateCountryCommand).Assembly));  
         // services.AddScoped<IRequestHandler<CreateCountryCommand, ErrorOr<Country>>, CreateCountryCommandHandler>();
 
-        services.AddScoped<IImtMttsRepository, ImtMttsRepository>();
+        services.AddScoped<IImtMttsRepository, MttRepository>();
 
        // services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateMttCommand).Assembly));
 
@@ -283,12 +267,7 @@ public static class DependencyInjection
                     b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
         }
 
-        services.AddScoped<IAppEventDataRepository, AppEventDataRepository>();
-        services.AddScoped<IEventRepository, EventRepository>();
-        services.AddScoped<IEmailOutgoingRepository, EmailOutgoingRepository>();
-        services.AddScoped<ISmsOutgoingRepository, SmsOutgoingRepository>();
-        services.AddScoped<IWebOutgoingRepository, WebOutgoingRepository>();
-        services.AddScoped<ICredentialRepository, CredentialRepository>();
+
 
         return services;
     }
