@@ -1,1 +1,0 @@
-namespace IMT.App.Infrastructure.Persistence.Services.SendMoney;

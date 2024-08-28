@@ -20,7 +20,18 @@
 	</ItemGroup>
 	
 	<ItemGroup>
-	  <Folder Include="Application\Common\" />
+	  <Folder Include="Application\Interfaces\Repositories\" />
+	  <Folder Include="Application\Interfaces\Services\" />
+	  <Folder Include="Contracts\Contracts\Requests\" />
+	  <Folder Include="Domain\Entities\ValueObjects\" />
+	  <Folder Include="Infrastructure\Persistence\Configurations\" />
+	  <Folder Include="Infrastructure\Persistence\Context\" />
 	  <Folder Include="Infrastructure\Persistence\Migrations\" />
+	  <Folder Include="Infrastructure\Persistence\Patch\" />
+	  <Folder Include="Infrastructure\Persistence\Repositories\" />
+	  <Folder Include="Infrastructure\Persistence\Services\ConfirmTransactionService\" />
+	  <Folder Include="Infrastructure\Persistence\Services\Quotation\" />
+	  <Folder Include="Infrastructure\Persistence\Services\SendMoney\" />
+	  <Folder Include="Infrastructure\Persistence\Services\Transaction\" />
 	</ItemGroup>
 </Project>

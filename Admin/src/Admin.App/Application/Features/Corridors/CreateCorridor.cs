@@ -1,10 +1,10 @@
 ﻿using Admin.App.Application.Features.Currencies;
 using ErrorOr;
 using FluentValidation;
-using IMT.App.Application.Interfaces.Repositories;
-using IMT.App.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
+using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 
@@ -68,7 +68,14 @@ namespace Admin.App.Application.Features.Corridors
                 CreatedAt = now,
                 UpdatedAt = now,
             };
-            return await _repository.AddAsync(@corridor);
+            var result = await _repository.AddAsync(@corridor);
+
+            if (result == null)
+            {
+                return Error.Unexpected(ApplicationCodes.DatabaseOperationFailed.Code,
+                    ApplicationCodes.DatabaseOperationFailed.Code);
+            }
+            return result;
         }
     }
 }

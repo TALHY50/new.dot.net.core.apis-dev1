@@ -5,7 +5,6 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<RootNamespace>SharedKernel.Main</RootNamespace>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -146,7 +145,8 @@
 
 	<ItemGroup>
 	  <Folder Include="Admin\" />
-	  <Folder Include="IMT\" />
+	  <Folder Include="IMT\Interfaces\Repositories\" />
+	  <Folder Include="IMT\Interfaces\Services\" />
 	</ItemGroup>
 
 
