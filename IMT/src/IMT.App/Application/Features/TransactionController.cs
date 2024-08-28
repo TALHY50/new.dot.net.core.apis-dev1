@@ -2,12 +2,11 @@
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
+using SharedBusiness.Main.IMT.Domain.Entities;
+using SharedBusiness.Main.IMT.Infrastructure.Persistence.Context;
 using SharedKernel.Main.Application.Common.Constants;
-using IMT.App.Application.Common;
-using IMT.App.Application.Interfaces.Repositories;
-using IMT.App.Infrastructure.Persistence.Context;
-using IMT.App.Domain.Entities;
-using IMT.App.Infrastructure.Persistence.Repositories;
+using SharedKernel.Main.Application.Common;
 using StackExchange.Redis;
 using SharedKernel.Main.Contracts.Common;
 

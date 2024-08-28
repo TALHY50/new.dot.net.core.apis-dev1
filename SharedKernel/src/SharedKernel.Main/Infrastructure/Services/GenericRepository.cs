@@ -107,17 +107,13 @@ namespace SharedKernel.Main.Infrastructure.Services
 
         public virtual async Task<T> AddAsync(T entity)
         {
-            try
-            {
-                await _dbSet.AddAsync(entity);
-                await _dbContext.SaveChangesAsync();
-                _dbContext.Entry(entity).Reload();
-                return await Task.FromResult(entity);
-            }
-            catch (Exception)
-            {
-                return null;
-            }
+            
+            await _dbSet.AddAsync(entity);
+            await _dbContext.SaveChangesAsync();
+            _dbContext.Entry(entity).Reload();
+            return await Task.FromResult(entity);
+        
+       
         }
 
         public virtual Task<T> UpdateAsync(T entity)
