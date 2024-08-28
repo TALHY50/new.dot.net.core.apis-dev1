@@ -1,13 +1,17 @@
 ﻿using Ardalis.SharedKernel;
+using ErrorOr;
 using FluentValidation;
 using IMT.App.Application.Interfaces.Repositories;
+using IMT.App.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Contracts.Common;
 using static Admin.App.Application.Features.Mtts.MttsDelete;
+using static Admin.App.Application.Features.Regions.DeleteRegionController;
 
 namespace Admin.App.Application.Features.TransactionTypes
 {
@@ -16,15 +20,19 @@ namespace Admin.App.Application.Features.TransactionTypes
         [Tags("TransactionTypes")]
         //[Authorize(Policy = "HasPermission")]
         [HttpDelete(Routes.DeleteTransactionTypeUrl, Name = Routes.DeleteTransactionTypeName)]
-        public async Task<bool> Delete(uint id)
+        public async Task<ActionResult<ErrorOr<bool>>> Delete(uint id)
         {
-            return await Mediator.Send(new DeleteTransactionTypeCommand(id)).ConfigureAwait(false);
+            var result = await Mediator.Send(new DeleteTransactionTypeCommand(id)).ConfigureAwait(false);
+
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
 
         public record DeleteTransactionTypeCommand(uint id) 
-            : IRequest<bool>;
+            : IRequest<ErrorOr<bool>>;
 
-        internal sealed class DeleteTransactionTypeCommandValidator : AbstractValidator<DeleteTransactionTypeCommand>
+        public class DeleteTransactionTypeCommandValidator : AbstractValidator<DeleteTransactionTypeCommand>
         {
             public DeleteTransactionTypeCommandValidator()
             {
@@ -32,8 +40,8 @@ namespace Admin.App.Application.Features.TransactionTypes
             }
         }
 
-        internal sealed class DeleteTransactionTypeCommandHandler
-        : IRequestHandler<DeleteTransactionTypeCommand, bool>
+        public class DeleteTransactionTypeCommandHandler
+        : IRequestHandler<DeleteTransactionTypeCommand, ErrorOr<bool>>
         {
             private readonly ICurrentUserService _user;
             private readonly IImtTransactionTypeRepository _transactiontypeRepository;
@@ -44,21 +52,16 @@ namespace Admin.App.Application.Features.TransactionTypes
                 _transactiontypeRepository = transactionTypeRepository;
             }
 
-            public async Task<bool> Handle(DeleteTransactionTypeCommand request, CancellationToken cancellationToken)
+            public async Task<ErrorOr<bool>> Handle(DeleteTransactionTypeCommand request, CancellationToken cancellationToken)
             {
-                if (request.id > 0)
+                var transactionTypes = _transactiontypeRepository.GetByUintId(request.id);
+
+                if (transactionTypes == null)
                 {
-                    var transactionTypes = _transactiontypeRepository.GetByUintId(request.id);
-
-                    if (transactionTypes != null)
-                    {
-                        return await _transactiontypeRepository.DeleteAsync(transactionTypes);
-                    }
-
-                    return await _transactiontypeRepository.DeleteAsync(transactionTypes);
+                    return Error.NotFound(description: "TransactionType not found", code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
-                return false;
+                return await _transactiontypeRepository.DeleteAsync(transactionTypes);
             }
         }
     }

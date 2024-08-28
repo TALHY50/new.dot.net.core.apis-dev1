@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Admin.App.Application.Features.Regions
 {
@@ -16,12 +17,16 @@ namespace Admin.App.Application.Features.Regions
         [HttpGet(Routes.GetRegionUrl, Name = Routes.GetRegionName)]
         public async Task<ActionResult<ErrorOr<List<Region>>>> Get()
         {
-            return await Mediator.Send(new GetRegionQuery()).ConfigureAwait(false);
+            var result = await Mediator.Send(new GetRegionQuery()).ConfigureAwait(false);
+
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
 
         public record GetRegionQuery() : IRequest<ErrorOr<List<Region>>>;
 
-        internal sealed class GetRegionHandler
+        public class GetRegionHandler
             : IRequestHandler<GetRegionQuery, ErrorOr<List<Region>>>
         {
             private readonly IImtRegionRepository _regionRepository;

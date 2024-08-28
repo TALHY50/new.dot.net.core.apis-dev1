@@ -1,4 +1,5 @@
-﻿using Ardalis.SharedKernel;
+﻿using Admin.App.Application.Features.Regions;
+using Ardalis.SharedKernel;
 using ErrorOr;
 using FluentValidation;
 using IMT.App.Application.Interfaces.Repositories;
@@ -18,15 +19,30 @@ namespace Admin.App.Application.Features.TransactionTypes
         [HttpPost(Routes.CreateTransactionTypeUrl, Name = Routes.CreateTransactionTypeName)]
         public async Task<ActionResult<ErrorOr<TransactionType>>> Create(CreateTransactionTypeCommand command)
         {
-            return await Mediator.Send(command).ConfigureAwait(false);
+            var result = await Mediator.Send(command).ConfigureAwait(false);
+
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
     }
 
     public record CreateTransactionTypeCommand(
-        byte Status) : IRequest<ErrorOr<TransactionType>>;
+        string? Name,
+        byte? Status) : IRequest<ErrorOr<TransactionType>>;
+
+    public class CreateTransactionTypeCommandValidator : AbstractValidator<CreateTransactionTypeCommand>
+    {
+        public CreateTransactionTypeCommandValidator()
+        {
+            RuleFor(v => v.Name)
+                .MaximumLength(50)
+                .WithMessage("Maximum length can be 50.");
+        }
+    }
 
 
-    internal sealed class CreateTransactionTypeCommandHandler
+    public class CreateTransactionTypeCommandHandler
         : IRequestHandler<CreateTransactionTypeCommand, ErrorOr<TransactionType>>
     {
         private readonly IImtTransactionTypeRepository _transactionTypeRepository;
@@ -41,6 +57,7 @@ namespace Admin.App.Application.Features.TransactionTypes
             var now = DateTime.UtcNow;
             var @transactionType = new TransactionType
             {
+                Name = request.Name,
                 Status = request.Status,
                 CreatedById = 1,
                 UpdatedById = 2,
