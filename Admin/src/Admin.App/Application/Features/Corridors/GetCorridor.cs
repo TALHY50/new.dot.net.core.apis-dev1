@@ -15,12 +15,15 @@ namespace Admin.App.Application.Features.Corridors
         [HttpGet(Routes.GetCorridorUrl, Name = Routes.GetCorridorName)]
         public async Task<ActionResult<ErrorOr<List<Corridor>>>> Get()
         {
-            return await Mediator.Send(new GetCorridorQuery()).ConfigureAwait(false);
+            var result = await Mediator.Send(new GetCorridorQuery()).ConfigureAwait(false);
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
     }
     public record GetCorridorQuery() : IQuery<ErrorOr<List<Corridor>>>;
 
-    internal sealed class GetCorridorHandler
+    public class GetCorridorHandler
         : IQueryHandler<GetCorridorQuery, ErrorOr<List<Corridor>>>
     {
         private readonly IImtCorridorRepository _repository;

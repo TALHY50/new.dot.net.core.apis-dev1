@@ -14,12 +14,15 @@ namespace Admin.App.Application.Features.Payers
         [HttpGet(Routes.GetPayerUrl, Name = Routes.GetPayerName)]
         public async Task<ActionResult<ErrorOr<List<Payer>>>> Get()
         {
-            return await Mediator.Send(new GetPayerQuery()).ConfigureAwait(false);
+            var result = await Mediator.Send(new GetPayerQuery()).ConfigureAwait(false);
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
     }
     public record GetPayerQuery() : IQuery<ErrorOr<List<Payer>>>;
 
-    internal sealed class GetPayerHandler
+    public class GetPayerHandler
         : IQueryHandler<GetPayerQuery, ErrorOr<List<Payer>>>
     {
         private readonly IImtPayerRepository _repository;
