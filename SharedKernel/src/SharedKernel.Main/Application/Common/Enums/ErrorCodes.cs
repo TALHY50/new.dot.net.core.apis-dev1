@@ -1,4 +1,6 @@
-﻿namespace SharedKernel.Main.Application.Common.Enums
+﻿using Ardalis.SmartEnum;
+
+namespace SharedKernel.Main.Application.Common.Enums
 {
     public enum ErrorCodes
     {
