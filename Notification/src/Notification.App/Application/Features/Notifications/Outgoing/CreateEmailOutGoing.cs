@@ -33,7 +33,7 @@ public class CreateEmailOutgoingController : ApiControllerBase
 
 public record CreateEmailOutgoingCommand(EventId EventId) : IRequest<ErrorOr<EmailOutgoing>>;
 
-internal sealed class CreateEmailOutgoingCommandValidator : AbstractValidator<CreateEmailOutgoingCommand>
+public class CreateEmailOutgoingCommandValidator : AbstractValidator<CreateEmailOutgoingCommand>
 {
     public CreateEmailOutgoingCommandValidator()
     {
@@ -43,7 +43,7 @@ internal sealed class CreateEmailOutgoingCommandValidator : AbstractValidator<Cr
     }
 }
 
-internal sealed class CreateEmailOutgoingCommandHandler(ILogger<CreateSmsOutgoingCommandHandler> logger, ApplicationDbContext context, IRenderer renderer) : IRequestHandler<CreateEmailOutgoingCommand, ErrorOr<EmailOutgoing>>
+public class CreateEmailOutgoingCommandHandler(ILogger<CreateEmailOutgoingCommandHandler> logger, ApplicationDbContext context, IRenderer renderer) : IRequestHandler<CreateEmailOutgoingCommand, ErrorOr<EmailOutgoing>>
 {
      private readonly ApplicationDbContext _context = context;
      private readonly IRenderer _renderer = renderer;
