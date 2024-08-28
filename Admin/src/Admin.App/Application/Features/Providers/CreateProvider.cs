@@ -18,20 +18,46 @@ namespace Admin.App.Application.Features.Providers
         [HttpPost(Routes.CreateProviderUrl, Name = Routes.CreateProviderName)]
         public async Task<ActionResult<ErrorOr<Provider>>> Create(CreateProviderCommand command)
         {
-            return await Mediator.Send(command).ConfigureAwait(false);
+            var result = await Mediator.Send(command).ConfigureAwait(false);
+
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
     }
 
     public record CreateProviderCommand(
-        string Name,
-        string BaseUrl,
-        string AppId,
-        string AppSecret,
-        uint? CompanyId,
-        byte Status = 1) : IRequest<ErrorOr<Provider>>;
+        string? Code,
+        string? Name,
+        string? BaseUrl,
+        string? ApiKey,
+        string? ApiSecret,
+        byte? Status = 1) : IRequest<ErrorOr<Provider>>;
+
+    public class CreateProviderCommandValidator : AbstractValidator<CreateProviderCommand>
+    {
+        public CreateProviderCommandValidator()
+        {
+            RuleFor(v => v.Code)
+                .MaximumLength(50)
+                .WithMessage("Maximum length can be 50.");
+            RuleFor(v => v.Name)
+                .MaximumLength(50)
+                .WithMessage("Maximum length can be 50.");
+            RuleFor(v => v.BaseUrl)
+                .MaximumLength(100)
+                .WithMessage("Maximum length can be 100.");
+            RuleFor(v => v.ApiKey)
+                .MaximumLength(100)
+                .WithMessage("Maximum length can be 100.");
+            RuleFor(v => v.ApiSecret)
+                .MaximumLength(100)
+                .WithMessage("Maximum length can be 100.");
+        }
+    }
 
 
-    internal sealed class CreateProviderCommandHandler
+    public class CreateProviderCommandHandler
         : IRequestHandler<CreateProviderCommand, ErrorOr<Provider>>
     {
         private readonly IImtProviderRepository _providerRepository;
@@ -45,12 +71,12 @@ namespace Admin.App.Application.Features.Providers
             var now = DateTime.UtcNow;
             var @provider = new Provider
             {
+                Code = request.Code,
                 Name = request.Name,
                 BaseUrl = request.BaseUrl,
-                ApiKey = request.AppId,
-                ApiSecret = request.AppSecret,
-                Status = 1,
-               // CompanyId = request.CompanyId,
+                ApiKey = request.ApiKey,
+                ApiSecret = request.ApiSecret,
+                Status = request.Status,
                 CreatedById = 1,
                 UpdatedById = 2,
                 CreatedAt = now,

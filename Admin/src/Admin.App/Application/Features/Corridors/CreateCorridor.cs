@@ -1,4 +1,6 @@
-﻿using ErrorOr;
+﻿using Admin.App.Application.Features.Currencies;
+using ErrorOr;
+using FluentValidation;
 using IMT.App.Application.Interfaces.Repositories;
 using IMT.App.Domain.Entities;
 using MediatR;
@@ -15,7 +17,11 @@ namespace Admin.App.Application.Features.Corridors
         [HttpPost(Routes.CreateCorridorUrl, Name = Routes.CreateCorridorName)]
         public async Task<ActionResult<ErrorOr<Corridor>>> Create(CreateCorridorCommand command)
         {
-            return await Mediator.Send(command).ConfigureAwait(false);
+            var result = await Mediator.Send(command).ConfigureAwait(false);
+
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
     }
 
@@ -26,7 +32,18 @@ namespace Admin.App.Application.Features.Corridors
         uint? DestinationCurrencyId,
         uint? CompanyId) : IRequest<ErrorOr<Corridor>>;
 
-    internal sealed class CreateCorridorCommandHandler : IRequestHandler<CreateCorridorCommand, ErrorOr<Corridor>>
+    public class CreateCorridoryCommandValidator : AbstractValidator<CreateCorridorCommand>
+    {
+        public CreateCorridoryCommandValidator()
+        {
+            RuleFor(x => x.SourceCountryId).NotEmpty();
+            RuleFor(x => x.DestinationCountryId).NotEmpty();
+            RuleFor(x => x.SourceCurrencyId).NotEmpty();
+            RuleFor(x => x.DestinationCurrencyId).NotEmpty();
+        }
+    }
+
+    public class CreateCorridorCommandHandler : IRequestHandler<CreateCorridorCommand, ErrorOr<Corridor>>
     {
         private readonly IImtCorridorRepository _repository;
 

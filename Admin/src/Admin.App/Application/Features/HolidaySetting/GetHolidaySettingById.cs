@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Contracts.Common;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using Duplicates_HolidaySetting = IMT.App.Domain.Entities.HolidaySetting;
 
 
@@ -19,7 +21,10 @@ public class GetHolidaySettingByIdController : ApiControllerBase
     [HttpGet(Routes.GetHolidaySettingByIdUrl, Name = Routes.GetHolidaySettingByIdName)]
     public async Task<ActionResult<ErrorOr<Duplicates_HolidaySetting>>> Get(uint id)
     {
-        return await Mediator.Send(new GetHolidaySettingByIdCommand(id)).ConfigureAwait(false);
+        var result = await Mediator.Send(new GetHolidaySettingByIdCommand(id)).ConfigureAwait(false);
+        return result.Match(
+            reminder => Ok(result.Value),
+            Problem);
     }
 
     public record GetHolidaySettingByIdCommand(uint Id) : IRequest<ErrorOr<Duplicates_HolidaySetting>>;
@@ -39,7 +44,7 @@ public class GetHolidaySettingByIdController : ApiControllerBase
             var holidaySetting = await _context.ImtHolidaySettings.FirstAsync(e => e.Id == request.Id, cancellationToken: cancellationToken).ConfigureAwait(false);
             if (holidaySetting == null)
             {
-                return Error.NotFound("Holiday Setting not found!");
+                return Error.NotFound("Holiday Setting not found!", AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
             return holidaySetting;
 

@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using ErrorOr;
+using FluentValidation;
 using IMT.App.Application.Interfaces.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Contracts.Common;
 using static Admin.App.Application.Features.Mtts.MttsDelete;
 
 namespace Admin.App.Application.Features.Providers
@@ -15,15 +17,19 @@ namespace Admin.App.Application.Features.Providers
         [Tags("Providers")]
         //[Authorize(Policy = "HasPermission")]
         [HttpDelete(Routes.DeleteProviderUrl, Name = Routes.DeleteProviderName)]
-        public async Task<bool> Delete(uint id)
+        public async Task<ActionResult<ErrorOr<bool>>> Delete(uint id)
         {
-            return await Mediator.Send(new DeleteProviderCommand(id)).ConfigureAwait(false);
+            var result = await Mediator.Send(new DeleteProviderCommand(id)).ConfigureAwait(false);
+
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
 
         public record DeleteProviderCommand(uint id) 
-            : IRequest<bool>;
+            : IRequest<ErrorOr<bool>>;
 
-        internal sealed class DeleteProviderCommandValidator : AbstractValidator<DeleteProviderCommand>
+        public class DeleteProviderCommandValidator : AbstractValidator<DeleteProviderCommand>
         {
             public DeleteProviderCommandValidator()
             {
@@ -31,8 +37,8 @@ namespace Admin.App.Application.Features.Providers
             }
         }
 
-        internal sealed class DeleteProviderCommandHandler
-        : IRequestHandler<DeleteProviderCommand, bool>
+        public class DeleteProviderCommandHandler
+        : IRequestHandler<DeleteProviderCommand, ErrorOr<bool>>
         {
             private readonly ICurrentUserService _user;
             private readonly IImtProviderRepository _providerRepository;
@@ -43,21 +49,16 @@ namespace Admin.App.Application.Features.Providers
                 _providerRepository = providerRepository;
             }
 
-            public async Task<bool> Handle(DeleteProviderCommand request, CancellationToken cancellationToken)
+            public async Task<ErrorOr<bool>> Handle(DeleteProviderCommand request, CancellationToken cancellationToken)
             {
-                if (request.id > 0)
+                var providers = _providerRepository.GetByUintId(request.id);
+
+                if (providers == null)
                 {
-                    var providers = _providerRepository.GetByUintId(request.id);
-
-                    if (providers != null)
-                    {
-                        return await _providerRepository.DeleteAsync(providers);
-                    }
-
-                    return await _providerRepository.DeleteAsync(providers);
+                    return Error.NotFound(description: "Provider not found", code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
-                return false;
+                return await _providerRepository.DeleteAsync(providers);
             }
         }
     }

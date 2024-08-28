@@ -19,7 +19,11 @@ public class CreateBusinessHourAndWeekendController : ApiControllerBase
     [HttpPost(Routes.CreateBusinessHourAndWeekendUrl, Name = Routes.CreateBusinessHourAndWeekendName)]
     public async Task<ActionResult<ErrorOr<BusinessHoursAndWeekend>>> Create(CreateBusinessHourAndWeekendCommand command)
     {
-        return await Mediator.Send(command).ConfigureAwait(false);
+        var result = await Mediator.Send(command).ConfigureAwait(false);
+        return result.Match(
+            reminder => Ok(result.Value),
+            Problem);
+
     }
 
     public record CreateBusinessHourAndWeekendCommand(byte HourType, uint? CountryId,

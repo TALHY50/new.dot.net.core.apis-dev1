@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Contracts.Common;
 
 namespace Admin.App.Application.Features.Countries
 {
@@ -15,15 +16,19 @@ namespace Admin.App.Application.Features.Countries
         //[Authorize(Policy = "HasPermission")]
         [HttpDelete(Routes.DeleteCountryUrl, Name = Routes.DeleteCountryName)]
 
-        public async Task<bool> Delete(DeleteCountryCommand command)
+        public async Task<ActionResult<ErrorOr<bool>>> Delete(DeleteCountryCommand command)
         {
-            return await Mediator.Send(command).ConfigureAwait(false);
+            var result = await Mediator.Send(command).ConfigureAwait(false);
+
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
     }
 
-    public record DeleteCountryCommand(int Id) : IRequest<bool>;
+    public record DeleteCountryCommand(uint Id) : IRequest<ErrorOr<bool>>;
 
-    internal sealed class DeleteCountryCommandValidator : AbstractValidator<DeleteCountryCommand>
+    public class DeleteCountryCommandValidator : AbstractValidator<DeleteCountryCommand>
     {
         public DeleteCountryCommandValidator()
         {
@@ -31,7 +36,7 @@ namespace Admin.App.Application.Features.Countries
         }
     }
 
-    internal sealed class DeleteCountryCommandHandler : IRequestHandler<DeleteCountryCommand, bool>
+    public class DeleteCountryCommandHandler : IRequestHandler<DeleteCountryCommand, ErrorOr<bool>>
     {
         private readonly IAdminCountryRepository _repository;
 
@@ -40,17 +45,18 @@ namespace Admin.App.Application.Features.Countries
             _repository = repository;
         }
 
-        public async Task<bool> Handle(DeleteCountryCommand command, CancellationToken cancellationToken)
+        public async Task<ErrorOr<bool>> Handle(DeleteCountryCommand command, CancellationToken cancellationToken)
         {
             if(command.Id > 0)
             {
-                var country = _repository.GetByIntId(command.Id);
+                var country = _repository.GetByUintId(command.Id);
 
-                if(country != null)
+                if (country == null)
                 {
-                    return await _repository.DeleteAsync(country);
+                    return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Country not found!");
                 }
-                return await _repository.DeleteAsync(country);
+
+               return await _repository.DeleteAsync(country);
             }
 
             return false;
