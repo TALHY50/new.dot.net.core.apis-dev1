@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Contracts.Common;
 
 namespace Admin.App.Application.Features.Currencies
 {
@@ -14,13 +15,16 @@ namespace Admin.App.Application.Features.Currencies
         [Tags("Currency")]
         // [Authorize]
         [HttpDelete(Routes.DeleteCurrencyUrl, Name = Routes.DeleteCurrencyName)]
-        public async Task<bool> DeleteCurrency(uint id)
+        public async Task<ActionResult<ErrorOr<bool>>> DeleteCurrency(uint id)
         {
-            return await Mediator.Send(new DeleteCurrencyCommand(id)).ConfigureAwait(false);
+            var result = await Mediator.Send(new DeleteCurrencyCommand(id)).ConfigureAwait(false);
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
     }
 
-    public record DeleteCurrencyCommand(uint id) : IRequest<bool>;
+    public record DeleteCurrencyCommand(uint id) : IRequest<ErrorOr<bool>>;
 
     internal sealed class DeleteCurrencyCommandValidator : AbstractValidator<DeleteCurrencyCommand>
     {
@@ -29,7 +33,7 @@ namespace Admin.App.Application.Features.Currencies
             RuleFor(r => r.id).NotEmpty();
         }
     }
-    internal sealed class DeleteCurrencyCommandHandler : IRequestHandler<DeleteCurrencyCommand, bool>
+    internal sealed class DeleteCurrencyCommandHandler : IRequestHandler<DeleteCurrencyCommand, ErrorOr<bool>>
     {
         private readonly IImtAdminCurrencyRepository _repository;
         public DeleteCurrencyCommandHandler(IImtAdminCurrencyRepository repository)
@@ -37,15 +41,15 @@ namespace Admin.App.Application.Features.Currencies
             _repository = repository;
         }
 
-        public async Task<bool> Handle(DeleteCurrencyCommand request, CancellationToken cancellationToken)
+        public async Task<ErrorOr<bool>> Handle(DeleteCurrencyCommand request, CancellationToken cancellationToken)
         {
             if (request.id > 0)
             {
                 var entity = _repository.GetByUintId(request.id);
 
-                if (entity != null)
+                if (entity == null)
                 {
-                    return await _repository.DeleteAsync(entity);
+                    return Error.NotFound(code: AppStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Corridor not found!");
                 }
 
                 return await _repository.DeleteAsync(entity);

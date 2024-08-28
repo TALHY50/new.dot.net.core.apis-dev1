@@ -16,12 +16,15 @@ namespace Admin.App.Application.Features.Currencies
         [HttpGet(Routes.GetCurrencyUrl, Name = Routes.GetCurrencyName)]
         public async Task<ActionResult<ErrorOr<List<Currency>>>> Get()
         {
-            return await Mediator.Send(new GetCurrencyQuery()).ConfigureAwait(false);
+            var result = await Mediator.Send(new GetCurrencyQuery()).ConfigureAwait(false);
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
     }
     public record GetCurrencyQuery() : IQuery<ErrorOr<List<Currency>>>;
 
-    internal sealed class GetCurrencyHandler
+    public class GetCurrencyHandler
         : IQueryHandler<GetCurrencyQuery, ErrorOr<List<Currency>>>
     {
         private readonly IImtAdminCurrencyRepository _repository;
