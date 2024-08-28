@@ -139,7 +139,7 @@ namespace IMT.App.Application.Features
                 if (quotation is null)
                 {
                     // Not found Quotation
-                    return Error.NotFound("Quotation not found", AppStatusCode.API_ERROR_QUOTATIION_NOT_FOUND.ToString());
+                    return Error.NotFound("Quotation not found", AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 // operation on db
