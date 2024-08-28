@@ -62,12 +62,12 @@ namespace Admin.App.Application.Features.Mtts
                 {
                     entity.CompanyId = request.CompanyId;
                     entity.CorridorId = request.CorridorId;
-                    entity.CotCurrencyId = request.CotCurrencyId;
+                   // entity.CotCurrencyId = request.CotCurrencyId;
                     entity.CotFixed = request.CotFixed;
                     entity.CotPercentage = request.CotPercentage;
                     entity.FxSpread = request.FxSpread;
                     entity.Increment = request.Increment;
-                    entity.MarkUpCurrencyId = request.MarkUpCurrencyId;
+                  //  entity.MarkUpCurrencyId = request.MarkUpCurrencyId;
                     entity.MarkUpFixed = request.MarkUpFixed;
                     entity.MarkUpPercentage = request.MarkUpPercentage;
                     entity.MoneyPrecision = request.MoneyPrecision;
