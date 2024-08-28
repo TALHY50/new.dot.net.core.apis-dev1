@@ -1,4 +1,7 @@
-﻿namespace IMT.App.Domain.Entities;
+﻿using System;
+using System.Collections.Generic;
+
+namespace IMT.App.Domain.Entities;
 
 public partial class Country
 {

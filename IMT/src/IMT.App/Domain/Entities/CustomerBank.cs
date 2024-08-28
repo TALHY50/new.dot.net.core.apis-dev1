@@ -1,16 +1,19 @@
-﻿namespace IMT.App.Domain.Entities;
+﻿using System;
+using System.Collections.Generic;
+
+namespace IMT.App.Domain.Entities;
 
 public partial class CustomerBank
 {
-    public int Id { get; set; }
+    public uint Id { get; set; }
 
-    public int? CustomerId { get; set; }
+    public uint? CustomerId { get; set; }
 
-    public int? CountryId { get; set; }
+    public uint? CountryId { get; set; }
 
-    public int? CityId { get; set; }
+    public uint? CityId { get; set; }
 
-    public int? BankId { get; set; }
+    public uint? BankId { get; set; }
 
     public string? AccountTitle { get; set; }
 
@@ -18,14 +21,14 @@ public partial class CustomerBank
 
     public string? BranchIban { get; set; }
 
-    public int? CreatedById { get; set; }
+    public uint? CreatedById { get; set; }
 
-    public int? UpdatedById { get; set; }
+    public uint? UpdatedById { get; set; }
 
     /// <summary>
     /// 1=active, 0=inactive, 2= soft-deleted
     /// </summary>
-    public sbyte? Status { get; set; }
+    public byte? Status { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 
