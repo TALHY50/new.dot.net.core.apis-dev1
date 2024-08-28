@@ -49,7 +49,7 @@ namespace Admin.App.Application.Features.Currencies
 
                 if (entity == null)
                 {
-                    return Error.NotFound(code: AppStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Corridor not found!");
+                    return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Currency not found!");
                 }
 
                 return await _repository.DeleteAsync(entity);

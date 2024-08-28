@@ -47,7 +47,7 @@ namespace Admin.App.Application.Features.Currencies
             var entity = _repository.GetByUintId(request.id);
             if (entity == null)
             {
-                return Error.NotFound(description: "Currency not found!", code: AppStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                return Error.NotFound(description: "Currency not found!", code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
             return entity;
         }
