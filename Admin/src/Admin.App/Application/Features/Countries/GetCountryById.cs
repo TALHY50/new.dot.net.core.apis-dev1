@@ -46,9 +46,9 @@ namespace Admin.App.Application.Features.Countries
             {
                 var country = _repository.GetByUintId(request.Id);
 
-                if(country == null)
+                if (country == null)
                 {
-                    return Error.NotFound(description: "Country not found!", code: AppErrorStatusCode.API_ERROR_COUNTRY_NOT_FOUND.ToString());
+                    return Error.NotFound(description: "Country not found!", code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 return country;

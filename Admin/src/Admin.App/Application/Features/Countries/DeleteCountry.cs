@@ -18,11 +18,15 @@ namespace Admin.App.Application.Features.Countries
 
         public async Task<ActionResult<ErrorOr<bool>>> Delete(DeleteCountryCommand command)
         {
-            return await Mediator.Send(command).ConfigureAwait(false);
+            var result = await Mediator.Send(command).ConfigureAwait(false);
+
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
     }
 
-    public record DeleteCountryCommand(uint Id) : IRequest<ActionResult<ErrorOr<bool>>>;
+    public record DeleteCountryCommand(uint Id) : IRequest<ErrorOr<bool>>;
 
     public class DeleteCountryCommandValidator : AbstractValidator<DeleteCountryCommand>
     {
@@ -32,7 +36,7 @@ namespace Admin.App.Application.Features.Countries
         }
     }
 
-    public class DeleteCountryCommandHandler : IRequestHandler<DeleteCountryCommand, ActionResult<ErrorOr<bool>>>
+    public class DeleteCountryCommandHandler : IRequestHandler<DeleteCountryCommand, ErrorOr<bool>>
     {
         private readonly IAdminCountryRepository _repository;
 
@@ -41,7 +45,7 @@ namespace Admin.App.Application.Features.Countries
             _repository = repository;
         }
 
-        public async Task<ActionResult<ErrorOr<bool>>> Handle(DeleteCountryCommand command, CancellationToken cancellationToken)
+        public async Task<ErrorOr<bool>> Handle(DeleteCountryCommand command, CancellationToken cancellationToken)
         {
             if(command.Id > 0)
             {
@@ -49,13 +53,10 @@ namespace Admin.App.Application.Features.Countries
 
                 if (country == null)
                 {
+                    return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Country not found!");
                 }
 
-                if (country != null)
-                {
-                    return await _repository.DeleteAsync(country);
-                } 
-                return await _repository.DeleteAsync(country!);
+               return await _repository.DeleteAsync(country);
             }
 
             return false;
