@@ -16,9 +16,9 @@ namespace IMT.App.Infrastructure.Persistence.Configurations
             .HasColumnName("id")
             .IsRequired();
 
-        builder.Property(e => e.Amount)
-            .HasColumnType("decimal(16,4)")
-            .HasColumnName("amount");
+        //builder.Property(e => e.Amount)
+        //    .HasColumnType("decimal(16,4)")
+        //    .HasColumnName("amount");
 
         builder.Property(e => e.CurrencyId)
             .HasColumnName("currency_id")
@@ -28,9 +28,9 @@ namespace IMT.App.Infrastructure.Persistence.Configurations
             .HasColumnType("decimal(16,4)")
             .HasColumnName("commission");
 
-        builder.Property(e => e.CommissionFixed)
-            .HasColumnType("decimal(16,4)")
-            .HasColumnName("commision_fixed");
+        //builder.Property(e => e.CommissionFixed)
+        //    .HasColumnType("decimal(16,4)")
+        //    .HasColumnName("commision_fixed");
 
         builder.Property(e => e.CommissionPercentage)
             .HasColumnType("decimal(16,4)")

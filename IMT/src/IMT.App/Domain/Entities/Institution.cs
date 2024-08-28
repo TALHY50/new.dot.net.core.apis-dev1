@@ -1,4 +1,7 @@
-﻿namespace IMT.App.Domain.Entities;
+﻿using System;
+using System.Collections.Generic;
+
+namespace IMT.App.Domain.Entities;
 
 /// <summary>
 /// Type : Master, we onboard an institution, and perform transactions under it, like the merchants of a payment system

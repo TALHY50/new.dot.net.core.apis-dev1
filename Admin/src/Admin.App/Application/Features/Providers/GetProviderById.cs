@@ -2,7 +2,7 @@
 using ErrorOr;
 using FluentValidation;
 using IMT.App.Application.Interfaces.Repositories;
-using IMT.App.Domain.Entities.Duplicates;
+using IMT.App.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

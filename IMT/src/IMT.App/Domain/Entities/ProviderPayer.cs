@@ -1,18 +1,21 @@
-﻿namespace IMT.App.Domain.Entities;
+﻿using System;
+using System.Collections.Generic;
+
+namespace IMT.App.Domain.Entities;
 
 public partial class ProviderPayer
 {
-    public int Id { get; set; }
+    public uint Id { get; set; }
 
-    public int ImtProviderId { get; set; }
+    public uint ImtProviderId { get; set; }
 
-    public int ImtCountryId { get; set; }
+    public uint ImtCountryId { get; set; }
 
-    public int ImtCurrencyId { get; set; }
+    public uint ImtCurrencyId { get; set; }
 
-    public int? ImtProviderServiceId { get; set; }
+    public uint? ImtProviderServiceId { get; set; }
 
-    public int? RemotePayerId { get; set; }
+    public uint? RemotePayerId { get; set; }
 
     public sbyte? Precision { get; set; }
 
