@@ -56,7 +56,7 @@ namespace Admin.App.Application.Features.Corridors
                 return await _repository.DeleteAsync(entity);
             }
 
-           return Error.NotFound(description: "Corridor not found!", code: AppStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString()); ;
+           return Error.NotFound(description: "Corridor not found!", code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString()); ;
         }
     }
 }
