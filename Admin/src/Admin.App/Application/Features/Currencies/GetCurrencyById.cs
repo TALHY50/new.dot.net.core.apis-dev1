@@ -15,12 +15,12 @@ namespace Admin.App.Application.Features.Currencies
         [Tags("Currency")]
         //[Authorize]
         [HttpGet(Routes.GetCurrencyByIdUrl, Name = Routes.GetCurrencyByIdName)]
-        public async Task<ActionResult<ErrorOr<Currency>>> GetById(int id)
+        public async Task<ActionResult<ErrorOr<Currency>>> GetById(uint id)
         {
             return await Mediator.Send(new GetCurrencyByIdQuery(id)).ConfigureAwait(false);
         }
     }
-    public record GetCurrencyByIdQuery(int id) : IRequest<ErrorOr<Currency>>;
+    public record GetCurrencyByIdQuery(uint id) : IRequest<ErrorOr<Currency>>;
 
     internal sealed class GetCurrencyByIdValidator : AbstractValidator<GetCurrencyByIdQuery>
     {
@@ -40,7 +40,7 @@ namespace Admin.App.Application.Features.Currencies
         }
         public async Task<ErrorOr<Currency>> Handle(GetCurrencyByIdQuery request, CancellationToken cancellationToken)
         {
-            return _repository.GetByIntId(request.id);
+            return _repository.GetByUintId(request.id);
         }
     }
 }

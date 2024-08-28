@@ -2,7 +2,7 @@
 
 public partial class Currency
 {
-    public int Id { get; set; }
+    public uint Id { get; set; }
 
     public string? Code { get; set; }
 

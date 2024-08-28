@@ -19,13 +19,13 @@ namespace Admin.App.Application.Features.Currencies
         //[Authorize]//(Policy = "HasPermission")]
         [HttpPut(Routes.UpdateCurrencyUrl, Name = Routes.UpdateCurrencyName)]
 
-        public async Task<ActionResult<ErrorOr<Currency>>> Update(int id, UpdateCurrencyCommand command)
+        public async Task<ActionResult<ErrorOr<Currency>>> Update(uint id, UpdateCurrencyCommand command)
         {
             var commandWithId = command with { id = id };
             return await Mediator.Send(commandWithId).ConfigureAwait(false);
         }
     }
-    public record UpdateCurrencyCommand(int id,
+    public record UpdateCurrencyCommand(uint id,
     string? Code,
     string? IsoCode,
     string? Name,
@@ -49,7 +49,7 @@ namespace Admin.App.Application.Features.Currencies
         }
         public async Task<ErrorOr<Currency>> Handle(UpdateCurrencyCommand request, CancellationToken cancellationToken)
         {
-            Currency? entity = _repository.GetByIntId(request.id);
+            Currency? entity = _repository.GetByUintId(request.id);
             var now = DateTime.UtcNow;
             if (entity != null)
             {

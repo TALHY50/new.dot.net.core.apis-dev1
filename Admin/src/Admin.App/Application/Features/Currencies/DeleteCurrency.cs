@@ -14,13 +14,13 @@ namespace Admin.App.Application.Features.Currencies
         [Tags("Currency")]
         // [Authorize]
         [HttpDelete(Routes.DeleteCurrencyUrl, Name = Routes.DeleteCurrencyName)]
-        public async Task<bool> DeleteCurrency(int id)
+        public async Task<bool> DeleteCurrency(uint id)
         {
             return await Mediator.Send(new DeleteCurrencyCommand(id)).ConfigureAwait(false);
         }
     }
 
-    public record DeleteCurrencyCommand(int id) : IRequest<bool>;
+    public record DeleteCurrencyCommand(uint id) : IRequest<bool>;
 
     internal sealed class DeleteCurrencyCommandValidator : AbstractValidator<DeleteCurrencyCommand>
     {
@@ -41,7 +41,7 @@ namespace Admin.App.Application.Features.Currencies
         {
             if (request.id > 0)
             {
-                var entity = _repository.GetByIntId(request.id);
+                var entity = _repository.GetByUintId(request.id);
 
                 if (entity != null)
                 {
