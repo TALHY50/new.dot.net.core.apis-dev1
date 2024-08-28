@@ -14,4 +14,20 @@
 
 
     }
+    //Success,Error,Warning,Notice
+    public static partial class AppErrorStatusCode
+    {
+        public static readonly int API_ERROR_INSTITUTION_NOT_FOUND = 1001;
+
+    }
+    public static partial class AppPendingStatusCode
+    {
+        public static readonly int API_PENDING_TRANSACTION = 20;
+      
+    }
+    public static partial class AppRejectedStatusCode
+    {
+        public static readonly int API_REJECTED_TRANSACTION = 30;
+          public static readonly int API_REJECTED_INSUFFECIENT_BALANCE = 31;
+    }
 }

@@ -1,23 +1,15 @@
-﻿namespace IMT.App.Domain.Entities;
+﻿using System;
+using System.Collections.Generic;
 
-/// <summary>
-/// Type : Master, transaction models for business and consumers
-/// </summary>
+namespace IMT.App.Domain.Entities;
+
 public partial class TransactionType
 {
     public uint Id { get; set; }
 
-    /// <summary>
-    /// 1 = B2B, 2 = B2C, 3 = C2B, 4 = C2C, 5 = M2M
-    /// </summary>
-    public byte Type { get; set; }
+    public string? Name { get; set; }
 
-    public uint? CompanyId { get; set; }
-
-    /// <summary>
-    /// 0=inactive, 1=active, 2=pending, 3=rejected 
-    /// </summary>
-    public byte Status { get; set; }
+    public byte? Status { get; set; }
 
     public uint? CreatedById { get; set; }
 

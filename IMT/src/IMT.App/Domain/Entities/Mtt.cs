@@ -1,4 +1,7 @@
-﻿namespace IMT.App.Domain.Entities;
+﻿using System;
+using System.Collections.Generic;
+
+namespace IMT.App.Domain.Entities;
 
 /// <summary>
 /// Type : Master, transaction setup between providers and us, like POS of a payment system
@@ -9,21 +12,19 @@ public partial class Mtt
 
     public uint? CorridorId { get; set; }
 
+    public uint? CurrencyId { get; set; }
+
     public uint PayerId { get; set; }
 
     public uint? ServiceMethodId { get; set; }
 
     public string TransactionTypeId { get; set; } = null!;
 
-    public uint? CotCurrencyId { get; set; }
-
     public decimal CotPercentage { get; set; }
 
     public decimal CotFixed { get; set; }
 
     public decimal FxSpread { get; set; }
-
-    public uint? MarkUpCurrencyId { get; set; }
 
     public decimal MarkUpPercentage { get; set; }
 

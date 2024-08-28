@@ -1,8 +1,11 @@
-﻿namespace IMT.App.Domain.Entities;
+﻿using System;
+using System.Collections.Generic;
+
+namespace IMT.App.Domain.Entities;
 
 public partial class Customer
 {
-    public int Id { get; set; }
+    public uint Id { get; set; }
 
     public string? FirstName { get; set; }
 
@@ -20,14 +23,14 @@ public partial class Customer
 
     public sbyte? Category { get; set; }
 
-    public int? CreatedById { get; set; }
+    public uint? CreatedById { get; set; }
 
-    public int? UpdatedById { get; set; }
+    public uint? UpdatedById { get; set; }
 
     /// <summary>
     /// 0=inactive, 1= active, 2= pending, 3= blocked, 4=banned, 5=expired, 6=rejected, 7 = approved but not active yet
     /// </summary>
-    public sbyte? Status { get; set; }
+    public byte? Status { get; set; }
 
     public DateTime? Dob { get; set; }
 

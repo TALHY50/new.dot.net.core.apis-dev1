@@ -1,16 +1,19 @@
-﻿namespace IMT.App.Domain.Entities;
+﻿using System;
+using System.Collections.Generic;
+
+namespace IMT.App.Domain.Entities;
 
 public partial class ProviderService
 {
-    public int Id { get; set; }
+    public uint Id { get; set; }
 
-    public int ImtProviderId { get; set; }
+    public uint ImtProviderId { get; set; }
 
     public string? Name { get; set; }
 
-    public int? CreatedById { get; set; }
+    public uint? CreatedById { get; set; }
 
-    public int? UpdatedById { get; set; }
+    public uint? UpdatedById { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 

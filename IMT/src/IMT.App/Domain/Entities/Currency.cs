@@ -1,4 +1,7 @@
-﻿namespace IMT.App.Domain.Entities;
+﻿using System;
+using System.Collections.Generic;
+
+namespace IMT.App.Domain.Entities;
 
 public partial class Currency
 {
@@ -12,9 +15,9 @@ public partial class Currency
 
     public string? Symbol { get; set; }
 
-    public int? CreatedById { get; set; }
+    public uint? CreatedById { get; set; }
 
-    public int? UpdatedById { get; set; }
+    public uint? UpdatedById { get; set; }
 
     /// <summary>
     /// 1=active, 0=inactive,2=soft-delete 

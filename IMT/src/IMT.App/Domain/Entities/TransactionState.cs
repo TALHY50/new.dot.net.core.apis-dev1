@@ -1,16 +1,19 @@
-﻿namespace IMT.App.Domain.Entities;
+﻿using System;
+using System.Collections.Generic;
+
+namespace IMT.App.Domain.Entities;
 
 public partial class TransactionState
 {
-    public int Id { get; set; }
+    public uint Id { get; set; }
 
     public string? Name { get; set; }
 
-    public sbyte? Status { get; set; }
+    public byte? Status { get; set; }
 
-    public int? CreatedById { get; set; }
+    public uint? CreatedById { get; set; }
 
-    public int? UpdatedById { get; set; }
+    public uint? UpdatedById { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 
