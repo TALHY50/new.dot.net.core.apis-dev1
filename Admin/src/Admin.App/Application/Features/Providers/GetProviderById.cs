@@ -67,7 +67,7 @@ namespace Admin.App.Application.Features.Providers
                 var provider = _providerRepository.GetByUintId(request.id);
                 if (provider == null)
                 {
-                    return Error.NotFound(description: "Provider not found", code: AppStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(description: "Provider not found", code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
                 else
                 {
