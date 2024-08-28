@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.19, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.30, for Win64 (x86_64)
 --
--- Host: localhost    Database: acl_dot_net1
+-- Host: localhost    Database: xxx
 -- ------------------------------------------------------
--- Server version	5.5.5-10.4.22-MariaDB-1:10.4.22+maria~focal
+-- Server version	8.0.30
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -23,15 +23,15 @@ DROP TABLE IF EXISTS `acl_branches`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `acl_branches` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `company_id` int(11) NOT NULL,
-  `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` tinyint(4) NOT NULL,
-  `sequence` int(11) NOT NULL,
-  `created_by_id` int(11) NOT NULL,
-  `updated_by_id` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `company_id` int NOT NULL,
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` tinyint NOT NULL,
+  `sequence` int NOT NULL,
+  `created_by_id` int NOT NULL,
+  `updated_by_id` int NOT NULL,
   `created_at` datetime(6) NOT NULL,
   `updated_at` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
@@ -56,35 +56,35 @@ DROP TABLE IF EXISTS `acl_companies`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `acl_companies` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `cname` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `cemail` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `address1` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `address2` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `postcode` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `phone` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `fax` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `city` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `state` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `country` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `logo` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `registration_no` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `timezone` int(11) NOT NULL,
-  `unique_column_name` tinyint(4) NOT NULL DEFAULT 1,
-  `timezone_value` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tax_no` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tax_office` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `sector` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cname` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cemail` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address1` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address2` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `postcode` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `fax` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `city` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `state` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `country` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `logo` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `registration_no` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `timezone` int NOT NULL,
+  `unique_column_name` tinyint NOT NULL DEFAULT '1',
+  `timezone_value` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tax_no` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tax_office` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `sector` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `average_turnover` double(16,4) NOT NULL,
-  `no_of_employees` int(11) NOT NULL,
-  `cmmi_level` tinyint(4) NOT NULL,
+  `no_of_employees` int NOT NULL,
+  `cmmi_level` tinyint NOT NULL,
   `yearly_revenue` double(16,4) NOT NULL,
   `hourly_rate` double(12,4) NOT NULL,
   `daily_rate` double(12,4) NOT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT 1,
-  `added_by` int(11) NOT NULL DEFAULT 1,
+  `status` tinyint NOT NULL DEFAULT '1',
+  `added_by` int NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -109,9 +109,9 @@ DROP TABLE IF EXISTS `acl_company_modules`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `acl_company_modules` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `company_id` int(11) NOT NULL,
-  `module_id` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `company_id` int NOT NULL,
+  `module_id` int NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -136,14 +136,14 @@ DROP TABLE IF EXISTS `acl_countries`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `acl_countries` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `code` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` tinyint(4) NOT NULL,
-  `sequence` int(11) NOT NULL,
-  `created_by_id` int(11) NOT NULL,
-  `updated_by_id` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` tinyint NOT NULL,
+  `sequence` int NOT NULL,
+  `created_by_id` int NOT NULL,
+  `updated_by_id` int NOT NULL,
   `created_at` datetime(6) NOT NULL,
   `updated_at` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
@@ -168,11 +168,11 @@ DROP TABLE IF EXISTS `acl_modules`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `acl_modules` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `icon` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `sequence` int(11) NOT NULL,
-  `display_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sequence` int NOT NULL,
+  `display_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -197,10 +197,10 @@ DROP TABLE IF EXISTS `acl_page_routes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `acl_page_routes` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `page_id` int(11) DEFAULT NULL,
-  `route_name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `route_url` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `page_id` int DEFAULT NULL,
+  `route_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `route_url` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -226,13 +226,13 @@ DROP TABLE IF EXISTS `acl_pages`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `acl_pages` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `module_id` int(11) NOT NULL,
-  `sub_module_id` int(11) NOT NULL,
-  `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `method_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `method_type` int(11) NOT NULL,
-  `available_to_company` tinyint(4) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `module_id` int NOT NULL,
+  `sub_module_id` int NOT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `method_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `method_type` int NOT NULL,
+  `available_to_company` tinyint NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -257,9 +257,9 @@ DROP TABLE IF EXISTS `acl_role_pages`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `acl_role_pages` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `role_id` int(11) NOT NULL,
-  `page_id` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `role_id` int NOT NULL,
+  `page_id` int NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -285,13 +285,13 @@ DROP TABLE IF EXISTS `acl_roles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `acl_roles` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT 1,
-  `company_id` int(11) NOT NULL,
-  `created_by_id` int(11) DEFAULT NULL,
-  `updated_by_id` int(11) DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` tinyint NOT NULL DEFAULT '1',
+  `company_id` int NOT NULL,
+  `created_by_id` int DEFAULT NULL,
+  `updated_by_id` int DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -316,14 +316,14 @@ DROP TABLE IF EXISTS `acl_states`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `acl_states` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `country_id` int(11) NOT NULL,
-  `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` tinyint(4) NOT NULL,
-  `sequence` int(11) NOT NULL,
-  `created_by_id` int(11) NOT NULL,
-  `updated_by_id` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `country_id` int NOT NULL,
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` tinyint NOT NULL,
+  `sequence` int NOT NULL,
+  `created_by_id` int NOT NULL,
+  `updated_by_id` int NOT NULL,
   `created_at` datetime(6) NOT NULL,
   `updated_at` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
@@ -348,14 +348,14 @@ DROP TABLE IF EXISTS `acl_sub_modules`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `acl_sub_modules` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `module_id` int(11) NOT NULL,
-  `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `controller_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `icon` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `sequence` int(11) NOT NULL,
-  `default_method` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `display_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `module_id` int NOT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `controller_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sequence` int NOT NULL,
+  `default_method` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `display_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -380,10 +380,10 @@ DROP TABLE IF EXISTS `acl_user_usergroups`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `acl_user_usergroups` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `usergroup_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `company_id` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `usergroup_id` int NOT NULL,
+  `user_id` int NOT NULL,
+  `company_id` int NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -408,10 +408,10 @@ DROP TABLE IF EXISTS `acl_usergroup_roles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `acl_usergroup_roles` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `usergroup_id` int(11) NOT NULL,
-  `role_id` int(11) NOT NULL,
-  `company_id` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `usergroup_id` int NOT NULL,
+  `role_id` int NOT NULL,
+  `company_id` int NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -436,12 +436,12 @@ DROP TABLE IF EXISTS `acl_usergroups`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `acl_usergroups` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `group_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `category` tinyint(4) NOT NULL,
-  `dashboard_url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT 1,
-  `company_id` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `group_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `category` tinyint NOT NULL,
+  `dashboard_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` tinyint NOT NULL DEFAULT '1',
+  `company_id` int NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -466,37 +466,37 @@ DROP TABLE IF EXISTS `acl_users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `acl_users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `first_name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `last_name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `avatar` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `last_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `dob` datetime(6) DEFAULT NULL,
-  `gender` tinyint(4) DEFAULT NULL,
-  `address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `city` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `country` int(11) NOT NULL,
-  `phone` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `gender` tinyint DEFAULT NULL,
+  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `city` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `country` int NOT NULL,
+  `phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `is_admin_verified` tinyint(1) NOT NULL,
-  `user_type` tinyint(4) NOT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `refresh_token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `salt` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `user_type` tinyint NOT NULL,
+  `remember_token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `refresh_token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `salt` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `activated_at` datetime DEFAULT NULL,
-  `language` varchar(8) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'en-US',
-  `username` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `img_path` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `claims` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT 1,
-  `company_id` int(11) NOT NULL,
-  `permission_version` int(11) NOT NULL,
-  `otp_channel` tinyint(4) NOT NULL,
+  `language` varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'en-US',
+  `username` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `img_path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `claims` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` tinyint NOT NULL DEFAULT '1',
+  `company_id` int NOT NULL,
+  `permission_version` int NOT NULL,
+  `otp_channel` tinyint NOT NULL,
   `login_at` datetime DEFAULT NULL,
-  `created_by_id` int(11) NOT NULL,
-  `auth_identifier` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_by_id` int NOT NULL,
+  `auth_identifier` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -507,7 +507,7 @@ CREATE TABLE `acl_users` (
 
 LOCK TABLES `acl_users` WRITE;
 /*!40000 ALTER TABLE `acl_users` DISABLE KEYS */;
-INSERT INTO `acl_users` VALUES (1,'admin1','admin1','ssadmin@sipay.com.tr','users/admin/c41353d1c1fcbdbd39f96ea46a3f769136952e79.png','QCy4DY93n7XSPqOJAjrq9hmwoIuaq9zqbDUBXmXPs+DgWlbGHBxWVQTlQVdmmUYUk0D21muGuNGQr32ro0zFdA==','1994-02-22 00:00:00.000000',1,'Dhaka','19',0,'+8801788343704',1,0,'','{\"Value\":\"unZMttIAf8hWMdz5alvpaTIUDfx6RUrghwEMdF0fHVSGgT72wZ3K5H1xvfGJ3AahjTm8\\u002Bws/Fr7/TclClWAy8w==\",\"Active\":true,\"ExpirationDate\":\"2024-05-20T14:19:28.7004718Z\"}','pNr7R0FzsicCDrMlIwXYVI6zM4rZByVgNCkWRwM4y57Sw+cdKUbTrRZLbV8nccwNlN+DokHXlkxKGvw+7ISPPw==','2018-07-10 16:21:24','2021-08-25 05:46:27',NULL,'en-US','rajibecbb','storage/users/1/2019-04-18-07-49-28-ba4fe9be59df7b82f8243d2126070d76f5305b3e.png','[]',1,1,2,0,NULL,1,NULL),(2,'Mahmud','Mahmud','test@gmail.com',NULL,'DmCAhbrFo0aaQvJ6IAgP1XfskHLmBzGeHJ2Brs2cYuLcaes0wo3YEtbYYTvThtSF58ILubqMIZei5H/sW9IDkw==',NULL,NULL,NULL,NULL,0,NULL,0,1,NULL,'{\"Value\":\"Aef5f6z1VacASqBav1wnvfTCAWSjQNPsV41nnZIXsvKP0OMlFKiRogqPPNRYi18BtKNRvSe34mdZKSuB0ynIvA==\",\"Active\":true,\"ExpirationDate\":\"2024-05-20T14:09:56.3959656Z\"}','afpAOoSCCbkD5gg3cA7asIT3Zcno4w+To7ZKct9KyN2xmAXcultqy5vJltIQiud0qocCQ44M4sB9UgnYiAt+Nw==','2024-05-20 17:25:35','2024-05-20 17:25:35',NULL,'en-US','test@gmail.com',NULL,'[]',1,0,0,0,NULL,0,NULL);
+INSERT INTO `acl_users` VALUES (1,'admin1','admin1','ssadmin@sipay.com.tr','users/admin/c41353d1c1fcbdbd39f96ea46a3f769136952e79.png','QCy4DY93n7XSPqOJAjrq9hmwoIuaq9zqbDUBXmXPs+DgWlbGHBxWVQTlQVdmmUYUk0D21muGuNGQr32ro0zFdA==','1994-02-22 00:00:00.000000',1,'Dhaka','19',0,'+8801788343704',1,0,'','{\"Value\":\"PWBPj6eNaFtmbhwz6wjWnVpOfpeYnZIdZQNnnj2Kdu3vURKdhOzWFMb0t8wCbiOukiEEsish4LowcyD/TsT0sg==\",\"Active\":true,\"ExpirationDate\":\"2024-08-23T09:31:00.5975438Z\"}','pNr7R0FzsicCDrMlIwXYVI6zM4rZByVgNCkWRwM4y57Sw+cdKUbTrRZLbV8nccwNlN+DokHXlkxKGvw+7ISPPw==','2018-07-10 16:21:24','2021-08-25 05:46:27',NULL,'en-US','rajibecbb','storage/users/1/2019-04-18-07-49-28-ba4fe9be59df7b82f8243d2126070d76f5305b3e.png','[]',1,1,2,0,NULL,1,NULL),(2,'Mahmud','Mahmud','test@gmail.com',NULL,'DmCAhbrFo0aaQvJ6IAgP1XfskHLmBzGeHJ2Brs2cYuLcaes0wo3YEtbYYTvThtSF58ILubqMIZei5H/sW9IDkw==',NULL,NULL,NULL,NULL,0,NULL,0,1,NULL,'{\"Value\":\"Aef5f6z1VacASqBav1wnvfTCAWSjQNPsV41nnZIXsvKP0OMlFKiRogqPPNRYi18BtKNRvSe34mdZKSuB0ynIvA==\",\"Active\":true,\"ExpirationDate\":\"2024-05-20T14:09:56.3959656Z\"}','afpAOoSCCbkD5gg3cA7asIT3Zcno4w+To7ZKct9KyN2xmAXcultqy5vJltIQiud0qocCQ44M4sB9UgnYiAt+Nw==','2024-05-20 17:25:35','2024-05-20 17:25:35',NULL,'en-US','test@gmail.com',NULL,'[]',1,0,0,0,NULL,0,NULL);
 /*!40000 ALTER TABLE `acl_users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -519,9 +519,9 @@ DROP TABLE IF EXISTS `acl_usertype_submodules`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `acl_usertype_submodules` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_type_id` int(1) unsigned NOT NULL,
-  `sub_module_id` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_type_id` int unsigned NOT NULL,
+  `sub_module_id` int NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -546,15 +546,15 @@ DROP TABLE IF EXISTS `imt_banks`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `imt_banks` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `code` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `display_name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `url` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `logo` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_by_id` int(11) DEFAULT NULL,
-  `updated_by_id` int(11) DEFAULT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT 1 COMMENT '1=active, 0=inactive, 2=soft deleted',
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `code` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `display_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `url` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `logo` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_by_id` int unsigned DEFAULT NULL,
+  `updated_by_id` int unsigned DEFAULT NULL,
+  `status` tinyint unsigned NOT NULL DEFAULT '1' COMMENT '1=active, 0=inactive, 2=soft deleted',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -578,18 +578,18 @@ DROP TABLE IF EXISTS `imt_business_hours_and_weekends`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `imt_business_hours_and_weekends` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `hour_type` tinyint(3) unsigned DEFAULT 0 COMMENT '0 = regular, 1 = special',
-  `country_id` int(10) unsigned DEFAULT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `hour_type` tinyint unsigned DEFAULT '0' COMMENT '0 = regular, 1 = special',
+  `country_id` int unsigned DEFAULT NULL,
   `day` varchar(10) NOT NULL COMMENT 'Friday, Saturday, Sunday, Monday, etc',
-  `is_weekend` tinyint(4) NOT NULL DEFAULT 0 COMMENT '0=not weekend, 1=weekend',
-  `gmt` tinyint(4) NOT NULL COMMENT 'GMT offset in hours (e.g., +5, -3)',
+  `is_weekend` tinyint NOT NULL DEFAULT '0' COMMENT '0=not weekend, 1=weekend',
+  `gmt` tinyint NOT NULL COMMENT 'GMT offset in hours (e.g., +5, -3)',
   `open_at` datetime NOT NULL,
   `close_at` datetime NOT NULL,
-  `company_id` int(10) unsigned DEFAULT 0,
-  `status` tinyint(3) unsigned NOT NULL DEFAULT 1 COMMENT '0=inactive, 1=active, 2=pending, 3=rejected ',
-  `created_by_id` int(10) unsigned DEFAULT NULL,
-  `updated_by_id` int(10) unsigned DEFAULT NULL,
+  `company_id` int unsigned DEFAULT '0',
+  `status` tinyint unsigned NOT NULL DEFAULT '1' COMMENT '0=inactive, 1=active, 2=pending, 3=rejected ',
+  `created_by_id` int unsigned DEFAULT NULL,
+  `updated_by_id` int unsigned DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -613,12 +613,12 @@ DROP TABLE IF EXISTS `imt_cities`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `imt_cities` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `country_id` int(11) DEFAULT NULL,
-  `created_by_id` int(11) DEFAULT NULL,
-  `updated_by_id` int(11) DEFAULT NULL,
-  `status` tinyint(4) DEFAULT 1 COMMENT '1=active, 0=inactive, 2=soft-deleted',
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `country_id` int unsigned DEFAULT NULL,
+  `created_by_id` int unsigned DEFAULT NULL,
+  `updated_by_id` int unsigned DEFAULT NULL,
+  `status` tinyint unsigned DEFAULT '1' COMMENT '1=active, 0=inactive, 2=soft-deleted',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -642,19 +642,19 @@ DROP TABLE IF EXISTS `imt_corridors`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `imt_corridors` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `source_country_id` int(10) unsigned DEFAULT NULL,
-  `destination_country_id` int(10) unsigned DEFAULT NULL,
-  `source_currency_id` int(10) unsigned DEFAULT NULL,
-  `destination_currency_id` int(10) unsigned DEFAULT NULL,
-  `company_id` int(10) unsigned DEFAULT 0,
-  `status` tinyint(3) unsigned NOT NULL DEFAULT 1 COMMENT '0=inactive, 1=active, 2=pending, 3=rejected ',
-  `created_by_id` int(10) unsigned DEFAULT NULL,
-  `updated_by_id` int(10) unsigned DEFAULT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `source_country_id` int unsigned DEFAULT NULL,
+  `destination_country_id` int unsigned DEFAULT NULL,
+  `source_currency_id` int unsigned DEFAULT NULL,
+  `destination_currency_id` int unsigned DEFAULT NULL,
+  `company_id` int unsigned DEFAULT '0',
+  `status` tinyint unsigned NOT NULL DEFAULT '1' COMMENT '0=inactive, 1=active, 2=pending, 3=rejected ',
+  `created_by_id` int unsigned DEFAULT NULL,
+  `updated_by_id` int unsigned DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Type : Master, corridor is setup of source country-currency to destination country-currency, like send GBP Euro to USA USD';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Type : Master, corridor is setup of source country-currency to destination country-currency, like send GBP Euro to USA USD';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -674,13 +674,13 @@ DROP TABLE IF EXISTS `imt_countries`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `imt_countries` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `code` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `iso_code` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_by_id` int(11) DEFAULT NULL,
-  `updated_by_id` int(11) DEFAULT NULL,
-  `status` tinyint(4) DEFAULT 1 COMMENT '1=active, 0=inactive, 2=soft-deleted',
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `code` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `iso_code` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_by_id` int unsigned DEFAULT NULL,
+  `updated_by_id` int unsigned DEFAULT NULL,
+  `status` tinyint unsigned DEFAULT '1' COMMENT '1=active, 0=inactive, 2=soft-deleted',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -705,14 +705,14 @@ DROP TABLE IF EXISTS `imt_currencies`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `imt_currencies` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `code` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `iso_code` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `symbol` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_by_id` int(11) DEFAULT NULL,
-  `updated_by_id` int(11) DEFAULT NULL,
-  `status` tinyint(4) DEFAULT 1 COMMENT '1=active, 0=inactive,2=soft-delete ',
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `code` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `iso_code` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `symbol` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_by_id` int unsigned DEFAULT NULL,
+  `updated_by_id` int unsigned DEFAULT NULL,
+  `status` tinyint unsigned DEFAULT '1' COMMENT '1=active, 0=inactive,2=soft-delete ',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -737,18 +737,18 @@ DROP TABLE IF EXISTS `imt_currency_conversion_rates`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `imt_currency_conversion_rates` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `corridor_id` int(10) unsigned NOT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `corridor_id` int unsigned NOT NULL,
   `exchange_rate` decimal(16,4) NOT NULL COMMENT 'Exchange rate between currencies',
   `fx_spread` decimal(16,4) NOT NULL COMMENT 'Foreign exchange spread',
-  `company_id` int(10) unsigned DEFAULT 0,
-  `status` tinyint(3) unsigned NOT NULL DEFAULT 1 COMMENT '0=inactive, 1=active, 2=pending, 3=rejected ',
-  `created_by_id` int(10) unsigned DEFAULT NULL,
-  `updated_by_id` int(10) unsigned DEFAULT NULL,
+  `company_id` int unsigned DEFAULT '0',
+  `status` tinyint unsigned NOT NULL DEFAULT '1' COMMENT '0=inactive, 1=active, 2=pending, 3=rejected ',
+  `created_by_id` int unsigned DEFAULT NULL,
+  `updated_by_id` int unsigned DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Type : Master, conversion rates based on a corridor';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Type : Master, conversion rates based on a corridor';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -768,17 +768,17 @@ DROP TABLE IF EXISTS `imt_customer_banks`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `imt_customer_banks` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `customer_id` int(11) DEFAULT NULL,
-  `country_id` int(11) DEFAULT NULL,
-  `city_id` int(11) DEFAULT NULL,
-  `bank_id` int(11) DEFAULT NULL,
-  `account_title` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `account_no` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `branch_iban` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `created_by_id` int(11) DEFAULT NULL,
-  `updated_by_id` int(11) DEFAULT NULL,
-  `status` tinyint(4) DEFAULT 1 COMMENT '1=active, 0=inactive, 2= soft-deleted',
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `customer_id` int unsigned DEFAULT NULL,
+  `country_id` int unsigned DEFAULT NULL,
+  `city_id` int unsigned DEFAULT NULL,
+  `bank_id` int unsigned DEFAULT NULL,
+  `account_title` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `account_no` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `branch_iban` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_by_id` int unsigned DEFAULT NULL,
+  `updated_by_id` int unsigned DEFAULT NULL,
+  `status` tinyint unsigned DEFAULT '1' COMMENT '1=active, 0=inactive, 2= soft-deleted',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -802,24 +802,24 @@ DROP TABLE IF EXISTS `imt_customers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `imt_customers` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `first_name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `last_name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `name` varchar(70) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `phone` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `email` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `tckn` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `type` tinyint(4) DEFAULT NULL,
-  `category` tinyint(4) DEFAULT NULL,
-  `created_by_id` int(11) DEFAULT NULL,
-  `updated_by_id` int(11) DEFAULT NULL,
-  `status` tinyint(4) DEFAULT 1 COMMENT '0=inactive, 1= active, 2= pending, 3= blocked, 4=banned, 5=expired, 6=rejected, 7 = approved but not active yet',
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `last_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `phone` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tckn` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `type` tinyint DEFAULT NULL,
+  `category` tinyint DEFAULT NULL,
+  `created_by_id` int unsigned DEFAULT NULL,
+  `updated_by_id` int unsigned DEFAULT NULL,
+  `status` tinyint unsigned DEFAULT '1' COMMENT '0=inactive, 1= active, 2= pending, 3= blocked, 4=banned, 5=expired, 6=rejected, 7 = approved but not active yet',
   `dob` date DEFAULT NULL,
-  `address1` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `address2` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `username` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `password` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `customer_number` int(20) DEFAULT NULL,
+  `address1` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `address2` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `customer_number` int DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -843,21 +843,21 @@ DROP TABLE IF EXISTS `imt_holiday_settings`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `imt_holiday_settings` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `country_id` int(10) unsigned DEFAULT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `country_id` int unsigned DEFAULT NULL,
   `date` date NOT NULL,
-  `type` tinyint(3) unsigned NOT NULL COMMENT '0 = full, 1 = half, 2 = quarter, 3 = special',
-  `gmt` tinyint(4) NOT NULL COMMENT 'GMT offset in hours (e.g., +5, -3)',
+  `type` tinyint unsigned NOT NULL COMMENT '0 = full, 1 = half, 2 = quarter, 3 = special',
+  `gmt` tinyint NOT NULL COMMENT 'GMT offset in hours (e.g., +5, -3)',
   `open_at` datetime DEFAULT NULL COMMENT 'Time to start if type is not full',
   `close_at` datetime DEFAULT NULL COMMENT 'Time to end if type is not full',
-  `company_id` int(10) unsigned DEFAULT 0,
-  `status` tinyint(3) unsigned NOT NULL DEFAULT 1 COMMENT '0=inactive, 1=active, 2=pending, 3=rejected ',
-  `created_by_id` int(10) unsigned DEFAULT NULL,
-  `updated_by_id` int(10) unsigned DEFAULT NULL,
+  `company_id` int unsigned DEFAULT '0',
+  `status` tinyint unsigned NOT NULL DEFAULT '1' COMMENT '0=inactive, 1=active, 2=pending, 3=rejected ',
+  `created_by_id` int unsigned DEFAULT NULL,
+  `updated_by_id` int unsigned DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Type : Master, contrywise holidays';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Type : Master, contrywise holidays';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -877,22 +877,22 @@ DROP TABLE IF EXISTS `imt_institution_funds`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `imt_institution_funds` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `institution_id` int(10) unsigned NOT NULL,
-  `provider_id` int(10) unsigned NOT NULL,
-  `fund_country_id` int(10) unsigned NOT NULL,
-  `fund_currency_id` int(10) unsigned NOT NULL,
-  `account_number` varchar(255) NOT NULL COMMENT 'Account number for the wallet',
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `institution_id` int unsigned NOT NULL,
+  `provider_id` int unsigned NOT NULL,
+  `fund_country_id` int unsigned NOT NULL,
+  `fund_currency_id` int unsigned NOT NULL,
+  `account_number` varchar(255) CHARACTER SET latin1 NOT NULL COMMENT 'Account number for the wallet',
   `starting_amount` decimal(16,4) NOT NULL COMMENT 'Starting amount in the wallet',
   `current_amount` decimal(16,4) NOT NULL COMMENT 'Current amount in the wallet',
-  `company_id` int(10) unsigned DEFAULT 0,
-  `status` tinyint(3) unsigned NOT NULL DEFAULT 1 COMMENT '0=inactive, 1=active, 2=pending, 3=rejected ',
-  `created_by_id` int(10) unsigned DEFAULT NULL,
-  `updated_by_id` int(10) unsigned DEFAULT NULL,
+  `company_id` int unsigned DEFAULT '0',
+  `status` tinyint unsigned NOT NULL DEFAULT '1' COMMENT '0=inactive, 1=active, 2=pending, 3=rejected ',
+  `created_by_id` int unsigned DEFAULT NULL,
+  `updated_by_id` int unsigned DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Type : Master, fund deposited for an institution like Sipay in a provider account (Thunes)';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Type : Master, fund deposited for an institution like Sipay in a provider account (Thunes)';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -912,21 +912,21 @@ DROP TABLE IF EXISTS `imt_institution_mtts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `imt_institution_mtts` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `institution_id` int(10) unsigned NOT NULL,
-  `mtt_id` int(10) unsigned NOT NULL,
-  `commission_type` tinyint(3) unsigned NOT NULL COMMENT '1 = Regular, 2 = Some-other-type',
-  `commission_currency_id` int(10) unsigned DEFAULT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `institution_id` int unsigned NOT NULL,
+  `mtt_id` int unsigned NOT NULL,
+  `commission_type` tinyint unsigned NOT NULL COMMENT '1 = Regular, 2 = Some-other-type',
+  `commission_currency_id` int unsigned DEFAULT NULL,
   `commission_percentage` decimal(16,4) NOT NULL,
   `commission_fixed` decimal(16,4) NOT NULL,
-  `company_id` int(10) unsigned DEFAULT 0,
-  `status` tinyint(3) unsigned NOT NULL DEFAULT 1 COMMENT '0=inactive, 1=active, 2=pending, 3=rejected ',
-  `created_by_id` int(10) unsigned DEFAULT NULL,
-  `updated_by_id` int(10) unsigned DEFAULT NULL,
+  `company_id` int unsigned DEFAULT '0',
+  `status` tinyint unsigned NOT NULL DEFAULT '1' COMMENT '0=inactive, 1=active, 2=pending, 3=rejected ',
+  `created_by_id` int unsigned DEFAULT NULL,
+  `updated_by_id` int unsigned DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Type : Master, mtt(s) assigned to an institution';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Type : Master, mtt(s) assigned to an institution';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -946,13 +946,13 @@ DROP TABLE IF EXISTS `imt_institutions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `imt_institutions` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT NULL COMMENT 'Name of the institution',
   `url` varchar(255) DEFAULT NULL COMMENT 'Url of the official site',
-  `company_id` int(10) unsigned DEFAULT 0,
-  `status` tinyint(3) unsigned NOT NULL DEFAULT 2 COMMENT '0=inactive, 1=active, 2=pending, 3=rejected ',
-  `created_by_id` int(10) unsigned DEFAULT NULL,
-  `updated_by_id` int(10) unsigned DEFAULT NULL,
+  `company_id` int unsigned DEFAULT '0',
+  `status` tinyint unsigned NOT NULL DEFAULT '2' COMMENT '0=inactive, 1=active, 2=pending, 3=rejected ',
+  `created_by_id` int unsigned DEFAULT NULL,
+  `updated_by_id` int unsigned DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -976,31 +976,31 @@ DROP TABLE IF EXISTS `imt_money_transfers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `imt_money_transfers` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `payment_id` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `transaction_state_id` int(11) DEFAULT NULL,
-  `reason_id` int(11) DEFAULT NULL,
-  `payment_method_id` int(11) DEFAULT NULL,
-  `transfer_type` tinyint(4) DEFAULT 1 COMMENT '1=regular, 2 = instant, 3 = same day',
-  `reason_code` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `type` tinyint(4) DEFAULT 2 COMMENT '1 = b2b, 2 = c2c, 3=c2b, 4=b2c ',
-  `sender_name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `receiver_name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `sender_currency_id` int(11) DEFAULT NULL,
-  `receiver_currency_id` int(11) DEFAULT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `payment_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `transaction_state_id` int unsigned DEFAULT NULL,
+  `reason_id` int unsigned DEFAULT NULL,
+  `payment_method_id` int unsigned DEFAULT NULL,
+  `transfer_type` tinyint DEFAULT '1' COMMENT '1=regular, 2 = instant, 3 = same day',
+  `reason_code` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `type` tinyint DEFAULT '2' COMMENT '1 = b2b, 2 = c2c, 3=c2b, 4=b2c ',
+  `sender_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `receiver_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `sender_currency_id` int unsigned DEFAULT NULL,
+  `receiver_currency_id` int unsigned DEFAULT NULL,
   `exchange_rate` decimal(12,4) DEFAULT NULL,
   `send_amount` decimal(12,4) DEFAULT NULL,
   `receive_amount` decimal(12,4) DEFAULT NULL,
   `exchanged_amount` decimal(12,4) DEFAULT NULL,
   `fee` decimal(12,4) DEFAULT NULL,
   `vat` decimal(12,4) DEFAULT NULL,
-  `commission_paid_by` tinyint(4) DEFAULT 1 COMMENT '1=paid by sender, 2=paid by receiver',
-  `sender_customer_id` int(11) DEFAULT NULL,
-  `receiver_customer_id` int(11) DEFAULT NULL,
-  `source` tinyint(4) DEFAULT 1 COMMENT '1=from api, 2= from admin',
-  `order_id` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `remote_order_id` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `invoice_id` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `commission_paid_by` tinyint DEFAULT '1' COMMENT '1=paid by sender, 2=paid by receiver',
+  `sender_customer_id` int unsigned DEFAULT NULL,
+  `receiver_customer_id` int unsigned DEFAULT NULL,
+  `source` tinyint DEFAULT '1' COMMENT '1=from api, 2= from admin',
+  `order_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `remote_order_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `invoice_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -1024,22 +1024,22 @@ DROP TABLE IF EXISTS `imt_mtt_payment_speeds`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `imt_mtt_payment_speeds` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `mtt_id` int(10) unsigned NOT NULL,
-  `processing_time` int(10) unsigned NOT NULL COMMENT 'Processing time in minutes',
-  `gmt` tinyint(4) NOT NULL COMMENT 'GMT offset (e.g., +5, -3)',
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `mtt_id` int unsigned NOT NULL,
+  `processing_time` int unsigned NOT NULL COMMENT 'Processing time in minutes',
+  `gmt` tinyint NOT NULL COMMENT 'GMT offset (e.g., +5, -3)',
   `opens_at` datetime NOT NULL COMMENT 'Opening time',
   `closes_at` datetime NOT NULL COMMENT 'Closing time',
-  `working_days` varchar(255) NOT NULL COMMENT 'CSV of weekdays (e.g., Monday,Tuesday)',
-  `is_processing_during_banking_holiday` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0 = No, 1 = Yes',
-  `company_id` int(10) unsigned DEFAULT 0,
-  `status` tinyint(3) unsigned NOT NULL DEFAULT 1 COMMENT '0=inactive, 1=active, 2=pending, 3=rejected ',
-  `created_by_id` int(10) unsigned DEFAULT NULL,
-  `updated_by_id` int(10) unsigned DEFAULT NULL,
+  `working_days` varchar(255) CHARACTER SET latin1 NOT NULL COMMENT 'CSV of weekdays (e.g., Monday,Tuesday)',
+  `is_processing_during_banking_holiday` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0 = No, 1 = Yes',
+  `company_id` int unsigned DEFAULT '0',
+  `status` tinyint unsigned NOT NULL DEFAULT '1' COMMENT '0=inactive, 1=active, 2=pending, 3=rejected ',
+  `created_by_id` int unsigned DEFAULT NULL,
+  `updated_by_id` int unsigned DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Type : Master, time to complete a transaction.';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Type : Master, time to complete a transaction.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1059,28 +1059,27 @@ DROP TABLE IF EXISTS `imt_mtts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `imt_mtts` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `corridor_id` int(10) unsigned DEFAULT NULL,
-  `payer_id` int(10) unsigned NOT NULL,
-  `service_method_id` int(10) unsigned DEFAULT NULL,
-  `transaction_type_id` varchar(255) NOT NULL,
-  `cot_currency_id` int(10) unsigned DEFAULT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `corridor_id` int unsigned DEFAULT NULL,
+  `currency_id` int unsigned DEFAULT NULL,
+  `payer_id` int unsigned NOT NULL,
+  `service_method_id` int unsigned DEFAULT NULL,
+  `transaction_type_id` varchar(255) CHARACTER SET latin1 NOT NULL,
   `cot_percentage` decimal(16,4) NOT NULL,
   `cot_fixed` decimal(16,4) NOT NULL,
   `fx_spread` decimal(16,4) NOT NULL,
-  `mark_up_currency_id` int(10) unsigned DEFAULT NULL,
   `mark_up_percentage` decimal(16,4) NOT NULL,
   `mark_up_fixed` decimal(16,4) NOT NULL,
   `increment` decimal(16,4) NOT NULL COMMENT 'Increment value, definition may vary',
-  `money_precision` tinyint(3) unsigned NOT NULL,
-  `company_id` int(10) unsigned DEFAULT 0,
-  `status` tinyint(3) unsigned NOT NULL DEFAULT 1 COMMENT '0=inactive, 1=active, 2=pending, 3=rejected ',
-  `created_by_id` int(10) unsigned DEFAULT NULL,
-  `updated_by_id` int(10) unsigned DEFAULT NULL,
+  `money_precision` tinyint unsigned NOT NULL,
+  `company_id` int unsigned DEFAULT '0',
+  `status` tinyint unsigned NOT NULL DEFAULT '1' COMMENT '0=inactive, 1=active, 2=pending, 3=rejected ',
+  `created_by_id` int unsigned DEFAULT NULL,
+  `updated_by_id` int unsigned DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Type : Master, transaction setup between providers and us, like POS of a payment system';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Type : Master, transaction setup between providers and us, like POS of a payment system';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1089,6 +1088,7 @@ CREATE TABLE `imt_mtts` (
 
 LOCK TABLES `imt_mtts` WRITE;
 /*!40000 ALTER TABLE `imt_mtts` DISABLE KEYS */;
+INSERT INTO `imt_mtts` VALUES (2,0,0,0,0,'Awesome udated',0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0,0,0,1,1,'2024-08-23 18:58:56','2024-08-27 14:06:25');
 /*!40000 ALTER TABLE `imt_mtts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1100,22 +1100,22 @@ DROP TABLE IF EXISTS `imt_payer_payment_speeds`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `imt_payer_payment_speeds` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `payer_id` int(10) unsigned NOT NULL,
-  `processing_time` int(10) unsigned NOT NULL COMMENT 'Processing time in minutes',
-  `gmt` tinyint(4) NOT NULL COMMENT 'GMT offset in hours (e.g., +5, -3)',
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `payer_id` int unsigned NOT NULL,
+  `processing_time` int unsigned NOT NULL COMMENT 'Processing time in minutes',
+  `gmt` tinyint NOT NULL COMMENT 'GMT offset in hours (e.g., +5, -3)',
   `open_at` datetime NOT NULL COMMENT 'Opening time',
   `close_at` datetime NOT NULL COMMENT 'Closing time',
-  `working_days` varchar(255) NOT NULL COMMENT 'CSV of weekdays (e.g., Monday,Tuesday)',
-  `is_processing_during_banking_holiday` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0 = No, 1 = Yes',
-  `company_id` int(10) unsigned DEFAULT 0,
-  `status` tinyint(3) unsigned NOT NULL DEFAULT 1 COMMENT '0=inactive, 1=active, 2=pending, 3=rejected ',
-  `created_by_id` int(10) unsigned DEFAULT NULL,
-  `updated_by_id` int(10) unsigned DEFAULT NULL,
+  `working_days` varchar(255) CHARACTER SET latin1 NOT NULL COMMENT 'CSV of weekdays (e.g., Monday,Tuesday)',
+  `is_processing_during_banking_holiday` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0 = No, 1 = Yes',
+  `company_id` int unsigned DEFAULT '0',
+  `status` tinyint unsigned NOT NULL DEFAULT '1' COMMENT '0=inactive, 1=active, 2=pending, 3=rejected ',
+  `created_by_id` int unsigned DEFAULT NULL,
+  `updated_by_id` int unsigned DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Type : Master, for every transaction it takes time to process the transactions, this is the setup in payers'' context';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Type : Master, for every transaction it takes time to process the transactions, this is the setup in payers'' context';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1135,33 +1135,33 @@ DROP TABLE IF EXISTS `imt_payers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `imt_payers` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL,
-  `provider_id` int(10) unsigned DEFAULT NULL,
-  `corridor_id` int(10) unsigned DEFAULT NULL,
-  `internal_payer_id` varchar(50) NOT NULL,
-  `fund_currency_id` int(10) unsigned DEFAULT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) CHARACTER SET latin1 NOT NULL,
+  `provider_id` int unsigned DEFAULT NULL,
+  `corridor_id` int unsigned DEFAULT NULL,
+  `internal_payer_id` varchar(50) CHARACTER SET latin1 NOT NULL,
+  `fund_currency_id` int unsigned DEFAULT NULL,
   `increment` decimal(16,4) NOT NULL,
-  `money_precision` tinyint(3) unsigned NOT NULL,
-  `service_method_id` int(10) unsigned DEFAULT NULL,
-  `transaction_type_ids` varchar(255) NOT NULL COMMENT 'CSV of transaction_type_id values',
+  `money_precision` tinyint unsigned NOT NULL,
+  `service_method_id` int unsigned DEFAULT NULL,
+  `transaction_type_ids` varchar(255) CHARACTER SET latin1 NOT NULL COMMENT 'CSV of transaction_type_id values',
   `source_amount_max` decimal(16,4) NOT NULL,
   `source_amount_min` decimal(16,4) NOT NULL,
   `destination_amount_max` decimal(16,4) NOT NULL,
   `destination_amount_min` decimal(16,4) NOT NULL,
-  `cot_currency_id` int(10) unsigned DEFAULT NULL,
+  `cot_currency_id` int unsigned DEFAULT NULL,
   `cot_percentage` decimal(16,4) NOT NULL,
   `cot_fixed` decimal(16,4) NOT NULL,
   `fx_spread` decimal(16,4) NOT NULL,
-  `payment_speed` text NOT NULL,
-  `company_id` int(10) unsigned DEFAULT 0,
-  `status` tinyint(3) unsigned NOT NULL DEFAULT 1 COMMENT '0=inactive, 1=active, 2=pending, 3=rejected ',
-  `created_by_id` int(10) unsigned DEFAULT NULL,
-  `updated_by_id` int(10) unsigned DEFAULT NULL,
+  `payment_speed` text CHARACTER SET latin1 NOT NULL,
+  `company_id` int unsigned DEFAULT '0',
+  `status` tinyint unsigned NOT NULL DEFAULT '1' COMMENT '0=inactive, 1=active, 2=pending, 3=rejected ',
+  `created_by_id` int unsigned DEFAULT NULL,
+  `updated_by_id` int unsigned DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Type : Master, payers are the corridor setups under a provider like Thunes, a payer is acting like a bank terminal, most of the data are operational, will be set as MTT''s values, here to crosscheck';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Type : Master, payers are the corridor setups under a provider like Thunes, a payer is acting like a bank terminal, most of the data are operational, will be set as MTT''s values, here to crosscheck';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1181,12 +1181,12 @@ DROP TABLE IF EXISTS `imt_payment_methods`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `imt_payment_methods` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `method_name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_by_id` int(11) DEFAULT NULL,
-  `updated_by_id` int(11) DEFAULT NULL,
-  `status` tinyint(4) DEFAULT 1 COMMENT '1= active, 0=inactive, 2=soft-deleted',
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `method_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_by_id` int unsigned DEFAULT NULL,
+  `updated_by_id` int unsigned DEFAULT NULL,
+  `status` tinyint unsigned DEFAULT '1' COMMENT '1= active, 0=inactive, 2=soft-deleted',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -1210,17 +1210,17 @@ DROP TABLE IF EXISTS `imt_provider_commissions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `imt_provider_commissions` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `provider_id` int(11) DEFAULT NULL,
-  `from_currency_id` int(11) DEFAULT NULL,
-  `to_currency_id` int(11) DEFAULT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `provider_id` int unsigned DEFAULT NULL,
+  `from_currency_id` int unsigned DEFAULT NULL,
+  `to_currency_id` int unsigned DEFAULT NULL,
   `sender_commission_percentage` decimal(12,4) DEFAULT NULL,
   `sender_commission_fixed` decimal(12,4) DEFAULT NULL,
   `receiver_commission_percentage` decimal(12,4) DEFAULT NULL,
   `receiver_commission_fixed` decimal(12,4) DEFAULT NULL,
-  `updated_by_id` int(11) DEFAULT NULL,
-  `created_by_id` int(11) DEFAULT NULL,
-  `status` tinyint(4) DEFAULT 1 COMMENT '1=active, 0=inactive, 2=soft-deleted',
+  `updated_by_id` int unsigned DEFAULT NULL,
+  `created_by_id` int unsigned DEFAULT NULL,
+  `status` tinyint unsigned DEFAULT '1' COMMENT '1=active, 0=inactive, 2=soft-deleted',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -1244,16 +1244,16 @@ DROP TABLE IF EXISTS `imt_provider_error_details`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `imt_provider_error_details` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `imt_provider_id` int(11) NOT NULL,
-  `type` tinyint(4) NOT NULL,
-  `reference_id` int(11) NOT NULL,
-  `error_code` varchar(20) DEFAULT NULL,
-  `error_message` varchar(255) DEFAULT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `imt_provider_id` int unsigned NOT NULL,
+  `type` tinyint NOT NULL,
+  `reference_id` int unsigned NOT NULL,
+  `error_code` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `error_message` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1262,7 +1262,7 @@ CREATE TABLE `imt_provider_error_details` (
 
 LOCK TABLES `imt_provider_error_details` WRITE;
 /*!40000 ALTER TABLE `imt_provider_error_details` DISABLE KEYS */;
-INSERT INTO `imt_provider_error_details` VALUES (64,1,1,11,'1007001','External ID already used','2024-08-20 13:53:55','2024-08-20 13:53:55');
+INSERT INTO `imt_provider_error_details` VALUES (64,1,1,11,'1007001','External ID already used','2024-08-20 13:53:55','2024-08-20 13:53:55'),(65,1,1,12,'1007001','External ID already used','2024-08-22 12:37:28','2024-08-22 12:37:28');
 /*!40000 ALTER TABLE `imt_provider_error_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1274,18 +1274,18 @@ DROP TABLE IF EXISTS `imt_provider_payers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `imt_provider_payers` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `imt_provider_id` int(11) NOT NULL,
-  `imt_country_id` int(11) NOT NULL,
-  `imt_currency_id` int(11) NOT NULL,
-  `imt_provider_service_id` int(11) DEFAULT NULL,
-  `remote_payer_id` int(11) DEFAULT NULL,
-  `precision` tinyint(4) DEFAULT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `imt_provider_id` int unsigned NOT NULL,
+  `imt_country_id` int unsigned NOT NULL,
+  `imt_currency_id` int unsigned NOT NULL,
+  `imt_provider_service_id` int unsigned DEFAULT NULL,
+  `remote_payer_id` int unsigned DEFAULT NULL,
+  `precision` tinyint DEFAULT NULL,
   `increment` decimal(12,4) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1305,11 +1305,11 @@ DROP TABLE IF EXISTS `imt_provider_services`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `imt_provider_services` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `imt_provider_id` int(11) NOT NULL,
-  `name` varchar(50) CHARACTER SET utf8mb4 DEFAULT NULL,
-  `created_by_id` int(11) DEFAULT NULL,
-  `updated_by_id` int(11) DEFAULT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `imt_provider_id` int unsigned NOT NULL,
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_by_id` int unsigned DEFAULT NULL,
+  `updated_by_id` int unsigned DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -1333,15 +1333,15 @@ DROP TABLE IF EXISTS `imt_providers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `imt_providers` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `code` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `base_url` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `api_key` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `api_secret` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `status` tinyint(4) DEFAULT 1 COMMENT '1= active, 0 =inactive, 2 =soft-deleted',
-  `created_by_id` int(11) DEFAULT NULL,
-  `updated_by_id` int(11) DEFAULT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `base_url` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `api_key` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `api_secret` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` tinyint unsigned DEFAULT '1' COMMENT '1= active, 0 =inactive, 2 =soft-deleted',
+  `created_by_id` int unsigned DEFAULT NULL,
+  `updated_by_id` int unsigned DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -1358,6 +1358,70 @@ LOCK TABLES `imt_providers` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `imt_quotation_info`
+--
+
+DROP TABLE IF EXISTS `imt_quotation_info`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `imt_quotation_info` (
+  `id` int unsigned NOT NULL,
+  `request_amount` decimal(16,4) DEFAULT NULL,
+  `currency_id` int unsigned DEFAULT NULL,
+  `commission` decimal(16,4) DEFAULT NULL,
+  `commision_fixed` decimal(16,4) DEFAULT NULL,
+  `commission_percentage` decimal(16,4) DEFAULT NULL,
+  `cot` decimal(16,4) DEFAULT NULL,
+  `cot_percentage` decimal(16,4) DEFAULT NULL,
+  `cot_fixed` decimal(16,4) DEFAULT NULL,
+  `mark_up` decimal(16,4) DEFAULT NULL,
+  `mark_up_percentage` decimal(16,4) DEFAULT NULL,
+  `mark_up_fixed` decimal(16,4) DEFAULT NULL,
+  `tax` decimal(16,4) DEFAULT NULL,
+  `tax_percentage` decimal(16,4) DEFAULT NULL,
+  `tax_fixed` decimal(16,4) DEFAULT NULL,
+  `sent_amount` decimal(16,4) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `imt_quotation_info`
+--
+
+LOCK TABLES `imt_quotation_info` WRITE;
+/*!40000 ALTER TABLE `imt_quotation_info` DISABLE KEYS */;
+/*!40000 ALTER TABLE `imt_quotation_info` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `imt_quotation_requests`
+--
+
+DROP TABLE IF EXISTS `imt_quotation_requests`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `imt_quotation_requests` (
+  `id` int unsigned NOT NULL,
+  `request` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `imt_quotation_requests`
+--
+
+LOCK TABLES `imt_quotation_requests` WRITE;
+/*!40000 ALTER TABLE `imt_quotation_requests` DISABLE KEYS */;
+/*!40000 ALTER TABLE `imt_quotation_requests` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `imt_quotations`
 --
 
@@ -1365,21 +1429,18 @@ DROP TABLE IF EXISTS `imt_quotations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `imt_quotations` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `order_id` varchar(50) CHARACTER SET utf8mb4 NOT NULL,
-  `payer_id` varchar(50) CHARACTER SET utf8mb4 NOT NULL,
-  `mode` varchar(50) CHARACTER SET utf8mb4 NOT NULL,
-  `transaction_type` varchar(10) CHARACTER SET utf8mb4 NOT NULL,
-  `source_amount` decimal(12,4) DEFAULT NULL,
-  `imt_source_currency_id` int(11) DEFAULT NULL,
-  `imt_provider_id` int(11) DEFAULT NULL,
-  `imt_provider_service_id` int(11) DEFAULT NULL,
-  `imt_source_country_id` int(11) DEFAULT NULL,
-  `destination_amount` decimal(12,4) DEFAULT NULL,
-  `imt_destination_currency_id` int(11) DEFAULT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `institution_id` int unsigned DEFAULT NULL,
+  `invoice_id` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `order_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mtt_id` int unsigned NOT NULL,
+  `mode` int NOT NULL COMMENT 'SOURCE_AMOUNT,DESTINATION_AMOUNT',
+  `source_amount` decimal(16,4) DEFAULT NULL,
+  `destination_amount` decimal(16,4) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1399,13 +1460,13 @@ DROP TABLE IF EXISTS `imt_reasons`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `imt_reasons` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `code` varchar(10) CHARACTER SET utf8mb4 DEFAULT NULL,
-  `title` varchar(50) CHARACTER SET utf8mb4 DEFAULT NULL,
-  `description` varchar(100) CHARACTER SET utf8mb4 DEFAULT NULL,
-  `status` tinyint(4) DEFAULT 0 COMMENT '0 = inactive, 1=active, 2=soft=deleted',
-  `created_by_id` int(11) DEFAULT NULL,
-  `updated_by_id` int(11) DEFAULT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `code` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` tinyint unsigned DEFAULT '0' COMMENT '0 = inactive, 1=active, 2=soft=deleted',
+  `created_by_id` int unsigned DEFAULT NULL,
+  `updated_by_id` int unsigned DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -1429,16 +1490,16 @@ DROP TABLE IF EXISTS `imt_regions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `imt_regions` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) DEFAULT NULL COMMENT 'Example : EuroZone, Asia Pacific',
-  `company_id` int(10) unsigned DEFAULT 0,
-  `status` tinyint(3) unsigned NOT NULL DEFAULT 1 COMMENT '0=inactive, 1=active, 2=pending, 3=rejected ',
-  `created_by_id` int(10) unsigned DEFAULT NULL,
-  `updated_by_id` int(10) unsigned DEFAULT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) CHARACTER SET latin1 DEFAULT NULL COMMENT 'Example : EuroZone, Asia Pacific',
+  `company_id` int unsigned DEFAULT '0',
+  `status` tinyint unsigned NOT NULL DEFAULT '1' COMMENT '0=inactive, 1=active, 2=pending, 3=rejected ',
+  `created_by_id` int unsigned DEFAULT NULL,
+  `updated_by_id` int unsigned DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Type : Master; Regions like Asia Pacific, SARC. Every country belongs to a region';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Type : Master; Regions like Asia Pacific, SARC. Every country belongs to a region';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1458,16 +1519,16 @@ DROP TABLE IF EXISTS `imt_service_methods`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `imt_service_methods` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `method` tinyint(3) unsigned NOT NULL COMMENT '1 = Bank Account, 2 = Wallet, 3 = Cash Pickup, 4 = Card',
-  `company_id` int(10) unsigned DEFAULT 0,
-  `status` tinyint(3) unsigned NOT NULL DEFAULT 1 COMMENT '0=inactive, 1=active, 2=pending, 3=rejected ',
-  `created_by_id` int(10) unsigned DEFAULT NULL,
-  `updated_by_id` int(10) unsigned DEFAULT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `method` tinyint unsigned NOT NULL COMMENT '1 = Bank Account, 2 = Wallet, 3 = Cash Pickup, 4 = Card',
+  `company_id` int unsigned DEFAULT '0',
+  `status` tinyint unsigned NOT NULL DEFAULT '1' COMMENT '0=inactive, 1=active, 2=pending, 3=rejected ',
+  `created_by_id` int unsigned DEFAULT NULL,
+  `updated_by_id` int unsigned DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Type : Master, delivery methods of transactions';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Type : Master, delivery methods of transactions';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1487,21 +1548,21 @@ DROP TABLE IF EXISTS `imt_tax_rates`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `imt_tax_rates` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `tax_type` tinyint(3) unsigned NOT NULL COMMENT '1 = Regular, 2 = Corridor tax, 3 = Country tax',
-  `corridor_id` int(10) unsigned DEFAULT NULL,
-  `country_id` int(10) unsigned DEFAULT NULL,
-  `tax_currency_id` int(10) unsigned DEFAULT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `tax_type` tinyint unsigned NOT NULL COMMENT '1 = Regular, 2 = Corridor tax, 3 = Country tax',
+  `corridor_id` int unsigned DEFAULT NULL,
+  `country_id` int unsigned DEFAULT NULL,
+  `tax_currency_id` int unsigned DEFAULT NULL,
   `tax_percentage` decimal(16,4) NOT NULL,
   `tax_fixed` decimal(16,4) NOT NULL,
-  `company_id` int(10) unsigned DEFAULT 0,
-  `status` tinyint(3) unsigned NOT NULL DEFAULT 1 COMMENT '0=inactive, 1=active, 2=pending, 3=rejected ',
-  `created_by_id` int(10) unsigned DEFAULT NULL,
-  `updated_by_id` int(10) unsigned DEFAULT NULL,
+  `company_id` int unsigned DEFAULT '0',
+  `status` tinyint unsigned NOT NULL DEFAULT '1' COMMENT '0=inactive, 1=active, 2=pending, 3=rejected ',
+  `created_by_id` int unsigned DEFAULT NULL,
+  `updated_by_id` int unsigned DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Type : Master, government tax rates based on countries for each transaction';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Type : Master, government tax rates based on countries for each transaction';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1521,16 +1582,16 @@ DROP TABLE IF EXISTS `imt_transaction_limits`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `imt_transaction_limits` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `transaction_type` tinyint(4) DEFAULT NULL,
-  `user_category` tinyint(4) DEFAULT NULL,
-  `daily_total_number` int(11) DEFAULT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `transaction_type` tinyint DEFAULT NULL,
+  `user_category` tinyint DEFAULT NULL,
+  `daily_total_number` int DEFAULT NULL,
   `daily_total_amount` decimal(16,4) DEFAULT NULL,
-  `monthly_total_number` int(11) DEFAULT NULL,
+  `monthly_total_number` int DEFAULT NULL,
   `monthly_total_amount` decimal(16,4) DEFAULT NULL,
-  `currency_id` int(11) DEFAULT NULL,
-  `created_by_id` int(11) DEFAULT NULL,
-  `updated_by_id` int(11) DEFAULT NULL,
+  `currency_id` int unsigned DEFAULT NULL,
+  `created_by_id` int unsigned DEFAULT NULL,
+  `updated_by_id` int unsigned DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -1554,11 +1615,11 @@ DROP TABLE IF EXISTS `imt_transaction_states`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `imt_transaction_states` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) CHARACTER SET utf8mb4 DEFAULT NULL,
-  `status` tinyint(4) DEFAULT NULL,
-  `created_by_id` int(11) DEFAULT NULL,
-  `updated_by_id` int(11) DEFAULT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` tinyint unsigned DEFAULT NULL,
+  `created_by_id` int unsigned DEFAULT NULL,
+  `updated_by_id` int unsigned DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -1583,11 +1644,11 @@ DROP TABLE IF EXISTS `imt_transaction_types`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `imt_transaction_types` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) CHARACTER SET utf8mb4 DEFAULT NULL,
-  `status` tinyint(4) DEFAULT NULL,
-  `created_by_id` int(11) DEFAULT NULL,
-  `updated_by_id` int(11) DEFAULT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` tinyint unsigned DEFAULT NULL,
+  `created_by_id` int unsigned DEFAULT NULL,
+  `updated_by_id` int unsigned DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -1611,21 +1672,21 @@ DROP TABLE IF EXISTS `imt_transactions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `imt_transactions` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `payment_id` varchar(50) CHARACTER SET utf8mb4 DEFAULT NULL,
-  `customer_id` int(11) DEFAULT NULL,
-  `transaction_state_id` int(11) DEFAULT NULL,
-  `transaction_id` int(11) DEFAULT NULL,
-  `transaction_type` tinyint(4) DEFAULT 0 COMMENT '1= send money, 2=receive money ',
-  `transaction_reference_id` int(11) NOT NULL DEFAULT 0 COMMENT 'For refund, it would be corresponding sale id',
-  `money_flow` tinyint(4) DEFAULT 0 COMMENT '1= incoming and 2 = outgoing',
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `payment_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `customer_id` int unsigned DEFAULT NULL,
+  `transaction_state_id` int unsigned DEFAULT NULL,
+  `transaction_id` int unsigned DEFAULT NULL,
+  `transaction_type` tinyint DEFAULT '0' COMMENT '1= send money, 2=receive money ',
+  `transaction_reference_id` int unsigned NOT NULL DEFAULT '0' COMMENT 'For refund, it would be corresponding sale id',
+  `money_flow` tinyint DEFAULT '0' COMMENT '1= incoming and 2 = outgoing',
   `amount` decimal(12,4) DEFAULT NULL,
   `fee` decimal(12,4) DEFAULT NULL,
   `gross` decimal(12,4) DEFAULT NULL,
-  `currency_id` int(11) DEFAULT NULL,
+  `currency_id` int unsigned DEFAULT NULL,
   `current_balance` decimal(16,4) DEFAULT NULL,
   `previous_balance` decimal(16,4) DEFAULT NULL,
-  `status` tinyint(4) DEFAULT 1 COMMENT '0=pending, 1=approved, 2=reject',
+  `status` tinyint unsigned DEFAULT '1' COMMENT '0=pending, 1=approved, 2=reject',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -1649,14 +1710,14 @@ DROP TABLE IF EXISTS `notification_app_event_data`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `notification_app_event_data` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `notification_event_id` int(11) NOT NULL DEFAULT 0,
-  `reference_unique_id` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Application Log Id',
-  `data` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Event payload',
-  `attachment_info` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Attachment info for template',
-  `receivers` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Extra/Custom receivers',
-  `url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Dynamic Url',
-  `path` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Remote FTP path',
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `notification_event_id` int NOT NULL DEFAULT '0',
+  `reference_unique_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Application Log Id',
+  `data` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'Event payload',
+  `attachment_info` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Attachment info for template',
+  `receivers` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'Extra/Custom receivers',
+  `url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Dynamic Url',
+  `path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Remote FTP path',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -1680,23 +1741,23 @@ DROP TABLE IF EXISTS `notification_credentials`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `notification_credentials` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `type` tinyint(4) NOT NULL COMMENT '1=mail, 2= sms, 3 = web',
-  `title` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Name of the credentials. e.g: Codex, Verimo etc.',
-  `host` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'host ip or url should be set here',
-  `port` int(11) DEFAULT NULL COMMENT 'port of the host or url',
-  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT 'username/api_key/app_key may be set here',
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT 'password/secret_key may be placed here',
-  `api_key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
-  `encryption_type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'email encryption type e.g tls, ssl, starttls etc',
-  `transport_driver` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'SMTP, Mailgun, etc.',
-  `from_address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'email/phone/url may be placed here',
-  `from_name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Title of from adress.',
-  `created_by_id` int(11) NOT NULL DEFAULT 0,
-  `updated_by_id` int(11) NOT NULL DEFAULT 0,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `type` tinyint NOT NULL COMMENT '1=mail, 2= sms, 3 = web',
+  `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Name of the credentials. e.g: Codex, Verimo etc.',
+  `host` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'host ip or url should be set here',
+  `port` int DEFAULT NULL COMMENT 'port of the host or url',
+  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT 'username/api_key/app_key may be set here',
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT 'password/secret_key may be placed here',
+  `api_key` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `encryption_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'email encryption type e.g tls, ssl, starttls etc',
+  `transport_driver` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'SMTP, Mailgun, etc.',
+  `from_address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'email/phone/url may be placed here',
+  `from_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Title of from adress.',
+  `created_by_id` int NOT NULL DEFAULT '0',
+  `updated_by_id` int NOT NULL DEFAULT '0',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `company_id` int(11) NOT NULL DEFAULT 0,
+  `company_id` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1719,14 +1780,14 @@ DROP TABLE IF EXISTS `notification_email_events`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `notification_email_events` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `notification_event_id` int(11) NOT NULL,
-  `notification_credential_id` int(11) NOT NULL DEFAULT 0,
-  `notification_receiver_group_id` int(11) NOT NULL DEFAULT 0,
-  `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Deposit Approve, Deposit Reject etc',
-  `is_allow_from_app` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1= allows manual receivers, 0= does not allow manual receivers',
-  `is_allow_cc` tinyint(1) NOT NULL DEFAULT 1 COMMENT 'notification_receivers_groups cc can be on/off from here',
-  `is_allow_bcc` tinyint(1) NOT NULL DEFAULT 1 COMMENT 'notification_receivers_groups bcc can be on/off from here',
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `notification_event_id` int NOT NULL,
+  `notification_credential_id` int NOT NULL DEFAULT '0',
+  `notification_receiver_group_id` int NOT NULL DEFAULT '0',
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Deposit Approve, Deposit Reject etc',
+  `is_allow_from_app` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1= allows manual receivers, 0= does not allow manual receivers',
+  `is_allow_cc` tinyint(1) NOT NULL DEFAULT '1' COMMENT 'notification_receivers_groups cc can be on/off from here',
+  `is_allow_bcc` tinyint(1) NOT NULL DEFAULT '1' COMMENT 'notification_receivers_groups bcc can be on/off from here',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -1750,23 +1811,23 @@ DROP TABLE IF EXISTS `notification_email_outgoings`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `notification_email_outgoings` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `notification_credential_id` int(11) NOT NULL DEFAULT 0,
-  `subject` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT 'Subject of the email',
-  `content` longtext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'full email body content with html',
-  `to` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'email must be seperated by comma(,)',
-  `cc` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'email must be seperated by comma(,)',
-  `bcc` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'email must be seperated by comma(,)',
-  `is_attachment` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0=no attachedment, 1=has attachedment',
-  `attachment_details` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Attachedment file path must be kept by comma(,) separator',
-  `status` tinyint(4) NOT NULL DEFAULT 0 COMMENT '0=pending, 1= completed, 2= failed ',
-  `attempt` int(11) NOT NULL DEFAULT 0,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `notification_credential_id` int NOT NULL DEFAULT '0',
+  `subject` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT 'Subject of the email',
+  `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'full email body content with html',
+  `to` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'email must be seperated by comma(,)',
+  `cc` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'email must be seperated by comma(,)',
+  `bcc` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'email must be seperated by comma(,)',
+  `is_attachment` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0=no attachedment, 1=has attachedment',
+  `attachment_details` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Attachedment file path must be kept by comma(,) separator',
+  `status` tinyint NOT NULL DEFAULT '0' COMMENT '0=pending, 1= completed, 2= failed ',
+  `attempt` int NOT NULL DEFAULT '0',
   `sent_at` datetime DEFAULT NULL,
-  `notification_event_id` int(11) NOT NULL,
-  `notification_event_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `notification_event_id` int NOT NULL,
+  `notification_event_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `company_id` int(11) NOT NULL DEFAULT 0,
+  `company_id` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1788,20 +1849,20 @@ DROP TABLE IF EXISTS `notification_event_templates`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `notification_event_templates` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `notification_event_id` int(11) NOT NULL,
-  `subject` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'Email subject or Web Title',
-  `content` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `path` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `type` tinyint(4) NOT NULL DEFAULT 1 COMMENT '1=email, 2=sms, 3=web',
-  `variables` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Must be set as comma(,) separator {{$var1}},{{$var2}}',
-  `created_by_id` int(11) NOT NULL DEFAULT 1,
-  `updated_by_id` int(11) NOT NULL DEFAULT 1,
-  `status` tinyint(4) NOT NULL DEFAULT 0 COMMENT '0= Not Processed, 1=Processed',
-  `language` varchar(3) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'eng' COMMENT '3 digit iso code',
+  `id` int NOT NULL AUTO_INCREMENT,
+  `notification_event_id` int NOT NULL,
+  `subject` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'Email subject or Web Title',
+  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `type` tinyint NOT NULL DEFAULT '1' COMMENT '1=email, 2=sms, 3=web',
+  `variables` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'Must be set as comma(,) separator {{$var1}},{{$var2}}',
+  `created_by_id` int NOT NULL DEFAULT '1',
+  `updated_by_id` int NOT NULL DEFAULT '1',
+  `status` tinyint NOT NULL DEFAULT '0' COMMENT '0= Not Processed, 1=Processed',
+  `language` varchar(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'eng' COMMENT '3 digit iso code',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `company_id` int(11) NOT NULL,
+  `company_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `company_id_idx` (`company_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1824,16 +1885,16 @@ DROP TABLE IF EXISTS `notification_events`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `notification_events` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `category` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
-  `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `is_email` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'true=notification is enabled for email',
-  `is_sms` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'true=notification is enabled for sms',
-  `is_web` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'true=notification is enabled for webhook',
-  `is_allow_from_app` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1= allows manual receivers, 0= does not allow manual receivers',
-  `created_by_id` int(11) NOT NULL DEFAULT 0 COMMENT 'The person who created the event',
-  `updated_by_id` int(11) NOT NULL DEFAULT 0 COMMENT 'The person who updated the event last time',
-  `status` tinyint(4) NOT NULL DEFAULT 0 COMMENT '0= Not Processed, 1=Processed',
+  `id` int NOT NULL AUTO_INCREMENT,
+  `category` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `is_email` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'true=notification is enabled for email',
+  `is_sms` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'true=notification is enabled for sms',
+  `is_web` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'true=notification is enabled for webhook',
+  `is_allow_from_app` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1= allows manual receivers, 0= does not allow manual receivers',
+  `created_by_id` int NOT NULL DEFAULT '0' COMMENT 'The person who created the event',
+  `updated_by_id` int NOT NULL DEFAULT '0' COMMENT 'The person who updated the event last time',
+  `status` tinyint NOT NULL DEFAULT '0' COMMENT '0= Not Processed, 1=Processed',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -1857,16 +1918,16 @@ DROP TABLE IF EXISTS `notification_layouts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `notification_layouts` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `content` text COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'content must contain a variable name {{$template}} . one and only once',
-  `file_path` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `is_default` tinyint(1) NOT NULL DEFAULT 0,
-  `created_by_id` int(11) NOT NULL DEFAULT 0 COMMENT 'The person who created the layout',
-  `updated_by_id` int(11) NOT NULL DEFAULT 0 COMMENT 'The person who updated the layout',
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'content must contain a variable name {{$template}} . one and only once',
+  `file_path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `is_default` tinyint(1) NOT NULL DEFAULT '0',
+  `created_by_id` int NOT NULL DEFAULT '0' COMMENT 'The person who created the layout',
+  `updated_by_id` int NOT NULL DEFAULT '0' COMMENT 'The person who updated the layout',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `company_id` bigint(20) NOT NULL,
+  `company_id` bigint NOT NULL,
   PRIMARY KEY (`id`),
   KEY `notification_email_layouts_company_id_index` (`company_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1890,18 +1951,18 @@ DROP TABLE IF EXISTS `notification_receiver_groups`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `notification_receiver_groups` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `type` tinyint(4) NOT NULL COMMENT '1=mail,\r\n2=sms,\r\n3=web',
-  `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
-  `to` mediumtext COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'must be separated by comma(,)',
-  `cc_emails` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'must be separated by comma(,)',
-  `bcc_emails` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'must be separated by comma(,)',
-  `created_by_id` int(11) NOT NULL DEFAULT 0,
-  `updated_by_id` int(11) NOT NULL DEFAULT 0,
-  `status` tinyint(4) NOT NULL DEFAULT 1 COMMENT '1= active, 0= inactive',
+  `id` int NOT NULL AUTO_INCREMENT,
+  `type` tinyint NOT NULL COMMENT '1=mail,\r\n2=sms,\r\n3=web',
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `to` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'must be separated by comma(,)',
+  `cc_emails` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'must be separated by comma(,)',
+  `bcc_emails` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'must be separated by comma(,)',
+  `created_by_id` int NOT NULL DEFAULT '0',
+  `updated_by_id` int NOT NULL DEFAULT '0',
+  `status` tinyint NOT NULL DEFAULT '1' COMMENT '1= active, 0= inactive',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `company_id` int(11) NOT NULL DEFAULT 0,
+  `company_id` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1924,12 +1985,12 @@ DROP TABLE IF EXISTS `notification_sms_events`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `notification_sms_events` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `notification_event_id` int(11) NOT NULL,
-  `notification_credential_id` int(11) NOT NULL DEFAULT 0,
-  `notification_receiver_group_id` int(11) NOT NULL DEFAULT 0,
-  `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Deposit Approve, Deposit Reject etc',
-  `is_allow_from_app` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1= allows manual receivers, 0= does not allow manual receivers',
+  `id` int NOT NULL AUTO_INCREMENT,
+  `notification_event_id` int NOT NULL,
+  `notification_credential_id` int NOT NULL DEFAULT '0',
+  `notification_receiver_group_id` int NOT NULL DEFAULT '0',
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Deposit Approve, Deposit Reject etc',
+  `is_allow_from_app` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1= allows manual receivers, 0= does not allow manual receivers',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -1953,18 +2014,18 @@ DROP TABLE IF EXISTS `notification_sms_outgoings`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `notification_sms_outgoings` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `notification_credential_id` int(11) NOT NULL DEFAULT 0,
-  `content` longtext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'full sms content ',
-  `to` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'phone number must be set as comma(,) separator',
-  `status` tinyint(4) NOT NULL DEFAULT 0 COMMENT '0=pending, 1= completed, 2= failed ',
-  `attempt` int(11) NOT NULL DEFAULT 0,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `notification_credential_id` int NOT NULL DEFAULT '0',
+  `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'full sms content ',
+  `to` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'phone number must be set as comma(,) separator',
+  `status` tinyint NOT NULL DEFAULT '0' COMMENT '0=pending, 1= completed, 2= failed ',
+  `attempt` int NOT NULL DEFAULT '0',
   `sent_at` datetime DEFAULT NULL COMMENT 'The moment when sms sent successfully',
-  `notification_event_id` int(11) NOT NULL,
-  `notification_event_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `notification_event_id` int NOT NULL,
+  `notification_event_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `company_id` int(11) NOT NULL DEFAULT 0,
+  `company_id` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1987,11 +2048,11 @@ DROP TABLE IF EXISTS `notification_variables`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `notification_variables` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `variable_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'variable must be placed with comma separator',
-  `created_by_id` int(11) NOT NULL DEFAULT 0 COMMENT 'User Id of the person who created the event',
-  `updated_by_id` int(11) NOT NULL DEFAULT 0 COMMENT 'User Id of the person who updated the event for the last time',
-  `status` tinyint(4) NOT NULL DEFAULT 1 COMMENT '1=active, 0=inactive',
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `variable_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'variable must be placed with comma separator',
+  `created_by_id` int NOT NULL DEFAULT '0' COMMENT 'User Id of the person who created the event',
+  `updated_by_id` int NOT NULL DEFAULT '0' COMMENT 'User Id of the person who updated the event for the last time',
+  `status` tinyint NOT NULL DEFAULT '1' COMMENT '1=active, 0=inactive',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -2017,12 +2078,12 @@ DROP TABLE IF EXISTS `notification_web_events`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `notification_web_events` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `notification_event_id` int(11) NOT NULL,
-  `notification_credential_id` int(11) NOT NULL,
-  `notification_receiver_group_id` int(11) NOT NULL DEFAULT 0,
-  `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Deposit Approve, Deposit Reject etc',
-  `is_allow_from_app` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1= allows manual receivers, 0= does not allow manual receivers',
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `notification_event_id` int NOT NULL,
+  `notification_credential_id` int NOT NULL,
+  `notification_receiver_group_id` int NOT NULL DEFAULT '0',
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Deposit Approve, Deposit Reject etc',
+  `is_allow_from_app` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1= allows manual receivers, 0= does not allow manual receivers',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -2046,19 +2107,19 @@ DROP TABLE IF EXISTS `notification_web_outgoings`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `notification_web_outgoings` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `notification_credential_id` int(11) NOT NULL DEFAULT 0,
-  `subject` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Title of the web notification',
-  `content` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'payload of web notification',
-  `host` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'url of the web notification host',
-  `status` tinyint(4) NOT NULL DEFAULT 0 COMMENT '0=pending, 1= completed, 2= failed ',
-  `attempt` int(11) NOT NULL DEFAULT 0,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `notification_credential_id` int NOT NULL DEFAULT '0',
+  `subject` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Title of the web notification',
+  `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'payload of web notification',
+  `host` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'url of the web notification host',
+  `status` tinyint NOT NULL DEFAULT '0' COMMENT '0=pending, 1= completed, 2= failed ',
+  `attempt` int NOT NULL DEFAULT '0',
   `sent_at` datetime DEFAULT NULL COMMENT 'The moment when we notification sent succesfully',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `company_id` int(11) NOT NULL DEFAULT 0,
-  `notification_event_id` int(11) NOT NULL,
-  `notification_event_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `company_id` int NOT NULL DEFAULT '0',
+  `notification_event_id` int NOT NULL,
+  `notification_event_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -2073,7 +2134,7 @@ LOCK TABLES `notification_web_outgoings` WRITE;
 UNLOCK TABLES;
 
 --
--- Dumping routines for database 'acl_dot_net1'
+-- Dumping routines for database 'xxx'
 --
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -2085,4 +2146,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-08-21 20:02:00
+-- Dump completed on 2024-08-28 16:19:35
