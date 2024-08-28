@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Contracts.Common;
 
 namespace Admin.App.Application.Features.Countries
 {
@@ -15,13 +16,13 @@ namespace Admin.App.Application.Features.Countries
         //[Authorize(Policy = "HasPermission")]
         [HttpDelete(Routes.DeleteCountryUrl, Name = Routes.DeleteCountryName)]
 
-        public async Task<bool> Delete(DeleteCountryCommand command)
+        public async Task<ActionResult<ErrorOr<bool>>> Delete(DeleteCountryCommand command)
         {
             return await Mediator.Send(command).ConfigureAwait(false);
         }
     }
 
-    public record DeleteCountryCommand(uint Id) : IRequest<bool>;
+    public record DeleteCountryCommand(uint Id) : IRequest<ActionResult<ErrorOr<bool>>>;
 
     public class DeleteCountryCommandValidator : AbstractValidator<DeleteCountryCommand>
     {
@@ -31,7 +32,7 @@ namespace Admin.App.Application.Features.Countries
         }
     }
 
-    public class DeleteCountryCommandHandler : IRequestHandler<DeleteCountryCommand, bool>
+    public class DeleteCountryCommandHandler : IRequestHandler<DeleteCountryCommand, ActionResult<ErrorOr<bool>>>
     {
         private readonly IAdminCountryRepository _repository;
 
@@ -40,11 +41,15 @@ namespace Admin.App.Application.Features.Countries
             _repository = repository;
         }
 
-        public async Task<bool> Handle(DeleteCountryCommand command, CancellationToken cancellationToken)
+        public async Task<ActionResult<ErrorOr<bool>>> Handle(DeleteCountryCommand command, CancellationToken cancellationToken)
         {
             if(command.Id > 0)
             {
                 var country = _repository.GetByUintId(command.Id);
+
+                if (country == null)
+                {
+                }
 
                 if (country != null)
                 {
