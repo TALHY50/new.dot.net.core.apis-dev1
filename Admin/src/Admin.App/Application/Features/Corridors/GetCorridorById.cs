@@ -1,4 +1,5 @@
-﻿using ErrorOr;
+﻿using Ardalis.Specification;
+using ErrorOr;
 using FluentValidation;
 using IMT.App.Application.Interfaces.Repositories;
 using IMT.App.Domain.Entities;
@@ -6,6 +7,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Contracts.Common;
 
 namespace Admin.App.Application.Features.Corridors
 {
@@ -16,7 +18,10 @@ namespace Admin.App.Application.Features.Corridors
         [HttpGet(Routes.GetCorridorByIdUrl, Name = Routes.GetCorridorByIdName)]
         public async Task<ActionResult<ErrorOr<Corridor>>> GetById(uint id)
         {
-            return await Mediator.Send(new GetCorridorByIdQuery(id)).ConfigureAwait(false);
+            var result = await Mediator.Send(new GetCorridorByIdQuery(id)).ConfigureAwait(false);
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
     }
     public record GetCorridorByIdQuery(uint id) : IRequest<ErrorOr<Corridor>>;
@@ -39,7 +44,12 @@ namespace Admin.App.Application.Features.Corridors
         }
         public async Task<ErrorOr<Corridor>> Handle(GetCorridorByIdQuery request, CancellationToken cancellationToken)
         {
-            return _repository.GetByUintId(request.id);
+            var entity = _repository.GetByUintId(request.id);
+            if (entity == null)
+            {
+                return Error.NotFound(description: "Corridor not found!", code: AppStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+            }
+            return entity;
         }
     }
 }

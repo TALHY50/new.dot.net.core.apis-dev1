@@ -50,13 +50,13 @@ namespace Admin.App.Application.Features.Corridors
 
                 if (entity == null)
                 {
-                    return Error.NotFound(description: "Corridor not found!", code: AppStatusCode.CorridorNotFound.ToString());
+                    return Error.NotFound(description: "Corridor not found!", code: AppStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 return await _repository.DeleteAsync(entity);
             }
 
-           return Error.NotFound(description: "Corridor not found!", code: AppStatusCode.CorridorNotFound.ToString()); ;
+           return Error.NotFound(description: "Corridor not found!", code: AppStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString()); ;
         }
     }
 }

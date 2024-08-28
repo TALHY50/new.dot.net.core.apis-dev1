@@ -7,6 +7,7 @@ using IMT.App.Application.Common;
 using IMT.App.Application.Interfaces.Repositories;
 using IMT.App.Domain.Entities.Duplicates;
 using IMT.App.Infrastructure.Persistence.Context;
+using IMT.App.Domain.Entities;
 
 namespace IMT.App.Application.Features
 {

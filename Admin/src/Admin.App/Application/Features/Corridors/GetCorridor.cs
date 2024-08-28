@@ -20,7 +20,7 @@ namespace Admin.App.Application.Features.Corridors
     }
     public record GetCorridorQuery() : IQuery<ErrorOr<List<Corridor>>>;
 
-    internal sealed class GetCorridorHandler
+    public class GetCorridorHandler
         : IQueryHandler<GetCorridorQuery, ErrorOr<List<Corridor>>>
     {
         private readonly IImtCorridorRepository _repository;

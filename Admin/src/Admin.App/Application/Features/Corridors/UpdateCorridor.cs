@@ -8,6 +8,7 @@ using SharedKernel.Main.Application.Common.Constants;
 using System.ComponentModel.Design;
 using IMT.App.Application.Interfaces.Repositories;
 using IMT.App.Domain.Entities;
+using SharedKernel.Main.Contracts.Common;
 
 namespace Admin.App.Application.Features.Corridors
 {
@@ -20,7 +21,10 @@ namespace Admin.App.Application.Features.Corridors
         public async Task<ActionResult<ErrorOr<Corridor>>> Update(uint id, UpdateCorridorCommand command)
         {
             var commandWithId = command with { id = id };
-            return await Mediator.Send(commandWithId).ConfigureAwait(false);
+            var result = await Mediator.Send(commandWithId).ConfigureAwait(false);
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
     }
     public record UpdateCorridorCommand(
@@ -41,7 +45,7 @@ namespace Admin.App.Application.Features.Corridors
             RuleFor(x => x.DestinationCurrencyId).NotEmpty();
         }
     }
-    internal sealed class UpdateCorridorValidator : AbstractValidator<UpdateCorridorCommand>
+    public class UpdateCorridorValidator : AbstractValidator<UpdateCorridorCommand>
     {
         public UpdateCorridorValidator()
         {
@@ -50,7 +54,7 @@ namespace Admin.App.Application.Features.Corridors
     }
 
 
-    internal sealed class UpdateCorridorCommandHandler
+    public class UpdateCorridorCommandHandler
         : IRequestHandler<UpdateCorridorCommand, ErrorOr<Corridor>>
     {
         private readonly IImtCorridorRepository _repository;
@@ -62,19 +66,20 @@ namespace Admin.App.Application.Features.Corridors
         {
             Corridor? entity = _repository.GetByUintId(request.id);
             var now = DateTime.UtcNow;
-            if (entity != null)
+            if (entity == null)
             {
-                entity.SourceCountryId = request.SourceCountryId;
-                entity.DestinationCountryId = request.DestinationCountryId;
-                entity.SourceCurrencyId = request.SourceCurrencyId;
-                entity.DestinationCurrencyId = request.DestinationCurrencyId;
-                entity.CompanyId = request.CompanyId;
-                entity.CreatedById = 1;
-                entity.UpdatedById = 2;
-                entity.Status = 1;
-                entity.CreatedAt = now;
-                entity.UpdatedAt = now;
+                return Error.NotFound(description: "Corridor not found!", code: AppStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
+            entity.SourceCountryId = request.SourceCountryId;
+            entity.DestinationCountryId = request.DestinationCountryId;
+            entity.SourceCurrencyId = request.SourceCurrencyId;
+            entity.DestinationCurrencyId = request.DestinationCurrencyId;
+            entity.CompanyId = request.CompanyId;
+            entity.CreatedById = 1;
+            entity.UpdatedById = 2;
+            entity.Status = 1;
+            entity.CreatedAt = now;
+            entity.UpdatedAt = now;
             return await _repository.UpdateAsync(entity); 
         }
     }
