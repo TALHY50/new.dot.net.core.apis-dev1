@@ -16,14 +16,14 @@ namespace Admin.App.Application.Features.Countries
         //[Authorize(Policy = "HasPermission")]
         [HttpPut(Routes.UpdateCountryUrl, Name = Routes.UpdateCountryName)]
 
-        public async Task<ActionResult<ErrorOr<Country>>> Update(int Id, UpdateCountryCommand command)
+        public async Task<ActionResult<ErrorOr<Country>>> Update(uint Id, UpdateCountryCommand command)
         {
             var commandWithId = command with { Id = Id };
             return await Mediator.Send(commandWithId).ConfigureAwait(false);
         }
 
         public record UpdateCountryCommand(
-            int Id,
+            uint Id,
             string? Code,
             string? IsoCode,
             string? Name,
@@ -48,7 +48,7 @@ namespace Admin.App.Application.Features.Countries
 
             public async Task<ErrorOr<Country>> Handle(UpdateCountryCommand command, CancellationToken cancellationToken)
             {
-                Country? country = _repository.GetByIntId(command.Id);
+                Country? country = _repository.GetByUintId(command.Id);
                 if (country != null)
                 {
                     country.Code = command.Code;
@@ -66,7 +66,7 @@ namespace Admin.App.Application.Features.Countries
                     //}
                 }
 
-                return await _repository.UpdateAsync(country);
+                return await _repository.UpdateAsync(country!);
             }
         }
     }

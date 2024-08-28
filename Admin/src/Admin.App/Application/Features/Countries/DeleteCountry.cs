@@ -21,7 +21,7 @@ namespace Admin.App.Application.Features.Countries
         }
     }
 
-    public record DeleteCountryCommand(int Id) : IRequest<bool>;
+    public record DeleteCountryCommand(uint Id) : IRequest<bool>;
 
     internal sealed class DeleteCountryCommandValidator : AbstractValidator<DeleteCountryCommand>
     {
@@ -44,13 +44,13 @@ namespace Admin.App.Application.Features.Countries
         {
             if(command.Id > 0)
             {
-                var country = _repository.GetByIntId(command.Id);
+                var country = _repository.GetByUintId(command.Id);
 
                 if(country != null)
                 {
                     return await _repository.DeleteAsync(country);
                 }
-                return await _repository.DeleteAsync(country);
+                return await _repository.DeleteAsync(country!);
             }
 
             return false;
