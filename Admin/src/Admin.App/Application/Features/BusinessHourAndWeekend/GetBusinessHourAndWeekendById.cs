@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Contracts.Common;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Admin.App.Application.Features.BusinessHourAndWeekend;
 
@@ -18,7 +20,11 @@ public class GetBusinessHourAndWeekendByIdController : ApiControllerBase
     [HttpGet(Routes.GetBusinessHourAndWeekendByIdUrl, Name = Routes.GetBusinessHourAndWeekendByIdName)]
     public async Task<ActionResult<ErrorOr<BusinessHoursAndWeekend>>> Get(uint id)
     {
-        return await Mediator.Send(new GetBusinessHourAndWeekendByIdCommand(id)).ConfigureAwait(false);
+
+        var result = await Mediator.Send(new GetBusinessHourAndWeekendByIdCommand(id)).ConfigureAwait(false);
+        return result.Match(
+            reminder => Ok(result.Value),
+            Problem);
     }
 
     public record GetBusinessHourAndWeekendByIdCommand(uint Id) : IRequest<ErrorOr<BusinessHoursAndWeekend>>;
@@ -39,7 +45,7 @@ public class GetBusinessHourAndWeekendByIdController : ApiControllerBase
             var businessHourAndWeekend = await _context.ImtBusinessHoursAndWeekends.FirstAsync(e => e.Id == request.Id, cancellationToken: cancellationToken).ConfigureAwait(false);
             if (businessHourAndWeekend == null)
             {
-                return Error.NotFound("Business hour and weekend not found!");
+                return Error.NotFound("Business hour and weekend not found!", AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
             return businessHourAndWeekend;
         }

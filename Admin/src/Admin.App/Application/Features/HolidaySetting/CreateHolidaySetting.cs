@@ -19,7 +19,10 @@ public class CreateHolidaySettingController : ApiControllerBase
     [HttpPost(Routes.CreateHolidaySettingUrl, Name = Routes.CreateHolidaySettingName)]
     public async Task<ActionResult<ErrorOr<Duplicates_HolidaySetting>>> Create(CreateHolidaySettingCommand command)
     {
-        return await Mediator.Send(command).ConfigureAwait(false);
+        var result = await Mediator.Send(command).ConfigureAwait(false);
+        return result.Match(
+            reminder => Ok(result.Value),
+            Problem);
     }
 
     public record CreateHolidaySettingCommand(uint? CountryId, DateTime Date, byte Type, sbyte Gmt, DateTime? OpenAt, DateTime? CloseAt, uint? CompanyId)
@@ -48,7 +51,9 @@ public class CreateHolidaySettingController : ApiControllerBase
                 Gmt = request.Gmt,
                 OpenAt = request.OpenAt,
                 CloseAt = request.CloseAt,
-                CompanyId = request.CompanyId
+                CompanyId = request.CompanyId,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow
             };
             return await repository.AddAsync(entity);
         }
