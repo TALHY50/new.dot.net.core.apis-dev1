@@ -1,21 +1,24 @@
-﻿namespace IMT.App.Domain.Entities;
+﻿using System;
+using System.Collections.Generic;
+
+namespace IMT.App.Domain.Entities;
 
 public partial class PaymentMethod
 {
-    public int Id { get; set; }
+    public uint Id { get; set; }
 
     public string? MethodName { get; set; }
 
     public string? Description { get; set; }
 
-    public int? CreatedById { get; set; }
+    public uint? CreatedById { get; set; }
 
-    public int? UpdatedById { get; set; }
+    public uint? UpdatedById { get; set; }
 
     /// <summary>
     /// 1= active, 0=inactive, 2=soft-deleted
     /// </summary>
-    public sbyte? Status { get; set; }
+    public byte? Status { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 

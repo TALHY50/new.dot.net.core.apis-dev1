@@ -1,12 +1,15 @@
-﻿namespace IMT.App.Domain.Entities;
+﻿using System;
+using System.Collections.Generic;
+
+namespace IMT.App.Domain.Entities;
 
 public partial class Quotation
 {
-    public int Id { get; set; }
+    public uint Id { get; set; }
 
     public uint? InstitutionId { get; set; }
 
-    public uint? InvoiceId { get; set; }
+    public string? InvoiceId { get; set; }
 
     public string OrderId { get; set; } = null!;
 
@@ -20,8 +23,6 @@ public partial class Quotation
     public decimal? SourceAmount { get; set; }
 
     public decimal? DestinationAmount { get; set; }
-
-    public DateTime? ExpirationDate { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 

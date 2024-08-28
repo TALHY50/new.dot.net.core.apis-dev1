@@ -1,4 +1,7 @@
-﻿namespace IMT.App.Domain.Entities;
+﻿using System;
+using System.Collections.Generic;
+
+namespace IMT.App.Domain.Entities;
 
 /// <summary>
 /// Type : Master, fund deposited for an institution like Sipay in a provider account (Thunes)
