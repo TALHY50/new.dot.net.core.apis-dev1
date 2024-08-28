@@ -11,6 +11,7 @@
         public static readonly int NOTFOUND = 404;
         public static readonly int CONFLICT = 409;
     }
+    //Success,Error,Warning,Notice
     public static partial class AppErrorStatusCode
     {
         public static readonly int API_ERROR_INSTITUTION_NOT_FOUND = 1001;
