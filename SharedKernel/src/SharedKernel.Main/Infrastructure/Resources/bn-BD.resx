@@ -117,14 +117,32 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Address verification failed" xml:space="preserve">
+    <value>Address verification failed</value>
+  </data>
+  <data name="Address1 is missing or invalid" xml:space="preserve">
+    <value>Address1 is missing or invalid</value>
+  </data>
+  <data name="Address2 is missing or invalid" xml:space="preserve">
+    <value>Address2 is missing or invalid</value>
+  </data>
   <data name="Branch" xml:space="preserve">
     <value>শাখা</value>
+  </data>
+  <data name="Card expired" xml:space="preserve">
+    <value>Card expired</value>
+  </data>
+  <data name="Class not found" xml:space="preserve">
+    <value>Class not found</value>
   </data>
   <data name="Company" xml:space="preserve">
     <value>প্রতিষ্ঠান</value>
   </data>
   <data name="Company Module" xml:space="preserve">
     <value>কোম্পানির মডিউল</value>
+  </data>
+  <data name="Could not connect to payment provider" xml:space="preserve">
+    <value>Could not connect to payment provider</value>
   </data>
   <data name="Country" xml:space="preserve">
     <value>দেশ</value>
@@ -134,6 +152,9 @@
   </data>
   <data name="createMessage" xml:space="preserve">
     <value>সফলভাবে তৈরি করা হয়েছে।</value>
+  </data>
+  <data name="Currency is not supported" xml:space="preserve">
+    <value>Currency is not supported</value>
   </data>
   <data name="deleteFail" xml:space="preserve">
     <value>মুছে ফেলা ব্যর্থ হয়েছে।</value>
@@ -147,17 +168,80 @@
   <data name="editMessage" xml:space="preserve">
     <value>সফলভাবে সম্পাদিত।</value>
   </data>
+  <data name="Email is missing or invalid" xml:space="preserve">
+    <value>Email is missing or invalid</value>
+  </data>
+  <data name="Email verification failed" xml:space="preserve">
+    <value>Email verification failed</value>
+  </data>
   <data name="existMessage" xml:space="preserve">
     <value>ডেটা ইতিমধ্যেই বিদ্যমান।</value>
   </data>
   <data name="fetchMessage" xml:space="preserve">
     <value>সফলভাবে আনা হয়েছে।</value>
   </data>
+  <data name="File max limit exceed" xml:space="preserve">
+    <value>File max limit exceed</value>
+  </data>
+  <data name="First name is missing or invalid" xml:space="preserve">
+    <value>First name is missing or invalid</value>
+  </data>
+  <data name="Input parameter invalid" xml:space="preserve">
+    <value>Input parameter invalid</value>
+  </data>
+  <data name="Institution account blocked or restricted" xml:space="preserve">
+    <value>Institution account blocked or restricted</value>
+  </data>
+  <data name="Institution account does not match currency" xml:space="preserve">
+    <value>Institution account does not match currency</value>
+  </data>
+  <data name="Institution account expired" xml:space="preserve">
+    <value>Institution account expired</value>
+  </data>
+  <data name="Institution account invalid" xml:space="preserve">
+    <value>Institution account invalid</value>
+  </data>
+  <data name="Institution account is in test mode" xml:space="preserve">
+    <value>Institution account is in test mode</value>
+  </data>
+  <data name="Institution authorization failed" xml:space="preserve">
+    <value>Institution authorization failed</value>
+  </data>
+  <data name="Institution is not active yet" xml:space="preserve">
+    <value>Institution is not active yet</value>
+  </data>
+  <data name="Insufficient balance" xml:space="preserve">
+    <value>Insufficient balance</value>
+  </data>
+  <data name="Invalid account" xml:space="preserve">
+    <value>Invalid account</value>
+  </data>
+  <data name="Invalid amount" xml:space="preserve">
+    <value>Invalid amount</value>
+  </data>
+  <data name="Invalid api request" xml:space="preserve">
+    <value>Invalid api request</value>
+  </data>
+  <data name="Invalid date range" xml:space="preserve">
+    <value>Invalid date range</value>
+  </data>
+  <data name="Invalid file format" xml:space="preserve">
+    <value>Invalid file format</value>
+  </data>
+  <data name="Last name is missing or invalid" xml:space="preserve">
+    <value>Last name is missing or invalid</value>
+  </data>
+  <data name="Method not found" xml:space="preserve">
+    <value>Method not found</value>
+  </data>
   <data name="Module" xml:space="preserve">
     <value>মডিউল</value>
   </data>
   <data name="notFoundMessage" xml:space="preserve">
     <value>কোন তথ্য পাওয়া যায়নি।</value>
+  </data>
+  <data name="Operation Successfull." xml:space="preserve">
+    <value>Operation Successfull.</value>
   </data>
   <data name="Page" xml:space="preserve">
     <value>পাতা</value>
@@ -167,6 +251,21 @@
   </data>
   <data name="Password" xml:space="preserve">
     <value>পাসওয়ার্ড</value>
+  </data>
+  <data name="Payment method is not activated" xml:space="preserve">
+    <value>Payment method is not activated</value>
+  </data>
+  <data name="Payment method is not supported" xml:space="preserve">
+    <value>Payment method is not supported</value>
+  </data>
+  <data name="Phone is missing or invalid" xml:space="preserve">
+    <value>Phone is missing or invalid</value>
+  </data>
+  <data name="Phone verification failed" xml:space="preserve">
+    <value>Phone verification failed</value>
+  </data>
+  <data name="Record not found" xml:space="preserve">
+    <value>Record not found</value>
   </data>
   <data name="Role" xml:space="preserve">
     <value>ভূমিকা</value>
@@ -183,6 +282,18 @@
   <data name="Sub Module" xml:space="preserve">
     <value>উপমডিউল</value>
   </data>
+  <data name="Token is invalid" xml:space="preserve">
+    <value>Token is invalid</value>
+  </data>
+  <data name="Too many requests" xml:space="preserve">
+    <value>Too many requests</value>
+  </data>
+  <data name="Transaction limit exceed" xml:space="preserve">
+    <value>Transaction limit exceed</value>
+  </data>
+  <data name="Transaction type is not supported" xml:space="preserve">
+    <value>Transaction type is not supported</value>
+  </data>
   <data name="User" xml:space="preserve">
     <value>ব্যবহারকারী</value>
   </data>
@@ -194,5 +305,8 @@
   </data>
   <data name="User User Group" xml:space="preserve">
     <value>ব্যবহারকারী ব্যবহারকারী গ্রুপ</value>
+  </data>
+  <data name="Zip code is missing or invalid" xml:space="preserve">
+    <value>Zip code is missing or invalid</value>
   </data>
 </root>
