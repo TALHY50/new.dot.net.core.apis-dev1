@@ -39,10 +39,6 @@ namespace Admin.App.Application.Features.Countries
             public async Task<ErrorOr<List<Country>>> Handle(GetCountryQuery request, CancellationToken cancellationToken)
             {
                 var countries = _repository.ViewAll();
-                if (countries == null)
-                {
-                    return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Country not found!");
-                }
                 return countries;
             }
         }

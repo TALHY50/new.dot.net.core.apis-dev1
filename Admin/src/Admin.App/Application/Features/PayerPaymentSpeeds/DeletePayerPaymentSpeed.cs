@@ -1,4 +1,5 @@
-﻿using ErrorOr;
+﻿using ACL.App.Contracts.Responses;
+using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -50,9 +51,11 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
             {
                 var payerPaymentSpeed = _repository.View(command.Id);
 
+                var message = new MessageResponse("Record not found");
+
                 if (payerPaymentSpeed == null)
                 {
-                    return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Payer Payment Speed not found!");
+                    return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
                 
                 return _repository.Delete(payerPaymentSpeed);

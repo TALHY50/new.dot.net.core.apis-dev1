@@ -1,4 +1,5 @@
-﻿using Ardalis.Specification;
+﻿using ACL.App.Contracts.Responses;
+using Ardalis.Specification;
 using ErrorOr;
 using FluentValidation;
 using MediatR;
@@ -57,9 +58,12 @@ namespace Admin.App.Application.Features.TaxRates
             public async Task<ErrorOr<TaxRate>> Handle(UpdateTaxRateCommand command, CancellationToken cancellationToken)
             {
                 TaxRate? taxRate = _repository.View(command.Id);
+
+                var message = new MessageResponse("Record not found");
+
                 if (taxRate == null)
                 {
-                    return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Tax Rate not found!");
+                    return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
                 taxRate.TaxType = command.TaxType;
                 taxRate.CorridorId = command.CorridorId;

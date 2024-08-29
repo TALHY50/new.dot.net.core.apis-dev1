@@ -1,4 +1,5 @@
-﻿using ErrorOr;
+﻿using ACL.App.Contracts.Responses;
+using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -59,10 +60,11 @@ namespace ADMIN.App.Application.Features.ServiceMethods
                     serviceMethod.UpdatedById = command.Id;
                     serviceMethod.UpdatedAt = DateTime.UtcNow;
                 }
+                var message = new MessageResponse("Record not found");
 
                 if (serviceMethod == null)
                 {
-                    return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Service Method not found!");
+                    return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 return _repository.Update(serviceMethod)!;

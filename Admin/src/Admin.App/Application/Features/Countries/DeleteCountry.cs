@@ -1,4 +1,5 @@
-﻿using ErrorOr;
+﻿using ACL.App.Contracts.Responses;
+using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -47,13 +48,14 @@ namespace Admin.App.Application.Features.Countries
 
         public async Task<ErrorOr<bool>> Handle(DeleteCountryCommand command, CancellationToken cancellationToken)
         {
-            if(command.Id > 0)
+            var message = new MessageResponse("Record not found");
+            if (command.Id > 0)
             {
                 var country = _repository.View(command.Id);
 
                 if (country == null)
                 {
-                    return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Country not found!");
+                    return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 return _repository.Delete(country);

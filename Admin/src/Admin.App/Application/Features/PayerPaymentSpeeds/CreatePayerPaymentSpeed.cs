@@ -1,4 +1,5 @@
-﻿using ADMIN.App.Application.Features.ServiceMethods;
+﻿using ACL.App.Contracts.Responses;
+using ADMIN.App.Application.Features.ServiceMethods;
 using ErrorOr;
 using FluentValidation;
 using MediatR;
@@ -71,9 +72,11 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
                 UpdatedAt = DateTime.UtcNow
             };
 
+            var message = new MessageResponse("Record not found");
+
             if (payerPaymentSpeed == null)
             {
-                return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Payer Payment Speed not found!");
+                return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
 
             return _repository.Add(payerPaymentSpeed);

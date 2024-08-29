@@ -38,10 +38,7 @@ namespace Admin.App.Application.Features.CurrencyConversionRates
             public async Task<ErrorOr<List<CurrencyConversionRate>>> Handle(GetCurrencyConversionRateQuery request, CancellationToken cancellationToken)
             {
                 var currencyConversionRates = _repository.ViewAll();
-                if (currencyConversionRates == null)
-                {
-                    return Error.NotFound(description: "CurrencyConversionRate not found!", code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
-                }
+
                 return currencyConversionRates;
             }
         }
