@@ -38,7 +38,7 @@ namespace Admin.App.Application.Features.Regions
 
             public async Task<ErrorOr<List<Region>>> Handle(GetRegionQuery request, CancellationToken cancellationToken)
             {
-                return _regionRepository.All().ToList();
+                return _regionRepository.GetAll().ToList();
             }
         }
     }

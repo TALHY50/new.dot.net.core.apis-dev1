@@ -1,4 +1,5 @@
-﻿using ErrorOr;
+﻿using ACL.App.Contracts.Responses;
+using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -67,11 +68,13 @@ namespace Admin.App.Application.Features.Regions
 
             public async Task<ErrorOr<Region>> Handle(UpdateRegionCommand request, CancellationToken cancellationToken)
             {
+                var message = new MessageResponse("Record not found");
+
                 var now = DateTime.UtcNow;
-                Region? regions = _repository.GetByUintId(request.id);
+                Region? regions = _repository.View(request.id);
                 if (regions == null)
                 {
-                    return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Region not found!");
+                    return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
                 
                 regions.Name = request.Name;
@@ -84,7 +87,7 @@ namespace Admin.App.Application.Features.Regions
 
                 
 
-                return await _repository.UpdateAsync(regions);
+                return _repository.Update(regions);
             }
         }
 
