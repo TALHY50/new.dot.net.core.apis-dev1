@@ -49,14 +49,14 @@ namespace Admin.App.Application.Features.Countries
         {
             if(command.Id > 0)
             {
-                var country = _repository.GetByUintId(command.Id);
+                var country = _repository.View(command.Id);
 
                 if (country == null)
                 {
                     return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Country not found!");
                 }
 
-               return await _repository.DeleteAsync(country);
+                return _repository.Delete(country);
             }
 
             return false;

@@ -43,7 +43,7 @@ namespace Admin.App.Application.Features.InstitutionFunds
             }
             public async Task<ErrorOr<InstitutionFund>> Handle(GetInstitutionFundByIdQuery request, CancellationToken cancellationToken)
             {
-                var institutionFund = _repository.GetByUintId(request.Id);
+                var institutionFund = _repository.View(request.Id);
                 if (institutionFund == null)
                 {
                     return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Institution Fund not found!");

@@ -33,7 +33,7 @@ namespace Admin.App.Application.Features.TaxRates
             }
             public async Task<ErrorOr<List<TaxRate>>> Handle(GetTaxRateQuery request, CancellationToken cancellationToken)
             {
-                return _repository.All().ToList();
+                return _repository.ViewAll()!;
             }
         }
     }

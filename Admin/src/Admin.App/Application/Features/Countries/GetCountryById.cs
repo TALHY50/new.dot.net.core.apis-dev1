@@ -44,7 +44,7 @@ namespace Admin.App.Application.Features.Countries
             }
             public async Task<ErrorOr<Country>> Handle(GetCountryByIdQuery request, CancellationToken cancellationToken)
             {
-                var country = _repository.GetByUintId(request.Id);
+                var country = _repository.View(request.Id);
 
                 if (country == null)
                 {

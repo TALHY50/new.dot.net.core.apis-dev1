@@ -47,13 +47,13 @@ namespace Admin.App.Application.Features.TaxRates
         {
             if (command.Id > 0)
             {
-                var taxRate = _repository.GetByUintId(command.Id);
+                var taxRate = _repository.View(command.Id);
 
                 if (taxRate == null)
                 {
                     return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Tax Rate not found!");
                 }
-                return await _repository.DeleteAsync(taxRate);
+                return _repository.Delete(taxRate);
             }
 
             return false;
