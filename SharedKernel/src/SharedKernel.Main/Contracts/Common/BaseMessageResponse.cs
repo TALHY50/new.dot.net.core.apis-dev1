@@ -21,6 +21,7 @@ namespace SharedKernel.Main.Contracts.Common
         public string CreateFail { get; set; }
         public string DeleteFail { get; set; }
         public string EditFail { get; set; }
+        public string PlainText { get; set; }
 
         public string SomethingIsWrong { get; set; }
 
@@ -28,21 +29,24 @@ namespace SharedKernel.Main.Contracts.Common
         {
             _cultureInfo = new CultureInfo(language);
             _assembly = Assembly.GetExecutingAssembly();
-            _resourceManager = new ResourceManager("SharedKernel.Main.Infrastructure.Resources."+language + _cultureInfo.Name, _assembly);
-            localizationService = new LocalizationService("SharedKernel.Main.Infrastructure.Resources."+language, _assembly, language);
-      
-                FetchMessage = localizationService.GetLocalizedStringWithCulture(model, _cultureInfo) + " " + localizationService.GetLocalizedStringWithCulture("fetchMessage", _cultureInfo);
+            _resourceManager = new ResourceManager("SharedKernel.Main.Infrastructure.Resources." + language + _cultureInfo.Name, _assembly);
+            localizationService = new LocalizationService("SharedKernel.Main.Infrastructure.Resources." + language, _assembly, language);
 
-                EditMessage = localizationService.GetLocalizedStringWithCulture(model, _cultureInfo) + " " + localizationService.GetLocalizedStringWithCulture("editMessage", _cultureInfo);
-                CreateMessage = localizationService.GetLocalizedStringWithCulture(model, _cultureInfo) + " " + localizationService.GetLocalizedStringWithCulture("createMessage", _cultureInfo);
-                DeleteMessage = localizationService.GetLocalizedStringWithCulture(model, _cultureInfo) + " " + localizationService.GetLocalizedStringWithCulture("deleteMessage", _cultureInfo);
-                ExistMessage = localizationService.GetLocalizedStringWithCulture("existMessage", _cultureInfo);
-                NotFoundMessage = localizationService.GetLocalizedStringWithCulture("notFoundMessage", _cultureInfo);
-                CreateFail = localizationService.GetLocalizedStringWithCulture("createFail", _cultureInfo);
-                EditFail = localizationService.GetLocalizedStringWithCulture("deleteFail", _cultureInfo);
-                DeleteFail = localizationService.GetLocalizedStringWithCulture("editFail", _cultureInfo);
-                SomethingIsWrong = localizationService.GetLocalizedStringWithCulture("somethingIsWrong", _cultureInfo);
+            FetchMessage = localizationService.GetLocalizedStringWithCulture(model, _cultureInfo) + " " + localizationService.GetLocalizedStringWithCulture("fetchMessage", _cultureInfo);
+
+            EditMessage = localizationService.GetLocalizedStringWithCulture(model, _cultureInfo) + " " + localizationService.GetLocalizedStringWithCulture("editMessage", _cultureInfo);
+            CreateMessage = localizationService.GetLocalizedStringWithCulture(model, _cultureInfo) + " " + localizationService.GetLocalizedStringWithCulture("createMessage", _cultureInfo);
+            DeleteMessage = localizationService.GetLocalizedStringWithCulture(model, _cultureInfo) + " " + localizationService.GetLocalizedStringWithCulture("deleteMessage", _cultureInfo);
+            ExistMessage = localizationService.GetLocalizedStringWithCulture("existMessage", _cultureInfo);
+            NotFoundMessage = localizationService.GetLocalizedStringWithCulture("notFoundMessage", _cultureInfo);
+            CreateFail = localizationService.GetLocalizedStringWithCulture("createFail", _cultureInfo);
+            EditFail = localizationService.GetLocalizedStringWithCulture("deleteFail", _cultureInfo);
+            DeleteFail = localizationService.GetLocalizedStringWithCulture("editFail", _cultureInfo);
+            SomethingIsWrong = localizationService.GetLocalizedStringWithCulture("somethingIsWrong", _cultureInfo);
+            PlainText = localizationService.GetLocalizedStringWithCulture(model, _cultureInfo);
         }
+
+
 
     }
 }
