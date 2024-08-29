@@ -61,6 +61,22 @@ namespace SharedBusiness.Main.IMT.Infrastructure.Persistence.Repositories
             }
         }
 
+        public Task<TransactionLimit> FindById(uint id)
+        {
+            try
+            {
+                var transactionLimit = dbContext.ImtTransactionLimits.Where(x => x.Id == id).FirstOrDefault();
+                if (transactionLimit == null)
+                {
+                    throw new NodeNotFoundException("Data not found by the id");
+                }
+                return Task.FromResult(transactionLimit);
+            }
+            catch (Exception ex) { 
+                     throw;
+            }
+        }
+
         public bool IsCurrencyExist(uint? currencyId)
         {
 

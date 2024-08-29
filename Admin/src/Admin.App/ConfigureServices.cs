@@ -195,9 +195,9 @@ public static class DependencyInjection
         // HolidaySetting
         services.AddScoped<IHolidaySettingRepository, HolidaySettingRepository>();
 
+        //TransactionLimit
         services.AddScoped<IImtTransactionLimitRepository, TransactionLimitRepository>();
-        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateTransactionLimitCommand).Assembly));
-        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(UpdateTransactionLimitCommand).Assembly));
+        
 
         services.AddSingleton(provider =>
         {

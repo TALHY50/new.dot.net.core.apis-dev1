@@ -7,5 +7,6 @@ namespace SharedBusiness.Main.IMT.Application.Interfaces.Repositories
     {
         Task<TransactionLimit> add(TransactionLimit transactionLimit);
         Task<TransactionLimit> edit(uint id,TransactionLimit transactionLimit);
+        Task<TransactionLimit> FindById(uint id);
     }
 }

@@ -471,6 +471,8 @@
         public const string CreateTransactionLimitUrl = "/api/admin/transaction_limit";
         public const string UpdateTransactionLimitName = "update_transaction_limit";
         public const string UpdateTransactionLimitUrl = "/api/admin/updateTransactionLimit/{id}";
+        public const string FindTransactionLimitByIdName = "find_transaction_limit_by_id";
+        public const string FindTransactionLimitByIdUrl = "/api/admin/findTransactionLimitById/{id}";
 
 
     }
