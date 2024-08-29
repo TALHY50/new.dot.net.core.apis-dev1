@@ -9,6 +9,7 @@ using System.ComponentModel.Design;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Contracts.Common;
+using ACL.App.Contracts.Responses;
 
 namespace Admin.App.Application.Features.Corridors
 {
@@ -39,21 +40,13 @@ namespace Admin.App.Application.Features.Corridors
     {
         public UpdateCorridoryCommandValidator()
         {
+            RuleFor(x => x.id).NotEmpty().WithMessage("Corridor Id is required");
             RuleFor(x => x.SourceCountryId).NotEmpty();
             RuleFor(x => x.DestinationCountryId).NotEmpty();
             RuleFor(x => x.SourceCurrencyId).NotEmpty();
             RuleFor(x => x.DestinationCurrencyId).NotEmpty();
         }
     }
-    public class UpdateCorridorValidator : AbstractValidator<UpdateCorridorCommand>
-    {
-        public UpdateCorridorValidator()
-        {
-            RuleFor(x => x.id).NotEmpty().WithMessage("Corridor Id is required");
-        }
-    }
-
-
     public class UpdateCorridorCommandHandler
         : IRequestHandler<UpdateCorridorCommand, ErrorOr<Corridor>>
     {
@@ -64,11 +57,12 @@ namespace Admin.App.Application.Features.Corridors
         }
         public async Task<ErrorOr<Corridor>> Handle(UpdateCorridorCommand request, CancellationToken cancellationToken)
         {
-            Corridor? entity = _repository.GetByUintId(request.id);
+            var message = new MessageResponse("Record not found");
+            Corridor? entity = _repository.FindById(request.id);
             var now = DateTime.UtcNow;
             if (entity == null)
             {
-                return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Corridor not found!");
+                return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
             entity.SourceCountryId = request.SourceCountryId;
             entity.DestinationCountryId = request.DestinationCountryId;
@@ -80,7 +74,7 @@ namespace Admin.App.Application.Features.Corridors
             entity.Status = 1;
             entity.CreatedAt = now;
             entity.UpdatedAt = now;
-            return await _repository.UpdateAsync(entity); 
+            return _repository.Update(entity); 
         }
     }
 }

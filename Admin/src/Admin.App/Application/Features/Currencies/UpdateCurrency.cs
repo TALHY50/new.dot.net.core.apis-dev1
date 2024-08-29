@@ -11,6 +11,7 @@ using System.Reflection.Metadata;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Contracts.Common;
+using ACL.App.Contracts.Responses;
 
 namespace Admin.App.Application.Features.Currencies
 {
@@ -35,11 +36,15 @@ namespace Admin.App.Application.Features.Currencies
     string? Name,
     string? Symbol) : IRequest<ErrorOr<Currency>>;
 
-    public class UpdateCurrencyValidator : AbstractValidator<GetCurrencyByIdQuery>
+    public class UpdateCurrencyValidator : AbstractValidator<UpdateCurrencyCommand>
     {
         public UpdateCurrencyValidator()
         {
-            RuleFor(x => x.id).NotEmpty().WithMessage("Currencyts ID is required");
+            RuleFor(x => x.id).NotEmpty().WithMessage("Currency ID is required");
+            RuleFor(x => x.Code).NotEmpty().MinimumLength(1).MaximumLength(10).WithMessage("Code cannot be empty");
+            RuleFor(x => x.IsoCode).NotEmpty().MinimumLength(1).MaximumLength(10).WithMessage("IsoCode cannot be empty");
+            RuleFor(x => x.Name).NotEmpty().MinimumLength(1).MaximumLength(100).WithMessage("Name cannot be empty");
+            RuleFor(x => x.Symbol).NotEmpty().MinimumLength(1).MaximumLength(50).WithMessage("Symbol cannot be empty");
         }
     }
 
@@ -53,11 +58,12 @@ namespace Admin.App.Application.Features.Currencies
         }
         public async Task<ErrorOr<Currency>> Handle(UpdateCurrencyCommand request, CancellationToken cancellationToken)
         {
-            Currency? entity = _repository.GetByUintId(request.id);
+            var message = new MessageResponse("Record not found");
+            Currency? entity = _repository.FindById(request.id);
             var now = DateTime.UtcNow;
             if (entity == null)
             {
-                return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Currency not found!");
+                return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
             entity.Code = request.Code;
             entity.IsoCode = request.IsoCode;
@@ -68,7 +74,7 @@ namespace Admin.App.Application.Features.Currencies
             entity.Status = 1;
             entity.CreatedAt = now;
             entity.UpdatedAt = now;
-            return await _repository.UpdateAsync(entity);
+            return _repository.Update(entity);
         }
     }
 }
