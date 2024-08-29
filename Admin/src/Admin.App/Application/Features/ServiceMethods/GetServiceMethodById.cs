@@ -7,6 +7,7 @@ using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Contracts.Common;
 using static Admin.App.Application.Features.Countries.GetCountryByIdController;
 
 namespace ADMIN.App.Application.Features.ServiceMethods
@@ -18,12 +19,16 @@ namespace ADMIN.App.Application.Features.ServiceMethods
         [HttpGet(Routes.GetServiceMethodByIdUrl, Name = Routes.GetServiceMethodByIdName)]
         public async Task<ActionResult<ErrorOr<ServiceMethod>>> GetById(uint Id)
         {
-            return await Mediator.Send(new GetServiceMethodByIdQuery(Id)).ConfigureAwait(false);
+            var result = await Mediator.Send(new GetServiceMethodByIdQuery(Id)).ConfigureAwait(false);
+
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
 
         public record GetServiceMethodByIdQuery(uint Id) : IRequest<ErrorOr<ServiceMethod>>;
 
-        internal sealed class GetServiceMethodByIdValidator : AbstractValidator<GetServiceMethodByIdQuery>
+        public class GetServiceMethodByIdValidator : AbstractValidator<GetServiceMethodByIdQuery>
         {
             public GetServiceMethodByIdValidator()
             {
@@ -31,7 +36,7 @@ namespace ADMIN.App.Application.Features.ServiceMethods
             }
         }
 
-        internal sealed class GetServiceMethodByIdQueryHandler : IRequestHandler<GetServiceMethodByIdQuery, ErrorOr<ServiceMethod>>
+        public class GetServiceMethodByIdQueryHandler : IRequestHandler<GetServiceMethodByIdQuery, ErrorOr<ServiceMethod>>
         {
             private readonly IImtServiceMethodRepository _repository;
 
@@ -41,7 +46,14 @@ namespace ADMIN.App.Application.Features.ServiceMethods
             }
             public async Task<ErrorOr<ServiceMethod>> Handle(GetServiceMethodByIdQuery request, CancellationToken cancellationToken)
             {
-                return _repository.GetByUintId(request.Id);
+                var serviceMethod = _repository.GetByUintId(request.Id);
+
+                if (serviceMethod  == null)
+                {
+                    return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Service Method not found!");
+                }
+
+                return serviceMethod;
             }
         }
     }

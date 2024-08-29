@@ -7,6 +7,7 @@ using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Contracts.Common;
 
 namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
 {
@@ -17,12 +18,15 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
         [HttpGet(Routes.GetPayerPaymentSpeedUrl, Name = Routes.GetPayerPaymentSpeedName)]
         public async Task<ActionResult<ErrorOr<List<PayerPaymentSpeed>>>> Get()
         {
-            return await Mediator.Send(new GetPayerPaymentSpeedQuery()).ConfigureAwait(false);
+            var result = await Mediator.Send(new GetPayerPaymentSpeedQuery()).ConfigureAwait(false);
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
 
         public record GetPayerPaymentSpeedQuery() : IRequest<ErrorOr<List<PayerPaymentSpeed>>>;
 
-        internal sealed class GetPayerPaymentSpeedQueryHandler : IRequestHandler<GetPayerPaymentSpeedQuery, ErrorOr<List<PayerPaymentSpeed>>>
+        public class GetPayerPaymentSpeedQueryHandler : IRequestHandler<GetPayerPaymentSpeedQuery, ErrorOr<List<PayerPaymentSpeed>>>
         {
             private readonly IImtPayerPaymentSpeedRepository _repository;
 
@@ -32,7 +36,13 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
             }
             public async Task<ErrorOr<List<PayerPaymentSpeed>>> Handle(GetPayerPaymentSpeedQuery request, CancellationToken cancellationToken)
             {
-                return _repository.All().ToList();
+                var payerPaymentSpeeds = _repository.All().ToList();
+
+                if (payerPaymentSpeeds == null)
+                {
+                    return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Payer Payment Speed not found!");
+                }
+                return payerPaymentSpeeds;
             }
         }
     }
