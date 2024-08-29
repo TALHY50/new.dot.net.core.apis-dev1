@@ -44,7 +44,7 @@ namespace Admin.App.Application.Features.Currencies
         }
         public async Task<ErrorOr<Currency>> Handle(GetCurrencyByIdQuery request, CancellationToken cancellationToken)
         {
-            var entity = _repository.GetByUintId(request.id);
+            var entity = _repository.FindById(request.id);
             if (entity == null)
             {
                 return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Currency not found!");

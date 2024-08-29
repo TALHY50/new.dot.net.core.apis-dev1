@@ -102,7 +102,7 @@ namespace Admin.App.Application.Features.Payers
                 CreatedAt = now,
                 UpdatedAt = now,
             };
-            return await _repository.AddAsync(@payer);
+            return _repository.Add(@payer);
         }
     }
 }

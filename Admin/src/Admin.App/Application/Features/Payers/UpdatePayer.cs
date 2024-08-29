@@ -77,7 +77,7 @@ namespace Admin.App.Application.Features.Payers
 
         public async Task<ErrorOr<Payer>> Handle(UpdatePayerCommand request, CancellationToken cancellationToken)
         {
-            Payer? entity = _repository.GetByUintId(request.id);
+            Payer? entity = _repository.FindById(request.id);
             var now = DateTime.UtcNow;
             if (entity == null)
             {
@@ -107,7 +107,7 @@ namespace Admin.App.Application.Features.Payers
             entity.UpdatedById = 2;
             entity.CreatedAt = now;
             entity.UpdatedAt = now;
-            return await _repository.UpdateAsync(entity);
+            return _repository.Update(entity);
         }
     }
 }

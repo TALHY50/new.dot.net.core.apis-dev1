@@ -33,7 +33,7 @@ namespace Admin.App.Application.Features.Payers
 
         public async Task<ErrorOr<List<Payer>>> Handle(GetPayerQuery request, CancellationToken cancellationToken)
         {
-            return _repository.All().ToList();
+            return _repository.GetAll();
         }
     }
 }

@@ -39,21 +39,13 @@ namespace Admin.App.Application.Features.Corridors
     {
         public UpdateCorridoryCommandValidator()
         {
+            RuleFor(x => x.id).NotEmpty().WithMessage("Corridor Id is required");
             RuleFor(x => x.SourceCountryId).NotEmpty();
             RuleFor(x => x.DestinationCountryId).NotEmpty();
             RuleFor(x => x.SourceCurrencyId).NotEmpty();
             RuleFor(x => x.DestinationCurrencyId).NotEmpty();
         }
     }
-    public class UpdateCorridorValidator : AbstractValidator<UpdateCorridorCommand>
-    {
-        public UpdateCorridorValidator()
-        {
-            RuleFor(x => x.id).NotEmpty().WithMessage("Corridor Id is required");
-        }
-    }
-
-
     public class UpdateCorridorCommandHandler
         : IRequestHandler<UpdateCorridorCommand, ErrorOr<Corridor>>
     {
@@ -64,7 +56,7 @@ namespace Admin.App.Application.Features.Corridors
         }
         public async Task<ErrorOr<Corridor>> Handle(UpdateCorridorCommand request, CancellationToken cancellationToken)
         {
-            Corridor? entity = _repository.GetByUintId(request.id);
+            Corridor? entity = _repository.FindById(request.id);
             var now = DateTime.UtcNow;
             if (entity == null)
             {
@@ -80,7 +72,7 @@ namespace Admin.App.Application.Features.Corridors
             entity.Status = 1;
             entity.CreatedAt = now;
             entity.UpdatedAt = now;
-            return await _repository.UpdateAsync(entity); 
+            return _repository.Update(entity); 
         }
     }
 }

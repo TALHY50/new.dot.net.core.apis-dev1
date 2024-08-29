@@ -43,7 +43,7 @@ namespace Admin.App.Application.Features.Payers
         }
         public async Task<ErrorOr<Payer>> Handle(GetPayerByIdQuery request, CancellationToken cancellationToken)
         {
-            var entity = _repository.GetByUintId(request.id);
+            var entity = _repository.FindById(request.id);
             if (entity == null)
             {
                 return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Payer not found!");

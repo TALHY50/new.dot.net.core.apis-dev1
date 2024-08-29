@@ -45,14 +45,14 @@ namespace Admin.App.Application.Features.Currencies
         {
             if (request.id > 0)
             {
-                var entity = _repository.GetByUintId(request.id);
+                var entity = _repository.FindById(request.id);
 
                 if (entity == null)
                 {
                     return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Currency not found!");
                 }
 
-                return await _repository.DeleteAsync(entity);
+                return _repository.Delete(entity);
             }
 
             return false;
