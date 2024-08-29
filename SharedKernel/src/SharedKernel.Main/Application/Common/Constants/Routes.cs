@@ -469,6 +469,8 @@
         //Trasaction Limit
         public const string CreateTransactionLimitName = "create_transaction_limit";
         public const string CreateTransactionLimitUrl = "/api/admin/transaction_limit";
+        public const string UpdateTransactionLimitName = "update_transaction_limit";
+        public const string UpdateTransactionLimitUrl = "/api/admin/updateTransactionLimit/{id}";
 
 
     }

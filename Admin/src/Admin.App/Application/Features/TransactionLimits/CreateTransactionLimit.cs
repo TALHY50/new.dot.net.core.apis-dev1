@@ -8,7 +8,7 @@ using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 
-namespace Admin.App.Application.Features.TransactionTypes
+namespace Admin.App.Application.Features.TransactionLimits
 {
     public class CreateTransactionLimitController : ApiControllerBase
     {
@@ -26,31 +26,31 @@ namespace Admin.App.Application.Features.TransactionTypes
     }
 
     public record CreateTransactionLimitCommand(
-         sbyte? TransactionType,
+         sbyte TransactionType,
 
-         sbyte? UserCategory,
+         sbyte UserCategory,
 
-         int? DailyTotalNumber,
+         int DailyTotalNumber,
 
-         decimal? DailyTotalAmount,
+         decimal DailyTotalAmount,
 
-         int? MonthlyTotalNumber,
+         int MonthlyTotalNumber,
 
-        decimal? MonthlyTotalAmount,
+        decimal MonthlyTotalAmount,
 
-        uint? CurrencyId) : IRequest<ErrorOr<TransactionLimit>>;
+        uint CurrencyId) : IRequest<ErrorOr<TransactionLimit>>;
 
     public class CreateTransactionLimitCommandValidator : AbstractValidator<CreateTransactionLimitCommand>
     {
         public CreateTransactionLimitCommandValidator()
         {
-            RuleFor(x => x.TransactionType).NotEmpty().WithMessage("Transaction Type  is required");
-            RuleFor(x => x.UserCategory).NotEmpty().WithMessage("User Category  is required");
-            RuleFor(x => x.DailyTotalNumber).NotEmpty().WithMessage("Daily Total Number is required");
-            RuleFor(x => x.DailyTotalAmount).NotEmpty().WithMessage("Daily Total Amount is required");
-            RuleFor(x => x.MonthlyTotalNumber).NotEmpty().WithMessage("Monthly Total Number is required");
-            RuleFor(x => x.MonthlyTotalAmount).NotEmpty().WithMessage("Monthly Total Amount is required");
-            RuleFor(x => x.CurrencyId).NotEmpty().WithMessage("Currency is required");
+            RuleFor(x => x.TransactionType).GreaterThan((sbyte)0).NotEmpty().WithMessage("Transaction Type  is required");
+            RuleFor(x => x.UserCategory).GreaterThan((sbyte)0).NotEmpty().WithMessage("User Category  is required");
+            RuleFor(x => x.DailyTotalNumber).GreaterThan(0).NotEmpty().WithMessage("Daily Total Number is required");
+            RuleFor(x => x.DailyTotalAmount).GreaterThan(0m).NotEmpty().WithMessage("Daily Total Amount is required");
+            RuleFor(x => x.MonthlyTotalNumber).GreaterThan(0).NotEmpty().WithMessage("Monthly Total Number is required");
+            RuleFor(x => x.MonthlyTotalAmount).GreaterThan(0m).NotEmpty().WithMessage("Monthly Total Amount is required");
+            RuleFor(x => x.CurrencyId).NotEmpty().WithMessage("Currency is required").GreaterThan((uint)0).WithMessage("Currency is required");
         }
     }
 
@@ -82,7 +82,7 @@ namespace Admin.App.Application.Features.TransactionTypes
                 UpdatedAt = DateTime.UtcNow,
             };
 
-            return await _transactionLimitRepository.AddAsync(transactionLimit);
+            return await _transactionLimitRepository.add(transactionLimit);
         }
     }
 }
