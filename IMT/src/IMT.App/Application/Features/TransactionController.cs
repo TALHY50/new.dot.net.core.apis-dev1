@@ -2,11 +2,13 @@
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
+using SharedBusiness.Main.IMT.Domain.Entities;
+using SharedBusiness.Main.IMT.Infrastructure.Persistence.Context;
 using SharedKernel.Main.Application.Common.Constants;
-using IMT.App.Application.Common;
-using IMT.App.Application.Interfaces.Repositories;
-using IMT.App.Domain.Entities.Duplicates;
-using IMT.App.Infrastructure.Persistence.Context;
+using SharedKernel.Main.Application.Common;
+using StackExchange.Redis;
+using SharedKernel.Main.Contracts.Common;
 
 namespace IMT.App.Application.Features
 {
@@ -15,10 +17,10 @@ namespace IMT.App.Application.Features
     [Route("[controller]")]
     public class TransactionController : ApiControllerBase
     {
-
+        [Tags("Thunes.Money Transfer")]
         //[Authorize(Policy = "HasPermission")]
         [HttpPost(Routes.CreateMoneyTransferTransactionUrl, Name = Routes.CreateMoneyTransferTransactionName)]
-        public async Task<ActionResult<ErrorOr<HolidaySetting>>> Create(CreateTransactionCommand command)
+        public async Task<ActionResult<ErrorOr<Transaction>>> Create(CreateTransactionCommand command)
         {
             return await Mediator.Send(command).ConfigureAwait(false);
         }
@@ -33,7 +35,7 @@ namespace IMT.App.Application.Features
             string document_reference_number,
             string reference
             )
-            : IRequest<ErrorOr<HolidaySetting>>;
+            : IRequest<ErrorOr<Transaction>>;
 
         public class Receiver
         {
@@ -87,6 +89,7 @@ namespace IMT.App.Application.Features
         {
             public CreateTransactionCommandValidator()
             {
+                // fontend validation
                 RuleFor(r => r.invoice_id).NotEmpty().WithMessage("Invoice id is required.");
                 RuleFor(r => r.order_id).NotEmpty().WithMessage("Order id is required.");
                 RuleFor(r => r.receiver_account_identifier.iban).NotEmpty().WithMessage("Iban is required.");
@@ -125,12 +128,29 @@ namespace IMT.App.Application.Features
             }
         }
 
-        internal sealed class CreateHolidaySettingHandler(ApplicationDbContext context, IHolidaySettingRepository repository) : IRequestHandler<CreateTransactionCommand, ErrorOr<HolidaySetting>>
+        internal sealed class CreateHolidaySettingHandler(ApplicationDbContext context, IImtTransactionRepository _transactionRepository, IQuotationRepository _quotationRepository, IImtTransactionRepository _imtTransactionRepository, IImtMoneyTransferRepository _imtMoneyTransferRepository) : IRequestHandler<CreateTransactionCommand, ErrorOr<Transaction>>
         {
-            public async Task<ErrorOr<HolidaySetting>> Handle(CreateTransactionCommand request, CancellationToken cancellationToken)
+            public async Task<ErrorOr<Transaction>> Handle(CreateTransactionCommand request, CancellationToken cancellationToken)
             {
 
-                var entity = new HolidaySetting
+                // business validation
+                var quotation = _quotationRepository.Where(q => q.InvoiceId == request.invoice_id && q.OrderId == request.order_id).FirstOrDefault();
+                if (quotation is null)
+                {
+                    // Not found Quotation
+                    return Error.NotFound("Quotation not found", AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                }
+
+                // operation on db
+
+
+
+                // insert money transfer
+
+                // insert transaction
+
+
+                var entity = new Transaction
                 {
                     //CountryId = request.CountryId,
                     //Date = request.Date,
@@ -140,7 +160,22 @@ namespace IMT.App.Application.Features
                     //CloseAt = request.CloseAt,
                     //CompanyId = request.CompanyId
                 };
-                return await repository.AddAsync(entity);
+
+                var moneyTransfer = new MoneyTransfer
+                {
+                    //CountryId = request.CountryId,
+                    //Date = request.Date,
+                    //Type = request.Type,
+                    //Gmt = request.Gmt,
+                    //OpenAt = request.OpenAt,
+                    //CloseAt = request.CloseAt,
+                    //CompanyId = request.CompanyId
+                };
+
+
+                _imtMoneyTransferRepository.AddAsync(moneyTransfer);
+
+                return await _imtTransactionRepository.AddAsync(entity);
             }
         }
 

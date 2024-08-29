@@ -1,9 +1,10 @@
 ﻿using ErrorOr;
-using IMT.App.Application.Interfaces.Repositories;
-using IMT.App.Domain.Entities;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
+using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 
@@ -16,7 +17,11 @@ namespace Admin.App.Application.Features.Currencies
         [HttpPost(Routes.CreateCurrencyUrl, Name = Routes.CreateCurrencyName)]
         public async Task<ActionResult<ErrorOr<Currency>>> Create(CreateCurrencyCommand command)
         {
-            return await Mediator.Send(command).ConfigureAwait(false);
+            var result = await Mediator.Send(command).ConfigureAwait(false);
+
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
     }
 
@@ -26,7 +31,18 @@ namespace Admin.App.Application.Features.Currencies
         string? Name,
         string? Symbol) : IRequest<ErrorOr<Currency>>;
 
-    internal sealed class CreateCurrencyCommandHandler : IRequestHandler<CreateCurrencyCommand, ErrorOr<Currency>>
+    public class CreateCurrencyCommandValidator : AbstractValidator<CreateCurrencyCommand> 
+    {
+        public CreateCurrencyCommandValidator()
+        {
+            RuleFor(x => x.Code).MaximumLength(10);
+            RuleFor(x => x.IsoCode).MaximumLength(10);
+            RuleFor(x => x.Name).MaximumLength(100);
+            RuleFor(x => x.Symbol).MaximumLength(50);
+        }
+    }
+
+    public class CreateCurrencyCommandHandler : IRequestHandler<CreateCurrencyCommand, ErrorOr<Currency>>
     {
         private readonly IImtAdminCurrencyRepository _repository;
 

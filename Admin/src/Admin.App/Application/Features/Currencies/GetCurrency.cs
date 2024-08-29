@@ -1,9 +1,9 @@
 ﻿using Ardalis.SharedKernel;
 using ErrorOr;
-using IMT.App.Application.Interfaces.Repositories;
-using IMT.App.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
+using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 
@@ -16,12 +16,15 @@ namespace Admin.App.Application.Features.Currencies
         [HttpGet(Routes.GetCurrencyUrl, Name = Routes.GetCurrencyName)]
         public async Task<ActionResult<ErrorOr<List<Currency>>>> Get()
         {
-            return await Mediator.Send(new GetCurrencyQuery()).ConfigureAwait(false);
+            var result = await Mediator.Send(new GetCurrencyQuery()).ConfigureAwait(false);
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
     }
     public record GetCurrencyQuery() : IQuery<ErrorOr<List<Currency>>>;
 
-    internal sealed class GetCurrencyHandler
+    public class GetCurrencyHandler
         : IQueryHandler<GetCurrencyQuery, ErrorOr<List<Currency>>>
     {
         private readonly IImtAdminCurrencyRepository _repository;

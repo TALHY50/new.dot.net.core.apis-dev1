@@ -1,11 +1,12 @@
 ﻿using Ardalis.SharedKernel;
 using ErrorOr;
-using IMT.App.Application.Interfaces.Repositories;
-using IMT.App.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
+using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Contracts.Common;
 
 namespace Admin.App.Application.Features.Countries
 {
@@ -16,12 +17,16 @@ namespace Admin.App.Application.Features.Countries
         [HttpGet(Routes.GetCountryUrl, Name = Routes.GetCountryName)]
         public async Task<ActionResult<ErrorOr<List<Country>>>> Get()
         {
-            return await Mediator.Send(new GetCountryQuery()).ConfigureAwait(false);
+            var result = await Mediator.Send(new GetCountryQuery()).ConfigureAwait(false);
+
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
 
         public record GetCountryQuery() : IRequest<ErrorOr<List<Country>>>;
 
-        internal sealed class GetCountryQueryHandler 
+        public class GetCountryQueryHandler 
             : IRequestHandler<GetCountryQuery, ErrorOr<List<Country>>>
         {
             private readonly IAdminCountryRepository _repository;
@@ -33,7 +38,12 @@ namespace Admin.App.Application.Features.Countries
 
             public async Task<ErrorOr<List<Country>>> Handle(GetCountryQuery request, CancellationToken cancellationToken)
             {
-                return _repository.All().ToList();
+                var countries = _repository.All().ToList();
+                if (countries == null)
+                {
+                    return Error.NotFound(description: "Country not found!", code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                }
+                return countries;
             }
         }
     }

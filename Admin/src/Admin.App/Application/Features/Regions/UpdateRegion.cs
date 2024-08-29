@@ -1,14 +1,16 @@
 ﻿using ErrorOr;
 using FluentValidation;
-using IMT.App.Application.Interfaces.Repositories;
-using IMT.App.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
+using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Contracts.Common;
+using static Admin.App.Application.Features.Regions.GetRegionByIdController;
 
 
 namespace Admin.App.Application.Features.Regions
@@ -21,26 +23,37 @@ namespace Admin.App.Application.Features.Regions
         public async Task<ActionResult<ErrorOr<Region>>> Update(uint id, UpdateRegionCommand command)
         {
             var commandWithId = command with { id = id };
-            return await Mediator.Send(commandWithId).ConfigureAwait(false);
+            var result = await Mediator.Send(commandWithId).ConfigureAwait(false);
+
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
 
         public record UpdateRegionCommand(
         uint id,
-        string? Name
-        ) : IRequest<ErrorOr<Region>>;
+        string? Name,
+        uint? CompanyId,
+        byte Status) : IRequest<ErrorOr<Region>>;
 
-        //internal sealed class UpdateRegionCommandValidator : AbstractValidator<UpdateRegionCommand>
-        //{
-        //    public UpdateRegionCommandValidator()
-        //    {
-        //        RuleFor(v => v.Status)
-        //            .NotEmpty()
-        //            .WithMessage("Status is required.");
-        //    }
-        //}
+        public class UpdateRegionCommandValidator : AbstractValidator<UpdateRegionCommand>
+        {
+            public UpdateRegionCommandValidator()
+            {
+                RuleFor(v => v.id)
+                    .NotEmpty()
+                    .WithMessage("ID is required.");
+                RuleFor(v => v.Name)
+                    .MaximumLength(50)
+                    .WithMessage("Maximum length can be 50.");
+                RuleFor(v => v.Status)
+                    .NotEmpty()
+                    .WithMessage("Status is required.");
+            }
+        }
 
 
-        internal sealed class UpdateRegionCommandHandler
+        public class UpdateRegionCommandHandler
         : IRequestHandler<UpdateRegionCommand, ErrorOr<Region>>
         {
             private readonly ICurrentUserService _user;
@@ -56,16 +69,18 @@ namespace Admin.App.Application.Features.Regions
             {
                 var now = DateTime.UtcNow;
                 Region? regions = _repository.GetByUintId(request.id);
-                if (regions != null)
+                if (regions == null)
                 {
-                    regions.Name = request.Name;
-                    regions.CompanyId = 0;
-                    regions.Status = 1;
-                    regions.CreatedById = 1;
-                    regions.UpdatedById = 2;
-                    regions.CreatedAt = now;
-                    regions.UpdatedAt = now;
-                };
+                    return Error.NotFound(description: "Region not found", code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                }
+                
+                regions.Name = request.Name;
+                regions.CompanyId = request.CompanyId;
+                regions.Status = request.Status;
+                regions.CreatedById = 1;
+                regions.UpdatedById = 2;
+                regions.CreatedAt = now;
+                regions.UpdatedAt = now;
 
                 
 

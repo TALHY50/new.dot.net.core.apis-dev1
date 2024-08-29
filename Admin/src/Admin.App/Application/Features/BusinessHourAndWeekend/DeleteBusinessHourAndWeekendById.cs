@@ -1,12 +1,14 @@
 ﻿using ErrorOr;
 using FluentValidation;
-using IMT.App.Application.Interfaces.Repositories;
-using IMT.App.Infrastructure.Persistence.Context;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
+using SharedBusiness.Main.IMT.Infrastructure.Persistence.Context;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Contracts.Common;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 
 namespace Admin.App.Application.Features.BusinessHourAndWeekend;
@@ -17,7 +19,10 @@ public class DeleteBusinessHourAndWeekendByIdController : ApiControllerBase
     [HttpDelete(Routes.DeleteBusinessHourAndWeekendUrl, Name = Routes.DeleteBusinessHourAndWeekendName)]
     public async Task<ActionResult<ErrorOr<bool>>> Delete(uint id)
     {
-        return await Mediator.Send(new DeleteBusinessHourAndWeekendCommand(id)).ConfigureAwait(false);
+        var result = await Mediator.Send(new DeleteBusinessHourAndWeekendCommand(id)).ConfigureAwait(false);
+        return result.Match(
+            reminder => Ok(result.Value),
+            Problem);
     }
 
     public record DeleteBusinessHourAndWeekendCommand(uint Id) : IRequest<ErrorOr<bool>>;
@@ -39,7 +44,7 @@ public class DeleteBusinessHourAndWeekendByIdController : ApiControllerBase
             var businessHourAndWeekend = await _context.ImtBusinessHoursAndWeekends.FirstAsync(e => e.Id == request.Id, cancellationToken: cancellationToken).ConfigureAwait(false);
             if (businessHourAndWeekend == null)
             {
-                return Error.NotFound("Business hour and weekend not found!");
+                return Error.NotFound("Business hour and weekend not found!", AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
             _context.ImtBusinessHoursAndWeekends.Remove(businessHourAndWeekend);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);

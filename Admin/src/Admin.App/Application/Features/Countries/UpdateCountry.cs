@@ -1,12 +1,13 @@
 ﻿using ErrorOr;
 using FluentValidation;
-using IMT.App.Application.Interfaces.Repositories;
-using IMT.App.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
+using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Contracts.Common;
 
 namespace Admin.App.Application.Features.Countries
 {
@@ -16,20 +17,23 @@ namespace Admin.App.Application.Features.Countries
         //[Authorize(Policy = "HasPermission")]
         [HttpPut(Routes.UpdateCountryUrl, Name = Routes.UpdateCountryName)]
 
-        public async Task<ActionResult<ErrorOr<Country>>> Update(int Id, UpdateCountryCommand command)
+        public async Task<ActionResult<ErrorOr<Country>>> Update(uint Id, UpdateCountryCommand command)
         {
             var commandWithId = command with { Id = Id };
-            return await Mediator.Send(commandWithId).ConfigureAwait(false);
+            var result = await Mediator.Send(commandWithId).ConfigureAwait(false);
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
 
         public record UpdateCountryCommand(
-            int Id,
+            uint Id,
             string? Code,
             string? IsoCode,
             string? Name,
-            sbyte Status) : IRequest<ErrorOr<Country>>;
+            byte Status) : IRequest<ErrorOr<Country>>;
 
-        internal sealed class UpdateCountryCommandValidator : AbstractValidator<UpdateCountryCommand>
+        public class UpdateCountryCommandValidator : AbstractValidator<UpdateCountryCommand>
         {
             public UpdateCountryCommandValidator()
             {
@@ -37,7 +41,7 @@ namespace Admin.App.Application.Features.Countries
             }
         }
 
-        internal sealed class UpdateCountryCommandHandler : IRequestHandler<UpdateCountryCommand, ErrorOr<Country>>
+        public class UpdateCountryCommandHandler : IRequestHandler<UpdateCountryCommand, ErrorOr<Country>>
         {
             private readonly IAdminCountryRepository _repository;
 
@@ -48,25 +52,22 @@ namespace Admin.App.Application.Features.Countries
 
             public async Task<ErrorOr<Country>> Handle(UpdateCountryCommand command, CancellationToken cancellationToken)
             {
-                Country? country = _repository.GetByIntId(command.Id);
+                Country? country = _repository.GetByUintId(command.Id);
                 if (country != null)
                 {
                     country.Code = command.Code;
                     country.IsoCode = command.IsoCode;
                     country.Name = command.Name;
                     country.Status = command.Status;
+                    country.UpdatedById = command.Id;
+                    country.UpdatedAt = DateTime.UtcNow;
                     
-                    //if (_user?.UserId != null)
-                    //{
-                    //    entity.UpdatedById = uint.Parse(_user?.UserId ?? "1");
-                    //}
-                    //else
-                    //{
-                    //    entity.UpdatedById = 1;
-                    //}
+                    return await _repository.UpdateAsync(country!);
                 }
-
-                return await _repository.UpdateAsync(country);
+                else
+                {
+                    return Error.NotFound(description: "Country not found!", code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                }
             }
         }
     }

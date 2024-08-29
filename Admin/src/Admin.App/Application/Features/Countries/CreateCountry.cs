@@ -1,11 +1,12 @@
 using ErrorOr;
 using FluentValidation;
-using IMT.App.Application.Interfaces.Repositories;
-using IMT.App.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
+using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Contracts.Common;
 
 namespace Admin.App.Application.Features.Countries
 {
@@ -17,25 +18,34 @@ namespace Admin.App.Application.Features.Countries
 
         public async Task<ActionResult<ErrorOr<Country>>> Create(CreateCountryCommand command)
         {
-            return await Mediator.Send(command).ConfigureAwait(false);
+            var result = await Mediator.Send(command).ConfigureAwait(false);
+
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
     }
 
     public record CreateCountryCommand(
         string? Code,
         string? IsoCode,
-        string? Name
+        string? Name,
+        //uint? CreatedById,
+        //uint? UpdatedById,
+        byte Status
         ) : IRequest<ErrorOr<Country>>;
 
-    internal sealed class CreateCountryCommandValidator : AbstractValidator<CreateCountryCommand>
+    public class CreateCountryCommandValidator : AbstractValidator<CreateCountryCommand>
     {
         public CreateCountryCommandValidator()
         {
-
+            RuleFor(v => v.Code).MinimumLength(1).MaximumLength(100).NotEmpty();
+            RuleFor(v => v.IsoCode).MinimumLength(1).MaximumLength(100).NotEmpty();
+            RuleFor(v => v.Name).MinimumLength(1).MaximumLength(100).NotEmpty();
         }
     }
 
-    internal sealed class CreateCountryCommandHandler : IRequestHandler<CreateCountryCommand, ErrorOr<Country>>
+    public class CreateCountryCommandHandler : IRequestHandler<CreateCountryCommand, ErrorOr<Country>>
     {
         //private readonly ApplicationDbContext _context = context;
         private readonly IAdminCountryRepository _repository;
@@ -59,6 +69,10 @@ namespace Admin.App.Application.Features.Countries
                 UpdatedAt = DateTime.UtcNow,
             };
 
+            if (country == null)
+            {
+                return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Country not found!");
+            }
             return await _repository.AddAsync(country);
         }
     }

@@ -1,13 +1,13 @@
 ﻿using ErrorOr;
 using FluentValidation;
-using IMT.App.Application.Interfaces.Repositories;
-using IMT.App.Infrastructure.Persistence.Context;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
+using SharedBusiness.Main.IMT.Infrastructure.Persistence.Context;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
-using Duplicates_HolidaySetting = IMT.App.Domain.Entities.Duplicates.HolidaySetting;
+using Duplicates_HolidaySetting = SharedBusiness.Main.IMT.Domain.Entities.HolidaySetting;
 
 
 namespace Admin.App.Application.Features.HolidaySetting;
@@ -19,7 +19,10 @@ public class CreateHolidaySettingController : ApiControllerBase
     [HttpPost(Routes.CreateHolidaySettingUrl, Name = Routes.CreateHolidaySettingName)]
     public async Task<ActionResult<ErrorOr<Duplicates_HolidaySetting>>> Create(CreateHolidaySettingCommand command)
     {
-        return await Mediator.Send(command).ConfigureAwait(false);
+        var result = await Mediator.Send(command).ConfigureAwait(false);
+        return result.Match(
+            reminder => Ok(result.Value),
+            Problem);
     }
 
     public record CreateHolidaySettingCommand(uint? CountryId, DateTime Date, byte Type, sbyte Gmt, DateTime? OpenAt, DateTime? CloseAt, uint? CompanyId)
@@ -48,7 +51,9 @@ public class CreateHolidaySettingController : ApiControllerBase
                 Gmt = request.Gmt,
                 OpenAt = request.OpenAt,
                 CloseAt = request.CloseAt,
-                CompanyId = request.CompanyId
+                CompanyId = request.CompanyId,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow
             };
             return await repository.AddAsync(entity);
         }

@@ -1,11 +1,12 @@
 ﻿using ErrorOr;
-using IMT.App.Application.Interfaces.Repositories;
-using IMT.App.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
+using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Admin.App.Application.Features.TransactionTypes
 {
@@ -16,12 +17,16 @@ namespace Admin.App.Application.Features.TransactionTypes
         [HttpGet(Routes.GetTransactionTypeUrl, Name = Routes.GetTransactionTypeName)]
         public async Task<ActionResult<ErrorOr<List<TransactionType>>>> Get()
         {
-            return await Mediator.Send(new GetTransactionTypeQuery()).ConfigureAwait(false);
+            var result = await Mediator.Send(new GetTransactionTypeQuery()).ConfigureAwait(false);
+
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
 
         public record GetTransactionTypeQuery() : IRequest<ErrorOr<List<TransactionType>>>;
 
-        internal sealed class GetTransactionTypeHandler
+        public class GetTransactionTypeHandler
             : IRequestHandler<GetTransactionTypeQuery, ErrorOr<List<TransactionType>>>
         {
             private readonly IImtTransactionTypeRepository _transactionTypeRepository;

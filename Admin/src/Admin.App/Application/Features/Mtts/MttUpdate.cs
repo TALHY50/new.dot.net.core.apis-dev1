@@ -1,9 +1,9 @@
 ﻿using ErrorOr;
 using FluentValidation;
-using IMT.App.Application.Interfaces.Repositories;
-using IMT.App.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
+using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
@@ -62,12 +62,12 @@ namespace Admin.App.Application.Features.Mtts
                 {
                     entity.CompanyId = request.CompanyId;
                     entity.CorridorId = request.CorridorId;
-                    entity.CotCurrencyId = request.CotCurrencyId;
+                   // entity.CotCurrencyId = request.CotCurrencyId;
                     entity.CotFixed = request.CotFixed;
                     entity.CotPercentage = request.CotPercentage;
                     entity.FxSpread = request.FxSpread;
                     entity.Increment = request.Increment;
-                    entity.MarkUpCurrencyId = request.MarkUpCurrencyId;
+                  //  entity.MarkUpCurrencyId = request.MarkUpCurrencyId;
                     entity.MarkUpFixed = request.MarkUpFixed;
                     entity.MarkUpPercentage = request.MarkUpPercentage;
                     entity.MoneyPrecision = request.MoneyPrecision;

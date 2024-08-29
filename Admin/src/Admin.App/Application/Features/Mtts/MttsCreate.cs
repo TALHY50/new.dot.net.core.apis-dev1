@@ -8,8 +8,8 @@ using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
 using System.ComponentModel.Design;
-using IMT.App.Application.Interfaces.Repositories;
-using IMT.App.Domain.Entities;
+using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
+using SharedBusiness.Main.IMT.Domain.Entities;
 
 namespace Admin.App.Application.Features.Mtts
 {
@@ -61,12 +61,12 @@ namespace Admin.App.Application.Features.Mtts
                 {
                     CompanyId = request.CompanyId,
                     CorridorId = request.CorridorId,
-                    CotCurrencyId = request.CotCurrencyId,
+                  //  CotCurrencyId = request.CotCurrencyId,
                     CotFixed = request.CotFixed,
                     CotPercentage = request.CotPercentage,
                     FxSpread = request.FxSpread,
                     Increment = request.Increment,
-                    MarkUpCurrencyId = request.MarkUpCurrencyId,
+                  //  MarkUpCurrencyId = request.MarkUpCurrencyId,
                     MarkUpFixed = request.MarkUpFixed,
                     MarkUpPercentage = request.MarkUpPercentage,
                     MoneyPrecision = request.MoneyPrecision,
@@ -85,12 +85,12 @@ namespace Admin.App.Application.Features.Mtts
                     {
                         entity.CompanyId = request.CompanyId;
                         entity.CorridorId = request.CorridorId;
-                        entity.CotCurrencyId = request.CotCurrencyId;
+                      //  entity.CotCurrencyId = request.CotCurrencyId;
                         entity.CotFixed = request.CotFixed;
                         entity.CotPercentage = request.CotPercentage;
                         entity.FxSpread = request.FxSpread;
                         entity.Increment = request.Increment;
-                        entity.MarkUpCurrencyId = request.MarkUpCurrencyId;
+                       // entity.MarkUpCurrencyId = request.MarkUpCurrencyId;
                         entity.MarkUpFixed = request.MarkUpFixed;
                         entity.MarkUpPercentage = request.MarkUpPercentage;
                         entity.MoneyPrecision = request.MoneyPrecision;

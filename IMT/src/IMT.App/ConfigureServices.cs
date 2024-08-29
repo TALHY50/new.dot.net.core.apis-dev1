@@ -11,9 +11,6 @@ using ACL.App.Infrastructure.Security;
 using DotNetEnv;
 using ErrorOr;
 using FluentValidation;
-using IMT.App.Application.Interfaces.Repositories;
-using IMT.App.Infrastructure.Persistence.Context;
-using IMT.App.Infrastructure.Persistence.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -21,13 +18,16 @@ using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
+using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
+using SharedBusiness.Main.IMT.Infrastructure.Persistence.Context;
+using SharedBusiness.Main.IMT.Infrastructure.Persistence.Repositories;
 using SharedKernel.Main.Application.Common.Behaviours;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
 using SharedKernel.Main.Infrastructure.Cryptography;
 using SharedKernel.Main.Infrastructure.Security;
 using SharedKernel.Main.Infrastructure.Services;
 using ACLApplicationDbContext = ACL.App.Infrastructure.Persistence.Context.ApplicationDbContext;
-using CountryRepository = IMT.App.Infrastructure.Persistence.Repositories.CountryRepository;
+using CountryRepository = SharedBusiness.Main.IMT.Infrastructure.Persistence.Repositories.CountryRepository;
 
 namespace IMT.App;
 
@@ -116,7 +116,7 @@ public static class DependencyInjection
                 }),
             ServiceLifetime.Transient);
 
-        services.AddDbContext<IMT.App.Infrastructure.Persistence.Context.Old.ApplicationDbContext>(
+        services.AddDbContext<ApplicationDbContext>(
             options =>
                 options.UseMySQL(connectionString, options =>
                 {

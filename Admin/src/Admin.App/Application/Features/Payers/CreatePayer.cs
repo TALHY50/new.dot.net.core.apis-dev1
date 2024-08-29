@@ -1,9 +1,9 @@
 ﻿using ErrorOr;
 using FluentValidation;
-using IMT.App.Application.Interfaces.Repositories;
-using IMT.App.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
+using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 
@@ -16,7 +16,10 @@ namespace Admin.App.Application.Features.Payers
         [HttpPost(Routes.CreatePayerUrl, Name = Routes.CreatePayerName)]
         public async Task<ActionResult<ErrorOr<Payer>>> Create(CreatePayerCommand command)
         {
-            return await Mediator.Send(command).ConfigureAwait(false);
+            var result = await Mediator.Send(command).ConfigureAwait(false);
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
     }
 
@@ -41,7 +44,7 @@ namespace Admin.App.Application.Features.Payers
         string PaymentSpeed,
         uint? CompanyId) : IRequest<ErrorOr<Payer>>;
 
-    internal sealed class CreatePayerCommandValidator : AbstractValidator<CreatePayerCommand>
+    public class CreatePayerCommandValidator : AbstractValidator<CreatePayerCommand>
     {
         public CreatePayerCommandValidator()
         {
@@ -61,7 +64,7 @@ namespace Admin.App.Application.Features.Payers
         }
     }
 
-    internal sealed class CreatePayerCommandHandler 
+    public class CreatePayerCommandHandler 
         : IRequestHandler<CreatePayerCommand, ErrorOr<Payer>>
     {
         private readonly IImtPayerRepository _repository;
