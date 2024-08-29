@@ -11,6 +11,7 @@ using System.Reflection.Metadata;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Contracts.Common;
+using ACL.App.Contracts.Responses;
 
 namespace Admin.App.Application.Features.Currencies
 {
@@ -57,11 +58,12 @@ namespace Admin.App.Application.Features.Currencies
         }
         public async Task<ErrorOr<Currency>> Handle(UpdateCurrencyCommand request, CancellationToken cancellationToken)
         {
+            var message = new MessageResponse("Record not found");
             Currency? entity = _repository.FindById(request.id);
             var now = DateTime.UtcNow;
             if (entity == null)
             {
-                return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Currency not found!");
+                return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
             entity.Code = request.Code;
             entity.IsoCode = request.IsoCode;

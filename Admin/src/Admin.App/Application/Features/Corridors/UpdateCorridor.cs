@@ -9,6 +9,7 @@ using System.ComponentModel.Design;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Contracts.Common;
+using ACL.App.Contracts.Responses;
 
 namespace Admin.App.Application.Features.Corridors
 {
@@ -56,11 +57,12 @@ namespace Admin.App.Application.Features.Corridors
         }
         public async Task<ErrorOr<Corridor>> Handle(UpdateCorridorCommand request, CancellationToken cancellationToken)
         {
+            var message = new MessageResponse("Record not found");
             Corridor? entity = _repository.FindById(request.id);
             var now = DateTime.UtcNow;
             if (entity == null)
             {
-                return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Corridor not found!");
+                return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
             entity.SourceCountryId = request.SourceCountryId;
             entity.DestinationCountryId = request.DestinationCountryId;
