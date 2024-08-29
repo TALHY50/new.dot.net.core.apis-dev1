@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SharedBusiness.Main.IMT.Domain.Entities;
+using SharedBusiness.Main.IMT.Infrastructure.Persistence.Configurations;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
 
 namespace SharedBusiness.Main.IMT.Infrastructure.Persistence.Context
@@ -77,6 +78,8 @@ namespace SharedBusiness.Main.IMT.Infrastructure.Persistence.Context
         public virtual DbSet<TransactionState> ImtTransactionStates { get; set; }
 
         public virtual DbSet<TransactionType> ImtTransactionTypes { get; set; }
+
+        public DbSet<InstitutionAppSetting> ImtInstitutionAppSettings { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -161,8 +164,11 @@ namespace SharedBusiness.Main.IMT.Infrastructure.Persistence.Context
                     .HasComment("Friday, Saturday, Sunday, Monday, etc")
                     .HasColumnName("day");
                 entity.Property(e => e.Gmt)
-                    .HasComment("GMT offset in hours (e.g., +5, -3)")
-                    .HasColumnName("gmt");
+                    .HasComment("GMT offset (e.g., +5, -3)")
+                    .HasColumnName("gmt")
+                    .HasColumnType("varchar(5)")  // Set the column type to VARCHAR(5)
+                    .HasMaxLength(5)               // Set the maximum length to 5 characters
+                    .IsUnicode(false);
                 entity.Property(e => e.HourType)
                     .HasDefaultValueSql("'0'")
                     .HasComment("0 = regular, 1 = special")
@@ -446,8 +452,11 @@ namespace SharedBusiness.Main.IMT.Infrastructure.Persistence.Context
                     .HasColumnType("date")
                     .HasColumnName("date");
                 entity.Property(e => e.Gmt)
-                    .HasComment("GMT offset in hours (e.g., +5, -3)")
-                    .HasColumnName("gmt");
+                    .HasComment("GMT offset (e.g., +5, -3)")
+                    .HasColumnName("gmt")
+                    .HasColumnType("varchar(5)")  // Set the column type to VARCHAR(5)
+                    .HasMaxLength(5)               // Set the maximum length to 5 characters
+                    .IsUnicode(false);
                 entity.Property(e => e.OpenAt)
                     .HasComment("Time to start if type is not full")
                     .HasColumnType("datetime")
@@ -721,7 +730,10 @@ namespace SharedBusiness.Main.IMT.Infrastructure.Persistence.Context
                 entity.Property(e => e.CreatedById).HasColumnName("created_by_id");
                 entity.Property(e => e.Gmt)
                     .HasComment("GMT offset (e.g., +5, -3)")
-                    .HasColumnName("gmt");
+                    .HasColumnName("gmt")
+                    .HasColumnType("varchar(5)")  // Set the column type to VARCHAR(5)
+                    .HasMaxLength(5)               // Set the maximum length to 5 characters
+                    .IsUnicode(false);
                 entity.Property(e => e.IsProcessingDuringBankingHoliday)
                     .HasComment("0 = No, 1 = Yes")
                     .HasColumnName("is_processing_during_banking_holiday");
@@ -833,8 +845,11 @@ namespace SharedBusiness.Main.IMT.Infrastructure.Persistence.Context
                     .HasColumnName("created_at");
                 entity.Property(e => e.CreatedById).HasColumnName("created_by_id");
                 entity.Property(e => e.Gmt)
-                    .HasComment("GMT offset in hours (e.g., +5, -3)")
-                    .HasColumnName("gmt");
+                    .HasComment("GMT offset (e.g., +5, -3)")
+                    .HasColumnName("gmt")
+                    .HasColumnType("varchar(5)")  // Set the column type to VARCHAR(5)
+                    .HasMaxLength(5)               // Set the maximum length to 5 characters
+                    .IsUnicode(false);
                 entity.Property(e => e.IsProcessingDuringBankingHoliday)
                     .HasComment("0 = No, 1 = Yes")
                     .HasColumnName("is_processing_during_banking_holiday");
@@ -1378,7 +1393,7 @@ namespace SharedBusiness.Main.IMT.Infrastructure.Persistence.Context
                     .HasColumnName("updated_at");
                 entity.Property(e => e.UpdatedById).HasColumnName("updated_by_id");
             });
-
+            modelBuilder.ApplyConfiguration(new InstitutionAppSettingConfiguration());
             OnModelCreatingPartial(modelBuilder);
         }
 
