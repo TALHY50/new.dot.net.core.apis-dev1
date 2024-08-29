@@ -464,6 +464,11 @@
         public const string CreateMoneyTransferTransactionUrl = "/v2/money-transfer/transaction/create";
 
 
+        //Trasaction Limit
+        public const string CreateTransactionLimitName = "create_transaction_limit";
+        public const string CreateTransactionLimitUrl = "/api/admin/transaction_limit";
+
+
     }
 
     public class AdminRoute

@@ -178,6 +178,8 @@ public static class DependencyInjection
         services.AddScoped<IImtTaxRateRepository, TaxRateRepository>();
         services.AddScoped<IImtInstitutionFundRepository, InstitutionFundRepository>();
         services.AddScoped<IImtTransactionTypeRepository, TransactionTypeRepository>();
+
+       
        // services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateCountryCommand).Assembly));  
         // services.AddScoped<IRequestHandler<CreateCountryCommand, ErrorOr<Country>>, CreateCountryCommandHandler>();
 
@@ -190,6 +192,9 @@ public static class DependencyInjection
 
         // HolidaySetting
         services.AddScoped<IHolidaySettingRepository, HolidaySettingRepository>();
+
+        services.AddScoped<IImtTransactionLimitRepository, TransactionLimitRepository>();
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateTransactionLimitCommand).Assembly));
 
         services.AddSingleton(provider =>
         {
