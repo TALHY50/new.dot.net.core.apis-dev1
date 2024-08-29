@@ -84,7 +84,7 @@ namespace Admin.App.Application.Features.TransactionLimits
                     UpdatedAt = DateTime.UtcNow,
                 };
 
-                return await _transactionLimitRepository.edit(request.id,transactionLimit);
+                return await _transactionLimitRepository.Edit(request.id,transactionLimit);
             }
         }
 

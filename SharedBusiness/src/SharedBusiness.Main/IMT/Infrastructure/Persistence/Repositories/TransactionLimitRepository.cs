@@ -9,8 +9,19 @@ namespace SharedBusiness.Main.IMT.Infrastructure.Persistence.Repositories
 {
     public class TransactionLimitRepository(ApplicationDbContext dbContext) : IImtTransactionLimitRepository
     {
+        public Task<List<TransactionLimit>> All()
+        {
+            try
+            {
+                var TransactionLimits = dbContext.ImtTransactionLimits.ToList();
+                return Task.FromResult(TransactionLimits);
+            }
+            catch (Exception ex) {
+                throw;
+            }
+        }
 
-        public async Task<TransactionLimit> add(TransactionLimit transactionLimit)
+        public async Task<TransactionLimit> Create(TransactionLimit transactionLimit)
         {
             try
             {
@@ -28,7 +39,9 @@ namespace SharedBusiness.Main.IMT.Infrastructure.Persistence.Repositories
 
         }
 
-        public Task<TransactionLimit> edit(uint id, TransactionLimit model)
+        
+
+        public Task<TransactionLimit> Edit(uint id, TransactionLimit model)
         {
             try
             {
@@ -74,6 +87,26 @@ namespace SharedBusiness.Main.IMT.Infrastructure.Persistence.Repositories
             }
             catch (Exception ex) { 
                      throw;
+            }
+        }
+
+        public Task<bool> DeleteById(uint id)
+        {
+            try
+            {
+                bool returnData = true;
+                var transactionLimit = dbContext.ImtTransactionLimits.Where(x => x.Id == id).FirstOrDefault();
+                if (transactionLimit == null)
+                {
+                    throw new NodeNotFoundException("Data not found by the id");
+                }
+                dbContext.ImtTransactionLimits.Remove(transactionLimit);
+                dbContext.SaveChanges();
+                return Task.FromResult(returnData);
+            }
+            catch (Exception ex)
+            {
+                throw;
             }
         }
 
