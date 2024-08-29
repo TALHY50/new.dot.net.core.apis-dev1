@@ -1,6 +1,8 @@
 
 using Admin.App;
 using Microsoft.OpenApi.Models;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Infrastructure.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,6 +27,8 @@ builder.Services.AddInfrastructure(builder.Configuration);
 
 builder.Services.AddHealthChecks();
 builder.Services.AddHttpContextAccessor();
+// for language
+builder.Services.AddSingleton<ILocalizationService>(new LocalizationService("SharedKernel.Main.Infrastructure.Resources.en-US", typeof(Program).Assembly, "en-US"));
 
 var app = builder.Build();
 
