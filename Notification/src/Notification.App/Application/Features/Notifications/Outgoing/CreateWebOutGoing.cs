@@ -4,7 +4,6 @@ using FluentValidation;
 
 using MediatR;
 
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 using Newtonsoft.Json;
@@ -12,22 +11,12 @@ using Newtonsoft.Json;
 using Notification.App.Domain.Entities.Outgoings;
 using Notification.App.Infrastructure.Persistence.Context;
 
-using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
 using SharedKernel.Main.Application.Common.Models;
 
 using EventId = Notification.App.Contracts.EventId;
 
 namespace Notification.App.Application.Features.Notifications.Outgoing;
-
-public class CreateWebOutgoingController : ApiControllerBase
-{
-    [HttpPost("/api/notification/outgoing/web/create")]
-    public async Task<ActionResult<ErrorOr<WebOutgoing>>> Create(CreateWebOutgoingCommand command)
-    {
-        return await Mediator.Send(command).ConfigureAwait(false);
-    }
-}
 
 public record CreateWebOutgoingCommand(EventId EventId) : IRequest<ErrorOr<WebOutgoing>>;
 

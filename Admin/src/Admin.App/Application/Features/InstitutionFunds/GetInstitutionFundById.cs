@@ -6,6 +6,7 @@ using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Contracts.Common;
 
 namespace Admin.App.Application.Features.InstitutionFunds
 {
@@ -16,12 +17,15 @@ namespace Admin.App.Application.Features.InstitutionFunds
         [HttpGet(Routes.GetInstitutionFundByIdUrl, Name = Routes.GetInstitutionFundByIdName)]
         public async Task<ActionResult<ErrorOr<InstitutionFund>>> GetById(uint Id)
         {
-            return await Mediator.Send(new GetInstitutionFundByIdQuery(Id)).ConfigureAwait(false);
+            var result = await Mediator.Send(new GetInstitutionFundByIdQuery(Id)).ConfigureAwait(false);
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
 
         public record GetInstitutionFundByIdQuery(uint Id) : IRequest<ErrorOr<InstitutionFund>>;
 
-        internal sealed class GetInstitutionFundByIdValidator : AbstractValidator<GetInstitutionFundByIdQuery>
+        public class GetInstitutionFundByIdValidator : AbstractValidator<GetInstitutionFundByIdQuery>
         {
             public GetInstitutionFundByIdValidator()
             {
@@ -29,7 +33,7 @@ namespace Admin.App.Application.Features.InstitutionFunds
             }
         }
 
-        internal sealed class GetInstitutionFundByIdQueryHandler : IRequestHandler<GetInstitutionFundByIdQuery, ErrorOr<InstitutionFund>>
+        public class GetInstitutionFundByIdQueryHandler : IRequestHandler<GetInstitutionFundByIdQuery, ErrorOr<InstitutionFund>>
         {
             private readonly IImtInstitutionFundRepository _repository;
 
@@ -39,7 +43,13 @@ namespace Admin.App.Application.Features.InstitutionFunds
             }
             public async Task<ErrorOr<InstitutionFund>> Handle(GetInstitutionFundByIdQuery request, CancellationToken cancellationToken)
             {
-                return _repository.GetByUintId(request.Id);
+                var institutionFund = _repository.GetByUintId(request.Id);
+                if (institutionFund == null)
+                {
+                    return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Institution Fund not found!");
+                }
+
+                return institutionFund;
             }
         }
     }

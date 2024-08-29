@@ -57,7 +57,7 @@ namespace Admin.App.Application.Features.TransactionTypes
 
                 if (transactionTypes == null)
                 {
-                    return Error.NotFound(description: "TransactionType not found", code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "TransactionType not found!");
                 }
 
                 return await _transactiontypeRepository.DeleteAsync(transactionTypes);

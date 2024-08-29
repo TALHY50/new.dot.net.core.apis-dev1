@@ -1,9 +1,11 @@
-﻿using FluentValidation;
+﻿using ErrorOr;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Contracts.Common;
 
 namespace Admin.App.Application.Features.InstitutionFunds
 {
@@ -13,14 +15,18 @@ namespace Admin.App.Application.Features.InstitutionFunds
         //[Authorize(Policy = "HasPermission")]
         [HttpDelete(Routes.DeleteInstitutionFundUrl, Name = Routes.DeleteInstitutionFundName)]
 
-        public async Task<ActionResult<bool>> Delete(DeleteInstitutionFundCommand command)
+        public async Task<ActionResult<ErrorOr<bool>>> Delete(uint Id)
         {
-            return await Mediator.Send(command).ConfigureAwait(false);
+            var result = await Mediator.Send(new DeleteInstitutionFundCommand(Id)).ConfigureAwait(false);
+
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
     }
-    public record DeleteInstitutionFundCommand(uint Id) : IRequest<bool>;
+    public record DeleteInstitutionFundCommand(uint Id) : IRequest<ErrorOr<bool>>;
 
-    internal sealed class DeleteInstitutionFundCommandValidator : AbstractValidator<DeleteInstitutionFundCommand>
+    public class DeleteInstitutionFundCommandValidator : AbstractValidator<DeleteInstitutionFundCommand>
     {
         public DeleteInstitutionFundCommandValidator()
         {
@@ -28,7 +34,7 @@ namespace Admin.App.Application.Features.InstitutionFunds
         }
     }
 
-    internal sealed class DeleteInstitutionFundCommandHandler : IRequestHandler<DeleteInstitutionFundCommand, bool>
+    public class DeleteInstitutionFundCommandHandler : IRequestHandler<DeleteInstitutionFundCommand, ErrorOr<bool>>
     {
         private readonly IImtInstitutionFundRepository _repository;
 
@@ -36,15 +42,16 @@ namespace Admin.App.Application.Features.InstitutionFunds
         {
             _repository = repository;
         }
-        public async Task<bool> Handle(DeleteInstitutionFundCommand command, CancellationToken cancellationToken)
+        public async Task<ErrorOr<bool>> Handle(DeleteInstitutionFundCommand command, CancellationToken cancellationToken)
         {
             if (command.Id > 0)
             {
                 var institutionFund = _repository.GetByUintId(command.Id);
 
-                if (institutionFund != null)
+                if(institutionFund == null)
                 {
-                    return await _repository.DeleteAsync(institutionFund);
+                    return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Institution Fund not found!");
+
                 }
 
                 return await _repository.DeleteAsync(institutionFund);

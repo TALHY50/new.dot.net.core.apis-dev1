@@ -7,6 +7,7 @@ using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Contracts.Common;
 
 namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
 {
@@ -17,12 +18,15 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
         [HttpGet(Routes.GetPayerPaymentSpeedByIdUrl, Name = Routes.GetPayerPaymentSpeedByIdName)]
         public async Task<ActionResult<ErrorOr<PayerPaymentSpeed>>> GetById(uint Id)
         {
-            return await Mediator.Send(new GetPayerPaymentSpeedByIdQuery(Id)).ConfigureAwait(false);
+            var result = await Mediator.Send(new GetPayerPaymentSpeedByIdQuery(Id)).ConfigureAwait(false);
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);return Ok(result);
         }
 
         public record GetPayerPaymentSpeedByIdQuery(uint Id) : IRequest<ErrorOr<PayerPaymentSpeed>>;
 
-        internal sealed class GetPayerPaymentSpeedByIdValidator : AbstractValidator<GetPayerPaymentSpeedByIdQuery>
+        public class GetPayerPaymentSpeedByIdValidator : AbstractValidator<GetPayerPaymentSpeedByIdQuery>
         {
             public GetPayerPaymentSpeedByIdValidator()
             {
@@ -30,7 +34,7 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
             }
         }
 
-        internal sealed class GetPayerPaymentSpeedByIdQueryHandler : IRequestHandler<GetPayerPaymentSpeedByIdQuery, ErrorOr<PayerPaymentSpeed>>
+        public class GetPayerPaymentSpeedByIdQueryHandler : IRequestHandler<GetPayerPaymentSpeedByIdQuery, ErrorOr<PayerPaymentSpeed>>
         {
             private readonly IImtPayerPaymentSpeedRepository _repository;
 
@@ -40,7 +44,14 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
             }
             public async Task<ErrorOr<PayerPaymentSpeed>> Handle(GetPayerPaymentSpeedByIdQuery request, CancellationToken cancellationToken)
             {
-                return _repository.GetByUintId(request.Id);
+                var payerPaymentSpeed = _repository.GetByUintId(request.Id);
+
+                if (payerPaymentSpeed == null)
+                {
+                    return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Payer Payment Speed not found!");
+                }
+
+                return payerPaymentSpeed;
             }
         }
     }

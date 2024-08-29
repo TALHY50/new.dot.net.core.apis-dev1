@@ -15,12 +15,15 @@ namespace Admin.App.Application.Features.TaxRates
         [HttpGet(Routes.GetTaxRateUrl, Name = Routes.GetTaxRateName)]
         public async Task<ActionResult<ErrorOr<List<TaxRate>>>> Get()
         {
-            return await Mediator.Send(new GetTaxRateQuery()).ConfigureAwait(false);
+            var result = await Mediator.Send(new GetTaxRateQuery()).ConfigureAwait(false);
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
 
         public record GetTaxRateQuery() : IRequest<ErrorOr<List<TaxRate>>>;
 
-        internal sealed class GetTaxRateQueryHandler : IRequestHandler<GetTaxRateQuery, ErrorOr<List<TaxRate>>>
+        public class GetTaxRateQueryHandler : IRequestHandler<GetTaxRateQuery, ErrorOr<List<TaxRate>>>
         {
             private readonly IImtTaxRateRepository _repository;
 

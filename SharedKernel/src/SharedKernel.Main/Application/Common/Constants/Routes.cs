@@ -403,16 +403,17 @@
 
         // region
         public const string GetRegionName = "get_region";
-        public const string GetRegionUrl = "/api/admin/region";
+        public const string GetRegionUrl = "/api/admin/getRegion";
         public const string GetRegionByIdName = "get_regions_by_id";
-        public const string GetRegionByIdUrl = "/api/admin/region/{id}";
+        public const string GetRegionByIdUrl = "/api/admin/getRegionById/{id}";
         public const string CreateRegionName = "create_region";
-        public const string CreateRegionUrl = "/api/admin/region";
+        public const string CreateRegionUrl = "/api/admin/createRegion";
         public const string DeleteRegionName = "delete_region";
-        public const string DeleteRegionUrl = "/api/admin/region/{id}";
+        public const string DeleteRegionUrl = "/api/admin/deleteRegion/{id}";
         public const string UpdateRegionName = "update_region";
-        public const string UpdateRegionUrl = "/api/admin/region";
+        public const string UpdateRegionUrl = "/api/admin/updateRegion/{id}";
 
+        // corridor
         public const string GetCorridorName = "get-corridor";
         public const string GetCorridorUrl = "/api/admin/getCorridor";
         public const string GetCorridorByIdName = "get-corridor-by-id";
@@ -424,6 +425,7 @@
         public const string UpdateCorridorName = "update-corridor";
         public const string UpdateCorridorUrl = "/api/admin/updateCorridor/{id}";
 
+        // payer
         public const string GetPayerName = "get-payer";
         public const string GetPayerUrl = "/api/admin/getPayer";
         public const string GetPayerByIdName = "get-payer-by-id";
@@ -437,27 +439,27 @@
 
         // provider
         public const string GetProviderName = "get_provider";
-        public const string GetProviderUrl = "/api/admin/provider";
+        public const string GetProviderUrl = "/api/admin/getProvider";
         public const string GetProviderByIdName = "get_provider_by_id";
-        public const string GetProviderByIdUrl = "/api/admin/provider/{id}";
+        public const string GetProviderByIdUrl = "/api/admin/getProviderById/{id}";
         public const string CreateProviderName = "create_provider";
-        public const string CreateProviderUrl = "/api/admin/provider";
+        public const string CreateProviderUrl = "/api/admin/createProvider";
         public const string DeleteProviderName = "delete_provider";
-        public const string DeleteProviderUrl = "/api/admin/provider/{id}";
+        public const string DeleteProviderUrl = "/api/admin/deleteProvider/{id}";
         public const string UpdateProviderName = "update_provider";
-        public const string UpdateProviderUrl = "/api/admin/provider";
+        public const string UpdateProviderUrl = "/api/admin/updateProvider/{id}";
 
         // transaction_type
         public const string GetTransactionTypeName = "get_transaction_type";
-        public const string GetTransactionTypeUrl = "/api/admin/transaction_type";
+        public const string GetTransactionTypeUrl = "/api/admin/getTransactionType";
         public const string GetTransactionTypeByIdName = "get_transaction_type_by_id";
-        public const string GetTransactionTypeByIdUrl = "/api/admin/transaction_type/{id}";
+        public const string GetTransactionTypeByIdUrl = "/api/admin/getTransactionTypeById/{id}";
         public const string CreateTransactionTypeName = "create_transaction_type";
-        public const string CreateTransactionTypeUrl = "/api/admin/transaction_type";
+        public const string CreateTransactionTypeUrl = "/api/admin/createTransactionType";
         public const string DeleteTransactionTypeName = "delete_transaction_type";
-        public const string DeleteTransactionTypeUrl = "/api/admin/transaction_type/{id}";
+        public const string DeleteTransactionTypeUrl = "/api/admin/deleteTransactionType/{id}";
         public const string UpdateTransactionTypeName = "update_transaction_type";
-        public const string UpdateTransactionTypeUrl = "/api/admin/transaction_type";
+        public const string UpdateTransactionTypeUrl = "/api/admin/updateTransactionType/{id}";
 
         // CreateMoneyTransferTransaction
         public const string CreateMoneyTransferTransactionName = "create_money_transaction";

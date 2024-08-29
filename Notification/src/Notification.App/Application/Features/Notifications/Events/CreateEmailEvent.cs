@@ -5,7 +5,6 @@ using FluentValidation;
 using MediatR;
 
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 using Notification.App.Contracts;
@@ -14,26 +13,11 @@ using Notification.App.Domain.Entities.Setups;
 using Notification.App.Domain.Entities.ValueObjects;
 using Notification.App.Infrastructure.Persistence.Context;
 
-using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 
 using ProblemDetails = FastEndpoints.ProblemDetails;
 
 namespace Notification.App.Application.Features.Notifications.Events;
-
-public class CreateEmailEventController : ApiControllerBase
-{
-   // [Authorize(Policy = "HasPermission")]
-    [HttpPost(Routes.CreateEmailEventRoute, Name = Routes.CreateEmailEventRouteName)]
-    public async Task<ActionResult<ErrorOr<Event>>> Create(CreateEmailEventCommand command)
-    {
-        var result = await Mediator.Send(command).ConfigureAwait(false);
-
-        return result.Match(
-            reminder => Ok(result.Value),
-            Problem);
-    }
-}
 
 public record CreateEmailEventCommand(
     ReferenceUniqueId ReferenceUniqueId,

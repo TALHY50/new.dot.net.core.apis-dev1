@@ -6,6 +6,7 @@ using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Contracts.Common;
 
 namespace ADMIN.App.Application.Features.ServiceMethods
 {
@@ -18,7 +19,10 @@ namespace ADMIN.App.Application.Features.ServiceMethods
         public async Task<ActionResult<ErrorOr<ServiceMethod>>> Update(uint Id, UpdateServiceMethodCommand command)
         {
             var commandWithId = command with { Id = Id };
-            return await Mediator.Send(commandWithId).ConfigureAwait(false);
+            var result = await Mediator.Send(commandWithId).ConfigureAwait(false);
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
 
         public record UpdateServiceMethodCommand(
@@ -26,15 +30,17 @@ namespace ADMIN.App.Application.Features.ServiceMethods
             byte Method,
             uint? CompanyId) : IRequest<ErrorOr<ServiceMethod>>;
 
-        internal sealed class UpdateServiceMethodCommandValidator : AbstractValidator<UpdateServiceMethodCommand>
+        public class UpdateServiceMethodCommandValidator : AbstractValidator<UpdateServiceMethodCommand>
         {
             public UpdateServiceMethodCommandValidator()
             {
                 RuleFor(x => x.Id).NotEmpty().WithMessage("ServiceMethod ID is required");
+                RuleFor(x => x.Method).NotEmpty().WithMessage("Method  is required");
+                RuleFor(x => x.CompanyId).NotEmpty().WithMessage("Company Id  is required");
             }
         }
 
-        internal sealed class UpdateServiceMethodCommandHandler : IRequestHandler<UpdateServiceMethodCommand, ErrorOr<ServiceMethod>>
+        public class UpdateServiceMethodCommandHandler : IRequestHandler<UpdateServiceMethodCommand, ErrorOr<ServiceMethod>>
         {
             private readonly IImtServiceMethodRepository _repository;
 
@@ -50,16 +56,13 @@ namespace ADMIN.App.Application.Features.ServiceMethods
                 {
                     serviceMethod.Method = command.Method;
                     serviceMethod.CompanyId = command.CompanyId;
-                    
+                    serviceMethod.UpdatedById = command.Id;
+                    serviceMethod.UpdatedAt = DateTime.UtcNow;
+                }
 
-                    //if (_user?.UserId != null)
-                    //{
-                    //    entity.UpdatedById = uint.Parse(_user?.UserId ?? "1");
-                    //}
-                    //else
-                    //{
-                    //    entity.UpdatedById = 1;
-                    //}
+                if (serviceMethod == null)
+                {
+                    return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Service Method not found!");
                 }
 
                 return await _repository.UpdateAsync(serviceMethod);

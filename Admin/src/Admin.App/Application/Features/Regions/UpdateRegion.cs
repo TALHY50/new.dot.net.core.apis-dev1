@@ -71,7 +71,7 @@ namespace Admin.App.Application.Features.Regions
                 Region? regions = _repository.GetByUintId(request.id);
                 if (regions == null)
                 {
-                    return Error.NotFound(description: "Region not found", code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Region not found!");
                 }
                 
                 regions.Name = request.Name;
