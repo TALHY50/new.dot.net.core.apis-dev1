@@ -389,16 +389,16 @@
         public const string UpdateHolidaySettingUrl = "/api/admin/holiday-settings";
 
         // institution 
-        public const string GetInstitutionName = "get_holiday_setting";
-        public const string GetInstitutionUrl = "/api/admin/holiday-settings";
-        public const string GetInstitutionByIdName = "get_holiday_setting_by_id";
-        public const string GetInstitutionByIdUrl = "/api/admin/holiday-settings/{id}";
-        public const string CreateInstitutionName = "create_holiday_setting";
-        public const string CreateInstitutionUrl = "/api/admin/holiday-settings";
-        public const string DeleteInstitutionName = "delete_holiday_setting";
-        public const string DeleteInstitutionUrl = "/api/admin/holiday-settings/{id}";
-        public const string UpdateInstitutionName = "update_holiday_setting";
-        public const string UpdateInstitutionUrl = "/api/admin/holiday-settings";
+        public const string GetInstitutionName = "get_institution";
+        public const string GetInstitutionUrl = "/api/admin/institution";
+        public const string GetInstitutionByIdName = "get_institution_by_id";
+        public const string GetInstitutionByIdUrl = "/api/admin/institution/{id}";
+        public const string CreateInstitutionName = "create_institution";
+        public const string CreateInstitutionUrl = "/api/admin/institution";
+        public const string DeleteInstitutionName = "delete_institution";
+        public const string DeleteInstitutionUrl = "/api/admin/institution/{id}";
+        public const string UpdateInstitutionName = "update_institution";
+        public const string UpdateInstitutionUrl = "/api/admin/institution";
 
         // currency
         public const string GetCurrencyName = "get-currency";
