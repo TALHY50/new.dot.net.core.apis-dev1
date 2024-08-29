@@ -9,7 +9,7 @@ using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Contracts.Common;
-using static Admin.App.Application.Features.Mtts.MttView;
+using static Admin.App.Application.Features.Mtts.InstitutionView;
 using static Admin.App.Application.Features.Providers.GetProviderController;
 using static Admin.App.Application.Features.Regions.GetRegionByIdController;
 

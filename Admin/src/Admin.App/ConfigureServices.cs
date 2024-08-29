@@ -113,7 +113,7 @@ public static class DependencyInjection
         var port = Env.GetString("DB_PORT");
 
         var connectionString =
-            $"server={server};database={database};User ID={userName};Password={password};CharSet=utf8mb4;" ??
+            $"server={server};database={database};port={port};User ID={userName};Password={password};CharSet=utf8mb4;" ??
             throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
         services.AddDbContext<ACLApplicationDbContext>(
@@ -190,6 +190,8 @@ public static class DependencyInjection
 
         // HolidaySetting
         services.AddScoped<IHolidaySettingRepository, HolidaySettingRepository>();
+        services.AddScoped<IInstitutionRepository, InstitutionRepository>();
+        services.AddScoped<IInstitutionSettingRepository, InstitutionSettingRepository>();
 
         services.AddSingleton(provider =>
         {
