@@ -6,6 +6,7 @@ using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Contracts.Common;
 
 namespace Admin.App.Application.Features.InstitutionFunds
 {
@@ -17,7 +18,11 @@ namespace Admin.App.Application.Features.InstitutionFunds
 
         public async Task<ActionResult<ErrorOr<InstitutionFund>>> Create(CreateInstitutionFundCommand command)
         {
-            return await Mediator.Send(command).ConfigureAwait(false);
+            var result = await Mediator.Send(command).ConfigureAwait(false);
+
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
     }
     public record CreateInstitutionFundCommand(
@@ -32,7 +37,7 @@ namespace Admin.App.Application.Features.InstitutionFunds
         byte Status
         ) : IRequest<ErrorOr<InstitutionFund>>;
 
-    internal sealed class CreateInstitutionFundCommandValidator : AbstractValidator<CreateInstitutionFundCommand>
+    public class CreateInstitutionFundCommandValidator : AbstractValidator<CreateInstitutionFundCommand>
     {
         public CreateInstitutionFundCommandValidator()
         {
@@ -47,7 +52,7 @@ namespace Admin.App.Application.Features.InstitutionFunds
         }
     }
 
-    internal sealed class CreateInstitutionFundCommandHandler : IRequestHandler<CreateInstitutionFundCommand, ErrorOr<InstitutionFund>>
+    public class CreateInstitutionFundCommandHandler : IRequestHandler<CreateInstitutionFundCommand, ErrorOr<InstitutionFund>>
     {
         private readonly IImtInstitutionFundRepository _repository;
 
@@ -75,7 +80,12 @@ namespace Admin.App.Application.Features.InstitutionFunds
                 UpdatedAt = DateTime.UtcNow,
             };
 
-            return await _repository.AddAsync(institutionFund);
+            if (institutionFund == null)
+            {
+                return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Institution Fund not found!");
+            }
+
+            return _repository.Add(institutionFund)!;
         }
     }
 }

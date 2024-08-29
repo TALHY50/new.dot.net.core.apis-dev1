@@ -7,6 +7,7 @@ using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Contracts.Common;
 
 namespace ADMIN.App.Application.Features.ServiceMethods
 {
@@ -17,12 +18,15 @@ namespace ADMIN.App.Application.Features.ServiceMethods
         [HttpGet(Routes.GetServiceMethodUrl, Name = Routes.GetServiceMethodName)]
         public async Task<ActionResult<ErrorOr<List<ServiceMethod>>>> Get()
         {
-            return await Mediator.Send(new GetServiceMethodQuery()).ConfigureAwait(false);
+            var result = await Mediator.Send(new GetServiceMethodQuery()).ConfigureAwait(false);
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
 
         public record GetServiceMethodQuery() : IRequest<ErrorOr<List<ServiceMethod>>>;
 
-        internal sealed class GetServiceMethodQueryHandler : IRequestHandler<GetServiceMethodQuery, ErrorOr<List<ServiceMethod>>>
+        public class GetServiceMethodQueryHandler : IRequestHandler<GetServiceMethodQuery, ErrorOr<List<ServiceMethod>>>
         {
             private readonly IImtServiceMethodRepository _repository;
 
@@ -32,7 +36,14 @@ namespace ADMIN.App.Application.Features.ServiceMethods
             }
             public async Task<ErrorOr<List<ServiceMethod>>> Handle(GetServiceMethodQuery request, CancellationToken cancellationToken)
             {
-                return _repository.All().ToList();
+                var serviceMethods = _repository.ViewAll();
+
+                if (serviceMethods == null)
+                {
+                    return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Service Method not found!");
+                }
+
+                return serviceMethods;
             }
         }
     }

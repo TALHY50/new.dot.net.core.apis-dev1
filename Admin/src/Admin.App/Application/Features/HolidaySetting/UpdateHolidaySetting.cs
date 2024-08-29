@@ -24,7 +24,7 @@ public class UpdateHolidaySettingController : ApiControllerBase
             Problem);
     }
 
-    public record UpdateHolidaySettingCommand(int Id, uint? CountryId, DateTime Date, byte Type, sbyte Gmt, DateTime? OpenAt, DateTime? CloseAt, uint? CompanyId)
+    public record UpdateHolidaySettingCommand(int Id, uint? CountryId, DateTime Date, byte Type, string Gmt, DateTime? OpenAt, DateTime? CloseAt, uint? CompanyId)
     : IRequest<ErrorOr<Duplicates_HolidaySetting>>;
 
 

@@ -27,7 +27,7 @@ public class CreateBusinessHourAndWeekendController : ApiControllerBase
     }
 
     public record CreateBusinessHourAndWeekendCommand(byte HourType, uint? CountryId,
-        string Day, sbyte IsWeekend, sbyte Gmt, DateTime OpenAt, DateTime CloseAt, uint? CompanyId)
+        string Day, sbyte IsWeekend, string Gmt, DateTime OpenAt, DateTime CloseAt, uint? CompanyId)
         : IRequest<ErrorOr<BusinessHoursAndWeekend>>;
 
 

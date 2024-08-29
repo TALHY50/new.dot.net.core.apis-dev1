@@ -38,6 +38,9 @@ namespace Admin.App.Application.Features.Countries
             public UpdateCountryCommandValidator()
             {
                 RuleFor(x => x.Id).NotEmpty().WithMessage("Country ID is required");
+                RuleFor(x => x.Code).NotEmpty().WithMessage("Country Code  is required");
+                RuleFor(x => x.IsoCode).NotEmpty().WithMessage("Country Code  is required");
+                RuleFor(x => x.Name).NotEmpty().WithMessage("Country Code  is required");
             }
         }
 
@@ -52,7 +55,7 @@ namespace Admin.App.Application.Features.Countries
 
             public async Task<ErrorOr<Country>> Handle(UpdateCountryCommand command, CancellationToken cancellationToken)
             {
-                Country? country = _repository.GetByUintId(command.Id);
+                Country? country = _repository.View(command.Id);
                 if (country != null)
                 {
                     country.Code = command.Code;
@@ -62,7 +65,7 @@ namespace Admin.App.Application.Features.Countries
                     country.UpdatedById = command.Id;
                     country.UpdatedAt = DateTime.UtcNow;
                     
-                    return await _repository.UpdateAsync(country!);
+                    return _repository.Update(country)!;
                 }
                 else
                 {

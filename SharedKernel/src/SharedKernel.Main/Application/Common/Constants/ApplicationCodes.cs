@@ -8,6 +8,10 @@ public class ApplicationCodes
         public string Message = message;
 
     }
+    
+    
+    public static readonly ApplicationCode OperationIsOk = new ApplicationCode("1000", "Success" );
+
 
     public static readonly ApplicationCode StringNullOrEmpty = new ApplicationCode("1001", "string is null or empty" );
     

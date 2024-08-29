@@ -18,7 +18,10 @@ namespace Admin.App.Application.Features.TaxRates
 
         public async Task<ActionResult<ErrorOr<TaxRate>>> Create(CreateTaxRateCommand command)
         {
-            return await Mediator.Send(command).ConfigureAwait(false);
+            var result = await Mediator.Send(command).ConfigureAwait(false);
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
     }
     public record CreateTaxRateCommand(
@@ -32,7 +35,7 @@ namespace Admin.App.Application.Features.TaxRates
         byte Status
         ) : IRequest<ErrorOr<TaxRate>>;
 
-    internal sealed class CreateTaxRateCommandValidator : AbstractValidator<CreateTaxRateCommand>
+    public class CreateTaxRateCommandValidator : AbstractValidator<CreateTaxRateCommand>
     {
         public CreateTaxRateCommandValidator()
         {
@@ -43,7 +46,7 @@ namespace Admin.App.Application.Features.TaxRates
         }
     }
 
-    internal sealed class CreateTaxRateCommandHandler : IRequestHandler<CreateTaxRateCommand, ErrorOr<TaxRate>>
+    public class CreateTaxRateCommandHandler : IRequestHandler<CreateTaxRateCommand, ErrorOr<TaxRate>>
     {
         private readonly IImtTaxRateRepository _repository;
 
@@ -69,7 +72,7 @@ namespace Admin.App.Application.Features.TaxRates
                 UpdatedAt = DateTime.UtcNow,
             };
 
-            return await _repository.AddAsync(taxRate);
+            return _repository.Add(taxRate)!;
         }
     }
 }

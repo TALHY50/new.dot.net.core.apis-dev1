@@ -47,7 +47,7 @@ namespace Admin.App.Application.Features.Corridors
             var entity = _repository.GetByUintId(request.id);
             if (entity == null)
             {
-                return Error.NotFound(description: "Corridor not found!", code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Corridor not found!");
             }
             return entity;
         }

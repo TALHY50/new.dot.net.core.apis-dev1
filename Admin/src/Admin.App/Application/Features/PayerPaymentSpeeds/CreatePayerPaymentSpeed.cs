@@ -8,6 +8,7 @@ using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Contracts.Common;
 
 namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
 {
@@ -19,17 +20,20 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
 
         public async Task<ActionResult<ErrorOr<PayerPaymentSpeed>>> Create(CreatePayerPaymentSpeedCommand command)
         {
-            return await Mediator.Send(command).ConfigureAwait(false);
+            var result = await Mediator.Send(command).ConfigureAwait(false);
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);return Ok(result);
         }
     }
 
     public record CreatePayerPaymentSpeedCommand(
         uint PayerId,
-        sbyte Gmt,
+        string Gmt,
         string WorkingDays
         ) : IRequest<ErrorOr<PayerPaymentSpeed>>;
 
-    internal sealed class CreatePayerPaymentSpeedCommandValidator : AbstractValidator<CreatePayerPaymentSpeedCommand>
+    public class CreatePayerPaymentSpeedCommandValidator : AbstractValidator<CreatePayerPaymentSpeedCommand>
     {
         public CreatePayerPaymentSpeedCommandValidator()
         {
@@ -39,7 +43,7 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
         }
     }
 
-    internal sealed class CreatePayerPaymentSpeedCommandHandler : IRequestHandler<CreatePayerPaymentSpeedCommand, ErrorOr<PayerPaymentSpeed>>
+    public class CreatePayerPaymentSpeedCommandHandler : IRequestHandler<CreatePayerPaymentSpeedCommand, ErrorOr<PayerPaymentSpeed>>
     {
         private readonly IImtPayerPaymentSpeedRepository _repository;
 
@@ -67,13 +71,12 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
                 UpdatedAt = DateTime.UtcNow
             };
 
-            //_context.PayerPaymentSpeed.Add(@payerPaymentSpeed);
+            if (payerPaymentSpeed == null)
+            {
+                return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Payer Payment Speed not found!");
+            }
 
-            //await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-
-            //return @payerPaymentSpeed;
-
-            return await _repository.AddAsync(payerPaymentSpeed);
+            return _repository.Add(payerPaymentSpeed);
         }
     }
 }

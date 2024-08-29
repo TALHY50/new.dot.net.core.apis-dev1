@@ -5,6 +5,7 @@ using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Contracts.Common;
 
 namespace Admin.App.Application.Features.InstitutionFunds
 {
@@ -15,12 +16,15 @@ namespace Admin.App.Application.Features.InstitutionFunds
         [HttpGet(Routes.GetInstitutionFundUrl, Name = Routes.GetInstitutionFundName)]
         public async Task<ActionResult<ErrorOr<List<InstitutionFund>>>> Get()
         {
-            return await Mediator.Send(new GetInstitutionFundQuery()).ConfigureAwait(false);
+            var result = await Mediator.Send(new GetInstitutionFundQuery()).ConfigureAwait(false);
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);return Ok(result);
         }
 
         public record GetInstitutionFundQuery() : IRequest<ErrorOr<List<InstitutionFund>>>;
 
-        internal sealed class GetInstitutionFundQueryHandler : IRequestHandler<GetInstitutionFundQuery, ErrorOr<List<InstitutionFund>>>
+        public class GetInstitutionFundQueryHandler : IRequestHandler<GetInstitutionFundQuery, ErrorOr<List<InstitutionFund>>>
         {
             private readonly IImtInstitutionFundRepository _repository;
 
@@ -30,7 +34,13 @@ namespace Admin.App.Application.Features.InstitutionFunds
             }
             public async Task<ErrorOr<List<InstitutionFund>>> Handle(GetInstitutionFundQuery request, CancellationToken cancellationToken)
             {
-                return _repository.All().ToList();
+                var institutionFunds = _repository.ViewAll();
+                if (institutionFunds == null)
+                {
+                    return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Institution Funds not found!");
+                }
+
+                return institutionFunds;
             }
         }
     }

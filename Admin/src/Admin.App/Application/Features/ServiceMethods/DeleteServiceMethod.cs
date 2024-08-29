@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Contracts.Common;
 
 namespace ADMIN.App.Application.Features.ServiceMethods
 {
@@ -15,15 +16,19 @@ namespace ADMIN.App.Application.Features.ServiceMethods
         //[Authorize(Policy = "HasPermission")]
         [HttpDelete(Routes.DeleteServiceMethodUrl, Name = Routes.DeleteServiceMethodName)]
 
-        public async Task<ActionResult<bool>> Delete(DeleteServiceMethodCommand command)
+        public async Task<ActionResult<ErrorOr<bool>>> Delete(uint Id)
         {
-            return await Mediator.Send(command).ConfigureAwait(false);
+            var result = await Mediator.Send(new DeleteServiceMethodCommand(Id)).ConfigureAwait(false);
+
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
     }
 
-    public record DeleteServiceMethodCommand(uint Id) : IRequest<bool>;
+    public record DeleteServiceMethodCommand(uint Id) : IRequest<ErrorOr<bool>>;
 
-    internal sealed class DeleteServiceMethodCommandValidator : AbstractValidator<DeleteServiceMethodCommand>
+    public class DeleteServiceMethodCommandValidator : AbstractValidator<DeleteServiceMethodCommand>
     {
         public DeleteServiceMethodCommandValidator()
         {
@@ -31,7 +36,7 @@ namespace ADMIN.App.Application.Features.ServiceMethods
         }
     }
 
-    internal sealed class DeleteServiceMethodCommandHandler: IRequestHandler<DeleteServiceMethodCommand, bool>
+    public class DeleteServiceMethodCommandHandler: IRequestHandler<DeleteServiceMethodCommand, ErrorOr<bool>>
     {
         private readonly IImtServiceMethodRepository _repository;
 
@@ -39,18 +44,18 @@ namespace ADMIN.App.Application.Features.ServiceMethods
         {
             _repository = repository;
         }
-        public async Task<bool> Handle(DeleteServiceMethodCommand command, CancellationToken cancellationToken)
+        public async Task<ErrorOr<bool>> Handle(DeleteServiceMethodCommand command, CancellationToken cancellationToken)
         {
             if (command.Id > 0)
             {
-                var serviceMethod = _repository.GetByUintId(command.Id);
+                var serviceMethod = _repository.View(command.Id);
 
-                if (serviceMethod != null)
+                if (serviceMethod == null)
                 {
-                    return await _repository.DeleteAsync(serviceMethod);
+                    return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Service Method not found!");
                 }
 
-                return await _repository.DeleteAsync(serviceMethod);
+                return _repository.Delete(serviceMethod);
             }
 
             return false;

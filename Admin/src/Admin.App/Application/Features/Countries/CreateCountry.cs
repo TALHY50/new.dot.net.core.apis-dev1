@@ -39,15 +39,14 @@ namespace Admin.App.Application.Features.Countries
     {
         public CreateCountryCommandValidator()
         {
-            RuleFor(v => v.Code).MinimumLength(1).MaximumLength(100).NotEmpty();
-            RuleFor(v => v.IsoCode).MinimumLength(1).MaximumLength(100).NotEmpty();
-            RuleFor(v => v.Name).MinimumLength(1).MaximumLength(100).NotEmpty();
+            RuleFor(x => x.Code).NotEmpty().WithMessage("Country Code  is required");
+            RuleFor(x => x.IsoCode).NotEmpty().WithMessage("Country Code  is required");
+            RuleFor(x => x.Name).NotEmpty().WithMessage("Country Code  is required");
         }
     }
 
     public class CreateCountryCommandHandler : IRequestHandler<CreateCountryCommand, ErrorOr<Country>>
     {
-        //private readonly ApplicationDbContext _context = context;
         private readonly IAdminCountryRepository _repository;
 
         public CreateCountryCommandHandler(IAdminCountryRepository repository)
@@ -73,7 +72,7 @@ namespace Admin.App.Application.Features.Countries
             {
                 return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Country not found!");
             }
-            return await _repository.AddAsync(country);
+            return _repository.Add(country)!;
         }
     }
 }

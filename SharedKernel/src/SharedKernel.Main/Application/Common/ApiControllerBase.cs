@@ -1,29 +1,25 @@
 using ErrorOr;
+using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.DependencyInjection;
+using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Contracts.Common;
 
 namespace SharedKernel.Main.Application.Common;
 
 [ApiController]
 [Route("api/[controller]")]
-public class ApiControllerBase : ControllerBase
+public partial class ApiControllerBase : ControllerBase
 {
-    public class CustomErrorResponse
-    {
-        public List<CustomError> Errors { get; set; }
-    }
-
-    public class CustomError
-    {
-        public string Code { get; set; }
-        public string Message { get; set; }
-    }
+    private IMapper _mapper;
     private ISender? _mediator;
 
     protected ISender Mediator => _mediator ??= HttpContext.RequestServices.GetService<ISender>()!;
+    protected IMapper Mapper => _mapper ??= HttpContext.RequestServices.GetService<IMapper>()!;
+
     
     protected ActionResult Problem(List<Error> errors)
     {
@@ -32,10 +28,10 @@ public class ApiControllerBase : ControllerBase
             return Problem();
         }
 
-        if (errors.All(error => error.Type == ErrorType.Validation))
+        /*if (errors.All(error => error.Type == ErrorType.Validation))
         {
             return ValidationProblem(errors);
-        }
+        }*/
         
         
         return Problem(errors[0]);
@@ -51,19 +47,21 @@ public class ApiControllerBase : ControllerBase
             ErrorType.Unauthorized => StatusCodes.Status403Forbidden,
             _ => StatusCodes.Status500InternalServerError,
         };
+
+        var errorEntity = new StatusEntityModel() { Code = error.Code, Message = error.Description };
+        /*var customErrors = new List<StatusEntityModel>();
+        
+        customErrors.Add(errorEntity);
         
         
-        var customErrors = new List<CustomError>();
-        
-        customErrors.Add(new CustomError(){Code = error.Code, Message = error.Description});
-        
-        
-        var errorResponse = new CustomErrorResponse
+        var errorResponse = new ErrorModel
         {
             Errors  = customErrors
-        };
+        };*/
 
-        return new ObjectResult(errorResponse)
+        var result = ToResponse(errorEntity);
+
+        return new ObjectResult(result)
         {
             StatusCode = statusCode
         };
@@ -77,13 +75,13 @@ public class ApiControllerBase : ControllerBase
 
         //errors.ForEach(error => modelStateDictionary.AddModelError(error.Code, error.Description));
         
-        var customErrors = new List<CustomError>();
+        var customErrors = new List<StatusEntityModel>();
         foreach (Error error in errors)
         {
-            customErrors.Add(new CustomError(){Code = error.Code, Message = error.Description});
+            customErrors.Add(new StatusEntityModel(){Code = error.Code, Message = error.Description});
         }
         
-        var errorResponse = new CustomErrorResponse
+        var errorResponse = new ErrorModel
         {
             Errors  = customErrors
         };
@@ -94,6 +92,33 @@ public class ApiControllerBase : ControllerBase
         };
 
         //return ValidationProblem(modelStateDictionary);
+    }
+    
+
+    protected object ToSuccess(object data)
+    {
+        var status = new StatusEntityModel(){Code = ApplicationCodes.OperationIsOk.Code, Message = ApplicationCodes.OperationIsOk.Message};
+
+        return ToResponse(status, data);
+        
+    }
+
+
+    
+
+    private object ToResponse(StatusEntityModel status, object data = null)
+    {
+        if (data is null)
+        {
+            data = new object();
+        }
+        var response = new StatusModel()
+        {
+            Status = status,
+            Data = data
+        };
+
+        return response;
     }
     
 

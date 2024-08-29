@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Contracts.Common;
 
 namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
 {
@@ -15,15 +16,18 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
         //[Authorize(Policy = "HasPermission")]
         [HttpDelete(Routes.DeletePayerPaymentSpeedUrl, Name = Routes.DeletePayerPaymentSpeedName)]
 
-        public async Task<ActionResult<bool>> Delete(DeletePayerPaymentSpeedCommand command)
+        public async Task<ActionResult<ErrorOr<bool>>> Delete(uint Id)
         {
-            return await Mediator.Send(command).ConfigureAwait(false);
+            var result = await Mediator.Send(new DeletePayerPaymentSpeedCommand(Id)).ConfigureAwait(false);
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
     }
 
-    public record DeletePayerPaymentSpeedCommand(uint Id) : IRequest<bool>;
+    public record DeletePayerPaymentSpeedCommand(uint Id) : IRequest<ErrorOr<bool>>;
 
-    internal sealed class DeletePayerPaymentSpeedCommandValidator : AbstractValidator<DeletePayerPaymentSpeedCommand>
+    public class DeletePayerPaymentSpeedCommandValidator : AbstractValidator<DeletePayerPaymentSpeedCommand>
     {
         public DeletePayerPaymentSpeedCommandValidator()
         {
@@ -31,7 +35,7 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
         }
     }
 
-    internal sealed class DeletePayerPaymentSpeedCommandHandler: IRequestHandler<DeletePayerPaymentSpeedCommand, bool>
+    public class DeletePayerPaymentSpeedCommandHandler: IRequestHandler<DeletePayerPaymentSpeedCommand, ErrorOr<bool>>
     {
         private readonly IImtPayerPaymentSpeedRepository _repository;
 
@@ -40,18 +44,18 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
             _repository = repository;
         }
 
-        public async Task<bool> Handle(DeletePayerPaymentSpeedCommand command, CancellationToken cancellationToken)
+        public async Task<ErrorOr<bool>> Handle(DeletePayerPaymentSpeedCommand command, CancellationToken cancellationToken)
         {
             if (command.Id > 0)
             {
-                var payerPaymentSpeed = _repository.GetByUintId(command.Id);
+                var payerPaymentSpeed = _repository.View(command.Id);
 
-                if (payerPaymentSpeed != null)
+                if (payerPaymentSpeed == null)
                 {
-                    return await _repository.DeleteAsync(payerPaymentSpeed);
+                    return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Payer Payment Speed not found!");
                 }
-
-                return await _repository.DeleteAsync(payerPaymentSpeed);
+                
+                return _repository.Delete(payerPaymentSpeed);
             }
 
             return false;

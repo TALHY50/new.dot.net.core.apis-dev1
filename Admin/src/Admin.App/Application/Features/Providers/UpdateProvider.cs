@@ -85,7 +85,7 @@ namespace Admin.App.Application.Features.Providers
 
                 if (providers == null)
                 {
-                    return Error.NotFound(description: "Provider not found", code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Provider not found!");
                 }
                 
                 providers.Code = request.Code;

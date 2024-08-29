@@ -6,6 +6,7 @@ using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Contracts.Common;
 
 namespace Admin.App.Application.Features.InstitutionFunds
 {
@@ -18,7 +19,10 @@ namespace Admin.App.Application.Features.InstitutionFunds
         public async Task<ActionResult<ErrorOr<InstitutionFund>>> Update(uint Id, UpdateInstitutionFundCommand command)
         {
             var commandWithId = command with { Id = Id };
-            return await Mediator.Send(commandWithId).ConfigureAwait(false);
+            var result = await Mediator.Send(commandWithId).ConfigureAwait(false);
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);return Ok(result);
         }
 
         public record UpdateInstitutionFundCommand(
@@ -33,15 +37,23 @@ namespace Admin.App.Application.Features.InstitutionFunds
             uint? CompanyId,
             byte Status) : IRequest<ErrorOr<InstitutionFund>>;
 
-        internal sealed class UpdateInstitutionFundCommandValidator : AbstractValidator<UpdateInstitutionFundCommand>
+        public class UpdateInstitutionFundCommandValidator : AbstractValidator<UpdateInstitutionFundCommand>
         {
             public UpdateInstitutionFundCommandValidator()
             {
                 RuleFor(x => x.Id).NotEmpty().WithMessage("InstitutionFund ID is required");
+                RuleFor(x => x.InstitutionId).NotEmpty().WithMessage("InstitutionId  is required");
+                RuleFor(x => x.ProviderId).NotEmpty().WithMessage("ProviderId  is required");
+                RuleFor(x => x.FundCountryId).NotEmpty().WithMessage("ProviderId  is required");
+                RuleFor(x => x.FundCurrencyId).NotEmpty().WithMessage("FundCurrencyId  is required");
+                RuleFor(x => x.AccountNumber).NotEmpty().WithMessage("AccountNumber  is required");
+                RuleFor(x => x.StartingAmount).NotEmpty().WithMessage("StartingAmount  is required");
+                RuleFor(x => x.CurrentAmount).NotEmpty().WithMessage("CurrentAmount  is required");
+                RuleFor(x => x.Status).NotEmpty().WithMessage("Status  is required");
             }
         }
 
-        internal sealed class UpdateInstitutionFundCommandHandler : IRequestHandler<UpdateInstitutionFundCommand, ErrorOr<InstitutionFund>>
+        public class UpdateInstitutionFundCommandHandler : IRequestHandler<UpdateInstitutionFundCommand, ErrorOr<InstitutionFund>>
         {
             private readonly IImtInstitutionFundRepository _repository;
 
@@ -52,7 +64,7 @@ namespace Admin.App.Application.Features.InstitutionFunds
 
             public async Task<ErrorOr<InstitutionFund>> Handle(UpdateInstitutionFundCommand command, CancellationToken cancellationToken)
             {
-                InstitutionFund? institutionFund = _repository.GetByUintId(command.Id);
+                InstitutionFund? institutionFund = _repository.View(command.Id);
                 if (institutionFund != null)
                 {
                     institutionFund.InstitutionId = command.InstitutionId;
@@ -64,18 +76,16 @@ namespace Admin.App.Application.Features.InstitutionFunds
                     institutionFund.CurrentAmount = command.CurrentAmount;
                     institutionFund.CompanyId = command.CompanyId;
                     institutionFund.Status = command.Status;
-
-                    //if (_user?.UserId != null)
-                    //{
-                    //    entity.UpdatedById = uint.Parse(_user?.UserId ?? "1");
-                    //}
-                    //else
-                    //{
-                    //    entity.UpdatedById = 1;
-                    //}
+                    institutionFund.UpdatedById = command.Id;
+                    institutionFund.UpdatedAt = DateTime.UtcNow;
                 }
 
-                return await _repository.UpdateAsync(institutionFund);
+                if (institutionFund == null)
+                {
+                    return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Institution Fund not found!");
+                }
+
+                return _repository.Update(institutionFund);
             }
         }
     }

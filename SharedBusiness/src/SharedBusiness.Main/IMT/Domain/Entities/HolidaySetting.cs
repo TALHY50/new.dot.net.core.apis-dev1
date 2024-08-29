@@ -19,7 +19,7 @@ public partial class HolidaySetting
     /// <summary>
     /// GMT offset in hours (e.g., +5, -3)
     /// </summary>
-    public sbyte Gmt { get; set; }
+    public string Gmt { get; set; }
 
     /// <summary>
     /// Time to start if type is not full
