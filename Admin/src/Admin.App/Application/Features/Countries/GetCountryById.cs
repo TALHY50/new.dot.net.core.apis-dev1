@@ -48,7 +48,7 @@ namespace Admin.App.Application.Features.Countries
 
                 if (country == null)
                 {
-                    return Error.NotFound(description: "Country not found!", code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Country not found!");
                 }
 
                 return country;
