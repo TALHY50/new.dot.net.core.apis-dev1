@@ -17,7 +17,7 @@ public partial class PayerPaymentSpeed
     /// <summary>
     /// GMT offset in hours (e.g., +5, -3)
     /// </summary>
-    public sbyte Gmt { get; set; }
+    public string Gmt { get; set; }
 
     /// <summary>
     /// Opening time

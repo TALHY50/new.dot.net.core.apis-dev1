@@ -65,7 +65,7 @@ namespace ADMIN.App.Application.Features.ServiceMethods
                 return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Service Method not found!");
             }
 
-            return await _repository.AddAsync(serviceMethod);
+            return _repository.Add(serviceMethod)!;
         }
     }
 }

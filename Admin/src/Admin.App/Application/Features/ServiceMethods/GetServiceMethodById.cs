@@ -46,9 +46,9 @@ namespace ADMIN.App.Application.Features.ServiceMethods
             }
             public async Task<ErrorOr<ServiceMethod>> Handle(GetServiceMethodByIdQuery request, CancellationToken cancellationToken)
             {
-                var serviceMethod = _repository.GetByUintId(request.Id);
+                var serviceMethod = _repository.View(request.Id);
 
-                if (serviceMethod  == null)
+                if (serviceMethod == null)
                 {
                     return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Service Method not found!");
                 }
