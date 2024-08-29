@@ -1,0 +1,1737 @@
+{
+	"info": {
+		"_postman_id": "631ba05f-3a08-4f6f-a402-41fddeaef9ca",
+		"name": "ThunesCollection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9085143"
+	},
+	"item": [
+		{
+			"name": "IMT",
+			"item": [
+				{
+					"name": "Thunes",
+					"item": [
+						{
+							"name": "Credit Parties",
+							"item": [
+								{
+									"name": "Credit-party-information",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "{{thunes_api_secret}}",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "{{thunes_api_key}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"credit_party_identifier\": {\r\n        \"msisdn\": \"26377589236\"\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{thurnes_base_url}}/v2/money-transfer/payers/1807/B2B/credit-party-information",
+											"host": [
+												"{{thurnes_base_url}}"
+											],
+											"path": [
+												"v2",
+												"money-transfer",
+												"payers",
+												"1807",
+												"B2B",
+												"credit-party-information"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Credit-party-verification",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"credit_party_identifier\": {\r\n        \"msisdn\": \"263775892364\"\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{mockoon_url}}/v2/money-transfer/payers/1/C2C/credit-party-verification",
+											"host": [
+												"{{mockoon_url}}"
+											],
+											"path": [
+												"v2",
+												"money-transfer",
+												"payers",
+												"1",
+												"C2C",
+												"credit-party-verification"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Transfers",
+							"item": [
+								{
+									"name": "Quotations",
+									"item": [
+										{
+											"name": "Create quotation",
+											"request": {
+												"auth": {
+													"type": "basic",
+													"basic": [
+														{
+															"key": "password",
+															"value": "{{thunes_api_secret}}",
+															"type": "string"
+														},
+														{
+															"key": "username",
+															"value": "{{thunes_api_key}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"external_id\": \"148118432140545\",\r\n    \"payer_id\": \"1807\",\r\n    \"mode\": \"SOURCE_AMOUNT\",\r\n    \"transaction_type\": \"C2C\",\r\n    \"source\": {\r\n        \"amount\": \"10\",\r\n        \"currency\": \"USD\",\r\n        \"country_iso_code\": \"USA\"\r\n    },\r\n    \"destination\": {\r\n        \"amount\": null,\r\n        \"currency\": \"USD\"\r\n    }\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{thurnes_base_url}}/v2/money-transfer/quotations",
+													"host": [
+														"{{thurnes_base_url}}"
+													],
+													"path": [
+														"v2",
+														"money-transfer",
+														"quotations"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Get quotation",
+											"request": {
+												"auth": {
+													"type": "basic",
+													"basic": [
+														{
+															"key": "password",
+															"value": "{{thunes_api_secret}}",
+															"type": "string"
+														},
+														{
+															"key": "username",
+															"value": "{{thunes_api_key}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{thurnes_base_url}}/v2/money-transfer/quotations/1",
+													"host": [
+														"{{thurnes_base_url}}"
+													],
+													"path": [
+														"v2",
+														"money-transfer",
+														"quotations",
+														"1"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Get quotation by external id",
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{mockoon_url}}/v2/money-transfer/quotations/ext-{{external_id}}",
+													"host": [
+														"{{mockoon_url}}"
+													],
+													"path": [
+														"v2",
+														"money-transfer",
+														"quotations",
+														"ext-{{external_id}}"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Transaction",
+									"item": [
+										{
+											"name": "Create Transaction",
+											"request": {
+												"auth": {
+													"type": "basic",
+													"basic": [
+														{
+															"key": "password",
+															"value": "bed820bd-264b-4d0f-8148-9f56e0a8b55c",
+															"type": "string"
+														},
+														{
+															"key": "username",
+															"value": "f1c4a4d9-2899-4f09-b9f5-c35f09df5ffd",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"credit_party_identifier\": {\r\n        \"iban\":\"123456\"\r\n    },\r\n    \"sender\": {\r\n        \"lastname\": \"Doe\",\r\n        \"firstname\": \"John\",\r\n        \"nationality_country_iso_code\": \"FRA\",\r\n        \"date_of_birth\": \"1970-01-01\",\r\n        \"country_of_birth_iso_code\": \"FRA\",\r\n        \"gender\": \"MALE\",\r\n        \"address\": \"42 Rue des fleurs\",\r\n        \"postal_code\": \"75000\",\r\n        \"city\": \"Paris\",\r\n        \"country_iso_code\": \"FRA\",\r\n        \"msisdn\": \"33712345678\",\r\n        \"email\": \"john.doe@mail.com\",\r\n        \"id_type\": \"SOCIAL_SECURITY\",\r\n        \"id_number\": \"502-42-0158\",\r\n        \"id_delivery_date\": \"2016-01-01\",\r\n        \"occupation\": \"Residential Advisor\"\r\n    },\r\n    \"beneficiary\": {\r\n        \"lastname\": \"Doe\",\r\n        \"firstname\": \"Jane\",\r\n        \"nationality_country_iso_code\": \"FRA\",\r\n        \"date_of_birth\": \"1971-01-01\",\r\n        \"country_of_birth_iso_code\": \"ZWE\",\r\n        \"gender\": \"MALE\",\r\n        \"address\": \"3 Norfolk Road\",\r\n        \"postal_code\": \"4581\",\r\n        \"city\": \"Harare\",\r\n        \"country_iso_code\": \"ZWE\",\r\n        \"msisdn\": \"263775892364\",\r\n        \"email\": \"jane.doe@mail.com\",\r\n        \"id_type\": \"SOCIAL_SECURITY\",\r\n        \"id_country_iso_code\": \"ZWE\",\r\n        \"id_number\": \"178027317681327\",\r\n        \"occupation\": \"Sales Executive\"\r\n    },\r\n    \"external_id\": \"1478078339357\",\r\n    \"retail_fee\": 1,\r\n    \"retail_fee_currency\": \"EUR\",\r\n    \"purpose_of_remittance\": \"FAMILY_SUPPORT\",\r\n    \"document_reference_number\": \"12345678\",\r\n    \"reference\": \"some reference\",\r\n    \"sending_bussiness\":{\r\n\"registered_name\":\"sipay\",\r\n\"country_iso_code\":\"TUR\",\r\n\"code\":\"TR\",\r\n\"registration_number\" : \"123456\"\r\n    },\r\n    \"receiving_bussiness\":{\r\n\"registered_name\":\"sipay\",\r\n\"country_iso_code\":\"TUR\"\r\n    }\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{thurnes_base_url}}/v2/money-transfer/quotations/56702067/transactions",
+													"host": [
+														"{{thurnes_base_url}}"
+													],
+													"path": [
+														"v2",
+														"money-transfer",
+														"quotations",
+														"56702067",
+														"transactions"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "B2B Create a transaction from a quotation id",
+											"request": {
+												"auth": {
+													"type": "basic",
+													"basic": [
+														{
+															"key": "password",
+															"value": "{{thunes_api_secret}}",
+															"type": "string"
+														},
+														{
+															"key": "username",
+															"value": "{{thunes_api_key}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n   \"external_id\" : \"b2b5\",\r\n   \"sending_business\" : {\r\n      \"country_iso_code\" : \"TUR\",\r\n      \"code\" : \"code placeholder...\",\r\n      \"registered_name\" : \"ABC COMPANY\",\r\n      \"registration_number\" : \"ABC12345T\"\r\n   },\r\n   \"document_reference_number\" : \"ABC1234-9876\",\r\n   \"purpose_of_remittance\" : \"ADVISORY_FEES\",\r\n   \"receiving_business\" : {\r\n      \"registered_name\" : \"XYZ COMPANY\",\r\n      \"country_iso_code\" : \"DEU\"\r\n   },\r\n   \"credit_party_identifier\" : {\r\n      \"iban\" : \"DE05975683053163247100\"\r\n   }\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{url}}/v2/money-transfer/quotations/56971664/transactions",
+													"host": [
+														"{{url}}"
+													],
+													"path": [
+														"v2",
+														"money-transfer",
+														"quotations",
+														"56971664",
+														"transactions"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "B2C Create a transaction from a quotation id Copy",
+											"request": {
+												"auth": {
+													"type": "basic",
+													"basic": [
+														{
+															"key": "password",
+															"value": "{{thunes_api_secret}}",
+															"type": "string"
+														},
+														{
+															"key": "username",
+															"value": "{{thunes_api_key}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n   \"external_id\" : 59138651523,\r\n   \"beneficiary\" : {\r\n      \"firstname\" : \"Duncan\",\r\n      \"country_iso_code\" : \"NLD\",\r\n      \"lastname\" : \"Ruben\"\r\n   },\r\n   \"sending_business\" : {\r\n      \"code\" : \"code placeholder...\",\r\n      \"country_iso_code\" : \"TUR\",\r\n      \"registered_name\" : \"ABC COMPANY\",\r\n      \"registration_number\" : \"ABC12345T\"\r\n   },\r\n   \"credit_party_identifier\" : {\r\n      \"iban\" : \"NL79VRSA8450806100\"\r\n   }\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{thurnes_base_url}}/v2/money-transfer/quotations/56967538/transactions",
+													"host": [
+														"{{thurnes_base_url}}"
+													],
+													"path": [
+														"v2",
+														"money-transfer",
+														"quotations",
+														"56967538",
+														"transactions"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "C2C Create a transaction from a quotation id",
+											"request": {
+												"auth": {
+													"type": "basic",
+													"basic": [
+														{
+															"key": "password",
+															"value": "{{thunes_api_secret}}",
+															"type": "string"
+														},
+														{
+															"key": "username",
+															"value": "{{thunes_api_key}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n   \"credit_party_identifier\" : {\r\n      \"iban\" : \"NL79VRSA8450806100\"\r\n   },\r\n   \"sender\" : {\r\n      \"address\" : \"12B Baker Street\",\r\n      \"country_iso_code\" : \"TUR\",\r\n      \"city\" : \"Amsterdam\",\r\n      \"lastname\" : \"Smith\",\r\n      \"date_of_birth\" : \"1980-12-19\",\r\n      \"code\" : \"code placeholder...\",\r\n      \"firstname\" : \"Smith\",\r\n      \"country_of_birth_iso_code\" : \"TUR\"\r\n   },\r\n   \"beneficiary\" : {\r\n      \"lastname\" : \"Anderson\",\r\n      \"firstname\" : \"Anderson\"\r\n   },\r\n   \"purpose_of_remittance\" : \"ADVISORY_FEES\",\r\n   \"external_id\" : \"c2c3\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{thurnes_base_url}}/v2/money-transfer/quotations/57044136/transactions",
+													"host": [
+														"{{thurnes_base_url}}"
+													],
+													"path": [
+														"v2",
+														"money-transfer",
+														"quotations",
+														"57044136",
+														"transactions"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Confirm Transaction by transaction id",
+											"request": {
+												"method": "POST",
+												"header": [],
+												"url": {
+													"raw": "{{thunes_base_url}}/v2/money-transfer/transactions/4203605/confirm",
+													"host": [
+														"{{thunes_base_url}}"
+													],
+													"path": [
+														"v2",
+														"money-transfer",
+														"transactions",
+														"4203605",
+														"confirm"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Confirm Transaction by external id",
+											"request": {
+												"method": "POST",
+												"header": [],
+												"url": {
+													"raw": "{{thunes_base_url}}/v2/money-transfer/transactions/4203605/confirm",
+													"host": [
+														"{{thunes_base_url}}"
+													],
+													"path": [
+														"v2",
+														"money-transfer",
+														"transactions",
+														"4203605",
+														"confirm"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Create Transaction From External Id",
+											"request": {
+												"auth": {
+													"type": "basic",
+													"basic": [
+														{
+															"key": "password",
+															"value": "bed820bd-264b-4d0f-8148-9f56e0a8b55c",
+															"type": "string"
+														},
+														{
+															"key": "username",
+															"value": "f1c4a4d9-2899-4f09-b9f5-c35f09df5ffd",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"external_id\": \"ABC123\",\r\n  \"sending_business\": {\r\n    \"email\": \"sending_business@example.com\",\r\n    \"business_relationship\": \"EMPLOYEE\",\r\n    \"msisdn\": \"+1234567890\",\r\n    \"country_iso_code\": \"USA\",\r\n    \"representative_id_expiration_date\": \"2024-07-01\",\r\n    \"date_of_incorporation\": \"2000-01-01\",\r\n    \"representative_id_type\": \"PASSPORT\",\r\n    \"representative_id_delivery_date\": \"2010-05-15\",\r\n    \"representative_id_country_iso_code\": \"USA\"\r\n  },\r\n  \"callback_url\": \"https://example.com/callback\",\r\n  \"credit_party_identifier\": {\r\n    \"msisdn\": \"+9876543210\",\r\n    \"swift_bic_code\": \"SWIFT1234\",\r\n    \"iban\": \"DE05975683053163247100\"\r\n  },\r\n  \"purpose_of_remittance\": \"FAMILY_SUPPORT\",\r\n  \"retail_fee_currency\": \"USD\",\r\n  \"retail_fee\": 10.0,\r\n  \"sender\": {\r\n    \"country_iso_code\": \"CAN\",\r\n    \"gender\": \"MALE\",\r\n    \"id_type\": \"PASSPORT\",\r\n    \"email\": \"sender@example.com\",\r\n    \"id_delivery_date\": \"2015-08-20\",\r\n    \"nationality_country_iso_code\": \"CAN\",\r\n    \"msisdn\": \"+1122334455\",\r\n    \"country_of_birth_iso_code\": \"CAN\",\r\n    \"date_of_birth\": \"1990-05-10\"\r\n  },\r\n  \"receiving_business\": {\r\n    \"representative_id_country_iso_code\": \"GBR\",\r\n    \"representative_id_delivery_date\": \"2018-03-25\",\r\n    \"representative_id_type\": \"NATIONAL_ID\",\r\n    \"date_of_incorporation\": \"2010-10-01\",\r\n    \"representative_id_expiration_date\": \"2023-12-31\",\r\n    \"msisdn\": \"+447700900800\",\r\n    \"country_iso_code\": \"GBR\",\r\n    \"email\": \"receiving_business@example.com\"\r\n  },\r\n  \"beneficiary\": {\r\n    \"date_of_birth\": \"1985-02-15\"\r\n  }\r\n}\r\n",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{thunes_base_url}}/v2/money-transfer/quotations/ext-{{external_id}}/transactions",
+													"host": [
+														"{{thunes_base_url}}"
+													],
+													"path": [
+														"v2",
+														"money-transfer",
+														"quotations",
+														"ext-{{external_id}}",
+														"transactions"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Add Attachment by transaction id",
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/v2/money-transfer/transactions/:id/attachments",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"v2",
+														"money-transfer",
+														"transactions",
+														":id",
+														"attachments"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "<string>",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "OK",
+													"originalRequest": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/v2/money-transfer/transactions/:id/attachments",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"v2",
+																"money-transfer",
+																"transactions",
+																":id",
+																"attachments"
+															],
+															"variable": [
+																{
+																	"key": "id"
+																}
+															]
+														}
+													},
+													"status": "Created",
+													"code": 201,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"example\": \"{\\r\\n    \\\"id\\\": 1,\\r\\n    \\\"content_type\\\": \\\"application/pdf\\\",\\r\\n    \\\"name\\\": \\\"invoice.pdf\\\",\\r\\n    \\\"transaction_id\\\": 1,\\r\\n    \\\"type\\\": \\\"invoice\\\"\\r\\n}\"\n}"
+												},
+												{
+													"name": "Untitled Response",
+													"originalRequest": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/v2/money-transfer/transactions/:id/attachments",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"v2",
+																"money-transfer",
+																"transactions",
+																":id",
+																"attachments"
+															],
+															"variable": [
+																{
+																	"key": "id"
+																}
+															]
+														}
+													},
+													"status": "Unauthorized",
+													"code": 401,
+													"_postman_previewlanguage": "text",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "*/*"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"example\": \"{}\"\n}"
+												}
+											]
+										},
+										{
+											"name": "Add Attachment by external id",
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/v2/money-transfer/transactions/:id/attachments",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"v2",
+														"money-transfer",
+														"transactions",
+														":id",
+														"attachments"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "<string>",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "OK",
+													"originalRequest": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/v2/money-transfer/transactions/:id/attachments",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"v2",
+																"money-transfer",
+																"transactions",
+																":id",
+																"attachments"
+															],
+															"variable": [
+																{
+																	"key": "id"
+																}
+															]
+														}
+													},
+													"status": "Created",
+													"code": 201,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"example\": \"{\\r\\n    \\\"id\\\": 1,\\r\\n    \\\"content_type\\\": \\\"application/pdf\\\",\\r\\n    \\\"name\\\": \\\"invoice.pdf\\\",\\r\\n    \\\"transaction_id\\\": 1,\\r\\n    \\\"type\\\": \\\"invoice\\\"\\r\\n}\"\n}"
+												},
+												{
+													"name": "Untitled Response",
+													"originalRequest": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/v2/money-transfer/transactions/:id/attachments",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"v2",
+																"money-transfer",
+																"transactions",
+																":id",
+																"attachments"
+															],
+															"variable": [
+																{
+																	"key": "id"
+																}
+															]
+														}
+													},
+													"status": "Unauthorized",
+													"code": 401,
+													"_postman_previewlanguage": "text",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "*/*"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"example\": \"{}\"\n}"
+												}
+											]
+										},
+										{
+											"name": "Get Attachment by Transaction id",
+											"request": {
+												"auth": {
+													"type": "basic",
+													"basic": [
+														{
+															"key": "password",
+															"value": "bed820bd-264b-4d0f-8148-9f56e0a8b55c",
+															"type": "string"
+														},
+														{
+															"key": "username",
+															"value": "f1c4a4d9-2899-4f09-b9f5-c35f09df5ffd",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{thunes_base_url}}/v2/money-transfer/transactions/{{transaction_id}}/attachments",
+													"host": [
+														"{{thunes_base_url}}"
+													],
+													"path": [
+														"v2",
+														"money-transfer",
+														"transactions",
+														"{{transaction_id}}",
+														"attachments"
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "OK",
+													"originalRequest": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/v2/money-transfer/transactions/:id/attachments",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"v2",
+																"money-transfer",
+																"transactions",
+																":id",
+																"attachments"
+															],
+															"variable": [
+																{
+																	"key": "id"
+																}
+															]
+														}
+													},
+													"status": "Created",
+													"code": 201,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"example\": \"{\\r\\n    \\\"id\\\": 1,\\r\\n    \\\"content_type\\\": \\\"application/pdf\\\",\\r\\n    \\\"name\\\": \\\"invoice.pdf\\\",\\r\\n    \\\"transaction_id\\\": 1,\\r\\n    \\\"type\\\": \\\"invoice\\\"\\r\\n}\"\n}"
+												},
+												{
+													"name": "Untitled Response",
+													"originalRequest": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/v2/money-transfer/transactions/:id/attachments",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"v2",
+																"money-transfer",
+																"transactions",
+																":id",
+																"attachments"
+															],
+															"variable": [
+																{
+																	"key": "id"
+																}
+															]
+														}
+													},
+													"status": "Unauthorized",
+													"code": 401,
+													"_postman_previewlanguage": "text",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "*/*"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"example\": \"{}\"\n}"
+												}
+											]
+										},
+										{
+											"name": "Get Attachment by external id",
+											"request": {
+												"auth": {
+													"type": "basic",
+													"basic": [
+														{
+															"key": "password",
+															"value": "bed820bd-264b-4d0f-8148-9f56e0a8b55c",
+															"type": "string"
+														},
+														{
+															"key": "username",
+															"value": "f1c4a4d9-2899-4f09-b9f5-c35f09df5ffd",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{thunes_base_url}}/v2/money-transfer/transactions/{{transaction_id}}/attachments",
+													"host": [
+														"{{thunes_base_url}}"
+													],
+													"path": [
+														"v2",
+														"money-transfer",
+														"transactions",
+														"{{transaction_id}}",
+														"attachments"
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "OK",
+													"originalRequest": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/v2/money-transfer/transactions/:id/attachments",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"v2",
+																"money-transfer",
+																"transactions",
+																":id",
+																"attachments"
+															],
+															"variable": [
+																{
+																	"key": "id"
+																}
+															]
+														}
+													},
+													"status": "Created",
+													"code": 201,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"example\": \"{\\r\\n    \\\"id\\\": 1,\\r\\n    \\\"content_type\\\": \\\"application/pdf\\\",\\r\\n    \\\"name\\\": \\\"invoice.pdf\\\",\\r\\n    \\\"transaction_id\\\": 1,\\r\\n    \\\"type\\\": \\\"invoice\\\"\\r\\n}\"\n}"
+												},
+												{
+													"name": "Untitled Response",
+													"originalRequest": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "*/*"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/v2/money-transfer/transactions/:id/attachments",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"v2",
+																"money-transfer",
+																"transactions",
+																":id",
+																"attachments"
+															],
+															"variable": [
+																{
+																	"key": "id"
+																}
+															]
+														}
+													},
+													"status": "Unauthorized",
+													"code": 401,
+													"_postman_previewlanguage": "text",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "*/*"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"example\": \"{}\"\n}"
+												}
+											]
+										},
+										{
+											"name": "Get Transaction by transaction Id",
+											"request": {
+												"auth": {
+													"type": "basic",
+													"basic": [
+														{
+															"key": "password",
+															"value": "bed820bd-264b-4d0f-8148-9f56e0a8b55c",
+															"type": "string"
+														},
+														{
+															"key": "username",
+															"value": "f1c4a4d9-2899-4f09-b9f5-c35f09df5ffd",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{thunes_base_url}}/v2/money-transfer/transactions/{{transaction_id}}",
+													"host": [
+														"{{thunes_base_url}}"
+													],
+													"path": [
+														"v2",
+														"money-transfer",
+														"transactions",
+														"{{transaction_id}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Get Transaction by external Id",
+											"request": {
+												"auth": {
+													"type": "basic",
+													"basic": [
+														{
+															"key": "password",
+															"value": "bed820bd-264b-4d0f-8148-9f56e0a8b55c",
+															"type": "string"
+														},
+														{
+															"key": "username",
+															"value": "f1c4a4d9-2899-4f09-b9f5-c35f09df5ffd",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{thunes_base_url}}/v2/money-transfer/transactions/ext-{{external_id}}",
+													"host": [
+														"{{thunes_base_url}}"
+													],
+													"path": [
+														"v2",
+														"money-transfer",
+														"transactions",
+														"ext-{{external_id}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Cancel Transaction by external Id",
+											"request": {
+												"auth": {
+													"type": "basic",
+													"basic": [
+														{
+															"key": "password",
+															"value": "bed820bd-264b-4d0f-8148-9f56e0a8b55c",
+															"type": "string"
+														},
+														{
+															"key": "username",
+															"value": "f1c4a4d9-2899-4f09-b9f5-c35f09df5ffd",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"url": {
+													"raw": "{{thunes_base_url}}/v2/money-transfer/transactions/{{external_id}}/cancel",
+													"host": [
+														"{{thunes_base_url}}"
+													],
+													"path": [
+														"v2",
+														"money-transfer",
+														"transactions",
+														"{{external_id}}",
+														"cancel"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Cancel Transaction by transaction Id",
+											"request": {
+												"auth": {
+													"type": "basic",
+													"basic": [
+														{
+															"key": "password",
+															"value": "bed820bd-264b-4d0f-8148-9f56e0a8b55c",
+															"type": "string"
+														},
+														{
+															"key": "username",
+															"value": "f1c4a4d9-2899-4f09-b9f5-c35f09df5ffd",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"url": {
+													"raw": "{{thunes_base_url}}/v2/money-transfer/transactions/{{transaction_id}}/cancel",
+													"host": [
+														"{{thunes_base_url}}"
+													],
+													"path": [
+														"v2",
+														"money-transfer",
+														"transactions",
+														"{{transaction_id}}",
+														"cancel"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "Balances",
+							"item": [
+								{
+									"name": "Balances",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "{{thunes_api_secret}}",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "{{thunes_api_key}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{thunes_base_url}}/v2/money-transfer/balances",
+											"host": [
+												"{{thunes_base_url}}"
+											],
+											"path": [
+												"v2",
+												"money-transfer",
+												"balances"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Balances Movement",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "{{thunes_api_secret}}",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "{{thunes_api_key}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{thurnes_base_url}}/v2/money-transfer/balances/1862/movements?from_date=2024-12-01T00:00:00Z&to_date=2024-12-02T00:00:00Z",
+											"host": [
+												"{{thurnes_base_url}}"
+											],
+											"path": [
+												"v2",
+												"money-transfer",
+												"balances",
+												"1862",
+												"movements"
+											],
+											"query": [
+												{
+													"key": "from_date",
+													"value": "2024-12-01T00:00:00Z"
+												},
+												{
+													"key": "to_date",
+													"value": "2024-12-02T00:00:00Z"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Balances Reports",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "{{thunes_api_secret}}",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "{{thunes_api_key}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{thurnes_base_url}}/v2/money-transfer/balances/1862/movements?from_date=2024-12-01T00:00:00Z&to_date=2024-12-02T00:00:00Z",
+											"host": [
+												"{{thurnes_base_url}}"
+											],
+											"path": [
+												"v2",
+												"money-transfer",
+												"balances",
+												"1862",
+												"movements"
+											],
+											"query": [
+												{
+													"key": "from_date",
+													"value": "2024-12-01T00:00:00Z"
+												},
+												{
+													"key": "to_date",
+													"value": "2024-12-02T00:00:00Z"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get report details",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "{{thunes_api_secret}}",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "{{thunes_api_key}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{thurnes_base_url}}/v2/money-transfer/reports",
+											"host": [
+												"{{thurnes_base_url}}"
+											],
+											"path": [
+												"v2",
+												"money-transfer",
+												"reports"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "List report files details",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "{{thunes_api_secret}}",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "{{thunes_api_key}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{thurnes_base_url}}/v2/money-transfer/reports/1/files",
+											"host": [
+												"{{thurnes_base_url}}"
+											],
+											"path": [
+												"v2",
+												"money-transfer",
+												"reports",
+												"1",
+												"files"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "List report files available",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "{{thunes_api_secret}}",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "{{thunes_api_key}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{thurnes_base_url}}/v2/money-transfer/reports/1/files",
+											"host": [
+												"{{thurnes_base_url}}"
+											],
+											"path": [
+												"v2",
+												"money-transfer",
+												"reports",
+												"1",
+												"files"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Discovery",
+							"item": [
+								{
+									"name": "Services",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "{{thunes_api_secret}}",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "{{thunes_api_key}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{thurnes_base_url}}/v2/money-transfer/services",
+											"host": [
+												"{{thurnes_base_url}}"
+											],
+											"path": [
+												"v2",
+												"money-transfer",
+												"services"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Payers",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "{{thunes_api_secret}}",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "{{thunes_api_key}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{thunes_base_url}}/v2/money-transfer/payers",
+											"host": [
+												"{{thunes_base_url}}"
+											],
+											"path": [
+												"v2",
+												"money-transfer",
+												"payers"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get payer details",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "{{thunes_api_secret}}",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "{{thunes_api_key}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{thurnes_base_url}}/v2/money-transfer/payers/1807",
+											"host": [
+												"{{thurnes_base_url}}"
+											],
+											"path": [
+												"v2",
+												"money-transfer",
+												"payers",
+												"1807"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Payer Rates",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "{{thunes_api_secret}}",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "{{thunes_api_key}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{thurnes_base_url}}/v2/money-transfer/payers/1807/rates",
+											"host": [
+												"{{thurnes_base_url}}"
+											],
+											"path": [
+												"v2",
+												"money-transfer",
+												"payers",
+												"1807",
+												"rates"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Countries",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "{{thunes_api_secret}}",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "{{thunes_api_key}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{thurnes_base_url}}/v2/money-transfer/countries",
+											"host": [
+												"{{thurnes_base_url}}"
+											],
+											"path": [
+												"v2",
+												"money-transfer",
+												"countries"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Lookups",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "{{thunes_api_secret}}",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "{{thunes_api_key}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{thurnes_base_url}}/v2/money-transfer/lookups/BIC/DEU",
+											"host": [
+												"{{thurnes_base_url}}"
+											],
+											"path": [
+												"v2",
+												"money-transfer",
+												"lookups",
+												"BIC",
+												"DEU"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Check Auth",
+							"item": [
+								{
+									"name": "Check",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "{{thunes_api_secret}}",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "{{thunes_api_key}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{imt_base_url}}/ping",
+											"host": [
+												"{{imt_base_url}}"
+											],
+											"path": [
+												"ping"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "thunes_base_url",
+			"value": "https://api-mt.pre.thunes.com",
+			"type": "string"
+		},
+		{
+			"key": "mockoon_url",
+			"value": "http://localhost:3001",
+			"type": "string"
+		},
+		{
+			"key": "thunes_api_key",
+			"value": "f1c4a4d9-2899-4f09-b9f5-c35f09df5ffd",
+			"type": "string"
+		},
+		{
+			"key": "thunes_api_secret",
+			"value": "bed820bd-264b-4d0f-8148-9f56e0a8b55c",
+			"type": "string"
+		},
+		{
+			"key": "imt_base_url",
+			"value": "https://localhost:7157/",
+			"type": "string"
+		},
+		{
+			"key": "imt_hosted_base_url",
+			"value": "https://imt.sipay.com.tr",
+			"type": "string"
+		},
+		{
+			"key": "url",
+			"value": "tps://localhost:7125/api/v1",
+			"type": "string"
+		},
+		{
+			"key": "external_id",
+			"value": "58"
+		},
+		{
+			"key": "quotation_id",
+			"value": "10"
+		},
+		{
+			"key": "transaction_id",
+			"value": "10"
+		},
+		{
+			"key": "transaction_id_from_quotation_id",
+			"value": "10"
+		}
+	]
+}

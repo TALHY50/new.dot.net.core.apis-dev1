@@ -1,0 +1,2708 @@
+{
+  "uuid": "e3870cd3-6c96-45bb-add1-8ac8efc1d439",
+  "lastMigration": 32,
+  "name": "IMT.Web",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "",
+  "folders": [
+    {
+      "uuid": "ddd687d0-774d-4ff9-9169-70fbe714f4ca",
+      "name": "Thunes",
+      "children": [
+        {
+          "type": "folder",
+          "uuid": "7dd5a8f7-e3e1-4c2b-92be-638140e3f5c2"
+        },
+        {
+          "type": "folder",
+          "uuid": "970b8210-f997-4f63-96ed-22d131f16ba6"
+        },
+        {
+          "type": "folder",
+          "uuid": "d62f5f7f-5b79-4fa0-883a-7e1bbac4cdc8"
+        },
+        {
+          "type": "folder",
+          "uuid": "b7f4a80f-f878-46b6-a599-e880c73d7476"
+        },
+        {
+          "type": "folder",
+          "uuid": "1917e720-7acf-442d-a6aa-140801c93a5a"
+        }
+      ]
+    },
+    {
+      "uuid": "7dd5a8f7-e3e1-4c2b-92be-638140e3f5c2",
+      "name": "Connectivity",
+      "children": [
+        {
+          "type": "folder",
+          "uuid": "492e56d8-93c2-46e6-868b-058406058e65"
+        }
+      ]
+    },
+    {
+      "uuid": "970b8210-f997-4f63-96ed-22d131f16ba6",
+      "name": "Discovery",
+      "children": [
+        {
+          "type": "folder",
+          "uuid": "7ab72ac1-df10-4f67-a20a-e9ae2f9a0891"
+        },
+        {
+          "type": "folder",
+          "uuid": "7ff4b480-53cf-48e4-8032-24ccdfcaaa70"
+        },
+        {
+          "type": "folder",
+          "uuid": "0c176a6d-ef2b-4972-8da2-33c281660390"
+        },
+        {
+          "type": "folder",
+          "uuid": "236deba5-f5f5-4e67-9051-538e4644e19a"
+        },
+        {
+          "type": "folder",
+          "uuid": "76deccf6-45ee-4b8c-8f62-da530d713378"
+        }
+      ]
+    },
+    {
+      "uuid": "d62f5f7f-5b79-4fa0-883a-7e1bbac4cdc8",
+      "name": "Account",
+      "children": [
+        {
+          "type": "folder",
+          "uuid": "f8367971-1749-45f6-be70-23e83989a0ab"
+        },
+        {
+          "type": "folder",
+          "uuid": "65359bfd-4d51-482a-82a8-455288dbd60d"
+        },
+        {
+          "type": "folder",
+          "uuid": "81a3c4a3-c0cc-4561-b120-9926bac644f4"
+        }
+      ]
+    },
+    {
+      "uuid": "b7f4a80f-f878-46b6-a599-e880c73d7476",
+      "name": "Credit Parties",
+      "children": [
+        {
+          "type": "folder",
+          "uuid": "8ac8825b-cf33-4e2e-acb4-c1f7961da077"
+        },
+        {
+          "type": "folder",
+          "uuid": "9d425fe5-bc5d-42ea-97e2-f76718b5969d"
+        }
+      ]
+    },
+    {
+      "uuid": "1917e720-7acf-442d-a6aa-140801c93a5a",
+      "name": "Transfer",
+      "children": [
+        {
+          "type": "folder",
+          "uuid": "47ef9659-3b5e-4c73-baf2-2e22c4c473d9"
+        },
+        {
+          "type": "folder",
+          "uuid": "69627357-bccc-42bc-b3fd-94535d0a7fb1"
+        }
+      ]
+    },
+    {
+      "uuid": "492e56d8-93c2-46e6-868b-058406058e65",
+      "name": "Ping",
+      "children": [
+        {
+          "type": "route",
+          "uuid": "8d477f5f-cf83-4c02-a978-becda89625b4"
+        }
+      ]
+    },
+    {
+      "uuid": "7ab72ac1-df10-4f67-a20a-e9ae2f9a0891",
+      "name": "Services",
+      "children": [
+        {
+          "type": "route",
+          "uuid": "bd079278-d300-41a3-b951-d3e21345cf25"
+        }
+      ]
+    },
+    {
+      "uuid": "7ff4b480-53cf-48e4-8032-24ccdfcaaa70",
+      "name": "Payer",
+      "children": [
+        {
+          "type": "route",
+          "uuid": "517e0f62-c041-4b7d-bde8-ad97160158eb"
+        },
+        {
+          "type": "route",
+          "uuid": "b872f595-6bcf-4d43-8906-5f1472a02c0b"
+        }
+      ]
+    },
+    {
+      "uuid": "0c176a6d-ef2b-4972-8da2-33c281660390",
+      "name": "Payer Rates",
+      "children": [
+        {
+          "type": "route",
+          "uuid": "fdf15db6-54a7-4408-b576-7bb8300a2a44"
+        }
+      ]
+    },
+    {
+      "uuid": "236deba5-f5f5-4e67-9051-538e4644e19a",
+      "name": "Countries",
+      "children": [
+        {
+          "type": "route",
+          "uuid": "ee912b13-9348-41a9-b56f-9dc645cc316c"
+        }
+      ]
+    },
+    {
+      "uuid": "76deccf6-45ee-4b8c-8f62-da530d713378",
+      "name": "Lookups",
+      "children": [
+        {
+          "type": "route",
+          "uuid": "1c41b44c-0533-4db9-b037-8bed7d60109c"
+        }
+      ]
+    },
+    {
+      "uuid": "f8367971-1749-45f6-be70-23e83989a0ab",
+      "name": "Balances",
+      "children": [
+        {
+          "type": "route",
+          "uuid": "0c7b476f-0c10-413d-82f9-d3d737f5a226"
+        }
+      ]
+    },
+    {
+      "uuid": "65359bfd-4d51-482a-82a8-455288dbd60d",
+      "name": "Balance Movements",
+      "children": [
+        {
+          "type": "route",
+          "uuid": "67c4e7d2-a3fb-4004-a3d6-cf813db93b3f"
+        }
+      ]
+    },
+    {
+      "uuid": "81a3c4a3-c0cc-4561-b120-9926bac644f4",
+      "name": "Reports",
+      "children": [
+        {
+          "type": "route",
+          "uuid": "877e3531-5f09-4cbb-9361-d3642a0083d5"
+        },
+        {
+          "type": "route",
+          "uuid": "b1c9d3de-f795-4ac9-bded-3b2026ae0c6c"
+        },
+        {
+          "type": "route",
+          "uuid": "bdfe412b-7942-4233-ad39-c087d58693b6"
+        },
+        {
+          "type": "route",
+          "uuid": "600d97ce-961d-4f18-ac8f-13bb42ff472b"
+        }
+      ]
+    },
+    {
+      "uuid": "8ac8825b-cf33-4e2e-acb4-c1f7961da077",
+      "name": "Information",
+      "children": [
+        {
+          "type": "route",
+          "uuid": "040179e8-381f-486e-b901-5aea35d038be"
+        }
+      ]
+    },
+    {
+      "uuid": "9d425fe5-bc5d-42ea-97e2-f76718b5969d",
+      "name": "Verification",
+      "children": [
+        {
+          "type": "route",
+          "uuid": "8fa40038-3f3c-40cf-a365-3ec5799f1970"
+        }
+      ]
+    },
+    {
+      "uuid": "47ef9659-3b5e-4c73-baf2-2e22c4c473d9",
+      "name": "Quotations",
+      "children": [
+        {
+          "type": "route",
+          "uuid": "bb4e8cf8-5612-4f46-ae81-0a94912ff7a7"
+        },
+        {
+          "type": "route",
+          "uuid": "f0d75f14-b210-4d2f-83e3-692a27982674"
+        },
+        {
+          "type": "route",
+          "uuid": "4f699e5c-1a6f-4411-9e75-f0331a79f39c"
+        }
+      ]
+    },
+    {
+      "uuid": "69627357-bccc-42bc-b3fd-94535d0a7fb1",
+      "name": "Transactions",
+      "children": [
+        {
+          "type": "route",
+          "uuid": "6b393912-614a-40d3-9fa4-4af0b1f3f4fa"
+        },
+        {
+          "type": "route",
+          "uuid": "d2be3d41-2084-4c10-8086-1f8435df69bd"
+        },
+        {
+          "type": "route",
+          "uuid": "47216ba7-4bd3-4a64-b8ca-12ebaa0da030"
+        },
+        {
+          "type": "route",
+          "uuid": "80bcd872-80ba-4fc4-904b-2f1abea03171"
+        },
+        {
+          "type": "route",
+          "uuid": "c97188b1-1a41-4089-9e3b-8e3f577f0536"
+        },
+        {
+          "type": "route",
+          "uuid": "25629764-aa4d-4977-b204-585b6dbb39a5"
+        },
+        {
+          "type": "route",
+          "uuid": "ed60e875-76a8-46e6-ba11-2cb2e136c148"
+        },
+        {
+          "type": "route",
+          "uuid": "0033b2ad-7362-4436-aefb-e3f4ced11ca9"
+        },
+        {
+          "type": "route",
+          "uuid": "1b0b5388-9917-45ad-a005-033071404584"
+        },
+        {
+          "type": "route",
+          "uuid": "e123fff8-233a-4b6e-8d61-d67c48a246ea"
+        },
+        {
+          "type": "route",
+          "uuid": "2229a475-6e01-417e-871c-bdde01fa1a56"
+        },
+        {
+          "type": "route",
+          "uuid": "782a567c-51e0-4b92-9716-a6396e60f34b"
+        }
+      ]
+    },
+    {
+      "uuid": "69b7f237-06cd-4417-a202-8b89876584c5",
+      "name": "PayAll",
+      "children": [
+        {
+          "type": "folder",
+          "uuid": "c7891ef9-f8ab-4cae-9459-5e224d319129"
+        },
+        {
+          "type": "folder",
+          "uuid": "53df6245-1d11-4506-8922-e8abd70f9e6f"
+        },
+        {
+          "type": "folder",
+          "uuid": "a8010e22-07cc-46f6-9a0d-2067216530c4"
+        },
+        {
+          "type": "folder",
+          "uuid": "ed9e40f4-3721-4027-9878-66a2e1174cbb"
+        },
+        {
+          "type": "folder",
+          "uuid": "af79843e-4534-4f47-a582-84f7b32764f5"
+        },
+        {
+          "type": "folder",
+          "uuid": "2cfad3bd-60ca-4042-b15c-694487d6ab2a"
+        },
+        {
+          "type": "folder",
+          "uuid": "10972bdb-d295-4c42-b358-e079e29cb528"
+        },
+        {
+          "type": "folder",
+          "uuid": "a1186406-1def-4848-84db-fd6b0ed6c2ad"
+        },
+        {
+          "type": "folder",
+          "uuid": "fcbc722e-2f5d-4376-8abe-051e26cc6e5f"
+        },
+        {
+          "type": "folder",
+          "uuid": "52617f9f-4661-4b43-8eb6-218c19f37ec6"
+        }
+      ]
+    },
+    {
+      "uuid": "c7891ef9-f8ab-4cae-9459-5e224d319129",
+      "name": "Payments",
+      "children": [
+        {
+          "type": "route",
+          "uuid": "f995d017-e9ee-4406-b653-e57234d96be1"
+        },
+        {
+          "type": "route",
+          "uuid": "a468de74-9763-475a-aeec-c96693c28d86"
+        },
+        {
+          "type": "route",
+          "uuid": "db86f7ce-c729-42fb-b1c5-6c211f83fc36"
+        }
+      ]
+    },
+    {
+      "uuid": "53df6245-1d11-4506-8922-e8abd70f9e6f",
+      "name": "Payments intruments",
+      "children": [
+        {
+          "type": "route",
+          "uuid": "0b3423d2-f33b-461c-adfe-d37d5ff380d4"
+        },
+        {
+          "type": "route",
+          "uuid": "309e1e58-7d11-4e78-8a0b-be28dbeddcc4"
+        },
+        {
+          "type": "route",
+          "uuid": "7dcb098f-2e41-4cd4-b657-6d5232af8211"
+        },
+        {
+          "type": "route",
+          "uuid": "87345d72-a192-42a4-8f69-961521ccb9fc"
+        },
+        {
+          "type": "route",
+          "uuid": "a68b3018-b3ac-4dc0-ae25-a3e404c0a276"
+        }
+      ]
+    },
+    {
+      "uuid": "a8010e22-07cc-46f6-9a0d-2067216530c4",
+      "name": "Exchange",
+      "children": [
+        {
+          "type": "route",
+          "uuid": "902b2630-a56e-4a2b-aee6-165767478838"
+        },
+        {
+          "type": "route",
+          "uuid": "93cbb553-481a-4ec1-b595-c6366731fd2d"
+        },
+        {
+          "type": "route",
+          "uuid": "a318705e-24e2-44e8-9895-04d8d10e1efd"
+        },
+        {
+          "type": "route",
+          "uuid": "92616cba-ca38-442e-9384-8208f0fe873e"
+        },
+        {
+          "type": "route",
+          "uuid": "b54cd53d-2a4c-45fc-9d54-0440cc40eb26"
+        },
+        {
+          "type": "route",
+          "uuid": "d2a58c04-8d80-4782-aa90-4cc43e20c19c"
+        }
+      ]
+    },
+    {
+      "uuid": "ed9e40f4-3721-4027-9878-66a2e1174cbb",
+      "name": "Accounts",
+      "children": [
+        {
+          "type": "route",
+          "uuid": "fa31fed4-a5df-4864-bc76-c64345ca62cc"
+        }
+      ]
+    },
+    {
+      "uuid": "af79843e-4534-4f47-a582-84f7b32764f5",
+      "name": "Recipients",
+      "children": [
+        {
+          "type": "route",
+          "uuid": "5872b687-f691-4ced-b04a-ddcd7105ccae"
+        },
+        {
+          "type": "route",
+          "uuid": "a77e681c-33a8-4c2d-a8e5-980723f124d1"
+        },
+        {
+          "type": "route",
+          "uuid": "fce39683-6dbe-4909-a6f0-a0f652c71629"
+        },
+        {
+          "type": "route",
+          "uuid": "446ac5f8-a540-40e6-a6e1-cc56abb5861d"
+        }
+      ]
+    },
+    {
+      "uuid": "2cfad3bd-60ca-4042-b15c-694487d6ab2a",
+      "name": "Payers",
+      "children": [
+        {
+          "type": "route",
+          "uuid": "61082d7c-6311-487b-84c2-d87b779b98c6"
+        },
+        {
+          "type": "route",
+          "uuid": "26aa2d01-c2ed-4a38-9dec-1d5ff816f70f"
+        },
+        {
+          "type": "route",
+          "uuid": "8e3884f4-f537-48b9-8762-3678a20bc376"
+        },
+        {
+          "type": "route",
+          "uuid": "f8ce1075-cc39-4cef-92cd-2b90eaca8bcd"
+        }
+      ]
+    },
+    {
+      "uuid": "10972bdb-d295-4c42-b358-e079e29cb528",
+      "name": "Events",
+      "children": []
+    },
+    {
+      "uuid": "a1186406-1def-4848-84db-fd6b0ed6c2ad",
+      "name": "Exchange rates",
+      "children": []
+    },
+    {
+      "uuid": "fcbc722e-2f5d-4376-8abe-051e26cc6e5f",
+      "name": "Compliance",
+      "children": [
+        {
+          "type": "route",
+          "uuid": "5dde485b-5248-45ac-a33e-1a97ce5b7390"
+        }
+      ]
+    },
+    {
+      "uuid": "52617f9f-4661-4b43-8eb6-218c19f37ec6",
+      "name": "Discovery",
+      "children": [
+        {
+          "type": "route",
+          "uuid": "2a99a5b7-75f0-4240-8954-c70d42a6afdc"
+        }
+      ]
+    }
+  ],
+  "routes": [
+    {
+      "uuid": "0c7b476f-0c10-413d-82f9-d3d737f5a226",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "v2/money-transfer/balances",
+      "responses": [
+        {
+          "uuid": "07f8454d-04ce-44db-8716-bd27d49297c8",
+          "body": "[\r\n    {\r\n        \"id\": 1,\r\n        \"currency\": \"EUR\",\r\n        \"balance\": 10000000,\r\n        \"pending\": 0,\r\n        \"available\": 10000000,\r\n        \"credit_facility\": 0\r\n    }\r\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "67c4e7d2-a3fb-4004-a3d6-cf813db93b3f",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "v2/money-transfer/balances/:id/movements",
+      "responses": [
+        {
+          "uuid": "adeb5e39-b0a0-4430-a023-18504e648914",
+          "body": "[\r\n    {\r\n        \"balance_operation_number\": 4376,\r\n        \"creation_date\": \"2022-12-01T16:28:03Z\",\r\n        \"movement_type\": \"PAYOUT_FEES\",\r\n        \"amount\": -1.25,\r\n        \"currency\": \"USD\",\r\n        \"transaction_reference_id\": 123,\r\n        \"operation\": \"AUTHORIZE\",\r\n        \"balance\": 1162.56,\r\n        \"pending_balance\": -120.39\r\n    },\r\n    {\r\n        \"balance_operation_number\": 4375,\r\n        \"creation_date\": \"2022-12-01T16:28:03Z\",\r\n        \"movement_type\": \"PAYOUT\",\r\n        \"amount\": -1.07,\r\n        \"currency\": \"USD\",\r\n        \"transaction_reference_id\": 123,\r\n        \"operation\": \"AUTHORIZE\",\r\n        \"balance\": 1162.56,\r\n        \"pending_balance\": -119.14\r\n    }\r\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "877e3531-5f09-4cbb-9361-d3642a0083d5",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "v2/money-transfer/reports",
+      "responses": [
+        {
+          "uuid": "ff58fe7d-59ea-4785-a928-4c5672c3b337",
+          "body": "[\r\n  {\r\n    \"id\": 123,\r\n    \"type\": \"PARTNER_TRANSACTION_REPORT_DAILY\",\r\n    \"timezone\": \"UTC\",\r\n    \"cut_off_time\": \"00:00:00\",\r\n    \"report_date\": \"2023-10-23\",\r\n    \"period_start\": \"2023-10-23T00:00:00Z\",\r\n    \"period_end\": \"2023-10-24T00:00:00Z\",\r\n    \"files\": [\r\n      {\r\n        \"id\": 4567,\r\n        \"report_type\": \"PARTNER_TRANSACTION_REPORT_DAILY\",\r\n        \"file_type\": \"TRANSACTION_STATS\",\r\n        \"name\": \"daily_transaction_report_2023-10-23.csv\"\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"id\": 124,\r\n    \"type\": \"PARTNER_TRANSACTION_REPORT_DAILY\",\r\n    \"timezone\": \"UTC\",\r\n    \"cut_off_time\": \"00:00:00\",\r\n    \"report_date\": \"2023-10-21\",\r\n    \"period_start\": \"2023-10-21T00:00:00Z\",\r\n    \"period_end\": \"2023-10-22T00:00:00Z\",\r\n    \"files\": [\r\n      {\r\n        \"id\": 4568,\r\n        \"report_type\": \"PARTNER_TRANSACTION_REPORT_DAILY\",\r\n        \"file_type\": \"TRANSACTION_STATS\",\r\n        \"name\": \"daily_transaction_report_2023-10-21.csv\"\r\n      }\r\n    ]\r\n  },\r\n  {\r\n    \"id\": 4569,\r\n    \"type\": \"PARTNER_TRANSACTION_REPORT_DAILY\",\r\n    \"timezone\": \"UTC\",\r\n    \"cut_off_time\": \"00:00:00\",\r\n    \"report_date\": \"2023-10-17\",\r\n    \"period_start\": \"2023-10-17T00:00:00Z\",\r\n    \"period_end\": \"2023-10-18T00:00:00Z\",\r\n    \"files\": [\r\n      {\r\n        \"id\": 45610,\r\n        \"report_type\": \"PARTNER_TRANSACTION_REPORT_DAILY\",\r\n        \"file_type\": \"TRANSACTION_STATS\",\r\n        \"name\": \"daily_transaction_report_2023-10-17.csv\"\r\n      }\r\n    ]\r\n  }\r\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "b1c9d3de-f795-4ac9-bded-3b2026ae0c6c",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "v2/money-transfer/reports/:id",
+      "responses": [
+        {
+          "uuid": "49cb5771-60eb-4b1f-a194-1b56b1691fab",
+          "body": "{\r\n  \"id\": 123,\r\n  \"type\": \"PARTNER_TRANSACTION_REPORT_DAILY\",\r\n  \"timezone\": \"UTC\",\r\n  \"cut_off_time\": \"00:00:00\",\r\n  \"report_date\": \"2023-10-17\",\r\n  \"period_start\": \"2023-10-17T00:00:00Z\",\r\n  \"period_end\": \"2023-10-18T00:00:00Z\",\r\n  \"files\": [\r\n    {\r\n      \"id\": 4567,\r\n      \"report_type\": \"PARTNER_TRANSACTION_REPORT_DAILY\",\r\n      \"file_type\": \"TRANSACTION_STATS\",\r\n      \"name\": \"daily_transaction_report_2023-10-17.csv\"\r\n    }\r\n  ]\r\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "bdfe412b-7942-4233-ad39-c087d58693b6",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "v2/money-transfer/reports/:id/files",
+      "responses": [
+        {
+          "uuid": "c653ab23-4437-41ab-834e-567d2f54c671",
+          "body": "[\r\n  {\r\n    \"id\": 4567,\r\n    \"report_type\": \"PARTNER_TRANSACTION_REPORT_DAILY\",\r\n    \"file_type\": \"TRANSACTION_STATS\",\r\n    \"name\": \"daily_transaction_report_2023-10-17.csv\"\r\n  }\r\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "8d477f5f-cf83-4c02-a978-becda89625b4",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "ping",
+      "responses": [
+        {
+          "uuid": "8eef5138-b7f2-48b4-891f-6c194e8907a2",
+          "body": "{\r\n   \"status\": \"up\"\r\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "600d97ce-961d-4f18-ac8f-13bb42ff472b",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "v2/money-transfer/reports/:report_id/files/:id",
+      "responses": [
+        {
+          "uuid": "37810ba0-6b66-42b2-ac4b-b42d98b6ce72",
+          "body": "{\r\n  \"url\": \"<Signed URL>\"\r\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "bb4e8cf8-5612-4f46-ae81-0a94912ff7a7",
+      "type": "http",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "v2/money-transfer/quotations",
+      "responses": [
+        {
+          "uuid": "085272f5-703a-45eb-bfe4-6f44ce520ec1",
+          "body": "{\r\n    \"id\": 1,\r\n    \"external_id\": \"1481184321405\",\r\n    \"payer\": {\r\n        \"id\": 1,\r\n        \"name\": \"Sample Payer\",\r\n        \"currency\": \"USD\",\r\n        \"country_iso_code\": \"ZWE\",\r\n        \"service\": {\r\n            \"id\": 1,\r\n            \"name\": \"MobileWallet\"\r\n        }\r\n    },\r\n    \"mode\": \"SOURCE_AMOUNT\",\r\n    \"transaction_type\": \"C2C\",\r\n    \"source\": {\r\n        \"country_iso_code\": \"FRA\",\r\n        \"currency\": \"EUR\",\r\n        \"amount\": 10\r\n    },\r\n    \"destination\": {\r\n        \"currency\": \"USD\",\r\n        \"amount\": 10.69\r\n    },\r\n    \"sent_amount\": {\r\n        \"currency\": \"EUR\",\r\n        \"amount\": 10\r\n    },\r\n    \"wholesale_fx_rate\": 1.06891969534071,\r\n    \"fee\": {\r\n        \"currency\": \"EUR\",\r\n        \"amount\": 1.88\r\n    },\r\n    \"creation_date\": \"2016-11-02T09:07:44\",\r\n    \"expiration_date\": \"2016-11-03T09:07:44\"\r\n}",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "f0d75f14-b210-4d2f-83e3-692a27982674",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "v2/money-transfer/quotations/:id",
+      "responses": [
+        {
+          "uuid": "0cfa1c2d-25f6-47e3-bc31-9db5a050a62d",
+          "body": "{\r\n    \"id\": 1,\r\n    \"external_id\": \"1481184321405\",\r\n    \"payer\": {\r\n        \"id\": 1,\r\n        \"name\": \"Sample Payer\",\r\n        \"precision\": 2,\r\n        \"increment\": 0.01,\r\n        \"currency\": \"USD\",\r\n        \"country_iso_code\": \"ZWE\",\r\n        \"service\": {\r\n            \"id\": 1,\r\n            \"name\": \"MobileWallet\"\r\n        }\r\n    },\r\n    \"mode\": \"SOURCE_AMOUNT\",\r\n    \"transaction_type\": \"C2C\",\r\n    \"source\": {\r\n        \"country_iso_code\": \"FRA\",\r\n        \"currency\": \"EUR\",\r\n        \"amount\": 10\r\n    },\r\n    \"destination\": {\r\n        \"currency\": \"USD\",\r\n        \"amount\": 10.69\r\n    },\r\n    \"sent_amount\": {\r\n        \"currency\": \"EUR\",\r\n        \"amount\": 10\r\n    },\r\n    \"wholesale_fx_rate\": 1.06891969534071,\r\n    \"fee\": {\r\n        \"currency\": \"EUR\",\r\n        \"amount\": 1.88\r\n    },\r\n    \"creation_date\": \"2016-11-02T09:07:44\",\r\n    \"expiration_date\": \"2016-11-03T09:07:44\"\r\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "4f699e5c-1a6f-4411-9e75-f0331a79f39c",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "v2/money-transfer/quotations/ext-:external_id",
+      "responses": [
+        {
+          "uuid": "10cdedaf-8765-495e-b392-88943591d659",
+          "body": "{\r\n    \"id\": 1,\r\n    \"external_id\": \"1481184321405\",\r\n    \"payer\": {\r\n        \"id\": 1,\r\n        \"name\": \"Sample Payer\",\r\n        \"precision\": 2,\r\n        \"increment\": 0.01,\r\n        \"currency\": \"USD\",\r\n        \"country_iso_code\": \"ZWE\",\r\n        \"service\": {\r\n            \"id\": 1,\r\n            \"name\": \"MobileWallet\"\r\n        }\r\n    },\r\n    \"mode\": \"SOURCE_AMOUNT\",\r\n    \"transaction_type\": \"C2C\",\r\n    \"source\": {\r\n        \"country_iso_code\": \"FRA\",\r\n        \"currency\": \"EUR\",\r\n        \"amount\": 10\r\n    },\r\n    \"destination\": {\r\n        \"currency\": \"USD\",\r\n        \"amount\": 10.69\r\n    },\r\n    \"sent_amount\": {\r\n        \"currency\": \"EUR\",\r\n        \"amount\": 10\r\n    },\r\n    \"wholesale_fx_rate\": 1.06891969534071,\r\n    \"fee\": {\r\n        \"currency\": \"EUR\",\r\n        \"amount\": 1.88\r\n    },\r\n    \"creation_date\": \"2016-11-02T09:07:44\",\r\n    \"expiration_date\": \"2016-11-03T09:07:44\"\r\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "d2be3d41-2084-4c10-8086-1f8435df69bd",
+      "type": "http",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "v2/money-transfer/quotations/:id/transactions",
+      "responses": [
+        {
+          "uuid": "95c4cec5-ef9d-40b4-a526-35999472b2d0",
+          "body": "{\r\n     \"id\": 1,\r\n     \"status\": \"10000\",\r\n     \"status_message\": \"CREATED\",\r\n     \"status_class\": \"1\",\r\n     \"status_class_message\": \"CREATED\",\r\n     \"external_id\": \"1478078339357\",\r\n     \"external_code\": null,\r\n     \"transaction_type\": \"C2C\",\r\n     \"payer_transaction_reference\": null,\r\n     \"payer_transaction_code\": null,\r\n     \"creation_date\": \"2016-11-02T09:19:15\",\r\n     \"expiration_date\": \"2016-11-03T09:07:44\",\r\n     \"credit_party_identifier\": {\r\n        \"msisdn\": \"+263775892100\",\r\n        \"bank_account_number\": \"0123456789\",\r\n        \"swift_bic_code\": \"ABCDEFGH\"\r\n     },\r\n     \"source\": {\r\n        \"country_iso_code\": \"FRA\",\r\n        \"currency\": \"EUR\",\r\n        \"amount\": 10\r\n     },\r\n     \"destination\": {\r\n        \"currency\": \"USD\",\r\n        \"amount\": 10.69\r\n     },\r\n     \"payer\": {\r\n        \"id\": 1,\r\n        \"name\": \"Sample Payer\",\r\n        \"currency\": \"USD\",\r\n        \"country_iso_code\": \"ZWE\",\r\n        \"service\": {\r\n            \"id\": 1,\r\n            \"name\": \"MobileWallet\"\r\n        }\r\n     },\r\n     \"sender\": {\r\n        \"lastname\": \"Doe\",\r\n        \"lastname2\": null,\r\n        \"middlename\": null,\r\n        \"firstname\": \"John\",\r\n        \"nativename\": null,\r\n        \"nationality_country_iso_code\": \"FRA\",\r\n        \"code\": null,\r\n        \"date_of_birth\": \"1970-01-01\",\r\n        \"country_of_birth_iso_code\": \"FRA\",\r\n        \"gender\": \"MALE\",\r\n        \"address\": \"42 Rue des fleurs\",\r\n        \"postal_code\": \"75000\",\r\n        \"city\": \"Paris\",\r\n        \"country_iso_code\": \"FRA\",\r\n        \"msisdn\": \"33712345678\",\r\n        \"email\": \"john.doe@mail.com\",\r\n        \"id_type\": \"SOCIAL_SECURITY\",\r\n        \"id_country_iso_code\": null,\r\n        \"id_number\": \"502-42-0158\",\r\n        \"id_delivery_date\": \"2016-01-01\",\r\n        \"id_expiration_date\": null,\r\n        \"occupation\": \"Residential Advisor\",\r\n        \"province_state\": null,\r\n        \"beneficiary_relationship\": null,\r\n        \"source_of_funds\": null,\r\n        \"bank_account_number\": null\r\n     },\r\n     \"beneficiary\": {\r\n        \"lastname\": \"Doe\",\r\n        \"lastname2\": null,\r\n        \"middlename\": null,\r\n        \"firstname\": \"Jane\",\r\n        \"nativename\": null,\r\n        \"nationality_country_iso_code\": \"FRA\",\r\n        \"code\": null,\r\n        \"date_of_birth\": \"1971-01-01\",\r\n        \"country_of_birth_iso_code\": \"ZWE\",\r\n        \"gender\": \"MALE\",\r\n        \"address\": \"3 Norfolk Road\",\r\n        \"postal_code\": \"4581\",\r\n        \"city\": \"Harare\",\r\n        \"country_iso_code\": \"ZWE\",\r\n        \"msisdn\": \"263775892364\",\r\n        \"email\": \"jane.doe@mail.com\",\r\n        \"id_type\": \"SOCIAL_SECURITY\",\r\n        \"id_country_iso_code\": \"ZWE\",\r\n        \"id_number\": \"178027317681327\",\r\n        \"id_delivery_date\": null,\r\n        \"id_expiration_date\": null,\r\n        \"occupation\": \"Sales Executive\",\r\n        \"bank_account_holder_name\": null,\r\n        \"province_state\": null\r\n     },\r\n     \"callback_url\": \"{URL_PLACEHOLDER}\",\r\n     \"sent_amount\": {\r\n        \"currency\": \"EUR\",\r\n        \"amount\": 10\r\n     },\r\n     \"wholesale_fx_rate\": 1.06891969534071,\r\n     \"retail_rate\": null,\r\n     \"retail_fee\": 1,\r\n     \"retail_fee_currency\": \"EUR\",\r\n     \"fee\": {\r\n        \"currency\": \"EUR\",\r\n        \"amount\": 1.88\r\n     },\r\n     \"purpose_of_remittance\": \"FAMILY_SUPPORT\",\r\n     \"document_reference_number\": \"12345678\",\r\n     \"additional_information_1\": null,\r\n     \"additional_information_2\": null,\r\n     \"additional_information_3\": null,\r\n     \"reference\": \"some reference\"\r\n}",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "4709fe01-9590-43b7-b4e8-ffc288c04455",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "",
+              "value": "",
+              "invert": false,
+              "operator": "null"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "47216ba7-4bd3-4a64-b8ca-12ebaa0da030",
+      "type": "http",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "v2/money-transfer/quotations/ext-:external_id/transactions",
+      "responses": [
+        {
+          "uuid": "ad50e46a-9661-4470-a554-af3f3c6b1842",
+          "body": "{\r\n     \"id\": 1,\r\n     \"status\": \"20000\",\r\n     \"status_message\": \"CONFIRMED\",\r\n     \"status_class\": \"2\",\r\n     \"status_class_message\": \"CONFIRMED\",\r\n     \"external_id\": \"1478078339357\",\r\n     \"external_code\": null,\r\n     \"transaction_type\": \"C2C\",\r\n     \"payer_transaction_reference\": null,\r\n     \"payer_transaction_code\": null,\r\n     \"creation_date\": \"2016-11-02T09:19:15\",\r\n     \"expiration_date\": \"2016-11-03T09:07:44\",\r\n     \"credit_party_identifier\": {\r\n        \"msisdn\": \"+263775892100\",\r\n        \"bank_account_number\": \"0123456789\",\r\n        \"swift_bic_code\": \"ABCDEFGH\"\r\n     },\r\n     \"source\": {\r\n        \"country_iso_code\": \"FRA\",\r\n        \"currency\": \"EUR\",\r\n        \"amount\": 10\r\n     },\r\n     \"destination\": {\r\n        \"currency\": \"USD\",\r\n        \"amount\": 10.69\r\n     },\r\n     \"payer\": {\r\n        \"id\": 1,\r\n        \"name\": \"Sample Payer\",\r\n        \"currency\": \"USD\",\r\n        \"country_iso_code\": \"ZWE\",\r\n        \"service\": {\r\n            \"id\": 1,\r\n            \"name\": \"MobileWallet\"\r\n        }\r\n     },\r\n     \"sender\": {\r\n        \"lastname\": \"Doe\",\r\n        \"lastname2\": null,\r\n        \"middlename\": null,\r\n        \"firstname\": \"John\",\r\n        \"nativename\": null,\r\n        \"nationality_country_iso_code\": \"FRA\",\r\n        \"code\": null,\r\n        \"date_of_birth\": \"1970-01-01\",\r\n        \"country_of_birth_iso_code\": \"FRA\",\r\n        \"gender\": \"MALE\",\r\n        \"address\": \"42 Rue des fleurs\",\r\n        \"postal_code\": \"75000\",\r\n        \"city\": \"Paris\",\r\n        \"country_iso_code\": \"FRA\",\r\n        \"msisdn\": \"33712345678\",\r\n        \"email\": \"john.doe@mail.com\",\r\n        \"id_type\": \"SOCIAL_SECURITY\",\r\n        \"id_country_iso_code\": null,\r\n        \"id_number\": \"502-42-0158\",\r\n        \"id_delivery_date\": \"2016-01-01\",\r\n        \"id_expiration_date\": null,\r\n        \"occupation\": \"Residential Advisor\",\r\n        \"province_state\": null,\r\n        \"beneficiary_relationship\": null,\r\n        \"source_of_funds\": null,\r\n        \"bank_account_number\": null\r\n     },\r\n     \"beneficiary\": {\r\n        \"lastname\": \"Doe\",\r\n        \"lastname2\": null,\r\n        \"middlename\": null,\r\n        \"firstname\": \"Jane\",\r\n        \"nativename\": null,\r\n        \"nationality_country_iso_code\": \"FRA\",\r\n        \"code\": null,\r\n        \"date_of_birth\": \"1971-01-01\",\r\n        \"country_of_birth_iso_code\": \"ZWE\",\r\n        \"gender\": \"MALE\",\r\n        \"address\": \"3 Norfolk Road\",\r\n        \"postal_code\": \"4581\",\r\n        \"city\": \"Harare\",\r\n        \"country_iso_code\": \"ZWE\",\r\n        \"msisdn\": \"263775892364\",\r\n        \"email\": \"jane.doe@mail.com\",\r\n        \"id_type\": \"SOCIAL_SECURITY\",\r\n        \"id_country_iso_code\": \"ZWE\",\r\n        \"id_number\": \"178027317681327\",\r\n        \"id_delivery_date\": null,\r\n        \"id_expiration_date\": null,\r\n        \"occupation\": \"Sales Executive\",\r\n        \"bank_account_holder_name\": null,\r\n        \"province_state\": null\r\n     },\r\n     \"callback_url\": \"{URL_PLACEHOLDER}\",\r\n     \"sent_amount\": {\r\n        \"currency\": \"EUR\",\r\n        \"amount\": 10\r\n     },\r\n     \"wholesale_fx_rate\": 1.06891969534071,\r\n     \"retail_rate\": null,\r\n     \"retail_fee\": 1,\r\n     \"retail_fee_currency\": \"EUR\",\r\n     \"fee\": {\r\n        \"currency\": \"EUR\",\r\n        \"amount\": 1.88\r\n     },\r\n     \"purpose_of_remittance\": \"FAMILY_SUPPORT\",\r\n     \"document_reference_number\": null,\r\n     \"additional_information_1\": null,\r\n     \"additional_information_2\": null,\r\n     \"additional_information_3\": null\r\n}",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "ccffb6d8-8731-4ce5-993f-a64fa060492c",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "",
+              "value": "",
+              "invert": false,
+              "operator": "null"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "80bcd872-80ba-4fc4-904b-2f1abea03171",
+      "type": "http",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "v2/money-transfer/transactions/:id/attachments",
+      "responses": [
+        {
+          "uuid": "3c1cb246-6fa0-487d-9eb6-fd4213f3ddc6",
+          "body": "{\r\n    \"id\": 1,\r\n    \"content_type\": \"application/pdf\",\r\n    \"name\": \"invoice.pdf\",\r\n    \"transaction_id\": 1,\r\n    \"type\": \"invoice\"\r\n}",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "7dfe8363-89d9-44c0-9623-9df454f0a17d",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "",
+              "value": "",
+              "invert": false,
+              "operator": "null"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "c97188b1-1a41-4089-9e3b-8e3f577f0536",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "v2/money-transfer/transactions/:id/attachments",
+      "responses": [
+        {
+          "uuid": "8d5d93a3-bba1-47c8-8d3c-dcf1c02a6553",
+          "body": "[\r\n    {\r\n        \"id\": 1,\r\n        \"content_type\": \"application/pdf\",\r\n        \"name\": \"invoice.pdf\",\r\n        \"transaction_id\": 1,\r\n        \"type\": \"invoice\"\r\n    },\r\n    {\r\n        \"id\": 2,\r\n        \"content_type\": \"application/pdf\",\r\n        \"name\": \"po.pdf\",\r\n        \"transaction_id\": 1,\r\n        \"type\": \"purchase_order\"\r\n    }\r\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "25629764-aa4d-4977-b204-585b6dbb39a5",
+      "type": "http",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "v2/money-transfer/transactions/ext-:external_id/attachments",
+      "responses": [
+        {
+          "uuid": "ef2dd248-21d4-4060-a13f-dba5943a20e3",
+          "body": "[\r\n    {\r\n        \"id\": 1,\r\n        \"content_type\": \"application/pdf\",\r\n        \"name\": \"invoice.pdf\",\r\n        \"transaction_id\": 1,\r\n        \"type\": \"invoice\"\r\n    },\r\n    {\r\n        \"id\": 2,\r\n        \"content_type\": \"application/pdf\",\r\n        \"name\": \"po.pdf\",\r\n        \"transaction_id\": 1,\r\n        \"type\": \"purchase_order\"\r\n    }\r\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "ed60e875-76a8-46e6-ba11-2cb2e136c148",
+      "type": "http",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "v2/money-transfer/transactions/:id/confirm",
+      "responses": [
+        {
+          "uuid": "b86b030c-73d6-4992-97e3-e46600275f7b",
+          "body": "{\r\n     \"id\": 1,\r\n     \"status\": \"20000\",\r\n     \"status_message\": \"CONFIRMED\",\r\n     \"status_class\": \"2\",\r\n     \"status_class_message\": \"CONFIRMED\",\r\n     \"external_id\": \"1478078339357\",\r\n     \"external_code\": null,\r\n     \"transaction_type\": \"C2C\",\r\n     \"payer_transaction_reference\": null,\r\n     \"payer_transaction_code\": null,\r\n     \"creation_date\": \"2016-11-02T09:19:15\",\r\n     \"expiration_date\": \"2016-11-03T09:07:44\",\r\n     \"credit_party_identifier\": {\r\n        \"msisdn\": \"+263775892100\",\r\n        \"bank_account_number\": \"0123456789\",\r\n        \"swift_bic_code\": \"ABCDEFGH\"\r\n     },\r\n     \"source\": {\r\n        \"country_iso_code\": \"FRA\",\r\n        \"currency\": \"EUR\",\r\n        \"amount\": 10\r\n     },\r\n     \"destination\": {\r\n        \"currency\": \"USD\",\r\n        \"amount\": 10.69\r\n     },\r\n     \"payer\": {\r\n        \"id\": 1,\r\n        \"name\": \"Sample Payer\",\r\n        \"currency\": \"USD\",\r\n        \"country_iso_code\": \"ZWE\",\r\n        \"service\": {\r\n            \"id\": 1,\r\n            \"name\": \"MobileWallet\"\r\n        }\r\n     },\r\n     \"sender\": {\r\n        \"lastname\": \"Doe\",\r\n        \"lastname2\": null,\r\n        \"middlename\": null,\r\n        \"firstname\": \"John\",\r\n        \"nativename\": null,\r\n        \"nationality_country_iso_code\": \"FRA\",\r\n        \"code\": null,\r\n        \"date_of_birth\": \"1970-01-01\",\r\n        \"country_of_birth_iso_code\": \"FRA\",\r\n        \"gender\": \"MALE\",\r\n        \"address\": \"42 Rue des fleurs\",\r\n        \"postal_code\": \"75000\",\r\n        \"city\": \"Paris\",\r\n        \"country_iso_code\": \"FRA\",\r\n        \"msisdn\": \"33712345678\",\r\n        \"email\": \"john.doe@mail.com\",\r\n        \"id_type\": \"SOCIAL_SECURITY\",\r\n        \"id_country_iso_code\": null,\r\n        \"id_number\": \"502-42-0158\",\r\n        \"id_delivery_date\": \"2016-01-01\",\r\n        \"id_expiration_date\": null,\r\n        \"occupation\": \"Residential Advisor\",\r\n        \"province_state\": null,\r\n        \"beneficiary_relationship\": null,\r\n        \"source_of_funds\": null,\r\n        \"bank_account_number\": null\r\n     },\r\n     \"beneficiary\": {\r\n        \"lastname\": \"Doe\",\r\n        \"lastname2\": null,\r\n        \"middlename\": null,\r\n        \"firstname\": \"Jane\",\r\n        \"nativename\": null,\r\n        \"nationality_country_iso_code\": \"FRA\",\r\n        \"code\": null,\r\n        \"date_of_birth\": \"1971-01-01\",\r\n        \"country_of_birth_iso_code\": \"ZWE\",\r\n        \"gender\": \"MALE\",\r\n        \"address\": \"3 Norfolk Road\",\r\n        \"postal_code\": \"4581\",\r\n        \"city\": \"Harare\",\r\n        \"country_iso_code\": \"ZWE\",\r\n        \"msisdn\": \"263775892364\",\r\n        \"email\": \"jane.doe@mail.com\",\r\n        \"id_type\": \"SOCIAL_SECURITY\",\r\n        \"id_country_iso_code\": \"ZWE\",\r\n        \"id_number\": \"178027317681327\",\r\n        \"id_delivery_date\": null,\r\n        \"id_expiration_date\": null,\r\n        \"occupation\": \"Sales Executive\",\r\n        \"bank_account_holder_name\": null,\r\n        \"province_state\": null\r\n     },\r\n     \"callback_url\": \"{URL_PLACEHOLDER}\",\r\n     \"sent_amount\": {\r\n        \"currency\": \"EUR\",\r\n        \"amount\": 10\r\n     },\r\n     \"wholesale_fx_rate\": 1.06891969534071,\r\n     \"retail_rate\": null,\r\n     \"retail_fee\": 1,\r\n     \"retail_fee_currency\": \"EUR\",\r\n     \"fee\": {\r\n        \"currency\": \"EUR\",\r\n        \"amount\": 1.88\r\n     },\r\n     \"purpose_of_remittance\": \"FAMILY_SUPPORT\",\r\n     \"document_reference_number\": null,\r\n     \"additional_information_1\": null,\r\n     \"additional_information_2\": null,\r\n     \"additional_information_3\": null\r\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "0033b2ad-7362-4436-aefb-e3f4ced11ca9",
+      "type": "http",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "v2/money-transfer/transactions/ext-:external_id/confirm",
+      "responses": [
+        {
+          "uuid": "8947b14e-c030-4c6f-9a72-8957ca011cfc",
+          "body": "{\r\n     \"id\": 1,\r\n     \"status\": \"20000\",\r\n     \"status_message\": \"CONFIRMED\",\r\n     \"status_class\": \"2\",\r\n     \"status_class_message\": \"CONFIRMED\",\r\n     \"external_id\": \"1478078339357\",\r\n     \"external_code\": null,\r\n     \"transaction_type\": \"C2C\",\r\n     \"payer_transaction_reference\": null,\r\n     \"payer_transaction_code\": null,\r\n     \"creation_date\": \"2016-11-02T09:19:15\",\r\n     \"expiration_date\": \"2016-11-03T09:07:44\",\r\n     \"credit_party_identifier\": {\r\n        \"msisdn\": \"+263775892100\",\r\n        \"bank_account_number\": \"0123456789\",\r\n        \"swift_bic_code\": \"ABCDEFGH\"\r\n     },\r\n     \"source\": {\r\n        \"country_iso_code\": \"FRA\",\r\n        \"currency\": \"EUR\",\r\n        \"amount\": 10\r\n     },\r\n     \"destination\": {\r\n        \"currency\": \"USD\",\r\n        \"amount\": 10.69\r\n     },\r\n     \"payer\": {\r\n        \"id\": 1,\r\n        \"name\": \"Sample Payer\",\r\n        \"currency\": \"USD\",\r\n        \"country_iso_code\": \"ZWE\",\r\n        \"service\": {\r\n            \"id\": 1,\r\n            \"name\": \"MobileWallet\"\r\n        }\r\n     },\r\n     \"sender\": {\r\n        \"lastname\": \"Doe\",\r\n        \"lastname2\": null,\r\n        \"middlename\": null,\r\n        \"firstname\": \"John\",\r\n        \"nativename\": null,\r\n        \"nationality_country_iso_code\": \"FRA\",\r\n        \"code\": null,\r\n        \"date_of_birth\": \"1970-01-01\",\r\n        \"country_of_birth_iso_code\": \"FRA\",\r\n        \"gender\": \"MALE\",\r\n        \"address\": \"42 Rue des fleurs\",\r\n        \"postal_code\": \"75000\",\r\n        \"city\": \"Paris\",\r\n        \"country_iso_code\": \"FRA\",\r\n        \"msisdn\": \"33712345678\",\r\n        \"email\": \"john.doe@mail.com\",\r\n        \"id_type\": \"SOCIAL_SECURITY\",\r\n        \"id_country_iso_code\": null,\r\n        \"id_number\": \"502-42-0158\",\r\n        \"id_delivery_date\": \"2016-01-01\",\r\n        \"id_expiration_date\": null,\r\n        \"occupation\": \"Residential Advisor\",\r\n        \"province_state\": null,\r\n        \"beneficiary_relationship\": null,\r\n        \"source_of_funds\": null,\r\n        \"bank_account_number\": null\r\n     },\r\n     \"beneficiary\": {\r\n        \"lastname\": \"Doe\",\r\n        \"lastname2\": null,\r\n        \"middlename\": null,\r\n        \"firstname\": \"Jane\",\r\n        \"nativename\": null,\r\n        \"nationality_country_iso_code\": \"FRA\",\r\n        \"code\": null,\r\n        \"date_of_birth\": \"1971-01-01\",\r\n        \"country_of_birth_iso_code\": \"ZWE\",\r\n        \"gender\": \"MALE\",\r\n        \"address\": \"3 Norfolk Road\",\r\n        \"postal_code\": \"4581\",\r\n        \"city\": \"Harare\",\r\n        \"country_iso_code\": \"ZWE\",\r\n        \"msisdn\": \"263775892364\",\r\n        \"email\": \"jane.doe@mail.com\",\r\n        \"id_type\": \"SOCIAL_SECURITY\",\r\n        \"id_country_iso_code\": \"ZWE\",\r\n        \"id_number\": \"178027317681327\",\r\n        \"id_delivery_date\": null,\r\n        \"id_expiration_date\": null,\r\n        \"occupation\": \"Sales Executive\",\r\n        \"bank_account_holder_name\": null,\r\n        \"province_state\": null\r\n     },\r\n     \"callback_url\": \"{URL_PLACEHOLDER}\",\r\n     \"sent_amount\": {\r\n        \"currency\": \"EUR\",\r\n        \"amount\": 10\r\n     },\r\n     \"wholesale_fx_rate\": 1.06891969534071,\r\n     \"retail_rate\": null,\r\n     \"retail_fee\": 1,\r\n     \"retail_fee_currency\": \"EUR\",\r\n     \"fee\": {\r\n        \"currency\": \"EUR\",\r\n        \"amount\": 1.88\r\n     },\r\n     \"purpose_of_remittance\": \"FAMILY_SUPPORT\",\r\n     \"document_reference_number\": null,\r\n     \"additional_information_1\": null,\r\n     \"additional_information_2\": null,\r\n     \"additional_information_3\": null\r\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "1b0b5388-9917-45ad-a005-033071404584",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "v2/money-transfer/transactions/:id",
+      "responses": [
+        {
+          "uuid": "4dfbcc3e-5315-46fe-b971-7e6f715d49dc",
+          "body": "{\r\n     \"id\": 1,\r\n     \"status\": \"50000\",\r\n     \"status_message\": \"SUBMITTED\",\r\n     \"status_class\": \"5\",\r\n     \"status_class_message\": \"SUBMITTED\",\r\n     \"external_id\": \"1478078339357\",\r\n     \"external_code\": null,\r\n     \"transaction_type\": \"C2C\",\r\n     \"payer_transaction_reference\": null,\r\n     \"payer_transaction_code\": null,\r\n     \"creation_date\": \"2016-11-02T09:19:15\",\r\n     \"expiration_date\": \"2016-11-03T09:07:44\",\r\n     \"credit_party_identifier\": {\r\n        \"msisdn\": \"+263775892100\",\r\n        \"bank_account_number\": \"0123456789\",\r\n        \"swift_bic_code\": \"ABCDEFGH\"\r\n     },\r\n     \"source\": {\r\n        \"country_iso_code\": \"FRA\",\r\n        \"currency\": \"EUR\",\r\n        \"amount\": 10\r\n     },\r\n     \"destination\": {\r\n        \"currency\": \"USD\",\r\n        \"amount\": 10.69\r\n     },\r\n     \"payer\": {\r\n        \"id\": 1,\r\n        \"name\": \"Sample Payer\",\r\n        \"currency\": \"USD\",\r\n        \"country_iso_code\": \"ZWE\",\r\n        \"service\": {\r\n            \"id\": 1,\r\n            \"name\": \"MobileWallet\"\r\n        }\r\n     },\r\n     \"sender\": {\r\n        \"lastname\": \"Doe\",\r\n        \"lastname2\": null,\r\n        \"middlename\": null,\r\n        \"firstname\": \"John\",\r\n        \"nativename\": null,\r\n        \"nationality_country_iso_code\": \"FRA\",\r\n        \"code\": null,\r\n        \"date_of_birth\": \"1970-01-01\",\r\n        \"country_of_birth_iso_code\": \"FRA\",\r\n        \"gender\": \"MALE\",\r\n        \"address\": \"42 Rue des fleurs\",\r\n        \"postal_code\": \"75000\",\r\n        \"city\": \"Paris\",\r\n        \"country_iso_code\": \"FRA\",\r\n        \"msisdn\": \"33712345678\",\r\n        \"email\": \"john.doe@mail.com\",\r\n        \"id_type\": \"SOCIAL_SECURITY\",\r\n        \"id_country_iso_code\": null,\r\n        \"id_number\": \"502-42-0158\",\r\n        \"id_delivery_date\": \"2016-01-01\",\r\n        \"id_expiration_date\": null,\r\n        \"occupation\": \"Residential Advisor\",\r\n        \"province_state\": null,\r\n        \"beneficiary_relationship\": null,\r\n        \"source_of_funds\": null,\r\n        \"bank_account_number\": null\r\n     },\r\n     \"beneficiary\": {\r\n        \"lastname\": \"Doe\",\r\n        \"lastname2\": null,\r\n        \"middlename\": null,\r\n        \"firstname\": \"Jane\",\r\n        \"nativename\": null,\r\n        \"nationality_country_iso_code\": \"FRA\",\r\n        \"code\": null,\r\n        \"date_of_birth\": \"1971-01-01\",\r\n        \"country_of_birth_iso_code\": \"ZWE\",\r\n        \"gender\": \"MALE\",\r\n        \"address\": \"3 Norfolk Road\",\r\n        \"postal_code\": \"4581\",\r\n        \"city\": \"Harare\",\r\n        \"country_iso_code\": \"ZWE\",\r\n        \"msisdn\": \"263775892364\",\r\n        \"email\": \"jane.doe@mail.com\",\r\n        \"id_type\": \"SOCIAL_SECURITY\",\r\n        \"id_country_iso_code\": \"ZWE\",\r\n        \"id_number\": \"178027317681327\",\r\n        \"id_delivery_date\": null,\r\n        \"id_expiration_date\": null,\r\n        \"occupation\": \"Sales Executive\",\r\n        \"bank_account_holder_name\": null,\r\n        \"province_state\": null\r\n     },\r\n     \"callback_url\": \"{URL_PLACEHOLDER}\",\r\n     \"sent_amount\": {\r\n        \"currency\": \"EUR\",\r\n        \"amount\": 10\r\n     },\r\n     \"wholesale_fx_rate\": 1.06891969534071,\r\n     \"retail_rate\": null,\r\n     \"retail_fee\": 1,\r\n     \"retail_fee_currency\": \"EUR\",\r\n     \"fee\": {\r\n        \"currency\": \"EUR\",\r\n        \"amount\": 1.88\r\n     },\r\n     \"purpose_of_remittance\": \"FAMILY_SUPPORT\",\r\n     \"document_reference_number\": null,\r\n     \"additional_information_1\": null,\r\n     \"additional_information_2\": null,\r\n     \"additional_information_3\": null\r\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "e123fff8-233a-4b6e-8d61-d67c48a246ea",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "v2/money-transfer/transactions/ext-:external_id",
+      "responses": [
+        {
+          "uuid": "8d04c86b-3427-4eb2-935d-6c61349712b2",
+          "body": "{\r\n     \"id\": 1,\r\n     \"status\": \"50000\",\r\n     \"status_message\": \"SUBMITTED\",\r\n     \"status_class\": \"5\",\r\n     \"status_class_message\": \"SUBMITTED\",\r\n     \"external_id\": \"1478078339357\",\r\n     \"external_code\": null,\r\n     \"transaction_type\": \"C2C\",\r\n     \"payer_transaction_reference\": null,\r\n     \"payer_transaction_code\": null,\r\n     \"creation_date\": \"2016-11-02T09:19:15\",\r\n     \"expiration_date\": \"2016-11-03T09:07:44\",\r\n     \"credit_party_identifier\": {\r\n        \"msisdn\": \"+263775892100\",\r\n        \"bank_account_number\": \"0123456789\",\r\n        \"swift_bic_code\": \"ABCDEFGH\"\r\n     },\r\n     \"source\": {\r\n        \"country_iso_code\": \"FRA\",\r\n        \"currency\": \"EUR\",\r\n        \"amount\": 10\r\n     },\r\n     \"destination\": {\r\n        \"currency\": \"USD\",\r\n        \"amount\": 10.69\r\n     },\r\n     \"payer\": {\r\n        \"id\": 1,\r\n        \"name\": \"Sample Payer\",\r\n        \"currency\": \"USD\",\r\n        \"country_iso_code\": \"ZWE\",\r\n        \"service\": {\r\n            \"id\": 1,\r\n            \"name\": \"MobileWallet\"\r\n        }\r\n     },\r\n     \"sender\": {\r\n        \"lastname\": \"Doe\",\r\n        \"lastname2\": null,\r\n        \"middlename\": null,\r\n        \"firstname\": \"John\",\r\n        \"nativename\": null,\r\n        \"nationality_country_iso_code\": \"FRA\",\r\n        \"code\": null,\r\n        \"date_of_birth\": \"1970-01-01\",\r\n        \"country_of_birth_iso_code\": \"FRA\",\r\n        \"gender\": \"MALE\",\r\n        \"address\": \"42 Rue des fleurs\",\r\n        \"postal_code\": \"75000\",\r\n        \"city\": \"Paris\",\r\n        \"country_iso_code\": \"FRA\",\r\n        \"msisdn\": \"33712345678\",\r\n        \"email\": \"john.doe@mail.com\",\r\n        \"id_type\": \"SOCIAL_SECURITY\",\r\n        \"id_country_iso_code\": null,\r\n        \"id_number\": \"502-42-0158\",\r\n        \"id_delivery_date\": \"2016-01-01\",\r\n        \"id_expiration_date\": null,\r\n        \"occupation\": \"Residential Advisor\",\r\n        \"province_state\": null,\r\n        \"beneficiary_relationship\": null,\r\n        \"source_of_funds\": null,\r\n        \"bank_account_number\": null\r\n     },\r\n     \"beneficiary\": {\r\n        \"lastname\": \"Doe\",\r\n        \"lastname2\": null,\r\n        \"middlename\": null,\r\n        \"firstname\": \"Jane\",\r\n        \"nativename\": null,\r\n        \"nationality_country_iso_code\": \"FRA\",\r\n        \"code\": null,\r\n        \"date_of_birth\": \"1971-01-01\",\r\n        \"country_of_birth_iso_code\": \"ZWE\",\r\n        \"gender\": \"MALE\",\r\n        \"address\": \"3 Norfolk Road\",\r\n        \"postal_code\": \"4581\",\r\n        \"city\": \"Harare\",\r\n        \"country_iso_code\": \"ZWE\",\r\n        \"msisdn\": \"263775892364\",\r\n        \"email\": \"jane.doe@mail.com\",\r\n        \"id_type\": \"SOCIAL_SECURITY\",\r\n        \"id_country_iso_code\": \"ZWE\",\r\n        \"id_number\": \"178027317681327\",\r\n        \"id_delivery_date\": null,\r\n        \"id_expiration_date\": null,\r\n        \"occupation\": \"Sales Executive\",\r\n        \"bank_account_holder_name\": null,\r\n        \"province_state\": null\r\n     },\r\n     \"callback_url\": \"{URL_PLACEHOLDER}\",\r\n     \"sent_amount\": {\r\n        \"currency\": \"EUR\",\r\n        \"amount\": 10\r\n     },\r\n     \"wholesale_fx_rate\": 1.06891969534071,\r\n     \"retail_rate\": null,\r\n     \"retail_fee\": 1,\r\n     \"retail_fee_currency\": \"EUR\",\r\n     \"fee\": {\r\n        \"currency\": \"EUR\",\r\n        \"amount\": 1.88\r\n     },\r\n     \"purpose_of_remittance\": \"FAMILY_SUPPORT\",\r\n     \"document_reference_number\": null,\r\n     \"additional_information_1\": null,\r\n     \"additional_information_2\": null,\r\n     \"additional_information_3\": null\r\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "6b393912-614a-40d3-9fa4-4af0b1f3f4fa",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "v2/money-transfer/transactions/ext-{external-id}/attachments",
+      "responses": [
+        {
+          "uuid": "aea75381-32d1-4cb6-9f2c-f57c5209d947",
+          "body": "{\r\n    \"id\": 1,\r\n    \"content_type\": \"application/pdf\",\r\n    \"name\": \"invoice.pdf\",\r\n    \"transaction_id\": 1,\r\n    \"type\": \"invoice\"\r\n}",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "d9b09f0b-c0a1-44b2-9a1c-cfb47287dc30",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "",
+              "value": "",
+              "invert": false,
+              "operator": "null"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "2229a475-6e01-417e-871c-bdde01fa1a56",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "v2/money-transfer/transactions/:id/cancel",
+      "responses": [
+        {
+          "uuid": "ed044af9-bf23-48ed-b115-bd6268a3370e",
+          "body": "{\r\n     \"id\": 1,\r\n     \"status\": \"40000\",\r\n     \"status_message\": \"CANCELLED\",\r\n     \"status_class\": \"4\",\r\n     \"status_class_message\": \"CANCELLED\",\r\n     \"external_id\": \"1478078339357\",\r\n     \"external_code\": null,\r\n     \"transaction_type\": \"C2C\",\r\n     \"payer_transaction_reference\": null,\r\n     \"payer_transaction_code\": null,\r\n     \"creation_date\": \"2016-11-02T09:19:15\",\r\n     \"expiration_date\": \"2016-11-03T09:07:44\",\r\n     \"credit_party_identifier\": {\r\n        \"msisdn\": \"+263775892100\",\r\n        \"bank_account_number\": \"0123456789\",\r\n        \"swift_bic_code\": \"ABCDEFGH\"\r\n     },\r\n     \"source\": {\r\n        \"country_iso_code\": \"FRA\",\r\n        \"currency\": \"EUR\",\r\n        \"amount\": 10\r\n     },\r\n     \"destination\": {\r\n        \"currency\": \"USD\",\r\n        \"amount\": 10.69\r\n     },\r\n     \"payer\": {\r\n        \"id\": 1,\r\n        \"name\": \"Sample Payer\",\r\n        \"currency\": \"USD\",\r\n        \"country_iso_code\": \"ZWE\",\r\n        \"service\": {\r\n            \"id\": 1,\r\n            \"name\": \"MobileWallet\"\r\n        }\r\n     },\r\n     \"sender\": {\r\n        \"lastname\": \"Doe\",\r\n        \"lastname2\": null,\r\n        \"middlename\": null,\r\n        \"firstname\": \"John\",\r\n        \"nativename\": null,\r\n        \"nationality_country_iso_code\": \"FRA\",\r\n        \"code\": null,\r\n        \"date_of_birth\": \"1970-01-01\",\r\n        \"country_of_birth_iso_code\": \"FRA\",\r\n        \"gender\": \"MALE\",\r\n        \"address\": \"42 Rue des fleurs\",\r\n        \"postal_code\": \"75000\",\r\n        \"city\": \"Paris\",\r\n        \"country_iso_code\": \"FRA\",\r\n        \"msisdn\": \"33712345678\",\r\n        \"email\": \"john.doe@mail.com\",\r\n        \"id_type\": \"SOCIAL_SECURITY\",\r\n        \"id_country_iso_code\": null,\r\n        \"id_number\": \"502-42-0158\",\r\n        \"id_delivery_date\": \"2016-01-01\",\r\n        \"id_expiration_date\": null,\r\n        \"occupation\": \"Residential Advisor\",\r\n        \"province_state\": null,\r\n        \"beneficiary_relationship\": null,\r\n        \"source_of_funds\": null,\r\n        \"bank_account_number\": null\r\n     },\r\n     \"beneficiary\": {\r\n        \"lastname\": \"Doe\",\r\n        \"lastname2\": null,\r\n        \"middlename\": null,\r\n        \"firstname\": \"Jane\",\r\n        \"nativename\": null,\r\n        \"nationality_country_iso_code\": \"FRA\",\r\n        \"code\": null,\r\n        \"date_of_birth\": \"1971-01-01\",\r\n        \"country_of_birth_iso_code\": \"ZWE\",\r\n        \"gender\": \"MALE\",\r\n        \"address\": \"3 Norfolk Road\",\r\n        \"postal_code\": \"4581\",\r\n        \"city\": \"Harare\",\r\n        \"country_iso_code\": \"ZWE\",\r\n        \"msisdn\": \"263775892364\",\r\n        \"email\": \"jane.doe@mail.com\",\r\n        \"id_type\": \"SOCIAL_SECURITY\",\r\n        \"id_country_iso_code\": \"ZWE\",\r\n        \"id_number\": \"178027317681327\",\r\n        \"id_delivery_date\": null,\r\n        \"id_expiration_date\": null,\r\n        \"occupation\": \"Sales Executive\",\r\n        \"bank_account_holder_name\": null,\r\n        \"province_state\": null\r\n     },\r\n     \"callback_url\": \"{URL_PLACEHOLDER}\",\r\n     \"sent_amount\": {\r\n        \"currency\": \"EUR\",\r\n        \"amount\": 10\r\n     },\r\n     \"wholesale_fx_rate\": 1.06891969534071,\r\n     \"retail_rate\": null,\r\n     \"retail_fee\": 1,\r\n     \"retail_fee_currency\": \"EUR\",\r\n     \"fee\": {\r\n        \"currency\": \"EUR\",\r\n        \"amount\": 1.88\r\n     },\r\n     \"purpose_of_remittance\": \"FAMILY_SUPPORT\",\r\n     \"document_reference_number\": null,\r\n     \"additional_information_1\": null,\r\n     \"additional_information_2\": null,\r\n     \"additional_information_3\": null\r\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "782a567c-51e0-4b92-9716-a6396e60f34b",
+      "type": "http",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "v2/money-transfer/transactions/:id/cancel",
+      "responses": [
+        {
+          "uuid": "7f3fee4e-9e4d-4200-8452-4ce332f0a401",
+          "body": "{\r\n     \"id\": 1,\r\n     \"status\": \"40000\",\r\n     \"status_message\": \"CANCELLED\",\r\n     \"status_class\": \"4\",\r\n     \"status_class_message\": \"CANCELLED\",\r\n     \"external_id\": \"1478078339357\",\r\n     \"external_code\": null,\r\n     \"transaction_type\": \"C2C\",\r\n     \"payer_transaction_reference\": null,\r\n     \"payer_transaction_code\": null,\r\n     \"creation_date\": \"2016-11-02T09:19:15\",\r\n     \"expiration_date\": \"2016-11-03T09:07:44\",\r\n     \"credit_party_identifier\": {\r\n        \"msisdn\": \"+263775892100\",\r\n        \"bank_account_number\": \"0123456789\",\r\n        \"swift_bic_code\": \"ABCDEFGH\"\r\n     },\r\n     \"source\": {\r\n        \"country_iso_code\": \"FRA\",\r\n        \"currency\": \"EUR\",\r\n        \"amount\": 10\r\n     },\r\n     \"destination\": {\r\n        \"currency\": \"USD\",\r\n        \"amount\": 10.69\r\n     },\r\n     \"payer\": {\r\n        \"id\": 1,\r\n        \"name\": \"Sample Payer\",\r\n        \"currency\": \"USD\",\r\n        \"country_iso_code\": \"ZWE\",\r\n        \"service\": {\r\n            \"id\": 1,\r\n            \"name\": \"MobileWallet\"\r\n        }\r\n     },\r\n     \"sender\": {\r\n        \"lastname\": \"Doe\",\r\n        \"lastname2\": null,\r\n        \"middlename\": null,\r\n        \"firstname\": \"John\",\r\n        \"nativename\": null,\r\n        \"nationality_country_iso_code\": \"FRA\",\r\n        \"code\": null,\r\n        \"date_of_birth\": \"1970-01-01\",\r\n        \"country_of_birth_iso_code\": \"FRA\",\r\n        \"gender\": \"MALE\",\r\n        \"address\": \"42 Rue des fleurs\",\r\n        \"postal_code\": \"75000\",\r\n        \"city\": \"Paris\",\r\n        \"country_iso_code\": \"FRA\",\r\n        \"msisdn\": \"33712345678\",\r\n        \"email\": \"john.doe@mail.com\",\r\n        \"id_type\": \"SOCIAL_SECURITY\",\r\n        \"id_country_iso_code\": null,\r\n        \"id_number\": \"502-42-0158\",\r\n        \"id_delivery_date\": \"2016-01-01\",\r\n        \"id_expiration_date\": null,\r\n        \"occupation\": \"Residential Advisor\",\r\n        \"province_state\": null,\r\n        \"beneficiary_relationship\": null,\r\n        \"source_of_funds\": null,\r\n        \"bank_account_number\": null\r\n     },\r\n     \"beneficiary\": {\r\n        \"lastname\": \"Doe\",\r\n        \"lastname2\": null,\r\n        \"middlename\": null,\r\n        \"firstname\": \"Jane\",\r\n        \"nativename\": null,\r\n        \"nationality_country_iso_code\": \"FRA\",\r\n        \"code\": null,\r\n        \"date_of_birth\": \"1971-01-01\",\r\n        \"country_of_birth_iso_code\": \"ZWE\",\r\n        \"gender\": \"MALE\",\r\n        \"address\": \"3 Norfolk Road\",\r\n        \"postal_code\": \"4581\",\r\n        \"city\": \"Harare\",\r\n        \"country_iso_code\": \"ZWE\",\r\n        \"msisdn\": \"263775892364\",\r\n        \"email\": \"jane.doe@mail.com\",\r\n        \"id_type\": \"SOCIAL_SECURITY\",\r\n        \"id_country_iso_code\": \"ZWE\",\r\n        \"id_number\": \"178027317681327\",\r\n        \"id_delivery_date\": null,\r\n        \"id_expiration_date\": null,\r\n        \"occupation\": \"Sales Executive\",\r\n        \"bank_account_holder_name\": null,\r\n        \"province_state\": null\r\n     },\r\n     \"callback_url\": \"{URL_PLACEHOLDER}\",\r\n     \"sent_amount\": {\r\n        \"currency\": \"EUR\",\r\n        \"amount\": 10\r\n     },\r\n     \"wholesale_fx_rate\": 1.06891969534071,\r\n     \"retail_rate\": null,\r\n     \"retail_fee\": 1,\r\n     \"retail_fee_currency\": \"EUR\",\r\n     \"fee\": {\r\n        \"currency\": \"EUR\",\r\n        \"amount\": 1.88\r\n     },\r\n     \"purpose_of_remittance\": \"FAMILY_SUPPORT\",\r\n     \"document_reference_number\": null,\r\n     \"additional_information_1\": null,\r\n     \"additional_information_2\": null,\r\n     \"additional_information_3\": null\r\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "8fa40038-3f3c-40cf-a365-3ec5799f1970",
+      "type": "http",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "v2/money-transfer/payers/:id/:transaction_type/credit-party-verification",
+      "responses": [
+        {
+          "uuid": "d8d6ed25-2fd5-4d49-a3da-9b0ccb90371d",
+          "body": "{\r\n    \"id\": 31,\r\n    \"account_status\": \"AVAILABLE\"\r\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "bd079278-d300-41a3-b951-d3e21345cf25",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "v2/money-transfer/services",
+      "responses": [
+        {
+          "uuid": "de10057e-08c7-4ca8-91cb-44c0c8238521",
+          "body": "[\r\n   {\r\n      \"id\": 1,\r\n      \"name\": \"MobileWallet\"\r\n   },\r\n   {\r\n      \"id\": 2,\r\n      \"name\": \"BankAccount\"\r\n   },\r\n   {\r\n      \"id\": 3,\r\n      \"name\": \"CashPickup\"\r\n   }\r\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "517e0f62-c041-4b7d-bde8-ad97160158eb",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "v2/money-transfer/payers",
+      "responses": [
+        {
+          "uuid": "81761800-df47-4ad1-a34a-ff5dbeab616c",
+          "body": "[\r\n   {\r\n      \"id\": 1,\r\n      \"name\": \"MobileWallet Payer\",\r\n      \"precision\": 2,\r\n      \"increment\": 0.01,\r\n      \"currency\": \"USD\",\r\n      \"country_iso_code\": \"USA\",\r\n      \"service\": {\r\n         \"id\": 1,\r\n         \"name\": \"MobileWallet\"\r\n      },\r\n      \"transaction_types\" : {\r\n         \"C2C\": {\r\n            \"minimum_transaction_amount\": 0,\r\n            \"maximum_transaction_amount\": null,\r\n            \"credit_party_identifiers_accepted\": [\r\n               [\r\n                  \"msisdn\"\r\n               ]\r\n            ],\r\n            \"required_sending_entity_fields\": [\r\n               [\r\n                  \"firstname\",\r\n                  \"lastname\",\r\n                  \"date_of_birth\"\r\n               ]\r\n            ],\r\n            \"required_receiving_entity_fields\": [\r\n               [\r\n                  \"firstname\",\r\n                  \"lastname\"\r\n               ]\r\n            ],\r\n            \"required_documents\": [\r\n                [\r\n                    \"invoice\",\r\n                    \"purchase_order\",\r\n                    \"contract\"\r\n                ]\r\n            ],\r\n            \"credit_party_information\": {\r\n               \"credit_party_identifiers_accepted\": [\r\n                  []\r\n               ]\r\n            },\r\n            \"credit_party_verification\": {\r\n               \"credit_party_identifiers_accepted\": [\r\n                  []\r\n               ],\r\n               \"required_receiving_entity_fields\": [\r\n                  []\r\n               ]\r\n            },\r\n            \"purpose_of_remittance_values_accepted\": [\r\n            ]\r\n         }\r\n      }\r\n   },\r\n   {\r\n      \"id\": 2,\r\n      \"name\": \"Bank Payer\",\r\n      \"precision\": 2,\r\n      \"increment\": 0.01,\r\n      \"currency\": \"PHP\",\r\n      \"country_iso_code\": \"PHL\",      \r\n      \"service\": {\r\n         \"name\": \"BankAccount\",\r\n         \"id\": 2\r\n      },\r\n      \"transaction_types\" : {\r\n         \"B2C\": {\r\n            \"minimum_transaction_amount\": 0,\r\n            \"maximum_transaction_amount\": null,\r\n            \"credit_party_identifiers_accepted\": [\r\n               [\r\n                  \"account_number\"\r\n               ]\r\n            ],\r\n            \"required_sending_entity_fields\": [\r\n               [\r\n                  \"registered_name\",\r\n                  \"representative_lastname\",\r\n                  \"representative_firstname\"\r\n               ]\r\n            ],\r\n            \"required_receiving_entity_fields\": [\r\n               [\r\n                  \"firstname\",\r\n                  \"lastname\"\r\n               ]\r\n            ],\r\n            \"required_documents\": [\r\n                []\r\n            ],\r\n            \"credit_party_information\": {\r\n               \"credit_party_identifiers_accepted\": [\r\n                  []\r\n               ]\r\n            },\r\n            \"credit_party_verification\": {\r\n               \"credit_party_identifiers_accepted\": [\r\n                  []\r\n               ],\r\n               \"required_receiving_entity_fields\": [\r\n                  []\r\n               ]\r\n            },\r\n            \"purpose_of_remittance_values_accepted\": [\r\n            ]\r\n         }\r\n      }\r\n   }\r\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "b872f595-6bcf-4d43-8906-5f1472a02c0b",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "v2/money-transfer/payers/:id",
+      "responses": [
+        {
+          "uuid": "2cc2fc8e-d8d0-438b-8797-8ef909d3367c",
+          "body": "{\r\n    \"id\": 3,\r\n    \"name\": \"Sample Payer\",\r\n    \"precision\": 0,\r\n    \"increment\": 0.01,\r\n    \"currency\": \"IDR\",\r\n    \"country_iso_code\": \"IDN\",\r\n    \"service\": {\r\n         \"id\": 1,\r\n         \"name\": \"MobileWallet\"\r\n    },\r\n    \"transaction_types\": {\r\n        \"C2C\": {\r\n            \"minimum_transaction_amount\": 0,\r\n            \"maximum_transaction_amount\": null,\r\n            \"credit_party_identifiers_accepted\": [\r\n                 [\r\n                        \"msisdn\"\r\n                 ]\r\n            ],\r\n            \"required_sending_entity_fields\": [\r\n                 [\r\n                        \"firstname\",\r\n                        \"date_of_birth\",\r\n                        \"lastname\"\r\n                 ]\r\n            ],\r\n            \"required_receiving_entity_fields\": [\r\n                 [\r\n                        \"firstname\",\r\n                        \"lastname\"\r\n                 ]\r\n            ],\r\n            \"required_documents\": [\r\n                [\r\n                    \"invoice\",\r\n                    \"contract\"\r\n                ]\r\n            ],\r\n            \"credit_party_information\": {\r\n                \"credit_party_identifiers_accepted\": [\r\n                    []\r\n                ]\r\n            },\r\n            \"credit_party_verification\": {\r\n                \"credit_party_identifiers_accepted\": [\r\n                    []\r\n                ],\r\n                \"required_receiving_entity_fields\": [\r\n                    []\r\n                ]\r\n            },\r\n            \"purpose_of_remittance_values_accepted\": [\r\n            ]\r\n        }\r\n    }\r\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "fdf15db6-54a7-4408-b576-7bb8300a2a44",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "v2/money-transfer/payers/:id/rates",
+      "responses": [
+        {
+          "uuid": "300eff7f-ae79-4d10-a3de-b2a9f53960d0",
+          "body": "{\r\n    \"destination_currency\": \"USD\",\r\n    \"rates\": {\r\n        \"C2C\": {\r\n            \"EUR\": [\r\n                {\r\n                    \"source_amount_min\": 0,\r\n                    \"source_amount_max\": 88,\r\n                    \"wholesale_fx_rate\": 1.10847692409526\r\n                },\r\n                {\r\n                    \"source_amount_min\": 88,\r\n                    \"source_amount_max\": 8800,\r\n                    \"wholesale_fx_rate\": 1.10847692409526\r\n                }\r\n            ]\r\n        }\r\n    }\r\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "ee912b13-9348-41a9-b56f-9dc645cc316c",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "v2/money-transfer/countries",
+      "responses": [
+        {
+          "uuid": "070fc05a-8570-4297-abc9-d56e1264b1ce",
+          "body": "[\r\n    {\r\n        \"iso_code\": \"KEN\",\r\n        \"name\": \"Kenya\"\r\n    }\r\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "1c41b44c-0533-4db9-b037-8bed7d60109c",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "v2/money-transfer/lookups/BIC/:swift_bic_code",
+      "responses": [
+        {
+          "uuid": "42cb49a1-0d8a-4947-bdaf-fdcab20327ed",
+          "body": "[\r\n    {\r\n        \"id\": 123\r\n    }\r\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "f995d017-e9ee-4406-b653-e57234d96be1",
+      "type": "http",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "v2/single-payment",
+      "responses": [
+        {
+          "uuid": "9acbaa02-964b-4b5a-957c-c895db7275ca",
+          "body": "{\r\n  \"client_payment_id\": \"string\",\r\n  \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n  \"status\": \"string\",\r\n  \"fees\": {\r\n    \"payer\": {\r\n      \"currency\": \"EUR\",\r\n      \"value\": 10023\r\n    },\r\n    \"recipient\": {\r\n      \"currency\": \"EUR\",\r\n      \"value\": 10023\r\n    }\r\n  },\r\n  \"exchange_rate\": {\r\n    \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n    \"source_amount\": {\r\n      \"currency\": \"EUR\",\r\n      \"value\": 10023\r\n    },\r\n    \"target_amount\": {\r\n      \"currency\": \"EUR\",\r\n      \"value\": 10023\r\n    },\r\n    \"expiration_date\": \"2024-06-10T06:03:28.800Z\"\r\n  },\r\n  \"recipient_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n  \"payment_instrument_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\"\r\n}",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "243a9c69-c75d-496c-ad66-d50728863bb9",
+          "body": "{\r\n  \"code\": \"00005\",\r\n  \"message\": \"Only recipient_id or recipient values are allowed but not both.\",\r\n  \"trace_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n  \"details\": {\r\n    \"additionalProp\": \"string\"\r\n  }\r\n}",
+          "latency": 0,
+          "statusCode": 409,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "c32e8c87-09e5-435b-b7c1-1338422c1d81",
+          "body": "{\r\n  \"code\": \"00005\",\r\n  \"message\": \"Only recipient_id or recipient values are allowed but not both.\",\r\n  \"trace_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n  \"details\": {\r\n    \"additionalProp\": \"string\"\r\n  }\r\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "a468de74-9763-475a-aeec-c96693c28d86",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "v2/payments/:id",
+      "responses": [
+        {
+          "uuid": "90a6d383-d3d3-4660-aad3-774a1523f336",
+          "body": "{\r\n  \"client_payment_id\": \"string\",\r\n  \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n  \"status\": \"string\",\r\n  \"fees\": {\r\n    \"payer\": {\r\n      \"currency\": \"EUR\",\r\n      \"value\": 10023\r\n    },\r\n    \"recipient\": {\r\n      \"currency\": \"EUR\",\r\n      \"value\": 10023\r\n    }\r\n  },\r\n  \"exchange_rate\": {\r\n    \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n    \"source_amount\": {\r\n      \"currency\": \"EUR\",\r\n      \"value\": 10023\r\n    },\r\n    \"target_amount\": {\r\n      \"currency\": \"EUR\",\r\n      \"value\": 10023\r\n    },\r\n    \"expiration_date\": \"2024-06-10T06:03:28.800Z\"\r\n  },\r\n  \"recipient_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n  \"payment_instrument_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\"\r\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "db86f7ce-c729-42fb-b1c5-6c211f83fc36",
+      "type": "http",
+      "documentation": "",
+      "method": "patch",
+      "endpoint": "v2/payments/:id",
+      "responses": [
+        {
+          "uuid": "11038b5f-6f01-425b-8f9f-7c3894775e91",
+          "body": "{\r\n  \"client_payment_id\": \"string\",\r\n  \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n  \"status\": \"string\",\r\n  \"fees\": {\r\n    \"payer\": {\r\n      \"currency\": \"EUR\",\r\n      \"value\": 10023\r\n    },\r\n    \"recipient\": {\r\n      \"currency\": \"EUR\",\r\n      \"value\": 10023\r\n    }\r\n  },\r\n  \"exchange_rate\": {\r\n    \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n    \"source_amount\": {\r\n      \"currency\": \"EUR\",\r\n      \"value\": 10023\r\n    },\r\n    \"target_amount\": {\r\n      \"currency\": \"EUR\",\r\n      \"value\": 10023\r\n    },\r\n    \"expiration_date\": \"2024-06-10T06:03:28.800Z\"\r\n  },\r\n  \"recipient_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n  \"payment_instrument_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\"\r\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "0b3423d2-f33b-461c-adfe-d37d5ff380d4",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "v2/payment-instruments",
+      "responses": [
+        {
+          "uuid": "f9287f1d-1188-44cf-adb8-e88d993b1176",
+          "body": "[\r\n  {\r\n    \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n    \"category\": \"MobileWallet\",\r\n    \"currency\": \"string\",\r\n    \"mobile_number\": \"string\"\r\n  },\r\n  {\r\n    \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n    \"category\": \"MobileWallet\",\r\n    \"currency\": \"string\",\r\n    \"routing_number\": \"string\",\r\n    \"swift_bic_code\": \"string\",\r\n    \"bank_domestic_code\": \"string\",\r\n    \"iban\": \"string\",\r\n    \"swift_intermediary\": \"string\",\r\n    \"routing_number_intermediary\": \"string\",\r\n    \"iban_intermediary\": \"string\",\r\n    \"account_id\": \"string\",\r\n    \"bank_name\": \"string\",\r\n    \"bank_branch_name\": \"string\",\r\n    \"bank_country\": \"string\",\r\n    \"bank_address\": \"string\",\r\n    \"account_number\": \"string\",\r\n    \"sub_account_number\": \"string\",\r\n    \"account_type\": \"string\",\r\n    \"account_name\": \"string\",\r\n    \"urgency_flag_preference\": \"string\"\r\n  },\r\n  {\r\n    \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n    \"category\": \"MobileWallet\",\r\n    \"currency\": \"string\",\r\n    \"first_name\": \"string\",\r\n    \"last_name\": \"string\"\r\n  },\r\n  {\r\n    \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n    \"category\": \"MobileWallet\",\r\n    \"currency\": \"string\",\r\n    \"token\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n    \"masked_number\": \"1234 **** **** 3456\",\r\n    \"expiration_date\": \"12/30\"\r\n  }\r\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "309e1e58-7d11-4e78-8a0b-be28dbeddcc4",
+      "type": "http",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "v2/payment-instruments",
+      "responses": [
+        {
+          "uuid": "8174d2ba-caae-436c-8fd2-31d76b67d760",
+          "body": "{\r\n  \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\"\r\n}",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "47765ff0-3184-4a2b-8247-b664151b43a6",
+          "body": "{\r\n  \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\"\r\n}",
+          "latency": 0,
+          "statusCode": 303,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "7dcb098f-2e41-4cd4-b657-6d5232af8211",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "v2/payment-instruments/:id",
+      "responses": [
+        {
+          "uuid": "92cf6cd4-eba3-43a4-b40f-f8768f7cfc74",
+          "body": "{\r\n  \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n  \"category\": \"MobileWallet\",\r\n  \"currency\": \"string\",\r\n  \"mobile_number\": \"string\"\r\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "87345d72-a192-42a4-8f69-961521ccb9fc",
+      "type": "http",
+      "documentation": "",
+      "method": "patch",
+      "endpoint": "v2/payment-instruments/:id",
+      "responses": [
+        {
+          "uuid": "bcd13a30-fd32-4d79-8d25-e087449be72d",
+          "body": "{\r\n  \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n  \"category\": \"MobileWallet\",\r\n  \"currency\": \"string\",\r\n  \"mobile_number\": \"string\"\r\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "a68b3018-b3ac-4dc0-ae25-a3e404c0a276",
+      "type": "http",
+      "documentation": "",
+      "method": "delete",
+      "endpoint": "v2/payment-instruments/:id",
+      "responses": [
+        {
+          "uuid": "2ee9a5b8-2889-4b7c-a52d-0641d6713a89",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "902b2630-a56e-4a2b-aee6-165767478838",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "v2/exchange-rates/:id",
+      "responses": [
+        {
+          "uuid": "ac6a1d1e-0d7c-4b6f-805b-732a3febad4b",
+          "body": "{\r\n  \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n  \"source_amount\": {\r\n    \"currency\": \"EUR\",\r\n    \"value\": 10023\r\n  },\r\n  \"target_amount\": {\r\n    \"currency\": \"EUR\",\r\n    \"value\": 10023\r\n  },\r\n  \"expiration_date\": \"2024-06-10T06:03:28.800Z\"\r\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "93cbb553-481a-4ec1-b595-c6366731fd2d",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "v2/exchange-rates/:id/refresh",
+      "responses": [
+        {
+          "uuid": "37f1c4c4-0061-42ec-bd7f-61f1ab411d60",
+          "body": "{\r\n  \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n  \"source_amount\": {\r\n    \"currency\": \"EUR\",\r\n    \"value\": 10023\r\n  },\r\n  \"target_amount\": {\r\n    \"currency\": \"EUR\",\r\n    \"value\": 10023\r\n  },\r\n  \"expiration_date\": \"2024-06-10T06:03:28.800Z\"\r\n}",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "7a91edae-7ffd-437c-b4e5-1e5beff8609c",
+          "body": "",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "26616490-20fd-49cd-8a30-3a2963ec24b1",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 409,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "294f0a8c-5a1e-4c9a-9b0e-b3d34f205e3e",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 405,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "c0adc097-688c-4a9b-9f6c-9889cb5b6c87",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 429,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "a318705e-24e2-44e8-9895-04d8d10e1efd",
+      "type": "http",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "v2/exchange-rates",
+      "responses": [
+        {
+          "uuid": "77eed5da-5c49-4cd8-b14b-48e593afae17",
+          "body": "{\r\n  \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n  \"source_amount\": {\r\n    \"currency\": \"EUR\",\r\n    \"value\": 10023\r\n  },\r\n  \"target_amount\": {\r\n    \"currency\": \"EUR\",\r\n    \"value\": 10023\r\n  },\r\n  \"expiration_date\": \"2024-06-10T06:03:28.800Z\"\r\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "92616cba-ca38-442e-9384-8208f0fe873e",
+      "type": "http",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "v2/exchange-rates/confirm",
+      "responses": [
+        {
+          "uuid": "f23e1f34-3c86-46c0-b132-86b97c9d5d91",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "b54cd53d-2a4c-45fc-9d54-0440cc40eb26",
+      "type": "http",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "v2/exchange-rates/cancel",
+      "responses": [
+        {
+          "uuid": "d5b7de76-f64c-4092-9e17-27c0450f3189",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "d2a58c04-8d80-4782-aa90-4cc43e20c19c",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "v2/carded-rates",
+      "responses": [
+        {
+          "uuid": "a9180d58-0470-4d1b-af54-46b69c3a6646",
+          "body": "{\r\n  \"rates\": [\r\n    {\r\n      \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n      \"from_currency\": \"USD\",\r\n      \"to_currency\": \"EUR\",\r\n      \"valid_from\": \"2023-03-01T00:00:00Z\",\r\n      \"valid_to\": \"2023-03-01T04:00:00Z\",\r\n      \"payment_instrument_category\": \"MobileWallet\",\r\n      \"rate\": 0.8783,\r\n      \"tiers\": [\r\n        {\r\n          \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n          \"from_amount\": 100023,\r\n          \"rate\": 0.8801\r\n        }\r\n      ]\r\n    }\r\n  ]\r\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "fa31fed4-a5df-4864-bc76-c64345ca62cc",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "v2/accounts",
+      "responses": [
+        {
+          "uuid": "e4ba756d-3aff-43a0-b22a-567d3b48c115",
+          "body": "[\r\n  {\r\n    \"id\": \"550e8400-e29b-41d4-a716-446655440000\",\r\n    \"owner_id\": \"f47ac10b-58cc-4372-a567-0e02b2c3d479\",\r\n    \"owner_name\": \"John Doe vs Trade Company\",\r\n    \"created\": \"2023-10-27T08:57:09.374902\",\r\n    \"number\": \"CC002200MONE00012398064447USD\",\r\n    \"name\": \"Digital Account\",\r\n    \"currency\": \"GBP\",\r\n    \"balance\": {\r\n      \"currency\": \"EUR\",\r\n      \"value\": 10023\r\n    }\r\n  }\r\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "dcd36c6c-5faa-44fe-8eb8-88a663f8e2fe",
+          "body": "",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "5872b687-f691-4ced-b04a-ddcd7105ccae",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "v2/recipients",
+      "responses": [
+        {
+          "uuid": "965d2094-9af8-41ef-8c8a-6d4757444bd2",
+          "body": "[\r\n  {\r\n    \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n    \"type\": \"Person\",\r\n    \"email\": \"user@example.com\",\r\n    \"first_name\": \"string\",\r\n    \"last_name\": \"string\",\r\n    \"middle_name\": \"string\",\r\n    \"mobile_number\": \"string\",\r\n    \"dob\": \"2024-06-10\",\r\n    \"registration_address\": [\r\n      {\r\n        \"city\": \"string\",\r\n        \"street\": \"string\",\r\n        \"country\": \"string\",\r\n        \"postal_code\": \"string\",\r\n        \"unit_number\": \"string\",\r\n        \"building_name\": \"string\",\r\n        \"state_province\": \"string\",\r\n        \"building_number\": \"string\"\r\n      }\r\n    ],\r\n    \"identity_document\": {\r\n      \"type\": \"string\",\r\n      \"type_version_number\": \"string\",\r\n      \"country_issuing\": \"string\",\r\n      \"number\": \"string\",\r\n      \"national_id_number\": \"string\",\r\n      \"national_id_number_type\": \"string\",\r\n      \"series\": \"string\",\r\n      \"issue_date\": \"2024-06-10T06:03:28.800Z\",\r\n      \"place_of_issue\": \"string\",\r\n      \"authority_of_issue\": \"string\",\r\n      \"expiry_date\": \"2024-06-10T06:03:28.800Z\",\r\n      \"driver_license_number\": \"string\",\r\n      \"driver_license_serial_number\": \"string\",\r\n      \"driver_license_version_number\": \"string\"\r\n    }\r\n  },\r\n  {\r\n    \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n    \"type\": \"Person\",\r\n    \"legal_name\": \"string\",\r\n    \"country\": \"PL\",\r\n    \"trade_name\": \"string\",\r\n    \"phone_number\": \"string\",\r\n    \"registration_number\": \"string\",\r\n    \"email\": \"user@example.com\",\r\n    \"registration_address\": {\r\n      \"city\": \"string\",\r\n      \"street\": \"string\",\r\n      \"country\": \"string\",\r\n      \"postal_code\": \"string\",\r\n      \"unit_number\": \"string\",\r\n      \"building_name\": \"string\",\r\n      \"state_province\": \"string\",\r\n      \"building_number\": \"string\"\r\n    }\r\n  }\r\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "a77e681c-33a8-4c2d-a8e5-980723f124d1",
+      "type": "http",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "v2/recipients",
+      "responses": [
+        {
+          "uuid": "acd7b736-07ac-42dc-b767-9db8da69da96",
+          "body": "{\r\n  \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\"\r\n}",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "fce39683-6dbe-4909-a6f0-a0f652c71629",
+      "type": "http",
+      "documentation": "",
+      "method": "patch",
+      "endpoint": "v2/recipients/:id",
+      "responses": [
+        {
+          "uuid": "2158e91d-c6c7-4b61-9d6a-d3f69d926871",
+          "body": "{\r\n  \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n  \"type\": \"Person\",\r\n  \"email\": \"user@example.com\",\r\n  \"first_name\": \"string\",\r\n  \"last_name\": \"string\",\r\n  \"middle_name\": \"string\",\r\n  \"mobile_number\": \"string\",\r\n  \"dob\": \"2024-06-10\",\r\n  \"registration_address\": [\r\n    {\r\n      \"city\": \"string\",\r\n      \"street\": \"string\",\r\n      \"country\": \"string\",\r\n      \"postal_code\": \"string\",\r\n      \"unit_number\": \"string\",\r\n      \"building_name\": \"string\",\r\n      \"state_province\": \"string\",\r\n      \"building_number\": \"string\"\r\n    }\r\n  ],\r\n  \"identity_document\": {\r\n    \"type\": \"string\",\r\n    \"type_version_number\": \"string\",\r\n    \"country_issuing\": \"string\",\r\n    \"number\": \"string\",\r\n    \"national_id_number\": \"string\",\r\n    \"national_id_number_type\": \"string\",\r\n    \"series\": \"string\",\r\n    \"issue_date\": \"2024-06-10T06:03:28.800Z\",\r\n    \"place_of_issue\": \"string\",\r\n    \"authority_of_issue\": \"string\",\r\n    \"expiry_date\": \"2024-06-10T06:03:28.800Z\",\r\n    \"driver_license_number\": \"string\",\r\n    \"driver_license_serial_number\": \"string\",\r\n    \"driver_license_version_number\": \"string\"\r\n  }\r\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "446ac5f8-a540-40e6-a6e1-cc56abb5861d",
+      "type": "http",
+      "documentation": "",
+      "method": "delete",
+      "endpoint": "v2/recipients/:id",
+      "responses": [
+        {
+          "uuid": "38594cd3-2f10-4b39-85d2-0c51af221af3",
+          "body": "",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "61082d7c-6311-487b-84c2-d87b779b98c6",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "v2/payers",
+      "responses": [
+        {
+          "uuid": "9761d9fd-25d6-4db5-9468-de86204873e3",
+          "body": "[\r\n  {\r\n    \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n    \"accounts\": [\r\n      {\r\n        \"id\": \"550e8400-e29b-41d4-a716-446655440000\",\r\n        \"owner_id\": \"f47ac10b-58cc-4372-a567-0e02b2c3d479\",\r\n        \"owner_name\": \"John Doe vs Trade Company\",\r\n        \"created\": \"2023-10-27T08:57:09.374902\",\r\n        \"number\": \"CC002200MONE00012398064447USD\",\r\n        \"name\": \"Digital Account\",\r\n        \"currency\": \"GBP\",\r\n        \"balance\": {\r\n          \"currency\": \"EUR\",\r\n          \"value\": 10023\r\n        }\r\n      }\r\n    ],\r\n    \"type\": \"Business\",\r\n    \"first_name\": \"string\",\r\n    \"middle_name\": \"string\",\r\n    \"last_name\": \"string\",\r\n    \"phone_number\": \"string\",\r\n    \"registration_address\": {\r\n      \"city\": \"string\",\r\n      \"street\": \"string\",\r\n      \"country\": \"string\",\r\n      \"postal_code\": \"string\",\r\n      \"unit_number\": \"string\",\r\n      \"building_name\": \"string\",\r\n      \"state_province\": \"string\",\r\n      \"building_number\": \"string\"\r\n    },\r\n    \"nationality\": \"string\",\r\n    \"government_id\": \"string\",\r\n    \"date_of_birth\": \"2024-06-10\",\r\n    \"source_of_income\": \"string\",\r\n    \"email\": \"string\",\r\n    \"place_of_birth\": \"string\",\r\n    \"occupation\": \"string\",\r\n    \"relationship_with_beneficiary\": \"string\"\r\n  },\r\n  {\r\n    \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n    \"accounts\": [\r\n      {\r\n        \"id\": \"550e8400-e29b-41d4-a716-446655440000\",\r\n        \"owner_id\": \"f47ac10b-58cc-4372-a567-0e02b2c3d479\",\r\n        \"owner_name\": \"John Doe vs Trade Company\",\r\n        \"created\": \"2023-10-27T08:57:09.374902\",\r\n        \"number\": \"CC002200MONE00012398064447USD\",\r\n        \"name\": \"Digital Account\",\r\n        \"currency\": \"GBP\",\r\n        \"balance\": {\r\n          \"currency\": \"EUR\",\r\n          \"value\": 10023\r\n        }\r\n      }\r\n    ],\r\n    \"type\": \"Business\",\r\n    \"legal_name\": \"string\",\r\n    \"trade_name\": \"string\",\r\n    \"country\": \"PL\",\r\n    \"registration_number\": \"string\",\r\n    \"registration_date\": \"2024-06-10\",\r\n    \"email\": \"string\",\r\n    \"phone_number\": \"string\",\r\n    \"registration_address\": {\r\n      \"city\": \"string\",\r\n      \"street\": \"string\",\r\n      \"country\": \"string\",\r\n      \"postal_code\": \"string\",\r\n      \"unit_number\": \"string\",\r\n      \"building_name\": \"string\",\r\n      \"state_province\": \"string\",\r\n      \"building_number\": \"string\"\r\n    }\r\n  }\r\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "26aa2d01-c2ed-4a38-9dec-1d5ff816f70f",
+      "type": "http",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "v2/payers",
+      "responses": [
+        {
+          "uuid": "c0d2a8bd-5ac6-4a54-a745-1bd67034a45e",
+          "body": "{\r\n  \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n  \"accounts\": [\r\n    {\r\n      \"id\": \"550e8400-e29b-41d4-a716-446655440000\",\r\n      \"owner_id\": \"f47ac10b-58cc-4372-a567-0e02b2c3d479\",\r\n      \"owner_name\": \"John Doe vs Trade Company\",\r\n      \"created\": \"2023-10-27T08:57:09.374902\",\r\n      \"number\": \"CC002200MONE00012398064447USD\",\r\n      \"name\": \"Digital Account\",\r\n      \"currency\": \"GBP\",\r\n      \"balance\": {\r\n        \"currency\": \"EUR\",\r\n        \"value\": 10023\r\n      }\r\n    }\r\n  ],\r\n  \"type\": \"Business\",\r\n  \"first_name\": \"string\",\r\n  \"middle_name\": \"string\",\r\n  \"last_name\": \"string\",\r\n  \"phone_number\": \"string\",\r\n  \"registration_address\": {\r\n    \"city\": \"string\",\r\n    \"street\": \"string\",\r\n    \"country\": \"string\",\r\n    \"postal_code\": \"string\",\r\n    \"unit_number\": \"string\",\r\n    \"building_name\": \"string\",\r\n    \"state_province\": \"string\",\r\n    \"building_number\": \"string\"\r\n  },\r\n  \"nationality\": \"string\",\r\n  \"government_id\": \"string\",\r\n  \"date_of_birth\": \"2024-06-10\",\r\n  \"source_of_income\": \"string\",\r\n  \"email\": \"string\",\r\n  \"place_of_birth\": \"string\",\r\n  \"occupation\": \"string\",\r\n  \"relationship_with_beneficiary\": \"string\"\r\n}",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "8e3884f4-f537-48b9-8762-3678a20bc376",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "v2/payers/:id",
+      "responses": [
+        {
+          "uuid": "9255052d-4527-4d1d-8e3f-0dca47e214cb",
+          "body": "{\r\n  \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n  \"accounts\": [\r\n    {\r\n      \"id\": \"550e8400-e29b-41d4-a716-446655440000\",\r\n      \"owner_id\": \"f47ac10b-58cc-4372-a567-0e02b2c3d479\",\r\n      \"owner_name\": \"John Doe vs Trade Company\",\r\n      \"created\": \"2023-10-27T08:57:09.374902\",\r\n      \"number\": \"CC002200MONE00012398064447USD\",\r\n      \"name\": \"Digital Account\",\r\n      \"currency\": \"GBP\",\r\n      \"balance\": {\r\n        \"currency\": \"EUR\",\r\n        \"value\": 10023\r\n      }\r\n    }\r\n  ],\r\n  \"type\": \"Business\",\r\n  \"first_name\": \"string\",\r\n  \"middle_name\": \"string\",\r\n  \"last_name\": \"string\",\r\n  \"phone_number\": \"string\",\r\n  \"registration_address\": {\r\n    \"city\": \"string\",\r\n    \"street\": \"string\",\r\n    \"country\": \"string\",\r\n    \"postal_code\": \"string\",\r\n    \"unit_number\": \"string\",\r\n    \"building_name\": \"string\",\r\n    \"state_province\": \"string\",\r\n    \"building_number\": \"string\"\r\n  },\r\n  \"nationality\": \"string\",\r\n  \"government_id\": \"string\",\r\n  \"date_of_birth\": \"2024-06-10\",\r\n  \"source_of_income\": \"string\",\r\n  \"email\": \"string\",\r\n  \"place_of_birth\": \"string\",\r\n  \"occupation\": \"string\",\r\n  \"relationship_with_beneficiary\": \"string\"\r\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "f8ce1075-cc39-4cef-92cd-2b90eaca8bcd",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "v2/payers/:id/accounts",
+      "responses": [
+        {
+          "uuid": "fe3a6023-fcab-4fc5-b7ff-3e84c4468d4c",
+          "body": "[\r\n  {\r\n    \"id\": \"550e8400-e29b-41d4-a716-446655440000\",\r\n    \"owner_id\": \"f47ac10b-58cc-4372-a567-0e02b2c3d479\",\r\n    \"owner_name\": \"John Doe vs Trade Company\",\r\n    \"created\": \"2023-10-27T08:57:09.374902\",\r\n    \"number\": \"CC002200MONE00012398064447USD\",\r\n    \"name\": \"Digital Account\",\r\n    \"currency\": \"GBP\",\r\n    \"balance\": {\r\n      \"currency\": \"EUR\",\r\n      \"value\": 10023\r\n    }\r\n  }\r\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "5dde485b-5248-45ac-a33e-1a97ce5b7390",
+      "type": "http",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "v2/documents",
+      "responses": [
+        {
+          "uuid": "caea13c2-c38f-4332-bc79-aeadd144ea17",
+          "body": "{\r\n  \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\"\r\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "2a99a5b7-75f0-4240-8954-c70d42a6afdc",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "v2/discovery/fields",
+      "responses": [
+        {
+          "uuid": "587d3068-8eac-4e9b-aa6d-9834a5253880",
+          "body": "{\r\n    \"dob\": {\r\n      \"title\": \"Date of birth\",\r\n      \"data_type\": \"DOB\",\r\n    },\r\n    \"registration_address\": {\r\n      \"city\": {\r\n        \"mask\": \"^[a-zA-Z\\/\\\\\\\\-:().,='+0-9\\\\\\\\s]{1,35}$\",\r\n        \"title\": \"City\",\r\n        \"data_type\": \"STRING\",\r\n        \"max_length\": 255,\r\n        \"min_length\": 1,\r\n      },\r\n      \"street\": {\r\n        \"mask\": \"^[a-zA-Z\\/\\\\-:().,='+0-9\\\\s]{1,35}$\",\r\n        \"title\": \"Street name\",\r\n        \"data_type\": \"STRING\",\r\n        \"max_length\": 255,\r\n        \"min_length\": 1,\r\n      },\r\n      \"country\": {\r\n        \"title\": \"Country of residence\",\r\n        \"data_type\": \"COUNTRY\",\r\n      }\r\n    }\r\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "040179e8-381f-486e-b901-5aea35d038be",
+      "type": "http",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "v2/money-transfer/payers/:id/:transaction_type/credit-party-information",
+      "responses": [
+        {
+          "uuid": "91f671fb-8df7-4bf0-9e51-cfab30e03dea",
+          "body": "{\r\n    \"beneficiary\": {\r\n        \"address\": \"3 Norfolk Road\",\r\n        \"bank_account_holder_name\": null,\r\n        \"city\": \"Harare\",\r\n        \"code\": null,\r\n        \"country_iso_code\": \"ZWE\",\r\n        \"country_of_birth_iso_code\": \"ZWE\",\r\n        \"date_of_birth\": \"1971-01-01\",\r\n        \"email\": \"jane.doe@mail.com\",\r\n        \"firstname\": \"Jane\",\r\n        \"gender\": \"MALE\",\r\n        \"id_country_iso_code\": \"ZWE\",\r\n        \"id_delivery_date\": null,\r\n        \"id_expiration_date\": null,\r\n        \"id_number\": \"178027317681327\",\r\n        \"id_type\": \"SOCIAL_SECURITY\",\r\n        \"lastname\": \"Doe\",\r\n        \"lastname2\": null,\r\n        \"middlename\": null,\r\n        \"msisdn\": \"263775892364\",\r\n        \"nationality_country_iso_code\": \"FRA\",\r\n        \"nativename\": null,\r\n        \"occupation\": \"Sales Executive\",\r\n        \"postal_code\": \"4581\",\r\n        \"province_state\": null\r\n    }\r\n    \"id\": 10252292\r\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "credit_party_identifier.msisdn",
+              "value": "263775892364",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "d3fd75d9-deb2-46ee-ab78-7958c72cd0fd",
+          "body": "{\r\n    \"message\": \"Very Bad\"\r\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "folder",
+      "uuid": "ddd687d0-774d-4ff9-9169-70fbe714f4ca"
+    },
+    {
+      "type": "folder",
+      "uuid": "69b7f237-06cd-4417-a202-8b89876584c5"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": [],
+  "callbacks": []
+}
