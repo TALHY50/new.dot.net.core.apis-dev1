@@ -57,7 +57,7 @@ namespace Admin.App.Application.Features.Currencies
             var now = DateTime.UtcNow;
             if (entity == null)
             {
-                return Error.NotFound(description: "Currency not found!", code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Currency not found!");
             }
             entity.Code = request.Code;
             entity.IsoCode = request.IsoCode;

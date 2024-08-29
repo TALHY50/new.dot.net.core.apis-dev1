@@ -1,4 +1,5 @@
-﻿using ErrorOr;
+﻿using Ardalis.Specification;
+using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -6,6 +7,7 @@ using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Contracts.Common;
 
 namespace Admin.App.Application.Features.TaxRates
 {
@@ -18,7 +20,10 @@ namespace Admin.App.Application.Features.TaxRates
         public async Task<ActionResult<ErrorOr<TaxRate>>> Update(uint Id, UpdateTaxRateCommand command)
         {
             var commandWithId = command with { Id = Id };
-            return await Mediator.Send(commandWithId).ConfigureAwait(false);
+            var result = await Mediator.Send(commandWithId).ConfigureAwait(false);
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
 
         public record UpdateTaxRateCommand(
@@ -32,7 +37,7 @@ namespace Admin.App.Application.Features.TaxRates
             uint? CompanyId,
             byte Status) : IRequest<ErrorOr<TaxRate>>;
 
-        internal sealed class UpdateTaxRateCommandValidator : AbstractValidator<UpdateTaxRateCommand>
+        public class UpdateTaxRateCommandValidator : AbstractValidator<UpdateTaxRateCommand>
         {
             public UpdateTaxRateCommandValidator()
             {
@@ -40,7 +45,7 @@ namespace Admin.App.Application.Features.TaxRates
             }
         }
 
-        internal sealed class UpdateTaxRateCommandHandler : IRequestHandler<UpdateTaxRateCommand, ErrorOr<TaxRate>>
+        public class UpdateTaxRateCommandHandler : IRequestHandler<UpdateTaxRateCommand, ErrorOr<TaxRate>>
         {
             private readonly IImtTaxRateRepository _repository;
 
@@ -52,26 +57,28 @@ namespace Admin.App.Application.Features.TaxRates
             public async Task<ErrorOr<TaxRate>> Handle(UpdateTaxRateCommand command, CancellationToken cancellationToken)
             {
                 TaxRate? taxRate = _repository.GetByUintId(command.Id);
-                if (taxRate != null)
+                if (taxRate == null)
                 {
-                    taxRate.TaxType = command.TaxType;
-                    taxRate.CorridorId = command.CorridorId;
-                    taxRate.CountryId = command.CountryId;
-                    taxRate.TaxCurrencyId = command.TaxCurrencyId;
-                    taxRate.TaxPercentage = command.TaxPercentage;
-                    taxRate.TaxFixed = command.TaxFixed;
-                    taxRate.CompanyId = command.CompanyId;
-                    taxRate.Status = command.Status;
-
-                    //if (_user?.UserId != null)
-                    //{
-                    //    entity.UpdatedById = uint.Parse(_user?.UserId ?? "1");
-                    //}
-                    //else
-                    //{
-                    //    entity.UpdatedById = 1;
-                    //}
+                    return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Tax Rate not found!");
                 }
+                taxRate.TaxType = command.TaxType;
+                taxRate.CorridorId = command.CorridorId;
+                taxRate.CountryId = command.CountryId;
+                taxRate.TaxCurrencyId = command.TaxCurrencyId;
+                taxRate.TaxPercentage = command.TaxPercentage;
+                taxRate.TaxFixed = command.TaxFixed;
+                taxRate.CompanyId = command.CompanyId;
+                taxRate.Status = command.Status;
+
+                //if (_user?.UserId != null)
+                //{
+                //    entity.UpdatedById = uint.Parse(_user?.UserId ?? "1");
+                //}
+                //else
+                //{
+                //    entity.UpdatedById = 1;
+                //}
+                
 
                 return await _repository.UpdateAsync(taxRate!);
             }
