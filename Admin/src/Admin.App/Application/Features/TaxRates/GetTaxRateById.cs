@@ -6,6 +6,7 @@ using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Contracts.Common;
 
 namespace Admin.App.Application.Features.TaxRates
 {
@@ -16,12 +17,15 @@ namespace Admin.App.Application.Features.TaxRates
         [HttpGet(Routes.GetTaxRateByIdUrl, Name = Routes.GetTaxRateByIdName)]
         public async Task<ActionResult<ErrorOr<TaxRate>>> GetById(uint Id)
         {
-            return await Mediator.Send(new GetTaxRateByIdQuery(Id)).ConfigureAwait(false);
+            var result = await Mediator.Send(new GetTaxRateByIdQuery(Id)).ConfigureAwait(false);
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
 
         public record GetTaxRateByIdQuery(uint Id) : IRequest<ErrorOr<TaxRate>>;
 
-        internal sealed class GetTaxRateByIdCommandValidator : AbstractValidator<GetTaxRateByIdQuery>
+        public class GetTaxRateByIdCommandValidator : AbstractValidator<GetTaxRateByIdQuery>
         {
             public GetTaxRateByIdCommandValidator()
             {
@@ -29,7 +33,7 @@ namespace Admin.App.Application.Features.TaxRates
             }
         }
 
-        internal sealed class GetTaxRateByIdQueryHandler : IRequestHandler<GetTaxRateByIdQuery, ErrorOr<TaxRate>>
+        public class GetTaxRateByIdQueryHandler : IRequestHandler<GetTaxRateByIdQuery, ErrorOr<TaxRate>>
         {
             private readonly IImtTaxRateRepository _repository;
 
@@ -39,7 +43,12 @@ namespace Admin.App.Application.Features.TaxRates
             }
             public async Task<ErrorOr<TaxRate>> Handle(GetTaxRateByIdQuery request, CancellationToken cancellationToken)
             {
-                return _repository.GetByUintId(request.Id);
+                var entity = _repository.GetByUintId(request.Id);
+                if (entity == null)
+                {
+                    return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Tax Rate not found!");
+                }
+                return entity;
             }
         }
     }
