@@ -26,7 +26,7 @@ namespace Admin.App.Application.Features.Corridors
     }
     public record GetCorridorByIdQuery(uint id) : IRequest<ErrorOr<Corridor>>;
 
-    internal sealed class GetByIdQueryValidator : AbstractValidator<GetCorridorByIdQuery>
+    public class GetByIdQueryValidator : AbstractValidator<GetCorridorByIdQuery>
     {
         public GetByIdQueryValidator()
         {
@@ -34,7 +34,7 @@ namespace Admin.App.Application.Features.Corridors
         }
     }
 
-    internal sealed class GetCorridorByIdQueryHandler :
+    public class GetCorridorByIdQueryHandler :
         IRequestHandler<GetCorridorByIdQuery, ErrorOr<Corridor>>
     {
         private readonly IImtCorridorRepository _repository;

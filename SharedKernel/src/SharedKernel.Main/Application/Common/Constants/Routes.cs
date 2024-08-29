@@ -437,6 +437,18 @@
         public const string UpdatePayerName = "update-payer";
         public const string UpdatePayerUrl = "/api/admin/updatePayer/{id}";
 
+        // InstitutionMtt
+        public const string GetInstitutionMttName = "get-institutionMtt";
+        public const string GetInstitutionMttUrl = "/api/admin/getInstitutionMtt";
+        public const string GetInstitutionMttByIdName = "get-institutionMtt-by-id";
+        public const string GetInstitutionMttByIdUrl = "/api/admin/getInstitutionMttById/{id}";
+        public const string CreateInstitutionMttName = "create-institutionMtt";
+        public const string CreateInstitutionMttUrl = "/api/admin/createInstitutionMtt";
+        public const string DeleteInstitutionMttName = "delete-institutionMtt";
+        public const string DeleteInstitutionMttUrl = "/api/admin/deleteInstitutionMtt/{id}";
+        public const string UpdateInstitutionMttName = "update-institutionMtt";
+        public const string UpdateInstitutionMttUrl = "/api/admin/updateInstitutionMtt/{id}";
+
         // provider
         public const string GetProviderName = "get_provider";
         public const string GetProviderUrl = "/api/admin/getProvider";

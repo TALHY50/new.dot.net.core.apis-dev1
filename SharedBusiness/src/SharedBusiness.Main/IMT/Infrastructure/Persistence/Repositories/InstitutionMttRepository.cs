@@ -13,27 +13,35 @@ namespace SharedBusiness.Main.IMT.Infrastructure.Persistence.Repositories
     {
         public InstitutionMtt? Add(InstitutionMtt institutionMtt)
         {
-            throw new NotImplementedException();
+            dbContext.ImtInstitutionMtts.Add(institutionMtt);
+            dbContext.SaveChanges();
+            dbContext.Entry(institutionMtt).Reload();
+            return institutionMtt;
         }
 
         public bool Delete(InstitutionMtt institutionMtt)
         {
-            throw new NotImplementedException();
+            dbContext.ImtInstitutionMtts.Remove(institutionMtt);
+            dbContext.SaveChanges();
+            return true;
         }
 
         public InstitutionMtt? FindById(uint id)
         {
-            throw new NotImplementedException();
+            return dbContext.ImtInstitutionMtts.Find(id);
         }
 
         public List<InstitutionMtt> GetAll()
         {
-            throw new NotImplementedException();
+            return dbContext.ImtInstitutionMtts.ToList();
         }
 
         public InstitutionMtt? Update(InstitutionMtt institutionMtt)
         {
-            throw new NotImplementedException();
+            dbContext.ImtInstitutionMtts.Update(institutionMtt);
+            dbContext.SaveChanges();
+            dbContext.Entry(institutionMtt).Reload();
+            return institutionMtt;
         }
     }
 }
