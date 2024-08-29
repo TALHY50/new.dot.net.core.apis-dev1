@@ -4,7 +4,6 @@ using FluentValidation;
 
 using MediatR;
 
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 using Notification.App.Contracts;
@@ -13,20 +12,9 @@ using Notification.App.Domain.Entities.Setups;
 using Notification.App.Domain.Entities.ValueObjects;
 using Notification.App.Infrastructure.Persistence.Context;
 
-using SharedKernel.Main.Application.Common;
-
 using Result = SharedKernel.Main.Application.Common.Models.Result;
 
 namespace Notification.App.Application.Features.Notifications.Events;
-
-public class CreateSmsEventController : ApiControllerBase
-{
-    [HttpPost("/api/notification/event/sms/create")]
-    public async Task<ActionResult<ErrorOr<Event>>> Create(CreateSmsEventCommand command)
-    {
-        return await Mediator.Send(command).ConfigureAwait(false);
-    }
-}
 
 public record CreateSmsEventCommand(
     ReferenceUniqueId ReferenceUniqueId,

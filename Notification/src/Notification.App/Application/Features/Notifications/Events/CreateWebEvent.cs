@@ -4,7 +4,6 @@ using FluentValidation;
 
 using MediatR;
 
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 using Notification.App.Contracts;
@@ -13,18 +12,7 @@ using Notification.App.Domain.Entities.Setups;
 using Notification.App.Domain.Entities.ValueObjects;
 using Notification.App.Infrastructure.Persistence.Context;
 
-using SharedKernel.Main.Application.Common;
-
 namespace Notification.App.Application.Features.Notifications.Events;
-
-public class CreateWebEventController : ApiControllerBase
-{
-    [HttpPost("/api/notification/event/web/create")]
-    public async Task<ActionResult<ErrorOr<Event>>> Create(CreateWebEventCommand command)
-    {
-        return await Mediator.Send(command).ConfigureAwait(false);
-    }
-}
 
 public record CreateWebEventCommand(
     ReferenceUniqueId ReferenceUniqueId,
