@@ -9,7 +9,6 @@ using ACL.App.Infrastructure.Jwt;
 using ACL.App.Infrastructure.Persistence.Repositories;
 using ACL.App.Infrastructure.Security;
 using Admin.App.Application.Features.Corridors;
-using Admin.App.Application.Features.Countries;
 using Admin.App.Application.Features.Currencies;
 using Admin.App.Application.Features.Currencies;
 using Admin.App.Application.Features.Payers;
@@ -43,6 +42,7 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
+        SharedBusiness.Main.Admin.Application.DependencyInjection.AddApplication(services);
         services.AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly);
 
         services.AddMediatR(options =>

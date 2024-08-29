@@ -1,31 +1,11 @@
 using ErrorOr;
 using FluentValidation;
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Contracts.Common;
 
-namespace Admin.App.Application.Features.Countries
+namespace SharedBusiness.Main.Admin.Application.Features.Country.Countries
 {
-    public class CreateCountryController : ApiControllerBase
-    {
-        [Tags("Country")]
-       // [Authorize(Policy = "HasPermission")]
-        [HttpPost(Routes.CreateCountryUrl, Name = Routes.CreateCountryName)]
-
-        public async Task<ActionResult<ErrorOr<Country>>> Create(CreateCountryCommand command)
-        {
-            var result = await Mediator.Send(command).ConfigureAwait(false);
-
-            return result.Match(
-                reminder => Ok(result.Value),
-                Problem);
-        }
-    }
-
     public record CreateCountryCommand(
         string? Code,
         string? IsoCode,
@@ -33,7 +13,7 @@ namespace Admin.App.Application.Features.Countries
         //uint? CreatedById,
         //uint? UpdatedById,
         byte Status
-        ) : IRequest<ErrorOr<Country>>;
+        ) : IRequest<ErrorOr<IMT.Domain.Entities.Country>>;
 
     public class CreateCountryCommandValidator : AbstractValidator<CreateCountryCommand>
     {
@@ -45,7 +25,7 @@ namespace Admin.App.Application.Features.Countries
         }
     }
 
-    public class CreateCountryCommandHandler : IRequestHandler<CreateCountryCommand, ErrorOr<Country>>
+    public class CreateCountryCommandHandler : IRequestHandler<CreateCountryCommand, ErrorOr<IMT.Domain.Entities.Country>>
     {
         private readonly IAdminCountryRepository _repository;
 
@@ -54,9 +34,9 @@ namespace Admin.App.Application.Features.Countries
             _repository = repository;
         }
 
-        public async Task<ErrorOr<Country>> Handle(CreateCountryCommand command, CancellationToken cancellationToken)
+        public async Task<ErrorOr<IMT.Domain.Entities.Country>> Handle(CreateCountryCommand command, CancellationToken cancellationToken)
         {
-            var country = new Country
+            var country = new IMT.Domain.Entities.Country
             {
                 Code = command.Code,
                 IsoCode = command.IsoCode,
