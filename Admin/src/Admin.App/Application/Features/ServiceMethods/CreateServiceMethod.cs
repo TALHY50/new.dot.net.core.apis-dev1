@@ -7,6 +7,7 @@ using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Contracts.Common;
 
 namespace ADMIN.App.Application.Features.ServiceMethods
 {
@@ -18,7 +19,10 @@ namespace ADMIN.App.Application.Features.ServiceMethods
 
         public async Task<ActionResult<ErrorOr<ServiceMethod>>> Create(CreateServiceMethodCommand command)
         {
-            return await Mediator.Send(command).ConfigureAwait(false);
+            var result = await Mediator.Send(command).ConfigureAwait(false);
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
     }
     public record CreateServiceMethodCommand(
@@ -26,15 +30,16 @@ namespace ADMIN.App.Application.Features.ServiceMethods
         uint? CompanyId
         ) : IRequest<ErrorOr<ServiceMethod>>;
 
-    internal sealed class CreateServiceMethodCommandValidator : AbstractValidator<CreateServiceMethodCommand>
+    public class CreateServiceMethodCommandValidator : AbstractValidator<CreateServiceMethodCommand>
     {
         public CreateServiceMethodCommandValidator()
         {
             RuleFor(x => x.Method).NotEmpty().WithMessage("Method  is required");
+            RuleFor(x => x.CompanyId).NotEmpty().WithMessage("Company Id  is required");
         }
     }
 
-    internal sealed class CreateServiceMethodCommandHandler : IRequestHandler<CreateServiceMethodCommand, ErrorOr<ServiceMethod>>
+    public class CreateServiceMethodCommandHandler : IRequestHandler<CreateServiceMethodCommand, ErrorOr<ServiceMethod>>
     {
         private readonly IImtServiceMethodRepository _repository;
 
@@ -55,6 +60,10 @@ namespace ADMIN.App.Application.Features.ServiceMethods
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow
             };
+            if (serviceMethod == null)
+            {
+                return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Service Method not found!");
+            }
 
             return await _repository.AddAsync(serviceMethod);
         }

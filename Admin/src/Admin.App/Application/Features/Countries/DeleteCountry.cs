@@ -16,9 +16,9 @@ namespace Admin.App.Application.Features.Countries
         //[Authorize(Policy = "HasPermission")]
         [HttpDelete(Routes.DeleteCountryUrl, Name = Routes.DeleteCountryName)]
 
-        public async Task<ActionResult<ErrorOr<bool>>> Delete(DeleteCountryCommand command)
+        public async Task<ActionResult<ErrorOr<bool>>> Delete(uint Id)
         {
-            var result = await Mediator.Send(command).ConfigureAwait(false);
+            var result = await Mediator.Send(new DeleteCountryCommand(Id)).ConfigureAwait(false);
 
             return result.Match(
                 reminder => Ok(result.Value),
