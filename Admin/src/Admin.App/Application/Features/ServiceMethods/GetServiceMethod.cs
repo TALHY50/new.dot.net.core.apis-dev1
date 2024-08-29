@@ -36,7 +36,7 @@ namespace ADMIN.App.Application.Features.ServiceMethods
             }
             public async Task<ErrorOr<List<ServiceMethod>>> Handle(GetServiceMethodQuery request, CancellationToken cancellationToken)
             {
-                var serviceMethods = _repository.All().ToList();
+                var serviceMethods = _repository.ViewAll();
 
                 if (serviceMethods == null)
                 {

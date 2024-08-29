@@ -56,7 +56,7 @@ namespace Admin.App.Application.Features.TaxRates
 
             public async Task<ErrorOr<TaxRate>> Handle(UpdateTaxRateCommand command, CancellationToken cancellationToken)
             {
-                TaxRate? taxRate = _repository.GetByUintId(command.Id);
+                TaxRate? taxRate = _repository.View(command.Id);
                 if (taxRate == null)
                 {
                     return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Tax Rate not found!");
@@ -70,17 +70,7 @@ namespace Admin.App.Application.Features.TaxRates
                 taxRate.CompanyId = command.CompanyId;
                 taxRate.Status = command.Status;
 
-                //if (_user?.UserId != null)
-                //{
-                //    entity.UpdatedById = uint.Parse(_user?.UserId ?? "1");
-                //}
-                //else
-                //{
-                //    entity.UpdatedById = 1;
-                //}
-                
-
-                return await _repository.UpdateAsync(taxRate!);
+                return _repository.Update(taxRate)!;
             }
         }
     }

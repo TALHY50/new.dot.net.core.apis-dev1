@@ -1,9 +1,13 @@
 ﻿using SharedBusiness.Main.IMT.Domain.Entities;
-using SharedKernel.Main.Application.Common.Interfaces.Services;
 
 namespace SharedBusiness.Main.IMT.Application.Interfaces.Repositories
 {
-    public interface IImtPayerPaymentSpeedRepository : IGenericRepository<PayerPaymentSpeed>
+    public interface IImtPayerPaymentSpeedRepository
     {
+        PayerPaymentSpeed? Add(PayerPaymentSpeed payerPaymentSpeed);
+        List<PayerPaymentSpeed>? ViewAll();
+        PayerPaymentSpeed? View(uint id);
+        bool Delete(PayerPaymentSpeed payerPaymentSpeed);
+        PayerPaymentSpeed? Update(PayerPaymentSpeed payerPaymentSpeed);
     }
 }
