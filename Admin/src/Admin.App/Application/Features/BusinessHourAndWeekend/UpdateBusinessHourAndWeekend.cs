@@ -26,7 +26,7 @@ public class UpdateBusinessHourAndWeekendController : ApiControllerBase
     }
 
     public record UpdateBusinessHourAndWeekendCommand(int id, byte HourType, uint? CountryId,
-    string Day, sbyte IsWeekend, sbyte Gmt, DateTime OpenAt, DateTime CloseAt, uint? CompanyId, byte Status)
+    string Day, sbyte IsWeekend, string Gmt, DateTime OpenAt, DateTime CloseAt, uint? CompanyId, byte Status)
     : IRequest<ErrorOr<BusinessHoursAndWeekend>>;
 
 

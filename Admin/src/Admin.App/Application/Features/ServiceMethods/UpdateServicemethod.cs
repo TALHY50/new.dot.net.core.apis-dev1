@@ -51,7 +51,7 @@ namespace ADMIN.App.Application.Features.ServiceMethods
 
             public async Task<ErrorOr<ServiceMethod>> Handle(UpdateServiceMethodCommand command, CancellationToken cancellationToken)
             {
-                ServiceMethod? serviceMethod = _repository.GetByUintId(command.Id);
+                ServiceMethod? serviceMethod = _repository.View(command.Id);
                 if (serviceMethod != null)
                 {
                     serviceMethod.Method = command.Method;
@@ -65,7 +65,7 @@ namespace ADMIN.App.Application.Features.ServiceMethods
                     return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Service Method not found!");
                 }
 
-                return await _repository.UpdateAsync(serviceMethod);
+                return _repository.Update(serviceMethod)!;
             }
         }
 

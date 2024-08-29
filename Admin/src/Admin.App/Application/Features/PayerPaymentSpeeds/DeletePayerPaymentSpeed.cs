@@ -48,14 +48,14 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
         {
             if (command.Id > 0)
             {
-                var payerPaymentSpeed = _repository.GetByUintId(command.Id);
+                var payerPaymentSpeed = _repository.View(command.Id);
 
                 if (payerPaymentSpeed == null)
                 {
                     return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Payer Payment Speed not found!");
                 }
                 
-                return await _repository.DeleteAsync(payerPaymentSpeed);
+                return _repository.Delete(payerPaymentSpeed);
             }
 
             return false;

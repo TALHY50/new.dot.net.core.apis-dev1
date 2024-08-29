@@ -48,14 +48,14 @@ namespace ADMIN.App.Application.Features.ServiceMethods
         {
             if (command.Id > 0)
             {
-                var serviceMethod = _repository.GetByUintId(command.Id);
+                var serviceMethod = _repository.View(command.Id);
 
                 if (serviceMethod == null)
                 {
                     return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Service Method not found!");
                 }
 
-                return await _repository.DeleteAsync(serviceMethod);
+                return _repository.Delete(serviceMethod);
             }
 
             return false;
