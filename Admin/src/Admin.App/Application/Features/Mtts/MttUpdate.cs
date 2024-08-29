@@ -11,7 +11,7 @@ using static Admin.App.Application.Features.Mtts.MttsCreate;
 
 namespace Admin.App.Application.Features.Mtts
 {
-    public class MttUpdate : ApiControllerBase
+    public class InstitutionUpdate : ApiControllerBase
     {
         [Tags("Mtt")]
         //[Authorize(Policy = "HasPermission")]
@@ -57,7 +57,7 @@ namespace Admin.App.Application.Features.Mtts
 
             public async Task<ErrorOr<Mtt>> Handle(UpdateMttCommand request, CancellationToken cancellationToken)
             {
-                Mtt? entity = _repository.GetByUintId(request.id);
+                Mtt? entity = _repository.View(request.id);
                 if (entity != null)
                 {
                     entity.CompanyId = request.CompanyId;
@@ -86,7 +86,7 @@ namespace Admin.App.Application.Features.Mtts
                     }
                 }
 
-                return await _repository.UpdateAsync(entity);
+                return  _repository.Update(entity);
             }
         }
     }

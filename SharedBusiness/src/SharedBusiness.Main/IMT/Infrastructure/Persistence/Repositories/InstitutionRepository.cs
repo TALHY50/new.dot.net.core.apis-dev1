@@ -1,15 +1,19 @@
 ﻿using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedBusiness.Main.IMT.Infrastructure.Persistence.Context;
-using SharedKernel.Main.Infrastructure.Services;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace SharedBusiness.Main.IMT.Infrastructure.Persistence.Repositories
 {
-    public class MttRepository(ApplicationDbContext dbContext) : IImtMttsRepository
+    public class InstitutionRepository(ApplicationDbContext dbContext) : IInstitutionRepository
     {
-        public Mtt? Add(Mtt entity)
+        public Institution? Add(Institution entity)
         {
-            dbContext.ImtMtts.Add(entity);
+            dbContext.ImtInstitutions.Add(entity);
             dbContext.SaveChanges();
             dbContext.Entry(entity).ReloadAsync();
             return entity;
@@ -17,10 +21,10 @@ namespace SharedBusiness.Main.IMT.Infrastructure.Persistence.Repositories
 
         public bool Delete(uint id)
         {
-            var entity = dbContext.ImtMtts.Find(id);
+            var entity = dbContext.ImtInstitutions.Find(id);
             if (entity != null)
             {
-                dbContext.ImtMtts.Remove(entity);
+                dbContext.ImtInstitutions.Remove(entity);
                 dbContext.SaveChanges();
                 return true;
             }
@@ -30,22 +34,23 @@ namespace SharedBusiness.Main.IMT.Infrastructure.Persistence.Repositories
             }
         }
 
-        public IEnumerable<Mtt>? GetAll()
+        public IEnumerable<Institution>? GetAll()
         {
-            return dbContext.ImtMtts.ToList();
+           return dbContext.ImtInstitutions.ToList();
         }
 
-        public Mtt? Update(Mtt entity)
+        public Institution? Update(Institution entity)
         {
-            dbContext.ImtMtts.Update(entity);
+            dbContext.ImtInstitutions.Update(entity);
             dbContext.SaveChanges();
             dbContext.Entry(entity).ReloadAsync();
             return entity;
         }
 
-        public Mtt? View(uint id)
+        public Institution? View(uint id)
         {
-            return dbContext.ImtMtts.Find(id);
+            return dbContext.ImtInstitutions.Find(id);
         }
+      
     }
 }

@@ -57,7 +57,7 @@ namespace ACL.App.Infrastructure.Persistence.Repositories
             {
                 return this._dbContext.AclUsers.FirstOrDefault(m => m.Email == email);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 throw new Exception();
             }

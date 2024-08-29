@@ -10,7 +10,7 @@ using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
 using SharedKernel.Main.Contracts.Common;
-using static Admin.App.Application.Features.Mtts.MttsDelete;
+using static Admin.App.Application.Features.Mtts.InstitutionDelete;
 using static Admin.App.Application.Features.Regions.DeleteRegionController;
 
 namespace Admin.App.Application.Features.TransactionTypes
