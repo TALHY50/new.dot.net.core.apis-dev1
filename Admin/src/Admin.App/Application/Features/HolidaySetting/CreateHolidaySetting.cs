@@ -25,7 +25,7 @@ public class CreateHolidaySettingController : ApiControllerBase
             Problem);
     }
 
-    public record CreateHolidaySettingCommand(uint? CountryId, DateTime Date, byte Type, sbyte Gmt, DateTime? OpenAt, DateTime? CloseAt, uint? CompanyId)
+    public record CreateHolidaySettingCommand(uint? CountryId, DateTime Date, byte Type, string Gmt, DateTime? OpenAt, DateTime? CloseAt, uint? CompanyId)
         : IRequest<ErrorOr<Duplicates_HolidaySetting>>;
 
 

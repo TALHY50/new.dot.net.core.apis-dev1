@@ -85,7 +85,7 @@ namespace Admin.App.Application.Features.InstitutionFunds
                 return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Institution Fund not found!");
             }
 
-            return await _repository.AddAsync(institutionFund);
+            return _repository.Add(institutionFund)!;
         }
     }
 }

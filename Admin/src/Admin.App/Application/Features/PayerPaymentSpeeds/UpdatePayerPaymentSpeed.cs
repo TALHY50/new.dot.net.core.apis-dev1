@@ -29,7 +29,7 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
         public record UpdatePayerPaymentSpeedCommand(
             uint Id,
             uint PayerId,
-            sbyte Gmt,
+            string Gmt,
             string WorkingDays,
             byte Status) : IRequest<ErrorOr<PayerPaymentSpeed>>;
 
@@ -55,7 +55,7 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
 
             public async Task<ErrorOr<PayerPaymentSpeed>> Handle(UpdatePayerPaymentSpeedCommand command, CancellationToken cancellationToken)
             {
-                PayerPaymentSpeed? payerPaymentSpeed = _repository.GetByUintId(command.Id);
+                PayerPaymentSpeed? payerPaymentSpeed = _repository.View(command.Id);
                 if (payerPaymentSpeed != null)
                 {
                     payerPaymentSpeed.PayerId = command.PayerId;
@@ -71,7 +71,7 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
                     return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Payer Payment Speed not found!");
                 }
 
-                return await _repository.UpdateAsync(payerPaymentSpeed);
+                return _repository.Update(payerPaymentSpeed)!;
             }
         }
 

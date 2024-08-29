@@ -114,7 +114,7 @@ public static class DependencyInjection
         var port = Env.GetString("DB_PORT");
 
         var connectionString =
-            $"server={server};database={database};User ID={userName};Password={password};CharSet=utf8mb4;" ??
+             $"server={server};database={database};port={port};User ID={userName};Password={password};CharSet=utf8mb4;" ??
             throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
         services.AddDbContext<ApplicationDbContext>(
@@ -144,7 +144,7 @@ public static class DependencyInjection
         services.AddScoped<IRolePageRepository, RolePageRepository>();
         services.AddScoped<IRoleRepository, RoleRepository>();
 
-// services.AddScoped<ISubModuleRepository, SubModuleRepository>();
+        // services.AddScoped<ISubModuleRepository, SubModuleRepository>();
         services.AddScoped<IUserGroupRepository, UserGroupRepository>();
         services.AddScoped<IUserGroupRoleRepository, UserGroupRoleRepository>();
         services.AddScoped<IUserUserGroupRepository, UserUserGroupRepository>();

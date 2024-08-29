@@ -27,7 +27,7 @@ public partial class BusinessHoursAndWeekend
     /// <summary>
     /// GMT offset in hours (e.g., +5, -3)
     /// </summary>
-    public sbyte Gmt { get; set; }
+    public string Gmt { get; set; }
 
     public DateTime OpenAt { get; set; }
 
