@@ -17,7 +17,7 @@ public partial class MttPaymentSpeed
     /// <summary>
     /// GMT offset (e.g., +5, -3)
     /// </summary>
-    public sbyte Gmt { get; set; }
+    public string Gmt { get; set; }
 
     /// <summary>
     /// Opening time
