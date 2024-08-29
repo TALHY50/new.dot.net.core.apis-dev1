@@ -1,4 +1,5 @@
-﻿using Ardalis.SharedKernel;
+﻿using ACL.App.Contracts.Responses;
+using Ardalis.SharedKernel;
 using ErrorOr;
 using FluentValidation;
 using MediatR;
@@ -53,11 +54,13 @@ namespace Admin.App.Application.Features.TransactionTypes
 
             public async Task<ErrorOr<bool>> Handle(DeleteTransactionTypeCommand request, CancellationToken cancellationToken)
             {
+                var message = new MessageResponse("Record not found");
+
                 var transactionTypes = _transactiontypeRepository.View(request.id);
 
                 if (transactionTypes == null)
                 {
-                    return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "TransactionType not found!");
+                    return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 return _transactiontypeRepository.Delete(transactionTypes);

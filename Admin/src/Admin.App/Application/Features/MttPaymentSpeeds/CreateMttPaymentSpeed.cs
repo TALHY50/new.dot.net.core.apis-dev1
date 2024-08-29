@@ -1,4 +1,5 @@
-﻿using Ardalis.SharedKernel;
+﻿using ACL.App.Contracts.Responses;
+using Ardalis.SharedKernel;
 using ErrorOr;
 using FluentValidation;
 using MediatR;
@@ -76,11 +77,13 @@ namespace Admin.App.Application.Features.MttPaymentSpeeds
 
         public async Task<ErrorOr<MttPaymentSpeed>> Handle(CreateMttPaymentSpeedCommand request, CancellationToken cancellationToken)
         {
+            var message = new MessageResponse("Record not found");
+
             var now = DateTime.UtcNow;
             var mttCheckExist = _mtt_repository.GetByUintId(request.MttId);
             if (mttCheckExist == null)
             {
-                return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "MttId not found!");
+                return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
             var @mttPaymentSpeed = new MttPaymentSpeed
             {
