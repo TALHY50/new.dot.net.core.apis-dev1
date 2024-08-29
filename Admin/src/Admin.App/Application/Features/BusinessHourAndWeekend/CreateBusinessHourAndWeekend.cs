@@ -1,12 +1,12 @@
 ﻿using Ardalis.SharedKernel;
 using ErrorOr;
 using FluentValidation;
-using IMT.App.Application.Interfaces.Repositories;
-using IMT.App.Domain.Entities;
-using IMT.App.Infrastructure.Persistence.Context;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
+using SharedBusiness.Main.IMT.Domain.Entities;
+using SharedBusiness.Main.IMT.Infrastructure.Persistence.Context;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 
@@ -19,7 +19,11 @@ public class CreateBusinessHourAndWeekendController : ApiControllerBase
     [HttpPost(Routes.CreateBusinessHourAndWeekendUrl, Name = Routes.CreateBusinessHourAndWeekendName)]
     public async Task<ActionResult<ErrorOr<BusinessHoursAndWeekend>>> Create(CreateBusinessHourAndWeekendCommand command)
     {
-        return await Mediator.Send(command).ConfigureAwait(false);
+        var result = await Mediator.Send(command).ConfigureAwait(false);
+        return result.Match(
+            reminder => Ok(result.Value),
+            Problem);
+
     }
 
     public record CreateBusinessHourAndWeekendCommand(byte HourType, uint? CountryId,

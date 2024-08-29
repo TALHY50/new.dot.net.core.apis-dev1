@@ -9,6 +9,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Ben.Demystifier" Version="0.4.1" />
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.8" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.7.1" />
 	</ItemGroup>
@@ -158,10 +159,6 @@
 	<ItemGroup>
 		<AdditionalFiles Include="Application\Common\Resources\bn-BD.resx" />
 		<AdditionalFiles Include="Application\Common\Resources\en-US.resx" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <ProjectReference Include="..\..\..\IMT\src\Thunes\Thunes.csproj" />
 	</ItemGroup>
 
 

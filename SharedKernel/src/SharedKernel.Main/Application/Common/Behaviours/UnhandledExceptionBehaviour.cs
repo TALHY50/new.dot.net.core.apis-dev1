@@ -1,5 +1,10 @@
-﻿using MediatR;
+﻿using System.Diagnostics;
+using ErrorOr;
+using MediatR;
 using Microsoft.Extensions.Logging;
+using Quartz.Util;
+using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Infrastructure.Extensions;
 
 namespace SharedKernel.Main.Application.Common.Behaviours;
 
@@ -24,8 +29,14 @@ public class UnhandledExceptionBehaviour<TRequest, TResponse> : IPipelineBehavio
             var requestName = typeof(TRequest).Name;
 
             _logger.LogError(ex, "Request: Unhandled Exception for Request {Name} {@Request}", requestName, request);
+            
+            var error = Error.Unexpected(
+                code: ApplicationCodes.Unexpected.Code,
+                description: ex.ToString());
 
-            throw;
+            return (dynamic)error;
+
+           // throw;
         }
     }
 }

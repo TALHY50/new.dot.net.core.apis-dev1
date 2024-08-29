@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Admin.App", "src\Admin.App\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedKernel", "..\SharedKernel\src\SharedKernel.Main\SharedKernel.Main.csproj", "{9071EF11-3540-4305-820D-9FB1EBF9F7C8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedBusiness.Main", "..\SharedBusiness\src\SharedBusiness.Main\SharedBusiness.Main.csproj", "{4358DDA9-B270-4077-AEAA-8797C0679539}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +36,10 @@ Global
 		{9071EF11-3540-4305-820D-9FB1EBF9F7C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9071EF11-3540-4305-820D-9FB1EBF9F7C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9071EF11-3540-4305-820D-9FB1EBF9F7C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4358DDA9-B270-4077-AEAA-8797C0679539}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4358DDA9-B270-4077-AEAA-8797C0679539}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4358DDA9-B270-4077-AEAA-8797C0679539}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4358DDA9-B270-4077-AEAA-8797C0679539}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{CC39759D-65C4-4369-B466-2DE26BEBBE31} = {C6D2125B-B5C0-468E-A5CF-B61A728DBC59}

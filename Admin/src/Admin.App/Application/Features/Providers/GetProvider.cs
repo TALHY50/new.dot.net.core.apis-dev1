@@ -1,11 +1,12 @@
 ﻿using ErrorOr;
-using IMT.App.Application.Interfaces.Repositories;
-using IMT.App.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
+using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Admin.App.Application.Features.Providers
 {
@@ -16,12 +17,16 @@ namespace Admin.App.Application.Features.Providers
         [HttpGet(Routes.GetProviderUrl, Name = Routes.GetProviderName)]
         public async Task<ActionResult<ErrorOr<List<Provider>>>> Get()
         {
-            return await Mediator.Send(new GetProviderQuery()).ConfigureAwait(false);
+            var result = await Mediator.Send(new GetProviderQuery()).ConfigureAwait(false);
+
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
 
         public record GetProviderQuery() : IRequest<ErrorOr<List<Provider>>>;
 
-        internal sealed class GetProviderHandler
+        public class GetProviderHandler
             : IRequestHandler<GetProviderQuery, ErrorOr<List<Provider>>>
         {
             private readonly IImtProviderRepository _providerRepository;

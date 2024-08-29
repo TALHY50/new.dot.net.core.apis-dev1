@@ -18,7 +18,7 @@
 
 		<ItemGroup>
 	  <ProjectReference Include="..\..\..\ACL\src\ACL.App\ACL.App.csproj" />
-	  <ProjectReference Include="..\..\..\IMT\src\IMT.App\IMT.App.csproj" />
+	  <ProjectReference Include="..\..\..\SharedBusiness\src\SharedBusiness.Main\SharedBusiness.Main.csproj" />
 	  <ProjectReference Include="..\..\..\SharedKernel\src\SharedKernel.Main\SharedKernel.Main.csproj" />
 	</ItemGroup>
 	<ItemGroup>

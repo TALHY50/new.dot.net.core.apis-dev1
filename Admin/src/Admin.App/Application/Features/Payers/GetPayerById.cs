@@ -1,11 +1,12 @@
 ﻿using ErrorOr;
 using FluentValidation;
-using IMT.App.Application.Interfaces.Repositories;
-using IMT.App.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
+using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Contracts.Common;
 
 namespace Admin.App.Application.Features.Payers
 {
@@ -16,12 +17,15 @@ namespace Admin.App.Application.Features.Payers
         [HttpGet(Routes.GetPayerByIdUrl, Name = Routes.GetPayerByIdName)]
         public async Task<ActionResult<ErrorOr<Payer>>> GetById(uint id)
         {
-            return await Mediator.Send(new GetPayerByIdQuery(id)).ConfigureAwait(false);
+            var result = await Mediator.Send(new GetPayerByIdQuery(id)).ConfigureAwait(false);
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
     }
     public record GetPayerByIdQuery(uint id) : IRequest<ErrorOr<Payer>>;
 
-    internal sealed class GetByIdQueryValidator : AbstractValidator<GetPayerByIdQuery>
+    public class GetByIdQueryValidator : AbstractValidator<GetPayerByIdQuery>
     {
         public GetByIdQueryValidator()
         {
@@ -29,7 +33,7 @@ namespace Admin.App.Application.Features.Payers
         }
     }
 
-    internal sealed class GetPayerByIdQueryHandler :
+    public class GetPayerByIdQueryHandler :
         IRequestHandler<GetPayerByIdQuery, ErrorOr<Payer>>
     {
         private readonly IImtPayerRepository _repository;
@@ -39,7 +43,12 @@ namespace Admin.App.Application.Features.Payers
         }
         public async Task<ErrorOr<Payer>> Handle(GetPayerByIdQuery request, CancellationToken cancellationToken)
         {
-            return _repository.GetByUintId(request.id);
+            var entity = _repository.GetByUintId(request.id);
+            if (entity == null)
+            {
+                return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Payer not found!");
+            }
+            return entity;
         }
     }
 }

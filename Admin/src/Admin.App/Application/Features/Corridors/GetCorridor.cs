@@ -1,8 +1,8 @@
 ﻿using Ardalis.SharedKernel;
 using ErrorOr;
-using IMT.App.Application.Interfaces.Repositories;
-using IMT.App.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
+using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 
@@ -15,12 +15,15 @@ namespace Admin.App.Application.Features.Corridors
         [HttpGet(Routes.GetCorridorUrl, Name = Routes.GetCorridorName)]
         public async Task<ActionResult<ErrorOr<List<Corridor>>>> Get()
         {
-            return await Mediator.Send(new GetCorridorQuery()).ConfigureAwait(false);
+            var result = await Mediator.Send(new GetCorridorQuery()).ConfigureAwait(false);
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
     }
     public record GetCorridorQuery() : IQuery<ErrorOr<List<Corridor>>>;
 
-    internal sealed class GetCorridorHandler
+    public class GetCorridorHandler
         : IQueryHandler<GetCorridorQuery, ErrorOr<List<Corridor>>>
     {
         private readonly IImtCorridorRepository _repository;

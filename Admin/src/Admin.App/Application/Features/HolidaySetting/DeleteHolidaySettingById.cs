@@ -1,12 +1,14 @@
 ﻿using ErrorOr;
 using FluentValidation;
-using IMT.App.Application.Interfaces.Repositories;
-using IMT.App.Infrastructure.Persistence.Context;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
+using SharedBusiness.Main.IMT.Infrastructure.Persistence.Context;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Contracts.Common;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 
 namespace Admin.App.Application.Features.HolidaySetting;
@@ -17,7 +19,10 @@ public class DeleteHolidaySettingByIdController : ApiControllerBase
     [HttpDelete(Routes.DeleteHolidaySettingUrl, Name = Routes.DeleteHolidaySettingName)]
     public async Task<ActionResult<ErrorOr<bool>>> Delete(uint id)
     {
-        return await Mediator.Send(new DeleteHolidaySettingCommand(id)).ConfigureAwait(false);
+        var result = await Mediator.Send(new DeleteHolidaySettingCommand(id)).ConfigureAwait(false);
+        return result.Match(
+            reminder => Ok(result.Value),
+            Problem);
     }
 
     public record DeleteHolidaySettingCommand(uint Id) : IRequest<ErrorOr<bool>>;
@@ -39,8 +44,11 @@ public class DeleteHolidaySettingByIdController : ApiControllerBase
             var holidaySetting = await _context.ImtHolidaySettings.FirstAsync(e => e.Id == request.Id, cancellationToken: cancellationToken).ConfigureAwait(false);
             if (holidaySetting == null)
             {
-                return Error.NotFound("Holiday Setting not found!");
+                return Error.NotFound("Holiday Setting not found!", AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
+
+            // Check holiday setting has child table. If exist not delete holiday
+
             _context.ImtHolidaySettings.Remove(holidaySetting);
             await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             // need to modify return type

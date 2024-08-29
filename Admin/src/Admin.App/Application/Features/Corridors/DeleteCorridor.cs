@@ -1,9 +1,12 @@
-﻿using FluentValidation;
-using IMT.App.Application.Interfaces.Repositories;
+﻿using ErrorOr;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Contracts.Common;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Admin.App.Application.Features.Corridors
 {
@@ -12,13 +15,17 @@ namespace Admin.App.Application.Features.Corridors
         [Tags("Corridor")]
         // [Authorize]
         [HttpDelete(Routes.DeleteCorridorUrl, Name = Routes.DeleteCorridorName)]
-        public async Task<bool> DeleteCorridor(uint id)
+        public async Task<ActionResult<ErrorOr<bool>>> DeleteCorridor(uint id)
         {
-            return await Mediator.Send(new DeleteCorridorCommand(id)).ConfigureAwait(false);
+            var result = await Mediator.Send(new DeleteCorridorCommand(id)).ConfigureAwait(false);
+
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
     }
 
-    public record DeleteCorridorCommand(uint id) : IRequest<bool>;
+    public record DeleteCorridorCommand(uint id) : IRequest<ErrorOr<bool>>;
 
     internal sealed class DeleteCorridorCommandValidator : AbstractValidator<DeleteCorridorCommand>
     {
@@ -27,7 +34,7 @@ namespace Admin.App.Application.Features.Corridors
             RuleFor(r => r.id).NotEmpty();
         }
     }
-    internal sealed class DeleteCorridorCommandHandler : IRequestHandler<DeleteCorridorCommand, bool>
+    internal sealed class DeleteCorridorCommandHandler : IRequestHandler<DeleteCorridorCommand, ErrorOr<bool>>
     {
         private readonly IImtCorridorRepository _repository;
         public DeleteCorridorCommandHandler(IImtCorridorRepository repository)
@@ -35,21 +42,21 @@ namespace Admin.App.Application.Features.Corridors
             _repository = repository;
         }
 
-        public async Task<bool> Handle(DeleteCorridorCommand request, CancellationToken cancellationToken)
+        public async Task<ErrorOr<bool>> Handle(DeleteCorridorCommand request, CancellationToken cancellationToken)
         {
             if (request.id > 0)
             {
                 var entity = _repository.GetByUintId(request.id);
 
-                if (entity != null)
+                if (entity == null)
                 {
-                    return await _repository.DeleteAsync(entity);
+                    return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Corridor not found!");
                 }
 
                 return await _repository.DeleteAsync(entity);
             }
 
-            return false;
+           return Error.NotFound(description: "Corridor not found!", code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString()); ;
         }
     }
 }

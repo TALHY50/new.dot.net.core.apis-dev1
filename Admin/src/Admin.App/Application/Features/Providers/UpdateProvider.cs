@@ -1,13 +1,16 @@
-﻿using ErrorOr;
+﻿using Ardalis.SharedKernel;
+using ErrorOr;
 using FluentValidation;
-using IMT.App.Application.Interfaces.Repositories;
-using IMT.App.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
+using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Contracts.Common;
+using static Admin.App.Application.Features.Providers.GetProviderByIdController;
 
 
 namespace Admin.App.Application.Features.Providers
@@ -20,30 +23,50 @@ namespace Admin.App.Application.Features.Providers
         public async Task<ActionResult<ErrorOr<Provider>>> Update(uint id, UpdateProviderCommand command)
         {
             var commandWithId = command with { id = id };
-            return await Mediator.Send(commandWithId).ConfigureAwait(false);
+            var result = await Mediator.Send(commandWithId).ConfigureAwait(false);
+
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
 
         public record UpdateProviderCommand(
         uint id,
-        string Name,
-        string BaseUrl,
-        string AppId,
-        string AppSecret,
-        uint? CompanyId) : IRequest<ErrorOr<Provider>>;
+        string? Code,
+        string? Name,
+        string? BaseUrl,
+        string? ApiKey,
+        string? ApiSecret,
+        byte? Status) : IRequest<ErrorOr<Provider>>;
 
 
-        //internal sealed class UpdateProviderCommandValidator : AbstractValidator<UpdateProviderCommand>
-        //{
-        //    public UpdateProviderCommandValidator()
-        //    {
-        //        RuleFor(v => v.Status)
-        //            .NotEmpty()
-        //            .WithMessage("Status is required.");
-        //    }
-        //}
+        public class UpdateProviderCommandValidator : AbstractValidator<UpdateProviderCommand>
+        {
+            public UpdateProviderCommandValidator()
+            {
+                RuleFor(v => v.id)
+                    .NotEmpty()
+                    .WithMessage("ID is required.");
+                RuleFor(v => v.Code)
+                    .MaximumLength(50)
+                    .WithMessage("Maximum length can be 50.");
+                RuleFor(v => v.Name)
+                    .MaximumLength(50)
+                    .WithMessage("Maximum length can be 50.");
+                RuleFor(v => v.BaseUrl)
+                    .MaximumLength(100)
+                    .WithMessage("Maximum length can be 100.");
+                RuleFor(v => v.ApiKey)
+                    .MaximumLength(100)
+                    .WithMessage("Maximum length can be 100.");
+                RuleFor(v => v.ApiSecret)
+                    .MaximumLength(100)
+                    .WithMessage("Maximum length can be 100.");
+            }
+        }
 
 
-        internal sealed class UpdateProviderCommandHandler
+        public class UpdateProviderCommandHandler
         : IRequestHandler<UpdateProviderCommand, ErrorOr<Provider>>
         {
             private readonly ICurrentUserService _user;
@@ -60,19 +83,21 @@ namespace Admin.App.Application.Features.Providers
                 var now = DateTime.UtcNow;
                 Provider? providers = _providerRepository.GetByUintId(request.id);
 
-                if (providers != null)
+                if (providers == null)
                 {
-                    providers.Name = request.Name;
-                    providers.BaseUrl = request.BaseUrl;
-                    providers.ApiKey = request.AppId;
-                    providers.ApiSecret = request.AppSecret;
-                    //providers.CompanyId = request.CompanyId;
-                    providers.Status = 1;
-                    providers.CreatedById = 1;
-                    providers.UpdatedById = 1;
-                    providers.CreatedAt = now;
-                    providers.UpdatedAt = now;
-                };
+                    return Error.NotFound(description: "Provider not found", code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                }
+                
+                providers.Code = request.Code;
+                providers.Name = request.Name;
+                providers.BaseUrl = request.BaseUrl;
+                providers.ApiKey = request.ApiKey;
+                providers.ApiSecret = request.ApiSecret;
+                providers.Status = request.Status;
+                providers.CreatedById = 1;
+                providers.UpdatedById = 2;
+                providers.CreatedAt = now;
+                providers.UpdatedAt = now;
 
                 return await _providerRepository.UpdateAsync(providers);
             }

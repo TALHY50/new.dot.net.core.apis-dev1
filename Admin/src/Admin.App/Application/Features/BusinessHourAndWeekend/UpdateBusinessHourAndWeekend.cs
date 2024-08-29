@@ -1,14 +1,15 @@
 ﻿using ErrorOr;
 using FluentValidation;
-using IMT.App.Application.Interfaces.Repositories;
-using IMT.App.Domain.Entities;
-using IMT.App.Infrastructure.Persistence.Context;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
+using SharedBusiness.Main.IMT.Domain.Entities;
+using SharedBusiness.Main.IMT.Infrastructure.Persistence.Context;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Application.Common.Models;
+using SharedKernel.Main.Contracts.Common;
 
 namespace Admin.App.Application.Features.BusinessHourAndWeekend;
 
@@ -18,7 +19,10 @@ public class UpdateBusinessHourAndWeekendController : ApiControllerBase
     [HttpPut(Routes.UpdateBusinessHourAndWeekendUrl, Name = Routes.UpdateBusinessHourAndWeekendName)]
     public async Task<ActionResult<ErrorOr<BusinessHoursAndWeekend>>> Create(UpdateBusinessHourAndWeekendCommand command)
     {
-        return await Mediator.Send(command).ConfigureAwait(false);
+        var result = await Mediator.Send(command).ConfigureAwait(false);
+        return result.Match(
+            reminder => Ok(result.Value),
+            Problem);
     }
 
     public record UpdateBusinessHourAndWeekendCommand(int id, byte HourType, uint? CountryId,
@@ -46,7 +50,7 @@ public class UpdateBusinessHourAndWeekendController : ApiControllerBase
             var businessHourAndWeekend = await _context.ImtBusinessHoursAndWeekends.FirstAsync(e => e.Id == request.id, cancellationToken: cancellationToken).ConfigureAwait(false);
             if (businessHourAndWeekend == null)
             {
-                return Error.NotFound("Business hour and weekend not found!");
+                return Error.NotFound("Business hour and weekend not found!", AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
 
             businessHourAndWeekend.HourType = request.HourType;

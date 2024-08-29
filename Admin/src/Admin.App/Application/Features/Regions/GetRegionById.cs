@@ -1,13 +1,15 @@
 ﻿using Ardalis.SharedKernel;
 using ErrorOr;
 using FluentValidation;
-using IMT.App.Application.Interfaces.Repositories;
-using IMT.App.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
+using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Contracts.Common;
+using static Admin.App.Application.Features.Regions.GetRegionController;
 
 namespace Admin.App.Application.Features.Regions
 {
@@ -18,22 +20,26 @@ namespace Admin.App.Application.Features.Regions
         [HttpGet(Routes.GetRegionByIdUrl, Name = Routes.GetRegionByIdName)]
         public async Task<ActionResult<ErrorOr<Region>>> Get(uint id)
         {
-            return await Mediator.Send(new GetRegionByIdQuery(id)).ConfigureAwait(false);
+            var result = await Mediator.Send(new GetRegionByIdQuery(id)).ConfigureAwait(false);
+
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
 
         public record GetRegionByIdQuery(uint id) : IRequest<ErrorOr<Region>>;
 
-        internal sealed class GetRegionByIdCommandValidator : AbstractValidator<GetRegionByIdQuery>
+        public class GetRegionByIdCommandValidator : AbstractValidator<GetRegionByIdQuery>
         {
             public GetRegionByIdCommandValidator()
             {
                 RuleFor(x => x.id)
                     .NotEmpty()
-                    .WithMessage("Region ID is required");
+                    .WithMessage("ID is required");
             }
         }
 
-        internal sealed class GetRegionByIdQueryHandler
+        public class GetRegionByIdQueryHandler
             : IRequestHandler<GetRegionByIdQuery, ErrorOr<Region>>
         {
             private readonly IImtRegionRepository _repository;
@@ -43,7 +49,16 @@ namespace Admin.App.Application.Features.Regions
             }
             public async Task<ErrorOr<Region>> Handle(GetRegionByIdQuery request, CancellationToken cancellationToken)
             {
-                return _repository.GetByUintId(request.id);
+                var region = _repository.GetByUintId(request.id);
+
+                if (region == null)
+                {
+                    return Error.NotFound(description: "Region not found", code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                }
+                else
+                {
+                    return region;
+                }
             }
         }
     }

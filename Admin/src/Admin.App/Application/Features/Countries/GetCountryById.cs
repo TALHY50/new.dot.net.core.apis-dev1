@@ -4,9 +4,10 @@ using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using MediatR;
 using FluentValidation;
-using IMT.App.Application.Interfaces.Repositories;
-using IMT.App.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
+using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
+using SharedBusiness.Main.IMT.Domain.Entities;
+using SharedKernel.Main.Contracts.Common;
 
 namespace Admin.App.Application.Features.Countries
 {
@@ -15,14 +16,17 @@ namespace Admin.App.Application.Features.Countries
         [Tags("Country")]
         //[Authorize(Policy = "HasPermission")]
         [HttpGet(Routes.GetCountryByIdUrl, Name = Routes.GetCountryByIdName)]
-        public async Task<ActionResult<ErrorOr<Country>>> GetById(int Id)
+        public async Task<ActionResult<ErrorOr<Country>>> GetById(uint Id)
         {
-            return await Mediator.Send(new GetCountryByIdQuery(Id)).ConfigureAwait(false);
+            var result = await Mediator.Send(new GetCountryByIdQuery(Id)).ConfigureAwait(false);
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
 
-        public record GetCountryByIdQuery(int Id) : IRequest<ErrorOr<Country>>;
+        public record GetCountryByIdQuery(uint Id) : IRequest<ErrorOr<Country>>;
 
-        internal sealed class GetCountryByIdCommandValidator : AbstractValidator<GetCountryByIdQuery>
+        public class GetCountryByIdCommandValidator : AbstractValidator<GetCountryByIdQuery>
         {
             public GetCountryByIdCommandValidator()
             {
@@ -30,7 +34,7 @@ namespace Admin.App.Application.Features.Countries
             }
         }
 
-        internal sealed class GetCountryByIdQueryHandler : IRequestHandler<GetCountryByIdQuery, ErrorOr<Country>>
+        public class GetCountryByIdQueryHandler : IRequestHandler<GetCountryByIdQuery, ErrorOr<Country>>
         {
             private readonly IAdminCountryRepository _repository;
 
@@ -40,7 +44,14 @@ namespace Admin.App.Application.Features.Countries
             }
             public async Task<ErrorOr<Country>> Handle(GetCountryByIdQuery request, CancellationToken cancellationToken)
             {
-                return _repository.GetByIntId(request.Id);
+                var country = _repository.GetByUintId(request.Id);
+
+                if (country == null)
+                {
+                    return Error.NotFound(description: "Country not found!", code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                }
+
+                return country;
             }
         }
     }

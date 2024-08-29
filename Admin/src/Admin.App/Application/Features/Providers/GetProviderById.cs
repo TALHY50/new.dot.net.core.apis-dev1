@@ -1,14 +1,17 @@
 ﻿using Ardalis.SharedKernel;
 using ErrorOr;
 using FluentValidation;
-using IMT.App.Application.Interfaces.Repositories;
-using IMT.App.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
+using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Contracts.Common;
 using static Admin.App.Application.Features.Mtts.MttView;
+using static Admin.App.Application.Features.Providers.GetProviderController;
+using static Admin.App.Application.Features.Regions.GetRegionByIdController;
 
 namespace Admin.App.Application.Features.Providers
 {
@@ -19,13 +22,28 @@ namespace Admin.App.Application.Features.Providers
         [HttpGet(Routes.GetProviderByIdUrl, Name = Routes.GetProviderByIdName)]
         public async Task<ActionResult<ErrorOr<Provider>>> Get(uint id)
         {
-            return await Mediator.Send(new GetProviderByIdQuery(id)).ConfigureAwait(false);
+            var result = await Mediator.Send(new GetProviderByIdQuery(id)).ConfigureAwait(false);
+
+            return result.Match(
+                reminder => Ok(result.Value),
+                Problem);
         }
 
         public record GetProviderByIdQuery(uint id) : IRequest<ErrorOr<Provider>>;
 
 
-        internal sealed class GetProviderByIdQueryValidator : AbstractValidator<GetProviderByIdQuery>
+        public class GetProviderByIdCommandValidator : AbstractValidator<GetProviderByIdQuery>
+        {
+            public GetProviderByIdCommandValidator()
+            {
+                RuleFor(x => x.id)
+                    .NotEmpty()
+                    .WithMessage("ID is required");
+            }
+        }
+
+
+        public class GetProviderByIdQueryValidator : AbstractValidator<GetProviderByIdQuery>
         {
             public GetProviderByIdQueryValidator()
             {
@@ -35,7 +53,7 @@ namespace Admin.App.Application.Features.Providers
             }
         }
 
-        internal sealed class GetProviderByIdQueryHandler
+        public class GetProviderByIdQueryHandler
             : IRequestHandler<GetProviderByIdQuery, ErrorOr<Provider>>
         {
             private readonly IImtProviderRepository _providerRepository;
@@ -46,7 +64,15 @@ namespace Admin.App.Application.Features.Providers
             }
             public async Task<ErrorOr<Provider>> Handle(GetProviderByIdQuery request, CancellationToken cancellationToken)
             {
-                return _providerRepository.GetByUintId(request.id);
+                var provider = _providerRepository.GetByUintId(request.id);
+                if (provider == null)
+                {
+                    return Error.NotFound(description: "Provider not found", code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                }
+                else
+                {
+                    return provider;
+                }
             }
         }
     }

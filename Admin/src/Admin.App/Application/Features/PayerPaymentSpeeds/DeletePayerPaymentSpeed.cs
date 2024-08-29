@@ -1,9 +1,9 @@
 ﻿using ErrorOr;
 using FluentValidation;
-using IMT.App.Application.Interfaces.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 
