@@ -4,7 +4,6 @@ using FluentValidation;
 
 using MediatR;
 
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 using Newtonsoft.Json;
@@ -12,22 +11,12 @@ using Newtonsoft.Json;
 using Notification.App.Domain.Entities.Outgoings;
 using Notification.App.Infrastructure.Persistence.Context;
 
-using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
 using SharedKernel.Main.Infrastructure.Mappings;
 
 using EventId = Notification.App.Contracts.EventId;
 
 namespace Notification.App.Application.Features.Notifications.Outgoing;
-
-public class CreateSmsOutgoingController : ApiControllerBase
-{
-    [HttpPost("/api/notification/outgoing/sms/create")]
-    public async Task<ActionResult<ErrorOr<SmsOutgoing>>> Create(CreateSmsOutgoingCommand command)
-    {
-        return await Mediator.Send(command).ConfigureAwait(false);
-    }
-}
 
 public record CreateSmsOutgoingCommand(EventId EventId) : IRequest<ErrorOr<SmsOutgoing>>;
 

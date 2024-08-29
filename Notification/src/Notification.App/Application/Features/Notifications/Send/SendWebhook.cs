@@ -4,13 +4,10 @@ using FluentValidation;
 
 using MediatR;
 
-using Microsoft.AspNetCore.Mvc;
-
 using Notification.App.Application.Interfaces.Repositories;
 using Notification.App.Contracts;
 using Notification.App.Infrastructure.Persistence.Context;
 
-using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Interfaces;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
 using SharedKernel.Main.Application.Common.Models;
@@ -18,15 +15,6 @@ using SharedKernel.Main.Application.Common.Models;
 using Result = SharedKernel.Main.Application.Common.Models.Result;
 
 namespace Notification.App.Application.Features.Notifications.Send;
-
-public class SendWebhookController : ApiControllerBase
-{
-    [HttpPost("/api/notification/send/webhook")]
-    public async Task<ActionResult<ErrorOr<Result>>> Create(SendWebhookCommand command)
-    {
-        return await Mediator.Send(command).ConfigureAwait(false);
-    }
-}
 
 public record SendWebhookCommand(OutgoingId OutgoingId) : IRequest<ErrorOr<Result>>;
 
