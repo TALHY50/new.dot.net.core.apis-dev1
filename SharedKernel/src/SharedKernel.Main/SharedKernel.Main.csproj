@@ -153,7 +153,6 @@
 	<ItemGroup>
 		<Folder Include="Infrastructure\Attributes\" />
 		<Folder Include="Infrastructure\MiddleWares\" />
-		<Folder Include="Infrastructure\Resources\" />
 	</ItemGroup>
 
 	<ItemGroup>
