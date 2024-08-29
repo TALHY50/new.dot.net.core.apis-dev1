@@ -461,6 +461,18 @@
         public const string UpdateTransactionTypeName = "update_transaction_type";
         public const string UpdateTransactionTypeUrl = "/api/admin/updateTransactionType/{id}";
 
+        // mtt_payment_speed
+        public const string GetMttPaymentSpeedName = "get_mtt_payment_speed";
+        public const string GetMttPaymentSpeedUrl = "/api/admin/getMttPaymentSpeed";
+        public const string GetMttPaymentSpeedByIdName = "get_mtt_payment_speed_by_id";
+        public const string GetMttPaymentSpeedByIdUrl = "/api/admin/getMttPaymentSpeedById/{id}";
+        public const string CreateMttPaymentSpeedName = "create_mtt_payment_speed";
+        public const string CreateMttPaymentSpeedUrl = "/api/admin/createMttPaymentSpeed";
+        public const string DeleteMttPaymentSpeedName = "delete_mtt_payment_speed";
+        public const string DeleteMttPaymentSpeedUrl = "/api/admin/deleteMttPaymentSpeed/{id}";
+        public const string UpdateMttPaymentSpeedName = "update_mtt_payment_speed";
+        public const string UpdateMttPaymentSpeedUrl = "/api/admin/updateMttPaymentSpeed/{id}";
+
         // CreateMoneyTransferTransaction
         public const string CreateMoneyTransferTransactionName = "create_money_transaction";
         public const string CreateMoneyTransferTransactionUrl = "/v2/money-transfer/transaction/create";

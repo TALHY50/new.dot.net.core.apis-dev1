@@ -5,8 +5,8 @@ using Thunes.Response.Discovery.Common;
 
 namespace SharedBusiness.Main.IMT.Infrastructure.Persistence.Repositories
 {
-    public class ImtMttPaymentSpeed(ApplicationDbContext dbContext)
-        : IImtMttPaymentSpeed
+    public class ImtMttPaymentSpeedRepository(ApplicationDbContext dbContext)
+        : IImtMttPaymentSpeedRepository
     {
         public MttPaymentSpeed? Add(MttPaymentSpeed mttPaymentSpeed)
         {

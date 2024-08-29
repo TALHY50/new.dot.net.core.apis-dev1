@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SharedBusiness.Main.IMT.Application.Interfaces.Repositories
 {
-    public interface IImtMttPaymentSpeed
+    public interface IImtMttPaymentSpeedRepository
     {
         MttPaymentSpeed? Add(MttPaymentSpeed mttPaymentSpeed);
         MttPaymentSpeed? Update(MttPaymentSpeed mttPaymentSpeed);

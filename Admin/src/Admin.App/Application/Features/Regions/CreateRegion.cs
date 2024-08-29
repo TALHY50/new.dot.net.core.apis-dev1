@@ -63,7 +63,7 @@ namespace Admin.App.Application.Features.Regions
                 CreatedById = 1,
                 UpdatedById = 2,
                 CreatedAt = now,
-                UpdatedAt = now,
+                UpdatedAt = now
             };
 
             return _repository.Add(@region);
