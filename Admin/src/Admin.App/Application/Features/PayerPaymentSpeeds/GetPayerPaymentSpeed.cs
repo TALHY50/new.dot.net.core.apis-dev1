@@ -36,7 +36,7 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
             }
             public async Task<ErrorOr<List<PayerPaymentSpeed>>> Handle(GetPayerPaymentSpeedQuery request, CancellationToken cancellationToken)
             {
-                var payerPaymentSpeeds = _repository.All().ToList();
+                var payerPaymentSpeeds = _repository.ViewAll();
 
                 if (payerPaymentSpeeds == null)
                 {

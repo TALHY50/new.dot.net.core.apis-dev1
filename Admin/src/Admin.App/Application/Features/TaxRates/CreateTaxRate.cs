@@ -72,7 +72,7 @@ namespace Admin.App.Application.Features.TaxRates
                 UpdatedAt = DateTime.UtcNow,
             };
 
-            return await _repository.AddAsync(taxRate);
+            return _repository.Add(taxRate)!;
         }
     }
 }

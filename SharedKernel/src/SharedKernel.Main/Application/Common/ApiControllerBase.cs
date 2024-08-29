@@ -28,10 +28,10 @@ public partial class ApiControllerBase : ControllerBase
             return Problem();
         }
 
-        if (errors.All(error => error.Type == ErrorType.Validation))
+        /*if (errors.All(error => error.Type == ErrorType.Validation))
         {
             return ValidationProblem(errors);
-        }
+        }*/
         
         
         return Problem(errors[0]);
@@ -47,19 +47,21 @@ public partial class ApiControllerBase : ControllerBase
             ErrorType.Unauthorized => StatusCodes.Status403Forbidden,
             _ => StatusCodes.Status500InternalServerError,
         };
+
+        var errorEntity = new StatusEntityModel() { Code = error.Code, Message = error.Description };
+        /*var customErrors = new List<StatusEntityModel>();
         
-        
-        var customErrors = new List<StatusEntityModel>();
-        
-        customErrors.Add(new StatusEntityModel(){Code = error.Code, Message = error.Description});
+        customErrors.Add(errorEntity);
         
         
         var errorResponse = new ErrorModel
         {
             Errors  = customErrors
-        };
+        };*/
 
-        return new ObjectResult(errorResponse)
+        var result = ToResponse(errorEntity);
+
+        return new ObjectResult(result)
         {
             StatusCode = statusCode
         };
@@ -91,20 +93,32 @@ public partial class ApiControllerBase : ControllerBase
 
         //return ValidationProblem(modelStateDictionary);
     }
-
-
+    
 
     protected object ToSuccess(object data)
     {
         var status = new StatusEntityModel(){Code = ApplicationCodes.OperationIsOk.Code, Message = ApplicationCodes.OperationIsOk.Message};
 
-        var successResponse = new SuccessModel()
+        return ToResponse(status, data);
+        
+    }
+
+
+    
+
+    private object ToResponse(StatusEntityModel status, object data = null)
+    {
+        if (data is null)
+        {
+            data = new object();
+        }
+        var response = new StatusModel()
         {
             Status = status,
             Data = data
         };
 
-        return successResponse;
+        return response;
     }
     
 
