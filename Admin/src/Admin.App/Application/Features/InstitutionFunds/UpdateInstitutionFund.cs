@@ -64,7 +64,7 @@ namespace Admin.App.Application.Features.InstitutionFunds
 
             public async Task<ErrorOr<InstitutionFund>> Handle(UpdateInstitutionFundCommand command, CancellationToken cancellationToken)
             {
-                InstitutionFund? institutionFund = _repository.GetByUintId(command.Id);
+                InstitutionFund? institutionFund = _repository.View(command.Id);
                 if (institutionFund != null)
                 {
                     institutionFund.InstitutionId = command.InstitutionId;
@@ -85,7 +85,7 @@ namespace Admin.App.Application.Features.InstitutionFunds
                     return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Institution Fund not found!");
                 }
 
-                return await _repository.UpdateAsync(institutionFund);
+                return _repository.Update(institutionFund);
             }
         }
     }

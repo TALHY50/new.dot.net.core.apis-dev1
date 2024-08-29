@@ -29,7 +29,7 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
 
     public record CreatePayerPaymentSpeedCommand(
         uint PayerId,
-        sbyte Gmt,
+        string Gmt,
         string WorkingDays
         ) : IRequest<ErrorOr<PayerPaymentSpeed>>;
 
@@ -76,7 +76,7 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
                 return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Payer Payment Speed not found!");
             }
 
-            return await _repository.AddAsync(payerPaymentSpeed);
+            return _repository.Add(payerPaymentSpeed);
         }
     }
 }

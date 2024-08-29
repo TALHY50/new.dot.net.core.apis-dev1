@@ -46,7 +46,7 @@ namespace Admin.App.Application.Features.InstitutionFunds
         {
             if (command.Id > 0)
             {
-                var institutionFund = _repository.GetByUintId(command.Id);
+                var institutionFund = _repository.View(command.Id);
 
                 if(institutionFund == null)
                 {
@@ -54,7 +54,7 @@ namespace Admin.App.Application.Features.InstitutionFunds
 
                 }
 
-                return await _repository.DeleteAsync(institutionFund);
+                return _repository.Delete(institutionFund);
             }
 
             return false;
