@@ -182,6 +182,7 @@ public static class DependencyInjection
         // services.AddScoped<IRequestHandler<CreateCountryCommand, ErrorOr<Country>>, CreateCountryCommandHandler>();
 
         services.AddScoped<IImtMttsRepository, MttRepository>();
+        services.AddScoped<IImtMttPaymentSpeed, ImtMttPaymentSpeed>();
 
        // services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateMttCommand).Assembly));
 

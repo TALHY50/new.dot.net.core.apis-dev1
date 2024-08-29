@@ -52,7 +52,7 @@ namespace Admin.App.Application.Features.TransactionTypes
             }
             public async Task<ErrorOr<TransactionType>> Handle(GetTransactionTypeByIdQuery request, CancellationToken cancellationToken)
             {
-                var transactionType = _transactionTypeRepository.GetByUintId(request.id);
+                var transactionType = _transactionTypeRepository.View(request.id);
                 if (transactionType == null)
                 {
                     return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "TransactionType not found!");

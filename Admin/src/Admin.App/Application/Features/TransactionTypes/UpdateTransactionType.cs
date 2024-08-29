@@ -62,7 +62,7 @@ namespace Admin.App.Application.Features.TransactionTypes
             public async Task<ErrorOr<TransactionType>> Handle(UpdateTransactionTypeCommand request, CancellationToken cancellationToken)
             {
                 var now = DateTime.UtcNow;
-                TransactionType? transactionTypes = _transactionTypeRepository.GetByUintId(request.id);
+                TransactionType? transactionTypes = _transactionTypeRepository.View(request.id);
 
                 if (transactionTypes == null)
                 {
@@ -76,7 +76,7 @@ namespace Admin.App.Application.Features.TransactionTypes
                 transactionTypes.CreatedAt = now;
                 transactionTypes.UpdatedAt = now;
 
-                return await _transactionTypeRepository.UpdateAsync(transactionTypes);
+                return _transactionTypeRepository.Update(transactionTypes);
             }
         }
 

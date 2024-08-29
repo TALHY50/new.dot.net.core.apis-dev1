@@ -36,7 +36,7 @@ namespace Admin.App.Application.Features.TransactionTypes
             }
             public async Task<ErrorOr<List<TransactionType>>> Handle(GetTransactionTypeQuery request, CancellationToken cancellationToken)
             {
-                return _transactionTypeRepository.All().ToList();
+                return _transactionTypeRepository.GetAll().ToList();
             }
         }
     }

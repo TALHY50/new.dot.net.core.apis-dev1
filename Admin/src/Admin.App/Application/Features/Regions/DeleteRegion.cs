@@ -55,14 +55,14 @@ namespace Admin.App.Application.Features.Regions
             public async Task<ErrorOr<bool>> Handle(DeleteRegionCommand request, CancellationToken cancellationToken)
             {
                 
-                var regions = _repository.GetByUintId(request.id);
+                var regions = _repository.View(request.id);
 
                 if (regions == null)
                 {
                     return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Region not found!");
                 }
 
-                return await _repository.DeleteAsync(regions);
+                return _repository.Delete(regions);
             }
         }
     }

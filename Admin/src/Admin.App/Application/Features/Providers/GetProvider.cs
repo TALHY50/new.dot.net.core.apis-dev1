@@ -36,7 +36,7 @@ namespace Admin.App.Application.Features.Providers
             }
             public async Task<ErrorOr<List<Provider>>> Handle(GetProviderQuery request, CancellationToken cancellationToken)
             {
-                return _providerRepository.All().ToList();
+                return _providerRepository.GetAll().ToList();
             }
         }
     }

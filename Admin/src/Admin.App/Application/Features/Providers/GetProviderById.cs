@@ -64,7 +64,7 @@ namespace Admin.App.Application.Features.Providers
             }
             public async Task<ErrorOr<Provider>> Handle(GetProviderByIdQuery request, CancellationToken cancellationToken)
             {
-                var provider = _providerRepository.GetByUintId(request.id);
+                var provider = _providerRepository.View(request.id);
                 if (provider == null)
                 {
                     return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Provider not found!");

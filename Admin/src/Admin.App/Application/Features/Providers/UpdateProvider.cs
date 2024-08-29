@@ -81,7 +81,7 @@ namespace Admin.App.Application.Features.Providers
             public async Task<ErrorOr<Provider>> Handle(UpdateProviderCommand request, CancellationToken cancellationToken)
             {
                 var now = DateTime.UtcNow;
-                Provider? providers = _providerRepository.GetByUintId(request.id);
+                Provider? providers = _providerRepository.View(request.id);
 
                 if (providers == null)
                 {
@@ -99,7 +99,7 @@ namespace Admin.App.Application.Features.Providers
                 providers.CreatedAt = now;
                 providers.UpdatedAt = now;
 
-                return await _providerRepository.UpdateAsync(providers);
+                return _providerRepository.Update(providers);
             }
         }
     }

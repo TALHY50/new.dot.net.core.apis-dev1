@@ -49,7 +49,7 @@ namespace Admin.App.Application.Features.Regions
             }
             public async Task<ErrorOr<Region>> Handle(GetRegionByIdQuery request, CancellationToken cancellationToken)
             {
-                var region = _repository.GetByUintId(request.id);
+                var region = _repository.View(request.id);
 
                 if (region == null)
                 {
