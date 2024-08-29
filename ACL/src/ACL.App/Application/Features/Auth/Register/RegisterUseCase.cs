@@ -1,11 +1,11 @@
-﻿using ACL.App.Application.Common.Enums;
-using ACL.App.Application.Features.Auth.Register.Request;
-using ACL.App.Application.Features.Auth.Register.Response;
-using ACL.App.Domain.Auth;
-using ACL.App.Domain.Ports.Repositories.Auth;
-using ACL.App.Domain.Ports.Services.Cryptography;
-using ACL.App.Domain.Ports.Services.Token;
-using Claim = ACL.App.Domain.Auth.Claim;
+﻿using ACL.App.Application.Interfaces.Repositories;
+using ACL.App.Application.Interfaces.Services;
+using ACL.App.Contracts.Requests;
+using ACL.App.Contracts.Responses;
+using ACL.App.Domain.Entities;
+using SharedKernel.Main.Application.Common.Enums;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
+using Claim = ACL.App.Domain.Entities.Claim;
 
 namespace ACL.App.Application.Features.Auth.Register
 {
@@ -14,13 +14,13 @@ namespace ACL.App.Application.Features.Auth.Register
     {
         private readonly ILogger _logger;
         private readonly IAuthTokenService _authTokenService;
-        private readonly IAclUserRepository _authRepository;
+        private readonly IUserRepository _authRepository;
         private readonly ICryptographyService _cryptographyService;
 /// <inheritdoc/>
         public RegisterUseCase(
             ILogger<RegisterUseCase> logger,
             IAuthTokenService authTokenService,
-            IAclUserRepository authRepository,
+            IUserRepository authRepository,
             ICryptographyService cryptographyService)
         {
             this._logger = logger;
@@ -49,7 +49,7 @@ namespace ACL.App.Application.Features.Auth.Register
                 var salt = this._cryptographyService.GenerateSalt();
                 var currentDate = DateTime.UtcNow;
 
-                user = new AclUser()
+                user = new User()
                 {
                     Status = 1,
                     Email = request.Email,

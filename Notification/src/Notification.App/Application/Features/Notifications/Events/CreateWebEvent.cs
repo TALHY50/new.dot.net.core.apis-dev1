@@ -7,12 +7,13 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-using Notification.App.Application.Common;
 using Notification.App.Contracts;
-using Notification.App.Domain.Notifications.Events;
-using Notification.App.Domain.Setups;
-using Notification.App.Domain.ValueObjects;
-using Notification.App.Infrastructure.Persistence;
+using Notification.App.Domain.Entities.Events;
+using Notification.App.Domain.Entities.Setups;
+using Notification.App.Domain.Entities.ValueObjects;
+using Notification.App.Infrastructure.Persistence.Context;
+
+using SharedKernel.Main.Application.Common;
 
 namespace Notification.App.Application.Features.Notifications.Events;
 
@@ -30,7 +31,7 @@ public record CreateWebEventCommand(
     CategoricalData CategoricalData,
     WebReceivers Receivers,
     MiscellaneousInformation Information) : IRequest<ErrorOr<Event>>;
-internal sealed class CreateWebEventCommandValidator : AbstractValidator<CreateWebEventCommand>
+public class CreateWebEventCommandValidator : AbstractValidator<CreateWebEventCommand>
 {
     public CreateWebEventCommandValidator()
     {
@@ -40,7 +41,7 @@ internal sealed class CreateWebEventCommandValidator : AbstractValidator<CreateW
     }
 }
 
-internal sealed class CreateWebEventCommandHandler(ApplicationDbContext context) : IRequestHandler<CreateWebEventCommand, ErrorOr<Event>>
+public class CreateWebEventCommandHandler(ApplicationDbContext context) : IRequestHandler<CreateWebEventCommand, ErrorOr<Event>>
 {
     private readonly ApplicationDbContext _context = context;
 

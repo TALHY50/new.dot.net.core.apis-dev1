@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-using Notification.App.Domain.Notifications.Events;
-using Notification.App.Domain.ValueObjects;
+using Notification.App.Domain.Entities.Events;
+using Notification.App.Domain.Entities.ValueObjects;
 
 namespace Notification.App.Infrastructure.Persistence.Configurations
 {
@@ -14,35 +14,35 @@ namespace Notification.App.Infrastructure.Persistence.Configurations
 
             builder.HasKey(e => e.Id);
 
-            builder.Property(e => e.Id)
-                .HasColumnName("id")
+            RelationalPropertyBuilderExtensions
+                .HasColumnName<int>(builder.Property(e => e.Id), "id")
                 .HasColumnType("int(11)")
                 .IsRequired()
                 .ValueGeneratedOnAdd();
 
-            builder.Property(e => e.NotificationEventId)
-                .HasColumnName("notification_event_id")
+            RelationalPropertyBuilderExtensions
+                .HasColumnName<int>(builder.Property(e => e.NotificationEventId), "notification_event_id")
                 .HasColumnType("int(11)")
                 .IsRequired();
 
-            builder.Property(e => e.Subject)
-                .HasColumnName("subject")
+            RelationalPropertyBuilderExtensions
+                .HasColumnName<string>(builder.Property(e => e.Subject), "subject")
                 .HasColumnType("varchar(255)")
                 .IsRequired()
                 .HasDefaultValue(string.Empty)
                 .HasComment("Email subject or Web Title");
 
-            builder.Property(e => e.Content)
-                .HasColumnName("content")
+            RelationalPropertyBuilderExtensions
+                .HasColumnName<string>(builder.Property(e => e.Content), "content")
                 .HasColumnType("text")
                 .IsRequired();
 
-            builder.Property(e => e.Path)
-                .HasColumnName("path")
+            RelationalPropertyBuilderExtensions
+                .HasColumnName<string>(builder.Property(e => e.Path), "path")
                 .HasColumnType("varchar(255)");
 
-            builder.Property(e => e.Type)
-                .HasColumnName("type")
+            RelationalPropertyBuilderExtensions
+                .HasColumnName<NotificationType>(builder.Property(e => e.Type), "type")
                 .HasColumnType("tinyint(4)")
                 .IsRequired()
                 .HasConversion(
@@ -50,47 +50,47 @@ namespace Notification.App.Infrastructure.Persistence.Configurations
                     nt => NotificationType.From(nt))
                 .HasComment("1=email, 2=sms, 3=web");
 
-            builder.Property(e => e.Variables)
-                .HasColumnName("variables")
+            RelationalPropertyBuilderExtensions
+                .HasColumnName<string>(builder.Property(e => e.Variables), "variables")
                 .HasColumnType("text")
                 .HasComment("Must be set as comma(,) separator {{$var1}},{{$var2}}");
 
-            builder.Property(e => e.CreatedById)
-                .HasColumnName("created_by_id")
+            RelationalPropertyBuilderExtensions
+                .HasColumnName<int>(builder.Property(e => e.CreatedById), "created_by_id")
                 .HasColumnType("int(11)")
                 .IsRequired()
                 .HasDefaultValue(1);
 
-            builder.Property(e => e.UpdatedById)
-                .HasColumnName("updated_by_id")
+            RelationalPropertyBuilderExtensions
+                .HasColumnName<int>(builder.Property(e => e.UpdatedById), "updated_by_id")
                 .HasColumnType("int(11)")
                 .IsRequired()
                 .HasDefaultValue(1);
 
-            builder.Property(e => e.Status)
-                .HasColumnName("status")
+            RelationalPropertyBuilderExtensions
+                .HasColumnName<int>(builder.Property(e => e.Status), "status")
                 .HasColumnType("tinyint(4)")
                 .IsRequired()
                 .HasDefaultValue(0)
                 .HasComment("1= active, 0=inactive");
 
-            builder.Property(e => e.Language)
-                .HasColumnName("language")
+            RelationalPropertyBuilderExtensions
+                .HasColumnName<string>(builder.Property(e => e.Language), "language")
                 .HasColumnType("varchar(3)")
                 .IsRequired()
                 .HasDefaultValue("eng")
                 .HasComment("3 digit iso code");
 
-            builder.Property(e => e.CreatedAt)
-                .HasColumnName("created_at")
+            RelationalPropertyBuilderExtensions
+                .HasColumnName<DateTime?>(builder.Property(e => e.CreatedAt), "created_at")
                 .HasColumnType("datetime");
 
-            builder.Property(e => e.UpdatedAt)
-                .HasColumnName("updated_at")
+            RelationalPropertyBuilderExtensions
+                .HasColumnName<DateTime?>(builder.Property(e => e.UpdatedAt), "updated_at")
                 .HasColumnType("datetime");
 
-            builder.Property(e => e.CompanyId)
-                .HasColumnName("company_id")
+            RelationalPropertyBuilderExtensions
+                .HasColumnName<int>(builder.Property(e => e.CompanyId), "company_id")
                 .HasColumnType("int(11)")
                 .IsRequired();
         }

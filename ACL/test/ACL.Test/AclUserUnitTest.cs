@@ -1,10 +1,10 @@
 using ACL.App.Contracts.Requests;
-using ACL.App.Contracts.Response;
-using ACL.App.Infrastructure.Route;
+using ACL.App.Contracts.Responses;
 using Bogus;
 using Newtonsoft.Json;
 using RestSharp;
-using SharedKernel.Main.Contracts.Response;
+using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Contracts.Common;
 
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
 #pragma warning disable CS8602 // Converting null literal or possible null value to non-nullable type.
@@ -38,9 +38,9 @@ namespace ACL.TEST
 
             //// Assert
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
+            ScopeResponse scopeResponse = JsonConvert.DeserializeObject<ScopeResponse>(response.Content);
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, scopeResponse.StatusCode);
 
         }
         [Fact]
@@ -57,9 +57,9 @@ namespace ACL.TEST
             RestResponse response = restClient.Execute(request);
             //// Assert
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
+            ScopeResponse scopeResponse = JsonConvert.DeserializeObject<ScopeResponse>(response.Content);
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, scopeResponse.StatusCode);
 
         }
         [Fact]
@@ -80,9 +80,9 @@ namespace ACL.TEST
 
             //// Assert
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
+            ScopeResponse scopeResponse = JsonConvert.DeserializeObject<ScopeResponse>(response.Content);
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, scopeResponse.StatusCode);
 
         }
         [Fact]
@@ -101,9 +101,9 @@ namespace ACL.TEST
 
             //// Assert
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
+            ScopeResponse scopeResponse = JsonConvert.DeserializeObject<ScopeResponse>(response.Content);
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, scopeResponse.StatusCode);
 
         }
 
@@ -121,9 +121,9 @@ namespace ACL.TEST
 
             //// Assert
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-            AclResponse aclResponse = JsonConvert.DeserializeObject<AclResponse>(response.Content);
+            ScopeResponse scopeResponse = JsonConvert.DeserializeObject<ScopeResponse>(response.Content);
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, aclResponse.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, scopeResponse.StatusCode);
 
         }
 
@@ -153,8 +153,8 @@ namespace ACL.TEST
         private ulong GetRandomID()
         {
 
-            //  var chkFirst = (ulong)unitOfWork.AclUserRepository.FirstOrDefault().Result.Id;
-            // var chkLast = (ulong)unitOfWork.AclUserRepository.LastOrDefault().Result.Id;
+            //  var chkFirst = (ulong)unitOfWork.UserRepository.FirstOrDefault().Result.Id;
+            // var chkLast = (ulong)unitOfWork.UserRepository.LastOrDefault().Result.Id;
             return (ulong)DataCollectors.dbContext.AclUsers.Max(l => l.Id);
 
         }

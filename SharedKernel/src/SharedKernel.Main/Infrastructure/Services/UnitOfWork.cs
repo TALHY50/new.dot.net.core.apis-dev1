@@ -10,7 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Events;
-using SharedKernel.Main.Application.Interfaces;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace SharedKernel.Main.Infrastructure.Services
@@ -48,9 +48,9 @@ namespace SharedKernel.Main.Infrastructure.Services
             this.context = context;
             _cultureInfo = new CultureInfo("en-US");
             unitOfWork = this;
-            _resourceManager = new ResourceManager("App.Resources." + _cultureInfo.Name, _assembly);
+            _resourceManager = new ResourceManager("SharedKernel.Main.Infrastructure.Resources" + _cultureInfo.Name, _assembly);
             _httpContextAccessor = new HttpContextAccessor();
-            LocalizationService = new LocalizationService("App.Resources.en-US", _assembly, "en-US");
+            LocalizationService = new LocalizationService("SharedKernel.Main.Infrastructure.Resourcesen-US", _assembly, "en-US");
             Initialize(context, logger, logService, cacheService, services, programAssembly);
         }
         public UnitOfWork(TDbContext context, ILogger<UnitOfWork<TDbContext, TUnitOfWork>> logger, ILogService logService, ICacheService cacheService, IServiceCollection services, Assembly programAssembly)
@@ -64,9 +64,9 @@ namespace SharedKernel.Main.Infrastructure.Services
             this.context = context;
             _cultureInfo = new CultureInfo("en-US");
             unitOfWork = this;
-            _resourceManager = new ResourceManager("App.Resources." + _cultureInfo.Name, _assembly);
+            _resourceManager = new ResourceManager("SharedKernel.Main.Infrastructure.Resources" + _cultureInfo.Name, _assembly);
             _httpContextAccessor = new HttpContextAccessor();
-            LocalizationService = new LocalizationService("App.Resources.en-US", _assembly, "en-US");
+            LocalizationService = new LocalizationService("SharedKernel.Main.Infrastructure.Resourcesen-US", _assembly, "en-US");
             Initialize(context, logger, logService, cacheService, services, programAssembly);
         }
 
@@ -77,9 +77,9 @@ namespace SharedKernel.Main.Infrastructure.Services
             _cultureInfo = new CultureInfo("en-US");
             unitOfWork = this;
             _assembly = Assembly.GetExecutingAssembly();
-            _resourceManager = new ResourceManager("App.Resources." + _cultureInfo.Name, _assembly);
+            _resourceManager = new ResourceManager("SharedKernel.Main.Infrastructure.Resources" + _cultureInfo.Name, _assembly);
             _httpContextAccessor = new HttpContextAccessor();
-            LocalizationService = new LocalizationService("App.Resources.en-US", _assembly, "en-US");
+            LocalizationService = new LocalizationService("SharedKernel.Main.Infrastructure.Resourcesen-US", _assembly, "en-US");
             _services = new ServiceCollection();
             _services.AddMemoryCache();
             _services.AddSingleton<Serilog.ILogger>(_ => Serilog.Log.Logger);
@@ -161,14 +161,14 @@ namespace SharedKernel.Main.Infrastructure.Services
         {
             _cultureInfo = _cultureInfo ?? new CultureInfo("en-US");
             _assembly = _assembly ?? Assembly.GetExecutingAssembly();
-            _resourceManager = _resourceManager ?? new ResourceManager("App.Resources." + _cultureInfo.Name, _assembly);
+            _resourceManager = _resourceManager ?? new ResourceManager("SharedKernel.Main.Infrastructure.Resources" + _cultureInfo.Name, _assembly);
             return _resourceManager.GetString(key, _cultureInfo);
         }
         public virtual string GetLocalizedStringWithCulture(string key, CultureInfo culture)
         {
             _cultureInfo = culture;
             _assembly = _assembly ?? Assembly.GetExecutingAssembly();
-            _resourceManager = new ResourceManager("App.Resources." + _cultureInfo.Name, _assembly);
+            _resourceManager = new ResourceManager("SharedKernel.Main.Infrastructure.Resources" + _cultureInfo.Name, _assembly);
             return _resourceManager.GetString(key, _cultureInfo);
         }
         public virtual TDbContext ApplicationDbContext
@@ -286,7 +286,7 @@ namespace SharedKernel.Main.Infrastructure.Services
         {
             if (LocalizationService == null)
             {
-                LocalizationService = new LocalizationService("ACL.Resources.en-US", assembly, "en-US");
+                LocalizationService = new LocalizationService("SharedKernel.Main.Infrastructure.Resources.en-US", assembly, "en-US");
             }
             return LocalizationService.SetAssembly(assembly);
         }
@@ -294,7 +294,7 @@ namespace SharedKernel.Main.Infrastructure.Services
         {
             if (LocalizationService == null)
             {
-                LocalizationService = new LocalizationService("ACL.Resources.en-US", _assembly, "en-US");
+                LocalizationService = new LocalizationService("SharedKernel.Main.Infrastructure.Resources.en-US", _assembly, "en-US");
             }
             //assembly ??= Assembly.GetEntryAssembly();
             assembly = Assembly.GetExecutingAssembly();
@@ -309,7 +309,7 @@ namespace SharedKernel.Main.Infrastructure.Services
         {
             if (service == null)
             {
-                service = new LocalizationService("App.Resources.en-US", Assembly.GetExecutingAssembly(), "en-US");
+                service = new LocalizationService("SharedKernel.Main.Infrastructure.Resourcesen-US", Assembly.GetExecutingAssembly(), "en-US");
             }
             return LocalizationService = service;
         }

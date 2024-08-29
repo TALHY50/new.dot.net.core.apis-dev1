@@ -1,33 +1,16 @@
 using System.Security.Cryptography;
-using ACL.App.Application.Features.Auth.Authorize;
 using ACL.App.Application.Features.Auth.Login;
 using ACL.App.Application.Features.Auth.RefreshToken;
 using ACL.App.Application.Features.Auth.Register;
 using ACL.App.Application.Features.Auth.SignOut;
-using ACL.App.Domain.Ports.Repositories.Auth;
-using ACL.App.Domain.Ports.Repositories.Company;
-using ACL.App.Domain.Ports.Repositories.Module;
-using ACL.App.Domain.Ports.Repositories.Role;
-using ACL.App.Domain.Ports.Repositories.UserGroup;
-using ACL.App.Domain.Ports.Services.Auth;
-using ACL.App.Domain.Ports.Services.Company;
-using ACL.App.Domain.Ports.Services.Cryptography;
-using ACL.App.Domain.Ports.Services.Module;
-using ACL.App.Domain.Ports.Services.Token;
-using ACL.App.Domain.Ports.Services.UserGroup;
-using ACL.App.Infrastructure.Persistence.Configurations;
-using ACL.App.Infrastructure.Persistence.Migrations;
-using ACL.App.Infrastructure.Persistence.Repositories.Auth;
-using ACL.App.Infrastructure.Persistence.Repositories.Company;
-using ACL.App.Infrastructure.Persistence.Repositories.Module;
-using ACL.App.Infrastructure.Persistence.Repositories.Role;
-using ACL.App.Infrastructure.Persistence.Repositories.UserGroup;
-using ACL.App.Infrastructure.Services.Auth;
-using ACL.App.Infrastructure.Services.Company;
-using ACL.App.Infrastructure.Services.Cryptography;
-using ACL.App.Infrastructure.Services.Jwt;
-using ACL.App.Infrastructure.Services.Module;
-using ACL.App.Infrastructure.Services.UserGroup;
+using ACL.App.Application.Interfaces.Repositories;
+using ACL.App.Application.Interfaces.Services;
+using ACL.App.Domain.Services;
+using ACL.App.Infrastructure.Jwt;
+using ACL.App.Infrastructure.Middlewares;
+using ACL.App.Infrastructure.Persistence.Context;
+using ACL.App.Infrastructure.Persistence.Repositories;
+using ACL.App.Infrastructure.Security;
 using DotNetEnv;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -38,9 +21,11 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using Serilog.Events;
-using SharedKernel.Main.Application.Interfaces;
-using SharedKernel.Main.Contracts.Response;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Infrastructure.Cryptography;
 using SharedKernel.Main.Infrastructure.MiddleWares;
+using SharedKernel.Main.Infrastructure.Security;
 using SharedKernel.Main.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -205,7 +190,7 @@ builder.Services.AddLogging(loggingBuilder =>
 });
 
 builder.Services.AddSingleton<Serilog.ILogger>(_ => Log.Logger);
-builder.Services.AddSingleton<ILocalizationService>(new LocalizationService("ACL.Resources.en-US", typeof(Program).Assembly, "en-US"));
+builder.Services.AddSingleton<ILocalizationService>(new LocalizationService("SharedKernel.Main.Infrastructure.Resources.en-US", typeof(Program).Assembly, "en-US"));
 builder.Services.AddSingleton<Microsoft.Extensions.Logging.ILogger>(_ => (Microsoft.Extensions.Logging.ILogger)Log.Logger);
 builder.Services.AddScoped<ILogService, LogService>();
 
@@ -234,42 +219,42 @@ builder.Host.UseSerilog((hostingContext, loggerConfiguration) =>
 builder.Services.AddSerilog();
 
 
-builder.Services.AddScoped<IAclBranchService, AclBranchService>();
-builder.Services.AddScoped<IAclCompanyModuleService, AclCompanyModuleService>();
-builder.Services.AddScoped<IAclCompanyService, AclCompanyService>();
-builder.Services.AddScoped<IAclCountryService, AclCountryService>();
-builder.Services.AddScoped<IAclStateService, AclStateService>();
-builder.Services.AddScoped<IAclModuleService, AclModuleService>();
-builder.Services.AddScoped<IAclSubModuleService, AclSubModuleService>();
-builder.Services.AddScoped<IAclUserService, AclUserService>();
-builder.Services.AddScoped<IAclUserGroupRoleService, AclUserGroupRoleService>();
-builder.Services.AddScoped<IAclUserGroupService, AclUserGroupService>();
+builder.Services.AddScoped<IBranchService, BranchService>();
+builder.Services.AddScoped<ICompanyModuleService, CompanyModuleService>();
+builder.Services.AddScoped<ICompanyService, CompanyService>();
+builder.Services.AddScoped<ICountryService, CountryService>();
+builder.Services.AddScoped<IStateService, StateService>();
+builder.Services.AddScoped<IModuleService, ModuleService>();
+builder.Services.AddScoped<ISubModuleService, SubModuleService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserGroupRoleService, UserGroupRoleService>();
+builder.Services.AddScoped<IUserGroupService, UserGroupService>();
 
-builder.Services.AddScoped<IAclSubModuleService, AclSubModuleService>();
-builder.Services.AddScoped<IAclSubModuleService, AclSubModuleService>();
+builder.Services.AddScoped<ISubModuleService, SubModuleService>();
+builder.Services.AddScoped<ISubModuleService, SubModuleService>();
 
-builder.Services.AddScoped<IAclUserRepository, AclUserRepository>();
-builder.Services.AddScoped<IAclBranchRepository, AclBranchRepository>();
-builder.Services.AddScoped<IAclPageService, AclPageService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IBranchRepository, BranchRepository>();
+builder.Services.AddScoped<IPageService, PageService>();
 
 
 
-//builder.Services.AddScoped<IAclCompanyModuleRepository, AclCompanyModuleRepository>();
-//builder.Services.AddScoped<IAclCompanyRepository, AclCompanyRepository>();
-//builder.Services.AddScoped<IAclCountryRepository, AclCountryRepository>();
-//builder.Services.AddScoped<IAclModuleRepository, AclModuleRepository>();
-//builder.Services.AddScoped<IAclStateRepository, AclStateRepository>();
+//builder.Services.AddScoped<ICompanyModuleRepository, CompanyModuleRepository>();
+//builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
+//builder.Services.AddScoped<ICountryRepository, CountryRepository>();
+//builder.Services.AddScoped<IModuleRepository, ModuleRepository>();
+//builder.Services.AddScoped<IStateRepository, StateRepository>();
 
-builder.Services.AddScoped<IAclPageRepository, AclPageRepository>();
-builder.Services.AddScoped<IAclPageRouteRepository, AclPageRouteRepository>();
-builder.Services.AddScoped<IAclPasswordRepository, AclPasswordRepository>();
-builder.Services.AddScoped<IAclRolePageRepository, AclRolePageRepository>();
-builder.Services.AddScoped<IAclRoleRepository, AclRoleRepository>();
+builder.Services.AddScoped<IPageRepository, PageRepository>();
+builder.Services.AddScoped<IPageRouteRepository, PageRouteRepository>();
+builder.Services.AddScoped<IPasswordRepository, PasswordRepository>();
+builder.Services.AddScoped<IRolePageRepository, RolePageRepository>();
+builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 
-//builder.Services.AddScoped<IAclSubModuleRepository, AclSubModuleRepository>();
-builder.Services.AddScoped<IAclUserGroupRepository, AclUserGroupRepository>();
-builder.Services.AddScoped<IAclUserGroupRoleRepository, AclUserGroupRoleRepository>();
-builder.Services.AddScoped<IAclUserUserGroupRepository, AclUserUserGroupRepository>();
+//builder.Services.AddScoped<ISubModuleRepository, SubModuleRepository>();
+builder.Services.AddScoped<IUserGroupRepository, UserGroupRepository>();
+builder.Services.AddScoped<IUserGroupRoleRepository, UserGroupRoleRepository>();
+builder.Services.AddScoped<IUserUserGroupRepository, UserUserGroupRepository>();
 
 builder.Services.AddScoped<LoginUseCase>();
 builder.Services.AddScoped<RefreshTokenUseCase>();

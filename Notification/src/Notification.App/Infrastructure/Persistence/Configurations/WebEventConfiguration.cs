@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-using Notification.App.Domain.Notifications.Events;
+using Notification.App.Domain.Entities.Events;
 
 namespace Notification.App.Infrastructure.Persistence.Configurations
 {
@@ -13,47 +13,47 @@ namespace Notification.App.Infrastructure.Persistence.Configurations
 
             builder.HasKey(e => e.Id);
 
-            builder.Property(e => e.Id)
-                .HasColumnName("id")
+            RelationalPropertyBuilderExtensions
+                .HasColumnName<int>(builder.Property(e => e.Id), "id")
                 .HasColumnType("int(11) unsigned")
                 .IsRequired()
                 .ValueGeneratedOnAdd();
 
-            builder.Property(e => e.NotificationEventId)
-                .HasColumnName("notification_event_id")
+            RelationalPropertyBuilderExtensions
+                .HasColumnName<int>(builder.Property(e => e.NotificationEventId), "notification_event_id")
                 .HasColumnType("int(11)")
                 .IsRequired();
 
-            builder.Property(e => e.NotificationCredentialId)
-                .HasColumnName("notification_credential_id")
+            RelationalPropertyBuilderExtensions
+                .HasColumnName<int>(builder.Property(e => e.NotificationCredentialId), "notification_credential_id")
                 .HasColumnType("int(11)")
                 .IsRequired();
 
-            builder.Property(e => e.NotificationReceiverGroupId)
-                .HasColumnName("notification_receiver_group_id")
+            RelationalPropertyBuilderExtensions
+                .HasColumnName<int>(builder.Property(e => e.NotificationReceiverGroupId), "notification_receiver_group_id")
                 .HasColumnType("int(11)")
                 .IsRequired()
                 .HasDefaultValue(0);
 
-            builder.Property(e => e.Name)
-                .HasColumnName("name")
+            RelationalPropertyBuilderExtensions
+                .HasColumnName<string>(builder.Property(e => e.Name), "name")
                 .HasColumnType("varchar(100)")
                 .IsRequired()
                 .HasComment("Deposit Approve, Deposit Reject etc");
 
-            builder.Property(e => e.IsAllowFromApp)
-                .HasColumnName("is_allow_from_app")
+            RelationalPropertyBuilderExtensions
+                .HasColumnName<bool>(builder.Property(e => e.IsAllowFromApp), "is_allow_from_app")
                 .HasColumnType("tinyint(1)")
                 .IsRequired()
                 .HasDefaultValue(true)
                 .HasComment("1= allows manual receivers, 0= does not allow manual receivers");
 
-            builder.Property(e => e.CreatedAt)
-                .HasColumnName("created_at")
+            RelationalPropertyBuilderExtensions
+                .HasColumnName<DateTime?>(builder.Property(e => e.CreatedAt), "created_at")
                 .HasColumnType("datetime");
 
-            builder.Property(e => e.UpdatedAt)
-                .HasColumnName("updated_at")
+            RelationalPropertyBuilderExtensions
+                .HasColumnName<DateTime?>(builder.Property(e => e.UpdatedAt), "updated_at")
                 .HasColumnType("datetime");
         }
     }

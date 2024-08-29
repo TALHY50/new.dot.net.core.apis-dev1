@@ -1,8 +1,9 @@
 using System.Text;
 using System.Web;
 
-using Notification.App.Application.Common.Interfaces;
-using Notification.App.Application.Common.Models;
+using Notification.App.Application.Interfaces.Services;
+
+using SharedKernel.Main.Application.Common.Models;
 
 namespace Notification.App.Infrastructure.Sms;
 

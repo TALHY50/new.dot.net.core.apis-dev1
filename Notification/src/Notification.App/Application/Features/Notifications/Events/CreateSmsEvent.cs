@@ -7,14 +7,15 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-using Notification.App.Application.Common;
 using Notification.App.Contracts;
-using Notification.App.Domain.Notifications.Events;
-using Notification.App.Domain.Setups;
-using Notification.App.Domain.ValueObjects;
-using Notification.App.Infrastructure.Persistence;
+using Notification.App.Domain.Entities.Events;
+using Notification.App.Domain.Entities.Setups;
+using Notification.App.Domain.Entities.ValueObjects;
+using Notification.App.Infrastructure.Persistence.Context;
 
-using Result = Notification.App.Application.Common.Models.Result;
+using SharedKernel.Main.Application.Common;
+
+using Result = SharedKernel.Main.Application.Common.Models.Result;
 
 namespace Notification.App.Application.Features.Notifications.Events;
 
@@ -34,7 +35,7 @@ public record CreateSmsEventCommand(
     SmsReceivers Receivers,
     MiscellaneousInformation Information) : IRequest<ErrorOr<Event>>;
 
-internal sealed class CreateSmsEventCommandValidator : AbstractValidator<CreateSmsEventCommand>
+public class CreateSmsEventCommandValidator : AbstractValidator<CreateSmsEventCommand>
 {
     public CreateSmsEventCommandValidator()
     {
@@ -44,14 +45,14 @@ internal sealed class CreateSmsEventCommandValidator : AbstractValidator<CreateS
     }
 }
 
-internal sealed class CreateSmsEventCommandHandler(ApplicationDbContext context) : IRequestHandler<CreateSmsEventCommand, ErrorOr<Event>>
+public class CreateSmsEventCommandHandler(ApplicationDbContext context) : IRequestHandler<CreateSmsEventCommand, ErrorOr<Event>>
 {
     private readonly ApplicationDbContext _context = context;
 
     public async Task<ErrorOr<Event>> Handle(CreateSmsEventCommand request, CancellationToken cancellationToken)
     {
         var now = DateTime.UtcNow;
-        var @event = new Domain.Notifications.Events.Event
+        var @event = new Event
         {
             Category = request.CategoricalData.Category,
             Name = request.CategoricalData.Name,

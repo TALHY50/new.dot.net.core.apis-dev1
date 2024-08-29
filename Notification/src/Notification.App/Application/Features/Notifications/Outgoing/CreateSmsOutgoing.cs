@@ -9,12 +9,12 @@ using Microsoft.EntityFrameworkCore;
 
 using Newtonsoft.Json;
 
-using Notification.App.Application.Common;
-using Notification.App.Domain.Notifications.Outgoings;
-using Notification.App.Infrastructure.Persistence;
-using Notification.Main.Infrastructure.Persistence;
+using Notification.App.Domain.Entities.Outgoings;
+using Notification.App.Infrastructure.Persistence.Context;
 
-using View.App.Services;
+using SharedKernel.Main.Application.Common;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Infrastructure.Mappings;
 
 using EventId = Notification.App.Contracts.EventId;
 
@@ -31,7 +31,7 @@ public class CreateSmsOutgoingController : ApiControllerBase
 
 public record CreateSmsOutgoingCommand(EventId EventId) : IRequest<ErrorOr<SmsOutgoing>>;
 
-internal sealed class CreateSmsOutgoingCommandValidator : AbstractValidator<CreateSmsOutgoingCommand>
+public class CreateSmsOutgoingCommandValidator : AbstractValidator<CreateSmsOutgoingCommand>
 {
     public CreateSmsOutgoingCommandValidator()
     {
@@ -41,7 +41,7 @@ internal sealed class CreateSmsOutgoingCommandValidator : AbstractValidator<Crea
     }
 }
 
-internal sealed class CreateSmsOutgoingCommandHandler(ILogger<CreateSmsOutgoingCommandHandler> logger, ApplicationDbContext context, IRenderer renderer) : IRequestHandler<CreateSmsOutgoingCommand, ErrorOr<SmsOutgoing>>
+public class CreateSmsOutgoingCommandHandler(ILogger<CreateSmsOutgoingCommandHandler> logger, ApplicationDbContext context, IRenderer renderer) : IRequestHandler<CreateSmsOutgoingCommand, ErrorOr<SmsOutgoing>>
 {
      private readonly ApplicationDbContext _context = context;
      private readonly IRenderer _renderer = renderer;

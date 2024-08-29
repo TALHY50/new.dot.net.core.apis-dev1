@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using System.Reflection;
 using System.Resources;
-using SharedKernel.Main.Application.Interfaces;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
 
 namespace SharedKernel.Main.Infrastructure.Services
 {
@@ -32,7 +32,7 @@ namespace SharedKernel.Main.Infrastructure.Services
         }
         public ResourceManager SetReourceManager(CultureInfo resource, Assembly assembly1)
         {
-            return _resourceManager = new ResourceManager("ACL.Resources." + resource.Name, assembly ?? assembly1);
+            return _resourceManager = new ResourceManager("SharedKernel.Main.Infrastructure.Resources." + resource.Name, assembly ?? assembly1);
         }
     }
 }

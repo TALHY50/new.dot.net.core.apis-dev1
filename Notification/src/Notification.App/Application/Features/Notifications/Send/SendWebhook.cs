@@ -6,15 +6,16 @@ using MediatR;
 
 using Microsoft.AspNetCore.Mvc;
 
-using Notification.App.Application.Common;
-using Notification.App.Application.Common.Interfaces;
-using Notification.App.Application.Common.Interfaces.Repositories;
-using Notification.App.Application.Common.Models;
+using Notification.App.Application.Interfaces.Repositories;
 using Notification.App.Contracts;
-using Notification.App.Infrastructure.Persistence;
-using Notification.Main.Infrastructure.Persistence;
+using Notification.App.Infrastructure.Persistence.Context;
 
-using Result = Notification.App.Application.Common.Models.Result;
+using SharedKernel.Main.Application.Common;
+using SharedKernel.Main.Application.Common.Interfaces;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Application.Common.Models;
+
+using Result = SharedKernel.Main.Application.Common.Models.Result;
 
 namespace Notification.App.Application.Features.Notifications.Send;
 
@@ -29,7 +30,7 @@ public class SendWebhookController : ApiControllerBase
 
 public record SendWebhookCommand(OutgoingId OutgoingId) : IRequest<ErrorOr<Result>>;
 
-internal sealed class SendWebhookCommandValidator : AbstractValidator<SendWebhookCommand>
+public class SendWebhookCommandValidator : AbstractValidator<SendWebhookCommand>
 {
     public SendWebhookCommandValidator()
     {
@@ -39,7 +40,7 @@ internal sealed class SendWebhookCommandValidator : AbstractValidator<SendWebhoo
     }
 }
 
-internal sealed class SendWebhookCommandHandler(
+public class SendWebhookCommandHandler(
     ILogger<SendWebhookCommandHandler> logger,
     ApplicationDbContext context,
     IWebOutgoingRepository webOutgoingRepository,

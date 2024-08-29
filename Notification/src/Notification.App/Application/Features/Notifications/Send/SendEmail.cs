@@ -6,17 +6,17 @@ using MediatR;
 
 using Microsoft.AspNetCore.Mvc;
 
-using Notification.App.Application.Common;
-using Notification.App.Application.Common.Interfaces;
-using Notification.App.Application.Common.Interfaces.Repositories;
-using Notification.App.Application.Common.Models;
+using Notification.App.Application.Interfaces.Repositories;
+using Notification.App.Application.Interfaces.Services;
 using Notification.App.Contracts;
-using Notification.App.Infrastructure.Persistence;
-using Notification.Main.Infrastructure.Persistence;
+using Notification.App.Infrastructure.Persistence.Context;
 
-using View.App.Services;
+using SharedKernel.Main.Application.Common;
+using SharedKernel.Main.Application.Common.Interfaces;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Application.Common.Models;
 
-using Result = Notification.App.Application.Common.Models.Result;
+using Result = SharedKernel.Main.Application.Common.Models.Result;
 
 namespace Notification.App.Application.Features.Notifications.Send;
 
@@ -31,7 +31,7 @@ public class SendEmailController : ApiControllerBase
 
 public record SendEmailCommand(OutgoingId OutgoingId) : IRequest<ErrorOr<Result>>;
 
-internal sealed class SendEmailCommandValidator : AbstractValidator<SendEmailCommand>
+public class SendEmailCommandValidator : AbstractValidator<SendEmailCommand>
 {
     public SendEmailCommandValidator()
     {
@@ -41,7 +41,7 @@ internal sealed class SendEmailCommandValidator : AbstractValidator<SendEmailCom
     }
 }
 
-internal sealed class SendEmailCommandHandler(
+public class SendEmailCommandHandler(
     ILogger<SendEmailCommandHandler> logger,
     ApplicationDbContext context,
     IEmailOutgoingRepository emailOutgoingRepository,

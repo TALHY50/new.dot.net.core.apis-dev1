@@ -8,7 +8,7 @@ namespace ACL.App.Contracts.Requests
         [DefaultValue("3002")]
         [Required]
         [Range(1, ulong.MaxValue)]
-        //[ExistsInDatabase<ApplicationDbContext,ICustomUnitOfWork>("AclPage", "Id")]
+        //[ExistsInDatabase<ApplicationDbContext,ICustomUnitOfWork>("Page", "Id")]
         public ulong PageId { get; set; }
 
         [DefaultValue("acl.company.list")]

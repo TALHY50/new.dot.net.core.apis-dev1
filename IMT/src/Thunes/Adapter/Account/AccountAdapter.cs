@@ -22,7 +22,7 @@ namespace Thunes.Adapter.Account
         public List<BalanceMovementResponse> GetBalanceMovement(ulong id, DateTime from_date, DateTime to_date, string queryParams = null)
         {
             string url = ThunesUrl.BalanceMovementUrl.Replace("{id}", id.ToString());
-            url = url + "?from_date=" + from_date + "&to_date=" + to_date + "&" + queryParams;
+            url = url + "?from_date=" + from_date.ToString("yyyy-MM-ddTHH:mm:ssZ") + "&to_date=" + to_date.ToString("yyyy-MM-ddTHH:mm:ssZ") + "&" + queryParams;
             return RestClient.Get<List<BalanceMovementResponse>>(RequestOptions.BaseUrl + url,
                 CreateHeaders(url, RequestOptions));
         }

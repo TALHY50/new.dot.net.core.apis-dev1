@@ -1,8 +1,8 @@
 ﻿using ACL.App.Contracts.Requests;
-using ACL.App.Infrastructure.Route;
 using Bogus;
 using RestSharp;
-using SharedKernel.Main.Contracts.Response;
+using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Contracts.Common;
 
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
 #pragma warning disable CS8602 // Converting null literal or possible null value to non-nullable type.

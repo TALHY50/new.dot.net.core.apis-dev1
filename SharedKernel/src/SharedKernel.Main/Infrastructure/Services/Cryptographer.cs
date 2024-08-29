@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
-using SharedKernel.Main.Application.Constants;
+using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Infrastructure.Attributes;
 using SharedKernel.Main.Infrastructure.Utilities;
 

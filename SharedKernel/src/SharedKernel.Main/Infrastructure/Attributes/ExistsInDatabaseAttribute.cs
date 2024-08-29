@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using SharedKernel.Main.Application.Interfaces;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
 
 #pragma warning disable CS8765 // Possible null reference argument.
 namespace SharedKernel.Main.Infrastructure.Attributes

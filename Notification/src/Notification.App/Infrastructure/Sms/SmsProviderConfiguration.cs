@@ -1,4 +1,4 @@
-using Notification.App.Domain.ValueObjects;
+using Notification.App.Domain.Entities.ValueObjects;
 
 namespace Notification.App.Infrastructure.Sms;
 

@@ -9,13 +9,12 @@ using Microsoft.EntityFrameworkCore;
 
 using Newtonsoft.Json;
 
-using Notification.App.Application.Common;
-using Notification.App.Application.Common.Models;
-using Notification.App.Domain.Notifications.Outgoings;
-using Notification.App.Infrastructure.Persistence;
-using Notification.Main.Infrastructure.Persistence;
+using Notification.App.Domain.Entities.Outgoings;
+using Notification.App.Infrastructure.Persistence.Context;
 
-using View.App.Services;
+using SharedKernel.Main.Application.Common;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Application.Common.Models;
 
 using EventId = Notification.App.Contracts.EventId;
 
@@ -32,7 +31,7 @@ public class CreateWebOutgoingController : ApiControllerBase
 
 public record CreateWebOutgoingCommand(EventId EventId) : IRequest<ErrorOr<WebOutgoing>>;
 
-internal sealed class CreateWebOutgoingCommandValidator : AbstractValidator<CreateWebOutgoingCommand>
+public class CreateWebOutgoingCommandValidator : AbstractValidator<CreateWebOutgoingCommand>
 {
     public CreateWebOutgoingCommandValidator()
     {
@@ -42,7 +41,7 @@ internal sealed class CreateWebOutgoingCommandValidator : AbstractValidator<Crea
     }
 }
 
-internal sealed class CreateWebOutgoingCommandHandler(ILogger<CreateWebOutgoingCommandHandler> logger, ApplicationDbContext context, IRenderer renderer) : IRequestHandler<CreateWebOutgoingCommand, ErrorOr<WebOutgoing>>
+public class CreateWebOutgoingCommandHandler(ILogger<CreateWebOutgoingCommandHandler> logger, ApplicationDbContext context, IRenderer renderer) : IRequestHandler<CreateWebOutgoingCommand, ErrorOr<WebOutgoing>>
 {
      private readonly ApplicationDbContext _context = context;
      private readonly IRenderer _renderer = renderer;

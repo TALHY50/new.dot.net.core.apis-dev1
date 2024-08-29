@@ -1,51 +1,63 @@
+
 using IMT.App;
 using Microsoft.OpenApi.Models;
-using SharedKernel.Main.Infrastructure.Persistence.Configurations;
-
+using PayAll.Exception;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-//builder.Services.AddSwaggerGen();
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new OpenApiInfo
-    {
-        Version = "v1",
-        Title = "Payall and Thunes API"
 
-    });
-});
+builder.Services.AddCors(options => options.AddDefaultPolicy(
+    policy => policy.AllowAnyOrigin()
+        .AllowAnyHeader()
+        .AllowAnyMethod()));
+
+// Register the Swagger generator, defining 1 or more Swagger documents
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "Admin API", Version = "v1" }));
+
+builder.Services.AddProblemDetails();
+
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
+
+builder.Services.AddHealthChecks();
+builder.Services.AddHttpContextAccessor();
+
 var app = builder.Build();
 
-
-// Configure the HTTP request pipeline.
-//if (app.Environment.IsDevelopment())
-//{
-
+// Enable middleware to serve generated Swagger as a JSON endpoint.
 app.UseSwagger();
+
+// Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
 app.UseSwaggerUI(options =>
 {
-    options.DefaultModelsExpandDepth(-1);
-    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Payall and Thunes API v1");
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+    options.RoutePrefix = string.Empty;
 });
-//}
 
+app.UseCors();
+
+app.UseHttpsRedirection();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/error-development");
+}
+else
+{
+    app.UseExceptionHandler("/error");
+}
 
 app.UseAuthorization();
-
 app.MapControllers();
-
 
 app.Run();
 
 namespace IMT.App
 {
+    public partial class Program { }
 }

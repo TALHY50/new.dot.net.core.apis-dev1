@@ -5,9 +5,9 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-using Notification.App.Application.Common;
-using Notification.App.Infrastructure.Persistence;
-using Notification.Main.Infrastructure.Persistence;
+using Notification.App.Infrastructure.Persistence.Context;
+
+using SharedKernel.Main.Application.Common;
 
 namespace Notification.App.Application.Features.Notifications;
 
@@ -22,7 +22,7 @@ public class TestIndexController : ApiControllerBase
 
 public record TestIndexCommand(int Clean) : IRequest<int>;
 
-internal sealed class TestIndexCommandValidator : AbstractValidator<TestIndexCommand>
+public class TestIndexCommandValidator : AbstractValidator<TestIndexCommand>
 {
     public TestIndexCommandValidator()
     {
@@ -32,7 +32,7 @@ internal sealed class TestIndexCommandValidator : AbstractValidator<TestIndexCom
     }
 }
 
-internal sealed class TestIndexCommandHandler(ApplicationDbContext context) : IRequestHandler<TestIndexCommand, int>
+public class TestIndexCommandHandler(ApplicationDbContext context) : IRequestHandler<TestIndexCommand, int>
 {
     private readonly ApplicationDbContext _context = context;
 

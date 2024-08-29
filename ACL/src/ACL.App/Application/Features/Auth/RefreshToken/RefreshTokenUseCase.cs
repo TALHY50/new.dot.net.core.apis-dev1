@@ -1,9 +1,10 @@
-﻿using ACL.App.Application.Common.Enums;
-using ACL.App.Application.Common.Exceptions;
-using ACL.App.Application.Features.Auth.RefreshToken.Request;
-using ACL.App.Application.Features.Auth.RefreshToken.Response;
-using ACL.App.Domain.Ports.Repositories.Auth;
-using ACL.App.Domain.Ports.Services.Token;
+﻿using ACL.App.Application.Interfaces.Repositories;
+using ACL.App.Application.Interfaces.Services;
+using ACL.App.Contracts.Requests;
+using ACL.App.Contracts.Responses;
+using SharedKernel.Main.Application.Common.Enums;
+using SharedKernel.Main.Application.Common.Exceptions;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
 
 namespace ACL.App.Application.Features.Auth.RefreshToken
 {
@@ -12,12 +13,12 @@ namespace ACL.App.Application.Features.Auth.RefreshToken
     {
         private readonly ILogger _logger;
         private readonly IAuthTokenService _authTokenService;
-        private readonly IAclUserRepository _authRepository;
+        private readonly IUserRepository _authRepository;
         /// <inheritdoc/>
         public RefreshTokenUseCase(
             ILogger<RefreshTokenUseCase> logger,
             IAuthTokenService authTokenService,
-            IAclUserRepository authRepository)
+            IUserRepository authRepository)
         {
             this._logger = logger;
             this._authTokenService = authTokenService;

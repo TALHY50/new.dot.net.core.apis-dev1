@@ -4,24 +4,34 @@ using FluentValidation;
 
 using MediatR;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-using Notification.App.Application.Common;
 using Notification.App.Contracts;
-using Notification.App.Domain.Notifications.Events;
-using Notification.App.Domain.Setups;
-using Notification.App.Domain.ValueObjects;
-using Notification.App.Infrastructure.Persistence;
+using Notification.App.Domain.Entities.Events;
+using Notification.App.Domain.Entities.Setups;
+using Notification.App.Domain.Entities.ValueObjects;
+using Notification.App.Infrastructure.Persistence.Context;
+
+using SharedKernel.Main.Application.Common;
+using SharedKernel.Main.Application.Common.Constants;
+
+using ProblemDetails = FastEndpoints.ProblemDetails;
 
 namespace Notification.App.Application.Features.Notifications.Events;
 
 public class CreateEmailEventController : ApiControllerBase
 {
-    [HttpPost("/api/notification/event/email/create")]
+   // [Authorize(Policy = "HasPermission")]
+    [HttpPost(Routes.CreateEmailEventRoute, Name = Routes.CreateEmailEventRouteName)]
     public async Task<ActionResult<ErrorOr<Event>>> Create(CreateEmailEventCommand command)
     {
-        return await Mediator.Send(command).ConfigureAwait(false);
+        var result = await Mediator.Send(command).ConfigureAwait(false);
+
+        return result.Match(
+            reminder => Ok(result.Value),
+            Problem);
     }
 }
 
@@ -32,24 +42,24 @@ public record CreateEmailEventCommand(
     EmailReceivers Receivers,
     MiscellaneousInformation Information) : IRequest<ErrorOr<Event>>;
 
-internal sealed class CreateEmailEventCommandValidator : AbstractValidator<CreateEmailEventCommand>
+public class CreateEmailEventCommandValidator : AbstractValidator<CreateEmailEventCommand>
 {
     public CreateEmailEventCommandValidator()
     {
         RuleFor(v => v.CategoricalData.Category)
-            .MaximumLength(200)
-            .NotEmpty();
+            .MaximumLength(20)
+            .NotEmpty().WithErrorCode(ApplicationCodes.StringNullOrEmpty.Code);
     }
 }
 
-internal sealed class CreateEmailEventCommandHandler(ApplicationDbContext context) : IRequestHandler<CreateEmailEventCommand, ErrorOr<Event>>
+public class CreateEmailEventCommandHandler(ApplicationDbContext context) : IRequestHandler<CreateEmailEventCommand, ErrorOr<Event>>
 {
     private readonly ApplicationDbContext _context = context;
 
     public async Task<ErrorOr<Event>> Handle(CreateEmailEventCommand request, CancellationToken cancellationToken)
     {
         var now = DateTime.UtcNow;
-        var @event = new Domain.Notifications.Events.Event
+        var @event = new Event
         {
             Category = request.CategoricalData.Category,
             Name = request.CategoricalData.Name,
@@ -84,7 +94,7 @@ internal sealed class CreateEmailEventCommandHandler(ApplicationDbContext contex
 
         if (credential == null)
         {
-            return Error.NotFound("Credential not found!");
+            return Error.NotFound(code: ApplicationCodes.RecordNotFound.Code, "Credential not found!");
         }
 
         ReceiverGroup? receiverGroup = null;
@@ -137,5 +147,6 @@ internal sealed class CreateEmailEventCommandHandler(ApplicationDbContext contex
         await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
         return @event;
+#pragma warning restore CS0162 // Unreachable code detected
     }
 }

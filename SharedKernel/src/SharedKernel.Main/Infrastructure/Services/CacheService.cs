@@ -1,5 +1,5 @@
 using Microsoft.Extensions.Caching.Memory;
-using SharedKernel.Main.Application.Interfaces;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
 
 namespace SharedKernel.Main.Infrastructure.Services;
 

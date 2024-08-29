@@ -1,5 +1,5 @@
-using IMT.App.Application.Ports.Services;
-using IMT.App.Contracts.Requests;
+using IMT.App.Application.Interfaces.Services;
+using IMT.App.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Thunes.Exception;
 using Thunes.Route;
@@ -14,8 +14,8 @@ namespace IMT.App.Application.Features
     {
 
 #pragma warning disable CS1717 // Assignment made to same variable
-        private readonly IImtQuotationService _quotationService;
-        public QuotationController(IImtQuotationService quotationService)
+        private readonly IQuotationService _quotationService;
+        public QuotationController(IQuotationService quotationService)
         {
             _quotationService = quotationService;
         }
@@ -49,11 +49,11 @@ namespace IMT.App.Application.Features
         }
         [Tags("Thunes.Quotation")]
         [HttpGet(ThunesUrl.RetrieveQuotationByExternalIdUrl)]
-        public object GetByExternalId(ulong external_id)
+        public object GetByExternalId(string invoice_id)
         {
             try
             {
-                return _quotationService.GetQuotationByExternalId(external_id);
+                return _quotationService.GetQuotationByExternalId(invoice_id);
             }
             catch (ThunesException e)
             {

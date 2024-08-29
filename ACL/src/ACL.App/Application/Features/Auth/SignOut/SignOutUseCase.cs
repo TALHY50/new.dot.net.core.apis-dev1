@@ -1,7 +1,8 @@
-﻿using ACL.App.Application.Common.Enums;
-using ACL.App.Application.Features.Auth.SignOut.Request;
-using ACL.App.Application.Features.Auth.SignOut.Response;
-using ACL.App.Domain.Ports.Repositories.Auth;
+﻿using ACL.App.Application.Interfaces.Repositories;
+using ACL.App.Application.Interfaces.Services;
+using ACL.App.Contracts.Requests;
+using ACL.App.Contracts.Responses;
+using SharedKernel.Main.Application.Common.Enums;
 
 namespace ACL.App.Application.Features.Auth.SignOut
 {
@@ -9,11 +10,11 @@ namespace ACL.App.Application.Features.Auth.SignOut
     public class SignOutUseCase : ISignOutUseCase
     {
         private readonly ILogger _logger;
-        private readonly IAclUserRepository _authRepository;
+        private readonly IUserRepository _authRepository;
         /// <inheritdoc/>
         public SignOutUseCase(
             ILogger<SignOutUseCase> logger,
-            IAclUserRepository authRepository)
+            IUserRepository authRepository)
         {
             this._logger = logger;
             this._authRepository = authRepository;

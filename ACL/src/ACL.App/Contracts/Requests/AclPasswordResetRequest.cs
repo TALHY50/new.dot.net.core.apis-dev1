@@ -8,7 +8,7 @@ public partial class AclPasswordResetRequest
     [DefaultValue("10")]
     [Required(ErrorMessage = "User ID is required")]
     [Range(1, ulong.MaxValue, ErrorMessage = "User ID greater than 0.")]
-    //[ExistsInDatabase<ApplicationDbContext,ICustomUnitOfWork>("AclUser", "Id")]
+    //[ExistsInDatabase<ApplicationDbContext,ICustomUnitOfWork>("User", "Id")]
     public ulong UserId { get; set; }
 
     [DefaultValue("12345678")]

@@ -1,4 +1,6 @@
-﻿namespace Thunes.Response.Transfer.Transaction
+﻿using Newtonsoft.Json;
+
+namespace Thunes.Response.Transfer.Transaction
 {
     public class CreateTransactionResponse
     {
@@ -7,6 +9,14 @@
         public string status_message { get; set; }
         public string status_class { get; set; }
         public string status_class_message { get; set; }
+        [JsonProperty("invoice_id")]
+        public string invoice_id
+        {
+            get { return external_id; }
+            set { external_id = value; }
+        }
+
+        //[JsonIgnore]
         public string external_id { get; set; }
         public object? external_code { get; set; }
         public string transaction_type { get; set; }
@@ -42,7 +52,7 @@
 
 
 
-    #region SubOrdinate Response For Create Transaction
+    #region SubOrdinate Responses For Create Transaction
 
     public class Beneficiary
     {

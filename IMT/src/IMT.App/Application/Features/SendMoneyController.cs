@@ -1,6 +1,6 @@
-using IMT.App.Application.Ports.Services;
-using IMT.App.Contracts.Requests;
-using Microsoft.AspNetCore.Mvc;
+/*using Microsoft.AspNetCore.Mvc;
+using SharedKernel.Main.Application.Interfaces.Repositories.IMT.Services;
+using SharedKernel.Main.Infrastructure.Persistence.IMT.Contracts.Requests;
 using Thunes.Exception;
 using Thunes.Route;
 
@@ -34,4 +34,4 @@ namespace IMT.App.Application.Features
         }
 
     }
-}
+}*/

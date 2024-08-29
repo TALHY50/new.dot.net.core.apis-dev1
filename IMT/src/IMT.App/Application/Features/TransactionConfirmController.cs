@@ -1,7 +1,8 @@
-﻿using IMT.App.Application.Ports.Services;
+﻿using IMT.App.Application.Interfaces.Services;
+using IMT.App.Domain.Entities;
+using IMT.App.Infrastructure.Persistence.Context;
 using Microsoft.AspNetCore.Mvc;
-using SharedKernel.Main.Domain.IMT;
-using SharedKernel.Main.Infrastructure.Persistence.Configurations;
+using Notification.App.Infrastructure.Persistence.Configurations;
 using Thunes.Exception;
 using Thunes.Request.ConfirmTrasaction;
 using Thunes.Response.Common;
@@ -24,7 +25,7 @@ namespace IMT.App.Application.Features
         }
         [Tags("Thunes.Transaction")]
         [HttpPost(ThunesUrl.ConfirmTransactionByIdUrl)]
-        public object ConfirmTransactionById(int id)
+        public object ConfirmTransactionById(uint id)
         {
             var trasactionDTO = new ConfirmTrasactionDTO
             {
@@ -38,11 +39,11 @@ namespace IMT.App.Application.Features
 
         [Tags("Thunes.Transaction")]
         [HttpPost(ThunesUrl.ConfirmTransactionByExternalIdUrl)]
-        public object ConfirmTransactionByExternalId(int external_id)
+        public object ConfirmTransactionByExternalId(string invoice_id)
         {
             try
             {
-                return _thunesClient.GetTransactionAdapter().ConfirmTransactionByExternalId(external_id);
+                return _thunesClient.GetTransactionAdapter().ConfirmTransactionByExternalId(invoice_id);
             }
             catch (ThunesException e)
             {

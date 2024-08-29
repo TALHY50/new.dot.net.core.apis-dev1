@@ -8,7 +8,7 @@ public partial class AclCountryRequest
     [DefaultValue("Bangladesh")]
     [Required]
     [StringLength(50)]
-    //[UniqueValue<ApplicationDbContext,ICustomUnitOfWork>("AclCountry", "Name")]
+    //[UniqueValue<ApplicationDbContext,ICustomUnitOfWork>("Country", "Name")]
     public string Name { get; set; }
 
     [DefaultValue("This is beautiful country")]
@@ -19,7 +19,7 @@ public partial class AclCountryRequest
     [DefaultValue("bn")]
     [Required]
     [StringLength(50)]
-    //[UniqueValue<ApplicationDbContext,ICustomUnitOfWork>("AclCountry", "Code")]
+    //[UniqueValue<ApplicationDbContext,ICustomUnitOfWork>("Country", "Code")]
     public string Code { get; set; }
 
     [DefaultValue(1)]

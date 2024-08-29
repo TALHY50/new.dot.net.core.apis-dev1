@@ -2,8 +2,8 @@
 
 using CsvHelper;
 
-using Notification.App.Application.Common.Interfaces;
-using Notification.App.Domain.Todos;
+using Notification.App.Application.Interfaces.Services;
+using Notification.App.Domain.Entities.Todos;
 
 namespace Notification.App.Infrastructure.Files;
 
@@ -16,7 +16,7 @@ public class CsvFileBuilder : ICsvFileBuilder
         {
             using var csvWriter = new CsvWriter(streamWriter, CultureInfo.InvariantCulture);
 
-            csvWriter.Configuration.RegisterClassMap<TodoItemRecordMap>();
+            csvWriter.Context.RegisterClassMap<TodoItemRecordMap>();
             csvWriter.WriteRecords(records);
         }
 

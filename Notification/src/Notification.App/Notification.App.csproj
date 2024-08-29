@@ -7,34 +7,15 @@
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
-  
+
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Ardalis.SmartEnum" />
-    <PackageReference Include="CsvHelper" />
-    <PackageReference Include="ErrorOr" />
-    <PackageReference Include="FluentValidation" />
-    <PackageReference Include="FluentValidation.AspNetCore" />
-    <PackageReference Include="MailKit" />
-    <PackageReference Include="MediatR" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
-    <PackageReference Include="Newtonsoft.Json" />
-    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" />
-    <PackageReference Include="Quartz.Extensions.Hosting" />
-	<PackageReference Include="Microsoft.EntityFrameworkCore.Design">
-	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-	  <PrivateAssets>all</PrivateAssets>
-	</PackageReference>
-	<PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" />
-	<PackageReference Include="Swashbuckle.AspNetCore" />
-  </ItemGroup>
+
 
   <ItemGroup>
     <Content Update="appsettings.json">
@@ -64,14 +45,15 @@
   </ItemGroup>
   
   <ItemGroup>
-  <Folder Include="Filters\" />
   <Folder Include="Properties\" />
+  <Folder Include="wwwroot\" />
   </ItemGroup>
   
 
   
   <ItemGroup>
-	<ProjectReference Include="..\View.App\View.App.csproj" />
+	<ProjectReference Include="..\..\..\ACL\src\ACL.App\ACL.App.csproj" />
+	<ProjectReference Include="..\..\..\SharedKernel\src\SharedKernel.Main\SharedKernel.Main.csproj" />
   </ItemGroup>
 
 </Project>

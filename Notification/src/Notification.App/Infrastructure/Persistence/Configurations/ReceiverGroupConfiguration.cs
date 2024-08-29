@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-using Notification.App.Domain.Setups;
-using Notification.App.Domain.ValueObjects;
+using Notification.App.Domain.Entities.Setups;
+using Notification.App.Domain.Entities.ValueObjects;
 
 namespace Notification.App.Infrastructure.Persistence.Configurations
 {
@@ -14,67 +14,59 @@ namespace Notification.App.Infrastructure.Persistence.Configurations
 
             builder.HasKey(rg => rg.Id);
 
-            builder.Property(rg => rg.Id)
-                .ValueGeneratedOnAdd()
-                .HasColumnType("int(11)");
+            RelationalPropertyBuilderExtensions
+                .HasColumnType<int>(builder.Property(rg => rg.Id).ValueGeneratedOnAdd(), "int(11)");
 
-            builder.Property(rg => rg.Type)
-                .IsRequired()
-                .HasColumnType("tinyint(4)")
+            RelationalPropertyBuilderExtensions
+                .HasColumnType<NotificationType>(builder.Property(rg => rg.Type).IsRequired(), "tinyint(4)")
                 .HasConversion(
                     nt => nt.Type,
                     nt => NotificationType.From(nt))
                 .HasComment("1=mail, 2= sms, 3 = web");
 
-            builder.Property(rg => rg.Name)
-                .IsRequired()
-                .HasMaxLength(50)
-                .HasDefaultValue("0")
+            RelationalPropertyBuilderExtensions
+                .HasDefaultValue<string>(builder.Property(rg => rg.Name).IsRequired().HasMaxLength(50), "0")
                 .HasColumnType("varchar(50)");
 
-            builder.Property(rg => rg.To)
-                .HasColumnType("mediumtext")
+            RelationalPropertyBuilderExtensions
+                .HasColumnType<string>(builder.Property(rg => rg.To), "mediumtext")
                 .HasComment("must be separated by comma(,)");
 
-            builder.Property(rg => rg.CcEmails)
-                .HasColumnType("text")
+            RelationalPropertyBuilderExtensions
+                .HasColumnType<string>(builder.Property(rg => rg.CcEmails), "text")
                 .HasColumnName("cc_emails")
                 .HasComment("must be separated by comma(,)");
 
-            builder.Property(rg => rg.BccEmails)
-                .HasColumnType("text")
+            RelationalPropertyBuilderExtensions
+                .HasColumnType<string>(builder.Property(rg => rg.BccEmails), "text")
                 .HasColumnName("bcc_emails")
                 .HasComment("must be separated by comma(,)");
 
-            builder.Property(rg => rg.CreatedById)
-                .IsRequired()
-                .HasDefaultValue(0)
+            RelationalPropertyBuilderExtensions
+                .HasDefaultValue<int>(builder.Property(rg => rg.CreatedById).IsRequired(), 0)
                 .HasColumnName("created_by_id")
                 .HasColumnType("int(11)");
 
-            builder.Property(rg => rg.UpdatedById)
-                .IsRequired()
-                .HasDefaultValue(0)
+            RelationalPropertyBuilderExtensions
+                .HasDefaultValue<int>(builder.Property(rg => rg.UpdatedById).IsRequired(), 0)
                 .HasColumnName("updated_by_id")
                 .HasColumnType("int(11)");
 
-            builder.Property(rg => rg.Status)
-                .IsRequired()
-                .HasDefaultValue(1)
+            RelationalPropertyBuilderExtensions
+                .HasDefaultValue<int>(builder.Property(rg => rg.Status).IsRequired(), 1)
                 .HasColumnType("tinyint(4)")
                 .HasComment("1= active, 0= inactive");
 
-            builder.Property(rg => rg.CreatedAt)
-                .HasColumnName("created_at")
+            RelationalPropertyBuilderExtensions
+                .HasColumnName<DateTime?>(builder.Property(rg => rg.CreatedAt), "created_at")
                 .HasColumnType("datetime");
 
-            builder.Property(rg => rg.UpdatedAt)
-                .HasColumnName("updated_at")
+            RelationalPropertyBuilderExtensions
+                .HasColumnName<DateTime?>(builder.Property(rg => rg.UpdatedAt), "updated_at")
                 .HasColumnType("datetime");
 
-            builder.Property(rg => rg.CompanyId)
-                .IsRequired()
-                .HasDefaultValue(0)
+            RelationalPropertyBuilderExtensions
+                .HasDefaultValue<int>(builder.Property(rg => rg.CompanyId).IsRequired(), 0)
                 .HasColumnName("company_id")
                 .HasColumnType("int(11)");
         }

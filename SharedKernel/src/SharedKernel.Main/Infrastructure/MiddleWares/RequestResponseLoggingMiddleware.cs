@@ -52,8 +52,8 @@ namespace SharedKernel.Main.Infrastructure.MiddleWares
             context.Response.Body.Seek(0, SeekOrigin.Begin);
 
             var log = new StringBuilder();
-            log.AppendLine($"[Response] {context.Request.Method}: {context.Request.Path}");
-            log.AppendLine($"[Response Body] {responseBody}");
+            log.AppendLine($"[Responses] {context.Request.Method}: {context.Request.Path}");
+            log.AppendLine($"[Responses Body] {responseBody}");
 
             Log.Information(log.ToString());
         }

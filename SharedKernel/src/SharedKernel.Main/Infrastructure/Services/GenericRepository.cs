@@ -3,7 +3,7 @@ using System.Dynamic;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using SharedKernel.Main.Application.Interfaces;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
 
 namespace SharedKernel.Main.Infrastructure.Services
 {
@@ -66,6 +66,44 @@ namespace SharedKernel.Main.Infrastructure.Services
                 return null;
             }
         }
+        public virtual T? GetByUlongId(ulong id)
+        {
+            try
+            {
+                return _dbSet.Find(id);
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+            }
+        }
+
+        public virtual T? GetByUintId(uint id)
+        {
+            try
+            {
+                return _dbSet.Find(id);
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+            }
+        }
+
+        public virtual T? GetByIntId(int id)
+        {
+            try
+            {
+                return _dbSet.Find(id);
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+            }
+        }
 
         public virtual async Task<T> AddAsync(T entity)
         {
@@ -73,6 +111,7 @@ namespace SharedKernel.Main.Infrastructure.Services
             {
                 await _dbSet.AddAsync(entity);
                 await _dbContext.SaveChangesAsync();
+                _dbContext.Entry(entity).Reload();
                 return await Task.FromResult(entity);
             }
             catch (Exception)
@@ -87,6 +126,7 @@ namespace SharedKernel.Main.Infrastructure.Services
             {
                 _dbSet.Update(entity);
                 _dbContext.SaveChanges();
+                _dbContext.Entry(entity).Reload();
                 return Task.FromResult(entity);
             }
             catch (Exception)

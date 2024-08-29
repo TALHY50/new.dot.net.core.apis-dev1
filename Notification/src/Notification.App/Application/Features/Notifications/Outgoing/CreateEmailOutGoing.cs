@@ -10,12 +10,13 @@ using Microsoft.IdentityModel.Tokens;
 
 using Newtonsoft.Json;
 
-using Notification.App.Application.Common;
-using Notification.App.Domain.Notifications.Outgoings;
-using Notification.App.Infrastructure.Persistence;
-using Notification.Main.Infrastructure.Persistence;
+using Notification.App.Domain.Entities.Outgoings;
+using Notification.App.Infrastructure.Persistence.Context;
 
-using View.App.Services;
+using SharedKernel.Main.Application.Common;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Infrastructure.Extensions;
+using SharedKernel.Main.Infrastructure.Mappings;
 
 using EventId = Notification.App.Contracts.EventId;
 
@@ -32,7 +33,7 @@ public class CreateEmailOutgoingController : ApiControllerBase
 
 public record CreateEmailOutgoingCommand(EventId EventId) : IRequest<ErrorOr<EmailOutgoing>>;
 
-internal sealed class CreateEmailOutgoingCommandValidator : AbstractValidator<CreateEmailOutgoingCommand>
+public class CreateEmailOutgoingCommandValidator : AbstractValidator<CreateEmailOutgoingCommand>
 {
     public CreateEmailOutgoingCommandValidator()
     {
@@ -42,7 +43,7 @@ internal sealed class CreateEmailOutgoingCommandValidator : AbstractValidator<Cr
     }
 }
 
-internal sealed class CreateEmailOutgoingCommandHandler(ILogger<CreateSmsOutgoingCommandHandler> logger, ApplicationDbContext context, IRenderer renderer) : IRequestHandler<CreateEmailOutgoingCommand, ErrorOr<EmailOutgoing>>
+public class CreateEmailOutgoingCommandHandler(ILogger<CreateEmailOutgoingCommandHandler> logger, ApplicationDbContext context, IRenderer renderer) : IRequestHandler<CreateEmailOutgoingCommand, ErrorOr<EmailOutgoing>>
 {
      private readonly ApplicationDbContext _context = context;
      private readonly IRenderer _renderer = renderer;
@@ -89,7 +90,7 @@ internal sealed class CreateEmailOutgoingCommandHandler(ILogger<CreateSmsOutgoin
             return Error.NotFound("Receiver group not found!");
         }
 
-        bool isAttachment = !appEventData.AttachmentInfo.IsNullOrEmpty();
+        bool isAttachment = appEventData.AttachmentInfo.Safe().Any();
 
         var to = receiverGroup.To;
 

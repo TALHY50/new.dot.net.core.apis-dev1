@@ -1,15 +1,6 @@
-﻿using IMT.App.Application.Ports.Repositories;
-using IMT.App.Application.Ports.Services;
-using IMT.App.Infrastructure.Persistence.Repositories.ConfirmTransaction;
-using IMT.App.Infrastructure.Persistence.Repositories.ImtCountry;
-using IMT.App.Infrastructure.Persistence.Repositories.ImtCurrency;
-using IMT.App.Infrastructure.Persistence.Repositories.ImtMoneyTransfer;
-using IMT.App.Infrastructure.Persistence.Repositories.ImtTransaction;
-using IMT.App.Infrastructure.Persistence.Repositories.Quotation;
-using IMT.App.Infrastructure.Persistence.Services.Quotation;
-using IMT.App.Infrastructure.Persistence.Services.Transaction;
+﻿using IMT.App.Infrastructure.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
-using SharedKernel.Main.Infrastructure.Persistence.Configurations;
+using Notification.App.Infrastructure.Persistence.Configurations;
 
 namespace IMT.App.Infrastructure
 {
@@ -37,14 +28,12 @@ namespace IMT.App.Infrastructure
             options.UseMySQL(connectionString);
         });
 
-            services.AddScoped<IImtProviderErrorDetailsRepository, ImtProviderErrorDetailsRepository>();
+            /*services.AddScoped<IImtProviderErrorDetailsRepository, ImtProviderErrorDetailsRepository>();
             services.AddScoped<IImtCurrencyRepository, ImtCurrencyRepository>();
             services.AddScoped<IImtCountryRepository, ImtCountryRepository>();
             services.AddScoped<IImtMoneyTransferRepository, ImtMoneyTransferRepository>();
-            services.AddScoped<IImtQuotationRepository, ImtQuotationRepository>();
-            services.AddScoped<IImtTransactionRepository, ImtTransactionRepository>();
-            services.AddScoped<IImtQuotationService, ImtQuotationService>();
-            services.AddScoped<IImtMoneyTransferService, ImtMoneyTransferService>();
+            services.AddScoped<IQuotationRepository, QuotationRepository>();
+            services.AddScoped<IImtTransactionRepository, ImtTransactionRepository>();*/
 
             _serviceProvider = services.BuildServiceProvider();
         }

@@ -6,15 +6,17 @@ using MediatR;
 
 using Microsoft.AspNetCore.Mvc;
 
-using Notification.App.Application.Common;
-using Notification.App.Application.Common.Interfaces;
-using Notification.App.Application.Common.Interfaces.Repositories;
-using Notification.App.Application.Common.Models;
+using Notification.App.Application.Interfaces.Repositories;
+using Notification.App.Application.Interfaces.Services;
 using Notification.App.Contracts;
-using Notification.App.Infrastructure.Persistence;
-using Notification.Main.Infrastructure.Persistence;
+using Notification.App.Infrastructure.Persistence.Context;
 
-using Result = Notification.App.Application.Common.Models.Result;
+using SharedKernel.Main.Application.Common;
+using SharedKernel.Main.Application.Common.Interfaces;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Application.Common.Models;
+
+using Result = SharedKernel.Main.Application.Common.Models.Result;
 
 namespace Notification.App.Application.Features.Notifications.Send;
 
@@ -29,7 +31,7 @@ public class SendSmsController : ApiControllerBase
 
 public record SendSmsCommand(OutgoingId OutgoingId) : IRequest<ErrorOr<Result>>;
 
-internal sealed class SendSmsCommandValidator : AbstractValidator<SendSmsCommand>
+public class SendSmsCommandValidator : AbstractValidator<SendSmsCommand>
 {
     public SendSmsCommandValidator()
     {
@@ -39,7 +41,7 @@ internal sealed class SendSmsCommandValidator : AbstractValidator<SendSmsCommand
     }
 }
 
-internal sealed class SendSmsCommandHandler(
+public class SendSmsCommandHandler(
     ILogger<SendSmsCommandHandler> logger,
     ApplicationDbContext context,
     ISmsOutgoingRepository smsOutgoingRepository,

@@ -3,7 +3,8 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using IMT.App.Application.Common;
-using SharedKernel.Main.Infrastructure.Persistence.Configurations;
+using Notification.App.Infrastructure.Persistence.Configurations;
+using IMT.App.Infrastructure.Persistence.Context;
 
 namespace IMT.App.Application.Features;
 
@@ -28,7 +29,7 @@ internal sealed class ConfirmMoneyTransferValidator : AbstractValidator<ConfirmM
     }
 }
 
-internal sealed class ConfirmMoneyTransferHandler(ApplicationDbContext context)
+internal sealed class Handler(ApplicationDbContext context)
     : IRequestHandler<ConfirmMoneyTransfer, ErrorOr<object>>
 {
     private readonly ApplicationDbContext _context = context;

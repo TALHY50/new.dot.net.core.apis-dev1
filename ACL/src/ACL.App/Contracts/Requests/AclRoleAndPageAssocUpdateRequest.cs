@@ -7,7 +7,7 @@ namespace ACL.App.Contracts.Requests
     {
         [DefaultValue(1)]
         [Required]
-        //[ExistsInDatabase<ApplicationDbContext, ICustomUnitOfWork>("AclRole", "Id")]
+        //[ExistsInDatabase<ApplicationDbContext, ICustomUnitOfWork>("Role", "Id")]
         [Range(1, int.MaxValue)]
 		public ulong RoleId { get; set; }
 		[Required]

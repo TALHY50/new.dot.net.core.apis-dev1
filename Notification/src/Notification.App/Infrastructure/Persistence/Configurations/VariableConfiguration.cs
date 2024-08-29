@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-using Notification.App.Domain.Setups;
+using Notification.App.Domain.Entities.Setups;
 
 namespace Notification.App.Infrastructure.Persistence.Configurations
 {
@@ -13,40 +13,29 @@ namespace Notification.App.Infrastructure.Persistence.Configurations
 
             builder.HasKey(v => v.Id);
 
-            builder.Property(v => v.Id)
-                .ValueGeneratedOnAdd()
-                .HasColumnType("bigint(20) unsigned");
+            RelationalPropertyBuilderExtensions.HasColumnType<int>(builder.Property(v => v.Id).ValueGeneratedOnAdd(), "bigint(20) unsigned");
 
-            builder.Property(v => v.VariableName)
-                .IsRequired()
-                .HasMaxLength(50)
-                .HasDefaultValue(string.Empty)
+            RelationalPropertyBuilderExtensions.HasDefaultValue<string>(builder.Property(v => v.VariableName).IsRequired().HasMaxLength(50), string.Empty)
                 .HasColumnType("varchar(50)")
                 .HasComment("variable must be placed with comma separator");
 
-            builder.Property(v => v.CreatedById)
-                .IsRequired()
-                .HasColumnType("int(11)")
+            RelationalPropertyBuilderExtensions.HasColumnType<int>(builder.Property(v => v.CreatedById).IsRequired(), "int(11)")
                 .HasDefaultValue(0)
                 .HasComment("User Id of the person who created the event");
 
-            builder.Property(v => v.UpdatedById)
-                .IsRequired()
-                .HasColumnType("int(11)")
+            RelationalPropertyBuilderExtensions.HasColumnType<int>(builder.Property(v => v.UpdatedById).IsRequired(), "int(11)")
                 .HasDefaultValue(0)
                 .HasComment("User Id of the person who updated the event for the last time");
 
-            builder.Property(v => v.Status)
-                .IsRequired()
-                .HasColumnType("tinyint(4)")
+            RelationalPropertyBuilderExtensions.HasColumnType<int>(builder.Property(v => v.Status).IsRequired(), "tinyint(4)")
                 .HasDefaultValue(1)
                 .HasComment("1=active, 0=inactive");
 
-            builder.Property(v => v.CreatedAt)
-                .HasColumnType("datetime");
+            RelationalPropertyBuilderExtensions
+                .HasColumnType<DateTime?>(builder.Property(v => v.CreatedAt), "datetime");
 
-            builder.Property(v => v.UpdatedAt)
-                .HasColumnType("datetime");
+            RelationalPropertyBuilderExtensions
+                .HasColumnType<DateTime?>(builder.Property(v => v.UpdatedAt), "datetime");
 
             builder.HasIndex(v => v.VariableName)
                 .IsUnique();

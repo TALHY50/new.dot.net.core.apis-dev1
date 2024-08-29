@@ -1,7 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 
-using Notification.App.Application.Common.Interfaces.Repositories;
-using Notification.App.Domain.Notifications.Outgoings;
+using Notification.App.Application.Interfaces.Repositories;
+using Notification.App.Domain.Entities.Outgoings;
+using Notification.App.Infrastructure.Persistence.Context;
 
 namespace Notification.App.Infrastructure.Persistence.Repositories;
 
@@ -9,7 +10,7 @@ public class SmsOutgoingRepository(ApplicationDbContext _dbContext) : ISmsOutgoi
 {
     public async Task<SmsOutgoing?> FindActiveRecordByIdAsync(int id, CancellationToken cancellationToken)
     {
-        var result = await _dbContext.SmsOutgoings.Where(e => e.Id == id).Where(e => e.Status == 0).FirstOrDefaultAsync(cancellationToken).ConfigureAwait(false);
+        var result = await Queryable.Where<SmsOutgoing>(_dbContext.SmsOutgoings, e => e.Id == id).Where(e => e.Status == 0).FirstOrDefaultAsync(cancellationToken).ConfigureAwait(false);
 
         return result;
     }
