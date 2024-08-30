@@ -351,6 +351,18 @@
         public const string UpdateTaxRateName = "update_tax_rate";
         public const string UpdateTaxRateUrl = "/api/admin/tax_rate/{Id}";
 
+        // Currency Conversion Rate
+        public const string GetCurrencyConversionRateName = "currency_conversion_rate";
+        public const string GetCurrencyConversionRateUrl = "/api/admin/currency_conversion_rate";
+        public const string GetCurrencyConversionRateByIdName = "currency_conversion_rate_by_id";
+        public const string GetCurrencyConversionRateByIdUrl = "/api/admin/currency_conversion_rate/{Id}";
+        public const string CreateCurrencyConversionRateName = "create_currency_conversion_rate";
+        public const string CreateCurrencyConversionRateUrl = "/api/admin/currency_conversion_rate";
+        public const string DeleteCurrencyConversionRateName = "delete_currency_conversion_rate";
+        public const string DeleteCurrencyConversionRateUrl = "/api/admin/currency_conversion_rate/{Id}";
+        public const string UpdateCurrencyConversionRateName = "update_currency_conversion_rate";
+        public const string UpdateCurrencyConversionRateUrl = "/api/admin/currency_conversion_rate/{Id}";
+
         // Institution Fund
         public const string GetInstitutionFundName = "institution_fund";
         public const string GetInstitutionFundUrl = "/api/admin/institution_fund";

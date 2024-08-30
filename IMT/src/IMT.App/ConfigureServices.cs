@@ -3,11 +3,11 @@
 // </copyright>
 
 using System.Security.Cryptography;
-using ACL.App.Application.Interfaces.Repositories;
-using ACL.App.Application.Interfaces.Services;
-using ACL.App.Infrastructure.Jwt;
-using ACL.App.Infrastructure.Persistence.Repositories;
-using ACL.App.Infrastructure.Security;
+using ACL.Business.Application.Interfaces.Repositories;
+using ACL.Business.Application.Interfaces.Services;
+using ACL.Business.Infrastructure.Jwt;
+using ACL.Business.Infrastructure.Persistence.Repositories;
+using ACL.Business.Infrastructure.Security;
 using DotNetEnv;
 using ErrorOr;
 using FluentValidation;
@@ -26,7 +26,7 @@ using SharedKernel.Main.Application.Common.Interfaces.Services;
 using SharedKernel.Main.Infrastructure.Cryptography;
 using SharedKernel.Main.Infrastructure.Security;
 using SharedKernel.Main.Infrastructure.Services;
-using ACLApplicationDbContext = ACL.App.Infrastructure.Persistence.Context.ApplicationDbContext;
+using ACLApplicationDbContext = ACL.Business.Infrastructure.Persistence.Context.ApplicationDbContext;
 using CountryRepository = SharedBusiness.Main.IMT.Infrastructure.Persistence.Repositories.CountryRepository;
 
 namespace IMT.App;
@@ -179,7 +179,10 @@ public static class DependencyInjection
         services.AddScoped<IImtTaxRateRepository, TaxRateRepository>();
         services.AddScoped<IImtInstitutionFundRepository, InstitutionFundRepository>();
         services.AddScoped<IImtTransactionTypeRepository, TransactionTypeRepository>();
-       // services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateCountryCommand).Assembly));  
+        services.AddScoped<IImtTransactionRepository, ImtTransactionRepository>();
+        services.AddScoped<IQuotationRepository, QuotationRepository>();
+        services.AddScoped<IImtMoneyTransferRepository, ImtMoneyTransferRepository>();
+        // services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateCountryCommand).Assembly));  
         // services.AddScoped<IRequestHandler<CreateCountryCommand, ErrorOr<Country>>, CreateCountryCommandHandler>();
 
         services.AddScoped<IImtMttsRepository, MttRepository>();

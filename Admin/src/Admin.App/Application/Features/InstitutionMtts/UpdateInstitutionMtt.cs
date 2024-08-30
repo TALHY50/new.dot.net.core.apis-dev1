@@ -7,7 +7,7 @@ using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Contracts.Common;
-using ACL.App.Contracts.Responses;
+using ACL.Business.Contracts.Responses;
 
 namespace Admin.App.Application.Features.InstitutionMtts
 {
