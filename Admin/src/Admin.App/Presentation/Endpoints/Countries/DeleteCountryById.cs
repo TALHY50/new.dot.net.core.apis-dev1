@@ -16,7 +16,7 @@ public class DeleteCountryById : CountryBase
 
     public async Task<IActionResult> Delete(uint Id)
     {
-        var result = await Mediator.Send(new DeleteCountryCommand(Id)).ConfigureAwait(false);
+        var result = await Mediator.Send(new DeleteCountryByIdCommand(Id)).ConfigureAwait(false);
 
         return result.Match(
             isSuccess => Ok(ToSuccess(result.Value)),

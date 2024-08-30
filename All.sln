@@ -40,6 +40,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Admin.App", "Admin\src\Admin.App\Admin.App.csproj", "{9CC758B8-6712-4940-A732-4021C5E42B5C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedKernel", "SharedKernel", "{1AE9F41A-6CDF-4CC7-9F05-3A8B86C0574C}"
+	ProjectSection(SolutionItems) = preProject
+		ConfigureServices.cs = ConfigureServices.cs
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{548CA471-9871-435C-A1FA-320B7E795594}"
 EndProject

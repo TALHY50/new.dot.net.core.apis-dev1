@@ -82,10 +82,16 @@ public partial class ApiControllerBase : ControllerBase
             errorEntities.Add(new StatusEntityModel(){Code = error.Code, Message = error.Description});
         }
         
-        var errorResponse = new ErrorModel
+        /*var errorResponse = new ErrorModel
         {
             Status = new StatusEntityModel(){Code = ApplicationStatusCodes.API_ERROR_BASIC_VALIDATION_FAILED.ToString(), Message = "Basic validation error"},
             Errors  = errorEntities,
+            Data = new object()
+        };*/
+        
+        var errorResponse = new StatusModel()
+        {
+            Status = new StatusEntityModel(){Code = ApplicationStatusCodes.API_ERROR_BASIC_VALIDATION_FAILED.ToString(), Message = errorEntities.First().Message},
             Data = new object()
         };
 

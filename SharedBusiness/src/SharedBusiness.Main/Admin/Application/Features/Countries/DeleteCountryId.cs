@@ -7,26 +7,26 @@ using SharedKernel.Main.Contracts.Common;
 namespace SharedBusiness.Main.Admin.Application.Features.Countries
 {
     
-    public record DeleteCountryCommand(uint id) : IRequest<ErrorOr<bool>>;
+    public record DeleteCountryByIdCommand(uint id) : IRequest<ErrorOr<bool>>;
 
-    public class DeleteCountryCommandValidator : AbstractValidator<DeleteCountryCommand>
+    public class DeleteCountryByIdCommandValidator : AbstractValidator<DeleteCountryByIdCommand>
     {
-        public DeleteCountryCommandValidator()
+        public DeleteCountryByIdCommandValidator()
         {
             RuleFor(x => x.id).NotEmpty().WithErrorCode(ApplicationStatusCodes.API_ERROR_BASIC_VALIDATION_FAILED.ToString());
         }
     }
 
-    public class DeleteCountryCommandHandler : CountryBase, IRequestHandler<DeleteCountryCommand, ErrorOr<bool>>
+    public class DeleteCountryByIdCommandHandler : CountryBase, IRequestHandler<DeleteCountryByIdCommand, ErrorOr<bool>>
     {
         private readonly ICountryRepository _repository;
 
-        public DeleteCountryCommandHandler(ICountryRepository repository)
+        public DeleteCountryByIdCommandHandler(ICountryRepository repository)
         {
             _repository = repository;
         }
 
-        public async Task<ErrorOr<bool>> Handle(DeleteCountryCommand command, CancellationToken cancellationToken)
+        public async Task<ErrorOr<bool>> Handle(DeleteCountryByIdCommand command, CancellationToken cancellationToken)
         {
             if(command.id > 0)
             {

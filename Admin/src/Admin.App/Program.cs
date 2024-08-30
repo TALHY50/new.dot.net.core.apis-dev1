@@ -3,11 +3,13 @@ using Admin.App;
 using Admin.App.Presentation;
 using Microsoft.OpenApi.Models;
 using SharedBusiness.Main;
+using SharedKernel.Main;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
 using SharedKernel.Main.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddSharedBusinessApp();
+builder.Services.AddSharedBusiness();
+builder.Services.AddSharedKernel();
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

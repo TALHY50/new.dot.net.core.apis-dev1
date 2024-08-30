@@ -25,12 +25,12 @@ namespace SharedBusiness.Main.Admin.Application.Features.Countries
     {
         public CreateCountryCommandValidator()
         {
-            RuleFor(x => x.iso_code).IsoCountryCode();
-            RuleFor(x => x.iso_code_short).IsoCountryCodeShort();
-            RuleFor(x => x.iso_code_num).IsoCountryCodeNum();
-            RuleFor(x => x.name).MaximumLength(100);
-            RuleFor(x => x.official_state_name).MaximumLength(100);
-            RuleFor(x => x.status).IsInEnum();
+            RuleFor(x => x.iso_code).NotEmpty().IsoCountryCode();
+            RuleFor(x => x.iso_code_short).NotEmpty().IsoCountryCodeShort();
+            RuleFor(x => x.iso_code_num).NotEmpty().IsoCountryCodeNum();
+            RuleFor(x => x.name).NotEmpty().MaximumLength(100);
+            RuleFor(x => x.official_state_name).NotEmpty().MaximumLength(100);
+            RuleFor(x => x.status).NotEmpty().IsInEnum();
         }
     }
 
