@@ -8,10 +8,17 @@ namespace SharedKernel.Main.Contracts.Common;
 public static class Language
 {
 
-    public static string GetMessage(IHttpContextAccessor httpContextAccessor, string message)
+    private static IHttpContextAccessor _httpContextAccessor;
+
+    public static void Configure(IHttpContextAccessor httpContextAccessor)
+    {
+        _httpContextAccessor = httpContextAccessor;
+    }
+
+    public static string GetMessage(string message)
     {
         var _assembly = Assembly.GetExecutingAssembly();
-        var headers = httpContextAccessor.HttpContext.Request.Headers;
+        var headers = _httpContextAccessor.HttpContext.Request.Headers;
         // Check if the "Language" header exists and has a value
         var language = "en-US";
         if (headers.ContainsKey("Language"))
