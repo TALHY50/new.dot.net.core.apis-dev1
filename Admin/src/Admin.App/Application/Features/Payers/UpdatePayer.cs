@@ -1,4 +1,5 @@
-﻿using ErrorOr;
+﻿using ACL.App.Contracts.Responses;
+using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -77,11 +78,12 @@ namespace Admin.App.Application.Features.Payers
 
         public async Task<ErrorOr<Payer>> Handle(UpdatePayerCommand request, CancellationToken cancellationToken)
         {
-            Payer? entity = _repository.GetByUintId(request.id);
+            var message = new MessageResponse("Record not found");
+            Payer? entity = _repository.FindById(request.id);
             var now = DateTime.UtcNow;
             if (entity == null)
             {
-                return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Payer not found!");
+                return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
             entity.Name = request.Name;
             entity.ProviderId = request.ProviderId;
@@ -107,7 +109,7 @@ namespace Admin.App.Application.Features.Payers
             entity.UpdatedById = 2;
             entity.CreatedAt = now;
             entity.UpdatedAt = now;
-            return await _repository.UpdateAsync(entity);
+            return _repository.Update(entity);
         }
     }
 }

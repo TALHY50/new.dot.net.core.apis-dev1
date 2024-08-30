@@ -1,4 +1,5 @@
 using ACL.App.Application;
+using ACL.App.Application.Interfaces;
 using ACL.App.Application.Interfaces.Services;
 
 namespace ACL.App.Infrastructure.Auth;

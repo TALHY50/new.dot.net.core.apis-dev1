@@ -35,10 +35,10 @@ namespace Admin.App.Application.Features.Currencies
     {
         public CreateCurrencyCommandValidator()
         {
-            RuleFor(x => x.Code).MaximumLength(10);
-            RuleFor(x => x.IsoCode).MaximumLength(10);
-            RuleFor(x => x.Name).MaximumLength(100);
-            RuleFor(x => x.Symbol).MaximumLength(50);
+            RuleFor(x => x.Code).NotEmpty().MinimumLength(1).MaximumLength(10).WithMessage("Code cannot be empty");
+            RuleFor(x => x.IsoCode).NotEmpty().MinimumLength(1).MaximumLength(10).WithMessage("IsoCode cannot be empty");
+            RuleFor(x => x.Name).NotEmpty().MinimumLength(1).MaximumLength(100).WithMessage("Name cannot be empty");
+            RuleFor(x => x.Symbol).NotEmpty().MinimumLength(1).MaximumLength(50).WithMessage("Symbol cannot be empty");
         }
     }
 
@@ -67,7 +67,7 @@ namespace Admin.App.Application.Features.Currencies
                 UpdatedAt = now,
             };
 
-            return await _repository.AddAsync(@currency);
+            return _repository.Add(@currency);
         }
     }
 }

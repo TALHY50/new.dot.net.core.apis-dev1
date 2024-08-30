@@ -65,7 +65,7 @@ namespace Admin.App.Application.Features.TransactionTypes
                 UpdatedAt = now,
             };
 
-            return await _transactionTypeRepository.AddAsync(@transactionType);
+            return _transactionTypeRepository.Add(@transactionType);
         }
     }
 }

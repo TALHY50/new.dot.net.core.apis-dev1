@@ -19,6 +19,6 @@ namespace SharedBusiness.Main.IMT.Domain.Entities
         public DateTime? UpdatedAt { get; set; }
         public DateTime? ExpiredAt { get; set; }
         public uint? CreatedById { get; set; }
-        public DateTime? UpdatedById { get; set; }
+        public uint? UpdatedById { get; set; }
     }
 }

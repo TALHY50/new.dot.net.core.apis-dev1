@@ -35,7 +35,7 @@ namespace Admin.App.Application.Features.Currencies
         }
         public async Task<ErrorOr<List<Currency>>> Handle(GetCurrencyQuery request, CancellationToken cancellationToken)
         {
-            return _repository.All().ToList();
+            return _repository.GetAll();
         }
     }
 }

@@ -28,7 +28,7 @@ namespace Admin.App.Application.Features.Regions
     public record CreateRegionCommand(
         string? Name,
         uint? CompanyId,
-        byte Status = 1) : IRequest<ErrorOr<Region>>;
+        byte Status) : IRequest<ErrorOr<Region>>;
 
     public class CreateRegionCommandValidator : AbstractValidator<CreateRegionCommand>
     {
@@ -58,15 +58,15 @@ namespace Admin.App.Application.Features.Regions
             var @region = new Region
             {
                 Name = request.Name,
-                CompanyId = request.CompanyId,
+                CompanyId = request.CompanyId??1,
                 Status = request.Status,
                 CreatedById = 1,
                 UpdatedById = 2,
                 CreatedAt = now,
-                UpdatedAt = now,
+                UpdatedAt = now
             };
 
-            return await _repository.AddAsync(@region);
+            return _repository.Add(@region);
         }
     }
 }
