@@ -15,7 +15,7 @@ public partial class Mtt
 
     public uint? ServiceMethodId { get; set; }
 
-    public string TransactionTypeId { get; set; } = null!;
+    public uint TransactionTypeId { get; set; }
 
     public decimal CotPercentage { get; set; }
 
