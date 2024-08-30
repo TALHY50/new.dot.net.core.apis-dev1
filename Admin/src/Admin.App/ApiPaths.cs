@@ -1,4 +1,4 @@
-namespace Notification.App;
+namespace Admin.App;
 
 internal static class ApiPaths
 {
