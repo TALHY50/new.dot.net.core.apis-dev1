@@ -1,9 +1,9 @@
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Extensions.DependencyInjection;
 using SharedBusiness.Main.IMT.Application;
-using SbCommon = SharedBusiness.Main.Common;
-using SbImt = SharedBusiness.Main.IMT;
-using SbAdmin = SharedBusiness.Main.Admin;
+using Common = SharedBusiness.Main.Common;
+using IMT = SharedBusiness.Main.IMT;
+using Admin = SharedBusiness.Main.Admin;
 
 namespace SharedBusiness.Main;
 
@@ -12,32 +12,32 @@ public static class DependencyInjection
 
     public static IServiceCollection AddApplication(IServiceCollection services)
     {
-        SbCommon.Application.DependencyInjection.AddApplication(services);
-        SbAdmin.Application.DependencyInjection.AddApplication(services);
-        SbImt.Application.DependencyInjection.AddApplication(services);
+        Common.Application.DependencyInjection.AddApplication(services);
+        Admin.Application.DependencyInjection.AddApplication(services);
+        IMT.Application.DependencyInjection.AddApplication(services);
         return services;
     }
 
 
     public static IServiceCollection AddInfrastructure(IServiceCollection services)
     {
-        SbCommon.Infrastructure.DependencyInjection.AddInfrastructure(services);
-        SbImt.Infrastructure.DependencyInjection.AddInfrastructure(services);
-        SbAdmin.Infrastructure.DependencyInjection.AddInfrastructure(services);
+        Common.Infrastructure.DependencyInjection.AddInfrastructure(services);
+        IMT.Infrastructure.DependencyInjection.AddInfrastructure(services);
+        Admin.Infrastructure.DependencyInjection.AddInfrastructure(services);
         return services;
     }
 
 
     public static IServiceCollection AddPresentation(IServiceCollection services)
     {
-        SbCommon.Presentation.DependencyInjection.AddPresentation(services);
-        SbImt.Presentation.DependencyInjection.AddPresentation(services);
-        SbAdmin.Presentation.DependencyInjection.AddPresentation(services);
+        Common.Presentation.DependencyInjection.AddPresentation(services);
+        IMT.Presentation.DependencyInjection.AddPresentation(services);
+        Admin.Presentation.DependencyInjection.AddPresentation(services);
         return services;
 
     }
 
-    public static IServiceCollection AddSharedBusinessApp(this IServiceCollection services)
+    public static IServiceCollection AddSharedBusiness(this IServiceCollection services)
     {
         SharedBusiness.Main.DependencyInjection.AddApplication(services);
         SharedBusiness.Main.DependencyInjection.AddInfrastructure(services);

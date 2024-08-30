@@ -2,6 +2,7 @@ using Admin.App.Presentation.Routes;
 using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Admin.Application.Features.Countries;
+using SharedBusiness.Main.IMT.Contracts.Contracts.Responses;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Application.Common.Constants.Routes;
@@ -17,7 +18,7 @@ public class GetCountryById : CountryBase
     {
         var result = await Mediator.Send(new GetCountryByIdQuery(Id)).ConfigureAwait(false);
         return result.Match(
-            country => Ok(ToSuccess(result.Value)),
+            country => Ok(ToSuccess(Mapper.Map<CountryDto>(country))),
             Problem);
     }
 }

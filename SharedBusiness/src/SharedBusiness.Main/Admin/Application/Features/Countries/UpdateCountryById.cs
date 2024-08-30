@@ -4,12 +4,13 @@ using MediatR;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common.Enums;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
 using SharedKernel.Main.Contracts.Common;
 using SharedKernel.Main.Infrastructure.Extensions.Rules;
 
 namespace SharedBusiness.Main.Admin.Application.Features.Countries;
 
-public record UpdateCountryCommand(
+public record UpdateCountryByIdCommand(
         uint id,
         string? iso_code,
         string? iso_code_short,
@@ -18,9 +19,9 @@ public record UpdateCountryCommand(
         string? official_state_name,
         StatusValues status) : IRequest<ErrorOr<Common.Domain.Entities.Country>>;
 
-    public class UpdateCountryCommandValidator : AbstractValidator<UpdateCountryCommand>
+    public class UpdateCountryByIdCommandValidator : AbstractValidator<UpdateCountryByIdCommand>
     {
-        public UpdateCountryCommandValidator()
+        public UpdateCountryByIdCommandValidator()
         {
             RuleFor(x => x.id).NotEmpty().WithMessage("Country ID is required");
             RuleFor(x => x.iso_code).IsoCountryCode();
@@ -32,16 +33,18 @@ public record UpdateCountryCommand(
         }
     }
 
-    public class UpdateCountryCommandHandler : CountryBase, IRequestHandler<UpdateCountryCommand, ErrorOr<Common.Domain.Entities.Country>>
+    public class UpdateCountryByIdCommandHandler : CountryBase, IRequestHandler<UpdateCountryByIdCommand, ErrorOr<Common.Domain.Entities.Country>>
     {
         private readonly ICountryRepository _repository;
+        private readonly IGuardAgainstNullUpdate _guard;
 
-        public UpdateCountryCommandHandler(ICountryRepository repository)
+        public UpdateCountryByIdCommandHandler(ICountryRepository repository, IGuardAgainstNullUpdate guard)
         {
             _repository = repository;
+            _guard = guard;
         }
 
-        public async Task<ErrorOr<Common.Domain.Entities.Country>> Handle(UpdateCountryCommand command, CancellationToken cancellationToken)
+        public async Task<ErrorOr<Common.Domain.Entities.Country>> Handle(UpdateCountryByIdCommand command, CancellationToken cancellationToken)
         {
             Common.Domain.Entities.Country? country = _repository.GetById(command.id);
             if (country == null)
@@ -49,14 +52,15 @@ public record UpdateCountryCommand(
                 return Error.NotFound(description: "Country not found",
                     code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
-
             
-            country.IsoCode = command.iso_code;
-            country.IsoCodeShort = command.iso_code_short;
-            country.IsoCodeNum = command.iso_code_num;
-            country.Name = command.name;
-            country.OfficialStateName = command.official_state_name;
-            country.Status = (sbyte) command.status;
+            
+            // Update properties conditionally using the helper function
+            _guard.UpdateIfNotNullOrEmpty(value => country.IsoCode = value, command.iso_code);
+            _guard.UpdateIfNotNullOrEmpty(value => country.IsoCodeShort = value, command.iso_code_short);
+            _guard.UpdateIfNotNullOrEmpty(value => country.IsoCodeNum = value, command.iso_code_num);
+            _guard.UpdateIfNotNullOrEmpty(value => country.Name = value, command.name);
+            _guard.UpdateIfNotNullOrEmpty(value => country.OfficialStateName = value, command.official_state_name);
+            
             country.UpdatedAt = DateTime.UtcNow;
                 
             var result =  _repository.Update(country);

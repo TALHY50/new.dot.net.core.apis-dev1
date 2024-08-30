@@ -20,7 +20,7 @@ public class CreateCountry : CountryBase
         var result = await Mediator.Send(command).ConfigureAwait(false);
 
         return result.Match(
-            country => Ok(ToSuccess(Mapper.Map<CountryResponse>(country))),
+            country => Ok(ToSuccess(Mapper.Map<CountryDto>(country))),
             Problem);
     }
 }
