@@ -1,6 +1,7 @@
 
 using IMT.App;
 using Microsoft.OpenApi.Models;
+using PayAll.Exception;
 
 
 var builder = WebApplication.CreateBuilder(args);

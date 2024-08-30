@@ -1,4 +1,4 @@
-﻿using ACL.App.Contracts.Responses;
+﻿using ACL.Business.Contracts.Responses;
 using ErrorOr;
 using FluentValidation;
 using MediatR;
@@ -38,11 +38,9 @@ namespace Admin.App.Application.Features.InstitutionFunds
     public class DeleteInstitutionFundCommandHandler : IRequestHandler<DeleteInstitutionFundCommand, ErrorOr<bool>>
     {
         private readonly IImtInstitutionFundRepository _repository;
-        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public DeleteInstitutionFundCommandHandler(IHttpContextAccessor httpContextAccessor, IImtInstitutionFundRepository repository)
+        public DeleteInstitutionFundCommandHandler(IImtInstitutionFundRepository repository)
         {
-            _httpContextAccessor = httpContextAccessor;
             _repository = repository;
         }
         public async Task<ErrorOr<bool>> Handle(DeleteInstitutionFundCommand command, CancellationToken cancellationToken)
@@ -53,7 +51,7 @@ namespace Admin.App.Application.Features.InstitutionFunds
 
                 if (institutionFund == null)
                 {
-                    return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 return _repository.Delete(institutionFund);

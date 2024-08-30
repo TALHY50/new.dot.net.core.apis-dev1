@@ -1,4 +1,4 @@
-﻿using ACL.App.Contracts.Responses;
+﻿using ACL.Business.Contracts.Responses;
 using ErrorOr;
 using FluentValidation;
 using MediatR;
@@ -40,11 +40,9 @@ namespace ADMIN.App.Application.Features.ServiceMethods
         public class GetServiceMethodByIdQueryHandler : IRequestHandler<GetServiceMethodByIdQuery, ErrorOr<ServiceMethod>>
         {
             private readonly IImtServiceMethodRepository _repository;
-            private readonly IHttpContextAccessor _httpContextAccessor;
 
-            public GetServiceMethodByIdQueryHandler(IHttpContextAccessor httpContextAccessor, IImtServiceMethodRepository repository)
+            public GetServiceMethodByIdQueryHandler(IImtServiceMethodRepository repository)
             {
-                _httpContextAccessor = httpContextAccessor;
                 _repository = repository;
             }
             public async Task<ErrorOr<ServiceMethod>> Handle(GetServiceMethodByIdQuery request, CancellationToken cancellationToken)
@@ -55,7 +53,7 @@ namespace ADMIN.App.Application.Features.ServiceMethods
 
                 if (serviceMethod == null)
                 {
-                    return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 return serviceMethod;

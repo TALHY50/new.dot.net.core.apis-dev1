@@ -51,18 +51,19 @@ namespace Admin.App.Application.Features.Corridors
         : IRequestHandler<UpdateCorridorCommand, ErrorOr<Corridor>>
     {
         private readonly IImtCorridorRepository _repository;
-        public UpdateCorridorCommandHandler(IImtCorridorRepository repository)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public UpdateCorridorCommandHandler(IHttpContextAccessor httpContextAccessor, IImtCorridorRepository repository)
         {
+            _httpContextAccessor = httpContextAccessor;
             _repository = repository;
         }
         public async Task<ErrorOr<Corridor>> Handle(UpdateCorridorCommand request, CancellationToken cancellationToken)
         {
-            var message = new MessageResponse("Record not found");
             Corridor? entity = _repository.FindById(request.id);
             var now = DateTime.UtcNow;
             if (entity == null)
             {
-                return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
             entity.SourceCountryId = request.SourceCountryId;
             entity.DestinationCountryId = request.DestinationCountryId;

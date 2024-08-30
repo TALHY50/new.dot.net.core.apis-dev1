@@ -1,4 +1,4 @@
-﻿using ACL.App.Contracts.Responses;
+﻿using ACL.Business.Contracts.Responses;
 using ErrorOr;
 using FluentValidation;
 using MediatR;
@@ -52,11 +52,9 @@ namespace Admin.App.Application.Features.TaxRates
         public class UpdateTaxRateCommandHandler : IRequestHandler<UpdateTaxRateCommand, ErrorOr<TaxRate>>
         {
             private readonly IImtTaxRateRepository _repository;
-            private readonly IHttpContextAccessor _httpContextAccessor;
 
-            public UpdateTaxRateCommandHandler(IHttpContextAccessor httpContextAccessor, IImtTaxRateRepository repository)
+            public UpdateTaxRateCommandHandler(IImtTaxRateRepository repository)
             {
-                _httpContextAccessor = httpContextAccessor;
                 _repository = repository;
             }
 
@@ -68,7 +66,7 @@ namespace Admin.App.Application.Features.TaxRates
 
                 if (taxRate == null)
                 {
-                    return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
                 taxRate.TaxType = command.TaxType;
                 taxRate.CorridorId = command.CorridorId;

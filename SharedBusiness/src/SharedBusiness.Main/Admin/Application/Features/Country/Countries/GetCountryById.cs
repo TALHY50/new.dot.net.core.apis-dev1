@@ -20,11 +20,9 @@ namespace SharedBusiness.Main.Admin.Application.Features.Country.Countries
     public class GetCountryByIdQueryHandler : IRequestHandler<GetCountryByIdQuery, ErrorOr<IMT.Domain.Entities.Country>>
     {
         private readonly IAdminCountryRepository _repository;
-        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public GetCountryByIdQueryHandler(IHttpContextAccessor httpContextAccessor, IAdminCountryRepository repository)
+        public GetCountryByIdQueryHandler( IAdminCountryRepository repository)
         {
-            _httpContextAccessor = httpContextAccessor;
             _repository = repository;
         }
         public async Task<ErrorOr<IMT.Domain.Entities.Country>> Handle(GetCountryByIdQuery request, CancellationToken cancellationToken)

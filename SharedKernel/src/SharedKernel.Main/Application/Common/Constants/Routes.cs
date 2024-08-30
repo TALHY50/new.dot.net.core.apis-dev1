@@ -414,104 +414,116 @@
 
         // currency
         public const string GetCurrencyName = "get-currency";
-        public const string GetCurrencyUrl = "/api/admin/getCurrency";
+        public const string GetCurrencyUrl = "/api/admin/Currency";
         public const string GetCurrencyByIdName = "get-currency-by-id";
-        public const string GetCurrencyByIdUrl = "/api/admin/getCurrencyById/{id}";
+        public const string GetCurrencyByIdUrl = "/api/admin/Currency/{id}";
         public const string CreateCurrencyName = "create-currency";
-        public const string CreateCurrencyUrl = "/api/admin/createCurrency";
+        public const string CreateCurrencyUrl = "/api/admin/Currency";
         public const string DeleteCurrencyName = "delete-currency";
-        public const string DeleteCurrencyUrl = "/api/admin/deleteCurrency/{id}";
+        public const string DeleteCurrencyUrl = "/api/admin/Currency/{id}";
         public const string UpdateCurrencyName = "update-currency";
-        public const string UpdateCurrencyUrl = "/api/admin/updateCurrency/{id}";
+        public const string UpdateCurrencyUrl = "/api/admin/Currency/{id}";
 
         // region
         public const string GetRegionName = "get_region";
-        public const string GetRegionUrl = "/api/admin/getRegion";
-        public const string GetRegionByIdName = "get_regions_by_id";
-        public const string GetRegionByIdUrl = "/api/admin/getRegionById/{id}";
+        public const string GetRegionUrl = "/api/admin/region";
+        public const string GetRegionByIdName = "get_region_by_id";
+        public const string GetRegionByIdUrl = "/api/admin/region/{id}";
         public const string CreateRegionName = "create_region";
-        public const string CreateRegionUrl = "/api/admin/createRegion";
+        public const string CreateRegionUrl = "/api/admin/region";
         public const string DeleteRegionName = "delete_region";
-        public const string DeleteRegionUrl = "/api/admin/deleteRegion/{id}";
+        public const string DeleteRegionUrl = "/api/admin/region/{id}";
         public const string UpdateRegionName = "update_region";
-        public const string UpdateRegionUrl = "/api/admin/updateRegion/{id}";
+        public const string UpdateRegionUrl = "/api/admin/region/{id}";
 
         // corridor
         public const string GetCorridorName = "get-corridor";
-        public const string GetCorridorUrl = "/api/admin/getCorridor";
+        public const string GetCorridorUrl = "/api/admin/Corridor";
         public const string GetCorridorByIdName = "get-corridor-by-id";
-        public const string GetCorridorByIdUrl = "/api/admin/getCorridorById/{id}";
+        public const string GetCorridorByIdUrl = "/api/admin/Corridor/{id}";
         public const string CreateCorridorName = "create-corridor";
-        public const string CreateCorridorUrl = "/api/admin/createCorridor";
+        public const string CreateCorridorUrl = "/api/admin/Corridor";
         public const string DeleteCorridorName = "delete-corridor";
-        public const string DeleteCorridorUrl = "/api/admin/deleteCorridor/{id}";
+        public const string DeleteCorridorUrl = "/api/admin/Corridor/{id}";
         public const string UpdateCorridorName = "update-corridor";
-        public const string UpdateCorridorUrl = "/api/admin/updateCorridor/{id}";
+        public const string UpdateCorridorUrl = "/api/admin/Corridor/{id}";
 
         // payer
         public const string GetPayerName = "get-payer";
-        public const string GetPayerUrl = "/api/admin/getPayer";
+        public const string GetPayerUrl = "/api/admin/Payer";
         public const string GetPayerByIdName = "get-payer-by-id";
-        public const string GetPayerByIdUrl = "/api/admin/getPayerById/{id}";
+        public const string GetPayerByIdUrl = "/api/admin/Payer/{id}";
         public const string CreatePayerName = "create-payer";
-        public const string CreatePayerUrl = "/api/admin/createPayer";
+        public const string CreatePayerUrl = "/api/admin/Payer";
         public const string DeletePayerName = "delete-payer";
-        public const string DeletePayerUrl = "/api/admin/deletePayer/{id}";
+        public const string DeletePayerUrl = "/api/admin/Payer/{id}";
         public const string UpdatePayerName = "update-payer";
-        public const string UpdatePayerUrl = "/api/admin/updatePayer/{id}";
+        public const string UpdatePayerUrl = "/api/admin/Payer/{id}";
 
         // InstitutionMtt
         public const string GetInstitutionMttName = "get-institutionMtt";
-        public const string GetInstitutionMttUrl = "/api/admin/getInstitutionMtt";
+        public const string GetInstitutionMttUrl = "/api/admin/InstitutionMtt";
         public const string GetInstitutionMttByIdName = "get-institutionMtt-by-id";
-        public const string GetInstitutionMttByIdUrl = "/api/admin/getInstitutionMttById/{id}";
+        public const string GetInstitutionMttByIdUrl = "/api/admin/InstitutionMtt/{id}";
         public const string CreateInstitutionMttName = "create-institutionMtt";
-        public const string CreateInstitutionMttUrl = "/api/admin/createInstitutionMtt";
+        public const string CreateInstitutionMttUrl = "/api/admin/InstitutionMtt";
         public const string DeleteInstitutionMttName = "delete-institutionMtt";
-        public const string DeleteInstitutionMttUrl = "/api/admin/deleteInstitutionMtt/{id}";
+        public const string DeleteInstitutionMttUrl = "/api/admin/InstitutionMtt/{id}";
         public const string UpdateInstitutionMttName = "update-institutionMtt";
-        public const string UpdateInstitutionMttUrl = "/api/admin/updateInstitutionMtt/{id}";
+        public const string UpdateInstitutionMttUrl = "/api/admin/InstitutionMtt/{id}";
 
         // provider
         public const string GetProviderName = "get_provider";
-        public const string GetProviderUrl = "/api/admin/getProvider";
+        public const string GetProviderUrl = "/api/admin/provider";
         public const string GetProviderByIdName = "get_provider_by_id";
-        public const string GetProviderByIdUrl = "/api/admin/getProviderById/{id}";
+        public const string GetProviderByIdUrl = "/api/admin/provider/{id}";
         public const string CreateProviderName = "create_provider";
-        public const string CreateProviderUrl = "/api/admin/createProvider";
+        public const string CreateProviderUrl = "/api/admin/provider";
         public const string DeleteProviderName = "delete_provider";
-        public const string DeleteProviderUrl = "/api/admin/deleteProvider/{id}";
+        public const string DeleteProviderUrl = "/api/admin/provider/{id}";
         public const string UpdateProviderName = "update_provider";
-        public const string UpdateProviderUrl = "/api/admin/updateProvider/{id}";
+        public const string UpdateProviderUrl = "/api/admin/provider/{id}";
 
         // transaction_type
         public const string GetTransactionTypeName = "get_transaction_type";
-        public const string GetTransactionTypeUrl = "/api/admin/getTransactionType";
+        public const string GetTransactionTypeUrl = "/api/admin/transaction_type";
         public const string GetTransactionTypeByIdName = "get_transaction_type_by_id";
-        public const string GetTransactionTypeByIdUrl = "/api/admin/getTransactionTypeById/{id}";
+        public const string GetTransactionTypeByIdUrl = "/api/admin/transaction_type/{id}";
         public const string CreateTransactionTypeName = "create_transaction_type";
-        public const string CreateTransactionTypeUrl = "/api/admin/createTransactionType";
+        public const string CreateTransactionTypeUrl = "/api/admin/transaction_type";
         public const string DeleteTransactionTypeName = "delete_transaction_type";
-        public const string DeleteTransactionTypeUrl = "/api/admin/deleteTransactionType/{id}";
+        public const string DeleteTransactionTypeUrl = "/api/admin/transaction_type/{id}";
         public const string UpdateTransactionTypeName = "update_transaction_type";
-        public const string UpdateTransactionTypeUrl = "/api/admin/updateTransactionType/{id}";
+        public const string UpdateTransactionTypeUrl = "/api/admin/transaction_type/{id}";
 
         // mtt_payment_speed
         public const string GetMttPaymentSpeedName = "get_mtt_payment_speed";
-        public const string GetMttPaymentSpeedUrl = "/api/admin/getMttPaymentSpeed";
+        public const string GetMttPaymentSpeedUrl = "/api/admin/mtt_payment_speed";
         public const string GetMttPaymentSpeedByIdName = "get_mtt_payment_speed_by_id";
-        public const string GetMttPaymentSpeedByIdUrl = "/api/admin/getMttPaymentSpeedById/{id}";
+        public const string GetMttPaymentSpeedByIdUrl = "/api/admin/mtt_payment_speed/{id}";
         public const string CreateMttPaymentSpeedName = "create_mtt_payment_speed";
-        public const string CreateMttPaymentSpeedUrl = "/api/admin/createMttPaymentSpeed";
+        public const string CreateMttPaymentSpeedUrl = "/api/admin/mtt_payment_speed";
         public const string DeleteMttPaymentSpeedName = "delete_mtt_payment_speed";
-        public const string DeleteMttPaymentSpeedUrl = "/api/admin/deleteMttPaymentSpeed/{id}";
+        public const string DeleteMttPaymentSpeedUrl = "/api/admin/mtt_payment_speed/{id}";
         public const string UpdateMttPaymentSpeedName = "update_mtt_payment_speed";
-        public const string UpdateMttPaymentSpeedUrl = "/api/admin/updateMttPaymentSpeed/{id}";
+        public const string UpdateMttPaymentSpeedUrl = "/api/admin/mtt_payment_speed/{id}";
 
         // CreateMoneyTransferTransaction
         public const string CreateMoneyTransferTransactionName = "create_money_transaction";
         public const string CreateMoneyTransferTransactionUrl = "/v2/money-transfer/transaction/create";
 
+
+        //Trasaction Limit
+        public const string GetTransactionLimitName = "transaction_limit";
+        public const string GetTransactionLimitUrl = "/api/admin/transactionlimits";
+        public const string FindTransactionLimitByIdName = "transaction_limit_by_id";
+        public const string FindTransactionLimitByIdUrl = "/api/admin/transactionlimits/{id}";
+        public const string CreateTransactionLimitName = "create_transaction_limit";
+        public const string CreateTransactionLimitUrl = "/api/admin/transactionlimits";
+        public const string UpdateTransactionLimitName = "update_transaction_limit";
+        public const string UpdateTransactionLimitUrl = "/api/admin/transactionlimits/{id}";
+        public const string DeleteTransactionLimitName = "delete_transaction_limit";
+        public const string DeleteTransactionLimitUrl = "/api/admin/transactionlimits/{id}";
 
     }
 

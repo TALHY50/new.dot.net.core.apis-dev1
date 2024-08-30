@@ -1,4 +1,4 @@
-﻿using ACL.App.Contracts.Responses;
+﻿using ACL.Business.Contracts.Responses;
 using ErrorOr;
 using FluentValidation;
 using MediatR;
@@ -37,11 +37,9 @@ namespace Admin.App.Application.Features.InstitutionFunds
         public class GetInstitutionFundByIdQueryHandler : IRequestHandler<GetInstitutionFundByIdQuery, ErrorOr<InstitutionFund>>
         {
             private readonly IImtInstitutionFundRepository _repository;
-            private readonly IHttpContextAccessor _httpContextAccessor;
 
-            public GetInstitutionFundByIdQueryHandler(IHttpContextAccessor httpContextAccessor, IImtInstitutionFundRepository repository)
+            public GetInstitutionFundByIdQueryHandler(IImtInstitutionFundRepository repository)
             {
-                _httpContextAccessor = httpContextAccessor;
                 _repository = repository;
             }
             public async Task<ErrorOr<InstitutionFund>> Handle(GetInstitutionFundByIdQuery request, CancellationToken cancellationToken)
@@ -50,7 +48,7 @@ namespace Admin.App.Application.Features.InstitutionFunds
                 var message = new MessageResponse("Record not found");
                 if (institutionFund == null)
                 {
-                    return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 return institutionFund;
