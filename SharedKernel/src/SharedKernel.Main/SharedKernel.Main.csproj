@@ -140,7 +140,7 @@
 
 	<ItemGroup>
 		<Folder Include="Application\Common\Security\" />
-		<Folder Include="Domain\" />
+		<Folder Include="Domain\EntityBase\" />
 		<Folder Include="Infrastructure\Email\" />
 		<Folder Include="Infrastructure\Files\" />
 		<Folder Include="Infrastructure\Persistence\" />

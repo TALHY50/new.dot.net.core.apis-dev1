@@ -6,18 +6,18 @@ using ACL.Business.Domain.Entities;
 using SharedKernel.Main.Application.Common.Enums;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
 
-namespace ACL.Web.Application.Features.Auth.Login
+namespace ACL.Web.Application.Features.Auth
 {
     /// <inheritdoc/>
-    public class LoginUseCase : ILoginUseCase
+    public class Login : ILoginUseCase
     {
         private readonly ILogger _logger;
         private readonly IAuthTokenService _authTokenService;
         private readonly IUserRepository _authRepository;
         private readonly ICryptographyService _cryptographyService;
         /// <inheritdoc/>
-        public LoginUseCase(
-            ILogger<LoginUseCase> logger,
+        public Login(
+            ILogger<Login> logger,
             IAuthTokenService authTokenService,
             IUserRepository authRepository,
             ICryptographyService cryptographyService)

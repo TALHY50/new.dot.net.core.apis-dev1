@@ -84,6 +84,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Folder Include="Application\Features\" />
 		<Folder Include="Presentation\Endpoints\" />
 		<Folder Include="Presentation\Mapping\" />
 	</ItemGroup>

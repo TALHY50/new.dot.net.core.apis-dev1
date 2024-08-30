@@ -2,10 +2,9 @@
 using ACL.Business.Contracts.Requests;
 using ACL.Business.Contracts.Responses;
 using Microsoft.AspNetCore.Mvc;
-using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Application.Common.Constants.Routes;
 
-namespace ACL.Web.Application.Features
+namespace ACL.Web.Application.Features.Passwords
 {
      /// <inheritdoc/>
     //[Authorize]

@@ -1,34 +1,30 @@
-using ACL.Web.Application.Features.Auth.Login;
-using ACL.Web.Application.Features.Auth.RefreshToken;
-using ACL.Web.Application.Features.Auth.Register;
-using ACL.Web.Application.Features.Auth.SignOut;
 using ACL.Business.Contracts.Requests;
 using ACL.Business.Contracts.Responses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ACL.Web.Application.Features
+namespace ACL.Web.Application.Features.Auth
 {
     /// <inheritdoc/>
     [Route("api/v1/auth/")]
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly LoginUseCase _loginUseCase;
-        private readonly RefreshTokenUseCase _refreshTokenUseCase;
-        private readonly SignOutUseCase _signOutUseCase;
-        private readonly RegisterUseCase _registerUseCase;
+        private readonly Login _login;
+        private readonly RefreshToken _refreshToken;
+        private readonly SignOut _signOut;
+        private readonly Register _register;
         /// <inheritdoc/>
         public AuthController(
-            LoginUseCase loginUseCase,
-            RefreshTokenUseCase refreshTokenUseCase,
-            SignOutUseCase signOutUseCase,
-            RegisterUseCase registerUseCase)
+            Login login,
+            RefreshToken refreshToken,
+            SignOut signOut,
+            Register register)
         {
-            this._loginUseCase = loginUseCase;
-            this._refreshTokenUseCase = refreshTokenUseCase;
-            this._signOutUseCase = signOutUseCase;
-            this._registerUseCase = registerUseCase;
+            this._login = login;
+            this._refreshToken = refreshToken;
+            this._signOut = signOut;
+            this._register = register;
         }
         /// <inheritdoc/>
         [AllowAnonymous]
@@ -36,7 +32,7 @@ namespace ACL.Web.Application.Features
         [Route("login")]
         public async Task<LoginResponse> Login(LoginRequest request)
         {
-            return await this._loginUseCase.Execute(request);
+            return await this._login.Execute(request);
         }
         /// <inheritdoc/>
         [Authorize]
@@ -45,7 +41,7 @@ namespace ACL.Web.Application.Features
         [Route("refresh-token")]
         public async Task<RefreshTokenResponse> RefreshToken(RefreshTokenRequest request)
         {
-            return await this._refreshTokenUseCase.Execute(request);
+            return await this._refreshToken.Execute(request);
         }
         /// <inheritdoc/>
         [Authorize]
@@ -54,7 +50,7 @@ namespace ACL.Web.Application.Features
         [Route("sign-out")]
         public Task<SignOutResponse> SignOut(SignOutRequest request)
         {
-            return this._signOutUseCase.Execute(request);
+            return this._signOut.Execute(request);
         }
         ///// <inheritdoc/>
         //[AllowAnonymous]
@@ -62,7 +58,7 @@ namespace ACL.Web.Application.Features
         //[Routes("register")]
         //public async Task<RegisterResponse> Register(RegisterRequest request)
         //{
-        //    return await _registerUseCase.Execute(request);
+        //    return await _register.Execute(request);
         //}
     }
 }

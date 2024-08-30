@@ -4,19 +4,18 @@ using ACL.Business.Contracts.Requests;
 using ACL.Business.Contracts.Responses;
 using SharedKernel.Main.Application.Common.Enums;
 using SharedKernel.Main.Application.Common.Exceptions;
-using SharedKernel.Main.Application.Common.Interfaces.Services;
 
-namespace ACL.Web.Application.Features.Auth.RefreshToken
+namespace ACL.Web.Application.Features.Auth
 {
     /// <inheritdoc/>
-    public class RefreshTokenUseCase : IRefreshTokenUseCase
+    public class RefreshToken : IRefreshTokenUseCase
     {
         private readonly ILogger _logger;
         private readonly IAuthTokenService _authTokenService;
         private readonly IUserRepository _authRepository;
         /// <inheritdoc/>
-        public RefreshTokenUseCase(
-            ILogger<RefreshTokenUseCase> logger,
+        public RefreshToken(
+            ILogger<RefreshToken> logger,
             IAuthTokenService authTokenService,
             IUserRepository authRepository)
         {

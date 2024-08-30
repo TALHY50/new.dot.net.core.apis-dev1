@@ -1,8 +1,4 @@
 using System.Security.Cryptography;
-using ACL.Web.Application.Features.Auth.Login;
-using ACL.Web.Application.Features.Auth.RefreshToken;
-using ACL.Web.Application.Features.Auth.Register;
-using ACL.Web.Application.Features.Auth.SignOut;
 using ACL.Business.Application.Interfaces.Repositories;
 using ACL.Business.Application.Interfaces.Services;
 using ACL.Business.Domain.Services;
@@ -11,6 +7,7 @@ using ACL.Business.Infrastructure.Middlewares;
 using ACL.Business.Infrastructure.Persistence.Context;
 using ACL.Business.Infrastructure.Persistence.Repositories;
 using ACL.Business.Infrastructure.Security;
+using ACL.Web.Application.Features.Auth;
 using DotNetEnv;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -256,10 +253,10 @@ builder.Services.AddScoped<IUserGroupRepository, UserGroupRepository>();
 builder.Services.AddScoped<IUserGroupRoleRepository, UserGroupRoleRepository>();
 builder.Services.AddScoped<IUserUserGroupRepository, UserUserGroupRepository>();
 
-builder.Services.AddScoped<LoginUseCase>();
-builder.Services.AddScoped<RefreshTokenUseCase>();
-builder.Services.AddScoped<SignOutUseCase>();
-builder.Services.AddScoped<RegisterUseCase>();
+builder.Services.AddScoped<Login>();
+builder.Services.AddScoped<RefreshToken>();
+builder.Services.AddScoped<SignOut>();
+builder.Services.AddScoped<Register>();
 
 static string GetLogFilePath(string fileName)
 {

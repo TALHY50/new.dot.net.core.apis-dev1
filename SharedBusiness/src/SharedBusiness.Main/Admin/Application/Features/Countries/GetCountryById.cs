@@ -28,7 +28,7 @@ namespace SharedBusiness.Main.Admin.Application.Features.Countries
             }
             public async Task<ErrorOr<Common.Domain.Entities.Country>> Handle(GetCountryByIdQuery request, CancellationToken cancellationToken)
             {
-                var country = _repository.GetById(request.id);
+                var country = await _repository.GetByIdAsync(request.id, cancellationToken);
 
                 if (country == null)
                 {
