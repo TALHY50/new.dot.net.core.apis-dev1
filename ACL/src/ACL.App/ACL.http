@@ -1,6 +1,0 @@
-@ACL_HostAddress = https://localhost:7125
-
-GET {{ACL_HostAddress}}/weatherforecast
-Accept: application/json
-
-###

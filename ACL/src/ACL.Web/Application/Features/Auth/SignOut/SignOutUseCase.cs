@@ -1,10 +1,10 @@
-﻿using ACL.App.Application.Interfaces.Repositories;
-using ACL.App.Application.Interfaces.Services;
-using ACL.App.Contracts.Requests;
-using ACL.App.Contracts.Responses;
+﻿using ACL.Business.Application.Interfaces.Repositories;
+using ACL.Business.Application.Interfaces.Services;
+using ACL.Business.Contracts.Requests;
+using ACL.Business.Contracts.Responses;
 using SharedKernel.Main.Application.Common.Enums;
 
-namespace ACL.App.Application.Features.Auth.SignOut
+namespace ACL.Web.Application.Features.Auth.SignOut
 {
     /// <inheritdoc/>
     public class SignOutUseCase : ISignOutUseCase

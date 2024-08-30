@@ -31,11 +31,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\SharedKernel\src\SharedKernel.Main\SharedKernel.Main.csproj" />
-    <ProjectReference Include="..\ACL.Bussiness\ACL.Bussiness.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="Properties\PublishProfiles\FolderProfile.pubxml">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
@@ -58,6 +53,12 @@
   
   <ItemGroup>
     <None Remove="Properties\PublishProfiles\FolderProfile.pubxml" />
+  </ItemGroup>
+  
+ 
+  
+  <ItemGroup>
+    <ProjectReference Include="..\ACL.Business\ACL.Business.csproj" />
   </ItemGroup>
   
 </Project>

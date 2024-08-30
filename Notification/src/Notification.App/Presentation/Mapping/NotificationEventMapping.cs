@@ -10,8 +10,6 @@ public class NotificationEventMapping : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {
-        
-
         config.NewConfig<Event, NotificationEventResponse>()
             .Map(dest => dest.id, src => src.Id)
             .Map(dest => dest.category, src => src.Category)

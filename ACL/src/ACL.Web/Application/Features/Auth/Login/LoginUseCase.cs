@@ -1,12 +1,12 @@
-﻿using ACL.App.Application.Interfaces.Repositories;
-using ACL.App.Application.Interfaces.Services;
-using ACL.App.Contracts.Requests;
-using ACL.App.Contracts.Responses;
-using ACL.App.Domain.Entities;
+﻿using ACL.Business.Application.Interfaces.Repositories;
+using ACL.Business.Application.Interfaces.Services;
+using ACL.Business.Contracts.Requests;
+using ACL.Business.Contracts.Responses;
+using ACL.Business.Domain.Entities;
 using SharedKernel.Main.Application.Common.Enums;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
 
-namespace ACL.App.Application.Features.Auth.Login
+namespace ACL.Web.Application.Features.Auth.Login
 {
     /// <inheritdoc/>
     public class LoginUseCase : ILoginUseCase
@@ -46,7 +46,7 @@ namespace ACL.App.Application.Features.Auth.Login
 
                 if (AreCredentialsValid(request.Password, user))
                 {
-                    user.RefreshToken = new Domain.Entities.RefreshToken
+                    user.RefreshToken = new ACL.Business.Domain.Entities.RefreshToken
                     {
                         Value = await this._authTokenService.GenerateRefreshToken(),
                         Active = true,

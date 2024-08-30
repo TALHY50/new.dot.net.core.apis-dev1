@@ -4,16 +4,16 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY ["ACL.Web.csproj", "."]
-RUN dotnet restore "./ACL.Web.csproj"
+COPY ["ACL.Web..csproj", "."]
+RUN dotnet restore "./ACL.Web..csproj"
 COPY . .
 WORKDIR "/src/."
-RUN dotnet build "ACL.Web.csproj" -c Release -o /app/build
+RUN dotnet build "ACL.Web..csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "ACL.Web.csproj" -c Release -o /app/publish
+RUN dotnet publish "ACL.Web..csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "ACL.Web.dll"]
+ENTRYPOINT ["dotnet", "ACL.Web..dll"]

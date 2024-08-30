@@ -1,10 +1,10 @@
-﻿using ACL.App.Application.Interfaces.Repositories;
-using ACL.App.Contracts.Requests;
-using ACL.App.Contracts.Responses;
+﻿using ACL.Business.Application.Interfaces.Repositories;
+using ACL.Business.Contracts.Requests;
+using ACL.Business.Contracts.Responses;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common.Constants;
 
-namespace ACL.App.Application.Features
+namespace ACL.Web.Application.Features
 {
      /// <inheritdoc/>
     //[Authorize]

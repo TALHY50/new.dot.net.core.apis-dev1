@@ -1,4 +1,4 @@
-﻿using ACL.Bussiness.Contracts.Responses;
+﻿using ACL.Business.Contracts.Responses;
 using Ardalis.Specification;
 using ErrorOr;
 using FluentValidation;

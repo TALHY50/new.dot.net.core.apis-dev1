@@ -1,10 +1,10 @@
 using System.Security.Cryptography;
 
-using ACL.App.Application.Interfaces.Repositories;
-using ACL.App.Application.Interfaces.Services;
-using ACL.App.Infrastructure.Jwt;
-using ACL.App.Infrastructure.Persistence.Repositories;
-using ACL.App.Infrastructure.Security;
+using ACL.Business.Application.Interfaces.Repositories;
+using ACL.Business.Application.Interfaces.Services;
+using ACL.Business.Infrastructure.Jwt;
+using ACL.Business.Infrastructure.Persistence.Repositories;
+using ACL.Business.Infrastructure.Security;
 
 using DotNetEnv;
 
@@ -25,9 +25,9 @@ using SharedKernel.Main.Infrastructure.Cryptography;
 using SharedKernel.Main.Infrastructure.Security;
 using SharedKernel.Main.Infrastructure.Services;
 
-using ApplicationDbContext = ACL.App.Infrastructure.Persistence.Context.ApplicationDbContext;
+using ApplicationDbContext = ACL.Business.Infrastructure.Persistence.Context.ApplicationDbContext;
 
-namespace ACL.App;
+namespace ACL.Web;
 
 public static class DependencyInjection
 {
@@ -135,7 +135,7 @@ public static class DependencyInjection
         services.AddScoped<IRolePageRepository, RolePageRepository>();
         services.AddScoped<IRoleRepository, RoleRepository>();
 
-// services.AddScoped<ISubModuleRepository, SubModuleRepository>();
+        // services.AddScoped<ISubModuleRepository, SubModuleRepository>();
         services.AddScoped<IUserGroupRepository, UserGroupRepository>();
         services.AddScoped<IUserGroupRoleRepository, UserGroupRoleRepository>();
         services.AddScoped<IUserUserGroupRepository, UserUserGroupRepository>();
@@ -203,21 +203,34 @@ public static class DependencyInjection
 
     private static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
     {
-        if (configuration.GetValue<bool>("UseInMemoryDatabase"))
-        {
-            services.AddDbContext<Infrastructure.Persistence.Context.ApplicationDbContext>(options =>
-                options.UseInMemoryDatabase("VerticalSliceDb"));
-        }
-        else
-        {
-            var c = configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<Infrastructure.Persistence.Context.ApplicationDbContext>(options =>
-                options.UseMySql(
-                    configuration.GetConnectionString("DefaultConnection"),
-                    ServerVersion.AutoDetect(configuration.GetConnectionString("DefaultConnection")),
-                    b => b.MigrationsAssembly(typeof(Infrastructure.Persistence.Context.ApplicationDbContext).Assembly.FullName)));
-        }
-        
+        //if (configuration.GetValue<bool>("UseInMemoryDatabase"))
+        //{
+        //    services.AddDbContext<ACL.Business.Infrastructure.Persistence.Context.ApplicationDbContext>(options =>
+        //        options.UseInMemoryDatabase("VerticalSliceDb"));
+        //}
+        //else
+        //{
+        //    var c = configuration.GetConnectionString("DefaultConnection");
+        //    services.AddDbContext<ACL.Business.Infrastructure.Persistence.Context.ApplicationDbContext>(options =>
+        //        options.UseMySql(
+        //            configuration.GetConnectionString("DefaultConnection"),
+        //            ServerVersion.AutoDetect(configuration.GetConnectionString("DefaultConnection")),
+        //            b => b.MigrationsAssembly(typeof(ACL.Business.Infrastructure.Persistence.Context.ApplicationDbContext).Assembly.FullName)));
+        //}
+        var server = Env.GetString("DB_HOST");
+        var database = Env.GetString("DB_DATABASE");
+        var userName = Env.GetString("DB_USERNAME");
+        var password = Env.GetString("DB_PASSWORD");
+        var port = Env.GetString("DB_PORT");
+
+        var connectionString = $"server={server};database={database};User ID={userName};Password={password};CharSet=utf8mb4;" ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+
+        services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseMySQL(connectionString, options =>
+            {
+                options.EnableRetryOnFailure();
+            }));
+
         return services;
     }
 }

@@ -1,16 +1,16 @@
 using System.Security.Cryptography;
-using ACL.App.Application.Features.Auth.Login;
-using ACL.App.Application.Features.Auth.RefreshToken;
-using ACL.App.Application.Features.Auth.Register;
-using ACL.App.Application.Features.Auth.SignOut;
-using ACL.App.Application.Interfaces.Repositories;
-using ACL.App.Application.Interfaces.Services;
-using ACL.App.Domain.Services;
-using ACL.App.Infrastructure.Jwt;
-using ACL.App.Infrastructure.Middlewares;
-using ACL.App.Infrastructure.Persistence.Context;
-using ACL.App.Infrastructure.Persistence.Repositories;
-using ACL.App.Infrastructure.Security;
+using ACL.Web.Application.Features.Auth.Login;
+using ACL.Web.Application.Features.Auth.RefreshToken;
+using ACL.Web.Application.Features.Auth.Register;
+using ACL.Web.Application.Features.Auth.SignOut;
+using ACL.Business.Application.Interfaces.Repositories;
+using ACL.Business.Application.Interfaces.Services;
+using ACL.Business.Domain.Services;
+using ACL.Business.Infrastructure.Jwt;
+using ACL.Business.Infrastructure.Middlewares;
+using ACL.Business.Infrastructure.Persistence.Context;
+using ACL.Business.Infrastructure.Persistence.Repositories;
+using ACL.Business.Infrastructure.Security;
 using DotNetEnv;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -104,27 +104,27 @@ var userName = Env.GetString("DB_USERNAME");
 var password = Env.GetString("DB_PASSWORD");
 var port = Env.GetString("DB_PORT");
 
-var connectionString = $"server={server};database={database};User ID={userName};Password={password};CharSet=utf8mb4;" ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+var connectionString = $"server={server};database={database};port={port};User ID={userName};Password={password};CharSet=utf8mb4;" ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
-//builder.Services.AddDbContext<ApplicationDbContext>(options =>
-//    options.UseMySQL(connectionString, options =>
-//    {
-//        options.EnableRetryOnFailure();
-//    }));
-
-#if UNIT_TEST
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseInMemoryDatabase("acl").ConfigureWarnings(warnings =>
-    {
-        warnings.Ignore(InMemoryEventId.TransactionIgnoredWarning);
-    }));
-#else
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySQL(connectionString, options =>
     {
         options.EnableRetryOnFailure();
-    }), ServiceLifetime.Transient);
-#endif
+    }));
+
+//#if UNIT_TEST
+//builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//    options.UseInMemoryDatabase("acl").ConfigureWarnings(warnings =>
+//    {
+//        warnings.Ignore(InMemoryEventId.TransactionIgnoredWarning);
+//    }));
+//#else
+//builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//    options.UseMySQL(connectionString, options =>
+//    {
+//        options.EnableRetryOnFailure();
+//    }), ServiceLifetime.Transient);
+//#endif
 
 var cacheDriver = Env.GetString("CACHE_DRIVER");
 

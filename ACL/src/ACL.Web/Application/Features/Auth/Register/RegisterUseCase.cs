@@ -1,13 +1,13 @@
-﻿using ACL.App.Application.Interfaces.Repositories;
-using ACL.App.Application.Interfaces.Services;
-using ACL.App.Contracts.Requests;
-using ACL.App.Contracts.Responses;
-using ACL.App.Domain.Entities;
+﻿using ACL.Business.Application.Interfaces.Repositories;
+using ACL.Business.Application.Interfaces.Services;
+using ACL.Business.Contracts.Requests;
+using ACL.Business.Contracts.Responses;
+using ACL.Business.Domain.Entities;
 using SharedKernel.Main.Application.Common.Enums;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
-using Claim = ACL.App.Domain.Entities.Claim;
+using Claim = ACL.Business.Domain.Entities.Claim;
 
-namespace ACL.App.Application.Features.Auth.Register
+namespace ACL.Web.Application.Features.Auth.Register
 {
     /// <inheritdoc/>
     public class RegisterUseCase : IRegisterUseCase

@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ACL", "ACL", "{43BAA4F0-74F
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{8AB03F94-8F94-4FA4-AC2A-3538B1A66788}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ACL.Web", "ACL\src\ACL.App\ACL.Web.csproj", "{5828BE75-E91F-4163-99E5-905F0EE3703B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ACL.Web", "ACL\src\ACL.Web\ACL.Web.csproj", "{5828BE75-E91F-4163-99E5-905F0EE3703B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IMT", "IMT", "{6C0E7DDD-68E8-41BF-A38D-059C383314D9}"
 EndProject
@@ -51,7 +51,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{548CA471-987
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedBusiness.Main", "SharedBusiness\src\SharedBusiness.Main\SharedBusiness.Main.csproj", "{440D883C-F85F-4F19-A9FE-09508CF713D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ACL.Bussiness", "ACL\src\ACL.Bussiness\ACL.Bussiness.csproj", "{E168F04B-691E-483A-BEE4-62EFCA2BB9BA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ACL.Business", "ACL\src\ACL.Business\ACL.Business.csproj", "{E168F04B-691E-483A-BEE4-62EFCA2BB9BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

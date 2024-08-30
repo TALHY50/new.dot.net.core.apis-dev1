@@ -11,7 +11,7 @@
 	</PropertyGroup>
 	
 	<ItemGroup>
-	  <ProjectReference Include="..\..\..\ACL\src\ACL.App\ACL.Web.csproj" />
+	  <ProjectReference Include="..\..\..\ACL\src\ACL.Web\ACL.Web.csproj" />
 	  <ProjectReference Include="..\..\..\SharedBusiness\src\SharedBusiness.Main\SharedBusiness.Main.csproj" />
 	  <ProjectReference Include="..\..\..\SharedKernel\src\SharedKernel.Main\SharedKernel.Main.csproj" />
 	  <ProjectReference Include="..\PayAll\PayAll.csproj" />

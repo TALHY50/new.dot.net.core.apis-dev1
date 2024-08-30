@@ -1,10 +1,10 @@
 version: '3.7'
 
 services:
-  acl.web:
-    image: acl.web
+  ACL.Web.:
+    image: ACL.Web.
     build:
-      context: ./ACL.Web
+      context: ./ACL.Web.
       dockerfile: Dockerfile
     ports:
       - "8000:80"

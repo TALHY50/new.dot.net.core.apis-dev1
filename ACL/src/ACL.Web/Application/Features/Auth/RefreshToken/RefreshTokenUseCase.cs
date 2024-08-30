@@ -1,12 +1,12 @@
-﻿using ACL.App.Application.Interfaces.Repositories;
-using ACL.App.Application.Interfaces.Services;
-using ACL.App.Contracts.Requests;
-using ACL.App.Contracts.Responses;
+﻿using ACL.Business.Application.Interfaces.Repositories;
+using ACL.Business.Application.Interfaces.Services;
+using ACL.Business.Contracts.Requests;
+using ACL.Business.Contracts.Responses;
 using SharedKernel.Main.Application.Common.Enums;
 using SharedKernel.Main.Application.Common.Exceptions;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
 
-namespace ACL.App.Application.Features.Auth.RefreshToken
+namespace ACL.Web.Application.Features.Auth.RefreshToken
 {
     /// <inheritdoc/>
     public class RefreshTokenUseCase : IRefreshTokenUseCase

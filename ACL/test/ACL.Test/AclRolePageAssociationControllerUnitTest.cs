@@ -1,4 +1,4 @@
-﻿using ACL.Bussiness.Contracts.Requests;
+﻿using ACL.Business.Contracts.Requests;
 using Bogus;
 using RestSharp;
 using SharedKernel.Main.Application.Common.Constants;
