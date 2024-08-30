@@ -1,11 +1,11 @@
-﻿using ACL.Business.Contracts.Responses;
-using ErrorOr;
+﻿using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Common.Constants.Routes;
 using SharedKernel.Main.Contracts.Common;
 
 namespace Admin.App.Application.Features.Payers
@@ -36,22 +36,21 @@ namespace Admin.App.Application.Features.Payers
     public class DeletePayerCommandHandler : IRequestHandler<DeletePayerCommand, ErrorOr<bool>>
     {
         private readonly IImtPayerRepository _repository;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        public DeletePayerCommandHandler(IHttpContextAccessor httpContextAccessor, IImtPayerRepository repository)
+        public DeletePayerCommandHandler(IImtPayerRepository repository)
         {
-            _httpContextAccessor = httpContextAccessor;
             _repository = repository;
         }
 
         public async Task<ErrorOr<bool>> Handle(DeletePayerCommand request, CancellationToken cancellationToken)
         {
+            var message = new MessageResponse("Record not found");
             if (request.id > 0)
             {
                 var entity = _repository.FindById(request.id);
 
                 if (entity == null)
                 {
-                    return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(message.PlainText, ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 return _repository.Delete(entity);

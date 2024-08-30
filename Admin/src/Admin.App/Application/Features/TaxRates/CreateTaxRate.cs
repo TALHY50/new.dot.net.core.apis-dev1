@@ -2,11 +2,11 @@
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Application.Common.Constants.Routes;
 using YamlDotNet.Core.Tokens;
 
 namespace Admin.App.Application.Features.TaxRates
@@ -51,7 +51,7 @@ namespace Admin.App.Application.Features.TaxRates
     {
         private readonly IImtTaxRateRepository _repository;
 
-        public CreateTaxRateCommandHandler( IImtTaxRateRepository repository)
+        public CreateTaxRateCommandHandler(IImtTaxRateRepository repository)
         {
             _repository = repository;
         }
@@ -73,10 +73,6 @@ namespace Admin.App.Application.Features.TaxRates
                 UpdatedAt = DateTime.UtcNow,
             };
 
-            if(taxRate == null)
-            {
-                return ErrorOr.Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
-            }
             return _repository.Add(taxRate)!;
         }
     }

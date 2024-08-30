@@ -45,12 +45,12 @@ namespace ACL.Business.Domain.Services
             {
                 this.ScopeResponse.Data = result;
                 this.ScopeResponse.Message = this.messageResponse.fetchMessage;
-                this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             }
             else
             {
                 this.ScopeResponse.Message = this.messageResponse.notFoundMessage;
-                this.ScopeResponse.StatusCode = AppStatusCode.FAIL;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
             this.ScopeResponse.Timestamp = DateTime.Now;
             return this.ScopeResponse;
@@ -63,12 +63,12 @@ namespace ACL.Business.Domain.Services
                 Usergroup? result = PrepareInputData(usergroup);
                 this.ScopeResponse.Data = Add(result);
                 this.ScopeResponse.Message = this.messageResponse.createMessage;
-                this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             }
             catch (Exception)
             {
                 this.ScopeResponse.Message = this.messageResponse.createFail;
-                this.ScopeResponse.StatusCode = AppStatusCode.FAIL;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
             this.ScopeResponse.Timestamp = DateTime.Now;
             return this.ScopeResponse;
@@ -90,7 +90,7 @@ namespace ACL.Business.Domain.Services
                 result = PrepareInputData(userGroup, result);
                 this.ScopeResponse.Data = Update(result);
                 this.ScopeResponse.Message = this.messageResponse.editMessage;
-                this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
                 List<ulong>? userIds = this._userRepository.GetUserIdByChangePermission(null, null, null, null, id);
                 if (userIds != null)
                 {
@@ -100,7 +100,7 @@ namespace ACL.Business.Domain.Services
             else
             {
                 this.ScopeResponse.Message = this.messageResponse.notFoundMessage;
-                this.ScopeResponse.StatusCode = AppStatusCode.FAIL;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
             this.ScopeResponse.Timestamp = DateTime.Now;
             return this.ScopeResponse;
@@ -129,12 +129,12 @@ namespace ACL.Business.Domain.Services
             {
                 this.ScopeResponse.Data = result;
                 this.ScopeResponse.Message = this.messageResponse.fetchMessage;
-                this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             }
             else
             {
                 this.ScopeResponse.Message = this.messageResponse.notFoundMessage;
-                this.ScopeResponse.StatusCode = AppStatusCode.FAIL;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
             this.ScopeResponse.Timestamp = DateTime.Now;
             return this.ScopeResponse;
@@ -155,7 +155,7 @@ namespace ACL.Business.Domain.Services
             {
                 this.ScopeResponse.Data = Deleted(id);
                 this.ScopeResponse.Message = this.messageResponse.deleteMessage;
-                this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
                 List<ulong>? userIds = this._userRepository.GetUserIdByChangePermission(null, null, null, null, id);
                 if (userIds != null)
                 {
@@ -165,7 +165,7 @@ namespace ACL.Business.Domain.Services
             else
             {
                 this.ScopeResponse.Message = this.messageResponse.notFoundMessage;
-                this.ScopeResponse.StatusCode = AppStatusCode.FAIL;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
             this.ScopeResponse.Timestamp = DateTime.Now;
             return this.ScopeResponse;

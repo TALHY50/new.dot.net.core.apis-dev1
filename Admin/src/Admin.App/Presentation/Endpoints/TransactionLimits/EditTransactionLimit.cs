@@ -2,7 +2,7 @@
 using SharedBusiness.Main.Admin.Application.Features.TransactionLimits;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
-
+using SRoutes = SharedKernel.Main.Application.Common.Constants.Routes.Routes;
 
 namespace Admin.App.Presentation.Endpoints.TransactionLimits
 {
@@ -10,7 +10,7 @@ namespace Admin.App.Presentation.Endpoints.TransactionLimits
     {
         [Tags("Transaction Limit")]
         //[Authorize(Policy = "HasPermission")]
-        [HttpPut(Routes.UpdateTransactionLimitUrl, Name = Routes.UpdateTransactionLimitName)]
+        [HttpPut(SRoutes.UpdateTransactionLimitUrl, Name = SRoutes.UpdateTransactionLimitName)]
         public async Task<ActionResult> Update(uint id, UpdateTransactionLimitCommand command)
         {
             var commandWithId = command with { id = id };

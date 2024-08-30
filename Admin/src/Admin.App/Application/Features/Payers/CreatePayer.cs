@@ -2,10 +2,11 @@
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Common.Constants.Routes;
 
 namespace Admin.App.Application.Features.Payers
 {
@@ -48,7 +49,7 @@ namespace Admin.App.Application.Features.Payers
     {
         public CreatePayerCommandValidator()
         {
-            RuleFor(x => x.Name).NotEmpty().WithMessage("Name is required");
+            RuleFor(x => x.Name).NotEmpty().WithMessage("name is required");
             RuleFor(x => x.InternalPayerId).NotEmpty().WithMessage("InternalPayerId is required");
             RuleFor(x => x.Increment).NotEmpty().WithMessage("Increment is required");
             RuleFor(x => x.MoneyPrecision).NotEmpty().WithMessage("MoneyPrecision is required");

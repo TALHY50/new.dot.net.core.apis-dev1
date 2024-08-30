@@ -83,7 +83,7 @@ namespace ACL.Business.Infrastructure.Middlewares
                     break;
                 case Exception ex:
                     aclResponse.Message = ex.Message;
-                    aclResponse.StatusCode = AppStatusCode.FAIL;
+                    aclResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
                     break;
                 //case ApplicationException ex:
                 //    scopeResponse.Message = ex.Message;

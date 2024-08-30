@@ -1,12 +1,11 @@
-﻿using ACL.Business.Contracts.Responses;
-using ErrorOr;
+﻿using ErrorOr;
 using FluentValidation;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Common.Constants.Routes;
 using SharedKernel.Main.Contracts.Common;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
@@ -39,28 +38,27 @@ namespace Admin.App.Application.Features.Corridors
     internal sealed class DeleteCorridorCommandHandler : IRequestHandler<DeleteCorridorCommand, ErrorOr<bool>>
     {
         private readonly IImtCorridorRepository _repository;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        public DeleteCorridorCommandHandler(IHttpContextAccessor httpContextAccessor, IImtCorridorRepository repository)
+        public DeleteCorridorCommandHandler(IImtCorridorRepository repository)
         {
             _repository = repository;
-            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<ErrorOr<bool>> Handle(DeleteCorridorCommand request, CancellationToken cancellationToken)
         {
+            var message = new MessageResponse("Record not found");
             if (request.id > 0)
             {
                 var entity = _repository.FindById(request.id);
 
                 if (entity == null)
                 {
-                    return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(message.PlainText, ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 return _repository.Delete(entity);
             }
 
-            return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+            return Error.NotFound(message.PlainText, ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
         }
     }
 }

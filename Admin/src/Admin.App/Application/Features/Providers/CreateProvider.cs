@@ -4,11 +4,11 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Application.Common.Constants.Routes;
 
 namespace Admin.App.Application.Features.Providers
 {
@@ -62,7 +62,6 @@ namespace Admin.App.Application.Features.Providers
         : IRequestHandler<CreateProviderCommand, ErrorOr<Provider>>
     {
         private readonly IImtProviderRepository _providerRepository;
-
         public CreateProviderCommandHandler(IImtProviderRepository providerRepository)
         {
             _providerRepository = providerRepository;
@@ -84,11 +83,6 @@ namespace Admin.App.Application.Features.Providers
                 CreatedAt = now,
                 UpdatedAt = now,
             };
-
-            if (@provider == null)
-            {
-                return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
-            }
 
             return _providerRepository.Add(@provider);
         }

@@ -1,13 +1,13 @@
-﻿using ACL.Business.Contracts.Responses;
-using ErrorOr;
+﻿using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Common.Constants.Routes;
 using SharedKernel.Main.Contracts.Common;
 
 namespace Admin.App.Application.Features.Currencies
@@ -27,22 +27,20 @@ namespace Admin.App.Application.Features.Currencies
     }
     public record GetCurrencyByIdQuery(uint id) : IRequest<ErrorOr<Currency>>;
 
-    public class GetCurrencyByIdValidator : AbstractValidator<GetCurrencyByIdQuery>
+    internal sealed class GetCurrencyByIdValidator : AbstractValidator<GetCurrencyByIdQuery>
     {
         public GetCurrencyByIdValidator()
         {
             RuleFor(x => x.id).NotEmpty().WithMessage("Currency ID is required");
         }
     }
-    public class GetCurrencyByIdQueryHandler :
+    internal sealed class GetCurrencyByIdQueryHandler :
         IRequestHandler<GetCurrencyByIdQuery, ErrorOr<Currency>>
     {
         private readonly IImtAdminCurrencyRepository _repository;
-        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public GetCurrencyByIdQueryHandler(IHttpContextAccessor httpContextAccessor, IImtAdminCurrencyRepository repository)
+        public GetCurrencyByIdQueryHandler(IImtAdminCurrencyRepository repository)
         {
-            _httpContextAccessor = httpContextAccessor;
             _repository = repository;
         }
         public async Task<ErrorOr<Currency>> Handle(GetCurrencyByIdQuery request, CancellationToken cancellationToken)
@@ -51,7 +49,7 @@ namespace Admin.App.Application.Features.Currencies
             var entity = _repository.FindById(request.id);
             if (entity == null)
             {
-                return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                return Error.NotFound(message.PlainText, ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
             return entity;
         }

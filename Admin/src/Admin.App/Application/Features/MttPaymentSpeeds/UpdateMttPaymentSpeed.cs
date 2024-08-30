@@ -1,14 +1,13 @@
-﻿using ACL.Business.Contracts.Responses;
-using ErrorOr;
+﻿using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
-using SharedBusiness.Main.IMT.Infrastructure.Persistence.Repositories;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Common.Constants.Routes;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
 using SharedKernel.Main.Contracts.Common;
 using static Admin.App.Application.Features.Regions.UpdateRegionController;
@@ -87,17 +86,19 @@ namespace Admin.App.Application.Features.MttPaymentSpeeds
 
             public async Task<ErrorOr<MttPaymentSpeed>> Handle(UpdateMttPaymentSpeedCommand request, CancellationToken cancellationToken)
             {
+                var message = new MessageResponse("Record not found");
+
                 var now = DateTime.UtcNow;
                 MttPaymentSpeed? mttPaymentSpeed = _repository.View(request.id);
                 if (mttPaymentSpeed == null)
                 {
-                    return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(message.PlainText, ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 var mttCheckExist = _mtt_repository.View(request.MttId);
                 if (mttCheckExist == null)
                 {
-                    return Error.NotFound(description: Language.GetMessage("MttId not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), "MttId not found!");
                 }
 
                 mttPaymentSpeed.MttId = request.MttId;

@@ -1,12 +1,12 @@
-﻿using ACL.Business.Contracts.Responses;
+﻿
 using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Common.Constants.Routes;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
 using SharedKernel.Main.Contracts.Common;
 using static Admin.App.Application.Features.MttPaymentSpeeds.DeleteMttPaymentSpeedController;
@@ -47,7 +47,6 @@ namespace Admin.App.Application.Features.MttPaymentSpeeds
         {
             private readonly ICurrentUserService _user;
             private readonly IImtMttPaymentSpeedRepository _repository;
-
             public DeleteMttPaymentSpeedCommandHandler(ICurrentUserService user, IImtMttPaymentSpeedRepository repository)
             {
                 _user = user;
@@ -56,11 +55,13 @@ namespace Admin.App.Application.Features.MttPaymentSpeeds
 
             public async Task<ErrorOr<bool>> Handle(DeleteMttPaymentSpeedCommand request, CancellationToken cancellationToken)
             {
+                var message = new MessageResponse("Record not found");
+
                 var mttPaymentSpeeds = _repository.View(request.id);
 
                 if (mttPaymentSpeeds == null)
                 {
-                    return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(message.PlainText, ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 return _repository.Delete(mttPaymentSpeeds);

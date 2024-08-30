@@ -8,6 +8,7 @@ using Notification.App.Domain.Entities.Events;
 
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Common.Constants.Routes;
 
 namespace Notification.App.Presentation.Controllers;
 

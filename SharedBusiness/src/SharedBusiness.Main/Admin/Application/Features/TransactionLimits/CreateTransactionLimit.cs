@@ -2,8 +2,8 @@
 using ErrorOr;
 using FluentValidation;
 using MediatR;
+using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
 
 
 namespace SharedBusiness.Main.Admin.Application.Features.TransactionLimits
@@ -39,9 +39,9 @@ namespace SharedBusiness.Main.Admin.Application.Features.TransactionLimits
 
     public class CreateTransactionLimitCommandHandler : IRequestHandler<CreateTransactionLimitCommand, ErrorOr<TransactionLimit>>
     {
-        private readonly IImtTransactionLimitRepository _repository;
+        private readonly ITransactionLimitRepository _repository;
 
-        public CreateTransactionLimitCommandHandler(IImtTransactionLimitRepository repository)
+        public CreateTransactionLimitCommandHandler(ITransactionLimitRepository repository)
         {
             _repository = repository;
         }

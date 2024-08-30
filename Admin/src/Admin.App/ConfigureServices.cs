@@ -21,22 +21,21 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
+using SharedBusiness.Main.Common.Infrastructure.Persistence.Context;
+using SharedBusiness.Main.Common.Infrastructure.Persistence.Repositories;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Infrastructure.Persistence.Context;
-using SharedBusiness.Main.IMT.Infrastructure.Persistence.Repositories;
 using SharedKernel.Main.Application.Common.Behaviours;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
-using SharedKernel.Main.Contracts.Common;
 using SharedKernel.Main.Infrastructure.Cryptography;
 using SharedKernel.Main.Infrastructure.Security;
 using SharedKernel.Main.Infrastructure.Services;
 using ACLApplicationDbContext = ACL.Business.Infrastructure.Persistence.Context.ApplicationDbContext;
-using CountryRepository = SharedBusiness.Main.IMT.Infrastructure.Persistence.Repositories.CountryRepository;
+using CountryRepository = SharedBusiness.Main.Common.Infrastructure.Persistence.Repositories.CountryRepository;
+using ICountryRepository = SharedBusiness.Main.IMT.Application.Interfaces.Repositories.ICountryRepository;
 
 namespace Admin.App;
 
@@ -174,21 +173,20 @@ public static class DependencyInjection
         services.AddScoped<IImtPayerRepository, PayerRepository>();
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreatePayerCommand).Assembly));
 
-        services.AddScoped<IAdminCountryRepository, CountryRepository>();
+        services.AddScoped<ICountryRepository, CountryRepository>();
         services.AddScoped<IImtServiceMethodRepository, ServiceMethodRepository>();
         services.AddScoped<IImtPayerPaymentSpeedRepository, PayerPaymentSpeed>();
         services.AddScoped<IImtTaxRateRepository, TaxRateRepository>();
-        services.AddScoped<IImtCurrencyConversionRateRepository, CurrencyConversionRateRepository>();
         services.AddScoped<IImtInstitutionFundRepository, InstitutionFundRepository>();
         services.AddScoped<IImtTransactionTypeRepository, TransactionTypeRepository>();
         services.AddScoped<IImtInstitutionMttRepository, InstitutionMttRepository>();
-        // services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateCountryCommand).Assembly));  
+       // services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateCountryCommand).Assembly));  
         // services.AddScoped<IRequestHandler<CreateCountryCommand, ErrorOr<Country>>, CreateCountryCommandHandler>();
 
         services.AddScoped<IImtMttsRepository, MttRepository>();
         services.AddScoped<IImtMttPaymentSpeedRepository, ImtMttPaymentSpeedRepository>();
 
-        // services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateMttCommand).Assembly));
+       // services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateMttCommand).Assembly));
 
         // BusinessHourAndWeekendRepository
         services.AddScoped<IBusinessHourAndWeekendRepository, BusinessHourAndWeekendRepository>();
@@ -197,17 +195,6 @@ public static class DependencyInjection
         services.AddScoped<IHolidaySettingRepository, HolidaySettingRepository>();
         services.AddScoped<IInstitutionRepository, InstitutionRepository>();
         services.AddScoped<IInstitutionSettingRepository, InstitutionSettingRepository>();
-
-        //TransactionLimit
-        services.AddScoped<IImtTransactionLimitRepository, TransactionLimitRepository>();
-        
-
-        // For language start
-        services.AddHttpContextAccessor();
-        var serviceProvider = services.BuildServiceProvider();
-        var httpContextAccessor = serviceProvider.GetService<IHttpContextAccessor>();
-        Language.Configure(httpContextAccessor);
-        // For language end
 
         services.AddSingleton(provider =>
         {

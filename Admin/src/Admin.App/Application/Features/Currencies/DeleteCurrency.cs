@@ -1,5 +1,4 @@
-﻿using ACL.Business.Contracts.Responses;
-using ErrorOr;
+﻿using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -7,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Common.Constants.Routes;
 using SharedKernel.Main.Contracts.Common;
 
 namespace Admin.App.Application.Features.Currencies
@@ -27,32 +27,31 @@ namespace Admin.App.Application.Features.Currencies
 
     public record DeleteCurrencyCommand(uint id) : IRequest<ErrorOr<bool>>;
 
-    public class DeleteCurrencyCommandValidator : AbstractValidator<DeleteCurrencyCommand>
+    internal sealed class DeleteCurrencyCommandValidator : AbstractValidator<DeleteCurrencyCommand>
     {
         public DeleteCurrencyCommandValidator()
         {
             RuleFor(r => r.id).NotEmpty();
         }
     }
-    public class DeleteCurrencyCommandHandler : IRequestHandler<DeleteCurrencyCommand, ErrorOr<bool>>
+    internal sealed class DeleteCurrencyCommandHandler : IRequestHandler<DeleteCurrencyCommand, ErrorOr<bool>>
     {
         private readonly IImtAdminCurrencyRepository _repository;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        public DeleteCurrencyCommandHandler(IHttpContextAccessor httpContextAccessor, IImtAdminCurrencyRepository repository)
+        public DeleteCurrencyCommandHandler(IImtAdminCurrencyRepository repository)
         {
-            _httpContextAccessor = httpContextAccessor;
             _repository = repository;
         }
 
         public async Task<ErrorOr<bool>> Handle(DeleteCurrencyCommand request, CancellationToken cancellationToken)
         {
+            var message = new MessageResponse("Record not found");
             if (request.id > 0)
             {
                 var entity = _repository.FindById(request.id);
 
                 if (entity == null)
                 {
-                    return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(message.PlainText, ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 return _repository.Delete(entity);

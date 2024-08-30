@@ -3,11 +3,11 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Contracts.Common;
-using ACL.Business.Contracts.Responses;
+using SharedBusiness.Main.Common.Domain.Entities;
+using SharedKernel.Main.Application.Common.Constants.Routes;
 
 namespace Admin.App.Application.Features.InstitutionMtts
 {
@@ -30,7 +30,7 @@ namespace Admin.App.Application.Features.InstitutionMtts
     {
         public GetByIdQueryValidator()
         {
-            RuleFor(x => x.id).NotEmpty().WithMessage("InstitutionMtt Id is required");
+            RuleFor(x => x.id).NotEmpty().WithMessage("InstitutionMtt id is required");
         }
     }
 
@@ -38,19 +38,17 @@ namespace Admin.App.Application.Features.InstitutionMtts
         IRequestHandler<GetInstitutionMttByIdQuery, ErrorOr<InstitutionMtt>>
     {
         private readonly IImtInstitutionMttRepository _repository;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-
-        public GetInstitutionMttByIdQueryHandler(IHttpContextAccessor httpContextAccessor, IImtInstitutionMttRepository repository)
+        public GetInstitutionMttByIdQueryHandler(IImtInstitutionMttRepository repository)
         {
-            _httpContextAccessor = httpContextAccessor;
             _repository = repository;
         }
         public async Task<ErrorOr<InstitutionMtt>> Handle(GetInstitutionMttByIdQuery request, CancellationToken cancellationToken)
         {
+            var message = new MessageResponse("Record not found");
             var entity = _repository.FindById(request.id);
             if (entity == null)
             {
-                return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                return Error.NotFound(message.PlainText, ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
             return entity;
         }

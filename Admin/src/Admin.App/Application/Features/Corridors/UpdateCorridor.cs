@@ -7,9 +7,9 @@ using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using System.ComponentModel.Design;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Contracts.Common;
-using ACL.Business.Contracts.Responses;
+using SharedBusiness.Main.Common.Domain.Entities;
+using SharedKernel.Main.Application.Common.Constants.Routes;
 
 namespace Admin.App.Application.Features.Corridors
 {
@@ -40,7 +40,7 @@ namespace Admin.App.Application.Features.Corridors
     {
         public UpdateCorridoryCommandValidator()
         {
-            RuleFor(x => x.id).NotEmpty().WithMessage("Corridor Id is required");
+            RuleFor(x => x.id).NotEmpty().WithMessage("Corridor id is required");
             RuleFor(x => x.SourceCountryId).NotEmpty();
             RuleFor(x => x.DestinationCountryId).NotEmpty();
             RuleFor(x => x.SourceCurrencyId).NotEmpty();
@@ -51,19 +51,18 @@ namespace Admin.App.Application.Features.Corridors
         : IRequestHandler<UpdateCorridorCommand, ErrorOr<Corridor>>
     {
         private readonly IImtCorridorRepository _repository;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        public UpdateCorridorCommandHandler(IHttpContextAccessor httpContextAccessor, IImtCorridorRepository repository)
+        public UpdateCorridorCommandHandler(IImtCorridorRepository repository)
         {
-            _httpContextAccessor = httpContextAccessor;
             _repository = repository;
         }
         public async Task<ErrorOr<Corridor>> Handle(UpdateCorridorCommand request, CancellationToken cancellationToken)
         {
+            var message = new MessageResponse("Record not found");
             Corridor? entity = _repository.FindById(request.id);
             var now = DateTime.UtcNow;
             if (entity == null)
             {
-                return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                return Error.NotFound(message.PlainText, ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
             entity.SourceCountryId = request.SourceCountryId;
             entity.DestinationCountryId = request.DestinationCountryId;

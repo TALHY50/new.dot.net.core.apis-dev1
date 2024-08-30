@@ -197,7 +197,7 @@ builder.Services.AddScoped<ILogService, LogService>();
 builder.Services.Configure<ApiBehaviorOptions>(o =>
 {
     o.InvalidModelStateResponseFactory = actionContext =>
-        new BadRequestObjectResult(new { errors = new UnprocessableEntityObjectResult(actionContext.ModelState).Value, statusCode = AppStatusCode.FAIL });
+        new BadRequestObjectResult(new { errors = new UnprocessableEntityObjectResult(actionContext.ModelState).Value, statusCode = ApplicationStatusCodes.GENERAL_FAILURE });
 });
 
 Log.Logger = new LoggerConfiguration()

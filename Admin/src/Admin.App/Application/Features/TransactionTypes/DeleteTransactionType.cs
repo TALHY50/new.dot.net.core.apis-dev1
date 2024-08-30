@@ -1,6 +1,4 @@
-﻿using ACL.Business.Contracts.Responses;
-using Ardalis.SharedKernel;
-using ErrorOr;
+﻿using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -8,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Common.Constants.Routes;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
 using SharedKernel.Main.Contracts.Common;
 using static Admin.App.Application.Features.Mtts.InstitutionDelete;
@@ -45,7 +44,7 @@ namespace Admin.App.Application.Features.TransactionTypes
         {
             private readonly ICurrentUserService _user;
             private readonly IImtTransactionTypeRepository _transactiontypeRepository;
-
+           
             public DeleteTransactionTypeCommandHandler(ICurrentUserService user, IImtTransactionTypeRepository transactionTypeRepository)
             {
                 _user = user;
@@ -54,11 +53,13 @@ namespace Admin.App.Application.Features.TransactionTypes
 
             public async Task<ErrorOr<bool>> Handle(DeleteTransactionTypeCommand request, CancellationToken cancellationToken)
             {
+                var message = new MessageResponse("Record not found");
+
                 var transactionTypes = _transactiontypeRepository.View(request.id);
 
                 if (transactionTypes == null)
                 {
-                    return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(message.PlainText, ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 return _transactiontypeRepository.Delete(transactionTypes);

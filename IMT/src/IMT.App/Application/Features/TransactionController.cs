@@ -2,11 +2,12 @@
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Domain.Entities;
+using SharedBusiness.Main.Common.Infrastructure.Persistence.Context;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
-using SharedBusiness.Main.IMT.Infrastructure.Persistence.Context;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Application.Common;
+using SharedKernel.Main.Application.Common.Constants.Routes;
 using StackExchange.Redis;
 using SharedKernel.Main.Contracts.Common;
 
@@ -138,7 +139,7 @@ namespace IMT.App.Application.Features
                 if (quotation is null)
                 {
                     // Not found Quotation
-                    return Error.NotFound("Quotation not found", AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound("Quotation not found", ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 // operation on db

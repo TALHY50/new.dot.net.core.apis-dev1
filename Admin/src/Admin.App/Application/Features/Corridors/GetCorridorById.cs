@@ -1,13 +1,12 @@
-﻿using ACL.Business.Contracts.Responses;
-using Ardalis.Specification;
-using ErrorOr;
+﻿using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Common.Constants.Routes;
 using SharedKernel.Main.Contracts.Common;
 
 namespace Admin.App.Application.Features.Corridors
@@ -31,7 +30,7 @@ namespace Admin.App.Application.Features.Corridors
     {
         public GetByIdQueryValidator()
         {
-            RuleFor(x => x.id).NotEmpty().WithMessage("Corridor Id is required");
+            RuleFor(x => x.id).NotEmpty().WithMessage("Corridor id is required");
         }
     }
 
@@ -39,18 +38,17 @@ namespace Admin.App.Application.Features.Corridors
         IRequestHandler<GetCorridorByIdQuery, ErrorOr<Corridor>>
     {
         private readonly IImtCorridorRepository _repository;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        public GetCorridorByIdQueryHandler(IHttpContextAccessor httpContextAccessor, IImtCorridorRepository repository)
+        public GetCorridorByIdQueryHandler(IImtCorridorRepository repository)
         {
-            _httpContextAccessor = httpContextAccessor;
             _repository = repository;
         }
         public async Task<ErrorOr<Corridor>> Handle(GetCorridorByIdQuery request, CancellationToken cancellationToken)
         {
+            var message = new MessageResponse("Record not found");
             var entity = _repository.FindById(request.id);
             if (entity == null)
             {
-                return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                return Error.NotFound(message.PlainText, ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
             return entity;
         }

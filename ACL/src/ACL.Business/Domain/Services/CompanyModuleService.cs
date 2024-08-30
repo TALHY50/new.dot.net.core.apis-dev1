@@ -36,7 +36,7 @@ namespace ACL.Business.Domain.Services
         {
             this.ScopeResponse.Data = base.All();
             this.ScopeResponse.Message = (this.ScopeResponse.Data != null) ?this.MessageResponse.fetchMessage : this.MessageResponse.notFoundMessage;
-            this.ScopeResponse.StatusCode = (this.ScopeResponse.Data != null) ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
+            this.ScopeResponse.StatusCode = (this.ScopeResponse.Data != null) ? ApplicationStatusCodes.API_SUCCESS : ApplicationStatusCodes.GENERAL_FAILURE;
             this.ScopeResponse.Timestamp = DateTime.Now;
             return this.ScopeResponse;
         }
@@ -47,12 +47,12 @@ namespace ACL.Business.Domain.Services
             {
                 this.ScopeResponse.Data = base.Add(PrepareInputData(request));
                 this.ScopeResponse.Message = this.MessageResponse.createMessage;
-                this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             }
             catch (Exception ex)
             {
                 this.ScopeResponse.Message = ex.Message;
-                this.ScopeResponse.StatusCode = AppStatusCode.FAIL;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
             this.ScopeResponse.Timestamp = DateTime.Now;
             return this.ScopeResponse;
@@ -64,7 +64,7 @@ namespace ACL.Business.Domain.Services
             {
                 var aclCompanyModule = base.Find(id) ?? throw new Exception("company module not exist");
                 this.ScopeResponse.Message = (aclCompanyModule != null) ? this.MessageResponse.editMessage : this.MessageResponse.notFoundMessage;
-                this.ScopeResponse.StatusCode = (aclCompanyModule != null) ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
+                this.ScopeResponse.StatusCode = (aclCompanyModule != null) ? ApplicationStatusCodes.API_SUCCESS : ApplicationStatusCodes.GENERAL_FAILURE;
                 if (aclCompanyModule != null)
                 {
                    this.ScopeResponse.Data = base.Update(PrepareInputData(request, id, aclCompanyModule));
@@ -85,13 +85,13 @@ namespace ACL.Business.Domain.Services
                this.ScopeResponse.Data = base.Find(id);
                 var message = (this.ScopeResponse.Data != null) ? this.MessageResponse.fetchMessage : this.MessageResponse.notFoundMessage;
                 this.ScopeResponse.Message = message;
-                this.ScopeResponse.StatusCode = (this.ScopeResponse.Data != null) ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
+                this.ScopeResponse.StatusCode = (this.ScopeResponse.Data != null) ? ApplicationStatusCodes.API_SUCCESS : ApplicationStatusCodes.GENERAL_FAILURE;
                 this.ScopeResponse.Timestamp = DateTime.Now;
             }
             catch (Exception ex)
             {
                this.ScopeResponse.Message = ex.Message;
-                this.ScopeResponse.StatusCode = AppStatusCode.FAIL;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
                this.ScopeResponse.Timestamp = DateTime.Now;
             }
             return this.ScopeResponse;
@@ -101,7 +101,7 @@ namespace ACL.Business.Domain.Services
         {
             var check = base.Find(id) ?? throw new Exception("company module not exist");
             this.ScopeResponse.Data = base.Delete(id);
-            this.ScopeResponse.StatusCode = (this.ScopeResponse.Data != null) ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
+            this.ScopeResponse.StatusCode = (this.ScopeResponse.Data != null) ? ApplicationStatusCodes.API_SUCCESS : ApplicationStatusCodes.GENERAL_FAILURE;
             this.ScopeResponse.Message = (this.ScopeResponse.Data != null) ? this.MessageResponse.deleteMessage : this.MessageResponse.notFoundMessage;
             return this.ScopeResponse;
         }

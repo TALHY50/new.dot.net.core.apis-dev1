@@ -1,12 +1,13 @@
-﻿using ACL.Business.Contracts.Responses;
+﻿using Ardalis.Specification;
 using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Common.Constants.Routes;
 using SharedKernel.Main.Contracts.Common;
 
 namespace Admin.App.Application.Features.TaxRates
@@ -42,10 +43,6 @@ namespace Admin.App.Application.Features.TaxRates
             public UpdateTaxRateCommandValidator()
             {
                 RuleFor(x => x.Id).NotEmpty().WithMessage("TaxRate ID is required");
-                RuleFor(x => x.TaxType).NotEmpty().WithMessage("TaxType  is required");
-                RuleFor(x => x.TaxPercentage).NotEmpty().WithMessage("TaxPercentage  is required");
-                RuleFor(x => x.TaxFixed).NotEmpty().WithMessage("TaxFixed  is required");
-                RuleFor(x => x.Status).NotEmpty().WithMessage("Status  is required");
             }
         }
 
@@ -61,12 +58,9 @@ namespace Admin.App.Application.Features.TaxRates
             public async Task<ErrorOr<TaxRate>> Handle(UpdateTaxRateCommand command, CancellationToken cancellationToken)
             {
                 TaxRate? taxRate = _repository.View(command.Id);
-
-                var message = new MessageResponse("Record not found");
-
                 if (taxRate == null)
                 {
-                    return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), "Tax Rate not found!");
                 }
                 taxRate.TaxType = command.TaxType;
                 taxRate.CorridorId = command.CorridorId;

@@ -3,10 +3,12 @@ using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Common.Constants.Routes;
+using SharedKernel.Main.Contracts.Common;
 
 namespace Admin.App.Application.Features.Corridors
 {
@@ -72,8 +74,8 @@ namespace Admin.App.Application.Features.Corridors
 
             if (result == null)
             {
-                return Error.Unexpected(ApplicationCodes.DatabaseOperationFailed.Code,
-                    ApplicationCodes.DatabaseOperationFailed.Code);
+                return Error.Unexpected(ApplicationStatusCodes.API_ERROR_UNEXPECTED_ERROR.ToString(),
+                    "Corridor not found");
             }
             return result;
         }

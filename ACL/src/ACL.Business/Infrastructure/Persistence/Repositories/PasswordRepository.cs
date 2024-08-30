@@ -44,7 +44,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
             if (AppAuth.GetAuthInfo().UserId != request.UserId)
             {
                 this.ScopeResponse.Message = "Invalid User";
-                this.ScopeResponse.StatusCode = AppStatusCode.FAIL;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
                 return this.ScopeResponse;
             }
 
@@ -58,7 +58,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
                 if (aclUser.Password != password)
                 {
                     this.ScopeResponse.Message = "Password Mismatch";
-                    this.ScopeResponse.StatusCode = AppStatusCode.FAIL;
+                    this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
                     return this.ScopeResponse;
                 }
 
@@ -70,7 +70,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
                 await this._dbContext.Entry(aclUser).ReloadAsync();
 
                 this.ScopeResponse.Message = "Password Reset Succesfully.";
-                this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
 
             }
 
@@ -93,7 +93,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
 
                 this.ScopeResponse.Message = "Password Reset Notification email is sent to user email";
                 this.ScopeResponse.Data = uniqueKey;
-                this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             }
 
             return this.ScopeResponse;
@@ -104,7 +104,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
             if (!CacheHelper.Exist(request.Token))
             {
                 this.ScopeResponse.Message = "Invalid Token";
-                this.ScopeResponse.StatusCode = AppStatusCode.FAIL;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
                 return this.ScopeResponse;
             }
 
@@ -123,7 +123,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
 
                 CacheHelper.Remove(request.Token);
                 this.ScopeResponse.Message = "Password Reset Succesfully.";
-                this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             }
 
             return this.ScopeResponse;
