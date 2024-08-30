@@ -702,8 +702,8 @@ namespace SharedBusiness.Main.IMT.Infrastructure.Persistence.Context
                     .HasComment("0=inactive, 1=active, 2=pending, 3=rejected ")
                     .HasColumnName("status");
                 entity.Property(e => e.TransactionTypeId)
-                    .HasMaxLength(255)
-                    .HasColumnName("transaction_type_id");
+                    .HasColumnType("int unsigned")
+                    .IsRequired();
                 entity.Property(e => e.UpdatedAt)
                     .HasColumnType("datetime")
                     .HasColumnName("updated_at");
