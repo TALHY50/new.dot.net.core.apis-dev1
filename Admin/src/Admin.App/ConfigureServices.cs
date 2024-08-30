@@ -14,7 +14,6 @@ using Admin.App.Application.Features.Currencies;
 using Admin.App.Application.Features.Payers;
 using Admin.App.Application.Features.Providers;
 using Admin.App.Application.Features.Regions;
-using Admin.App.Application.Features.TransactionLimits;
 using Admin.App.Application.Features.TransactionTypes;
 using DotNetEnv;
 using ErrorOr;
@@ -34,7 +33,6 @@ using SharedKernel.Main.Application.Common.Interfaces.Services;
 using SharedKernel.Main.Infrastructure.Cryptography;
 using SharedKernel.Main.Infrastructure.Security;
 using SharedKernel.Main.Infrastructure.Services;
-using static Admin.App.Application.Features.TransactionLimits.EditTransactionLimitController;
 using ACLApplicationDbContext = ACL.App.Infrastructure.Persistence.Context.ApplicationDbContext;
 using CountryRepository = SharedBusiness.Main.IMT.Infrastructure.Persistence.Repositories.CountryRepository;
 

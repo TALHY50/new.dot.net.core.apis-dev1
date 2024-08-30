@@ -1,28 +1,12 @@
 ﻿using ErrorOr;
 using FluentValidation;
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedBusiness.Main.IMT.Domain.Entities;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
 
 
-
-namespace Admin.App.Application.Features.TransactionLimits
+namespace SharedBusiness.Main.Admin.Application.Features.TransactionLimits
 {
-    public class EditTransactionLimitController : ApiControllerBase
-    {
-        [Tags("Transaction Limit")]
-        //[Authorize(Policy = "HasPermission")]
-        [HttpPut(Routes.UpdateTransactionLimitUrl, Name = Routes.UpdateTransactionLimitName)]
-        public async Task<ActionResult<ErrorOr<TransactionLimit>>> Update(uint id, UpdateTransactionLimitCommand command)
-        {
-            var commandWithId = command with { id = id };
-            var result = await Mediator.Send(commandWithId).ConfigureAwait(false);
-
-            return result.Match(reminder => Ok(result.Value),Problem);
-        }
 
         public record UpdateTransactionLimitCommand(
 
@@ -56,14 +40,13 @@ namespace Admin.App.Application.Features.TransactionLimits
             }
         }
 
-
         public class UpdateTransactionLimitCommandHandler : IRequestHandler<UpdateTransactionLimitCommand, ErrorOr<TransactionLimit>>
         {
-            private readonly IImtTransactionLimitRepository _transactionLimitRepository;
+            private readonly IImtTransactionLimitRepository _repository;
 
-            public UpdateTransactionLimitCommandHandler(IImtTransactionLimitRepository transactionLimitRepository)
+            public UpdateTransactionLimitCommandHandler(IImtTransactionLimitRepository repository)
             {
-                _transactionLimitRepository = transactionLimitRepository;
+                _repository = repository;
             }
 
             public async Task<ErrorOr<TransactionLimit>> Handle(UpdateTransactionLimitCommand request, CancellationToken cancellationToken)
@@ -84,10 +67,9 @@ namespace Admin.App.Application.Features.TransactionLimits
                     UpdatedAt = DateTime.UtcNow,
                 };
 
-                return await _transactionLimitRepository.Edit(request.id,transactionLimit);
+                return  _repository.Edit(request.id,transactionLimit);
             }
         }
 
-    }
 }
 

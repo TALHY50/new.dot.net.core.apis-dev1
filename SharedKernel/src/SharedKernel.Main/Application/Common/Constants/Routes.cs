@@ -502,17 +502,16 @@
 
 
         //Trasaction Limit
+        public const string GetTransactionLimitName = "transaction_limit";
+        public const string GetTransactionLimitUrl = "/api/admin/transactionlimits";
+        public const string FindTransactionLimitByIdName = "transaction_limit_by_id";
+        public const string FindTransactionLimitByIdUrl = "/api/admin/transactionlimits/{id}";
         public const string CreateTransactionLimitName = "create_transaction_limit";
-        public const string CreateTransactionLimitUrl = "/api/admin/TransactionLimit";
+        public const string CreateTransactionLimitUrl = "/api/admin/transactionlimits";
         public const string UpdateTransactionLimitName = "update_transaction_limit";
-        public const string UpdateTransactionLimitUrl = "/api/admin/UpdateTransactionLimit/{id}";
-        public const string FindTransactionLimitByIdName = "find_transaction_limit_by_id";
-        public const string FindTransactionLimitByIdUrl = "/api/admin/TransactionLimitById/{id}";
-        public const string GetTransactionLimitName = "get_transaction_limit";
-        public const string GetTransactionLimitUrl = "/api/admin/TransactionLimits";
+        public const string UpdateTransactionLimitUrl = "/api/admin/transactionlimits/{id}";
         public const string DeleteTransactionLimitName = "delete_transaction_limit";
-        public const string DeleteTransactionLimitUrl = "/api/admin/DeleteTransactionLimitById/{id}";
-
+        public const string DeleteTransactionLimitUrl = "/api/admin/transactionlimits/{id}";
 
     }
 

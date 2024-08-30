@@ -2,29 +2,12 @@
 using ErrorOr;
 using FluentValidation;
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedBusiness.Main.IMT.Domain.Entities;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
 
-namespace Admin.App.Application.Features.TransactionLimits
+
+namespace SharedBusiness.Main.Admin.Application.Features.TransactionLimits
 {
-    public class CreateTransactionLimitController : ApiControllerBase
-    {
-        [Tags("Transaction Limit")]
-        //[Authorize(Policy = "HasPermission")]
-        [HttpPost(Routes.CreateTransactionLimitUrl, Name = Routes.CreateTransactionLimitName)]
-        public async Task<ActionResult<ErrorOr<TransactionLimit>>> Create(CreateTransactionLimitCommand command)
-        {
-            var result = await Mediator.Send(command).ConfigureAwait(false);
-
-            return result.Match(
-                reminder => Ok(result.Value),
-                Problem);
-        }
-    }
-
     public record CreateTransactionLimitCommand(
          sbyte TransactionType,
 
@@ -54,14 +37,13 @@ namespace Admin.App.Application.Features.TransactionLimits
         }
     }
 
-
     public class CreateTransactionLimitCommandHandler : IRequestHandler<CreateTransactionLimitCommand, ErrorOr<TransactionLimit>>
     {
-        private readonly IImtTransactionLimitRepository _transactionLimitRepository;
+        private readonly IImtTransactionLimitRepository _repository;
 
-        public CreateTransactionLimitCommandHandler(IImtTransactionLimitRepository transactionLimitRepository)
+        public CreateTransactionLimitCommandHandler(IImtTransactionLimitRepository repository)
         {
-            _transactionLimitRepository = transactionLimitRepository;
+            _repository = repository;
         }
 
         public async Task<ErrorOr<TransactionLimit>> Handle(CreateTransactionLimitCommand request, CancellationToken cancellationToken)
@@ -82,7 +64,8 @@ namespace Admin.App.Application.Features.TransactionLimits
                 UpdatedAt = DateTime.UtcNow,
             };
 
-            return await _transactionLimitRepository.Create(transactionLimit);
+           
+            return _repository.Create(transactionLimit);
         }
     }
 }

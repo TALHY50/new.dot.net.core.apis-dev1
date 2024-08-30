@@ -4,10 +4,10 @@ namespace SharedBusiness.Main.IMT.Application.Interfaces.Repositories
 {
     public interface IImtTransactionLimitRepository
     {
-        Task<TransactionLimit> Create(TransactionLimit transactionLimit);
-        Task<TransactionLimit> Edit(uint id,TransactionLimit transactionLimit);
-        Task<TransactionLimit> FindById(uint id);
-        Task<List<TransactionLimit>> All();
-        Task<bool> DeleteById(uint id);
+        TransactionLimit Create(TransactionLimit transactionLimit);
+        TransactionLimit Edit(uint id,TransactionLimit transactionLimit);
+        TransactionLimit FindById(uint id);
+        List<TransactionLimit> All();
+        bool DeleteById(uint id);
     }
 }
