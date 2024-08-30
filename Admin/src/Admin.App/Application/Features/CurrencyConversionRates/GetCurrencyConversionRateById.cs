@@ -37,11 +37,9 @@ namespace Admin.App.Application.Features.CurrencyConversionRates
         public class GetCurrencyConversionRateByIdQueryHandler : IRequestHandler<GetCurrencyConversionRateByIdQuery, ErrorOr<CurrencyConversionRate>>
         {
             private readonly IImtCurrencyConversionRateRepository _repository;
-            private readonly IHttpContextAccessor _httpContextAccessor;
 
-            public GetCurrencyConversionRateByIdQueryHandler(IHttpContextAccessor httpContextAccessor, IImtCurrencyConversionRateRepository repository)
+            public GetCurrencyConversionRateByIdQueryHandler( IImtCurrencyConversionRateRepository repository)
             {
-                _httpContextAccessor = httpContextAccessor;
                 _repository = repository;
             }
             public async Task<ErrorOr<CurrencyConversionRate>> Handle(GetCurrencyConversionRateByIdQuery request, CancellationToken cancellationToken)
@@ -49,7 +47,7 @@ namespace Admin.App.Application.Features.CurrencyConversionRates
                 var currencyConversionRate = _repository.View(request.Id);
                 if (currencyConversionRate == null)
                 {
-                    return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 return currencyConversionRate;

@@ -57,11 +57,9 @@ namespace Admin.App.Application.Features.InstitutionFunds
         public class UpdateInstitutionFundCommandHandler : IRequestHandler<UpdateInstitutionFundCommand, ErrorOr<InstitutionFund>>
         {
             private readonly IImtInstitutionFundRepository _repository;
-            private readonly IHttpContextAccessor _httpContextAccessor;
 
-            public UpdateInstitutionFundCommandHandler(IHttpContextAccessor httpContextAccessor, IImtInstitutionFundRepository repository)
+            public UpdateInstitutionFundCommandHandler(IImtInstitutionFundRepository repository)
             {
-                _httpContextAccessor = httpContextAccessor;
                 _repository = repository;
             }
 
@@ -86,7 +84,7 @@ namespace Admin.App.Application.Features.InstitutionFunds
                 var message = new MessageResponse("Record not found");
                 if (institutionFund == null)
                 {
-                    return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 return _repository.Update(institutionFund);
