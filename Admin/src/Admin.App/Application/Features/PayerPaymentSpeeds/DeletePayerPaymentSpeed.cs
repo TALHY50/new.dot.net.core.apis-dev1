@@ -39,11 +39,9 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
     public class DeletePayerPaymentSpeedCommandHandler: IRequestHandler<DeletePayerPaymentSpeedCommand, ErrorOr<bool>>
     {
         private readonly IImtPayerPaymentSpeedRepository _repository;
-        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public DeletePayerPaymentSpeedCommandHandler(IHttpContextAccessor httpContextAccessor, IImtPayerPaymentSpeedRepository repository)
+        public DeletePayerPaymentSpeedCommandHandler(IImtPayerPaymentSpeedRepository repository)
         {
-            _httpContextAccessor = httpContextAccessor;
             _repository = repository;
         }
 
@@ -57,9 +55,9 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
 
                 if (payerPaymentSpeed == null)
                 {
-                    return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
-                
+
                 return _repository.Delete(payerPaymentSpeed);
             }
 

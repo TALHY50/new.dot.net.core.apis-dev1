@@ -12,11 +12,9 @@ public record GetCountryQuery() : IRequest<ErrorOr<List<IMT.Domain.Entities.Coun
         : IRequestHandler<GetCountryQuery, ErrorOr<List<IMT.Domain.Entities.Country>>>
     {
         private readonly IAdminCountryRepository _repository;
-    private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public GetCountryQueryHandler(IHttpContextAccessor httpContextAccessor, IAdminCountryRepository repository)
+    public GetCountryQueryHandler( IAdminCountryRepository repository)
     {
-    _httpContextAccessor = httpContextAccessor;
     _repository = repository;
     }
 
@@ -25,8 +23,8 @@ public record GetCountryQuery() : IRequest<ErrorOr<List<IMT.Domain.Entities.Coun
         var countries = _repository.ViewAll();
         if (countries == null)
         {
-        return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
-    }
+            return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+        }
         return countries;
     }
 }

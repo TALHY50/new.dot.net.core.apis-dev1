@@ -28,11 +28,8 @@ public record UpdateCountryCommand(
     public class UpdateCountryCommandHandler : IRequestHandler<UpdateCountryCommand, ErrorOr<IMT.Domain.Entities.Country>>
     {
         private readonly IAdminCountryRepository _repository;
-    private readonly IHttpContextAccessor _httpContextAccessor;
-
-    public UpdateCountryCommandHandler(IHttpContextAccessor httpContextAccessor, IAdminCountryRepository repository)
+    public UpdateCountryCommandHandler(IAdminCountryRepository repository)
     {
-    _httpContextAccessor = httpContextAccessor;
     _repository = repository;
     }
 
@@ -52,7 +49,7 @@ public record UpdateCountryCommand(
         }
         else
         {
-        return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
-    }
+            return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+        }
     }
 }
