@@ -414,15 +414,15 @@
 
         // region
         public const string GetRegionName = "get_region";
-        public const string GetRegionUrl = "/api/admin/getRegion";
-        public const string GetRegionByIdName = "get_regions_by_id";
-        public const string GetRegionByIdUrl = "/api/admin/getRegionById/{id}";
+        public const string GetRegionUrl = "/api/admin/region";
+        public const string GetRegionByIdName = "get_region_by_id";
+        public const string GetRegionByIdUrl = "/api/admin/region/{id}";
         public const string CreateRegionName = "create_region";
-        public const string CreateRegionUrl = "/api/admin/createRegion";
+        public const string CreateRegionUrl = "/api/admin/region";
         public const string DeleteRegionName = "delete_region";
-        public const string DeleteRegionUrl = "/api/admin/deleteRegion/{id}";
+        public const string DeleteRegionUrl = "/api/admin/region/{id}";
         public const string UpdateRegionName = "update_region";
-        public const string UpdateRegionUrl = "/api/admin/updateRegion/{id}";
+        public const string UpdateRegionUrl = "/api/admin/region/{id}";
 
         // corridor
         public const string GetCorridorName = "get-corridor";
@@ -462,39 +462,39 @@
 
         // provider
         public const string GetProviderName = "get_provider";
-        public const string GetProviderUrl = "/api/admin/getProvider";
+        public const string GetProviderUrl = "/api/admin/provider";
         public const string GetProviderByIdName = "get_provider_by_id";
-        public const string GetProviderByIdUrl = "/api/admin/getProviderById/{id}";
+        public const string GetProviderByIdUrl = "/api/admin/providerp/{id}";
         public const string CreateProviderName = "create_provider";
-        public const string CreateProviderUrl = "/api/admin/createProvider";
+        public const string CreateProviderUrl = "/api/admin/provider";
         public const string DeleteProviderName = "delete_provider";
-        public const string DeleteProviderUrl = "/api/admin/deleteProvider/{id}";
+        public const string DeleteProviderUrl = "/api/admin/provider/{id}";
         public const string UpdateProviderName = "update_provider";
-        public const string UpdateProviderUrl = "/api/admin/updateProvider/{id}";
+        public const string UpdateProviderUrl = "/api/admin/provider/{id}";
 
         // transaction_type
         public const string GetTransactionTypeName = "get_transaction_type";
-        public const string GetTransactionTypeUrl = "/api/admin/getTransactionType";
+        public const string GetTransactionTypeUrl = "/api/admin/transaction_type";
         public const string GetTransactionTypeByIdName = "get_transaction_type_by_id";
-        public const string GetTransactionTypeByIdUrl = "/api/admin/getTransactionTypeById/{id}";
+        public const string GetTransactionTypeByIdUrl = "/api/admin/transaction_type/{id}";
         public const string CreateTransactionTypeName = "create_transaction_type";
-        public const string CreateTransactionTypeUrl = "/api/admin/createTransactionType";
+        public const string CreateTransactionTypeUrl = "/api/admin/transaction_type";
         public const string DeleteTransactionTypeName = "delete_transaction_type";
-        public const string DeleteTransactionTypeUrl = "/api/admin/deleteTransactionType/{id}";
+        public const string DeleteTransactionTypeUrl = "/api/admin/transaction_type/{id}";
         public const string UpdateTransactionTypeName = "update_transaction_type";
-        public const string UpdateTransactionTypeUrl = "/api/admin/updateTransactionType/{id}";
+        public const string UpdateTransactionTypeUrl = "/api/admin/transaction_type/{id}";
 
         // mtt_payment_speed
         public const string GetMttPaymentSpeedName = "get_mtt_payment_speed";
-        public const string GetMttPaymentSpeedUrl = "/api/admin/getMttPaymentSpeed";
+        public const string GetMttPaymentSpeedUrl = "/api/admin/mtt_payment_speed";
         public const string GetMttPaymentSpeedByIdName = "get_mtt_payment_speed_by_id";
-        public const string GetMttPaymentSpeedByIdUrl = "/api/admin/getMttPaymentSpeedById/{id}";
+        public const string GetMttPaymentSpeedByIdUrl = "/api/admin/mtt_payment_speed/{id}";
         public const string CreateMttPaymentSpeedName = "create_mtt_payment_speed";
-        public const string CreateMttPaymentSpeedUrl = "/api/admin/createMttPaymentSpeed";
+        public const string CreateMttPaymentSpeedUrl = "/api/admin/mtt_payment_speed";
         public const string DeleteMttPaymentSpeedName = "delete_mtt_payment_speed";
-        public const string DeleteMttPaymentSpeedUrl = "/api/admin/deleteMttPaymentSpeed/{id}";
+        public const string DeleteMttPaymentSpeedUrl = "/api/admin/mtt_payment_speed/{id}";
         public const string UpdateMttPaymentSpeedName = "update_mtt_payment_speed";
-        public const string UpdateMttPaymentSpeedUrl = "/api/admin/updateMttPaymentSpeed/{id}";
+        public const string UpdateMttPaymentSpeedUrl = "/api/admin/mtt_payment_speed/{id}";
 
         // CreateMoneyTransferTransaction
         public const string CreateMoneyTransferTransactionName = "create_money_transaction";
