@@ -21,6 +21,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
@@ -30,6 +31,7 @@ using SharedBusiness.Main.IMT.Infrastructure.Persistence.Context;
 using SharedBusiness.Main.IMT.Infrastructure.Persistence.Repositories;
 using SharedKernel.Main.Application.Common.Behaviours;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Contracts.Common;
 using SharedKernel.Main.Infrastructure.Cryptography;
 using SharedKernel.Main.Infrastructure.Security;
 using SharedKernel.Main.Infrastructure.Services;
@@ -179,13 +181,13 @@ public static class DependencyInjection
         services.AddScoped<IImtInstitutionFundRepository, InstitutionFundRepository>();
         services.AddScoped<IImtTransactionTypeRepository, TransactionTypeRepository>();
         services.AddScoped<IImtInstitutionMttRepository, InstitutionMttRepository>();
-       // services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateCountryCommand).Assembly));  
+        // services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateCountryCommand).Assembly));  
         // services.AddScoped<IRequestHandler<CreateCountryCommand, ErrorOr<Country>>, CreateCountryCommandHandler>();
 
         services.AddScoped<IImtMttsRepository, MttRepository>();
         services.AddScoped<IImtMttPaymentSpeedRepository, ImtMttPaymentSpeedRepository>();
 
-       // services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateMttCommand).Assembly));
+        // services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateMttCommand).Assembly));
 
         // BusinessHourAndWeekendRepository
         services.AddScoped<IBusinessHourAndWeekendRepository, BusinessHourAndWeekendRepository>();
@@ -194,6 +196,13 @@ public static class DependencyInjection
         services.AddScoped<IHolidaySettingRepository, HolidaySettingRepository>();
         services.AddScoped<IInstitutionRepository, InstitutionRepository>();
         services.AddScoped<IInstitutionSettingRepository, InstitutionSettingRepository>();
+
+        // For language start
+        services.AddHttpContextAccessor();
+        var serviceProvider = services.BuildServiceProvider();
+        var httpContextAccessor = serviceProvider.GetService<IHttpContextAccessor>();
+        Language.Configure(httpContextAccessor);
+        // For language end
 
         services.AddSingleton(provider =>
         {
