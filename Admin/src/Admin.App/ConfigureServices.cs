@@ -178,6 +178,7 @@ public static class DependencyInjection
         services.AddScoped<IImtServiceMethodRepository, ServiceMethodRepository>();
         services.AddScoped<IImtPayerPaymentSpeedRepository, PayerPaymentSpeed>();
         services.AddScoped<IImtTaxRateRepository, TaxRateRepository>();
+        services.AddScoped<IImtCurrencyConversionRateRepository, CurrencyConversionRateRepository>();
         services.AddScoped<IImtInstitutionFundRepository, InstitutionFundRepository>();
         services.AddScoped<IImtTransactionTypeRepository, TransactionTypeRepository>();
         services.AddScoped<IImtInstitutionMttRepository, InstitutionMttRepository>();
