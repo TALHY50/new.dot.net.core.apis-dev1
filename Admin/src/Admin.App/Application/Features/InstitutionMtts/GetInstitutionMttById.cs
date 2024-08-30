@@ -38,17 +38,19 @@ namespace Admin.App.Application.Features.InstitutionMtts
         IRequestHandler<GetInstitutionMttByIdQuery, ErrorOr<InstitutionMtt>>
     {
         private readonly IImtInstitutionMttRepository _repository;
-        public GetInstitutionMttByIdQueryHandler(IImtInstitutionMttRepository repository)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public GetInstitutionMttByIdQueryHandler(IHttpContextAccessor httpContextAccessor, IImtInstitutionMttRepository repository)
         {
+            _httpContextAccessor = httpContextAccessor;
             _repository = repository;
         }
         public async Task<ErrorOr<InstitutionMtt>> Handle(GetInstitutionMttByIdQuery request, CancellationToken cancellationToken)
         {
-            var message = new MessageResponse("Record not found");
             var entity = _repository.FindById(request.id);
             if (entity == null)
             {
-                return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
             return entity;
         }

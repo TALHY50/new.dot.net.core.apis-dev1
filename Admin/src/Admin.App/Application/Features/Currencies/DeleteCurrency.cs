@@ -37,21 +37,22 @@ namespace Admin.App.Application.Features.Currencies
     internal sealed class DeleteCurrencyCommandHandler : IRequestHandler<DeleteCurrencyCommand, ErrorOr<bool>>
     {
         private readonly IImtAdminCurrencyRepository _repository;
-        public DeleteCurrencyCommandHandler(IImtAdminCurrencyRepository repository)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public DeleteCurrencyCommandHandler(IHttpContextAccessor httpContextAccessor, IImtAdminCurrencyRepository repository)
         {
+            _httpContextAccessor = httpContextAccessor;
             _repository = repository;
         }
 
         public async Task<ErrorOr<bool>> Handle(DeleteCurrencyCommand request, CancellationToken cancellationToken)
         {
-            var message = new MessageResponse("Record not found");
             if (request.id > 0)
             {
                 var entity = _repository.FindById(request.id);
 
                 if (entity == null)
                 {
-                    return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 return _repository.Delete(entity);

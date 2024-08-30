@@ -71,19 +71,20 @@ namespace Admin.App.Application.Features.Payers
         IRequestHandler<UpdatePayerCommand, ErrorOr<Payer>>
     {
         private readonly IImtPayerRepository _repository;
-        public UpdatePayerHandler(IImtPayerRepository repository)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public UpdatePayerHandler(IHttpContextAccessor httpContextAccessor, IImtPayerRepository repository)
         {
+            _httpContextAccessor = httpContextAccessor;
             _repository = repository;
         }
 
         public async Task<ErrorOr<Payer>> Handle(UpdatePayerCommand request, CancellationToken cancellationToken)
         {
-            var message = new MessageResponse("Record not found");
             Payer? entity = _repository.FindById(request.id);
             var now = DateTime.UtcNow;
             if (entity == null)
             {
-                return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
             entity.Name = request.Name;
             entity.ProviderId = request.ProviderId;

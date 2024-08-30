@@ -2,6 +2,7 @@
 using ErrorOr;
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedBusiness.Main.IMT.Domain.Entities;
@@ -38,17 +39,18 @@ namespace Admin.App.Application.Features.Payers
         IRequestHandler<GetPayerByIdQuery, ErrorOr<Payer>>
     {
         private readonly IImtPayerRepository _repository;
-        public GetPayerByIdQueryHandler(IImtPayerRepository repository)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public GetPayerByIdQueryHandler(IHttpContextAccessor httpContextAccessor, IImtPayerRepository repository)
         {
+            _httpContextAccessor = httpContextAccessor;
             _repository = repository;
         }
         public async Task<ErrorOr<Payer>> Handle(GetPayerByIdQuery request, CancellationToken cancellationToken)
         {
-            var message = new MessageResponse("Record not found");
             var entity = _repository.FindById(request.id);
             if (entity == null)
             {
-                return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
             return entity;
         }

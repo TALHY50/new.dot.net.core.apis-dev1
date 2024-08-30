@@ -12,6 +12,7 @@ using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Contracts.Common;
 using ACL.App.Contracts.Responses;
+using Microsoft.AspNetCore.Http;
 
 namespace Admin.App.Application.Features.Currencies
 {
@@ -52,9 +53,11 @@ namespace Admin.App.Application.Features.Currencies
         : IRequestHandler<UpdateCurrencyCommand, ErrorOr<Currency>>
     {
         private readonly IImtAdminCurrencyRepository _repository;
-        public UpdateCurrencyCommandHandler(IImtAdminCurrencyRepository repository)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public UpdateCurrencyCommandHandler(IHttpContextAccessor httpContextAccessor, IImtAdminCurrencyRepository repository)
         {
             _repository = repository;
+            _httpContextAccessor = httpContextAccessor;
         }
         public async Task<ErrorOr<Currency>> Handle(UpdateCurrencyCommand request, CancellationToken cancellationToken)
         {
@@ -63,7 +66,7 @@ namespace Admin.App.Application.Features.Currencies
             var now = DateTime.UtcNow;
             if (entity == null)
             {
-                return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
             entity.Code = request.Code;
             entity.IsoCode = request.IsoCode;
