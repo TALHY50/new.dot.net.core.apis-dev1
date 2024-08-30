@@ -198,6 +198,10 @@ public static class DependencyInjection
         services.AddScoped<IInstitutionRepository, InstitutionRepository>();
         services.AddScoped<IInstitutionSettingRepository, InstitutionSettingRepository>();
 
+        //TransactionLimit
+        services.AddScoped<IImtTransactionLimitRepository, TransactionLimitRepository>();
+        
+
         // For language start
         services.AddHttpContextAccessor();
         var serviceProvider = services.BuildServiceProvider();
