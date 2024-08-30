@@ -8,7 +8,7 @@ using SharedKernel.Main.Application.Common.Constants.Routes;
 
 namespace Admin.App.Presentation.Endpoints.Country;
 
-public class DeleteCountry : CountryBase
+public class DeleteCountryById : CountryBase
 {
     [Tags("Countries")]
     //[Authorize(Policy = "HasPermission")]
@@ -19,7 +19,7 @@ public class DeleteCountry : CountryBase
         var result = await Mediator.Send(new DeleteCountryCommand(Id)).ConfigureAwait(false);
 
         return result.Match(
-            reminder => Ok(ToSuccess(result.Value)),
+            isSuccess => Ok(ToSuccess(result.Value)),
             Problem);
     }
 }
