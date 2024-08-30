@@ -1,5 +1,4 @@
-﻿using ACL.App.Contracts.Responses;
-using ErrorOr;
+﻿using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -49,7 +48,7 @@ namespace Admin.App.Application.Features.CurrencyConversionRates
                 var currencyConversionRate = _repository.View(request.Id);
                 if (currencyConversionRate == null)
                 {
-                    return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 return currencyConversionRate;
