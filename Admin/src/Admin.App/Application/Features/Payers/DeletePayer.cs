@@ -36,21 +36,22 @@ namespace Admin.App.Application.Features.Payers
     public class DeletePayerCommandHandler : IRequestHandler<DeletePayerCommand, ErrorOr<bool>>
     {
         private readonly IImtPayerRepository _repository;
-        public DeletePayerCommandHandler(IImtPayerRepository repository)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public DeletePayerCommandHandler(IHttpContextAccessor httpContextAccessor, IImtPayerRepository repository)
         {
+            _httpContextAccessor = httpContextAccessor;
             _repository = repository;
         }
 
         public async Task<ErrorOr<bool>> Handle(DeletePayerCommand request, CancellationToken cancellationToken)
         {
-            var message = new MessageResponse("Record not found");
             if (request.id > 0)
             {
                 var entity = _repository.FindById(request.id);
 
                 if (entity == null)
                 {
-                    return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 return _repository.Delete(entity);

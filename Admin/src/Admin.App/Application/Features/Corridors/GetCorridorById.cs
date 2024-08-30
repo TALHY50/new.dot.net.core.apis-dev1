@@ -39,17 +39,18 @@ namespace Admin.App.Application.Features.Corridors
         IRequestHandler<GetCorridorByIdQuery, ErrorOr<Corridor>>
     {
         private readonly IImtCorridorRepository _repository;
-        public GetCorridorByIdQueryHandler(IImtCorridorRepository repository)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public GetCorridorByIdQueryHandler(IHttpContextAccessor httpContextAccessor, IImtCorridorRepository repository)
         {
+            _httpContextAccessor = httpContextAccessor;
             _repository = repository;
         }
         public async Task<ErrorOr<Corridor>> Handle(GetCorridorByIdQuery request, CancellationToken cancellationToken)
         {
-            var message = new MessageResponse("Record not found");
             var entity = _repository.FindById(request.id);
             if (entity == null)
             {
-                return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
             return entity;
         }

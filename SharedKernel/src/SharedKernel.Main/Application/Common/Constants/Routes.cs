@@ -414,15 +414,15 @@
 
         // currency
         public const string GetCurrencyName = "get-currency";
-        public const string GetCurrencyUrl = "/api/admin/getCurrency";
+        public const string GetCurrencyUrl = "/api/admin/Currency";
         public const string GetCurrencyByIdName = "get-currency-by-id";
-        public const string GetCurrencyByIdUrl = "/api/admin/getCurrencyById/{id}";
+        public const string GetCurrencyByIdUrl = "/api/admin/Currency/{id}";
         public const string CreateCurrencyName = "create-currency";
-        public const string CreateCurrencyUrl = "/api/admin/createCurrency";
+        public const string CreateCurrencyUrl = "/api/admin/Currency";
         public const string DeleteCurrencyName = "delete-currency";
-        public const string DeleteCurrencyUrl = "/api/admin/deleteCurrency/{id}";
+        public const string DeleteCurrencyUrl = "/api/admin/Currency/{id}";
         public const string UpdateCurrencyName = "update-currency";
-        public const string UpdateCurrencyUrl = "/api/admin/updateCurrency/{id}";
+        public const string UpdateCurrencyUrl = "/api/admin/Currency/{id}";
 
         // region
         public const string GetRegionName = "get_region";
@@ -438,39 +438,39 @@
 
         // corridor
         public const string GetCorridorName = "get-corridor";
-        public const string GetCorridorUrl = "/api/admin/getCorridor";
+        public const string GetCorridorUrl = "/api/admin/Corridor";
         public const string GetCorridorByIdName = "get-corridor-by-id";
-        public const string GetCorridorByIdUrl = "/api/admin/getCorridorById/{id}";
+        public const string GetCorridorByIdUrl = "/api/admin/Corridor/{id}";
         public const string CreateCorridorName = "create-corridor";
-        public const string CreateCorridorUrl = "/api/admin/createCorridor";
+        public const string CreateCorridorUrl = "/api/admin/Corridor";
         public const string DeleteCorridorName = "delete-corridor";
-        public const string DeleteCorridorUrl = "/api/admin/deleteCorridor/{id}";
+        public const string DeleteCorridorUrl = "/api/admin/Corridor/{id}";
         public const string UpdateCorridorName = "update-corridor";
-        public const string UpdateCorridorUrl = "/api/admin/updateCorridor/{id}";
+        public const string UpdateCorridorUrl = "/api/admin/Corridor/{id}";
 
         // payer
         public const string GetPayerName = "get-payer";
-        public const string GetPayerUrl = "/api/admin/getPayer";
+        public const string GetPayerUrl = "/api/admin/Payer";
         public const string GetPayerByIdName = "get-payer-by-id";
-        public const string GetPayerByIdUrl = "/api/admin/getPayerById/{id}";
+        public const string GetPayerByIdUrl = "/api/admin/Payer/{id}";
         public const string CreatePayerName = "create-payer";
-        public const string CreatePayerUrl = "/api/admin/createPayer";
+        public const string CreatePayerUrl = "/api/admin/Payer";
         public const string DeletePayerName = "delete-payer";
-        public const string DeletePayerUrl = "/api/admin/deletePayer/{id}";
+        public const string DeletePayerUrl = "/api/admin/Payer/{id}";
         public const string UpdatePayerName = "update-payer";
-        public const string UpdatePayerUrl = "/api/admin/updatePayer/{id}";
+        public const string UpdatePayerUrl = "/api/admin/Payer/{id}";
 
         // InstitutionMtt
         public const string GetInstitutionMttName = "get-institutionMtt";
-        public const string GetInstitutionMttUrl = "/api/admin/getInstitutionMtt";
+        public const string GetInstitutionMttUrl = "/api/admin/InstitutionMtt";
         public const string GetInstitutionMttByIdName = "get-institutionMtt-by-id";
-        public const string GetInstitutionMttByIdUrl = "/api/admin/getInstitutionMttById/{id}";
+        public const string GetInstitutionMttByIdUrl = "/api/admin/InstitutionMtt/{id}";
         public const string CreateInstitutionMttName = "create-institutionMtt";
-        public const string CreateInstitutionMttUrl = "/api/admin/createInstitutionMtt";
+        public const string CreateInstitutionMttUrl = "/api/admin/InstitutionMtt";
         public const string DeleteInstitutionMttName = "delete-institutionMtt";
-        public const string DeleteInstitutionMttUrl = "/api/admin/deleteInstitutionMtt/{id}";
+        public const string DeleteInstitutionMttUrl = "/api/admin/InstitutionMtt/{id}";
         public const string UpdateInstitutionMttName = "update-institutionMtt";
-        public const string UpdateInstitutionMttUrl = "/api/admin/updateInstitutionMtt/{id}";
+        public const string UpdateInstitutionMttUrl = "/api/admin/InstitutionMtt/{id}";
 
         // provider
         public const string GetProviderName = "get_provider";
