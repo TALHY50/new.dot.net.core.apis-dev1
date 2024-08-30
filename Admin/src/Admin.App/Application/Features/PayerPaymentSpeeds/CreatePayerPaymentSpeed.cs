@@ -1,4 +1,4 @@
-﻿using ACL.App.Contracts.Responses;
+﻿using ACL.Business.Contracts.Responses;
 using ADMIN.App.Application.Features.ServiceMethods;
 using ErrorOr;
 using FluentValidation;
