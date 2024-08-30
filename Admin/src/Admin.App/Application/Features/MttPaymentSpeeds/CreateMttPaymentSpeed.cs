@@ -80,7 +80,7 @@ namespace Admin.App.Application.Features.MttPaymentSpeeds
             var message = new MessageResponse("Record not found");
 
             var now = DateTime.UtcNow;
-            var mttCheckExist = _mtt_repository.GetByUintId(request.MttId);
+            var mttCheckExist = _mtt_repository.View(request.MttId);
             if (mttCheckExist == null)
             {
                 return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
