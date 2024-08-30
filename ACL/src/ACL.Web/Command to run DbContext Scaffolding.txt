@@ -1,0 +1,6 @@
+to scaffold dbcontext
+dotnet ef dbcontext scaffold "server=127.0.0.1;database=acl;User ID=root;Password=;CharSet=utf8mb4;" Pomelo.EntityFrameworkCore.MySql -o Database/Models -c ApplicationDbContext --context-dir Database --force  --context-namespace ACL.Database --namespace ACL.Database.Models  --force
+
+
+to get db backup.sql from command
+mysqldump -u root acl > seed_data.sql

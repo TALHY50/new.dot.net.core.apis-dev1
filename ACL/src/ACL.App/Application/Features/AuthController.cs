@@ -1,13 +1,13 @@
-using ACL.App.Application.Features.Auth.Login;
-using ACL.App.Application.Features.Auth.RefreshToken;
-using ACL.App.Application.Features.Auth.Register;
-using ACL.App.Application.Features.Auth.SignOut;
-using ACL.App.Contracts.Requests;
-using ACL.App.Contracts.Responses;
+using ACL.Web.Application.Features.Auth.Login;
+using ACL.Web.Application.Features.Auth.RefreshToken;
+using ACL.Web.Application.Features.Auth.Register;
+using ACL.Web.Application.Features.Auth.SignOut;
+using ACL.Bussiness.Contracts.Requests;
+using ACL.Bussiness.Contracts.Responses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ACL.App.Application.Features
+namespace ACL.Web.Application.Features
 {
     /// <inheritdoc/>
     [Route("api/v1/auth/")]

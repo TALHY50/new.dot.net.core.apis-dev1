@@ -1,37 +1,37 @@
-﻿using ACL.App.Contracts.Requests;
-using ACL.App.Contracts.Responses;
-using ACL.App.Domain.Services;
+﻿using ACL.Bussiness.Contracts.Requests;
+using ACL.Bussiness.Contracts.Responses;
+using ACL.Bussiness.Domain.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common.Constants;
 
-namespace ACL.App.Application.Features
+namespace ACL.Web.Application.Features
 {
-     /// <inheritdoc/>
+    /// <inheritdoc/>
     [Authorize]
     [Tags("Role & Page Association")]
     [ApiController]
     public class AclRoleAndPageAssocController : ControllerBase
     {
         private readonly IRolePageService _rolePageService;
-         /// <inheritdoc/>
+        /// <inheritdoc/>
         public AclRoleAndPageAssocController(IRolePageService rolePageService)
         {
-           this._rolePageService = rolePageService;
+            _rolePageService = rolePageService;
         }
-         /// <inheritdoc/>
+        /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclRolePageRouteUrl.List, Name = AclRoutesName.AclRolePageRouteNames.List)]
         public async Task<ScopeResponse> Index(ulong id)
         {
-            return await this._rolePageService.GetAllById(id);
+            return await _rolePageService.GetAllById(id);
         }
-         /// <inheritdoc/>
+        /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPut(AclRoutesUrl.AclRolePageRouteUrl.Edit, Name = AclRoutesName.AclRolePageRouteNames.Edit)]
         public async Task<ScopeResponse> Update(AclRoleAndPageAssocUpdateRequest req)
         {
-            return await this._rolePageService.UpdateAll(req);
+            return await _rolePageService.UpdateAll(req);
         }
     }
 }

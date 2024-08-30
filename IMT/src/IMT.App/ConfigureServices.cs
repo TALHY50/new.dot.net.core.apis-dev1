@@ -3,11 +3,11 @@
 // </copyright>
 
 using System.Security.Cryptography;
-using ACL.App.Application.Interfaces.Repositories;
-using ACL.App.Application.Interfaces.Services;
-using ACL.App.Infrastructure.Jwt;
-using ACL.App.Infrastructure.Persistence.Repositories;
-using ACL.App.Infrastructure.Security;
+using ACL.Bussiness.Application.Interfaces.Repositories;
+using ACL.Bussiness.Application.Interfaces.Services;
+using ACL.Bussiness.Infrastructure.Jwt;
+using ACL.Bussiness.Infrastructure.Persistence.Repositories;
+using ACL.Bussiness.Infrastructure.Security;
 using DotNetEnv;
 using ErrorOr;
 using FluentValidation;
@@ -26,7 +26,7 @@ using SharedKernel.Main.Application.Common.Interfaces.Services;
 using SharedKernel.Main.Infrastructure.Cryptography;
 using SharedKernel.Main.Infrastructure.Security;
 using SharedKernel.Main.Infrastructure.Services;
-using ACLApplicationDbContext = ACL.App.Infrastructure.Persistence.Context.ApplicationDbContext;
+using ACLApplicationDbContext = ACL.Bussiness.Infrastructure.Persistence.Context.ApplicationDbContext;
 using CountryRepository = SharedBusiness.Main.IMT.Infrastructure.Persistence.Repositories.CountryRepository;
 
 namespace IMT.App;

@@ -1,10 +1,10 @@
 using System.Security.Cryptography;
 
-using ACL.App.Application.Interfaces.Repositories;
-using ACL.App.Application.Interfaces.Services;
-using ACL.App.Infrastructure.Jwt;
-using ACL.App.Infrastructure.Persistence.Repositories;
-using ACL.App.Infrastructure.Security;
+using ACL.Bussiness.Application.Interfaces.Repositories;
+using ACL.Bussiness.Application.Interfaces.Services;
+using ACL.Bussiness.Infrastructure.Jwt;
+using ACL.Bussiness.Infrastructure.Persistence.Repositories;
+using ACL.Bussiness.Infrastructure.Security;
 
 using DotNetEnv;
 
@@ -25,7 +25,7 @@ using SharedKernel.Main.Infrastructure.Cryptography;
 using SharedKernel.Main.Infrastructure.Security;
 using SharedKernel.Main.Infrastructure.Services;
 
-using ApplicationDbContext = ACL.App.Infrastructure.Persistence.Context.ApplicationDbContext;
+using ApplicationDbContext = ACL.Bussiness.Infrastructure.Persistence.Context.ApplicationDbContext;
 
 namespace ACL.App;
 
@@ -205,17 +205,17 @@ public static class DependencyInjection
     {
         if (configuration.GetValue<bool>("UseInMemoryDatabase"))
         {
-            services.AddDbContext<Infrastructure.Persistence.Context.ApplicationDbContext>(options =>
+            services.AddDbContext<ACL.Bussiness.Infrastructure.Persistence.Context.ApplicationDbContext>(options =>
                 options.UseInMemoryDatabase("VerticalSliceDb"));
         }
         else
         {
             var c = configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<Infrastructure.Persistence.Context.ApplicationDbContext>(options =>
+            services.AddDbContext<ACL.Bussiness.Infrastructure.Persistence.Context.ApplicationDbContext>(options =>
                 options.UseMySql(
                     configuration.GetConnectionString("DefaultConnection"),
                     ServerVersion.AutoDetect(configuration.GetConnectionString("DefaultConnection")),
-                    b => b.MigrationsAssembly(typeof(Infrastructure.Persistence.Context.ApplicationDbContext).Assembly.FullName)));
+                    b => b.MigrationsAssembly(typeof(ACL.Bussiness.Infrastructure.Persistence.Context.ApplicationDbContext).Assembly.FullName)));
         }
         
         return services;

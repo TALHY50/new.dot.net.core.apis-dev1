@@ -1,0 +1,23 @@
+version: '3.7'
+
+services:
+  acl.web:
+    image: acl.web
+    build:
+      context: ./ACL.Web
+      dockerfile: Dockerfile
+    ports:
+      - "8000:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+    depends_on:
+      - acl.db
+
+  acl.db:
+    image: mariadb:10.4.22
+    environment:
+      MYSQL_ROOT_PASSWORD: 
+      MYSQL_DATABASE: acl_dot_net
+    ports:
+      - "3306:3306"

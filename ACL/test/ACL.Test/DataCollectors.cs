@@ -1,7 +1,7 @@
 using System.Runtime.Caching;
-using ACL.App.Contracts.Requests;
-using ACL.App.Contracts.Responses;
-using ACL.App.Infrastructure.Persistence.Context;
+using ACL.Bussiness.Contracts.Requests;
+using ACL.Bussiness.Contracts.Responses;
+using ACL.Bussiness.Infrastructure.Persistence.Context;
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;

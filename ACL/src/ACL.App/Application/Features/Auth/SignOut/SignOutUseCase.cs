@@ -1,10 +1,10 @@
-﻿using ACL.App.Application.Interfaces.Repositories;
-using ACL.App.Application.Interfaces.Services;
-using ACL.App.Contracts.Requests;
-using ACL.App.Contracts.Responses;
+﻿using ACL.Bussiness.Application.Interfaces.Repositories;
+using ACL.Bussiness.Application.Interfaces.Services;
+using ACL.Bussiness.Contracts.Requests;
+using ACL.Bussiness.Contracts.Responses;
 using SharedKernel.Main.Application.Common.Enums;
 
-namespace ACL.App.Application.Features.Auth.SignOut
+namespace ACL.Web.Application.Features.Auth.SignOut
 {
     /// <inheritdoc/>
     public class SignOutUseCase : ISignOutUseCase
@@ -16,8 +16,8 @@ namespace ACL.App.Application.Features.Auth.SignOut
             ILogger<SignOutUseCase> logger,
             IUserRepository authRepository)
         {
-            this._logger = logger;
-            this._authRepository = authRepository;
+            _logger = logger;
+            _authRepository = authRepository;
         }
         /// <inheritdoc/>
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
@@ -26,7 +26,7 @@ namespace ACL.App.Application.Features.Auth.SignOut
         {
             try
             {
-                var user = this._authRepository.FindByIdAsync(request.UserId);
+                var user = _authRepository.FindByIdAsync(request.UserId);
                 if (user == null)
                 {
                     return new SignOutErrorResponse
@@ -36,7 +36,7 @@ namespace ACL.App.Application.Features.Auth.SignOut
                     };
                 }
                 user.RefreshToken.Active = false;
-                this._authRepository.UpdateAndSaveAsync(user);
+                _authRepository.UpdateAndSaveAsync(user);
 
                 return new SignOutSuccessResponse
                 {
@@ -45,7 +45,7 @@ namespace ACL.App.Application.Features.Auth.SignOut
             }
             catch (Exception ex)
             {
-                this._logger.LogError(ex, ex.Message);
+                _logger.LogError(ex, ex.Message);
                 return new SignOutErrorResponse
                 {
                     Code = "Some Error Code",

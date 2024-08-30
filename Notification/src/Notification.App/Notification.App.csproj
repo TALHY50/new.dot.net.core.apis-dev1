@@ -52,7 +52,7 @@
 
   
   <ItemGroup>
-	<ProjectReference Include="..\..\..\ACL\src\ACL.App\ACL.App.csproj" />
+	<ProjectReference Include="..\..\..\ACL\src\ACL.App\ACL.Web.csproj" />
 	<ProjectReference Include="..\..\..\SharedKernel\src\SharedKernel.Main\SharedKernel.Main.csproj" />
   </ItemGroup>
 

@@ -1,16 +1,16 @@
 using System.Security.Cryptography;
-using ACL.App.Application.Features.Auth.Login;
-using ACL.App.Application.Features.Auth.RefreshToken;
-using ACL.App.Application.Features.Auth.Register;
-using ACL.App.Application.Features.Auth.SignOut;
-using ACL.App.Application.Interfaces.Repositories;
-using ACL.App.Application.Interfaces.Services;
-using ACL.App.Domain.Services;
-using ACL.App.Infrastructure.Jwt;
-using ACL.App.Infrastructure.Middlewares;
-using ACL.App.Infrastructure.Persistence.Context;
-using ACL.App.Infrastructure.Persistence.Repositories;
-using ACL.App.Infrastructure.Security;
+using ACL.Web.Application.Features.Auth.Login;
+using ACL.Web.Application.Features.Auth.RefreshToken;
+using ACL.Web.Application.Features.Auth.Register;
+using ACL.Web.Application.Features.Auth.SignOut;
+using ACL.Bussiness.Application.Interfaces.Repositories;
+using ACL.Bussiness.Application.Interfaces.Services;
+using ACL.Bussiness.Domain.Services;
+using ACL.Bussiness.Infrastructure.Jwt;
+using ACL.Bussiness.Infrastructure.Middlewares;
+using ACL.Bussiness.Infrastructure.Persistence.Context;
+using ACL.Bussiness.Infrastructure.Persistence.Repositories;
+using ACL.Bussiness.Infrastructure.Security;
 using DotNetEnv;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -322,6 +322,6 @@ app.UseCors(builder =>
 
 app.Run();
 
-namespace ACL.App
+namespace ACL.Web
 {
 }

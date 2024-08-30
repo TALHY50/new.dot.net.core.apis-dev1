@@ -1,13 +1,13 @@
-﻿using ACL.App.Application.Interfaces.Repositories;
-using ACL.App.Application.Interfaces.Services;
-using ACL.App.Contracts.Requests;
-using ACL.App.Contracts.Responses;
-using ACL.App.Domain.Entities;
+﻿using ACL.Bussiness.Application.Interfaces.Repositories;
+using ACL.Bussiness.Application.Interfaces.Services;
+using ACL.Bussiness.Contracts.Requests;
+using ACL.Bussiness.Contracts.Responses;
+using ACL.Bussiness.Domain.Entities;
 using SharedKernel.Main.Application.Common.Enums;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
-using Claim = ACL.App.Domain.Entities.Claim;
+using Claim = ACL.Bussiness.Domain.Entities.Claim;
 
-namespace ACL.App.Application.Features.Auth.Register
+namespace ACL.Web.Application.Features.Auth.Register
 {
     /// <inheritdoc/>
     public class RegisterUseCase : IRegisterUseCase
@@ -16,17 +16,17 @@ namespace ACL.App.Application.Features.Auth.Register
         private readonly IAuthTokenService _authTokenService;
         private readonly IUserRepository _authRepository;
         private readonly ICryptographyService _cryptographyService;
-/// <inheritdoc/>
+        /// <inheritdoc/>
         public RegisterUseCase(
             ILogger<RegisterUseCase> logger,
             IAuthTokenService authTokenService,
             IUserRepository authRepository,
             ICryptographyService cryptographyService)
         {
-            this._logger = logger;
-            this._authTokenService = authTokenService;
-            this._authRepository = authRepository;
-            this._cryptographyService = cryptographyService;
+            _logger = logger;
+            _authTokenService = authTokenService;
+            _authRepository = authRepository;
+            _cryptographyService = cryptographyService;
         }
         /// <inheritdoc/>
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
@@ -35,7 +35,7 @@ namespace ACL.App.Application.Features.Auth.Register
         {
             try
             {
-                var user =  this._authRepository.FindByEmail(request.Email);
+                var user = _authRepository.FindByEmail(request.Email);
                 if (user != null)
                 {
                     var response = new RegisterErrorResponse
@@ -46,14 +46,14 @@ namespace ACL.App.Application.Features.Auth.Register
                     return response;
                 }
 
-                var salt = this._cryptographyService.GenerateSalt();
+                var salt = _cryptographyService.GenerateSalt();
                 var currentDate = DateTime.UtcNow;
 
                 user = new User()
                 {
                     Status = 1,
                     Email = request.Email,
-                    Password = this._cryptographyService.HashPassword(request.Password, salt),
+                    Password = _cryptographyService.HashPassword(request.Password, salt),
                     Salt = salt,
                     FirstName = request.Name,
                     LastName = request.LastName,
@@ -62,7 +62,7 @@ namespace ACL.App.Application.Features.Auth.Register
                     UpdatedAt = currentDate
                 };
 
-                 this._authRepository.AddAndSaveAsync(user);
+                _authRepository.AddAndSaveAsync(user);
 
                 return new RegisterSuccessResponse
                 {
@@ -71,7 +71,7 @@ namespace ACL.App.Application.Features.Auth.Register
             }
             catch (Exception ex)
             {
-                this._logger.LogError(ex, ex.Message);
+                _logger.LogError(ex, ex.Message);
 
                 var response = new RegisterErrorResponse
                 {

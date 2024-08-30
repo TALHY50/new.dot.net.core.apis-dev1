@@ -1,43 +1,43 @@
-﻿using ACL.App.Application.Interfaces.Repositories;
-using ACL.App.Contracts.Requests;
-using ACL.App.Contracts.Responses;
+﻿using ACL.Bussiness.Application.Interfaces.Repositories;
+using ACL.Bussiness.Contracts.Requests;
+using ACL.Bussiness.Contracts.Responses;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common.Constants;
 
-namespace ACL.App.Application.Features
+namespace ACL.Web.Application.Features
 {
-     /// <inheritdoc/>
+    /// <inheritdoc/>
     //[Authorize]
     [Tags("Password")]
     [ApiController]
     public class AclPasswordController : ControllerBase
     {
         private readonly IPasswordRepository _repository;
-         /// <inheritdoc/>
+        /// <inheritdoc/>
         public AclPasswordController(IPasswordRepository repository)
         {
-            this._repository = repository;
+            _repository = repository;
         }
-         /// <inheritdoc/>
+        /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
         [HttpPost(AclRoutesUrl.AclPasswordRouteUrl.Reset, Name = AclRoutesName.AclPasswordRouteNames.Reset)]
         public async Task<ScopeResponse> ResetPassword(AclPasswordResetRequest request)
         {
-            return await this._repository.Reset(request);
+            return await _repository.Reset(request);
         }
-         /// <inheritdoc/>
+        /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
         [HttpPost(AclRoutesUrl.AclPasswordRouteUrl.Forget, Name = AclRoutesName.AclPasswordRouteNames.Forget)]
         public ScopeResponse ForgetPassword(AclForgetPasswordRequest request)
         {
-            return  this._repository.Forget(request);
+            return _repository.Forget(request);
         }
-         /// <inheritdoc/>
+        /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
         [HttpPost(AclRoutesUrl.AclPasswordRouteUrl.VerifyToken, Name = AclRoutesName.AclPasswordRouteNames.VerifyToken)]
         public async Task<ScopeResponse> VerifyTokenAndUpdatePassword(AclForgetPasswordTokenVerifyRequest request)
         {
-            return await this._repository.VerifyToken(request);
+            return await _repository.VerifyToken(request);
         }
 
 

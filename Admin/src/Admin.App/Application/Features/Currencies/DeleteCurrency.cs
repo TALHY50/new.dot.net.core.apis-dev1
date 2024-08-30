@@ -1,4 +1,4 @@
-﻿using ACL.App.Contracts.Responses;
+﻿using ACL.Bussiness.Contracts.Responses;
 using ErrorOr;
 using FluentValidation;
 using MediatR;
