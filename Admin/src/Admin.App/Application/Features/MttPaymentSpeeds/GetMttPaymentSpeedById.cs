@@ -41,11 +41,9 @@ namespace Admin.App.Application.Features.MttPaymentSpeeds
             : IRequestHandler<GetMttPaymentSpeedByIdQuery, ErrorOr<MttPaymentSpeed>>
         {
             private readonly IImtMttPaymentSpeedRepository _repository;
-            private readonly IHttpContextAccessor _httpContextAccessor;
 
-            public GetMttPaymentSpeedByIdQueryHandler(IHttpContextAccessor httpContextAccessor, IImtMttPaymentSpeedRepository repository)
+            public GetMttPaymentSpeedByIdQueryHandler(IImtMttPaymentSpeedRepository repository)
             {
-                _httpContextAccessor = httpContextAccessor;
                 _repository = repository;
             }
             public async Task<ErrorOr<MttPaymentSpeed>> Handle(GetMttPaymentSpeedByIdQuery request, CancellationToken cancellationToken)
@@ -54,7 +52,7 @@ namespace Admin.App.Application.Features.MttPaymentSpeeds
 
                 if (@mttPaymentSpeed == null)
                 {
-                    return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 return mttPaymentSpeed;

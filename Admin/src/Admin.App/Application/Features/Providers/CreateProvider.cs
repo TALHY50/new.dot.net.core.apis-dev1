@@ -62,11 +62,9 @@ namespace Admin.App.Application.Features.Providers
         : IRequestHandler<CreateProviderCommand, ErrorOr<Provider>>
     {
         private readonly IImtProviderRepository _providerRepository;
-        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public CreateProviderCommandHandler(IHttpContextAccessor httpContextAccessor, IImtProviderRepository providerRepository)
+        public CreateProviderCommandHandler(IImtProviderRepository providerRepository)
         {
-            _httpContextAccessor = httpContextAccessor;
             _providerRepository = providerRepository;
         }
 
@@ -89,7 +87,7 @@ namespace Admin.App.Application.Features.Providers
 
             if (@provider == null)
             {
-                return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
 
             return _providerRepository.Add(@provider);

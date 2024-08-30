@@ -50,7 +50,7 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
 
                 if (payerPaymentSpeed == null)
                 {
-                    return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 return payerPaymentSpeed;

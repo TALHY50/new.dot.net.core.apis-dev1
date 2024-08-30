@@ -464,7 +464,7 @@
         public const string GetProviderName = "get_provider";
         public const string GetProviderUrl = "/api/admin/provider";
         public const string GetProviderByIdName = "get_provider_by_id";
-        public const string GetProviderByIdUrl = "/api/admin/providerp/{id}";
+        public const string GetProviderByIdUrl = "/api/admin/provider/{id}";
         public const string CreateProviderName = "create_provider";
         public const string CreateProviderUrl = "/api/admin/provider";
         public const string DeleteProviderName = "delete_provider";

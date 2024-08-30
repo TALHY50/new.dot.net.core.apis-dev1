@@ -47,11 +47,9 @@ namespace Admin.App.Application.Features.TransactionTypes
         : IRequestHandler<CreateTransactionTypeCommand, ErrorOr<TransactionType>>
     {
         private readonly IImtTransactionTypeRepository _transactionTypeRepository;
-        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public CreateTransactionTypeCommandHandler(IHttpContextAccessor httpContextAccessor, IImtTransactionTypeRepository transactionTypeRepository)
+        public CreateTransactionTypeCommandHandler(IImtTransactionTypeRepository transactionTypeRepository)
         {
-            _httpContextAccessor = httpContextAccessor;
             _transactionTypeRepository = transactionTypeRepository;
         }
 
@@ -70,7 +68,7 @@ namespace Admin.App.Application.Features.TransactionTypes
 
             if (@transactionType == null)
             {
-                return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
 
             return _transactionTypeRepository.Add(@transactionType);

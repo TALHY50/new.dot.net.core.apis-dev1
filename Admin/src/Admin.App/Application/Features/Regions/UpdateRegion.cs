@@ -59,13 +59,11 @@ namespace Admin.App.Application.Features.Regions
         {
             private readonly ICurrentUserService _user;
             private readonly IImtRegionRepository _repository;
-            private readonly IHttpContextAccessor _httpContextAccessor;
 
-            public UpdateRegionCommandHandler(IHttpContextAccessor httpContextAccessor, ICurrentUserService user, IImtRegionRepository repository)
+            public UpdateRegionCommandHandler(ICurrentUserService user, IImtRegionRepository repository)
             {
                 _user = user;
                 _repository = repository;
-                _httpContextAccessor = httpContextAccessor;
             }
 
             public async Task<ErrorOr<Region>> Handle(UpdateRegionCommand request, CancellationToken cancellationToken)
@@ -74,7 +72,7 @@ namespace Admin.App.Application.Features.Regions
                 Region? regions = _repository.View(request.id);
                 if (regions == null)
                 {
-                    return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 regions.Name = request.Name;

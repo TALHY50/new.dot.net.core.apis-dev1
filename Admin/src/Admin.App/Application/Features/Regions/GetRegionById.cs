@@ -45,11 +45,9 @@ namespace Admin.App.Application.Features.Regions
             : IRequestHandler<GetRegionByIdQuery, ErrorOr<Region>>
         {
             private readonly IImtRegionRepository _repository;
-            private readonly IHttpContextAccessor _httpContextAccessor;
 
-            public GetRegionByIdQueryHandler(IHttpContextAccessor httpContextAccessor, IImtRegionRepository repository)
+            public GetRegionByIdQueryHandler(IImtRegionRepository repository)
             {
-                _httpContextAccessor = httpContextAccessor;
                 _repository = repository;
             }
             public async Task<ErrorOr<Region>> Handle(GetRegionByIdQuery request, CancellationToken cancellationToken)
@@ -58,7 +56,7 @@ namespace Admin.App.Application.Features.Regions
 
                 if (region == null)
                 {
-                    return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
                 
                 return region;

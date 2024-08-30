@@ -48,10 +48,8 @@ namespace Admin.App.Application.Features.Regions
         : IRequestHandler<CreateRegionCommand, ErrorOr<Region>>
     {
         private readonly IImtRegionRepository _repository;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        public CreateRegionCommandHandler(IHttpContextAccessor httpContextAccessor, IImtRegionRepository repository)
+        public CreateRegionCommandHandler(IImtRegionRepository repository)
         {
-            _httpContextAccessor = httpContextAccessor;
             _repository = repository;
         }
 
@@ -71,7 +69,7 @@ namespace Admin.App.Application.Features.Regions
 
             if (@region == null)
             {
-                return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
 
             return _repository.Add(@region);

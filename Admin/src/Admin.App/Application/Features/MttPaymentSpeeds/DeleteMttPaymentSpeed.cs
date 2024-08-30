@@ -47,11 +47,9 @@ namespace Admin.App.Application.Features.MttPaymentSpeeds
         {
             private readonly ICurrentUserService _user;
             private readonly IImtMttPaymentSpeedRepository _repository;
-            private readonly IHttpContextAccessor _httpContextAccessor;
 
-            public DeleteMttPaymentSpeedCommandHandler(IHttpContextAccessor httpContextAccessor, ICurrentUserService user, IImtMttPaymentSpeedRepository repository)
+            public DeleteMttPaymentSpeedCommandHandler(ICurrentUserService user, IImtMttPaymentSpeedRepository repository)
             {
-                _httpContextAccessor = httpContextAccessor;
                 _user = user;
                 _repository = repository;
             }
@@ -62,7 +60,7 @@ namespace Admin.App.Application.Features.MttPaymentSpeeds
 
                 if (mttPaymentSpeeds == null)
                 {
-                    return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 return _repository.Delete(mttPaymentSpeeds);

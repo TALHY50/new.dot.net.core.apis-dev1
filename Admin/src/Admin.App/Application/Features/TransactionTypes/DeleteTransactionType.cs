@@ -45,11 +45,9 @@ namespace Admin.App.Application.Features.TransactionTypes
         {
             private readonly ICurrentUserService _user;
             private readonly IImtTransactionTypeRepository _transactiontypeRepository;
-            private readonly IHttpContextAccessor _httpContextAccessor;
 
-            public DeleteTransactionTypeCommandHandler(IHttpContextAccessor httpContextAccessor, ICurrentUserService user, IImtTransactionTypeRepository transactionTypeRepository)
+            public DeleteTransactionTypeCommandHandler(ICurrentUserService user, IImtTransactionTypeRepository transactionTypeRepository)
             {
-                _httpContextAccessor = httpContextAccessor;
                 _user = user;
                 _transactiontypeRepository = transactionTypeRepository;
             }
@@ -60,7 +58,7 @@ namespace Admin.App.Application.Features.TransactionTypes
 
                 if (transactionTypes == null)
                 {
-                    return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 return _transactiontypeRepository.Delete(transactionTypes);
