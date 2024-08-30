@@ -3,10 +3,11 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Common.Constants.Routes;
 using SharedKernel.Main.Contracts.Common;
 
 namespace ADMIN.App.Application.Features.ServiceMethods
@@ -35,7 +36,7 @@ namespace ADMIN.App.Application.Features.ServiceMethods
         public CreateServiceMethodCommandValidator()
         {
             RuleFor(x => x.Method).NotEmpty().WithMessage("Method  is required");
-            RuleFor(x => x.CompanyId).NotEmpty().WithMessage("Company Id  is required");
+            RuleFor(x => x.CompanyId).NotEmpty().WithMessage("Company id  is required");
         }
     }
 
@@ -62,7 +63,7 @@ namespace ADMIN.App.Application.Features.ServiceMethods
             };
             if (serviceMethod == null)
             {
-                return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Service Method not found!");
+                return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), "Service Method not found!");
             }
 
             return _repository.Add(serviceMethod)!;

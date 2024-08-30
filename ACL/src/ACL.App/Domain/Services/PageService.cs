@@ -43,7 +43,7 @@ namespace ACL.App.Domain.Services
                 this.ScopeResponse.Message = this.MessageResponse.fetchMessage;
             }
             this.ScopeResponse.Data = aclPage;
-            this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+            this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             this.ScopeResponse.Timestamp = DateTime.Now;
 
             return this.ScopeResponse;
@@ -56,12 +56,12 @@ namespace ACL.App.Domain.Services
                 Page? aclPage = PrepareInputData(request);
                 this.ScopeResponse.Data = Add(aclPage);
                 this.ScopeResponse.Message = this.MessageResponse.createMessage;
-                this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             }
             catch (Exception ex)
             {
                 this.ScopeResponse.Message = ex.Message;
-                this.ScopeResponse.StatusCode = AppStatusCode.FAIL;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
             this.ScopeResponse.Timestamp = DateTime.Now;
             return this.ScopeResponse;
@@ -79,7 +79,7 @@ namespace ACL.App.Domain.Services
                 aclPage = PrepareInputData(request, aclPage);
                 this.ScopeResponse.Data = Update(aclPage);
                 this.ScopeResponse.Message = this.MessageResponse.editMessage;
-                this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
                 List<ulong>? userIds = this._userRepository.GetUserIdByChangePermission(null, null, request.Id);
                 if (userIds != null)
                 {
@@ -89,7 +89,7 @@ namespace ACL.App.Domain.Services
             catch (Exception ex)
             {
                 this.ScopeResponse.Message = ex.Message;
-                this.ScopeResponse.StatusCode = AppStatusCode.FAIL;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
             this.ScopeResponse.Timestamp = DateTime.Now;
             return this.ScopeResponse;
@@ -108,12 +108,12 @@ namespace ACL.App.Domain.Services
                     this.ScopeResponse.Message = this.MessageResponse.notFoundMessage;
                 }
 
-                this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             }
             catch (Exception ex)
             {
                 this.ScopeResponse.Message = ex.Message;
-                this.ScopeResponse.StatusCode = AppStatusCode.FAIL;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
             this.ScopeResponse.Timestamp = DateTime.Now;
             return this.ScopeResponse;
@@ -132,7 +132,7 @@ namespace ACL.App.Domain.Services
                 this.ScopeResponse.Data = Delete(page);
                 this._routeRepository.DeleteAllByPageId(id);
                 this.ScopeResponse.Message = this.MessageResponse.deleteMessage;
-                this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
                 List<ulong>? userIds = this._userRepository.GetUserIdByChangePermission(null, null, id);
                 if (userIds != null)
                 {
@@ -142,7 +142,7 @@ namespace ACL.App.Domain.Services
             catch (Exception e)
             {
                 this.ScopeResponse.Message = e.Message;
-                this.ScopeResponse.StatusCode = AppStatusCode.FAIL;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
             return this.ScopeResponse;
         }
@@ -191,12 +191,12 @@ namespace ACL.App.Domain.Services
                 PageRoute pageRoute = PreparePageRouteInputData(request);
                 this.ScopeResponse.Data = this._routeRepository.Add(pageRoute);
                 this.ScopeResponse.Message = "Page Routes Create Successfully";
-                this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             }
             catch (Exception ex)
             {
                 this.ScopeResponse.Message = ex.Message;
-                this.ScopeResponse.StatusCode = AppStatusCode.FAIL;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
             this.ScopeResponse.Timestamp = DateTime.Now;
             return this.ScopeResponse;
@@ -220,12 +220,12 @@ namespace ACL.App.Domain.Services
                 PageRoute? aclPageRouteUpdateData = PreparePageRouteInputData(request, aclPageRoute);
                 this.ScopeResponse.Data = this._routeRepository.Update(aclPageRouteUpdateData);
                 this.ScopeResponse.Message = "Page Routes Updated Successfully";
-                this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             }
             catch (Exception ex)
             {
                 this.ScopeResponse.Message = ex.Message;
-                this.ScopeResponse.StatusCode = AppStatusCode.FAIL;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
             this.ScopeResponse.Timestamp = DateTime.Now;
             return this.ScopeResponse;
@@ -247,12 +247,12 @@ namespace ACL.App.Domain.Services
                 }
                 this.ScopeResponse.Data = this._routeRepository.Delete(aclPageRoute);
                 this.ScopeResponse.Message = "Page Routes Deleted Successfully";
-                this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             }
             catch (Exception ex)
             {
                 this.ScopeResponse.Message = ex.Message;
-                this.ScopeResponse.StatusCode = AppStatusCode.FAIL;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
             return this.ScopeResponse;
         }

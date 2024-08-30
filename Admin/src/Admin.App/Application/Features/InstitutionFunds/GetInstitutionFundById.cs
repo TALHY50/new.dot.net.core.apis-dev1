@@ -2,10 +2,11 @@
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Common.Constants.Routes;
 using SharedKernel.Main.Contracts.Common;
 
 namespace Admin.App.Application.Features.InstitutionFunds
@@ -46,7 +47,7 @@ namespace Admin.App.Application.Features.InstitutionFunds
                 var institutionFund = _repository.View(request.Id);
                 if (institutionFund == null)
                 {
-                    return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Institution Fund not found!");
+                    return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), "Institution Fund not found!");
                 }
 
                 return institutionFund;

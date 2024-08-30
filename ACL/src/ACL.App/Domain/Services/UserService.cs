@@ -72,7 +72,7 @@ namespace ACL.App.Domain.Services
                 this.ScopeResponse.Message = this.MessageResponse.fetchMessage;
             }
             this.ScopeResponse.Data = result;
-            this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+            this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             this.ScopeResponse.Timestamp = DateTime.Now;
 
             return this.ScopeResponse;
@@ -108,7 +108,7 @@ namespace ACL.App.Domain.Services
                        }
 
                        this.ScopeResponse.Message = this.MessageResponse.createMessage;
-                       this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+                       this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
 
                        transaction.CommitAsync();
                    }
@@ -116,7 +116,7 @@ namespace ACL.App.Domain.Services
                    {
                        transaction?.RollbackAsync();
                        this.ScopeResponse.Message = ex.Message;
-                       this.ScopeResponse.StatusCode = AppStatusCode.FAIL;
+                       this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
                    }
 
                });
@@ -124,7 +124,7 @@ namespace ACL.App.Domain.Services
             catch (Exception ex)
             {
                 this.ScopeResponse.Message = ex.Message;
-                this.ScopeResponse.StatusCode = AppStatusCode.FAIL;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
 
             this.ScopeResponse.Timestamp = DateTime.Now;
@@ -160,7 +160,7 @@ namespace ACL.App.Domain.Services
                             //    ScopeResponse.Data = aclUser;
                             //}
                             this.ScopeResponse.Message = this.MessageResponse.editMessage;
-                            this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+                            this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
 
                             List<ulong> users = new List<ulong> { aclUser.Id };
                             UpdateUserPermissionVersion(users);
@@ -170,14 +170,14 @@ namespace ACL.App.Domain.Services
                         {
                             transaction.Rollback();
                             this.ScopeResponse.Message = this.MessageResponse.notFoundMessage;
-                            this.ScopeResponse.StatusCode = AppStatusCode.FAIL;
+                            this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
                         }
                     }
                     catch (Exception ex)
                     {
                         transaction.Rollback();
                         this.ScopeResponse.Message = ex.Message;
-                        this.ScopeResponse.StatusCode = AppStatusCode.FAIL;
+                        this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
                     }
                 }
 
@@ -217,12 +217,12 @@ namespace ACL.App.Domain.Services
                     this.ScopeResponse.Message = this.MessageResponse.fetchMessage;
                     this.ScopeResponse.Data = aclUser;
                 }
-                this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             }
             catch (Exception ex)
             {
                 this.ScopeResponse.Message = ex.Message;
-                this.ScopeResponse.StatusCode = AppStatusCode.FAIL;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
 
             this.ScopeResponse.Timestamp = DateTime.Now;
@@ -244,7 +244,7 @@ namespace ACL.App.Domain.Services
                 }
 
                 this.ScopeResponse.Message = this.MessageResponse.deleteMessage;
-                this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             }
             return this.ScopeResponse;
         }

@@ -47,7 +47,7 @@ namespace ACL.App.Domain.Services
                 }).ToList();
             this.ScopeResponse.Message = this.MessageResponse.fetchMessage;
             this.ScopeResponse.Data = new { UsergroupRoles = associatedRoles, Roles = roles };
-            this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+            this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             return this.ScopeResponse;
         }
         /// <inheritdoc/>
@@ -73,7 +73,7 @@ namespace ACL.App.Domain.Services
                    ReloadEntities(userGroupRoles);
                    this.ScopeResponse.Data = userGroupRoles;
                    this.ScopeResponse.Message = this.MessageResponse.createMessage;
-                   this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+                   this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
                    List<ulong>? userIds = this._userRepository.GetUserIdByChangePermission(null, null, null, null, request.UserGroupId);
                    if (userIds != null)
                    {
@@ -86,7 +86,7 @@ namespace ACL.App.Domain.Services
                {
                    transaction.Rollback();
                    this.ScopeResponse.Message = ex.Message;
-                   this.ScopeResponse.StatusCode = AppStatusCode.FAIL;
+                   this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
                }
            });
 

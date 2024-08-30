@@ -5,10 +5,11 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Common.Constants.Routes;
 using SharedKernel.Main.Contracts.Common;
 using static Admin.App.Application.Features.Mtts.InstitutionView;
 using static Admin.App.Application.Features.TransactionTypes.GetTransactionTypeController;
@@ -58,7 +59,7 @@ namespace Admin.App.Application.Features.TransactionTypes
                 var transactionType = _transactionTypeRepository.View(request.id);
                 if (transactionType == null)
                 {
-                    return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(message.PlainText, ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
                 else
                 {

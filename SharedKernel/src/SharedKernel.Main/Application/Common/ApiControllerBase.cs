@@ -84,7 +84,7 @@ public partial class ApiControllerBase : ControllerBase
         
         var errorResponse = new ErrorModel
         {
-            Status = new StatusEntityModel(){Code = ApplicationCodes.RequestError.Code, Message= ApplicationCodes.RequestError.Message},
+            Status = new StatusEntityModel(){Code = ApplicationStatusCodes.API_ERROR_BASIC_VALIDATION_FAILED.ToString(), Message = "Basic validation error"},
             Errors  = errorEntities,
             Data = new object()
         };
@@ -100,7 +100,7 @@ public partial class ApiControllerBase : ControllerBase
 
     protected object ToSuccess(object data)
     {
-        var status = new StatusEntityModel(){Code = ApplicationCodes.OperationIsOk.Code, Message = ApplicationCodes.OperationIsOk.Message};
+        var status = new StatusEntityModel(){Code = ApplicationStatusCodes.API_SUCCESS.ToString(), Message = "Success"};
 
         return ToResponse(status, data);
         

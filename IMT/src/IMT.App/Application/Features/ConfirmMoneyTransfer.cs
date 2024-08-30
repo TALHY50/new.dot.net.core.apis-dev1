@@ -3,7 +3,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Notification.App.Infrastructure.Persistence.Configurations;
-using SharedBusiness.Main.IMT.Infrastructure.Persistence.Context;
+using SharedBusiness.Main.Common.Infrastructure.Persistence.Context;
 using SharedKernel.Main.Application.Common;
 
 namespace IMT.App.Application.Features;

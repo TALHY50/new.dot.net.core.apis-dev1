@@ -7,9 +7,10 @@ using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using System.ComponentModel.Design;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Contracts.Common;
 using ACL.App.Contracts.Responses;
+using SharedBusiness.Main.Common.Domain.Entities;
+using SharedKernel.Main.Application.Common.Constants.Routes;
 
 namespace Admin.App.Application.Features.Corridors
 {
@@ -40,7 +41,7 @@ namespace Admin.App.Application.Features.Corridors
     {
         public UpdateCorridoryCommandValidator()
         {
-            RuleFor(x => x.id).NotEmpty().WithMessage("Corridor Id is required");
+            RuleFor(x => x.id).NotEmpty().WithMessage("Corridor id is required");
             RuleFor(x => x.SourceCountryId).NotEmpty();
             RuleFor(x => x.DestinationCountryId).NotEmpty();
             RuleFor(x => x.SourceCurrencyId).NotEmpty();
@@ -62,7 +63,7 @@ namespace Admin.App.Application.Features.Corridors
             var now = DateTime.UtcNow;
             if (entity == null)
             {
-                return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                return Error.NotFound(message.PlainText, ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
             entity.SourceCountryId = request.SourceCountryId;
             entity.DestinationCountryId = request.DestinationCountryId;

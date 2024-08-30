@@ -2,10 +2,11 @@
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Application.Common;
-using SharedBusiness.Main.IMT.Domain.Entities;
+using SharedKernel.Main.Application.Common.Constants.Routes;
 
 namespace Admin.App.Application.Features.InstitutionMtts
 {

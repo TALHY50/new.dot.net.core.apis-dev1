@@ -48,12 +48,12 @@ namespace ACL.App.Domain.Services
             if (res.Any())
             {
                 this.ScopeResponse.Message = this.MessageResponse.fetchMessage;
-                this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             }
             else
             {
                 this.ScopeResponse.Message = this.MessageResponse.notFoundMessage;
-                this.ScopeResponse.StatusCode = AppStatusCode.FAIL;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
             this.ScopeResponse.Data = res;
             this.ScopeResponse.Timestamp = DateTime.Now;
@@ -71,7 +71,7 @@ namespace ACL.App.Domain.Services
                 {
                     DeleteAll(res.ToArray());
                     this.ScopeResponse.Data = AddAll(check);
-                    this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+                    this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
                     this.ScopeResponse.Message = this.MessageResponse.editMessage;
                     List<ulong>? userIds = this._userRepository.GetUserIdByChangePermission(null, null, req.RoleId);
                     if (userIds != null)
@@ -81,7 +81,7 @@ namespace ACL.App.Domain.Services
                 }
                 else
                 {
-                    this.ScopeResponse.StatusCode = AppStatusCode.FAIL;
+                    this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
                     this.ScopeResponse.Message = this.MessageResponse.editFail;
                 }
 
@@ -89,7 +89,7 @@ namespace ACL.App.Domain.Services
             catch (Exception ex)
             {
                 this.ScopeResponse.Message = ex.Message;
-                this.ScopeResponse.StatusCode = AppStatusCode.FAIL;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
             this.ScopeResponse.Timestamp = DateTime.Now;
             return this.ScopeResponse;

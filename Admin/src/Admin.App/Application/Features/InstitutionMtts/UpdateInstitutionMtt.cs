@@ -3,11 +3,12 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Contracts.Common;
 using ACL.App.Contracts.Responses;
+using SharedBusiness.Main.Common.Domain.Entities;
+using SharedKernel.Main.Application.Common.Constants.Routes;
 
 namespace Admin.App.Application.Features.InstitutionMtts
 {
@@ -41,7 +42,7 @@ namespace Admin.App.Application.Features.InstitutionMtts
     {
         public UpdateInstitutionMttyCommandValidator()
         {
-            RuleFor(x => x.id).NotEmpty().WithMessage("InstitutionMtt Id is required");
+            RuleFor(x => x.id).NotEmpty().WithMessage("InstitutionMtt id is required");
             RuleFor(x => x.InstitutionId).NotEmpty().WithMessage("InstitutionId is required");
             RuleFor(x => x.MttId).NotEmpty().WithMessage("MttId is required");
             RuleFor(x => x.CommissionType).NotEmpty().WithMessage("CommissionType is required");
@@ -67,7 +68,7 @@ namespace Admin.App.Application.Features.InstitutionMtts
             var now = DateTime.UtcNow;
             if (entity == null)
             {
-                return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                return Error.NotFound(message.PlainText, ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
             entity.InstitutionId = request.InstitutionId;
             entity.MttId = request.MttId;

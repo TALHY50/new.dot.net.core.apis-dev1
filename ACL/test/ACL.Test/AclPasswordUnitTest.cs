@@ -3,6 +3,7 @@ using ACL.App.Contracts.Responses;
 using Newtonsoft.Json;
 using RestSharp;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Common.Constants.Routes;
 using SharedKernel.Main.Contracts.Common;
 using SharedKernel.Main.Infrastructure.Services;
 using SharedKernel.Main.Infrastructure.Utilities;
@@ -47,7 +48,7 @@ namespace ACL.TEST
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
             ScopeResponse scopeResponse = JsonConvert.DeserializeObject<ScopeResponse>(response.Content); 
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, scopeResponse.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, scopeResponse.StatusCode);
 
         }
         [Fact]
@@ -69,7 +70,7 @@ namespace ACL.TEST
             CacheHelper.Set(uniqueKey, _scopeResponse.Data, 120);
 
             //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, _scopeResponse.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, _scopeResponse.StatusCode);
 
         }
 
@@ -94,7 +95,7 @@ namespace ACL.TEST
             CacheHelper.Remove(uniqueKey);
 
             //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, _scopeResponse.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, _scopeResponse.StatusCode);
 
         }
 

@@ -3,10 +3,11 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Common.Constants.Routes;
 using SharedKernel.Main.Contracts.Common;
 
 namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
@@ -38,7 +39,7 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
             public UpdatePayerPaymentSpeedCommandValidator()
             {
                 RuleFor(x => x.Id).NotEmpty().WithMessage("PayerPaymentSpeed ID is required");
-                RuleFor(x => x.PayerId).NotEmpty().WithMessage("Payer Id is required");
+                RuleFor(x => x.PayerId).NotEmpty().WithMessage("Payer id is required");
                 RuleFor(x => x.Gmt).NotEmpty().WithMessage("GMT is required");
                 RuleFor(x => x.WorkingDays).NotEmpty().WithMessage("Working Days is required");
             }
@@ -68,7 +69,7 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
 
                 if (payerPaymentSpeed == null)
                 {
-                    return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Payer Payment Speed not found!");
+                    return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), "Payer Payment Speed not found!");
                 }
 
                 return _repository.Update(payerPaymentSpeed)!;

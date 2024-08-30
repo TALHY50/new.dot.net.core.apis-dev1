@@ -1,4 +1,4 @@
-﻿using SharedBusiness.Main.IMT.Domain.Entities;
+﻿using SharedBusiness.Main.Common.Domain.Entities;
 
 namespace SharedBusiness.Main.IMT.Application.Interfaces.Repositories
 {

@@ -25,16 +25,17 @@ using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
+using SharedBusiness.Main.Common.Infrastructure.Persistence.Context;
+using SharedBusiness.Main.Common.Infrastructure.Persistence.Repositories;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Infrastructure.Persistence.Context;
-using SharedBusiness.Main.IMT.Infrastructure.Persistence.Repositories;
 using SharedKernel.Main.Application.Common.Behaviours;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
 using SharedKernel.Main.Infrastructure.Cryptography;
 using SharedKernel.Main.Infrastructure.Security;
 using SharedKernel.Main.Infrastructure.Services;
 using ACLApplicationDbContext = ACL.App.Infrastructure.Persistence.Context.ApplicationDbContext;
-using CountryRepository = SharedBusiness.Main.IMT.Infrastructure.Persistence.Repositories.CountryRepository;
+using CountryRepository = SharedBusiness.Main.Common.Infrastructure.Persistence.Repositories.CountryRepository;
+using ICountryRepository = SharedBusiness.Main.IMT.Application.Interfaces.Repositories.ICountryRepository;
 
 namespace Admin.App;
 
@@ -172,7 +173,7 @@ public static class DependencyInjection
         services.AddScoped<IImtPayerRepository, PayerRepository>();
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreatePayerCommand).Assembly));
 
-        services.AddScoped<IAdminCountryRepository, CountryRepository>();
+        services.AddScoped<ICountryRepository, CountryRepository>();
         services.AddScoped<IImtServiceMethodRepository, ServiceMethodRepository>();
         services.AddScoped<IImtPayerPaymentSpeedRepository, PayerPaymentSpeed>();
         services.AddScoped<IImtTaxRateRepository, TaxRateRepository>();

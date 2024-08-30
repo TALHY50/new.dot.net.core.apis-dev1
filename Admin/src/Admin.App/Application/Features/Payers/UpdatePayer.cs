@@ -4,10 +4,11 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Common.Constants.Routes;
 using SharedKernel.Main.Contracts.Common;
 
 namespace Admin.App.Application.Features.Payers
@@ -52,7 +53,7 @@ namespace Admin.App.Application.Features.Payers
         public UpdateCommandValidator()
         {
             RuleFor(x => x.id).NotEmpty().WithMessage("id is required");
-            RuleFor(x => x.Name).NotEmpty().WithMessage("Name is required");
+            RuleFor(x => x.Name).NotEmpty().WithMessage("name is required");
             RuleFor(x => x.InternalPayerId).NotEmpty().WithMessage("InternalPayerId is required");
             RuleFor(x => x.Increment).NotEmpty().WithMessage("Increment is required");
             RuleFor(x => x.MoneyPrecision).NotEmpty().WithMessage("MoneyPrecision is required");
@@ -83,7 +84,7 @@ namespace Admin.App.Application.Features.Payers
             var now = DateTime.UtcNow;
             if (entity == null)
             {
-                return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                return Error.NotFound(message.PlainText, ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
             entity.Name = request.Name;
             entity.ProviderId = request.ProviderId;

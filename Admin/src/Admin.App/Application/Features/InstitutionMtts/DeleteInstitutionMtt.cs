@@ -7,6 +7,7 @@ using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Contracts.Common;
 using ACL.App.Contracts.Responses;
+using SharedKernel.Main.Application.Common.Constants.Routes;
 
 namespace Admin.App.Application.Features.InstitutionMtts
 {
@@ -51,13 +52,13 @@ namespace Admin.App.Application.Features.InstitutionMtts
 
                 if (entity == null)
                 {
-                    return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(message.PlainText, ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 return _repository.Delete(entity);
             }
 
-            return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+            return Error.NotFound(message.PlainText, ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
         }
     }
 }

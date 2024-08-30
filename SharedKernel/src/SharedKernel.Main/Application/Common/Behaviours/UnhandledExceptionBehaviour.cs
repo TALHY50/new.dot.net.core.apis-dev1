@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using Quartz.Util;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Contracts.Common;
 using SharedKernel.Main.Infrastructure.Extensions;
 
 namespace SharedKernel.Main.Application.Common.Behaviours;
@@ -31,7 +32,7 @@ public class UnhandledExceptionBehaviour<TRequest, TResponse> : IPipelineBehavio
             _logger.LogError(ex, "Request: Unhandled Exception for Request {Name} {@Request}", requestName, request);
             
             var error = Error.Unexpected(
-                code: ApplicationCodes.Unexpected.Code,
+                code: ApplicationStatusCodes.API_ERROR_UNEXPECTED_ERROR.ToString(),
                 description: ex.ToString());
 
             return (dynamic)error;
