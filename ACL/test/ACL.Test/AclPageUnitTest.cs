@@ -1,5 +1,5 @@
-using ACL.App.Contracts.Requests;
-using ACL.App.Contracts.Responses;
+using ACL.Business.Contracts.Requests;
+using ACL.Business.Contracts.Responses;
 using Bogus;
 using Newtonsoft.Json;
 using RestSharp;

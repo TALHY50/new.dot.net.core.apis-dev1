@@ -1,10 +1,10 @@
 ﻿using System.Security.Cryptography;
 
-using ACL.App.Application.Interfaces.Repositories;
-using ACL.App.Application.Interfaces.Services;
-using ACL.App.Infrastructure.Jwt;
-using ACL.App.Infrastructure.Persistence.Repositories;
-using ACL.App.Infrastructure.Security;
+using ACL.Business.Application.Interfaces.Repositories;
+using ACL.Business.Application.Interfaces.Services;
+using ACL.Business.Infrastructure.Jwt;
+using ACL.Business.Infrastructure.Persistence.Repositories;
+using ACL.Business.Infrastructure.Security;
 
 using DotNetEnv;
 
@@ -31,7 +31,7 @@ using SharedKernel.Main.Infrastructure.Cryptography;
 using SharedKernel.Main.Infrastructure.Security;
 using SharedKernel.Main.Infrastructure.Services;
 
-using ApplicationDbContext = ACL.App.Infrastructure.Persistence.Context.ApplicationDbContext;
+using ApplicationDbContext = ACL.Business.Infrastructure.Persistence.Context.ApplicationDbContext;
 
 namespace Notification.App;
 
