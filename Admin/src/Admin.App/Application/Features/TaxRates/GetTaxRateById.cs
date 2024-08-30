@@ -37,9 +37,11 @@ namespace Admin.App.Application.Features.TaxRates
         public class GetTaxRateByIdQueryHandler : IRequestHandler<GetTaxRateByIdQuery, ErrorOr<TaxRate>>
         {
             private readonly IImtTaxRateRepository _repository;
+            private readonly IHttpContextAccessor _httpContextAccessor;
 
-            public GetTaxRateByIdQueryHandler(IImtTaxRateRepository repository)
+            public GetTaxRateByIdQueryHandler(IHttpContextAccessor httpContextAccessor, IImtTaxRateRepository repository)
             {
+                _httpContextAccessor = httpContextAccessor;
                 _repository = repository;
             }
             public async Task<ErrorOr<TaxRate>> Handle(GetTaxRateByIdQuery request, CancellationToken cancellationToken)
@@ -50,7 +52,7 @@ namespace Admin.App.Application.Features.TaxRates
 
                 if (taxRate == null)
                 {
-                    return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
                 return taxRate!;
             }

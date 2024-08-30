@@ -42,15 +42,21 @@ namespace Admin.App.Application.Features.TaxRates
             public UpdateTaxRateCommandValidator()
             {
                 RuleFor(x => x.Id).NotEmpty().WithMessage("TaxRate ID is required");
+                RuleFor(x => x.TaxType).NotEmpty().WithMessage("TaxType  is required");
+                RuleFor(x => x.TaxPercentage).NotEmpty().WithMessage("TaxPercentage  is required");
+                RuleFor(x => x.TaxFixed).NotEmpty().WithMessage("TaxFixed  is required");
+                RuleFor(x => x.Status).NotEmpty().WithMessage("Status  is required");
             }
         }
 
         public class UpdateTaxRateCommandHandler : IRequestHandler<UpdateTaxRateCommand, ErrorOr<TaxRate>>
         {
             private readonly IImtTaxRateRepository _repository;
+            private readonly IHttpContextAccessor _httpContextAccessor;
 
-            public UpdateTaxRateCommandHandler(IImtTaxRateRepository repository)
+            public UpdateTaxRateCommandHandler(IHttpContextAccessor httpContextAccessor, IImtTaxRateRepository repository)
             {
+                _httpContextAccessor = httpContextAccessor;
                 _repository = repository;
             }
 
@@ -62,7 +68,7 @@ namespace Admin.App.Application.Features.TaxRates
 
                 if (taxRate == null)
                 {
-                    return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
                 taxRate.TaxType = command.TaxType;
                 taxRate.CorridorId = command.CorridorId;

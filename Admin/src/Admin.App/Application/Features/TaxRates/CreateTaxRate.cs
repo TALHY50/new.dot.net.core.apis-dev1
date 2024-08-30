@@ -6,6 +6,7 @@ using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Contracts.Common;
 using YamlDotNet.Core.Tokens;
 
 namespace Admin.App.Application.Features.TaxRates
@@ -49,9 +50,11 @@ namespace Admin.App.Application.Features.TaxRates
     public class CreateTaxRateCommandHandler : IRequestHandler<CreateTaxRateCommand, ErrorOr<TaxRate>>
     {
         private readonly IImtTaxRateRepository _repository;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public CreateTaxRateCommandHandler(IImtTaxRateRepository repository)
+        public CreateTaxRateCommandHandler(IHttpContextAccessor httpContextAccessor, IImtTaxRateRepository repository)
         {
+            _httpContextAccessor = httpContextAccessor;
             _repository = repository;
         }
 
@@ -72,6 +75,10 @@ namespace Admin.App.Application.Features.TaxRates
                 UpdatedAt = DateTime.UtcNow,
             };
 
+            if(taxRate == null)
+            {
+                return ErrorOr.Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+            }
             return _repository.Add(taxRate)!;
         }
     }

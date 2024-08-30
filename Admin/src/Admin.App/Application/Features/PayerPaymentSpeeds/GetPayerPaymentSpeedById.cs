@@ -38,9 +38,11 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
         public class GetPayerPaymentSpeedByIdQueryHandler : IRequestHandler<GetPayerPaymentSpeedByIdQuery, ErrorOr<PayerPaymentSpeed>>
         {
             private readonly IImtPayerPaymentSpeedRepository _repository;
+            private readonly IHttpContextAccessor _httpContextAccessor;
 
-            public GetPayerPaymentSpeedByIdQueryHandler(IImtPayerPaymentSpeedRepository repository)
+            public GetPayerPaymentSpeedByIdQueryHandler(IHttpContextAccessor httpContextAccessor, IImtPayerPaymentSpeedRepository repository)
             {
+                _httpContextAccessor = httpContextAccessor;
                 _repository = repository;
             }
             public async Task<ErrorOr<PayerPaymentSpeed>> Handle(GetPayerPaymentSpeedByIdQuery request, CancellationToken cancellationToken)
@@ -50,7 +52,7 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
                 var message = new MessageResponse("Record not found");
                 if (payerPaymentSpeed == null)
                 {
-                    return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 return payerPaymentSpeed;

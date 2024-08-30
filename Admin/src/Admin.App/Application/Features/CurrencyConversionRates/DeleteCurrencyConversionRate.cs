@@ -37,9 +37,11 @@ namespace Admin.App.Application.Features.CurrencyConversionRates
     public class DeleteCurrencyConversionRateCommandHandler : IRequestHandler<DeleteCurrencyConversionRateCommand, ErrorOr<bool>>
     {
         private readonly IImtCurrencyConversionRateRepository _repository;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public DeleteCurrencyConversionRateCommandHandler(IImtCurrencyConversionRateRepository repository)
+        public DeleteCurrencyConversionRateCommandHandler(IHttpContextAccessor httpContextAccessor, IImtCurrencyConversionRateRepository repository)
         {
+            _httpContextAccessor = httpContextAccessor;
             _repository = repository;
         }
 
@@ -52,7 +54,7 @@ namespace Admin.App.Application.Features.CurrencyConversionRates
 
                 if (currencyConversionRate == null)
                 {
-                    return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 return _repository.Delete(currencyConversionRate);

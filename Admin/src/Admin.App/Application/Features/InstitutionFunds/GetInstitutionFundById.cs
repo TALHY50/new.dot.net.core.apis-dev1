@@ -37,9 +37,11 @@ namespace Admin.App.Application.Features.InstitutionFunds
         public class GetInstitutionFundByIdQueryHandler : IRequestHandler<GetInstitutionFundByIdQuery, ErrorOr<InstitutionFund>>
         {
             private readonly IImtInstitutionFundRepository _repository;
+            private readonly IHttpContextAccessor _httpContextAccessor;
 
-            public GetInstitutionFundByIdQueryHandler(IImtInstitutionFundRepository repository)
+            public GetInstitutionFundByIdQueryHandler(IHttpContextAccessor httpContextAccessor, IImtInstitutionFundRepository repository)
             {
+                _httpContextAccessor = httpContextAccessor;
                 _repository = repository;
             }
             public async Task<ErrorOr<InstitutionFund>> Handle(GetInstitutionFundByIdQuery request, CancellationToken cancellationToken)
@@ -48,7 +50,7 @@ namespace Admin.App.Application.Features.InstitutionFunds
                 var message = new MessageResponse("Record not found");
                 if (institutionFund == null)
                 {
-                    return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 return institutionFund;

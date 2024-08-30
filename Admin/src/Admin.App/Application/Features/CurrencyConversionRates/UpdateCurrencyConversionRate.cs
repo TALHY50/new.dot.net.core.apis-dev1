@@ -48,9 +48,11 @@ namespace Admin.App.Application.Features.CurrencyConversionRates
         public class UpdateCurrencyConversionRateCommandHandler : IRequestHandler<UpdateCurrencyConversionRateCommand, ErrorOr<CurrencyConversionRate>>
         {
             private readonly IImtCurrencyConversionRateRepository _repository;
+            private readonly IHttpContextAccessor _httpContextAccessor;
 
-            public UpdateCurrencyConversionRateCommandHandler(IImtCurrencyConversionRateRepository repository)
+            public UpdateCurrencyConversionRateCommandHandler(IHttpContextAccessor httpContextAccessor, IImtCurrencyConversionRateRepository repository)
             {
+                _httpContextAccessor = httpContextAccessor;
                 _repository = repository;
             }
 
@@ -71,9 +73,7 @@ namespace Admin.App.Application.Features.CurrencyConversionRates
                 }
                 else
                 {
-                    var message = new MessageResponse("Record not found");
-
-                    return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
             }
         }

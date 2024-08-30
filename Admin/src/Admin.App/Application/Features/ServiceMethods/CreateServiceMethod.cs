@@ -43,9 +43,11 @@ namespace ADMIN.App.Application.Features.ServiceMethods
     public class CreateServiceMethodCommandHandler : IRequestHandler<CreateServiceMethodCommand, ErrorOr<ServiceMethod>>
     {
         private readonly IImtServiceMethodRepository _repository;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public CreateServiceMethodCommandHandler(IImtServiceMethodRepository repository)
+        public CreateServiceMethodCommandHandler(IHttpContextAccessor httpContextAccessor, IImtServiceMethodRepository repository)
         {
+            _httpContextAccessor = httpContextAccessor;
             _repository = repository;
         }
 
@@ -62,11 +64,9 @@ namespace ADMIN.App.Application.Features.ServiceMethods
                 UpdatedAt = DateTime.UtcNow
             };
 
-            var message = new MessageResponse("Record not found");
-
             if (serviceMethod == null)
             {
-                return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
 
             return _repository.Add(serviceMethod)!;
