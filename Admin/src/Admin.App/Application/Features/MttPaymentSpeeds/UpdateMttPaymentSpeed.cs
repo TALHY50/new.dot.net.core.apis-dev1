@@ -96,7 +96,7 @@ namespace Admin.App.Application.Features.MttPaymentSpeeds
                     return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
-                var mttCheckExist = _mtt_repository.GetByUintId(request.MttId);
+                var mttCheckExist = _mtt_repository.View(request.MttId);
                 if (mttCheckExist == null)
                 {
                     return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "MttId not found!");

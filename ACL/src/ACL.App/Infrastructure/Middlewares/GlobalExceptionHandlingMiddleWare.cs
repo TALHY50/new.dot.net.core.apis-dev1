@@ -8,7 +8,7 @@ namespace ACL.App.Infrastructure.Middlewares
     public class GlobalExceptionHandlerMiddleware
     {
         private readonly RequestDelegate _next;
-        BaseResponse aclResponse = new BaseResponse();
+        ACL.App.Contracts.Responses.BaseResponse aclResponse = new ACL.App.Contracts.Responses.BaseResponse();
         public GlobalExceptionHandlerMiddleware(RequestDelegate next)
         {
             _next = next;
