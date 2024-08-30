@@ -27,14 +27,14 @@ namespace Admin.App.Application.Features.Currencies
     }
     public record GetCurrencyByIdQuery(uint id) : IRequest<ErrorOr<Currency>>;
 
-    internal sealed class GetCurrencyByIdValidator : AbstractValidator<GetCurrencyByIdQuery>
+    public class GetCurrencyByIdValidator : AbstractValidator<GetCurrencyByIdQuery>
     {
         public GetCurrencyByIdValidator()
         {
             RuleFor(x => x.id).NotEmpty().WithMessage("Currency ID is required");
         }
     }
-    internal sealed class GetCurrencyByIdQueryHandler :
+    public class GetCurrencyByIdQueryHandler :
         IRequestHandler<GetCurrencyByIdQuery, ErrorOr<Currency>>
     {
         private readonly IImtAdminCurrencyRepository _repository;
@@ -51,7 +51,7 @@ namespace Admin.App.Application.Features.Currencies
             var entity = _repository.FindById(request.id);
             if (entity == null)
             {
-                return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
             return entity;
         }

@@ -27,14 +27,14 @@ namespace Admin.App.Application.Features.Currencies
 
     public record DeleteCurrencyCommand(uint id) : IRequest<ErrorOr<bool>>;
 
-    internal sealed class DeleteCurrencyCommandValidator : AbstractValidator<DeleteCurrencyCommand>
+    public class DeleteCurrencyCommandValidator : AbstractValidator<DeleteCurrencyCommand>
     {
         public DeleteCurrencyCommandValidator()
         {
             RuleFor(r => r.id).NotEmpty();
         }
     }
-    internal sealed class DeleteCurrencyCommandHandler : IRequestHandler<DeleteCurrencyCommand, ErrorOr<bool>>
+    public class DeleteCurrencyCommandHandler : IRequestHandler<DeleteCurrencyCommand, ErrorOr<bool>>
     {
         private readonly IImtAdminCurrencyRepository _repository;
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -52,7 +52,7 @@ namespace Admin.App.Application.Features.Currencies
 
                 if (entity == null)
                 {
-                    return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 return _repository.Delete(entity);
