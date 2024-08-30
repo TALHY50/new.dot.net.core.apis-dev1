@@ -60,6 +60,8 @@
   <ItemGroup>
     <Folder Include="Http\" />
     <Folder Include="Logs\" />
+    <Folder Include="Presentation\Endpoints\" />
+    <Folder Include="Presentation\Mapping\" />
   </ItemGroup>
   
  

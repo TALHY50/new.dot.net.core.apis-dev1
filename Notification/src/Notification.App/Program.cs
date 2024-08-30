@@ -1,6 +1,7 @@
 using Microsoft.OpenApi.Models;
 
 using Notification.App;
+using Notification.App.Infrastructure;
 using Notification.App.Presentation;
 
 using SharedKernel.Main;
@@ -31,6 +32,7 @@ builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
+//app.AddInfrastructure();
 // Enable middleware to serve generated Swagger as a JSON endpoint.
 app.UseSwagger();
 
