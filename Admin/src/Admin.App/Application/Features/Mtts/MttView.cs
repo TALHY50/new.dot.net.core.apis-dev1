@@ -9,9 +9,9 @@ using SharedKernel.Main.Application.Common.Constants;
 
 namespace Admin.App.Application.Features.Mtts
 {
-    public class MttView : ApiControllerBase
+    public class InstitutionView : ApiControllerBase
     {
-        [Tags("Mtt")]
+          [Tags("Institution")]
         //[Authorize(Policy = "HasPermission")]
         [HttpGet(AdminRoute.ViewMttsRouteUrl, Name = AdminRoute.ViewMttsRouteName)]
         public async Task<ActionResult<ErrorOr<Mtt>>> GetById(uint id)
@@ -40,7 +40,7 @@ namespace Admin.App.Application.Features.Mtts
 
             public async Task<ErrorOr<Mtt>> Handle(GetMttsByIdQuery request, CancellationToken cancellationToken)
             {
-                return _repository.GetByUintId(request.id);
+                return _repository.View(request.id);
             }
         }
     }

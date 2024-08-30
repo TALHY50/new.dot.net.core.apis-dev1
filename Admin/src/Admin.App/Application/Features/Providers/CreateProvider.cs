@@ -32,7 +32,7 @@ namespace Admin.App.Application.Features.Providers
         string? BaseUrl,
         string? ApiKey,
         string? ApiSecret,
-        byte? Status = 1) : IRequest<ErrorOr<Provider>>;
+        byte? Status) : IRequest<ErrorOr<Provider>>;
 
     public class CreateProviderCommandValidator : AbstractValidator<CreateProviderCommand>
     {
@@ -76,14 +76,14 @@ namespace Admin.App.Application.Features.Providers
                 BaseUrl = request.BaseUrl,
                 ApiKey = request.ApiKey,
                 ApiSecret = request.ApiSecret,
-                Status = request.Status,
+                Status = request.Status??1,
                 CreatedById = 1,
                 UpdatedById = 2,
                 CreatedAt = now,
                 UpdatedAt = now,
             };
 
-            return await _providerRepository.AddAsync(@provider);
+            return _providerRepository.Add(@provider);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using ErrorOr;
+﻿using ACL.App.Contracts.Responses;
+using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -8,7 +9,7 @@ using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
 using SharedKernel.Main.Contracts.Common;
-using static Admin.App.Application.Features.Mtts.MttsDelete;
+using static Admin.App.Application.Features.Mtts.InstitutionDelete;
 
 namespace Admin.App.Application.Features.Providers
 {
@@ -51,14 +52,16 @@ namespace Admin.App.Application.Features.Providers
 
             public async Task<ErrorOr<bool>> Handle(DeleteProviderCommand request, CancellationToken cancellationToken)
             {
-                var providers = _providerRepository.GetByUintId(request.id);
+                var message = new MessageResponse("Record not found");
+
+                var providers = _providerRepository.View(request.id);
 
                 if (providers == null)
                 {
-                    return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Provider not found!");
+                    return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
-                return await _providerRepository.DeleteAsync(providers);
+                return _providerRepository.Delete(providers);
             }
         }
     }

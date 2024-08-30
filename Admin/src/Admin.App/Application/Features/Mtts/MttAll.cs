@@ -9,7 +9,7 @@ using SharedKernel.Main.Application.Common.Constants;
 
 namespace Admin.App.Application.Features.Mtts
 {
-    public class MttAll : ApiControllerBase
+    public class MttsAll : ApiControllerBase
     {
         [Tags("Mtt")]
         //[Authorize(Policy = "HasPermission")]
@@ -34,7 +34,7 @@ namespace Admin.App.Application.Features.Mtts
 
             public async Task<ErrorOr<List<Mtt>>> Handle(GetAllMttsQuery request, CancellationToken cancellationToken)
             {
-                return _repository.All().ToList();
+                return _repository.GetAll().ToList();
             }
         }
     }

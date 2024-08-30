@@ -2,31 +2,11 @@
 using ErrorOr;
 using FluentValidation;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Contracts.Common;
 
-namespace Admin.App.Application.Features.Countries
+namespace SharedBusiness.Main.Admin.Application.Features.Country.Countries
 {
-    public class DeleteCountryController : ApiControllerBase
-    {
-        [Tags("Country")]
-        //[Authorize(Policy = "HasPermission")]
-        [HttpDelete(Routes.DeleteCountryUrl, Name = Routes.DeleteCountryName)]
-
-        public async Task<ActionResult<ErrorOr<bool>>> Delete(uint Id)
-        {
-            var result = await Mediator.Send(new DeleteCountryCommand(Id)).ConfigureAwait(false);
-
-            return result.Match(
-                reminder => Ok(result.Value),
-                Problem);
-        }
-    }
-
     public record DeleteCountryCommand(uint Id) : IRequest<ErrorOr<bool>>;
 
     public class DeleteCountryCommandValidator : AbstractValidator<DeleteCountryCommand>

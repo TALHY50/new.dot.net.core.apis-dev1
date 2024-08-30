@@ -144,7 +144,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Admin\" />
 	  <Folder Include="IMT\Presentation\Mapping\" />
 	</ItemGroup>
 

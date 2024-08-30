@@ -68,7 +68,7 @@ namespace Admin.App.Application.Features.Corridors
                 CreatedAt = now,
                 UpdatedAt = now,
             };
-            var result = await _repository.AddAsync(@corridor);
+            var result = _repository.Add(@corridor);
 
             if (result == null)
             {

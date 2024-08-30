@@ -1,4 +1,5 @@
-﻿using ErrorOr;
+﻿using ACL.App.Contracts.Responses;
+using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -44,19 +45,20 @@ namespace Admin.App.Application.Features.Corridors
 
         public async Task<ErrorOr<bool>> Handle(DeleteCorridorCommand request, CancellationToken cancellationToken)
         {
+            var message = new MessageResponse("Record not found");
             if (request.id > 0)
             {
-                var entity = _repository.GetByUintId(request.id);
+                var entity = _repository.FindById(request.id);
 
                 if (entity == null)
                 {
-                    return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Corridor not found!");
+                    return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
-                return await _repository.DeleteAsync(entity);
+                return _repository.Delete(entity);
             }
 
-            return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Corridor not found!");
+            return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
         }
     }
 }

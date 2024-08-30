@@ -77,42 +77,6 @@ namespace Admin.App.Application.Features.Mtts
                     Id = request.Id,
                 };
 
-                if (request.Id > 0)
-                {
-                    entity = _repository.GetByUintId(request.Id);
-
-                    if (entity != null)
-                    {
-                        entity.CompanyId = request.CompanyId;
-                        entity.CorridorId = request.CorridorId;
-                      //  entity.CotCurrencyId = request.CotCurrencyId;
-                        entity.CotFixed = request.CotFixed;
-                        entity.CotPercentage = request.CotPercentage;
-                        entity.FxSpread = request.FxSpread;
-                        entity.Increment = request.Increment;
-                       // entity.MarkUpCurrencyId = request.MarkUpCurrencyId;
-                        entity.MarkUpFixed = request.MarkUpFixed;
-                        entity.MarkUpPercentage = request.MarkUpPercentage;
-                        entity.MoneyPrecision = request.MoneyPrecision;
-                        entity.PayerId = request.PayerId;
-                        entity.ServiceMethodId = request.ServiceMethodId;
-                        entity.Status = request.Status;
-                        entity.UpdatedAt = DateTime.Now;
-                        entity.TransactionTypeId = request.TransactionTypeId;
-                        if (_user?.UserId != null)
-                        {
-                            entity.UpdatedById = uint.Parse(_user?.UserId ?? "1");
-                        }
-                        else
-                        {
-                            entity.UpdatedById = 1;
-                        }
-                    }
-
-                    return await _repository.UpdateAsync(entity);
-                }
-                else
-                {
                     if (_user?.UserId != null)
                     {
                         entity.CreatedById = uint.Parse(_user?.UserId ?? "1");
@@ -126,8 +90,7 @@ namespace Admin.App.Application.Features.Mtts
 
                     entity.CreatedAt = DateTime.Now;
                     entity.UpdatedAt = DateTime.Now;
-                    return await _repository.AddAsync(entity);
-                }
+                    return _repository.Add(entity);
             }
         }
     }

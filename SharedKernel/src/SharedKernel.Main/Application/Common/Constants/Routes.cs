@@ -400,6 +400,17 @@
         public const string UpdateHolidaySettingName = "update_holiday_setting";
         public const string UpdateHolidaySettingUrl = "/api/admin/holiday-settings";
 
+        // institution 
+        public const string GetInstitutionName = "get_institution";
+        public const string GetInstitutionUrl = "/api/admin/institution";
+        public const string GetInstitutionByIdName = "get_institution_by_id";
+        public const string GetInstitutionByIdUrl = "/api/admin/institution/{id}";
+        public const string CreateInstitutionName = "create_institution";
+        public const string CreateInstitutionUrl = "/api/admin/institution";
+        public const string DeleteInstitutionName = "delete_institution";
+        public const string DeleteInstitutionUrl = "/api/admin/institution/{id}";
+        public const string UpdateInstitutionName = "update_institution";
+        public const string UpdateInstitutionUrl = "/api/admin/institution";
 
         // currency
         public const string GetCurrencyName = "get-currency";
@@ -449,6 +460,18 @@
         public const string UpdatePayerName = "update-payer";
         public const string UpdatePayerUrl = "/api/admin/updatePayer/{id}";
 
+        // InstitutionMtt
+        public const string GetInstitutionMttName = "get-institutionMtt";
+        public const string GetInstitutionMttUrl = "/api/admin/getInstitutionMtt";
+        public const string GetInstitutionMttByIdName = "get-institutionMtt-by-id";
+        public const string GetInstitutionMttByIdUrl = "/api/admin/getInstitutionMttById/{id}";
+        public const string CreateInstitutionMttName = "create-institutionMtt";
+        public const string CreateInstitutionMttUrl = "/api/admin/createInstitutionMtt";
+        public const string DeleteInstitutionMttName = "delete-institutionMtt";
+        public const string DeleteInstitutionMttUrl = "/api/admin/deleteInstitutionMtt/{id}";
+        public const string UpdateInstitutionMttName = "update-institutionMtt";
+        public const string UpdateInstitutionMttUrl = "/api/admin/updateInstitutionMtt/{id}";
+
         // provider
         public const string GetProviderName = "get_provider";
         public const string GetProviderUrl = "/api/admin/getProvider";
@@ -472,6 +495,18 @@
         public const string DeleteTransactionTypeUrl = "/api/admin/deleteTransactionType/{id}";
         public const string UpdateTransactionTypeName = "update_transaction_type";
         public const string UpdateTransactionTypeUrl = "/api/admin/updateTransactionType/{id}";
+
+        // mtt_payment_speed
+        public const string GetMttPaymentSpeedName = "get_mtt_payment_speed";
+        public const string GetMttPaymentSpeedUrl = "/api/admin/getMttPaymentSpeed";
+        public const string GetMttPaymentSpeedByIdName = "get_mtt_payment_speed_by_id";
+        public const string GetMttPaymentSpeedByIdUrl = "/api/admin/getMttPaymentSpeedById/{id}";
+        public const string CreateMttPaymentSpeedName = "create_mtt_payment_speed";
+        public const string CreateMttPaymentSpeedUrl = "/api/admin/createMttPaymentSpeed";
+        public const string DeleteMttPaymentSpeedName = "delete_mtt_payment_speed";
+        public const string DeleteMttPaymentSpeedUrl = "/api/admin/deleteMttPaymentSpeed/{id}";
+        public const string UpdateMttPaymentSpeedName = "update_mtt_payment_speed";
+        public const string UpdateMttPaymentSpeedUrl = "/api/admin/updateMttPaymentSpeed/{id}";
 
         // CreateMoneyTransferTransaction
         public const string CreateMoneyTransferTransactionName = "create_money_transaction";

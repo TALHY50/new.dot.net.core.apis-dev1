@@ -1,15 +1,16 @@
 
 using Admin.App;
+using Admin.App.Presentation;
 using Microsoft.OpenApi.Models;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
 using SharedKernel.Main.Infrastructure.Services;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddPresentation();
 
 builder.Services.AddCors(options => options.AddDefaultPolicy(
     policy => policy.AllowAnyOrigin()

@@ -19,6 +19,7 @@ using Microsoft.IdentityModel.Tokens;
 
 using Notification.App.Application.Interfaces.Repositories;
 using Notification.App.Application.Interfaces.Services;
+using Notification.App.Infrastructure;
 using Notification.App.Infrastructure.Email;
 using Notification.App.Infrastructure.Files;
 using Notification.App.Infrastructure.Persistence.Repositories;
@@ -55,6 +56,7 @@ public static class DependencyInjection
 
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddInfrastructure();
         services.AddSecurity(configuration);
 
         services.AddPersistence(configuration);

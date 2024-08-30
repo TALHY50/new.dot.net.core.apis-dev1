@@ -9,7 +9,7 @@ using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Contracts.Common;
-using static Admin.App.Application.Features.Countries.GetCountryByIdController;
+using static Admin.App.Presentation.Endpoints.Country.GetCountryById;
 
 namespace ADMIN.App.Application.Features.ServiceMethods
 {

@@ -3,7 +3,12 @@ using SharedKernel.Main.Application.Common.Interfaces.Services;
 
 namespace SharedBusiness.Main.IMT.Application.Interfaces.Repositories
 {
-    public interface IImtCorridorRepository : IGenericRepository<Corridor>
+    public interface IImtCorridorRepository
     {
+        Corridor? Add(Corridor corridor);
+        Corridor? Update(Corridor corridor);
+        List<Corridor> GetAll();
+        bool Delete(Corridor corridor);
+        Corridor? FindById(uint id);
     }
 }

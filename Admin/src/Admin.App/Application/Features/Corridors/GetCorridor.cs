@@ -31,10 +31,10 @@ namespace Admin.App.Application.Features.Corridors
         {
             _repository = repository;
         }
-        public Task<ErrorOr<List<Corridor>>> Handle(GetCorridorQuery request, CancellationToken cancellationToken)
+        public async Task<ErrorOr<List<Corridor>>> Handle(GetCorridorQuery request, CancellationToken cancellationToken)
         {
-            var corridors = _repository.All().ToList();
-            return Task.FromResult<ErrorOr<List<Corridor>>>(corridors);
+            var corridors = _repository.GetAll();
+            return corridors;
 
         }
     }

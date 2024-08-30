@@ -9,7 +9,6 @@ using ACL.App.Infrastructure.Jwt;
 using ACL.App.Infrastructure.Persistence.Repositories;
 using ACL.App.Infrastructure.Security;
 using Admin.App.Application.Features.Corridors;
-using Admin.App.Application.Features.Countries;
 using Admin.App.Application.Features.Currencies;
 using Admin.App.Application.Features.Currencies;
 using Admin.App.Application.Features.Payers;
@@ -43,6 +42,7 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
+        SharedBusiness.Main.Admin.Application.DependencyInjection.AddApplication(services);
         services.AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly);
 
         services.AddMediatR(options =>
@@ -113,7 +113,7 @@ public static class DependencyInjection
         var port = Env.GetString("DB_PORT");
 
         var connectionString =
-            $"server={server};database={database};User ID={userName};Password={password};CharSet=utf8mb4;" ??
+            $"server={server};database={database};port={port};User ID={userName};Password={password};CharSet=utf8mb4;" ??
             throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
         services.AddDbContext<ACLApplicationDbContext>(
@@ -179,10 +179,12 @@ public static class DependencyInjection
         services.AddScoped<IImtCurrencyConversionRateRepository, CurrencyConversionRateRepository>();
         services.AddScoped<IImtInstitutionFundRepository, InstitutionFundRepository>();
         services.AddScoped<IImtTransactionTypeRepository, TransactionTypeRepository>();
+        services.AddScoped<IImtInstitutionMttRepository, InstitutionMttRepository>();
        // services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateCountryCommand).Assembly));  
         // services.AddScoped<IRequestHandler<CreateCountryCommand, ErrorOr<Country>>, CreateCountryCommandHandler>();
 
         services.AddScoped<IImtMttsRepository, MttRepository>();
+        services.AddScoped<IImtMttPaymentSpeedRepository, ImtMttPaymentSpeedRepository>();
 
        // services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateMttCommand).Assembly));
 
@@ -191,6 +193,8 @@ public static class DependencyInjection
 
         // HolidaySetting
         services.AddScoped<IHolidaySettingRepository, HolidaySettingRepository>();
+        services.AddScoped<IInstitutionRepository, InstitutionRepository>();
+        services.AddScoped<IInstitutionSettingRepository, InstitutionSettingRepository>();
 
         services.AddSingleton(provider =>
         {

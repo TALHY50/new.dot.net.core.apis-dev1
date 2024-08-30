@@ -9,7 +9,7 @@ using SharedKernel.Main.Application.Common.Interfaces.Services;
 
 namespace Admin.App.Application.Features.Mtts
 {
-    public class MttsDelete : ApiControllerBase
+    public class InstitutionDelete : ApiControllerBase
     {
         [Tags("Mtt")]
         //[Authorize(Policy = "HasPermission")]
@@ -33,30 +33,15 @@ namespace Admin.App.Application.Features.Mtts
 
         internal sealed class DeleteMttCommandHandler : IRequestHandler<DeleteMttCommand, bool>
         {
-            private readonly ICurrentUserService _user;
             private readonly IImtMttsRepository _repository;
-
             public DeleteMttCommandHandler(ICurrentUserService user, IImtMttsRepository repository)
             {
-                _user = user;
                 _repository = repository;
             }
 
             public async Task<bool> Handle(DeleteMttCommand request, CancellationToken cancellationToken)
             {
-                if (request.id > 0)
-                {
-                    var entity = _repository.GetByUintId(request.id);
-
-                    if (entity != null)
-                    {
-                        return await _repository.DeleteAsync(entity);
-                    }
-
-                    return await _repository.DeleteAsync(entity);
-                }
-
-                return false;
+                return _repository.Delete(request.id);
             }
         }
     }
