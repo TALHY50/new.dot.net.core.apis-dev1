@@ -53,17 +53,13 @@ namespace Admin.App.Application.Features.TransactionTypes
             }
             public async Task<ErrorOr<TransactionType>> Handle(GetTransactionTypeByIdQuery request, CancellationToken cancellationToken)
             {
-                var message = new MessageResponse("Record not found");
-
                 var transactionType = _transactionTypeRepository.View(request.id);
                 if (transactionType == null)
                 {
-                    return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
-                }
-                else
-                {
-                    return transactionType;
-                }
+                    return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                
+            }
+                return transactionType;
             }
         }
     }

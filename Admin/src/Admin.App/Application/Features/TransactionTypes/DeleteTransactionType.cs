@@ -45,7 +45,7 @@ namespace Admin.App.Application.Features.TransactionTypes
         {
             private readonly ICurrentUserService _user;
             private readonly IImtTransactionTypeRepository _transactiontypeRepository;
-           
+
             public DeleteTransactionTypeCommandHandler(ICurrentUserService user, IImtTransactionTypeRepository transactionTypeRepository)
             {
                 _user = user;
@@ -54,13 +54,11 @@ namespace Admin.App.Application.Features.TransactionTypes
 
             public async Task<ErrorOr<bool>> Handle(DeleteTransactionTypeCommand request, CancellationToken cancellationToken)
             {
-                var message = new MessageResponse("Record not found");
-
                 var transactionTypes = _transactiontypeRepository.View(request.id);
 
                 if (transactionTypes == null)
                 {
-                    return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 return _transactiontypeRepository.Delete(transactionTypes);

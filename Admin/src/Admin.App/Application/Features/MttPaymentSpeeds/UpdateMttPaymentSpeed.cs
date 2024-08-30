@@ -87,19 +87,17 @@ namespace Admin.App.Application.Features.MttPaymentSpeeds
 
             public async Task<ErrorOr<MttPaymentSpeed>> Handle(UpdateMttPaymentSpeedCommand request, CancellationToken cancellationToken)
             {
-                var message = new MessageResponse("Record not found");
-
                 var now = DateTime.UtcNow;
                 MttPaymentSpeed? mttPaymentSpeed = _repository.View(request.id);
                 if (mttPaymentSpeed == null)
                 {
-                    return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 var mttCheckExist = _mtt_repository.View(request.MttId);
                 if (mttCheckExist == null)
                 {
-                    return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "MttId not found!");
+                    return Error.NotFound(description: Language.GetMessage("MttId not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 mttPaymentSpeed.MttId = request.MttId;

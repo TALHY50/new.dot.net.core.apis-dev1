@@ -9,6 +9,7 @@ using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Contracts.Common;
 
 namespace Admin.App.Application.Features.TransactionTypes
 {
@@ -64,6 +65,11 @@ namespace Admin.App.Application.Features.TransactionTypes
                 CreatedAt = now,
                 UpdatedAt = now,
             };
+
+            if (@transactionType == null)
+            {
+                return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+            }
 
             return _transactionTypeRepository.Add(@transactionType);
         }

@@ -68,15 +68,13 @@ namespace Admin.App.Application.Features.Regions
 
             public async Task<ErrorOr<Region>> Handle(UpdateRegionCommand request, CancellationToken cancellationToken)
             {
-                var message = new MessageResponse("Record not found");
-
                 var now = DateTime.UtcNow;
                 Region? regions = _repository.View(request.id);
                 if (regions == null)
                 {
-                    return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
-                
+
                 regions.Name = request.Name;
                 regions.CompanyId = request.CompanyId;
                 regions.Status = request.Status;
@@ -85,7 +83,6 @@ namespace Admin.App.Application.Features.Regions
                 regions.CreatedAt = now;
                 regions.UpdatedAt = now;
 
-                
 
                 return _repository.Update(regions);
             }

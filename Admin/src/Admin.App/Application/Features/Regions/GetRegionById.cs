@@ -4,6 +4,7 @@ using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedBusiness.Main.IMT.Domain.Entities;
@@ -44,24 +45,21 @@ namespace Admin.App.Application.Features.Regions
             : IRequestHandler<GetRegionByIdQuery, ErrorOr<Region>>
         {
             private readonly IImtRegionRepository _repository;
+
             public GetRegionByIdQueryHandler(IImtRegionRepository repository)
             {
                 _repository = repository;
             }
             public async Task<ErrorOr<Region>> Handle(GetRegionByIdQuery request, CancellationToken cancellationToken)
             {
-                var message = new MessageResponse("Record not found");
-
                 var region = _repository.View(request.id);
 
                 if (region == null)
                 {
-                    return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
-                else
-                {
-                    return region;
-                }
+                
+                return region;
             }
         }
     }
