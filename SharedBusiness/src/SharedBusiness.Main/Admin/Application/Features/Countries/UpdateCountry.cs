@@ -50,15 +50,25 @@ public record UpdateCountryCommand(
                     code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
 
-
-            country.IsoCodeShort = command.iso_code;
-            country.IsoCode = command.iso_code_short;
+            
+            country.IsoCode = command.iso_code;
+            country.IsoCodeShort = command.iso_code_short;
+            country.IsoCodeNum = command.iso_code_num;
             country.Name = command.name;
+            country.OfficialStateName = command.official_state_name;
             country.Status = (sbyte) command.status;
-            country.UpdatedById = command.id;
             country.UpdatedAt = DateTime.UtcNow;
                 
-            return _repository.Update(country)!;
+            var result =  _repository.Update(country);
+
+            if (result == null)
+            {
+                return Error.NotFound(ApplicationStatusCodes.API_ERROR_UNEXPECTED_ERROR, "Country can not be updated");
+            }
+
+            return result;
+
+
         }
             
     }

@@ -8,7 +8,7 @@ using SharedKernel.Main.Application.Common.Constants.Routes;
 
 namespace Admin.App.Presentation.Endpoints.Country;
 
-public class UpdateCountry : CountryBase
+public class UpdateCountryById : CountryBase
 {
     [Tags("Countries")]
     //[Authorize(Policy = "HasPermission")]
@@ -20,7 +20,7 @@ public class UpdateCountry : CountryBase
         var commandWithId = command with { id = Id };
         var result = await Mediator.Send(commandWithId).ConfigureAwait(false);
         return result.Match(
-            reminder => Ok(ToSuccess(result.Value)),
+            country => Ok(ToSuccess(result.Value)),
             Problem);
     }
 

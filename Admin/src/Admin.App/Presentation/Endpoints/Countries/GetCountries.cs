@@ -8,7 +8,7 @@ using SharedKernel.Main.Application.Common.Constants.Routes;
 
 namespace Admin.App.Presentation.Endpoints.Country;
 
-public class GetCountry : CountryBase
+public class GetCountries : CountryBase
 {
     [Tags("Countries")]
     // [Authorize(Policy = "HasPermission")]
