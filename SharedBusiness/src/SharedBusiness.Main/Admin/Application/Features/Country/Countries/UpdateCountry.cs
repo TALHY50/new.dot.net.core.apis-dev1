@@ -1,6 +1,7 @@
 using ErrorOr;
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Contracts.Common;
 
@@ -27,29 +28,31 @@ public record UpdateCountryCommand(
     public class UpdateCountryCommandHandler : IRequestHandler<UpdateCountryCommand, ErrorOr<IMT.Domain.Entities.Country>>
     {
         private readonly IAdminCountryRepository _repository;
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public UpdateCountryCommandHandler(IAdminCountryRepository repository)
-        {
-            _repository = repository;
-        }
-
-        public async Task<ErrorOr<IMT.Domain.Entities.Country>> Handle(UpdateCountryCommand command, CancellationToken cancellationToken)
-        {
-            IMT.Domain.Entities.Country? country = _repository.View(command.Id);
-            if (country != null)
-            {
-                country.Code = command.Code;
-                country.IsoCode = command.IsoCode;
-                country.Name = command.Name;
-                country.Status = command.Status;
-                country.UpdatedById = command.Id;
-                country.UpdatedAt = DateTime.UtcNow;
-                    
-                return _repository.Update(country)!;
-            }
-            else
-            {
-                return Error.NotFound(description: "Country not found!", code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
-            }
-        }
+    public UpdateCountryCommandHandler(IHttpContextAccessor httpContextAccessor, IAdminCountryRepository repository)
+    {
+    _httpContextAccessor = httpContextAccessor;
+    _repository = repository;
     }
+
+    public async Task<ErrorOr<IMT.Domain.Entities.Country>> Handle(UpdateCountryCommand command, CancellationToken cancellationToken)
+    {
+        IMT.Domain.Entities.Country? country = _repository.View(command.Id);
+        if (country != null)
+        {
+            country.Code = command.Code;
+            country.IsoCode = command.IsoCode;
+            country.Name = command.Name;
+            country.Status = command.Status;
+            country.UpdatedById = command.Id;
+            country.UpdatedAt = DateTime.UtcNow;
+                    
+            return _repository.Update(country)!;
+        }
+        else
+        {
+        return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+    }
+    }
+}

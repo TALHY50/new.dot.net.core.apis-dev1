@@ -38,11 +38,6 @@ namespace ADMIN.App.Application.Features.ServiceMethods
             {
                 var serviceMethods = _repository.ViewAll();
 
-                if (serviceMethods == null)
-                {
-                    return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Service Method not found!");
-                }
-
                 return serviceMethods;
             }
         }

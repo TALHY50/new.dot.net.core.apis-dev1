@@ -38,10 +38,6 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
             {
                 var payerPaymentSpeeds = _repository.ViewAll();
 
-                if (payerPaymentSpeeds == null)
-                {
-                    return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Payer Payment Speed not found!");
-                }
                 return payerPaymentSpeeds;
             }
         }

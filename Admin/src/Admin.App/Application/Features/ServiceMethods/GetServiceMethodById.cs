@@ -1,4 +1,5 @@
-﻿using ErrorOr;
+﻿using ACL.App.Contracts.Responses;
+using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -39,18 +40,22 @@ namespace ADMIN.App.Application.Features.ServiceMethods
         public class GetServiceMethodByIdQueryHandler : IRequestHandler<GetServiceMethodByIdQuery, ErrorOr<ServiceMethod>>
         {
             private readonly IImtServiceMethodRepository _repository;
+            private readonly IHttpContextAccessor _httpContextAccessor;
 
-            public GetServiceMethodByIdQueryHandler(IImtServiceMethodRepository repository)
+            public GetServiceMethodByIdQueryHandler(IHttpContextAccessor httpContextAccessor, IImtServiceMethodRepository repository)
             {
+                _httpContextAccessor = httpContextAccessor;
                 _repository = repository;
             }
             public async Task<ErrorOr<ServiceMethod>> Handle(GetServiceMethodByIdQuery request, CancellationToken cancellationToken)
             {
                 var serviceMethod = _repository.View(request.Id);
 
+                var message = new MessageResponse("Record not found");
+
                 if (serviceMethod == null)
                 {
-                    return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Service Method not found!");
+                    return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 return serviceMethod;
