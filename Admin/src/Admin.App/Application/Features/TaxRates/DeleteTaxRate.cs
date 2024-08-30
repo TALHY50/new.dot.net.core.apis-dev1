@@ -36,9 +36,11 @@ namespace Admin.App.Application.Features.TaxRates
     public class DeleteTaxRateCommandHandler : IRequestHandler<DeleteTaxRateCommand, ErrorOr<bool>>
     {
         private readonly IImtTaxRateRepository _repository;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public DeleteTaxRateCommandHandler(IImtTaxRateRepository repository)
+        public DeleteTaxRateCommandHandler(IHttpContextAccessor httpContextAccessor, IImtTaxRateRepository repository)
         {
+            _httpContextAccessor = httpContextAccessor;
             _repository = repository;
         }
 
@@ -50,7 +52,7 @@ namespace Admin.App.Application.Features.TaxRates
 
                 if (taxRate == null)
                 {
-                    return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Tax Rate not found!");
+                    return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
                 return _repository.Delete(taxRate);
             }

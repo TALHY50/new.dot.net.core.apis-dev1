@@ -1,6 +1,7 @@
 using ErrorOr;
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Contracts.Common;
 
@@ -28,9 +29,11 @@ namespace SharedBusiness.Main.Admin.Application.Features.Country.Countries
     public class CreateCountryCommandHandler : IRequestHandler<CreateCountryCommand, ErrorOr<IMT.Domain.Entities.Country>>
     {
         private readonly IAdminCountryRepository _repository;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public CreateCountryCommandHandler(IAdminCountryRepository repository)
+        public CreateCountryCommandHandler(IHttpContextAccessor httpContextAccessor, IAdminCountryRepository repository)
         {
+            _httpContextAccessor = httpContextAccessor;
             _repository = repository;
         }
 
@@ -48,9 +51,11 @@ namespace SharedBusiness.Main.Admin.Application.Features.Country.Countries
                 UpdatedAt = DateTime.UtcNow,
             };
 
+            var message = new MessageResponse("Record not found");
+
             if (country == null)
             {
-                return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Country not found!");
+                return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
             return _repository.Add(country)!;
         }

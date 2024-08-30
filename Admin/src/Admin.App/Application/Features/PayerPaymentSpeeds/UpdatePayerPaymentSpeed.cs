@@ -1,4 +1,5 @@
-﻿using ErrorOr;
+﻿using ACL.App.Contracts.Responses;
+using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -58,11 +59,6 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
             public async Task<ErrorOr<PayerPaymentSpeed>> Handle(UpdatePayerPaymentSpeedCommand command, CancellationToken cancellationToken)
             {
                 PayerPaymentSpeed? payerPaymentSpeed = _repository.View(command.Id);
-                if (payerPaymentSpeed == null)
-                {
-                    return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
-                }
-
                 if (payerPaymentSpeed != null)
                 {
                     payerPaymentSpeed.PayerId = command.PayerId;
@@ -71,6 +67,12 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
                     payerPaymentSpeed.Status = command.Status;
                     payerPaymentSpeed.UpdatedById = command.Id;
                     payerPaymentSpeed.UpdatedAt = DateTime.UtcNow;
+                }
+
+                var message = new MessageResponse("Record not found");
+                if (payerPaymentSpeed == null)
+                {
+                    return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 return _repository.Update(payerPaymentSpeed)!;
