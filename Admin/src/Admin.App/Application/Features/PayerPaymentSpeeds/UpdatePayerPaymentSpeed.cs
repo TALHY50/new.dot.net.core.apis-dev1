@@ -47,15 +47,22 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
         public class UpdatePayerPaymentSpeedCommandHandler : IRequestHandler<UpdatePayerPaymentSpeedCommand, ErrorOr<PayerPaymentSpeed>>
         {
             private readonly IImtPayerPaymentSpeedRepository _repository;
+            private readonly IHttpContextAccessor _httpContextAccessor;
 
-            public UpdatePayerPaymentSpeedCommandHandler(IImtPayerPaymentSpeedRepository repository)
+            public UpdatePayerPaymentSpeedCommandHandler(IHttpContextAccessor httpContextAccessor, IImtPayerPaymentSpeedRepository repository)
             {
+                _httpContextAccessor = httpContextAccessor;
                 _repository = repository;
             }
 
             public async Task<ErrorOr<PayerPaymentSpeed>> Handle(UpdatePayerPaymentSpeedCommand command, CancellationToken cancellationToken)
             {
                 PayerPaymentSpeed? payerPaymentSpeed = _repository.View(command.Id);
+                if (payerPaymentSpeed == null)
+                {
+                    return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                }
+
                 if (payerPaymentSpeed != null)
                 {
                     payerPaymentSpeed.PayerId = command.PayerId;
@@ -64,11 +71,6 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
                     payerPaymentSpeed.Status = command.Status;
                     payerPaymentSpeed.UpdatedById = command.Id;
                     payerPaymentSpeed.UpdatedAt = DateTime.UtcNow;
-                }
-
-                if (payerPaymentSpeed == null)
-                {
-                    return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "Payer Payment Speed not found!");
                 }
 
                 return _repository.Update(payerPaymentSpeed)!;

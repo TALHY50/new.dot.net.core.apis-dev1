@@ -9,6 +9,7 @@ using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Contracts.Common;
 
 namespace Admin.App.Application.Features.TransactionTypes
 {
@@ -46,9 +47,11 @@ namespace Admin.App.Application.Features.TransactionTypes
         : IRequestHandler<CreateTransactionTypeCommand, ErrorOr<TransactionType>>
     {
         private readonly IImtTransactionTypeRepository _transactionTypeRepository;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public CreateTransactionTypeCommandHandler(IImtTransactionTypeRepository transactionTypeRepository)
+        public CreateTransactionTypeCommandHandler(IHttpContextAccessor httpContextAccessor, IImtTransactionTypeRepository transactionTypeRepository)
         {
+            _httpContextAccessor = httpContextAccessor;
             _transactionTypeRepository = transactionTypeRepository;
         }
 
@@ -64,6 +67,11 @@ namespace Admin.App.Application.Features.TransactionTypes
                 CreatedAt = now,
                 UpdatedAt = now,
             };
+
+            if (@transactionType == null)
+            {
+                return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+            }
 
             return _transactionTypeRepository.Add(@transactionType);
         }

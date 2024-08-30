@@ -72,25 +72,25 @@ namespace Admin.App.Application.Features.Providers
         {
             private readonly ICurrentUserService _user;
             private readonly IImtProviderRepository _providerRepository;
+            private readonly IHttpContextAccessor _httpContextAccessor;
 
-            public UpdateProviderCommandHandler(ICurrentUserService user, IImtProviderRepository providerRepository)
+            public UpdateProviderCommandHandler(IHttpContextAccessor httpContextAccessor, ICurrentUserService user, IImtProviderRepository providerRepository)
             {
+                _httpContextAccessor = httpContextAccessor;
                 _user = user;
                 _providerRepository = providerRepository;
             }
 
             public async Task<ErrorOr<Provider>> Handle(UpdateProviderCommand request, CancellationToken cancellationToken)
             {
-                var message = new MessageResponse("Record not found");
-
                 var now = DateTime.UtcNow;
                 Provider? providers = _providerRepository.View(request.id);
 
                 if (providers == null)
                 {
-                    return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
-                
+
                 providers.Code = request.Code;
                 providers.Name = request.Name;
                 providers.BaseUrl = request.BaseUrl;

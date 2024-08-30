@@ -46,24 +46,22 @@ namespace Admin.App.Application.Features.TransactionTypes
             : IRequestHandler<GetTransactionTypeByIdQuery, ErrorOr<TransactionType>>
         {
             private readonly IImtTransactionTypeRepository _transactionTypeRepository;
+            private readonly IHttpContextAccessor _httpContextAccessor;
 
-            public GetTransactionTypeByIdQueryHandler(IImtTransactionTypeRepository transactionTypeRepository)
+            public GetTransactionTypeByIdQueryHandler(IHttpContextAccessor httpContextAccessor, IImtTransactionTypeRepository transactionTypeRepository)
             {
+                _httpContextAccessor = httpContextAccessor;
                 _transactionTypeRepository = transactionTypeRepository;
             }
             public async Task<ErrorOr<TransactionType>> Handle(GetTransactionTypeByIdQuery request, CancellationToken cancellationToken)
             {
-                var message = new MessageResponse("Record not found");
-
                 var transactionType = _transactionTypeRepository.View(request.id);
                 if (transactionType == null)
                 {
-                    return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
-                }
-                else
-                {
-                    return transactionType;
-                }
+                    return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                
+            }
+                return transactionType;
             }
         }
     }

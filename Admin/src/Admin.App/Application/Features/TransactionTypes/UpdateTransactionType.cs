@@ -3,6 +3,7 @@ using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedBusiness.Main.IMT.Domain.Entities;
@@ -51,25 +52,25 @@ namespace Admin.App.Application.Features.TransactionTypes
         public class UpdateTransactionTypeCommandHandler
         : IRequestHandler<UpdateTransactionTypeCommand, ErrorOr<TransactionType>>
         {
+            private readonly IHttpContextAccessor _httpContextAccessor;
             private readonly ICurrentUserService _user;
             private readonly IImtTransactionTypeRepository _transactionTypeRepository;
 
-            public UpdateTransactionTypeCommandHandler(ICurrentUserService user, IImtTransactionTypeRepository transactionTypeRepository)
+            public UpdateTransactionTypeCommandHandler(IHttpContextAccessor httpContextAccessor, ICurrentUserService user, IImtTransactionTypeRepository transactionTypeRepository)
             {
+                _httpContextAccessor = httpContextAccessor;
                 _user = user;
                 _transactionTypeRepository = transactionTypeRepository;
             }
 
             public async Task<ErrorOr<TransactionType>> Handle(UpdateTransactionTypeCommand request, CancellationToken cancellationToken)
             {
-                var message = new MessageResponse("Record not found");
-
                 var now = DateTime.UtcNow;
                 TransactionType? transactionTypes = _transactionTypeRepository.View(request.id);
 
                 if (transactionTypes == null)
                 {
-                    return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 transactionTypes.Name = request.Name;

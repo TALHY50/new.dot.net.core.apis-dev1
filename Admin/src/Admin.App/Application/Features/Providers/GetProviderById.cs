@@ -4,6 +4,7 @@ using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedBusiness.Main.IMT.Domain.Entities;
@@ -58,24 +59,22 @@ namespace Admin.App.Application.Features.Providers
             : IRequestHandler<GetProviderByIdQuery, ErrorOr<Provider>>
         {
             private readonly IImtProviderRepository _providerRepository;
+            private readonly IHttpContextAccessor _httpContextAccessor;
 
-            public GetProviderByIdQueryHandler(IImtProviderRepository providerRepository)
+            public GetProviderByIdQueryHandler(IHttpContextAccessor httpContextAccessor, IImtProviderRepository providerRepository)
             {
+                _httpContextAccessor = httpContextAccessor;
                 _providerRepository = providerRepository;
             }
             public async Task<ErrorOr<Provider>> Handle(GetProviderByIdQuery request, CancellationToken cancellationToken)
             {
-                var message = new MessageResponse("Record not found");
-
                 var provider = _providerRepository.View(request.id);
                 if (provider == null)
                 {
-                    return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
-                else
-                {
-                    return provider;
-                }
+
+                return provider;
             }
         }
     }

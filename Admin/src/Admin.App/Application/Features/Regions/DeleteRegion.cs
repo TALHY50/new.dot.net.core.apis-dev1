@@ -47,21 +47,22 @@ namespace Admin.App.Application.Features.Regions
         {
             private readonly ICurrentUserService _user;
             private readonly IImtRegionRepository _repository;
-            public DeleteRegionCommandHandler(ICurrentUserService user, IImtRegionRepository repository)
+            private readonly IHttpContextAccessor _httpContextAccessor;
+
+            public DeleteRegionCommandHandler(IHttpContextAccessor httpContextAccessor, ICurrentUserService user, IImtRegionRepository repository)
             {
+                _httpContextAccessor = httpContextAccessor;
                 _user = user;
                 _repository = repository;
             }
 
             public async Task<ErrorOr<bool>> Handle(DeleteRegionCommand request, CancellationToken cancellationToken)
             {
-                var message = new MessageResponse("Record not found");
-
                 var regions = _repository.View(request.id);
 
                 if (regions == null)
                 {
-                    return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 return _repository.Delete(regions);

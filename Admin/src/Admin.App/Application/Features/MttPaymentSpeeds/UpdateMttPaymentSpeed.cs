@@ -77,29 +77,29 @@ namespace Admin.App.Application.Features.MttPaymentSpeeds
             private readonly ICurrentUserService _user;
             private readonly IImtMttPaymentSpeedRepository _repository;
             private readonly IImtMttsRepository _mtt_repository;
+            private readonly IHttpContextAccessor _httpContextAccessor;
 
-            public UpdateMttPaymentSpeedCommandHandler(ICurrentUserService user, IImtMttPaymentSpeedRepository repository, IImtMttsRepository mtt_repository)
+            public UpdateMttPaymentSpeedCommandHandler(IHttpContextAccessor httpContextAccessor, ICurrentUserService user, IImtMttPaymentSpeedRepository repository, IImtMttsRepository mtt_repository)
             {
                 _user = user;
                 _repository = repository;
                 _mtt_repository = mtt_repository;
+                _httpContextAccessor = httpContextAccessor;
             }
 
             public async Task<ErrorOr<MttPaymentSpeed>> Handle(UpdateMttPaymentSpeedCommand request, CancellationToken cancellationToken)
             {
-                var message = new MessageResponse("Record not found");
-
                 var now = DateTime.UtcNow;
                 MttPaymentSpeed? mttPaymentSpeed = _repository.View(request.id);
                 if (mttPaymentSpeed == null)
                 {
-                    return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 var mttCheckExist = _mtt_repository.View(request.MttId);
                 if (mttCheckExist == null)
                 {
-                    return Error.NotFound(code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString(), "MttId not found!");
+                    return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "MttId not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 mttPaymentSpeed.MttId = request.MttId;

@@ -45,22 +45,22 @@ namespace Admin.App.Application.Features.TransactionTypes
         {
             private readonly ICurrentUserService _user;
             private readonly IImtTransactionTypeRepository _transactiontypeRepository;
-           
-            public DeleteTransactionTypeCommandHandler(ICurrentUserService user, IImtTransactionTypeRepository transactionTypeRepository)
+            private readonly IHttpContextAccessor _httpContextAccessor;
+
+            public DeleteTransactionTypeCommandHandler(IHttpContextAccessor httpContextAccessor, ICurrentUserService user, IImtTransactionTypeRepository transactionTypeRepository)
             {
+                _httpContextAccessor = httpContextAccessor;
                 _user = user;
                 _transactiontypeRepository = transactionTypeRepository;
             }
 
             public async Task<ErrorOr<bool>> Handle(DeleteTransactionTypeCommand request, CancellationToken cancellationToken)
             {
-                var message = new MessageResponse("Record not found");
-
                 var transactionTypes = _transactiontypeRepository.View(request.id);
 
                 if (transactionTypes == null)
                 {
-                    return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 return _transactiontypeRepository.Delete(transactionTypes);

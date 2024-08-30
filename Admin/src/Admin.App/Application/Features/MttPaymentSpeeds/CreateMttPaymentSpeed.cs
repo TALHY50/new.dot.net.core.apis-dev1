@@ -10,6 +10,7 @@ using SharedBusiness.Main.IMT.Infrastructure.Persistence.Repositories;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Contracts.Common;
+using Thunes.Response.Discovery.Common;
 
 namespace Admin.App.Application.Features.MttPaymentSpeeds
 {
@@ -69,22 +70,23 @@ namespace Admin.App.Application.Features.MttPaymentSpeeds
     {
         private readonly IImtMttPaymentSpeedRepository _repository;
         private readonly IImtMttsRepository _mtt_repository;
-        public CreateMttPaymentSpeedCommandHandler(IImtMttPaymentSpeedRepository repository, IImtMttsRepository mtt_repository)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public CreateMttPaymentSpeedCommandHandler(IHttpContextAccessor httpContextAccessor, IImtMttPaymentSpeedRepository repository, IImtMttsRepository mtt_repository)
         {
+            _httpContextAccessor = httpContextAccessor;
             _repository = repository;
             _mtt_repository = mtt_repository;
         }
 
         public async Task<ErrorOr<MttPaymentSpeed>> Handle(CreateMttPaymentSpeedCommand request, CancellationToken cancellationToken)
         {
-            var message = new MessageResponse("Record not found");
-
             var now = DateTime.UtcNow;
             var mttCheckExist = _mtt_repository.View(request.MttId);
             if (mttCheckExist == null)
             {
-                return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "MttId not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
+            
             var @mttPaymentSpeed = new MttPaymentSpeed
             {
                 MttId = request.MttId,
@@ -101,6 +103,10 @@ namespace Admin.App.Application.Features.MttPaymentSpeeds
                 CreatedAt = now,
                 UpdatedAt = now
             };
+            if (@mttPaymentSpeed == null)
+            {
+                return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+            }
 
             return _repository.Add(@mttPaymentSpeed);
         }

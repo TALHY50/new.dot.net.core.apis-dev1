@@ -43,22 +43,22 @@ namespace Admin.App.Application.Features.Providers
         {
             private readonly ICurrentUserService _user;
             private readonly IImtProviderRepository _providerRepository;
-            
-            public DeleteProviderCommandHandler(ICurrentUserService user, IImtProviderRepository providerRepository)
+            private readonly IHttpContextAccessor _httpContextAccessor;
+
+            public DeleteProviderCommandHandler(IHttpContextAccessor httpContextAccessor, ICurrentUserService user, IImtProviderRepository providerRepository)
             {
+                _httpContextAccessor = httpContextAccessor;
                 _user = user;
                 _providerRepository = providerRepository;
             }
 
             public async Task<ErrorOr<bool>> Handle(DeleteProviderCommand request, CancellationToken cancellationToken)
             {
-                var message = new MessageResponse("Record not found");
-
                 var providers = _providerRepository.View(request.id);
 
                 if (providers == null)
                 {
-                    return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 return _providerRepository.Delete(providers);
