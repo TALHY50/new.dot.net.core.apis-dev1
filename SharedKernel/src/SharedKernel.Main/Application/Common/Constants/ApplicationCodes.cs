@@ -20,6 +20,8 @@ public class ApplicationCodes
     public static readonly ApplicationCode DatabaseOperationFailed = new ApplicationCode("4001", "dp operation failed" );
     
     public static readonly ApplicationCode Unexpected = new ApplicationCode("5000", "exception!" );
+    
+    public static readonly ApplicationCode RequestError = new ApplicationCode("4000", "Request Error!" );
 }
 
 

@@ -28,10 +28,10 @@ public partial class ApiControllerBase : ControllerBase
             return Problem();
         }
 
-        /*if (errors.All(error => error.Type == ErrorType.Validation))
+        if (errors.All(error => error.Type == ErrorType.Validation))
         {
             return ValidationProblem(errors);
-        }*/
+        }
         
         
         return Problem(errors[0]);
@@ -75,15 +75,18 @@ public partial class ApiControllerBase : ControllerBase
 
         //errors.ForEach(error => modelStateDictionary.AddModelError(error.Code, error.Description));
         
-        var customErrors = new List<StatusEntityModel>();
+        var errorEntities = new List<StatusEntityModel>();
+        
         foreach (Error error in errors)
         {
-            customErrors.Add(new StatusEntityModel(){Code = error.Code, Message = error.Description});
+            errorEntities.Add(new StatusEntityModel(){Code = error.Code, Message = error.Description});
         }
         
         var errorResponse = new ErrorModel
         {
-            Errors  = customErrors
+            Status = new StatusEntityModel(){Code = ApplicationCodes.RequestError.Code, Message= ApplicationCodes.RequestError.Message},
+            Errors  = errorEntities,
+            Data = new object()
         };
 
         return new ObjectResult(errorResponse)

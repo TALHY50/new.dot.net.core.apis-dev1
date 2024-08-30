@@ -9,6 +9,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Asp.Versioning.Http" Version="8.1.0" />
 		<PackageReference Include="Ben.Demystifier" Version="0.4.1" />
 		<PackageReference Include="Mapster" Version="7.4.0" />
 		<PackageReference Include="Mapster.DependencyInjection" Version="1.0.1" />
@@ -154,7 +155,6 @@
 
 	<ItemGroup>
 		<Folder Include="Infrastructure\Attributes\" />
-		<Folder Include="Infrastructure\MiddleWares\" />
 	</ItemGroup>
 
 	<ItemGroup>
