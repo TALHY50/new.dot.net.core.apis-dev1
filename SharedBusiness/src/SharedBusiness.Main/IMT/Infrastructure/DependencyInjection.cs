@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
-using SharedBusiness.Main.Common.Infrastructure.Persistence;
+using SharedBusiness.Main.IMT.Infrastructure.Persistence;
 
-namespace SharedBusiness.Main.Common.Infrastructure;
+namespace SharedBusiness.Main.IMT.Infrastructure;
 
 public static class DependencyInjection
 {
@@ -10,4 +10,5 @@ public static class DependencyInjection
         services.AddPersistence();
         return services;
     }
+    
 }

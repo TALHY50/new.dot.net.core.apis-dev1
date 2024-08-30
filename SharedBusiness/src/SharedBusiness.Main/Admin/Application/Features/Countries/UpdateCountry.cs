@@ -16,7 +16,7 @@ public record UpdateCountryCommand(
         string? iso_code_num,
         string? name,
         string? official_state_name,
-        StatusValues status) : IRequest<ErrorOr<Country>>;
+        StatusValues status) : IRequest<ErrorOr<Common.Domain.Entities.Country>>;
 
     public class UpdateCountryCommandValidator : AbstractValidator<UpdateCountryCommand>
     {

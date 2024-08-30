@@ -11,9 +11,9 @@ namespace SharedBusiness.Main.Admin.Application.Features.TransactionLimits
 
     public class GetTransactionLimitHandler : IRequestHandler<GetTransactionLimitQuery, ErrorOr<StatusModel>>
     {
-        private readonly IImtTransactionLimitRepository _repository;
+        private readonly ITransactionLimitRepository _repository;
         private readonly StatusModel ResponseModel;
-        public GetTransactionLimitHandler(IImtTransactionLimitRepository repository)
+        public GetTransactionLimitHandler(ITransactionLimitRepository repository)
         {
             _repository = repository;
             ResponseModel = new StatusModel();
@@ -24,7 +24,7 @@ namespace SharedBusiness.Main.Admin.Application.Features.TransactionLimits
             if (data.Any())
             {
                 ResponseModel.Status = new StatusEntityModel { 
-                    Code = AppStatusCode.SUCCESS.ToString(),
+                    Code = ApplicationStatusCodes.API_SUCCESS.ToString(),
                     Message = "Transaction Limit is fetched succesfully." 
                 };
                 ResponseModel.Data = data;

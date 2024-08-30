@@ -20,9 +20,9 @@ namespace SharedBusiness.Main.Admin.Application.Features.TransactionLimits
 
         public class DeleteTransactionLimitCommandHandler: IRequestHandler<DeleteTransactionLimitCommand, ErrorOr<bool>>
         {
-            private readonly IImtTransactionLimitRepository _repository;
+            private readonly ITransactionLimitRepository _repository;
 
-            public DeleteTransactionLimitCommandHandler(IImtTransactionLimitRepository repository)
+            public DeleteTransactionLimitCommandHandler(ITransactionLimitRepository repository)
             {
                 _repository = repository;
             }

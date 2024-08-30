@@ -6,7 +6,7 @@ using SharedKernel.Main.Contracts.Common;
 
 namespace SharedBusiness.Main.Admin.Application.Features.Countries;
 
-public record GetCountryQuery() : IRequest<ErrorOr<List<Country>>>;
+public record GetCountryQuery() : IRequest<ErrorOr<List<Common.Domain.Entities.Country>>>;
 
     public class GetCountryQueryHandler 
         : CountryBase, IRequestHandler<GetCountryQuery, ErrorOr<List<Common.Domain.Entities.Country>>>

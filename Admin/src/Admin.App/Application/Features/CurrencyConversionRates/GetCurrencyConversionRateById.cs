@@ -3,10 +3,10 @@ using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
 using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Common.Constants.Routes;
 using SharedKernel.Main.Contracts.Common;
 
 namespace Admin.App.Application.Features.CurrencyConversionRates
@@ -47,7 +47,7 @@ namespace Admin.App.Application.Features.CurrencyConversionRates
                 var currencyConversionRate = _repository.View(request.Id);
                 if (currencyConversionRate == null)
                 {
-                    return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(description: Language.GetMessage("Record not found"), code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 return currencyConversionRate;

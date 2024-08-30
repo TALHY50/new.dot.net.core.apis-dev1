@@ -1,12 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
-using SharedBusiness.Main.IMT.Infrastructure.Persistence.Context;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SharedBusiness.Main.Common.Domain.Entities;
+using SharedBusiness.Main.Common.Infrastructure.Persistence.Context;
 
 namespace SharedBusiness.Main.IMT.Infrastructure.Persistence.Repositories
 {

@@ -8,7 +8,7 @@ using SharedKernel.Main.Contracts.Common;
 namespace SharedBusiness.Main.Admin.Application.Features.Countries
 {
     
-    public record GetCountryByIdQuery(uint id) : IRequest<ErrorOr<Country>>;
+    public record GetCountryByIdQuery(uint id) : IRequest<ErrorOr<Common.Domain.Entities.Country>>;
 
         public class GetCountryByIdCommandValidator : AbstractValidator<GetCountryByIdQuery>
         {

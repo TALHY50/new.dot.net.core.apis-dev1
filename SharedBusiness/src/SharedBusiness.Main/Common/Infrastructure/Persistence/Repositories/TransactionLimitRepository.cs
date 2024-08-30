@@ -1,12 +1,13 @@
 ﻿
+using SharedBusiness.Main.Common.Domain.Entities;
+using SharedBusiness.Main.Common.Infrastructure.Persistence.Context;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
-using SharedBusiness.Main.IMT.Infrastructure.Persistence.Context;
+
 
 
 namespace SharedBusiness.Main.IMT.Infrastructure.Persistence.Repositories
 {
-    public class TransactionLimitRepository(ApplicationDbContext dbContext) : IImtTransactionLimitRepository
+    public class TransactionLimitRepository(ApplicationDbContext dbContext) : ITransactionLimitRepository
     {
 
         public List<TransactionLimit> All()

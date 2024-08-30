@@ -19,7 +19,7 @@ namespace SharedBusiness.Main.Admin.Application.Features.Countries
         string? iso_code_short,
         string? iso_code_num,
         StatusValues status
-        ) : IRequest<ErrorOr<Country>>;
+        ) : IRequest<ErrorOr<Common.Domain.Entities.Country>>;
 
     public class CreateCountryCommandValidator : AbstractValidator<CreateCountryCommand>
     {
