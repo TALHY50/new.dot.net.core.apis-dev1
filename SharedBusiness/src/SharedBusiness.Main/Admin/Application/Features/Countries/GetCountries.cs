@@ -20,7 +20,7 @@ public record GetCountriesQuery() : IRequest<ErrorOr<List<Common.Domain.Entities
 
         public async Task<ErrorOr<List<Common.Domain.Entities.Country>>> Handle(GetCountriesQuery request, CancellationToken cancellationToken)
         {
-            var countries = _repository.GetAll();
+            var countries = await _repository.ListAsync(cancellationToken);
             if (countries == null)
             {
                 return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), description: "Country not found!");

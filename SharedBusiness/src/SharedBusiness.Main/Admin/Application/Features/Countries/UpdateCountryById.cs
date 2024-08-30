@@ -46,7 +46,7 @@ public record UpdateCountryByIdCommand(
 
         public async Task<ErrorOr<Common.Domain.Entities.Country>> Handle(UpdateCountryByIdCommand command, CancellationToken cancellationToken)
         {
-            Common.Domain.Entities.Country? country = _repository.GetById(command.id);
+            Common.Domain.Entities.Country? country = await _repository.GetByIdAsync(command.id, cancellationToken);
             if (country == null)
             {
                 return Error.NotFound(description: "Country not found",
@@ -63,14 +63,9 @@ public record UpdateCountryByIdCommand(
             
             country.UpdatedAt = DateTime.UtcNow;
                 
-            var result =  _repository.Update(country);
-
-            if (result == null)
-            {
-                return Error.NotFound(ApplicationStatusCodes.API_ERROR_UNEXPECTED_ERROR, "Country can not be updated");
-            }
-
-            return result;
+            await _repository.UpdateAsync(country, cancellationToken);
+            
+            return country;
 
 
         }

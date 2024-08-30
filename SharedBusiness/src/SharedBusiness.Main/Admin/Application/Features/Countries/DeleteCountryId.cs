@@ -30,25 +30,18 @@ namespace SharedBusiness.Main.Admin.Application.Features.Countries
         {
             if(command.id > 0)
             {
-                var country = _repository.GetById(command.id);
+                var country = await _repository.GetByIdAsync(command.id);
 
                 if (country == null)
                 {
                     return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), "Country not found");
                 }
 
-                var result =  _repository.Delete(country);
-
-                if ( ! result)
-                {
-                    return Error.Unexpected(code: ApplicationStatusCodes.API_ERROR_UNEXPECTED_ERROR,
-                        "Failed to delete the record");
-                }
-
-                return result;
+                await _repository.DeleteAsync(country, cancellationToken);
+                
             }
 
-            return false;
+            return true;
         }
     }
 }

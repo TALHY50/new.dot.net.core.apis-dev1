@@ -59,7 +59,7 @@ namespace SharedBusiness.Main.Admin.Application.Features.Countries
                 UpdatedAt = DateTime.UtcNow,
             };
 
-            var result = _repository.Add(country);
+            var result = await _repository.AddAsync(country, cancellationToken);
 
             if (result == null)
             {

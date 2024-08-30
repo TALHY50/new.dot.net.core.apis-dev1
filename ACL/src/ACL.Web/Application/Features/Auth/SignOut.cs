@@ -4,16 +4,16 @@ using ACL.Business.Contracts.Requests;
 using ACL.Business.Contracts.Responses;
 using SharedKernel.Main.Application.Common.Enums;
 
-namespace ACL.Web.Application.Features.Auth.SignOut
+namespace ACL.Web.Application.Features.Auth
 {
     /// <inheritdoc/>
-    public class SignOutUseCase : ISignOutUseCase
+    public class SignOut : ISignOutUseCase
     {
         private readonly ILogger _logger;
         private readonly IUserRepository _authRepository;
         /// <inheritdoc/>
-        public SignOutUseCase(
-            ILogger<SignOutUseCase> logger,
+        public SignOut(
+            ILogger<SignOut> logger,
             IUserRepository authRepository)
         {
             this._logger = logger;

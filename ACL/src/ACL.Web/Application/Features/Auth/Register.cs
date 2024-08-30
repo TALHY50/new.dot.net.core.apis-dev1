@@ -7,18 +7,18 @@ using SharedKernel.Main.Application.Common.Enums;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
 using Claim = ACL.Business.Domain.Entities.Claim;
 
-namespace ACL.Web.Application.Features.Auth.Register
+namespace ACL.Web.Application.Features.Auth
 {
     /// <inheritdoc/>
-    public class RegisterUseCase : IRegisterUseCase
+    public class Register : IRegisterUseCase
     {
         private readonly ILogger _logger;
         private readonly IAuthTokenService _authTokenService;
         private readonly IUserRepository _authRepository;
         private readonly ICryptographyService _cryptographyService;
 /// <inheritdoc/>
-        public RegisterUseCase(
-            ILogger<RegisterUseCase> logger,
+        public Register(
+            ILogger<Register> logger,
             IAuthTokenService authTokenService,
             IUserRepository authRepository,
             ICryptographyService cryptographyService)

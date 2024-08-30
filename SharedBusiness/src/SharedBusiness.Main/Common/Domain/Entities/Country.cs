@@ -1,9 +1,9 @@
-﻿namespace SharedBusiness.Main.Common.Domain.Entities;
+﻿using Ardalis.SharedKernel;
 
-public partial class Country
+namespace SharedBusiness.Main.Common.Domain.Entities;
+
+public partial class Country : EntityBase<uint>, IAggregateRoot
 {
-    public uint Id { get; set; }
-
     public string? IsoCodeShort { get; set; }
 
     public string? IsoCode { get; set; }
