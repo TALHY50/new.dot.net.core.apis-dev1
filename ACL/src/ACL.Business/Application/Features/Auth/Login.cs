@@ -3,10 +3,11 @@ using ACL.Business.Application.Interfaces.Services;
 using ACL.Business.Contracts.Requests;
 using ACL.Business.Contracts.Responses;
 using ACL.Business.Domain.Entities;
+using Microsoft.Extensions.Logging;
 using SharedKernel.Main.Application.Common.Enums;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
 
-namespace ACL.Web.Application.Features.Auth
+namespace ACL.Business.Application.Features.Auth
 {
     /// <inheritdoc/>
     public class Login : ILoginUseCase

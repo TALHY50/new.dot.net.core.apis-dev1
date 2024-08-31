@@ -115,7 +115,7 @@ public partial class ApiControllerBase : ControllerBase
 
     
 
-    private object ToResponse(StatusEntityModel status, object data = null)
+    private object ToResponse(StatusEntityModel status, object? data = null)
     {
         if (data is null)
         {

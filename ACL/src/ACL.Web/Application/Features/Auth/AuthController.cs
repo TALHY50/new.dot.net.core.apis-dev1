@@ -1,3 +1,4 @@
+using ACL.Business.Application.Features.Auth;
 using ACL.Business.Contracts.Requests;
 using ACL.Business.Contracts.Responses;
 using Microsoft.AspNetCore.Authorization;

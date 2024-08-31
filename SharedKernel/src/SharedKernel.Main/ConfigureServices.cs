@@ -8,9 +8,10 @@ public static class ConfigureServices
 {
     public static IServiceCollection AddSharedKernel(this IServiceCollection services)
     {
-        Infrastructure.DependencyInjection.AddInfrastructure(services);
-        Application.DependencyInjection.AddApplication(services);
-        Presentation.DependencyInjection.AddPresentation(services);
+        DotNetEnv.Env.Load();
+        SharedKernel.Main.Presentation.DependencyInjection.AddPresentation(services);
+        SharedKernel.Main.Application.DependencyInjection.AddApplication(services);
+        SharedKernel.Main.Infrastructure.DependencyInjection.AddInfrastructure(services);
         return services;
     }
 }

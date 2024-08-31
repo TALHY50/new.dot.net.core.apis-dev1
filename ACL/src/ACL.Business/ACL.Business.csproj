@@ -83,10 +83,4 @@
 		<ProjectReference Include="..\..\..\SharedKernel\src\SharedKernel.Main\SharedKernel.Main.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-		<Folder Include="Application\Features\" />
-		<Folder Include="Presentation\Endpoints\" />
-		<Folder Include="Presentation\Mapping\" />
-	</ItemGroup>
-
 </Project>
