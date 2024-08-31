@@ -10,9 +10,9 @@ namespace SharedBusiness.Main.Admin.Application.Features.Countries
     
     public record GetCountryByIdQuery(uint id) : IRequest<ErrorOr<Common.Domain.Entities.Country>>;
 
-        public class GetCountryByIdCommandValidator : AbstractValidator<GetCountryByIdQuery>
+        public class GetCountryByIdQueryValidator : AbstractValidator<GetCountryByIdQuery>
         {
-            public GetCountryByIdCommandValidator()
+            public GetCountryByIdQueryValidator()
             {
                 RuleFor(x => x.id).NotEmpty().WithMessage("Country ID is required");
             }
