@@ -1,5 +1,6 @@
 ﻿using ACL.Business.Contracts.Requests;
 using ACL.Business.Contracts.Responses;
+using ACL.Web.Presentation.Routes;
 using Newtonsoft.Json;
 using RestSharp;
 using SharedKernel.Main.Application.Common.Constants;
@@ -57,7 +58,7 @@ namespace ACL.TEST
 
             #endregion
             #region Act
-            //// Create request
+            //// CreateCompanyModule request
             var req = new RestRequest(AclRoutesUrl.AclCompanyModuleRouteUrl.Add, Method.Post);
             //Add request body
             req.AddBody(createReq);
@@ -85,7 +86,7 @@ namespace ACL.TEST
             var id = GetRandomID();
             #endregion
             #region Act
-            //// Create request
+            //// CreateCompanyModule request
             var request = new RestRequest(AclRoutesUrl.AclCompanyModuleRouteUrl.Edit.Replace("{id}", id.ToString()), Method.Put);
             request.AddHeader("Authorization", token);
             //Add request body
@@ -128,11 +129,11 @@ namespace ACL.TEST
         {
             #region  Arrange
             var id = GetRandomID();
-            //// Create RestClient
+            //// CreateCompanyModule RestClient
 
             #endregion
             #region Act
-            //// Create request
+            //// CreateCompanyModule request
             var request = new RestRequest(AclRoutesUrl.AclCompanyModuleRouteUrl.Destroy.Replace("{id}", id.ToString()), Method.Delete);
             //Add request body
             request.AddHeader("Authorization", token);

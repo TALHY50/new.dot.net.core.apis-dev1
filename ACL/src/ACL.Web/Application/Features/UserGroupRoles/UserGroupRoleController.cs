@@ -1,6 +1,7 @@
 ﻿using ACL.Business.Contracts.Requests;
 using ACL.Business.Contracts.Responses;
 using ACL.Business.Domain.Services;
+using ACL.Web.Presentation.Routes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common.Constants.Routes;
@@ -11,11 +12,11 @@ namespace ACL.Web.Application.Features.UserGroupRoles
     [Authorize]
     [Tags("User Group Role")]
     [ApiController]
-    public class AclUserGroupRoleController : ControllerBase
+    public class UserGroupRoleController : ControllerBase
     {
         private readonly IUserGroupRoleService _userGroupRoleService;
         /// <inheritdoc/>
-        public AclUserGroupRoleController(IUserGroupRoleService userGroupRoleService)
+        public UserGroupRoleController(IUserGroupRoleService userGroupRoleService)
         {
             this._userGroupRoleService = userGroupRoleService;
         }

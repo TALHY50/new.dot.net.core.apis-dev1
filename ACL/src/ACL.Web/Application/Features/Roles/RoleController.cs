@@ -1,6 +1,7 @@
 ﻿using ACL.Business.Contracts.Requests;
 using ACL.Business.Contracts.Responses;
 using ACL.Business.Domain.Services;
+using ACL.Web.Presentation.Routes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common.Constants.Routes;
@@ -11,11 +12,11 @@ namespace ACL.Web.Application.Features.Roles
     [Authorize]
     [Tags("Role")]
     [ApiController]
-    public class AclRoleController : ControllerBase
+    public class RoleController : ControllerBase
     {
         private readonly IRoleService _roleService;
          /// <inheritdoc/>
-        public AclRoleController(IRoleService roleService)
+        public RoleController(IRoleService roleService)
         {
             this._roleService = roleService;
         }

@@ -1,6 +1,7 @@
 ﻿using ACL.Business.Contracts.Requests;
 using ACL.Business.Contracts.Responses;
 using ACL.Business.Domain.Services;
+using ACL.Web.Presentation.Routes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common.Constants.Routes;
@@ -11,11 +12,11 @@ namespace ACL.Web.Application.Features.Countries
     [Authorize]
     [Tags("Country")]
     [ApiController]
-    public class AclCountryController : ControllerBase
+    public class CountryController : ControllerBase
     {
         private ICountryService _countryService;
          /// <inheritdoc/>
-        public AclCountryController(ICountryService repository)
+        public CountryController(ICountryService repository)
         {
             this._countryService = repository;
         }

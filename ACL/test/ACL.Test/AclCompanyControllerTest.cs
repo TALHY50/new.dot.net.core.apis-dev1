@@ -35,7 +35,7 @@
 //            var unitOfWork = new CustomUnitOfWork(dbContext);
 //            dbContext = dbContext;
 //            // unitOfWork.LocalizationService = 
-//            var controller = new AclCompanyController(unitOfWork);
+//            var controller = new CompanyController(unitOfWork);
 //            #region Act
 //            // Act
 //            var ScopeResponse = await controller.Index();
