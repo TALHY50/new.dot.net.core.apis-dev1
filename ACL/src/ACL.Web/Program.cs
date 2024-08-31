@@ -2,17 +2,22 @@ using ACL.Business.Application;
 using ACL.Business.Infrastructure;
 using ACL.Business.Infrastructure.Middlewares;
 using ACL.Business.Presentation;
+using ACL.Web.Presentation;
 using Serilog;
+using SharedKernel.Main.Application;
+using SharedKernel.Main.Infrastructure;
 using SharedKernel.Main.Infrastructure.MiddleWares;
-using DependencyInjection = ACL.Web.Presentation.DependencyInjection;
+using SharedKernel.Main.Presentation;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-builder.Services.AddApplication(builder.Configuration, builder.Environment);
-builder.Services.AddInfrastructure(builder.Configuration, builder.Environment, builder.Host);
-builder.Services.AddPresentation(builder.Configuration, builder.Environment);
-DependencyInjection.AddPresentation(builder.Services, builder.Configuration, builder.Environment);
+builder.Services.AddSharedKernelApplication();
+builder.Services.AddSharedKernelInfrastructure(builder.Configuration, builder.Environment, builder.Host);
+builder.Services.AddSharedKernelPresentation();
+builder.Services.AddACLBusinessApplication(builder.Configuration, builder.Environment, builder.Host);
+builder.Services.AddACLBusinessInfrastructure(builder.Configuration, builder.Environment, builder.Host);
+builder.Services.AddACLBusinessPresentation(builder.Configuration, builder.Environment, builder.Host);
+builder.Services.Add_ACLWeb_Presentation(builder.Configuration, builder.Environment, builder.Host);
 
 var app = builder.Build();
 {

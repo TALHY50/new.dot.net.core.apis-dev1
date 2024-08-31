@@ -158,6 +158,7 @@ public static class DependencyInjection
         services.AddScoped<IUserGroupRoleRepository, UserGroupRoleRepository>();
         services.AddScoped<IUserUserGroupRepository, UserUserGroupRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
+        
         services.AddScoped<IImtMttsRepository, MttRepository>();
         // services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateMttCommand).Assembly));
         services.AddScoped<IImtRegionRepository, RegionRepository>();

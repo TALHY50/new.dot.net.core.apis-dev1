@@ -7,17 +7,15 @@ using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Events;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
-using SharedKernel.Main.Infrastructure;
 using SharedKernel.Main.Infrastructure.Services;
 
 namespace ACL.Business.Infrastructure;
 
-public static class DependencyInjection
+public static class ACLInfrastructureDependencyInjection
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration,
+    public static IServiceCollection AddACLBusinessInfrastructure(this IServiceCollection services, IConfiguration configuration,
         IWebHostEnvironment environment, ConfigureHostBuilder host)
     {
-        services.AddInfrastructure();
         services.AddLogging(configuration, environment, host);
         services.AddPersistence(configuration, environment);
         return services;

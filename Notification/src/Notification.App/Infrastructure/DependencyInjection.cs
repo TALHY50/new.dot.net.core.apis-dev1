@@ -3,16 +3,5 @@ using SharedInfrastructureDependencyInjection = SharedKernel.Main.Infrastructure
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services)
-    {
-        SharedInfrastructureDependencyInjection.AddInfrastructure(services);
-        return services;
-    }
-    
-    public static IApplicationBuilder AddInfrastructure(this IApplicationBuilder app)
-    {
-        SharedInfrastructureDependencyInjection.AddInfrastructure(app);
 
-        return app;
-    }
 }

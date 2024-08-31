@@ -129,7 +129,7 @@ namespace IMT.App.Application.Features
             }
         }
 
-        internal sealed class CreateHolidaySettingHandler(ApplicationDbContext context, IImtTransactionRepository _transactionRepository, IQuotationRepository _quotationRepository, IImtTransactionRepository _imtTransactionRepository, IImtMoneyTransferRepository _imtMoneyTransferRepository) : IRequestHandler<CreateTransactionCommand, ErrorOr<Transaction>>
+        internal sealed class CreateHolidaySettingHandler(ApplicationDbContext context, ITransactionRepository _transactionRepository, IQuotationRepository _quotationRepository, ITransactionRepository transactionRepository, IMoneyTransferRepository moneyTransferRepository) : IRequestHandler<CreateTransactionCommand, ErrorOr<Transaction>>
         {
             public async Task<ErrorOr<Transaction>> Handle(CreateTransactionCommand request, CancellationToken cancellationToken)
             {
@@ -174,9 +174,9 @@ namespace IMT.App.Application.Features
                 };
 
 
-                _imtMoneyTransferRepository.AddAsync(moneyTransfer);
+                moneyTransferRepository.AddAsync(moneyTransfer);
 
-                return await _imtTransactionRepository.AddAsync(entity);
+                return await transactionRepository.AddAsync(entity);
             }
         }
 
@@ -184,8 +184,8 @@ namespace IMT.App.Application.Features
 
 
         //#pragma warning disable CS1717 // Assignment made to same variable
-        //        private readonly IImtMoneyTransferService _transactionService;
-        //        public TransactionController(IImtMoneyTransferService transactionService)
+        //        private readonly IMoneyTransferService _transactionService;
+        //        public TransactionController(IMoneyTransferService transactionService)
         //        {
         //            _transactionService = transactionService;
         //        }

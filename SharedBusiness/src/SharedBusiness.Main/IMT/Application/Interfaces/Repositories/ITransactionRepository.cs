@@ -3,7 +3,7 @@ using SharedKernel.Main.Application.Common.Interfaces.Services;
 
 namespace SharedBusiness.Main.IMT.Application.Interfaces.Repositories
 {
-    public interface IImtMoneyTransferRepository : IGenericRepository<MoneyTransfer>
+    public interface ITransactionRepository : IGenericRepository<Transaction>
     {
     }
 }

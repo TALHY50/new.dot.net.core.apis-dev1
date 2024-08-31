@@ -6,7 +6,7 @@ using Thunes.Response.Transfer.Transaction;
 
 namespace SharedBusiness.Main.IMT.Application.Interfaces.Services
 {
-    public interface IImtMoneyTransferService : IImtMoneyTransferRepository
+    public interface IMoneyTransferService : IMoneyTransferRepository
     {
         public MoneyTransfer PrepareImtMoneyTransfer(MoneyTransferDTO request, CreateContentQuotationResponse quotation, CreateTransactionResponse transaction);
         public Transaction PrepareImtTransaction(MoneyTransferDTO request, CreateContentQuotationResponse quotation, CreateTransactionResponse transaction);

@@ -9,12 +9,12 @@ using SharedKernel.Main.Infrastructure.Services;
 
 namespace Admin.App.Presentation;
 using SharedDependencyInjection = SharedKernel.Main.Presentation.DependencyInjection;
-public static class DependencyInjection
+public static class AdminPresentationDependencyInjection
 {
-    public static IServiceCollection AddPresentation(this IServiceCollection services)
+    public static IServiceCollection AddAdminPresentation(this IServiceCollection services, IConfiguration configuration,
+        IWebHostEnvironment environment, ConfigureHostBuilder builderHost)
     {
-        SharedKernel.Main.Presentation.DependencyInjection.AddPresentation(services);
-        SharedBusiness.Main.DependencyInjection.AddPresentation(services);
+   
         services.AddMappings();
         services.AddControllers();
         services.AddEndpointsApiExplorer();

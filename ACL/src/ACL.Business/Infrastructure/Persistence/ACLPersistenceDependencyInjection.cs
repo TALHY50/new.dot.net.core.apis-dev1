@@ -12,34 +12,26 @@ using SharedKernel.Main.Infrastructure.Services;
 
 namespace ACL.Business.Infrastructure.Persistence;
 
-public static class DependencyInjection
+public static class ACLPersistenceDependencyInjection
 {
     public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration, IWebHostEnvironment environment)
-    {
-        
+    { 
         services.AddDbContext<ApplicationDbContext>(options =>
             options.UseMySQL(ConnectionManager.GetDbConnectionString(), options =>
             {
                 options.EnableRetryOnFailure();
             }));
-
-
+        
         var cacheDriver = Env.GetString("CACHE_DRIVER");
-
         if (cacheDriver == "redis")
         {
             services.AddStackExchangeRedisCache(
                 redisOptions => { redisOptions.Configuration = ConnectionManager.GetRedisConnectionString(); }
             );
         }
-
         services.AddMemoryCache();
         services.AddDistributedMemoryCache();
-        
-        
         services.AddScoped<ICacheService, CacheService>();
-        
-        
         services.AddScoped<IBranchService, BranchService>();
         services.AddScoped<ICompanyModuleService, CompanyModuleService>();
         services.AddScoped<ICompanyService, CompanyService>();
@@ -50,26 +42,19 @@ public static class DependencyInjection
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IUserGroupRoleService, UserGroupRoleService>();
         services.AddScoped<IUserGroupService, UserGroupService>();
-
         services.AddScoped<ISubModuleService, SubModuleService>();
         services.AddScoped<ISubModuleService, SubModuleService>();
-
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IBranchRepository, BranchRepository>();
         services.AddScoped<IPageService, PageService>();
-
         services.AddScoped<IPageRepository, PageRepository>();
         services.AddScoped<IPageRouteRepository, PageRouteRepository>();
         services.AddScoped<IPasswordRepository, PasswordRepository>();
         services.AddScoped<IRolePageRepository, RolePageRepository>();
         services.AddScoped<IRoleRepository, RoleRepository>();
-
-//services.AddScoped<ISubModuleRepository, SubModuleRepository>();
         services.AddScoped<IUserGroupRepository, UserGroupRepository>();
         services.AddScoped<IUserGroupRoleRepository, UserGroupRoleRepository>();
         services.AddScoped<IUserUserGroupRepository, UserUserGroupRepository>();
-
-        
         return services;
     }
 }
