@@ -1,5 +1,6 @@
 ﻿using ACL.Business.Contracts.Requests;
 using ACL.Business.Contracts.Responses;
+using ACL.Web.Presentation.Routes;
 using Bogus;
 using Newtonsoft.Json;
 using RestSharp;
@@ -56,7 +57,7 @@ namespace ACL.TEST
             #endregion
 
             #region Act
-            //// Create request
+            //// CreateCompanyModule request
             var request = new RestRequest(AclRoutesUrl.AclCompanyRouteUrl.Add, Method.Post);
             var token = DataCollectors.GetAuthorization();
             request.AddHeader("Authorization", token);
@@ -84,7 +85,7 @@ namespace ACL.TEST
             var id = GetRandomID();
             #endregion
             #region Act
-            //// Create request
+            //// CreateCompanyModule request
             var request = new RestRequest(AclRoutesUrl.AclCompanyRouteUrl.Edit.Replace("{id}", id.ToString()), Method.Put);
 
             //Add request body
@@ -139,7 +140,7 @@ namespace ACL.TEST
 
             #endregion
             #region Act
-            //// Create request
+            //// CreateCompanyModule request
             var request = new RestRequest(AclRoutesUrl.AclCompanyRouteUrl.Destroy.Replace("{id}", id.ToString()), Method.Delete);
             //Add request body
 
@@ -232,7 +233,7 @@ namespace ACL.TEST
             return (ulong)DataCollectors.dbContext.AclCompanies.Where(t => t.Status == 1).Max(t => t.Id);
 
             //// Act
-            //var ScopeResponse = await controller.Create(createReq);
+            //var ScopeResponse = await controller.CreateCompanyModule(createReq);
             ////var aclData = unitOfWork.CompanyRepository.Add((Company)ScopeResponse.Data);
             //// Commit the changes to the database
             //await unitOfWork.CompleteAsync();

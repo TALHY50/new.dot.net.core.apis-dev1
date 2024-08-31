@@ -1,6 +1,7 @@
 ﻿using ACL.Business.Contracts.Requests;
 using ACL.Business.Contracts.Responses;
 using ACL.Business.Domain.Services;
+using ACL.Web.Presentation.Routes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common.Constants.Routes;
@@ -10,11 +11,11 @@ namespace ACL.Web.Application.Features.Users
     /// <inheritdoc/>
     [Tags("User")]
     [ApiController]
-    public class AclUserController : ControllerBase
+    public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
         /// <inheritdoc/>
-        public AclUserController(IUserService userService)
+        public UserController(IUserService userService)
         {
             this._userService = userService;
         }

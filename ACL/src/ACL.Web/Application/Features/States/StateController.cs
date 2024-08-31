@@ -1,6 +1,7 @@
 using ACL.Business.Contracts.Requests;
 using ACL.Business.Contracts.Responses;
 using ACL.Business.Domain.Services;
+using ACL.Web.Presentation.Routes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common.Constants.Routes;
@@ -11,11 +12,11 @@ namespace ACL.Web.Application.Features.States
     [Authorize]
     [Tags("State")]
     [ApiController]
-    public class AclStateController : ControllerBase
+    public class StateController : ControllerBase
     {
         private readonly IStateService _stateService;
         /// <inheritdoc/>
-        public AclStateController(IStateService stateService)
+        public StateController(IStateService stateService)
         {
             this._stateService = stateService;
         }

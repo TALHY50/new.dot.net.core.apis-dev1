@@ -1,6 +1,7 @@
 ﻿using ACL.Business.Contracts.Requests;
 using ACL.Business.Contracts.Responses;
 using ACL.Business.Domain.Services;
+using ACL.Web.Presentation.Routes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common.Constants.Routes;
@@ -11,11 +12,11 @@ namespace ACL.Web.Application.Features.RolePages
     [Authorize]
     [Tags("Role & Page Association")]
     [ApiController]
-    public class AclRoleAndPageAssocController : ControllerBase
+    public class RoleAndPageController : ControllerBase
     {
         private readonly IRolePageService _rolePageService;
          /// <inheritdoc/>
-        public AclRoleAndPageAssocController(IRolePageService rolePageService)
+        public RoleAndPageController(IRolePageService rolePageService)
         {
            this._rolePageService = rolePageService;
         }

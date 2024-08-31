@@ -1,6 +1,7 @@
 using ACL.Business.Contracts.Requests;
 using ACL.Business.Contracts.Responses;
 using ACL.Business.Domain.Services;
+using ACL.Web.Presentation.Routes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common.Constants.Routes;
@@ -11,11 +12,11 @@ namespace ACL.Web.Application.Features.Submodules
     [Authorize]
     [Tags("Sub Module")]
     [ApiController]
-    public class AclSubModuleController : ControllerBase
+    public class SubModuleController : ControllerBase
     {
         private readonly ISubModuleService _subModuleService;
         /// <inheritdoc/>
-        public AclSubModuleController(ISubModuleService subModuleService)
+        public SubModuleController(ISubModuleService subModuleService)
         {
             this._subModuleService = subModuleService;
         }

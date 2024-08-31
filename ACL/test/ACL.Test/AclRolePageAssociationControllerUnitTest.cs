@@ -1,4 +1,5 @@
 ﻿using ACL.Business.Contracts.Requests;
+using ACL.Web.Presentation.Routes;
 using Bogus;
 using RestSharp;
 using SharedKernel.Main.Application.Common.Constants;
@@ -56,7 +57,7 @@ namespace ACL.TEST
 
             #endregion
             #region Act
-            //// Create request
+            //// CreateCompanyModule request
             var req = new RestRequest(AclRoutesUrl.AclRolePageRouteUrl.Edit, RestSharp.Method.Put);
             //Add request body
             req.AddJsonBody(editReq);

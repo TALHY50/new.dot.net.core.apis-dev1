@@ -1,6 +1,7 @@
 ﻿using ACL.Business.Contracts.Requests;
 using ACL.Business.Contracts.Responses;
 using ACL.Business.Domain.Services;
+using ACL.Web.Presentation.Routes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common.Constants.Routes;
@@ -11,11 +12,11 @@ namespace ACL.Web.Application.Features.Modules
     [Authorize]
     [Tags("Module")]
     [ApiController]
-    public class AclModuleController : ControllerBase
+    public class ModuleController : ControllerBase
     {
         IModuleService _moduleService;
         /// <inheritdoc/>
-        public AclModuleController(IModuleService moduleService)
+        public ModuleController(IModuleService moduleService)
         {
             this._moduleService = moduleService;
         }

@@ -1,6 +1,7 @@
 ﻿using ACL.Business.Application.Interfaces.Repositories;
 using ACL.Business.Contracts.Requests;
 using ACL.Business.Contracts.Responses;
+using ACL.Web.Presentation.Routes;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common.Constants.Routes;
 
@@ -10,11 +11,11 @@ namespace ACL.Web.Application.Features.Passwords
     //[Authorize]
     [Tags("Password")]
     [ApiController]
-    public class AclPasswordController : ControllerBase
+    public class PasswordController : ControllerBase
     {
         private readonly IPasswordRepository _repository;
          /// <inheritdoc/>
-        public AclPasswordController(IPasswordRepository repository)
+        public PasswordController(IPasswordRepository repository)
         {
             this._repository = repository;
         }
