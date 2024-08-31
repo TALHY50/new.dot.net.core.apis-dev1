@@ -2,6 +2,7 @@
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common;
@@ -48,9 +49,9 @@ namespace Admin.App.Application.Features.Mtts
         internal sealed class UpdateMttCommandHandler : IRequestHandler<UpdateMttCommand, ErrorOr<Mtt>>
         {
             private readonly ICurrentUserService _user;
-            private readonly IImtMttsRepository _repository;
+            private readonly IMTTRepository _repository;
 
-            public UpdateMttCommandHandler(ICurrentUserService user, IImtMttsRepository repository)
+            public UpdateMttCommandHandler(ICurrentUserService user, IMTTRepository repository)
             {
                 _user = user;
                 _repository = repository;

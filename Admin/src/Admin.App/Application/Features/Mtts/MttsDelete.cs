@@ -2,6 +2,7 @@
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
@@ -34,8 +35,8 @@ namespace Admin.App.Application.Features.Mtts
 
         internal sealed class DeleteMttCommandHandler : IRequestHandler<DeleteMttCommand, bool>
         {
-            private readonly IImtMttsRepository _repository;
-            public DeleteMttCommandHandler(ICurrentUserService user, IImtMttsRepository repository)
+            private readonly IMTTRepository _repository;
+            public DeleteMttCommandHandler(ICurrentUserService user, IMTTRepository repository)
             {
                 _repository = repository;
             }

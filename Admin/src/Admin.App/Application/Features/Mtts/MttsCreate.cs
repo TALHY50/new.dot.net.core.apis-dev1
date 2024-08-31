@@ -8,6 +8,7 @@ using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
 using System.ComponentModel.Design;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common.Constants.Routes;
@@ -48,9 +49,9 @@ namespace Admin.App.Application.Features.Mtts
         internal sealed class CreateMttCommandHandler : IRequestHandler<CreateMttCommand, ErrorOr<Mtt>>
         {
             private readonly ICurrentUserService _user;
-            private readonly IImtMttsRepository _repository;
+            private readonly IMTTRepository _repository;
 
-            public CreateMttCommandHandler(ICurrentUserService user, IImtMttsRepository repository)
+            public CreateMttCommandHandler(ICurrentUserService user, IMTTRepository repository)
             {
                 _user = user;
                 _repository = repository;

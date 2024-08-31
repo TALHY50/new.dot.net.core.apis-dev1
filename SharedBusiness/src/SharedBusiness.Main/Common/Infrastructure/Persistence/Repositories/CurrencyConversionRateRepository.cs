@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.Common.Infrastructure.Persistence.Context;
 
 namespace SharedBusiness.Main.IMT.Infrastructure.Persistence.Repositories
 {
-    public class CurrencyConversionRateRepository(ApplicationDbContext dbContext) : IImtCurrencyConversionRateRepository
+    public class CurrencyConversionRateRepository(ApplicationDbContext dbContext) : ICurrencyConversionRateRepository
     {
         public CurrencyConversionRate? Add(CurrencyConversionRate currencyConversionRate)
         {

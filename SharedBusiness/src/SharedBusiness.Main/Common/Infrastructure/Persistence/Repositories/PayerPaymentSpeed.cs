@@ -1,9 +1,10 @@
-﻿using SharedBusiness.Main.Common.Infrastructure.Persistence.Context;
+﻿using SharedBusiness.Main.Common.Application.Services.Repositories;
+using SharedBusiness.Main.Common.Infrastructure.Persistence.Context;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 
 namespace SharedBusiness.Main.Common.Infrastructure.Persistence.Repositories
 {
-    public class PayerPaymentSpeed(ApplicationDbContext dbContext) : IImtPayerPaymentSpeedRepository
+    public class PayerPaymentSpeed(ApplicationDbContext dbContext) : IPayerPaymentSpeedRepository
     {
         public Common.Domain.Entities.PayerPaymentSpeed? Add(Common.Domain.Entities.PayerPaymentSpeed payerPaymentSpeed)
         {

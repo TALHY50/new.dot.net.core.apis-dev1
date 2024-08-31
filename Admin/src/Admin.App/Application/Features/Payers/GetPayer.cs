@@ -1,6 +1,7 @@
 ﻿using Ardalis.SharedKernel;
 using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common;
@@ -26,8 +27,8 @@ namespace Admin.App.Application.Features.Payers
     public class GetPayerHandler
         : IQueryHandler<GetPayerQuery, ErrorOr<List<Payer>>>
     {
-        private readonly IImtPayerRepository _repository;
-        public GetPayerHandler(IImtPayerRepository repository)
+        private readonly IPayerRepository _repository;
+        public GetPayerHandler(IPayerRepository repository)
         {
             _repository = repository;
         }

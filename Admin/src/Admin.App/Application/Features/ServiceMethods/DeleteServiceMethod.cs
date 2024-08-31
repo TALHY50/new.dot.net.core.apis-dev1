@@ -3,6 +3,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
@@ -39,9 +40,9 @@ namespace ADMIN.App.Application.Features.ServiceMethods
 
     public class DeleteServiceMethodCommandHandler: IRequestHandler<DeleteServiceMethodCommand, ErrorOr<bool>>
     {
-        private readonly IImtServiceMethodRepository _repository;
+        private readonly IServiceMethodRepository _repository;
 
-        public DeleteServiceMethodCommandHandler(IImtServiceMethodRepository repository)
+        public DeleteServiceMethodCommandHandler(IServiceMethodRepository repository)
         {
             _repository = repository;
         }

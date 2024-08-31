@@ -3,6 +3,7 @@ using ErrorOr;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common;
@@ -29,9 +30,9 @@ namespace ADMIN.App.Application.Features.ServiceMethods
 
         public class GetServiceMethodQueryHandler : IRequestHandler<GetServiceMethodQuery, ErrorOr<List<ServiceMethod>>>
         {
-            private readonly IImtServiceMethodRepository _repository;
+            private readonly IServiceMethodRepository _repository;
 
-            public GetServiceMethodQueryHandler(IImtServiceMethodRepository repository)
+            public GetServiceMethodQueryHandler(IServiceMethodRepository repository)
             {
                 _repository = repository;
             }

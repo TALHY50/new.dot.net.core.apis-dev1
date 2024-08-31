@@ -4,6 +4,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common;
@@ -61,8 +62,8 @@ namespace Admin.App.Application.Features.Providers
     public class CreateProviderCommandHandler
         : IRequestHandler<CreateProviderCommand, ErrorOr<Provider>>
     {
-        private readonly IImtProviderRepository _providerRepository;
-        public CreateProviderCommandHandler(IImtProviderRepository providerRepository)
+        private readonly IProviderRepository _providerRepository;
+        public CreateProviderCommandHandler(IProviderRepository providerRepository)
         {
             _providerRepository = providerRepository;
         }

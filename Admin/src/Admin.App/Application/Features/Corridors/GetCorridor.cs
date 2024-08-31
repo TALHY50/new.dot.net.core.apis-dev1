@@ -1,6 +1,7 @@
 ﻿using Ardalis.SharedKernel;
 using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common;
@@ -27,8 +28,8 @@ namespace Admin.App.Application.Features.Corridors
     public class GetCorridorHandler
         : IQueryHandler<GetCorridorQuery, ErrorOr<List<Corridor>>>
     {
-        private readonly IImtCorridorRepository _repository;
-        public GetCorridorHandler(IImtCorridorRepository repository)
+        private readonly ICorridorRepository _repository;
+        public GetCorridorHandler(ICorridorRepository repository)
         {
             _repository = repository;
         }

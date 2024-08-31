@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common;
@@ -58,9 +59,9 @@ namespace Admin.App.Application.Features.Regions
         : IRequestHandler<UpdateRegionCommand, ErrorOr<Region>>
         {
             private readonly ICurrentUserService _user;
-            private readonly IImtRegionRepository _repository;
+            private readonly IRegionRepository _repository;
 
-            public UpdateRegionCommandHandler(ICurrentUserService user, IImtRegionRepository repository)
+            public UpdateRegionCommandHandler(ICurrentUserService user, IRegionRepository repository)
             {
                 _user = user;
                 _repository = repository;

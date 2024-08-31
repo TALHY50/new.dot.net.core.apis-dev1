@@ -3,6 +3,7 @@ using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
@@ -46,8 +47,8 @@ namespace Admin.App.Application.Features.MttPaymentSpeeds
         : IRequestHandler<DeleteMttPaymentSpeedCommand, ErrorOr<bool>>
         {
             private readonly ICurrentUserService _user;
-            private readonly IImtMttPaymentSpeedRepository _repository;
-            public DeleteMttPaymentSpeedCommandHandler(ICurrentUserService user, IImtMttPaymentSpeedRepository repository)
+            private readonly IMTTPaymentSpeedRepository _repository;
+            public DeleteMttPaymentSpeedCommandHandler(ICurrentUserService user, IMTTPaymentSpeedRepository repository)
             {
                 _user = user;
                 _repository = repository;

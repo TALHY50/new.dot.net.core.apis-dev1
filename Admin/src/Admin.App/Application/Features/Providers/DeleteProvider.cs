@@ -3,6 +3,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
@@ -42,9 +43,9 @@ namespace Admin.App.Application.Features.Providers
         : IRequestHandler<DeleteProviderCommand, ErrorOr<bool>>
         {
             private readonly ICurrentUserService _user;
-            private readonly IImtProviderRepository _providerRepository;
+            private readonly IProviderRepository _providerRepository;
             
-            public DeleteProviderCommandHandler(ICurrentUserService user, IImtProviderRepository providerRepository)
+            public DeleteProviderCommandHandler(ICurrentUserService user, IProviderRepository providerRepository)
             {
                 _user = user;
                 _providerRepository = providerRepository;
