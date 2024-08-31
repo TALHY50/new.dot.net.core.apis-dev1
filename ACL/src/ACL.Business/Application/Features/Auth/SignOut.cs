@@ -2,9 +2,10 @@
 using ACL.Business.Application.Interfaces.Services;
 using ACL.Business.Contracts.Requests;
 using ACL.Business.Contracts.Responses;
+using Microsoft.Extensions.Logging;
 using SharedKernel.Main.Application.Common.Enums;
 
-namespace ACL.Web.Application.Features.Auth
+namespace ACL.Business.Application.Features.Auth
 {
     /// <inheritdoc/>
     public class SignOut : ISignOutUseCase

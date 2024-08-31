@@ -24,4 +24,5 @@ public class EfRepository<T> : RepositoryBase<T>, IReadRepository<T>, IRepositor
 
         return result.Items;
     }
+    
 }
