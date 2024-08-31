@@ -612,3 +612,4 @@ LIMIT 1
 ACL.Business.Infrastructure.Security.PermissionAuthorizationRequirement
 2024-09-01 04:08:11.301 +06:00 [INF] AuthenticationScheme: Bearer was challenged.
 2024-09-01 04:08:11.302 +06:00 [INF] Request finished HTTP/1.1 POST http://localhost:5207/countries - 401 0 null 14.4633ms
+2024-09-01 05:09:43.256 +06:00 [INF] Application is shutting down...

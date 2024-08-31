@@ -6,7 +6,7 @@ using SharedKernel.Main.Infrastructure.Services;
 
 namespace SharedKernel.Main.Application;
 
-public static class DependencyInjection
+public static class SharedKernelApplicationDependencyInjection
 {
     public static IServiceCollection AddSharedKernelApplication(this IServiceCollection services)
     {
@@ -28,8 +28,6 @@ public static class DependencyInjection
             });
             //container.RegisterAssemblyTypes(assembly).AsImplementedInterfaces();
         }
-
-        
         services.AddSingleton<ICurrentUserService, CurrentUserService>();
         return services;
     }
