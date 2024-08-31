@@ -51,40 +51,14 @@ public static class DependencyInjection
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddSecurity(configuration);
-
         services.AddPersistence(configuration);
-
-        services.AddRazorEngine(configuration);
-
         services.AddScoped<IDomainEventService, DomainEventService>();
         services.AddTransient<IDateTime, DateTimeService>();
         services.AddTransient<IWebService, WebService>();
         services.AddSingleton<ICurrentUserService, CurrentUserService>();
         return services;
     }
-
-    public static IServiceCollection AddRazorEngine(this IServiceCollection services, IConfiguration configuration)
-    {
-        var fileProvider = new EmbeddedFileProvider(typeof(Renderer).Assembly);
-        services.Configure<MvcRazorRuntimeCompilationOptions>(options =>
-        {
-            options.FileProviders.Clear();
-            options.FileProviders.Add(fileProvider);
-        });
-        services.AddMvcCore().AddRazorViewEngine();
-        /*services.Configure<Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions>(o =>
-        {
-            o.ViewLocationFormats.Add("/Views/{0}" + Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine.ViewExtension);
-
-            // o.FileProviders.Add(new Microsoft.Extensions.FileProviders.PhysicalFileProvider(AppContext.BaseDirectory));
-        });*/
-
-        // services.AddRazorPages();
-        services.AddTransient<IRenderer, Renderer>();
-
-        return services;
-    }
-
+    
     public static IServiceCollection AddSecurity(this IServiceCollection services, IConfiguration configuration)
     {
         bool isDevelopment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";

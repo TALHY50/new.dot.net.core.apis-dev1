@@ -77,3 +77,4 @@ System.NotImplementedException: The method or operation is not implemented.
 2024-09-01 04:45:27.041 +06:00 [INF] Executed action IMT.App.Application.Features.ConfirmTransferController.Create (IMT.App) in 288.4973ms
 2024-09-01 04:45:27.042 +06:00 [INF] Executed endpoint 'IMT.App.Application.Features.ConfirmTransferController.Create (IMT.App)'
 2024-09-01 04:45:27.043 +06:00 [INF] Request finished HTTP/1.1 POST http://localhost:5208/api/money-transfer/international/confirm - 200 null application/json; charset=utf-8 314.156ms
+2024-09-01 05:09:46.065 +06:00 [INF] Application is shutting down...

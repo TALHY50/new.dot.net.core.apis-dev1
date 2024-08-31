@@ -145,7 +145,6 @@
 		<Folder Include="Domain\EntityBase\" />
 		<Folder Include="Infrastructure\Email\" />
 		<Folder Include="Infrastructure\Files\" />
-		<Folder Include="Infrastructure\Persistence\" />
 		<Folder Include="Infrastructure\Sms\" />
 		<Folder Include="wwwroot\" />
 	</ItemGroup>

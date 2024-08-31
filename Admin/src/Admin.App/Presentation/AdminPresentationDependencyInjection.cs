@@ -8,7 +8,7 @@ using SharedKernel.Main.Application.Common.Interfaces.Services;
 using SharedKernel.Main.Infrastructure.Services;
 
 namespace Admin.App.Presentation;
-using SharedDependencyInjection = SharedKernel.Main.Presentation.DependencyInjection;
+
 public static class AdminPresentationDependencyInjection
 {
     public static IServiceCollection AddAdminPresentation(this IServiceCollection services, IConfiguration configuration,
@@ -36,31 +36,8 @@ public static class AdminPresentationDependencyInjection
     {
         var config = TypeAdapterConfig.GlobalSettings;
         config.Scan(Assembly.GetExecutingAssembly());
-
         services.AddSingleton(config);
         services.AddScoped<IMapper, ServiceMapper>();
-        return services;
-    }
-
-    public static IServiceCollection AddRazorEngine(this IServiceCollection services, IConfiguration configuration)
-    {
-        var fileProvider = new EmbeddedFileProvider(typeof(Renderer).Assembly);
-        services.Configure<MvcRazorRuntimeCompilationOptions>(options =>
-        {
-            options.FileProviders.Clear();
-            options.FileProviders.Add(fileProvider);
-        });
-        services.AddMvcCore().AddRazorViewEngine();
-        /*services.Configure<Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions>(o =>
-        {
-            o.ViewLocationFormats.Add("/Views/{0}" + Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine.ViewExtension);
-
-            // o.FileProviders.Add(new Microsoft.Extensions.FileProviders.PhysicalFileProvider(AppContext.BaseDirectory));
-        });*/
-
-        // services.AddRazorPages();
-        services.AddTransient<IRenderer, Renderer>();
-
         return services;
     }
 }
