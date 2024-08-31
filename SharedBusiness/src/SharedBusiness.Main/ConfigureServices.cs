@@ -1,6 +1,11 @@
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SharedBusiness.Main.IMT.Application;
+using SharedKernel.Main.Infrastructure.Services;
 using Common = SharedBusiness.Main.Common;
 using IMT = SharedBusiness.Main.IMT;
 using Admin = SharedBusiness.Main.Admin;
@@ -10,40 +15,40 @@ namespace SharedBusiness.Main;
 public static class DependencyInjection
 {
 
-    public static IServiceCollection AddApplication(IServiceCollection services)
+    public static IServiceCollection AddSharedBusinessApplication(this IServiceCollection services)
     {
-        Common.Application.DependencyInjection.AddApplication(services);
-        Admin.Application.DependencyInjection.AddApplication(services);
-        IMT.Application.DependencyInjection.AddApplication(services);
+        Common.Application.SharedBusinessCommonApplicationDependencyInjection.AddSharedBusinessCommonApplication(services);
+        Admin.Application.SharedBusinessAdminApplicationDependencyInjection.AddSharedBusinessAdminApplication(services);
+        IMT.Application.SharedBusinessIMTApplicationDependencyInjection.AddSharedBusinessIMTApplication(services);
         return services;
     }
 
 
-    public static IServiceCollection AddInfrastructure(IServiceCollection services)
+    public static IServiceCollection AddSharedBusinessInfrastructure(this IServiceCollection services, IConfiguration configuration,
+        IWebHostEnvironment environment, ConfigureHostBuilder builderHost)
     {
-        Common.Infrastructure.DependencyInjection.AddInfrastructure(services);
-        IMT.Infrastructure.DependencyInjection.AddInfrastructure(services);
-        Admin.Infrastructure.DependencyInjection.AddInfrastructure(services);
+        Common.Infrastructure.SharedBusinessCommonInfrastructureDependencyInjection.AddSharedBusinessCommonInfrastructure(services);
+        IMT.Infrastructure.SharedBusinessIMTInfrastructureDependencyInjection.AddSharedBusinessIMTInfrastructure(services);
+        Admin.Infrastructure.SharedBusinessAdminInfrastructureDependencyInjection.AddSharedBusinessAdminInfrastructure(services);
+        return services;
+    }
+
+    public static IServiceCollection AddSharedBusinessPersistence(this IServiceCollection services)
+    {
+ 
+
         return services;
     }
 
 
-    public static IServiceCollection AddPresentation(IServiceCollection services)
+    public static IServiceCollection AddSharedBusinessPresentation(this IServiceCollection services)
     {
-        Common.Presentation.DependencyInjection.AddPresentation(services);
-        IMT.Presentation.DependencyInjection.AddPresentation(services);
-        Admin.Presentation.DependencyInjection.AddPresentation(services);
+        Common.Presentation.SharedBusinessCommonPresentationDependencyInjection.AddSharedBusinessCommonPresentation(services);
+        IMT.Presentation.SharedBusinessIMTPresentationDependencyInjection.AddSharedBusinessIMTPresentation(services);
+        Admin.Presentation.SharedBusinessAdminPresentationDependencyInjection.AddSharedBusinessAdminPresentation(services);
         return services;
 
     }
-
-    public static IServiceCollection AddSharedBusiness(this IServiceCollection services)
-    {
-        SharedBusiness.Main.DependencyInjection.AddApplication(services);
-        SharedBusiness.Main.DependencyInjection.AddInfrastructure(services);
-        SharedBusiness.Main.DependencyInjection.AddPresentation(services);
-
-        return services;
-    }
+    
     
 }

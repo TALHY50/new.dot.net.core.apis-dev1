@@ -6,6 +6,7 @@ using ACL.Business.Infrastructure.Security;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -23,12 +24,11 @@ using RefreshToken = ACL.Business.Application.Features.Auth.RefreshToken;
 
 namespace ACL.Business.Application;
 
-public static class DependencyInjection
+public static class ACLApplicationDependencyInjection
 {
-    public static IServiceCollection AddApplication(this IServiceCollection services, IConfiguration configuration,
-        IWebHostEnvironment environment)
+    public static IServiceCollection AddACLBusinessApplication(this IServiceCollection services, IConfiguration configuration,
+        IWebHostEnvironment environment, ConfigureHostBuilder builderHost)
     {
-        services.AddApplication();
         services.Configure<ApiBehaviorOptions>(o =>
         {
             o.InvalidModelStateResponseFactory = actionContext =>
@@ -85,7 +85,7 @@ public static class DependencyInjection
         services.AddScoped<RefreshToken>();
         services.AddScoped<SignOut>();
         services.AddScoped<Register>();
-        services.AddSingleton<ILocalizationService>(new LocalizationService("SharedKernel.Main.Infrastructure.Resources.en-US", typeof(DependencyInjection).Assembly, "en-US"));
+        services.AddSingleton<ILocalizationService>(new LocalizationService("SharedKernel.Main.Infrastructure.Resources.en-US", typeof(ACLApplicationDependencyInjection).Assembly, "en-US"));
         return services;
     }
 }

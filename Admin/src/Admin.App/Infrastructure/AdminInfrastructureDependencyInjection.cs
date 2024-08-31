@@ -28,22 +28,12 @@ using ICountryRepository = SharedBusiness.Main.IMT.Application.Interfaces.Reposi
 
 namespace Admin.App.Infrastructure;
 
-public static class DependencyInjection
+public static class AdminInfrastructureDependencyInjection
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddAdminInfrastructure(this IServiceCollection services, IConfiguration configuration,
+        IWebHostEnvironment environment, ConfigureHostBuilder builderHost)
     {
-        SharedKernel.Main.Infrastructure.DependencyInjection.AddInfrastructure(services);
-
-        SharedBusiness.Main.DependencyInjection.AddInfrastructure(services);
-
-        services.AddSecurity(configuration);
-
-        services.AddPersistence(configuration);
-
-        services.AddRazorEngine(configuration);
-
-        services.AddSingleton<ICurrentUserService, CurrentUserService>();
-
+        services.AddAdminPersistence(configuration);
         return services;
     }
 
@@ -80,7 +70,7 @@ public static class DependencyInjection
 
         services.AddDbContext<SharedBusiness.Main.Common.Infrastructure.Persistence.Context.ApplicationDbContext>(
             options =>
-                options.UseMySQL(connectionString, options =>
+                options.UseMySQL(ConnectionManager.GetDbConnectionString(), options =>
                 {
                     options.EnableRetryOnFailure();
                 }),

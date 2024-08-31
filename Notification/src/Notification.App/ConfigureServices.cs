@@ -54,9 +54,9 @@ public static class DependencyInjection
         return services;
     }
 
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration, IWebHostEnvironment environment, ConfigureHostBuilder hostBuilder)
     {
-        services.AddInfrastructure();
+        services.AddInfrastructure(configuration, environment, hostBuilder);
         services.AddSecurity(configuration);
 
         services.AddPersistence(configuration);

@@ -25,7 +25,7 @@ builder.Services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title =
 builder.Services.AddProblemDetails();
 
 builder.Services.AddApplication();
-builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddInfrastructure(builder.Configuration, builder.Environment, builder.Host);
 
 builder.Services.AddHealthChecks();
 builder.Services.AddHttpContextAccessor();

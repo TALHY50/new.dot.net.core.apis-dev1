@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.Common.Infrastructure.Persistence.Context;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
@@ -5,7 +6,7 @@ using SharedKernel.Main.Infrastructure.Services;
 
 namespace SharedBusiness.Main.IMT.Infrastructure.Persistence.Repositories;
 
-public class ImtMoneyTransferRepository(ApplicationDbContext dbContext):GenericRepository<MoneyTransfer,ApplicationDbContext>(dbContext),IImtMoneyTransferRepository
+public class TransactionRepository(ApplicationDbContext dbContext) : GenericRepository<Transaction,ApplicationDbContext>(dbContext),ITransactionRepository
 {
 
 }
