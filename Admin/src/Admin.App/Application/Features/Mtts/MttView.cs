@@ -22,7 +22,7 @@ namespace Admin.App.Application.Features.Mtts
 
         public record GetMttsByIdQuery(uint id) : IRequest<ErrorOr<Mtt>>;
 
-        internal sealed class GetMttsByIdQueryValidator : AbstractValidator<GetMttsByIdQuery>
+        public class GetMttsByIdQueryValidator : AbstractValidator<GetMttsByIdQuery>
         {
             public GetMttsByIdQueryValidator()
             {
@@ -30,7 +30,7 @@ namespace Admin.App.Application.Features.Mtts
             }
         }
 
-        internal sealed class Handler : IRequestHandler<GetMttsByIdQuery, ErrorOr<Mtt>>
+        public class Handler : IRequestHandler<GetMttsByIdQuery, ErrorOr<Mtt>>
         {
             private readonly IImtMttsRepository _repository;
 

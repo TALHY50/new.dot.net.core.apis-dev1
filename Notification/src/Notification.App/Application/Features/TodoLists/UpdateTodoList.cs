@@ -58,7 +58,7 @@ public class UpdateTodoListCommandValidator : AbstractValidator<UpdateTodoListCo
     }
 }
 
-internal sealed class UpdateTodoListCommandHandler : IRequestHandler<UpdateTodoListCommand>
+public class UpdateTodoListCommandHandler : IRequestHandler<UpdateTodoListCommand>
 {
     private readonly ApplicationDbContext _context;
 

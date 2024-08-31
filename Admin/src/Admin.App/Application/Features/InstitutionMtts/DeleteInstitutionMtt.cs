@@ -27,14 +27,14 @@ namespace Admin.App.Application.Features.InstitutionMtts
 
     public record DeleteInstitutionMttCommand(uint id) : IRequest<ErrorOr<bool>>;
 
-    internal sealed class DeleteInstitutionMttCommandValidator : AbstractValidator<DeleteInstitutionMttCommand>
+    public class DeleteInstitutionMttCommandValidator : AbstractValidator<DeleteInstitutionMttCommand>
     {
         public DeleteInstitutionMttCommandValidator()
         {
             RuleFor(r => r.id).NotEmpty();
         }
     }
-    internal sealed class DeleteInstitutionMttCommandHandler : IRequestHandler<DeleteInstitutionMttCommand, ErrorOr<bool>>
+    public class DeleteInstitutionMttCommandHandler : IRequestHandler<DeleteInstitutionMttCommand, ErrorOr<bool>>
     {
         private readonly IImtInstitutionMttRepository _repository;
         public DeleteInstitutionMttCommandHandler(IImtInstitutionMttRepository repository)

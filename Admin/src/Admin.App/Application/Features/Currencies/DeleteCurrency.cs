@@ -27,14 +27,14 @@ namespace Admin.App.Application.Features.Currencies
 
     public record DeleteCurrencyCommand(uint id) : IRequest<ErrorOr<bool>>;
 
-    internal sealed class DeleteCurrencyCommandValidator : AbstractValidator<DeleteCurrencyCommand>
+    public class DeleteCurrencyCommandValidator : AbstractValidator<DeleteCurrencyCommand>
     {
         public DeleteCurrencyCommandValidator()
         {
             RuleFor(r => r.id).NotEmpty();
         }
     }
-    internal sealed class DeleteCurrencyCommandHandler : IRequestHandler<DeleteCurrencyCommand, ErrorOr<bool>>
+    public class DeleteCurrencyCommandHandler : IRequestHandler<DeleteCurrencyCommand, ErrorOr<bool>>
     {
         private readonly IImtAdminCurrencyRepository _repository;
         public DeleteCurrencyCommandHandler(IImtAdminCurrencyRepository repository)

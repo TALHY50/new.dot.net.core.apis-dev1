@@ -34,7 +34,7 @@ public class Source
     public string currency { get; set; }
 }
 
-internal sealed class CreateMoneyTransferQuotationValidator : AbstractValidator<CreateMoneyTransferQuotation>
+public class CreateMoneyTransferQuotationValidator : AbstractValidator<CreateMoneyTransferQuotation>
 {
     public CreateMoneyTransferQuotationValidator()
     {
@@ -51,7 +51,7 @@ internal sealed class CreateMoneyTransferQuotationValidator : AbstractValidator<
     }
 }
 
-internal sealed class ConfirmMoneyTransferHandler(ApplicationDbContext context)
+public class ConfirmMoneyTransferHandler(ApplicationDbContext context)
     : IRequestHandler<ConfirmMoneyTransfer, ErrorOr<object>>
 {
     private readonly ApplicationDbContext _context = context;

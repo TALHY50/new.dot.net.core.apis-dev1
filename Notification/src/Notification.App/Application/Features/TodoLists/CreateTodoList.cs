@@ -23,7 +23,7 @@ public class CreateTodoListController : ApiControllerBase
 
 public record CreateTodoListCommand(string? Title) : IRequest<int>;
 
-internal sealed class CreateTodoListCommandValidator : AbstractValidator<CreateTodoListCommand>
+public class CreateTodoListCommandValidator : AbstractValidator<CreateTodoListCommand>
 {
     private readonly ApplicationDbContext _context;
 
@@ -44,7 +44,7 @@ internal sealed class CreateTodoListCommandValidator : AbstractValidator<CreateT
     }
 }
 
-internal sealed class CreateTodoListCommandHandler(ApplicationDbContext context) : IRequestHandler<CreateTodoListCommand, int>
+public class CreateTodoListCommandHandler(ApplicationDbContext context) : IRequestHandler<CreateTodoListCommand, int>
 {
     private readonly ApplicationDbContext _context = context;
 

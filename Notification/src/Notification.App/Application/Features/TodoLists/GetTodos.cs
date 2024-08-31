@@ -40,7 +40,7 @@ public record TodoListDto(int Id, string? Title, string? Colour, IList<TodoItemD
 
 public record TodoItemDto(int Id, int ListId, string? Title, bool Done, int Priority, string? Note);
 
-internal sealed class GetTodosQueryHandler(ApplicationDbContext context) : IRequestHandler<GetTodosQuery, TodosVm>
+public class GetTodosQueryHandler(ApplicationDbContext context) : IRequestHandler<GetTodosQuery, TodosVm>
 {
     private readonly ApplicationDbContext _context = context;
 

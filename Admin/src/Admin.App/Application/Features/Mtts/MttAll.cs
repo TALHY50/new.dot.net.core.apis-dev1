@@ -24,7 +24,7 @@ namespace Admin.App.Application.Features.Mtts
 
 
 
-        internal sealed class Handler : IRequestHandler<GetAllMttsQuery, ErrorOr<List<Mtt>>>
+        public class Handler : IRequestHandler<GetAllMttsQuery, ErrorOr<List<Mtt>>>
         {
             private readonly IImtMttsRepository _repository;
 

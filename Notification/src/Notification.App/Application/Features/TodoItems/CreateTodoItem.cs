@@ -22,7 +22,7 @@ public class CreateTodoItemController : ApiControllerBase
 
 public record CreateTodoItemCommand(int ListId, string? Title) : IRequest<int>;
 
-internal sealed class CreateTodoItemCommandValidator : AbstractValidator<CreateTodoItemCommand>
+public class CreateTodoItemCommandValidator : AbstractValidator<CreateTodoItemCommand>
 {
     public CreateTodoItemCommandValidator()
     {
@@ -32,7 +32,7 @@ internal sealed class CreateTodoItemCommandValidator : AbstractValidator<CreateT
     }
 }
 
-internal sealed class CreateToDoItemCommandHandler(ApplicationDbContext context) : IRequestHandler<CreateTodoItemCommand, int>
+public class CreateToDoItemCommandHandler(ApplicationDbContext context) : IRequestHandler<CreateTodoItemCommand, int>
 {
     private readonly ApplicationDbContext _context = context;
 

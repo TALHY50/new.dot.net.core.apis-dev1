@@ -24,7 +24,7 @@ public class DeleteTodoListController : ApiControllerBase
 
 public record DeleteTodoListCommand(int Id) : IRequest;
 
-internal sealed class DeleteTodoListCommandHandler(ApplicationDbContext context) : IRequestHandler<DeleteTodoListCommand>
+public class DeleteTodoListCommandHandler(ApplicationDbContext context) : IRequestHandler<DeleteTodoListCommand>
 {
     private readonly ApplicationDbContext _context = context;
 

@@ -23,7 +23,7 @@ public class DeleteTodoItemController : ApiControllerBase
 
 public record DeleteTodoItemCommand(int Id) : IRequest;
 
-internal sealed class DeleteTodoItemCommandHandler(ApplicationDbContext context) : IRequestHandler<DeleteTodoItemCommand>
+public class DeleteTodoItemCommandHandler(ApplicationDbContext context) : IRequestHandler<DeleteTodoItemCommand>
 {
     private readonly ApplicationDbContext _context = context;
 

@@ -6,7 +6,7 @@ using SharedKernel.Main.Application.Common.Models;
 
 namespace Notification.App.Application.Features.TodoItems.EventHandlers;
 
-internal sealed class TodoItemCreatedEventHandler(ILogger<TodoItemCreatedEventHandler> logger) : INotificationHandler<DomainEventNotification<TodoItemCreatedEvent>>
+public class TodoItemCreatedEventHandler(ILogger<TodoItemCreatedEventHandler> logger) : INotificationHandler<DomainEventNotification<TodoItemCreatedEvent>>
 {
     private readonly ILogger<TodoItemCreatedEventHandler> _logger = logger;
 

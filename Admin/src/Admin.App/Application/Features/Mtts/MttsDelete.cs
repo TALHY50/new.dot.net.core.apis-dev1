@@ -24,7 +24,7 @@ namespace Admin.App.Application.Features.Mtts
            : IRequest<bool>;
 
 
-        internal sealed class DeleteMttCommandValidator : AbstractValidator<DeleteMttCommand>
+        public class DeleteMttCommandValidator : AbstractValidator<DeleteMttCommand>
         {
             public DeleteMttCommandValidator()
             {
@@ -32,7 +32,7 @@ namespace Admin.App.Application.Features.Mtts
             }
         }
 
-        internal sealed class DeleteMttCommandHandler : IRequestHandler<DeleteMttCommand, bool>
+        public class DeleteMttCommandHandler : IRequestHandler<DeleteMttCommand, bool>
         {
             private readonly IImtMttsRepository _repository;
             public DeleteMttCommandHandler(ICurrentUserService user, IImtMttsRepository repository)

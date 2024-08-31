@@ -6,7 +6,7 @@ using SharedKernel.Main.Application.Common.Models;
 
 namespace Notification.App.Application.Features.TodoItems.EventHandlers;
 
-internal sealed class TodoItemCompletedEventHandler(ILogger<TodoItemCompletedEventHandler> logger) : INotificationHandler<DomainEventNotification<TodoItemCompletedEvent>>
+public class TodoItemCompletedEventHandler(ILogger<TodoItemCompletedEventHandler> logger) : INotificationHandler<DomainEventNotification<TodoItemCompletedEvent>>
 {
     private readonly ILogger<TodoItemCompletedEventHandler> _logger = logger;
 

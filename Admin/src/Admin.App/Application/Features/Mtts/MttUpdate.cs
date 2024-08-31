@@ -27,7 +27,7 @@ namespace Admin.App.Application.Features.Mtts
           : IRequest<ErrorOr<Mtt>>;
 
 
-        internal sealed class UpdateMttCommandValidator : AbstractValidator<UpdateMttCommand>
+        public class UpdateMttCommandValidator : AbstractValidator<UpdateMttCommand>
         {
             public UpdateMttCommandValidator()
             {
@@ -45,7 +45,7 @@ namespace Admin.App.Application.Features.Mtts
             }
         }
 
-        internal sealed class UpdateMttCommandHandler : IRequestHandler<UpdateMttCommand, ErrorOr<Mtt>>
+        public class UpdateMttCommandHandler : IRequestHandler<UpdateMttCommand, ErrorOr<Mtt>>
         {
             private readonly ICurrentUserService _user;
             private readonly IImtMttsRepository _repository;

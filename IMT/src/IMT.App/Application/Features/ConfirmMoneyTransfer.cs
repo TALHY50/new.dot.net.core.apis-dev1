@@ -19,7 +19,7 @@ public class ConfirmTransferController : ApiControllerBase
 
 public record ConfirmMoneyTransfer(int Id) : IRequest<ErrorOr<object>>;
 
-internal sealed class ConfirmMoneyTransferValidator : AbstractValidator<ConfirmMoneyTransfer>
+public class ConfirmMoneyTransferValidator : AbstractValidator<ConfirmMoneyTransfer>
 {
     public ConfirmMoneyTransferValidator()
     {
@@ -29,7 +29,7 @@ internal sealed class ConfirmMoneyTransferValidator : AbstractValidator<ConfirmM
     }
 }
 
-internal sealed class Handler(ApplicationDbContext context)
+public class Handler(ApplicationDbContext context)
     : IRequestHandler<ConfirmMoneyTransfer, ErrorOr<object>>
 {
     private readonly ApplicationDbContext _context = context;

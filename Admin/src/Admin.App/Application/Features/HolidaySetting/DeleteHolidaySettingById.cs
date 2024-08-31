@@ -36,7 +36,7 @@ public class DeleteHolidaySettingByIdController : ApiControllerBase
         }
     }
 
-    internal sealed class DeleteHolidaySettingCommandHandler(ApplicationDbContext _context, IHolidaySettingRepository repository) : IRequestHandler<DeleteHolidaySettingCommand, ErrorOr<bool>>
+    public class DeleteHolidaySettingCommandHandler(ApplicationDbContext _context, IHolidaySettingRepository repository) : IRequestHandler<DeleteHolidaySettingCommand, ErrorOr<bool>>
     {
         public async Task<ErrorOr<bool>> Handle(DeleteHolidaySettingCommand request, CancellationToken cancellationToken)
         {

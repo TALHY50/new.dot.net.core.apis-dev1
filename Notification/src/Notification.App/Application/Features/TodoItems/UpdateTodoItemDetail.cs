@@ -28,7 +28,7 @@ public class UpdateTodoItemDetailController : ApiControllerBase
 
 public record UpdateTodoItemDetailCommand(int Id, int ListId, PriorityLevel Priority, string? Note) : IRequest;
 
-internal sealed class UpdateTodoItemDetailCommandHandler(ApplicationDbContext context) : IRequestHandler<UpdateTodoItemDetailCommand>
+public class UpdateTodoItemDetailCommandHandler(ApplicationDbContext context) : IRequestHandler<UpdateTodoItemDetailCommand>
 {
     private readonly ApplicationDbContext _context = context;
 

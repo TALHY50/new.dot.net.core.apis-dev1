@@ -38,7 +38,7 @@ public class GetBusinessHourAndWeekendByIdController : ApiControllerBase
         }
     }
 
-    internal sealed class GetBusinessHourAndWeekendByIdHandler(ApplicationDbContext _context, IBusinessHourAndWeekendRepository repository) : IRequestHandler<GetBusinessHourAndWeekendByIdCommand, ErrorOr<BusinessHoursAndWeekend>>
+    public class GetBusinessHourAndWeekendByIdHandler(ApplicationDbContext _context, IBusinessHourAndWeekendRepository repository) : IRequestHandler<GetBusinessHourAndWeekendByIdCommand, ErrorOr<BusinessHoursAndWeekend>>
     {
         public async Task<ErrorOr<BusinessHoursAndWeekend>> Handle(GetBusinessHourAndWeekendByIdCommand request, CancellationToken cancellationToken)
         {

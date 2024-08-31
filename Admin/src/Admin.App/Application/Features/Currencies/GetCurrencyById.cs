@@ -27,14 +27,14 @@ namespace Admin.App.Application.Features.Currencies
     }
     public record GetCurrencyByIdQuery(uint id) : IRequest<ErrorOr<Currency>>;
 
-    internal sealed class GetCurrencyByIdValidator : AbstractValidator<GetCurrencyByIdQuery>
+    public class GetCurrencyByIdValidator : AbstractValidator<GetCurrencyByIdQuery>
     {
         public GetCurrencyByIdValidator()
         {
             RuleFor(x => x.id).NotEmpty().WithMessage("Currency ID is required");
         }
     }
-    internal sealed class GetCurrencyByIdQueryHandler :
+    public class GetCurrencyByIdQueryHandler :
         IRequestHandler<GetCurrencyByIdQuery, ErrorOr<Currency>>
     {
         private readonly IImtAdminCurrencyRepository _repository;

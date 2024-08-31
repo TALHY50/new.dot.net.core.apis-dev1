@@ -28,7 +28,7 @@ public record ExportTodosQuery(int ListId) : IRequest<ExportTodosVm>;
 
 public record ExportTodosVm(string FileName, string ContentType, byte[] Content);
 
-internal sealed class ExportTodosQueryHandler(ApplicationDbContext context, ICsvFileBuilder fileBuilder) : IRequestHandler<ExportTodosQuery, ExportTodosVm>
+public class ExportTodosQueryHandler(ApplicationDbContext context, ICsvFileBuilder fileBuilder) : IRequestHandler<ExportTodosQuery, ExportTodosVm>
 {
     private readonly ApplicationDbContext _context = context;
     private readonly ICsvFileBuilder _fileBuilder = fileBuilder;

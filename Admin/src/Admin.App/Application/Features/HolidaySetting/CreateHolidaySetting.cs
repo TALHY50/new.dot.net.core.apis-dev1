@@ -30,7 +30,7 @@ public class CreateHolidaySettingController : ApiControllerBase
         : IRequest<ErrorOr<Duplicates_HolidaySetting>>;
 
 
-    internal sealed class CreateHolidaySettingCommandValidator : AbstractValidator<CreateHolidaySettingCommand>
+    public class CreateHolidaySettingCommandValidator : AbstractValidator<CreateHolidaySettingCommand>
     {
         public CreateHolidaySettingCommandValidator()
         {
@@ -39,7 +39,7 @@ public class CreateHolidaySettingController : ApiControllerBase
         }
     }
 
-    internal sealed class CreateHolidaySettingHandler(ApplicationDbContext context, IHolidaySettingRepository repository) : IRequestHandler<CreateHolidaySettingCommand, ErrorOr<Duplicates_HolidaySetting>>
+    public class CreateHolidaySettingHandler(ApplicationDbContext context, IHolidaySettingRepository repository) : IRequestHandler<CreateHolidaySettingCommand, ErrorOr<Duplicates_HolidaySetting>>
     {
         public async Task<ErrorOr<Duplicates_HolidaySetting>> Handle(CreateHolidaySettingCommand request, CancellationToken cancellationToken)
         {

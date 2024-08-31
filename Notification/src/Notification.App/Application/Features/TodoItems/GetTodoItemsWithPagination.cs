@@ -27,7 +27,7 @@ public record TodoItemBriefResponse(int Id, int ListId, string? Title, bool Done
 
 public record GetTodoItemsWithPaginationQuery(int ListId, int PageNumber = 1, int PageSize = 10) : IRequest<PaginatedList<TodoItemBriefResponse>>;
 
-internal sealed class GetTodoItemsWithPaginationQueryValidator : AbstractValidator<GetTodoItemsWithPaginationQuery>
+public class GetTodoItemsWithPaginationQueryValidator : AbstractValidator<GetTodoItemsWithPaginationQuery>
 {
     public GetTodoItemsWithPaginationQueryValidator()
     {
@@ -42,7 +42,7 @@ internal sealed class GetTodoItemsWithPaginationQueryValidator : AbstractValidat
     }
 }
 
-internal sealed class GetTodoItemsWithPaginationQueryHandler(ApplicationDbContext context) : IRequestHandler<GetTodoItemsWithPaginationQuery, PaginatedList<TodoItemBriefResponse>>
+public class GetTodoItemsWithPaginationQueryHandler(ApplicationDbContext context) : IRequestHandler<GetTodoItemsWithPaginationQuery, PaginatedList<TodoItemBriefResponse>>
 {
     private readonly ApplicationDbContext _context = context;
 

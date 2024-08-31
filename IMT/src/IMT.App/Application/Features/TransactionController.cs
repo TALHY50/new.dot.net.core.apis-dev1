@@ -86,7 +86,7 @@ namespace IMT.App.Application.Features
 
 
 
-        internal sealed class CreateTransactionCommandValidator : AbstractValidator<CreateTransactionCommand>
+        public class CreateTransactionCommandValidator : AbstractValidator<CreateTransactionCommand>
         {
             public CreateTransactionCommandValidator()
             {
@@ -129,56 +129,58 @@ namespace IMT.App.Application.Features
             }
         }
 
-        internal sealed class CreateHolidaySettingHandler(ApplicationDbContext context, IImtTransactionRepository _transactionRepository, IQuotationRepository _quotationRepository, IImtTransactionRepository _imtTransactionRepository, IImtMoneyTransferRepository _imtMoneyTransferRepository) : IRequestHandler<CreateTransactionCommand, ErrorOr<Transaction>>
+        public class CreateTransactionCommandandler : IRequestHandler<CreateTransactionCommand, ErrorOr<Transaction>>
         {
+            private readonly ApplicationDbContext _context;
+            private readonly IImtTransactionRepository _transactionRepository;
+            private readonly IQuotationRepository _quotationRepository;
+            private readonly IImtTransactionRepository _imtTransactionRepository;
+            private readonly IImtMoneyTransferRepository _imtMoneyTransferRepository;
+
+            // Constructor with Dependency Injection
+            public CreateTransactionCommandandler(
+                ApplicationDbContext context,
+                IImtTransactionRepository transactionRepository,
+                IQuotationRepository quotationRepository,
+                IImtTransactionRepository imtTransactionRepository,
+                IImtMoneyTransferRepository imtMoneyTransferRepository)
+            {
+                _context = context ?? throw new ArgumentNullException(nameof(context));
+                _transactionRepository = transactionRepository ?? throw new ArgumentNullException(nameof(transactionRepository));
+                _quotationRepository = quotationRepository ?? throw new ArgumentNullException(nameof(quotationRepository));
+                _imtTransactionRepository = imtTransactionRepository ?? throw new ArgumentNullException(nameof(imtTransactionRepository));
+                _imtMoneyTransferRepository = imtMoneyTransferRepository ?? throw new ArgumentNullException(nameof(imtMoneyTransferRepository));
+            }
+
+            // Handle method
             public async Task<ErrorOr<Transaction>> Handle(CreateTransactionCommand request, CancellationToken cancellationToken)
             {
-
-                // business validation
+                // Business validation
                 var quotation = _quotationRepository.Where(q => q.InvoiceId == request.invoice_id && q.OrderId == request.order_id).FirstOrDefault();
                 if (quotation is null)
                 {
-                    // Not found Quotation
+                    // Quotation not found
                     return Error.NotFound("Quotation not found", ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
-                // operation on db
+                // Operation on db
 
-
-
-                // insert money transfer
-
-                // insert transaction
-
-
-                var entity = new Transaction
-                {
-                    //CountryId = request.CountryId,
-                    //Date = request.Date,
-                    //Type = request.Type,
-                    //Gmt = request.Gmt,
-                    //OpenAt = request.OpenAt,
-                    //CloseAt = request.CloseAt,
-                    //CompanyId = request.CompanyId
-                };
-
+                // Insert money transfer
                 var moneyTransfer = new MoneyTransfer
                 {
-                    //CountryId = request.CountryId,
-                    //Date = request.Date,
-                    //Type = request.Type,
-                    //Gmt = request.Gmt,
-                    //OpenAt = request.OpenAt,
-                    //CloseAt = request.CloseAt,
-                    //CompanyId = request.CompanyId
+                    // Set properties here
                 };
+                await _imtMoneyTransferRepository.AddAsync(moneyTransfer);
 
-
-                _imtMoneyTransferRepository.AddAsync(moneyTransfer);
-
+                // Insert transaction
+                var entity = new Transaction
+                {
+                    // Set properties here
+                };
                 return await _imtTransactionRepository.AddAsync(entity);
             }
         }
+
 
 
 

@@ -32,7 +32,7 @@ public class CreateBusinessHourAndWeekendController : ApiControllerBase
         : IRequest<ErrorOr<BusinessHoursAndWeekend>>;
 
 
-    internal sealed class CreateBusinessHourAndWeekendCommandValidator : AbstractValidator<CreateBusinessHourAndWeekendCommand>
+    public class CreateBusinessHourAndWeekendCommandValidator : AbstractValidator<CreateBusinessHourAndWeekendCommand>
     {
         public CreateBusinessHourAndWeekendCommandValidator()
         {
@@ -44,7 +44,7 @@ public class CreateBusinessHourAndWeekendController : ApiControllerBase
         }
     }
 
-    internal sealed class CreateBusinessHourAndWeekendHandler(ApplicationDbContext context, IBusinessHourAndWeekendRepository repository) : IRequestHandler<CreateBusinessHourAndWeekendCommand, ErrorOr<BusinessHoursAndWeekend>>
+    public class CreateBusinessHourAndWeekendHandler(ApplicationDbContext context, IBusinessHourAndWeekendRepository repository) : IRequestHandler<CreateBusinessHourAndWeekendCommand, ErrorOr<BusinessHoursAndWeekend>>
     {
 
         public async Task<ErrorOr<BusinessHoursAndWeekend>> Handle(CreateBusinessHourAndWeekendCommand request, CancellationToken cancellationToken)

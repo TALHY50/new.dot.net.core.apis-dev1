@@ -31,7 +31,7 @@ public class UpdateBusinessHourAndWeekendController : ApiControllerBase
     : IRequest<ErrorOr<BusinessHoursAndWeekend>>;
 
 
-    internal sealed class UpdateBusinessHourAndWeekendCommandValidator : AbstractValidator<UpdateBusinessHourAndWeekendCommand>
+    public class UpdateBusinessHourAndWeekendCommandValidator : AbstractValidator<UpdateBusinessHourAndWeekendCommand>
     {
         public UpdateBusinessHourAndWeekendCommandValidator()
         {
@@ -43,7 +43,7 @@ public class UpdateBusinessHourAndWeekendController : ApiControllerBase
         }
     }
 
-    internal sealed class UpdateBusinessHourAndWeekendHandler(ApplicationDbContext _context, IBusinessHourAndWeekendRepository repository) : IRequestHandler<UpdateBusinessHourAndWeekendCommand, ErrorOr<BusinessHoursAndWeekend>>
+    public class UpdateBusinessHourAndWeekendHandler(ApplicationDbContext _context, IBusinessHourAndWeekendRepository repository) : IRequestHandler<UpdateBusinessHourAndWeekendCommand, ErrorOr<BusinessHoursAndWeekend>>
     {
         public async Task<ErrorOr<BusinessHoursAndWeekend>> Handle(UpdateBusinessHourAndWeekendCommand request, CancellationToken cancellationToken)
         {

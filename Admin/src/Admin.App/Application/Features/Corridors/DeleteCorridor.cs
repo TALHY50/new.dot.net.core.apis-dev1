@@ -28,14 +28,14 @@ namespace Admin.App.Application.Features.Corridors
 
     public record DeleteCorridorCommand(uint id) : IRequest<ErrorOr<bool>>;
 
-    internal sealed class DeleteCorridorCommandValidator : AbstractValidator<DeleteCorridorCommand>
+    public class DeleteCorridorCommandValidator : AbstractValidator<DeleteCorridorCommand>
     {
         public DeleteCorridorCommandValidator()
         {
             RuleFor(r => r.id).NotEmpty();
         }
     }
-    internal sealed class DeleteCorridorCommandHandler : IRequestHandler<DeleteCorridorCommand, ErrorOr<bool>>
+    public class DeleteCorridorCommandHandler : IRequestHandler<DeleteCorridorCommand, ErrorOr<bool>>
     {
         private readonly IImtCorridorRepository _repository;
         public DeleteCorridorCommandHandler(IImtCorridorRepository repository)

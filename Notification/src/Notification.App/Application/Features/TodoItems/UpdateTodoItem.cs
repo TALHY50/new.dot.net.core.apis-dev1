@@ -30,7 +30,7 @@ public class TodoItemsController : ApiControllerBase
 
 public record UpdateTodoItemCommand(int Id, string? Title, bool Done) : IRequest;
 
-internal sealed class UpdateTodoItemCommandValidator : AbstractValidator<UpdateTodoItemCommand>
+public class UpdateTodoItemCommandValidator : AbstractValidator<UpdateTodoItemCommand>
 {
     public UpdateTodoItemCommandValidator()
     {
@@ -40,7 +40,7 @@ internal sealed class UpdateTodoItemCommandValidator : AbstractValidator<UpdateT
     }
 }
 
-internal sealed class UpdateTodoItemCommandHandler(ApplicationDbContext context) : IRequestHandler<UpdateTodoItemCommand>
+public class UpdateTodoItemCommandHandler(ApplicationDbContext context) : IRequestHandler<UpdateTodoItemCommand>
 {
     private readonly ApplicationDbContext _context = context;
 

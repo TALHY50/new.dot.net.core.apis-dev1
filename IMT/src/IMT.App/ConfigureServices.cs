@@ -8,6 +8,7 @@ using ACL.Business.Application.Interfaces.Services;
 using ACL.Business.Infrastructure.Jwt;
 using ACL.Business.Infrastructure.Persistence.Repositories;
 using ACL.Business.Infrastructure.Security;
+using ACL.Web.Application.Features.Auth;
 using DotNetEnv;
 using ErrorOr;
 using FluentValidation;
@@ -21,6 +22,7 @@ using Microsoft.IdentityModel.Tokens;
 using SharedBusiness.Main.Common.Infrastructure.Persistence.Context;
 using SharedBusiness.Main.Common.Infrastructure.Persistence.Repositories;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
+using SharedBusiness.Main.IMT.Infrastructure.Persistence.Repositories;
 using SharedKernel.Main.Application.Common.Behaviours;
 using SharedKernel.Main.Application.Common.Interfaces.Services;
 using SharedKernel.Main.Infrastructure.Cryptography;
@@ -82,7 +84,10 @@ public static class DependencyInjection
 
         // services.AddRazorPages();
         services.AddTransient<IRenderer, Renderer>();
-
+        services.AddTransient<Login>();
+        services.AddTransient<RefreshToken>();
+        services.AddTransient<SignOut>();
+        services.AddTransient<Register>();
         return services;
     }
 
@@ -124,8 +129,8 @@ public static class DependencyInjection
                     options.EnableRetryOnFailure();
                 }),
             ServiceLifetime.Transient);
-        
-        
+
+
         services.AddDbContext<ApplicationDbContext>(
             options =>
                 options.UseMySQL(connectionString, options =>
@@ -161,7 +166,7 @@ public static class DependencyInjection
         services.AddScoped<IImtMttsRepository, MttRepository>();
         // services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateMttCommand).Assembly));
         services.AddScoped<IImtRegionRepository, RegionRepository>();
-      //  services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateRegionCommand).Assembly));
+        //  services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateRegionCommand).Assembly));
         services.AddScoped<IImtProviderRepository, ProviderRepository>();
         //services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateProviderCommand).Assembly));
         services.AddScoped<IImtTransactionTypeRepository, TransactionTypeRepository>();
@@ -180,18 +185,24 @@ public static class DependencyInjection
         services.AddScoped<IImtTaxRateRepository, TaxRateRepository>();
         services.AddScoped<IImtInstitutionFundRepository, InstitutionFundRepository>();
         services.AddScoped<IImtTransactionTypeRepository, TransactionTypeRepository>();
-       // services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateCountryCommand).Assembly));  
+        // services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateCountryCommand).Assembly));  
         // services.AddScoped<IRequestHandler<CreateCountryCommand, ErrorOr<Country>>, CreateCountryCommandHandler>();
 
         services.AddScoped<IImtMttsRepository, MttRepository>();
 
-       // services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateMttCommand).Assembly));
+        // services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateMttCommand).Assembly));
 
         // BusinessHourAndWeekendRepository
         services.AddScoped<IBusinessHourAndWeekendRepository, BusinessHourAndWeekendRepository>();
 
         // HolidaySetting
         services.AddScoped<IHolidaySettingRepository, HolidaySettingRepository>();
+        services.AddTransient<IQuotationRepository, QuotationRepository>();
+        services.AddTransient<IImtMoneyTransferRepository, ImtMoneyTransferRepository>();
+        services.AddTransient<IImtTransactionRepository, ImtTransactionRepository>();
+
+
+        services.AddScoped<IUserRepository, UserRepository>();
 
         services.AddSingleton(provider =>
         {
