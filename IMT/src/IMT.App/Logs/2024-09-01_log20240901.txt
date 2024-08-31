@@ -1,0 +1,8 @@
+2024-09-01 04:36:14.606 +06:00 [ERR] Request: Unhandled Exception for Request ConfirmMoneyTransfer {"Id":0,"$type":"ConfirmMoneyTransfer"}
+System.NotImplementedException: The method or operation is not implemented.
+   at IMT.App.Application.Features.Handler.Handle(ConfirmMoneyTransfer request, CancellationToken cancellationToken) in /var/www/html/new.dot.net.core.apis/IMT/src/IMT.App/Application/Features/ConfirmMoneyTransfer.cs:line 39
+   at SharedKernel.Main.Application.Common.Behaviours.UnhandledExceptionBehaviour`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in /var/www/html/new.dot.net.core.apis/SharedKernel/src/SharedKernel.Main/Application/Common/Behaviours/UnhandledExceptionBehaviour.cs:line 26
+2024-09-01 04:45:26.965 +06:00 [ERR] Request: Unhandled Exception for Request ConfirmMoneyTransfer {"Id":0,"$type":"ConfirmMoneyTransfer"}
+System.NotImplementedException: The method or operation is not implemented.
+   at IMT.App.Application.Features.Handler.Handle(ConfirmMoneyTransfer request, CancellationToken cancellationToken) in /var/www/html/new.dot.net.core.apis/IMT/src/IMT.App/Application/Features/ConfirmMoneyTransfer.cs:line 39
+   at SharedKernel.Main.Application.Common.Behaviours.UnhandledExceptionBehaviour`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in /var/www/html/new.dot.net.core.apis/SharedKernel/src/SharedKernel.Main/Application/Common/Behaviours/UnhandledExceptionBehaviour.cs:line 26

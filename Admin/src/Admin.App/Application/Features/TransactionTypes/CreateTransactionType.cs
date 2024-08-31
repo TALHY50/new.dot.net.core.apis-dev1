@@ -5,6 +5,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common;
@@ -46,9 +47,9 @@ namespace Admin.App.Application.Features.TransactionTypes
     public class CreateTransactionTypeCommandHandler
         : IRequestHandler<CreateTransactionTypeCommand, ErrorOr<TransactionType>>
     {
-        private readonly IImtTransactionTypeRepository _transactionTypeRepository;
+        private readonly ITransactionTypeRepository _transactionTypeRepository;
 
-        public CreateTransactionTypeCommandHandler(IImtTransactionTypeRepository transactionTypeRepository)
+        public CreateTransactionTypeCommandHandler(ITransactionTypeRepository transactionTypeRepository)
         {
             _transactionTypeRepository = transactionTypeRepository;
         }

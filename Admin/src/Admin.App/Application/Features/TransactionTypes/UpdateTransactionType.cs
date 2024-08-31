@@ -3,6 +3,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common;
@@ -52,9 +53,9 @@ namespace Admin.App.Application.Features.TransactionTypes
         : IRequestHandler<UpdateTransactionTypeCommand, ErrorOr<TransactionType>>
         {
             private readonly ICurrentUserService _user;
-            private readonly IImtTransactionTypeRepository _transactionTypeRepository;
+            private readonly ITransactionTypeRepository _transactionTypeRepository;
 
-            public UpdateTransactionTypeCommandHandler(ICurrentUserService user, IImtTransactionTypeRepository transactionTypeRepository)
+            public UpdateTransactionTypeCommandHandler(ICurrentUserService user, ITransactionTypeRepository transactionTypeRepository)
             {
                 _user = user;
                 _transactionTypeRepository = transactionTypeRepository;

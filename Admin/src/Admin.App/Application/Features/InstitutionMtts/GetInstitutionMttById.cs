@@ -2,6 +2,7 @@
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Application.Common;
@@ -37,8 +38,8 @@ namespace Admin.App.Application.Features.InstitutionMtts
     public class GetInstitutionMttByIdQueryHandler :
         IRequestHandler<GetInstitutionMttByIdQuery, ErrorOr<InstitutionMtt>>
     {
-        private readonly IImtInstitutionMttRepository _repository;
-        public GetInstitutionMttByIdQueryHandler(IImtInstitutionMttRepository repository)
+        private readonly IInstitutionMttRepository _repository;
+        public GetInstitutionMttByIdQueryHandler(IInstitutionMttRepository repository)
         {
             _repository = repository;
         }

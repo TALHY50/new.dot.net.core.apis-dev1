@@ -38,7 +38,7 @@ using SharedKernel.Main.Infrastructure.Security;
 using SharedKernel.Main.Infrastructure.Services;
 using ACLApplicationDbContext = ACL.Business.Infrastructure.Persistence.Context.ApplicationDbContext;
 using CountryRepository = SharedBusiness.Main.Common.Infrastructure.Persistence.Repositories.CountryRepository;
-using ICountryRepository = SharedBusiness.Main.IMT.Application.Interfaces.Repositories.ICountryRepository;
+using ICountryRepository = SharedBusiness.Main.Common.Application.Services.Repositories.ICountryRepository;
 
 namespace Admin.App;
 

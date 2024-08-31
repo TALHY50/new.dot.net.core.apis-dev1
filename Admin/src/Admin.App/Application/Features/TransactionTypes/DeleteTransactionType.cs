@@ -3,6 +3,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
@@ -43,9 +44,9 @@ namespace Admin.App.Application.Features.TransactionTypes
         : IRequestHandler<DeleteTransactionTypeCommand, ErrorOr<bool>>
         {
             private readonly ICurrentUserService _user;
-            private readonly IImtTransactionTypeRepository _transactiontypeRepository;
+            private readonly ITransactionTypeRepository _transactiontypeRepository;
            
-            public DeleteTransactionTypeCommandHandler(ICurrentUserService user, IImtTransactionTypeRepository transactionTypeRepository)
+            public DeleteTransactionTypeCommandHandler(ICurrentUserService user, ITransactionTypeRepository transactionTypeRepository)
             {
                 _user = user;
                 _transactiontypeRepository = transactionTypeRepository;

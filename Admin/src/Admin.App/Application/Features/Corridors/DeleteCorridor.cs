@@ -2,6 +2,7 @@
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
@@ -37,8 +38,8 @@ namespace Admin.App.Application.Features.Corridors
     }
     internal sealed class DeleteCorridorCommandHandler : IRequestHandler<DeleteCorridorCommand, ErrorOr<bool>>
     {
-        private readonly IImtCorridorRepository _repository;
-        public DeleteCorridorCommandHandler(IImtCorridorRepository repository)
+        private readonly ICorridorRepository _repository;
+        public DeleteCorridorCommandHandler(ICorridorRepository repository)
         {
             _repository = repository;
         }

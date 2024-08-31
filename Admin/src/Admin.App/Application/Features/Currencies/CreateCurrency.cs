@@ -3,6 +3,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common;
@@ -45,9 +46,9 @@ namespace Admin.App.Application.Features.Currencies
 
     public class CreateCurrencyCommandHandler : IRequestHandler<CreateCurrencyCommand, ErrorOr<Currency>>
     {
-        private readonly IImtAdminCurrencyRepository _repository;
+        private readonly ICurrencyRepository _repository;
 
-        public CreateCurrencyCommandHandler(IImtAdminCurrencyRepository repository)
+        public CreateCurrencyCommandHandler(ICurrencyRepository repository)
         {
             _repository = repository;
         }

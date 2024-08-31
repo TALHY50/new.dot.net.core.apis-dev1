@@ -500,3 +500,115 @@ WHERE ROW_COUNT() = 1 AND `id` = LAST_INSERT_ID();
 2024-09-01 03:44:06.532 +06:00 [INF] Executed action Admin.App.Presentation.Endpoints.Country.CreateCountry.Create (Admin.App) in 44.4373ms
 2024-09-01 03:44:06.532 +06:00 [INF] Executed endpoint 'Admin.App.Presentation.Endpoints.Country.CreateCountry.Create (Admin.App)'
 2024-09-01 03:44:06.532 +06:00 [INF] Request finished HTTP/1.1 POST http://localhost:5207/countries - 400 null application/json; charset=utf-8 45.8939ms
+2024-09-01 03:51:36.020 +06:00 [INF] Application is shutting down...
+2024-09-01 03:51:40.987 +06:00 [INF] User profile is available. Using '/home/rifat-simoom/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2024-09-01 03:51:41.061 +06:00 [INF] Now listening on: http://localhost:5207
+2024-09-01 03:51:41.061 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-09-01 03:51:41.061 +06:00 [INF] Hosting environment: Development
+2024-09-01 03:51:41.061 +06:00 [INF] Content root path: /var/www/html/new.dot.net.core.apis/Admin/src/Admin.App
+2024-09-01 03:51:41.627 +06:00 [INF] Request starting HTTP/1.1 GET http://localhost:5207/index.html - null null
+2024-09-01 03:51:41.746 +06:00 [INF] Request finished HTTP/1.1 GET http://localhost:5207/index.html - 200 null text/html;charset=utf-8 121.8118ms
+2024-09-01 03:51:41.892 +06:00 [INF] Request starting HTTP/1.1 GET http://localhost:5207/index.js - null null
+2024-09-01 03:51:41.896 +06:00 [INF] Request finished HTTP/1.1 GET http://localhost:5207/index.js - 200 null application/javascript;charset=utf-8 4.1027ms
+2024-09-01 03:51:42.239 +06:00 [INF] Request starting HTTP/1.1 GET http://localhost:5207/swagger/v1/swagger.json - null null
+2024-09-01 03:51:42.561 +06:00 [INF] Request finished HTTP/1.1 GET http://localhost:5207/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 322.0753ms
+2024-09-01 03:51:46.132 +06:00 [INF] Request starting HTTP/1.1 POST http://localhost:5207/countries - application/json 174
+2024-09-01 03:51:46.139 +06:00 [WRN] Failed to determine the https port for redirect.
+2024-09-01 03:51:46.141 +06:00 [INF] Executing endpoint 'Admin.App.Presentation.Endpoints.Country.CreateCountry.Create (Admin.App)'
+2024-09-01 03:51:46.151 +06:00 [INF] Route matched with {action = "Create", controller = "CreateCountry"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Create(SharedBusiness.Main.Admin.Application.Features.Countries.CreateCountryCommand) on controller Admin.App.Presentation.Endpoints.Country.CreateCountry (Admin.App).
+2024-09-01 03:51:46.181 +06:00 [INF] Executing action method Admin.App.Presentation.Endpoints.Country.CreateCountry.Create (Admin.App) - Validation state: "Valid"
+2024-09-01 03:51:46.258 +06:00 [INF] Executed action method Admin.App.Presentation.Endpoints.Country.CreateCountry.Create (Admin.App), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 73.9728ms.
+2024-09-01 03:51:46.263 +06:00 [INF] Executing ObjectResult, writing value of type 'SharedKernel.Main.Contracts.Common.StatusModel'.
+2024-09-01 03:51:46.269 +06:00 [INF] Executed action Admin.App.Presentation.Endpoints.Country.CreateCountry.Create (Admin.App) in 114.032ms
+2024-09-01 03:51:46.269 +06:00 [INF] Executed endpoint 'Admin.App.Presentation.Endpoints.Country.CreateCountry.Create (Admin.App)'
+2024-09-01 03:51:46.269 +06:00 [INF] Request finished HTTP/1.1 POST http://localhost:5207/countries - 400 null application/json; charset=utf-8 137.5228ms
+2024-09-01 03:51:52.479 +06:00 [INF] Request starting HTTP/1.1 POST http://localhost:5207/countries - application/json 173
+2024-09-01 03:51:52.486 +06:00 [INF] Executing endpoint 'Admin.App.Presentation.Endpoints.Country.CreateCountry.Create (Admin.App)'
+2024-09-01 03:51:52.487 +06:00 [INF] Route matched with {action = "Create", controller = "CreateCountry"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Create(SharedBusiness.Main.Admin.Application.Features.Countries.CreateCountryCommand) on controller Admin.App.Presentation.Endpoints.Country.CreateCountry (Admin.App).
+2024-09-01 03:51:52.488 +06:00 [INF] Executing action method Admin.App.Presentation.Endpoints.Country.CreateCountry.Create (Admin.App) - Validation state: "Valid"
+2024-09-01 03:51:53.830 +06:00 [INF] Executed DbCommand (27ms) [Parameters=[@p0='?' (DbType = DateTime), @p1='?' (DbType = UInt32), @p2='?' (Size = 100), @p3='?' (Size = 4), @p4='?' (Size = 100), @p5='?' (Size = 100), @p6='?' (Size = 100), @p7='?' (DbType = Int32), @p8='?' (DbType = DateTime), @p9='?' (DbType = UInt32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `imt_countries` (`created_at`, `created_by_id`, `iso_code`, `iso_code_num`, `iso_code_short`, `name`, `official_state_name`, `status`, `updated_at`, `updated_by_id`)
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9);
+SELECT `id`
+FROM `imt_countries`
+WHERE ROW_COUNT() = 1 AND `id` = LAST_INSERT_ID();
+2024-09-01 03:51:53.900 +06:00 [WRN] Long Running Request: CreateCountryCommand (1406 milliseconds)  {"name":"Bangladesh","official_state_name":"People's Republic of Bangladesh","iso_code":"BGD","iso_code_short":"BD","iso_code_num":"050","status":"Active","$type":"CreateCountryCommand"}
+2024-09-01 03:51:53.983 +06:00 [INF] Executed action method Admin.App.Presentation.Endpoints.Country.CreateCountry.Create (Admin.App), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 1495.1553ms.
+2024-09-01 03:51:53.987 +06:00 [INF] Executing OkObjectResult, writing value of type 'SharedKernel.Main.Contracts.Common.StatusModel'.
+2024-09-01 03:51:54.002 +06:00 [INF] Executed action Admin.App.Presentation.Endpoints.Country.CreateCountry.Create (Admin.App) in 1515.3006ms
+2024-09-01 03:51:54.004 +06:00 [INF] Executed endpoint 'Admin.App.Presentation.Endpoints.Country.CreateCountry.Create (Admin.App)'
+2024-09-01 03:51:54.020 +06:00 [INF] Request finished HTTP/1.1 POST http://localhost:5207/countries - 200 null application/json; charset=utf-8 1540.7783ms
+2024-09-01 03:59:30.146 +06:00 [INF] Application is shutting down...
+2024-09-01 04:00:11.756 +06:00 [INF] User profile is available. Using '/home/rifat-simoom/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2024-09-01 04:00:11.819 +06:00 [INF] Now listening on: http://localhost:5207
+2024-09-01 04:00:11.820 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-09-01 04:00:11.820 +06:00 [INF] Hosting environment: Development
+2024-09-01 04:00:11.820 +06:00 [INF] Content root path: /var/www/html/new.dot.net.core.apis/Admin/src/Admin.App
+2024-09-01 04:00:12.482 +06:00 [INF] Request starting HTTP/1.1 GET http://localhost:5207/index.html - null null
+2024-09-01 04:00:12.607 +06:00 [INF] Request finished HTTP/1.1 GET http://localhost:5207/index.html - 200 null text/html;charset=utf-8 129.0278ms
+2024-09-01 04:00:12.699 +06:00 [INF] Request starting HTTP/1.1 GET http://localhost:5207/index.js - null null
+2024-09-01 04:00:12.703 +06:00 [INF] Request finished HTTP/1.1 GET http://localhost:5207/index.js - 200 null application/javascript;charset=utf-8 4.4797ms
+2024-09-01 04:00:12.997 +06:00 [INF] Request starting HTTP/1.1 GET http://localhost:5207/swagger/v1/swagger.json - null null
+2024-09-01 04:00:13.258 +06:00 [INF] Request finished HTTP/1.1 GET http://localhost:5207/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 261.1243ms
+2024-09-01 04:00:29.867 +06:00 [INF] Request starting HTTP/1.1 POST http://localhost:5207/countries - application/json 173
+2024-09-01 04:00:29.872 +06:00 [WRN] Failed to determine the https port for redirect.
+2024-09-01 04:00:29.876 +06:00 [INF] Authorization failed. These requirements were not met:
+ACL.Business.Infrastructure.Security.PermissionAuthorizationRequirement
+2024-09-01 04:00:29.879 +06:00 [INF] AuthenticationScheme: Bearer was challenged.
+2024-09-01 04:00:29.880 +06:00 [INF] Request finished HTTP/1.1 POST http://localhost:5207/countries - 401 0 null 12.6873ms
+2024-09-01 04:02:08.670 +06:00 [INF] Request starting HTTP/1.1 POST http://localhost:5207/api/v1/auth/login - application/json 63
+2024-09-01 04:02:08.671 +06:00 [INF] Executing endpoint 'ACL.Web.Application.Features.Auth.AuthController.Login (ACL.Web)'
+2024-09-01 04:02:08.682 +06:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[ACL.Business.Contracts.Responses.LoginResponse] Login(ACL.Business.Contracts.Requests.LoginRequest) on controller ACL.Web.Application.Features.Auth.AuthController (ACL.Web).
+2024-09-01 04:02:08.849 +06:00 [INF] Executing action method ACL.Web.Application.Features.Auth.AuthController.Login (ACL.Web) - Validation state: "Valid"
+2024-09-01 04:02:10.082 +06:00 [INF] Executed DbCommand (13ms) [Parameters=[@__email_0='?' (Size = 50)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`activated_at`, `a`.`address`, `a`.`auth_identifier`, `a`.`avatar`, `a`.`city`, `a`.`claims`, `a`.`company_id`, `a`.`country`, `a`.`created_at`, `a`.`created_by_id`, `a`.`dob`, `a`.`email`, `a`.`first_name`, `a`.`gender`, `a`.`img_path`, `a`.`is_admin_verified`, `a`.`language`, `a`.`last_name`, `a`.`login_at`, `a`.`otp_channel`, `a`.`password`, `a`.`permission_version`, `a`.`phone`, `a`.`refresh_token`, `a`.`remember_token`, `a`.`salt`, `a`.`status`, `a`.`updated_at`, `a`.`user_type`, `a`.`username`
+FROM `acl_users` AS `a`
+WHERE `a`.`email` = @__email_0
+LIMIT 1
+2024-09-01 04:02:10.622 +06:00 [INF] Executed DbCommand (6ms) [Parameters=[@p30='?' (DbType = Int64), @p0='?' (DbType = DateTime), @p1='?' (Size = 255), @p2='?' (Size = 150), @p3='?' (Size = 255), @p4='?' (Size = 100), @p5='?' (Size = 4000), @p6='?' (DbType = Int32), @p7='?' (DbType = Int32), @p8='?' (DbType = DateTime), @p9='?' (DbType = Int32), @p10='?' (DbType = DateTime), @p11='?' (Size = 50), @p12='?' (Size = 100), @p13='?' (DbType = SByte), @p14='?' (Size = 4000), @p15='?' (DbType = SByte), @p16='?' (Size = 10), @p17='?' (Size = 100), @p18='?' (DbType = DateTime), @p19='?' (DbType = SByte), @p20='?' (Size = 255), @p21='?' (DbType = Int32), @p22='?' (Size = 20), @p23='?' (Size = 4000), @p24='?' (Size = 100), @p25='?' (Size = 4000), @p26='?' (DbType = SByte), @p27='?' (DbType = DateTime), @p28='?' (DbType = Int32), @p29='?' (Size = 20)], CommandType='"Text"', CommandTimeout='30']
+UPDATE `acl_users` SET `activated_at` = @p0, `address` = @p1, `auth_identifier` = @p2, `avatar` = @p3, `city` = @p4, `claims` = @p5, `company_id` = @p6, `country` = @p7, `created_at` = @p8, `created_by_id` = @p9, `dob` = @p10, `email` = @p11, `first_name` = @p12, `gender` = @p13, `img_path` = @p14, `is_admin_verified` = @p15, `language` = @p16, `last_name` = @p17, `login_at` = @p18, `otp_channel` = @p19, `password` = @p20, `permission_version` = @p21, `phone` = @p22, `refresh_token` = @p23, `remember_token` = @p24, `salt` = @p25, `status` = @p26, `updated_at` = @p27, `user_type` = @p28, `username` = @p29
+WHERE `id` = @p30;
+2024-09-01 04:02:10.669 +06:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`id`, `a`.`activated_at`, `a`.`address`, `a`.`auth_identifier`, `a`.`avatar`, `a`.`city`, `a`.`claims`, `a`.`company_id`, `a`.`country`, `a`.`created_at`, `a`.`created_by_id`, `a`.`dob`, `a`.`email`, `a`.`first_name`, `a`.`gender`, `a`.`img_path`, `a`.`is_admin_verified`, `a`.`language`, `a`.`last_name`, `a`.`login_at`, `a`.`otp_channel`, `a`.`password`, `a`.`permission_version`, `a`.`phone`, `a`.`refresh_token`, `a`.`remember_token`, `a`.`salt`, `a`.`status`, `a`.`updated_at`, `a`.`user_type`, `a`.`username`
+FROM `acl_users` AS `a`
+WHERE `a`.`id` = @__p_0
+LIMIT 1
+2024-09-01 04:02:10.699 +06:00 [INF] Executed action method ACL.Web.Application.Features.Auth.AuthController.Login (ACL.Web), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 1847.722ms.
+2024-09-01 04:02:10.703 +06:00 [INF] Executing ObjectResult, writing value of type 'ACL.Business.Contracts.Responses.LoginSuccessResponse'.
+2024-09-01 04:02:10.709 +06:00 [INF] Executed action ACL.Web.Application.Features.Auth.AuthController.Login (ACL.Web) in 2024.0055ms
+2024-09-01 04:02:10.710 +06:00 [INF] Executed endpoint 'ACL.Web.Application.Features.Auth.AuthController.Login (ACL.Web)'
+2024-09-01 04:02:10.716 +06:00 [INF] Request finished HTTP/1.1 POST http://localhost:5207/api/v1/auth/login - 200 null application/json; charset=utf-8 2046.0687ms
+2024-09-01 04:03:16.463 +06:00 [INF] Application is shutting down...
+2024-09-01 04:03:35.496 +06:00 [INF] User profile is available. Using '/home/rifat-simoom/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2024-09-01 04:03:35.561 +06:00 [INF] Now listening on: http://localhost:5207
+2024-09-01 04:03:35.562 +06:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-09-01 04:03:35.562 +06:00 [INF] Hosting environment: Development
+2024-09-01 04:03:35.562 +06:00 [INF] Content root path: /var/www/html/new.dot.net.core.apis/Admin/src/Admin.App
+2024-09-01 04:03:35.961 +06:00 [INF] Request starting HTTP/1.1 GET http://localhost:5207/index.html - null null
+2024-09-01 04:03:36.094 +06:00 [INF] Request finished HTTP/1.1 GET http://localhost:5207/index.html - 200 null text/html;charset=utf-8 137.2573ms
+2024-09-01 04:03:36.166 +06:00 [INF] Request starting HTTP/1.1 GET http://localhost:5207/index.js - null null
+2024-09-01 04:03:36.168 +06:00 [INF] Request finished HTTP/1.1 GET http://localhost:5207/index.js - 200 null application/javascript;charset=utf-8 2.932ms
+2024-09-01 04:03:36.584 +06:00 [INF] Request starting HTTP/1.1 GET http://localhost:5207/swagger/v1/swagger.json - null null
+2024-09-01 04:03:36.798 +06:00 [INF] Request finished HTTP/1.1 GET http://localhost:5207/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 214.4599ms
+2024-09-01 04:03:40.133 +06:00 [INF] Request starting HTTP/1.1 POST http://localhost:5207/api/v1/auth/login - application/json 63
+2024-09-01 04:03:40.134 +06:00 [WRN] Failed to determine the https port for redirect.
+2024-09-01 04:03:40.136 +06:00 [INF] Request finished HTTP/1.1 POST http://localhost:5207/api/v1/auth/login - 404 0 null 3.2279ms
+2024-09-01 04:03:40.136 +06:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: POST http://localhost:5207/api/v1/auth/login, Response status code: 404
+2024-09-01 04:03:42.698 +06:00 [INF] Request starting HTTP/1.1 POST http://localhost:5207/api/v1/auth/login - application/json 63
+2024-09-01 04:03:42.699 +06:00 [INF] Request finished HTTP/1.1 POST http://localhost:5207/api/v1/auth/login - 404 0 null 0.8699ms
+2024-09-01 04:03:42.699 +06:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: POST http://localhost:5207/api/v1/auth/login, Response status code: 404
+2024-09-01 04:03:43.569 +06:00 [INF] Request starting HTTP/1.1 POST http://localhost:5207/api/v1/auth/login - application/json 63
+2024-09-01 04:03:43.570 +06:00 [INF] Request finished HTTP/1.1 POST http://localhost:5207/api/v1/auth/login - 404 0 null 1.1514ms
+2024-09-01 04:03:43.570 +06:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: POST http://localhost:5207/api/v1/auth/login, Response status code: 404
+2024-09-01 04:05:43.602 +06:00 [INF] Request starting HTTP/1.1 POST http://localhost:5207/api/v1/auth/login - application/json 63
+2024-09-01 04:05:43.602 +06:00 [INF] Request finished HTTP/1.1 POST http://localhost:5207/api/v1/auth/login - 404 0 null 0.5425ms
+2024-09-01 04:05:43.603 +06:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: POST http://localhost:5207/api/v1/auth/login, Response status code: 404
+2024-09-01 04:05:45.329 +06:00 [INF] Request starting HTTP/1.1 POST http://localhost:5207/api/v1/auth/login - application/json 63
+2024-09-01 04:05:45.329 +06:00 [INF] Request finished HTTP/1.1 POST http://localhost:5207/api/v1/auth/login - 404 0 null 0.4392ms
+2024-09-01 04:05:45.329 +06:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: POST http://localhost:5207/api/v1/auth/login, Response status code: 404
+2024-09-01 04:08:11.287 +06:00 [INF] Request starting HTTP/1.1 POST http://localhost:5207/countries - application/json 154
+2024-09-01 04:08:11.295 +06:00 [INF] CORS policy execution successful.
+2024-09-01 04:08:11.299 +06:00 [INF] Authorization failed. These requirements were not met:
+ACL.Business.Infrastructure.Security.PermissionAuthorizationRequirement
+2024-09-01 04:08:11.301 +06:00 [INF] AuthenticationScheme: Bearer was challenged.
+2024-09-01 04:08:11.302 +06:00 [INF] Request finished HTTP/1.1 POST http://localhost:5207/countries - 401 0 null 14.4633ms

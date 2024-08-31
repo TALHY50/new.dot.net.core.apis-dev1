@@ -8,6 +8,7 @@ using Microsoft.CodeAnalysis;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using System.Reflection.Metadata;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Contracts.Common;
 using SharedBusiness.Main.Common.Domain.Entities;
@@ -51,8 +52,8 @@ namespace Admin.App.Application.Features.Currencies
     public class UpdateCurrencyCommandHandler 
         : IRequestHandler<UpdateCurrencyCommand, ErrorOr<Currency>>
     {
-        private readonly IImtAdminCurrencyRepository _repository;
-        public UpdateCurrencyCommandHandler(IImtAdminCurrencyRepository repository)
+        private readonly ICurrencyRepository _repository;
+        public UpdateCurrencyCommandHandler(ICurrencyRepository repository)
         {
             _repository = repository;
         }

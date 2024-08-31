@@ -3,6 +3,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common;
@@ -74,10 +75,10 @@ namespace Admin.App.Application.Features.MttPaymentSpeeds
         : IRequestHandler<UpdateMttPaymentSpeedCommand, ErrorOr<MttPaymentSpeed>>
         {
             private readonly ICurrentUserService _user;
-            private readonly IImtMttPaymentSpeedRepository _repository;
-            private readonly IImtMttsRepository _mtt_repository;
+            private readonly IMTTPaymentSpeedRepository _repository;
+            private readonly IMTTRepository _mtt_repository;
 
-            public UpdateMttPaymentSpeedCommandHandler(ICurrentUserService user, IImtMttPaymentSpeedRepository repository, IImtMttsRepository mtt_repository)
+            public UpdateMttPaymentSpeedCommandHandler(ICurrentUserService user, IMTTPaymentSpeedRepository repository, IMTTRepository mtt_repository)
             {
                 _user = user;
                 _repository = repository;

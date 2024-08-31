@@ -4,6 +4,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
@@ -47,8 +48,8 @@ namespace Admin.App.Application.Features.Regions
         : IRequestHandler<DeleteRegionCommand, ErrorOr<bool>>
         {
             private readonly ICurrentUserService _user;
-            private readonly IImtRegionRepository _repository;
-            public DeleteRegionCommandHandler(ICurrentUserService user, IImtRegionRepository repository)
+            private readonly IRegionRepository _repository;
+            public DeleteRegionCommandHandler(ICurrentUserService user, IRegionRepository repository)
             {
                 _user = user;
                 _repository = repository;

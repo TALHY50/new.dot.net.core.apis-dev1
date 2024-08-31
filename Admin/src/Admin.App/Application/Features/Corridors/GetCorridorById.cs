@@ -2,6 +2,7 @@
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common;
@@ -37,8 +38,8 @@ namespace Admin.App.Application.Features.Corridors
     public class GetCorridorByIdQueryHandler :
         IRequestHandler<GetCorridorByIdQuery, ErrorOr<Corridor>>
     {
-        private readonly IImtCorridorRepository _repository;
-        public GetCorridorByIdQueryHandler(IImtCorridorRepository repository)
+        private readonly ICorridorRepository _repository;
+        public GetCorridorByIdQueryHandler(ICorridorRepository repository)
         {
             _repository = repository;
         }

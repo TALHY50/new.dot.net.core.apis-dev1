@@ -1,5 +1,6 @@
 using Admin.App.Presentation.Routes;
 using ErrorOr;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Admin.Application.Features.Countries;
 using SharedBusiness.Main.IMT.Contracts.Contracts.Responses;
@@ -12,7 +13,7 @@ namespace Admin.App.Presentation.Endpoints.Country;
 public class CreateCountry : CountryBase
 {
     [Tags("Countries")]
-    // [Authorize(Policy = "HasPermission")]
+    [Authorize(Policy = "HasPermission")]
     [HttpPost(CountryRoutes.CreateCountryTemplate, Name = CountryRoutes.CreateCountryName)]
 
     public async Task<IActionResult> Create(CreateCountryCommand command)

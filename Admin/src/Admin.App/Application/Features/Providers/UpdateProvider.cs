@@ -4,6 +4,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common;
@@ -71,9 +72,9 @@ namespace Admin.App.Application.Features.Providers
         : IRequestHandler<UpdateProviderCommand, ErrorOr<Provider>>
         {
             private readonly ICurrentUserService _user;
-            private readonly IImtProviderRepository _providerRepository;
+            private readonly IProviderRepository _providerRepository;
 
-            public UpdateProviderCommandHandler(ICurrentUserService user, IImtProviderRepository providerRepository)
+            public UpdateProviderCommandHandler(ICurrentUserService user, IProviderRepository providerRepository)
             {
                 _user = user;
                 _providerRepository = providerRepository;

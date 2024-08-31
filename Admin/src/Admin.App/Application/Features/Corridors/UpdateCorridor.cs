@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using System.ComponentModel.Design;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Contracts.Common;
 using SharedBusiness.Main.Common.Domain.Entities;
@@ -50,8 +51,8 @@ namespace Admin.App.Application.Features.Corridors
     public class UpdateCorridorCommandHandler
         : IRequestHandler<UpdateCorridorCommand, ErrorOr<Corridor>>
     {
-        private readonly IImtCorridorRepository _repository;
-        public UpdateCorridorCommandHandler(IImtCorridorRepository repository)
+        private readonly ICorridorRepository _repository;
+        public UpdateCorridorCommandHandler(ICorridorRepository repository)
         {
             _repository = repository;
         }
