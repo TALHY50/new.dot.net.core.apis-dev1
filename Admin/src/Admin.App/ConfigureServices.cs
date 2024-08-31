@@ -8,6 +8,7 @@ using ACL.Business.Application.Interfaces.Services;
 using ACL.Business.Infrastructure.Jwt;
 using ACL.Business.Infrastructure.Persistence.Repositories;
 using ACL.Business.Infrastructure.Security;
+using ACL.Web.Application.Features.Auth;
 using Admin.App.Application.Features.Corridors;
 using Admin.App.Application.Features.Currencies;
 using Admin.App.Application.Features.Currencies;
@@ -90,7 +91,11 @@ public static class DependencyInjection
 
         // services.AddRazorPages();
         services.AddTransient<IRenderer, Renderer>();
-
+        services.AddTransient<IRenderer, Renderer>();
+        services.AddTransient<Login>();
+        services.AddTransient<RefreshToken>();
+        services.AddTransient<SignOut>();
+        services.AddTransient<Register>();
         return services;
     }
 
@@ -180,13 +185,13 @@ public static class DependencyInjection
         services.AddScoped<IImtInstitutionFundRepository, InstitutionFundRepository>();
         services.AddScoped<IImtTransactionTypeRepository, TransactionTypeRepository>();
         services.AddScoped<IImtInstitutionMttRepository, InstitutionMttRepository>();
-       // services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateCountryCommand).Assembly));  
+        // services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateCountryCommand).Assembly));  
         // services.AddScoped<IRequestHandler<CreateCountryCommand, ErrorOr<Country>>, CreateCountryCommandHandler>();
 
         services.AddScoped<IImtMttsRepository, MttRepository>();
         services.AddScoped<IImtMttPaymentSpeedRepository, ImtMttPaymentSpeedRepository>();
 
-       // services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateMttCommand).Assembly));
+        // services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateMttCommand).Assembly));
 
         // BusinessHourAndWeekendRepository
         services.AddScoped<IBusinessHourAndWeekendRepository, BusinessHourAndWeekendRepository>();
