@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SharedBusiness.Main.Common.Domain.Entities;
+using SharedBusiness.Main.IMT.Domain.Entities;
 
 namespace SharedBusiness.Main.Common.Infrastructure.Persistence.Configurations
 {
