@@ -1,4 +1,4 @@
-﻿namespace SharedBusiness.Main.Common.Domain.Entities;
+﻿namespace SharedBusiness.Main.IMT.Domain.Entities;
 
 public partial class Quotation
 {
