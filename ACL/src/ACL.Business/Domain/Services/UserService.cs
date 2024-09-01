@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
-using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Contracts.Common;
 
 namespace ACL.Business.Domain.Services

@@ -4,7 +4,7 @@ using ACL.Business.Contracts.Responses;
 using ACL.Business.Infrastructure.Auth.Auth;
 using ACL.Business.Infrastructure.Persistence.Context;
 using Microsoft.AspNetCore.Http;
-using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Contracts.Common;
 using SharedKernel.Main.Infrastructure.Utilities;
 

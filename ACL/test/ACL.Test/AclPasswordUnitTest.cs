@@ -3,8 +3,6 @@ using ACL.Business.Contracts.Responses;
 using ACL.Web.Presentation.Routes;
 using Newtonsoft.Json;
 using RestSharp;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Common.Constants.Routes;
 using SharedKernel.Main.Contracts.Common;
 using SharedKernel.Main.Infrastructure.Services;
 using SharedKernel.Main.Infrastructure.Utilities;

@@ -1,7 +1,7 @@
 using System.Security.Cryptography;
 using System.Text;
 using Konscious.Security.Cryptography;
-using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Application.Interfaces.Services;
 
 namespace SharedKernel.Main.Infrastructure.Cryptography
 {

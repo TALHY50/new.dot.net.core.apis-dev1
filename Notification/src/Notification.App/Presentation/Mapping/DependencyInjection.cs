@@ -4,6 +4,8 @@ using Mapster;
 
 using MapsterMapper;
 
+using Microsoft.Extensions.DependencyInjection;
+
 namespace Notification.App.Presentation.Mapping;
 
 public static class DependencyInjection

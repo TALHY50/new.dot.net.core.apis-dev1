@@ -1,8 +1,8 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Admin.Application.Features.TransactionLimits;
-using SharedKernel.Main.Application.Common;
-using SRoutes = SharedKernel.Main.Application.Common.Constants.Routes.Routes;
+using SharedKernel.Main.Presentation;
+using SRoutes = SharedKernel.Main.Presentation.Routes.Routes;
 namespace Admin.App.Presentation.Endpoints.TransactionLimits
 {
     public class FindTransactionLimitByIdController : ApiControllerBase

@@ -1,5 +1,3 @@
-using SharedKernel.Main.Application.Common.Constants;
-
 namespace SharedKernel.Main.Contracts.Common;
 
 public static partial class ApplicationStatusCodes

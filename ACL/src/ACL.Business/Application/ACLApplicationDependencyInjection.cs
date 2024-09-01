@@ -16,7 +16,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using SharedKernel.Main.Application;
-using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Contracts.Common;
 using SharedKernel.Main.Infrastructure.Cryptography;
 using SharedKernel.Main.Infrastructure.Services;
@@ -45,7 +45,7 @@ public static class ACLApplicationDependencyInjection
         });
         RSA rsa = RSA.Create();
         rsa.ImportRSAPublicKey(
-            source: Convert.FromBase64String(jwtSettings?.AccessTokenSettings.PublicKey),
+            source: Convert.FromBase64String(jwtSettings?.AccessTokenSettings.PublicKey ?? string.Empty),
             bytesRead: out int _
         );
         var rsaKey = new RsaSecurityKey(rsa);

@@ -1,5 +1,5 @@
-﻿using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Exceptions;
+﻿using SharedKernel.Main.Application.Exceptions;
+using SharedKernel.Main.Domain;
 
 namespace Notification.App.Domain.Entities.ValueObjects;
 

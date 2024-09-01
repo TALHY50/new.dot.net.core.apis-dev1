@@ -13,7 +13,6 @@ using Notification.App.Domain.Entities.Setups;
 using Notification.App.Domain.Entities.ValueObjects;
 using Notification.App.Infrastructure.Persistence.Context;
 
-using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Contracts.Common;
 
 using ProblemDetails = FastEndpoints.ProblemDetails;

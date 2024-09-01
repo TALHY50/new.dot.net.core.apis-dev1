@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Notification.App.Application.Features.Notifications.Outgoing;
 using Notification.App.Domain.Entities.Outgoings;
 
-using SharedKernel.Main.Application.Common;
+using SharedKernel.Main.Presentation;
 
 namespace Notification.App.Presentation.Controllers;
 

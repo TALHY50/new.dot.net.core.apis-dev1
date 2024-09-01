@@ -2,12 +2,11 @@
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.Common.Infrastructure.Persistence.Configurations;
 using SharedBusiness.Main.IMT.Domain.Entities;
-using SharedKernel.Main.Application.Common.Interfaces.Services;
 
 namespace SharedBusiness.Main.Common.Infrastructure.Persistence.Context
 {
     public partial class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-           : DbContext(options), IApplicationDbContext
+           : DbContext(options)
     {
 
         public virtual DbSet<Bank> ImtBanks { get; set; }

@@ -7,10 +7,9 @@ using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.Common.Infrastructure.Persistence.Context;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Common.Constants.Routes;
-using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Application.Interfaces.Services;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 using static Admin.App.Application.Features.Mtts.MttsCreate;
 
 namespace Admin.App.Application.Features.Institutions
@@ -38,7 +37,7 @@ namespace Admin.App.Application.Features.Institutions
             }
         }
 
-        public class UpdateInstitutionCommandHandler(ApplicationDbContext context, IInstitutionRepository repository, IInstitutionSettingRepository institutionSettingRepository, ICurrentUserService user) : IRequestHandler<UpdateInstitutionCommand, ErrorOr<Institution>>
+        public class UpdateInstitutionCommandHandler(ApplicationDbContext context, IInstitutionRepository repository, IInstitutionSettingRepository institutionSettingRepository, ICurrentUser user) : IRequestHandler<UpdateInstitutionCommand, ErrorOr<Institution>>
         {
             public async Task<ErrorOr<Institution>> Handle(UpdateInstitutionCommand request, CancellationToken cancellationToken)
             {

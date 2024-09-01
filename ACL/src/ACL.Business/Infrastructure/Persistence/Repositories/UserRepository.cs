@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
-using SharedKernel.Main.Application.Common.Enums;
-using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Application.Enums;
+using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Infrastructure.Extensions;
 
 //using ACL.Infrastructure.Persistence.DTOs;
@@ -55,14 +55,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
        
         public User? FindByEmail(string email)
         {
-            try
-            {
-                return this._dbContext.AclUsers.FirstOrDefault(m => m.Email == email);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception();
-            }
+            return this._dbContext.AclUsers.FirstOrDefault(m => m.Email == email);
         }
         /// <inheritdoc/>
         public User? FindByIdAsync(ulong id)

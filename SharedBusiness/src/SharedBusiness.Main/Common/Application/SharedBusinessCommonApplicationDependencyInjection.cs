@@ -1,6 +1,5 @@
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
-using SharedKernel.Main.Application.Common.Behaviours;
 
 namespace SharedBusiness.Main.Common.Application;
 

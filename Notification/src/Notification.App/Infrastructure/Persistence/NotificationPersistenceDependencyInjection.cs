@@ -1,9 +1,12 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 using Notification.App.Application.Interfaces.Repositories;
 using Notification.App.Infrastructure.Persistence.Repositories;
 
 using SharedKernel.Main.Infrastructure.Services;
+using SharedKernel.Main.Infrastructure.Utilities;
 
 namespace Notification.App.Infrastructure.Persistence;
 

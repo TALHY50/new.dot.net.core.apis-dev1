@@ -3,12 +3,11 @@ using ACL.Business.Domain.Entities;
 using ACL.Business.Infrastructure.Persistence.Migrations;
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
-using SharedKernel.Main.Application.Common.Interfaces.Services;
 using Module = ACL.Business.Domain.Entities.Module;
 
 namespace ACL.Business.Infrastructure.Persistence.Context;
 
-public partial class ApplicationDbContext : DbContext, IApplicationDbContext
+public partial class ApplicationDbContext : DbContext
 {
     public ApplicationDbContext()
     {

@@ -1,7 +1,7 @@
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
-using SharedKernel.Main.Application.Common.Behaviours;
-using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Application.Behaviours;
+using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Infrastructure.Services;
 
 namespace SharedKernel.Main.Application;
@@ -29,7 +29,7 @@ public static class SharedKernelApplicationDependencyInjection
             });
             //container.RegisterAssemblyTypes(assembly).AsImplementedInterfaces();
         }
-        services.AddSingleton<ICurrentUserService, CurrentUserService>();
+        services.AddSingleton<ICurrentUser, CurrentUser>();
         return services;
     }
 }

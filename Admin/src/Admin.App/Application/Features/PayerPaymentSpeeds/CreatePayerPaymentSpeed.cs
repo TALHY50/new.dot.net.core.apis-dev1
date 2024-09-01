@@ -7,11 +7,10 @@ using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Common.Constants.Routes;
-using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 
 namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
 {
@@ -29,7 +28,7 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
                 Problem);return Ok(result);
         }
 
-        public CreatePayerPaymentSpeedController(ILogger<CreatePayerPaymentSpeedController> logger, ICurrentUserService currentUserService) : base(logger, currentUserService)
+        public CreatePayerPaymentSpeedController(ILogger<CreatePayerPaymentSpeedController> logger, ICurrentUser currentUser) : base(logger, currentUser)
         {
         }
     }

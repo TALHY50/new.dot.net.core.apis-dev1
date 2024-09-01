@@ -4,8 +4,8 @@ using ACL.Business.Contracts.Requests;
 using ACL.Business.Contracts.Responses;
 using ACL.Business.Domain.Entities;
 using Microsoft.Extensions.Logging;
-using SharedKernel.Main.Application.Common.Enums;
-using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Application.Enums;
+using SharedKernel.Main.Application.Interfaces.Services;
 
 namespace ACL.Business.Application.Features.Auth
 {

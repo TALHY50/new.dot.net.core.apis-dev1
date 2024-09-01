@@ -4,15 +4,18 @@ using FluentValidation;
 
 using MediatR;
 
+using Microsoft.Extensions.Logging;
+
 using Notification.App.Application.Interfaces.Repositories;
+using Notification.App.Application.Interfaces.Services;
 using Notification.App.Contracts;
 using Notification.App.Infrastructure.Persistence.Context;
 
-using SharedKernel.Main.Application.Common.Interfaces;
-using SharedKernel.Main.Application.Common.Interfaces.Services;
-using SharedKernel.Main.Application.Common.Models;
+using SharedKernel.Main.Application.Interfaces.Services;
+using SharedKernel.Main.Application.Models;
 
-using Result = SharedKernel.Main.Application.Common.Models.Result;
+using ILogger = Serilog.ILogger;
+using Result = SharedKernel.Main.Application.Models.Result;
 
 namespace Notification.App.Application.Features.Notifications.Send;
 
@@ -36,7 +39,7 @@ public class SendWebhookCommandHandler(
     IWebService webService) : IRequestHandler<SendWebhookCommand, ErrorOr<Result>>
 {
     private readonly ApplicationDbContext _context = context;
-    private readonly ILogger _logger = logger;
+    private readonly ILogger<SendWebhookCommandHandler> _logger = logger;
     private readonly IWebOutgoingRepository _webOutgoingRepository = webOutgoingRepository;
     private readonly ICredentialRepository _credentialRepository = credentialRepository;
     private readonly IWebService _webService = webService;

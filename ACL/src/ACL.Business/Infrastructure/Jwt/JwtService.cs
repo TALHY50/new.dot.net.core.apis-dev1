@@ -5,7 +5,7 @@ using ACL.Business.Application.Interfaces.Services;
 using ACL.Business.Domain.Entities;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using SharedKernel.Main.Application.Common.Exceptions;
+using SharedKernel.Main.Application.Exceptions;
 using Claim = ACL.Business.Domain.Entities.Claim;
 
 namespace ACL.Business.Infrastructure.Jwt

@@ -3,16 +3,13 @@ using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Admin.Application.Features.Countries;
 using SharedBusiness.Main.IMT.Contracts.Contracts.Responses;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Common.Constants.Routes;
-using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Application.Interfaces.Services;
 
 namespace Admin.App.Presentation.Endpoints.Country;
 
 public class UpdateCountryById : CountryBase
 {
-    public UpdateCountryById(ILogger<UpdateCountryById> logger, ICurrentUserService currentUserService) : base(logger, currentUserService)
+    public UpdateCountryById(ILogger<UpdateCountryById> logger, ICurrentUser currentUser) : base(logger, currentUser)
     {
     }
 
@@ -28,7 +25,7 @@ public class UpdateCountryById : CountryBase
             () => _logger.LogInformation(
                 "update-country-by-id-request: {Name} {@UserId} {@Request}",
                 nameof(commandWithId),
-                _currentUserService.UserId,
+                CurrentUser.UserId,
                 commandWithId),
             cancellationToken);
         var result = await Mediator.Send(commandWithId).ConfigureAwait(false);
@@ -40,7 +37,7 @@ public class UpdateCountryById : CountryBase
             () => _logger.LogInformation(
                 "update-country-by-id-response: {Name} {@UserId} {@Response}",
                 nameof(response),
-                _currentUserService.UserId,
+                CurrentUser.UserId,
                 response),
             cancellationToken);
         return response;

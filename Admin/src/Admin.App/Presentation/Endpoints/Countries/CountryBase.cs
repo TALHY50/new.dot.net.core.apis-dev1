@@ -1,11 +1,11 @@
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Application.Interfaces.Services;
+using SharedKernel.Main.Presentation;
 
 namespace Admin.App.Presentation.Endpoints.Country;
 
 public class CountryBase : ApiControllerBase
 {
-    protected CountryBase(ILogger<CountryBase> logger, ICurrentUserService currentUserService) : base(logger, currentUserService)
+    protected CountryBase(ILogger<CountryBase> logger, ICurrentUser currentUser) : base(logger, currentUser)
     {
     }
 }
