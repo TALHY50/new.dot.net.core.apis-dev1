@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Contracts;
 using SharedKernel.Main.Presentation;
 using SharedKernel.Main.Presentation.Routes;
 using static Admin.App.Application.Features.Regions.GetRegionController;

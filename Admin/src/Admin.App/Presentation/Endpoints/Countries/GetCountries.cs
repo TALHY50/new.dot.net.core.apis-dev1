@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Admin.Application.Features.Countries;
 using SharedBusiness.Main.IMT.Contracts.Contracts.Responses;
 using SharedKernel.Main.Application.Interfaces.Services;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Contracts;
 
 namespace Admin.App.Presentation.Endpoints.Country;
 

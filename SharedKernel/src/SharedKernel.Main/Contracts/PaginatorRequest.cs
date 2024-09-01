@@ -1,4 +1,4 @@
-namespace SharedKernel.Main.Contracts.Common;
+namespace SharedKernel.Main.Contracts;
 
 public class PaginatorRequest
 {

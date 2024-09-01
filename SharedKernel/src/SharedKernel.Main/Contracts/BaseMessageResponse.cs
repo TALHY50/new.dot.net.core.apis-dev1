@@ -3,7 +3,7 @@ using System.Reflection;
 using System.Resources;
 using SharedKernel.Main.Infrastructure.Services;
 
-namespace SharedKernel.Main.Contracts.Common
+namespace SharedKernel.Main.Contracts
 {
     public partial class BaseMessageResponse
     {

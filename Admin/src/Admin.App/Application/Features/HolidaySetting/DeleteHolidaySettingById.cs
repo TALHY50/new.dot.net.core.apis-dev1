@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Infrastructure.Persistence.Context;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Contracts;
 using SharedKernel.Main.Presentation;
 using SharedKernel.Main.Presentation.Routes;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;

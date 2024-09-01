@@ -5,7 +5,8 @@ using ACL.Business.Infrastructure.Auth.Auth;
 using ACL.Business.Infrastructure.Persistence.Context;
 using ACL.Business.Infrastructure.Persistence.Repositories;
 using Microsoft.AspNetCore.Http;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Contracts;
+using MessageResponse = SharedKernel.Main.Contracts.MessageResponse;
 
 namespace ACL.Business.Domain.Services
 {

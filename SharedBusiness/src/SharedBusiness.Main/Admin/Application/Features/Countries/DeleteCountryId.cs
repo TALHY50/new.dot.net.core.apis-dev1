@@ -3,7 +3,7 @@ using FluentValidation;
 using MediatR;
 using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Contracts;
 
 namespace SharedBusiness.Main.Admin.Application.Features.Countries
 {
