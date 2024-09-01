@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using System.Reflection;
 using System.Resources;
-using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Application.Interfaces.Services;
 
 namespace SharedKernel.Main.Infrastructure.Services
 {

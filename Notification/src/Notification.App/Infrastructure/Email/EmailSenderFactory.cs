@@ -1,3 +1,5 @@
+using Microsoft.Extensions.Logging;
+
 using Notification.App.Application.Interfaces.Services;
 using Notification.App.Domain.Entities.ValueObjects;
 

@@ -1,3 +1,5 @@
+using Microsoft.Extensions.DependencyInjection;
+
 namespace Notification.App.Application;
 
 public static class NotificationApplicationDependencyInjection

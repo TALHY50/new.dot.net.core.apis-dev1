@@ -4,16 +4,13 @@ using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Admin.Application.Features.Countries;
 using SharedBusiness.Main.IMT.Contracts.Contracts.Responses;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Common.Constants.Routes;
-using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Contracts.Common;
 
 namespace Admin.App.Presentation.Endpoints.Country;
 
-public class GetCountries(ILogger<GetCountries> logger, ICurrentUserService currentUserService)
-    : CountryBase(logger, currentUserService)
+public class GetCountries(ILogger<GetCountries> logger, ICurrentUser currentUser)
+    : CountryBase(logger, currentUser)
 {
     [Tags("Countries")]
     // [Authorize(Policy = "HasPermission")]
@@ -25,7 +22,7 @@ public class GetCountries(ILogger<GetCountries> logger, ICurrentUserService curr
             () => _logger.LogInformation(
                 "get-countries: {Name} {@UserId} {@Request}",
                 nameof(GetCountriesQuery),
-                _currentUserService.UserId,
+                CurrentUser.UserId,
                 query),
             cancellationToken);
         var result = await Mediator.Send(query).ConfigureAwait(false);
@@ -37,7 +34,7 @@ public class GetCountries(ILogger<GetCountries> logger, ICurrentUserService curr
             () => _logger.LogInformation(
                 "get-countries-response: {Name} {@UserId} {@Response}",
                 nameof(response),
-                _currentUserService.UserId,
+                CurrentUser.UserId,
                 response),
             cancellationToken);
         return response; }

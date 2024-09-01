@@ -4,31 +4,29 @@ using ACL.Business.Contracts.Requests;
 using ACL.Business.Contracts.Responses;
 using ACL.Business.Domain.Entities;
 using Microsoft.Extensions.Logging;
-using SharedKernel.Main.Application.Common.Enums;
-using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Application.Enums;
+using SharedKernel.Main.Application.Interfaces.Services;
 
 namespace ACL.Business.Application.Features.Auth
 {
-    /// <inheritdoc/>
     public class Login : ILoginUseCase
     {
         private readonly ILogger _logger;
-        private readonly IAuthTokenService _authTokenService;
+        private readonly IAuthToken _authToken;
         private readonly IUserRepository _authRepository;
-        private readonly ICryptographyService _cryptographyService;
-        /// <inheritdoc/>
+        private readonly ICryptography _cryptography;
+       
         public Login(
             ILogger<Login> logger,
-            IAuthTokenService authTokenService,
+            IAuthToken authToken,
             IUserRepository authRepository,
-            ICryptographyService cryptographyService)
+            ICryptography cryptography)
         {
             this._logger = logger;
-            this._authTokenService = authTokenService;
+            this._authToken = authToken;
             this._authRepository = authRepository;
-            this._cryptographyService = cryptographyService;
+            this._cryptography = cryptography;
         }
-        /// <inheritdoc/>
         public async Task<LoginResponse> Execute(LoginRequest request)
         {
             try
@@ -38,8 +36,7 @@ namespace ACL.Business.Application.Features.Auth
                 {
                     var response = new LoginErrorResponse
                     {
-#pragma warning disable CS8601 // Possible null reference argument.
-                        Message = Enum.GetName(ErrorCodes.UserDoesNotExist),
+                        Message = Enum.GetName(ErrorCodes.UserDoesNotExist) ?? throw new InvalidOperationException(),
                         Code = ErrorCodes.UserDoesNotExist.ToString("D")
                     };
                     return response;
@@ -49,14 +46,14 @@ namespace ACL.Business.Application.Features.Auth
                 {
                     user.RefreshToken = new ACL.Business.Domain.Entities.RefreshToken
                     {
-                        Value = await this._authTokenService.GenerateRefreshToken(),
+                        Value = await this._authToken.GenerateRefreshToken(),
                         Active = true,
-                        ExpirationDate = DateTime.UtcNow.AddMinutes(await this._authTokenService.GetRefreshTokenLifetimeInMinutes())
+                        ExpirationDate = DateTime.UtcNow.AddMinutes(await this._authToken.GetRefreshTokenLifetimeInMinutes())
                     };
                      this._authRepository.UpdateAndSaveAsync(user);
 
-                    var idToken = await this._authTokenService.GenerateIdToken(user);
-                    var accessToken = await this._authTokenService.GenerateAccessToken(user);
+                    var idToken = await this._authToken.GenerateIdToken(user);
+                    var accessToken = await this._authToken.GenerateAccessToken(user);
 
                     var response = new LoginSuccessResponse
                     {
@@ -96,7 +93,7 @@ namespace ACL.Business.Application.Features.Auth
         private bool AreCredentialsValid(string testPassword, User user)
         {
 #pragma warning disable CS8604 // Possible null reference argument.
-            var hash = this._cryptographyService.HashPassword(testPassword, user.Salt);
+            var hash = this._cryptography.HashPassword(testPassword, user.Salt);
             return hash == user.Password;
         }
     }

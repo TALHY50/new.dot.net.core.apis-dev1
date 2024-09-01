@@ -5,10 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Common.Constants.Routes;
-using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Application.Interfaces.Services;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 using static Admin.App.Application.Features.Mtts.MttsCreate;
 
 namespace Admin.App.Application.Features.Mtts
@@ -48,10 +47,10 @@ namespace Admin.App.Application.Features.Mtts
 
         internal sealed class UpdateMttCommandHandler : IRequestHandler<UpdateMttCommand, ErrorOr<Mtt>>
         {
-            private readonly ICurrentUserService _user;
+            private readonly ICurrentUser _user;
             private readonly IMTTRepository _repository;
 
-            public UpdateMttCommandHandler(ICurrentUserService user, IMTTRepository repository)
+            public UpdateMttCommandHandler(ICurrentUser user, IMTTRepository repository)
             {
                 _user = user;
                 _repository = repository;

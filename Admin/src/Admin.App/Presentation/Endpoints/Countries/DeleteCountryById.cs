@@ -2,15 +2,12 @@ using Admin.App.Presentation.Routes;
 using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Admin.Application.Features.Countries;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Common.Constants.Routes;
-using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Application.Interfaces.Services;
 
 namespace Admin.App.Presentation.Endpoints.Country;
 
-public class DeleteCountryById(ILogger<DeleteCountryById> logger, ICurrentUserService currentUserService)
-    : CountryBase(logger, currentUserService)
+public class DeleteCountryById(ILogger<DeleteCountryById> logger, ICurrentUser currentUser)
+    : CountryBase(logger, currentUser)
 {
     [Tags("Countries")]
     //[Authorize(Policy = "HasPermission")]
@@ -23,7 +20,7 @@ public class DeleteCountryById(ILogger<DeleteCountryById> logger, ICurrentUserSe
             () => _logger.LogInformation(
                 "delete-country-by-id-request: {Name} {@UserId} {@Request}",
                 nameof(DeleteCountryByIdCommand),
-                _currentUserService.UserId,
+                CurrentUser.UserId,
                 command),
             cancellationToken);
         var result = await Mediator.Send(command).ConfigureAwait(false);
@@ -34,7 +31,7 @@ public class DeleteCountryById(ILogger<DeleteCountryById> logger, ICurrentUserSe
             () => _logger.LogInformation(
                 "delete-country-by-id-response: {Name} {@UserId} {@Response}",
                 nameof(response),
-                _currentUserService.UserId,
+                CurrentUser.UserId,
                 response),
             cancellationToken);
         return response;

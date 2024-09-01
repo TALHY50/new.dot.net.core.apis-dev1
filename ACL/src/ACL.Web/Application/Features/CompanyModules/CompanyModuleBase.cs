@@ -1,7 +1,7 @@
 using ACL.Business.Domain.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SharedKernel.Main.Application.Common;
+using SharedKernel.Main.Presentation;
 
 namespace ACL.Web.Application.Features.CompanyModules;
 [Authorize]

@@ -4,7 +4,7 @@ using ACL.Business.Infrastructure.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using SharedKernel.Main.Application.Common;
+using SharedKernel.Main.Infrastructure.Extensions;
 
 namespace ACL.Business.Infrastructure.Security
 {

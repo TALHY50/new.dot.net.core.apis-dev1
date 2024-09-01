@@ -3,8 +3,7 @@ using Ardalis.Specification;
 using Ardalis.Specification.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SharedBusiness.Main.Common.Infrastructure.Persistence.Context;
-using SharedKernel.Main.Application.Common.Interfaces.Repositories;
-using SharedKernel.Main.Application.Common.Models;
+using SharedKernel.Main.Application.Interfaces.Repositories;
 using SharedKernel.Main.Infrastructure.Extensions;
 
 namespace SharedBusiness.Main.Common.Infrastructure.Persistence.Repositories;

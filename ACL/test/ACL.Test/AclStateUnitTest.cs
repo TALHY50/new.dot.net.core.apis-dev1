@@ -5,8 +5,6 @@ using ACL.Web.Presentation.Routes;
 using Bogus;
 using Newtonsoft.Json;
 using RestSharp;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Common.Constants.Routes;
 using SharedKernel.Main.Contracts.Common;
 
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.

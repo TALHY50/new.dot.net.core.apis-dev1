@@ -5,14 +5,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
 using System.Reflection.Metadata;
 using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Contracts.Common;
 using SharedBusiness.Main.Common.Domain.Entities;
-using SharedKernel.Main.Application.Common.Constants.Routes;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 
 namespace Admin.App.Application.Features.Currencies
 {

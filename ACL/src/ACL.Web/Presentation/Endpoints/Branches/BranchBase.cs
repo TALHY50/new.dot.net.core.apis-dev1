@@ -1,11 +1,9 @@
 using ACL.Business.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Infrastructure.Security;
+using SharedKernel.Main.Presentation;
 
 namespace ACL.Web.Presentation.Endpoints.Branches;
 
-[Authorize]
 [Tags("Branch")]
 [ApiController]
 public class BranchBase : ApiControllerBase

@@ -6,11 +6,10 @@ using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.Common.Infrastructure.Persistence.Context;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedBusiness.Main.IMT.Domain.Entities;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants.Routes;
 using StackExchange.Redis;
 using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 
 namespace IMT.App.Application.Features
 {
@@ -175,7 +174,7 @@ namespace IMT.App.Application.Features
                 };
 
 
-                moneyTransferRepository.AddAsync(moneyTransfer);
+                await moneyTransferRepository.AddAsync(moneyTransfer);
 
                 return await transactionRepository.AddAsync(entity);
             }

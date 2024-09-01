@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
-using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Contracts.Common;
 
 namespace ACL.Business.Domain.Services
@@ -24,7 +24,7 @@ namespace ACL.Business.Domain.Services
         //   private bool _isUserTypeCreatedByCompany = false;
         private readonly IConfiguration _config;
         private readonly IDistributedCache _distributedCache;
-        private readonly ICryptographyService _cryptographyService;
+        private readonly ICryptography _cryptography;
         public new IUserUserGroupRepository UserUserGroupRepository;
         // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 #pragma warning disable CS8618
@@ -33,7 +33,7 @@ namespace ACL.Business.Domain.Services
 #pragma warning restore CS8618
         private readonly ApplicationDbContext _dbContext;
 
-        public UserService(ApplicationDbContext dbContext, IConfiguration config, IDistributedCache distributedCache, ICryptographyService cryptographyService, IUserUserGroupRepository userUserGroupRepository, IHttpContextAccessor httpContextAccessor) : base(dbContext, config, distributedCache, cryptographyService, userUserGroupRepository, httpContextAccessor)
+        public UserService(ApplicationDbContext dbContext, IConfiguration config, IDistributedCache distributedCache, ICryptography cryptography, IUserUserGroupRepository userUserGroupRepository, IHttpContextAccessor httpContextAccessor) : base(dbContext, config, distributedCache, cryptography, userUserGroupRepository, httpContextAccessor)
         {
             this.UserUserGroupRepository = userUserGroupRepository;
             this._config = config;
@@ -45,7 +45,7 @@ namespace ACL.Business.Domain.Services
             this.MessageResponse = new MessageResponse(this._modelName, AppAuth.GetAuthInfo().Language);
             this._distributedCache = distributedCache;
             this._dbContext = dbContext;
-            this._cryptographyService = cryptographyService;
+            this._cryptography = cryptography;
             _httpContextAccessor = httpContextAccessor;
             AppAuth.Initialize(_httpContextAccessor, dbContext);
             AppAuth.SetAuthInfo(_httpContextAccessor);
@@ -253,7 +253,7 @@ namespace ACL.Business.Domain.Services
 
         public User PrepareInputData(AclUserRequest request, User? aclUser = null)
         {
-            var salt = this._cryptographyService.GenerateSalt();
+            var salt = this._cryptography.GenerateSalt();
             if (aclUser == null)
             {
 
@@ -266,7 +266,7 @@ namespace ACL.Business.Domain.Services
                     FirstName = request.FirstName,
                     LastName = request.LastName,
                     Email = request.Email,
-                    Password = this._cryptographyService.HashPassword(request.Password, salt),
+                    Password = this._cryptography.HashPassword(request.Password, salt),
                     Avatar = request.Avatar,
                     Dob = request.DOB,
                     Gender = request.Gender,

@@ -7,8 +7,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Infrastructure.Services;
+using SharedKernel.Main.Infrastructure.Utilities;
 
 namespace ACL.Business.Infrastructure.Persistence;
 
@@ -31,7 +32,7 @@ public static class ACLPersistenceDependencyInjection
         }
         services.AddMemoryCache();
         services.AddDistributedMemoryCache();
-        services.AddScoped<ICacheService, CacheService>();
+        services.AddScoped<ICacheService, Cache>();
         services.AddScoped<IBranchService, BranchService>();
         services.AddScoped<ICompanyModuleService, CompanyModuleService>();
         services.AddScoped<ICompanyService, CompanyService>();

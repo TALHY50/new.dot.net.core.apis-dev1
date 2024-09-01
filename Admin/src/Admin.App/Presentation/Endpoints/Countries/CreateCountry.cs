@@ -4,15 +4,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Admin.Application.Features.Countries;
 using SharedBusiness.Main.IMT.Contracts.Contracts.Responses;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Common.Constants.Routes;
-using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Application.Interfaces.Services;
 
 namespace Admin.App.Presentation.Endpoints.Country;
 
-public class CreateCountry(ILogger<CreateCountry> logger, ICurrentUserService currentUserService)
-    : CountryBase(logger, currentUserService)
+public class CreateCountry(ILogger<CreateCountry> logger, ICurrentUser currentUser)
+    : CountryBase(logger, currentUser)
 {
     [Tags("Countries")]
     //[Authorize(Policy = "HasPermission")]
@@ -24,7 +21,7 @@ public class CreateCountry(ILogger<CreateCountry> logger, ICurrentUserService cu
             () => _logger.LogInformation(
                 "create-country-request: {Name} {@UserId} {@Request}",
                 nameof(CreateCountryCommand),
-                _currentUserService.UserId,
+                CurrentUser.UserId,
                 command),
             cancellationToken);
         var result = await Mediator.Send(command).ConfigureAwait(false);
@@ -35,7 +32,7 @@ public class CreateCountry(ILogger<CreateCountry> logger, ICurrentUserService cu
             () => _logger.LogInformation(
                 "create-country-response: {Name} {@UserId} {@Response}",
                 nameof(response),
-                _currentUserService.UserId,
+                CurrentUser.UserId,
                 response),
             cancellationToken);
         return response;

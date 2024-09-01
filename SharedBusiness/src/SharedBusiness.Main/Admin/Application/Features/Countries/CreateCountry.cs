@@ -7,10 +7,10 @@ using Microsoft.Extensions.Logging;
 using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedKernel.Main.Application.Common.Enums;
+using SharedKernel.Main.Application.Enums;
+using SharedKernel.Main.Application.Rules;
 using SharedKernel.Main.Contracts.Common;
 using SharedKernel.Main.Infrastructure.Extensions;
-using SharedKernel.Main.Infrastructure.Extensions.Rules;
 
 namespace SharedBusiness.Main.Admin.Application.Features.Countries
 {

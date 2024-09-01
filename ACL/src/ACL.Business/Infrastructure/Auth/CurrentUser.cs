@@ -8,15 +8,15 @@ namespace ACL.Business.Infrastructure.Auth;
 public class CurrentUser : IUser
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
-    private readonly IAuthTokenService _authenTokenService;
+    private readonly IAuthToken _authenToken;
 
-    public CurrentUser(IHttpContextAccessor httpContextAccessor, IAuthTokenService authenTokenService)
+    public CurrentUser(IHttpContextAccessor httpContextAccessor, IAuthToken authenToken)
     {
         this._httpContextAccessor = httpContextAccessor;
-        this._authenTokenService = authenTokenService;
+        this._authenToken = authenToken;
     }
     
 
-    // public uint? Id => this._authenTokenService.GetUserIdFromToken(HttpContextAccessor.HttpContext.Request.Headers[HeaderNames.Authorization]);
+    // public uint? Id => this._authenToken.GetUserIdFromToken(HttpContextAccessor.HttpContext.Request.Headers[HeaderNames.Authorization]);
     public uint? Id { get; }
 }
