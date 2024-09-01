@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
-using SharedKernel.Main.Infrastructure.Services;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Reflection;
+using Microsoft.AspNetCore.Http;
+using SharedKernel.Main.Infrastructure.Services;
 
-namespace SharedKernel.Main.Contracts.Common;
+namespace SharedKernel.Main.Contracts;
 
 public static class Language
 {

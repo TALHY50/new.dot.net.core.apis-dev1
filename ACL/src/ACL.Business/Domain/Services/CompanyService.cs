@@ -9,7 +9,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SharedKernel.Main.Application.Interfaces.Services;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Contracts;
+using MessageResponse = SharedKernel.Main.Contracts.MessageResponse;
 
 namespace ACL.Business.Domain.Services
 {

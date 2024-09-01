@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using SharedKernel.Main.Application.Interfaces.Services;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Contracts;
 
 namespace SharedKernel.Main.Presentation;
 

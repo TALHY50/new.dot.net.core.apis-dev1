@@ -7,7 +7,7 @@ using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Enums;
 using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Application.Rules;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Contracts;
 
 namespace SharedBusiness.Main.Admin.Application.Features.Countries;
 

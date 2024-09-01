@@ -1,5 +1,4 @@
-﻿using SharedKernel.Main.Contracts.Common;
-
+﻿namespace SharedKernel.Main.Contracts;
 
 public class MessageResponse : BaseMessageResponse
 {

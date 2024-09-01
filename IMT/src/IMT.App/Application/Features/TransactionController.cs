@@ -6,8 +6,8 @@ using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.Common.Infrastructure.Persistence.Context;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedBusiness.Main.IMT.Domain.Entities;
+using SharedKernel.Main.Contracts;
 using StackExchange.Redis;
-using SharedKernel.Main.Contracts.Common;
 using SharedKernel.Main.Presentation;
 using SharedKernel.Main.Presentation.Routes;
 

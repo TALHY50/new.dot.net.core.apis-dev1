@@ -13,15 +13,14 @@ public static class SharedKernelApplicationDependencyInjection
         var assemblies = AppDomain.CurrentDomain.GetAssemblies()
             .Where(assembly => !assembly.IsDynamic && assembly.GetName().Name != null)
             .ToArray();
-
-        //services.AddMediatR(assemblies);
+        
         foreach(var assembly in assemblies)
         {
             services.AddValidatorsFromAssembly(assembly);
             services.AddMediatR(options =>
             {
                 options.RegisterServicesFromAssembly(assembly); //typeof(DependencyInjection).Assembly
-                //options.AddOpenBehavior(typeof(AuthorizationBehaviour<,>));
+                options.AddOpenBehavior(typeof(AuthorizationBehaviour<,>));
                 //options.AddOpenBehavior(typeof(LoggingBehaviour<>));
                 options.AddOpenBehavior(typeof(ValidationBehaviour<,>));
                 options.AddOpenBehavior(typeof(PerformanceBehaviour<,>));
@@ -29,6 +28,7 @@ public static class SharedKernelApplicationDependencyInjection
             });
             //container.RegisterAssemblyTypes(assembly).AsImplementedInterfaces();
         }
+        services.AddSingleton<IAuthToken, Jwt>();
         services.AddSingleton<ICurrentUser, CurrentUser>();
         return services;
     }

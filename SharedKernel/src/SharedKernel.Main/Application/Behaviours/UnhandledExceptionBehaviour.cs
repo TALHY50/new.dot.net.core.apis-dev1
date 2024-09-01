@@ -1,7 +1,7 @@
 ﻿using ErrorOr;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Contracts;
 
 namespace SharedKernel.Main.Application.Behaviours;
 

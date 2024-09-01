@@ -1,7 +1,6 @@
 using System.Security.Cryptography;
 using ACL.Business.Application.Features.Auth;
 using ACL.Business.Application.Interfaces.Services;
-using ACL.Business.Infrastructure.Jwt;
 using ACL.Business.Infrastructure.Security;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -17,7 +16,7 @@ using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using SharedKernel.Main.Application;
 using SharedKernel.Main.Application.Interfaces.Services;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Contracts;
 using SharedKernel.Main.Infrastructure.Cryptography;
 using SharedKernel.Main.Infrastructure.Services;
 using RefreshToken = ACL.Business.Application.Features.Auth.RefreshToken;
@@ -77,7 +76,6 @@ public static class ACLApplicationDependencyInjection
             options.AddPolicy("HasPermission", policy =>
                 policy.Requirements.Add(new PermissionAuthorizationRequirement()));
         });
-        services.AddSingleton<IAuthToken, Jwt>();
         services.AddTransient<ICryptography, Cryptography>();
         services.AddSingleton<IAuthorizationHandler, PermissionAuthorizationHandler>();
         services.AddScoped<IAuthenticationService, AuthenticationService>();

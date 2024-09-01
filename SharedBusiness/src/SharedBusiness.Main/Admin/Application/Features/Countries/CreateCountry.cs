@@ -9,12 +9,13 @@ using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Enums;
 using SharedKernel.Main.Application.Rules;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Contracts;
+using SharedKernel.Main.Infrastructure.Attributes;
 using SharedKernel.Main.Infrastructure.Extensions;
 
 namespace SharedBusiness.Main.Admin.Application.Features.Countries
 {
-    
+    [Authorize]
     public record CreateCountryCommand(
         string? name,
         string? official_state_name,
