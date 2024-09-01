@@ -24,7 +24,7 @@ public class UpdateCountryById : CountryBase
     public async Task<IActionResult> Update(uint Id, UpdateCountryByIdCommand command, CancellationToken cancellationToken)
     {
         var commandWithId = command with { id = Id };
-        Task.Run(
+        _ = Task.Run(
             () => _logger.LogInformation(
                 "update-country-by-id-request: {Name} {@UserId} {@Request}",
                 nameof(commandWithId),
@@ -35,7 +35,8 @@ public class UpdateCountryById : CountryBase
         var response = result.Match(
             country => Ok(ToSuccess(Mapper.Map<CountryDto>(country))),
             Problem);
-        Task.Run(
+        
+        _ = Task.Run(
             () => _logger.LogInformation(
                 "update-country-by-id-response: {Name} {@UserId} {@Response}",
                 nameof(response),
@@ -44,6 +45,4 @@ public class UpdateCountryById : CountryBase
             cancellationToken);
         return response;
     }
-
-   
 }

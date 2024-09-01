@@ -11,20 +11,16 @@ using SharedKernel.Main.Application.Common.Interfaces.Services;
 
 namespace Admin.App.Presentation.Endpoints.Country;
 
-public class CreateCountry : CountryBase
+public class CreateCountry(ILogger<CreateCountry> logger, ICurrentUserService currentUserService)
+    : CountryBase(logger, currentUserService)
 {
-  
-    public CreateCountry(ILogger<CreateCountry> logger, ICurrentUserService currentUserService) : base(logger, currentUserService)
-    {
-    }
-
     [Tags("Countries")]
     //[Authorize(Policy = "HasPermission")]
     [HttpPost(CountryRoutes.CreateCountryTemplate, Name = CountryRoutes.CreateCountryName)]
   
     public async Task<IActionResult> Create(CreateCountryCommand command, CancellationToken cancellationToken)
     { 
-        Task.Run(
+        _ = Task.Run(
             () => _logger.LogInformation(
                 "create-country-request: {Name} {@UserId} {@Request}",
                 nameof(CreateCountryCommand),
@@ -35,7 +31,7 @@ public class CreateCountry : CountryBase
         var response = result.Match(
             country => Ok(ToSuccess(Mapper.Map<CountryDto>(country))),
             Problem);
-        Task.Run(
+        _ = Task.Run(
             () => _logger.LogInformation(
                 "create-country-response: {Name} {@UserId} {@Response}",
                 nameof(response),
