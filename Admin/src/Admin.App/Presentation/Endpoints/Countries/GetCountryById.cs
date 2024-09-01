@@ -10,18 +10,16 @@ using SharedKernel.Main.Application.Common.Interfaces.Services;
 
 namespace Admin.App.Presentation.Endpoints.Country;
 
-public class GetCountryById : CountryBase
+public class GetCountryById(ILogger<GetCountryById> logger, ICurrentUserService currentUserService)
+    : CountryBase(logger, currentUserService)
 {
-    public GetCountryById(ILogger<GetCountryById> logger, ICurrentUserService currentUserService) : base(logger, currentUserService)
-    {
-    }
     [Tags("Countries")]
     //[Authorize(Policy = "HasPermission")]
     [HttpGet(CountryRoutes.GetCountryByIdTemplate, Name = CountryRoutes.GetCountryByIdName)]
     public async Task<IActionResult> GetById(uint Id, CancellationToken cancellationToken)
     {
         var query = new GetCountryByIdQuery(Id);
-        Task.Run(
+        _ = Task.Run(
             () => _logger.LogInformation(
                 "get-country-by-id-request: {Name} {@UserId} {@Request}",
                 nameof(GetCountryByIdQuery),
@@ -32,7 +30,7 @@ public class GetCountryById : CountryBase
         var response = result.Match(
             country => Ok(ToSuccess(Mapper.Map<CountryDto>(country))),
             Problem);
-        Task.Run(
+        _ = Task.Run(
             () => _logger.LogInformation(
                 "get-country-by-id-response: {Name} {@UserId} {@Response}",
                 nameof(response),
