@@ -1,7 +1,7 @@
 namespace SharedKernel.Main.Application.Interfaces.Services
 
 {
-    public interface ICryptographyService
+    public interface ICryptography
     {
         string GenerateSalt();
 

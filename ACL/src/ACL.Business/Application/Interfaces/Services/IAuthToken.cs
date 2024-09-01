@@ -2,7 +2,7 @@ using ACL.Business.Domain.Entities;
 
 namespace ACL.Business.Application.Interfaces.Services;
 
-public interface IAuthTokenService
+public interface IAuthToken
 {
     Task<string> GenerateIdToken(User user);
     Task<string> GenerateAccessToken(User user);

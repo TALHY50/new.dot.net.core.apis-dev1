@@ -23,7 +23,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         //   private bool _isUserTypeCreatedByCompany = false;
         private readonly IConfiguration _config;
         private readonly IDistributedCache _distributedCache;
-        private readonly ICryptographyService _cryptographyService;
+        private readonly ICryptography _cryptography;
         public IUserUserGroupRepository UserUserGroupRepository;
         // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 #pragma warning disable CS8618
@@ -33,7 +33,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
 
         private readonly ApplicationDbContext _dbContext;
 
-        public UserRepository(ApplicationDbContext dbContext, IConfiguration config, IDistributedCache distributedCache, ICryptographyService cryptographyService, IUserUserGroupRepository userUserGroupRepository, IHttpContextAccessor httpContextAccessor)
+        public UserRepository(ApplicationDbContext dbContext, IConfiguration config, IDistributedCache distributedCache, ICryptography cryptography, IUserUserGroupRepository userUserGroupRepository, IHttpContextAccessor httpContextAccessor)
         {
 
             this.UserUserGroupRepository = userUserGroupRepository;
@@ -43,7 +43,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
 #pragma warning disable CS8604 // Possible null reference argument.
             this._distributedCache = distributedCache;
             this._dbContext = dbContext;
-            this._cryptographyService = cryptographyService;
+            this._cryptography = cryptography;
             _httpContextAccessor = httpContextAccessor;
             AppAuth.Initialize(_httpContextAccessor, dbContext);
             AppAuth.SetAuthInfo(_httpContextAccessor);

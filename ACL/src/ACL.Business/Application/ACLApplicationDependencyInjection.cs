@@ -77,8 +77,8 @@ public static class ACLApplicationDependencyInjection
             options.AddPolicy("HasPermission", policy =>
                 policy.Requirements.Add(new PermissionAuthorizationRequirement()));
         });
-        services.AddSingleton<IAuthTokenService, JwtService>();
-        services.AddTransient<ICryptographyService, CryptographyService>();
+        services.AddSingleton<IAuthToken, Jwt>();
+        services.AddTransient<ICryptography, Cryptography>();
         services.AddSingleton<IAuthorizationHandler, PermissionAuthorizationHandler>();
         services.AddScoped<IAuthenticationService, AuthenticationService>();
         services.AddScoped<Login>();

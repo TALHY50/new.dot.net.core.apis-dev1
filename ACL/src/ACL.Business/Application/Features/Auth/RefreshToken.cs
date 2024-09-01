@@ -12,16 +12,16 @@ namespace ACL.Business.Application.Features.Auth
     public class RefreshToken : IRefreshTokenUseCase
     {
         private readonly ILogger _logger;
-        private readonly IAuthTokenService _authTokenService;
+        private readonly IAuthToken _authToken;
         private readonly IUserRepository _authRepository;
         /// <inheritdoc/>
         public RefreshToken(
             ILogger<RefreshToken> logger,
-            IAuthTokenService authTokenService,
+            IAuthToken authToken,
             IUserRepository authRepository)
         {
             this._logger = logger;
-            this._authTokenService = authTokenService;
+            this._authToken = authToken;
             this._authRepository = authRepository;
         }
         /// <inheritdoc/>
@@ -29,7 +29,7 @@ namespace ACL.Business.Application.Features.Auth
         {
             try
             {
-                if (!await this._authTokenService.IsTokenValid(request.AccessToken, false))
+                if (!await this._authToken.IsTokenValid(request.AccessToken, false))
                 {
                     return new RefreshTokenErrorResponse
                     {
@@ -39,7 +39,7 @@ namespace ACL.Business.Application.Features.Auth
                     };
                 }
 
-                var userIdString = await this._authTokenService.GetUserIdFromToken(request.AccessToken);
+                var userIdString = await this._authToken.GetUserIdFromToken(request.AccessToken);
                 var userId = Convert.ToUInt32(userIdString);
                 var user =  this._authRepository.FindByIdAsync(userId);
 
@@ -70,11 +70,11 @@ namespace ACL.Business.Application.Features.Auth
                     };
                 }
 #pragma warning disable CS8604 // Possible null reference argument.
-                var newToken = await this._authTokenService.GenerateAccessToken(user);
+                var newToken = await this._authToken.GenerateAccessToken(user);
 
-                user.RefreshToken.Value = await this._authTokenService.GenerateRefreshToken();
+                user.RefreshToken.Value = await this._authToken.GenerateRefreshToken();
                 user.RefreshToken.Active = true;
-                user.RefreshToken.ExpirationDate = DateTime.UtcNow.AddMinutes(await this._authTokenService.GetRefreshTokenLifetimeInMinutes());
+                user.RefreshToken.ExpirationDate = DateTime.UtcNow.AddMinutes(await this._authToken.GetRefreshTokenLifetimeInMinutes());
                  this._authRepository.UpdateAndSaveAsync(user);
 
                 var response = new RefreshTokenSuccessResponse

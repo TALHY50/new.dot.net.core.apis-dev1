@@ -7,11 +7,11 @@ namespace SharedKernel.Main.Infrastructure.Cryptography
 {
     // For good password practices go here: https://crackstation.net/hashing-security.htm
     // https://github.com/kmaragon/Konscious.Security.Cryptography
-    public class CryptographyService : ICryptographyService
+    public class Cryptography : ICryptography
     {
         private const int HashSize = 64;
 
-        public CryptographyService() { }
+        public Cryptography() { }
      
         public string GenerateSalt()
         {

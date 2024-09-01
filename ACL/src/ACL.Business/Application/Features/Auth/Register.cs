@@ -14,20 +14,20 @@ namespace ACL.Business.Application.Features.Auth
     public class Register : IRegisterUseCase
     {
         private readonly ILogger _logger;
-        private readonly IAuthTokenService _authTokenService;
+        private readonly IAuthToken _authToken;
         private readonly IUserRepository _authRepository;
-        private readonly ICryptographyService _cryptographyService;
+        private readonly ICryptography _cryptography;
 /// <inheritdoc/>
         public Register(
             ILogger<Register> logger,
-            IAuthTokenService authTokenService,
+            IAuthToken authToken,
             IUserRepository authRepository,
-            ICryptographyService cryptographyService)
+            ICryptography cryptography)
         {
             this._logger = logger;
-            this._authTokenService = authTokenService;
+            this._authToken = authToken;
             this._authRepository = authRepository;
-            this._cryptographyService = cryptographyService;
+            this._cryptography = cryptography;
         }
         /// <inheritdoc/>
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
@@ -47,14 +47,14 @@ namespace ACL.Business.Application.Features.Auth
                     return response;
                 }
 
-                var salt = this._cryptographyService.GenerateSalt();
+                var salt = this._cryptography.GenerateSalt();
                 var currentDate = DateTime.UtcNow;
 
                 user = new User()
                 {
                     Status = 1,
                     Email = request.Email,
-                    Password = this._cryptographyService.HashPassword(request.Password, salt),
+                    Password = this._cryptography.HashPassword(request.Password, salt),
                     Salt = salt,
                     FirstName = request.Name,
                     LastName = request.LastName,

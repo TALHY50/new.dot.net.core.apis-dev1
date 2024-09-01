@@ -10,8 +10,8 @@ using Claim = ACL.Business.Domain.Entities.Claim;
 
 namespace ACL.Business.Infrastructure.Jwt
 {
-    public class JwtService(IOptions<JwtSettings> settings, RsaSecurityKey rsaSecurityKey)
-        : IAuthTokenService
+    public class Jwt(IOptions<JwtSettings> settings, RsaSecurityKey rsaSecurityKey)
+        : IAuthToken
     {
         public static readonly string VersionClaimType = "ver";
 
