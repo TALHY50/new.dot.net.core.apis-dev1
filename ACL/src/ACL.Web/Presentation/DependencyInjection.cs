@@ -4,7 +4,7 @@ namespace ACL.Web.Presentation;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection Add_ACLWeb_Presentation(this IServiceCollection services, IConfiguration configuration,
+    public static IServiceCollection AddACLWebPresentation(this IServiceCollection services, IConfiguration configuration,
         IWebHostEnvironment environment, ConfigureHostBuilder builderHost)
     {
         services.AddHttpContextAccessor();

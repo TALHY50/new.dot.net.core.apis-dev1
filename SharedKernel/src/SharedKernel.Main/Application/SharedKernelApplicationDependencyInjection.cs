@@ -21,7 +21,8 @@ public static class SharedKernelApplicationDependencyInjection
             services.AddMediatR(options =>
             {
                 options.RegisterServicesFromAssembly(assembly); //typeof(DependencyInjection).Assembly
-                options.AddOpenBehavior(typeof(AuthorizationBehaviour<,>));
+                //options.AddOpenBehavior(typeof(AuthorizationBehaviour<,>));
+                //options.AddOpenBehavior(typeof(LoggingBehaviour<>));
                 options.AddOpenBehavior(typeof(ValidationBehaviour<,>));
                 options.AddOpenBehavior(typeof(PerformanceBehaviour<,>));
                 options.AddOpenBehavior(typeof(UnhandledExceptionBehaviour<,>));

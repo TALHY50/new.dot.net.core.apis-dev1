@@ -5,7 +5,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
 using SharedKernel.Main.Contracts.Common;
 
 namespace SharedKernel.Main.Application.Common;
@@ -16,6 +18,21 @@ public partial class ApiControllerBase : ControllerBase
 {
     private IMapper _mapper;
     private ISender? _mediator;
+    protected readonly ILogger<ApiControllerBase> _logger;
+    protected readonly ICurrentUserService _currentUserService;
+    
+    
+    public ApiControllerBase(ILogger<ApiControllerBase> logger , ICurrentUserService currentUserService)
+    {
+        _logger = logger;
+        _currentUserService = currentUserService;
+    }
+    
+    public ApiControllerBase()
+    {
+    }
+
+
 
     protected ISender Mediator => _mediator ??= HttpContext.RequestServices.GetService<ISender>()!;
     protected IMapper Mapper => _mapper ??= HttpContext.RequestServices.GetService<IMapper>()!;

@@ -19,7 +19,6 @@ public class LoggingBehaviour<TRequest> : IRequestPreProcessor<TRequest>
 
     public Task Process(TRequest request, CancellationToken cancellationToken)
     {
-        Console.WriteLine("Rient");
         var requestName = typeof(TRequest).Name;
         var userId = _currentUserService.UserId ?? string.Empty;
 

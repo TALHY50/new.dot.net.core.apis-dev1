@@ -14,10 +14,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSharedKernelApplication();
 builder.Services.AddSharedKernelInfrastructure(builder.Configuration, builder.Environment, builder.Host);
 builder.Services.AddSharedKernelPresentation();
+
 builder.Services.AddACLBusinessApplication(builder.Configuration, builder.Environment, builder.Host);
 builder.Services.AddACLBusinessInfrastructure(builder.Configuration, builder.Environment, builder.Host);
 builder.Services.AddACLBusinessPresentation(builder.Configuration, builder.Environment, builder.Host);
-builder.Services.Add_ACLWeb_Presentation(builder.Configuration, builder.Environment, builder.Host);
+
+builder.Services.AddACLWebPresentation(builder.Configuration, builder.Environment, builder.Host);
 
 var app = builder.Build();
 {

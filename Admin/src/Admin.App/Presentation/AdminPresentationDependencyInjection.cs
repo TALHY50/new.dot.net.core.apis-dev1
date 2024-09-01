@@ -25,7 +25,7 @@ public static class AdminPresentationDependencyInjection
 
         services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "Admin API", Version = "v1" }));
         services.AddProblemDetails();
-        services.AddHealthChecks();
+        // services.AddHealthChecks();
         services.AddHttpContextAccessor();
         services.AddSingleton<ILocalizationService>(new LocalizationService("SharedKernel.Main.Infrastructure.Resources.en-US", typeof(Program).Assembly, "en-US"));
 
