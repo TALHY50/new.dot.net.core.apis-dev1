@@ -10,6 +10,7 @@ using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Common;
 using SharedKernel.Main.Application.Common.Constants;
 using SharedKernel.Main.Application.Common.Constants.Routes;
+using SharedKernel.Main.Application.Common.Interfaces.Services;
 using SharedKernel.Main.Contracts.Common;
 
 namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
@@ -26,6 +27,10 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
             return result.Match(
                 reminder => Ok(result.Value),
                 Problem);return Ok(result);
+        }
+
+        public CreatePayerPaymentSpeedController(ILogger<CreatePayerPaymentSpeedController> logger, ICurrentUserService currentUserService) : base(logger, currentUserService)
+        {
         }
     }
 

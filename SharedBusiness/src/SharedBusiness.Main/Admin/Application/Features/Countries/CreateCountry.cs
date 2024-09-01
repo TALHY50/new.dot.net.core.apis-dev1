@@ -1,7 +1,9 @@
 using System.Data;
+using System.Diagnostics;
 using ErrorOr;
 using FluentValidation;
 using MediatR;
+using Microsoft.Extensions.Logging;
 using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
@@ -38,10 +40,12 @@ namespace SharedBusiness.Main.Admin.Application.Features.Countries
     public class CreateCountryCommandHandler : CountryBase, IRequestHandler<CreateCountryCommand, ErrorOr<Common.Domain.Entities.Country>>
     {
         private readonly ICountryRepository _repository;
+        private readonly ILogger<CreateCountryCommandHandler> _logger;
 
-        public CreateCountryCommandHandler(ICountryRepository repository)
+        public CreateCountryCommandHandler(ICountryRepository repository, ILogger<CreateCountryCommandHandler> logger)
         {
             _repository = repository;
+            _logger = logger;
         }
 
         public async Task<ErrorOr<Common.Domain.Entities.Country>> Handle(CreateCountryCommand command, CancellationToken cancellationToken)

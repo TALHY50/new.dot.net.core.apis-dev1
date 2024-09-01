@@ -146,6 +146,7 @@
 		<Folder Include="Infrastructure\Email\" />
 		<Folder Include="Infrastructure\Files\" />
 		<Folder Include="Infrastructure\Sms\" />
+		<Folder Include="Logging\" />
 		<Folder Include="wwwroot\" />
 	</ItemGroup>
 

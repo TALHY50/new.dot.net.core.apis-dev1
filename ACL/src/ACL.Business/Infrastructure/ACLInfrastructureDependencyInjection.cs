@@ -11,12 +11,13 @@ using SharedKernel.Main.Infrastructure.Services;
 
 namespace ACL.Business.Infrastructure;
 
+// ReSharper disable once InconsistentNaming
 public static class ACLInfrastructureDependencyInjection
 {
     public static IServiceCollection AddACLBusinessInfrastructure(this IServiceCollection services, IConfiguration configuration,
         IWebHostEnvironment environment, ConfigureHostBuilder host)
     {
-        services.AddLogging(configuration, environment, host);
+        //services.AddLogging(configuration, environment, host);
         services.AddPersistence(configuration, environment);
         return services;
     }
