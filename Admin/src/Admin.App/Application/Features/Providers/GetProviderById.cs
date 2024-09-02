@@ -11,7 +11,6 @@ using SharedKernel.Main.Presentation;
 using SharedKernel.Main.Presentation.Routes;
 using static Admin.App.Application.Features.Mtts.InstitutionView;
 using static Admin.App.Application.Features.Providers.GetProviderController;
-using static Admin.App.Application.Features.Regions.GetRegionByIdController;
 
 namespace Admin.App.Application.Features.Providers
 {

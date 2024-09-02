@@ -1,13 +1,10 @@
-﻿using SharedBusiness.Main.Common.Domain.Entities;
+﻿using Ardalis.SharedKernel;
+using SharedBusiness.Main.Common.Domain.Entities;
+using SharedKernel.Main.Application.Interfaces.Repositories;
 
 namespace SharedBusiness.Main.Common.Application.Services.Repositories
 {
-    public interface ITransactionTypeRepository
+    public interface ITransactionTypeRepository : IRepository<TransactionType>, IExtendedRepositoryBase<TransactionType>
     {
-        TransactionType? Add(TransactionType transactionType);
-        TransactionType? Update(TransactionType transactionType);
-        bool Delete(TransactionType transactionType);
-        TransactionType? View(uint id);
-        IEnumerable<TransactionType>? GetAll();
     }
 }

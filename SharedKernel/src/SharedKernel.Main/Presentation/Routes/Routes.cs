@@ -118,16 +118,7 @@
         public const string UpdateCurrencyUrl = "/api/admin/Currency/{id}";
 
         // region
-        public const string GetRegionName = "get_region";
-        public const string GetRegionUrl = "/api/admin/region";
-        public const string GetRegionByIdName = "get_region_by_id";
-        public const string GetRegionByIdUrl = "/api/admin/region/{id}";
-        public const string CreateRegionName = "create_region";
-        public const string CreateRegionUrl = "/api/admin/region";
-        public const string DeleteRegionName = "delete_region";
-        public const string DeleteRegionUrl = "/api/admin/region/{id}";
-        public const string UpdateRegionName = "update_region";
-        public const string UpdateRegionUrl = "/api/admin/region/{id}";
+      
 
         // corridor
         public const string GetCorridorName = "get-corridor";
@@ -200,6 +191,7 @@
         public const string DeleteMttPaymentSpeedUrl = "/api/admin/mtt_payment_speed/{id}";
         public const string UpdateMttPaymentSpeedName = "update_mtt_payment_speed";
         public const string UpdateMttPaymentSpeedUrl = "/api/admin/mtt_payment_speed/{id}";
+
 
         // CreateMoneyTransferTransaction
         public const string CreateMoneyTransferTransactionName = "create_money_transaction";

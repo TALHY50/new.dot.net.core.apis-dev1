@@ -1,11 +1,14 @@
-﻿namespace SharedBusiness.Main.Common.Domain.Entities;
+﻿using Ardalis.SharedKernel;
+using SharedKernel.Main.Application.Enums;
+
+namespace SharedBusiness.Main.Common.Domain.Entities;
 
 /// <summary>
 /// Type : Master, corridor is setup of source country-currency to destination country-currency, like send GBP Euro to USA USD
 /// </summary>
-public partial class Corridor
+public partial class Corridor : EntityBase<uint>, IAggregateRoot
 {
-    public uint Id { get; set; }
+    //public uint Id { get; set; }
 
     public uint? SourceCountryId { get; set; }
 

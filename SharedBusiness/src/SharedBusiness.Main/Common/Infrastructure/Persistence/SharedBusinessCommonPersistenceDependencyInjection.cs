@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Infrastructure.Persistence.Repositories;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedBusiness.Main.IMT.Infrastructure.Persistence.Repositories;
+using SharedKernel.Main.Contracts;
 using SharedKernel.Main.Infrastructure.Services;
 using SharedKernel.Main.Infrastructure.Utilities;
 
@@ -59,6 +61,14 @@ public static class SharedBusinessCommonPersistenceDependencyInjection
         services.AddScoped<IInstitutionMttRepository, InstitutionMttRepository>();
         services.AddScoped<ICurrencyConversionRateRepository, CurrencyConversionRateRepository>();
         services.AddScoped<ITransactionLimitRepository, TransactionLimitRepository>();
+
+        // For language support 
+        services.AddHttpContextAccessor();
+        // Configure the Language static class
+        var serviceProvider = services.BuildServiceProvider();
+        var httpContextAccessor = serviceProvider.GetService<IHttpContextAccessor>();
+        Language.Configure(httpContextAccessor);
+
         return services;
     }
     
