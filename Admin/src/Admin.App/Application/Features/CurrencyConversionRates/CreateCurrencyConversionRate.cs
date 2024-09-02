@@ -73,7 +73,7 @@ namespace Admin.App.Application.Features.CurrencyConversionRates
             var message = new MessageResponse("Record not found");
             if (currencyConversionRate == null)
             {
-                return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
             return _repository.Add(currencyConversionRate)!;
         }
