@@ -1,22 +1,23 @@
 ﻿using System.Reflection;
+using ACL.Business.Application.Interfaces.Services;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Infrastructure.Attributes;
 
-namespace SharedKernel.Main.Application.Behaviours;
+namespace ACL.Business.Application.Behaviours;
 
 public class AuthorizationBehaviour<TRequest, TResponse>(
     ICurrentUser currentUser,
     IHttpContextAccessor httpContextAccessor,
-    IAuthToken token
+    IIdentity identity
     )
     : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>
 {
     private readonly ICurrentUser _currentUser = currentUser;
     private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
-    private readonly IAuthToken _token = token; 
+    private readonly IIdentity _identity = identity; 
     public Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
         var authorizeAttributes = request.GetType().GetCustomAttributes<AuthorizeAttribute>();

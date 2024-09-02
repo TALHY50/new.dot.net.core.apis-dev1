@@ -1,7 +1,10 @@
 using System.Security.Cryptography;
+using ACL.Business.Application.Behaviours;
 using ACL.Business.Application.Features.Auth;
 using ACL.Business.Application.Interfaces.Services;
+using ACL.Business.Infrastructure.Jwt;
 using ACL.Business.Infrastructure.Security;
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -28,6 +31,21 @@ public static class ACLApplicationDependencyInjection
     public static IServiceCollection AddACLBusinessApplication(this IServiceCollection services, IConfiguration configuration,
         IWebHostEnvironment environment, ConfigureHostBuilder builderHost)
     {
+        var assemblies = AppDomain.CurrentDomain.GetAssemblies()
+            .Where(assembly => !assembly.IsDynamic && assembly.GetName().Name != null)
+            .ToArray();
+        
+        foreach(var assembly in assemblies)
+        {
+            services.AddValidatorsFromAssembly(assembly);
+            services.AddMediatR(options =>
+            {
+                options.RegisterServicesFromAssembly(assembly); //typeof(DependencyInjection).Assembly
+                options.AddOpenBehavior(typeof(AuthorizationBehaviour<,>));
+            });
+        }
+        services.AddSingleton<IIdentity, Jwt>();
+        services.AddSingleton<ICurrentUser, CurrentUser>();
         services.Configure<ApiBehaviorOptions>(o =>
         {
             o.InvalidModelStateResponseFactory = actionContext =>
