@@ -144,7 +144,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Admin\Contracts\" />
 	  <Folder Include="Admin\Domain\" />
 	  <Folder Include="Common\Contracts\" />
 	  <Folder Include="Common\Infrastructure\Extensions\" />
