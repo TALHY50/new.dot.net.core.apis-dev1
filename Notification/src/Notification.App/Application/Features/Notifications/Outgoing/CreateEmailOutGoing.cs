@@ -5,16 +5,17 @@ using FluentValidation;
 using MediatR;
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 
 using Newtonsoft.Json;
 
 using Notification.App.Domain.Entities.Outgoings;
 using Notification.App.Infrastructure.Persistence.Context;
+using Notification.App.Presentation;
 
-using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Infrastructure.Extensions;
-using SharedKernel.Main.Infrastructure.Mappings;
 
 using EventId = Notification.App.Contracts.EventId;
 

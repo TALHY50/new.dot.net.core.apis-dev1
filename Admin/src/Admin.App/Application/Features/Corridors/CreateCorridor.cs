@@ -3,10 +3,12 @@ using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
+using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Contracts;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 
 namespace Admin.App.Application.Features.Corridors
 {
@@ -45,9 +47,9 @@ namespace Admin.App.Application.Features.Corridors
 
     public class CreateCorridorCommandHandler : IRequestHandler<CreateCorridorCommand, ErrorOr<Corridor>>
     {
-        private readonly IImtCorridorRepository _repository;
+        private readonly ICorridorRepository _repository;
 
-        public CreateCorridorCommandHandler(IImtCorridorRepository repository)
+        public CreateCorridorCommandHandler(ICorridorRepository repository)
         {
             _repository = repository;
         }
@@ -72,8 +74,8 @@ namespace Admin.App.Application.Features.Corridors
 
             if (result == null)
             {
-                return Error.Unexpected(ApplicationCodes.DatabaseOperationFailed.Code,
-                    ApplicationCodes.DatabaseOperationFailed.Code);
+                return Error.Unexpected(ApplicationStatusCodes.API_ERROR_UNEXPECTED_ERROR.ToString(),
+                    "Corridor not found");
             }
             return result;
         }

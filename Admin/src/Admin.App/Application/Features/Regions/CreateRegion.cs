@@ -3,10 +3,11 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
+using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 
 namespace Admin.App.Application.Features.Regions
 {
@@ -46,8 +47,8 @@ namespace Admin.App.Application.Features.Regions
     public class CreateRegionCommandHandler
         : IRequestHandler<CreateRegionCommand, ErrorOr<Region>>
     {
-        private readonly IImtRegionRepository _repository;
-        public CreateRegionCommandHandler(IImtRegionRepository repository)
+        private readonly IRegionRepository _repository;
+        public CreateRegionCommandHandler(IRegionRepository repository)
         {
             _repository = repository;
         }

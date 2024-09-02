@@ -1,10 +1,10 @@
 ﻿using ACL.Business.Contracts.Requests;
 using ACL.Business.Contracts.Responses;
+using ACL.Web.Presentation.Routes;
 using Bogus;
 using Newtonsoft.Json;
 using RestSharp;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Contracts;
 
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
 #pragma warning disable CS8602 // Converting null literal or possible null value to non-nullable type.
@@ -41,7 +41,7 @@ namespace ACL.TEST
 
             //// Assert
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-            ScopeResponse scopeResponse = JsonConvert.DeserializeObject<ScopeResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, scopeResponse.StatusCode);
+            ScopeResponse scopeResponse = JsonConvert.DeserializeObject<ScopeResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, scopeResponse.StatusCode);
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
             #endregion Assert
 
@@ -55,7 +55,7 @@ namespace ACL.TEST
             #endregion
 
             #region Act
-            //// Create request
+            //// CreateCompanyModule request
             var request = new RestRequest(AclRoutesUrl.AclCompanyRouteUrl.Add, Method.Post);
             var token = DataCollectors.GetAuthorization();
             request.AddHeader("Authorization", token);
@@ -72,7 +72,7 @@ namespace ACL.TEST
             #endregion
 
             #region Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, scopeResponse.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, scopeResponse.StatusCode);
             #endregion Assert
         }
         [Fact]
@@ -83,7 +83,7 @@ namespace ACL.TEST
             var id = GetRandomID();
             #endregion
             #region Act
-            //// Create request
+            //// CreateCompanyModule request
             var request = new RestRequest(AclRoutesUrl.AclCompanyRouteUrl.Edit.Replace("{id}", id.ToString()), Method.Put);
 
             //Add request body
@@ -101,7 +101,7 @@ namespace ACL.TEST
             #endregion
             #region Assert
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-            ScopeResponse scopeResponse = JsonConvert.DeserializeObject<ScopeResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, scopeResponse.StatusCode);
+            ScopeResponse scopeResponse = JsonConvert.DeserializeObject<ScopeResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, scopeResponse.StatusCode);
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
             #endregion Assert
         }
@@ -125,7 +125,7 @@ namespace ACL.TEST
             #region Assert
             //// Assert
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-            ScopeResponse scopeResponse = JsonConvert.DeserializeObject<ScopeResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, scopeResponse.StatusCode);
+            ScopeResponse scopeResponse = JsonConvert.DeserializeObject<ScopeResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, scopeResponse.StatusCode);
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
             #endregion Assert
         }
@@ -138,7 +138,7 @@ namespace ACL.TEST
 
             #endregion
             #region Act
-            //// Create request
+            //// CreateCompanyModule request
             var request = new RestRequest(AclRoutesUrl.AclCompanyRouteUrl.Destroy.Replace("{id}", id.ToString()), Method.Delete);
             //Add request body
 
@@ -158,7 +158,7 @@ namespace ACL.TEST
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
             ScopeResponse scopeResponse = JsonConvert.DeserializeObject<ScopeResponse>(response.Content);
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, scopeResponse.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, scopeResponse.StatusCode);
             #endregion Assert
         }
 
@@ -228,10 +228,10 @@ namespace ACL.TEST
             //#endregion
             //#region Act
 
-            return (ulong)DataCollectors.dbContext.AclCompanies.Where(t => t.Status == 1).Max(t => t.Id);
+            return (ulong)DataCollectors.dbContext.Companies.Where(t => t.Status == 1).Max(t => t.Id);
 
             //// Act
-            //var ScopeResponse = await controller.Create(createReq);
+            //var ScopeResponse = await controller.CreateCompanyModule(createReq);
             ////var aclData = unitOfWork.CompanyRepository.Add((Company)ScopeResponse.Data);
             //// Commit the changes to the database
             //await unitOfWork.CompleteAsync();

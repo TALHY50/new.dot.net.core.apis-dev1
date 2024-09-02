@@ -1,15 +1,16 @@
-﻿using ACL.App.Contracts.Responses;
-using ADMIN.App.Application.Features.ServiceMethods;
+﻿using ADMIN.App.Application.Features.ServiceMethods;
 using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
+using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Application.Interfaces.Services;
+using SharedKernel.Main.Contracts;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 
 namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
 {
@@ -26,6 +27,10 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
                 reminder => Ok(result.Value),
                 Problem);return Ok(result);
         }
+
+        public CreatePayerPaymentSpeedController(ILogger<CreatePayerPaymentSpeedController> logger, ICurrentUser currentUser) : base(logger, currentUser)
+        {
+        }
     }
 
     public record CreatePayerPaymentSpeedCommand(
@@ -38,7 +43,7 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
     {
         public CreatePayerPaymentSpeedCommandValidator()
         {
-            RuleFor(x => x.PayerId).NotEmpty().WithMessage("Payer Id is required");
+            RuleFor(x => x.PayerId).NotEmpty().WithMessage("Payer id is required");
             RuleFor(x => x.Gmt).NotEmpty().WithMessage("GMT is required");
             RuleFor(x => x.WorkingDays).NotEmpty().WithMessage("Working Days is required");
         }
@@ -46,12 +51,10 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
 
     public class CreatePayerPaymentSpeedCommandHandler : IRequestHandler<CreatePayerPaymentSpeedCommand, ErrorOr<PayerPaymentSpeed>>
     {
-        private readonly IImtPayerPaymentSpeedRepository _repository;
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IPayerPaymentSpeedRepository _repository;
 
-        public CreatePayerPaymentSpeedCommandHandler(IHttpContextAccessor httpContextAccessor, IImtPayerPaymentSpeedRepository repository)
+        public CreatePayerPaymentSpeedCommandHandler(IPayerPaymentSpeedRepository repository)
         {
-            _httpContextAccessor = httpContextAccessor;
             _repository = repository;
         }
 
@@ -74,11 +77,9 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
                 UpdatedAt = DateTime.UtcNow
             };
 
-            var message = new MessageResponse("Record not found");
-
             if (payerPaymentSpeed == null)
             {
-                return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), "Payer Payment Speed not found!");
             }
 
             return _repository.Add(payerPaymentSpeed);

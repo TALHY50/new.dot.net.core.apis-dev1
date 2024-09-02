@@ -1,14 +1,14 @@
-﻿using ACL.Business.Contracts.Responses;
-using ErrorOr;
+﻿using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
+using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Contracts;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 
 namespace Admin.App.Application.Features.Payers
 {
@@ -52,7 +52,7 @@ namespace Admin.App.Application.Features.Payers
         public UpdateCommandValidator()
         {
             RuleFor(x => x.id).NotEmpty().WithMessage("id is required");
-            RuleFor(x => x.Name).NotEmpty().WithMessage("Name is required");
+            RuleFor(x => x.Name).NotEmpty().WithMessage("name is required");
             RuleFor(x => x.InternalPayerId).NotEmpty().WithMessage("InternalPayerId is required");
             RuleFor(x => x.Increment).NotEmpty().WithMessage("Increment is required");
             RuleFor(x => x.MoneyPrecision).NotEmpty().WithMessage("MoneyPrecision is required");
@@ -70,21 +70,20 @@ namespace Admin.App.Application.Features.Payers
     public class UpdatePayerHandler :
         IRequestHandler<UpdatePayerCommand, ErrorOr<Payer>>
     {
-        private readonly IImtPayerRepository _repository;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        public UpdatePayerHandler(IHttpContextAccessor httpContextAccessor, IImtPayerRepository repository)
+        private readonly IPayerRepository _repository;
+        public UpdatePayerHandler(IPayerRepository repository)
         {
-            _httpContextAccessor = httpContextAccessor;
             _repository = repository;
         }
 
         public async Task<ErrorOr<Payer>> Handle(UpdatePayerCommand request, CancellationToken cancellationToken)
         {
+            var message = new MessageResponse("Record not found");
             Payer? entity = _repository.FindById(request.id);
             var now = DateTime.UtcNow;
             if (entity == null)
             {
-                return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                return Error.NotFound(message.PlainText, ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
             entity.Name = request.Name;
             entity.ProviderId = request.ProviderId;

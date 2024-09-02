@@ -2,11 +2,12 @@
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
+using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Application.Interfaces.Services;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 using static Admin.App.Application.Features.Mtts.MttsCreate;
 
 namespace Admin.App.Application.Features.Mtts
@@ -22,7 +23,7 @@ namespace Admin.App.Application.Features.Mtts
             return await Mediator.Send(commandWithId).ConfigureAwait(false);
         }
 
-        public record UpdateMttCommand(uint id, uint? CorridorId, uint PayerId, uint? ServiceMethodId, string TransactionTypeId, uint? CotCurrencyId, decimal CotPercentage, decimal CotFixed, decimal FxSpread, uint? MarkUpCurrencyId, decimal MarkUpPercentage, decimal MarkUpFixed, decimal Increment, byte MoneyPrecision, uint? CompanyId, byte Status)
+        public record UpdateMttCommand(uint id, uint? CorridorId, uint PayerId, uint? ServiceMethodId, uint TransactionTypeId, uint? CotCurrencyId, decimal CotPercentage, decimal CotFixed, decimal FxSpread, uint? MarkUpCurrencyId, decimal MarkUpPercentage, decimal MarkUpFixed, decimal Increment, byte MoneyPrecision, uint? CompanyId, byte Status)
           : IRequest<ErrorOr<Mtt>>;
 
 
@@ -46,10 +47,10 @@ namespace Admin.App.Application.Features.Mtts
 
         internal sealed class UpdateMttCommandHandler : IRequestHandler<UpdateMttCommand, ErrorOr<Mtt>>
         {
-            private readonly ICurrentUserService _user;
-            private readonly IImtMttsRepository _repository;
+            private readonly ICurrentUser _user;
+            private readonly IMTTRepository _repository;
 
-            public UpdateMttCommandHandler(ICurrentUserService user, IImtMttsRepository repository)
+            public UpdateMttCommandHandler(ICurrentUser user, IMTTRepository repository)
             {
                 _user = user;
                 _repository = repository;

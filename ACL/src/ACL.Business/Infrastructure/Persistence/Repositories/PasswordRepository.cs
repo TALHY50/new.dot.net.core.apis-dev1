@@ -4,9 +4,10 @@ using ACL.Business.Contracts.Responses;
 using ACL.Business.Infrastructure.Auth.Auth;
 using ACL.Business.Infrastructure.Persistence.Context;
 using Microsoft.AspNetCore.Http;
-using SharedKernel.Main.Application.Common.Interfaces.Services;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Application.Interfaces.Services;
+using SharedKernel.Main.Contracts;
 using SharedKernel.Main.Infrastructure.Utilities;
+using MessageResponse = SharedKernel.Main.Contracts.MessageResponse;
 
 namespace ACL.Business.Infrastructure.Persistence.Repositories
 {
@@ -18,16 +19,16 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         private readonly string _modelName = "Password";
         public readonly int TokenExpiryMinutes = 60;
         public readonly IUserRepository UserRepository;
-        private readonly ICryptographyService _cryptographyService;
+        private readonly ICryptography _cryptography;
         public MessageResponse Response;
         readonly ApplicationDbContext _dbContext;
         public static IHttpContextAccessor HttpContextAccessor;
-        public PasswordRepository(ApplicationDbContext dbContext, ICryptographyService cryptographyService, IUserRepository userRepository, IHttpContextAccessor httpContextAccessor)
+        public PasswordRepository(ApplicationDbContext dbContext, ICryptography cryptography, IUserRepository userRepository, IHttpContextAccessor httpContextAccessor)
         {
 
             this._dbContext = dbContext;
             this.UserRepository = userRepository;
-            this._cryptographyService = cryptographyService;
+            this._cryptography = cryptography;
             this.ScopeResponse = new ScopeResponse();
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8604 // Possible null reference argument.
@@ -44,7 +45,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
             if (AppAuth.GetAuthInfo().UserId != request.UserId)
             {
                 this.ScopeResponse.Message = "Invalid User";
-                this.ScopeResponse.StatusCode = AppStatusCode.FAIL;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
                 return this.ScopeResponse;
             }
 
@@ -53,24 +54,24 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
             if (aclUser != null)
             {
                 // password checking
-                var password = this._cryptographyService.HashPassword(request.CurrentPassword, aclUser.Salt);
+                var password = this._cryptography.HashPassword(request.CurrentPassword, aclUser.Salt);
 
                 if (aclUser.Password != password)
                 {
                     this.ScopeResponse.Message = "Password Mismatch";
-                    this.ScopeResponse.StatusCode = AppStatusCode.FAIL;
+                    this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
                     return this.ScopeResponse;
                 }
 
                 // password update
 
-                aclUser.Password = this._cryptographyService.HashPassword(request.NewPassword, aclUser.Salt);
+                aclUser.Password = this._cryptography.HashPassword(request.NewPassword, aclUser.Salt);
                 this._dbContext.AclUsers.Update(aclUser);
                 await this._dbContext.SaveChangesAsync();
                 await this._dbContext.Entry(aclUser).ReloadAsync();
 
                 this.ScopeResponse.Message = "Password Reset Succesfully.";
-                this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
 
             }
 
@@ -93,7 +94,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
 
                 this.ScopeResponse.Message = "Password Reset Notification email is sent to user email";
                 this.ScopeResponse.Data = uniqueKey;
-                this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             }
 
             return this.ScopeResponse;
@@ -104,7 +105,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
             if (!CacheHelper.Exist(request.Token))
             {
                 this.ScopeResponse.Message = "Invalid Token";
-                this.ScopeResponse.StatusCode = AppStatusCode.FAIL;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
                 return this.ScopeResponse;
             }
 
@@ -116,14 +117,14 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
             var aclUser = this._dbContext.AclUsers?.Where(x => x.Email == email).FirstOrDefault();
             if (aclUser != null)
             {
-                aclUser.Password = this._cryptographyService.HashPassword(request.NewPassword, aclUser.Salt);
+                aclUser.Password = this._cryptography.HashPassword(request.NewPassword, aclUser.Salt);
                 this._dbContext.AclUsers.Update(aclUser);
                 await this._dbContext.SaveChangesAsync();
                 await this._dbContext.Entry(aclUser).ReloadAsync();
 
                 CacheHelper.Remove(request.Token);
                 this.ScopeResponse.Message = "Password Reset Succesfully.";
-                this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             }
 
             return this.ScopeResponse;

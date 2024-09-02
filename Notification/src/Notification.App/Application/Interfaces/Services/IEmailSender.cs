@@ -1,4 +1,4 @@
-using SharedKernel.Main.Application.Common.Models;
+using SharedKernel.Main.Application.Models;
 
 namespace Notification.App.Application.Interfaces.Services;
 

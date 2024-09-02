@@ -1,4 +1,5 @@
-﻿using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
+﻿using SharedBusiness.Main.Common.Domain.Entities;
+using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedBusiness.Main.IMT.Domain.Entities;
 using Thunes.Request.Transaction.Quoatation;
 using Thunes.Response.Transfer.Quotation;

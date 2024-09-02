@@ -6,7 +6,8 @@ using ACL.Business.Infrastructure.Persistence.Context;
 using ACL.Business.Infrastructure.Persistence.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Contracts;
+using MessageResponse = SharedKernel.Main.Contracts.MessageResponse;
 
 namespace ACL.Business.Domain.Services
 {
@@ -48,7 +49,7 @@ namespace ACL.Business.Domain.Services
                 }).ToList();
             this.ScopeResponse.Message = this.MessageResponse.fetchMessage;
             this.ScopeResponse.Data = new { UsergroupRoles = associatedRoles, Roles = roles };
-            this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+            this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             return this.ScopeResponse;
         }
         /// <inheritdoc/>
@@ -74,7 +75,7 @@ namespace ACL.Business.Domain.Services
                    ReloadEntities(userGroupRoles);
                    this.ScopeResponse.Data = userGroupRoles;
                    this.ScopeResponse.Message = this.MessageResponse.createMessage;
-                   this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+                   this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
                    List<ulong>? userIds = this._userRepository.GetUserIdByChangePermission(null, null, null, null, request.UserGroupId);
                    if (userIds != null)
                    {
@@ -87,7 +88,7 @@ namespace ACL.Business.Domain.Services
                {
                    transaction.Rollback();
                    this.ScopeResponse.Message = ex.Message;
-                   this.ScopeResponse.StatusCode = AppStatusCode.FAIL;
+                   this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
                }
            });
 

@@ -8,8 +8,9 @@ using ACL.Business.Infrastructure.Persistence.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using SharedKernel.Main.Application.Common.Interfaces.Services;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Application.Interfaces.Services;
+using SharedKernel.Main.Contracts;
+using MessageResponse = SharedKernel.Main.Contracts.MessageResponse;
 
 namespace ACL.Business.Domain.Services
 {
@@ -21,7 +22,7 @@ namespace ACL.Business.Domain.Services
         public new MessageResponse MessageResponse;
         private readonly string _modelName = "Company";
         private readonly IConfiguration _config;
-        private readonly ICryptographyService _cryptographyService;
+        private readonly ICryptography _cryptography;
         private readonly IUserGroupService _userGroupService;
         private readonly IUserRepository _userRepository;
         private readonly IUserUserGroupRepository _userUserGroupRepository;
@@ -35,7 +36,7 @@ namespace ACL.Business.Domain.Services
 
 
         /// <inheritdoc/>
-        public CompanyService(ApplicationDbContext dbContext, IConfiguration config, ICryptographyService cryptographyService, IUserGroupService userGroupRepository, IUserRepository userRepository, IUserUserGroupRepository userUserGroupRepository, IRoleRepository roleRepository, IUserGroupRoleRepository userGroupRoleRepository, IPageRepository pageRepository, IRolePageRepository rolePageRepository, IHttpContextAccessor httpContextAccessor):base(dbContext,httpContextAccessor)
+        public CompanyService(ApplicationDbContext dbContext, IConfiguration config, ICryptography cryptography, IUserGroupService userGroupRepository, IUserRepository userRepository, IUserUserGroupRepository userUserGroupRepository, IRoleRepository roleRepository, IUserGroupRoleRepository userGroupRoleRepository, IPageRepository pageRepository, IRolePageRepository rolePageRepository, IHttpContextAccessor httpContextAccessor):base(dbContext,httpContextAccessor)
 
         {
             this.ScopeResponse = new ScopeResponse();
@@ -44,7 +45,7 @@ namespace ACL.Business.Domain.Services
 #pragma warning disable CS8604 // Possible null reference argument
             this.MessageResponse = new MessageResponse(this._modelName, AppAuth.GetAuthInfo().Language);
             this._dbContext = dbContext;
-            this._cryptographyService = cryptographyService;
+            this._cryptography = cryptography;
             this._userGroupService = userGroupRepository;
             this._userRepository = userRepository;
             this._userUserGroupRepository = userUserGroupRepository;
@@ -60,17 +61,17 @@ namespace ACL.Business.Domain.Services
 
         public ScopeResponse GetAll()
         {
-            List<Company>? aclCompany = this._dbContext.AclCompanies.Where(b => b.Status == 1).ToList();
+            List<Company>? aclCompany = this._dbContext.Companies.Where(b => b.Status == 1).ToList();
             if (aclCompany.Any())
             {
                 this.ScopeResponse.Data = aclCompany;
-                this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
                 this.ScopeResponse.Message = this.MessageResponse.fetchMessage;
             }
             else
             {
                 this.ScopeResponse.Message = this.MessageResponse.notFoundMessage;
-                this.ScopeResponse.StatusCode = AppStatusCode.FAIL;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
 
             this.ScopeResponse.Timestamp = DateTime.Now;
@@ -96,14 +97,14 @@ namespace ACL.Business.Domain.Services
                     var userGroup = this._userGroupService.PrepareInputData(userGroupRequest);
                     userGroup.CompanyId = aclCompany.Id;
                     userGroup = this._userGroupService.Add(userGroup);
-                    var salt = this._cryptographyService.GenerateSalt();
+                    var salt = this._cryptography.GenerateSalt();
                     string[] nameArr = request.Name.Split(' ');
                     string firstName = (nameArr.Length > 0) ? nameArr[0] : "";
                     string lname = (nameArr.Length > 1) ? nameArr[1] : firstName;
                     User user = new User()
                     {
                         Email = aclCompany.Email,
-                        Password = (request.Password != null && request.Password.Length != 88) ? this._cryptographyService.HashPassword(request.Password, salt) : request.Password,
+                        Password = (request.Password != null && request.Password.Length != 88) ? this._cryptography.HashPassword(request.Password, salt) : request.Password,
                         UserType = this._userRepository.SetUserType(true),
                         FirstName = firstName,
                         LastName = lname,
@@ -154,12 +155,12 @@ namespace ACL.Business.Domain.Services
                 }
                 this.ScopeResponse.Data = aclCompany;
                 this.ScopeResponse.Message = aclCompany != null ? this.MessageResponse.createMessage : this.MessageResponse.notFoundMessage;
-                this.ScopeResponse.StatusCode = aclCompany != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
+                this.ScopeResponse.StatusCode = aclCompany != null ? ApplicationStatusCodes.API_SUCCESS : ApplicationStatusCodes.GENERAL_FAILURE;
             }
             catch (Exception ex)
             {
                 this.ScopeResponse.Message = ex.Message;
-                this.ScopeResponse.StatusCode = AppStatusCode.FAIL;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
             this.ScopeResponse.Timestamp = DateTime.Now;
             return this.ScopeResponse;
@@ -179,12 +180,12 @@ namespace ACL.Business.Domain.Services
                 aclCompany = Update(aclCompany);
                 this.ScopeResponse.Data = aclCompany;
                 this.ScopeResponse.Message = aclCompany != null ? this.MessageResponse.editMessage : this.MessageResponse.notFoundMessage;
-                this.ScopeResponse.StatusCode = aclCompany != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
+                this.ScopeResponse.StatusCode = aclCompany != null ? ApplicationStatusCodes.API_SUCCESS : ApplicationStatusCodes.GENERAL_FAILURE;
             }
             catch (Exception ex)
             {
                 this.ScopeResponse.Message = ex.Message;
-                this.ScopeResponse.StatusCode = AppStatusCode.FAIL;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
             this.ScopeResponse.Timestamp = DateTime.Now;
             return this.ScopeResponse;
@@ -197,12 +198,12 @@ namespace ACL.Business.Domain.Services
                 Company? aclCompany = Find(id);
                 this.ScopeResponse.Data = aclCompany;
                 this.ScopeResponse.Message = aclCompany != null ? this.MessageResponse.fetchMessage : this.MessageResponse.notFoundMessage;
-                this.ScopeResponse.StatusCode = aclCompany != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
+                this.ScopeResponse.StatusCode = aclCompany != null ? ApplicationStatusCodes.API_SUCCESS : ApplicationStatusCodes.GENERAL_FAILURE;
             }
             catch (Exception ex)
             {
                 this.ScopeResponse.Message = ex.Message;
-                this.ScopeResponse.StatusCode = AppStatusCode.FAIL;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
 
             this.ScopeResponse.Timestamp = DateTime.Now;
@@ -220,7 +221,7 @@ namespace ACL.Business.Domain.Services
                 this.ScopeResponse.Data = base.Update(aclCompany);;
             }
             this.ScopeResponse.Message = aclCompany != null ? this.MessageResponse.DeleteMessage : this.MessageResponse.notFoundMessage;
-            this.ScopeResponse.StatusCode = aclCompany != null ? AppStatusCode.SUCCESS : AppStatusCode.FAIL;
+            this.ScopeResponse.StatusCode = aclCompany != null ? ApplicationStatusCodes.API_SUCCESS : ApplicationStatusCodes.GENERAL_FAILURE;
             this.ScopeResponse.Timestamp = DateTime.Now;
 
             return this.ScopeResponse;

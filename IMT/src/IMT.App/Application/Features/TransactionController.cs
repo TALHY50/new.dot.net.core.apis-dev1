@@ -2,13 +2,14 @@
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Domain.Entities;
+using SharedBusiness.Main.Common.Infrastructure.Persistence.Context;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedBusiness.Main.IMT.Domain.Entities;
-using SharedBusiness.Main.IMT.Infrastructure.Persistence.Context;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Common;
+using SharedKernel.Main.Contracts;
 using StackExchange.Redis;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 
 namespace IMT.App.Application.Features
 {
@@ -128,7 +129,7 @@ namespace IMT.App.Application.Features
             }
         }
 
-        internal sealed class CreateHolidaySettingHandler(ApplicationDbContext context, IImtTransactionRepository _transactionRepository, IQuotationRepository _quotationRepository, IImtTransactionRepository _imtTransactionRepository, IImtMoneyTransferRepository _imtMoneyTransferRepository) : IRequestHandler<CreateTransactionCommand, ErrorOr<Transaction>>
+        internal sealed class CreateHolidaySettingHandler(ApplicationDbContext context, ITransactionRepository _transactionRepository, IQuotationRepository _quotationRepository, ITransactionRepository transactionRepository, IMoneyTransferRepository moneyTransferRepository) : IRequestHandler<CreateTransactionCommand, ErrorOr<Transaction>>
         {
             public async Task<ErrorOr<Transaction>> Handle(CreateTransactionCommand request, CancellationToken cancellationToken)
             {
@@ -138,7 +139,7 @@ namespace IMT.App.Application.Features
                 if (quotation is null)
                 {
                     // Not found Quotation
-                    return Error.NotFound("Quotation not found", AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound("Quotation not found", ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 // operation on db
@@ -173,9 +174,9 @@ namespace IMT.App.Application.Features
                 };
 
 
-                _imtMoneyTransferRepository.AddAsync(moneyTransfer);
+                await moneyTransferRepository.AddAsync(moneyTransfer);
 
-                return await _imtTransactionRepository.AddAsync(entity);
+                return await transactionRepository.AddAsync(entity);
             }
         }
 
@@ -183,8 +184,8 @@ namespace IMT.App.Application.Features
 
 
         //#pragma warning disable CS1717 // Assignment made to same variable
-        //        private readonly IImtMoneyTransferService _transactionService;
-        //        public TransactionController(IImtMoneyTransferService transactionService)
+        //        private readonly IMoneyTransferService _transactionService;
+        //        public TransactionController(IMoneyTransferService transactionService)
         //        {
         //            _transactionService = transactionService;
         //        }

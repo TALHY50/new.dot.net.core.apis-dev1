@@ -5,12 +5,13 @@ using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
+using SharedBusiness.Main.Common.Domain.Entities;
+using SharedBusiness.Main.Common.Infrastructure.Persistence.Context;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
-using SharedBusiness.Main.IMT.Infrastructure.Persistence.Context;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Application.Interfaces.Services;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 
 namespace Admin.App.Application.Features.Institutions
 {
@@ -39,7 +40,7 @@ namespace Admin.App.Application.Features.Institutions
         }
     }
 
-    public class CreateInstitutionHandler(ApplicationDbContext context, IInstitutionRepository repository, IInstitutionSettingRepository institutionSettingRepository, ICurrentUserService user) : IRequestHandler<CreateInstitutionCommand, ErrorOr<Institution>>
+    public class CreateInstitutionHandler(ApplicationDbContext context, IInstitutionRepository repository, IInstitutionSettingRepository institutionSettingRepository, ICurrentUser user) : IRequestHandler<CreateInstitutionCommand, ErrorOr<Institution>>
     {
         public async Task<ErrorOr<Institution>> Handle(CreateInstitutionCommand request, CancellationToken cancellationToken)
         {

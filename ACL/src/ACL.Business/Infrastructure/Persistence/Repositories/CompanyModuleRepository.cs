@@ -27,19 +27,19 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         {
             if (id == 0)
             {
-                return !this._dbContext.AclCompanyModules
+                return !this._dbContext.CompanyModules
                     .Any(x => x.CompanyId == companyId && x.ModuleId == moduleId);
             }
             else
             {
-                return this._dbContext.AclCompanyModules
+                return this._dbContext.CompanyModules
                     .Any(x => x.CompanyId == companyId && x.ModuleId == moduleId && x.Id != id);
             }
         }
 
         public bool CompanyValid(ulong companyId)
         {
-                return this._dbContext.AclCompanies.Any(x => x.Id == companyId);
+                return this._dbContext.Companies.Any(x => x.Id == companyId);
         }
         public bool ModuleValid(ulong moduleId)
         {
@@ -51,7 +51,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         {
             try
             {
-                return this._dbContext.AclCompanies.ToList();
+                return this._dbContext.Companies.ToList();
             }
             catch (Exception)
             {
@@ -64,7 +64,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         {
             try
             {
-                return this._dbContext.AclCompanyModules.Find(id);
+                return this._dbContext.CompanyModules.Find(id);
             }
             catch (Exception)
             {
@@ -77,7 +77,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         {
             try
             {
-                this._dbContext.AclCompanyModules.Add(aclCompanyModule);
+                this._dbContext.CompanyModules.Add(aclCompanyModule);
                 this._dbContext.SaveChanges();
                 this._dbContext.Entry(aclCompanyModule).ReloadAsync();
                 return aclCompanyModule;
@@ -93,7 +93,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         {
             try
             {
-                this._dbContext.AclCompanyModules.Update(aclCompanyModule);
+                this._dbContext.CompanyModules.Update(aclCompanyModule);
                 this._dbContext.SaveChanges();
                 this._dbContext.Entry(aclCompanyModule).ReloadAsync();
                 return aclCompanyModule;
@@ -108,7 +108,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         {
             try
             {
-                this._dbContext.AclCompanyModules.Remove(aclCompanyModule);
+                this._dbContext.CompanyModules.Remove(aclCompanyModule);
                 this._dbContext.SaveChangesAsync();
                 return aclCompanyModule;
             }
@@ -123,9 +123,9 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         {
             try
             {
-                var delete = this._dbContext.AclCompanyModules.Find(id);
+                var delete = this._dbContext.CompanyModules.Find(id);
                 if (delete != null)
-                    this._dbContext.AclCompanyModules.Remove(delete);
+                    this._dbContext.CompanyModules.Remove(delete);
                 this._dbContext.SaveChangesAsync();
                 return delete;
             }

@@ -3,13 +3,13 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
+using SharedBusiness.Main.Common.Domain.Entities;
+using SharedBusiness.Main.Common.Infrastructure.Persistence.Context;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
-using SharedBusiness.Main.IMT.Infrastructure.Persistence.Context;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Common.Models;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Contracts;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 
 namespace Admin.App.Application.Features.BusinessHourAndWeekend;
 
@@ -50,7 +50,7 @@ public class UpdateBusinessHourAndWeekendController : ApiControllerBase
             var businessHourAndWeekend = await _context.ImtBusinessHoursAndWeekends.FirstAsync(e => e.Id == request.id, cancellationToken: cancellationToken).ConfigureAwait(false);
             if (businessHourAndWeekend == null)
             {
-                return Error.NotFound("Business hour and weekend not found!", AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                return Error.NotFound("Business hour and weekend not found!", ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
 
             businessHourAndWeekend.HourType = request.HourType;

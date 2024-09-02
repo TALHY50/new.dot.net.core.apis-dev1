@@ -2,12 +2,12 @@
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Contracts.Common;
-using ACL.Business.Contracts.Responses;
+using SharedBusiness.Main.Common.Domain.Entities;
+using SharedKernel.Main.Contracts;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 
 namespace Admin.App.Application.Features.InstitutionMtts
 {
@@ -41,7 +41,7 @@ namespace Admin.App.Application.Features.InstitutionMtts
     {
         public UpdateInstitutionMttyCommandValidator()
         {
-            RuleFor(x => x.id).NotEmpty().WithMessage("InstitutionMtt Id is required");
+            RuleFor(x => x.id).NotEmpty().WithMessage("InstitutionMtt id is required");
             RuleFor(x => x.InstitutionId).NotEmpty().WithMessage("InstitutionId is required");
             RuleFor(x => x.MttId).NotEmpty().WithMessage("MttId is required");
             RuleFor(x => x.CommissionType).NotEmpty().WithMessage("CommissionType is required");
@@ -55,20 +55,19 @@ namespace Admin.App.Application.Features.InstitutionMtts
     public class UpdateInstitutionMttCommandHandler
         : IRequestHandler<UpdateInstitutionMttCommand, ErrorOr<InstitutionMtt>>
     {
-        private readonly IImtInstitutionMttRepository _repository;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        public UpdateInstitutionMttCommandHandler(IHttpContextAccessor httpContextAccessor, IImtInstitutionMttRepository repository)
+        private readonly IInstitutionMttRepository _repository;
+        public UpdateInstitutionMttCommandHandler(IInstitutionMttRepository repository)
         {
-            _httpContextAccessor = httpContextAccessor;
             _repository = repository;
         }
         public async Task<ErrorOr<InstitutionMtt>> Handle(UpdateInstitutionMttCommand request, CancellationToken cancellationToken)
         {
+            var message = new MessageResponse("Record not found");
             InstitutionMtt? entity = _repository.FindById(request.id);
             var now = DateTime.UtcNow;
             if (entity == null)
             {
-                return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                return Error.NotFound(message.PlainText, ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
             entity.InstitutionId = request.InstitutionId;
             entity.MttId = request.MttId;

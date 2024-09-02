@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
-using SharedKernel.Main.Application.Common.Enums;
-using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Application.Enums;
+using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Infrastructure.Extensions;
 
 //using ACL.Infrastructure.Persistence.DTOs;
@@ -23,7 +23,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         //   private bool _isUserTypeCreatedByCompany = false;
         private readonly IConfiguration _config;
         private readonly IDistributedCache _distributedCache;
-        private readonly ICryptographyService _cryptographyService;
+        private readonly ICryptography _cryptography;
         public IUserUserGroupRepository UserUserGroupRepository;
         // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 #pragma warning disable CS8618
@@ -33,7 +33,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
 
         private readonly ApplicationDbContext _dbContext;
 
-        public UserRepository(ApplicationDbContext dbContext, IConfiguration config, IDistributedCache distributedCache, ICryptographyService cryptographyService, IUserUserGroupRepository userUserGroupRepository, IHttpContextAccessor httpContextAccessor)
+        public UserRepository(ApplicationDbContext dbContext, IConfiguration config, IDistributedCache distributedCache, ICryptography cryptography, IUserUserGroupRepository userUserGroupRepository, IHttpContextAccessor httpContextAccessor)
         {
 
             this.UserUserGroupRepository = userUserGroupRepository;
@@ -43,7 +43,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
 #pragma warning disable CS8604 // Possible null reference argument.
             this._distributedCache = distributedCache;
             this._dbContext = dbContext;
-            this._cryptographyService = cryptographyService;
+            this._cryptography = cryptography;
             _httpContextAccessor = httpContextAccessor;
             AppAuth.Initialize(_httpContextAccessor, dbContext);
             AppAuth.SetAuthInfo(_httpContextAccessor);
@@ -55,14 +55,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
        
         public User? FindByEmail(string email)
         {
-            try
-            {
-                return this._dbContext.AclUsers.FirstOrDefault(m => m.Email == email);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception();
-            }
+            return this._dbContext.AclUsers.FirstOrDefault(m => m.Email == email);
         }
         /// <inheritdoc/>
         public User? FindByIdAsync(ulong id)

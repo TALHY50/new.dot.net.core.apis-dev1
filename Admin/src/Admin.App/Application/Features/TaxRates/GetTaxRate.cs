@@ -1,10 +1,11 @@
 ﻿using ErrorOr;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
+using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 
 namespace Admin.App.Application.Features.TaxRates
 {
@@ -25,9 +26,9 @@ namespace Admin.App.Application.Features.TaxRates
 
         public class GetTaxRateQueryHandler : IRequestHandler<GetTaxRateQuery, ErrorOr<List<TaxRate>>>
         {
-            private readonly IImtTaxRateRepository _repository;
+            private readonly ITaxRateRepository _repository;
 
-            public GetTaxRateQueryHandler(IImtTaxRateRepository repository)
+            public GetTaxRateQueryHandler(ITaxRateRepository repository)
             {
                 _repository = repository;
             }

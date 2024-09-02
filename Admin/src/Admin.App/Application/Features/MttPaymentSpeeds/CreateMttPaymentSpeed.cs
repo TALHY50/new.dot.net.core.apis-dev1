@@ -1,15 +1,13 @@
-﻿using ACL.Business.Contracts.Responses;
-using Ardalis.SharedKernel;
-using ErrorOr;
+﻿using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
+using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
-using SharedBusiness.Main.IMT.Infrastructure.Persistence.Repositories;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Contracts;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 
 namespace Admin.App.Application.Features.MttPaymentSpeeds
 {
@@ -67,9 +65,9 @@ namespace Admin.App.Application.Features.MttPaymentSpeeds
     public class CreateMttPaymentSpeedCommandHandler
         : IRequestHandler<CreateMttPaymentSpeedCommand, ErrorOr<MttPaymentSpeed>>
     {
-        private readonly IImtMttPaymentSpeedRepository _repository;
-        private readonly IImtMttsRepository _mtt_repository;
-        public CreateMttPaymentSpeedCommandHandler(IImtMttPaymentSpeedRepository repository, IImtMttsRepository mtt_repository)
+        private readonly IMTTPaymentSpeedRepository _repository;
+        private readonly IMTTRepository _mtt_repository;
+        public CreateMttPaymentSpeedCommandHandler(IMTTPaymentSpeedRepository repository, IMTTRepository mtt_repository)
         {
             _repository = repository;
             _mtt_repository = mtt_repository;
@@ -83,7 +81,7 @@ namespace Admin.App.Application.Features.MttPaymentSpeeds
             var mttCheckExist = _mtt_repository.View(request.MttId);
             if (mttCheckExist == null)
             {
-                return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                return Error.NotFound(message.PlainText, ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
             var @mttPaymentSpeed = new MttPaymentSpeed
             {

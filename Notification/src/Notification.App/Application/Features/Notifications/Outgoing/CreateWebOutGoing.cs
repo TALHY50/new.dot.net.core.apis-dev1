@@ -5,16 +5,18 @@ using FluentValidation;
 using MediatR;
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 using Newtonsoft.Json;
 
 using Notification.App.Domain.Entities.Outgoings;
 using Notification.App.Infrastructure.Persistence.Context;
 
-using SharedKernel.Main.Application.Common.Interfaces.Services;
-using SharedKernel.Main.Application.Common.Models;
+using SharedKernel.Main.Application.Interfaces.Services;
+using SharedKernel.Main.Application.Models;
 
 using EventId = Notification.App.Contracts.EventId;
+using ILogger = Serilog.ILogger;
 
 namespace Notification.App.Application.Features.Notifications.Outgoing;
 
@@ -34,7 +36,7 @@ public class CreateWebOutgoingCommandHandler(ILogger<CreateWebOutgoingCommandHan
 {
      private readonly ApplicationDbContext _context = context;
      private readonly IRenderer _renderer = renderer;
-     private readonly ILogger _logger = logger;
+     private readonly ILogger<CreateWebOutgoingCommandHandler> _logger = logger;
      public async Task<ErrorOr<WebOutgoing>> Handle(CreateWebOutgoingCommand request, CancellationToken cancellationToken)
     {
         var now = DateTime.UtcNow;

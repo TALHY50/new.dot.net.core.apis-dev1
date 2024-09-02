@@ -5,34 +5,30 @@ using Microsoft.EntityFrameworkCore;
 using Notification.App.Domain.Entities.Events;
 using Notification.App.Domain.Entities.Outgoings;
 using Notification.App.Domain.Entities.Setups;
-using Notification.App.Domain.Entities.Todos;
 
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Interfaces.Services;
+using SharedKernel.Main.Application.Interfaces.Services;
+using SharedKernel.Main.Domain;
 
 namespace Notification.App.Infrastructure.Persistence.Context;
 
 public class ApplicationDbContext : DbContext
 {
-    private readonly ICurrentUserService _currentUserService;
+    private readonly ICurrentUser _currentUser;
     private readonly IDateTime _dateTime;
     private readonly IDomainEventService _domainEventService;
 
     public ApplicationDbContext(
         DbContextOptions<ApplicationDbContext> options,
-        ICurrentUserService currentUserService,
+        ICurrentUser currentUser,
         IDomainEventService domainEventService,
         IDateTime dateTime)
         : base(options)
     {
-        _currentUserService = currentUserService;
+        _currentUser = currentUser;
         _domainEventService = domainEventService;
         _dateTime = dateTime;
     }
-
-    public DbSet<TodoList> TodoLists => Set<TodoList>();
-
-    public DbSet<TodoItem> TodoItems => Set<TodoItem>();
+    
     public DbSet<Event> Events => Set<Event>();
 
     public DbSet<AppEventData> AppEventData => Set<AppEventData>();
@@ -62,11 +58,11 @@ public class ApplicationDbContext : DbContext
             switch (entry.State)
             {
                 case EntityState.Added:
-                    entry.Entity.CreatedBy = _currentUserService.UserId;
+                    entry.Entity.CreatedBy = _currentUser.UserId;
                     entry.Entity.Created = _dateTime.Now;
                     break;
                 case EntityState.Modified:
-                    entry.Entity.LastModifiedBy = _currentUserService.UserId;
+                    entry.Entity.LastModifiedBy = _currentUser.UserId;
                     entry.Entity.LastModified = _dateTime.Now;
                     break;
                 case EntityState.Detached:
