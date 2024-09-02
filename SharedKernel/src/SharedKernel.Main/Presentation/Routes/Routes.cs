@@ -69,16 +69,16 @@
         public const string UpdateInstitutionFundUrl = "/api/admin/institution_fund/{Id}";
 
         // Business hour and weekend
-        public const string GetBusinessHourAndWeekendName = "get_business_hour_and_weekend";
-        public const string GetBusinessHourAndWeekendUrl = "/api/admin/business-hour-and-weekend";
-        public const string GetBusinessHourAndWeekendByIdName = "get_business_hour_and_weekend_by_id";
-        public const string GetBusinessHourAndWeekendByIdUrl = "/api/admin/business-hour-and-weekend/{id}";
-        public const string CreateBusinessHourAndWeekendName = "create_business_hour_and_weekend";
-        public const string CreateBusinessHourAndWeekendUrl = "/api/admin/business-hour-and-weekend";
-        public const string DeleteBusinessHourAndWeekendName = "delete_business_hour_and_weekend";
-        public const string DeleteBusinessHourAndWeekendUrl = "/api/admin/business-hour-and-weekend/{id}";
-        public const string UpdateBusinessHourAndWeekendName = "update_business_hour_and_weekend";
-        public const string UpdateBusinessHourAndWeekendUrl = "/api/admin/business-hour-and-weekend";
+        //public const string GetBusinessHourAndWeekendName = "get_business_hour_and_weekend";
+        //public const string GetBusinessHourAndWeekendUrl = "/api/admin/business-hour-and-weekend";
+        //public const string GetBusinessHourAndWeekendByIdName = "get_business_hour_and_weekend_by_id";
+        //public const string GetBusinessHourAndWeekendByIdUrl = "/api/admin/business-hour-and-weekend/{id}";
+        //public const string CreateBusinessHourAndWeekendName = "create_business_hour_and_weekend";
+        //public const string CreateBusinessHourAndWeekendUrl = "/api/admin/business-hour-and-weekend";
+        //public const string DeleteBusinessHourAndWeekendName = "delete_business_hour_and_weekend";
+        //public const string DeleteBusinessHourAndWeekendUrl = "/api/admin/business-hour-and-weekend/{id}";
+        //public const string UpdateBusinessHourAndWeekendName = "update_business_hour_and_weekend";
+        //public const string UpdateBusinessHourAndWeekendUrl = "/api/admin/business-hour-and-weekend";
 
 
         // holiday settings
@@ -118,16 +118,7 @@
         public const string UpdateCurrencyUrl = "/api/admin/Currency/{id}";
 
         // region
-        public const string GetRegionName = "get_region";
-        public const string GetRegionUrl = "/api/admin/region";
-        public const string GetRegionByIdName = "get_region_by_id";
-        public const string GetRegionByIdUrl = "/api/admin/region/{id}";
-        public const string CreateRegionName = "create_region";
-        public const string CreateRegionUrl = "/api/admin/region";
-        public const string DeleteRegionName = "delete_region";
-        public const string DeleteRegionUrl = "/api/admin/region/{id}";
-        public const string UpdateRegionName = "update_region";
-        public const string UpdateRegionUrl = "/api/admin/region/{id}";
+      
 
         // corridor
         public const string GetCorridorName = "get-corridor";
@@ -200,6 +191,7 @@
         public const string DeleteMttPaymentSpeedUrl = "/api/admin/mtt_payment_speed/{id}";
         public const string UpdateMttPaymentSpeedName = "update_mtt_payment_speed";
         public const string UpdateMttPaymentSpeedUrl = "/api/admin/mtt_payment_speed/{id}";
+
 
         // CreateMoneyTransferTransaction
         public const string CreateMoneyTransferTransactionName = "create_money_transaction";

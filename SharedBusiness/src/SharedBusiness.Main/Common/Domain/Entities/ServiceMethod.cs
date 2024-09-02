@@ -1,12 +1,12 @@
-﻿namespace SharedBusiness.Main.Common.Domain.Entities;
+﻿using Ardalis.SharedKernel;
+
+namespace SharedBusiness.Main.Common.Domain.Entities;
 
 /// <summary>
 /// Type : Master, delivery methods of transactions
 /// </summary>
-public partial class ServiceMethod
+public partial class ServiceMethod : EntityBase<uint>, IAggregateRoot
 {
-    public uint Id { get; set; }
-
     /// <summary>
     /// 1 = Bank Account, 2 = Wallet, 3 = Cash Pickup, 4 = Card
     /// </summary>

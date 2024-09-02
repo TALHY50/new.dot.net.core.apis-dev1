@@ -1,15 +1,12 @@
-﻿namespace SharedBusiness.Main.Common.Domain.Entities;
+﻿using Ardalis.SharedKernel;
+
+namespace SharedBusiness.Main.Common.Domain.Entities;
 
 /// <summary>
 /// Type : Master; Regions like Asia Pacific, SARC. Every country belongs to a region
 /// </summary>
-public partial class Region
+public partial class Region : EntityBase<uint>, IAggregateRoot
 {
-    public uint Id { get; set; }
-
-    /// <summary>
-    /// Example : EuroZone, Asia Pacific
-    /// </summary>
     public string? Name { get; set; }
 
     public uint? CompanyId { get; set; }

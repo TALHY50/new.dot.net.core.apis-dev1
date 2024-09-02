@@ -1,4 +1,5 @@
-﻿using ACL.Business.Application.Interfaces.Repositories;
+﻿using ACL.Business.Application.Behaviours;
+using ACL.Business.Application.Interfaces.Repositories;
 using ACL.Business.Application.Interfaces.Services;
 using ACL.Business.Contracts.Requests;
 using ACL.Business.Contracts.Responses;
@@ -12,18 +13,18 @@ namespace ACL.Business.Application.Features.Auth
     public class Login : ILoginUseCase
     {
         private readonly ILogger _logger;
-        private readonly IAuthToken _authToken;
+        private readonly IIdentity _identity;
         private readonly IUserRepository _authRepository;
         private readonly ICryptography _cryptography;
        
         public Login(
             ILogger<Login> logger,
-            IAuthToken authToken,
+            IIdentity identity,
             IUserRepository authRepository,
             ICryptography cryptography)
         {
             this._logger = logger;
-            this._authToken = authToken;
+            this._identity = identity;
             this._authRepository = authRepository;
             this._cryptography = cryptography;
         }
@@ -45,9 +46,9 @@ namespace ACL.Business.Application.Features.Auth
                 {
                     user.RefreshToken = new ACL.Business.Domain.Entities.RefreshToken
                     {
-                        Value = await this._authToken.GenerateRefreshToken(),
+                        Value = await this._identity.GenerateRefreshToken(),
                         Active = true,
-                        ExpirationDate = DateTime.UtcNow.AddMinutes(await this._authToken.GetRefreshTokenLifetimeInMinutes())
+                        ExpirationDate = DateTime.UtcNow.AddMinutes(await this._identity.GetRefreshTokenLifetimeInMinutes())
                     };
                      this._authRepository.UpdateAndSaveAsync(user);
                      string nameIdentifier = user.Id.ToString();
@@ -62,8 +63,8 @@ namespace ACL.Business.Application.Features.Auth
                      string email = user?.FirstName ?? "";
                      string givenName = user?.LastName ?? "";
                      string surName = user?.LastName ?? "";
-                    var idToken = await this._authToken.GenerateIdToken( nameIdentifier,  name,  email,  givenName,  surName);
-                    var accessToken = await this._authToken.GenerateAccessToken(nameIdentifier, scope);
+                    var idToken = await this._identity.GenerateIdToken( nameIdentifier,  name,  email,  givenName,  surName);
+                    var accessToken = await this._identity.GenerateAccessToken(nameIdentifier, scope);
 
                     var response = new LoginSuccessResponse
                     {
