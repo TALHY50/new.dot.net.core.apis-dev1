@@ -37,14 +37,14 @@ namespace Admin.App.Application.Features.Mtts
         {
             if (command.id > 0)
             {
-                var country = await _repository.GetByIdAsync(command.id);
+                var entity = await _repository.GetByIdAsync(command.id);
 
-                if (country == null)
+                if (entity == null)
                 {
-                    return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), "Country not found");
+                    return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), "Mtt not found");
                 }
 
-                await _repository.DeleteAsync(country, cancellationToken);
+                await _repository.DeleteAsync(entity, cancellationToken);
 
             }
 

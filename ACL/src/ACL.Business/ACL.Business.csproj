@@ -83,6 +83,8 @@
 		<ProjectReference Include="..\..\..\SharedKernel\src\SharedKernel.Main\SharedKernel.Main.csproj" />
 	</ItemGroup>
 	<ItemGroup>
+	  <Folder Include="Application\Features\UserSetting\" />
+	  <Folder Include="Application\Features\User\" />
 	  <Folder Include="Infrastructure\Jwt\" />
 	</ItemGroup>
 

@@ -29,7 +29,7 @@ namespace Admin.App.Application.Features.Mtts
     uint? currency_id,
     uint payer_id,
     uint? service_method_id,
-    uint? transaction_type_id,
+    uint transaction_type_id,
     decimal cot_percentage,
     decimal cot_fixed,
     decimal fx_spread,
@@ -45,16 +45,16 @@ namespace Admin.App.Application.Features.Mtts
     {
         public CreateMttCommandValidator()
         {
-            RuleFor(r => r.PayerId).NotEmpty().PayerIdRule();
-            RuleFor(r => r.TransactionTypeId).NotEmpty().TransactionTypeIdRule();
-            RuleFor(r => r.CotPercentage).NotEmpty().CotPercentageRule();
-            RuleFor(r => r.CotFixed).NotEmpty().CotFixedRule();
-            RuleFor(r => r.FxSpread).NotEmpty().FxSpreadRule();
-            RuleFor(r => r.MarkUpPercentage).NotEmpty().MarkUpPercentageRule();
-            RuleFor(r => r.MarkUpFixed).NotEmpty().MarkUpFixedRule();
-            RuleFor(r => r.Increment).NotEmpty().IncrementRule();
-            RuleFor(r => r.MoneyPrecision).NotEmpty().MoneyPrecisionRule();
-            RuleFor(x => x.Status).NotEmpty().IsInEnum();
+            RuleFor(r => r.payer_id).NotEmpty().PayerIdRule();
+            RuleFor(r => r.transaction_type_id).NotEmpty().TransactionTypeIdRule();
+            RuleFor(r => r.cot_percentage).NotEmpty().CotPercentageRule();
+            RuleFor(r => r.cot_fixed).NotEmpty().CotFixedRule();
+            RuleFor(r => r.fx_spread).NotEmpty().FxSpreadRule();
+            RuleFor(r => r.mark_up_percentage).NotEmpty().MarkUpPercentageRule();
+            RuleFor(r => r.mark_up_fixed).NotEmpty().MarkUpFixedRule();
+            RuleFor(r => r.increment).NotEmpty().IncrementRule();
+            RuleFor(r => r.money_precision).NotEmpty().MoneyPrecisionRule();
+            RuleFor(x => x.status).NotEmpty().IsInEnum();
         }
     }
 
@@ -67,21 +67,21 @@ namespace Admin.App.Application.Features.Mtts
         {
             var entity = new Mtt
             {
-                CompanyId = request.CompanyId,
-                CorridorId = request.CorridorId,
+                CompanyId = request.company_id,
+                CorridorId = request.corridor_id,
                 //  CotCurrencyId = request.CotCurrencyId,
-                CotFixed = request.CotFixed,
-                CotPercentage = request.CotPercentage,
-                FxSpread = request.FxSpread,
-                Increment = request.Increment,
+                CotFixed = request.cot_fixed,
+                CotPercentage = request.cot_percentage,
+                FxSpread = request.fx_spread,
+                Increment = request.increment,
                 //  MarkUpCurrencyId = request.MarkUpCurrencyId,
-                MarkUpFixed = request.MarkUpFixed,
-                MarkUpPercentage = request.MarkUpPercentage,
-                MoneyPrecision = request.MoneyPrecision,
-                PayerId = request.PayerId,
-                ServiceMethodId = request.ServiceMethodId,
-                Status = (byte)((int)request.Status),
-                TransactionTypeId = request.TransactionTypeId
+                MarkUpFixed = request.mark_up_fixed,
+                MarkUpPercentage = request.mark_up_percentage,
+                MoneyPrecision = request.money_precision,
+                PayerId = request.payer_id,
+                ServiceMethodId = request.service_method_id,
+                Status = (byte)((int)request.status),
+                TransactionTypeId = request.transaction_type_id
             };
 
             entity.CreatedById = uint.Parse(_user?.UserId ?? "1");

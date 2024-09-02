@@ -10,7 +10,7 @@ using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Presentation;
 using SharedKernel.Main.Presentation.Routes;
-using static Admin.App.Application.Features.Mtts.CreateMtt;
+using static Admin.App.Application.Features.Mtts.EndpointCreateMtt;
 
 namespace Admin.App.Application.Features.Institutions
 {

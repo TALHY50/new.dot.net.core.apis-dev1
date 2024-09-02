@@ -1,6 +1,7 @@
 ﻿using ErrorOr;
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Admin.Application.Features.Mtts;
 using SharedBusiness.Main.Common.Application.Services.Repositories;
@@ -12,6 +13,7 @@ using SharedKernel.Main.Presentation.Routes;
 
 namespace Admin.App.Application.Features.Mtts
 {
+    [Authorize]
     public record GetMttsQuery(int PageNumber = 0, int PageSize = 0) : IRequest<ErrorOr<List<Mtt>>>;
 
     public class GetMttsQueryValidator : AbstractValidator<GetMttsQuery>
@@ -58,7 +60,7 @@ namespace Admin.App.Application.Features.Mtts
 
             if (entities == null)
             {
-                return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), description: "Country not found!");
+                return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), description: "Mtts not found!");
             }
 
             return entities;
