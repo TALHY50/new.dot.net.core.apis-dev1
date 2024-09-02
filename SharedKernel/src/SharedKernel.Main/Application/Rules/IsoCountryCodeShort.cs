@@ -5,7 +5,7 @@ namespace SharedKernel.Main.Application.Rules;
 
 public static partial class RuleBuilderExtensions
 {
-    public static IRuleBuilder<T, string> IsoCountryCodeShort<T>(this IRuleBuilder<T, string> ruleBuilder,  int fixedLength = 2)
+    public static IRuleBuilder<T, string> IsoCountryCodeShort<T>(this IRuleBuilder<T, string?> ruleBuilder,  int fixedLength = 2)
     {
         var options = ruleBuilder.Length(fixedLength)
             .WithErrorCode(ApplicationStatusCodes.API_ERROR_BASIC_VALIDATION_FAILED.ToString());

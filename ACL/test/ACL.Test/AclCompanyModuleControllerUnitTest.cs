@@ -153,7 +153,7 @@ namespace ACL.TEST
             // Generate random data for the company module request
             return new AclCompanyModuleRequest
             {
-                CompanyId = DataCollectors.dbContext.AclCompanies.Max(i => i.Id),
+                CompanyId = DataCollectors.dbContext.Companies.Max(i => i.Id),
                 ModuleId = DataCollectors.dbContext.AclModules.Max(i => i.Id)
             };
         }
@@ -164,7 +164,7 @@ namespace ACL.TEST
             #region Act
             //    // Act
             //return dbContext.AclCompanyModules.Last().Id;
-            return (ulong)DataCollectors.dbContext.AclCompanyModules.Max(i => i.Id);
+            return (ulong)DataCollectors.dbContext.CompanyModules.Max(i => i.Id);
             #endregion
             // }
 

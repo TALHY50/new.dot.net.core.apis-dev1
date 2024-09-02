@@ -18,11 +18,11 @@ public partial class ApplicationDbContext : DbContext
     {
     }
 
-    public virtual DbSet<Branch> AclBranches { get; set; }
+    public virtual DbSet<Branch> Branches { get; set; }
 
-    public virtual DbSet<Company> AclCompanies { get; set; }
+    public virtual DbSet<Company> Companies { get; set; }
 
-    public virtual DbSet<CompanyModule> AclCompanyModules { get; set; }
+    public virtual DbSet<CompanyModule> CompanyModules { get; set; }
 
     public virtual DbSet<Country> AclCountries { get; set; }
 

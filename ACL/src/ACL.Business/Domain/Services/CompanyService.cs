@@ -61,7 +61,7 @@ namespace ACL.Business.Domain.Services
 
         public ScopeResponse GetAll()
         {
-            List<Company>? aclCompany = this._dbContext.AclCompanies.Where(b => b.Status == 1).ToList();
+            List<Company>? aclCompany = this._dbContext.Companies.Where(b => b.Status == 1).ToList();
             if (aclCompany.Any())
             {
                 this.ScopeResponse.Data = aclCompany;

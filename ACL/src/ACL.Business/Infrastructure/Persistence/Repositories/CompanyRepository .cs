@@ -59,7 +59,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         {
             try
             {
-                return this._dbContext.AclCompanies.ToList();
+                return this._dbContext.Companies.ToList();
             }
             catch (Exception)
             {
@@ -72,7 +72,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         {
             try
             {
-                return this._dbContext.AclCompanies.Find(id);
+                return this._dbContext.Companies.Find(id);
             }
             catch (Exception)
             {
@@ -86,7 +86,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
             try
             {
                 IsCompanyNameUnique(aclCompany.Name);
-                this._dbContext.AclCompanies.Add(aclCompany);
+                this._dbContext.Companies.Add(aclCompany);
                 this._dbContext.SaveChanges();
                 this._dbContext.Entry(aclCompany).ReloadAsync();
                 return aclCompany;
@@ -103,7 +103,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
             try
             {
                 IsCompanyNameUnique(aclCompany.Name, aclCompany.Id);
-                this._dbContext.AclCompanies.Update(aclCompany);
+                this._dbContext.Companies.Update(aclCompany);
                 this._dbContext.SaveChanges();
                 this._dbContext.Entry(aclCompany).ReloadAsync();
                 return aclCompany;
@@ -118,7 +118,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         {
             try
             {
-                this._dbContext.AclCompanies.Remove(aclCompany);
+                this._dbContext.Companies.Remove(aclCompany);
                 this._dbContext.SaveChangesAsync();
                 return aclCompany;
             }
@@ -135,7 +135,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
             {
                 var aclCompany = Find(id);
                 if (aclCompany != null)
-                    this._dbContext.AclCompanies.Remove(aclCompany);
+                    this._dbContext.Companies.Remove(aclCompany);
                 this._dbContext.SaveChangesAsync();
                 return aclCompany;
             }
@@ -150,11 +150,11 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         {
             if (CompanyId == null)
             {
-                return this._dbContext.AclCompanies.Any(i => i.Name == CompanyName);
+                return this._dbContext.Companies.Any(i => i.Name == CompanyName);
             }
             else
             {
-                return this._dbContext.AclCompanies.Any(i => i.Name == CompanyName && i.Id != CompanyId);
+                return this._dbContext.Companies.Any(i => i.Name == CompanyName && i.Id != CompanyId);
             }
         }
 

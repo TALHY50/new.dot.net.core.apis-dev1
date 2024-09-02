@@ -1,17 +1,15 @@
-using System.Data;
-using System.Diagnostics;
 using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
-using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
+using SharedBusiness.Main.Common.Infrastructure.Persistence.Context;
 using SharedKernel.Main.Application.Enums;
+using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Application.Rules;
 using SharedKernel.Main.Contracts;
 using SharedKernel.Main.Infrastructure.Attributes;
-using SharedKernel.Main.Infrastructure.Extensions;
 
 namespace SharedBusiness.Main.Admin.Application.Features.Countries
 {
@@ -38,16 +36,10 @@ namespace SharedBusiness.Main.Admin.Application.Features.Countries
         }
     }
 
-    public class CreateCountryCommandHandler : CountryBase, IRequestHandler<CreateCountryCommand, ErrorOr<Common.Domain.Entities.Country>>
+    public class CreateCountryCommandHandler(ILogger<CreateCountryCommandHandler> logger, ApplicationDbContext dbContext, ITransactionHandler transactionHandler, ICountryRepository repository)
+        : CountryBase, IRequestHandler<CreateCountryCommand, ErrorOr<Common.Domain.Entities.Country>>
     {
-        private readonly ICountryRepository _repository;
-        private readonly ILogger<CreateCountryCommandHandler> _logger;
-
-        public CreateCountryCommandHandler(ICountryRepository repository, ILogger<CreateCountryCommandHandler> logger)
-        {
-            _repository = repository;
-            _logger = logger;
-        }
+        private readonly ILogger<CreateCountryCommandHandler> _logger = logger;
 
         public async Task<ErrorOr<Common.Domain.Entities.Country>> Handle(CreateCountryCommand command, CancellationToken cancellationToken)
         {
@@ -64,16 +56,21 @@ namespace SharedBusiness.Main.Admin.Application.Features.Countries
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
             };
+            var result = await transactionHandler.ExecuteWithTransactionAsync<Country>(
+                async (ct) =>
+                {
+                    var obj = await repository.AddAsync(country, cancellationToken);
+                    return obj;
 
-            var result = await _repository.AddAsync(country, cancellationToken);
-
-            if (result == null)
-            {
-                return Error.Unexpected(ApplicationStatusCodes.API_ERROR_UNEXPECTED_ERROR,
-                    "Country could not be added");
-            }
-
-            return result;
+                }, dbContext, 3, cancellationToken
+            );
+            
+          if (result.IsError)
+          {
+              return result;
+          }
+          
+            return result.Value;
 
 
         }

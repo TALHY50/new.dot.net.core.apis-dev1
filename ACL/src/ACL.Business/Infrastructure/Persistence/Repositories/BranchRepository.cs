@@ -25,7 +25,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         {
             try
             {
-                this._dbContext.AclBranches.Add(entity);
+                this._dbContext.Branches.Add(entity);
                 this._dbContext.SaveChanges();
                 this._dbContext.Entry(entity).ReloadAsync();
                 return entity;
@@ -40,7 +40,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         {
             try
             {
-                return this._dbContext.AclBranches.ToList();
+                return this._dbContext.Branches.ToList();
             }
             catch (Exception)
             {
@@ -52,7 +52,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         {
             try
             {
-                this._dbContext.AclBranches.Remove(entity);
+                this._dbContext.Branches.Remove(entity);
                 this._dbContext.SaveChangesAsync();
                 return true;
             }
@@ -66,9 +66,9 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         {
             try
             {
-                var delete = this._dbContext.AclBranches.Find(id);
+                var delete = this._dbContext.Branches.Find(id);
 #pragma warning disable CS8604 // Possible null reference argument.
-                this._dbContext.AclBranches.Remove(delete);
+                this._dbContext.Branches.Remove(delete);
 #pragma warning restore CS8604 // Possible null reference argument.
                 this._dbContext.SaveChangesAsync();
                 return delete;
@@ -84,7 +84,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         {
             try
             {
-                return this._dbContext.AclBranches.Find(id);
+                return this._dbContext.Branches.Find(id);
             }
             catch (Exception)
             {
@@ -97,7 +97,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         {
             try
             {
-                this._dbContext.AclBranches.Update(entity);
+                this._dbContext.Branches.Update(entity);
                 this._dbContext.SaveChanges();
                 this._dbContext.Entry(entity).ReloadAsync();
                 return entity;
