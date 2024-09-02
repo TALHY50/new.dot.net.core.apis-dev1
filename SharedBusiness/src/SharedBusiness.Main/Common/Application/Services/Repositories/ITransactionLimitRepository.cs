@@ -1,13 +1,14 @@
-﻿using SharedBusiness.Main.Common.Domain.Entities;
+﻿using Ardalis.SharedKernel;
+using SharedBusiness.Main.Common.Domain.Entities;
+using SharedKernel.Main.Application.Interfaces.Repositories;
 
 namespace SharedBusiness.Main.Common.Application.Services.Repositories
 {
-    public interface ITransactionLimitRepository
+    public interface ITransactionLimitRepository : IRepository<TransactionLimit>, IExtendedRepositoryBase<TransactionLimit>
     {
-        TransactionLimit Create(TransactionLimit transactionLimit);
-        TransactionLimit Edit(uint id,TransactionLimit transactionLimit);
-        TransactionLimit FindById(uint id);
-        List<TransactionLimit> All();
+        TransactionLimit? Edit(uint id, TransactionLimit transactionLimit);
+        TransactionLimit? FindById(uint id);
         bool DeleteById(uint id);
+        bool IsCurrencyExist(uint currencyId);
     }
 }
