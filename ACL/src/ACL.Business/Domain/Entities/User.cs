@@ -111,7 +111,7 @@ public partial class User : EntityBase, IAggregateRoot
     }
 
 
-    public bool IsPermitted(string routeName)
+    public bool IsPermitted(string? routeName)
     {
         if (_permission != null && _permission.RouteNames != null && _permission.RouteNames.Contains(routeName))
         {

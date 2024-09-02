@@ -3,12 +3,11 @@ using FluentValidation;
 using MediatR;
 using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
-using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Contracts;
 
-namespace SharedBusiness.Main.Admin.Application.Features.Countries;
+namespace SharedBusiness.Main.Common.Application.Features.Countries;
 
-public record GetCountriesQuery(int PageNumber = 0, int PageSize = 0) : IRequest<ErrorOr<List<Common.Domain.Entities.Country>>>;
+public record GetCountriesQuery(int PageNumber = 0, int PageSize = 0) : IRequest<ErrorOr<List<Country>>>;
 
 public class GetCountriesQueryValidator : AbstractValidator<GetCountriesQuery>
 {

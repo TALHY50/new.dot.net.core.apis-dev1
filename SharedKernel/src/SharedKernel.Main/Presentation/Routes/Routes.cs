@@ -69,16 +69,16 @@
         public const string UpdateInstitutionFundUrl = "/api/admin/institution_fund/{Id}";
 
         // Business hour and weekend
-        public const string GetBusinessHourAndWeekendName = "get_business_hour_and_weekend";
-        public const string GetBusinessHourAndWeekendUrl = "/api/admin/business-hour-and-weekend";
-        public const string GetBusinessHourAndWeekendByIdName = "get_business_hour_and_weekend_by_id";
-        public const string GetBusinessHourAndWeekendByIdUrl = "/api/admin/business-hour-and-weekend/{id}";
-        public const string CreateBusinessHourAndWeekendName = "create_business_hour_and_weekend";
-        public const string CreateBusinessHourAndWeekendUrl = "/api/admin/business-hour-and-weekend";
-        public const string DeleteBusinessHourAndWeekendName = "delete_business_hour_and_weekend";
-        public const string DeleteBusinessHourAndWeekendUrl = "/api/admin/business-hour-and-weekend/{id}";
-        public const string UpdateBusinessHourAndWeekendName = "update_business_hour_and_weekend";
-        public const string UpdateBusinessHourAndWeekendUrl = "/api/admin/business-hour-and-weekend";
+        //public const string GetBusinessHourAndWeekendName = "get_business_hour_and_weekend";
+        //public const string GetBusinessHourAndWeekendUrl = "/api/admin/business-hour-and-weekend";
+        //public const string GetBusinessHourAndWeekendByIdName = "get_business_hour_and_weekend_by_id";
+        //public const string GetBusinessHourAndWeekendByIdUrl = "/api/admin/business-hour-and-weekend/{id}";
+        //public const string CreateBusinessHourAndWeekendName = "create_business_hour_and_weekend";
+        //public const string CreateBusinessHourAndWeekendUrl = "/api/admin/business-hour-and-weekend";
+        //public const string DeleteBusinessHourAndWeekendName = "delete_business_hour_and_weekend";
+        //public const string DeleteBusinessHourAndWeekendUrl = "/api/admin/business-hour-and-weekend/{id}";
+        //public const string UpdateBusinessHourAndWeekendName = "update_business_hour_and_weekend";
+        //public const string UpdateBusinessHourAndWeekendUrl = "/api/admin/business-hour-and-weekend";
 
 
         // holiday settings

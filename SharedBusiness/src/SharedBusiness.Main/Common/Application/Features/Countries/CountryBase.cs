@@ -1,4 +1,4 @@
-namespace SharedBusiness.Main.Admin.Application.Features.Countries;
+namespace SharedBusiness.Main.Common.Application.Features.Countries;
 
 public class CountryBase
 {
