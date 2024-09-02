@@ -10,7 +10,6 @@ using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Contracts;
 using SharedKernel.Main.Presentation;
 using SharedKernel.Main.Presentation.Routes;
-using static Admin.App.Application.Features.Regions.UpdateRegionController;
 
 namespace Admin.App.Application.Features.MttPaymentSpeeds
 {

@@ -1,6 +1,8 @@
-﻿namespace SharedBusiness.Main.Common.Domain.Entities;
+﻿using Ardalis.SharedKernel;
 
-public partial class TransactionType
+namespace SharedBusiness.Main.Common.Domain.Entities;
+
+public partial class TransactionType : EntityBase<uint>, IAggregateRoot
 {
     public uint Id { get; set; }
 
