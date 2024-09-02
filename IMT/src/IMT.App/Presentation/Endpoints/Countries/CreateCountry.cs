@@ -1,40 +1,40 @@
 using Admin.App.Presentation.Routes;
-using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Admin.Application.Features.Countries;
 using SharedBusiness.Main.Common.Contracts;
 using SharedKernel.Main.Application.Interfaces.Services;
+using CountryBase = IMT.App.Presentation.Endpoints.Countries.CountryBase;
 
-namespace Admin.App.Presentation.Endpoints.Country;
+namespace IMT.App.Presentation.Endpoints.Countries;
 
-public class GetCountryById(ILogger<GetCountryById> logger, ICurrentUser currentUser)
+public class CreateCountry(ILogger<CreateCountry> logger, ICurrentUser currentUser)
     : CountryBase(logger, currentUser)
 {
     [Tags("Countries")]
     //[Authorize(Policy = "HasPermission")]
-    [HttpGet(CountryRoutes.GetCountryByIdTemplate, Name = CountryRoutes.GetCountryByIdName)]
-    public async Task<IActionResult> GetById(uint Id, CancellationToken cancellationToken)
-    {
-        var query = new GetCountryByIdQuery(Id);
+    [HttpPost(CountryRoutes.CreateCountryTemplate, Name = CountryRoutes.CreateCountryName)]
+  
+    public async Task<IActionResult> Create(CreateCountryCommand command, CancellationToken cancellationToken)
+    { 
         _ = Task.Run(
             () => _logger.LogInformation(
-                "get-country-by-id-request: {Name} {@UserId} {@Request}",
-                nameof(GetCountryByIdQuery),
+                "create-country-request: {Name} {@UserId} {@Request}",
+                nameof(CreateCountryCommand),
                 CurrentUser.UserId,
-                query),
+                command),
             cancellationToken);
-        var result = await Mediator.Send(query).ConfigureAwait(false);
+        var result = await Mediator.Send(command).ConfigureAwait(false);
+        var c = result.Value;
         var response = result.Match(
             country => Ok(ToSuccess(Mapper.Map<CountryDto>(country))),
             Problem);
         _ = Task.Run(
             () => _logger.LogInformation(
-                "get-country-by-id-response: {Name} {@UserId} {@Response}",
+                "create-country-response: {Name} {@UserId} {@Response}",
                 nameof(response),
                 CurrentUser.UserId,
                 response),
             cancellationToken);
-
         return response;
     }
 }

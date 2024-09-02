@@ -42,5 +42,6 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Logs\" />
+	  <Folder Include="Presentation\Mapping\" />
 	</ItemGroup>
 </Project>
