@@ -27,4 +27,60 @@ public class GuardAgainstNullUpdate : IGuardAgainstNullUpdate
             property = newValue;
         }
     }
+
+    public void UpdateIfNotNullOrEmpty(ref decimal property, decimal newValue)
+    {
+        if (newValue != null)
+        {
+            property = newValue;
+        }
+    }
+
+    public void UpdateIfNotNullOrEmpty(ref uint? property, uint? newValue)
+    {
+        if (newValue != null)
+        {
+            property = newValue;
+        }
+    }
+
+    public void UpdateIfNotNullOrEmpty(ref uint property, uint newValue)
+    {
+        if (newValue != null)
+        {
+            property = newValue;
+        }
+    }
+
+    public void UpdateIfNotNullOrEmpty(Action<uint?> updateAction, uint? newValue)
+    {
+        if (newValue != null)
+        {
+            updateAction(newValue);
+        }
+    }
+
+    public void UpdateIfNotNullOrEmpty(Action<uint> updateAction, uint newValue)
+    {
+        if (newValue != null)
+        {
+            updateAction(newValue);
+        }
+    }
+
+    public void UpdateIfNotNullOrEmpty(Action<decimal> updateAction, decimal newValue)
+    {
+        if (newValue != null)
+        {
+            updateAction(newValue);
+        }
+    }
+
+    public void UpdateIfNotNullOrEmpty(Action<int?> updateAction, int? newValue)
+    {
+        if (newValue != null)
+        {
+            updateAction(newValue);
+        }
+    }
 }
