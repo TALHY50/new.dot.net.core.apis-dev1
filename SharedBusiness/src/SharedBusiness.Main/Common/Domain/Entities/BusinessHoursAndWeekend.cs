@@ -1,9 +1,11 @@
-﻿namespace SharedBusiness.Main.Common.Domain.Entities;
+﻿using Ardalis.SharedKernel;
+
+namespace SharedBusiness.Main.Common.Domain.Entities;
 
 /// <summary>
 /// Type : Master, regular office hours and weekends
 /// </summary>
-public partial class BusinessHoursAndWeekend
+public partial class BusinessHoursAndWeekend : EntityBase<uint>, IAggregateRoot
 {
     public uint Id { get; set; }
 
