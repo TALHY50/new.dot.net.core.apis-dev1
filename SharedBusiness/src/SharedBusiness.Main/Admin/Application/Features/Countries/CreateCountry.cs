@@ -2,6 +2,7 @@ using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using SharedBusiness.Main.Common.Application.Features.Countries;
 using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.Common.Infrastructure.Persistence.Context;
@@ -13,7 +14,6 @@ using SharedKernel.Main.Infrastructure.Attributes;
 
 namespace SharedBusiness.Main.Admin.Application.Features.Countries
 {
-    //[Authorize]
     public record CreateCountryCommand(
         string? name,
         string? official_state_name,
