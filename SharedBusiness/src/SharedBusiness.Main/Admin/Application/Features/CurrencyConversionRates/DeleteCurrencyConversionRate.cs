@@ -1,22 +1,23 @@
 ﻿using ErrorOr;
 using FluentValidation;
 using MediatR;
+using SharedBusiness.Main.Admin.Application.Features.CurrencyConversionRates;
 using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedKernel.Main.Contracts;
 
 namespace SharedBusiness.Main.Admin.Application.Features.CreateCurrencyConversionRates
 {
-    public record DeleteCurrencyConversionRateCommand(uint Id) : IRequest<ErrorOr<bool>>;
+    public record DeleteCurrencyConversionRateCommand(uint id) : IRequest<ErrorOr<bool>>;
 
     public class DeleteCurrencyConversionRateCommandValidator : AbstractValidator<DeleteCurrencyConversionRateCommand>
     {
         public DeleteCurrencyConversionRateCommandValidator()
         {
-            RuleFor(x => x.Id).NotEmpty().WithMessage("CurrencyConversionRate ID is required");
+            RuleFor(x => x.id).NotEmpty().WithErrorCode(ApplicationStatusCodes.API_ERROR_BASIC_VALIDATION_FAILED.ToString());
         }
     }
 
-    public class DeleteCurrencyConversionRateCommandHandler : IRequestHandler<DeleteCurrencyConversionRateCommand, ErrorOr<bool>>
+    public class DeleteCurrencyConversionRateCommandHandler : CurrencyConversionRateBase, IRequestHandler<DeleteCurrencyConversionRateCommand, ErrorOr<bool>>
     {
         private readonly ICurrencyConversionRateRepository _repository;
         public DeleteCurrencyConversionRateCommandHandler(ICurrencyConversionRateRepository repository)
@@ -26,20 +27,19 @@ namespace SharedBusiness.Main.Admin.Application.Features.CreateCurrencyConversio
 
         public async Task<ErrorOr<bool>> Handle(DeleteCurrencyConversionRateCommand command, CancellationToken cancellationToken)
         {
-            if (command.Id > 0)
+            if (command.id > 0)
             {
-                var currencyConversionRate = _repository.View(command.Id);
-                var message = new MessageResponse("Record not found");
+                var currencyConversionRate = await _repository.GetByIdAsync(command.id);
 
                 if (currencyConversionRate == null)
                 {
-                    return Error.NotFound(description: Language.GetMessage("Record not found"), code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), "Currency Conversion Rate not found");
                 }
 
-                return _repository.Delete(currencyConversionRate);
+                await _repository.DeleteAsync(currencyConversionRate, cancellationToken);
             }
 
-            return false;
+            return true;
         }
     }
 }
