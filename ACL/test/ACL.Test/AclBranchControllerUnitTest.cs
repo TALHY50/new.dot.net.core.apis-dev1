@@ -133,7 +133,7 @@ namespace ACL.TEST
         private ulong GetRandomID()
         {
 
-            return DataCollectors.dbContext.AclBranches.Max(x => x.Id);
+            return DataCollectors.dbContext.Branches.Max(x => x.Id);
 
         }
     }
