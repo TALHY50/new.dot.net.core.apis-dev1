@@ -16,7 +16,7 @@ using SharedKernel.Main.Infrastructure.Extensions;
 namespace ACL.Business.Infrastructure.Persistence.Repositories
 {
     /// <inheritdoc/>
-    public class UserRepository : IUserRepository
+    public class UserRepository :EfRepository<User>, IUserRepository
     {
         private uint _companyId;
         private uint _userType;
@@ -33,7 +33,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
 
         private readonly ApplicationDbContext _dbContext;
 
-        public UserRepository(ApplicationDbContext dbContext, IConfiguration config, IDistributedCache distributedCache, ICryptography cryptography, IUserUserGroupRepository userUserGroupRepository, IHttpContextAccessor httpContextAccessor)
+        public UserRepository(ApplicationDbContext dbContext, IConfiguration config, IDistributedCache distributedCache, ICryptography cryptography, IUserUserGroupRepository userUserGroupRepository, IHttpContextAccessor httpContextAccessor) :base(dbContext)
         {
 
             this.UserUserGroupRepository = userUserGroupRepository;

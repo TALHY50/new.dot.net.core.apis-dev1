@@ -10,7 +10,6 @@ using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Contracts;
 using SharedKernel.Main.Presentation;
 using SharedKernel.Main.Presentation.Routes;
-using static Admin.App.Application.Features.Regions.UpdateRegionController;
 
 namespace Admin.App.Application.Features.MttPaymentSpeeds
 {
@@ -95,7 +94,7 @@ namespace Admin.App.Application.Features.MttPaymentSpeeds
                     return Error.NotFound(message.PlainText, ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
-                var mttCheckExist = _mtt_repository.View(request.MttId);
+                var mttCheckExist = _mtt_repository.GetByIdAsync(request.MttId);
                 if (mttCheckExist == null)
                 {
                     return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), "MttId not found!");

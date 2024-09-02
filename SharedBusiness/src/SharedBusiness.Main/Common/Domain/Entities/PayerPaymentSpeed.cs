@@ -1,12 +1,12 @@
-﻿namespace SharedBusiness.Main.Common.Domain.Entities;
+﻿using Ardalis.SharedKernel;
+
+namespace SharedBusiness.Main.Common.Domain.Entities;
 
 /// <summary>
 /// Type : Master, for every transaction it takes time to process the transactions, this is the setup in payers&apos; context
 /// </summary>
-public partial class PayerPaymentSpeed
+public partial class PayerPaymentSpeed : EntityBase<uint>, IAggregateRoot
 {
-    public uint Id { get; set; }
-
     public uint PayerId { get; set; }
 
     /// <summary>

@@ -17,19 +17,22 @@ public static class Language
 
     public static string GetMessage(string message)
     {
-        var _assembly = Assembly.GetExecutingAssembly();
-        var headers = _httpContextAccessor.HttpContext.Request.Headers;
-        // Check if the "Language" header exists and has a value
         var language = "en-US";
-        if (headers.ContainsKey("Language"))
+        if (_httpContextAccessor is not null)
         {
-            var lang = headers["Language"].ToString();
-            var allowedLanguages = new List<string> { "en-US", "tr-TUR", "bn-BD" };
-            if (allowedLanguages.Contains(lang))
+            var headers = _httpContextAccessor.HttpContext.Request.Headers;
+            // Check if the "Language" header exists and has a value
+            if (headers.ContainsKey("Language"))
             {
-                language = lang;
+                var lang = headers["Language"].ToString();
+                var allowedLanguages = new List<string> { "en-US", "tr-TUR", "bn-BD" };
+                if (allowedLanguages.Contains(lang))
+                {
+                    language = lang;
+                }
             }
         }
+        var _assembly = Assembly.GetExecutingAssembly();
         var localizationService = new LocalizationService("SharedKernel.Main.Infrastructure.Resources." + language, _assembly, language);
         var _cultureInfo = new CultureInfo(language);
         return localizationService.GetLocalizedStringWithCulture(message, _cultureInfo);

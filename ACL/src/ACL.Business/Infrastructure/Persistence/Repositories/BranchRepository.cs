@@ -7,13 +7,13 @@ using Microsoft.AspNetCore.Http;
 namespace ACL.Business.Infrastructure.Persistence.Repositories
 {
     /// <inheritdoc/>
-    public class BranchRepository : IBranchRepository
+    public class BranchRepository : EfRepository<Branch>, IBranchRepository
     {
         /// <inheritdoc/>
         protected readonly ApplicationDbContext _dbContext;
         private static IHttpContextAccessor _httpContextAccessor;
         /// <inheritdoc/>
-        public BranchRepository(ApplicationDbContext dbContext, IHttpContextAccessor httpContextAccessor)
+        public BranchRepository(ApplicationDbContext dbContext, IHttpContextAccessor httpContextAccessor) : base(dbContext)
         {
             this._dbContext = dbContext;
             _httpContextAccessor = httpContextAccessor;

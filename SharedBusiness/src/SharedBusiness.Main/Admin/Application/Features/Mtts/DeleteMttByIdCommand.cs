@@ -3,13 +3,9 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SharedBusiness.Main.Admin.Application.Features.Countries;
+using SharedBusiness.Main.Admin.Application.Features.Mtts;
 using SharedBusiness.Main.Common.Application.Services.Repositories;
-using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Contracts;
-using SharedKernel.Main.Presentation;
-using SharedKernel.Main.Presentation.Routes;
 
 namespace Admin.App.Application.Features.Mtts
 {
@@ -24,7 +20,8 @@ namespace Admin.App.Application.Features.Mtts
         }
     }
 
-    public class DeleteMttByIdCommandHandler : CountryBase, IRequestHandler<DeleteMttByIdCommand, ErrorOr<bool>>
+     [ApiExplorerSettings(IgnoreApi = true)]
+    public class DeleteMttByIdCommandHandler : MttBase, IRequestHandler<DeleteMttByIdCommand, ErrorOr<bool>>
     {
         private readonly IMTTRepository _repository;
 

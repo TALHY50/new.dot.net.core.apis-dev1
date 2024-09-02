@@ -21,10 +21,11 @@ namespace Admin.App.Application.Features.Mtts
     {
         public GetMttByIdQueryValidator()
         {
-            RuleFor(x => x.id).NotEmpty().WithMessage("Country ID is required");
+            RuleFor(x => x.id).NotEmpty().WithMessage("Mtt ID is required");
         }
     }
 
+     [ApiExplorerSettings(IgnoreApi = true)]
     public class GetMttByIdQueryHandler : MttBase, IRequestHandler<GetMttByIdQuery, ErrorOr<Mtt>>
     {
         private readonly IMTTRepository _repository;

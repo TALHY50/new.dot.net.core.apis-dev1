@@ -47,6 +47,8 @@
 
   <ItemGroup>
     <Folder Include="Logs\" />
+    <Folder Include="Presentation\Endpoints\UserSettings\" />
+    <Folder Include="Presentation\Endpoints\Users\" />
   </ItemGroup>
   
  

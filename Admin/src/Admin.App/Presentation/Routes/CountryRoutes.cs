@@ -8,7 +8,7 @@ public class CountryRoutes
     
     public const string GetCountryByIdMethod = "GET";
     public const string GetCountryByIdName = "get_country_by_id";
-    public const string GetCountryByIdTemplate= "/countries/{id}";
+    public const string GetCountryByIdTemplate = "/countries/{id}";
     
     public const string CreateCountryMethod = "POST";
     public const string CreateCountryName = "create_country";

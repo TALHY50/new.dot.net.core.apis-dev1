@@ -33,8 +33,9 @@ namespace Admin.App.Application.Features.Mtts
         }
     }
 
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class GetMttsQueryHandler
-        : MttBase, IRequestHandler<GetMttsQuery, ErrorOr<List<Mtt>>>
+      : MttBase, IRequestHandler<GetMttsQuery, ErrorOr<List<Mtt>>>
     {
         private readonly IMTTRepository _repository;
 

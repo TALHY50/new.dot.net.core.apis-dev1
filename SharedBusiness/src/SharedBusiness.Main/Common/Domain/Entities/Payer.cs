@@ -1,11 +1,12 @@
-﻿namespace SharedBusiness.Main.Common.Domain.Entities;
+﻿using Ardalis.SharedKernel;
+
+namespace SharedBusiness.Main.Common.Domain.Entities;
 
 /// <summary>
 /// Type : Master, payers are the corridor setups under a provider like Thunes, a payer is acting like a bank terminal, most of the data are operational, will be set as MTT&apos;s values, here to crosscheck
 /// </summary>
-public partial class Payer
+public partial class Payer : EntityBase<uint>, IAggregateRoot
 {
-    public uint Id { get; set; }
 
     public string Name { get; set; } = null!;
 

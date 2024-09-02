@@ -18,13 +18,22 @@ using SharedBusiness.Main.Admin.Application.Features.Countries;
 using SharedBusiness.Main.Common.Infrastructure.Persistence.Context;
 using SharedBusiness.Main.Admin.Application.Features.Mtts;
 using SharedKernel.Main.Application.Enums;
+using Microsoft.EntityFrameworkCore;
+using SharedKernel.Main.Infrastructure.Persistence;
+using ACL.Business.Domain.Entities;
+using SharedBusiness.Main.Common.Infrastructure.Persistence.Repositories;
+using SharedKernel.Main.Contracts;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using ACL.Business.Domain.Services;
+using Microsoft.AspNetCore.Http;
+using ACL.Business.Infrastructure.Auth.Auth;
 
 namespace Admin.App.Application.Features.Mtts
 {
 
     [Authorize]
 
-       public record CreateMttCommand( 
+    public record CreateMttCommand(
     uint? corridor_id,
     uint? currency_id,
     uint payer_id,
@@ -38,7 +47,7 @@ namespace Admin.App.Application.Features.Mtts
     decimal increment,
     byte money_precision,
     uint company_id,
-    StatusValues status): IRequest<ErrorOr<Mtt>>;
+    StatusValues status) : IRequest<ErrorOr<Mtt>>;
 
 
     public class CreateMttCommandValidator : AbstractValidator<CreateMttCommand>
@@ -58,13 +67,74 @@ namespace Admin.App.Application.Features.Mtts
         }
     }
 
-    public class CreateMttCommandHandler(ILogger<CreateMttCommandHandler> logger, ApplicationDbContext dbContext, ITransactionHandler transactionHandler, IMTTRepository repository, ICurrentUser user)
-: MttBase, IRequestHandler<CreateMttCommand, ErrorOr<Mtt>>
+    [ApiExplorerSettings(IgnoreApi = true)]
+    public class CreateMttCommandHandler : MttBase, IRequestHandler<CreateMttCommand, ErrorOr<Mtt>>
     {
-        private readonly ICurrentUser _user = user;
-        private readonly IMTTRepository _repository = repository;
-        public async Task<ErrorOr<Mtt?>> Handle(CreateMttCommand request, CancellationToken cancellationToken)
+        private readonly ICurrentUser _user;
+        private readonly IMTTRepository _repository;
+        private readonly ICorridorRepository _corridorRepository;
+        private readonly IPayerRepository _payerRepository;
+        private readonly ICurrencyRepository _currencyRepository;
+        private readonly ICompanyService _companyRepository;
+        private readonly ApplicationDbContext _dbContext;
+        private readonly ACL.Business.Infrastructure.Persistence.Context.ApplicationDbContext _otherDbContext;
+        public static IHttpContextAccessor HttpContextAccessor;
+        private readonly ITransactionHandler _transactionHandler;
+        // Constructor
+        public CreateMttCommandHandler(
+            ILogger<CreateMttCommandHandler> logger,
+            ApplicationDbContext dbContext,
+            ITransactionHandler transactionHandler,
+            IMTTRepository repository,
+            ICurrentUser user, ACL.Business.Infrastructure.Persistence.Context.ApplicationDbContext otherDbContext, ICorridorRepository corridorRepository, IPayerRepository payerRepository, ICurrencyRepository currencyRepository, ICompanyService companyRepository, IHttpContextAccessor httpContextAccessor) : base(logger, user)
         {
+            _user = user ?? throw new ArgumentNullException(nameof(user));
+            var _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _corridorRepository = corridorRepository ?? throw new ArgumentNullException(nameof(corridorRepository));
+            _payerRepository = payerRepository ?? throw new ArgumentNullException(nameof(payerRepository));
+            _currencyRepository = currencyRepository ?? throw new ArgumentNullException(nameof(currencyRepository));
+            _companyRepository = companyRepository ?? throw new ArgumentNullException(nameof(companyRepository));
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+            _otherDbContext = otherDbContext ?? throw new ArgumentNullException(nameof(otherDbContext));
+            _transactionHandler = transactionHandler ?? throw new ArgumentNullException(nameof(transactionHandler));
+            HttpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
+            AppAuth.Initialize(HttpContextAccessor, _otherDbContext);
+            AppAuth.SetAuthInfo(HttpContextAccessor);
+        }
+        public async Task<ErrorOr<Mtt>> Handle(CreateMttCommand request, CancellationToken cancellationToken)
+        {
+            if (request.corridor_id != null && request.corridor_id > 0)
+            {
+                Corridor? corridor = await _corridorRepository.GetByIdAsync((uint)request.corridor_id, cancellationToken);
+                if (corridor == null)
+                {
+                    return Error.NotFound(description: "corridor not found",
+                    code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
+                }
+            }
+            if (request.currency_id != null && commrequestand.currency_id > 0)
+            {
+                Currency? currency = await _currencyRepository.GetByIdAsync((uint)comrequestmand.currency_id, cancellationToken);
+                if (currency == null)
+                {
+                    return Error.NotFound(description: "currency not found",
+                        code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
+                }
+            }
+            Company? company = await _companyRepository.GetByIdAsync(request.company_id, cancellationToken);
+            Payer? payer = await _payerRepository.GetByIdAsync(request.payer_id, cancellationToken);
+
+            if (company == null)
+            {
+                return Error.NotFound(description: "company not found",
+                    code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
+            }
+            if (payer == null)
+            {
+                return Error.NotFound(description: "payer not found",
+                    code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
+            }
             var entity = new Mtt
             {
                 CompanyId = request.company_id,
@@ -89,13 +159,13 @@ namespace Admin.App.Application.Features.Mtts
             entity.CreatedAt = DateTime.Now;
             entity.UpdatedAt = DateTime.Now;
 
-            var result = await transactionHandler.ExecuteWithTransactionAsync<Mtt>(
+            var result = await _transactionHandler.ExecuteWithTransactionAsync<Mtt>(
                async (ct) =>
                {
-                   var obj = await repository.AddAsync(entity, cancellationToken);
+                   var obj = await _repository.AddAsync(entity, cancellationToken);
                    return obj;
 
-               }, dbContext, 3, cancellationToken
+               }, _dbContext, 3, cancellationToken
            );
 
             if (result.IsError)

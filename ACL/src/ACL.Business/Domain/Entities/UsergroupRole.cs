@@ -1,9 +1,9 @@
-﻿namespace ACL.Business.Domain.Entities;
+﻿using Ardalis.SharedKernel;
 
-public partial class UsergroupRole
+namespace ACL.Business.Domain.Entities;
+
+public partial class UsergroupRole : EntityBase<ulong>, IAggregateRoot
 {
-    public ulong Id { get; set; }
-
     public ulong UsergroupId { get; set; }
 
     public ulong RoleId { get; set; }

@@ -119,7 +119,7 @@
 
         // region
         public const string GetRegionName = "get_region";
-        public const string GetRegionUrl = "region";
+        public const string GetRegionUrl = "regions";
         public const string GetRegionByIdName = "get_region_by_id";
         public const string GetRegionByIdUrl = "region/{id}";
         public const string CreateRegionName = "create_region";
@@ -201,6 +201,7 @@
         public const string UpdateMttPaymentSpeedName = "update_mtt_payment_speed";
         public const string UpdateMttPaymentSpeedUrl = "mtt_payment_speed/{id}";
 
+
         // CreateMoneyTransferTransaction
         public const string CreateMoneyTransferTransactionName = "create_money_transaction";
         public const string CreateMoneyTransferTransactionUrl = "/v2/money-transfer/transaction/create";
@@ -223,19 +224,19 @@
     public class AdminRoute
     {
         #region Mtts
-        public const string CreateMttsRouteUrl = "mtts/create";
+        public const string CreateMttsRouteUrl = "mtts";
         public const string CreateMttsRouteName = "mtts.create";
 
-        public const string EditMttsRouteUrl = "mtts/edit/{id}";
+        public const string EditMttsRouteUrl = "mtts/{id}";
         public const string EditMttsRouteName = "mtts.edit";
 
-        public const string ViewMttsRouteUrl = "mtts/view/{id}";
+        public const string ViewMttsRouteUrl = "mtts/{id}";
         public const string ViewMttsRouteName = "mtts.view";
 
         public const string AllMttsRouteUrl = "mtts/get";
         public const string AllMttsRouteName = "mtts.get";
 
-        public const string DeleteMttsRouteUrl = "mtts/delete/{id}";
+        public const string DeleteMttsRouteUrl = "mtts/{id}";
         public const string DeleteMttsRouteName = "mtts.delete";
         #endregion Mtts
     }

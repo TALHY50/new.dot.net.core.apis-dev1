@@ -67,22 +67,24 @@ namespace Admin.App.Application.Features.MttPaymentSpeeds
     {
         private readonly IMTTPaymentSpeedRepository _repository;
         private readonly IMTTRepository _mtt_repository;
+
         public CreateMttPaymentSpeedCommandHandler(IMTTPaymentSpeedRepository repository, IMTTRepository mtt_repository)
         {
             _repository = repository;
             _mtt_repository = mtt_repository;
         }
 
-        public async Task<ErrorOr<MttPaymentSpeed>> Handle(CreateMttPaymentSpeedCommand request, CancellationToken cancellationToken)
+        public Task<ErrorOr<MttPaymentSpeed>> Handle(CreateMttPaymentSpeedCommand request, CancellationToken cancellationToken)
         {
             var message = new MessageResponse("Record not found");
 
             var now = DateTime.UtcNow;
-            var mttCheckExist = _mtt_repository.View(request.MttId);
+            var mttCheckExist = _mtt_repository.GetByIdAsync(request.MttId);
             if (mttCheckExist == null)
             {
-                return Error.NotFound(message.PlainText, ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
+                return Task.FromResult<ErrorOr<MttPaymentSpeed>>(Error.NotFound(message.PlainText, ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString()));
             }
+
             var @mttPaymentSpeed = new MttPaymentSpeed
             {
                 MttId = request.MttId,
@@ -100,7 +102,7 @@ namespace Admin.App.Application.Features.MttPaymentSpeeds
                 UpdatedAt = now
             };
 
-            return _repository.Add(@mttPaymentSpeed);
+            return Task.FromResult<ErrorOr<MttPaymentSpeed>>(_repository.Add(@mttPaymentSpeed));
         }
     }
 }

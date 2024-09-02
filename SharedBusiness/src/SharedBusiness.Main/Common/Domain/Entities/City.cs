@@ -1,9 +1,9 @@
-﻿namespace SharedBusiness.Main.Common.Domain.Entities;
+﻿using Ardalis.SharedKernel;
 
-public partial class City
+namespace SharedBusiness.Main.Common.Domain.Entities;
+
+public partial class City : EntityBase<uint>, IAggregateRoot
 {
-    public uint Id { get; set; }
-
     public string? Name { get; set; }
 
     public uint? CountryId { get; set; }

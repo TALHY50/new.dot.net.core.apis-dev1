@@ -1,9 +1,9 @@
-﻿namespace SharedBusiness.Main.Common.Domain.Entities;
+﻿using Ardalis.SharedKernel;
 
-public partial class ProviderErrorDetail
+namespace SharedBusiness.Main.Common.Domain.Entities;
+
+public partial class ProviderErrorDetail : EntityBase<uint>, IAggregateRoot
 {
-    public uint Id { get; set; }
-
     public uint ImtProviderId { get; set; }
 
     public sbyte Type { get; set; }
