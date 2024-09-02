@@ -1,13 +1,11 @@
-﻿using SharedBusiness.Main.Common.Domain.Entities;
+﻿using Ardalis.SharedKernel;
+using SharedBusiness.Main.Common.Domain.Entities;
+using SharedKernel.Main.Application.Interfaces.Repositories;
 
 namespace SharedBusiness.Main.Common.Application.Services.Repositories
 {
-    public interface IServiceMethodRepository
+    public interface IServiceMethodRepository : IRepository<ServiceMethod>, IExtendedRepositoryBase<ServiceMethod>
     {
-        ServiceMethod? Add(ServiceMethod serviceMethod);
-        List<ServiceMethod>? ViewAll();
-        ServiceMethod? View(uint id);
-        bool Delete(ServiceMethod serviceMethod);
-        ServiceMethod? Update(ServiceMethod serviceMethod);
+        
     }
 }
