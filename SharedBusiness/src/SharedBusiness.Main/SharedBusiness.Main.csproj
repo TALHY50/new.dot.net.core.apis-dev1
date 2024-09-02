@@ -146,8 +146,8 @@
 	<ItemGroup>
 	  <Folder Include="Admin\Contracts\" />
 	  <Folder Include="Admin\Domain\" />
-	  <Folder Include="Common\Contracts\" />
 	  <Folder Include="Common\Infrastructure\Extensions\" />
+	  <Folder Include="IMT\Contracts\Contracts\Responses\" />
 	  <Folder Include="IMT\Domain\Entities\ValueObjects\" />
 	  <Folder Include="IMT\Infrastructure\Persistence\Configurations\" />
 	  <Folder Include="IMT\Infrastructure\Persistence\Context\" />
