@@ -43,4 +43,20 @@ public class GuardAgainstNullUpdate : IGuardAgainstNullUpdate
             updateAction(newValue);
         }
     }
+
+    public void UpdateIfNotNullOrEmpty(ref byte? property, byte? newValue)
+    {
+        if (newValue != null)
+        {
+            property = newValue;
+        }
+    }
+
+    public void UpdateIfNotNullOrEmpty(Action<byte?> updateAction, byte? newValue)
+    {
+        if (newValue != 0)
+        {
+            updateAction(newValue);
+        }
+    }
 }

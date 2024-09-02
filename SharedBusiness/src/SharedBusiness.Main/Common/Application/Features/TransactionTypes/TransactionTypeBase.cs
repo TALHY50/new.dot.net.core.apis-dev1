@@ -1,4 +1,4 @@
-﻿namespace SharedBusiness.Main.Admin.Application.Features.TransactionTypes
+﻿namespace SharedBusiness.Main.Common.Application.Features.TransactionTypes
 {
     public class TransactionTypeBase
     {
