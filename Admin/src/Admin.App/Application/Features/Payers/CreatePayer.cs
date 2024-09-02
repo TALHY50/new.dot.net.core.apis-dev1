@@ -2,10 +2,11 @@
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
+using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 
 namespace Admin.App.Application.Features.Payers
 {
@@ -48,7 +49,7 @@ namespace Admin.App.Application.Features.Payers
     {
         public CreatePayerCommandValidator()
         {
-            RuleFor(x => x.Name).NotEmpty().WithMessage("Name is required");
+            RuleFor(x => x.Name).NotEmpty().WithMessage("name is required");
             RuleFor(x => x.InternalPayerId).NotEmpty().WithMessage("InternalPayerId is required");
             RuleFor(x => x.Increment).NotEmpty().WithMessage("Increment is required");
             RuleFor(x => x.MoneyPrecision).NotEmpty().WithMessage("MoneyPrecision is required");
@@ -67,8 +68,8 @@ namespace Admin.App.Application.Features.Payers
     public class CreatePayerCommandHandler 
         : IRequestHandler<CreatePayerCommand, ErrorOr<Payer>>
     {
-        private readonly IImtPayerRepository _repository;
-        public CreatePayerCommandHandler(IImtPayerRepository repository)
+        private readonly IPayerRepository _repository;
+        public CreatePayerCommandHandler(IPayerRepository repository)
         {
             _repository = repository;
         }

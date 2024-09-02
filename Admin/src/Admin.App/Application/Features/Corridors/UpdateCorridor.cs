@@ -3,13 +3,13 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
 using System.ComponentModel.Design;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
-using SharedKernel.Main.Contracts.Common;
-using ACL.Business.Contracts.Responses;
+using SharedBusiness.Main.Common.Domain.Entities;
+using SharedKernel.Main.Contracts;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 
 namespace Admin.App.Application.Features.Corridors
 {
@@ -40,7 +40,7 @@ namespace Admin.App.Application.Features.Corridors
     {
         public UpdateCorridoryCommandValidator()
         {
-            RuleFor(x => x.id).NotEmpty().WithMessage("Corridor Id is required");
+            RuleFor(x => x.id).NotEmpty().WithMessage("Corridor id is required");
             RuleFor(x => x.SourceCountryId).NotEmpty();
             RuleFor(x => x.DestinationCountryId).NotEmpty();
             RuleFor(x => x.SourceCurrencyId).NotEmpty();
@@ -50,8 +50,8 @@ namespace Admin.App.Application.Features.Corridors
     public class UpdateCorridorCommandHandler
         : IRequestHandler<UpdateCorridorCommand, ErrorOr<Corridor>>
     {
-        private readonly IImtCorridorRepository _repository;
-        public UpdateCorridorCommandHandler(IImtCorridorRepository repository)
+        private readonly ICorridorRepository _repository;
+        public UpdateCorridorCommandHandler(ICorridorRepository repository)
         {
             _repository = repository;
         }
@@ -62,7 +62,7 @@ namespace Admin.App.Application.Features.Corridors
             var now = DateTime.UtcNow;
             if (entity == null)
             {
-                return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                return Error.NotFound(message.PlainText, ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
             entity.SourceCountryId = request.SourceCountryId;
             entity.DestinationCountryId = request.DestinationCountryId;

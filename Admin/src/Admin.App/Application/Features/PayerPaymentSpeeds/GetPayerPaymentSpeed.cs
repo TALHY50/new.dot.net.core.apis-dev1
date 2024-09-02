@@ -3,11 +3,12 @@ using ErrorOr;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
+using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Contracts;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 
 namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
 {
@@ -28,9 +29,9 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
 
         public class GetPayerPaymentSpeedQueryHandler : IRequestHandler<GetPayerPaymentSpeedQuery, ErrorOr<List<PayerPaymentSpeed>>>
         {
-            private readonly IImtPayerPaymentSpeedRepository _repository;
+            private readonly IPayerPaymentSpeedRepository _repository;
 
-            public GetPayerPaymentSpeedQueryHandler(IImtPayerPaymentSpeedRepository repository)
+            public GetPayerPaymentSpeedQueryHandler(IPayerPaymentSpeedRepository repository)
             {
                 _repository = repository;
             }
@@ -38,6 +39,10 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
             {
                 var payerPaymentSpeeds = _repository.ViewAll();
 
+                if (payerPaymentSpeeds == null)
+                {
+                    return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), "Payer Payment Speed not found!");
+                }
                 return payerPaymentSpeeds;
             }
         }

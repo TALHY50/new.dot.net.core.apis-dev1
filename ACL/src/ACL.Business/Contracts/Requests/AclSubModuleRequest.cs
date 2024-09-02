@@ -20,7 +20,7 @@ public partial class AclSubModuleRequest
     [MaxLength(100)]
     public  string Name { get; set; }
 
-    [DefaultValue("AclCompanyController")]
+    [DefaultValue("CompanyController")]
     [Required(ErrorMessage = "controller_name is required.")]
     [MaxLength(255)]
     public  string ControllerName { get; set; }

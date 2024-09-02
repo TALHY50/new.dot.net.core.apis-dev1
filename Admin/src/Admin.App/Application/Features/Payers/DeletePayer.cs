@@ -1,12 +1,12 @@
-﻿using ACL.Business.Contracts.Responses;
-using ErrorOr;
+﻿using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Contracts;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 
 namespace Admin.App.Application.Features.Payers
 {
@@ -35,8 +35,8 @@ namespace Admin.App.Application.Features.Payers
     }
     public class DeletePayerCommandHandler : IRequestHandler<DeletePayerCommand, ErrorOr<bool>>
     {
-        private readonly IImtPayerRepository _repository;
-        public DeletePayerCommandHandler(IImtPayerRepository repository)
+        private readonly IPayerRepository _repository;
+        public DeletePayerCommandHandler(IPayerRepository repository)
         {
             _repository = repository;
         }
@@ -50,7 +50,7 @@ namespace Admin.App.Application.Features.Payers
 
                 if (entity == null)
                 {
-                    return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(message.PlainText, ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 return _repository.Delete(entity);

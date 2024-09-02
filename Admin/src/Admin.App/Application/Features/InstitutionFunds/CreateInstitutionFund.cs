@@ -1,13 +1,13 @@
-﻿using ACL.App.Contracts.Responses;
-using ErrorOr;
+﻿using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
+using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Contracts;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 
 namespace Admin.App.Application.Features.InstitutionFunds
 {
@@ -55,9 +55,9 @@ namespace Admin.App.Application.Features.InstitutionFunds
 
     public class CreateInstitutionFundCommandHandler : IRequestHandler<CreateInstitutionFundCommand, ErrorOr<InstitutionFund>>
     {
-        private readonly IImtInstitutionFundRepository _repository;
+        private readonly IInstitutionFundRepository _repository;
 
-        public CreateInstitutionFundCommandHandler(IImtInstitutionFundRepository repository)
+        public CreateInstitutionFundCommandHandler(IInstitutionFundRepository repository)
         {
             _repository = repository;
         }
@@ -83,7 +83,7 @@ namespace Admin.App.Application.Features.InstitutionFunds
 
             if (institutionFund == null)
             {
-                return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), "Institution Fund not found!");
             }
 
             return _repository.Add(institutionFund)!;

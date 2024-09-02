@@ -2,12 +2,12 @@
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Contracts.Common;
-using ACL.Business.Contracts.Responses;
+using SharedBusiness.Main.Common.Domain.Entities;
+using SharedKernel.Main.Contracts;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 
 namespace Admin.App.Application.Features.InstitutionMtts
 {
@@ -30,15 +30,15 @@ namespace Admin.App.Application.Features.InstitutionMtts
     {
         public GetByIdQueryValidator()
         {
-            RuleFor(x => x.id).NotEmpty().WithMessage("InstitutionMtt Id is required");
+            RuleFor(x => x.id).NotEmpty().WithMessage("InstitutionMtt id is required");
         }
     }
 
     public class GetInstitutionMttByIdQueryHandler :
         IRequestHandler<GetInstitutionMttByIdQuery, ErrorOr<InstitutionMtt>>
     {
-        private readonly IImtInstitutionMttRepository _repository;
-        public GetInstitutionMttByIdQueryHandler(IImtInstitutionMttRepository repository)
+        private readonly IInstitutionMttRepository _repository;
+        public GetInstitutionMttByIdQueryHandler(IInstitutionMttRepository repository)
         {
             _repository = repository;
         }
@@ -48,7 +48,7 @@ namespace Admin.App.Application.Features.InstitutionMtts
             var entity = _repository.FindById(request.id);
             if (entity == null)
             {
-                return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                return Error.NotFound(message.PlainText, ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
             return entity;
         }

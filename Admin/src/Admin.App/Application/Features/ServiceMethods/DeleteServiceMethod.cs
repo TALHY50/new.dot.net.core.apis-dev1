@@ -1,13 +1,13 @@
-﻿using ACL.App.Contracts.Responses;
-using ErrorOr;
+﻿using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Contracts;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 
 namespace ADMIN.App.Application.Features.ServiceMethods
 {
@@ -39,9 +39,9 @@ namespace ADMIN.App.Application.Features.ServiceMethods
 
     public class DeleteServiceMethodCommandHandler: IRequestHandler<DeleteServiceMethodCommand, ErrorOr<bool>>
     {
-        private readonly IImtServiceMethodRepository _repository;
+        private readonly IServiceMethodRepository _repository;
 
-        public DeleteServiceMethodCommandHandler(IImtServiceMethodRepository repository)
+        public DeleteServiceMethodCommandHandler(IServiceMethodRepository repository)
         {
             _repository = repository;
         }
@@ -51,11 +51,9 @@ namespace ADMIN.App.Application.Features.ServiceMethods
             {
                 var serviceMethod = _repository.View(command.Id);
 
-                var message = new MessageResponse("Record not found");
-
                 if (serviceMethod == null)
                 {
-                    return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), "Service Method not found!");
                 }
 
                 return _repository.Delete(serviceMethod);

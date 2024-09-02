@@ -5,7 +5,8 @@ using ACL.Business.Infrastructure.Auth.Auth;
 using ACL.Business.Infrastructure.Persistence.Context;
 using ACL.Business.Infrastructure.Persistence.Repositories;
 using Microsoft.AspNetCore.Http;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Contracts;
+using MessageResponse = SharedKernel.Main.Contracts.MessageResponse;
 
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8604 // Possible null reference argument.
@@ -43,7 +44,7 @@ namespace ACL.Business.Domain.Services
                 this.ScopeResponse.Message = this.MessageResponse.fetchMessage;
             }
             this.ScopeResponse.Data = aclStates;
-            this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+            this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             this.ScopeResponse.Timestamp = DateTime.Now;
 
             return this.ScopeResponse;
@@ -55,7 +56,7 @@ namespace ACL.Business.Domain.Services
             var aclState = PrepareInputData(request);
             this.ScopeResponse.Data = Add(aclState);
             this.ScopeResponse.Message = this.MessageResponse.createMessage;
-            this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+            this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
 
             this.ScopeResponse.Timestamp = DateTime.Now;
             return this.ScopeResponse;
@@ -69,14 +70,14 @@ namespace ACL.Business.Domain.Services
             if (aclState == null)
             {
                 this.ScopeResponse.Message = this.MessageResponse.notFoundMessage;
-                this.ScopeResponse.StatusCode = AppStatusCode.NOTFOUND;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND;
                 return this.ScopeResponse;
             }
 
             aclState = PrepareInputData(request, aclState);
             this.ScopeResponse.Data = Update(aclState);
             this.ScopeResponse.Message = this.MessageResponse.editMessage;
-            this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+            this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
 
             this.ScopeResponse.Timestamp = DateTime.Now;
             return this.ScopeResponse;
@@ -93,11 +94,11 @@ namespace ACL.Business.Domain.Services
                     country = c
                 }).FirstOrDefault();
             this.ScopeResponse.Data = aclState;
-            this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+            this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             this.ScopeResponse.Message = this.MessageResponse.fetchMessage;
             if (aclState == null)
             {
-                this.ScopeResponse.StatusCode = AppStatusCode.NOTFOUND;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND;
                 this.ScopeResponse.Message = this.MessageResponse.notFoundMessage;
             }
             this.ScopeResponse.Timestamp = DateTime.Now;
@@ -107,13 +108,13 @@ namespace ACL.Business.Domain.Services
         /// <inheritdoc/>
         public ScopeResponse DeleteById(ulong id)
         {
-            this.ScopeResponse.StatusCode = AppStatusCode.NOTFOUND;
+            this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND;
             var aclState = Find(id);
             if (aclState != null)
             {
                 this.ScopeResponse.Data = Delete(id);
                 this.ScopeResponse.Message = this.MessageResponse.deleteMessage;
-                this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             }
             return this.ScopeResponse;
         }

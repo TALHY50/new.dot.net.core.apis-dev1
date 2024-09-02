@@ -1,13 +1,13 @@
-﻿using ACL.Business.Contracts.Responses;
-using ErrorOr;
+﻿using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Contracts;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 
 namespace Admin.App.Application.Features.Currencies
 {
@@ -36,8 +36,8 @@ namespace Admin.App.Application.Features.Currencies
     }
     internal sealed class DeleteCurrencyCommandHandler : IRequestHandler<DeleteCurrencyCommand, ErrorOr<bool>>
     {
-        private readonly IImtAdminCurrencyRepository _repository;
-        public DeleteCurrencyCommandHandler(IImtAdminCurrencyRepository repository)
+        private readonly ICurrencyRepository _repository;
+        public DeleteCurrencyCommandHandler(ICurrencyRepository repository)
         {
             _repository = repository;
         }
@@ -51,7 +51,7 @@ namespace Admin.App.Application.Features.Currencies
 
                 if (entity == null)
                 {
-                    return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(message.PlainText, ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 return _repository.Delete(entity);

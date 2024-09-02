@@ -1,4 +1,4 @@
-﻿using SharedKernel.Main.Contracts.Common;
+﻿using SharedKernel.Main.Contracts;
 
 namespace ACL.Business.Contracts.Responses
 {

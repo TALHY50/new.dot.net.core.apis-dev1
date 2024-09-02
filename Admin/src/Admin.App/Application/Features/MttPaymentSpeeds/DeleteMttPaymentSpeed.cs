@@ -1,13 +1,14 @@
-﻿using ACL.Business.Contracts.Responses;
+﻿
 using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Common.Interfaces.Services;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Application.Interfaces.Services;
+using SharedKernel.Main.Contracts;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 using static Admin.App.Application.Features.MttPaymentSpeeds.DeleteMttPaymentSpeedController;
 
 namespace Admin.App.Application.Features.MttPaymentSpeeds
@@ -44,9 +45,9 @@ namespace Admin.App.Application.Features.MttPaymentSpeeds
         public class DeleteMttPaymentSpeedCommandHandler
         : IRequestHandler<DeleteMttPaymentSpeedCommand, ErrorOr<bool>>
         {
-            private readonly ICurrentUserService _user;
-            private readonly IImtMttPaymentSpeedRepository _repository;
-            public DeleteMttPaymentSpeedCommandHandler(ICurrentUserService user, IImtMttPaymentSpeedRepository repository)
+            private readonly ICurrentUser _user;
+            private readonly IMTTPaymentSpeedRepository _repository;
+            public DeleteMttPaymentSpeedCommandHandler(ICurrentUser user, IMTTPaymentSpeedRepository repository)
             {
                 _user = user;
                 _repository = repository;
@@ -60,7 +61,7 @@ namespace Admin.App.Application.Features.MttPaymentSpeeds
 
                 if (mttPaymentSpeeds == null)
                 {
-                    return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(message.PlainText, ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 return _repository.Delete(mttPaymentSpeeds);

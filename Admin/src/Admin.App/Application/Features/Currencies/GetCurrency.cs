@@ -2,10 +2,11 @@
 using ErrorOr;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
+using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 
 namespace Admin.App.Application.Features.Currencies
 {
@@ -27,9 +28,9 @@ namespace Admin.App.Application.Features.Currencies
     public class GetCurrencyHandler
         : IQueryHandler<GetCurrencyQuery, ErrorOr<List<Currency>>>
     {
-        private readonly IImtAdminCurrencyRepository _repository;
+        private readonly ICurrencyRepository _repository;
 
-        public GetCurrencyHandler(IImtAdminCurrencyRepository repository)
+        public GetCurrencyHandler(ICurrencyRepository repository)
         {
             _repository = repository;
         }

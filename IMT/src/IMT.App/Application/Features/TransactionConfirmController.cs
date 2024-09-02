@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Domain.Entities;
+using SharedBusiness.Main.Common.Infrastructure.Persistence.Context;
 using SharedBusiness.Main.IMT.Application.Interfaces.Services;
-using SharedBusiness.Main.IMT.Domain.Entities;
-using SharedBusiness.Main.IMT.Infrastructure.Persistence.Context;
 using Thunes.Exception;
 using Thunes.Request.ConfirmTrasaction;
 using Thunes.Response.Common;
@@ -15,11 +15,11 @@ namespace IMT.App.Application.Features
     public class TransactionConfirmController : BaseController
     {
         private readonly ApplicationDbContext _context;
-        private readonly IImtConfirmTransactionService _imtConfirmTransactionService;
+        private readonly IConfirmTransactionService _confirmTransactionService;
 
-        public TransactionConfirmController(ApplicationDbContext context, IImtConfirmTransactionService imtConfirmTransactionService)
+        public TransactionConfirmController(ApplicationDbContext context, IConfirmTransactionService confirmTransactionService)
         {
-            _imtConfirmTransactionService = imtConfirmTransactionService;
+            _confirmTransactionService = confirmTransactionService;
             _context = context;
         }
         [Tags("Thunes.Transaction")]
@@ -55,7 +55,7 @@ namespace IMT.App.Application.Features
         {
             try
             {
-                return _imtConfirmTransactionService.ConfirmTrasaction(trasactionDTO);
+                return _confirmTransactionService.ConfirmTrasaction(trasactionDTO);
                 //return _thunesClient.GetTransactionAdapter().ConfirmTransactionById(trasactionDTO.RemoteTrasactionId);
             }
             catch (ThunesException e)

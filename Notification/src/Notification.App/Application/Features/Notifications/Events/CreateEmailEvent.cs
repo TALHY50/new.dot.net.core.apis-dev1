@@ -13,7 +13,7 @@ using Notification.App.Domain.Entities.Setups;
 using Notification.App.Domain.Entities.ValueObjects;
 using Notification.App.Infrastructure.Persistence.Context;
 
-using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Contracts;
 
 using ProblemDetails = FastEndpoints.ProblemDetails;
 
@@ -32,7 +32,7 @@ public class CreateEmailEventCommandValidator : AbstractValidator<CreateEmailEve
     {
         RuleFor(v => v.CategoricalData.Category)
             .MaximumLength(20)
-            .NotEmpty().WithErrorCode(ApplicationCodes.StringNullOrEmpty.Code);
+            .NotEmpty().WithErrorCode(ApplicationStatusCodes.API_ERROR_BASIC_VALIDATION_FAILED.ToString());
     }
 }
 
@@ -78,7 +78,7 @@ public class CreateEmailEventCommandHandler(ApplicationDbContext context) : IReq
 
         if (credential == null)
         {
-            return Error.NotFound(code: ApplicationCodes.RecordNotFound.Code, "Credential not found!");
+            return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), "Credential not found!");
         }
 
         ReceiverGroup? receiverGroup = null;

@@ -1,13 +1,14 @@
-﻿using ACL.Business.Contracts.Responses;
+﻿
 using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
+using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Contracts;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 
 namespace Admin.App.Application.Features.Payers
 {
@@ -30,15 +31,15 @@ namespace Admin.App.Application.Features.Payers
     {
         public GetByIdQueryValidator()
         {
-            RuleFor(x => x.id).NotEmpty().WithMessage("Payer Id is required");
+            RuleFor(x => x.id).NotEmpty().WithMessage("Payer id is required");
         }
     }
 
     public class GetPayerByIdQueryHandler :
         IRequestHandler<GetPayerByIdQuery, ErrorOr<Payer>>
     {
-        private readonly IImtPayerRepository _repository;
-        public GetPayerByIdQueryHandler(IImtPayerRepository repository)
+        private readonly IPayerRepository _repository;
+        public GetPayerByIdQueryHandler(IPayerRepository repository)
         {
             _repository = repository;
         }
@@ -48,7 +49,7 @@ namespace Admin.App.Application.Features.Payers
             var entity = _repository.FindById(request.id);
             if (entity == null)
             {
-                return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                return Error.NotFound(message.PlainText, ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
             return entity;
         }

@@ -4,7 +4,7 @@ using ACL.Business.Infrastructure.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using SharedKernel.Main.Application.Common;
+using SharedKernel.Main.Infrastructure.Extensions;
 
 namespace ACL.Business.Infrastructure.Security
 {
@@ -22,8 +22,8 @@ namespace ACL.Business.Infrastructure.Security
                     scope.ServiceProvider.GetRequiredService<IUserRepository>();
                 
                 var userId = Convert.ToUInt32(context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-#pragma warning disable CS8604 // Possible null reference argument.
-                var routeName = (context.Resource as HttpContext).GetRouteName();
+
+                var routeName = (context.Resource as HttpContext ?? throw new InvalidOperationException()).GetRouteName();
                 
                 var user = userRepo.GetUserWithPermissionAsync(userId).Result;
 

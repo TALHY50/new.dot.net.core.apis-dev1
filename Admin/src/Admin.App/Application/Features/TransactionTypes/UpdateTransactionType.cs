@@ -1,15 +1,15 @@
-﻿using ACL.Business.Contracts.Responses;
-using ErrorOr;
+﻿using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
+using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Common.Interfaces.Services;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Application.Interfaces.Services;
+using SharedKernel.Main.Contracts;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 
 
 namespace Admin.App.Application.Features.TransactionTypes
@@ -51,10 +51,10 @@ namespace Admin.App.Application.Features.TransactionTypes
         public class UpdateTransactionTypeCommandHandler
         : IRequestHandler<UpdateTransactionTypeCommand, ErrorOr<TransactionType>>
         {
-            private readonly ICurrentUserService _user;
-            private readonly IImtTransactionTypeRepository _transactionTypeRepository;
+            private readonly ICurrentUser _user;
+            private readonly ITransactionTypeRepository _transactionTypeRepository;
 
-            public UpdateTransactionTypeCommandHandler(ICurrentUserService user, IImtTransactionTypeRepository transactionTypeRepository)
+            public UpdateTransactionTypeCommandHandler(ICurrentUser user, ITransactionTypeRepository transactionTypeRepository)
             {
                 _user = user;
                 _transactionTypeRepository = transactionTypeRepository;
@@ -69,7 +69,7 @@ namespace Admin.App.Application.Features.TransactionTypes
 
                 if (transactionTypes == null)
                 {
-                    return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(message.PlainText, ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 transactionTypes.Name = request.Name;
