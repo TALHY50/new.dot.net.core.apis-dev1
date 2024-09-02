@@ -27,4 +27,20 @@ public class GuardAgainstNullUpdate : IGuardAgainstNullUpdate
             property = newValue;
         }
     }
+
+    public void UpdateIfNotNullOrEmpty(ref uint? property, uint? newValue)
+    {
+        if (newValue != null)
+        {
+            property = newValue;
+        }
+    }
+
+    public void UpdateIfNotNullOrEmpty(Action<uint?> updateAction, uint? newValue)
+    {
+        if (newValue != 0)
+        {
+            updateAction(newValue);
+        }
+    }
 }

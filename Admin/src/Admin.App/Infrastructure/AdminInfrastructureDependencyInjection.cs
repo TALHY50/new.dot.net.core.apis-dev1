@@ -8,8 +8,6 @@ using Admin.App.Application.Features.Corridors;
 using Admin.App.Application.Features.Currencies;
 using Admin.App.Application.Features.Payers;
 using Admin.App.Application.Features.Providers;
-using Admin.App.Application.Features.Regions;
-using Admin.App.Application.Features.TransactionTypes;
 using Admin.App.Infrastructure.Persistence;
 using Admin.App.Presentation;
 using DotNetEnv;
