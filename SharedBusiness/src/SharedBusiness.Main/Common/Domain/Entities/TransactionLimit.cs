@@ -1,8 +1,10 @@
-﻿namespace SharedBusiness.Main.Common.Domain.Entities;
+﻿using Ardalis.SharedKernel;
 
-public partial class TransactionLimit
+
+namespace SharedBusiness.Main.Common.Domain.Entities;
+
+public partial class TransactionLimit : EntityBase<uint>, IAggregateRoot
 {
-    public uint Id { get; set; }
 
     public sbyte? TransactionType { get; set; }
 
