@@ -1,9 +1,9 @@
-﻿using SharedBusiness.Main.Common.Domain.Entities;
-using SharedKernel.Main.Application.Interfaces.Services;
+﻿using Ardalis.SharedKernel;
+using SharedBusiness.Main.Common.Domain.Entities;
+using SharedKernel.Main.Application.Interfaces.Repositories;
 
-namespace SharedBusiness.Main.Common.Application.Services.Repositories
+namespace SharedBusiness.Main.Common.Application.Services.Repositories;
+
+public interface IBusinessHourAndWeekendRepository : IRepository<BusinessHoursAndWeekend>, IExtendedRepositoryBase<BusinessHoursAndWeekend>
 {
-    public interface IBusinessHourAndWeekendRepository : IGenericRepository<BusinessHoursAndWeekend>
-    {
-    }
 }
