@@ -1,32 +1,12 @@
 ﻿using ErrorOr;
 using FluentValidation;
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
-using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Contracts;
-using SharedKernel.Main.Presentation;
-using SharedKernel.Main.Presentation.Routes;
 
-namespace Admin.App.Application.Features.CurrencyConversionRates
+namespace SharedBusiness.Main.Admin.Application.Features.CreateCurrencyConversionRates
 {
-    public class CreateCurrencyConversionRateController : ApiControllerBase
-    {
-        [Tags("CurrencyConversionRate")]
-        // [Authorize(Policy = "HasPermission")]
-        [HttpPost(Routes.CreateCurrencyConversionRateUrl, Name = Routes.CreateCurrencyConversionRateName)]
-
-        public async Task<ActionResult<ErrorOr<CurrencyConversionRate>>> Create(CreateCurrencyConversionRateCommand command)
-        {
-            var result = await Mediator.Send(command).ConfigureAwait(false);
-
-            return result.Match(
-                reminder => Ok(result.Value),
-                Problem);
-        }
-    }
-
     public record CreateCurrencyConversionRateCommand(
         uint CorridorId,
         decimal ExchangeRate,
