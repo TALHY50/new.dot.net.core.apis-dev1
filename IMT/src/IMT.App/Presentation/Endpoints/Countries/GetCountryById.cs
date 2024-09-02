@@ -1,11 +1,10 @@
 using Admin.App.Presentation.Routes;
-using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Admin.Application.Features.Countries;
 using SharedBusiness.Main.Common.Contracts;
 using SharedKernel.Main.Application.Interfaces.Services;
 
-namespace Admin.App.Presentation.Endpoints.Country;
+namespace IMT.App.Presentation.Endpoints.Countries;
 
 public class GetCountryById(ILogger<GetCountryById> logger, ICurrentUser currentUser)
     : CountryBase(logger, currentUser)

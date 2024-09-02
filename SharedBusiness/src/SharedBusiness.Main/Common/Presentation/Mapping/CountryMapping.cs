@@ -1,9 +1,8 @@
 using Mapster;
+using SharedBusiness.Main.Common.Contracts;
 using SharedBusiness.Main.Common.Domain.Entities;
-using SharedBusiness.Main.IMT.Contracts.Contracts.Responses;
-using Thunes.Response.Discovery;
 
-namespace Admin.App.Presentation.Mapping;
+namespace SharedBusiness.Main.Common.Presentation.Mapping;
 
 public class CountryMapping : IRegister
 {

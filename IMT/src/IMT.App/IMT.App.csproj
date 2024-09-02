@@ -34,5 +34,6 @@
 	  <Folder Include="Infrastructure\Persistence\Services\SendMoney\" />
 	  <Folder Include="Infrastructure\Persistence\Services\Transaction\" />
 	  <Folder Include="Logs\" />
+	  <Folder Include="Presentation\Routes\" />
 	</ItemGroup>
 </Project>
