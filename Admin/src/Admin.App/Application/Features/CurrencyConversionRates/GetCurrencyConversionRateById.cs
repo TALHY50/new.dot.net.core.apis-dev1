@@ -1,13 +1,14 @@
-﻿using ACL.App.Contracts.Responses;
+﻿using ACL.Business.Contracts.Responses;
 using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
+using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Contracts;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 
 namespace Admin.App.Application.Features.CurrencyConversionRates
 {
@@ -36,12 +37,10 @@ namespace Admin.App.Application.Features.CurrencyConversionRates
 
         public class GetCurrencyConversionRateByIdQueryHandler : IRequestHandler<GetCurrencyConversionRateByIdQuery, ErrorOr<CurrencyConversionRate>>
         {
-            private readonly IImtCurrencyConversionRateRepository _repository;
-            private readonly IHttpContextAccessor _httpContextAccessor;
+            private readonly ICurrencyConversionRateRepository _repository;
 
-            public GetCurrencyConversionRateByIdQueryHandler(IHttpContextAccessor httpContextAccessor, IImtCurrencyConversionRateRepository repository)
+            public GetCurrencyConversionRateByIdQueryHandler( ICurrencyConversionRateRepository repository)
             {
-                _httpContextAccessor = httpContextAccessor;
                 _repository = repository;
             }
             public async Task<ErrorOr<CurrencyConversionRate>> Handle(GetCurrencyConversionRateByIdQuery request, CancellationToken cancellationToken)
@@ -49,7 +48,7 @@ namespace Admin.App.Application.Features.CurrencyConversionRates
                 var currencyConversionRate = _repository.View(request.Id);
                 if (currencyConversionRate == null)
                 {
-                    return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(description: Language.GetMessage("Record not found"), code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 return currencyConversionRate;

@@ -1,14 +1,14 @@
-﻿using ACL.Business.Contracts.Responses;
-using ErrorOr;
+﻿using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Common.Interfaces.Services;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Application.Interfaces.Services;
+using SharedKernel.Main.Contracts;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 using static Admin.App.Application.Features.Mtts.InstitutionDelete;
 
 namespace Admin.App.Application.Features.Providers
@@ -41,10 +41,10 @@ namespace Admin.App.Application.Features.Providers
         public class DeleteProviderCommandHandler
         : IRequestHandler<DeleteProviderCommand, ErrorOr<bool>>
         {
-            private readonly ICurrentUserService _user;
-            private readonly IImtProviderRepository _providerRepository;
-
-            public DeleteProviderCommandHandler(ICurrentUserService user, IImtProviderRepository providerRepository)
+            private readonly ICurrentUser _user;
+            private readonly IProviderRepository _providerRepository;
+            
+            public DeleteProviderCommandHandler(ICurrentUser user, IProviderRepository providerRepository)
             {
                 _user = user;
                 _providerRepository = providerRepository;
@@ -52,11 +52,13 @@ namespace Admin.App.Application.Features.Providers
 
             public async Task<ErrorOr<bool>> Handle(DeleteProviderCommand request, CancellationToken cancellationToken)
             {
+                var message = new MessageResponse("Record not found");
+
                 var providers = _providerRepository.View(request.id);
 
                 if (providers == null)
                 {
-                    return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(message.PlainText, ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
 
                 return _providerRepository.Delete(providers);

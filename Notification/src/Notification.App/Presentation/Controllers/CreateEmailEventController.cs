@@ -6,8 +6,8 @@ using Notification.App.Application.Features.Notifications.Events;
 using Notification.App.Contracts.Responses;
 using Notification.App.Domain.Entities.Events;
 
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 
 namespace Notification.App.Presentation.Controllers;
 

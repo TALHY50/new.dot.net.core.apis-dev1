@@ -1,8 +1,8 @@
 ﻿using ACL.Business.Contracts.Requests;
+using ACL.Web.Presentation.Routes;
 using Bogus;
 using RestSharp;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Contracts;
 
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
 #pragma warning disable CS8602 // Converting null literal or possible null value to non-nullable type.
@@ -40,7 +40,7 @@ namespace ACL.TEST
             int actualStatusCode = (int)response.StatusCode;
 
             //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, actualStatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, actualStatusCode);
             #endregion Assert
 
         }
@@ -55,7 +55,7 @@ namespace ACL.TEST
 
             #endregion
             #region Act
-            //// Create request
+            //// CreateCompanyModule request
             var req = new RestRequest(AclRoutesUrl.AclRolePageRouteUrl.Edit, RestSharp.Method.Put);
             //Add request body
             req.AddJsonBody(editReq);
@@ -72,7 +72,7 @@ namespace ACL.TEST
 
             #endregion
             #region Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(AppStatusCode.SUCCESS, actualEditStatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, actualEditStatusCode);
             #endregion Assert
         }
 

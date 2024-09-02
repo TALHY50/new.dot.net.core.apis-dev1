@@ -6,7 +6,8 @@ using ACL.Business.Infrastructure.Auth.Auth;
 using ACL.Business.Infrastructure.Persistence.Context;
 using ACL.Business.Infrastructure.Persistence.Repositories;
 using Microsoft.AspNetCore.Http;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Contracts;
+using MessageResponse = SharedKernel.Main.Contracts.MessageResponse;
 
 namespace ACL.Business.Domain.Services
 {
@@ -47,7 +48,7 @@ namespace ACL.Business.Domain.Services
                 this.ScopeResponse.Message = this.MessageResponse.fetchMessage;
             }
             this.ScopeResponse.Data = aclRoles;
-            this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+            this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
 
             return this.ScopeResponse;
         }
@@ -57,7 +58,7 @@ namespace ACL.Business.Domain.Services
             var aclRole = PrepareInputData(request);
             this.ScopeResponse.Data = Add(aclRole);
             this.ScopeResponse.Message = this.MessageResponse.createMessage;
-            this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+            this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             return this.ScopeResponse;
         }
         /// <inheritdoc/>
@@ -68,7 +69,7 @@ namespace ACL.Business.Domain.Services
             if (aclRole == null)
             {
                 this.ScopeResponse.Message = this.MessageResponse.notFoundMessage;
-                this.ScopeResponse.StatusCode = AppStatusCode.NOTFOUND;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND;
                 return this.ScopeResponse;
             }
 
@@ -83,7 +84,7 @@ namespace ACL.Business.Domain.Services
             }
             this.ScopeResponse.Data = aclRole;
             this.ScopeResponse.Message = this.MessageResponse.editMessage;
-            this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+            this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             return this.ScopeResponse;
 
         }
@@ -94,11 +95,11 @@ namespace ACL.Business.Domain.Services
             var aclRole = Find(id);
             this.ScopeResponse.Data = aclRole;
             this.ScopeResponse.Message = this.MessageResponse.fetchMessage;
-            this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+            this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             if (aclRole == null)
             {
                 this.ScopeResponse.Message = this.MessageResponse.notFoundMessage;
-                this.ScopeResponse.StatusCode = AppStatusCode.NOTFOUND;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND;
             }
             return this.ScopeResponse;
 
@@ -112,7 +113,7 @@ namespace ACL.Business.Domain.Services
             {
                 this.ScopeResponse.Data = Delete(id);
                 this.ScopeResponse.Message = this.MessageResponse.deleteMessage;
-                this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
                 List<ulong>? userIds = this._userRepository.GetUserIdByChangePermission(null, null, null, id);
                 this._userRepository.UpdateUserPermissionVersion(userIds);
             }

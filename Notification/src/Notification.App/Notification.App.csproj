@@ -1,5 +1,6 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
     <OutputType>Exe</OutputType>
     <AssemblyName>Notification.App</AssemblyName>
     <RootNamespace>Notification.App</RootNamespace>
@@ -14,9 +15,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
   </PropertyGroup>
-
-
-
+    
   <ItemGroup>
     <Content Update="appsettings.json">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
@@ -45,15 +44,30 @@
   </ItemGroup>
   
   <ItemGroup>
+  <Folder Include="Infrastructure\Persistence\Seeds\" />
   <Folder Include="Properties\" />
   <Folder Include="wwwroot\" />
   </ItemGroup>
-  
-
-  
+    
   <ItemGroup>
-	<ProjectReference Include="..\..\..\ACL\src\ACL.Web\ACL.Web.csproj" />
+	<ProjectReference Include="..\..\..\ACL\src\ACL.Business\ACL.Business.csproj" />
 	<ProjectReference Include="..\..\..\SharedKernel\src\SharedKernel.Main\SharedKernel.Main.csproj" />
   </ItemGroup>
+    
+  <ItemGroup>
+    <EmbeddedResource Include="Presentation\Views\Emails\EmailButton.cshtml" />
+    <EmbeddedResource Include="Presentation\Views\Emails\EmailLayout.cshtml" />
+    <EmbeddedResource Include="Presentation\Views\Emails\Welcome\WelcomeEmail.cshtml" />
+    <EmbeddedResource Include="Presentation\Views\Texts\Welcome\WelcomeSms.cshtml" />
+  </ItemGroup>
 
+    <ItemGroup>
+        <Compile Remove="Views\**\*.cs" />
+        <Compile Include="Views\**\*.cs" DependentUpon="%(Filename).cshtml" />
+        <EmbeddedResource Include="Views\**\*.cshtml" />
+    </ItemGroup>
+    <PropertyGroup>
+        <PreserveCompilationReferences>true</PreserveCompilationReferences>
+        <PreserveCompilationContext>true</PreserveCompilationContext>
+    </PropertyGroup>
 </Project>

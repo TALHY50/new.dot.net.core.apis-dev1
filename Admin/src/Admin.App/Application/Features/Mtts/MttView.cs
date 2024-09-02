@@ -2,10 +2,11 @@
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
+using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 
 namespace Admin.App.Application.Features.Mtts
 {
@@ -31,9 +32,9 @@ namespace Admin.App.Application.Features.Mtts
 
         internal sealed class Handler : IRequestHandler<GetMttsByIdQuery, ErrorOr<Mtt>>
         {
-            private readonly IImtMttsRepository _repository;
+            private readonly IMTTRepository _repository;
 
-            public Handler(IImtMttsRepository repository)
+            public Handler(IMTTRepository repository)
             {
                 _repository = repository;
             }

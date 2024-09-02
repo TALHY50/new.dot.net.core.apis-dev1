@@ -1,13 +1,13 @@
-﻿using ACL.App.Contracts.Responses;
-using ErrorOr;
+﻿using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
+using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Contracts;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 
 namespace Admin.App.Application.Features.TaxRates
 {
@@ -36,25 +36,20 @@ namespace Admin.App.Application.Features.TaxRates
 
         public class GetTaxRateByIdQueryHandler : IRequestHandler<GetTaxRateByIdQuery, ErrorOr<TaxRate>>
         {
-            private readonly IImtTaxRateRepository _repository;
-            private readonly IHttpContextAccessor _httpContextAccessor;
+            private readonly ITaxRateRepository _repository;
 
-            public GetTaxRateByIdQueryHandler(IHttpContextAccessor httpContextAccessor, IImtTaxRateRepository repository)
+            public GetTaxRateByIdQueryHandler(ITaxRateRepository repository)
             {
-                _httpContextAccessor = httpContextAccessor;
                 _repository = repository;
             }
             public async Task<ErrorOr<TaxRate>> Handle(GetTaxRateByIdQuery request, CancellationToken cancellationToken)
             {
-                var taxRate = _repository.View(request.Id);
-
-                var message = new MessageResponse("Record not found");
-
-                if (taxRate == null)
+                var entity = _repository.View(request.Id);
+                if (entity == null)
                 {
-                    return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), "Tax Rate not found!");
                 }
-                return taxRate!;
+                return entity;
             }
         }
     }

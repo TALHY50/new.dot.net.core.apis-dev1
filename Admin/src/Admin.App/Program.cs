@@ -1,67 +1,42 @@
-
-using Admin.App;
+using ACL.Business.Application;
+using ACL.Business.Infrastructure;
+using ACL.Business.Presentation;
+using Admin.App.Application;
+using Admin.App.Infrastructure;
 using Admin.App.Presentation;
-using Microsoft.OpenApi.Models;
-using SharedKernel.Main.Application.Common.Interfaces.Services;
-using SharedKernel.Main.Infrastructure.Services;
+using SharedBusiness.Main;
+using SharedKernel.Main.Application;
+using SharedKernel.Main.Infrastructure;
+using SharedKernel.Main.Presentation;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddPresentation();
+builder.Services.AddSharedKernelApplication();
+builder.Services.AddSharedKernelInfrastructure(builder.Configuration, builder.Environment, builder.Host);
+builder.Services.AddSharedKernelPresentation();
 
-builder.Services.AddCors(options => options.AddDefaultPolicy(
-    policy => policy.AllowAnyOrigin()
-        .AllowAnyHeader()
-        .AllowAnyMethod()));
+builder.Services.AddSharedBusinessApplication();
+builder.Services.AddSharedBusinessInfrastructure(builder.Configuration, builder.Environment, builder.Host);
+builder.Services.AddSharedBusinessPresentation();
 
-// Register the Swagger generator, defining 1 or more Swagger documents
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "Admin API", Version = "v1" }));
+builder.Services.AddACLBusinessApplication(builder.Configuration, builder.Environment, builder.Host);
+builder.Services.AddACLBusinessInfrastructure(builder.Configuration, builder.Environment, builder.Host);
+builder.Services.AddACLBusinessPresentation(builder.Configuration, builder.Environment, builder.Host);
 
-builder.Services.AddProblemDetails();
-
-builder.Services.AddApplication();
-builder.Services.AddInfrastructure(builder.Configuration);
-
-builder.Services.AddHealthChecks();
-builder.Services.AddHttpContextAccessor();
-// for language
-builder.Services.AddSingleton<ILocalizationService>(new LocalizationService("SharedKernel.Main.Infrastructure.Resources.en-US", typeof(Program).Assembly, "en-US"));
+builder.Services.AddAdminApplication(builder.Configuration, builder.Environment, builder.Host);
+builder.Services.AddAdminInfrastructure(builder.Configuration, builder.Environment, builder.Host);
+builder.Services.AddAdminPresentation(builder.Configuration, builder.Environment, builder.Host);
 
 var app = builder.Build();
-
-// Enable middleware to serve generated Swagger as a JSON endpoint.
-app.UseSwagger();
-
-// Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
-app.UseSwaggerUI(options =>
 {
-    options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-    options.RoutePrefix = string.Empty;
-});
-
-app.UseCors();
-
-app.UseHttpsRedirection();
-
-if (app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/error-development");
-}
-else
-{
-    app.UseExceptionHandler("/error");
-}
-
-app.UseAuthorization();
-app.MapControllers();
-
-app.Run();
-
-namespace Admin.App
-{
-    public partial class Program { }
+    app.UseSwagger()
+        .UseSwaggerUI(options => {
+            options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1"); 
+            options.RoutePrefix = string.Empty; 
+        })
+        .UseCors()
+        .UseHttpsRedirection()
+        .UseAuthorization();
+    app.MapControllers();
+    app.Run();
 }

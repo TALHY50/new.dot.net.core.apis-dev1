@@ -12,7 +12,7 @@ using Notification.App.Domain.Entities.Setups;
 using Notification.App.Domain.Entities.ValueObjects;
 using Notification.App.Infrastructure.Persistence.Context;
 
-using Result = SharedKernel.Main.Application.Common.Models.Result;
+using Result = SharedKernel.Main.Application.Models.Result;
 
 namespace Notification.App.Application.Features.Notifications.Events;
 

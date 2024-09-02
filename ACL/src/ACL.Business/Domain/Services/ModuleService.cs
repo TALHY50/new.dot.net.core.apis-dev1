@@ -6,7 +6,8 @@ using ACL.Business.Infrastructure.Auth.Auth;
 using ACL.Business.Infrastructure.Persistence.Context;
 using ACL.Business.Infrastructure.Persistence.Repositories;
 using Microsoft.AspNetCore.Http;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Contracts;
+using MessageResponse = SharedKernel.Main.Contracts.MessageResponse;
 
 namespace ACL.Business.Domain.Services
 {
@@ -42,12 +43,12 @@ namespace ACL.Business.Domain.Services
             if (aclModules.Any())
             {
                 this.ScopeResponse.Message = this.MessageResponse.fetchMessage;
-                this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             }
             else
             {
                 this.ScopeResponse.Message = this.MessageResponse.notFoundMessage;
-                this.ScopeResponse.StatusCode = AppStatusCode.FAIL;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
             this.ScopeResponse.Data = aclModules;
             this.ScopeResponse.Timestamp = DateTime.Now;
@@ -65,19 +66,19 @@ namespace ACL.Business.Domain.Services
                     var aclModule = PrepareInputData(request);
                     this.ScopeResponse.Data = Add(aclModule);
                     this.ScopeResponse.Message = this.MessageResponse.createMessage;
-                    this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+                    this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
                 }
                 else
                 {
                     this.ScopeResponse.Message = this.MessageResponse.existMessage;
-                    this.ScopeResponse.StatusCode = AppStatusCode.FAIL;
+                    this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
                 }
                 this.ScopeResponse.Timestamp = DateTime.Now;
             }
             catch (Exception ex)
             {
                 this.ScopeResponse.Message = ex.Message;
-                this.ScopeResponse.StatusCode = AppStatusCode.FAIL;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
             this.ScopeResponse.Timestamp = DateTime.Now;
             return this.ScopeResponse;
@@ -93,7 +94,7 @@ namespace ACL.Business.Domain.Services
                     aclModule = PrepareInputData(request, aclModule);
                     this.ScopeResponse.Data = Update(aclModule);
                     this.ScopeResponse.Message = this.MessageResponse.editMessage;
-                    this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+                    this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
 
                     List<ulong>? userIds = this._userRepository.GetUserIdByChangePermission(request.Id);
                     if (userIds != null)
@@ -104,13 +105,13 @@ namespace ACL.Business.Domain.Services
                 else
                 {
                     this.ScopeResponse.Message = this.MessageResponse.notFoundMessage;
-                    this.ScopeResponse.StatusCode = AppStatusCode.FAIL;
+                    this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
                 }
             }
             catch (Exception ex)
             {
                 this.ScopeResponse.Message = ex.Message;
-                this.ScopeResponse.StatusCode = AppStatusCode.FAIL;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
             this.ScopeResponse.Timestamp = DateTime.Now;
             return this.ScopeResponse;
@@ -128,12 +129,12 @@ namespace ACL.Business.Domain.Services
                     this.ScopeResponse.Message = this.MessageResponse.notFoundMessage;
                 }
 
-                this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             }
             catch (Exception ex)
             {
                 this.ScopeResponse.Message = ex.Message;
-                this.ScopeResponse.StatusCode = AppStatusCode.FAIL;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
             this.ScopeResponse.Timestamp = DateTime.Now;
             return this.ScopeResponse;
@@ -148,7 +149,7 @@ namespace ACL.Business.Domain.Services
             {
                 this.ScopeResponse.Data = Delete(aclModule);
                 this.ScopeResponse.Message = this.MessageResponse.deleteMessage;
-                this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
                 List<ulong>? userIds = this._userRepository.GetUserIdByChangePermission(id);
                 if (userIds != null)
                 {
@@ -158,7 +159,7 @@ namespace ACL.Business.Domain.Services
             else
             {
                 this.ScopeResponse.Message = this.MessageResponse.notFoundMessage;
-                this.ScopeResponse.StatusCode = AppStatusCode.FAIL;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
             this.ScopeResponse.Timestamp = DateTime.Now;
             return this.ScopeResponse;

@@ -2,10 +2,11 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
+using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Admin.App.Application.Features.TransactionTypes
@@ -29,8 +30,8 @@ namespace Admin.App.Application.Features.TransactionTypes
         public class GetTransactionTypeHandler
             : IRequestHandler<GetTransactionTypeQuery, ErrorOr<List<TransactionType>>>
         {
-            private readonly IImtTransactionTypeRepository _transactionTypeRepository;
-            public GetTransactionTypeHandler(IImtTransactionTypeRepository transactionTypeRepository)
+            private readonly ITransactionTypeRepository _transactionTypeRepository;
+            public GetTransactionTypeHandler(ITransactionTypeRepository transactionTypeRepository)
             {
                 _transactionTypeRepository = transactionTypeRepository;
             }

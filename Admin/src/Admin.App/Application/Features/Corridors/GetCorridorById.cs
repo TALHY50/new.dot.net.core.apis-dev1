@@ -1,14 +1,13 @@
-﻿using ACL.Business.Contracts.Responses;
-using Ardalis.Specification;
-using ErrorOr;
+﻿using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
+using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Contracts;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 
 namespace Admin.App.Application.Features.Corridors
 {
@@ -31,15 +30,15 @@ namespace Admin.App.Application.Features.Corridors
     {
         public GetByIdQueryValidator()
         {
-            RuleFor(x => x.id).NotEmpty().WithMessage("Corridor Id is required");
+            RuleFor(x => x.id).NotEmpty().WithMessage("Corridor id is required");
         }
     }
 
     public class GetCorridorByIdQueryHandler :
         IRequestHandler<GetCorridorByIdQuery, ErrorOr<Corridor>>
     {
-        private readonly IImtCorridorRepository _repository;
-        public GetCorridorByIdQueryHandler(IImtCorridorRepository repository)
+        private readonly ICorridorRepository _repository;
+        public GetCorridorByIdQueryHandler(ICorridorRepository repository)
         {
             _repository = repository;
         }
@@ -49,7 +48,7 @@ namespace Admin.App.Application.Features.Corridors
             var entity = _repository.FindById(request.id);
             if (entity == null)
             {
-                return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                return Error.NotFound(message.PlainText, ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
             return entity;
         }

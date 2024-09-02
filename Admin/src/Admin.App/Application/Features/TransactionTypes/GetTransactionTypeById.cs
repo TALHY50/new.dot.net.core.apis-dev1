@@ -1,15 +1,15 @@
-﻿using ACL.Business.Contracts.Responses;
-using Ardalis.SharedKernel;
+﻿
 using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
+using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Contracts;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 using static Admin.App.Application.Features.Mtts.InstitutionView;
 using static Admin.App.Application.Features.TransactionTypes.GetTransactionTypeController;
 
@@ -45,21 +45,25 @@ namespace Admin.App.Application.Features.TransactionTypes
         public class GetTransactionTypeByIdQueryHandler
             : IRequestHandler<GetTransactionTypeByIdQuery, ErrorOr<TransactionType>>
         {
-            private readonly IImtTransactionTypeRepository _transactionTypeRepository;
+            private readonly ITransactionTypeRepository _transactionTypeRepository;
 
-            public GetTransactionTypeByIdQueryHandler(IImtTransactionTypeRepository transactionTypeRepository)
+            public GetTransactionTypeByIdQueryHandler(ITransactionTypeRepository transactionTypeRepository)
             {
                 _transactionTypeRepository = transactionTypeRepository;
             }
             public async Task<ErrorOr<TransactionType>> Handle(GetTransactionTypeByIdQuery request, CancellationToken cancellationToken)
             {
+                var message = new MessageResponse("Record not found");
+
                 var transactionType = _transactionTypeRepository.View(request.id);
                 if (transactionType == null)
                 {
-                    return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
-                
-            }
-                return transactionType;
+                    return Error.NotFound(message.PlainText, ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
+                }
+                else
+                {
+                    return transactionType;
+                }
             }
         }
     }

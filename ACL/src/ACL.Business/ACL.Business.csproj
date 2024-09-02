@@ -82,10 +82,8 @@
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\SharedKernel\src\SharedKernel.Main\SharedKernel.Main.csproj" />
 	</ItemGroup>
-
 	<ItemGroup>
-		<Folder Include="Presentation\Endpoints\" />
-		<Folder Include="Presentation\Mapping\" />
+	  <Folder Include="Infrastructure\Jwt\" />
 	</ItemGroup>
 
 </Project>

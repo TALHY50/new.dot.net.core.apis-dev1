@@ -1,0 +1,1 @@
+namespace SharedBusiness.Main.Common.Infrastructure.Persistence.Repositories;

@@ -5,11 +5,11 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
+using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 
 namespace Admin.App.Application.Features.TransactionTypes
 {
@@ -46,9 +46,9 @@ namespace Admin.App.Application.Features.TransactionTypes
     public class CreateTransactionTypeCommandHandler
         : IRequestHandler<CreateTransactionTypeCommand, ErrorOr<TransactionType>>
     {
-        private readonly IImtTransactionTypeRepository _transactionTypeRepository;
+        private readonly ITransactionTypeRepository _transactionTypeRepository;
 
-        public CreateTransactionTypeCommandHandler(IImtTransactionTypeRepository transactionTypeRepository)
+        public CreateTransactionTypeCommandHandler(ITransactionTypeRepository transactionTypeRepository)
         {
             _transactionTypeRepository = transactionTypeRepository;
         }
@@ -65,11 +65,6 @@ namespace Admin.App.Application.Features.TransactionTypes
                 CreatedAt = now,
                 UpdatedAt = now,
             };
-
-            if (@transactionType == null)
-            {
-                return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
-            }
 
             return _transactionTypeRepository.Add(@transactionType);
         }

@@ -1,16 +1,16 @@
-﻿using ACL.Business.Contracts.Responses;
-using ErrorOr;
+﻿using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
+using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Common.Interfaces.Services;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Application.Interfaces.Services;
+using SharedKernel.Main.Contracts;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 using static Admin.App.Application.Features.Regions.GetRegionByIdController;
 
 
@@ -57,10 +57,10 @@ namespace Admin.App.Application.Features.Regions
         public class UpdateRegionCommandHandler
         : IRequestHandler<UpdateRegionCommand, ErrorOr<Region>>
         {
-            private readonly ICurrentUserService _user;
-            private readonly IImtRegionRepository _repository;
+            private readonly ICurrentUser _user;
+            private readonly IRegionRepository _repository;
 
-            public UpdateRegionCommandHandler(ICurrentUserService user, IImtRegionRepository repository)
+            public UpdateRegionCommandHandler(ICurrentUser user, IRegionRepository repository)
             {
                 _user = user;
                 _repository = repository;
@@ -68,13 +68,15 @@ namespace Admin.App.Application.Features.Regions
 
             public async Task<ErrorOr<Region>> Handle(UpdateRegionCommand request, CancellationToken cancellationToken)
             {
+                var message = new MessageResponse("Record not found");
+
                 var now = DateTime.UtcNow;
                 Region? regions = _repository.View(request.id);
                 if (regions == null)
                 {
-                    return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(message.PlainText, ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
-
+                
                 regions.Name = request.Name;
                 regions.CompanyId = request.CompanyId;
                 regions.Status = request.Status;
@@ -83,6 +85,7 @@ namespace Admin.App.Application.Features.Regions
                 regions.CreatedAt = now;
                 regions.UpdatedAt = now;
 
+                
 
                 return _repository.Update(regions);
             }

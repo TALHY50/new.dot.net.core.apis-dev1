@@ -1,14 +1,14 @@
-﻿using ACL.App.Contracts.Responses;
-using ErrorOr;
+﻿using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
+using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Contracts;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 
 namespace ADMIN.App.Application.Features.ServiceMethods
 {
@@ -36,18 +36,16 @@ namespace ADMIN.App.Application.Features.ServiceMethods
         public CreateServiceMethodCommandValidator()
         {
             RuleFor(x => x.Method).NotEmpty().WithMessage("Method  is required");
-            RuleFor(x => x.CompanyId).NotEmpty().WithMessage("Company Id  is required");
+            RuleFor(x => x.CompanyId).NotEmpty().WithMessage("Company id  is required");
         }
     }
 
     public class CreateServiceMethodCommandHandler : IRequestHandler<CreateServiceMethodCommand, ErrorOr<ServiceMethod>>
     {
-        private readonly IImtServiceMethodRepository _repository;
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IServiceMethodRepository _repository;
 
-        public CreateServiceMethodCommandHandler(IHttpContextAccessor httpContextAccessor, IImtServiceMethodRepository repository)
+        public CreateServiceMethodCommandHandler(IServiceMethodRepository repository)
         {
-            _httpContextAccessor = httpContextAccessor;
             _repository = repository;
         }
 
@@ -63,10 +61,9 @@ namespace ADMIN.App.Application.Features.ServiceMethods
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow
             };
-
             if (serviceMethod == null)
             {
-                return Error.NotFound(description: Language.GetMessage(_httpContextAccessor, "Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), "Service Method not found!");
             }
 
             return _repository.Add(serviceMethod)!;

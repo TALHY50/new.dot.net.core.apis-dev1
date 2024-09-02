@@ -5,7 +5,8 @@ using ACL.Business.Infrastructure.Auth.Auth;
 using ACL.Business.Infrastructure.Persistence.Context;
 using ACL.Business.Infrastructure.Persistence.Repositories;
 using Microsoft.AspNetCore.Http;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Contracts;
+using MessageResponse = SharedKernel.Main.Contracts.MessageResponse;
 
 namespace ACL.Business.Domain.Services
 {
@@ -38,7 +39,7 @@ namespace ACL.Business.Domain.Services
                 this.ScopeResponse.Message = this.MessageResponse.fetchMessage;
             }
             this.ScopeResponse.Data = aclCountry;
-            this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+            this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
 
             return this.ScopeResponse;
         }
@@ -50,12 +51,12 @@ namespace ACL.Business.Domain.Services
                 var aclCountry = PrepareInputData(request);
                 this.ScopeResponse.Data = Add(aclCountry);
                 this.ScopeResponse.Message = this.MessageResponse.createMessage;
-                this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             }
             catch (Exception ex)
             {
                 this.ScopeResponse.Message = ex.Message;
-                this.ScopeResponse.StatusCode = AppStatusCode.FAIL;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
             return this.ScopeResponse;
 
@@ -75,12 +76,12 @@ namespace ACL.Business.Domain.Services
                 aclCountry = PrepareInputData(request, aclCountry);
                 this.ScopeResponse.Data = Update(aclCountry);
                 this.ScopeResponse.Message = this.MessageResponse.editMessage;
-                this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             }
             catch (Exception ex)
             {
                 this.ScopeResponse.Message = ex.Message;
-                this.ScopeResponse.StatusCode = AppStatusCode.FAIL;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
             return this.ScopeResponse;
 
@@ -98,12 +99,12 @@ namespace ACL.Business.Domain.Services
                     this.ScopeResponse.Message = this.MessageResponse.notFoundMessage;
                 }
 
-                this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             }
             catch (Exception ex)
             {
                 this.ScopeResponse.Message = ex.Message;
-                this.ScopeResponse.StatusCode = AppStatusCode.FAIL;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
             return this.ScopeResponse;
 
@@ -116,7 +117,7 @@ namespace ACL.Business.Domain.Services
             {
                 this.ScopeResponse.Data = aclCountry;
                 this.ScopeResponse.Message = this.MessageResponse.deleteMessage;
-                this.ScopeResponse.StatusCode = AppStatusCode.SUCCESS;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             }
             return this.ScopeResponse;
         }

@@ -1,16 +1,16 @@
-﻿using ACL.Business.Contracts.Responses;
-using Ardalis.SharedKernel;
+﻿
 using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
+using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Common.Interfaces.Services;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Application.Interfaces.Services;
+using SharedKernel.Main.Contracts;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 using static Admin.App.Application.Features.Providers.GetProviderByIdController;
 
 
@@ -70,10 +70,10 @@ namespace Admin.App.Application.Features.Providers
         public class UpdateProviderCommandHandler
         : IRequestHandler<UpdateProviderCommand, ErrorOr<Provider>>
         {
-            private readonly ICurrentUserService _user;
-            private readonly IImtProviderRepository _providerRepository;
+            private readonly ICurrentUser _user;
+            private readonly IProviderRepository _providerRepository;
 
-            public UpdateProviderCommandHandler(ICurrentUserService user, IImtProviderRepository providerRepository)
+            public UpdateProviderCommandHandler(ICurrentUser user, IProviderRepository providerRepository)
             {
                 _user = user;
                 _providerRepository = providerRepository;
@@ -81,14 +81,16 @@ namespace Admin.App.Application.Features.Providers
 
             public async Task<ErrorOr<Provider>> Handle(UpdateProviderCommand request, CancellationToken cancellationToken)
             {
+                var message = new MessageResponse("Record not found");
+
                 var now = DateTime.UtcNow;
                 Provider? providers = _providerRepository.View(request.id);
 
                 if (providers == null)
                 {
-                    return Error.NotFound(description: Language.GetMessage("Record not found"), code: AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                    return Error.NotFound(message.PlainText, ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
-
+                
                 providers.Code = request.Code;
                 providers.Name = request.Name;
                 providers.BaseUrl = request.BaseUrl;

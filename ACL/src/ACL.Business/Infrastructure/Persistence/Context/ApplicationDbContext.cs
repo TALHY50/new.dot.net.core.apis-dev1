@@ -3,12 +3,11 @@ using ACL.Business.Domain.Entities;
 using ACL.Business.Infrastructure.Persistence.Migrations;
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
-using SharedKernel.Main.Application.Common.Interfaces.Services;
 using Module = ACL.Business.Domain.Entities.Module;
 
 namespace ACL.Business.Infrastructure.Persistence.Context;
 
-public partial class ApplicationDbContext : DbContext, IApplicationDbContext
+public partial class ApplicationDbContext : DbContext
 {
     public ApplicationDbContext()
     {
@@ -19,11 +18,11 @@ public partial class ApplicationDbContext : DbContext, IApplicationDbContext
     {
     }
 
-    public virtual DbSet<Branch> AclBranches { get; set; }
+    public virtual DbSet<Branch> Branches { get; set; }
 
-    public virtual DbSet<Company> AclCompanies { get; set; }
+    public virtual DbSet<Company> Companies { get; set; }
 
-    public virtual DbSet<CompanyModule> AclCompanyModules { get; set; }
+    public virtual DbSet<CompanyModule> CompanyModules { get; set; }
 
     public virtual DbSet<Country> AclCountries { get; set; }
 

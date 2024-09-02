@@ -2,8 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 
 using Notification.App.Application.Features.Notifications.Send;
 
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Models;
+using SharedKernel.Main.Application.Models;
+using SharedKernel.Main.Presentation;
 
 namespace Notification.App.Presentation.Controllers;
 

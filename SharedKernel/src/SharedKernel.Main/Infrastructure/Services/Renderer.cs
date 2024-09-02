@@ -7,8 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Routing;
-using SharedKernel.Main.Application.Common.Interfaces.Services;
-using SharedKernel.Main.Views.Texts;
+using SharedKernel.Main.Application.Interfaces.Services;
 
 namespace SharedKernel.Main.Infrastructure.Services;
 
@@ -54,18 +53,7 @@ public class Renderer : IRenderer
 
         return output.ToString();
     }
-
-    public Task<string> GetSmsText<TModel>(TModel model, string lang)
-    {
-        var text = string.Empty;
-        if (model is ISmsTextModel)
-        {
-            var textModel = (ISmsTextModel)model;
-            text = textModel.Message(lang);
-        }
-
-        return Task.FromResult(text);
-    }
+    
 
     private IView FindView(ActionContext actionContext, string viewName)
     {

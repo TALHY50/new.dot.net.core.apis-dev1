@@ -11,13 +11,13 @@
 //    {
 //        DatabaseConnector dbConnector;
 //        CustomUnitOfWork unitOfWork;
-//        AclRoleController controller;
+//        RoleController controller;
 //        public AclRolesUnitTest()
 //        {
 //            dbConnector = new DatabaseConnector();
 //            unitOfWork = new CustomUnitOfWork(dbConnector.dbContext);
 //            dbContext = dbConnector.dbContext;
-//            controller = new AclRoleController(unitOfWork);
+//            controller = new RoleController(unitOfWork);
 //        }
 //        [Fact]
 //        public async void GetAllRolesTest()
@@ -37,7 +37,7 @@
 //            var data = GetRole();
 
 //            // Act
-//            ScopeResponse ScopeResponse = await controller.Create(data);
+//            ScopeResponse ScopeResponse = await controller.CreateCompanyModule(data);
 
 //            int actualStatusCode = (int)ScopeResponse.StatusCode;
 

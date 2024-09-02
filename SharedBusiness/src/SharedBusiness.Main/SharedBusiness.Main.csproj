@@ -144,6 +144,20 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Folder Include="Admin\Contracts\" />
+	  <Folder Include="Admin\Domain\" />
+	  <Folder Include="Common\Contracts\" />
+	  <Folder Include="Common\Infrastructure\Extensions\" />
+	  <Folder Include="IMT\Domain\Entities\ValueObjects\" />
+	  <Folder Include="IMT\Infrastructure\Persistence\Configurations\" />
+	  <Folder Include="IMT\Infrastructure\Persistence\Context\" />
+	  <Folder Include="IMT\Infrastructure\Persistence\Migrations\" />
+	  <Folder Include="IMT\Infrastructure\Persistence\Patch\" />
+	  <Folder Include="IMT\Infrastructure\Persistence\Repositories\" />
+	  <Folder Include="IMT\Infrastructure\Persistence\Services\ConfirmTransactionService\" />
+	  <Folder Include="IMT\Infrastructure\Persistence\Services\Quotation\" />
+	  <Folder Include="IMT\Infrastructure\Persistence\Services\SendMoney\" />
+	  <Folder Include="IMT\Infrastructure\Persistence\Services\Transaction\" />
 	  <Folder Include="IMT\Presentation\Mapping\" />
 	</ItemGroup>
 

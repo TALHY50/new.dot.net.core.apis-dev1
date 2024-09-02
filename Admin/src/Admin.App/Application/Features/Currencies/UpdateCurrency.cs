@@ -5,13 +5,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
 using System.Reflection.Metadata;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedBusiness.Main.IMT.Domain.Entities;
-using SharedKernel.Main.Contracts.Common;
-using ACL.Business.Contracts.Responses;
+using SharedBusiness.Main.Common.Domain.Entities;
+using SharedKernel.Main.Contracts;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 
 namespace Admin.App.Application.Features.Currencies
 {
@@ -41,9 +41,9 @@ namespace Admin.App.Application.Features.Currencies
         public UpdateCurrencyValidator()
         {
             RuleFor(x => x.id).NotEmpty().WithMessage("Currency ID is required");
-            RuleFor(x => x.Code).NotEmpty().MinimumLength(1).MaximumLength(10).WithMessage("Code cannot be empty");
-            RuleFor(x => x.IsoCode).NotEmpty().MinimumLength(1).MaximumLength(10).WithMessage("IsoCode cannot be empty");
-            RuleFor(x => x.Name).NotEmpty().MinimumLength(1).MaximumLength(100).WithMessage("Name cannot be empty");
+            RuleFor(x => x.Code).NotEmpty().MinimumLength(1).MaximumLength(10).WithMessage("IsoCodeShort cannot be empty");
+            RuleFor(x => x.IsoCode).NotEmpty().MinimumLength(1).MaximumLength(10).WithMessage("iso_code cannot be empty");
+            RuleFor(x => x.Name).NotEmpty().MinimumLength(1).MaximumLength(100).WithMessage("name cannot be empty");
             RuleFor(x => x.Symbol).NotEmpty().MinimumLength(1).MaximumLength(50).WithMessage("Symbol cannot be empty");
         }
     }
@@ -51,8 +51,8 @@ namespace Admin.App.Application.Features.Currencies
     public class UpdateCurrencyCommandHandler 
         : IRequestHandler<UpdateCurrencyCommand, ErrorOr<Currency>>
     {
-        private readonly IImtAdminCurrencyRepository _repository;
-        public UpdateCurrencyCommandHandler(IImtAdminCurrencyRepository repository)
+        private readonly ICurrencyRepository _repository;
+        public UpdateCurrencyCommandHandler(ICurrencyRepository repository)
         {
             _repository = repository;
         }
@@ -63,7 +63,7 @@ namespace Admin.App.Application.Features.Currencies
             var now = DateTime.UtcNow;
             if (entity == null)
             {
-                return Error.NotFound(message.PlainText, AppErrorStatusCode.API_ERROR_RECORD_NOT_FOUND.ToString());
+                return Error.NotFound(message.PlainText, ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
             entity.Code = request.Code;
             entity.IsoCode = request.IsoCode;

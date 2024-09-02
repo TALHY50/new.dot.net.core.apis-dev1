@@ -3,7 +3,7 @@ using ACL.Business.Contracts.Responses;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using MySqlConnector;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Contracts;
 
 namespace ACL.Business.Infrastructure.Middlewares
 {
@@ -83,7 +83,7 @@ namespace ACL.Business.Infrastructure.Middlewares
                     break;
                 case Exception ex:
                     aclResponse.Message = ex.Message;
-                    aclResponse.StatusCode = AppStatusCode.FAIL;
+                    aclResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
                     break;
                 //case ApplicationException ex:
                 //    scopeResponse.Message = ex.Message;
