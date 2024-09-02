@@ -3,12 +3,12 @@ using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Common.Constants.Routes;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Contracts;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 
 namespace Admin.App.Application.Features.TaxRates
 {
@@ -48,9 +48,9 @@ namespace Admin.App.Application.Features.TaxRates
 
         public class UpdateTaxRateCommandHandler : IRequestHandler<UpdateTaxRateCommand, ErrorOr<TaxRate>>
         {
-            private readonly IImtTaxRateRepository _repository;
+            private readonly ITaxRateRepository _repository;
 
-            public UpdateTaxRateCommandHandler(IImtTaxRateRepository repository)
+            public UpdateTaxRateCommandHandler(ITaxRateRepository repository)
             {
                 _repository = repository;
             }

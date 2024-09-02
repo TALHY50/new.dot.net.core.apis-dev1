@@ -3,12 +3,12 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Common.Constants.Routes;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Contracts;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 
 namespace Admin.App.Application.Features.Payers
 {
@@ -70,8 +70,8 @@ namespace Admin.App.Application.Features.Payers
     public class UpdatePayerHandler :
         IRequestHandler<UpdatePayerCommand, ErrorOr<Payer>>
     {
-        private readonly IImtPayerRepository _repository;
-        public UpdatePayerHandler(IImtPayerRepository repository)
+        private readonly IPayerRepository _repository;
+        public UpdatePayerHandler(IPayerRepository repository)
         {
             _repository = repository;
         }

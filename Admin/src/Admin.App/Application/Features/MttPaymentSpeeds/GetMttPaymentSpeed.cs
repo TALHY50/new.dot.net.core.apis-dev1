@@ -1,11 +1,11 @@
 ﻿using ErrorOr;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Common.Constants.Routes;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 
 namespace Admin.App.Application.Features.MttPaymentSpeeds
 {
@@ -28,16 +28,16 @@ namespace Admin.App.Application.Features.MttPaymentSpeeds
         public class GetMttPaymentSpeedHandler
             : IRequestHandler<GetMttPaymentSpeedQuery, ErrorOr<List<MttPaymentSpeed>>>
         {
-            private readonly IImtMttPaymentSpeedRepository _MttPaymentSpeedRepository;
+            private readonly IMTTPaymentSpeedRepository _imttPaymentSpeedRepository;
 
-            public GetMttPaymentSpeedHandler(IImtMttPaymentSpeedRepository MttPaymentSpeedRepository)
+            public GetMttPaymentSpeedHandler(IMTTPaymentSpeedRepository imttPaymentSpeedRepository)
             {
-                _MttPaymentSpeedRepository = MttPaymentSpeedRepository;
+                _imttPaymentSpeedRepository = imttPaymentSpeedRepository;
             }
 
             public async Task<ErrorOr<List<MttPaymentSpeed>>> Handle(GetMttPaymentSpeedQuery request, CancellationToken cancellationToken)
             {
-                return _MttPaymentSpeedRepository.GetAll().ToList();
+                return _imttPaymentSpeedRepository.GetAll().ToList();
             }
         }
     }

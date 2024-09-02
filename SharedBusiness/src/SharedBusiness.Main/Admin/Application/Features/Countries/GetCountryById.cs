@@ -1,18 +1,19 @@
 ﻿using ErrorOr;
 using FluentValidation;
 using MediatR;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Contracts;
 
 namespace SharedBusiness.Main.Admin.Application.Features.Countries
 {
     
     public record GetCountryByIdQuery(uint id) : IRequest<ErrorOr<Common.Domain.Entities.Country>>;
 
-        public class GetCountryByIdCommandValidator : AbstractValidator<GetCountryByIdQuery>
+        public class GetCountryByIdQueryValidator : AbstractValidator<GetCountryByIdQuery>
         {
-            public GetCountryByIdCommandValidator()
+            public GetCountryByIdQueryValidator()
             {
                 RuleFor(x => x.id).NotEmpty().WithMessage("Country ID is required");
             }

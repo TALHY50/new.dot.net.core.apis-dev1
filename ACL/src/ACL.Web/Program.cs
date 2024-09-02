@@ -1,324 +1,45 @@
-using System.Security.Cryptography;
-using ACL.Business.Application.Interfaces.Repositories;
-using ACL.Business.Application.Interfaces.Services;
-using ACL.Business.Domain.Services;
-using ACL.Business.Infrastructure.Jwt;
+using ACL.Business.Application;
+using ACL.Business.Infrastructure;
 using ACL.Business.Infrastructure.Middlewares;
-using ACL.Business.Infrastructure.Persistence.Context;
-using ACL.Business.Infrastructure.Persistence.Repositories;
-using ACL.Business.Infrastructure.Security;
-using ACL.Web.Application.Features.Auth;
-using DotNetEnv;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
+using ACL.Business.Presentation;
+using ACL.Web.Presentation;
 using Serilog;
-using Serilog.Events;
-using SharedKernel.Main.Application.Common.Interfaces.Services;
-using SharedKernel.Main.Contracts.Common;
-using SharedKernel.Main.Infrastructure.Cryptography;
+using SharedKernel.Main.Application;
+using SharedKernel.Main.Infrastructure;
 using SharedKernel.Main.Infrastructure.MiddleWares;
-using SharedKernel.Main.Infrastructure.Security;
-using SharedKernel.Main.Infrastructure.Services;
+using SharedKernel.Main.Presentation;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddLogging(loggingBuilder =>
-{
-    // Add console logger
-    loggingBuilder.AddConsole();
-    loggingBuilder.AddSerilog(dispose: true);
-});
+builder.Services.AddSharedKernelApplication();
+builder.Services.AddSharedKernelInfrastructure(builder.Configuration, builder.Environment, builder.Host);
+builder.Services.AddSharedKernelPresentation();
 
-var jwtSettingsConfiguration = builder.Configuration.GetSection("JwtSettings");
-builder.Services.Configure<JwtSettings>(jwtSettingsConfiguration);
-var jwtSettings = jwtSettingsConfiguration.Get<JwtSettings>();
+builder.Services.AddACLBusinessApplication(builder.Configuration, builder.Environment, builder.Host);
+builder.Services.AddACLBusinessInfrastructure(builder.Configuration, builder.Environment, builder.Host);
+builder.Services.AddACLBusinessPresentation(builder.Configuration, builder.Environment, builder.Host);
 
-builder.Services.AddSingleton<IAuthTokenService, JwtService>();
-builder.Services.AddTransient<ICryptographyService, CryptographyService>();
+builder.Services.AddACLWebPresentation(builder.Configuration, builder.Environment, builder.Host);
 
-builder.Services.AddSingleton(provider =>
-{
-    var rsa = RSA.Create();
-    rsa.ImportRSAPrivateKey(source: Convert.FromBase64String(jwtSettings?.AccessTokenSettings.PrivateKey), bytesRead: out int _);
-    return new RsaSecurityKey(rsa);
-});
-
-RSA rsa = RSA.Create();
-rsa.ImportRSAPublicKey(
-    source: Convert.FromBase64String(jwtSettings?.AccessTokenSettings.PublicKey),
-    bytesRead: out int _
-);
-
-var rsaKey = new RsaSecurityKey(rsa);
-
-builder.Services.AddAuthentication(options =>
-    {
-        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    })
-    .AddJwtBearer(options =>
-    {
-        if (builder.Environment.IsDevelopment()) options.RequireHttpsMetadata = false;
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            RequireSignedTokens = true,
-            RequireExpirationTime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = jwtSettings.AccessTokenSettings.Issuer,
-            ValidAudience = jwtSettings.AccessTokenSettings.Audience,
-            IssuerSigningKey = rsaKey,
-            ClockSkew = TimeSpan.FromMinutes(0)
-        };
-    });
-
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("HasPermission", policy =>
-        policy.Requirements.Add(new PermissionAuthorizationRequirement()));
-});
-
-// Singletons
-builder.Services.AddSingleton<IAuthorizationHandler, PermissionAuthorizationHandler>();
-//builder.Services.AddAuthentication();
-//builder.Services.AddAuthorization(); // Add authorization services
-builder.Services.AddHttpContextAccessor();
-builder.Services.AddControllers();
-
-
-Env.NoClobber().TraversePath().Load();
-
-var server = Env.GetString("DB_HOST");
-var database = Env.GetString("DB_DATABASE");
-var userName = Env.GetString("DB_USERNAME");
-var password = Env.GetString("DB_PASSWORD");
-var port = Env.GetString("DB_PORT");
-
-var connectionString = $"server={server};database={database};port={port};User ID={userName};Password={password};CharSet=utf8mb4;" ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseMySQL(connectionString, options =>
-    {
-        options.EnableRetryOnFailure();
-    }));
-
-//#if UNIT_TEST
-//builder.Services.AddDbContext<ApplicationDbContext>(options =>
-//    options.UseInMemoryDatabase("acl").ConfigureWarnings(warnings =>
-//    {
-//        warnings.Ignore(InMemoryEventId.TransactionIgnoredWarning);
-//    }));
-//#else
-//builder.Services.AddDbContext<ApplicationDbContext>(options =>
-//    options.UseMySQL(connectionString, options =>
-//    {
-//        options.EnableRetryOnFailure();
-//    }), ServiceLifetime.Transient);
-//#endif
-
-var cacheDriver = Env.GetString("CACHE_DRIVER");
-
-if (cacheDriver == "redis")
-{
-    var redisHost = Env.GetString("REDIS_HOST");
-    ;
-    var redistPort = Env.GetString("REDIS_PORT");
-    ;
-    var redisPassword = Env.GetString("REDIS_PASSWORD");
-    var redistConnectionString = $"{redisHost}:{redistPort},password={redisPassword}";
-
-    builder.Services.AddStackExchangeRedisCache(
-        redisOptions => { redisOptions.Configuration = redistConnectionString; }
-    );
-}
-
-builder.Services.AddAntiforgery(options => options.HeaderName = "X-CSRF-TOKEN");
-
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-{
-    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
-    {
-        Name = "Authorization",
-        //Type = SecuritySchemeType.ApiKey,
-        Type = SecuritySchemeType.Http,
-        Scheme = "Bearer",
-        BearerFormat = "JWT",
-        In = ParameterLocation.Header,
-        Description = "JWT Authorization header using the Bearer scheme.",
-    });
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement {
-        {
-            new OpenApiSecurityScheme {
-                Reference = new OpenApiReference {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer"
-                }
-            },
-            new string[] {}
-        }
-    });
-});
-
-builder.Services.AddHttpContextAccessor();
-builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
-builder.Services.AddMemoryCache();
-builder.Services.AddDistributedMemoryCache();
-
-IConfiguration configuration = new ConfigurationBuilder()
-    .SetBasePath(Directory.GetCurrentDirectory())
-    .AddJsonFile("appsettings.json")
-    .Build();
-//builder.Services.AddScoped<ICustomUnitOfWork, CustomUnitOfWork>();
-//builder.Services.AddScoped<IUnitOfWork<ApplicationDbContext, ICustomUnitOfWork>, UnitOfWork<ApplicationDbContext, ICustomUnitOfWork>>();
-builder.Services.AddSingleton(configuration);
-builder.Services.AddScoped<ICacheService, CacheService>();
-builder.Services.AddLogging(loggingBuilder =>
-{
-    loggingBuilder.AddConsole();
-    loggingBuilder.AddSerilog(dispose: true);
-});
-
-builder.Services.AddSingleton<Serilog.ILogger>(_ => Log.Logger);
-builder.Services.AddSingleton<ILocalizationService>(new LocalizationService("SharedKernel.Main.Infrastructure.Resources.en-US", typeof(Program).Assembly, "en-US"));
-builder.Services.AddSingleton<Microsoft.Extensions.Logging.ILogger>(_ => (Microsoft.Extensions.Logging.ILogger)Log.Logger);
-builder.Services.AddScoped<ILogService, LogService>();
-
-builder.Services.Configure<ApiBehaviorOptions>(o =>
-{
-    o.InvalidModelStateResponseFactory = actionContext =>
-        new BadRequestObjectResult(new { errors = new UnprocessableEntityObjectResult(actionContext.ModelState).Value, statusCode = ApplicationStatusCodes.GENERAL_FAILURE });
-});
-
-Log.Logger = new LoggerConfiguration()
-    .MinimumLevel.Debug()
-    .WriteTo.File(GetLogFilePath("log.txt"), restrictedToMinimumLevel: LogEventLevel.Error, rollingInterval: RollingInterval.Day, buffered: false)
-    .WriteTo.Logger(lc => lc
-        .Filter.ByExcluding(e => e.Properties.ContainsKey("RequestPath") || e.Properties.ContainsKey("RequestBody") || e.Properties.ContainsKey("ResponseBody"))
-        .WriteTo.File(GetLogFilePath("log.txt"), restrictedToMinimumLevel: LogEventLevel.Information))
-    .WriteTo.File(GetLogFilePath("querylog.txt"), restrictedToMinimumLevel: LogEventLevel.Information, rollingInterval: RollingInterval.Day, buffered: false)
-    .CreateLogger();
-
-builder.Host.UseSerilog((hostingContext, loggerConfiguration) =>
-{
-    loggerConfiguration
-        .ReadFrom.Configuration(hostingContext.Configuration)
-        .WriteTo.Console();
-});
-
-builder.Services.AddSerilog();
-
-
-builder.Services.AddScoped<IBranchService, BranchService>();
-builder.Services.AddScoped<ICompanyModuleService, CompanyModuleService>();
-builder.Services.AddScoped<ICompanyService, CompanyService>();
-builder.Services.AddScoped<ICountryService, CountryService>();
-builder.Services.AddScoped<IStateService, StateService>();
-builder.Services.AddScoped<IModuleService, ModuleService>();
-builder.Services.AddScoped<ISubModuleService, SubModuleService>();
-builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IUserGroupRoleService, UserGroupRoleService>();
-builder.Services.AddScoped<IUserGroupService, UserGroupService>();
-
-builder.Services.AddScoped<ISubModuleService, SubModuleService>();
-builder.Services.AddScoped<ISubModuleService, SubModuleService>();
-
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IBranchRepository, BranchRepository>();
-builder.Services.AddScoped<IPageService, PageService>();
-
-
-
-//builder.Services.AddScoped<ICompanyModuleRepository, CompanyModuleRepository>();
-//builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
-//builder.Services.AddScoped<ICountryRepository, CountryRepository>();
-//builder.Services.AddScoped<IModuleRepository, ModuleRepository>();
-//builder.Services.AddScoped<IStateRepository, StateRepository>();
-
-builder.Services.AddScoped<IPageRepository, PageRepository>();
-builder.Services.AddScoped<IPageRouteRepository, PageRouteRepository>();
-builder.Services.AddScoped<IPasswordRepository, PasswordRepository>();
-builder.Services.AddScoped<IRolePageRepository, RolePageRepository>();
-builder.Services.AddScoped<IRoleRepository, RoleRepository>();
-
-//builder.Services.AddScoped<ISubModuleRepository, SubModuleRepository>();
-builder.Services.AddScoped<IUserGroupRepository, UserGroupRepository>();
-builder.Services.AddScoped<IUserGroupRoleRepository, UserGroupRoleRepository>();
-builder.Services.AddScoped<IUserUserGroupRepository, UserUserGroupRepository>();
-
-builder.Services.AddScoped<Login>();
-builder.Services.AddScoped<RefreshToken>();
-builder.Services.AddScoped<SignOut>();
-builder.Services.AddScoped<Register>();
-
-static string GetLogFilePath(string fileName)
-{
-    var logDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Logs");
-    Directory.CreateDirectory(logDirectory);
-    var datePrefix = DateTime.Now.ToString("yyyy-MM-dd");
-    return Path.Combine(logDirectory, $"{datePrefix}_{fileName}");
-}
 var app = builder.Build();
-
-app.UseAuthentication();
-//app.UseAuthorization();
-
-
-
-//// Seeding Data
-//using (var serviceScope = app.Services.CreateScope())
-//{
-//    var services = serviceScope.ServiceProvider;
-//    var dbContext = services.GetRequiredService<ApplicationDbContext>();
-
-//    // Ensure the database is created
-//    dbContext.Database.EnsureCreated();
-
-//    // Perform the seeding
-//    SeedData.Initialize(services);
-//}
-
-app.UseSwagger();
-app.UseSwaggerUI(options =>
 {
-    options.DefaultModelsExpandDepth(-1);
-});
+    app.UseAuthentication()
+        .UseSwagger()
+        .UseSwaggerUI(options => { options.DefaultModelsExpandDepth(-1); })
+        .UseMiddleware<RequestResponseLoggingMiddleware>()
+        .UseSerilogRequestLogging()
+        .UseMiddleware<GlobalExceptionHandlerMiddleware>()
+        .UseRouting()
+        .UseAuthorization()
+        .UseEndpoints(endpoints => { endpoints.MapControllers(); })
+        .UseFileServer()
+        .UseHttpsRedirection()
+        .UseCors(builder => { 
+            builder.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader(); 
+        });
 
-//app.UseGlobalExceptionHandler();
-app.UseMiddleware<RequestResponseLoggingMiddleware>();
-app.UseSerilogRequestLogging();
-app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
-
-app.UseRouting();
-app.UseAuthorization();
-#pragma warning disable ASP0014 // Suggest using top level route registrations
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers();
-});
-#pragma warning restore ASP0014 // Suggest using top level route registrations
-
-app.UseFileServer();
-
-app.UseHttpsRedirection();
-
-
-app.UseCors(builder =>
-{
-    builder.AllowAnyOrigin()
-        .AllowAnyMethod()
-        .AllowAnyHeader();
-});
-
-app.Run();
-
-namespace ACL.App
-{
+    app.Run();
 }
+

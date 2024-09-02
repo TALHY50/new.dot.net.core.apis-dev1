@@ -3,9 +3,7 @@ using ACL.Business.Contracts.Responses;
 using ACL.Web.Presentation.Routes;
 using Newtonsoft.Json;
 using RestSharp;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Common.Constants.Routes;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Contracts;
 
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
 #pragma warning disable CS8602 // Converting null literal or possible null value to non-nullable type.
@@ -155,7 +153,7 @@ namespace ACL.TEST
             // Generate random data for the company module request
             return new AclCompanyModuleRequest
             {
-                CompanyId = DataCollectors.dbContext.AclCompanies.Max(i => i.Id),
+                CompanyId = DataCollectors.dbContext.Companies.Max(i => i.Id),
                 ModuleId = DataCollectors.dbContext.AclModules.Max(i => i.Id)
             };
         }
@@ -166,7 +164,7 @@ namespace ACL.TEST
             #region Act
             //    // Act
             //return dbContext.AclCompanyModules.Last().Id;
-            return (ulong)DataCollectors.dbContext.AclCompanyModules.Max(i => i.Id);
+            return (ulong)DataCollectors.dbContext.CompanyModules.Max(i => i.Id);
             #endregion
             // }
 

@@ -3,12 +3,12 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Common.Constants.Routes;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Contracts;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 
 namespace Admin.App.Application.Features.Currencies
 {
@@ -37,9 +37,9 @@ namespace Admin.App.Application.Features.Currencies
     public class GetCurrencyByIdQueryHandler :
         IRequestHandler<GetCurrencyByIdQuery, ErrorOr<Currency>>
     {
-        private readonly IImtAdminCurrencyRepository _repository;
+        private readonly ICurrencyRepository _repository;
 
-        public GetCurrencyByIdQueryHandler(IImtAdminCurrencyRepository repository)
+        public GetCurrencyByIdQueryHandler(ICurrencyRepository repository)
         {
             _repository = repository;
         }

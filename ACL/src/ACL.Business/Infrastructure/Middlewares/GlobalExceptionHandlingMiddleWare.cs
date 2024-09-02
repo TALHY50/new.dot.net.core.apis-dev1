@@ -3,7 +3,7 @@ using ACL.Business.Contracts.Responses;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using MySqlConnector;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Contracts;
 
 namespace ACL.Business.Infrastructure.Middlewares
 {

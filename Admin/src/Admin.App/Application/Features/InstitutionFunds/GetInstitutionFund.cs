@@ -1,12 +1,12 @@
 ﻿using ErrorOr;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Common.Constants.Routes;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Contracts;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 
 namespace Admin.App.Application.Features.InstitutionFunds
 {
@@ -27,9 +27,9 @@ namespace Admin.App.Application.Features.InstitutionFunds
 
         public class GetInstitutionFundQueryHandler : IRequestHandler<GetInstitutionFundQuery, ErrorOr<List<InstitutionFund>>>
         {
-            private readonly IImtInstitutionFundRepository _repository;
+            private readonly IInstitutionFundRepository _repository;
 
-            public GetInstitutionFundQueryHandler(IImtInstitutionFundRepository repository)
+            public GetInstitutionFundQueryHandler(IInstitutionFundRepository repository)
             {
                 _repository = repository;
             }

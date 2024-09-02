@@ -4,13 +4,13 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Common.Constants.Routes;
-using SharedKernel.Main.Application.Common.Interfaces.Services;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Application.Interfaces.Services;
+using SharedKernel.Main.Contracts;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 using static Admin.App.Application.Features.Regions.GetRegionByIdController;
 
 
@@ -57,10 +57,10 @@ namespace Admin.App.Application.Features.Regions
         public class UpdateRegionCommandHandler
         : IRequestHandler<UpdateRegionCommand, ErrorOr<Region>>
         {
-            private readonly ICurrentUserService _user;
-            private readonly IImtRegionRepository _repository;
+            private readonly ICurrentUser _user;
+            private readonly IRegionRepository _repository;
 
-            public UpdateRegionCommandHandler(ICurrentUserService user, IImtRegionRepository repository)
+            public UpdateRegionCommandHandler(ICurrentUser user, IRegionRepository repository)
             {
                 _user = user;
                 _repository = repository;

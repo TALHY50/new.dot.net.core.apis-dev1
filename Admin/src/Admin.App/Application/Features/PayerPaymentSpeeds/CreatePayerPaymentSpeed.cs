@@ -4,12 +4,13 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Common.Constants.Routes;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Application.Interfaces.Services;
+using SharedKernel.Main.Contracts;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 
 namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
 {
@@ -25,6 +26,10 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
             return result.Match(
                 reminder => Ok(result.Value),
                 Problem);return Ok(result);
+        }
+
+        public CreatePayerPaymentSpeedController(ILogger<CreatePayerPaymentSpeedController> logger, ICurrentUser currentUser) : base(logger, currentUser)
+        {
         }
     }
 
@@ -46,9 +51,9 @@ namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
 
     public class CreatePayerPaymentSpeedCommandHandler : IRequestHandler<CreatePayerPaymentSpeedCommand, ErrorOr<PayerPaymentSpeed>>
     {
-        private readonly IImtPayerPaymentSpeedRepository _repository;
+        private readonly IPayerPaymentSpeedRepository _repository;
 
-        public CreatePayerPaymentSpeedCommandHandler(IImtPayerPaymentSpeedRepository repository)
+        public CreatePayerPaymentSpeedCommandHandler(IPayerPaymentSpeedRepository repository)
         {
             _repository = repository;
         }

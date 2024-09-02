@@ -1,11 +1,11 @@
 ﻿using Ardalis.SharedKernel;
 using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Common.Constants.Routes;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 
 namespace Admin.App.Application.Features.Corridors
 {
@@ -27,8 +27,8 @@ namespace Admin.App.Application.Features.Corridors
     public class GetCorridorHandler
         : IQueryHandler<GetCorridorQuery, ErrorOr<List<Corridor>>>
     {
-        private readonly IImtCorridorRepository _repository;
-        public GetCorridorHandler(IImtCorridorRepository repository)
+        private readonly ICorridorRepository _repository;
+        public GetCorridorHandler(ICorridorRepository repository)
         {
             _repository = repository;
         }

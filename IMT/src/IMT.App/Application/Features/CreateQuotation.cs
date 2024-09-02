@@ -3,9 +3,8 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Common.Infrastructure.Persistence.Context;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Common.Constants.Routes;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 using Thunes.Route;
 
 namespace IMT.App.Application.Features;

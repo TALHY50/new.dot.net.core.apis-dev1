@@ -4,25 +4,38 @@ using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Admin.Application.Features.Countries;
 using SharedBusiness.Main.IMT.Contracts.Contracts.Responses;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Common.Constants.Routes;
+using SharedKernel.Main.Application.Interfaces.Services;
+using SharedKernel.Main.Contracts;
 
 namespace Admin.App.Presentation.Endpoints.Country;
 
-public class GetCountries : CountryBase
+public class GetCountries(ILogger<GetCountries> logger, ICurrentUser currentUser)
+    : CountryBase(logger, currentUser)
 {
     [Tags("Countries")]
     // [Authorize(Policy = "HasPermission")]
     [HttpGet(CountryRoutes.GetCountryTemplate, Name = CountryRoutes.GetCountryName)]
-    public async Task<IActionResult> Get()
+    public async Task<IActionResult> Get([FromQuery] PaginatorRequest pageRequest, CancellationToken cancellationToken)
     {
-        var result = await Mediator.Send(new GetCountriesQuery()).ConfigureAwait(false);
-
-        return result.Match(
+        var query = new GetCountriesQuery(PageNumber: pageRequest.page_number, PageSize: pageRequest.page_size);
+        _ = Task.Run(
+            () => _logger.LogInformation(
+                "get-countries: {Name} {@UserId} {@Request}",
+                nameof(GetCountriesQuery),
+                CurrentUser.UserId,
+                query),
+            cancellationToken);
+        var result = await Mediator.Send(query).ConfigureAwait(false);
+        var response = result.Match(
             countries => Ok(ToSuccess(countries.Select(country => country.Adapt<CountryDto>()).ToList())),
             Problem
         );
-
-    }
+        _ = Task.Run(
+            () => _logger.LogInformation(
+                "get-countries-response: {Name} {@UserId} {@Response}",
+                nameof(response),
+                CurrentUser.UserId,
+                response),
+            cancellationToken);
+        return response; }
 }

@@ -4,12 +4,12 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Common.Constants.Routes;
-using SharedKernel.Main.Application.Common.Interfaces.Services;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Application.Interfaces.Services;
+using SharedKernel.Main.Contracts;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 using static Admin.App.Application.Features.Mtts.InstitutionDelete;
 using static Admin.App.Application.Features.Providers.DeleteProviderController;
 
@@ -46,9 +46,9 @@ namespace Admin.App.Application.Features.Regions
         public class DeleteRegionCommandHandler
         : IRequestHandler<DeleteRegionCommand, ErrorOr<bool>>
         {
-            private readonly ICurrentUserService _user;
-            private readonly IImtRegionRepository _repository;
-            public DeleteRegionCommandHandler(ICurrentUserService user, IImtRegionRepository repository)
+            private readonly ICurrentUser _user;
+            private readonly IRegionRepository _repository;
+            public DeleteRegionCommandHandler(ICurrentUser user, IRegionRepository repository)
             {
                 _user = user;
                 _repository = repository;

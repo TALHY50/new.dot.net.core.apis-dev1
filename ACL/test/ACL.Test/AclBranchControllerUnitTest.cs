@@ -4,9 +4,7 @@ using ACL.Web.Presentation.Routes;
 using Bogus;
 using Newtonsoft.Json;
 using RestSharp;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Common.Constants.Routes;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Contracts;
 
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
 #pragma warning disable CS8602 // Converting null literal or possible null value to non-nullable type.
@@ -135,7 +133,7 @@ namespace ACL.TEST
         private ulong GetRandomID()
         {
 
-            return DataCollectors.dbContext.AclBranches.Max(x => x.Id);
+            return DataCollectors.dbContext.Branches.Max(x => x.Id);
 
         }
     }

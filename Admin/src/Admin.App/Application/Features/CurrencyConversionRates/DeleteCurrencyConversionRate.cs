@@ -2,11 +2,11 @@
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Common.Constants.Routes;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Contracts;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 
 namespace Admin.App.Application.Features.CurrencyConversionRates
 {
@@ -37,8 +37,8 @@ namespace Admin.App.Application.Features.CurrencyConversionRates
 
     public class DeleteCurrencyConversionRateCommandHandler : IRequestHandler<DeleteCurrencyConversionRateCommand, ErrorOr<bool>>
     {
-        private readonly IImtCurrencyConversionRateRepository _repository;
-        public DeleteCurrencyConversionRateCommandHandler(IImtCurrencyConversionRateRepository repository)
+        private readonly ICurrencyConversionRateRepository _repository;
+        public DeleteCurrencyConversionRateCommandHandler(ICurrencyConversionRateRepository repository)
         {
             _repository = repository;
         }

@@ -2,11 +2,11 @@
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-using SharedKernel.Main.Application.Common;
-using SharedKernel.Main.Application.Common.Constants;
-using SharedKernel.Main.Application.Common.Constants.Routes;
-using SharedKernel.Main.Contracts.Common;
+using SharedKernel.Main.Contracts;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 
 namespace Admin.App.Application.Features.InstitutionFunds
 {
@@ -37,9 +37,9 @@ namespace Admin.App.Application.Features.InstitutionFunds
 
     public class DeleteInstitutionFundCommandHandler : IRequestHandler<DeleteInstitutionFundCommand, ErrorOr<bool>>
     {
-        private readonly IImtInstitutionFundRepository _repository;
+        private readonly IInstitutionFundRepository _repository;
 
-        public DeleteInstitutionFundCommandHandler(IImtInstitutionFundRepository repository)
+        public DeleteInstitutionFundCommandHandler(IInstitutionFundRepository repository)
         {
             _repository = repository;
         }

@@ -4,7 +4,6 @@ using ACL.Business.Domain.Services;
 using ACL.Web.Presentation.Routes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SharedKernel.Main.Application.Common.Constants.Routes;
 
 namespace ACL.Web.Application.Features.CompanyModules
 {
