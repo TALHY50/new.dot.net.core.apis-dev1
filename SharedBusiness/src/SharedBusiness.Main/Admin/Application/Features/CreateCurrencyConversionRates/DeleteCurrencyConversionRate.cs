@@ -1,30 +1,11 @@
 ﻿using ErrorOr;
 using FluentValidation;
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Common.Application.Services.Repositories;
-using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Contracts;
-using SharedKernel.Main.Presentation;
-using SharedKernel.Main.Presentation.Routes;
 
-namespace Admin.App.Application.Features.CurrencyConversionRates
+namespace SharedBusiness.Main.Admin.Application.Features.CreateCurrencyConversionRates
 {
-    public class DeleteCurrencyConversionRateController : ApiControllerBase
-    {
-        [Tags("CurrencyConversionRate")]
-        //[Authorize(Policy = "HasPermission")]
-        [HttpDelete(Routes.DeleteCurrencyConversionRateUrl, Name = Routes.DeleteCurrencyConversionRateName)]
-
-        public async Task<ActionResult<ErrorOr<bool>>> Delete(uint Id)
-        {
-            var result = await Mediator.Send(new DeleteCurrencyConversionRateCommand(Id)).ConfigureAwait(false);
-
-            return result.Match(
-                reminder => Ok(result.Value),
-                Problem);
-        }
-    }
     public record DeleteCurrencyConversionRateCommand(uint Id) : IRequest<ErrorOr<bool>>;
 
     public class DeleteCurrencyConversionRateCommandValidator : AbstractValidator<DeleteCurrencyConversionRateCommand>
