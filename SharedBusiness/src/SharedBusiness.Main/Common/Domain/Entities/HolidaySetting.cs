@@ -1,9 +1,11 @@
-﻿namespace SharedBusiness.Main.Common.Domain.Entities;
+﻿using Ardalis.SharedKernel;
+
+namespace SharedBusiness.Main.Common.Domain.Entities;
 
 /// <summary>
 /// Type : Master, contrywise holidays
 /// </summary>
-public partial class HolidaySetting
+public partial class HolidaySetting : EntityBase<uint>, IAggregateRoot
 {
     public uint Id { get; set; }
 
