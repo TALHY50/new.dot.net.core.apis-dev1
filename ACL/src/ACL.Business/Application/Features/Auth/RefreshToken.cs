@@ -1,4 +1,5 @@
-﻿using ACL.Business.Application.Interfaces.Repositories;
+﻿using ACL.Business.Application.Behaviours;
+using ACL.Business.Application.Interfaces.Repositories;
 using ACL.Business.Application.Interfaces.Services;
 using ACL.Business.Contracts.Requests;
 using ACL.Business.Contracts.Responses;
@@ -12,22 +13,22 @@ namespace ACL.Business.Application.Features.Auth
     public class RefreshToken : IRefreshTokenUseCase
     {
         private readonly ILogger _logger;
-        private readonly IAuthToken _authToken;
+        private readonly IIdentity _identity;
         private readonly IUserRepository _authRepository; 
         public RefreshToken(
             ILogger<RefreshToken> logger,
-            IAuthToken authToken,
+            IIdentity identity,
             IUserRepository authRepository)
         {
             this._logger = logger;
-            this._authToken = authToken;
+            this._identity = identity;
             this._authRepository = authRepository;
         }
         public async Task<RefreshTokenResponse> Execute(RefreshTokenRequest request)
         {
             try
             {
-                if (!await this._authToken.IsTokenValid(request.AccessToken, false))
+                if (!await this._identity.IsTokenValid(request.AccessToken, false))
                 {
                     return new RefreshTokenErrorResponse
                     {
@@ -35,7 +36,7 @@ namespace ACL.Business.Application.Features.Auth
                         Code = ErrorCodes.AccessTokenIsNotValid.ToString("D")
                     };
                 }
-                var userIdString = await this._authToken.GetUserIdFromToken(request.AccessToken);
+                var userIdString = await this._identity.GetUserIdFromToken(request.AccessToken);
                 var userId = Convert.ToUInt32(userIdString);
                 var user =  this._authRepository.FindByIdAsync(userId);
                 if (user != null && !user.RefreshToken.Active)
@@ -69,10 +70,10 @@ namespace ACL.Business.Application.Features.Auth
                 {
                     scope = string.Join(" ", claim.Value);
                 }
-                var newToken = await this._authToken.GenerateAccessToken(nameIdentifier, scope);
-                user.RefreshToken.Value = await this._authToken.GenerateRefreshToken();
+                var newToken = await this._identity.GenerateAccessToken(nameIdentifier, scope);
+                user.RefreshToken.Value = await this._identity.GenerateRefreshToken();
                 user.RefreshToken.Active = true;
-                user.RefreshToken.ExpirationDate = DateTime.UtcNow.AddMinutes(await this._authToken.GetRefreshTokenLifetimeInMinutes());
+                user.RefreshToken.ExpirationDate = DateTime.UtcNow.AddMinutes(await this._identity.GetRefreshTokenLifetimeInMinutes());
                  this._authRepository.UpdateAndSaveAsync(user);
                 var response = new RefreshTokenSuccessResponse
                 {
