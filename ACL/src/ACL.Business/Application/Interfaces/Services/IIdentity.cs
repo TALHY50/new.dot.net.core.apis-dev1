@@ -1,6 +1,6 @@
-namespace SharedKernel.Main.Application.Interfaces.Services;
+namespace ACL.Business.Application.Interfaces.Services;
 
-public interface IAuthToken
+public interface IIdentity
 {
     Task<string> GenerateIdToken(string nameIdentifier, string name, string email, string givenName, string surName);
     Task<string> GenerateAccessToken(string nameIdentifier, string? scope);
@@ -8,6 +8,6 @@ public interface IAuthToken
     Task<string?> GetUserIdFromToken(string token);
     Task<int> GetRefreshTokenLifetimeInMinutes();
     Task<bool> IsTokenValid(string accessToken, bool validateLifeTime);
-    public string GenerateJwtToken(string keyId, string secretKey, string requestData, int seconds);
-    public bool ValidateJwtToken(string token, string secretKey, string requestData);
+    public string GenerateJwtTokenWithSymmetricKey(string nameIdentifier, string keyId, string secretKey, string requestData, int seconds);
+    public bool ValidateJwtTokenWithSymmetricKey(string token, string secretKey, string requestData);
 }

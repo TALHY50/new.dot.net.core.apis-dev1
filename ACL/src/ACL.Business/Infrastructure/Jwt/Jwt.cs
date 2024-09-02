@@ -2,18 +2,16 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using Microsoft.CodeAnalysis.Elfie.Extensions;
+using ACL.Business.Application.Interfaces.Services;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using NuGet.Protocol;
 using SharedKernel.Main.Application.Exceptions;
 
-namespace SharedKernel.Main.Application.Interfaces.Services
+namespace ACL.Business.Infrastructure.Jwt
 {
     public class Jwt(IOptions<JwtSettings> settings, RsaSecurityKey rsaSecurityKey)
-        : IAuthToken
+        : IIdentity
     {
         public static readonly string VersionClaimType = "ver";
 
@@ -144,7 +142,7 @@ namespace SharedKernel.Main.Application.Interfaces.Services
             }
         }
 
-        public string GenerateJwtToken(string keyId, string secretKey, string requestData, int seconds)
+        public string GenerateJwtTokenWithSymmetricKey(string nameIdentifier, string keyId, string secretKey, string requestData, int seconds)
         {
             string hash = ComputeSha256Hash(requestData);
             var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
@@ -164,7 +162,7 @@ namespace SharedKernel.Main.Application.Interfaces.Services
             var tokenHandler = new JwtSecurityTokenHandler();
             return tokenHandler.WriteToken(token);
         } 
-        public bool ValidateJwtToken(string token, string secretKey, string requestData) 
+        public bool ValidateJwtTokenWithSymmetricKey(string token, string secretKey, string requestData) 
         { 
             var tokenHandler = new JwtSecurityTokenHandler(); 
             var validationParameters = new TokenValidationParameters

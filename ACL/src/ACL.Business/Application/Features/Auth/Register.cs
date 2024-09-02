@@ -1,4 +1,5 @@
-﻿using ACL.Business.Application.Interfaces.Repositories;
+﻿using ACL.Business.Application.Behaviours;
+using ACL.Business.Application.Interfaces.Repositories;
 using ACL.Business.Application.Interfaces.Services;
 using ACL.Business.Contracts.Requests;
 using ACL.Business.Contracts.Responses;
@@ -14,18 +15,18 @@ namespace ACL.Business.Application.Features.Auth
     public class Register : IRegisterUseCase
     {
         private readonly ILogger _logger;
-        private readonly IAuthToken _authToken;
+        private readonly IIdentity _identity;
         private readonly IUserRepository _authRepository;
         private readonly ICryptography _cryptography;
 /// <inheritdoc/>
         public Register(
             ILogger<Register> logger,
-            IAuthToken authToken,
+            IIdentity identity,
             IUserRepository authRepository,
             ICryptography cryptography)
         {
             this._logger = logger;
-            this._authToken = authToken;
+            this._identity = identity;
             this._authRepository = authRepository;
             this._cryptography = cryptography;
         }

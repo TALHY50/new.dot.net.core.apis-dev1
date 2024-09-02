@@ -1,4 +1,5 @@
 using ACL.Business.Application;
+using ACL.Business.Application.Behaviours;
 using ACL.Business.Application.Interfaces.Services;
 using ACL.Business.Application.Interfaces;
 using Microsoft.AspNetCore.Http;
@@ -9,9 +10,9 @@ namespace ACL.Business.Infrastructure.Auth;
 public class CurrentUser : IUser
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
-    private readonly IAuthToken _authenToken;
+    private readonly IIdentity _authenToken;
 
-    public CurrentUser(IHttpContextAccessor httpContextAccessor, IAuthToken authenToken)
+    public CurrentUser(IHttpContextAccessor httpContextAccessor, IIdentity authenToken)
     {
         this._httpContextAccessor = httpContextAccessor;
         this._authenToken = authenToken;

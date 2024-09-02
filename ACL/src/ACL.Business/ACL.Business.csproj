@@ -82,8 +82,5 @@
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\SharedKernel\src\SharedKernel.Main\SharedKernel.Main.csproj" />
 	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="Infrastructure\Jwt\" />
-	</ItemGroup>
 
 </Project>
