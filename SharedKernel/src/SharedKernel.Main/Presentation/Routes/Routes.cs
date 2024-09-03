@@ -9,64 +9,64 @@
         // Country
 
         // Service Method
-        public const string GetServiceMethodName = "service_method";
-        public const string GetServiceMethodUrl = "service_method";
-        public const string GetServiceMethodByIdName = "service_method_by_id";
-        public const string GetServiceMethodByIdUrl = "service_method/{Id}";
-        public const string CreateServiceMethodName = "create_service_method";
-        public const string CreateServiceMethodUrl = "service_method";
-        public const string DeleteServiceMethodName = "delete_service_method";
-        public const string DeleteServiceMethodUrl = "service_method/{Id}";
-        public const string UpdateServiceMethodName = "update_service_method";
-        public const string UpdateServiceMethodUrl = "service_method/{Id}";
+        //public const string GetServiceMethodName = "service_method";
+        //public const string GetServiceMethodUrl = "service_method";
+        //public const string GetServiceMethodByIdName = "service_method_by_id";
+        //public const string GetServiceMethodByIdUrl = "service_method/{Id}";
+        //public const string CreateServiceMethodName = "create_service_method";
+        //public const string CreateServiceMethodUrl = "service_method";
+        //public const string DeleteServiceMethodName = "delete_service_method";
+        //public const string DeleteServiceMethodUrl = "service_method/{Id}";
+        //public const string UpdateServiceMethodName = "update_service_method";
+        //public const string UpdateServiceMethodUrl = "service_method/{Id}";
 
         // Payer Payment Speed
-        public const string GetPayerPaymentSpeedName = "payer_payment_speed";
-        public const string GetPayerPaymentSpeedUrl = "payer_payment_speed";
-        public const string GetPayerPaymentSpeedByIdName = "payer_payment_speed_by_id";
-        public const string GetPayerPaymentSpeedByIdUrl = "payer_payment_speed/{Id}";
-        public const string CreatePayerPaymentSpeedName = "create_payer_payment_speed";
-        public const string CreatePayerPaymentSpeedUrl = "payer_payment_speed";
-        public const string DeletePayerPaymentSpeedName = "delete_payer_payment_speed";
-        public const string DeletePayerPaymentSpeedUrl = "payer_payment_speed/{Id}";
-        public const string UpdatePayerPaymentSpeedName = "update_payer_payment_speed";
-        public const string UpdatePayerPaymentSpeedUrl = "payer_payment_speed/{Id}";
+        //public const string GetPayerPaymentSpeedName = "payer_payment_speed";
+        //public const string GetPayerPaymentSpeedUrl = "payer_payment_speed";
+        //public const string GetPayerPaymentSpeedByIdName = "payer_payment_speed_by_id";
+        //public const string GetPayerPaymentSpeedByIdUrl = "payer_payment_speed/{Id}";
+        //public const string CreatePayerPaymentSpeedName = "create_payer_payment_speed";
+        //public const string CreatePayerPaymentSpeedUrl = "payer_payment_speed";
+        //public const string DeletePayerPaymentSpeedName = "delete_payer_payment_speed";
+        //public const string DeletePayerPaymentSpeedUrl = "payer_payment_speed/{Id}";
+        //public const string UpdatePayerPaymentSpeedName = "update_payer_payment_speed";
+        //public const string UpdatePayerPaymentSpeedUrl = "payer_payment_speed/{Id}";
 
         // Tax Rate
-        public const string GetTaxRateName = "tax_rate";
-        public const string GetTaxRateUrl = "tax_rate";
-        public const string GetTaxRateByIdName = "tax_rate_by_id";
-        public const string GetTaxRateByIdUrl = "tax_rate/{Id}";
-        public const string CreateTaxRateName = "create_tax_rate";
-        public const string CreateTaxRateUrl = "tax_rate";
-        public const string DeleteTaxRateName = "delete_tax_rate";
-        public const string DeleteTaxRateUrl = "tax_rate/{Id}";
-        public const string UpdateTaxRateName = "update_tax_rate";
-        public const string UpdateTaxRateUrl = "tax_rate/{Id}";
+        //public const string GetTaxRateName = "tax_rate";
+        //public const string GetTaxRateUrl = "tax_rate";
+        //public const string GetTaxRateByIdName = "tax_rate_by_id";
+        //public const string GetTaxRateByIdUrl = "tax_rate/{Id}";
+        //public const string CreateTaxRateName = "create_tax_rate";
+        //public const string CreateTaxRateUrl = "tax_rate";
+        //public const string DeleteTaxRateName = "delete_tax_rate";
+        //public const string DeleteTaxRateUrl = "tax_rate/{Id}";
+        //public const string UpdateTaxRateName = "update_tax_rate";
+        //public const string UpdateTaxRateUrl = "tax_rate/{Id}";
 
         // Currency Conversion Rate
-        public const string GetCurrencyConversionRateName = "currency_conversion_rate";
-        public const string GetCurrencyConversionRateUrl = "currency_conversion_rate";
-        public const string GetCurrencyConversionRateByIdName = "currency_conversion_rate_by_id";
-        public const string GetCurrencyConversionRateByIdUrl = "currency_conversion_rate/{Id}";
-        public const string CreateCurrencyConversionRateName = "create_currency_conversion_rate";
-        public const string CreateCurrencyConversionRateUrl = "currency_conversion_rate";
-        public const string DeleteCurrencyConversionRateName = "delete_currency_conversion_rate";
-        public const string DeleteCurrencyConversionRateUrl = "currency_conversion_rate/{Id}";
-        public const string UpdateCurrencyConversionRateName = "update_currency_conversion_rate";
-        public const string UpdateCurrencyConversionRateUrl = "currency_conversion_rate/{Id}";
+        //public const string GetCurrencyConversionRateName = "currency_conversion_rate";
+        //public const string GetCurrencyConversionRateUrl = "currency_conversion_rate";
+        //public const string GetCurrencyConversionRateByIdName = "currency_conversion_rate_by_id";
+        //public const string GetCurrencyConversionRateByIdUrl = "currency_conversion_rate/{Id}";
+        //public const string CreateCurrencyConversionRateName = "create_currency_conversion_rate";
+        //public const string CreateCurrencyConversionRateUrl = "currency_conversion_rate";
+        //public const string DeleteCurrencyConversionRateName = "delete_currency_conversion_rate";
+        //public const string DeleteCurrencyConversionRateUrl = "currency_conversion_rate/{Id}";
+        //public const string UpdateCurrencyConversionRateName = "update_currency_conversion_rate";
+        //public const string UpdateCurrencyConversionRateUrl = "currency_conversion_rate/{Id}";
 
         // Institution Fund
-        public const string GetInstitutionFundName = "institution_fund";
-        public const string GetInstitutionFundUrl = "institution_fund";
-        public const string GetInstitutionFundByIdName = "institution_fund_by_id";
-        public const string GetInstitutionFundByIdUrl = "institution_fund/{Id}";
-        public const string CreateInstitutionFundName = "create_institution_fund";
-        public const string CreateInstitutionFundUrl = "institution_fund";
-        public const string DeleteInstitutionFundName = "delete_institution_fund";
-        public const string DeleteInstitutionFundUrl = "institution_fund/{Id}";
-        public const string UpdateInstitutionFundName = "update_institution_fund";
-        public const string UpdateInstitutionFundUrl = "institution_fund/{Id}";
+        //public const string GetInstitutionFundName = "institution_fund";
+        //public const string GetInstitutionFundUrl = "institution_fund";
+        //public const string GetInstitutionFundByIdName = "institution_fund_by_id";
+        //public const string GetInstitutionFundByIdUrl = "institution_fund/{Id}";
+        //public const string CreateInstitutionFundName = "create_institution_fund";
+        //public const string CreateInstitutionFundUrl = "institution_fund";
+        //public const string DeleteInstitutionFundName = "delete_institution_fund";
+        //public const string DeleteInstitutionFundUrl = "institution_fund/{Id}";
+        //public const string UpdateInstitutionFundName = "update_institution_fund";
+        //public const string UpdateInstitutionFundUrl = "institution_fund/{Id}";
 
         // Business hour and weekend
         public const string GetBusinessHourAndWeekendName = "get_business_hour_and_weekend";
