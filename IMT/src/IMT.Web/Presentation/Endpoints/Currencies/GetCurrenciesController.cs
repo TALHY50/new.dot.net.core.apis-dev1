@@ -7,7 +7,7 @@ using SharedBusiness.Main.Common.Application.Features.Currencies;
 using Mapster;
 namespace Admin.Web.Presentation.Endpoints.Currencies
 {
-    public class GetCurrenciesQuery(ILogger<GetCurrenciesQuery> logger, ICurrentUser currentUser)
+    public class GetCurrenciesController(ILogger<GetCurrenciesController> logger, ICurrentUser currentUser)
     : CurrencyBase(logger, currentUser)
     {
         [Tags("Currencies")]
@@ -19,7 +19,7 @@ namespace Admin.Web.Presentation.Endpoints.Currencies
             _ = Task.Run(
                 () => _logger.LogInformation(
                     "get-Currencies: {Name} {@UserId} {@Request}",
-                    nameof(GetCurrenciesQuery),
+                    nameof(GetCurrenciesController),
                     CurrentUser.UserId,
                     query),
                 cancellationToken);
