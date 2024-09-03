@@ -1,13 +1,11 @@
 using Admin.Web.Presentation.Routes;
-using ErrorOr;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
-using SharedBusiness.Main.Admin.Application.Features.HolidaySettings;
-using SharedBusiness.Main.Common.Application.Features.Countries;
 using SharedBusiness.Main.Common.Contracts;
-using SharedBusiness.Main.Common.Domain.Entities;
 using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Contracts;
+
+using SharedBusiness.Main.Admin.Application.Features.HolidaySettings;
 
 namespace Admin.Web.Presentation.Endpoints.HolidaySetting;
 
@@ -29,7 +27,7 @@ public class GetHolidaySettings(ILogger<GetHolidaySettings> logger, ICurrentUser
             cancellationToken);
         var result = await Mediator.Send(query).ConfigureAwait(false);
         var response = result.Match(
-            countries => Ok(ToSuccess(countries.Select(country => country.Adapt<CountryDto>()).ToList())),
+            holidaySettings => Ok(ToSuccess(holidaySettings.Select(holidaySetting => holidaySetting.Adapt<HolidaySettingDto>()).ToList())),
             Problem
         );
         _ = Task.Run(
