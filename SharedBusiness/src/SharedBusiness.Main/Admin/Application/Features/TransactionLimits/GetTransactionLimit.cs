@@ -6,7 +6,7 @@ using SharedBusiness.Main.Common.Domain.Entities;
 using SharedKernel.Main.Contracts;
 
 
-namespace SharedBusiness.Main.Admin.Weblication.Features.TransactionLimits
+namespace SharedBusiness.Main.Admin.Application.Features.TransactionLimits
 {
     public record GetTransactionLimitQuery(int PageNumber = 0, int PageSize = 0) : IRequest<ErrorOr<List<TransactionLimit>>>;
 
@@ -55,7 +55,7 @@ namespace SharedBusiness.Main.Admin.Weblication.Features.TransactionLimits
 
             if (transactionLimits == null)
             {
-                return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), description: "Transaction Limit not found!");
+                return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), description:Language.GetMessage("Transaction Limit not found!"));
             }
 
             return transactionLimits;

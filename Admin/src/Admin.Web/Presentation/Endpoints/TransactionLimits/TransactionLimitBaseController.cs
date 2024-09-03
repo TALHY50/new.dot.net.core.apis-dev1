@@ -1,7 +1,7 @@
 using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Presentation;
 
-namespace Admin.App.Presentation.Endpoints.TransactionLimits;
+namespace Admin.Web.Presentation.Endpoints.TransactionLimits;
 
 public class TransactionLimitBaseController : ApiControllerBase
 {

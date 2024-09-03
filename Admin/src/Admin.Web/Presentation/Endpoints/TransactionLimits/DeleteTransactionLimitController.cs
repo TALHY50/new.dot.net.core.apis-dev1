@@ -1,11 +1,11 @@
 ﻿
-using Admin.App.Presentation.Routes;
+using Admin.Web.Presentation.Routes;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Admin.Application.Features.TransactionLimits;
 using SharedKernel.Main.Application.Interfaces.Services;
 
 
-namespace Admin.App.Presentation.Endpoints.TransactionLimits
+namespace Admin.Web.Presentation.Endpoints.TransactionLimits
 {
     public class DeleteTransactionLimitController(ILogger<DeleteTransactionLimitController> logger, ICurrentUser currentUser):TransactionLimitBaseController(logger, currentUser)
     {

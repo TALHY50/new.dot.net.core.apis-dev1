@@ -300,6 +300,9 @@
   <data name="Transaction type is not supported" xml:space="preserve">
     <value>Transaction type is not supported</value>
   </data>
+  <data name="Trasaction limit not found!" xml:space="preserve">
+    <value>লেনদেনের সীমা পাওয়া যায়নি!</value>
+  </data>
   <data name="User" xml:space="preserve">
     <value>ব্যবহারকারী</value>
   </data>
