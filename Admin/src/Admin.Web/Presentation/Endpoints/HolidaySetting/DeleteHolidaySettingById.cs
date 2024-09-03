@@ -1,10 +1,10 @@
-using Admin.App.Presentation.Routes;
+using Admin.Web.Presentation.Routes;
 using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Admin.Application.Features.HolidaySettings;
 using SharedKernel.Main.Application.Interfaces.Services;
 
-namespace Admin.App.Presentation.Endpoints.HolidaySetting;
+namespace Admin.Web.Presentation.Endpoints.HolidaySetting;
 
 public class DeleteHolidaySettingById(ILogger<DeleteHolidaySettingById> logger, ICurrentUser currentUser)
     : HolidaySettingBase(logger, currentUser)

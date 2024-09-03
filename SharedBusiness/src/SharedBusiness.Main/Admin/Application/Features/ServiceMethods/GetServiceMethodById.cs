@@ -5,7 +5,7 @@ using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedKernel.Main.Contracts;
 
-namespace SharedBusiness.Main.Admin.Weblication.Features.ServiceMethods
+namespace SharedBusiness.Main.Admin.Application.Features.ServiceMethods
 {
     public record GetServiceMethodByIdQuery(uint id) : IRequest<ErrorOr<ServiceMethod>>;
 

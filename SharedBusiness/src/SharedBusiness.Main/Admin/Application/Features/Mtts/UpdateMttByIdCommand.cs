@@ -7,7 +7,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SharedBusiness.Main.Admin.Weblication.Features.Mtts;
+using SharedBusiness.Main.Admin.Application.Features.Mtts;
 using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedKernel.Main.Application.Enums;

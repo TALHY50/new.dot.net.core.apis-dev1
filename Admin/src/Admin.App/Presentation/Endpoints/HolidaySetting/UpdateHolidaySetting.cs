@@ -1,4 +1,4 @@
-﻿using Admin.App.Presentation.Routes;
+﻿using Admin.Web.Presentation.Routes;
 using ErrorOr;
 using FluentValidation;
 using MediatR;
@@ -12,7 +12,7 @@ using SharedKernel.Main.Presentation;
 using SharedKernel.Main.Presentation.Routes;
 using Duplicates_HolidaySetting = SharedBusiness.Main.Common.Domain.Entities.HolidaySetting;
 
-namespace Admin.App.Presentation.Endpoints.HolidaySetting;
+namespace Admin.Web.Presentation.Endpoints.HolidaySetting;
 
 public class UpdateHolidaySettingController : ApiControllerBase
 {

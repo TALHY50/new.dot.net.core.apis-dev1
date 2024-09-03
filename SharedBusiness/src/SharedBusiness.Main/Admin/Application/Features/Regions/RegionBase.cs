@@ -1,4 +1,4 @@
-﻿namespace SharedBusiness.Main.Admin.Weblication.Features.Regions
+﻿namespace SharedBusiness.Main.Admin.Application.Features.Regions
 {
     public class RegionBase
     {

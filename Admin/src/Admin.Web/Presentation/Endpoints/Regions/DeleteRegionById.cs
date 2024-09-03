@@ -1,7 +1,7 @@
 ﻿using Admin.Web.Presentation.Routes;
 using Microsoft.AspNetCore.Mvc;
-using SharedBusiness.Main.Admin.Weblication.Features.Countries;
-using SharedBusiness.Main.Admin.Weblication.Features.Regions;
+using SharedBusiness.Main.Admin.Application.Features.Countries;
+using SharedBusiness.Main.Admin.Application.Features.Regions;
 using SharedKernel.Main.Application.Interfaces.Services;
 
 namespace Admin.Web.Presentation.Endpoints.Regions

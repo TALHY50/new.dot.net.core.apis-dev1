@@ -12,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SharedBusiness.Main.Admin.Weblication.Features.Currencies
+namespace SharedBusiness.Main.Admin.Application.Features.Currencies
 {
     public record GetCurrencyByIdQuery(uint id) : IRequest<ErrorOr<Currency>>;
 

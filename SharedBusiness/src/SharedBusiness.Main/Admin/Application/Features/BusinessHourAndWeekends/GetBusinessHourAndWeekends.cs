@@ -6,7 +6,7 @@ using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Contracts;
 
-namespace SharedBusiness.Main.Admin.Weblication.Features.BusinessHourAndWeekends;
+namespace SharedBusiness.Main.Admin.Application.Features.BusinessHourAndWeekends;
 
 public record GetBusinessHourAndWeekendsQuery(int PageNumber = 0, int PageSize = 0) : IRequest<ErrorOr<List<BusinessHoursAndWeekend>>>;
 

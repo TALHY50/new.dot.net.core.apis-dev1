@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.IMT.Contracts.Contracts.Responses;
 using SharedKernel.Main.Application.Interfaces.Services;
 
-using SharedBusiness.Main.Admin.Weblication.Features.BusinessHourAndWeekends;
+using SharedBusiness.Main.Admin.Application.Features.BusinessHourAndWeekends;
 using SharedBusiness.Main.Common.Domain.Entities;
 
 namespace Admin.Web.Presentation.Endpoints.BusinessHourAndWeekend;

@@ -1,4 +1,4 @@
-﻿using Admin.App.Presentation.Routes;
+﻿using Admin.Web.Presentation.Routes;
 using Ardalis.SharedKernel;
 using Ardalis.Specification.EntityFrameworkCore;
 using MediatR;
@@ -13,7 +13,7 @@ using SharedKernel.Main.Presentation.Routes;
 using Duplicates_HolidaySetting = SharedBusiness.Main.Common.Domain.Entities.HolidaySetting;
 
 
-namespace Admin.App.Presentation.Endpoints.HolidaySetting;
+namespace Admin.Web.Presentation.Endpoints.HolidaySetting;
 
 public class GetHolidaySettingsController : ApiControllerBase
 {

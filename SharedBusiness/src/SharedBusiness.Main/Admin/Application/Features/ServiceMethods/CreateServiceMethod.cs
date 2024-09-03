@@ -9,7 +9,7 @@ using SharedKernel.Main.Application.Enums;
 using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Application.Rules;
 
-namespace SharedBusiness.Main.Admin.Weblication.Features.ServiceMethods
+namespace SharedBusiness.Main.Admin.Application.Features.ServiceMethods
 {
     public record CreateServiceMethodCommand(
         byte method,

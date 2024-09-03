@@ -1,7 +1,7 @@
 using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Presentation;
 
-namespace Admin.App.Presentation.Endpoints.BusinessHourAndWeekend;
+namespace Admin.Web.Presentation.Endpoints.BusinessHourAndWeekend;
 
 public class HolidaySettingBase : ApiControllerBase
 {

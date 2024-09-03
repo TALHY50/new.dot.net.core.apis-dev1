@@ -9,7 +9,7 @@ using SharedBusiness.Main.Common.Infrastructure.Persistence.Context;
 using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Application.Rules;
 
-namespace SharedBusiness.Main.Admin.Weblication.Features.TransactionTypes
+namespace SharedBusiness.Main.Admin.Application.Features.TransactionTypes
 {
     public record CreateTransactionTypeCommand(
         string? Name,
