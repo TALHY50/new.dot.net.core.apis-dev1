@@ -1,7 +1,7 @@
 using ErrorOr;
 using FluentValidation;
 using MediatR;
-using SharedBusiness.Main.Common.Application.Features.HolidaySetting;
+using baseHoliday = SharedBusiness.Main.Common.Application.Features.HolidaySetting;
 using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedKernel.Main.Contracts;
@@ -28,7 +28,7 @@ public class GetHolidaySettingsQueryValidator : AbstractValidator<GetHolidaySett
 }
 
 public class GetHolidaySettingsQueryHandler
-    : HolidaySettingBase, IRequestHandler<GetHolidaySettingsQuery, ErrorOr<List<HolidaySetting>>>
+    : baseHoliday.HolidaySettingBase, IRequestHandler<GetHolidaySettingsQuery, ErrorOr<List<HolidaySetting>>>
 {
     private readonly IHolidaySettingRepository _repository;
 

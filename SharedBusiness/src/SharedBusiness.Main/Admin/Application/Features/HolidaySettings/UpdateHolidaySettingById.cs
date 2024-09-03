@@ -20,9 +20,9 @@ public class UpdateHolidaySettingByIdCommandValidator : AbstractValidator<Update
     {
         RuleFor(x => x.id).NotEmpty().WithErrorCode(ApplicationStatusCodes.API_ERROR_BASIC_VALIDATION_FAILED.ToString());
         RuleFor(r => r.date).NotEmpty().WithErrorCode(ApplicationStatusCodes.API_ERROR_BASIC_VALIDATION_FAILED.ToString());
-        RuleFor(r => r.type).NotEmpty().IsInEnum();
+        RuleFor(r => r.type).IsInEnum();
         RuleFor(r => r.gmt).NotEmpty().MaximumLength(5).MinimumLength(1).WithErrorCode(ApplicationStatusCodes.API_ERROR_BASIC_VALIDATION_FAILED.ToString());
-        RuleFor(x => x.status).NotEmpty().IsInEnum();
+        RuleFor(x => x.status).IsInEnum();
     }
 }
 
