@@ -4,7 +4,6 @@ using ACL.Business.Application.Interfaces.Services;
 using ACL.Business.Infrastructure.Persistence.Context;
 using ACL.Business.Infrastructure.Persistence.Repositories;
 using ACL.Business.Infrastructure.Security;
-using Admin.Web.Application.Features.Payers;
 using Admin.Web.Application.Features.Providers;
 using Admin.Web.Infrastructure.Persistence;
 
