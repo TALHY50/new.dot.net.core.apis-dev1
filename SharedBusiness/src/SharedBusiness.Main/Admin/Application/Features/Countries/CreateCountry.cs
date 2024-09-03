@@ -14,6 +14,7 @@ using SharedKernel.Main.Infrastructure.Attributes;
 
 namespace SharedBusiness.Main.Admin.Application.Features.Countries
 {
+    [Authorize]
     public record CreateCountryCommand(
         string? name,
         string? official_state_name,

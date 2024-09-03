@@ -14,6 +14,7 @@ public static class SharedKernelPresentationDependencyInjection
 {
     public static IServiceCollection AddSharedKernelPresentation(this IServiceCollection services)
     {
+        services.AddHttpContextAccessor();
         services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(
             options => options.SerializerOptions.Converters.Insert( 0, new ErrorObjectConverter() ) );
         services.AddSingleton<ProblemDetailsFactory, OrgProblemDetailsFactory>();

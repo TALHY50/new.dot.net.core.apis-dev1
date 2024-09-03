@@ -9,7 +9,7 @@ public static class IMTInfrastructureDependencyInjection
     public static IServiceCollection AddIMTInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddIMTPersistence(configuration);
-        services.AddSingleton<ICurrentUser, CurrentUser>();
+        services.AddScoped<ICurrentUser, CurrentUser>();
 
         return services;
     }

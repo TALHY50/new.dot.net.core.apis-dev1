@@ -1,4 +1,5 @@
 using ACL.Business.Application.Interfaces.Services;
+using Admin.Web.Presentation.Endpoints.Country;
 using Admin.Web.Presentation.Routes;
 using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
@@ -7,8 +8,7 @@ using SharedBusiness.Main.Common.Contracts;
 using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Infrastructure.Attributes;
 
-namespace Admin.Web.Presentation.Endpoints.Country;
-
+namespace Admin.App.Presentation.Endpoints.Country;
 public class CreateCountry(ILogger<CreateCountry> logger, ICurrentUser currentUser)
     : CountryBase(logger, currentUser)
 {
@@ -17,7 +17,7 @@ public class CreateCountry(ILogger<CreateCountry> logger, ICurrentUser currentUs
     [HttpPost(CountryRoutes.CreateCountryTemplate, Name = CountryRoutes.CreateCountryName)]
   
     public async Task<IActionResult> Create(CreateCountryCommand command, CancellationToken cancellationToken)
-    { 
+    {
         _ = Task.Run(
             () => _logger.LogInformation(
                 "create-country-request: {Name} {@UserId} {@Request}",
