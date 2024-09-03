@@ -28,7 +28,7 @@ using ACL.Business.Domain.Services;
 using Microsoft.AspNetCore.Http;
 using ACL.Business.Infrastructure.Auth.Auth;
 
-namespace Admin.Web.Application.Features.Mtts
+namespace SharedBusiness.Main.Admin.Application.Features.Mtts
 {
 
     [Authorize]
@@ -68,7 +68,7 @@ namespace Admin.Web.Application.Features.Mtts
     }
 
     [ApiExplorerSettings(IgnoreApi = true)]
-    public class CreateMttCommandHandler : MttBase, IRequestHandler<CreateMttCommand, ErrorOr<Mtt>>
+    public class CreateMttCommandHandler :  IRequestHandler<CreateMttCommand, ErrorOr<Mtt>>
     {
         private readonly ICurrentUser _user;
         private readonly IMTTRepository _repository;
@@ -86,7 +86,7 @@ namespace Admin.Web.Application.Features.Mtts
             ApplicationDbContext dbContext,
             ITransactionHandler transactionHandler,
             IMTTRepository repository,
-            ICurrentUser user, ACL.Business.Infrastructure.Persistence.Context.ApplicationDbContext otherDbContext, ICorridorRepository corridorRepository, IPayerRepository payerRepository, ICurrencyRepository currencyRepository, ICompanyService companyRepository, IHttpContextAccessor httpContextAccessor) : base(logger, user)
+            ICurrentUser user, ACL.Business.Infrastructure.Persistence.Context.ApplicationDbContext otherDbContext, ICorridorRepository corridorRepository, IPayerRepository payerRepository, ICurrencyRepository currencyRepository, ICompanyService companyRepository, IHttpContextAccessor httpContextAccessor) 
         {
             _user = user ?? throw new ArgumentNullException(nameof(user));
             var _logger = logger ?? throw new ArgumentNullException(nameof(logger));
