@@ -1,17 +1,17 @@
 ﻿using ErrorOr;
 using FluentValidation;
 using MediatR;
+using SharedBusiness.Main.Common.Application.Features.Countries;
 using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedKernel.Main.Contracts;
 
-namespace SharedBusiness.Main.Common.Application.Features.TransactionTypes
+namespace SharedBusiness.Main.Common.Application.Features.Banks
 {
-
-    public record GetTransactionTypesQuery(int PageNumber = 0, int PageSize = 0) : IRequest<ErrorOr<List<TransactionType>>>;
-    public class GetTransactionTypesQueryValidator : AbstractValidator<GetTransactionTypesQuery>
+    public record GetBanksQuery(int PageNumber = 0, int PageSize = 0) : IRequest<ErrorOr<List<Bank>>>;
+    public class GetBanksQueryValidator : AbstractValidator<GetBanksQuery>
     {
-        public GetTransactionTypesQueryValidator()
+        public GetBanksQueryValidator()
         {
             RuleFor(x => x.PageNumber)
                 .GreaterThanOrEqualTo(1)
@@ -26,37 +26,37 @@ namespace SharedBusiness.Main.Common.Application.Features.TransactionTypes
         }
     }
 
-    public class GetTransactionTypesQueryHandler
-        : TransactionTypeBase, IRequestHandler<GetTransactionTypesQuery, ErrorOr<List<TransactionType>>>
+    public class GetBanksQueryHandler
+        : BankBase, IRequestHandler<GetBanksQuery, ErrorOr<List<Bank>>>
     {
-        private readonly ITransactionTypeRepository _repository;
+        private readonly IBankRepository _repository;
 
-        public GetTransactionTypesQueryHandler(ITransactionTypeRepository repository)
+        public GetBanksQueryHandler(IBankRepository repository)
         {
             _repository = repository;
         }
 
-        public async Task<ErrorOr<List<TransactionType>>> Handle(GetTransactionTypesQuery request, CancellationToken cancellationToken)
+        public async Task<ErrorOr<List<Bank>>> Handle(GetBanksQuery request, CancellationToken cancellationToken)
         {
-            List<TransactionType>? transactionTypes;
+            List<Bank>? banks;
 
             if (request.PageNumber > 0 && request.PageSize > 0)
             {
-                transactionTypes = await _repository.ListPaginatedAsync(request.PageNumber, request.PageSize, cancellationToken);
+                banks = await _repository.ListPaginatedAsync(request.PageNumber, request.PageSize, cancellationToken);
 
             }
             else
             {
-                transactionTypes = await _repository.ListAsync(cancellationToken);
+                banks = await _repository.ListAsync(cancellationToken);
 
             }
 
-            if (transactionTypes == null)
+            if (banks == null)
             {
                 return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), Language.GetMessage("Record not found"));
             }
 
-            return transactionTypes;
+            return banks;
         }
     }
 }
