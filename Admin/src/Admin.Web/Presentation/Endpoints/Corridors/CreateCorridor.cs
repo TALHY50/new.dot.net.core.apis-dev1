@@ -3,10 +3,11 @@ using SharedKernel.Main.Application.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Admin.Application.Features.Corridors;
 using SharedBusiness.Main.IMT.Contracts.Contracts.Responses;
+using SharedBusiness.Main.Common.Contracts.Responses;
 namespace Admin.Web.Presentation.Endpoints.Corridors
 {
     public class CreateCorridor(ILogger<CreateCorridor> logger, ICurrentUser currentUser)
-    : CorridorBase(logger, currentUser)
+    : CorridorBaseController(logger, currentUser)
     {
         [Tags("Corridors")]
         //[Authorize(Policy = "HasPermission")]
