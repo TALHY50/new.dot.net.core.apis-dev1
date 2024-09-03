@@ -1,6 +1,6 @@
 ﻿using Admin.Web.Presentation.Routes;
 using Microsoft.AspNetCore.Mvc;
-using SharedBusiness.Main.Admin.Weblication.Features.ServiceMethods;
+using SharedBusiness.Main.Admin.Application.Features.ServiceMethods;
 using SharedKernel.Main.Application.Interfaces.Services;
 
 namespace Admin.Web.Presentation.Endpoints.ServiceMethods

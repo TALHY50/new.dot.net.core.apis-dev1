@@ -5,7 +5,7 @@ using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedKernel.Main.Contracts;
 
-namespace SharedBusiness.Main.Admin.Weblication.Features.Corridors
+namespace SharedBusiness.Main.Admin.Application.Features.Corridors
 {
     public record GetCorridorsQuery(int PageNumber = 0, int PageSize = 0) : IRequest<ErrorOr<List<Corridor>>>;
 

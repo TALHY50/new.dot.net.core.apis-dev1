@@ -9,7 +9,7 @@ using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Application.Rules;
 using SharedKernel.Main.Contracts;
 
-namespace SharedBusiness.Main.Admin.Weblication.Features.BusinessHourAndWeekends;
+namespace SharedBusiness.Main.Admin.Application.Features.BusinessHourAndWeekends;
 
 public record UpdateBusinessHoursAndWeekendByIdCommand(
     uint id, byte HourType, uint? CountryId,

@@ -8,7 +8,7 @@ using SharedBusiness.Main.Common.Infrastructure.Persistence.Context;
 using SharedKernel.Main.Application.Enums;
 using SharedKernel.Main.Application.Interfaces.Services;
 
-namespace SharedBusiness.Main.Admin.Weblication.Features.Corridors
+namespace SharedBusiness.Main.Admin.Application.Features.Corridors
 {
     public record CreateCorridorCommand(
         uint? SourceCountryId,

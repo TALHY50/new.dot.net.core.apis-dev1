@@ -7,7 +7,7 @@ using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 
 
-namespace SharedBusiness.Main.Admin.Weblication.Features.TransactionLimits
+namespace SharedBusiness.Main.Admin.Application.Features.TransactionLimits
 {
     public record FindTransactionLimitByIdQuery(uint id) : IRequest<ErrorOr<TransactionLimit>>;
 
