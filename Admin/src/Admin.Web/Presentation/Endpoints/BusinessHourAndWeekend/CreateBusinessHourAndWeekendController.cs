@@ -8,8 +8,8 @@ using SharedBusiness.Main.Common.Domain.Entities;
 
 namespace Admin.Web.Presentation.Endpoints.BusinessHourAndWeekend;
 
-public class CreateBusinessHourAndWeekend(ILogger<CreateBusinessHourAndWeekend> logger, ICurrentUser currentUser)
-    : BusinessHourAndWeekendBase(logger, currentUser)
+public class CreateBusinessHourAndWeekendController(ILogger<CreateBusinessHourAndWeekendController> logger, ICurrentUser currentUser)
+    : BusinessHourAndWeekendBaseController(logger, currentUser)
 {
     [Tags("BusinessHourAndWeekends")]
     //[Authorize(Policy = "HasPermission")]

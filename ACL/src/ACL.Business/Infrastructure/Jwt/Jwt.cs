@@ -154,6 +154,7 @@ namespace ACL.Business.Infrastructure.Jwt
             var data = JsonConvert.SerializeObject(new PayloadData(hash));
             var jwtPayload = new JwtPayload
             {
+                { "nameid", nameIdentifier},
                 { "data", data },
                 { "iat", DateTimeOffset.UtcNow.ToUnixTimeSeconds() },
                 { "exp", DateTimeOffset.UtcNow.AddSeconds(seconds).ToUnixTimeSeconds() }
@@ -189,7 +190,21 @@ namespace ACL.Business.Infrastructure.Jwt
                 throw new SecurityTokenException("Hash mismatched");
             return hash == expectedHash; 
         }
-        
+
+        public string GetNameId(string token)
+        {
+            var handler = new JwtSecurityTokenHandler();
+            if (!handler.CanReadToken(token))
+            {
+                throw new ArgumentException("Invalid JWT token.");
+            }
+
+            var jwtTokenObj = handler.ReadJwtToken(token);
+            var nameId = jwtTokenObj.Claims.FirstOrDefault(c => c.Type == "nameid")?.Value;
+
+            return nameId;
+        }
+
         private string ComputeSha256Hash(string payload)
         {
             using (var sha256 = SHA256.Create())

@@ -16,7 +16,7 @@ using SharedKernel.Main.Contracts;
 using SharedKernel.Main.Presentation;
 using SharedKernel.Main.Presentation.Routes;
 
-namespace Admin.Web.Application.Features.Mtts
+namespace Admin.Web.Presentation.Endpoints.Mtts
 {
     public class EndpointGetMtts(ILogger<EndpointGetMtts> logger, ICurrentUser currentUser)
       : MttBase(logger, currentUser)

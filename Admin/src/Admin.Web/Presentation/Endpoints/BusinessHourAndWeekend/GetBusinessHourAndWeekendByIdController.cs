@@ -9,8 +9,8 @@ using SharedKernel.Main.Application.Interfaces.Services;
 
 namespace Admin.Web.Presentation.Endpoints.BusinessHourAndWeekend;
 
-public class GetBusinessHourAndWeekendById(ILogger<GetBusinessHourAndWeekendById> logger, ICurrentUser currentUser)
-    : BusinessHourAndWeekendBase(logger, currentUser)
+public class GetBusinessHourAndWeekendByIdController(ILogger<GetBusinessHourAndWeekendByIdController> logger, ICurrentUser currentUser)
+    : BusinessHourAndWeekendBaseController(logger, currentUser)
 {
     [Tags("BusinessHourAndWeekends")]
     //[Authorize(Policy = "HasPermission")]

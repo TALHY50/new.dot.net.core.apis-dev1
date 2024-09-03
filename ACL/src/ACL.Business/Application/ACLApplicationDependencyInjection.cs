@@ -45,7 +45,7 @@ public static class ACLApplicationDependencyInjection
             });
         }
         services.AddSingleton<IIdentity, Jwt>();
-        services.AddSingleton<ICurrentUser, CurrentUser>();
+        services.AddTransient<ICurrentUser, CurrentUser>();
         services.Configure<ApiBehaviorOptions>(o =>
         {
             o.InvalidModelStateResponseFactory = actionContext =>
