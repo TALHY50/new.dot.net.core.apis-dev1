@@ -64,7 +64,7 @@ namespace ACL.Business.Domain.Services
 
         }
         /// <inheritdoc/>
-        public ScopeResponse Edit(ulong id, AclStateRequest request)
+        public ScopeResponse Edit(uint id, AclStateRequest request)
         {
             var aclState = Find(id);
             if (aclState == null)
@@ -84,7 +84,7 @@ namespace ACL.Business.Domain.Services
 
         }
         /// <inheritdoc/>
-        public ScopeResponse FindById(ulong id)
+        public ScopeResponse FindById(uint id)
         {
 
             var aclState = All().Where(x => x.Id == id)
@@ -106,7 +106,7 @@ namespace ACL.Business.Domain.Services
 
         }
         /// <inheritdoc/>
-        public ScopeResponse DeleteById(ulong id)
+        public ScopeResponse DeleteById(uint id)
         {
             this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND;
             var aclState = Find(id);

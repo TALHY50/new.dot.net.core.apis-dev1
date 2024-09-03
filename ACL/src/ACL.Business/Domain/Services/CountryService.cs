@@ -63,7 +63,7 @@ namespace ACL.Business.Domain.Services
 
         }
         /// <inheritdoc/>
-        public ScopeResponse Edit(ulong id, AclCountryRequest request)
+        public ScopeResponse Edit(uint id, AclCountryRequest request)
         {
             var aclCountry = Find(id);
             if (aclCountry == null)
@@ -87,7 +87,7 @@ namespace ACL.Business.Domain.Services
 
         }
         /// <inheritdoc/>
-        public ScopeResponse FindById(ulong id)
+        public ScopeResponse FindById(uint id)
         {
             try
             {
@@ -110,7 +110,7 @@ namespace ACL.Business.Domain.Services
 
         }
         /// <inheritdoc/>
-        public ScopeResponse DeleteById(ulong id)
+        public ScopeResponse DeleteById(uint id)
         {
             var aclCountry = Delete(id);
             if (aclCountry != null)

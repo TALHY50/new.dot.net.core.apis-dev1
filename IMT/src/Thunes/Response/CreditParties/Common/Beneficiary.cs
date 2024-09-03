@@ -15,7 +15,7 @@ namespace Thunes.Response.CreditParties.Common
         public string id_country_iso_code { get; set; }
         public DateOnly? id_delivery_date { get; set; }
         public DateOnly? id_expiration_date { get; set; }
-        public ulong id_number { get; set; }
+        public uint id_number { get; set; }
         public string id_type { get; set; }
         public string lastname { get; set; }
         public string lastname2 { get; set; }

@@ -12,11 +12,11 @@ namespace ACL.Business.Domain.Services
         /// <inheritdoc/>
         ScopeResponse AddUserGroup(AclUserGroupRequest userGroupRequest);
         /// <inheritdoc/>
-        ScopeResponse UpdateUserGroup(ulong id, AclUserGroupRequest userGroup);
+        ScopeResponse UpdateUserGroup(uint id, AclUserGroupRequest userGroup);
         /// <inheritdoc/>
-        ScopeResponse FindById(ulong id);
+        ScopeResponse FindById(uint id);
         /// <inheritdoc/>
-        ScopeResponse Delete(ulong id);
+        ScopeResponse Delete(uint id);
         /// <inheritdoc/>
         Usergroup PrepareInputData(AclUserGroupRequest userGroupRequest, Usergroup? aclUserGroup = null);
     }

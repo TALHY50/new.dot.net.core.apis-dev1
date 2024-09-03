@@ -14,15 +14,15 @@ namespace ACL.Business.Domain.Services
         /// <inheritdoc/>
         ScopeResponse EditAclPage(AclPageRequest aclPageRequest);
         /// <inheritdoc/>
-        ScopeResponse FindById(ulong id);
+        ScopeResponse FindById(uint id);
         /// <inheritdoc/>
-        ScopeResponse DeleteById(ulong id);
+        ScopeResponse DeleteById(uint id);
         /// <inheritdoc/>
         ScopeResponse PageRouteCreate(AclPageRouteRequest aclPageRouteRequest);
         /// <inheritdoc/>
-        ScopeResponse PageRouteEdit(ulong id, AclPageRouteRequest aclPageRouteRequest);
+        ScopeResponse PageRouteEdit(uint id, AclPageRouteRequest aclPageRouteRequest);
         /// <inheritdoc/>
-        ScopeResponse PageRouteDelete(ulong id);
+        ScopeResponse PageRouteDelete(uint id);
         /// <inheritdoc/>
         PageRoute PreparePageRouteInputData(AclPageRouteRequest aclPageRouteRequest, PageRoute? aclPageRoute = null);
 

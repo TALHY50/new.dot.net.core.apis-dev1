@@ -12,11 +12,11 @@ namespace ACL.Business.Domain.Services
         /// <inheritdoc/>
         Task<ScopeResponse> AddUser(AclUserRequest request);
         /// <inheritdoc/>
-        Task<ScopeResponse> Edit(ulong id, AclUserRequest request);
+        Task<ScopeResponse> Edit(uint id, AclUserRequest request);
         /// <inheritdoc/>
-        ScopeResponse FindById(ulong id);
+        ScopeResponse FindById(uint id);
         /// <inheritdoc/>
-        ScopeResponse DeleteById(ulong id);
+        ScopeResponse DeleteById(uint id);
         /// <inheritdoc/>
         public User PrepareInputData(AclUserRequest request, User? aclUser = null);
     }

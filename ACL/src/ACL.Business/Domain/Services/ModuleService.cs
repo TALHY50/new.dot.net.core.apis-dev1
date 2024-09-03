@@ -96,7 +96,7 @@ namespace ACL.Business.Domain.Services
                     this.ScopeResponse.Message = this.MessageResponse.editMessage;
                     this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
 
-                    List<ulong>? userIds = this._userRepository.GetUserIdByChangePermission(request.Id);
+                    List<uint>? userIds = this._userRepository.GetUserIdByChangePermission(request.Id);
                     if (userIds != null)
                     {
                         this._userRepository.UpdateUserPermissionVersion(userIds);
@@ -117,7 +117,7 @@ namespace ACL.Business.Domain.Services
             return this.ScopeResponse;
         }
         /// <inheritdoc/>
-        public ScopeResponse FindById(ulong id)
+        public ScopeResponse FindById(uint id)
         {
             try
             {
@@ -140,7 +140,7 @@ namespace ACL.Business.Domain.Services
             return this.ScopeResponse;
         }
         /// <inheritdoc/>
-        public ScopeResponse DeleteModule(ulong id)
+        public ScopeResponse DeleteModule(uint id)
         {
 
             var aclModule = Find(id);
@@ -150,7 +150,7 @@ namespace ACL.Business.Domain.Services
                 this.ScopeResponse.Data = Delete(aclModule);
                 this.ScopeResponse.Message = this.MessageResponse.deleteMessage;
                 this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
-                List<ulong>? userIds = this._userRepository.GetUserIdByChangePermission(id);
+                List<uint>? userIds = this._userRepository.GetUserIdByChangePermission(id);
                 if (userIds != null)
                 {
                     this._userRepository.UpdateUserPermissionVersion(userIds);

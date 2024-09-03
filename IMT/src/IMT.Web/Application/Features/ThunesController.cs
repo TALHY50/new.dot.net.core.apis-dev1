@@ -17,7 +17,7 @@ namespace IMT.App.Application.Features
 
         [Tags("Thunes.CreditParties")]
         [HttpPost(ThunesUrl.CreditPartiesInformationUrl)]
-        public object GetInformationAdapter(ulong id, string transaction_type, InformationRequest request)
+        public object GetInformationAdapter(uint id, string transaction_type, InformationRequest request)
         {
             try
             {
@@ -31,7 +31,7 @@ namespace IMT.App.Application.Features
 
         [Tags("Thunes.CreditParties")]
         [HttpPost(ThunesUrl.CreditPartyVerificationUrl)]
-        public object CreditPartyVerification(ulong id, string transaction_type, InformationRequest request)
+        public object CreditPartyVerification(uint id, string transaction_type, InformationRequest request)
         {
             try
             {
@@ -66,7 +66,7 @@ namespace IMT.App.Application.Features
 
         //[Tags("Thunes.Transaction")]
         //[HttpPost(ThunesUrl.CreateTransactionUrl)]
-        //public Object TransactionPost(ulong id, MoneyTransferDTO request)
+        //public Object TransactionPost(uint id, MoneyTransferDTO request)
         //{
         //    try
         //    {
@@ -258,7 +258,7 @@ namespace IMT.App.Application.Features
 
         [Tags("Thunes.Account")]
         [HttpGet(ThunesUrl.BalanceMovementUrl)]
-        public Object GetBalanceMovement(ulong id, DateTime from_date, DateTime to_date)
+        public Object GetBalanceMovement(uint id, DateTime from_date, DateTime to_date)
         {
             try
             {
@@ -286,7 +286,7 @@ namespace IMT.App.Application.Features
 
         [Tags("Thunes.Account")]
         [HttpGet(ThunesUrl.GetReportDetailUrl)]
-        public Object GetReportDetail(ulong id)
+        public Object GetReportDetail(uint id)
         {
             try
             {
@@ -300,7 +300,7 @@ namespace IMT.App.Application.Features
 
         [Tags("Thunes.Account")]
         [HttpGet(ThunesUrl.ListReportFilesAvailableUrl)]
-        public Object GetListReportsAvailable(ulong id)
+        public Object GetListReportsAvailable(uint id)
         {
             try
             {
@@ -314,7 +314,7 @@ namespace IMT.App.Application.Features
 
         [Tags("Thunes.Account")]
         [HttpGet(ThunesUrl.ReportFileDetailUrl)]
-        public Object GetListReportsAvailable(ulong report_id, ulong id)
+        public Object GetListReportsAvailable(uint report_id, uint id)
         {
             try
             {
@@ -356,7 +356,7 @@ namespace IMT.App.Application.Features
 
         [Tags("Thunes.Discovery")]
         [HttpGet(ThunesUrl.GetPayerDetailUrl)]
-        public Object PayerResponseDetails(ulong id)
+        public Object PayerResponseDetails(uint id)
         {
             try
             {
@@ -370,7 +370,7 @@ namespace IMT.App.Application.Features
 
         [Tags("Thunes.Discovery")]
         [HttpGet(ThunesUrl.RetrieveRatesForAGivenPayerUrl)]
-        public Object PayerRateResponse(ulong id)
+        public Object PayerRateResponse(uint id)
         {
             try
             {

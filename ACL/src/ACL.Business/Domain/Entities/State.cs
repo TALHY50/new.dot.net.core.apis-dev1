@@ -2,19 +2,19 @@
 
 namespace ACL.Business.Domain.Entities;
 
-public partial class State : EntityBase<ulong>, IAggregateRoot
+public partial class State : EntityBase<uint>, IAggregateRoot
 {
-    public ulong CountryId { get; set; }
+    public uint CountryId { get; set; }
     public string Name { get; set; }
     public string Description { get; set; } = null!;
 
     public byte Status { get; set; }
 
-    public ulong Sequence { get; set; }
+    public uint Sequence { get; set; }
 
-    public ulong CreatedById { get; set; }
+    public uint CreatedById { get; set; }
 
-    public ulong UpdatedById { get; set; }
+    public uint UpdatedById { get; set; }
 
     public DateTime CreatedAt { get; set; }
 

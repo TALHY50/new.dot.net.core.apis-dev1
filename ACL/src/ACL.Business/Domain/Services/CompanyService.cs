@@ -142,8 +142,8 @@ namespace ACL.Business.Domain.Services
                         UpdatedAt = DateTime.UtcNow
                     };
                     var createdUserGroupRole = this._userGroupRoleRepository.Add(userGroupRole);
-                    List<Page> aclPagesByModuleId = await this._dbContext.AclPages.Where(x => x.ModuleId == ulong.Parse(this._config["S_ADMIN_DEFAULT_MODULE_ID"] ?? "1003")).ToListAsync();
-                    List<ulong> pageIds = aclPagesByModuleId.Select(page => page.Id).ToList();
+                    List<Page> aclPagesByModuleId = await this._dbContext.AclPages.Where(x => x.ModuleId == uint.Parse(this._config["S_ADMIN_DEFAULT_MODULE_ID"] ?? "1003")).ToListAsync();
+                    List<uint> pageIds = aclPagesByModuleId.Select(page => page.Id).ToList();
                     List<RolePage> aclRolePages = pageIds.Select(pageId => new RolePage
                     {
                         RoleId = role.Id,
@@ -166,7 +166,7 @@ namespace ACL.Business.Domain.Services
             return this.ScopeResponse;
         }
         /// <inheritdoc/>
-        public ScopeResponse EditAclCompany(ulong id, AclCompanyEditRequest request)
+        public ScopeResponse EditAclCompany(uint id, AclCompanyEditRequest request)
         {
             try
             {
@@ -191,7 +191,7 @@ namespace ACL.Business.Domain.Services
             return this.ScopeResponse;
         }
         /// <inheritdoc/>
-        public ScopeResponse FindById(ulong id)
+        public ScopeResponse FindById(uint id)
         {
             try
             {
@@ -210,7 +210,7 @@ namespace ACL.Business.Domain.Services
             return this.ScopeResponse;
         }
         /// <inheritdoc/>
-        public ScopeResponse DeleteCompany(ulong id)
+        public ScopeResponse DeleteCompany(uint id)
         {
 
             Company? aclCompany = Find(id);

@@ -43,14 +43,14 @@ namespace ACL.Web.Application.Features.Pages
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpDelete(AclRoutesUrl.AclPageRouteUrl.Destroy, Name = AclRoutesName.AclPageNamesRouteNames.Destroy)]
-        public ScopeResponse Destroy(ulong id)
+        public ScopeResponse Destroy(uint id)
         {
             return this._pageService.DeleteById(id);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclPageRouteUrl.View, Name = AclRoutesName.AclPageNamesRouteNames.View)]
-        public ScopeResponse View(ulong id)
+        public ScopeResponse View(uint id)
         {
             return this._pageService.FindById(id);
         }
@@ -64,14 +64,14 @@ namespace ACL.Web.Application.Features.Pages
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPut(AclRoutesUrl.AclPageRouteRouteUrl.Edit, Name = AclRoutesName.AclPageRouteRouteNames.Edit)]
-        public ScopeResponse EditPageRoute(ulong id, AclPageRouteRequest request)
+        public ScopeResponse EditPageRoute(uint id, AclPageRouteRequest request)
         {
             return this._pageService.PageRouteEdit(id, request);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpDelete(AclRoutesUrl.AclPageRouteRouteUrl.Destroy, Name = AclRoutesName.AclPageRouteRouteNames.Destroy)]
-        public ScopeResponse DeletePageRoute(ulong id)
+        public ScopeResponse DeletePageRoute(uint id)
         {
             return this._pageService.PageRouteDelete(id);
         }

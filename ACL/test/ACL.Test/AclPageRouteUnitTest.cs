@@ -89,13 +89,13 @@ namespace ACL.TEST
             var faker = new Faker();
             return new AclPageRouteRequest
             {
-                PageId = (ulong)faker.Random.Number(3001, 3004),
+                PageId = (uint)faker.Random.Number(3001, 3004),
                 RouteName = faker.Random.String2(10, 50),
                 RouteUrl = faker.Random.String2(10, 50),
             };
         }
 
-        private ulong GetRandomID()
+        private uint GetRandomID()
         {
 
             return DataCollectors.dbContext.AclPageRoutes.Max(x => x.Id);
