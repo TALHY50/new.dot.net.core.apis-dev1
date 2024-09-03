@@ -38,6 +38,7 @@ public partial class ApiControllerBase : ControllerBase
     
     protected ActionResult Problem(List<ErrorOr.Error> errors)
     {
+        
         if (errors.Count is 0)
         {
             return Problem();
@@ -52,7 +53,7 @@ public partial class ApiControllerBase : ControllerBase
         return Problem(errors[0]);
     }
 
-    private ObjectResult Problem(ErrorOr.Error error)
+    protected ObjectResult Problem(ErrorOr.Error error)
     {
         var statusCode = error.Type switch
         {

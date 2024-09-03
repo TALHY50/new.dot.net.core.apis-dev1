@@ -2,13 +2,16 @@ using Microsoft.OpenApi.Models;
 
 namespace ACL.Web.Presentation;
 
-public static class DependencyInjection
+public static class ACLWebDependencyInjection
 {
     public static IServiceCollection AddACLWebPresentation(this IServiceCollection services, IConfiguration configuration,
         IWebHostEnvironment environment, ConfigureHostBuilder builderHost)
     {
         services.AddHttpContextAccessor();
-        services.AddControllers();
+        services.AddControllers().AddJsonOptions(options =>
+        {
+            options.JsonSerializerOptions.WriteIndented = false; // Ensure compact JSON
+        });
         
         services.AddAntiforgery(options => options.HeaderName = "X-CSRF-TOKEN");
 

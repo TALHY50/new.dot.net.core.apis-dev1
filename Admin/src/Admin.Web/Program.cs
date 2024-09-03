@@ -37,6 +37,7 @@ var app = builder.Build();
         .UseCors()
         .UseHttpsRedirection()
         .UseAuthorization();
+    app.UseSharedKernelInfrastructure();
     app.MapControllers();
     app.Run();
 }
