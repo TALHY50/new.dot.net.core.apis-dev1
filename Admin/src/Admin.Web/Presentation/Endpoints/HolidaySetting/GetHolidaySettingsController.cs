@@ -9,8 +9,8 @@ using SharedBusiness.Main.Admin.Application.Features.HolidaySettings;
 
 namespace Admin.Web.Presentation.Endpoints.HolidaySetting;
 
-public class GetHolidaySettings(ILogger<GetHolidaySettings> logger, ICurrentUser currentUser)
-    : HolidaySettingBase(logger, currentUser)
+public class GetHolidaySettingsController(ILogger<GetHolidaySettingsController> logger, ICurrentUser currentUser)
+    : HolidaySettingBaseController(logger, currentUser)
 {
     [Tags("HolidaySettings")]
     // [Authorize(Policy = "HasPermission")]

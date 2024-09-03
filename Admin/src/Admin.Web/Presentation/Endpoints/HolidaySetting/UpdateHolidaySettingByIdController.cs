@@ -7,9 +7,9 @@ using SharedKernel.Main.Application.Interfaces.Services;
 
 namespace Admin.Web.Presentation.Endpoints.HolidaySetting;
 
-public class UpdateHolidaySettingById : HolidaySettingBase
+public class UpdateHolidaySettingByIdController : HolidaySettingBaseController
 {
-    public UpdateHolidaySettingById(ILogger<UpdateHolidaySettingById> logger, ICurrentUser currentUser) : base(logger, currentUser)
+    public UpdateHolidaySettingByIdController(ILogger<UpdateHolidaySettingByIdController> logger, ICurrentUser currentUser) : base(logger, currentUser)
     {
     }
 

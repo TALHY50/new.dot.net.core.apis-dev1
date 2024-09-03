@@ -8,8 +8,8 @@ using SharedKernel.Main.Application.Interfaces.Services;
 
 namespace Admin.Web.Presentation.Endpoints.BusinessHourAndWeekend;
 
-public class DeleteBusinessHourAndWeekendById(ILogger<DeleteBusinessHourAndWeekendById> logger, ICurrentUser currentUser)
-    : BusinessHourAndWeekendBase(logger, currentUser)
+public class DeleteBusinessHourAndWeekendByIdController(ILogger<DeleteBusinessHourAndWeekendByIdController> logger, ICurrentUser currentUser)
+    : BusinessHourAndWeekendBaseController(logger, currentUser)
 {
     [Tags("BusinessHourAndWeekends")]
     //[Authorize(Policy = "HasPermission")]
