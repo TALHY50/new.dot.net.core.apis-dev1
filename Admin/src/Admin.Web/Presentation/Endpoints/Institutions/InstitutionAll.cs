@@ -1,4 +1,5 @@
-﻿using ErrorOr;
+﻿using Admin.Web.Presentation.Routes;
+using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +17,7 @@ namespace Admin.Web.Presentation.Endpoints.Institutions
     {
         [Tags("Institution")]
         //[Authorize(Policy = "HasPermission")]
-        [HttpGet(Routes.GetInstitutionUrl, Name = Routes.GetInstitutionName)]
+        [HttpGet(InstitutionRoutes.GetInstitutionUrl, Name = InstitutionRoutes.GetInstitutionName)]
         public async Task<ActionResult<ErrorOr<List<Institution>>>> GetAll()
         {
             return await Mediator.Send(new GetAllInstitutionQuery()).ConfigureAwait(false);

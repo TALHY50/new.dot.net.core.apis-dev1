@@ -49,6 +49,7 @@ public partial class ApplicationDbContext : DbContext
     public virtual DbSet<UsergroupRole> AclUsergroupRoles { get; set; }
 
     public virtual DbSet<UsertypeSubmodule> AclUsertypeSubmodules { get; set; }
+    public virtual DbSet<UserSetting> AclUserSettings { get; set; }
 
     //public virtual DbSet<Efmigrationshistory> Efmigrationshistories { get; set; }
 

@@ -22,6 +22,8 @@ using ACL.Business.Infrastructure.Auth.Auth;
 using ACL.Business.Infrastructure.Persistence.Context;
 using ACL.Business.Contracts.Requests;
 using Microsoft.Extensions.Configuration;
+using System.ComponentModel.Design;
+using System.Security.Claims;
 
 namespace ACL.Business.Application.Features.Users
 {
@@ -43,7 +45,7 @@ namespace ACL.Business.Application.Features.Users
     string? phone,
     string? user_name,
     string? img_path,
-    sbyte? status,
+    byte status,
     uint[]? user_group,
     string? salt) : IRequest<ErrorOr<User>>;
 
@@ -53,7 +55,7 @@ namespace ACL.Business.Application.Features.Users
     {
         public CreateUserCommandValidator()
         {
-            RuleFor(x => x.status).NotEmpty().IsInEnum();
+            //RuleFor(x => x.status).NotEmpty().IsInEnum();
         }
     }
 
@@ -89,47 +91,56 @@ namespace ACL.Business.Application.Features.Users
         {
             var salt = this._cryptography.GenerateSalt();
             var companyId = (uint)AppAuth.GetAuthInfo().CompanyId;
-            var req = new User
+            var req = new User();
+            try
             {
-                FirstName = command.first_name,
-                LastName = command.last_name,
-                Email = command.email,
-                Password = this._cryptography.HashPassword(command.password, salt),
-                Avatar = command.avatar,
-                Dob = command.dob,
-                Gender = (sbyte)command.gender,
-                Address = command.address,
-                City = command.city,
-                Country = (uint)command.country,
-                Phone = command.phone,
-                Username = command.user_name,
-                Language = command.language,
-                ImgPath = command.img_path,
-                Status = (sbyte)command.status,
-                Salt = salt,
-                CreatedAt = DateTime.Now,
-                UpdatedAt = DateTime.Now,
-                CreatedById = (uint)AppAuth.GetAuthInfo().UserId,
-                CompanyId = (companyId != 0) ? companyId : (uint)AppAuth.GetAuthInfo().CompanyId,
-                UserType = (companyId == 0) ? uint.Parse(this._config["USER_TYPE_S_ADMIN"]) : uint.Parse(this._config["USER_TYPE_USER"]),
-                Claims = new Claim[] { }
-            };
-          
-            var result = await _transactionHandler.ExecuteWithTransactionAsync<User>(
-               async (ct) =>
-               {
-                   var obj =  await _repository.AddAsync(req);
-                   return obj;
-
-               }, _otherDbContext, 3, cancellationToken
-           );
-
-            if (result.IsError)
+                req.FirstName = command.first_name ?? string.Empty;
+                req.LastName = command.last_name ?? string.Empty;
+                req.Email = command.email ?? string.Empty;
+                req.Password = this._cryptography.HashPassword(command.password, salt);
+                req.Avatar = command.avatar ?? string.Empty;
+                req.Dob = command.dob;
+                req.Gender = command.gender;
+                req.Address = command.address;
+                req.City = command.city;
+                req.Country = (byte)command.country;
+                req.Phone = command.phone;
+                req.Username = command.user_name;
+                req.Language = command.language;
+                req.ImgPath = command.img_path;
+                req.Status = (sbyte)command.status;
+                req.Salt = salt;
+                req.CreatedAt = DateTime.Now;
+                req.UpdatedAt = DateTime.Now;
+                req.CreatedById = (uint)AppAuth.GetAuthInfo().UserId;
+                req.CompanyId = (companyId != 0) ? companyId : (uint)AppAuth.GetAuthInfo().CompanyId;
+                //  req.UserType = (companyId == 0) ? uint.Parse(this._config["USER_TYPE_S_ADMIN"]) : uint.Parse(this._config["USER_TYPE_USER"]);
+                req.UserType = (companyId == 0) ? (uint)1 : (uint)2;
+                req.Claims = new Domain.Entities.Claim[] { };
+            }
+            catch (Exception ex)
             {
-                return result;
+
             }
 
-            return result.Value;
+            var result = await _repository.AddAsync(req);
+            return result;
+
+            // var result = await _transactionHandler.ExecuteWithTransactionAsync<User>(
+            //    async (ct) =>
+            //    {
+            //        var obj = await _repository.AddAsync(req);
+            //        return obj;
+
+            //    }, _otherDbContext, 3, cancellationToken
+            //);
+
+            //if (result.IsError)
+            //{
+            //    return result;
+            //}
+
+            //return result.Value;
         }
     }
 }

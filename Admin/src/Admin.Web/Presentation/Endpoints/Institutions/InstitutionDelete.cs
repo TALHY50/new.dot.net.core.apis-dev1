@@ -1,4 +1,5 @@
-﻿using ErrorOr;
+﻿using Admin.Web.Presentation.Routes;
+using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -14,7 +15,7 @@ namespace Admin.Web.Presentation.Endpoints.Institutions
     {
         [Tags("Institution")]
         //[Authorize(Policy = "HasPermission")]
-        [HttpDelete(Routes.DeleteInstitutionUrl, Name = Routes.DeleteInstitutionName)]
+        [HttpDelete(InstitutionRoutes.DeleteInstitutionUrl, Name = InstitutionRoutes.DeleteInstitutionName)]
         public async Task<bool> Delete(DeleteInstitutionCommand command)
         {
             return await Mediator.Send(command).ConfigureAwait(false);

@@ -1,4 +1,5 @@
-﻿using ErrorOr;
+﻿using Admin.Web.Presentation.Routes;
+using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -18,7 +19,7 @@ namespace Admin.Web.Presentation.Endpoints.Institutions
     {
         [Tags("Institution")]
         //[Authorize(Policy = "HasPermission")]
-        [HttpPut(Routes.UpdateInstitutionUrl, Name = Routes.UpdateInstitutionName)]
+        [HttpPut(InstitutionRoutes.UpdateInstitutionUrl, Name = InstitutionRoutes.UpdateInstitutionName)]
         public async Task<ActionResult<ErrorOr<Institution>>> Update(uint id, UpdateInstitutionCommand command)
         {
             var commandWithId = command with { id = id };
