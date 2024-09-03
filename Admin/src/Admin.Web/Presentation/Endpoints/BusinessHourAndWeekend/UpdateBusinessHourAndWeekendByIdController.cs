@@ -8,9 +8,9 @@ using SharedKernel.Main.Application.Interfaces.Services;
 
 namespace Admin.Web.Presentation.Endpoints.BusinessHourAndWeekend;
 
-public class UpdateBusinessHourAndWeekendById : BusinessHourAndWeekendBase
+public class UpdateBusinessHourAndWeekendByIdController : BusinessHourAndWeekendBaseController
 {
-    public UpdateBusinessHourAndWeekendById(ILogger<UpdateBusinessHourAndWeekendById> logger, ICurrentUser currentUser) : base(logger, currentUser)
+    public UpdateBusinessHourAndWeekendByIdController(ILogger<UpdateBusinessHourAndWeekendByIdController> logger, ICurrentUser currentUser) : base(logger, currentUser)
     {
     }
 

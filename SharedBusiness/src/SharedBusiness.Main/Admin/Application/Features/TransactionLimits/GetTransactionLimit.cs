@@ -55,7 +55,7 @@ namespace SharedBusiness.Main.Admin.Application.Features.TransactionLimits
 
             if (transactionLimits == null)
             {
-                return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), description: "Transaction Limit not found!");
+                return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), description:Language.GetMessage("Transaction Limit not found!"));
             }
 
             return transactionLimits;

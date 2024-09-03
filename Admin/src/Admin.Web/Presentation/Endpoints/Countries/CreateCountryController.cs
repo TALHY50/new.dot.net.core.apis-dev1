@@ -14,7 +14,7 @@ public class CreateCountryController(ILogger<CreateCountryController> logger, IC
     [HttpPost(CountryRoutes.CreateCountryTemplate, Name = CountryRoutes.CreateCountryName)]
   
     public async Task<IActionResult> Create(CreateCountryCommand command, CancellationToken cancellationToken)
-    { 
+    {
         _ = Task.Run(
             () => _logger.LogInformation(
                 "create-country-request: {Name} {@UserId} {@Request}",

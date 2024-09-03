@@ -44,7 +44,7 @@ namespace ACL.Business.Application.Features.UserSettings
     }
 
     [ApiExplorerSettings(IgnoreApi = true)]
-    public class CreateUserSettingCommandHandler : UserSettingBase, IRequestHandler<CreateUserSettingCommand, ErrorOr<UserSetting>>
+    public class CreateUserSettingCommandHandler :  IRequestHandler<CreateUserSettingCommand, ErrorOr<UserSetting>>
     {
         private readonly ICurrentUser _user;
         private readonly ApplicationDbContext _otherDbContext;
@@ -58,7 +58,7 @@ namespace ACL.Business.Application.Features.UserSettings
             ILogger<CreateUserSettingCommandHandler> logger,
             ApplicationDbContext dbContext,
             ITransactionHandler transactionHandler,
-            ICurrentUser user, ApplicationDbContext otherDbContext, ICompanyService companyRepository, IHttpContextAccessor httpContextAccessor, IUserSettingRepository repository, ICryptography cryptography, IConfiguration config) : base(logger, user)
+            ICurrentUser user, ApplicationDbContext otherDbContext, ICompanyService companyRepository, IHttpContextAccessor httpContextAccessor, IUserSettingRepository repository, ICryptography cryptography, IConfiguration config) 
         {
             _user = user ?? throw new ArgumentNullException(nameof(user));
             _config = config ?? throw new ArgumentNullException(nameof(config));

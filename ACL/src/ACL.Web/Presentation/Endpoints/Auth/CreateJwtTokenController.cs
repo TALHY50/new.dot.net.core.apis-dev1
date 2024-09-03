@@ -1,7 +1,12 @@
+using System.Net.Mime;
+using System.Runtime.InteropServices.JavaScript;
 using ACL.Business.Application.Features.Auth;
+using ACL.Business.Contracts.Responses;
 using ACL.Web.Presentation.Routes;
 using Microsoft.AspNetCore.Mvc;
+using SharedKernel.Main.Application.Extensions;
 using SharedKernel.Main.Application.Interfaces.Services;
+using SharedKernel.Main.Contracts;
 
 namespace ACL.Web.Presentation.Endpoints.Auth;
 
@@ -12,8 +17,9 @@ public class CreateJwtTokenController(ILogger<CreateJwtTokenController> logger, 
     //[Authorize(Policy = "HasPermission")]
     [HttpPost(AuthRoutes.CreateJwtTokenTemplateTemplate, Name = AuthRoutes.CreateJwtTokenName)]
   
-    public async Task<IActionResult> Create(CreateJwtTokenCommand command, CancellationToken cancellationToken)
-    { 
+    public async Task<IActionResult> Create([FromHeader]uint user_id, [FromBody] object payload, CancellationToken cancellationToken)
+    {
+        var command = new CreateJwtTokenCommand(user_id, payload.Minify());
         _ = Task.Run(
             () => _logger.LogInformation(
                 "create-jwt-token-request: {Name} {@UserId} {@Request}",
@@ -23,7 +29,7 @@ public class CreateJwtTokenController(ILogger<CreateJwtTokenController> logger, 
             cancellationToken);
         var result = await Mediator.Send(command).ConfigureAwait(false);
         var response = result.Match(
-            token => Ok(ToSuccess(token)),
+            token => Ok(ToSuccess(ToDto(token))),
             Problem);
         _ = Task.Run(
             () => _logger.LogInformation(
@@ -33,5 +39,10 @@ public class CreateJwtTokenController(ILogger<CreateJwtTokenController> logger, 
                 response),
             cancellationToken);
         return response;
+    }
+
+    private AuthResult ToDto(string token)
+    {
+        return new() { Token = token };
     }
 }

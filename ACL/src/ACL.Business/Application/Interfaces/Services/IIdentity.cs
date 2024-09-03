@@ -10,4 +10,5 @@ public interface IIdentity
     Task<bool> IsTokenValid(string accessToken, bool validateLifeTime);
     public string GenerateJwtTokenWithSymmetricKey(string nameIdentifier, string keyId, string secretKey, string requestData, int seconds);
     public bool ValidateJwtTokenWithSymmetricKey(string token, string secretKey, string requestData);
+    public string GetNameId(string Token);
 }

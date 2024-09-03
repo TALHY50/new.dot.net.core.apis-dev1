@@ -29,7 +29,7 @@ public static class SharedKernelApplicationDependencyInjection
             //container.RegisterAssemblyTypes(assembly).AsImplementedInterfaces();
         }
         //services.AddSingleton<IIdentity, Jwt>();
-        services.AddSingleton<ICurrentUser, CurrentUser>();
+        services.AddScoped<ICurrentUser, CurrentUser>();
         return services;
     }
 }

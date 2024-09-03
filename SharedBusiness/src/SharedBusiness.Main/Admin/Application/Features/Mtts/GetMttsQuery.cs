@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Admin.Application.Features.Mtts;
+using SharedBusiness.Main.Common.Application.Features.Mtts;
 using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
@@ -11,7 +12,7 @@ using SharedKernel.Main.Contracts;
 using SharedKernel.Main.Presentation;
 using SharedKernel.Main.Presentation.Routes;
 
-namespace Admin.Web.Application.Features.Mtts
+namespace SharedBusiness.Main.Admin.Application.Features.Mtts
 {
     [Authorize]
     public record GetMttsQuery(int PageNumber = 0, int PageSize = 0) : IRequest<ErrorOr<List<Mtt>>>;
