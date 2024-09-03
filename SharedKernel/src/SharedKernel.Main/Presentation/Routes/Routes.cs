@@ -118,16 +118,16 @@
         public const string UpdateCurrencyUrl = "Currency/{id}";
 
         // region
-        public const string GetRegionName = "get_region";
-        public const string GetRegionUrl = "regions";
-        public const string GetRegionByIdName = "get_region_by_id";
-        public const string GetRegionByIdUrl = "region/{id}";
-        public const string CreateRegionName = "create_region";
-        public const string CreateRegionUrl = "region";
-        public const string DeleteRegionName = "delete_region";
-        public const string DeleteRegionUrl = "region/{id}";
-        public const string UpdateRegionName = "update_region";
-        public const string UpdateRegionUrl = "region/{id}";
+        //public const string GetRegionName = "get_region";
+        //public const string GetRegionUrl = "regions";
+        //public const string GetRegionByIdName = "get_region_by_id";
+        //public const string GetRegionByIdUrl = "region/{id}";
+        //public const string CreateRegionName = "create_region";
+        //public const string CreateRegionUrl = "region";
+        //public const string DeleteRegionName = "delete_region";
+        //public const string DeleteRegionUrl = "region/{id}";
+        //public const string UpdateRegionName = "update_region";
+        //public const string UpdateRegionUrl = "region/{id}";
 
         // corridor
         public const string GetCorridorName = "get-corridor";
@@ -178,16 +178,16 @@
         public const string UpdateProviderUrl = "provider/{id}";
 
         // transaction_type
-        public const string GetTransactionTypeName = "get_transaction_type";
-        public const string GetTransactionTypeUrl = "transaction_type";
-        public const string GetTransactionTypeByIdName = "get_transaction_type_by_id";
-        public const string GetTransactionTypeByIdUrl = "transaction_type/{id}";
-        public const string CreateTransactionTypeName = "create_transaction_type";
-        public const string CreateTransactionTypeUrl = "transaction_type";
-        public const string DeleteTransactionTypeName = "delete_transaction_type";
-        public const string DeleteTransactionTypeUrl = "transaction_type/{id}";
-        public const string UpdateTransactionTypeName = "update_transaction_type";
-        public const string UpdateTransactionTypeUrl = "transaction_type/{id}";
+        //public const string GetTransactionTypeName = "get_transaction_type";
+        //public const string GetTransactionTypeUrl = "transaction_type";
+        //public const string GetTransactionTypeByIdName = "get_transaction_type_by_id";
+        //public const string GetTransactionTypeByIdUrl = "transaction_type/{id}";
+        //public const string CreateTransactionTypeName = "create_transaction_type";
+        //public const string CreateTransactionTypeUrl = "transaction_type";
+        //public const string DeleteTransactionTypeName = "delete_transaction_type";
+        //public const string DeleteTransactionTypeUrl = "transaction_type/{id}";
+        //public const string UpdateTransactionTypeName = "update_transaction_type";
+        //public const string UpdateTransactionTypeUrl = "transaction_type/{id}";
 
         // mtt_payment_speed
         public const string GetMttPaymentSpeedName = "get_mtt_payment_speed";

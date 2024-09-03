@@ -53,7 +53,7 @@ namespace SharedBusiness.Main.Common.Application.Features.TransactionTypes
 
             if (transactionTypes == null)
             {
-                return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), description: "TransactionType not found!");
+                return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), Language.GetMessage("Record not found"));
             }
 
             return transactionTypes;

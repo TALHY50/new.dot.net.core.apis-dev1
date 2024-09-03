@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace Admin.App.Application;
+namespace Admin.Web.Application;
 
 public static class AdminApplicationDependencyInjection
 {

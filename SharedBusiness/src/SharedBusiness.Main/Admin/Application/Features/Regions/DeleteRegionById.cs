@@ -40,7 +40,7 @@ namespace SharedBusiness.Main.Admin.Application.Features.Regions
 
                 if (region == null)
                 {
-                    return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), "Region not found");
+                    return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), Language.GetMessage("Record not found"));
                 }
 
                 await _repository.DeleteAsync(region, cancellationToken);
