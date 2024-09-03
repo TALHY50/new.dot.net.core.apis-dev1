@@ -113,9 +113,9 @@ namespace Admin.App.Application.Features.Mtts
                     code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
                 }
             }
-            if (request.currency_id != null && commrequestand.currency_id > 0)
+            if (request.currency_id != null && request.currency_id > 0)
             {
-                Currency? currency = await _currencyRepository.GetByIdAsync((uint)comrequestmand.currency_id, cancellationToken);
+                Currency? currency = await _currencyRepository.GetByIdAsync((uint)request.currency_id, cancellationToken);
                 if (currency == null)
                 {
                     return Error.NotFound(description: "currency not found",
