@@ -34,7 +34,7 @@ namespace SharedBusiness.Main.Admin.Application.Features.Corridors
 
                 if (corridor == null)
                 {
-                    return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), "corridor not found");
+                    return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), Language.GetMessage("Record not found"));
                 }
 
                 await _repository.DeleteAsync(corridor, cancellationToken);

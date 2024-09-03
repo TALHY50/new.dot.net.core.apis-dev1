@@ -28,6 +28,7 @@ namespace SharedBusiness.Main.Admin.Application.Features.Corridors
             RuleFor(x => x.DestinationCountryId).NotEmpty();
             RuleFor(x => x.SourceCurrencyId).NotEmpty();
             RuleFor(x => x.DestinationCurrencyId).NotEmpty();
+            RuleFor(x => x.Status).NotEmpty().IsInEnum();
         }
     }
 
@@ -47,8 +48,7 @@ namespace SharedBusiness.Main.Admin.Application.Features.Corridors
             Corridor? corridor = await _repository.GetByIdAsync(command.id, cancellationToken);
             if (corridor == null)
             {
-                return Error.NotFound(description: "Corridor not found",
-                    code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
+                return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), Language.GetMessage("Record not found"));
             }
 
 
@@ -57,6 +57,7 @@ namespace SharedBusiness.Main.Admin.Application.Features.Corridors
             _guard.UpdateIfNotNullOrEmpty(value => corridor.DestinationCountryId = value, command.DestinationCountryId);
             _guard.UpdateIfNotNullOrEmpty(value => corridor.SourceCurrencyId = value, command.SourceCurrencyId);
             _guard.UpdateIfNotNullOrEmpty(value => corridor.DestinationCurrencyId = value, command.DestinationCurrencyId);
+            _guard.UpdateIfNotNullOrEmpty(value => corridor.Status = value, (byte) command.Status);
 
             corridor.UpdatedAt = DateTime.UtcNow;
 

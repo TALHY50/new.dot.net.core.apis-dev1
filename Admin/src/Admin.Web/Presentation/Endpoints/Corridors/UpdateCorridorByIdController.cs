@@ -14,7 +14,7 @@ namespace Admin.App.Presentation.Endpoints.Corridors
         {
         }
 
-        [Tags("Currencies")]
+        [Tags("Corridors")]
         //[Authorize(Policy = "HasPermission")]
         [HttpPut(CorridorsRoutes.UpdateCorridorTemplate, Name = CorridorsRoutes.UpdateCorridorName)]
         [HttpPatch(CorridorsRoutes.UpdateCorridorTemplate, Name = CorridorsRoutes.UpdateCorridorName)]
