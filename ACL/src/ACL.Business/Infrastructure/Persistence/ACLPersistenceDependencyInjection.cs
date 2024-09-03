@@ -56,6 +56,7 @@ public static class ACLPersistenceDependencyInjection
         services.AddScoped<IUserGroupRepository, UserGroupRepository>();
         services.AddScoped<IUserGroupRoleRepository, UserGroupRoleRepository>();
         services.AddScoped<IUserUserGroupRepository, UserUserGroupRepository>();
+        services.AddSingleton<IUserSettingRepository, IUserSettingRepository>();
         return services;
     }
 }

@@ -8,13 +8,9 @@ using MessageResponse = SharedKernel.Main.Contracts.MessageResponse;
 
 namespace ACL.Business.Infrastructure.Persistence.Repositories
 {
-    /// <inheritdoc/>
     public class CompanyRepository : ICompanyRepository
     {
-        
-        /// <inheritdoc/>
-        public ScopeResponse ScopeResponse;
-        /// <inheritdoc/>
+        public ApplicationResponse ApplicationResponse;
         public MessageResponse MessageResponse;
         private readonly string _modelName = "Company Module";
         readonly ApplicationDbContext _dbContext;
@@ -23,17 +19,14 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         public CompanyRepository(ApplicationDbContext dbContext, IHttpContextAccessor httpContextAccessor)
         {
             this._dbContext = dbContext;
-            this.ScopeResponse = new ScopeResponse();
+            this.ApplicationResponse = new ApplicationResponse();
             HttpContextAccessor = httpContextAccessor;
             AppAuth.Initialize(HttpContextAccessor, dbContext);
             AppAuth.SetAuthInfo(HttpContextAccessor);
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-#pragma warning disable CS8604 // Possible null reference argument.
-
-            this.MessageResponse = new MessageResponse(this._modelName, AppAuth.GetAuthInfo().Language);
+            this.MessageResponse = new MessageResponse(this._modelName, language: AppAuth.GetAuthInfo()?.Language ?? throw new InvalidOperationException());
         }
         /// <inheritdoc/>
-        public UserUsergroup PrepareDataForUserUserGroups(ulong? userGroup, ulong? userId)
+        public UserUsergroup PrepareDataForUserUserGroups(uint? userGroup, uint? userId)
         {
             bool userIdValid = UserIsExist(userId??0);
             if (!userIdValid || userId ==0 || userId == null)
@@ -68,7 +61,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
 
         }
         /// <inheritdoc/>
-        public Company? Find(ulong id)
+        public Company? Find(uint id)
         {
             try
             {
@@ -129,7 +122,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
 
         }
         /// <inheritdoc/>
-        public Company? Delete(ulong id)
+        public Company? Delete(uint id)
         {
             try
             {
@@ -146,7 +139,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
 
         }
 
-        public bool IsCompanyNameUnique(string CompanyName, ulong? CompanyId = null)
+        public bool IsCompanyNameUnique(string CompanyName, uint? CompanyId = null)
         {
             if (CompanyId == null)
             {
@@ -158,11 +151,11 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
             }
         }
 
-        public bool UserIsExist(ulong userId)
+        public bool UserIsExist(uint userId)
         {
             return this._dbContext.AclUsers.Any(i => i.Id == userId);
         }
-        public bool UserGroupIsExist(ulong id)
+        public bool UserGroupIsExist(uint id)
         {
             return this._dbContext.AclUsergroups.Any(m => m.Id == id);
         }

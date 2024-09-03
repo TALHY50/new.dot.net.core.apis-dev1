@@ -1,7 +1,7 @@
 ﻿
 namespace ACL.Business.Contracts.Responses
 {
-    public class ScopeResponse : BaseResponse
+    public class ApplicationResponse : BaseResponse
     {
 
     }

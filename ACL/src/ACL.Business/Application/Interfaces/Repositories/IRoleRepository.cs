@@ -9,7 +9,7 @@ namespace ACL.Business.Application.Interfaces.Repositories
         /// <inheritdoc/>
         List<Role>? All();
         /// <inheritdoc/>
-        Role? Find(ulong id);
+        Role? Find(uint id);
         /// <inheritdoc/>
         Role? Add(Role role);
         /// <inheritdoc/>
@@ -17,8 +17,8 @@ namespace ACL.Business.Application.Interfaces.Repositories
         /// <inheritdoc/>
         Role? Delete(Role role);
         /// <inheritdoc/>
-        Role? Delete(ulong id);
+        Role? Delete(uint id);
         /// <inheritdoc/>
-        bool IsExist(ulong id);
+        bool IsExist(uint id);
     }
 }

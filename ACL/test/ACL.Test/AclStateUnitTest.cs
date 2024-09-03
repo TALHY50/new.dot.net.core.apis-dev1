@@ -37,9 +37,9 @@ namespace ACL.TEST
 
             //// Assert
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-            ScopeResponse scopeResponse = JsonConvert.DeserializeObject<ScopeResponse>(response.Content);
+            ApplicationResponse applicationResponse = JsonConvert.DeserializeObject<ApplicationResponse>(response.Content);
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, scopeResponse.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, applicationResponse.StatusCode);
 
         }
         [Fact]
@@ -57,9 +57,9 @@ namespace ACL.TEST
 
             //// Assert
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-            ScopeResponse scopeResponse = JsonConvert.DeserializeObject<ScopeResponse>(response.Content);
+            ApplicationResponse applicationResponse = JsonConvert.DeserializeObject<ApplicationResponse>(response.Content);
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, scopeResponse.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, applicationResponse.StatusCode);
 
         }
 
@@ -80,9 +80,9 @@ namespace ACL.TEST
 
             //// Assert
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-            ScopeResponse scopeResponse = JsonConvert.DeserializeObject<ScopeResponse>(response.Content);
+            ApplicationResponse applicationResponse = JsonConvert.DeserializeObject<ApplicationResponse>(response.Content);
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, scopeResponse.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, applicationResponse.StatusCode);
 
         }
         [Fact]
@@ -98,9 +98,9 @@ namespace ACL.TEST
 
             //// Assert
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-            ScopeResponse scopeResponse = JsonConvert.DeserializeObject<ScopeResponse>(response.Content);
+            ApplicationResponse applicationResponse = JsonConvert.DeserializeObject<ApplicationResponse>(response.Content);
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, scopeResponse.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, applicationResponse.StatusCode);
 
         }
         [Fact]
@@ -116,9 +116,9 @@ namespace ACL.TEST
 
             //// Assert
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-            ScopeResponse scopeResponse = JsonConvert.DeserializeObject<ScopeResponse>(response.Content);
+            ApplicationResponse applicationResponse = JsonConvert.DeserializeObject<ApplicationResponse>(response.Content);
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, scopeResponse.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, applicationResponse.StatusCode);
 
         }
 
@@ -130,7 +130,7 @@ namespace ACL.TEST
                 CountryId = DataCollectors.GetMaxId<Country>(x => x.Id),
                 Name = faker.Random.String2(10, 50),
                 Description = faker.Random.String2(10, 255),
-                Sequence = (ulong)faker.Random.Number(1, int.MaxValue),
+                Sequence = (uint)faker.Random.Number(1, int.MaxValue),
                 Status = (byte)faker.Random.Number(1, 2)
 
             };

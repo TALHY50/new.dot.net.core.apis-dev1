@@ -7,14 +7,14 @@ namespace ACL.Business.Domain.Services
     public interface IRoleService : IRoleRepository
     {
         /// <inheritdoc/>
-       ScopeResponse GetAll();
+       ApplicationResponse GetAll();
         /// <inheritdoc/>
-        ScopeResponse Add(AclRoleRequest roleRequest);
+        ApplicationResponse Add(AclRoleRequest roleRequest);
         /// <inheritdoc/>
-        ScopeResponse Edit(ulong id, AclRoleRequest roleRequest);
+        ApplicationResponse Edit(uint id, AclRoleRequest roleRequest);
         /// <inheritdoc/>
-        ScopeResponse FindById(ulong id);
+        ApplicationResponse FindById(uint id);
         /// <inheritdoc/>
-        ScopeResponse DeleteById(ulong id);
+        ApplicationResponse DeleteById(uint id);
     }
 }

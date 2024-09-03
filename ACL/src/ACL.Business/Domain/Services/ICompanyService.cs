@@ -8,15 +8,15 @@ namespace ACL.Business.Domain.Services
     public interface ICompanyService : ICompanyRepository
     {
         /// <inheritdoc/>
-        ScopeResponse GetAll();
+        ApplicationResponse GetAll();
         /// <inheritdoc/>
-        Task<ScopeResponse> AddAclCompany(AclCompanyCreateRequest module);
+        Task<ApplicationResponse> AddAclCompany(AclCompanyCreateRequest module);
         /// <inheritdoc/>
-        ScopeResponse EditAclCompany(ulong id, AclCompanyEditRequest module);
+        ApplicationResponse EditAclCompany(uint id, AclCompanyEditRequest module);
         /// <inheritdoc/>
-        ScopeResponse FindById(ulong id);
+        ApplicationResponse FindById(uint id);
         /// <inheritdoc/>
-        ScopeResponse DeleteCompany(ulong id);
+        ApplicationResponse DeleteCompany(uint id);
         /// <inheritdoc/>
         Company PrepareInputData(AclCompanyCreateRequest? request = null, AclCompanyEditRequest? editRequest = null, Company? company = null);
     }

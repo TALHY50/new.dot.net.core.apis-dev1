@@ -38,13 +38,13 @@
 //            var controller = new CompanyController(unitOfWork);
 //            #region Act
 //            // Act
-//            var ScopeResponse = await controller.Index();
+//            var ApplicationResponse = await controller.Index();
 //            #endregion
 
 //            #region Assert
 //            // Assert
 
-//            var res = ScopeResponse as ScopeResponse;
+//            var res = ApplicationResponse as ApplicationResponse;
 //            var returnCompanies = res.Data as IEnumerable<Company>;
 
 //            Assert.Equal(1, returnCompanies?.Count()); // Adjust count as per your test data

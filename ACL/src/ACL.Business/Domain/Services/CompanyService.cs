@@ -17,7 +17,7 @@ namespace ACL.Business.Domain.Services
     public class CompanyService : CompanyRepository, ICompanyService
     {
         /// <inheritdoc/>
-        public new ScopeResponse ScopeResponse;
+        public new ApplicationResponse ApplicationResponse;
         /// <inheritdoc/>
         public new MessageResponse MessageResponse;
         private readonly string _modelName = "Company";
@@ -39,7 +39,7 @@ namespace ACL.Business.Domain.Services
         public CompanyService(ApplicationDbContext dbContext, IConfiguration config, ICryptography cryptography, IUserGroupService userGroupRepository, IUserRepository userRepository, IUserUserGroupRepository userUserGroupRepository, IRoleRepository roleRepository, IUserGroupRoleRepository userGroupRoleRepository, IPageRepository pageRepository, IRolePageRepository rolePageRepository, IHttpContextAccessor httpContextAccessor):base(dbContext,httpContextAccessor)
 
         {
-            this.ScopeResponse = new ScopeResponse();
+            this.ApplicationResponse = new ApplicationResponse();
             this._config = config;
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8604 // Possible null reference argument
@@ -59,28 +59,28 @@ namespace ACL.Business.Domain.Services
         }
         /// <inheritdoc/>
 
-        public ScopeResponse GetAll()
+        public ApplicationResponse GetAll()
         {
             List<Company>? aclCompany = this._dbContext.Companies.Where(b => b.Status == 1).ToList();
             if (aclCompany.Any())
             {
-                this.ScopeResponse.Data = aclCompany;
-                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
-                this.ScopeResponse.Message = this.MessageResponse.fetchMessage;
+                this.ApplicationResponse.Data = aclCompany;
+                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+                this.ApplicationResponse.Message = this.MessageResponse.fetchMessage;
             }
             else
             {
-                this.ScopeResponse.Message = this.MessageResponse.notFoundMessage;
-                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
+                this.ApplicationResponse.Message = this.MessageResponse.notFoundMessage;
+                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
 
-            this.ScopeResponse.Timestamp = DateTime.Now;
+            this.ApplicationResponse.Timestamp = DateTime.Now;
 
-            return this.ScopeResponse;
+            return this.ApplicationResponse;
         }
 
         /// <inheritdoc/>
-        public async Task<ScopeResponse> AddAclCompany(AclCompanyCreateRequest request)
+        public async Task<ApplicationResponse> AddAclCompany(AclCompanyCreateRequest request)
         {
             try
             {
@@ -142,8 +142,8 @@ namespace ACL.Business.Domain.Services
                         UpdatedAt = DateTime.UtcNow
                     };
                     var createdUserGroupRole = this._userGroupRoleRepository.Add(userGroupRole);
-                    List<Page> aclPagesByModuleId = await this._dbContext.AclPages.Where(x => x.ModuleId == ulong.Parse(this._config["S_ADMIN_DEFAULT_MODULE_ID"] ?? "1003")).ToListAsync();
-                    List<ulong> pageIds = aclPagesByModuleId.Select(page => page.Id).ToList();
+                    List<Page> aclPagesByModuleId = await this._dbContext.AclPages.Where(x => x.ModuleId == uint.Parse(this._config["S_ADMIN_DEFAULT_MODULE_ID"] ?? "1003")).ToListAsync();
+                    List<uint> pageIds = aclPagesByModuleId.Select(page => page.Id).ToList();
                     List<RolePage> aclRolePages = pageIds.Select(pageId => new RolePage
                     {
                         RoleId = role.Id,
@@ -153,20 +153,20 @@ namespace ACL.Business.Domain.Services
                     }).ToList();
                     this._rolePageRepository.AddAll(aclRolePages.ToArray());
                 }
-                this.ScopeResponse.Data = aclCompany;
-                this.ScopeResponse.Message = aclCompany != null ? this.MessageResponse.createMessage : this.MessageResponse.notFoundMessage;
-                this.ScopeResponse.StatusCode = aclCompany != null ? ApplicationStatusCodes.API_SUCCESS : ApplicationStatusCodes.GENERAL_FAILURE;
+                this.ApplicationResponse.Data = aclCompany;
+                this.ApplicationResponse.Message = aclCompany != null ? this.MessageResponse.createMessage : this.MessageResponse.notFoundMessage;
+                this.ApplicationResponse.StatusCode = aclCompany != null ? ApplicationStatusCodes.API_SUCCESS : ApplicationStatusCodes.GENERAL_FAILURE;
             }
             catch (Exception ex)
             {
-                this.ScopeResponse.Message = ex.Message;
-                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
+                this.ApplicationResponse.Message = ex.Message;
+                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
-            this.ScopeResponse.Timestamp = DateTime.Now;
-            return this.ScopeResponse;
+            this.ApplicationResponse.Timestamp = DateTime.Now;
+            return this.ApplicationResponse;
         }
         /// <inheritdoc/>
-        public ScopeResponse EditAclCompany(ulong id, AclCompanyEditRequest request)
+        public ApplicationResponse EditAclCompany(uint id, AclCompanyEditRequest request)
         {
             try
             {
@@ -178,39 +178,39 @@ namespace ACL.Business.Domain.Services
 
                 aclCompany = PrepareInputData(null, request, aclCompany);
                 aclCompany = Update(aclCompany);
-                this.ScopeResponse.Data = aclCompany;
-                this.ScopeResponse.Message = aclCompany != null ? this.MessageResponse.editMessage : this.MessageResponse.notFoundMessage;
-                this.ScopeResponse.StatusCode = aclCompany != null ? ApplicationStatusCodes.API_SUCCESS : ApplicationStatusCodes.GENERAL_FAILURE;
+                this.ApplicationResponse.Data = aclCompany;
+                this.ApplicationResponse.Message = aclCompany != null ? this.MessageResponse.editMessage : this.MessageResponse.notFoundMessage;
+                this.ApplicationResponse.StatusCode = aclCompany != null ? ApplicationStatusCodes.API_SUCCESS : ApplicationStatusCodes.GENERAL_FAILURE;
             }
             catch (Exception ex)
             {
-                this.ScopeResponse.Message = ex.Message;
-                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
+                this.ApplicationResponse.Message = ex.Message;
+                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
-            this.ScopeResponse.Timestamp = DateTime.Now;
-            return this.ScopeResponse;
+            this.ApplicationResponse.Timestamp = DateTime.Now;
+            return this.ApplicationResponse;
         }
         /// <inheritdoc/>
-        public ScopeResponse FindById(ulong id)
+        public ApplicationResponse FindById(uint id)
         {
             try
             {
                 Company? aclCompany = Find(id);
-                this.ScopeResponse.Data = aclCompany;
-                this.ScopeResponse.Message = aclCompany != null ? this.MessageResponse.fetchMessage : this.MessageResponse.notFoundMessage;
-                this.ScopeResponse.StatusCode = aclCompany != null ? ApplicationStatusCodes.API_SUCCESS : ApplicationStatusCodes.GENERAL_FAILURE;
+                this.ApplicationResponse.Data = aclCompany;
+                this.ApplicationResponse.Message = aclCompany != null ? this.MessageResponse.fetchMessage : this.MessageResponse.notFoundMessage;
+                this.ApplicationResponse.StatusCode = aclCompany != null ? ApplicationStatusCodes.API_SUCCESS : ApplicationStatusCodes.GENERAL_FAILURE;
             }
             catch (Exception ex)
             {
-                this.ScopeResponse.Message = ex.Message;
-                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
+                this.ApplicationResponse.Message = ex.Message;
+                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
 
-            this.ScopeResponse.Timestamp = DateTime.Now;
-            return this.ScopeResponse;
+            this.ApplicationResponse.Timestamp = DateTime.Now;
+            return this.ApplicationResponse;
         }
         /// <inheritdoc/>
-        public ScopeResponse DeleteCompany(ulong id)
+        public ApplicationResponse DeleteCompany(uint id)
         {
 
             Company? aclCompany = Find(id);
@@ -218,13 +218,13 @@ namespace ACL.Business.Domain.Services
             if (aclCompany != null)
             {
                 aclCompany.Status = 0;
-                this.ScopeResponse.Data = base.Update(aclCompany);;
+                this.ApplicationResponse.Data = base.Update(aclCompany);;
             }
-            this.ScopeResponse.Message = aclCompany != null ? this.MessageResponse.DeleteMessage : this.MessageResponse.notFoundMessage;
-            this.ScopeResponse.StatusCode = aclCompany != null ? ApplicationStatusCodes.API_SUCCESS : ApplicationStatusCodes.GENERAL_FAILURE;
-            this.ScopeResponse.Timestamp = DateTime.Now;
+            this.ApplicationResponse.Message = aclCompany != null ? this.MessageResponse.DeleteMessage : this.MessageResponse.notFoundMessage;
+            this.ApplicationResponse.StatusCode = aclCompany != null ? ApplicationStatusCodes.API_SUCCESS : ApplicationStatusCodes.GENERAL_FAILURE;
+            this.ApplicationResponse.Timestamp = DateTime.Now;
 
-            return this.ScopeResponse;
+            return this.ApplicationResponse;
         }
 
         /// <inheritdoc/>

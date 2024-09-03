@@ -38,9 +38,9 @@ namespace ACL.TEST
 
             //// Assert
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-            ScopeResponse scopeResponse = JsonConvert.DeserializeObject<ScopeResponse>(response.Content);
+            ApplicationResponse applicationResponse = JsonConvert.DeserializeObject<ApplicationResponse>(response.Content);
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, scopeResponse.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, applicationResponse.StatusCode);
 
         }
         [Fact]
@@ -58,17 +58,17 @@ namespace ACL.TEST
 
             //// Assert
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-            ScopeResponse scopeResponse = JsonConvert.DeserializeObject<ScopeResponse>(response.Content);
+            ApplicationResponse applicationResponse = JsonConvert.DeserializeObject<ApplicationResponse>(response.Content);
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, scopeResponse.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, applicationResponse.StatusCode);
 
         }
 
 
         private AclUserGroupRoleRequest GetUserGroupRole()
         {
-            ulong maxId = DataCollectors.dbContext.AclRoles.Max(i => i.Id);
-            ulong[] idArray = new ulong[] { maxId };
+            uint maxId = DataCollectors.dbContext.AclRoles.Max(i => i.Id);
+            uint[] idArray = new uint[] { maxId };
             return new AclUserGroupRoleRequest
             {
                 UserGroupId = DataCollectors.dbContext.AclUsergroups.Max(i => i.Id),

@@ -8,18 +8,18 @@ namespace ACL.Business.Domain.Services
     public interface ICompanyModuleService : ICompanyModuleRepository   
     {
         /// <inheritdoc/>
-        ScopeResponse GetAll();
+        ApplicationResponse GetAll();
         /// <inheritdoc/>
-        ScopeResponse AddAclCompanyModule(AclCompanyModuleRequest companyModule);
+        ApplicationResponse AddAclCompanyModule(AclCompanyModuleRequest companyModule);
         /// <inheritdoc/>
-        ScopeResponse EditAclCompanyModule(ulong id, AclCompanyModuleRequest companyModule);
+        ApplicationResponse EditAclCompanyModule(uint id, AclCompanyModuleRequest companyModule);
         /// <inheritdoc/>
-        ScopeResponse FindById(ulong id);
+        ApplicationResponse FindById(uint id);
         /// <inheritdoc/>
-        ScopeResponse DeleteCompanyModule(ulong id);
+        ApplicationResponse DeleteCompanyModule(uint id);
         /// <inheritdoc/>
-        bool IsValidForCreateOrUpdate(ulong companyId, ulong moduleId, ulong id = 0);
+        bool IsValidForCreateOrUpdate(uint companyId, uint moduleId, uint id = 0);
         /// <inheritdoc/>
-        CompanyModule PrepareInputData(AclCompanyModuleRequest request, ulong id = 0, CompanyModule? companyModule = null);
+        CompanyModule PrepareInputData(AclCompanyModuleRequest request, uint id = 0, CompanyModule? companyModule = null);
     }
 }

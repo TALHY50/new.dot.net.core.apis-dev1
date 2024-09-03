@@ -2,11 +2,11 @@
 
 public partial class RolePage
 {
-    public ulong Id { get; set; }
+    public uint Id { get; set; }
 
-    public ulong RoleId { get; set; }
+    public uint RoleId { get; set; }
 
-    public ulong PageId { get; set; }
+    public uint PageId { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 

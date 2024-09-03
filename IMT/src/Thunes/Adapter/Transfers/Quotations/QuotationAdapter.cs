@@ -17,7 +17,7 @@ namespace Thunes.Adapter.Transfers.Quotations
             return RestClient.Post<CreateContentQuotationResponse>(RequestOptions.BaseUrl + ThunesUrl.CreateQuotationUrl,
                 CreateHeaders(request, ThunesUrl.CreateQuotationUrl, RequestOptions), request);
         }
-        public CreateContentQuotationResponse GetQuotationById(ulong id)
+        public CreateContentQuotationResponse GetQuotationById(uint id)
         {
             string url = ThunesUrl.RetrieveAQuotationByIdUrl.Replace("{id}", id.ToString());
             return RestClient.Get<CreateContentQuotationResponse>(RequestOptions.BaseUrl + url,

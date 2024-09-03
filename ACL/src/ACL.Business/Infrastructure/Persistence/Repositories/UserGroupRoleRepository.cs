@@ -52,7 +52,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         }
 
         /// <inheritdoc/>
-        public ulong RoleIdExist(ulong roleId)
+        public uint RoleIdExist(uint roleId)
         {
             var valid = Queryable.Any(this._dbContext.AclRoles, x => x.Id == roleId && x.CompanyId == AppAuth.GetAuthInfo().CompanyId);
 
@@ -64,7 +64,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
             return roleId;
         }
         /// <inheritdoc/>
-        public ulong UserGroupIdExist(ulong userGroupId)
+        public uint UserGroupIdExist(uint userGroupId)
         {
             var valid = Queryable.Any(this._dbContext.AclUsergroups, x => x.Id == userGroupId && x.CompanyId == AppAuth.GetAuthInfo().CompanyId);
 
@@ -84,7 +84,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
 
         }
         /// <inheritdoc/>
-        public UsergroupRole? Find(ulong id)
+        public UsergroupRole? Find(uint id)
         {
 
             return this._dbContext.AclUsergroupRoles.Find(id);
@@ -117,7 +117,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
             return userGroupRole;
         }
         /// <inheritdoc/>
-        public UsergroupRole? Delete(ulong id)
+        public UsergroupRole? Delete(uint id)
         {
             var delete = Find(id);
             this._dbContext.AclUsergroupRoles.Remove(delete);

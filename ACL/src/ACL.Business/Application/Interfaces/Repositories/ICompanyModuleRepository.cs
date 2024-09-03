@@ -8,7 +8,7 @@ namespace ACL.Business.Application.Interfaces.Repositories
         /// <inheritdoc/>
         List<Company>? All();
         /// <inheritdoc/>
-        CompanyModule? Find(ulong id);
+        CompanyModule? Find(uint id);
         /// <inheritdoc/>
         CompanyModule? Add(CompanyModule aclCompanyModule);
         /// <inheritdoc/>
@@ -16,7 +16,7 @@ namespace ACL.Business.Application.Interfaces.Repositories
         /// <inheritdoc/>
         CompanyModule? Delete(CompanyModule aclCompanyModule);
         /// <inheritdoc/>
-        CompanyModule? Delete(ulong id);
+        CompanyModule? Delete(uint id);
 
     }
 }

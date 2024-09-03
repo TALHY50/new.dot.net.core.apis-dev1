@@ -14,7 +14,7 @@ namespace ACL.Business.Domain.Services
     public class PageService : PageRepository, IPageService
     {
         /// <inheritdoc/>
-        public ScopeResponse ScopeResponse;
+        public ApplicationResponse ApplicationResponse;
         public Page Page;
         /// <inheritdoc/>
         public MessageResponse MessageResponse;
@@ -26,7 +26,7 @@ namespace ACL.Business.Domain.Services
         public PageService(ApplicationDbContext dbContext, IPageRouteRepository routeRepository, IUserRepository userRepository, IHttpContextAccessor httpContextAccessor) : base(dbContext, routeRepository, userRepository, httpContextAccessor)
         {
             this._dbContext = dbContext;
-            this.ScopeResponse = new ScopeResponse();
+            this.ApplicationResponse = new ApplicationResponse();
             this._routeRepository = routeRepository;
             this._userRepository = userRepository;
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
@@ -37,39 +37,39 @@ namespace ACL.Business.Domain.Services
             AppAuth.SetAuthInfo(ContextAccessor);
         }
         /// <inheritdoc/>
-        public ScopeResponse GetAll()
+        public ApplicationResponse GetAll()
         {
             List<Page>? aclPage = All();
             if (aclPage != null)
             {
-                this.ScopeResponse.Message = this.MessageResponse.fetchMessage;
+                this.ApplicationResponse.Message = this.MessageResponse.fetchMessage;
             }
-            this.ScopeResponse.Data = aclPage;
-            this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
-            this.ScopeResponse.Timestamp = DateTime.Now;
+            this.ApplicationResponse.Data = aclPage;
+            this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+            this.ApplicationResponse.Timestamp = DateTime.Now;
 
-            return this.ScopeResponse;
+            return this.ApplicationResponse;
         }
         /// <inheritdoc/>
-        public ScopeResponse AddAclPage(AclPageRequest request)
+        public ApplicationResponse AddAclPage(AclPageRequest request)
         {
             try
             {
                 Page? aclPage = PrepareInputData(request);
-                this.ScopeResponse.Data = Add(aclPage);
-                this.ScopeResponse.Message = this.MessageResponse.createMessage;
-                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+                this.ApplicationResponse.Data = Add(aclPage);
+                this.ApplicationResponse.Message = this.MessageResponse.createMessage;
+                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             }
             catch (Exception ex)
             {
-                this.ScopeResponse.Message = ex.Message;
-                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
+                this.ApplicationResponse.Message = ex.Message;
+                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
-            this.ScopeResponse.Timestamp = DateTime.Now;
-            return this.ScopeResponse;
+            this.ApplicationResponse.Timestamp = DateTime.Now;
+            return this.ApplicationResponse;
         }
         /// <inheritdoc/>
-        public ScopeResponse EditAclPage(AclPageRequest request)
+        public ApplicationResponse EditAclPage(AclPageRequest request)
         {
             Page? aclPage = Find(request.Id);
             try
@@ -79,10 +79,10 @@ namespace ACL.Business.Domain.Services
                     throw new InvalidOperationException("Page id not found");
                 }
                 aclPage = PrepareInputData(request, aclPage);
-                this.ScopeResponse.Data = Update(aclPage);
-                this.ScopeResponse.Message = this.MessageResponse.editMessage;
-                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
-                List<ulong>? userIds = this._userRepository.GetUserIdByChangePermission(null, null, request.Id);
+                this.ApplicationResponse.Data = Update(aclPage);
+                this.ApplicationResponse.Message = this.MessageResponse.editMessage;
+                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+                List<uint>? userIds = this._userRepository.GetUserIdByChangePermission(null, null, request.Id);
                 if (userIds != null)
                 {
                     this._userRepository.UpdateUserPermissionVersion(userIds);
@@ -90,39 +90,39 @@ namespace ACL.Business.Domain.Services
             }
             catch (Exception ex)
             {
-                this.ScopeResponse.Message = ex.Message;
-                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
+                this.ApplicationResponse.Message = ex.Message;
+                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
-            this.ScopeResponse.Timestamp = DateTime.Now;
-            return this.ScopeResponse;
+            this.ApplicationResponse.Timestamp = DateTime.Now;
+            return this.ApplicationResponse;
         }
 
         /// <inheritdoc/>
-        public ScopeResponse FindById(ulong id)
+        public ApplicationResponse FindById(uint id)
         {
             try
             {
                 Page? aclPage = Find(id);
-                this.ScopeResponse.Data = aclPage;
-                this.ScopeResponse.Message = this.MessageResponse.fetchMessage;
+                this.ApplicationResponse.Data = aclPage;
+                this.ApplicationResponse.Message = this.MessageResponse.fetchMessage;
                 if (aclPage == null)
                 {
-                    this.ScopeResponse.Message = this.MessageResponse.notFoundMessage;
+                    this.ApplicationResponse.Message = this.MessageResponse.notFoundMessage;
                 }
 
-                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             }
             catch (Exception ex)
             {
-                this.ScopeResponse.Message = ex.Message;
-                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
+                this.ApplicationResponse.Message = ex.Message;
+                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
-            this.ScopeResponse.Timestamp = DateTime.Now;
-            return this.ScopeResponse;
+            this.ApplicationResponse.Timestamp = DateTime.Now;
+            return this.ApplicationResponse;
 
         }
         /// <inheritdoc/>
-        public ScopeResponse DeleteById(ulong id)
+        public ApplicationResponse DeleteById(uint id)
         {
             Page? page = Find(id);
             try
@@ -131,11 +131,11 @@ namespace ACL.Business.Domain.Services
                 {
                     throw new InvalidOperationException("Page id not found");
                 }
-                this.ScopeResponse.Data = Delete(page);
+                this.ApplicationResponse.Data = Delete(page);
                 this._routeRepository.DeleteAllByPageId(id);
-                this.ScopeResponse.Message = this.MessageResponse.deleteMessage;
-                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
-                List<ulong>? userIds = this._userRepository.GetUserIdByChangePermission(null, null, id);
+                this.ApplicationResponse.Message = this.MessageResponse.deleteMessage;
+                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+                List<uint>? userIds = this._userRepository.GetUserIdByChangePermission(null, null, id);
                 if (userIds != null)
                 {
                     this._userRepository.UpdateUserPermissionVersion(userIds);
@@ -143,10 +143,10 @@ namespace ACL.Business.Domain.Services
             }
             catch (Exception e)
             {
-                this.ScopeResponse.Message = e.Message;
-                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
+                this.ApplicationResponse.Message = e.Message;
+                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
-            return this.ScopeResponse;
+            return this.ApplicationResponse;
         }
 
 
@@ -186,25 +186,25 @@ namespace ACL.Business.Domain.Services
         }
 
         /// <inheritdoc/>
-        public ScopeResponse PageRouteCreate(AclPageRouteRequest request)
+        public ApplicationResponse PageRouteCreate(AclPageRouteRequest request)
         {
             try
             {
                 PageRoute pageRoute = PreparePageRouteInputData(request);
-                this.ScopeResponse.Data = this._routeRepository.Add(pageRoute);
-                this.ScopeResponse.Message = "Page Routes Create Successfully";
-                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+                this.ApplicationResponse.Data = this._routeRepository.Add(pageRoute);
+                this.ApplicationResponse.Message = "Page Routes Create Successfully";
+                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             }
             catch (Exception ex)
             {
-                this.ScopeResponse.Message = ex.Message;
-                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
+                this.ApplicationResponse.Message = ex.Message;
+                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
-            this.ScopeResponse.Timestamp = DateTime.Now;
-            return this.ScopeResponse;
+            this.ApplicationResponse.Timestamp = DateTime.Now;
+            return this.ApplicationResponse;
         }
         /// <inheritdoc/>
-        public ScopeResponse PageRouteEdit(ulong id, AclPageRouteRequest request)
+        public ApplicationResponse PageRouteEdit(uint id, AclPageRouteRequest request)
         {
             try
             {
@@ -214,26 +214,26 @@ namespace ACL.Business.Domain.Services
                     throw new InvalidOperationException("Page route id not found");
                 }
                 // clear version
-                List<ulong>? userIds = this._userRepository.GetUserIdByChangePermission(null, null, request.PageId);
+                List<uint>? userIds = this._userRepository.GetUserIdByChangePermission(null, null, request.PageId);
                 if (userIds != null)
                 {
                     this._userRepository.UpdateUserPermissionVersion(userIds);
                 }
                 PageRoute? aclPageRouteUpdateData = PreparePageRouteInputData(request, aclPageRoute);
-                this.ScopeResponse.Data = this._routeRepository.Update(aclPageRouteUpdateData);
-                this.ScopeResponse.Message = "Page Routes Updated Successfully";
-                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+                this.ApplicationResponse.Data = this._routeRepository.Update(aclPageRouteUpdateData);
+                this.ApplicationResponse.Message = "Page Routes Updated Successfully";
+                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             }
             catch (Exception ex)
             {
-                this.ScopeResponse.Message = ex.Message;
-                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
+                this.ApplicationResponse.Message = ex.Message;
+                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
-            this.ScopeResponse.Timestamp = DateTime.Now;
-            return this.ScopeResponse;
+            this.ApplicationResponse.Timestamp = DateTime.Now;
+            return this.ApplicationResponse;
         }
         /// <inheritdoc/>
-        public ScopeResponse PageRouteDelete(ulong id)
+        public ApplicationResponse PageRouteDelete(uint id)
         {
             PageRoute? aclPageRoute = this._routeRepository.Find(id);
             try
@@ -242,21 +242,21 @@ namespace ACL.Business.Domain.Services
                 {
                     throw new InvalidOperationException("Page route id not found");
                 }
-                List<ulong>? userIds = this._userRepository.GetUserIdByChangePermission(null, null, aclPageRoute.PageId);
+                List<uint>? userIds = this._userRepository.GetUserIdByChangePermission(null, null, aclPageRoute.PageId);
                 if (userIds != null)
                 {
                     this._userRepository.UpdateUserPermissionVersion(userIds);
                 }
-                this.ScopeResponse.Data = this._routeRepository.Delete(aclPageRoute);
-                this.ScopeResponse.Message = "Page Routes Deleted Successfully";
-                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+                this.ApplicationResponse.Data = this._routeRepository.Delete(aclPageRoute);
+                this.ApplicationResponse.Message = "Page Routes Deleted Successfully";
+                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             }
             catch (Exception ex)
             {
-                this.ScopeResponse.Message = ex.Message;
-                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
+                this.ApplicationResponse.Message = ex.Message;
+                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
-            return this.ScopeResponse;
+            return this.ApplicationResponse;
         }
         /// <inheritdoc/>
         public PageRoute PreparePageRouteInputData(AclPageRouteRequest request, PageRoute? aclPageRoute = null)

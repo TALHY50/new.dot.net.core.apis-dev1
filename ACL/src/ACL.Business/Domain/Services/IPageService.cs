@@ -8,21 +8,21 @@ namespace ACL.Business.Domain.Services
     public interface IPageService : IPageRepository
     {
          /// <inheritdoc/>
-        ScopeResponse GetAll();
+        ApplicationResponse GetAll();
         /// <inheritdoc/>
-        ScopeResponse AddAclPage(AclPageRequest request);
+        ApplicationResponse AddAclPage(AclPageRequest request);
         /// <inheritdoc/>
-        ScopeResponse EditAclPage(AclPageRequest aclPageRequest);
+        ApplicationResponse EditAclPage(AclPageRequest aclPageRequest);
         /// <inheritdoc/>
-        ScopeResponse FindById(ulong id);
+        ApplicationResponse FindById(uint id);
         /// <inheritdoc/>
-        ScopeResponse DeleteById(ulong id);
+        ApplicationResponse DeleteById(uint id);
         /// <inheritdoc/>
-        ScopeResponse PageRouteCreate(AclPageRouteRequest aclPageRouteRequest);
+        ApplicationResponse PageRouteCreate(AclPageRouteRequest aclPageRouteRequest);
         /// <inheritdoc/>
-        ScopeResponse PageRouteEdit(ulong id, AclPageRouteRequest aclPageRouteRequest);
+        ApplicationResponse PageRouteEdit(uint id, AclPageRouteRequest aclPageRouteRequest);
         /// <inheritdoc/>
-        ScopeResponse PageRouteDelete(ulong id);
+        ApplicationResponse PageRouteDelete(uint id);
         /// <inheritdoc/>
         PageRoute PreparePageRouteInputData(AclPageRouteRequest aclPageRouteRequest, PageRoute? aclPageRoute = null);
 

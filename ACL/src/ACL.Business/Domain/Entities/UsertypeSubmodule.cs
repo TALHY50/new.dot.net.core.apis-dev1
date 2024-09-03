@@ -2,7 +2,7 @@
 
 public partial class UsertypeSubmodule
 {
-    public ulong Id { get; set; }
+    public uint Id { get; set; }
 
     public byte UserTypeId { get; set; }
 

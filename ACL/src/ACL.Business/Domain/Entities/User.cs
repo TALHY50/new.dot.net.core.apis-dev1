@@ -5,7 +5,7 @@ namespace ACL.Business.Domain.Entities;
 
 public partial class User : EntityBase, IAggregateRoot
 {
-    public new ulong Id { get; set; }
+    public new uint Id { get; set; }
 
     public string? FirstName { get; set; }
 
@@ -96,7 +96,7 @@ public partial class User : EntityBase, IAggregateRoot
         RefreshToken = new RefreshToken();
     }
 
-    public User(ulong userId, uint permissionVersion, Permission? permission)
+    public User(uint userId, uint permissionVersion, Permission? permission)
     {
         Id = userId;
         PermissionVersion = permissionVersion;

@@ -7,13 +7,13 @@ public partial class AclSubModuleRequest
 {
     [DefaultValue("2055")]
     [Required(ErrorMessage = "id is required.")]
-    [Range(1, ulong.MaxValue, ErrorMessage = "id is required.")]
-    public ulong Id { get; set; }
+    [Range(1, uint.MaxValue, ErrorMessage = "id is required.")]
+    public uint Id { get; set; }
 
     [DefaultValue("1004")]
     [Required(ErrorMessage = "module_id is required.")]
-    [Range(1, ulong.MaxValue, ErrorMessage = "module_id is required.")]
-    public ulong ModuleId { get; set; }
+    [Range(1, uint.MaxValue, ErrorMessage = "module_id is required.")]
+    public uint ModuleId { get; set; }
 
     [DefaultValue("Company")]
     [Required(ErrorMessage = "name is required.")]
@@ -32,7 +32,7 @@ public partial class AclSubModuleRequest
 
     [DefaultValue("100")]
     [Required(ErrorMessage = "sequence is required.")]
-    [Range(1, ulong.MaxValue, ErrorMessage = "sequence is required.")]
+    [Range(1, uint.MaxValue, ErrorMessage = "sequence is required.")]
     public int Sequence { get; set; }
 
     [DefaultValue("index")]

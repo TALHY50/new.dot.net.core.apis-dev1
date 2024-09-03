@@ -2,13 +2,13 @@
 
 public partial class UsergroupRole
 {
-    public ulong Id { get; set; }
+    public uint Id { get; set; }
 
-    public ulong UsergroupId { get; set; }
+    public uint UsergroupId { get; set; }
 
-    public ulong RoleId { get; set; }
+    public uint RoleId { get; set; }
 
-    public ulong CompanyId { get; set; }
+    public uint CompanyId { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 

@@ -13,7 +13,7 @@ namespace ACL.Business.Domain.Services
     public class CompanyModuleService : CompanyModuleRepository, ICompanyModuleService
     {
         /// <inheritdoc/>
-        public ScopeResponse ScopeResponse;
+        public ApplicationResponse ApplicationResponse;
         /// <inheritdoc/>
         public MessageResponse MessageResponse;
         private readonly string _modelName = "Company Module";
@@ -23,7 +23,7 @@ namespace ACL.Business.Domain.Services
         public CompanyModuleService(ApplicationDbContext dbContext, IHttpContextAccessor httpContextAccessor):base(dbContext, httpContextAccessor) 
         {
             this._dbContext = dbContext;
-            this.ScopeResponse = new ScopeResponse();
+            this.ApplicationResponse = new ApplicationResponse();
             HttpContextAccessor = httpContextAccessor;
             AppAuth.Initialize(HttpContextAccessor, dbContext);
             AppAuth.SetAuthInfo(HttpContextAccessor);
@@ -33,81 +33,81 @@ namespace ACL.Business.Domain.Services
             this.MessageResponse = new MessageResponse(this._modelName, AppAuth.GetAuthInfo().Language);
         }
         /// <inheritdoc/>
-        public ScopeResponse GetAll()
+        public ApplicationResponse GetAll()
         {
-            this.ScopeResponse.Data = base.All();
-            this.ScopeResponse.Message = (this.ScopeResponse.Data != null) ?this.MessageResponse.fetchMessage : this.MessageResponse.notFoundMessage;
-            this.ScopeResponse.StatusCode = (this.ScopeResponse.Data != null) ? ApplicationStatusCodes.API_SUCCESS : ApplicationStatusCodes.GENERAL_FAILURE;
-            this.ScopeResponse.Timestamp = DateTime.Now;
-            return this.ScopeResponse;
+            this.ApplicationResponse.Data = base.All();
+            this.ApplicationResponse.Message = (this.ApplicationResponse.Data != null) ?this.MessageResponse.fetchMessage : this.MessageResponse.notFoundMessage;
+            this.ApplicationResponse.StatusCode = (this.ApplicationResponse.Data != null) ? ApplicationStatusCodes.API_SUCCESS : ApplicationStatusCodes.GENERAL_FAILURE;
+            this.ApplicationResponse.Timestamp = DateTime.Now;
+            return this.ApplicationResponse;
         }
         /// <inheritdoc/>
-        public ScopeResponse AddAclCompanyModule(AclCompanyModuleRequest request)
+        public ApplicationResponse AddAclCompanyModule(AclCompanyModuleRequest request)
         {
             try
             {
-                this.ScopeResponse.Data = base.Add(PrepareInputData(request));
-                this.ScopeResponse.Message = this.MessageResponse.createMessage;
-                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+                this.ApplicationResponse.Data = base.Add(PrepareInputData(request));
+                this.ApplicationResponse.Message = this.MessageResponse.createMessage;
+                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             }
             catch (Exception ex)
             {
-                this.ScopeResponse.Message = ex.Message;
-                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
+                this.ApplicationResponse.Message = ex.Message;
+                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
-            this.ScopeResponse.Timestamp = DateTime.Now;
-            return this.ScopeResponse;
+            this.ApplicationResponse.Timestamp = DateTime.Now;
+            return this.ApplicationResponse;
         }
         /// <inheritdoc/>
-        public ScopeResponse EditAclCompanyModule(ulong id, AclCompanyModuleRequest request)
+        public ApplicationResponse EditAclCompanyModule(uint id, AclCompanyModuleRequest request)
         {
             try
             {
                 var aclCompanyModule = base.Find(id) ?? throw new Exception("company module not exist");
-                this.ScopeResponse.Message = (aclCompanyModule != null) ? this.MessageResponse.editMessage : this.MessageResponse.notFoundMessage;
-                this.ScopeResponse.StatusCode = (aclCompanyModule != null) ? ApplicationStatusCodes.API_SUCCESS : ApplicationStatusCodes.GENERAL_FAILURE;
+                this.ApplicationResponse.Message = (aclCompanyModule != null) ? this.MessageResponse.editMessage : this.MessageResponse.notFoundMessage;
+                this.ApplicationResponse.StatusCode = (aclCompanyModule != null) ? ApplicationStatusCodes.API_SUCCESS : ApplicationStatusCodes.GENERAL_FAILURE;
                 if (aclCompanyModule != null)
                 {
-                   this.ScopeResponse.Data = base.Update(PrepareInputData(request, id, aclCompanyModule));
+                   this.ApplicationResponse.Data = base.Update(PrepareInputData(request, id, aclCompanyModule));
                 }
             }
             catch (Exception ex)
             {
-               this.ScopeResponse.Message = ex.Message;
+               this.ApplicationResponse.Message = ex.Message;
             }
-            this.ScopeResponse.Timestamp = DateTime.Now;
-            return this.ScopeResponse;
+            this.ApplicationResponse.Timestamp = DateTime.Now;
+            return this.ApplicationResponse;
         }
         /// <inheritdoc/>
-        public ScopeResponse FindById(ulong id)
+        public ApplicationResponse FindById(uint id)
         {
             try
             {
-               this.ScopeResponse.Data = base.Find(id);
-                var message = (this.ScopeResponse.Data != null) ? this.MessageResponse.fetchMessage : this.MessageResponse.notFoundMessage;
-                this.ScopeResponse.Message = message;
-                this.ScopeResponse.StatusCode = (this.ScopeResponse.Data != null) ? ApplicationStatusCodes.API_SUCCESS : ApplicationStatusCodes.GENERAL_FAILURE;
-                this.ScopeResponse.Timestamp = DateTime.Now;
+               this.ApplicationResponse.Data = base.Find(id);
+                var message = (this.ApplicationResponse.Data != null) ? this.MessageResponse.fetchMessage : this.MessageResponse.notFoundMessage;
+                this.ApplicationResponse.Message = message;
+                this.ApplicationResponse.StatusCode = (this.ApplicationResponse.Data != null) ? ApplicationStatusCodes.API_SUCCESS : ApplicationStatusCodes.GENERAL_FAILURE;
+                this.ApplicationResponse.Timestamp = DateTime.Now;
             }
             catch (Exception ex)
             {
-               this.ScopeResponse.Message = ex.Message;
-                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
-               this.ScopeResponse.Timestamp = DateTime.Now;
+               this.ApplicationResponse.Message = ex.Message;
+                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
+               this.ApplicationResponse.Timestamp = DateTime.Now;
             }
-            return this.ScopeResponse;
+            return this.ApplicationResponse;
         }
         /// <inheritdoc/>
-        public  ScopeResponse DeleteCompanyModule(ulong id)
+        public  ApplicationResponse DeleteCompanyModule(uint id)
         {
             var check = base.Find(id) ?? throw new Exception("company module not exist");
-            this.ScopeResponse.Data = base.Delete(id);
-            this.ScopeResponse.StatusCode = (this.ScopeResponse.Data != null) ? ApplicationStatusCodes.API_SUCCESS : ApplicationStatusCodes.GENERAL_FAILURE;
-            this.ScopeResponse.Message = (this.ScopeResponse.Data != null) ? this.MessageResponse.deleteMessage : this.MessageResponse.notFoundMessage;
-            return this.ScopeResponse;
+            this.ApplicationResponse.Data = base.Delete(id);
+            this.ApplicationResponse.StatusCode = (this.ApplicationResponse.Data != null) ? ApplicationStatusCodes.API_SUCCESS : ApplicationStatusCodes.GENERAL_FAILURE;
+            this.ApplicationResponse.Message = (this.ApplicationResponse.Data != null) ? this.MessageResponse.deleteMessage : this.MessageResponse.notFoundMessage;
+            return this.ApplicationResponse;
         }
         /// <inheritdoc/>
-        public bool IsValidForCreateOrUpdate(ulong companyId, ulong moduleId, ulong id = 0)
+        public bool IsValidForCreateOrUpdate(uint companyId, uint moduleId, uint id = 0)
         {
             if (!CompanyModuleValid(companyId, moduleId, id))
             {
@@ -125,7 +125,7 @@ namespace ACL.Business.Domain.Services
             return true;
         }
         /// <inheritdoc/>
-        public CompanyModule PrepareInputData(AclCompanyModuleRequest request, ulong id = 0, CompanyModule? companyModule = null)
+        public CompanyModule PrepareInputData(AclCompanyModuleRequest request, uint id = 0, CompanyModule? companyModule = null)
         {
             bool valid = IsValidForCreateOrUpdate(request.CompanyId, request.ModuleId);
             CompanyModule aclCompanyModule = new CompanyModule();

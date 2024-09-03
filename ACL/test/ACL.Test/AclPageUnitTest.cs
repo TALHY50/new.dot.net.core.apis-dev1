@@ -36,7 +36,7 @@ namespace ACL.TEST
 
             //// Assert
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-                       ScopeResponse scopeResponse = JsonConvert.DeserializeObject<ScopeResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, scopeResponse.StatusCode);
+                       ApplicationResponse applicationResponse = JsonConvert.DeserializeObject<ApplicationResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, applicationResponse.StatusCode);
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
 
         }
@@ -56,7 +56,7 @@ namespace ACL.TEST
 
             //// Assert
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-                       ScopeResponse scopeResponse = JsonConvert.DeserializeObject<ScopeResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, scopeResponse.StatusCode);
+                       ApplicationResponse applicationResponse = JsonConvert.DeserializeObject<ApplicationResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, applicationResponse.StatusCode);
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
 
         }
@@ -78,7 +78,7 @@ namespace ACL.TEST
 
             //// Assert
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-                       ScopeResponse scopeResponse = JsonConvert.DeserializeObject<ScopeResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, scopeResponse.StatusCode);
+                       ApplicationResponse applicationResponse = JsonConvert.DeserializeObject<ApplicationResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, applicationResponse.StatusCode);
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
 
         }
@@ -97,7 +97,7 @@ namespace ACL.TEST
 
             //// Assert
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-                       ScopeResponse scopeResponse = JsonConvert.DeserializeObject<ScopeResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, scopeResponse.StatusCode);
+                       ApplicationResponse applicationResponse = JsonConvert.DeserializeObject<ApplicationResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, applicationResponse.StatusCode);
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
 
         }
@@ -116,7 +116,7 @@ namespace ACL.TEST
 
             // Assert
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-                       ScopeResponse scopeResponse = JsonConvert.DeserializeObject<ScopeResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, scopeResponse.StatusCode);
+                       ApplicationResponse applicationResponse = JsonConvert.DeserializeObject<ApplicationResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, applicationResponse.StatusCode);
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
 
         }
@@ -126,8 +126,8 @@ namespace ACL.TEST
             var faker = new Faker();
             return new AclPageRequest
             {
-                ModuleId = (ulong)faker.Random.Number(1001, 1002),
-                SubModuleId = (ulong)faker.Random.Number(2052, 2054),
+                ModuleId = (uint)faker.Random.Number(1001, 1002),
+                SubModuleId = (uint)faker.Random.Number(2052, 2054),
                 Name = faker.Random.String2(10, 50),
                 MethodName = faker.Random.String2(1, 5),
                 MethodType = faker.Random.Number(1, 3),
@@ -135,7 +135,7 @@ namespace ACL.TEST
 
         }
 
-        private ulong GetRandomID()
+        private uint GetRandomID()
         {
 
             return DataCollectors.dbContext.AclPages.Max(x => x.Id);

@@ -16,7 +16,7 @@ namespace ACL.Business.Domain.Services
     public class UserGroupRoleService : UserGroupRoleRepository, IUserGroupRoleService
     {
         /// <inheritdoc/>
-        public ScopeResponse ScopeResponse;
+        public ApplicationResponse ApplicationResponse;
         /// <inheritdoc/>
         public MessageResponse MessageResponse;
         private readonly string _modelName = "User Group Role";
@@ -31,12 +31,12 @@ namespace ACL.Business.Domain.Services
             HttpContextAccessor = httpContextAccessor;
             AppAuth.Initialize(HttpContextAccessor, dbContext);
             AppAuth.SetAuthInfo(HttpContextAccessor);
-            this.ScopeResponse = new ScopeResponse();
+            this.ApplicationResponse = new ApplicationResponse();
             this.MessageResponse = new MessageResponse(this._modelName, AppAuth.GetAuthInfo().Language);
         }
 
         /// <inheritdoc/>
-        public ScopeResponse GetRolesByUserGroupId(ulong userGroupId)
+        public ApplicationResponse GetRolesByUserGroupId(uint userGroupId)
         {
             var roles = this._dbContext.AclRoles.Where(x => x.CompanyId == AppAuth.GetAuthInfo().CompanyId).Select(role => new { role.Id, role.Title }).ToList();
             var associatedRoles = All().Where(ugr => ugr.UsergroupId == userGroupId && ugr.CompanyId == AppAuth.GetAuthInfo().CompanyId)
@@ -47,13 +47,13 @@ namespace ACL.Business.Domain.Services
                     RoleTitle = r.Title,
                     RoleId = ugr.RoleId
                 }).ToList();
-            this.ScopeResponse.Message = this.MessageResponse.fetchMessage;
-            this.ScopeResponse.Data = new { UsergroupRoles = associatedRoles, Roles = roles };
-            this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
-            return this.ScopeResponse;
+            this.ApplicationResponse.Message = this.MessageResponse.fetchMessage;
+            this.ApplicationResponse.Data = new { UsergroupRoles = associatedRoles, Roles = roles };
+            this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+            return this.ApplicationResponse;
         }
         /// <inheritdoc/>
-        public Task<ScopeResponse> Update(AclUserGroupRoleRequest request)
+        public Task<ApplicationResponse> Update(AclUserGroupRoleRequest request)
         {
 
             var userGroupRoles = GetUserGroupRoles(request);
@@ -73,10 +73,10 @@ namespace ACL.Business.Domain.Services
                    this._dbContext.AclUsergroupRoles.AddRange(userGroupRoles);
                    this._dbContext.SaveChanges();
                    ReloadEntities(userGroupRoles);
-                   this.ScopeResponse.Data = userGroupRoles;
-                   this.ScopeResponse.Message = this.MessageResponse.createMessage;
-                   this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
-                   List<ulong>? userIds = this._userRepository.GetUserIdByChangePermission(null, null, null, null, request.UserGroupId);
+                   this.ApplicationResponse.Data = userGroupRoles;
+                   this.ApplicationResponse.Message = this.MessageResponse.createMessage;
+                   this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+                   List<uint>? userIds = this._userRepository.GetUserIdByChangePermission(null, null, null, null, request.UserGroupId);
                    if (userIds != null)
                    {
                        this._userRepository.UpdateUserPermissionVersion(userIds);
@@ -87,12 +87,12 @@ namespace ACL.Business.Domain.Services
                catch (Exception ex)
                {
                    transaction.Rollback();
-                   this.ScopeResponse.Message = ex.Message;
-                   this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
+                   this.ApplicationResponse.Message = ex.Message;
+                   this.ApplicationResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
                }
            });
 
-            return Task.FromResult(this.ScopeResponse);
+            return Task.FromResult(this.ApplicationResponse);
         }
 
 

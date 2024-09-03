@@ -43,7 +43,7 @@ namespace ACL.TEST
 
             //// Assert
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-            ScopeResponse scopeResponse = JsonConvert.DeserializeObject<ScopeResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, scopeResponse.StatusCode);
+            ApplicationResponse applicationResponse = JsonConvert.DeserializeObject<ApplicationResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, applicationResponse.StatusCode);
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
             #endregion Assert
 
@@ -72,7 +72,7 @@ namespace ACL.TEST
             #endregion
             #region Assert
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-            ScopeResponse scopeResponse = JsonConvert.DeserializeObject<ScopeResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, scopeResponse.StatusCode);
+            ApplicationResponse applicationResponse = JsonConvert.DeserializeObject<ApplicationResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, applicationResponse.StatusCode);
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
             #endregion Assert
         }
@@ -97,7 +97,7 @@ namespace ACL.TEST
             #endregion
             #region Assert
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-            ScopeResponse scopeResponse = JsonConvert.DeserializeObject<ScopeResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, scopeResponse.StatusCode);
+            ApplicationResponse applicationResponse = JsonConvert.DeserializeObject<ApplicationResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, applicationResponse.StatusCode);
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
             #endregion Assert
         }
@@ -116,7 +116,7 @@ namespace ACL.TEST
             #endregion
             #region Assert
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-            ScopeResponse scopeResponse = JsonConvert.DeserializeObject<ScopeResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, scopeResponse.StatusCode);
+            ApplicationResponse applicationResponse = JsonConvert.DeserializeObject<ApplicationResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, applicationResponse.StatusCode);
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
             #endregion Assert
 
@@ -142,7 +142,7 @@ namespace ACL.TEST
             #endregion
             #region Assert
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-            ScopeResponse scopeResponse = JsonConvert.DeserializeObject<ScopeResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, scopeResponse.StatusCode);
+            ApplicationResponse applicationResponse = JsonConvert.DeserializeObject<ApplicationResponse>(response.Content); Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, applicationResponse.StatusCode);
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
             #endregion Assert
         }
@@ -159,12 +159,12 @@ namespace ACL.TEST
         }
 
 
-        private ulong GetRandomID()
+        private uint GetRandomID()
         {
             #region Act
             //    // Act
             //return dbContext.AclCompanyModules.Last().Id;
-            return (ulong)DataCollectors.dbContext.CompanyModules.Max(i => i.Id);
+            return (uint)DataCollectors.dbContext.CompanyModules.Max(i => i.Id);
             #endregion
             // }
 

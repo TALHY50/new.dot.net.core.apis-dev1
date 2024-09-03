@@ -13,7 +13,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
     public class PageRouteRepository : IPageRouteRepository
     {
         /// <inheritdoc/>
-        public ScopeResponse ScopeResponse;
+        public ApplicationResponse ApplicationResponse;
         /// <inheritdoc/>
         public MessageResponse MessageResponse;
         private readonly string _modelName = "Page Routes";
@@ -26,7 +26,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         {
             this._userRepository = userRepository;
             this._dbContext = dbContext;
-            this.ScopeResponse = new ScopeResponse();
+            this.ApplicationResponse = new ApplicationResponse();
             ContextAccessor = httpContextAccessor;
             AppAuth.Initialize(ContextAccessor, this._dbContext);
             AppAuth.SetAuthInfo(ContextAccessor);
@@ -78,7 +78,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
 
         }
         /// <inheritdoc/>
-        public PageRoute? Delete(ulong id)
+        public PageRoute? Delete(uint id)
         {
             try
             {
@@ -93,7 +93,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
             }
         }
         /// <inheritdoc/>
-        public PageRoute[]? DeleteAllByPageId(ulong pageId)
+        public PageRoute[]? DeleteAllByPageId(uint pageId)
         {
             try
             {
@@ -109,7 +109,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
             }
         }
         /// <inheritdoc/>
-        public PageRoute? Find(ulong id)
+        public PageRoute? Find(uint id)
         {
             try
             {

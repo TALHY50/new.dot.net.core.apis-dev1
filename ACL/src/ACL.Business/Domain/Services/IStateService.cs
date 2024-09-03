@@ -7,14 +7,14 @@ namespace ACL.Business.Domain.Services
     public interface IStateService : IStateRepository
     {
         /// <inheritdoc/>
-        ScopeResponse GetAll();
+        ApplicationResponse GetAll();
         /// <inheritdoc/>
-        ScopeResponse Add(AclStateRequest stateRequest);
+        ApplicationResponse Add(AclStateRequest stateRequest);
         /// <inheritdoc/>
-        ScopeResponse Edit(ulong id, AclStateRequest stateRequest);
+        ApplicationResponse Edit(uint id, AclStateRequest stateRequest);
         /// <inheritdoc/>
-        ScopeResponse FindById(ulong id);
+        ApplicationResponse FindById(uint id);
         /// <inheritdoc/>
-        ScopeResponse DeleteById(ulong id);
+        ApplicationResponse DeleteById(uint id);
     }
 }

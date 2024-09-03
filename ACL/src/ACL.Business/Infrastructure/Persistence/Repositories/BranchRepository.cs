@@ -62,7 +62,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
             }
         }
         /// <inheritdoc/>
-        public Branch? Delete(ulong id)
+        public Branch? Delete(uint id)
         {
             try
             {
@@ -80,7 +80,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
             }
         }
         /// <inheritdoc/>
-        public Branch? GetById(ulong id)
+        public Branch? GetById(uint id)
         {
             try
             {

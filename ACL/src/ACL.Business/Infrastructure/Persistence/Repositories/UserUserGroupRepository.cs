@@ -29,7 +29,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
             return request;
         }
         /// <inheritdoc/>
-        public UserUsergroup DeleteById(ulong id)
+        public UserUsergroup DeleteById(uint id)
         {
             UserUsergroup? request = this._dbContext.AclUserUsergroups.Find(id);
             this._dbContext.AclUserUsergroups.Remove(request);
@@ -37,7 +37,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
             return request;
         }
         /// <inheritdoc/>
-        public UserUsergroup Edit(ulong id, UserUsergroup? request)
+        public UserUsergroup Edit(uint id, UserUsergroup? request)
         {
             UserUsergroup? requestOne = this._dbContext.AclUserUsergroups.Find(id);
             request ??= requestOne;
@@ -47,7 +47,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
             return request;
         }
         /// <inheritdoc/>
-        public UserUsergroup? FindById(ulong id)
+        public UserUsergroup? FindById(uint id)
         {
             return this._dbContext.AclUserUsergroups.Find(id);
         }
@@ -69,7 +69,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
             }
         }
         /// <inheritdoc/>
-        public UserUsergroup? Find(ulong id)
+        public UserUsergroup? Find(uint id)
         {
             try
             {
@@ -111,7 +111,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
 
         }
         /// <inheritdoc/>
-        public UserUsergroup? Delete(ulong id)
+        public UserUsergroup? Delete(uint id)
         {
             try
             {
@@ -158,7 +158,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
             }
         }
         /// <inheritdoc/>
-        public UserUsergroup[]? Where(ulong userid)
+        public UserUsergroup[]? Where(uint userid)
         {
             try
             {
@@ -172,7 +172,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
             }
         }
 
-        public UserUsergroup PrepareDataForInput(ulong userGroup, ulong userId)
+        public UserUsergroup PrepareDataForInput(uint userGroup, uint userId)
         {
             bool userIdValid = UserIsExist(userId);
             if (!userIdValid)
@@ -194,11 +194,11 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
             return userUserGroup;
         }
 
-        public bool UserIsExist(ulong userId)
+        public bool UserIsExist(uint userId)
         {
             return this._dbContext.AclUsers.Any(i => i.Id == userId);
         }
-        public bool UserGroupIsExist(ulong id)
+        public bool UserGroupIsExist(uint id)
         {
             return this._dbContext.AclUserUsergroups.Any(m=> m.Id == id);
         }

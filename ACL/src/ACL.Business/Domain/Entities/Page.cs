@@ -2,11 +2,11 @@
 
 public partial class Page
 {
-    public ulong Id { get; set; }
+    public uint Id { get; set; }
 
-    public ulong ModuleId { get; set; }
+    public uint ModuleId { get; set; }
 
-    public ulong SubModuleId { get; set; }
+    public uint SubModuleId { get; set; }
 
     public string Name { get; set; } = null!;
 

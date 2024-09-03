@@ -44,7 +44,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
 
         }
         /// <inheritdoc/>
-        public RolePage? Find(ulong id)
+        public RolePage? Find(uint id)
         {
             try
             {
@@ -101,7 +101,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
             }
         }
         /// <inheritdoc/>
-        public PageRoute? Delete(ulong id)
+        public PageRoute? Delete(uint id)
         {
             try
             {
@@ -145,7 +145,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
             }
         }
         /// <inheritdoc/>
-        public RolePage[]? DeleteAllByRoleId(ulong roleId)
+        public RolePage[]? DeleteAllByRoleId(uint roleId)
         {
             try
             {

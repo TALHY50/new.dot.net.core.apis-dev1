@@ -15,7 +15,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         private readonly ApplicationDbContext _dbContext;
         private readonly IUserRepository _userRepository;
         public static IHttpContextAccessor HttpContextAccessor;
-        private enum RoleIds : ulong { super_super_admin = 1, ADMIN_ROLE = 2  };
+        private enum RoleIds : uint { super_super_admin = 1, ADMIN_ROLE = 2  };
         public RoleRepository(ApplicationDbContext dbContext,IUserRepository userRepository, IHttpContextAccessor httpContextAccessor)
         {
             this._userRepository = userRepository;
@@ -26,7 +26,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         }
 
         /// <inheritdoc/>
-        public bool RoleIdNotToDelete(ulong roleId)
+        public bool RoleIdNotToDelete(uint roleId)
         {
             bool exists = Enum.IsDefined(typeof(RoleIds), roleId);
             if (exists)
@@ -37,7 +37,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         }
 
         /// <inheritdoc/>
-        public string ExistByName(ulong? id, string name)
+        public string ExistByName(uint? id, string name)
         {
             var valid = this._dbContext.AclRoles.Any(x => x.Name.ToLower() == name.ToLower());
             if (id > 0)
@@ -51,7 +51,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
             return name;
         }
         /// <inheritdoc/>
-        public string ExistByTitle(ulong? id, string title)
+        public string ExistByTitle(uint? id, string title)
         {
             var valid = this._dbContext.AclRoles.Any(x => x.Title.ToLower() == title.ToLower());
             if (id > 0)
@@ -66,7 +66,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         }
 
         /// <inheritdoc/>
-        public Role? Delete(ulong id)
+        public Role? Delete(uint id)
         {
             var delete = this._dbContext.AclRoles.Find(id);
             this._dbContext.AclRoles.Remove(delete);
@@ -81,7 +81,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
 
         }
         /// <inheritdoc/>
-        public Role? Find(ulong id)
+        public Role? Find(uint id)
         {
             return Queryable.Where(this._dbContext.AclRoles, x=>x.Id == id && x.CompanyId == AppAuth.GetAuthInfo().CompanyId).FirstOrDefault();
 
@@ -116,7 +116,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
 
         }
 
-        public bool IsExist(ulong id)
+        public bool IsExist(uint id)
         {
             return  Queryable.Any(this._dbContext.AclRoles, x => x.Id == id && x.CompanyId == AppAuth.GetAuthInfo().CompanyId); 
         }

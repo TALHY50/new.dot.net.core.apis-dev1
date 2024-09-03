@@ -22,21 +22,21 @@ namespace ACL.Web.Application.Features.Submodules
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclSubmoduleRouteUrl.List, Name = AclRoutesName.AclSubmoduleRouteNames.List)]
-        public ScopeResponse Index()
+        public ApplicationResponse Index()
         {
             return this._subModuleService.GetAll();
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPost(AclRoutesUrl.AclSubmoduleRouteUrl.Add, Name = AclRoutesName.AclSubmoduleRouteNames.Add)]
-        public ScopeResponse Create(AclSubModuleRequest objSubModule)
+        public ApplicationResponse Create(AclSubModuleRequest objSubModule)
         {
             return this._subModuleService.Add(objSubModule);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclSubmoduleRouteUrl.View, Name = AclRoutesName.AclSubmoduleRouteNames.View)]
-        public ScopeResponse View(ulong id)
+        public ApplicationResponse View(uint id)
         {
             return this._subModuleService.FindById(id);
 
@@ -44,7 +44,7 @@ namespace ACL.Web.Application.Features.Submodules
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPut(AclRoutesUrl.AclSubmoduleRouteUrl.Edit, Name = AclRoutesName.AclSubmoduleRouteNames.Edit)]
-        public ScopeResponse Edit( AclSubModuleRequest objSubModule)
+        public ApplicationResponse Edit( AclSubModuleRequest objSubModule)
         {
             return this._subModuleService.Edit( objSubModule);
 
@@ -52,7 +52,7 @@ namespace ACL.Web.Application.Features.Submodules
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpDelete(AclRoutesUrl.AclSubmoduleRouteUrl.Destroy, Name = AclRoutesName.AclSubmoduleRouteNames.Destroy)]
-        public ScopeResponse Destroy(ulong id)
+        public ApplicationResponse Destroy(uint id)
         {
             return this._subModuleService.DeleteById(id);
         }

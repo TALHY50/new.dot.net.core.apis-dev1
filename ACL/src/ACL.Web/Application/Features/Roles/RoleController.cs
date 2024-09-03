@@ -22,21 +22,21 @@ namespace ACL.Web.Application.Features.Roles
          /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclRoleRouteUrl.List, Name = AclRoutesName.AclRoleRouteNames.List)]
-        public ScopeResponse Index()
+        public ApplicationResponse Index()
         {
             return this._roleService.GetAll();
         }
          /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPost(AclRoutesUrl.AclRoleRouteUrl.Add, Name = AclRoutesName.AclRoleRouteNames.Add)]
-        public ScopeResponse Create(AclRoleRequest objRole)
+        public ApplicationResponse Create(AclRoleRequest objRole)
         {
             return this._roleService.Add(objRole);
         }
          /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclRoleRouteUrl.View, Name = AclRoutesName.AclRoleRouteNames.View)]
-        public ScopeResponse View(ulong id)
+        public ApplicationResponse View(uint id)
         {
             return  this._roleService.FindById(id);
 
@@ -44,7 +44,7 @@ namespace ACL.Web.Application.Features.Roles
          /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPut(AclRoutesUrl.AclRoleRouteUrl.Edit, Name = AclRoutesName.AclRoleRouteNames.Edit)]
-        public ScopeResponse Edit(ulong id, AclRoleRequest objRole)
+        public ApplicationResponse Edit(uint id, AclRoleRequest objRole)
         {
             return  this._roleService.Edit(id, objRole);
 
@@ -52,7 +52,7 @@ namespace ACL.Web.Application.Features.Roles
          /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpDelete(AclRoutesUrl.AclRoleRouteUrl.Destroy, Name = AclRoutesName.AclRoleRouteNames.Destroy)]
-        public ScopeResponse Destroy(ulong id)
+        public ApplicationResponse Destroy(uint id)
         {
             return this._roleService.DeleteById(id);
         }

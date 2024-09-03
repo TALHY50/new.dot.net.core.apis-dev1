@@ -7,14 +7,14 @@ namespace ACL.Business.Domain.Services
     public interface ICountryService : ICountryRepository
     {
         /// <inheritdoc/>
-        ScopeResponse GetAll();
+        ApplicationResponse GetAll();
         /// <inheritdoc/>
-        ScopeResponse Add(AclCountryRequest countryRequest);
+        ApplicationResponse Add(AclCountryRequest countryRequest);
         /// <inheritdoc/>
-        ScopeResponse Edit(ulong id, AclCountryRequest countryRequest);
+        ApplicationResponse Edit(uint id, AclCountryRequest countryRequest);
         /// <inheritdoc/>
-        ScopeResponse FindById(ulong id);
+        ApplicationResponse FindById(uint id);
         /// <inheritdoc/>
-        ScopeResponse DeleteById(ulong id);
+        ApplicationResponse DeleteById(uint id);
     }
 }

@@ -86,20 +86,20 @@ namespace ACL.Business.Infrastructure.Middlewares
                     aclResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
                     break;
                 //case ApplicationException ex:
-                //    scopeResponse.Message = ex.Message;
-                //    scopeResponse.StatusCode = context.Responses.StatusCode;
+                //    applicationResponse.Message = ex.Message;
+                //    applicationResponse.StatusCode = context.Responses.StatusCode;
                 //    break;
                 //case FileNotFoundException ex:
-                //    scopeResponse.Message = ex.Message;
-                //    scopeResponse.StatusCode = context.Responses.StatusCode;
+                //    applicationResponse.Message = ex.Message;
+                //    applicationResponse.StatusCode = context.Responses.StatusCode;
                 //    break;
                 //case NullReferenceException ex:
-                //    scopeResponse.Message = ex.Message;
-                //    scopeResponse.StatusCode = context.Responses.StatusCode;
+                //    applicationResponse.Message = ex.Message;
+                //    applicationResponse.StatusCode = context.Responses.StatusCode;
                 //    break;
                 //case InvalidOperationException ex:
-                //    scopeResponse.Message = ex.Message;
-                //    scopeResponse.StatusCode = context.Responses.StatusCode;
+                //    applicationResponse.Message = ex.Message;
+                //    applicationResponse.StatusCode = context.Responses.StatusCode;
                 //    break;
                 default:
                     aclResponse.Message = "Internal Server Error, Please retry after sometime";

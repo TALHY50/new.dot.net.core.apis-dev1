@@ -15,7 +15,7 @@ namespace ACL.Business.Domain.Services
     public class RolePageService : RolePageRepository, IRolePageService
     {
         /// <inheritdoc/>
-        public ScopeResponse ScopeResponse;
+        public ApplicationResponse ApplicationResponse;
         /// <inheritdoc/>
         public MessageResponse MessageResponse;
         private readonly string _modelName = "Role Page";
@@ -34,7 +34,7 @@ namespace ACL.Business.Domain.Services
              this._userRepository = userRepository;
             this._roleRepository = roleRepository;
             this._pageRepository = pageRepository;
-            this.ScopeResponse = new ScopeResponse();
+            this.ApplicationResponse = new ApplicationResponse();
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8604 // Dereference of a possibly null reference.
             this.MessageResponse = new MessageResponse(this._modelName, AppAuth.GetAuthInfo().Language);
@@ -44,26 +44,26 @@ namespace ACL.Business.Domain.Services
             AppAuth.SetAuthInfo(ContextAccessor);
         }
                 /// <inheritdoc/>
-        public async Task<ScopeResponse> GetAllById(ulong id)
+        public async Task<ApplicationResponse> GetAllById(uint id)
         {
             List<RolePage>? res = await Context.AclRolePages.Where(x => x.RoleId == id).ToListAsync();
             if (res.Any())
             {
-                this.ScopeResponse.Message = this.MessageResponse.fetchMessage;
-                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+                this.ApplicationResponse.Message = this.MessageResponse.fetchMessage;
+                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             }
             else
             {
-                this.ScopeResponse.Message = this.MessageResponse.notFoundMessage;
-                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
+                this.ApplicationResponse.Message = this.MessageResponse.notFoundMessage;
+                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
-            this.ScopeResponse.Data = res;
-            this.ScopeResponse.Timestamp = DateTime.Now;
+            this.ApplicationResponse.Data = res;
+            this.ApplicationResponse.Timestamp = DateTime.Now;
 
-            return this.ScopeResponse;
+            return this.ApplicationResponse;
         }
         /// <inheritdoc/>
-        public async Task<ScopeResponse> UpdateAll(AclRoleAndPageAssocUpdateRequest req)
+        public async Task<ApplicationResponse> UpdateAll(AclRoleAndPageAssocUpdateRequest req)
         {
             try
             {
@@ -72,10 +72,10 @@ namespace ACL.Business.Domain.Services
                 if (check.Length != 0)
                 {
                     DeleteAll(res.ToArray());
-                    this.ScopeResponse.Data = AddAll(check);
-                    this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
-                    this.ScopeResponse.Message = this.MessageResponse.editMessage;
-                    List<ulong>? userIds = this._userRepository.GetUserIdByChangePermission(null, null, req.RoleId);
+                    this.ApplicationResponse.Data = AddAll(check);
+                    this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+                    this.ApplicationResponse.Message = this.MessageResponse.editMessage;
+                    List<uint>? userIds = this._userRepository.GetUserIdByChangePermission(null, null, req.RoleId);
                     if (userIds != null)
                     {
                         this._userRepository.UpdateUserPermissionVersion(userIds);
@@ -83,18 +83,18 @@ namespace ACL.Business.Domain.Services
                 }
                 else
                 {
-                    this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
-                    this.ScopeResponse.Message = this.MessageResponse.editFail;
+                    this.ApplicationResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
+                    this.ApplicationResponse.Message = this.MessageResponse.editFail;
                 }
 
             }
             catch (Exception ex)
             {
-                this.ScopeResponse.Message = ex.Message;
-                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
+                this.ApplicationResponse.Message = ex.Message;
+                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
-            this.ScopeResponse.Timestamp = DateTime.Now;
-            return this.ScopeResponse;
+            this.ApplicationResponse.Timestamp = DateTime.Now;
+            return this.ApplicationResponse;
         }
 
         /// <inheritdoc/>
@@ -104,7 +104,7 @@ namespace ACL.Business.Domain.Services
             bool roleExist = this._roleRepository.IsExist(req.RoleId);
             if (roleExist)
             {
-                foreach (ulong page in req.PageIds)
+                foreach (uint page in req.PageIds)
                 {
                     bool exists = res.Any(r => r.RoleId == page);
                     bool pageExist = this._pageRepository.IsExist(page);

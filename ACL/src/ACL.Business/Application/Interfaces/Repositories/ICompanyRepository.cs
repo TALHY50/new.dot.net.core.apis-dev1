@@ -8,7 +8,7 @@ namespace ACL.Business.Application.Interfaces.Repositories
        
         List<Company>? All();
         /// <inheritdoc/>
-        Company? Find(ulong id);
+        Company? Find(uint id);
         /// <inheritdoc/>
         Company? Add(Company aclCompany);
         /// <inheritdoc/>
@@ -16,7 +16,7 @@ namespace ACL.Business.Application.Interfaces.Repositories
         /// <inheritdoc/>
         Company? Delete(Company aclCompany);
         /// <inheritdoc/>
-        bool IsCompanyNameUnique(string CompanyName, ulong? CompanyId = null);
+        bool IsCompanyNameUnique(string CompanyName, uint? CompanyId = null);
 
     }
 }

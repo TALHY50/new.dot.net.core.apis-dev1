@@ -7,15 +7,15 @@ namespace ACL.Business.Domain.Services
     public interface IUserService : IUserRepository
     {
         /// <inheritdoc/>
-        ScopeResponse GetAll();
+        ApplicationResponse GetAll();
         /// <inheritdoc/>
-        Task<ScopeResponse> AddUser(AclUserRequest request);
+        Task<ApplicationResponse> AddUser(AclUserRequest request);
         /// <inheritdoc/>
-        Task<ScopeResponse> Edit(ulong id, AclUserRequest request);
+        Task<ApplicationResponse> Edit(uint id, AclUserRequest request);
         /// <inheritdoc/>
-        ScopeResponse FindById(ulong id);
+        ApplicationResponse FindById(uint id);
           /// <inheritdoc/>
-        ScopeResponse DeleteById(ulong id);
+        ApplicationResponse DeleteById(uint id);
         /// <inheritdoc/>
     }
 }

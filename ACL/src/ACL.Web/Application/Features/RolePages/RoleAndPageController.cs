@@ -22,14 +22,14 @@ namespace ACL.Web.Application.Features.RolePages
          /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclRolePageRouteUrl.List, Name = AclRoutesName.AclRolePageRouteNames.List)]
-        public async Task<ScopeResponse> Index(ulong id)
+        public async Task<ApplicationResponse> Index(uint id)
         {
             return await this._rolePageService.GetAllById(id);
         }
          /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPut(AclRoutesUrl.AclRolePageRouteUrl.Edit, Name = AclRoutesName.AclRolePageRouteNames.Edit)]
-        public async Task<ScopeResponse> Update(AclRoleAndPageAssocUpdateRequest req)
+        public async Task<ApplicationResponse> Update(AclRoleAndPageAssocUpdateRequest req)
         {
             return await this._rolePageService.UpdateAll(req);
         }
