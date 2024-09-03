@@ -53,7 +53,7 @@ namespace SharedBusiness.Main.Admin.Application.Features.PayerPaymentSpeeds
 
             if (payerPaymentSpeeds == null)
             {
-                return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), description: "PayerPaymentSpeed not found!");
+                return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), Language.GetMessage("Record not found"));
             }
 
             return payerPaymentSpeeds;

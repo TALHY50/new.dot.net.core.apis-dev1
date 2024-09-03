@@ -33,7 +33,7 @@ namespace SharedBusiness.Main.Admin.Application.Features.PayerPaymentSpeeds
 
                 if (payerPaymentSpeed == null)
                 {
-                    return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), "PayerPaymentSpeed not found");
+                    return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), Language.GetMessage("Record not found"));
                 }
 
                 await _repository.DeleteAsync(payerPaymentSpeed, cancellationToken);

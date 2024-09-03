@@ -49,8 +49,7 @@ namespace SharedBusiness.Main.Admin.Application.Features.PayerPaymentSpeeds
             PayerPaymentSpeed? payerPaymentSpeed = await _repository.GetByIdAsync(command.id, cancellationToken);
             if (payerPaymentSpeed == null)
             {
-                return Error.NotFound(description: "PayerPaymentSpeed not found",
-                    code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
+                return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), Language.GetMessage("Record not found"));
             }
 
 
