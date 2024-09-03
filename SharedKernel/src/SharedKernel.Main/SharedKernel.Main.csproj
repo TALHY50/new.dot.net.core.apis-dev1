@@ -94,7 +94,7 @@
 		<PackageReference Include="Newtonsoft.Json" />
 		<PackageReference Include="RazorLight" Version="2.3.1" />
 	</ItemGroup>
-	
+
 
 	<ItemGroup>
 		<Compile Remove="Externals\**" />
@@ -122,15 +122,15 @@
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>
-	
-	
+
+
 
 
 	<ItemGroup>
 		<Folder Include="Application\Utilities\" />
 		<Folder Include="wwwroot\" />
 	</ItemGroup>
-	
+
 
 	<ItemGroup>
 		<AdditionalFiles Include="Application\Resources\bn-BD.resx" />

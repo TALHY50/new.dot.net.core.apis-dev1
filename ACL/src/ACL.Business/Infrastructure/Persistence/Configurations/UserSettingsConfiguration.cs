@@ -19,6 +19,11 @@ namespace ACL.Business.Infrastructure.Persistence.Configurations
                 .HasColumnType("int(10) unsigned")
                 .HasColumnName("id")
                 .HasComment("id of users table");
+            // Columns
+            builder.Property(e => e.UserId)
+                .HasColumnType("int(10) unsigned")
+                .HasColumnName("user_id")
+                .HasComment("id of users table");
 
             builder.Property(e => e.AppId)
                 .HasMaxLength(50)
