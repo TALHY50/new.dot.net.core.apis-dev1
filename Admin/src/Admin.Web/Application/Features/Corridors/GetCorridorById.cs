@@ -9,7 +9,7 @@
 //using SharedKernel.Main.Presentation;
 //using SharedKernel.Main.Presentation.Routes;
 
-//namespace Admin.App.Application.Features.Corridors
+//namespace Admin.Web.Application.Features.Corridors
 //{
 //    public class GetCorridorById : ApiControllerBase
 //    {

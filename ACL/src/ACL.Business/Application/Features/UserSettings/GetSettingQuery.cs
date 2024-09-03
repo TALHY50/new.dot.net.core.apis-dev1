@@ -11,7 +11,7 @@
 //using SharedKernel.Main.Presentation;
 //using SharedKernel.Main.Presentation.Routes;
 
-//namespace Admin.App.Application.Features.Mtts
+//namespace Admin.Web.Application.Features.Mtts
 //{
 //    [Authorize]
 //    public record GetMttsQuery(int PageNumber = 0, int PageSize = 0) : IRequest<ErrorOr<List<Mtt>>>;

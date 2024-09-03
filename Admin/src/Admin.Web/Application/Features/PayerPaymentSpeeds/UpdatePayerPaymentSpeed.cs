@@ -10,7 +10,7 @@ using SharedKernel.Main.Contracts;
 using SharedKernel.Main.Presentation;
 using SharedKernel.Main.Presentation.Routes;
 
-namespace ADMIN.App.Application.Features.PayerPaymentSpeeds
+namespace Admin.Web.Application.Features.PayerPaymentSpeeds
 {
     public class UpdatePayerPaymentSpeedController : ApiControllerBase
     {

@@ -1,7 +1,7 @@
 ﻿using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Presentation;
 
-namespace Admin.App.Presentation.Endpoints.TransactionTypes
+namespace Admin.Web.Presentation.Endpoints.TransactionTypes
 {
     public class TransactionTypeBase : ApiControllerBase
     {

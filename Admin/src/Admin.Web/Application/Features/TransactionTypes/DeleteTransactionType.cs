@@ -9,10 +9,10 @@
 //using SharedKernel.Main.Contracts;
 //using SharedKernel.Main.Presentation;
 //using SharedKernel.Main.Presentation.Routes;
-//using static Admin.App.Application.Features.Mtts.InstitutionDelete;
+//using static Admin.Web.Application.Features.Mtts.InstitutionDelete;
 
 
-//namespace Admin.App.Application.Features.TransactionTypes
+//namespace Admin.Web.Application.Features.TransactionTypes
 //{
 //    public class DeleteTransactionTypeController : ApiControllerBase
 //    {

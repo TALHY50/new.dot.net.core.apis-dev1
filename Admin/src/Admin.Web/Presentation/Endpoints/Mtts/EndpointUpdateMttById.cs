@@ -1,4 +1,5 @@
-﻿using ErrorOr;
+﻿using Admin.Web.Presentation.Routes;
+using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -13,14 +14,14 @@ using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Presentation;
 using SharedKernel.Main.Presentation.Routes;
 
-namespace Admin.App.Application.Features.Mtts
+namespace Admin.Web.Application.Features.Mtts
 {
     public class EndpointUpdateMttById(ILogger<EndpointUpdateMttById> logger, ICurrentUser currentUser)
        : MttBase(logger, currentUser)
     {
         [Tags("Mtt")]
-        [HttpPut(AdminRoute.EditMttsRouteUrl, Name = AdminRoute.EditMttsRouteName)]
-        [HttpPatch(AdminRoute.EditMttsRouteUrl, Name = AdminRoute.EditMttsRouteName)]
+        [HttpPut(MttRoutes.EditMttsRouteUrl, Name = MttRoutes.EditMttsRouteName)]
+        [HttpPatch(MttRoutes.EditMttsRouteUrl, Name = MttRoutes.EditMttsRouteName)]
         public async Task<IActionResult> Update(uint id, UpdateMttByIdCommand command, CancellationToken cancellationToken)
         {
             var commandWithId = command with { id = id };

@@ -1,10 +1,10 @@
-﻿using Admin.App.Presentation.Routes;
+﻿using Admin.Web.Presentation.Routes;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Admin.Application.Features.TransactionTypes;
 using SharedBusiness.Main.IMT.Contracts.Contracts.Responses;
 using SharedKernel.Main.Application.Interfaces.Services;
 
-namespace Admin.App.Presentation.Endpoints.TransactionTypes
+namespace Admin.Web.Presentation.Endpoints.TransactionTypes
 {
     public class GetTransactionTypeById(ILogger<GetTransactionTypeById> logger, ICurrentUser currentUser)
     : TransactionTypeBase(logger, currentUser)

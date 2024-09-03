@@ -11,7 +11,7 @@ using SharedKernel.Main.Presentation;
 using SharedKernel.Main.Presentation.Routes;
 using Duplicates_HolidaySetting = SharedBusiness.Main.Common.Domain.Entities.HolidaySetting;
 
-namespace Admin.App.Application.Features.HolidaySetting;
+namespace Admin.Web.Application.Features.HolidaySetting;
 
 public class UpdateHolidaySettingController : ApiControllerBase
 {

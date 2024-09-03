@@ -9,9 +9,9 @@
 //using SharedKernel.Main.Contracts;
 //using SharedKernel.Main.Presentation;
 //using SharedKernel.Main.Presentation.Routes;
-//using static Admin.App.Application.Features.Regions.GetRegionController;
+//using static Admin.Web.Application.Features.Regions.GetRegionController;
 
-//namespace Admin.App.Application.Features.Regions
+//namespace Admin.Web.Application.Features.Regions
 //{
 //    public class GetRegionByIdController : ApiControllerBase
 //    {
