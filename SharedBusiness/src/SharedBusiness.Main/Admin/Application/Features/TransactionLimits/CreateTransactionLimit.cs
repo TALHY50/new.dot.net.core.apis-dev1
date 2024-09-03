@@ -71,7 +71,7 @@ namespace SharedBusiness.Main.Admin.Application.Features.TransactionLimits
 
             if (!currencyExist)
             {
-                return Error.NotFound(description: "Currency not found", code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
+                return Error.NotFound(description: Language.GetMessage("Currency not found"), code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
             var result = await _repository.AddAsync(transactionLimit, cancellationToken);
               

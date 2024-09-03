@@ -10,8 +10,8 @@ using SharedKernel.Main.Contracts;
 namespace Admin.App.Presentation.Endpoints.TransactionLimits
 {
    
-    public class GetTransactionLimit(ILogger<GetTransactionLimit> logger, ICurrentUser currentUser)
-    : TransactionLimitBase(logger, currentUser)
+    public class GetTransactionLimitController(ILogger<GetTransactionLimitController> logger, ICurrentUser currentUser)
+    : TransactionLimitBaseController(logger, currentUser)
     {
         [Tags("Transaction Limit")]
         // [Authorize(Policy = "HasPermission")]

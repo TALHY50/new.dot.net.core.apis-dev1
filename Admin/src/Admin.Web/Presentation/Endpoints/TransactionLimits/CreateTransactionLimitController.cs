@@ -7,7 +7,7 @@ using SharedBusiness.Main.IMT.Contracts.Contracts.Responses;
 
 namespace Admin.App.Presentation.Endpoints.TransactionLimits
 {
-    public class CreateTransactionLimit(ILogger<CreateTransactionLimit> logger, ICurrentUser currentUser) : TransactionLimitBase(logger, currentUser)
+    public class CreateTransactionLimitController(ILogger<CreateTransactionLimitController> logger, ICurrentUser currentUser) : TransactionLimitBaseController(logger, currentUser)
     {
         [Tags("Transaction Limit")]
         //[Authorize(Policy = "HasPermission")]
