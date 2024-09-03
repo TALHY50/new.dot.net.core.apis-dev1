@@ -13,7 +13,7 @@ namespace ACL.Business.Application.Interfaces.Repositories
         /// <inheritdoc/>
         List<PageRoute>? All();
         /// <inheritdoc/>
-        PageRoute? Find(ulong id);
+        PageRoute? Find(uint id);
         /// <inheritdoc/>
         PageRoute? Add(PageRoute pageRoute);
         /// <inheritdoc/>
@@ -21,8 +21,8 @@ namespace ACL.Business.Application.Interfaces.Repositories
         /// <inheritdoc/>
         PageRoute? Delete(PageRoute pageRoute);
         /// <inheritdoc/>
-        PageRoute? Delete(ulong id);
+        PageRoute? Delete(uint id);
         /// <inheritdoc/>
-        PageRoute[]? DeleteAllByPageId(ulong pageid);
+        PageRoute[]? DeleteAllByPageId(uint pageid);
     }
 }

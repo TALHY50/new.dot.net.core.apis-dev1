@@ -1,4 +1,5 @@
-﻿using ErrorOr;
+﻿using Admin.Web.Presentation.Routes;
+using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -12,12 +13,12 @@ using SharedKernel.Main.Presentation.Routes;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 
-namespace Admin.App.Application.Features.HolidaySetting;
+namespace Admin.Web.Presentation.Endpoints.HolidaySetting;
 
 public class DeleteHolidaySettingByIdController : ApiControllerBase
 {
     //[Authorize(Policy = "HasPermission")]
-    [HttpDelete(Routes.DeleteHolidaySettingUrl, Name = Routes.DeleteHolidaySettingName)]
+    [HttpDelete(HolidaySettingRoutes.DeleteHolidaySettingTemplate, Name = HolidaySettingRoutes.DeleteHolidaySettingName)]
     public async Task<ActionResult<ErrorOr<bool>>> Delete(uint id)
     {
         var result = await Mediator.Send(new DeleteHolidaySettingCommand(id)).ConfigureAwait(false);

@@ -12,7 +12,7 @@
 //using SharedKernel.Main.Presentation;
 //using SharedKernel.Main.Presentation.Routes;
 
-//namespace Admin.App.Application.Features.Mtts
+//namespace Admin.Web.Application.Features.Mtts
 //{
 //    [Authorize]
 //    public record GetMttByIdQuery(uint id) : IRequest<ErrorOr<Mtt>>;

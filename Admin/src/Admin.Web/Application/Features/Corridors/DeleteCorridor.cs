@@ -9,7 +9,7 @@
 //using SharedKernel.Main.Presentation.Routes;
 //using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
-//namespace Admin.App.Application.Features.Corridors
+//namespace Admin.Web.Application.Features.Corridors
 //{
 //    public class DeleteCorridorController : ApiControllerBase
 //    {

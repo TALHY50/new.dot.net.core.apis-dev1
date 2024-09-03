@@ -1,4 +1,4 @@
-﻿namespace Admin.App.Presentation.Routes
+﻿namespace Admin.Web.Presentation.Routes
 {
     public class CorridorsRoutes
     {

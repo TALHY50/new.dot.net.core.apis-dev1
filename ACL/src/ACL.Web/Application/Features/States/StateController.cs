@@ -36,7 +36,7 @@ namespace ACL.Web.Application.Features.States
         /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclStateRouteUrl.View, Name = AclRoutesName.AclStateRouteNames.View)]
-        public ScopeResponse View(ulong id)
+        public ScopeResponse View(uint id)
         {
             return this._stateService.FindById(id);
 
@@ -44,7 +44,7 @@ namespace ACL.Web.Application.Features.States
         /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
         [HttpPut(AclRoutesUrl.AclStateRouteUrl.Edit, Name = AclRoutesName.AclStateRouteNames.Edit)]
-        public ScopeResponse Edit(ulong id, AclStateRequest objState)
+        public ScopeResponse Edit(uint id, AclStateRequest objState)
         {
             return this._stateService.Edit(id, objState);
 
@@ -52,7 +52,7 @@ namespace ACL.Web.Application.Features.States
         /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
         [HttpDelete(AclRoutesUrl.AclStateRouteUrl.Destroy, Name = AclRoutesName.AclStateRouteNames.Destroy)]
-        public ScopeResponse Destroy(ulong id)
+        public ScopeResponse Destroy(uint id)
         {
             return this._stateService.DeleteById(id);
         }

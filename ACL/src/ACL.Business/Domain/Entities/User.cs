@@ -3,7 +3,7 @@ using Ardalis.SharedKernel;
 
 namespace ACL.Business.Domain.Entities;
 
-public partial class User : EntityBase<ulong>, IAggregateRoot
+public partial class User : EntityBase<uint>, IAggregateRoot
 {
     public string? FirstName { get; set; }
 
@@ -94,7 +94,7 @@ public partial class User : EntityBase<ulong>, IAggregateRoot
         RefreshToken = new RefreshToken();
     }
 
-    public User(ulong userId, uint permissionVersion, Permission? permission)
+    public User(uint userId, uint permissionVersion, Permission? permission)
     {
         Id = userId;
         PermissionVersion = permissionVersion;

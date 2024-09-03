@@ -22,7 +22,7 @@ namespace ACL.Web.Application.Features.RolePages
          /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclRolePageRouteUrl.List, Name = AclRoutesName.AclRolePageRouteNames.List)]
-        public async Task<ScopeResponse> Index(ulong id)
+        public async Task<ScopeResponse> Index(uint id)
         {
             return await this._rolePageService.GetAllById(id);
         }

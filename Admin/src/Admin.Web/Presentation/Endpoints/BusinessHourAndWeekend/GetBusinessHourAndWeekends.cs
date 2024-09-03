@@ -1,4 +1,4 @@
-using Admin.App.Presentation.Routes;
+using Admin.Web.Presentation.Routes;
 using ErrorOr;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +8,7 @@ using SharedBusiness.Main.IMT.Contracts.Contracts.Responses;
 using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Contracts;
 
-namespace Admin.App.Presentation.Endpoints.BusinessHourAndWeekend;
+namespace Admin.Web.Presentation.Endpoints.BusinessHourAndWeekend;
 
 public class GetBusinessHourAndWeekends(ILogger<GetBusinessHourAndWeekends> logger, ICurrentUser currentUser)
     : BusinessHourAndWeekendBase(logger, currentUser)

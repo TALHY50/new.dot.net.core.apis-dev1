@@ -39,7 +39,7 @@ namespace SharedBusiness.Main.Admin.Application.Features.Currencies
         public async Task<ErrorOr<Currency>> Handle(CreateCurrencyCommand request, CancellationToken cancellationToken)
         {
             var now = DateTime.UtcNow;
-            var Currency = new Common.Domain.Entities.Currency
+            var Currency = new Currency
             {
                 Code = request.Code,
                 IsoCode = request.IsoCode,

@@ -28,7 +28,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
 
         /// <inheritdoc/>
 
-        public bool ExistById(ulong? id, ulong value)
+        public bool ExistById(uint? id, uint value)
         {
             if (id > 0)
             {
@@ -37,7 +37,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
             return this._dbContext.AclModules.Any(x => x.Id == value);
         }
         /// <inheritdoc/>
-        public bool ExistByName(ulong id, string name)
+        public bool ExistByName(uint id, string name)
         {
             if (id > 0)
             {
@@ -60,7 +60,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
 
         }
         /// <inheritdoc/>
-        public Module? Find(ulong id)
+        public Module? Find(uint id)
         {
             try
             {
@@ -118,7 +118,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
 
         }
         /// <inheritdoc/>
-        public Module? Delete(ulong id)
+        public Module? Delete(uint id)
         {
             try
             {
@@ -134,7 +134,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
 
         }
 
-        public bool IsModuleIdAlreadyExist(ulong id, ulong? requestId = null)
+        public bool IsModuleIdAlreadyExist(uint id, uint? requestId = null)
         {
             if (requestId == null)
             {
@@ -145,7 +145,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
                 return this._dbContext.AclModules.Any(i => i.Id == id && i.Id != requestId);
             }
         }
-        public bool IsModuleNameAlreadyExist(string name, ulong? requestId = null)
+        public bool IsModuleNameAlreadyExist(string name, uint? requestId = null)
         {
             if (requestId == null)
             {

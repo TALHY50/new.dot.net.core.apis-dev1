@@ -82,7 +82,7 @@ namespace ACL.Business.Domain.Services
                 this.ScopeResponse.Data = Update(aclPage);
                 this.ScopeResponse.Message = this.MessageResponse.editMessage;
                 this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
-                List<ulong>? userIds = this._userRepository.GetUserIdByChangePermission(null, null, request.Id);
+                List<uint>? userIds = this._userRepository.GetUserIdByChangePermission(null, null, request.Id);
                 if (userIds != null)
                 {
                     this._userRepository.UpdateUserPermissionVersion(userIds);
@@ -98,7 +98,7 @@ namespace ACL.Business.Domain.Services
         }
 
         /// <inheritdoc/>
-        public ScopeResponse FindById(ulong id)
+        public ScopeResponse FindById(uint id)
         {
             try
             {
@@ -122,7 +122,7 @@ namespace ACL.Business.Domain.Services
 
         }
         /// <inheritdoc/>
-        public ScopeResponse DeleteById(ulong id)
+        public ScopeResponse DeleteById(uint id)
         {
             Page? page = Find(id);
             try
@@ -135,7 +135,7 @@ namespace ACL.Business.Domain.Services
                 this._routeRepository.DeleteAllByPageId(id);
                 this.ScopeResponse.Message = this.MessageResponse.deleteMessage;
                 this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
-                List<ulong>? userIds = this._userRepository.GetUserIdByChangePermission(null, null, id);
+                List<uint>? userIds = this._userRepository.GetUserIdByChangePermission(null, null, id);
                 if (userIds != null)
                 {
                     this._userRepository.UpdateUserPermissionVersion(userIds);
@@ -204,7 +204,7 @@ namespace ACL.Business.Domain.Services
             return this.ScopeResponse;
         }
         /// <inheritdoc/>
-        public ScopeResponse PageRouteEdit(ulong id, AclPageRouteRequest request)
+        public ScopeResponse PageRouteEdit(uint id, AclPageRouteRequest request)
         {
             try
             {
@@ -214,7 +214,7 @@ namespace ACL.Business.Domain.Services
                     throw new InvalidOperationException("Page route id not found");
                 }
                 // clear version
-                List<ulong>? userIds = this._userRepository.GetUserIdByChangePermission(null, null, request.PageId);
+                List<uint>? userIds = this._userRepository.GetUserIdByChangePermission(null, null, request.PageId);
                 if (userIds != null)
                 {
                     this._userRepository.UpdateUserPermissionVersion(userIds);
@@ -233,7 +233,7 @@ namespace ACL.Business.Domain.Services
             return this.ScopeResponse;
         }
         /// <inheritdoc/>
-        public ScopeResponse PageRouteDelete(ulong id)
+        public ScopeResponse PageRouteDelete(uint id)
         {
             PageRoute? aclPageRoute = this._routeRepository.Find(id);
             try
@@ -242,7 +242,7 @@ namespace ACL.Business.Domain.Services
                 {
                     throw new InvalidOperationException("Page route id not found");
                 }
-                List<ulong>? userIds = this._userRepository.GetUserIdByChangePermission(null, null, aclPageRoute.PageId);
+                List<uint>? userIds = this._userRepository.GetUserIdByChangePermission(null, null, aclPageRoute.PageId);
                 if (userIds != null)
                 {
                     this._userRepository.UpdateUserPermissionVersion(userIds);

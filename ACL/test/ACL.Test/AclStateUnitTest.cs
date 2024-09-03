@@ -130,7 +130,7 @@ namespace ACL.TEST
                 CountryId = DataCollectors.GetMaxId<Country>(x => x.Id),
                 Name = faker.Random.String2(10, 50),
                 Description = faker.Random.String2(10, 255),
-                Sequence = (ulong)faker.Random.Number(1, int.MaxValue),
+                Sequence = (uint)faker.Random.Number(1, int.MaxValue),
                 Status = (byte)faker.Random.Number(1, 2)
 
             };

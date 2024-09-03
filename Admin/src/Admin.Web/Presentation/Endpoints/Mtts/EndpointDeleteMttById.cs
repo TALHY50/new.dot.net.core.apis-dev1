@@ -1,4 +1,5 @@
-﻿using ErrorOr;
+﻿using Admin.Web.Presentation.Routes;
+using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -10,16 +11,16 @@ using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Presentation;
 using SharedKernel.Main.Presentation.Routes;
 
-namespace Admin.App.Application.Features.Mtts
+namespace Admin.Web.Application.Features.Mtts
 {
     public class EndpointDeleteMttById(ILogger<EndpointDeleteMttById> logger, ICurrentUser currentUser)
     : MttBase(logger, currentUser)
     {
         [Tags("Mtt")]
-        [HttpDelete(AdminRoute.DeleteMttsRouteUrl, Name = AdminRoute.DeleteMttsRouteName)]
-        public async Task<IActionResult> Delete(uint Id, CancellationToken cancellationToken)
+        [HttpDelete(MttRoutes.DeleteMttsRouteUrl, Name = MttRoutes.DeleteMttsRouteName)]
+        public async Task<IActionResult> Delete(uint id, CancellationToken cancellationToken)
         {
-            var command = new DeleteMttByIdCommand(Id);
+            var command = new DeleteMttByIdCommand(id);
             _ = Task.Run(
                 () => _logger.LogInformation(
                     "delete-mtt-by-id-request: {Name} {@UserId} {@Request}",

@@ -39,7 +39,7 @@ namespace SharedBusiness.Main.Admin.Application.Features.TransactionTypes
 
                 if (transactionType == null)
                 {
-                    return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), "TransactionType not found");
+                    return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), Language.GetMessage("Record not found"));
                 }
 
                 await _repository.DeleteAsync(transactionType, cancellationToken);

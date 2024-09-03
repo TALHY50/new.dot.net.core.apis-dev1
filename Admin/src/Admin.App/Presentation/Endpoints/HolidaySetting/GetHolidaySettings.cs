@@ -1,4 +1,5 @@
-﻿using Ardalis.SharedKernel;
+﻿using Admin.Web.Presentation.Routes;
+using Ardalis.SharedKernel;
 using Ardalis.Specification.EntityFrameworkCore;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -12,12 +13,12 @@ using SharedKernel.Main.Presentation.Routes;
 using Duplicates_HolidaySetting = SharedBusiness.Main.Common.Domain.Entities.HolidaySetting;
 
 
-namespace Admin.App.Application.Features.HolidaySetting;
+namespace Admin.Web.Presentation.Endpoints.HolidaySetting;
 
 public class GetHolidaySettingsController : ApiControllerBase
 {
     // [Authorize(Policy = "HasPermission")]
-    [HttpGet(Routes.GetHolidaySettingUrl, Name = Routes.GetHolidaySettingName)]
+    [HttpGet(HolidaySettingRoutes.GetHolidaySettingTemplate, Name = HolidaySettingRoutes.GetHolidaySettingName)]
     public async Task<ActionResult<List<Duplicates_HolidaySetting>>> Get()
     {
         return await Mediator.Send(new GetHolidaySettingQuery()).ConfigureAwait(false);

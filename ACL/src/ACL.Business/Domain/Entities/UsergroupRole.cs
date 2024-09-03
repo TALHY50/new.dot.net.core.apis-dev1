@@ -2,13 +2,13 @@
 
 namespace ACL.Business.Domain.Entities;
 
-public partial class UsergroupRole : EntityBase<ulong>, IAggregateRoot
+public partial class UsergroupRole : EntityBase<uint>, IAggregateRoot
 {
-    public ulong UsergroupId { get; set; }
+    public uint UsergroupId { get; set; }
 
-    public ulong RoleId { get; set; }
+    public uint RoleId { get; set; }
 
-    public ulong CompanyId { get; set; }
+    public uint CompanyId { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 

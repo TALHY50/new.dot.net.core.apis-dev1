@@ -86,7 +86,7 @@ namespace ACL.Business.Domain.Services
             this.ScopeResponse.Data = Update(aclSubModule);
             this.ScopeResponse.Message = this.messageResponse.editMessage;
             this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
-            List<ulong>? userIds = this._userRepository.GetUserIdByChangePermission(null, request.Id);
+            List<uint>? userIds = this._userRepository.GetUserIdByChangePermission(null, request.Id);
             if (userIds != null)
             {
                 this._userRepository.UpdateUserPermissionVersion(userIds);
@@ -96,7 +96,7 @@ namespace ACL.Business.Domain.Services
 
         }
         /// <inheritdoc/>
-        public ScopeResponse FindById(ulong id)
+        public ScopeResponse FindById(uint id)
         {
 
             var aclSubModule = All()?.Where(x => x.Id == id)
@@ -119,7 +119,7 @@ namespace ACL.Business.Domain.Services
             return this.ScopeResponse;
         }
         /// <inheritdoc/>
-        public ScopeResponse DeleteById(ulong id)
+        public ScopeResponse DeleteById(uint id)
         {
             this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND;
             var subModule = Find(id);
@@ -129,7 +129,7 @@ namespace ACL.Business.Domain.Services
                 this.ScopeResponse.Data = Delete(id);
                 this.ScopeResponse.Message = this.messageResponse.deleteMessage;
                 this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
-                List<ulong>? userIds = this._userRepository.GetUserIdByChangePermission(null, id);
+                List<uint>? userIds = this._userRepository.GetUserIdByChangePermission(null, id);
                 if (userIds != null)
                 {
                     this._userRepository.UpdateUserPermissionVersion(userIds);

@@ -36,21 +36,21 @@ namespace ACL.Web.Application.Features.UserGroups
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPut(AclRoutesUrl.AclUserGroupRouteUrl.Edit, Name = AclRoutesName.AclUserGroupRouteNames.Edit)]
-        public ScopeResponse Edit(ulong id, AclUserGroupRequest request)
+        public ScopeResponse Edit(uint id, AclUserGroupRequest request)
         {
             return this._userGroupService.UpdateUserGroup(id, request);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclUserGroupRouteUrl.View, Name = AclRoutesName.AclUserGroupRouteNames.View)]
-        public ScopeResponse View(ulong id)
+        public ScopeResponse View(uint id)
         {
             return  this._userGroupService.FindById(id);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpDelete(AclRoutesUrl.AclUserGroupRouteUrl.Destroy, Name = AclRoutesName.AclUserGroupRouteNames.Destroy)]
-        public ScopeResponse Destroy(ulong id)
+        public ScopeResponse Destroy(uint id)
         {
             return this._userGroupService.Delete(id);
         }
