@@ -10,7 +10,7 @@ using SharedKernel.Main.Application.Enums;
 using SharedKernel.Main.Application.Interfaces.Services;
 
 
-namespace SharedBusiness.Main.Admin.Weblication.Features.Currencies
+namespace SharedBusiness.Main.Admin.Application.Features.Currencies
 {
     public record CreateCurrencyCommand(
         string? Code,

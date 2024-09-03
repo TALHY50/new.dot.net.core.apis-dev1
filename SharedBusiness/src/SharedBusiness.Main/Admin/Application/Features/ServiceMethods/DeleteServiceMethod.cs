@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SharedBusiness.Main.Admin.Weblication.Features.ServiceMethods
+namespace SharedBusiness.Main.Admin.Application.Features.ServiceMethods
 {
     public record DeleteServiceMethodCommand(uint id) : IRequest<ErrorOr<bool>>;
 

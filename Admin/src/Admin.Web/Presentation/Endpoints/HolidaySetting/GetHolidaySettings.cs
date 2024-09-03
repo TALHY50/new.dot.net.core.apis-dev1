@@ -1,4 +1,4 @@
-using Admin.App.Presentation.Routes;
+using Admin.Web.Presentation.Routes;
 using ErrorOr;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +9,7 @@ using SharedBusiness.Main.Common.Domain.Entities;
 using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Contracts;
 
-namespace Admin.App.Presentation.Endpoints.HolidaySetting;
+namespace Admin.Web.Presentation.Endpoints.HolidaySetting;
 
 public class GetHolidaySettings(ILogger<GetHolidaySettings> logger, ICurrentUser currentUser)
     : HolidaySettingBase(logger, currentUser)

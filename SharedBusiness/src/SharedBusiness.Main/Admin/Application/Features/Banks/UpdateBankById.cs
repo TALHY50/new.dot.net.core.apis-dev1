@@ -2,7 +2,6 @@
 using FluentValidation;
 using MediatR;
 using SharedBusiness.Main.Common.Application.Features.Banks;
-using SharedBusiness.Main.Common.Application.Features.Countries;
 using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedKernel.Main.Application.Enums;

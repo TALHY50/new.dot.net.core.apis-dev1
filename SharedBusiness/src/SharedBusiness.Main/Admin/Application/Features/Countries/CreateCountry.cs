@@ -12,7 +12,7 @@ using SharedKernel.Main.Application.Rules;
 using SharedKernel.Main.Contracts;
 using SharedKernel.Main.Infrastructure.Attributes;
 
-namespace SharedBusiness.Main.Admin.Weblication.Features.Countries
+namespace SharedBusiness.Main.Admin.Application.Features.Countries
 {
     public record CreateCountryCommand(
         string? name,
