@@ -34,7 +34,7 @@ namespace SharedBusiness.Main.Admin.Weblication.Features.Regions
 
             if (region == null)
             {
-                return Error.NotFound(description: "Region not found!", code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
+                return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), Language.GetMessage("Record not found"));
             }
 
             return region;
