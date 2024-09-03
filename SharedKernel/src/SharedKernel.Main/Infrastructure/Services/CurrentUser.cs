@@ -7,11 +7,16 @@ namespace SharedKernel.Main.Infrastructure.Services;
 public class CurrentUser : ICurrentUser
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
+    private string _userId;
 
     public CurrentUser(IHttpContextAccessor httpContextAccessor)
     {
         _httpContextAccessor = httpContextAccessor;
     }
 
-    public string UserId => _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier)!;
+    public string UserId
+    {
+        get => _userId;
+        set => this._userId = value;
+    }
 }

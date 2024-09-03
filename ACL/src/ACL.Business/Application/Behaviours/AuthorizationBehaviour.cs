@@ -11,13 +11,15 @@ namespace ACL.Business.Application.Behaviours;
 
 public class AuthorizationBehaviour<TRequest, TResponse>(
     IHttpContextAccessor httpContextAccessor,
-    ISender? mediator
+    ISender? mediator,
+    ICurrentUser currentUser 
     )
     : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>
 {
     private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
     private ISender? _mediator = mediator;
+    private ICurrentUser _currentUser = currentUser;
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
         var authorizeAttributes = request.GetType().GetCustomAttributes<AuthorizeAttribute>();
@@ -31,8 +33,9 @@ public class AuthorizationBehaviour<TRequest, TResponse>(
                     var token = authorizationHeader.Substring("Bearer ".Length).Trim();
                     var payload =  _httpContextAccessor.HttpContext.RequestBodyFromItem();
                     var result = await _mediator.Send(new ValidateJwtTokenCommand(token, payload), cancellationToken);
-                    if(! result.Equals(true))
+                    if(result.IsError)
                         throw new UnauthorizedAccessException(result.FirstError.Description);
+                    _currentUser.UserId = result.Value.Id.ToString();
                 }
                 else
                 {

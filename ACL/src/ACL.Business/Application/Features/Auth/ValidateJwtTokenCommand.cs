@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices.JavaScript;
 using ACL.Business.Application.Interfaces.Repositories;
 using ACL.Business.Application.Interfaces.Services;
 using ACL.Business.Domain.Entities;
@@ -34,7 +35,15 @@ namespace ACL.Business.Application.Features.Auth
             if(setting is null)
                 return Error.NotFound(code : ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), description:"User setting not found");
             var isValid = identity.ValidateJwtTokenWithSymmetricKey(command.Token, setting.AppSecret, command.Payload.Minify());
-            return isValid;
+
+            if (!isValid)
+            {
+                return Error.Unauthorized(ApplicationStatusCodes.API_ERROR_BASIC_VALIDATION_FAILED.ToString(),
+                    "Authorization failed");
+            }
+            
+            
+            return user;
         }
     }
 }

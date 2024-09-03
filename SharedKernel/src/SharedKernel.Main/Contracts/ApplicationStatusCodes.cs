@@ -42,6 +42,7 @@ public static partial class ApplicationStatusCodes
     public static readonly int API_ERROR_INPUT_PARAMETER_INVALID = 1037;
     public static readonly int API_ERROR_RECORD_ALREADY_EXISTS = 1038;
     public static readonly int API_ERROR_BASIC_VALIDATION_FAILED = 4000;
+    public static readonly int API_ERROR_AUTHORIZATION_FAILED = 4000;
     public static readonly string API_ERROR_UNEXPECTED_ERROR = "5000";
     public static readonly int GENERAL_FAILURE = 9999;
     
