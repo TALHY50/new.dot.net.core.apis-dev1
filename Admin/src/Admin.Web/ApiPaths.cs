@@ -1,4 +1,4 @@
-namespace Admin.App;
+namespace Admin.Web;
 
 internal static class ApiPaths
 {

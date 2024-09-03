@@ -1,6 +1,6 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
-using SharedBusiness.Main.Admin.Application.Features.TransactionLimits;
+using SharedBusiness.Main.Admin.Weblication.Features.TransactionLimits;
 using SharedKernel.Main.Presentation;
 using SRoutes = SharedKernel.Main.Presentation.Routes.Routes;
 namespace Admin.Web.Presentation.Endpoints.TransactionLimits

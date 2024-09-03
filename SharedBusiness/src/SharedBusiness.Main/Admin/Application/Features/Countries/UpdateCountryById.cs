@@ -10,7 +10,7 @@ using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Application.Rules;
 using SharedKernel.Main.Contracts;
 
-namespace SharedBusiness.Main.Admin.Application.Features.Countries;
+namespace SharedBusiness.Main.Admin.Weblication.Features.Countries;
 
 public record UpdateCountryByIdCommand(
         uint id,

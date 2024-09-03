@@ -7,7 +7,7 @@ using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Contracts;
 
-namespace SharedBusiness.Main.Admin.Application.Features.Countries
+namespace SharedBusiness.Main.Admin.Weblication.Features.Countries
 {
     
     public record GetCountryByIdQuery(uint id) : IRequest<ErrorOr<Common.Domain.Entities.Country>>;

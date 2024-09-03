@@ -1,7 +1,7 @@
 ﻿using ACL.Business.Application.Interfaces.Services;
 using Admin.Web.Presentation.Routes;
 using Microsoft.AspNetCore.Mvc;
-using SharedBusiness.Main.Admin.Application.Features.Mtts;
+using SharedBusiness.Main.Admin.Weblication.Features.Mtts;
 using SharedBusiness.Main.Admin.Contracts.Contracts.Responses;
 using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Presentation.Routes;

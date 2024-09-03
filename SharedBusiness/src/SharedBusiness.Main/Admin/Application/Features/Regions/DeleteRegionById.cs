@@ -1,7 +1,7 @@
 ﻿using ErrorOr;
 using FluentValidation;
 using MediatR;
-using SharedBusiness.Main.Admin.Application.Features.Countries;
+using SharedBusiness.Main.Admin.Weblication.Features.Countries;
 using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedKernel.Main.Contracts;
 using System;
@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SharedBusiness.Main.Admin.Application.Features.Regions
+namespace SharedBusiness.Main.Admin.Weblication.Features.Regions
 {
     public record DeleteRegionByIdCommand(uint id) : IRequest<ErrorOr<bool>>;
 
@@ -40,7 +40,7 @@ namespace SharedBusiness.Main.Admin.Application.Features.Regions
 
                 if (region == null)
                 {
-                    return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), "Region not found");
+                    return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), Language.GetMessage("Record not found"));
                 }
 
                 await _repository.DeleteAsync(region, cancellationToken);

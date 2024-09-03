@@ -61,6 +61,7 @@ public static class SharedBusinessCommonPersistenceDependencyInjection
         services.AddScoped<IInstitutionMttRepository, InstitutionMttRepository>();
         services.AddScoped<ICurrencyConversionRateRepository, CurrencyConversionRateRepository>();
         services.AddScoped<ITransactionLimitRepository, TransactionLimitRepository>();
+        services.AddScoped<IBankRepository, BankRepository>();
 
         // For language support 
         services.AddHttpContextAccessor();

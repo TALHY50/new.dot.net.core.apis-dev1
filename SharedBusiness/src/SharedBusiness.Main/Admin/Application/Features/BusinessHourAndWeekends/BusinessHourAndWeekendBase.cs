@@ -1,4 +1,4 @@
-namespace SharedBusiness.Main.Admin.Application.Features.BusinessHourAndWeekends;
+namespace SharedBusiness.Main.Admin.Weblication.Features.BusinessHourAndWeekends;
 
 public class BusinessHourAndWeekendBase
 {

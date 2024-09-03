@@ -1,7 +1,7 @@
 ﻿using ErrorOr;
 using FluentValidation;
 using MediatR;
-using SharedBusiness.Main.Admin.Application.Features.Countries;
+using SharedBusiness.Main.Admin.Weblication.Features.Countries;
 using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedKernel.Main.Application.Enums;
@@ -9,7 +9,7 @@ using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Application.Rules;
 using SharedKernel.Main.Contracts;
 
-namespace SharedBusiness.Main.Admin.Application.Features.Regions
+namespace SharedBusiness.Main.Admin.Weblication.Features.Regions
 {
     public record UpdateRegionByIdCommand(
         uint id,
@@ -44,8 +44,7 @@ namespace SharedBusiness.Main.Admin.Application.Features.Regions
             Region? region = await _repository.GetByIdAsync(command.id, cancellationToken);
             if (region == null)
             {
-                return Error.NotFound(description: "Region not found",
-                    code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
+                return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), Language.GetMessage("Record not found"));
             }
 
 

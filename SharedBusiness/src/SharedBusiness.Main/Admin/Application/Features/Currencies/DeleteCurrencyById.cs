@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SharedBusiness.Main.Admin.Application.Features.Currencies
+namespace SharedBusiness.Main.Admin.Weblication.Features.Currencies
 {
     public record DeleteCurrencyByIdCommand(uint id) : IRequest<ErrorOr<bool>>;
 

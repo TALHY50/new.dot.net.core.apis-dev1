@@ -1,9 +1,9 @@
 using ACL.Business.Application;
 using ACL.Business.Infrastructure;
 using ACL.Business.Presentation;
-using Admin.App.Application;
-using Admin.App.Infrastructure;
-using Admin.App.Presentation;
+using Admin.Web.Application;
+using Admin.Web.Infrastructure;
+using Admin.Web.Presentation;
 using SharedBusiness.Main;
 using SharedKernel.Main.Application;
 using SharedKernel.Main.Infrastructure;
