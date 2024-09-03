@@ -11,7 +11,7 @@ using SharedKernel.Main.Contracts;
 using SharedKernel.Main.Presentation;
 using SharedKernel.Main.Presentation.Routes;
 
-namespace Admin.App.Application.Features.MttPaymentSpeeds
+namespace Admin.Web.Application.Features.MttPaymentSpeeds
 {
     public class UpdateMttPaymentSpeedController : ApiControllerBase
     {

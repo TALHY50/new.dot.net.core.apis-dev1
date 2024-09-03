@@ -12,7 +12,7 @@ using SharedKernel.Main.Presentation.Routes;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 
-namespace Admin.App.Application.Features.HolidaySetting;
+namespace Admin.Web.Application.Features.HolidaySetting;
 
 public class DeleteHolidaySettingByIdController : ApiControllerBase
 {

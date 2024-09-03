@@ -1,7 +1,7 @@
 ﻿using ErrorOr;
 using FluentValidation;
 using MediatR;
-using SharedBusiness.Main.Admin.Application.Features.Countries;
+using SharedBusiness.Main.Admin.Weblication.Features.Countries;
 using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedKernel.Main.Contracts;
@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SharedBusiness.Main.Admin.Application.Features.Regions
+namespace SharedBusiness.Main.Admin.Weblication.Features.Regions
 {
     public record GetRegionsQuery(int PageNumber = 0, int PageSize = 0) : IRequest<ErrorOr<List<Region>>>;
 
@@ -60,7 +60,7 @@ namespace SharedBusiness.Main.Admin.Application.Features.Regions
 
             if (regions == null)
             {
-                return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), description: "Region not found!");
+                return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), Language.GetMessage("Record not found"));
             }
 
             return regions;

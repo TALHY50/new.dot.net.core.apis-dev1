@@ -1,4 +1,4 @@
-﻿namespace SharedBusiness.Main.Admin.Application.Features.Corridors
+﻿namespace SharedBusiness.Main.Admin.Weblication.Features.Corridors
 {
     public class CorridorBase
     {

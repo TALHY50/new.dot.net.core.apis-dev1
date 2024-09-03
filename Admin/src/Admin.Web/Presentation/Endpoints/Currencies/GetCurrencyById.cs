@@ -1,10 +1,10 @@
-﻿using Admin.App.Presentation.Routes;
+﻿using Admin.Web.Presentation.Routes;
 using Microsoft.AspNetCore.Mvc;
-using SharedBusiness.Main.Admin.Application.Features.Currencies;
+using SharedBusiness.Main.Admin.Weblication.Features.Currencies;
 using SharedBusiness.Main.Common.Contracts;
 using SharedKernel.Main.Application.Interfaces.Services;
 
-namespace Admin.App.Presentation.Endpoints.Currencies
+namespace Admin.Web.Presentation.Endpoints.Currencies
 {
     public class GetCurrencyById(ILogger<GetCurrencyById> logger, ICurrentUser currentUser)
     : CurrencyBase(logger, currentUser)

@@ -11,10 +11,10 @@ using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Contracts;
 using SharedKernel.Main.Presentation;
 using SharedKernel.Main.Presentation.Routes;
-using static Admin.App.Application.Features.Providers.GetProviderByIdController;
+using static Admin.Web.Application.Features.Providers.GetProviderByIdController;
 
 
-namespace Admin.App.Application.Features.Providers
+namespace Admin.Web.Application.Features.Providers
 {
     public class UpdateProviderController : ApiControllerBase
     {

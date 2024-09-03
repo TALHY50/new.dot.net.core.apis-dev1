@@ -4,11 +4,11 @@ using ACL.Business.Application.Interfaces.Services;
 using ACL.Business.Infrastructure.Persistence.Context;
 using ACL.Business.Infrastructure.Persistence.Repositories;
 using ACL.Business.Infrastructure.Security;
-using Admin.App.Application.Features.Payers;
-using Admin.App.Application.Features.Providers;
-using Admin.App.Infrastructure.Persistence;
+using Admin.Web.Application.Features.Payers;
+using Admin.Web.Application.Features.Providers;
+using Admin.Web.Infrastructure.Persistence;
 
-namespace Admin.App.Infrastructure;
+namespace Admin.Web.Infrastructure;
 
 public static class AdminInfrastructureDependencyInjection
 {

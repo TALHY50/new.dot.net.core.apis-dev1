@@ -1,6 +1,6 @@
-﻿using ACL.Business.Infrastructure.Persistence.Context;
-using SharedBusiness.Main.Common.Application.Services.Repositories;
+﻿using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
+using SharedBusiness.Main.Common.Infrastructure.Persistence.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;

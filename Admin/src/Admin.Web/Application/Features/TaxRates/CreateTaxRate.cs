@@ -9,7 +9,7 @@ using SharedKernel.Main.Presentation;
 using SharedKernel.Main.Presentation.Routes;
 using YamlDotNet.Core.Tokens;
 
-namespace Admin.App.Application.Features.TaxRates
+namespace Admin.Web.Application.Features.TaxRates
 {
     public class CreateTaxRateController : ApiControllerBase
     {

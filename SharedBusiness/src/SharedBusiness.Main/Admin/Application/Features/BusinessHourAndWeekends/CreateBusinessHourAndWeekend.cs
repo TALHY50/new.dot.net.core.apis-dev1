@@ -11,7 +11,7 @@ using SharedKernel.Main.Application.Rules;
 using SharedKernel.Main.Contracts;
 
 
-namespace SharedBusiness.Main.Admin.Application.Features.BusinessHourAndWeekends;
+namespace SharedBusiness.Main.Admin.Weblication.Features.BusinessHourAndWeekends;
 
 // [Authorize]
 public record CreateBusinessHourAndWeekendCommand(byte HourType, uint? CountryId,

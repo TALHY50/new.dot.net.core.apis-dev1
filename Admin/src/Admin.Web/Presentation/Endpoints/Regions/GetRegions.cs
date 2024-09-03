@@ -1,13 +1,13 @@
-﻿using Admin.App.Presentation.Endpoints.Country;
-using Admin.App.Presentation.Routes;
+﻿using Admin.Web.Presentation.Endpoints.Country;
+using Admin.Web.Presentation.Routes;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
-using SharedBusiness.Main.Admin.Application.Features.Regions;
+using SharedBusiness.Main.Admin.Weblication.Features.Regions;
 using SharedBusiness.Main.IMT.Contracts.Contracts.Responses;
 using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Contracts;
 
-namespace Admin.App.Presentation.Endpoints.Regions
+namespace Admin.Web.Presentation.Endpoints.Regions
 {
     public class GetRegions(ILogger<GetRegions> logger, ICurrentUser currentUser)
         : CountryBase(logger, currentUser)

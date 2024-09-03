@@ -14,9 +14,9 @@ using SharedKernel.Main.Presentation.Routes;
 using Microsoft.AspNetCore.Authorization;
 using SharedKernel.Main.Application.Rules;
 using Microsoft.Extensions.Logging;
-using SharedBusiness.Main.Admin.Application.Features.Countries;
+using SharedBusiness.Main.Admin.Weblication.Features.Countries;
 using SharedBusiness.Main.Common.Infrastructure.Persistence.Context;
-using SharedBusiness.Main.Admin.Application.Features.Mtts;
+using SharedBusiness.Main.Admin.Weblication.Features.Mtts;
 using SharedKernel.Main.Application.Enums;
 using Microsoft.EntityFrameworkCore;
 using SharedKernel.Main.Infrastructure.Persistence;
@@ -28,7 +28,7 @@ using ACL.Business.Domain.Services;
 using Microsoft.AspNetCore.Http;
 using ACL.Business.Infrastructure.Auth.Auth;
 
-namespace Admin.App.Application.Features.Mtts
+namespace Admin.Web.Application.Features.Mtts
 {
 
     [Authorize]

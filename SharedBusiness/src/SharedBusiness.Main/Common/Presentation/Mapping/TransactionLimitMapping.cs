@@ -3,7 +3,7 @@ using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Contracts.Contracts.Responses;
 
 
-namespace Admin.App.Presentation.Mapping;
+namespace Admin.Web.Presentation.Mapping;
 
 public class TransactionLimitMapping : IRegister
 {

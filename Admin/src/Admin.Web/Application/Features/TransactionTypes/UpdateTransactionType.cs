@@ -12,7 +12,7 @@
 //using SharedKernel.Main.Presentation.Routes;
 
 
-//namespace Admin.App.Application.Features.TransactionTypes
+//namespace Admin.Web.Application.Features.TransactionTypes
 //{
 //    public class UpdateTransactionTypeController : ApiControllerBase
 //    {
