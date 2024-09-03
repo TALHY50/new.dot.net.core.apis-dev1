@@ -1,9 +1,9 @@
-﻿namespace SharedBusiness.Main.Common.Domain.Entities;
+﻿using Ardalis.SharedKernel;
 
-public partial class ProviderCommission
+namespace SharedBusiness.Main.Common.Domain.Entities;
+
+public partial class ProviderCommission : EntityBase<uint>, IAggregateRoot
 {
-    public uint Id { get; set; }
-
     public uint? ProviderId { get; set; }
 
     public uint? FromCurrencyId { get; set; }

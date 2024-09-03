@@ -1,9 +1,9 @@
-﻿namespace SharedBusiness.Main.Common.Domain.Entities;
+﻿using Ardalis.SharedKernel;
 
-public partial class PaymentMethod
+namespace SharedBusiness.Main.Common.Domain.Entities;
+
+public partial class PaymentMethod : EntityBase<uint>, IAggregateRoot
 {
-    public uint Id { get; set; }
-
     public string? MethodName { get; set; }
 
     public string? Description { get; set; }

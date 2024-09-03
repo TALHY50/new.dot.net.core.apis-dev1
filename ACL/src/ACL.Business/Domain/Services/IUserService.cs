@@ -1,6 +1,7 @@
 ﻿using ACL.Business.Application.Interfaces.Repositories;
 using ACL.Business.Contracts.Requests;
 using ACL.Business.Contracts.Responses;
+using ACL.Business.Domain.Entities;
 
 namespace ACL.Business.Domain.Services
 {
@@ -14,8 +15,9 @@ namespace ACL.Business.Domain.Services
         Task<ScopeResponse> Edit(ulong id, AclUserRequest request);
         /// <inheritdoc/>
         ScopeResponse FindById(ulong id);
-          /// <inheritdoc/>
+        /// <inheritdoc/>
         ScopeResponse DeleteById(ulong id);
         /// <inheritdoc/>
+        public User PrepareInputData(AclUserRequest request, User? aclUser = null);
     }
 }

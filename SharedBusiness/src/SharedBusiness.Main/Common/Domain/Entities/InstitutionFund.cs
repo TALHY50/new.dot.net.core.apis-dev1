@@ -1,12 +1,12 @@
-﻿namespace SharedBusiness.Main.Common.Domain.Entities;
+﻿using Ardalis.SharedKernel;
+
+namespace SharedBusiness.Main.Common.Domain.Entities;
 
 /// <summary>
 /// Type : Master, fund deposited for an institution like Sipay in a provider account (Thunes)
 /// </summary>
-public partial class InstitutionFund
+public partial class InstitutionFund : EntityBase<uint>, IAggregateRoot
 {
-    public uint Id { get; set; }
-
     public uint InstitutionId { get; set; }
 
     public uint ProviderId { get; set; }

@@ -2,47 +2,15 @@
 using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.Common.Infrastructure.Persistence.Context;
-using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-
+using SharedBusiness.Main.Common.Infrastructure.Persistence.Repositories;
 
 
 namespace SharedBusiness.Main.IMT.Infrastructure.Persistence.Repositories
 {
-    public class TransactionLimitRepository(ApplicationDbContext dbContext) : ITransactionLimitRepository
+    public class TransactionLimitRepository(ApplicationDbContext dbContext) : EfRepository<TransactionLimit>(dbContext), ITransactionLimitRepository 
     {
 
-        public List<TransactionLimit> All()
-        {
-            try
-            {
-                return dbContext.ImtTransactionLimits.ToList();
-            }
-            catch (Exception ex) {
-                throw;
-            }
-        }
-
-        public TransactionLimit Create(TransactionLimit transactionLimit)
-        {
-            try
-            {
-                IsCurrencyExist(transactionLimit.CurrencyId);
-                dbContext.AddAsync(transactionLimit);
-                dbContext.SaveChangesAsync();
-                dbContext.Entry(transactionLimit).Reload();
-                return transactionLimit;
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
-
-        }
-
-        
-
-        public TransactionLimit Edit(uint id, TransactionLimit model)
+        public TransactionLimit? Edit(uint id, TransactionLimit model)
         {
             try
             {
@@ -61,7 +29,6 @@ namespace SharedBusiness.Main.IMT.Infrastructure.Persistence.Repositories
                 transactionLimit.MonthlyTotalNumber = model.MonthlyTotalNumber;
                 transactionLimit.MonthlyTotalAmount = model.MonthlyTotalAmount;
 
-                IsCurrencyExist(model.CurrencyId);
                 dbContext.ImtTransactionLimits.Update(transactionLimit);
                 dbContext.SaveChanges();
                 dbContext.Entry(transactionLimit).Reload();
@@ -75,19 +42,15 @@ namespace SharedBusiness.Main.IMT.Infrastructure.Persistence.Repositories
             }
         }
 
-        public TransactionLimit FindById(uint id)
+        public TransactionLimit? FindById(uint id)
         {
             try
             {
-                var transactionLimit = dbContext.ImtTransactionLimits.Where(x => x.Id == id).FirstOrDefault();
-                if (transactionLimit == null)
-                {
-                    throw new InvalidOperationException("Data not found by the id");
-                }
-                return transactionLimit;
+                return dbContext.ImtTransactionLimits.Where(x => x.Id == id).FirstOrDefault();
             }
-            catch (Exception ex) { 
-                     throw;
+            catch (Exception ex)
+            {
+                throw;
             }
         }
 
@@ -111,15 +74,14 @@ namespace SharedBusiness.Main.IMT.Infrastructure.Persistence.Repositories
             }
         }
 
-        public bool IsCurrencyExist(uint? currencyId)
+        public bool IsCurrencyExist(uint currencyId)
         {
 
             var currencyExist = dbContext.ImtCurrencies.Any(x => x.Id == currencyId);
-            if (!currencyExist)
-            {
-                throw new InvalidOperationException("Currency Not Found");
-            }
+
             return currencyExist;
         }
+
+
     }
 }

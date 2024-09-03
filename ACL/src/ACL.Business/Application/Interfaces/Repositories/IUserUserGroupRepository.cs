@@ -1,9 +1,11 @@
 ﻿using ACL.Business.Domain.Entities;
+using Ardalis.SharedKernel;
+using SharedKernel.Main.Application.Interfaces.Repositories;
 
 namespace ACL.Business.Application.Interfaces.Repositories
 {
     /// <inheritdoc/>
-    public interface IUserUserGroupRepository
+    public interface IUserUserGroupRepository : IRepository<UserUsergroup>, IExtendedRepositoryBase<UserUsergroup>
     {
         /// <inheritdoc/>
         List<UserUsergroup>? All();

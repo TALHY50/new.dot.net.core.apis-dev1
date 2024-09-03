@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Http;
 namespace ACL.Business.Infrastructure.Persistence.Repositories
 {
     /// <inheritdoc/>
-    public class UserGroupRepository : IUserGroupRepository
+    public class UserGroupRepository :EfRepository<Usergroup>, IUserGroupRepository
     {
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8604 // Possible null reference argument.
@@ -18,7 +18,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         private static IHttpContextAccessor _httpContextAccessor;
 
         /// <inheritdoc/>
-        public UserGroupRepository(ApplicationDbContext dbContext, IUserRepository userRepository, IHttpContextAccessor httpContextAccessor)
+        public UserGroupRepository(ApplicationDbContext dbContext, IUserRepository userRepository, IHttpContextAccessor httpContextAccessor):base(dbContext)
         {
             this._userRepository = userRepository;
             this._dbContext = dbContext;

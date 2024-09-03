@@ -139,12 +139,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\..\ACL\src\ACL.Business\ACL.Business.csproj" />
 	  <ProjectReference Include="..\..\..\IMT\src\Thunes\Thunes.csproj" />
 	  <ProjectReference Include="..\..\..\SharedKernel\src\SharedKernel.Main\SharedKernel.Main.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Admin\Contracts\" />
 	  <Folder Include="Admin\Domain\" />
 	  <Folder Include="Common\Infrastructure\Extensions\" />
 	  <Folder Include="IMT\Contracts\Contracts\Responses\" />

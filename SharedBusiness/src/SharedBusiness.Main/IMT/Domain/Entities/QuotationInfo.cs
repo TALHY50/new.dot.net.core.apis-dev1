@@ -1,9 +1,9 @@
-﻿namespace SharedBusiness.Main.IMT.Domain.Entities;
+﻿using Ardalis.SharedKernel;
 
-public partial class QuotationInfo
+namespace SharedBusiness.Main.IMT.Domain.Entities;
+
+public partial class QuotationInfo :EntityBase<uint>,IAggregateRoot
 {
-    public uint Id { get; set; }
-
     public decimal? RequestAmount { get; set; }
 
     public uint? CurrencyId { get; set; }

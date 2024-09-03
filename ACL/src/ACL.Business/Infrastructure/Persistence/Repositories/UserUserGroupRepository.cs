@@ -7,11 +7,11 @@ using Microsoft.AspNetCore.Http;
 namespace ACL.Business.Infrastructure.Persistence.Repositories
 {
     /// <inheritdoc/>
-    public class UserUserGroupRepository : IUserUserGroupRepository
+    public class UserUserGroupRepository : EfRepository<UserUsergroup>, IUserUserGroupRepository
     {
         readonly ApplicationDbContext _dbContext;
         public static IHttpContextAccessor HttpContextAccessor;
-        public UserUserGroupRepository(ApplicationDbContext dbContext, IHttpContextAccessor httpContextAccessor)
+        public UserUserGroupRepository(ApplicationDbContext dbContext, IHttpContextAccessor httpContextAccessor):base(dbContext)
         {
             this._dbContext = dbContext;
             HttpContextAccessor = httpContextAccessor;

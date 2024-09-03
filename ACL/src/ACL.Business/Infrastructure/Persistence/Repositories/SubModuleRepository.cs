@@ -9,7 +9,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8604 // Possible null reference argument.
     /// <inheritdoc/>
-    public class SubModuleRepository : ISubModuleRepository
+    public class SubModuleRepository :EfRepository<SubModule>, ISubModuleRepository
     {
         
         readonly ApplicationDbContext _dbContext;
@@ -17,7 +17,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         private static IHttpContextAccessor _httpContextAccessor;
         private enum SubModuleIds : ulong { _2001 = 2001, _2020 = 2020, _2021 = 2021, _2022 = 2022, _2050 = 2050, _2051 = 2051, _2052 = 2052, _2053 = 2053, _2054 = 2054, _2055 = 2055 };
         /// <inheritdoc/>
-        public SubModuleRepository(ApplicationDbContext dbContext, IUserRepository userRepository, IHttpContextAccessor httpContextAccessor)
+        public SubModuleRepository(ApplicationDbContext dbContext, IUserRepository userRepository, IHttpContextAccessor httpContextAccessor) :base(dbContext)
         {
             this._userRepository = userRepository;
             this._dbContext = dbContext;

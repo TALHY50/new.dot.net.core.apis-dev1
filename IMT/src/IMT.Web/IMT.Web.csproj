@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<UserSecretsId>1b988c5a-53fa-4f5a-a54a-e24e33000278</UserSecretsId>
+		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+		<DockerfileContext>.</DockerfileContext>
+		<RootNamespace>IMT.App</RootNamespace>
+	</PropertyGroup>
+	
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\ACL\src\ACL.Business\ACL.Business.csproj" />
+	  <ProjectReference Include="..\..\..\SharedBusiness\src\SharedBusiness.Main\SharedBusiness.Main.csproj" />
+	  <ProjectReference Include="..\..\..\SharedKernel\src\SharedKernel.Main\SharedKernel.Main.csproj" />
+	  <ProjectReference Include="..\PayAll\PayAll.csproj" />
+	  <ProjectReference Include="..\Thunes\Thunes.csproj" />
+	  <ProjectReference Include="..\..\..\Notification\src\Notification.App\Notification.App.csproj" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <Folder Include="Application\Interfaces\Repositories\" />
+	  <Folder Include="Application\Interfaces\Services\" />
+	  <Folder Include="Contracts\Contracts\Requests\" />
+	  <Folder Include="Domain\Entities\ValueObjects\" />
+	  <Folder Include="Infrastructure\Persistence\Configurations\" />
+	  <Folder Include="Infrastructure\Persistence\Context\" />
+	  <Folder Include="Infrastructure\Persistence\Migrations\" />
+	  <Folder Include="Infrastructure\Persistence\Patch\" />
+	  <Folder Include="Infrastructure\Persistence\Repositories\" />
+	  <Folder Include="Infrastructure\Persistence\Services\ConfirmTransactionService\" />
+	  <Folder Include="Infrastructure\Persistence\Services\Quotation\" />
+	  <Folder Include="Infrastructure\Persistence\Services\SendMoney\" />
+	  <Folder Include="Infrastructure\Persistence\Services\Transaction\" />
+	  <Folder Include="Logs\" />
+	</ItemGroup>
+</Project>

@@ -1,9 +1,9 @@
-﻿namespace SharedBusiness.Main.Common.Domain.Entities;
+﻿using Ardalis.SharedKernel;
 
-public partial class TransactionState
+namespace SharedBusiness.Main.Common.Domain.Entities;
+
+public partial class TransactionState : EntityBase<uint>, IAggregateRoot
 {
-    public uint Id { get; set; }
-
     public string? Name { get; set; }
 
     public byte? Status { get; set; }

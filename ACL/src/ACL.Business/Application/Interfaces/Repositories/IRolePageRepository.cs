@@ -1,9 +1,11 @@
 ﻿using ACL.Business.Domain.Entities;
+using Ardalis.SharedKernel;
+using SharedKernel.Main.Application.Interfaces.Repositories;
 
 namespace ACL.Business.Application.Interfaces.Repositories
 {
     /// <inheritdoc/>
-    public interface IRolePageRepository
+    public interface IRolePageRepository : IRepository<RolePage>, IExtendedRepositoryBase<RolePage>
     {
         /// <inheritdoc/>
         List<RolePage>? All();

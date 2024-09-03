@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C6D2125B-B5C0-468E-A5CF-B61A728DBC59}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Admin.App", "src\Admin.App\Admin.App.csproj", "{CC39759D-65C4-4369-B466-2DE26BEBBE31}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Admin.Web", "src\Admin.Web\Admin.Web.csproj", "{CC39759D-65C4-4369-B466-2DE26BEBBE31}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedKernel", "..\SharedKernel\src\SharedKernel.Main\SharedKernel.Main.csproj", "{9071EF11-3540-4305-820D-9FB1EBF9F7C8}"
 EndProject

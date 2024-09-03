@@ -1,12 +1,12 @@
-﻿namespace SharedBusiness.Main.Common.Domain.Entities;
+﻿using Ardalis.SharedKernel;
+
+namespace SharedBusiness.Main.Common.Domain.Entities;
 
 /// <summary>
 /// Type : Master, we onboard an institution, and perform transactions under it, like the merchants of a payment system
 /// </summary>
-public partial class Institution
+public partial class Institution : EntityBase<uint>, IAggregateRoot
 {
-    public uint Id { get; set; }
-
     /// <summary>
     /// name of the institution
     /// </summary>

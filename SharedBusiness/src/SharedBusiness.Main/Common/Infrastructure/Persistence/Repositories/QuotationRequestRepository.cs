@@ -5,7 +5,7 @@ using SharedKernel.Main.Infrastructure.Services;
 
 namespace SharedBusiness.Main.Common.Infrastructure.Persistence.Repositories
 {
-    public class QuotationRequestRepository(ApplicationDbContext dbContext) : GenericRepository<QuotationRequest, ApplicationDbContext>(dbContext),IQuotationRequestRepository
+    public class QuotationRequestRepository(ApplicationDbContext dbContext) : EfRepository<QuotationRequest>(dbContext),IQuotationRequestRepository
     {
        
     }

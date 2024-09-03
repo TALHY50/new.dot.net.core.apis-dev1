@@ -1,9 +1,11 @@
 ﻿using ACL.Business.Domain.Entities;
+using Ardalis.SharedKernel;
+using SharedKernel.Main.Application.Interfaces.Repositories;
 
 namespace ACL.Business.Application.Interfaces.Repositories
 {
     /// <inheritdoc/>
-    public interface IUserRepository
+    public interface IUserRepository : IRepository<User>, IExtendedRepositoryBase<User>
     {
         User? FindByIdAsync(ulong id);
         /// <inheritdoc/>

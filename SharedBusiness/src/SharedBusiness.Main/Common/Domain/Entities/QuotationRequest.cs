@@ -1,9 +1,9 @@
-﻿namespace SharedBusiness.Main.Common.Domain.Entities;
+﻿using Ardalis.SharedKernel;
 
-public partial class QuotationRequest
+namespace SharedBusiness.Main.Common.Domain.Entities;
+
+public partial class QuotationRequest : EntityBase<uint>, IAggregateRoot
 {
-    public uint Id { get; set; }
-
     public string? Request { get; set; }
 
     public DateTime? CreatedAt { get; set; }

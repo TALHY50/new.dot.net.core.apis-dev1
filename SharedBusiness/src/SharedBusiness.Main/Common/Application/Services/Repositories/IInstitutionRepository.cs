@@ -1,13 +1,10 @@
-﻿using SharedBusiness.Main.Common.Domain.Entities;
+﻿using Ardalis.SharedKernel;
+using SharedBusiness.Main.Common.Domain.Entities;
+using SharedKernel.Main.Application.Interfaces.Repositories;
 
 namespace SharedBusiness.Main.Common.Application.Services.Repositories
 {
-    public interface IInstitutionRepository
+    public interface IInstitutionRepository : IRepository<Institution>, IExtendedRepositoryBase<Institution>
     {
-        Institution? Add(Institution entity);
-        Institution? Update(Institution entity);
-        bool Delete(uint id);
-        Institution? View(uint id);
-        IEnumerable<Institution>? GetAll();
     }
 }
