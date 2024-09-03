@@ -8,7 +8,7 @@ using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Presentation;
 using SharedKernel.Main.Presentation.Routes;
 
-namespace Admin.Web.Application.Features.Institutions
+namespace Admin.Web.Presentation.Endpoints.Institutions
 {
     public class InstitutionDelete : ApiControllerBase
     {
@@ -45,7 +45,7 @@ namespace Admin.Web.Application.Features.Institutions
 
             public async Task<bool> Handle(DeleteInstitutionCommand request, CancellationToken cancellationToken)
             {
-                var result =await _repository.GetByIdAsync(request.id);
+                var result = await _repository.GetByIdAsync(request.id);
                 await _repository.DeleteAsync(result);
                 return true;
             }

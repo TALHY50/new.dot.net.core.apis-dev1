@@ -41,6 +41,7 @@
 	  </Content>
 	</ItemGroup>
 	<ItemGroup>
+	  <Folder Include="Application\Features\Institutions\" />
 	  <Folder Include="Logs\" />
 	  <Folder Include="Presentation\Mapping\" />
 	</ItemGroup>

@@ -17,7 +17,7 @@ using SharedKernel.Main.Contracts;
 using SharedKernel.Main.Presentation;
 using SharedKernel.Main.Presentation.Routes;
 
-namespace Admin.Web.Application.Features.Mtts
+namespace SharedBusiness.Main.Admin.Application.Features.Mtts
 {
 
     [Authorize]

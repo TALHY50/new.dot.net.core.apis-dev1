@@ -1,24 +1,23 @@
-﻿using ErrorOr;
+﻿using ACL.Business.Application.Interfaces.Repositories;
+using ACL.Business.Domain.Entities;
+using ACL.Business.Domain.Services;
+using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SharedBusiness.Main.Admin.Application.Features.Mtts;
-using SharedBusiness.Main.Common.Application.Services.Repositories;
-using SharedBusiness.Main.Common.Domain.Entities;
-using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Contracts;
 using SharedKernel.Main.Presentation;
 using SharedKernel.Main.Presentation.Routes;
 
-namespace SharedBusiness.Main.Admin.Application.Features.Mtts
+namespace ACL.Business.Application.Features.Users
 {
     [Authorize]
-    public record GetMttsQuery(int PageNumber = 0, int PageSize = 0) : IRequest<ErrorOr<List<Mtt>>>;
+    public record GetUsersQuery(int PageNumber = 0, int PageSize = 0) : IRequest<ErrorOr<List<User>>>;
 
-    public class GetMttsQueryValidator : AbstractValidator<GetMttsQuery>
+    public class GetUsersQueryValidator : AbstractValidator<GetUsersQuery>
     {
-        public GetMttsQueryValidator()
+        public GetUsersQueryValidator()
         {
             RuleFor(x => x.PageNumber)
                 .GreaterThanOrEqualTo(1)
@@ -34,19 +33,19 @@ namespace SharedBusiness.Main.Admin.Application.Features.Mtts
     }
 
     [ApiExplorerSettings(IgnoreApi = true)]
-    public class GetMttsQueryHandler
-      : MttBase, IRequestHandler<GetMttsQuery, ErrorOr<List<Mtt>>>
+    public class GetUsersQueryHandler
+      : UserBase, IRequestHandler<GetUsersQuery, ErrorOr<List<User>>>
     {
-        private readonly IMTTRepository _repository;
+        private readonly IUserService _repository;
 
-        public GetMttsQueryHandler(IMTTRepository repository)
+        public GetUsersQueryHandler(IUserService repository)
         {
             _repository = repository;
         }
 
-        public async Task<ErrorOr<List<Mtt>>> Handle(GetMttsQuery request, CancellationToken cancellationToken)
+        public async Task<ErrorOr<List<User>>> Handle(GetUsersQuery request, CancellationToken cancellationToken)
         {
-            List<Mtt>? entities;
+            List<User>? entities;
 
             if (request.PageNumber > 0 && request.PageSize > 0)
             {

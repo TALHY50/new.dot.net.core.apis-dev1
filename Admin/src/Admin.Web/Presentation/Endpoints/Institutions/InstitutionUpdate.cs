@@ -12,7 +12,7 @@ using SharedKernel.Main.Presentation;
 using SharedKernel.Main.Presentation.Routes;
 using static Admin.Web.Application.Features.Mtts.EndpointCreateMtt;
 
-namespace Admin.Web.Application.Features.Institutions
+namespace Admin.Web.Presentation.Endpoints.Institutions
 {
     public class InstitutionUpdate : ApiControllerBase
     {
@@ -33,7 +33,7 @@ namespace Admin.Web.Application.Features.Institutions
         {
             public UpdateInstitutionCommandValidator()
             {
-             RuleFor(r => r.Status).NotEmpty().WithMessage("Status is required.");
+                RuleFor(r => r.Status).NotEmpty().WithMessage("Status is required.");
             }
         }
 
@@ -52,7 +52,7 @@ namespace Admin.Web.Application.Features.Institutions
                     entity.UpdatedAt = DateTime.UtcNow;
                 }
 
-                 await  repository.UpdateAsync(entity);
+                await repository.UpdateAsync(entity);
                 return entity;
             }
         }
