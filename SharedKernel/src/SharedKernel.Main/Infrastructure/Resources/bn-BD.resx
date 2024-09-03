@@ -156,6 +156,9 @@
   <data name="Currency is not supported" xml:space="preserve">
     <value>Currency is not supported</value>
   </data>
+  <data name="Currency not found" xml:space="preserve">
+    <value>মুদ্রা পাওয়া যায়নি</value>
+  </data>
   <data name="deleteFail" xml:space="preserve">
     <value>মুছে ফেলা ব্যর্থ হয়েছে।</value>
   </data>
@@ -291,8 +294,14 @@
   <data name="Transaction limit exceed" xml:space="preserve">
     <value>Transaction limit exceed</value>
   </data>
+  <data name="Transaction Type  is required" xml:space="preserve">
+    <value>লেনদেনের প্রকার প্রয়োজন</value>
+  </data>
   <data name="Transaction type is not supported" xml:space="preserve">
     <value>Transaction type is not supported</value>
+  </data>
+  <data name="Trasaction limit not found!" xml:space="preserve">
+    <value>লেনদেনের সীমা পাওয়া যায়নি!</value>
   </data>
   <data name="User" xml:space="preserve">
     <value>ব্যবহারকারী</value>

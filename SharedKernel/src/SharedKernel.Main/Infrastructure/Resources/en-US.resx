@@ -294,6 +294,9 @@
   <data name="Transaction type is not supported" xml:space="preserve">
     <value>Transaction type is not supported</value>
   </data>
+  <data name="Trasaction limit not found!" xml:space="preserve">
+    <value>Trasaction limit not found!</value>
+  </data>
   <data name="User" xml:space="preserve">
     <value>User</value>
   </data>
