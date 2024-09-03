@@ -10,7 +10,7 @@ using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Presentation;
 using SharedKernel.Main.Presentation.Routes;
 
-namespace Admin.App.Application.Features.Providers
+namespace Admin.Web.Application.Features.Providers
 {
     public class CreateProviderController : ApiControllerBase
     {

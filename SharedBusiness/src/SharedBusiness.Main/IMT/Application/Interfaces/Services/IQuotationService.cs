@@ -12,7 +12,7 @@ namespace SharedBusiness.Main.IMT.Application.Interfaces.Services
         public CreateQuotationRequest PrepareThunesCreateQuotationRequest(QuotationRequest request);
         public Quotation PrepareImtQuotation(QuotationRequest request);
         public CreateContentQuotationResponse CreateQuotation(CreateQuotationRequest request);
-        public CreateContentQuotationResponse GetQuotationById(ulong id);
+        public CreateContentQuotationResponse GetQuotationById(uint id);
         public CreateContentQuotationResponse GetQuotationByExternalId(string invoice_id);
         public CreateContentQuotationResponse CreateQuotationCombined(QuotationRequest quotationRequest);
     }

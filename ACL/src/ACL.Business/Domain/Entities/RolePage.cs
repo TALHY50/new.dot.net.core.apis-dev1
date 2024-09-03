@@ -2,11 +2,11 @@
 
 namespace ACL.Business.Domain.Entities;
 
-public partial class RolePage: EntityBase<ulong>, IAggregateRoot
+public partial class RolePage: EntityBase<uint>, IAggregateRoot
 {
-    public ulong RoleId { get; set; }
+    public uint RoleId { get; set; }
 
-    public ulong PageId { get; set; }
+    public uint PageId { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 

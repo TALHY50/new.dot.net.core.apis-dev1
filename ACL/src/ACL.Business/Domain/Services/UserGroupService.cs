@@ -21,7 +21,7 @@ namespace ACL.Business.Domain.Services
         /// <inheritdoc/>
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8604 // Possible null reference argument.
-        public new static ulong CompanyId = AppAuth.GetAuthInfo().CompanyId;
+        public new static uint CompanyId = AppAuth.GetAuthInfo().CompanyId;
         /// <inheritdoc/>
         public new readonly ApplicationDbContext _dbContext;
         private readonly IUserRepository _userRepository;
@@ -75,7 +75,7 @@ namespace ACL.Business.Domain.Services
             return this.ScopeResponse;
         }
         /// <inheritdoc/>
-        public ScopeResponse UpdateUserGroup(ulong id, AclUserGroupRequest userGroup)
+        public ScopeResponse UpdateUserGroup(uint id, AclUserGroupRequest userGroup)
         {
             Usergroup? result = Find(id);
             if (result != null)
@@ -92,7 +92,7 @@ namespace ACL.Business.Domain.Services
                 this.ScopeResponse.Data = Update(result);
                 this.ScopeResponse.Message = this.messageResponse.editMessage;
                 this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
-                List<ulong>? userIds = this._userRepository.GetUserIdByChangePermission(null, null, null, null, id);
+                List<uint>? userIds = this._userRepository.GetUserIdByChangePermission(null, null, null, null, id);
                 if (userIds != null)
                 {
                     this._userRepository.UpdateUserPermissionVersion(userIds);
@@ -107,7 +107,7 @@ namespace ACL.Business.Domain.Services
             return this.ScopeResponse;
         }
         /// <inheritdoc/>
-        public ScopeResponse FindById(ulong id)
+        public ScopeResponse FindById(uint id)
         {
             Usergroup? result = Find(id);
             if (result != null)
@@ -141,7 +141,7 @@ namespace ACL.Business.Domain.Services
             return this.ScopeResponse;
         }
         /// <inheritdoc/>
-        public ScopeResponse Delete(ulong id)
+        public ScopeResponse Delete(uint id)
         {
             Usergroup? result = Find(id);
             if (result != null)
@@ -157,7 +157,7 @@ namespace ACL.Business.Domain.Services
                 this.ScopeResponse.Data = Deleted(id);
                 this.ScopeResponse.Message = this.messageResponse.deleteMessage;
                 this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
-                List<ulong>? userIds = this._userRepository.GetUserIdByChangePermission(null, null, null, null, id);
+                List<uint>? userIds = this._userRepository.GetUserIdByChangePermission(null, null, null, null, id);
                 if (userIds != null)
                 {
                     this._userRepository.UpdateUserPermissionVersion(userIds);

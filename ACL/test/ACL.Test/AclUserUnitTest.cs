@@ -146,16 +146,16 @@ namespace ACL.TEST
                 UserName = faker.Random.String2(1, 5),
                 ImgPath = faker.Random.String2(1, 10),
                 Status = 1,
-                UserGroup = new ulong[] { 1, 2 },
+                UserGroup = new uint[] { 1, 2 },
             };
         }
 
-        private ulong GetRandomID()
+        private uint GetRandomID()
         {
 
-            //  var chkFirst = (ulong)unitOfWork.UserRepository.FirstOrDefault().Result.Id;
-            // var chkLast = (ulong)unitOfWork.UserRepository.LastOrDefault().Result.Id;
-            return (ulong)DataCollectors.dbContext.AclUsers.Max(l => l.Id);
+            //  var chkFirst = (uint)unitOfWork.UserRepository.FirstOrDefault().Result.Id;
+            // var chkLast = (uint)unitOfWork.UserRepository.LastOrDefault().Result.Id;
+            return (uint)DataCollectors.dbContext.AclUsers.Max(l => l.Id);
 
         }
 

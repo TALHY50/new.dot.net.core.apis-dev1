@@ -2,7 +2,7 @@
 
 namespace ACL.Business.Domain.Entities;
 
-public partial class Usergroup : EntityBase<ulong>, IAggregateRoot
+public partial class Usergroup : EntityBase<uint>, IAggregateRoot
 {
     public string GroupName { get; set; } = null!;
 
@@ -15,7 +15,7 @@ public partial class Usergroup : EntityBase<ulong>, IAggregateRoot
 
     public sbyte Status { get; set; }
 
-    public ulong CompanyId { get; set; }
+    public uint CompanyId { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 

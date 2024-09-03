@@ -2,9 +2,9 @@
 
 namespace ACL.Business.Domain.Entities;
 
-public partial class SubModule : EntityBase<ulong>, IAggregateRoot
+public partial class SubModule : EntityBase<uint>, IAggregateRoot
 {
-    public ulong ModuleId { get; set; }
+    public uint ModuleId { get; set; }
 
     public string Name { get; set; } = null!;
 

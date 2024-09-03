@@ -2,7 +2,7 @@
 
 namespace ACL.Business.Domain.Entities;
 
-public partial class Company : EntityBase<ulong>, IAggregateRoot
+public partial class Company : EntityBase<uint>, IAggregateRoot
 {
     public string Name { get; set; } = null!;
 

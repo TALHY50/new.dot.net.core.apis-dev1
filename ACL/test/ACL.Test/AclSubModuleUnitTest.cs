@@ -132,7 +132,7 @@ namespace ACL.TEST
             var faker = new Faker();
             return new AclSubModuleRequest
             {
-                Id = (ulong)faker.Random.Number(1, int.MaxValue),
+                Id = (uint)faker.Random.Number(1, int.MaxValue),
                 ModuleId = DataCollectors.GetMaxId<Module>(x => x.Id),
                 Name = faker.Random.String2(10, 50),
                 ControllerName = faker.Random.String2(10, 50),

@@ -8,7 +8,7 @@ using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Presentation;
 using SharedKernel.Main.Presentation.Routes;
 
-namespace Admin.App.Application.Features.InstitutionMtts
+namespace Admin.Web.Application.Features.InstitutionMtts
 {
     public class CreateInstitutionMttController : ApiControllerBase
     {

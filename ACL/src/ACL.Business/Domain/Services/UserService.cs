@@ -135,7 +135,7 @@ namespace ACL.Business.Domain.Services
         }
 
         /// <inheritdoc/>
-        public async Task<ScopeResponse> Edit(ulong id, AclUserRequest request)
+        public async Task<ScopeResponse> Edit(uint id, AclUserRequest request)
         {
             User? aclUser = Find(id);
             var strategy = this._dbContext.Database.CreateExecutionStrategy();
@@ -165,7 +165,7 @@ namespace ACL.Business.Domain.Services
                             this.ScopeResponse.Message = this.MessageResponse.editMessage;
                             this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
 
-                            List<ulong> users = new List<ulong> { aclUser.Id };
+                            List<uint> users = new List<uint> { aclUser.Id };
                             UpdateUserPermissionVersion(users);
                             transaction.Commit();
                         }
@@ -203,7 +203,7 @@ namespace ACL.Business.Domain.Services
         }
 
         /// <inheritdoc/>
-        public ScopeResponse FindById(ulong id)
+        public ScopeResponse FindById(uint id)
         {
             try
             {
@@ -233,7 +233,7 @@ namespace ACL.Business.Domain.Services
 
         }
         /// <inheritdoc/>
-        public ScopeResponse DeleteById(ulong id)
+        public ScopeResponse DeleteById(uint id)
         {
             User? aclUser = Find(id);
             if (aclUser != null)
@@ -322,11 +322,11 @@ namespace ACL.Business.Domain.Services
         }
 
         /// <inheritdoc/>
-        public UserUsergroup[] PrepareDataForUserUserGroups(AclUserRequest request, ulong? user_id)
+        public UserUsergroup[] PrepareDataForUserUserGroups(AclUserRequest request, uint? user_id)
         {
             IList<UserUsergroup> res = new List<UserUsergroup>();
 
-            foreach (ulong user_group in request.UserGroup)
+            foreach (uint user_group in request.UserGroup)
             {
                 UserUsergroup userUserGroup = new UserUsergroup();
                 userUserGroup.UserId = user_id ?? 0;

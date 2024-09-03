@@ -16,7 +16,7 @@ public class GetCompanyById : CompanyBase
     
     [Authorize(Policy = "HasPermission")]
     [HttpGet(AclRoutesUrl.AclCompanyRouteUrl.View, Name = AclRoutesName.AclCompanyRouteNames.View)]
-    public ScopeResponse View(ulong id)
+    public ScopeResponse View(uint id)
     {
         return this.CompanyService.FindById(id);
     }

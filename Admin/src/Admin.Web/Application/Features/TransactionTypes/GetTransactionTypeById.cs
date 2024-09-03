@@ -10,10 +10,10 @@
 //using SharedKernel.Main.Contracts;
 //using SharedKernel.Main.Presentation;
 //using SharedKernel.Main.Presentation.Routes;
-//using static Admin.App.Application.Features.Mtts.InstitutionView;
-//using static Admin.App.Application.Features.TransactionTypes.GetTransactionTypeController;
+//using static Admin.Web.Application.Features.Mtts.InstitutionView;
+//using static Admin.Web.Application.Features.TransactionTypes.GetTransactionTypeController;
 
-//namespace Admin.App.Application.Features.TransactionTypes
+//namespace Admin.Web.Application.Features.TransactionTypes
 //{
 //    public class GetTransactionTypeByIdController : ApiControllerBase
 //    {

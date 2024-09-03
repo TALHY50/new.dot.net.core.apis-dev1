@@ -36,7 +36,7 @@ namespace ACL.Business.Domain.Services
         }
 
         /// <inheritdoc/>
-        public ScopeResponse GetRolesByUserGroupId(ulong userGroupId)
+        public ScopeResponse GetRolesByUserGroupId(uint userGroupId)
         {
             var roles = this._dbContext.AclRoles.Where(x => x.CompanyId == AppAuth.GetAuthInfo().CompanyId).Select(role => new { role.Id, role.Title }).ToList();
             var associatedRoles = All().Where(ugr => ugr.UsergroupId == userGroupId && ugr.CompanyId == AppAuth.GetAuthInfo().CompanyId)
@@ -76,7 +76,7 @@ namespace ACL.Business.Domain.Services
                    this.ScopeResponse.Data = userGroupRoles;
                    this.ScopeResponse.Message = this.MessageResponse.createMessage;
                    this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
-                   List<ulong>? userIds = this._userRepository.GetUserIdByChangePermission(null, null, null, null, request.UserGroupId);
+                   List<uint>? userIds = this._userRepository.GetUserIdByChangePermission(null, null, null, null, request.UserGroupId);
                    if (userIds != null)
                    {
                        this._userRepository.UpdateUserPermissionVersion(userIds);

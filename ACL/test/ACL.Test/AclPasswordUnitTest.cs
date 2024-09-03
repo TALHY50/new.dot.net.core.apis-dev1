@@ -19,7 +19,7 @@ namespace ACL.TEST
     {
         RestSharp.RestClient restClient;
         private string authToken;
-        private ulong user_id = 2;
+        private uint user_id = 2;
         private string userPassword = "Nop@ss1234";
         private string resetPassword = "Nop@ss4321";
         private string uniqueKey = "rest_cache_key";

@@ -1,5 +1,5 @@
 using ACL.Business.Application.Interfaces.Services;
-using Admin.App.Presentation.Routes;
+using Admin.Web.Presentation.Routes;
 using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Admin.Application.Features.Countries;
@@ -7,7 +7,7 @@ using SharedBusiness.Main.Common.Contracts;
 using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Infrastructure.Attributes;
 
-namespace Admin.App.Presentation.Endpoints.Country;
+namespace Admin.Web.Presentation.Endpoints.Country;
 
 public class CreateCountry(ILogger<CreateCountry> logger, ICurrentUser currentUser)
     : CountryBase(logger, currentUser)

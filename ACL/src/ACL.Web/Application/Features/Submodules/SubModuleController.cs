@@ -36,7 +36,7 @@ namespace ACL.Web.Application.Features.Submodules
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclSubmoduleRouteUrl.View, Name = AclRoutesName.AclSubmoduleRouteNames.View)]
-        public ScopeResponse View(ulong id)
+        public ScopeResponse View(uint id)
         {
             return this._subModuleService.FindById(id);
 
@@ -52,7 +52,7 @@ namespace ACL.Web.Application.Features.Submodules
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpDelete(AclRoutesUrl.AclSubmoduleRouteUrl.Destroy, Name = AclRoutesName.AclSubmoduleRouteNames.Destroy)]
-        public ScopeResponse Destroy(ulong id)
+        public ScopeResponse Destroy(uint id)
         {
             return this._subModuleService.DeleteById(id);
         }

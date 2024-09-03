@@ -159,12 +159,12 @@ namespace ACL.TEST
         }
 
 
-        private ulong GetRandomID()
+        private uint GetRandomID()
         {
             #region Act
             //    // Act
             //return dbContext.AclCompanyModules.Last().Id;
-            return (ulong)DataCollectors.dbContext.CompanyModules.Max(i => i.Id);
+            return (uint)DataCollectors.dbContext.CompanyModules.Max(i => i.Id);
             #endregion
             // }
 

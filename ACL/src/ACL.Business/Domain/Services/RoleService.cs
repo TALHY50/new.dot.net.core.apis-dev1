@@ -21,7 +21,7 @@ namespace ACL.Business.Domain.Services
         private readonly ApplicationDbContext _dbContext;
         private readonly IUserRepository _userRepository;
         public new static IHttpContextAccessor HttpContextAccessor;
-        private enum RoleIds : ulong { super_super_admin = 1, ADMIN_ROLE = 2 };
+        private enum RoleIds : uint { super_super_admin = 1, ADMIN_ROLE = 2 };
         public RoleService(ApplicationDbContext dbContext, IUserRepository userRepository, IHttpContextAccessor httpContextAccessor) : base(dbContext, userRepository, httpContextAccessor)
         {
             this._userRepository = userRepository;
@@ -62,7 +62,7 @@ namespace ACL.Business.Domain.Services
             return this.ScopeResponse;
         }
         /// <inheritdoc/>
-        public ScopeResponse Edit(ulong id, AclRoleRequest request)
+        public ScopeResponse Edit(uint id, AclRoleRequest request)
         {
             var aclRole = Find(id);
 
@@ -77,7 +77,7 @@ namespace ACL.Business.Domain.Services
             this._dbContext.AclRoles.Update(aclRole);
             this._dbContext.SaveChanges();
             this._dbContext.Entry(aclRole).Reload();
-            List<ulong>? userIds = this._userRepository?.GetUserIdByChangePermission(null, null, null, id);
+            List<uint>? userIds = this._userRepository?.GetUserIdByChangePermission(null, null, null, id);
             if (userIds.Count() > 0)
             {
                 this._userRepository.UpdateUserPermissionVersion(userIds);
@@ -89,7 +89,7 @@ namespace ACL.Business.Domain.Services
 
         }
         /// <inheritdoc/>
-        public ScopeResponse FindById(ulong id)
+        public ScopeResponse FindById(uint id)
         {
 
             var aclRole = Find(id);
@@ -105,7 +105,7 @@ namespace ACL.Business.Domain.Services
 
         }
         /// <inheritdoc/>
-        public ScopeResponse DeleteById(ulong id)
+        public ScopeResponse DeleteById(uint id)
         {
             var aclRole = Find(id);
 
@@ -114,7 +114,7 @@ namespace ACL.Business.Domain.Services
                 this.ScopeResponse.Data = Delete(id);
                 this.ScopeResponse.Message = this.MessageResponse.deleteMessage;
                 this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
-                List<ulong>? userIds = this._userRepository.GetUserIdByChangePermission(null, null, null, id);
+                List<uint>? userIds = this._userRepository.GetUserIdByChangePermission(null, null, null, id);
                 this._userRepository.UpdateUserPermissionVersion(userIds);
             }
 

@@ -44,7 +44,7 @@ namespace ACL.Business.Application.Features.Users
     string? user_name,
     string? img_path,
     sbyte? status,
-    ulong[]? user_group,
+    uint[]? user_group,
     string? salt) : IRequest<ErrorOr<User>>;
 
 

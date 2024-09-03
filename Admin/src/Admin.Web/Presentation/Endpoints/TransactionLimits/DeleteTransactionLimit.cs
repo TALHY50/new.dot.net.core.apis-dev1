@@ -4,7 +4,7 @@ using SharedBusiness.Main.Admin.Application.Features.TransactionLimits;
 using SharedKernel.Main.Presentation;
 using SRoutes = SharedKernel.Main.Presentation.Routes.Routes;
 
-namespace Admin.App.Presentation.Endpoints.TransactionLimits
+namespace Admin.Web.Presentation.Endpoints.TransactionLimits
 {
     public class DeleteTransactionLimitController : ApiControllerBase
     {

@@ -26,7 +26,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         }
 
         /// <inheritdoc/>
-        public void DeletePageRouteByPageId(ulong pageId)
+        public void DeletePageRouteByPageId(uint pageId)
         {
             this._routeRepository.DeleteAllByPageId(pageId);
         }
@@ -44,7 +44,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
 
         }
         /// <inheritdoc/>
-        public Page? Find(ulong id)
+        public Page? Find(uint id)
         {
             try
             {
@@ -100,7 +100,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
             }
         }
         /// <inheritdoc/>
-        public Page? Delete(ulong id)
+        public Page? Delete(uint id)
         {
             try
             {
@@ -117,21 +117,21 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
 
         }
 
-        public bool IsAclPageIdExist(ulong id)
+        public bool IsAclPageIdExist(uint id)
         {
             return this._dbContext.AclPages.Any(x => x.Id == id);
         }
 
-        public bool IsModuleIdExist(ulong id)
+        public bool IsModuleIdExist(uint id)
         {
             return this._dbContext.AclModules.Any(x => x.Id == id);
         }
 
-        public bool IsSubModuleIdExist(ulong id)
+        public bool IsSubModuleIdExist(uint id)
         {
             return this._dbContext.AclSubModules.Any(x => x.Id == id);
         }
-        public bool IsExist(ulong id)
+        public bool IsExist(uint id)
         {
             return this._dbContext.AclPages.Any(i => i.Id == id);
         }
