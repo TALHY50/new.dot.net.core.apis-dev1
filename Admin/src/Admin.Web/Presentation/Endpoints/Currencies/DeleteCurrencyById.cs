@@ -1,9 +1,9 @@
-﻿using Admin.App.Presentation.Routes;
+﻿using Admin.Web.Presentation.Routes;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Admin.Application.Features.Currencies;
 using SharedKernel.Main.Application.Interfaces.Services;
 
-namespace Admin.App.Presentation.Endpoints.Currencies
+namespace Admin.Web.Presentation.Endpoints.Currencies
 {
     public class DeleteCurrencyById(ILogger<DeleteCurrencyById> logger, ICurrentUser currentUser)
     : CurrencyBase(logger, currentUser)

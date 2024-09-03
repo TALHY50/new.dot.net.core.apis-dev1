@@ -9,9 +9,9 @@ using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Contracts;
 using SharedKernel.Main.Presentation;
 using SharedKernel.Main.Presentation.Routes;
-using static Admin.App.Application.Features.MttPaymentSpeeds.DeleteMttPaymentSpeedController;
+using static Admin.Web.Application.Features.MttPaymentSpeeds.DeleteMttPaymentSpeedController;
 
-namespace Admin.App.Application.Features.MttPaymentSpeeds
+namespace Admin.Web.Application.Features.MttPaymentSpeeds
 {
     public class DeleteMttPaymentSpeedController : ApiControllerBase
     {

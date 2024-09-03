@@ -1,4 +1,5 @@
-﻿using ErrorOr;
+﻿using Admin.Web.Presentation.Routes;
+using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -13,13 +14,13 @@ using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Presentation;
 using SharedKernel.Main.Presentation.Routes;
 
-namespace Admin.App.Application.Features.Mtts
+namespace Admin.Web.Application.Features.Mtts
 {
     public class EndpointGetMttById(ILogger<EndpointGetMttById> logger, ICurrentUser currentUser)
        : MttBase(logger, currentUser)
     {
         [Tags("Mtt")]
-        [HttpGet(AdminRoute.ViewMttsRouteUrl, Name = AdminRoute.ViewMttsRouteName)]
+        [HttpGet(MttRoutes.ViewMttsRouteUrl, Name = MttRoutes.ViewMttsRouteName)]
         public async Task<IActionResult> GetById(uint id, CancellationToken cancellationToken)
         {
             var query = new GetMttByIdQuery(id);

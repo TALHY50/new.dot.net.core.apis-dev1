@@ -1,7 +1,7 @@
 ﻿using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Presentation;
 
-namespace Admin.App.Presentation.Endpoints.Currencies
+namespace Admin.Web.Presentation.Endpoints.Currencies
 {
     public class CurrencyBase : ApiControllerBase
     {

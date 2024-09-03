@@ -1,11 +1,11 @@
-﻿using Admin.App.Presentation.Routes;
+﻿using Admin.Web.Presentation.Routes;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Admin.Application.Features.Countries;
 using SharedBusiness.Main.Admin.Application.Features.Regions;
 using SharedBusiness.Main.IMT.Contracts.Contracts.Responses;
 using SharedKernel.Main.Application.Interfaces.Services;
 
-namespace Admin.App.Presentation.Endpoints.Regions
+namespace Admin.Web.Presentation.Endpoints.Regions
 {
     public class GetRegionById(ILogger<GetRegionById> logger, ICurrentUser currentUser)
         : RegionBase(logger, currentUser)

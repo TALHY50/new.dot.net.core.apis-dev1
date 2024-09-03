@@ -9,7 +9,7 @@ using SharedKernel.Main.Presentation;
 using SharedKernel.Main.Presentation.Routes;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
-namespace Admin.App.Application.Features.Providers
+namespace Admin.Web.Application.Features.Providers
 {
     public class GetProviderController : ApiControllerBase
     {

@@ -1,4 +1,4 @@
-using Admin.App.Presentation.Routes;
+using Admin.Web.Presentation.Routes;
 using ErrorOr;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +8,7 @@ using SharedBusiness.Main.Common.Contracts;
 using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Contracts;
 
-namespace Admin.App.Presentation.Endpoints.Country;
+namespace Admin.Web.Presentation.Endpoints.Country;
 
 public class GetCountries(ILogger<GetCountries> logger, ICurrentUser currentUser)
     : CountryBase(logger, currentUser)

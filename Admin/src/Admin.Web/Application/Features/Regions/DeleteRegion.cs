@@ -10,10 +10,10 @@
 //using SharedKernel.Main.Contracts;
 //using SharedKernel.Main.Presentation;
 //using SharedKernel.Main.Presentation.Routes;
-//using static Admin.App.Application.Features.Mtts.InstitutionDelete;
-//using static Admin.App.Application.Features.Providers.DeleteProviderController;
+//using static Admin.Web.Application.Features.Mtts.InstitutionDelete;
+//using static Admin.Web.Application.Features.Providers.DeleteProviderController;
 
-//namespace Admin.App.Application.Features.Regions
+//namespace Admin.Web.Application.Features.Regions
 //{
 //    public class DeleteRegionController : ApiControllerBase
 //    {

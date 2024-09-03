@@ -28,7 +28,7 @@ using ACL.Business.Domain.Services;
 using Microsoft.AspNetCore.Http;
 using ACL.Business.Infrastructure.Auth.Auth;
 
-namespace Admin.App.Application.Features.Mtts
+namespace Admin.Web.Application.Features.Mtts
 {
 
     [Authorize]

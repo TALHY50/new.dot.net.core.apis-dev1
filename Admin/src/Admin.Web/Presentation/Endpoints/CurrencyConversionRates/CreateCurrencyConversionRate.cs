@@ -1,5 +1,5 @@
-using Admin.App.Presentation.Endpoints.CurrencyConversionRates;
-using Admin.App.Presentation.Routes;
+using Admin.Web.Presentation.Endpoints.CurrencyConversionRates;
+using Admin.Web.Presentation.Routes;
 using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Admin.Application.Features.Countries;
@@ -8,7 +8,7 @@ using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Contracts.Contracts.Responses;
 using SharedKernel.Main.Application.Interfaces.Services;
 
-namespace Admin.App.Presentation.Endpoints.CreateCurrencyConversionRates;
+namespace Admin.Web.Presentation.Endpoints.CreateCurrencyConversionRates;
 
 public class CreateCurrencyConversionRate(ILogger<CreateCurrencyConversionRate> logger, ICurrentUser currentUser)
     : CurrencyConversionRateBase(logger, currentUser)
