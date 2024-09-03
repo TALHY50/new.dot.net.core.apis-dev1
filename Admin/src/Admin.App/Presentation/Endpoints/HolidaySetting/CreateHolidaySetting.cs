@@ -1,4 +1,5 @@
-﻿using ErrorOr;
+﻿using Admin.App.Presentation.Routes;
+using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -11,13 +12,13 @@ using SharedKernel.Main.Presentation.Routes;
 using Duplicates_HolidaySetting = SharedBusiness.Main.Common.Domain.Entities.HolidaySetting;
 
 
-namespace Admin.Web.Application.Features.HolidaySetting;
+namespace Admin.App.Presentation.Endpoints.HolidaySetting;
 
 public class CreateHolidaySettingController : ApiControllerBase
 {
 
     //[Authorize(Policy = "HasPermission")]
-    [HttpPost(Routes.CreateHolidaySettingUrl, Name = Routes.CreateHolidaySettingName)]
+    [HttpPost(HolidaySettingRoutes.CreateHolidaySettingTemplate, Name = HolidaySettingRoutes.CreateHolidaySettingName)]
     public async Task<ActionResult<ErrorOr<Duplicates_HolidaySetting>>> Create(CreateHolidaySettingCommand command)
     {
         var result = await Mediator.Send(command).ConfigureAwait(false);
