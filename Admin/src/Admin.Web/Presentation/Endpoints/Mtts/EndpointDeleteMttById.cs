@@ -11,7 +11,7 @@ using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Presentation;
 using SharedKernel.Main.Presentation.Routes;
 
-namespace Admin.Web.Application.Features.Mtts
+namespace Admin.Web.Presentation.Endpoints.Mtts
 {
     public class EndpointDeleteMttById(ILogger<EndpointDeleteMttById> logger, ICurrentUser currentUser)
     : MttBase(logger, currentUser)

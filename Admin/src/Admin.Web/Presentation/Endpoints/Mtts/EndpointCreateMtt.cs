@@ -6,7 +6,7 @@ using SharedBusiness.Main.Admin.Contracts.Contracts.Responses;
 using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Presentation.Routes;
 
-namespace Admin.Web.Application.Features.Mtts
+namespace Admin.Web.Presentation.Endpoints.Mtts
 {
     public class EndpointCreateMtt(ILogger<EndpointCreateMtt> logger, ICurrentUser currentUser)
     : MttBase(logger, currentUser)

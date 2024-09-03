@@ -14,14 +14,13 @@ using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Presentation;
 using SharedKernel.Main.Presentation.Routes;
 
-namespace Admin.Web.Application.Features.Mtts
+namespace Admin.Web.Presentation.Endpoints.Mtts
 {
     public class EndpointUpdateMttById(ILogger<EndpointUpdateMttById> logger, ICurrentUser currentUser)
        : MttBase(logger, currentUser)
     {
         [Tags("Mtt")]
         [HttpPut(MttRoutes.EditMttsRouteUrl, Name = MttRoutes.EditMttsRouteName)]
-        [HttpPatch(MttRoutes.EditMttsRouteUrl, Name = MttRoutes.EditMttsRouteName)]
         public async Task<IActionResult> Update(uint id, UpdateMttByIdCommand command, CancellationToken cancellationToken)
         {
             var commandWithId = command with { id = id };
