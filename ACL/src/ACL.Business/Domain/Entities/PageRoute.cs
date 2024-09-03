@@ -2,9 +2,9 @@
 
 namespace ACL.Business.Domain.Entities;
 
-public partial class PageRoute : EntityBase<ulong>, IAggregateRoot
+public partial class PageRoute : EntityBase<uint>, IAggregateRoot
 {
-    public ulong? PageId { get; set; }
+    public uint? PageId { get; set; }
 
     public string? RouteName { get; set; }
 

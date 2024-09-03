@@ -10,7 +10,7 @@ namespace ACL.Business.Application.Interfaces.Repositories
         /// <inheritdoc/>
         IEnumerable<Branch>? All();
         /// <inheritdoc/>
-        Branch? GetById(ulong id);
+        Branch? GetById(uint id);
         /// <inheritdoc/>
         Branch? Add(Branch entity);
         /// <inheritdoc/>
@@ -18,6 +18,6 @@ namespace ACL.Business.Application.Interfaces.Repositories
         /// <inheritdoc/>
         bool Delete(Branch entity);
         /// <inheritdoc/>
-        Branch? Delete(ulong id);
+        Branch? Delete(uint id);
     }
 }

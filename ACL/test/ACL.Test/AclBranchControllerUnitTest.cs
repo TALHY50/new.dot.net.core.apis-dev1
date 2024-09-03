@@ -125,12 +125,12 @@ namespace ACL.TEST
                 Address = faker.Random.String2(10, 100),
                 Description = faker.Random.String2(2, 5),
                 Status = (byte)faker.Random.Number(1, 2),
-                Sequence = (ulong)faker.Random.Number(10, 200),
+                Sequence = (uint)faker.Random.Number(10, 200),
             };
 
         }
 
-        private ulong GetRandomID()
+        private uint GetRandomID()
         {
 
             return DataCollectors.dbContext.Branches.Max(x => x.Id);

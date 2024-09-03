@@ -78,7 +78,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
 
         }
         /// <inheritdoc/>
-        public PageRoute? Delete(ulong id)
+        public PageRoute? Delete(uint id)
         {
             try
             {
@@ -93,7 +93,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
             }
         }
         /// <inheritdoc/>
-        public PageRoute[]? DeleteAllByPageId(ulong pageId)
+        public PageRoute[]? DeleteAllByPageId(uint pageId)
         {
             try
             {
@@ -109,7 +109,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
             }
         }
         /// <inheritdoc/>
-        public PageRoute? Find(ulong id)
+        public PageRoute? Find(uint id)
         {
             try
             {

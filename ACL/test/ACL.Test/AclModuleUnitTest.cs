@@ -137,10 +137,10 @@ namespace ACL.TEST
 
         }
 
-        private ulong GetRandomID()
+        private uint GetRandomID()
         {
 
-            return (ulong)DataCollectors.dbContext.AclModules.Max(i => i.Id);
+            return (uint)DataCollectors.dbContext.AclModules.Max(i => i.Id);
 
         }
 

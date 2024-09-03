@@ -14,7 +14,7 @@ public class UpdateById : BranchBase
     
     //[Authorize(Policy = "HasPermission")]
     [HttpPut(AclRoutesUrl.AclBranchRouteUrl.Edit, Name = AclRoutesName.AclBranchRouteNames.Edit)]
-    public ScopeResponse Edit(ulong id, AclBranchRequest request)
+    public ScopeResponse Edit(uint id, AclBranchRequest request)
     {
         return this._branchService.Edit(id, request);
     }

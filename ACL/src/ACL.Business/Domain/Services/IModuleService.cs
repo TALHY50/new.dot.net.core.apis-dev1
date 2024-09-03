@@ -9,12 +9,12 @@ namespace ACL.Business.Domain.Services
         /// <inheritdoc/>
         ScopeResponse GetAll();
         /// <inheritdoc/>
-        ScopeResponse FindById(ulong id);
+        ScopeResponse FindById(uint id);
         /// <inheritdoc/>
         ScopeResponse AddAclModule(AclModuleRequest request);
         /// <inheritdoc/>
         ScopeResponse EditAclModule(AclModuleRequest request);
         /// <inheritdoc/>
-        ScopeResponse DeleteModule(ulong id);
+        ScopeResponse DeleteModule(uint id);
     }
 }

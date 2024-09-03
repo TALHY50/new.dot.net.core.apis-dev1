@@ -7,7 +7,7 @@ namespace ACL.Business.Application.Interfaces.Repositories
     /// <inheritdoc/>
     public interface IUserRepository : IRepository<User>, IExtendedRepositoryBase<User>
     {
-        User? FindByIdAsync(ulong id);
+        User? FindByIdAsync(uint id);
         /// <inheritdoc/>
         User? FindByEmail(string email);
         /// <inheritdoc/>
@@ -23,7 +23,7 @@ namespace ACL.Business.Application.Interfaces.Repositories
         /// <inheritdoc/>
         List<User>? All();
         /// <inheritdoc/>
-        User? Find(ulong id);
+        User? Find(uint id);
         /// <inheritdoc/>
         User? Add(User user);
         /// <inheritdoc/>
@@ -31,12 +31,12 @@ namespace ACL.Business.Application.Interfaces.Repositories
         /// <inheritdoc/>
         User? Delete(User user);
         /// <inheritdoc/>
-        User? Delete(ulong id);
+        User? Delete(uint id);
 
-        List<ulong>? GetUserIdByChangePermission(ulong? module_id = null, ulong? sub_module_id = null, ulong? page_id = null, ulong? role_id = null, ulong? user_group_id = null);
-        void UpdateUserPermissionVersion(List<ulong> userIds);
+        List<uint>? GetUserIdByChangePermission(uint? module_id = null, uint? sub_module_id = null, uint? page_id = null, uint? role_id = null, uint? user_group_id = null);
+        void UpdateUserPermissionVersion(List<uint> userIds);
 
-        bool IsExist(ulong id);
+        bool IsExist(uint id);
 
     }
 

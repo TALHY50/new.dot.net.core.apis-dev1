@@ -2,7 +2,7 @@
 
 namespace ACL.Business.Domain.Entities;
 
-public partial class Role : EntityBase<ulong>, IAggregateRoot
+public partial class Role : EntityBase<uint>, IAggregateRoot
 {
     public string? Title { get; set; }
 
@@ -10,17 +10,17 @@ public partial class Role : EntityBase<ulong>, IAggregateRoot
 
     public sbyte Status { get; set; }
 
-    public ulong CompanyId { get; set; }
+    public uint CompanyId { get; set; }
 
     /// <summary>
     /// creator auth ID
     /// </summary>
-    public ulong? CreatedById { get; set; }
+    public uint? CreatedById { get; set; }
 
     /// <summary>
     /// approve auth ID
     /// </summary>
-    public ulong? UpdatedById { get; set; }
+    public uint? UpdatedById { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 

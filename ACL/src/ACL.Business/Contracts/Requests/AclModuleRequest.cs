@@ -6,7 +6,7 @@ namespace ACL.Business.Contracts.Requests
     {
 
         [DefaultValue("1004")]
-        public ulong Id { get; set; }
+        public uint Id { get; set; }
 
         [DefaultValue("Hrm Module")]
         public string Name { get; set; }
