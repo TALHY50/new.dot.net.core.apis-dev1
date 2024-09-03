@@ -7,9 +7,9 @@ namespace ACL.Business.Contracts.Requests
     {
         [DefaultValue("3002")]
         [Required]
-        [Range(1, uint.MaxValue)]
+        [Range(1, ulong.MaxValue)]
         //[ExistsInDatabase<ApplicationDbContext,ICustomUnitOfWork>("Page", "Id")]
-        public uint PageId { get; set; }
+        public ulong PageId { get; set; }
 
         [DefaultValue("acl.company.list")]
         [Required]

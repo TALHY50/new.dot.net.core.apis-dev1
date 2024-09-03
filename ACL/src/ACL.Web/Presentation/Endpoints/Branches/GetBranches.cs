@@ -14,7 +14,7 @@ public class GetBranches : BranchBase
     
     [Authorize(Policy = "HasPermission")]
     [HttpGet(AclRoutesUrl.AclBranchRouteUrl.List, Name = AclRoutesName.AclBranchRouteNames.List)]
-    public ApplicationResponse Index()
+    public ScopeResponse Index()
     {
         return this._branchService.Get();
     }

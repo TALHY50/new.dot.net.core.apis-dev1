@@ -8,7 +8,7 @@ namespace ACL.Business.Application.Interfaces.Repositories
         /// <inheritdoc/>
         List<UsergroupRole>? All();
         /// <inheritdoc/>
-        UsergroupRole? Find(uint id);
+        UsergroupRole? Find(ulong id);
         /// <inheritdoc/>
         UsergroupRole? Add(UsergroupRole userGroupRole);
         /// <inheritdoc/>
@@ -16,6 +16,6 @@ namespace ACL.Business.Application.Interfaces.Repositories
         /// <inheritdoc/>
         UsergroupRole? Delete(UsergroupRole userGroupRole);
         /// <inheritdoc/>
-        UsergroupRole? Delete(uint id);
+        UsergroupRole? Delete(ulong id);
     }
 }

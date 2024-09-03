@@ -192,7 +192,7 @@ namespace IMT.App.Application.Features
 
         //        [Tags("Thunes.Transaction")]
         //        [HttpPost(ThunesUrl.CreateTransactionUrl)]
-        //        public Object TransactionPost(uint id, MoneyTransferDTO request)
+        //        public Object TransactionPost(ulong id, MoneyTransferDTO request)
         //        {
         //            try
         //            {

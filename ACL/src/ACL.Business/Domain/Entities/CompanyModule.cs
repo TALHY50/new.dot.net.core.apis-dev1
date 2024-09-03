@@ -2,11 +2,11 @@
 
 public partial class CompanyModule
 {
-    public uint Id { get; set; }
+    public ulong Id { get; set; }
 
-    public uint CompanyId { get; set; }
+    public ulong CompanyId { get; set; }
 
-    public uint ModuleId { get; set; }
+    public ulong ModuleId { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 

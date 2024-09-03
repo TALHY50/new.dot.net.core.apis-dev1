@@ -23,7 +23,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
 
         }
 
-        public bool CompanyModuleValid(uint companyId, uint moduleId, uint id = 0)
+        public bool CompanyModuleValid(ulong companyId, ulong moduleId, ulong id = 0)
         {
             if (id == 0)
             {
@@ -37,11 +37,11 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
             }
         }
 
-        public bool CompanyValid(uint companyId)
+        public bool CompanyValid(ulong companyId)
         {
                 return this._dbContext.Companies.Any(x => x.Id == companyId);
         }
-        public bool ModuleValid(uint moduleId)
+        public bool ModuleValid(ulong moduleId)
         {
                 return this._dbContext.AclModules.Any(x => x.Id == moduleId);
         }
@@ -60,7 +60,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
 
         }
         /// <inheritdoc/>
-        public CompanyModule? Find(uint id)
+        public CompanyModule? Find(ulong id)
         {
             try
             {
@@ -119,7 +119,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
 
         }
         /// <inheritdoc/>
-        public CompanyModule? Delete(uint id)
+        public CompanyModule? Delete(ulong id)
         {
             try
             {

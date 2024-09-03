@@ -12,7 +12,7 @@ namespace ACL.Business.Contracts.Requests
         [DefaultValue("This is sub branch.")]
         public required string Description { get; set; }
         [DefaultValue(1)]
-        public required uint Sequence { get; set; }
+        public required ulong Sequence { get; set; }
 
         [DefaultValue(1)]
         public int? Status { get; set; }

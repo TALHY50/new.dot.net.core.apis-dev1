@@ -8,7 +8,7 @@ namespace ACL.Business.Application.Interfaces.Repositories
         /// <inheritdoc/>
         List<Page>? All();
         /// <inheritdoc/>
-        Page? Find(uint id);
+        Page? Find(ulong id);
         /// <inheritdoc/>
         Page? Add(Page page);
         /// <inheritdoc/>
@@ -16,8 +16,8 @@ namespace ACL.Business.Application.Interfaces.Repositories
         /// <inheritdoc/>
         Page? Delete(Page page);
         /// <inheritdoc/>
-        Page? Delete(uint id);
+        Page? Delete(ulong id);
         /// <inheritdoc/>
-        bool IsExist(uint id);
+        bool IsExist(ulong id);
     }
 }

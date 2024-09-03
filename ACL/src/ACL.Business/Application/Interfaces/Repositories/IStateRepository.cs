@@ -8,7 +8,7 @@ namespace ACL.Business.Application.Interfaces.Repositories
         /// <inheritdoc/>
         List<State>? All();
         /// <inheritdoc/>
-        State? Find(uint id);
+        State? Find(ulong id);
         /// <inheritdoc/>
         State? Add(State state);
         /// <inheritdoc/>
@@ -16,7 +16,7 @@ namespace ACL.Business.Application.Interfaces.Repositories
         /// <inheritdoc/>
         State? Delete(State state);
         /// <inheritdoc/>
-        State? Delete(uint id);
+        State? Delete(ulong id);
 
 
     }

@@ -31,7 +31,7 @@ namespace Thunes.Sample
         [Test]
         public void CreateQGetQuotationByIduatatioin()
         {
-            uint id = 1;
+            ulong id = 1;
             var response = _thunesClient.QuotationAdapter().GetQuotationById(id);
             Assert.NotNull(response);
         }
@@ -39,7 +39,7 @@ namespace Thunes.Sample
         [Test]
         public void GetRetrieveQuotationByExternalId()
         {
-            uint id = 1234;
+            ulong id = 1234;
             var response = _thunesClient.QuotationAdapter().GetQuotationByExternalId(id.ToString());
             Assert.NotNull(response);
         }
@@ -48,7 +48,7 @@ namespace Thunes.Sample
         public void CreditPartyInformation()
         {
             InformationRequest request = new InformationRequest();
-            uint id = 1;
+            ulong id = 1;
             string transaction_type = "C2C";
             var response = _thunesClient.GetInformationAdapter().CreditPartyInformation(request, id, transaction_type);
             Assert.NotNull(response);
@@ -58,7 +58,7 @@ namespace Thunes.Sample
         public void CreditPartyVerification()
         {
             InformationRequest request = new InformationRequest();
-            uint id = 1;
+            ulong id = 1;
             string transaction_type = "C2C";
             _thunesClient.GetInformationAdapter().CreditPartyInformation(request, id, transaction_type);
             var response = _thunesClient.VerificationAdapter().CreditPartyVerification(id, transaction_type, request);
@@ -75,7 +75,7 @@ namespace Thunes.Sample
         [Test]
         public void GetBalanceMovement()
         {
-            uint id = 1;
+            ulong id = 1;
             DateTime from_date = DateTime.UtcNow;
             DateTime to_date = DateTime.UtcNow;
             var response = _thunesClient.GetAccountAdapter().GetBalanceMovement(id, from_date, to_date);
@@ -93,7 +93,7 @@ namespace Thunes.Sample
         [Test]
         public void GetReportDetail()
         {
-            uint id = 1;
+            ulong id = 1;
             var response = _thunesClient.GetAccountAdapter().GetReportDetail(id);
             Assert.NotNull(response);
         }
@@ -101,7 +101,7 @@ namespace Thunes.Sample
         [Test]
         public void ListReportsAvailableById()
         {
-            uint id = 1;
+            ulong id = 1;
             var response = _thunesClient.GetAccountAdapter().ListReportsAvailable(id);
             Assert.NotNull(response);
         }
@@ -109,8 +109,8 @@ namespace Thunes.Sample
         [Test]
         public void GetReportFileDetails()
         {
-            uint id = 1;
-            uint report_id = 1;
+            ulong id = 1;
+            ulong report_id = 1;
             var response = _thunesClient.GetAccountAdapter().GetReportFileDetails(report_id, id);
             Assert.NotNull(response);
         }
@@ -132,7 +132,7 @@ namespace Thunes.Sample
         [Test]
         public void PayerResponseDetails()
         {
-            uint id = 1;
+            ulong id = 1;
             var response = _thunesClient.GetDiscoveryAdapter().PayerResponseDetails(id);
             Assert.NotNull(response);
         }
@@ -140,7 +140,7 @@ namespace Thunes.Sample
         [Test]
         public void PayerRateResponse()
         {
-            uint id = 1;
+            ulong id = 1;
             var response = _thunesClient.GetDiscoveryAdapter().PayerRateResponse(id);
             Assert.NotNull(response);
         }
@@ -173,7 +173,7 @@ namespace Thunes.Sample
                 invoice_id = "1",
                 purpose_of_remittance = "test"
             };
-            uint id = 1;
+            ulong id = 1;
             var response = _thunesClient.GetTransactionAdapter().CreateTransaction(id, request);
             Assert.NotNull(response);
         } 

@@ -16,21 +16,21 @@ namespace ACL.Business.Domain.Services
     public class StateService : StateRepository, IStateService
     {
         /// <inheritdoc/>
-        public ApplicationResponse ApplicationResponse;
+        public ScopeResponse ScopeResponse;
         /// <inheritdoc/>
         public MessageResponse MessageResponse;
         private readonly string _modelName = "State";
         public new static IHttpContextAccessor HttpContextAccessor;
         public StateService(ApplicationDbContext dbContext, IHttpContextAccessor httpContextAccessor) : base(dbContext, httpContextAccessor)
         {
-            this.ApplicationResponse = new ApplicationResponse();
+            this.ScopeResponse = new ScopeResponse();
             HttpContextAccessor = httpContextAccessor;
             AppAuth.Initialize(HttpContextAccessor, dbContext);
             AppAuth.SetAuthInfo(HttpContextAccessor);
             this.MessageResponse = new MessageResponse(this._modelName, AppAuth.GetAuthInfo().Language);
         }
           /// <inheritdoc/>
-        public ApplicationResponse GetAll()
+        public ScopeResponse GetAll()
         {
             var aclStates = this._dbContext.AclStates
                 .Join(this._dbContext.AclCountries, s => s.CountryId, c => c.Id, (s, c) => new
@@ -41,50 +41,50 @@ namespace ACL.Business.Domain.Services
                 }).ToList();
             if (aclStates.Any())
             {
-                this.ApplicationResponse.Message = this.MessageResponse.fetchMessage;
+                this.ScopeResponse.Message = this.MessageResponse.fetchMessage;
             }
-            this.ApplicationResponse.Data = aclStates;
-            this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
-            this.ApplicationResponse.Timestamp = DateTime.Now;
+            this.ScopeResponse.Data = aclStates;
+            this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+            this.ScopeResponse.Timestamp = DateTime.Now;
 
-            return this.ApplicationResponse;
+            return this.ScopeResponse;
         }
         /// <inheritdoc/>
-        public ApplicationResponse Add(AclStateRequest request)
+        public ScopeResponse Add(AclStateRequest request)
         {
 
             var aclState = PrepareInputData(request);
-            this.ApplicationResponse.Data = Add(aclState);
-            this.ApplicationResponse.Message = this.MessageResponse.createMessage;
-            this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+            this.ScopeResponse.Data = Add(aclState);
+            this.ScopeResponse.Message = this.MessageResponse.createMessage;
+            this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
 
-            this.ApplicationResponse.Timestamp = DateTime.Now;
-            return this.ApplicationResponse;
+            this.ScopeResponse.Timestamp = DateTime.Now;
+            return this.ScopeResponse;
 
 
         }
         /// <inheritdoc/>
-        public ApplicationResponse Edit(uint id, AclStateRequest request)
+        public ScopeResponse Edit(ulong id, AclStateRequest request)
         {
             var aclState = Find(id);
             if (aclState == null)
             {
-                this.ApplicationResponse.Message = this.MessageResponse.notFoundMessage;
-                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND;
-                return this.ApplicationResponse;
+                this.ScopeResponse.Message = this.MessageResponse.notFoundMessage;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND;
+                return this.ScopeResponse;
             }
 
             aclState = PrepareInputData(request, aclState);
-            this.ApplicationResponse.Data = Update(aclState);
-            this.ApplicationResponse.Message = this.MessageResponse.editMessage;
-            this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+            this.ScopeResponse.Data = Update(aclState);
+            this.ScopeResponse.Message = this.MessageResponse.editMessage;
+            this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
 
-            this.ApplicationResponse.Timestamp = DateTime.Now;
-            return this.ApplicationResponse;
+            this.ScopeResponse.Timestamp = DateTime.Now;
+            return this.ScopeResponse;
 
         }
         /// <inheritdoc/>
-        public ApplicationResponse FindById(uint id)
+        public ScopeResponse FindById(ulong id)
         {
 
             var aclState = All().Where(x => x.Id == id)
@@ -93,30 +93,30 @@ namespace ACL.Business.Domain.Services
                     state = s,
                     country = c
                 }).FirstOrDefault();
-            this.ApplicationResponse.Data = aclState;
-            this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
-            this.ApplicationResponse.Message = this.MessageResponse.fetchMessage;
+            this.ScopeResponse.Data = aclState;
+            this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+            this.ScopeResponse.Message = this.MessageResponse.fetchMessage;
             if (aclState == null)
             {
-                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND;
-                this.ApplicationResponse.Message = this.MessageResponse.notFoundMessage;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND;
+                this.ScopeResponse.Message = this.MessageResponse.notFoundMessage;
             }
-            this.ApplicationResponse.Timestamp = DateTime.Now;
-            return this.ApplicationResponse;
+            this.ScopeResponse.Timestamp = DateTime.Now;
+            return this.ScopeResponse;
 
         }
         /// <inheritdoc/>
-        public ApplicationResponse DeleteById(uint id)
+        public ScopeResponse DeleteById(ulong id)
         {
-            this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND;
+            this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND;
             var aclState = Find(id);
             if (aclState != null)
             {
-                this.ApplicationResponse.Data = Delete(id);
-                this.ApplicationResponse.Message = this.MessageResponse.deleteMessage;
-                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+                this.ScopeResponse.Data = Delete(id);
+                this.ScopeResponse.Message = this.MessageResponse.deleteMessage;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             }
-            return this.ApplicationResponse;
+            return this.ScopeResponse;
         }
 
         private State PrepareInputData(AclStateRequest request, State? aclState = null)

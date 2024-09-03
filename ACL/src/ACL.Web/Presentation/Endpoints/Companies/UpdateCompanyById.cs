@@ -14,7 +14,7 @@ public class UpdateCompanyById : CompanyBase
     }
     [Authorize(Policy = "HasPermission")]
     [HttpPut(AclRoutesUrl.AclCompanyRouteUrl.Edit, Name = AclRoutesName.AclCompanyRouteNames.Edit)]
-    public ApplicationResponse Edit(uint id, AclCompanyEditRequest request)
+    public ScopeResponse Edit(ulong id, AclCompanyEditRequest request)
     {
         return  this.CompanyService.EditAclCompany(id, request);
     }

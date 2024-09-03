@@ -14,7 +14,7 @@ public class GetCompanies : CompanyBase
     
     [Authorize(Policy = "HasPermission")]
     [HttpGet(AclRoutesUrl.AclCompanyRouteUrl.List, Name = AclRoutesName.AclCompanyRouteNames.List)]
-    public ApplicationResponse Index()
+    public ScopeResponse Index()
     {
         return  this.CompanyService.GetAll();
     }

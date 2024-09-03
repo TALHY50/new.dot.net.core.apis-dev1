@@ -25,6 +25,6 @@ public partial class AclCountryRequest
     [DefaultValue(1)]
     public byte Status { get; set; }
     [DefaultValue(1)]
-    public uint Sequence { get; set; }
+    public ulong Sequence { get; set; }
 
 }

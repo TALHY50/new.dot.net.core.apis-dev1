@@ -23,35 +23,35 @@ namespace ACL.Web.Application.Features.CompanyModules
          /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclCompanyModuleRouteUrl.List, Name = AclRoutesName.AclCompanyModuleRouteNames.List)]
-        public ApplicationResponse Index()
+        public ScopeResponse Index()
         {
             return  this._companyModuleService.GetAll();
         }
          /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPost(AclRoutesUrl.AclCompanyModuleRouteUrl.Add, Name = AclRoutesName.AclCompanyModuleRouteNames.Add)]
-        public ApplicationResponse Create(AclCompanyModuleRequest request)
+        public ScopeResponse Create(AclCompanyModuleRequest request)
         {
             return this._companyModuleService.AddAclCompanyModule(request);
         }
          /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPut(AclRoutesUrl.AclCompanyModuleRouteUrl.Edit, Name = AclRoutesName.AclCompanyModuleRouteNames.Edit)]
-        public ApplicationResponse Edit(uint id, AclCompanyModuleRequest request)
+        public ScopeResponse Edit(ulong id, AclCompanyModuleRequest request)
         {
             return this._companyModuleService.EditAclCompanyModule(id, request);
         }
          /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclCompanyModuleRouteUrl.View, Name = AclRoutesName.AclCompanyModuleRouteNames.View)]
-        public ApplicationResponse View(uint id)
+        public ScopeResponse View(ulong id)
         {
             return this._companyModuleService.FindById(id);
         }
          /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpDelete(AclRoutesUrl.AclCompanyModuleRouteUrl.Destroy, Name = AclRoutesName.AclCompanyModuleRouteNames.Destroy)]
-        public ApplicationResponse Destroy(uint id)
+        public ScopeResponse Destroy(ulong id)
         {
             return this._companyModuleService.DeleteCompanyModule(id);
         }

@@ -58,7 +58,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
             return this._dbContext.AclUsers.FirstOrDefault(m => m.Email == email);
         }
         /// <inheritdoc/>
-        public User? FindByIdAsync(uint id)
+        public User? FindByIdAsync(ulong id)
         {
             try
             {
@@ -179,7 +179,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
 
         }
         /// <inheritdoc/>
-        public User? Find(uint id)
+        public User? Find(ulong id)
         {
             try
             {
@@ -236,7 +236,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
 
         }
         /// <inheritdoc/>
-        public User? Delete(uint id)
+        public User? Delete(ulong id)
         {
             try
             {
@@ -264,7 +264,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         }
 
 
-        public List<uint>? GetUserIdByChangePermission(uint? module_id = null, uint? sub_module_id = null, uint? page_id = null, uint? role_id = null, uint? user_group_id = null)
+        public List<ulong>? GetUserIdByChangePermission(ulong? module_id = null, ulong? sub_module_id = null, ulong? page_id = null, ulong? role_id = null, ulong? user_group_id = null)
         {
 
             var query = from aclUser in this._dbContext.AclUsers
@@ -303,11 +303,11 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
             {
                 query = query.Where(u => u.usergroup.Id == user_group_id);
             }
-            List<uint>? result = query.GroupBy(x => x.aclUser.Id).Select(u => u.Key).ToList();
+            List<ulong>? result = query.GroupBy(x => x.aclUser.Id).Select(u => u.Key).ToList();
             return result;
         }
 
-        public void UpdateUserPermissionVersion(List<uint> userIds)
+        public void UpdateUserPermissionVersion(List<ulong> userIds)
         {
             foreach (var userId in userIds)
             {
@@ -322,7 +322,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         }
 
 
-        public bool IsAclUserEmailExist(string email, uint? isUserId = null)
+        public bool IsAclUserEmailExist(string email, ulong? isUserId = null)
         {
 
             if (isUserId == null)
@@ -335,7 +335,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
             }
         }
 
-        public bool IsExist(uint id)
+        public bool IsExist(ulong id)
         {
             return this._dbContext.AclUsers.Any(m => m.Id == id);
         }

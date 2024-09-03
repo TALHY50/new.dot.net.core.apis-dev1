@@ -8,8 +8,8 @@ public partial class AclStateRequest
 
     [DefaultValue("2")]
     [Required(ErrorMessage = "country_id is required.")]
-    [Range(1, uint.MaxValue, ErrorMessage = "country_id is required.")]
-    public uint CountryId { get; set; }
+    [Range(1, ulong.MaxValue, ErrorMessage = "country_id is required.")]
+    public ulong CountryId { get; set; }
 
     [DefaultValue("Florida")]
     [Required(ErrorMessage = "name is required.")]
@@ -27,8 +27,8 @@ public partial class AclStateRequest
 
     [DefaultValue("100")]
     [Required(ErrorMessage = "sequence is required.")]
-    [Range(1, uint.MaxValue, ErrorMessage = "sequence is required.")]
-    public uint Sequence { get; set; }
+    [Range(1, ulong.MaxValue, ErrorMessage = "sequence is required.")]
+    public ulong Sequence { get; set; }
 
    
 }

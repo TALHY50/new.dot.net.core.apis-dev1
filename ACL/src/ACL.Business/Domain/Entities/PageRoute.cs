@@ -2,9 +2,9 @@
 
 public partial class PageRoute
 {
-    public uint Id { get; set; }
+    public ulong Id { get; set; }
 
-    public uint? PageId { get; set; }
+    public ulong? PageId { get; set; }
 
     public string? RouteName { get; set; }
 

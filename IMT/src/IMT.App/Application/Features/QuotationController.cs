@@ -36,7 +36,7 @@ namespace IMT.App.Application.Features
 
         [Tags("Thunes.Quotation")]
         [HttpGet(ThunesUrl.RetrieveAQuotationByIdUrl)]
-        public object RetrieveAQuotationById(uint id)
+        public object RetrieveAQuotationById(ulong id)
         {
             try
             {

@@ -51,9 +51,9 @@ namespace ACL.TEST
             return dbContext.AclUsers.FirstOrDefault().Email;
         }
 
-        public static uint GetMaxId<TEntity>(Func<TEntity, uint> idSelector) where TEntity : class
+        public static ulong GetMaxId<TEntity>(Func<TEntity, ulong> idSelector) where TEntity : class
         {
-            uint id = 0;
+            ulong id = 0;
             var entities = dbContext.Set<TEntity>();
             if (entities.Any())
             {

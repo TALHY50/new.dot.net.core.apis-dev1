@@ -6,11 +6,11 @@ namespace ACL.Business.Application.Interfaces.Repositories
     public interface IUserGroupRepository
     {
         /// <inheritdoc/>
-        uint SetCompanyId(uint companyId);
+        ulong SetCompanyId(ulong companyId);
         /// <inheritdoc/>
         List<Usergroup>? All();
         /// <inheritdoc/>
-        Usergroup? Find(uint id);
+        Usergroup? Find(ulong id);
         /// <inheritdoc/>
         Usergroup? Add(Usergroup userGroup);
         /// <inheritdoc/>
@@ -18,8 +18,8 @@ namespace ACL.Business.Application.Interfaces.Repositories
         /// <inheritdoc/>
         Usergroup? Delete(Usergroup userGroup);
         /// <inheritdoc/>
-        Usergroup? Deleted(uint id);
+        Usergroup? Deleted(ulong id);
         /// <inheritdoc/>
-        bool IsExist(uint id);
+        bool IsExist(ulong id);
     }
 }

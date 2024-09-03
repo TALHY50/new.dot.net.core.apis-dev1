@@ -7,8 +7,8 @@ namespace ACL.Business.Domain.Services
     public interface IUserGroupRoleService : IUserGroupRoleRepository
     {
         /// <inheritdoc/>
-        ApplicationResponse GetRolesByUserGroupId(uint groupId);
+        ScopeResponse GetRolesByUserGroupId(ulong groupId);
         /// <inheritdoc/>
-        Task<ApplicationResponse> Update(AclUserGroupRoleRequest userGroupRole);
+        Task<ScopeResponse> Update(AclUserGroupRoleRequest userGroupRole);
     }
 }

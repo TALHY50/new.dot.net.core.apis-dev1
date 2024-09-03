@@ -13,7 +13,7 @@ public class GetById : BranchBase
     
     //[Authorize(Policy = "HasPermission")]
     [HttpGet(AclRoutesUrl.AclBranchRouteUrl.View, Name = AclRoutesName.AclBranchRouteNames.View)]
-    public ApplicationResponse View(uint id)
+    public ScopeResponse View(ulong id)
     {
         return this._branchService.Find(id);
     }

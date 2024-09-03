@@ -15,7 +15,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         readonly ApplicationDbContext _dbContext;
         private readonly IUserRepository _userRepository;
         private static IHttpContextAccessor _httpContextAccessor;
-        private enum SubModuleIds : uint { _2001 = 2001, _2020 = 2020, _2021 = 2021, _2022 = 2022, _2050 = 2050, _2051 = 2051, _2052 = 2052, _2053 = 2053, _2054 = 2054, _2055 = 2055 };
+        private enum SubModuleIds : ulong { _2001 = 2001, _2020 = 2020, _2021 = 2021, _2022 = 2022, _2050 = 2050, _2051 = 2051, _2052 = 2052, _2053 = 2053, _2054 = 2054, _2055 = 2055 };
         /// <inheritdoc/>
         public SubModuleRepository(ApplicationDbContext dbContext, IUserRepository userRepository, IHttpContextAccessor httpContextAccessor)
         {
@@ -27,7 +27,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         }
        
         /// <inheritdoc/>
-        public bool SubModuleIdNotToDelete(uint submoduleId)
+        public bool SubModuleIdNotToDelete(ulong submoduleId)
         {
             bool exists = Enum.IsDefined(typeof(SubModuleIds), submoduleId);
             if (exists)
@@ -51,7 +51,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
 
         }
         /// <inheritdoc/>
-        public SubModule? Find(uint id)
+        public SubModule? Find(ulong id)
         {
             return this._dbContext.AclSubModules.Find(id);
         }
@@ -85,7 +85,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
 
         }
         /// <inheritdoc/>
-        public SubModule? Delete(uint id)
+        public SubModule? Delete(ulong id)
         {
             var delete = Find(id);
             this._dbContext.AclSubModules.Remove(delete);
@@ -94,7 +94,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         }
 
         /// <inheritdoc/>
-        public string ExistByName(uint? id, string name)
+        public string ExistByName(ulong? id, string name)
         {
             var valid = this._dbContext.AclSubModules.Any(x => x.Name.ToLower() == name.ToLower());
             if (id > 0)
@@ -108,7 +108,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
             return name;
         }
         /// <inheritdoc/>
-        public uint ModuleIdExist(uint moduleId)
+        public ulong ModuleIdExist(ulong moduleId)
         {
             var valid = this._dbContext.AclModules.Any(x => x.Id == moduleId);
 

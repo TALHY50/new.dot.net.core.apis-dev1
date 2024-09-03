@@ -2,7 +2,7 @@
 
 public partial class Usergroup
 {
-    public uint Id { get; set; }
+    public ulong Id { get; set; }
 
     public string GroupName { get; set; } = null!;
 
@@ -15,7 +15,7 @@ public partial class Usergroup
 
     public sbyte Status { get; set; }
 
-    public uint CompanyId { get; set; }
+    public ulong CompanyId { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 

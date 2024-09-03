@@ -15,17 +15,17 @@ namespace ACL.Business.Domain.Services
 #pragma warning disable CS8604 // Possible null reference argument.
     public class RoleService : RoleRepository, IRoleService
     {
-        public ApplicationResponse ApplicationResponse;
+        public ScopeResponse ScopeResponse;
         public MessageResponse MessageResponse;
         private readonly string _modelName = "Role";
         private readonly ApplicationDbContext _dbContext;
         private readonly IUserRepository _userRepository;
         public new static IHttpContextAccessor HttpContextAccessor;
-        private enum RoleIds : uint { super_super_admin = 1, ADMIN_ROLE = 2 };
+        private enum RoleIds : ulong { super_super_admin = 1, ADMIN_ROLE = 2 };
         public RoleService(ApplicationDbContext dbContext, IUserRepository userRepository, IHttpContextAccessor httpContextAccessor) : base(dbContext, userRepository, httpContextAccessor)
         {
             this._userRepository = userRepository;
-            this.ApplicationResponse = new ApplicationResponse();
+            this.ScopeResponse = new ScopeResponse();
             this._dbContext = dbContext;
             HttpContextAccessor = httpContextAccessor;
             AppAuth.Initialize(HttpContextAccessor, this._dbContext);
@@ -33,7 +33,7 @@ namespace ACL.Business.Domain.Services
             this.MessageResponse = new MessageResponse(this._modelName, AppAuth.GetAuthInfo().Language);
         }
         /// <inheritdoc/>
-        public ApplicationResponse GetAll()
+        public ScopeResponse GetAll()
         {
             var aclRoles = All().Select(x => new
             {
@@ -45,80 +45,80 @@ namespace ACL.Business.Domain.Services
             }).ToList();
             if (aclRoles.Any())
             {
-                this.ApplicationResponse.Message = this.MessageResponse.fetchMessage;
+                this.ScopeResponse.Message = this.MessageResponse.fetchMessage;
             }
-            this.ApplicationResponse.Data = aclRoles;
-            this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+            this.ScopeResponse.Data = aclRoles;
+            this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
 
-            return this.ApplicationResponse;
+            return this.ScopeResponse;
         }
         /// <inheritdoc/>
-        public ApplicationResponse Add(AclRoleRequest request)
+        public ScopeResponse Add(AclRoleRequest request)
         {
             var aclRole = PrepareInputData(request);
-            this.ApplicationResponse.Data = Add(aclRole);
-            this.ApplicationResponse.Message = this.MessageResponse.createMessage;
-            this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
-            return this.ApplicationResponse;
+            this.ScopeResponse.Data = Add(aclRole);
+            this.ScopeResponse.Message = this.MessageResponse.createMessage;
+            this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+            return this.ScopeResponse;
         }
         /// <inheritdoc/>
-        public ApplicationResponse Edit(uint id, AclRoleRequest request)
+        public ScopeResponse Edit(ulong id, AclRoleRequest request)
         {
             var aclRole = Find(id);
 
             if (aclRole == null)
             {
-                this.ApplicationResponse.Message = this.MessageResponse.notFoundMessage;
-                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND;
-                return this.ApplicationResponse;
+                this.ScopeResponse.Message = this.MessageResponse.notFoundMessage;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND;
+                return this.ScopeResponse;
             }
 
             aclRole = PrepareInputData(request, aclRole);
             this._dbContext.AclRoles.Update(aclRole);
             this._dbContext.SaveChanges();
             this._dbContext.Entry(aclRole).Reload();
-            List<uint>? userIds = this._userRepository?.GetUserIdByChangePermission(null, null, null, id);
+            List<ulong>? userIds = this._userRepository?.GetUserIdByChangePermission(null, null, null, id);
             if (userIds.Count() > 0)
             {
                 this._userRepository.UpdateUserPermissionVersion(userIds);
             }
-            this.ApplicationResponse.Data = aclRole;
-            this.ApplicationResponse.Message = this.MessageResponse.editMessage;
-            this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
-            return this.ApplicationResponse;
+            this.ScopeResponse.Data = aclRole;
+            this.ScopeResponse.Message = this.MessageResponse.editMessage;
+            this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+            return this.ScopeResponse;
 
         }
         /// <inheritdoc/>
-        public ApplicationResponse FindById(uint id)
+        public ScopeResponse FindById(ulong id)
         {
 
             var aclRole = Find(id);
-            this.ApplicationResponse.Data = aclRole;
-            this.ApplicationResponse.Message = this.MessageResponse.fetchMessage;
-            this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+            this.ScopeResponse.Data = aclRole;
+            this.ScopeResponse.Message = this.MessageResponse.fetchMessage;
+            this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             if (aclRole == null)
             {
-                this.ApplicationResponse.Message = this.MessageResponse.notFoundMessage;
-                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND;
+                this.ScopeResponse.Message = this.MessageResponse.notFoundMessage;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND;
             }
-            return this.ApplicationResponse;
+            return this.ScopeResponse;
 
         }
         /// <inheritdoc/>
-        public ApplicationResponse DeleteById(uint id)
+        public ScopeResponse DeleteById(ulong id)
         {
             var aclRole = Find(id);
 
             if (aclRole != null && !RoleIdNotToDelete(id))
             {
-                this.ApplicationResponse.Data = Delete(id);
-                this.ApplicationResponse.Message = this.MessageResponse.deleteMessage;
-                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
-                List<uint>? userIds = this._userRepository.GetUserIdByChangePermission(null, null, null, id);
+                this.ScopeResponse.Data = Delete(id);
+                this.ScopeResponse.Message = this.MessageResponse.deleteMessage;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+                List<ulong>? userIds = this._userRepository.GetUserIdByChangePermission(null, null, null, id);
                 this._userRepository.UpdateUserPermissionVersion(userIds);
             }
 
-            return this.ApplicationResponse;
+            return this.ScopeResponse;
 
         }
         private Role PrepareInputData(AclRoleRequest request, Role? aclRole = null)

@@ -14,7 +14,7 @@ public class DeleteCompanyById: CompanyBase
     
     [Authorize(Policy = "HasPermission")]
     [HttpDelete(AclRoutesUrl.AclCompanyRouteUrl.Destroy, Name = AclRoutesName.AclCompanyRouteNames.Destroy)]
-    public ApplicationResponse Destroy(uint id)
+    public ScopeResponse Destroy(ulong id)
     {
         return  this.CompanyService.DeleteCompany(id);
     }

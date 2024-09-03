@@ -17,7 +17,7 @@ namespace ACL.Business.Domain.Services
 {
     public class UserService : UserRepository, IUserService
     {
-        public ApplicationResponse ApplicationResponse;
+        public ScopeResponse ScopeResponse;
         public MessageResponse MessageResponse;
         private readonly string _modelName = "User";
         private uint _companyId;
@@ -38,7 +38,7 @@ namespace ACL.Business.Domain.Services
         {
             this.UserUserGroupRepository = userUserGroupRepository;
             this._config = config;
-            this.ApplicationResponse = new ApplicationResponse();
+            this.ScopeResponse = new ScopeResponse();
             var user = _httpContextAccessor?.HttpContext?.User;
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8604 // Possible null reference argument.
@@ -56,7 +56,7 @@ namespace ACL.Business.Domain.Services
 #pragma warning restore CS8629 // Nullable value type may be null.
         }
         /// <inheritdoc/>
-        public ApplicationResponse GetAll()
+        public ScopeResponse GetAll()
         {
             List<User>? aclUser = All()?.Where(u => this._companyId == 0 || (u.CompanyId == this._companyId && u.CreatedById == this._companyId))?.ToList();
             aclUser?.ForEach(user =>
@@ -72,16 +72,16 @@ namespace ACL.Business.Domain.Services
             IEnumerable<User>? result = aclUser.Where(i => i.Id != 1 && i.Status == 1);
             if (aclUser.Any())
             {
-                this.ApplicationResponse.Message = this.MessageResponse.fetchMessage;
+                this.ScopeResponse.Message = this.MessageResponse.fetchMessage;
             }
-            this.ApplicationResponse.Data = result;
-            this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
-            this.ApplicationResponse.Timestamp = DateTime.Now;
+            this.ScopeResponse.Data = result;
+            this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+            this.ScopeResponse.Timestamp = DateTime.Now;
 
-            return this.ApplicationResponse;
+            return this.ScopeResponse;
         }
         /// <inheritdoc/>
-        public Task<ApplicationResponse> AddUser(AclUserRequest request)
+        public Task<ScopeResponse> AddUser(AclUserRequest request)
         {
             var strategy = this._dbContext.Database.CreateExecutionStrategy();
 
@@ -107,35 +107,35 @@ namespace ACL.Business.Domain.Services
 #pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
                            aclUser.Claims = null;
                            aclUser.RefreshToken = null;
-                           this.ApplicationResponse.Data = aclUser;
+                           this.ScopeResponse.Data = aclUser;
                        }
 
-                       this.ApplicationResponse.Message = this.MessageResponse.createMessage;
-                       this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+                       this.ScopeResponse.Message = this.MessageResponse.createMessage;
+                       this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
 
                        transaction.CommitAsync();
                    }
                    catch (Exception ex)
                    {
                        transaction?.RollbackAsync();
-                       this.ApplicationResponse.Message = ex.Message;
-                       this.ApplicationResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
+                       this.ScopeResponse.Message = ex.Message;
+                       this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
                    }
 
                });
             }
             catch (Exception ex)
             {
-                this.ApplicationResponse.Message = ex.Message;
-                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
+                this.ScopeResponse.Message = ex.Message;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
 
-            this.ApplicationResponse.Timestamp = DateTime.Now;
-            return Task.FromResult(this.ApplicationResponse);
+            this.ScopeResponse.Timestamp = DateTime.Now;
+            return Task.FromResult(this.ScopeResponse);
         }
 
         /// <inheritdoc/>
-        public async Task<ApplicationResponse> Edit(uint id, AclUserRequest request)
+        public async Task<ScopeResponse> Edit(ulong id, AclUserRequest request)
         {
             User? aclUser = Find(id);
             var strategy = this._dbContext.Database.CreateExecutionStrategy();
@@ -160,27 +160,27 @@ namespace ACL.Business.Domain.Services
                             //    aclUser.Password = "******************"; //request.Password
                             //    aclUser.Salt = "******************";
                             //    aclUser.Claims = null;
-                            //    ApplicationResponse.Data = aclUser;
+                            //    ScopeResponse.Data = aclUser;
                             //}
-                            this.ApplicationResponse.Message = this.MessageResponse.editMessage;
-                            this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+                            this.ScopeResponse.Message = this.MessageResponse.editMessage;
+                            this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
 
-                            List<uint> users = new List<uint> { aclUser.Id };
+                            List<ulong> users = new List<ulong> { aclUser.Id };
                             UpdateUserPermissionVersion(users);
                             transaction.Commit();
                         }
                         else
                         {
                             transaction.Rollback();
-                            this.ApplicationResponse.Message = this.MessageResponse.notFoundMessage;
-                            this.ApplicationResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
+                            this.ScopeResponse.Message = this.MessageResponse.notFoundMessage;
+                            this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
                         }
                     }
                     catch (Exception ex)
                     {
                         transaction.Rollback();
-                        this.ApplicationResponse.Message = ex.Message;
-                        this.ApplicationResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
+                        this.ScopeResponse.Message = ex.Message;
+                        this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
                     }
                 }
 
@@ -188,52 +188,52 @@ namespace ACL.Business.Domain.Services
             });
             if (aclUser == null)
             {
-                this.ApplicationResponse.Message = this.MessageResponse.notFoundMessage;
+                this.ScopeResponse.Message = this.MessageResponse.notFoundMessage;
             }
             else
             {
                 aclUser.Password = "***********";
                 aclUser.Salt = "***********";
                 aclUser.Claims = null;
-                this.ApplicationResponse.Message = this.MessageResponse.editMessage;
-                this.ApplicationResponse.Data = aclUser;
+                this.ScopeResponse.Message = this.MessageResponse.editMessage;
+                this.ScopeResponse.Data = aclUser;
             }
-            this.ApplicationResponse.Timestamp = DateTime.Now;
-            return this.ApplicationResponse;
+            this.ScopeResponse.Timestamp = DateTime.Now;
+            return this.ScopeResponse;
         }
 
         /// <inheritdoc/>
-        public ApplicationResponse FindById(uint id)
+        public ScopeResponse FindById(ulong id)
         {
             try
             {
                 User? aclUser = Find(id);
                 if (aclUser == null)
                 {
-                    this.ApplicationResponse.Message = this.MessageResponse.notFoundMessage;
+                    this.ScopeResponse.Message = this.MessageResponse.notFoundMessage;
                 }
                 else
                 {
                     aclUser.Password = "***********";
                     aclUser.Salt = "***********";
                     aclUser.Claims = null;
-                    this.ApplicationResponse.Message = this.MessageResponse.fetchMessage;
-                    this.ApplicationResponse.Data = aclUser;
+                    this.ScopeResponse.Message = this.MessageResponse.fetchMessage;
+                    this.ScopeResponse.Data = aclUser;
                 }
-                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             }
             catch (Exception ex)
             {
-                this.ApplicationResponse.Message = ex.Message;
-                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
+                this.ScopeResponse.Message = ex.Message;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
 
-            this.ApplicationResponse.Timestamp = DateTime.Now;
-            return this.ApplicationResponse;
+            this.ScopeResponse.Timestamp = DateTime.Now;
+            return this.ScopeResponse;
 
         }
         /// <inheritdoc/>
-        public ApplicationResponse DeleteById(uint id)
+        public ScopeResponse DeleteById(ulong id)
         {
             User? aclUser = Find(id);
             if (aclUser != null)
@@ -246,10 +246,10 @@ namespace ACL.Business.Domain.Services
                     this.UserUserGroupRepository?.RemoveRange(userUserGroups);
                 }
 
-                this.ApplicationResponse.Message = this.MessageResponse.deleteMessage;
-                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+                this.ScopeResponse.Message = this.MessageResponse.deleteMessage;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             }
-            return this.ApplicationResponse;
+            return this.ScopeResponse;
         }
 
         public User PrepareInputData(AclUserRequest request, User? aclUser = null)
@@ -322,11 +322,11 @@ namespace ACL.Business.Domain.Services
         }
 
         /// <inheritdoc/>
-        public UserUsergroup[] PrepareDataForUserUserGroups(AclUserRequest request, uint? user_id)
+        public UserUsergroup[] PrepareDataForUserUserGroups(AclUserRequest request, ulong? user_id)
         {
             IList<UserUsergroup> res = new List<UserUsergroup>();
 
-            foreach (uint user_group in request.UserGroup)
+            foreach (ulong user_group in request.UserGroup)
             {
                 UserUsergroup userUserGroup = new UserUsergroup();
                 userUserGroup.UserId = user_id ?? 0;

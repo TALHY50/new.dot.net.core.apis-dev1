@@ -2,6 +2,6 @@
 {
     public class RegisterSuccessResponse : RegisterResponse
     {
-        public uint UserId { get;  set; }
+        public ulong UserId { get;  set; }
     }
 }

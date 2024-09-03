@@ -8,7 +8,7 @@ namespace ACL.Business.Application.Interfaces.Repositories
         /// <inheritdoc/>
         List<UserUsergroup>? All();
         /// <inheritdoc/>
-        UserUsergroup? Find(uint id);
+        UserUsergroup? Find(ulong id);
         /// <inheritdoc/>
         UserUsergroup? Add(UserUsergroup acluseruserGroup);
         /// <inheritdoc/>
@@ -16,14 +16,14 @@ namespace ACL.Business.Application.Interfaces.Repositories
         /// <inheritdoc/>
         UserUsergroup? Delete(UserUsergroup userUserGroup);
         /// <inheritdoc/>
-        UserUsergroup? Delete(uint id);
+        UserUsergroup? Delete(ulong id);
         /// <inheritdoc/>
         UserUsergroup[]? AddRange( UserUsergroup[]? userUserGroups);
         /// <inheritdoc/>
         UserUsergroup[]? RemoveRange( UserUsergroup[] userUserGroups);
         /// <inheritdoc/>
-        UserUsergroup[]? Where(uint userid);
+        UserUsergroup[]? Where(ulong userid);
         /// <inheritdoc/>
-        UserUsergroup PrepareDataForInput(uint userGroup, uint userId);
+        UserUsergroup PrepareDataForInput(ulong userGroup, ulong userId);
     }
 }

@@ -22,35 +22,35 @@ namespace ACL.Web.Application.Features.Modules
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclModuleRouteUrl.List, Name = AclRoutesName.AclModuleRouteNames.List)]
-        public ApplicationResponse Index()
+        public ScopeResponse Index()
         {
             return this._moduleService.GetAll();
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPost(AclRoutesUrl.AclModuleRouteUrl.Add, Name = AclRoutesName.AclModuleRouteNames.Add)]
-        public ApplicationResponse Create(AclModuleRequest moduleRequest)
+        public ScopeResponse Create(AclModuleRequest moduleRequest)
         {
             return this._moduleService.AddAclModule(moduleRequest);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPut(AclRoutesUrl.AclModuleRouteUrl.Edit, Name = AclRoutesName.AclModuleRouteNames.Edit)]
-        public ApplicationResponse Edit(AclModuleRequest moduleRequest)
+        public ScopeResponse Edit(AclModuleRequest moduleRequest)
         {
             return this._moduleService.EditAclModule(moduleRequest);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclModuleRouteUrl.View, Name = AclRoutesName.AclModuleRouteNames.View)]
-        public ApplicationResponse View(uint id)
+        public ScopeResponse View(ulong id)
         {
             return this._moduleService.FindById(id);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpDelete(AclRoutesUrl.AclModuleRouteUrl.Destroy, Name = AclRoutesName.AclModuleRouteNames.Destroy)]
-        public ApplicationResponse Destroy(uint id)
+        public ScopeResponse Destroy(ulong id)
         {
             return this._moduleService.DeleteModule(id);
         }

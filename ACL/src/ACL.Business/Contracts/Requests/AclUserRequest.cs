@@ -77,10 +77,10 @@ namespace ACL.Business.Contracts.Requests
         //[MinLength(0)]
         public sbyte Status { get; set; }
 
-        [DefaultValue(new uint[] { 2 })]
+        [DefaultValue(new ulong[] { 2 })]
         [Required]
         [MinLength(1, ErrorMessage = "Array must contain at least one element.")]
-        public uint[] UserGroup { get; set; }
+        public ulong[] UserGroup { get; set; }
 
        // [JsonIgnore]
       //  public IList<Claim>? Claims { get; set; }

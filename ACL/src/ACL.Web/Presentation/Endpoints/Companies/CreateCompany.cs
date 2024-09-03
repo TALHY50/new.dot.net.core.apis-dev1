@@ -15,7 +15,7 @@ public class CreateCompany : CompanyBase
     
     [Authorize(Policy = "HasPermission")]
     [HttpPost(AclRoutesUrl.AclCompanyRouteUrl.Add, Name = AclRoutesName.AclCompanyRouteNames.Add)]
-    public Task<ApplicationResponse> Create(AclCompanyCreateRequest request)
+    public Task<ScopeResponse> Create(AclCompanyCreateRequest request)
     {
         return  this.CompanyService.AddAclCompany(request);
     }

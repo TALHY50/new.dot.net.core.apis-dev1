@@ -8,14 +8,14 @@ namespace ACL.Business.Domain.Services
     public interface IBranchService : IBranchRepository
     {
         /// <inheritdoc/>
-        ApplicationResponse Get();
+        ScopeResponse Get();
         /// <inheritdoc/>
-        ApplicationResponse Add(AclBranchRequest request);
+        ScopeResponse Add(AclBranchRequest request);
         /// <inheritdoc/>
-        ApplicationResponse Edit(uint id, AclBranchRequest request);
+        ScopeResponse Edit(ulong id, AclBranchRequest request);
         /// <inheritdoc/>
-        ApplicationResponse Find(uint id);
+        ScopeResponse Find(ulong id);
         /// <inheritdoc/>
-        new ApplicationResponse Delete(uint id);
+        new ScopeResponse Delete(ulong id);
     }
 }

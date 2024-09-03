@@ -15,7 +15,7 @@ public class CreateBranch : BranchBase
     
     //[Authorize(Policy = "HasPermission")]
     [HttpPost(AclRoutesUrl.AclBranchRouteUrl.Add, Name = AclRoutesName.AclBranchRouteNames.Add)]
-    public ApplicationResponse Create(AclBranchRequest request)
+    public ScopeResponse Create(AclBranchRequest request)
     {
         return this._branchService.Add(request);
     }

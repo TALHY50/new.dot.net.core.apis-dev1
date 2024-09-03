@@ -15,7 +15,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
     public class PasswordRepository : IPasswordRepository
     {
        
-        public ApplicationResponse ApplicationResponse;
+        public ScopeResponse ScopeResponse;
         private readonly string _modelName = "Password";
         public readonly int TokenExpiryMinutes = 60;
         public readonly IUserRepository UserRepository;
@@ -29,7 +29,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
             this._dbContext = dbContext;
             this.UserRepository = userRepository;
             this._cryptography = cryptography;
-            this.ApplicationResponse = new ApplicationResponse();
+            this.ScopeResponse = new ScopeResponse();
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8604 // Possible null reference argument.
 
@@ -39,14 +39,14 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
             this.Response = new MessageResponse(this._modelName, AppAuth.GetAuthInfo().Language);
         }
         /// <inheritdoc/>
-        public async Task<ApplicationResponse> Reset(AclPasswordResetRequest request)
+        public async Task<ScopeResponse> Reset(AclPasswordResetRequest request)
         {
             //Auth User Id Checking
             if (AppAuth.GetAuthInfo().UserId != request.UserId)
             {
-                this.ApplicationResponse.Message = "Invalid User";
-                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
-                return this.ApplicationResponse;
+                this.ScopeResponse.Message = "Invalid User";
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
+                return this.ScopeResponse;
             }
 
             var aclUser = this._dbContext.AclUsers.Where(x => x.Id == request.UserId && x.Status == 1).FirstOrDefault();
@@ -58,9 +58,9 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
 
                 if (aclUser.Password != password)
                 {
-                    this.ApplicationResponse.Message = "Password Mismatch";
-                    this.ApplicationResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
-                    return this.ApplicationResponse;
+                    this.ScopeResponse.Message = "Password Mismatch";
+                    this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
+                    return this.ScopeResponse;
                 }
 
                 // password update
@@ -70,15 +70,15 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
                 await this._dbContext.SaveChangesAsync();
                 await this._dbContext.Entry(aclUser).ReloadAsync();
 
-                this.ApplicationResponse.Message = "Password Reset Succesfully.";
-                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+                this.ScopeResponse.Message = "Password Reset Succesfully.";
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
 
             }
 
-            return this.ApplicationResponse;
+            return this.ScopeResponse;
         }
         /// <inheritdoc/>
-        public ApplicationResponse Forget(AclForgetPasswordRequest request)
+        public ScopeResponse Forget(AclForgetPasswordRequest request)
         {
             var aclUser = this._dbContext.AclUsers.Where(x => x.Email == request.Email).FirstOrDefault();
 
@@ -92,21 +92,21 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
 
                 //Send Notification to email. Not implemented yet
 
-                this.ApplicationResponse.Message = "Password Reset Notification email is sent to user email";
-                this.ApplicationResponse.Data = uniqueKey;
-                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+                this.ScopeResponse.Message = "Password Reset Notification email is sent to user email";
+                this.ScopeResponse.Data = uniqueKey;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             }
 
-            return this.ApplicationResponse;
+            return this.ScopeResponse;
         }
         /// <inheritdoc/>
-        public async Task<ApplicationResponse> VerifyToken(AclForgetPasswordTokenVerifyRequest request)
+        public async Task<ScopeResponse> VerifyToken(AclForgetPasswordTokenVerifyRequest request)
         {
             if (!CacheHelper.Exist(request.Token))
             {
-                this.ApplicationResponse.Message = "Invalid Token";
-                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
-                return this.ApplicationResponse;
+                this.ScopeResponse.Message = "Invalid Token";
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
+                return this.ScopeResponse;
             }
 
             // get email from cache by token
@@ -123,11 +123,11 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
                 await this._dbContext.Entry(aclUser).ReloadAsync();
 
                 CacheHelper.Remove(request.Token);
-                this.ApplicationResponse.Message = "Password Reset Succesfully.";
-                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+                this.ScopeResponse.Message = "Password Reset Succesfully.";
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             }
 
-            return this.ApplicationResponse;
+            return this.ScopeResponse;
         }
 
     }

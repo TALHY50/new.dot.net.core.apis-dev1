@@ -7,18 +7,18 @@ namespace ACL.Business.Contracts.Requests
     {
         [DefaultValue(3001)]
         [Required]
-        [Range(1, uint.MaxValue)]
-        public uint Id { get; set; }
+        [Range(1, ulong.MaxValue)]
+        public ulong Id { get; set; }
 
         [DefaultValue(1001)]
         [Required]
-        [Range(1, uint.MaxValue)]
-        public uint ModuleId { get; set; }
+        [Range(1, ulong.MaxValue)]
+        public ulong ModuleId { get; set; }
 
         [DefaultValue(2001)]
         [Required]
-        [Range(1, uint.MaxValue)]
-        public uint SubModuleId { get; set; }
+        [Range(1, ulong.MaxValue)]
+        public ulong SubModuleId { get; set; }
 
         [DefaultValue("Company List")]
         [Required]

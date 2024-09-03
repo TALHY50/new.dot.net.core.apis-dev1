@@ -7,14 +7,14 @@ namespace ACL.Business.Domain.Services
     public interface IModuleService : IModuleRepository
     {
         /// <inheritdoc/>
-        ApplicationResponse GetAll();
+        ScopeResponse GetAll();
         /// <inheritdoc/>
-        ApplicationResponse FindById(uint id);
+        ScopeResponse FindById(ulong id);
         /// <inheritdoc/>
-        ApplicationResponse AddAclModule(AclModuleRequest request);
+        ScopeResponse AddAclModule(AclModuleRequest request);
         /// <inheritdoc/>
-        ApplicationResponse EditAclModule(AclModuleRequest request);
+        ScopeResponse EditAclModule(AclModuleRequest request);
         /// <inheritdoc/>
-        ApplicationResponse DeleteModule(uint id);
+        ScopeResponse DeleteModule(ulong id);
     }
 }

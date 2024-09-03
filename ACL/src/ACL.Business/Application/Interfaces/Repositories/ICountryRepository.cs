@@ -7,11 +7,11 @@ namespace ACL.Business.Application.Interfaces.Repositories
     public interface ICountryRepository
     {
         /// <inheritdoc/>
-        bool ExistById(uint id);
+        bool ExistById(ulong id);
         /// <inheritdoc/>
         List<Country>? All();
         /// <inheritdoc/>
-        Country? Find(uint id);
+        Country? Find(ulong id);
         /// <inheritdoc/>
         Country? Add(Country country);
         /// <inheritdoc/>
@@ -19,6 +19,6 @@ namespace ACL.Business.Application.Interfaces.Repositories
         /// <inheritdoc/>
         Country? Delete(Country country);
         /// <inheritdoc/>
-        Country? Delete(uint id);
+        Country? Delete(ulong id);
     }
 }

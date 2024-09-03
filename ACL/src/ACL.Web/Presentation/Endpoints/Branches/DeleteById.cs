@@ -13,7 +13,7 @@ public class DeleteById : BranchBase
     
     //[Authorize(Policy = "HasPermission")]
     [HttpDelete(AclRoutesUrl.AclBranchRouteUrl.Destroy, Name = AclRoutesName.AclBranchRouteNames.Destroy)]
-    public ApplicationResponse Destroy(uint id)
+    public ScopeResponse Destroy(ulong id)
     {
         return this._branchService.Delete(id);
     }

@@ -22,35 +22,35 @@ namespace ACL.Web.Application.Features.UserGroups
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclUserGroupRouteUrl.List, Name = AclRoutesName.AclUserGroupRouteNames.List)]
-        public ApplicationResponse Index()
+        public ScopeResponse Index()
         {
             return this._userGroupService.GetAll();
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPost(AclRoutesUrl.AclUserGroupRouteUrl.Add, Name = AclRoutesName.AclUserGroupRouteNames.Add)]
-        public ApplicationResponse AclResponseCreate(AclUserGroupRequest request)
+        public ScopeResponse AclResponseCreate(AclUserGroupRequest request)
         {
             return this._userGroupService.AddUserGroup(request);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPut(AclRoutesUrl.AclUserGroupRouteUrl.Edit, Name = AclRoutesName.AclUserGroupRouteNames.Edit)]
-        public ApplicationResponse Edit(uint id, AclUserGroupRequest request)
+        public ScopeResponse Edit(ulong id, AclUserGroupRequest request)
         {
             return this._userGroupService.UpdateUserGroup(id, request);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclUserGroupRouteUrl.View, Name = AclRoutesName.AclUserGroupRouteNames.View)]
-        public ApplicationResponse View(uint id)
+        public ScopeResponse View(ulong id)
         {
             return  this._userGroupService.FindById(id);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpDelete(AclRoutesUrl.AclUserGroupRouteUrl.Destroy, Name = AclRoutesName.AclUserGroupRouteNames.Destroy)]
-        public ApplicationResponse Destroy(uint id)
+        public ScopeResponse Destroy(ulong id)
         {
             return this._userGroupService.Delete(id);
         }

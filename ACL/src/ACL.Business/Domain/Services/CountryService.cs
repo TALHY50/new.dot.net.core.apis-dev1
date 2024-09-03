@@ -13,7 +13,7 @@ namespace ACL.Business.Domain.Services
     public class CountryService : CountryRepository, ICountryService
     {
         /// <inheritdoc/>
-        public ApplicationResponse ApplicationResponse;
+        public ScopeResponse ScopeResponse;
         /// <inheritdoc/>
         public MessageResponse MessageResponse;
         private readonly string _modelName = "Country";
@@ -24,102 +24,102 @@ namespace ACL.Business.Domain.Services
         public CountryService(ApplicationDbContext dbContext, IHttpContextAccessor httpContextAccessor):base(dbContext,httpContextAccessor)
         {
             this._dbContext = dbContext;
-            this.ApplicationResponse = new ApplicationResponse();
+            this.ScopeResponse = new ScopeResponse();
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8604 // Possible null reference argument.
             this.MessageResponse = new MessageResponse(this._modelName, AppAuth.GetAuthInfo().Language);
             ContextAccessor = httpContextAccessor;
         }
         /// <inheritdoc/>
-        public ApplicationResponse GetAll()
+        public ScopeResponse GetAll()
         {
             var aclCountry = All();
             if (aclCountry.Any())
             {
-                this.ApplicationResponse.Message = this.MessageResponse.fetchMessage;
+                this.ScopeResponse.Message = this.MessageResponse.fetchMessage;
             }
-            this.ApplicationResponse.Data = aclCountry;
-            this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+            this.ScopeResponse.Data = aclCountry;
+            this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
 
-            return this.ApplicationResponse;
+            return this.ScopeResponse;
         }
         /// <inheritdoc/>
-        public ApplicationResponse Add(AclCountryRequest request)
+        public ScopeResponse Add(AclCountryRequest request)
         {
             try
             {
                 var aclCountry = PrepareInputData(request);
-                this.ApplicationResponse.Data = Add(aclCountry);
-                this.ApplicationResponse.Message = this.MessageResponse.createMessage;
-                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+                this.ScopeResponse.Data = Add(aclCountry);
+                this.ScopeResponse.Message = this.MessageResponse.createMessage;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             }
             catch (Exception ex)
             {
-                this.ApplicationResponse.Message = ex.Message;
-                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
+                this.ScopeResponse.Message = ex.Message;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
-            return this.ApplicationResponse;
+            return this.ScopeResponse;
 
 
         }
         /// <inheritdoc/>
-        public ApplicationResponse Edit(uint id, AclCountryRequest request)
+        public ScopeResponse Edit(ulong id, AclCountryRequest request)
         {
             var aclCountry = Find(id);
             if (aclCountry == null)
             {
-                this.ApplicationResponse.Message = this.MessageResponse.notFoundMessage;
-                return this.ApplicationResponse;
+                this.ScopeResponse.Message = this.MessageResponse.notFoundMessage;
+                return this.ScopeResponse;
             }
             try
             {
                 aclCountry = PrepareInputData(request, aclCountry);
-                this.ApplicationResponse.Data = Update(aclCountry);
-                this.ApplicationResponse.Message = this.MessageResponse.editMessage;
-                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+                this.ScopeResponse.Data = Update(aclCountry);
+                this.ScopeResponse.Message = this.MessageResponse.editMessage;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             }
             catch (Exception ex)
             {
-                this.ApplicationResponse.Message = ex.Message;
-                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
+                this.ScopeResponse.Message = ex.Message;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
-            return this.ApplicationResponse;
+            return this.ScopeResponse;
 
         }
         /// <inheritdoc/>
-        public ApplicationResponse FindById(uint id)
+        public ScopeResponse FindById(ulong id)
         {
             try
             {
                 var aclCountry = Find(id);
-                this.ApplicationResponse.Data = aclCountry;
-                this.ApplicationResponse.Message = this.MessageResponse.fetchMessage;
+                this.ScopeResponse.Data = aclCountry;
+                this.ScopeResponse.Message = this.MessageResponse.fetchMessage;
                 if (aclCountry == null)
                 {
-                    this.ApplicationResponse.Message = this.MessageResponse.notFoundMessage;
+                    this.ScopeResponse.Message = this.MessageResponse.notFoundMessage;
                 }
 
-                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             }
             catch (Exception ex)
             {
-                this.ApplicationResponse.Message = ex.Message;
-                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
+                this.ScopeResponse.Message = ex.Message;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
-            return this.ApplicationResponse;
+            return this.ScopeResponse;
 
         }
         /// <inheritdoc/>
-        public ApplicationResponse DeleteById(uint id)
+        public ScopeResponse DeleteById(ulong id)
         {
             var aclCountry = Delete(id);
             if (aclCountry != null)
             {
-                this.ApplicationResponse.Data = aclCountry;
-                this.ApplicationResponse.Message = this.MessageResponse.deleteMessage;
-                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+                this.ScopeResponse.Data = aclCountry;
+                this.ScopeResponse.Message = this.MessageResponse.deleteMessage;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             }
-            return this.ApplicationResponse;
+            return this.ScopeResponse;
         }
         private Country PrepareInputData(AclCountryRequest request, Country? aclCountry = null)
         {

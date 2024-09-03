@@ -7,12 +7,12 @@ namespace ACL.Business.Infrastructure.Auth.Auth
 {
     public class AuthInfoModel
     {
-        public uint UserId { get; set; }
-        public uint CompanyId { get; set; }
+        public ulong UserId { get; set; }
+        public ulong CompanyId { get; set; }
         public string? Email { get; set; }
         public string? Name { get; set; }
         public string? Phone { get; set; }
-        public uint? UserType { get; set; }
+        public ulong? UserType { get; set; }
         public string? UserGroupIds { get; set; }
         public string? Language { get; set; } = "en-US";
 
@@ -43,7 +43,7 @@ namespace ACL.Business.Infrastructure.Auth.Auth
                     var userIdClaim = user.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
                     if (userIdClaim != null)
                     {
-                        var userId = uint.Parse(userIdClaim.Value);
+                        var userId = ulong.Parse(userIdClaim.Value);
                         User? userFromDb = _dbContext.AclUsers.Find(userId); // Fetch user data from the database
                         var userGroupIds = (from auu in _dbContext.AclUserUsergroups
                                             where auu.UserId == userId
@@ -53,7 +53,7 @@ namespace ACL.Business.Infrastructure.Auth.Auth
                         authInfo = new AuthInfoModel
                         {
                             CompanyId = userFromDb?.CompanyId ?? 0,
-                            UserId = uint.Parse(userIdClaim.Value),
+                            UserId = ulong.Parse(userIdClaim.Value),
                             Email = userFromDb?.Email,
                             Name = userFromDb?.Username,
                             Phone = userFromDb?.Phone,

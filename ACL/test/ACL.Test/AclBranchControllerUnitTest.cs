@@ -32,8 +32,8 @@ namespace ACL.TEST
             request.AddHeader("Authorization", token);
             RestResponse response = restClient.Execute(request);
             //Assert
-            ApplicationResponse applicationResponse = JsonConvert.DeserializeObject<ApplicationResponse>(response.Content);
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, applicationResponse.StatusCode);
+            ScopeResponse scopeResponse = JsonConvert.DeserializeObject<ScopeResponse>(response.Content);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, scopeResponse.StatusCode);
 
         }
         [Fact]
@@ -48,10 +48,10 @@ namespace ACL.TEST
             request.AddJsonBody(data);
             RestResponse response = restClient.Execute(request);
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-            ApplicationResponse applicationResponse = JsonConvert.DeserializeObject<ApplicationResponse>(response.Content);
+            ScopeResponse scopeResponse = JsonConvert.DeserializeObject<ScopeResponse>(response.Content);
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
             //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, applicationResponse.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, scopeResponse.StatusCode);
 
         }
         [Fact]
@@ -72,10 +72,10 @@ namespace ACL.TEST
 
 
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-            ApplicationResponse applicationResponse = JsonConvert.DeserializeObject<ApplicationResponse>(response.Content);
+            ScopeResponse scopeResponse = JsonConvert.DeserializeObject<ScopeResponse>(response.Content);
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
             //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, applicationResponse.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, scopeResponse.StatusCode);
 
         }
         [Fact]
@@ -89,10 +89,10 @@ namespace ACL.TEST
             request.AddHeader("Authorization", token);
             RestResponse response = restClient.Execute(request);
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-            ApplicationResponse applicationResponse = JsonConvert.DeserializeObject<ApplicationResponse>(response.Content);
+            ScopeResponse scopeResponse = JsonConvert.DeserializeObject<ScopeResponse>(response.Content);
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
             //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, applicationResponse.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, scopeResponse.StatusCode);
 
         }
 
@@ -109,10 +109,10 @@ namespace ACL.TEST
 
             RestResponse response = restClient.Execute(request);
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-            ApplicationResponse applicationResponse = JsonConvert.DeserializeObject<ApplicationResponse>(response.Content);
+            ScopeResponse scopeResponse = JsonConvert.DeserializeObject<ScopeResponse>(response.Content);
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
             //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, applicationResponse.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, scopeResponse.StatusCode);
 
         }
 
@@ -125,12 +125,12 @@ namespace ACL.TEST
                 Address = faker.Random.String2(10, 100),
                 Description = faker.Random.String2(2, 5),
                 Status = (byte)faker.Random.Number(1, 2),
-                Sequence = (uint)faker.Random.Number(10, 200),
+                Sequence = (ulong)faker.Random.Number(10, 200),
             };
 
         }
 
-        private uint GetRandomID()
+        private ulong GetRandomID()
         {
 
             return DataCollectors.dbContext.Branches.Max(x => x.Id);

@@ -2,7 +2,7 @@
 
 public partial class Role
 {
-    public uint Id { get; set; }
+    public ulong Id { get; set; }
 
     public string? Title { get; set; }
 
@@ -10,17 +10,17 @@ public partial class Role
 
     public sbyte Status { get; set; }
 
-    public uint CompanyId { get; set; }
+    public ulong CompanyId { get; set; }
 
     /// <summary>
     /// creator auth ID
     /// </summary>
-    public uint? CreatedById { get; set; }
+    public ulong? CreatedById { get; set; }
 
     /// <summary>
     /// approve auth ID
     /// </summary>
-    public uint? UpdatedById { get; set; }
+    public ulong? UpdatedById { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 

@@ -14,7 +14,7 @@ namespace ACL.Business.Domain.Services
     public class SubModuleService : SubModuleRepository, ISubModuleService
     {
         /// <inheritdoc/>
-        public ApplicationResponse ApplicationResponse;
+        public ScopeResponse ScopeResponse;
         /// <inheritdoc/>
         public MessageResponse messageResponse;
         private readonly string modelName = "Sub Module";
@@ -24,7 +24,7 @@ namespace ACL.Business.Domain.Services
         public SubModuleService(ApplicationDbContext dbContext, IUserRepository userRepository, IHttpContextAccessor httpContextAccessor) : base(dbContext, userRepository, httpContextAccessor)
         {
             this._userRepository = userRepository;
-            this.ApplicationResponse = new ApplicationResponse();
+            this.ScopeResponse = new ScopeResponse();
             this._dbContext = dbContext;
             _httpContextAccessor = httpContextAccessor;
             AppAuth.Initialize(_httpContextAccessor, this._dbContext);
@@ -35,7 +35,7 @@ namespace ACL.Business.Domain.Services
 
         }
         /// <inheritdoc/>
-        public ApplicationResponse GetAll()
+        public ScopeResponse GetAll()
         {
             var aclSubModules = this._dbContext.AclSubModules
                 .Join(this._dbContext.AclModules, sm => sm.ModuleId, m => m.Id, (sm, m) => new
@@ -46,57 +46,57 @@ namespace ACL.Business.Domain.Services
                 }).ToList();
             if (aclSubModules.Count != 0)
             {
-                this.ApplicationResponse.Message = this.messageResponse.fetchMessage;
+                this.ScopeResponse.Message = this.messageResponse.fetchMessage;
             }
-            this.ApplicationResponse.Data = aclSubModules;
-            this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
-            this.ApplicationResponse.Timestamp = DateTime.Now;
+            this.ScopeResponse.Data = aclSubModules;
+            this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+            this.ScopeResponse.Timestamp = DateTime.Now;
 
-            return this.ApplicationResponse;
+            return this.ScopeResponse;
         }
         /// <inheritdoc/>
-        public ApplicationResponse Add(AclSubModuleRequest request)
+        public ScopeResponse Add(AclSubModuleRequest request)
         {
             var exitAclSubModule = Find(request.Id);
             if (exitAclSubModule != null)
             {
-                this.ApplicationResponse.Message = this.messageResponse.ExistMessage;
-                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_ERROR_RECORD_ALREADY_EXISTS;
-                return this.ApplicationResponse;
+                this.ScopeResponse.Message = this.messageResponse.ExistMessage;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_ERROR_RECORD_ALREADY_EXISTS;
+                return this.ScopeResponse;
             }
             var aclSubModule = PrepareInputData(request);
-            this.ApplicationResponse.Data = Add(aclSubModule);
-            this.ApplicationResponse.Message = this.ApplicationResponse.Data != null ? this.messageResponse.createMessage : this.messageResponse.createFail;
-            this.ApplicationResponse.StatusCode = this.ApplicationResponse.Data != null ? ApplicationStatusCodes.API_SUCCESS : ApplicationStatusCodes.GENERAL_FAILURE;
-            this.ApplicationResponse.Timestamp = DateTime.Now;
-            return this.ApplicationResponse;
+            this.ScopeResponse.Data = Add(aclSubModule);
+            this.ScopeResponse.Message = this.ScopeResponse.Data != null ? this.messageResponse.createMessage : this.messageResponse.createFail;
+            this.ScopeResponse.StatusCode = this.ScopeResponse.Data != null ? ApplicationStatusCodes.API_SUCCESS : ApplicationStatusCodes.GENERAL_FAILURE;
+            this.ScopeResponse.Timestamp = DateTime.Now;
+            return this.ScopeResponse;
 
         }
         /// <inheritdoc/>
-        public ApplicationResponse Edit(AclSubModuleRequest request)
+        public ScopeResponse Edit(AclSubModuleRequest request)
         {
             var aclSubModule = Find(request.Id);
             if (aclSubModule == null)
             {
-                this.ApplicationResponse.Message = this.messageResponse.notFoundMessage;
-                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND;
-                return this.ApplicationResponse;
+                this.ScopeResponse.Message = this.messageResponse.notFoundMessage;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND;
+                return this.ScopeResponse;
             }
             aclSubModule = PrepareInputData(request, aclSubModule);
-            this.ApplicationResponse.Data = Update(aclSubModule);
-            this.ApplicationResponse.Message = this.messageResponse.editMessage;
-            this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
-            List<uint>? userIds = this._userRepository.GetUserIdByChangePermission(null, request.Id);
+            this.ScopeResponse.Data = Update(aclSubModule);
+            this.ScopeResponse.Message = this.messageResponse.editMessage;
+            this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+            List<ulong>? userIds = this._userRepository.GetUserIdByChangePermission(null, request.Id);
             if (userIds != null)
             {
                 this._userRepository.UpdateUserPermissionVersion(userIds);
             }
-            this.ApplicationResponse.Timestamp = DateTime.Now;
-            return this.ApplicationResponse;
+            this.ScopeResponse.Timestamp = DateTime.Now;
+            return this.ScopeResponse;
 
         }
         /// <inheritdoc/>
-        public ApplicationResponse FindById(uint id)
+        public ScopeResponse FindById(ulong id)
         {
 
             var aclSubModule = All()?.Where(x => x.Id == id)
@@ -106,36 +106,36 @@ namespace ACL.Business.Domain.Services
                    module = m
 
                }).FirstOrDefault();
-            this.ApplicationResponse.Data = aclSubModule;
-            this.ApplicationResponse.Message = this.messageResponse.fetchMessage;
-            this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+            this.ScopeResponse.Data = aclSubModule;
+            this.ScopeResponse.Message = this.messageResponse.fetchMessage;
+            this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             if (aclSubModule == null)
             {
-                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND;
-                this.ApplicationResponse.Message = this.messageResponse.notFoundMessage;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND;
+                this.ScopeResponse.Message = this.messageResponse.notFoundMessage;
             }
 
-            this.ApplicationResponse.Timestamp = DateTime.Now;
-            return this.ApplicationResponse;
+            this.ScopeResponse.Timestamp = DateTime.Now;
+            return this.ScopeResponse;
         }
         /// <inheritdoc/>
-        public ApplicationResponse DeleteById(uint id)
+        public ScopeResponse DeleteById(ulong id)
         {
-            this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND;
+            this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND;
             var subModule = Find(id);
 
             if (subModule != null && !SubModuleIdNotToDelete(id))
             {
-                this.ApplicationResponse.Data = Delete(id);
-                this.ApplicationResponse.Message = this.messageResponse.deleteMessage;
-                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
-                List<uint>? userIds = this._userRepository.GetUserIdByChangePermission(null, id);
+                this.ScopeResponse.Data = Delete(id);
+                this.ScopeResponse.Message = this.messageResponse.deleteMessage;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+                List<ulong>? userIds = this._userRepository.GetUserIdByChangePermission(null, id);
                 if (userIds != null)
                 {
                     this._userRepository.UpdateUserPermissionVersion(userIds);
                 }
             }
-            return this.ApplicationResponse;
+            return this.ScopeResponse;
         }
 
         private SubModule PrepareInputData(AclSubModuleRequest request, SubModule? aclSubModule = null)

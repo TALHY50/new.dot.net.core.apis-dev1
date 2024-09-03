@@ -13,7 +13,7 @@ namespace Thunes.Adapter.Transfers.Transaction
 
         }
 
-        public object CreateTransaction(uint id, MoneyTransferDTO request)
+        public object CreateTransaction(ulong id, MoneyTransferDTO request)
         {
             var url = ThunesUrl.CreateTransactionUrl.Replace("{id}", id.ToString());
             return RestClient.Post<CreateTransactionResponse>(RequestOptions.BaseUrl + url, CreateHeaders(request, ThunesUrl.CreateTransactionUrl, RequestOptions), request);

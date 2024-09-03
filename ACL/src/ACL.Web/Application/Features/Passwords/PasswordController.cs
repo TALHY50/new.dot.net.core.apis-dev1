@@ -21,21 +21,21 @@ namespace ACL.Web.Application.Features.Passwords
          /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
         [HttpPost(AclRoutesUrl.AclPasswordRouteUrl.Reset, Name = AclRoutesName.AclPasswordRouteNames.Reset)]
-        public async Task<ApplicationResponse> ResetPassword(AclPasswordResetRequest request)
+        public async Task<ScopeResponse> ResetPassword(AclPasswordResetRequest request)
         {
             return await this._repository.Reset(request);
         }
          /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
         [HttpPost(AclRoutesUrl.AclPasswordRouteUrl.Forget, Name = AclRoutesName.AclPasswordRouteNames.Forget)]
-        public ApplicationResponse ForgetPassword(AclForgetPasswordRequest request)
+        public ScopeResponse ForgetPassword(AclForgetPasswordRequest request)
         {
             return  this._repository.Forget(request);
         }
          /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
         [HttpPost(AclRoutesUrl.AclPasswordRouteUrl.VerifyToken, Name = AclRoutesName.AclPasswordRouteNames.VerifyToken)]
-        public async Task<ApplicationResponse> VerifyTokenAndUpdatePassword(AclForgetPasswordTokenVerifyRequest request)
+        public async Task<ScopeResponse> VerifyTokenAndUpdatePassword(AclForgetPasswordTokenVerifyRequest request)
         {
             return await this._repository.VerifyToken(request);
         }

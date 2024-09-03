@@ -8,9 +8,9 @@ namespace ACL.Business.Domain.Services
     public interface IRolePageService : IRolePageRepository
     {
          /// <inheritdoc/>
-        Task<ApplicationResponse> GetAllById(uint Id);
+        Task<ScopeResponse> GetAllById(ulong Id);
         /// <inheritdoc/>
-        Task<ApplicationResponse> UpdateAll(AclRoleAndPageAssocUpdateRequest rolePageAssociationRequest);
+        Task<ScopeResponse> UpdateAll(AclRoleAndPageAssocUpdateRequest rolePageAssociationRequest);
         /// <inheritdoc/>
         RolePage[] PrepareData(AclRoleAndPageAssocUpdateRequest rolePageAssociationRequest);
     }

@@ -54,7 +54,7 @@ namespace SharedKernel.Main.Infrastructure.Services
             }
         }
 
-        public virtual T? GetById(uint id)
+        public virtual T? GetById(ulong id)
         {
             try
             {
@@ -66,7 +66,7 @@ namespace SharedKernel.Main.Infrastructure.Services
                 return null;
             }
         }
-        public virtual T? GetByUlongId(uint id)
+        public virtual T? GetByUlongId(ulong id)
         {
             try
             {

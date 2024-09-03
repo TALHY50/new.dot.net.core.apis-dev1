@@ -11,7 +11,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
     {
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8604 // Possible null reference argument.
-        public static uint CompanyId = AppAuth.GetAuthInfo().CompanyId;
+        public static ulong CompanyId = AppAuth.GetAuthInfo().CompanyId;
         /// <inheritdoc/>
         public readonly ApplicationDbContext _dbContext;
         private readonly IUserRepository _userRepository;
@@ -27,7 +27,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
             AppAuth.SetAuthInfo(_httpContextAccessor);
         }
         /// <inheritdoc/>
-        public uint SetCompanyId(uint companyId)
+        public ulong SetCompanyId(ulong companyId)
         {
             CompanyId = companyId;
             return CompanyId;
@@ -46,7 +46,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
 
         }
         /// <inheritdoc/>
-        public Usergroup? Find(uint id)
+        public Usergroup? Find(ulong id)
         {
             try
             {
@@ -104,7 +104,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
 
         }
         /// <inheritdoc/>
-        public Usergroup? Deleted(uint id)
+        public Usergroup? Deleted(ulong id)
         {
             try
             {
@@ -120,7 +120,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
 
         }
 
-        public bool IsExist(uint id)
+        public bool IsExist(ulong id)
         {
             return this._dbContext.AclUserUsergroups.Any(m=> m.Id == id);
         }

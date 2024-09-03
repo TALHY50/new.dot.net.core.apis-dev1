@@ -9,7 +9,7 @@ namespace Thunes.Response.Transfer.Quotation
 {
     public class CreateContentQuotationResponse
     {
-        public uint id { get; set; }
+        public ulong id { get; set; }
         [JsonProperty("invoice_id")]
         public string invoice_id
         {

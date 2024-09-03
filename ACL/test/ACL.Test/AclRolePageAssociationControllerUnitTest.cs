@@ -76,7 +76,7 @@ namespace ACL.TEST
             #endregion Assert
         }
 
-        public AclRoleAndPageAssocUpdateRequest GetRoleAndPageAssocUpdateRequest(uint id)
+        public AclRoleAndPageAssocUpdateRequest GetRoleAndPageAssocUpdateRequest(ulong id)
         {
             var faker = new Faker();
             var gotid = DataCollectors.dbContext.AclPages.Max(i=>i.Id);
@@ -98,11 +98,11 @@ namespace ACL.TEST
 
 
 
-        private uint GetRandomID()
+        private ulong GetRandomID()
         {
             #region Act
             //    // Act
-            return (uint)DataCollectors.dbContext.AclRolePages.Max(i=>i.RoleId);
+            return (ulong)DataCollectors.dbContext.AclRolePages.Max(i=>i.RoleId);
             #endregion
 
         }

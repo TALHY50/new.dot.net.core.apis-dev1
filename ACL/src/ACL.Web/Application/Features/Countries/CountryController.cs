@@ -22,21 +22,21 @@ namespace ACL.Web.Application.Features.Countries
          /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclCountryRouteUrl.List, Name = AclRoutesName.AclCountryRouteNames.List)]
-        public ApplicationResponse Index()
+        public ScopeResponse Index()
         {
             return this._countryService.GetAll();
         }
          /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
         [HttpPost(AclRoutesUrl.AclCountryRouteUrl.Add, Name = AclRoutesName.AclCountryRouteNames.Add)]
-        public ApplicationResponse Create(AclCountryRequest request)
+        public ScopeResponse Create(AclCountryRequest request)
         {
             return this._countryService.Add(request);
         }
          /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclCountryRouteUrl.View, Name = AclRoutesName.AclCountryRouteNames.View)]
-        public ApplicationResponse View(uint id)
+        public ScopeResponse View(ulong id)
         {
             return this._countryService.FindById(id);
 
@@ -44,7 +44,7 @@ namespace ACL.Web.Application.Features.Countries
          /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
         [HttpPut(AclRoutesUrl.AclCountryRouteUrl.Edit, Name = AclRoutesName.AclCountryRouteNames.Edit)]
-        public ApplicationResponse Edit(uint id, AclCountryRequest request)
+        public ScopeResponse Edit(ulong id, AclCountryRequest request)
         {
             return this._countryService.Edit(id, request);
 
@@ -52,7 +52,7 @@ namespace ACL.Web.Application.Features.Countries
          /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
         [HttpDelete(AclRoutesUrl.AclCountryRouteUrl.Destroy, Name = AclRoutesName.AclCountryRouteNames.Destroy)]
-        public ApplicationResponse Destroy(uint id)
+        public ScopeResponse Destroy(ulong id)
         {
             return this._countryService.DeleteById(id);
         }

@@ -13,7 +13,7 @@ namespace ACL.Business.Domain.Services
 {
     public class ModuleService : ModuleRepository, IModuleService
     {/// <inheritdoc/>
-        public ApplicationResponse ApplicationResponse;
+        public ScopeResponse ScopeResponse;
         /// <inheritdoc/>
         public MessageResponse MessageResponse;
         readonly ApplicationDbContext _dbContext;
@@ -25,7 +25,7 @@ namespace ACL.Business.Domain.Services
         public ModuleService(ApplicationDbContext dbContext, IUserRepository userRepository, IHttpContextAccessor httpContextAccessor) : base(dbContext, userRepository, httpContextAccessor)
         {
             this._dbContext = dbContext;
-            this.ApplicationResponse = new ApplicationResponse();
+            this.ScopeResponse = new ScopeResponse();
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8604 // Possible null reference argument.
@@ -37,26 +37,26 @@ namespace ACL.Business.Domain.Services
             AppAuth.SetAuthInfo(HttpContextAccessor);
         }
         /// <inheritdoc/>
-        public ApplicationResponse GetAll()
+        public ScopeResponse GetAll()
         {
             var aclModules = All();
             if (aclModules.Any())
             {
-                this.ApplicationResponse.Message = this.MessageResponse.fetchMessage;
-                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+                this.ScopeResponse.Message = this.MessageResponse.fetchMessage;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             }
             else
             {
-                this.ApplicationResponse.Message = this.MessageResponse.notFoundMessage;
-                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
+                this.ScopeResponse.Message = this.MessageResponse.notFoundMessage;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
-            this.ApplicationResponse.Data = aclModules;
-            this.ApplicationResponse.Timestamp = DateTime.Now;
+            this.ScopeResponse.Data = aclModules;
+            this.ScopeResponse.Timestamp = DateTime.Now;
 
-            return this.ApplicationResponse;
+            return this.ScopeResponse;
         }
         /// <inheritdoc/>
-        public ApplicationResponse AddAclModule(AclModuleRequest request)
+        public ScopeResponse AddAclModule(AclModuleRequest request)
         {
             try
             {
@@ -64,27 +64,27 @@ namespace ACL.Business.Domain.Services
                 if (check == null)
                 {
                     var aclModule = PrepareInputData(request);
-                    this.ApplicationResponse.Data = Add(aclModule);
-                    this.ApplicationResponse.Message = this.MessageResponse.createMessage;
-                    this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+                    this.ScopeResponse.Data = Add(aclModule);
+                    this.ScopeResponse.Message = this.MessageResponse.createMessage;
+                    this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
                 }
                 else
                 {
-                    this.ApplicationResponse.Message = this.MessageResponse.existMessage;
-                    this.ApplicationResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
+                    this.ScopeResponse.Message = this.MessageResponse.existMessage;
+                    this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
                 }
-                this.ApplicationResponse.Timestamp = DateTime.Now;
+                this.ScopeResponse.Timestamp = DateTime.Now;
             }
             catch (Exception ex)
             {
-                this.ApplicationResponse.Message = ex.Message;
-                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
+                this.ScopeResponse.Message = ex.Message;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
-            this.ApplicationResponse.Timestamp = DateTime.Now;
-            return this.ApplicationResponse;
+            this.ScopeResponse.Timestamp = DateTime.Now;
+            return this.ScopeResponse;
         }
         /// <inheritdoc/>
-        public ApplicationResponse EditAclModule(AclModuleRequest request)
+        public ScopeResponse EditAclModule(AclModuleRequest request)
         {
             try
             {
@@ -92,11 +92,11 @@ namespace ACL.Business.Domain.Services
                 if (aclModule != null)
                 {
                     aclModule = PrepareInputData(request, aclModule);
-                    this.ApplicationResponse.Data = Update(aclModule);
-                    this.ApplicationResponse.Message = this.MessageResponse.editMessage;
-                    this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+                    this.ScopeResponse.Data = Update(aclModule);
+                    this.ScopeResponse.Message = this.MessageResponse.editMessage;
+                    this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
 
-                    List<uint>? userIds = this._userRepository.GetUserIdByChangePermission(request.Id);
+                    List<ulong>? userIds = this._userRepository.GetUserIdByChangePermission(request.Id);
                     if (userIds != null)
                     {
                         this._userRepository.UpdateUserPermissionVersion(userIds);
@@ -104,53 +104,53 @@ namespace ACL.Business.Domain.Services
                 }
                 else
                 {
-                    this.ApplicationResponse.Message = this.MessageResponse.notFoundMessage;
-                    this.ApplicationResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
+                    this.ScopeResponse.Message = this.MessageResponse.notFoundMessage;
+                    this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
                 }
             }
             catch (Exception ex)
             {
-                this.ApplicationResponse.Message = ex.Message;
-                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
+                this.ScopeResponse.Message = ex.Message;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
-            this.ApplicationResponse.Timestamp = DateTime.Now;
-            return this.ApplicationResponse;
+            this.ScopeResponse.Timestamp = DateTime.Now;
+            return this.ScopeResponse;
         }
         /// <inheritdoc/>
-        public ApplicationResponse FindById(uint id)
+        public ScopeResponse FindById(ulong id)
         {
             try
             {
                 var aclModule = Find(id);
-                this.ApplicationResponse.Data = aclModule;
-                this.ApplicationResponse.Message = this.MessageResponse.fetchMessage;
+                this.ScopeResponse.Data = aclModule;
+                this.ScopeResponse.Message = this.MessageResponse.fetchMessage;
                 if (aclModule == null)
                 {
-                    this.ApplicationResponse.Message = this.MessageResponse.notFoundMessage;
+                    this.ScopeResponse.Message = this.MessageResponse.notFoundMessage;
                 }
 
-                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
             }
             catch (Exception ex)
             {
-                this.ApplicationResponse.Message = ex.Message;
-                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
+                this.ScopeResponse.Message = ex.Message;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
-            this.ApplicationResponse.Timestamp = DateTime.Now;
-            return this.ApplicationResponse;
+            this.ScopeResponse.Timestamp = DateTime.Now;
+            return this.ScopeResponse;
         }
         /// <inheritdoc/>
-        public ApplicationResponse DeleteModule(uint id)
+        public ScopeResponse DeleteModule(ulong id)
         {
 
             var aclModule = Find(id);
 
             if (aclModule != null)
             {
-                this.ApplicationResponse.Data = Delete(aclModule);
-                this.ApplicationResponse.Message = this.MessageResponse.deleteMessage;
-                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
-                List<uint>? userIds = this._userRepository.GetUserIdByChangePermission(id);
+                this.ScopeResponse.Data = Delete(aclModule);
+                this.ScopeResponse.Message = this.MessageResponse.deleteMessage;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
+                List<ulong>? userIds = this._userRepository.GetUserIdByChangePermission(id);
                 if (userIds != null)
                 {
                     this._userRepository.UpdateUserPermissionVersion(userIds);
@@ -158,11 +158,11 @@ namespace ACL.Business.Domain.Services
             }
             else
             {
-                this.ApplicationResponse.Message = this.MessageResponse.notFoundMessage;
-                this.ApplicationResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
+                this.ScopeResponse.Message = this.MessageResponse.notFoundMessage;
+                this.ScopeResponse.StatusCode = ApplicationStatusCodes.GENERAL_FAILURE;
             }
-            this.ApplicationResponse.Timestamp = DateTime.Now;
-            return this.ApplicationResponse;
+            this.ScopeResponse.Timestamp = DateTime.Now;
+            return this.ScopeResponse;
         }
 
         public Module PrepareInputData(AclModuleRequest request, Module? module = null)

@@ -2,18 +2,18 @@
 
 public partial class State
 {
-    public uint Id { get; set; }
-    public uint CountryId { get; set; }
+    public ulong Id { get; set; }
+    public ulong CountryId { get; set; }
     public string Name { get; set; }
     public string Description { get; set; } = null!;
 
     public byte Status { get; set; }
 
-    public uint Sequence { get; set; }
+    public ulong Sequence { get; set; }
 
-    public uint CreatedById { get; set; }
+    public ulong CreatedById { get; set; }
 
-    public uint UpdatedById { get; set; }
+    public ulong UpdatedById { get; set; }
 
     public DateTime CreatedAt { get; set; }
 

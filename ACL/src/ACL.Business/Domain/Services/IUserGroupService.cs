@@ -8,15 +8,15 @@ namespace ACL.Business.Domain.Services
     public interface IUserGroupService : IUserGroupRepository
     {
         /// <inheritdoc/>
-        ApplicationResponse GetAll();
+        ScopeResponse GetAll();
         /// <inheritdoc/>
-        ApplicationResponse AddUserGroup(AclUserGroupRequest userGroupRequest);
+        ScopeResponse AddUserGroup(AclUserGroupRequest userGroupRequest);
         /// <inheritdoc/>
-        ApplicationResponse UpdateUserGroup(uint id, AclUserGroupRequest userGroup);
+        ScopeResponse UpdateUserGroup(ulong id, AclUserGroupRequest userGroup);
         /// <inheritdoc/>
-        ApplicationResponse FindById(uint id);
+        ScopeResponse FindById(ulong id);
         /// <inheritdoc/>
-        ApplicationResponse Delete(uint id);
+        ScopeResponse Delete(ulong id);
         /// <inheritdoc/>
         Usergroup PrepareInputData(AclUserGroupRequest userGroupRequest, Usergroup? aclUserGroup = null);
     }

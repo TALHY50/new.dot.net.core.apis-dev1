@@ -24,11 +24,11 @@
 //        {
 
 //            // Act
-//            var ApplicationResponse = await controller.Index();
+//            var ScopeResponse = await controller.Index();
 
 
 //            // Assert
-//            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, (int)ApplicationResponse.StatusCode);
+//            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, (int)ScopeResponse.StatusCode);
 
 //        }
 //        [Fact]
@@ -37,9 +37,9 @@
 //            var data = GetRole();
 
 //            // Act
-//            ApplicationResponse ApplicationResponse = await controller.CreateCompanyModule(data);
+//            ScopeResponse ScopeResponse = await controller.CreateCompanyModule(data);
 
-//            int actualStatusCode = (int)ApplicationResponse.StatusCode;
+//            int actualStatusCode = (int)ScopeResponse.StatusCode;
 
 //            //// Assert
 //            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, actualStatusCode);
@@ -54,9 +54,9 @@
 
 
 //            // Act
-//            ApplicationResponse ApplicationResponse = await controller.View(id);
+//            ScopeResponse ScopeResponse = await controller.View(id);
 
-//            int actualStatusCode = (int)ApplicationResponse.StatusCode;
+//            int actualStatusCode = (int)ScopeResponse.StatusCode;
 
 //            //// Assert
 //            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, actualStatusCode);
@@ -70,9 +70,9 @@
 
 
 //            // Act
-//            ApplicationResponse ApplicationResponse = await controller.Edit(id, data);
+//            ScopeResponse ScopeResponse = await controller.Edit(id, data);
 
-//            int actualStatusCode = (int)ApplicationResponse.StatusCode;
+//            int actualStatusCode = (int)ScopeResponse.StatusCode;
 
 //            //// Assert
 //            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, actualStatusCode);
@@ -85,9 +85,9 @@
 //            var id = GetRandomID();
 
 //            // Act
-//            ApplicationResponse ApplicationResponse = await controller.Destroy(id);
+//            ScopeResponse ScopeResponse = await controller.Destroy(id);
 
-//            int actualStatusCode = (int)ApplicationResponse.StatusCode;
+//            int actualStatusCode = (int)ScopeResponse.StatusCode;
 
 //            //// Assert
 //            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(200, actualStatusCode);
@@ -106,7 +106,7 @@
 
 //        }
 
-//        private uint GetRandomID()
+//        private ulong GetRandomID()
 //        {
 
 //            return dbContext.AclRoles.FirstOrDefault().Id;

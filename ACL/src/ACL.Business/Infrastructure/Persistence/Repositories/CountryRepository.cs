@@ -23,7 +23,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
             AppAuth.SetAuthInfo(ContextAccessor);
         }
         /// <inheritdoc/>
-        public bool ExistById(uint id)
+        public bool ExistById(ulong id)
         {
             bool exist = false;
             var aclCountry = this._dbContext.AclCountries.Find(id);
@@ -48,7 +48,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
 
         }
         /// <inheritdoc/>
-        public Country? Find(uint id)
+        public Country? Find(ulong id)
         {
             try
             {
@@ -107,7 +107,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
 
         }
         /// <inheritdoc/>
-        public Country? Delete(uint id)
+        public Country? Delete(ulong id)
         {
             try
             {

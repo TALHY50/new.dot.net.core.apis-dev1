@@ -8,7 +8,7 @@ namespace ACL.Business.Application.Interfaces.Repositories
         /// <inheritdoc/>
         List<Module>? All();
         /// <inheritdoc/>
-        Module? Find(uint id);
+        Module? Find(ulong id);
         /// <inheritdoc/>
         Module? Add(Module aclModule);
         /// <inheritdoc/>
@@ -16,13 +16,13 @@ namespace ACL.Business.Application.Interfaces.Repositories
         /// <inheritdoc/>
         Module? Delete(Module aclModule);
         /// <inheritdoc/>
-        Module? Delete(uint id);
+        Module? Delete(ulong id);
         /// <inheritdoc/>
-        bool ExistByName(uint id, string name);
+        bool ExistByName(ulong id, string name);
         /// <inheritdoc/>
-        bool ExistById(uint? id, uint value);
+        bool ExistById(ulong? id, ulong value);
 
-        bool IsModuleNameAlreadyExist(string name, uint? requestId = null);
-        bool IsModuleIdAlreadyExist(uint id, uint? requestId = null);
+        bool IsModuleNameAlreadyExist(string name, ulong? requestId = null);
+        bool IsModuleIdAlreadyExist(ulong id, ulong? requestId = null);
     }
 }

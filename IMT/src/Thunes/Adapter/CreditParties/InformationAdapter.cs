@@ -13,7 +13,7 @@ namespace Thunes.Adapter.CreditParties
 
         }
 
-        public InformationResponse CreditPartyInformation(InformationRequest request, uint id, string transaction_type)
+        public InformationResponse CreditPartyInformation(InformationRequest request, ulong id, string transaction_type)
         {
             var path = ThunesUrl.CreditPartiesInformationUrl.Replace("{id}", id.ToString()).Replace("{transaction_type}", transaction_type);
             return RestClient.Post<InformationResponse>(RequestOptions.BaseUrl + path,

@@ -24,14 +24,14 @@ namespace Thunes.Adapter.Discovery
                 CreateHeaders(url, RequestOptions));
         }
 
-        public PayerResponse PayerResponseDetails(uint id)
+        public PayerResponse PayerResponseDetails(ulong id)
         {
             string url = ThunesUrl.GetPayerDetailUrl.Replace("{id}", id.ToString());
             return RestClient.Get<PayerResponse>(RequestOptions.BaseUrl + url,
                 CreateHeaders(url, RequestOptions));
         }
 
-        public PayerRateResponse PayerRateResponse(uint id)
+        public PayerRateResponse PayerRateResponse(ulong id)
         {
             string url = ThunesUrl.RetrieveRatesForAGivenPayerUrl.Replace("{id}", id.ToString());
             return RestClient.Get<PayerRateResponse>(RequestOptions.BaseUrl + url,

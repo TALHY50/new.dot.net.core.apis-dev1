@@ -19,11 +19,11 @@ namespace ACL.TEST
     {
         RestSharp.RestClient restClient;
         private string authToken;
-        private uint user_id = 2;
+        private ulong user_id = 2;
         private string userPassword = "Nop@ss1234";
         private string resetPassword = "Nop@ss4321";
         private string uniqueKey = "rest_cache_key";
-        ApplicationResponse _applicationResponse = new ApplicationResponse();
+        ScopeResponse _scopeResponse = new ScopeResponse();
         public AclPasswordUnitTest()
         {
             DataCollectors.SetDatabase();
@@ -45,9 +45,9 @@ namespace ACL.TEST
 
             //// Assert
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-            ApplicationResponse applicationResponse = JsonConvert.DeserializeObject<ApplicationResponse>(response.Content); 
+            ScopeResponse scopeResponse = JsonConvert.DeserializeObject<ScopeResponse>(response.Content); 
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, applicationResponse.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, scopeResponse.StatusCode);
 
         }
         [Fact]
@@ -64,12 +64,12 @@ namespace ACL.TEST
 
             RestResponse response = restClient.Execute(request);
 
-            _applicationResponse = JsonConvert.DeserializeObject<ApplicationResponse>(response.Content);
+            _scopeResponse = JsonConvert.DeserializeObject<ScopeResponse>(response.Content);
 
-            CacheHelper.Set(uniqueKey, _applicationResponse.Data, 120);
+            CacheHelper.Set(uniqueKey, _scopeResponse.Data, 120);
 
             //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, _applicationResponse.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, _scopeResponse.StatusCode);
 
         }
 
@@ -90,11 +90,11 @@ namespace ACL.TEST
             request.AddJsonBody(data);
 
             RestResponse response = restClient.Execute(request);
-            _applicationResponse = JsonConvert.DeserializeObject<ApplicationResponse>(response.Content);
+            _scopeResponse = JsonConvert.DeserializeObject<ScopeResponse>(response.Content);
             CacheHelper.Remove(uniqueKey);
 
             //// Assert
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, _applicationResponse.StatusCode);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(ApplicationStatusCodes.API_SUCCESS, _scopeResponse.StatusCode);
 
         }
 

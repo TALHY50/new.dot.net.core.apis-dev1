@@ -22,21 +22,21 @@ namespace ACL.Web.Application.Features.States
         /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclStateRouteUrl.List, Name = AclRoutesName.AclStateRouteNames.List)]
-        public ApplicationResponse Index()
+        public ScopeResponse Index()
         {
             return  this._stateService.GetAll();
         }
         /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
         [HttpPost(AclRoutesUrl.AclStateRouteUrl.Add, Name = AclRoutesName.AclStateRouteNames.Add)]
-        public ApplicationResponse Create(AclStateRequest objState)
+        public ScopeResponse Create(AclStateRequest objState)
         {
             return this._stateService.Add(objState);
         }
         /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclStateRouteUrl.View, Name = AclRoutesName.AclStateRouteNames.View)]
-        public ApplicationResponse View(uint id)
+        public ScopeResponse View(ulong id)
         {
             return this._stateService.FindById(id);
 
@@ -44,7 +44,7 @@ namespace ACL.Web.Application.Features.States
         /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
         [HttpPut(AclRoutesUrl.AclStateRouteUrl.Edit, Name = AclRoutesName.AclStateRouteNames.Edit)]
-        public ApplicationResponse Edit(uint id, AclStateRequest objState)
+        public ScopeResponse Edit(ulong id, AclStateRequest objState)
         {
             return this._stateService.Edit(id, objState);
 
@@ -52,7 +52,7 @@ namespace ACL.Web.Application.Features.States
         /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
         [HttpDelete(AclRoutesUrl.AclStateRouteUrl.Destroy, Name = AclRoutesName.AclStateRouteNames.Destroy)]
-        public ApplicationResponse Destroy(uint id)
+        public ScopeResponse Destroy(ulong id)
         {
             return this._stateService.DeleteById(id);
         }

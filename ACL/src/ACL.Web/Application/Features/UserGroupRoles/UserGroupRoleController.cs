@@ -22,14 +22,14 @@ namespace ACL.Web.Application.Features.UserGroupRoles
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclUserGroupRoleRouteUrl.List, Name = AclRoutesName.AclUserGroupRoleRouteNames.List)]
-        public ApplicationResponse Index(uint userGroupId)
+        public ScopeResponse Index(ulong userGroupId)
         {
             return this._userGroupRoleService.GetRolesByUserGroupId(userGroupId);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPost(AclRoutesUrl.AclUserGroupRoleRouteUrl.Update, Name = AclRoutesName.AclUserGroupRoleRouteNames.Update)]
-        public async Task<ApplicationResponse> Update(AclUserGroupRoleRequest objUserGroupRole)
+        public async Task<ScopeResponse> Update(AclUserGroupRoleRequest objUserGroupRole)
         {
             return await this._userGroupRoleService.Update(objUserGroupRole);
         }
