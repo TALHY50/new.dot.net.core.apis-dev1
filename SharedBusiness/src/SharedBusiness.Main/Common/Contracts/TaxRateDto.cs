@@ -1,6 +1,7 @@
 ﻿namespace SharedBusiness.Main.Common.Contracts
 {
     public record TaxRateDto(
+        uint id,
         byte tax_type,
         uint? corridor_id,
         uint? country_id,
