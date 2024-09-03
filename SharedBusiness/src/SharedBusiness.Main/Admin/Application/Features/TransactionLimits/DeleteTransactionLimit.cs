@@ -6,7 +6,7 @@ using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 
 
-namespace SharedBusiness.Main.Admin.Application.Features.TransactionLimits
+namespace SharedBusiness.Main.Admin.Weblication.Features.TransactionLimits
 {
     
         public record DeleteTransactionLimitCommand(uint id) : IRequest<ErrorOr<bool>>;

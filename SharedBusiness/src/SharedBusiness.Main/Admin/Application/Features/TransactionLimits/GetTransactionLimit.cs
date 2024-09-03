@@ -6,7 +6,7 @@ using SharedBusiness.Main.Common.Domain.Entities;
 using SharedKernel.Main.Contracts;
 
 
-namespace SharedBusiness.Main.Admin.Application.Features.TransactionLimits
+namespace SharedBusiness.Main.Admin.Weblication.Features.TransactionLimits
 {
     public record GetTransactionLimitQuery(int PageNumber = 0, int PageSize = 0) : IRequest<ErrorOr<List<TransactionLimit>>>;
 

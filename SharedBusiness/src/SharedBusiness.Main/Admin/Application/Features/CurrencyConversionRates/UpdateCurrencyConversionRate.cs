@@ -8,7 +8,7 @@ using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Application.Rules;
 using SharedKernel.Main.Contracts;
 
-namespace SharedBusiness.Main.Admin.Application.Features.CurrencyConversionRates
+namespace SharedBusiness.Main.Admin.Weblication.Features.CurrencyConversionRates
 {
     public record UpdateCurrencyConversionRateCommand(
         uint id,

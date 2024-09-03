@@ -1,11 +1,11 @@
 ﻿using ErrorOr;
 using FluentValidation;
 using MediatR;
-using SharedBusiness.Main.Admin.Application.Features.CurrencyConversionRates;
+using SharedBusiness.Main.Admin.Weblication.Features.CurrencyConversionRates;
 using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedKernel.Main.Contracts;
 
-namespace SharedBusiness.Main.Admin.Application.Features.CreateCurrencyConversionRates
+namespace SharedBusiness.Main.Admin.Weblication.Features.CreateCurrencyConversionRates
 {
     public record DeleteCurrencyConversionRateCommand(uint id) : IRequest<ErrorOr<bool>>;
 

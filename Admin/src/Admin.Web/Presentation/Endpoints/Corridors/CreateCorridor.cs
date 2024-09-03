@@ -1,7 +1,7 @@
 ﻿using Admin.Web.Presentation.Routes;
 using SharedKernel.Main.Application.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
-using SharedBusiness.Main.Admin.Application.Features.Corridors;
+using SharedBusiness.Main.Admin.Weblication.Features.Corridors;
 using SharedBusiness.Main.IMT.Contracts.Contracts.Responses;
 namespace Admin.Web.Presentation.Endpoints.Corridors
 {

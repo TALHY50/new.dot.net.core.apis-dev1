@@ -1,6 +1,6 @@
 ﻿using Admin.Web.Presentation.Routes;
 using Microsoft.AspNetCore.Mvc;
-using SharedBusiness.Main.Admin.Application.Features.Currencies;
+using SharedBusiness.Main.Admin.Weblication.Features.Currencies;
 using SharedKernel.Main.Application.Interfaces.Services;
 
 namespace Admin.Web.Presentation.Endpoints.Currencies

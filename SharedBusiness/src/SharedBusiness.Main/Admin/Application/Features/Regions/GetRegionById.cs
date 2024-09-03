@@ -1,13 +1,13 @@
 ﻿using ErrorOr;
 using FluentValidation;
 using MediatR;
-using SharedBusiness.Main.Admin.Application.Features.Countries;
+using SharedBusiness.Main.Admin.Weblication.Features.Countries;
 using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedKernel.Main.Contracts;
 
 
-namespace SharedBusiness.Main.Admin.Application.Features.Regions
+namespace SharedBusiness.Main.Admin.Weblication.Features.Regions
 {
     public record GetRegionByIdQuery(uint id) : IRequest<ErrorOr<Region>>;
 

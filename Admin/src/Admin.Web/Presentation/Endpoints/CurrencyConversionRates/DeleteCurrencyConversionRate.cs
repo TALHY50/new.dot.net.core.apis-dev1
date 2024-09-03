@@ -1,6 +1,6 @@
 using Admin.Web.Presentation.Routes;
 using Microsoft.AspNetCore.Mvc;
-using SharedBusiness.Main.Admin.Application.Features.CreateCurrencyConversionRates;
+using SharedBusiness.Main.Admin.Weblication.Features.CreateCurrencyConversionRates;
 using SharedKernel.Main.Presentation;
 
 namespace Admin.Web.Presentation.Endpoints.CreateCurrencyConversionRates;
