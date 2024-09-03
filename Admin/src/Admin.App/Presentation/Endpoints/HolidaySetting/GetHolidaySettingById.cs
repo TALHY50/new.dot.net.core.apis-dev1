@@ -39,7 +39,7 @@ public class GetHolidaySettingByIdController : ApiControllerBase
         }
     }
 
-    internal sealed class GetHolidaySettingByIdHandler(ApplicationDbContext _context, IHolidaySettingRepository repository) : IRequestHandler<GetHolidaySettingByIdCommand, ErrorOr<Duplicates_HolidaySetting>>
+    public class GetHolidaySettingByIdHandler(ApplicationDbContext _context, IHolidaySettingRepository repository) : IRequestHandler<GetHolidaySettingByIdCommand, ErrorOr<Duplicates_HolidaySetting>>
     {
         public async Task<ErrorOr<Duplicates_HolidaySetting>> Handle(GetHolidaySettingByIdCommand request, CancellationToken cancellationToken)
         {

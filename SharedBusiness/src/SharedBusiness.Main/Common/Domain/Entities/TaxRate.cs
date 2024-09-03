@@ -1,12 +1,12 @@
-﻿namespace SharedBusiness.Main.Common.Domain.Entities;
+﻿using Ardalis.SharedKernel;
+
+namespace SharedBusiness.Main.Common.Domain.Entities;
 
 /// <summary>
 /// Type : Master, government tax rates based on countries for each transaction
 /// </summary>
-public partial class TaxRate
+public partial class TaxRate : EntityBase<uint>, IAggregateRoot
 {
-    public uint Id { get; set; }
-
     /// <summary>
     /// 1 = Regular, 2 = Corridor tax, 3 = Country tax
     /// </summary>

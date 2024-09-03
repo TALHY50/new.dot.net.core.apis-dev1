@@ -1,12 +1,12 @@
-﻿namespace SharedBusiness.Main.Common.Domain.Entities;
+﻿using Ardalis.SharedKernel;
+
+namespace SharedBusiness.Main.Common.Domain.Entities;
 
 /// <summary>
 /// Type : Master, time to complete a transaction.
 /// </summary>
-public partial class MttPaymentSpeed
+public partial class MttPaymentSpeed : EntityBase<uint>, IAggregateRoot
 {
-    public uint Id { get; set; }
-
     public uint MttId { get; set; }
 
     /// <summary>

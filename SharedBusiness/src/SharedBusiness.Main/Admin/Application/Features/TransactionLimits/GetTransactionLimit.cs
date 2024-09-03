@@ -1,36 +1,64 @@
 ﻿using ErrorOr;
+using FluentValidation;
 using MediatR;
 using SharedBusiness.Main.Common.Application.Services.Repositories;
-using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
+using SharedBusiness.Main.Common.Domain.Entities;
 using SharedKernel.Main.Contracts;
 
 
 namespace SharedBusiness.Main.Admin.Application.Features.TransactionLimits
 {
+    public record GetTransactionLimitQuery(int PageNumber = 0, int PageSize = 0) : IRequest<ErrorOr<List<TransactionLimit>>>;
 
-    public record GetTransactionLimitQuery() : IRequest<ErrorOr<StatusModel>>;
+    public class GetCountriesQueryValidator : AbstractValidator<GetTransactionLimitQuery>
+    {
+        public GetCountriesQueryValidator()
+        {
+            RuleFor(x => x.PageNumber)
+                .GreaterThanOrEqualTo(1)
+                .When(x => x.PageNumber != 0)
+                .WithErrorCode(ApplicationStatusCodes.API_ERROR_BASIC_VALIDATION_FAILED.ToString());
 
-    public class GetTransactionLimitHandler : IRequestHandler<GetTransactionLimitQuery, ErrorOr<StatusModel>>
+            RuleFor(x => x.PageSize)
+                .GreaterThanOrEqualTo(1)
+                .When(x => x.PageNumber > 0)
+                .When(x => x.PageSize != 0)
+                .WithErrorCode(ApplicationStatusCodes.API_ERROR_BASIC_VALIDATION_FAILED.ToString());
+        }
+    }
+
+
+    public class GetTransactionLimitHandler
+       :  IRequestHandler<GetTransactionLimitQuery, ErrorOr<List<TransactionLimit>>>
     {
         private readonly ITransactionLimitRepository _repository;
-        private readonly StatusModel ResponseModel;
+
         public GetTransactionLimitHandler(ITransactionLimitRepository repository)
         {
             _repository = repository;
-            ResponseModel = new StatusModel();
         }
-        public async Task<ErrorOr<StatusModel>> Handle(GetTransactionLimitQuery request, CancellationToken cancellationToken)
+
+        public async Task<ErrorOr<List<TransactionLimit>>> Handle(GetTransactionLimitQuery request, CancellationToken cancellationToken)
         {
-            var data = _repository.All();
-            if (data.Any())
+            List<TransactionLimit>? transactionLimits;
+
+            if (request.PageNumber > 0 && request.PageSize > 0)
             {
-                ResponseModel.Status = new StatusEntityModel { 
-                    Code = ApplicationStatusCodes.API_SUCCESS.ToString(),
-                    Message = "Transaction Limit is fetched succesfully." 
-                };
-                ResponseModel.Data = data;
+                transactionLimits = await _repository.ListPaginatedAsync(request.PageNumber, request.PageSize, cancellationToken);
+
             }
-            return ResponseModel;
+            else
+            {
+                transactionLimits = await _repository.ListAsync(cancellationToken);
+
+            }
+
+            if (transactionLimits == null)
+            {
+                return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), description: "Transaction Limit not found!");
+            }
+
+            return transactionLimits;
         }
     }
 

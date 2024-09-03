@@ -1,12 +1,12 @@
-﻿namespace SharedBusiness.Main.Common.Domain.Entities;
+﻿using Ardalis.SharedKernel;
+
+namespace SharedBusiness.Main.Common.Domain.Entities;
 
 /// <summary>
 /// Type : Master, mtt(s) assigned to an institution
 /// </summary>
-public partial class InstitutionMtt
+public partial class InstitutionMtt : EntityBase<uint>, IAggregateRoot
 {
-    public uint Id { get; set; }
-
     public uint InstitutionId { get; set; }
 
     public uint MttId { get; set; }

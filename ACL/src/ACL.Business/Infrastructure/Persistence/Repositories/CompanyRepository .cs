@@ -9,18 +9,18 @@ using MessageResponse = SharedKernel.Main.Contracts.MessageResponse;
 namespace ACL.Business.Infrastructure.Persistence.Repositories
 {
     /// <inheritdoc/>
-    public class CompanyRepository : ICompanyRepository
+    public class CompanyRepository :EfRepository<Company>, ICompanyRepository
     {
         
         /// <inheritdoc/>
         public ScopeResponse ScopeResponse;
         /// <inheritdoc/>
         public MessageResponse MessageResponse;
-        private readonly string _modelName = "Company Module";
+        private readonly string _modelName = "Company";
         readonly ApplicationDbContext _dbContext;
         public static IHttpContextAccessor HttpContextAccessor;
         /// <inheritdoc/>
-        public CompanyRepository(ApplicationDbContext dbContext, IHttpContextAccessor httpContextAccessor)
+        public CompanyRepository(ApplicationDbContext dbContext, IHttpContextAccessor httpContextAccessor):base(dbContext)
         {
             this._dbContext = dbContext;
             this.ScopeResponse = new ScopeResponse();

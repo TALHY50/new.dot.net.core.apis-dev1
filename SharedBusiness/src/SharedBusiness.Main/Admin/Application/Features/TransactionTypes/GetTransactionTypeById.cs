@@ -1,0 +1,41 @@
+﻿using ErrorOr;
+using FluentValidation;
+using MediatR;
+using SharedBusiness.Main.Admin.Application.Features.Countries;
+using SharedBusiness.Main.Common.Application.Features.TransactionTypes;
+using SharedBusiness.Main.Common.Application.Services.Repositories;
+using SharedBusiness.Main.Common.Domain.Entities;
+using SharedKernel.Main.Contracts;
+
+namespace SharedBusiness.Main.Admin.Application.Features.TransactionTypes
+{
+    public record GetTransactionTypeByIdQuery(uint id) : IRequest<ErrorOr<TransactionType>>;
+    public class GetTransactionTypeByIdQueryValidator : AbstractValidator<GetTransactionTypeByIdQuery>
+    {
+        public GetTransactionTypeByIdQueryValidator()
+        {
+            RuleFor(x => x.id).NotEmpty().WithMessage("TransactionType ID is required");
+        }
+    }
+
+    public class GetTransactionTypeByIdQueryHandler : TransactionTypeBase, IRequestHandler<GetTransactionTypeByIdQuery, ErrorOr<TransactionType>>
+    {
+        private readonly ITransactionTypeRepository _repository;
+
+        public GetTransactionTypeByIdQueryHandler(ITransactionTypeRepository repository)
+        {
+            _repository = repository;
+        }
+        public async Task<ErrorOr<TransactionType>> Handle(GetTransactionTypeByIdQuery request, CancellationToken cancellationToken)
+        {
+            var transactionType = await _repository.GetByIdAsync(request.id, cancellationToken);
+
+            if (transactionType == null)
+            {
+                return Error.NotFound(description: "TransactionType not found!", code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
+            }
+
+            return transactionType;
+        }
+    }
+}

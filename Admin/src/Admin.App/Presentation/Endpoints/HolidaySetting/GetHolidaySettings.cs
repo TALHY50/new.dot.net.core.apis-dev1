@@ -26,7 +26,7 @@ public class GetHolidaySettingsController : ApiControllerBase
 
     public record GetHolidaySettingQuery() : IQuery<List<Duplicates_HolidaySetting>>;
 
-    internal sealed class GetHolidaySettingsHandler(ApplicationDbContext _context, IHolidaySettingRepository repository) : IQueryHandler<GetHolidaySettingQuery, List<Duplicates_HolidaySetting>>
+    public class GetHolidaySettingsHandler(ApplicationDbContext _context, IHolidaySettingRepository repository) : IQueryHandler<GetHolidaySettingQuery, List<Duplicates_HolidaySetting>>
     {
         // get all data 
         public async Task<List<Duplicates_HolidaySetting>> Handle(GetHolidaySettingQuery request, CancellationToken cancellationToken)

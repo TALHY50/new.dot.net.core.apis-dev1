@@ -7,13 +7,13 @@ using Microsoft.AspNetCore.Http;
 namespace ACL.Business.Infrastructure.Persistence.Repositories
 {
     /// <inheritdoc/>
-    public class CountryRepository : ICountryRepository
+    public class CountryRepository :EfRepository<Country>, ICountryRepository
     {
         readonly ApplicationDbContext _dbContext;
         public static IHttpContextAccessor ContextAccessor { get; private set; }
 
         /// <inheritdoc/>
-        public CountryRepository(ApplicationDbContext dbContext, IHttpContextAccessor httpContextAccessor)
+        public CountryRepository(ApplicationDbContext dbContext, IHttpContextAccessor httpContextAccessor):base(dbContext)
         {
             this._dbContext = dbContext;
 #pragma warning disable CS8602 // Dereference of a possibly null reference.

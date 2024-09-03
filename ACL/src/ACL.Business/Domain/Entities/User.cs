@@ -3,10 +3,8 @@ using Ardalis.SharedKernel;
 
 namespace ACL.Business.Domain.Entities;
 
-public partial class User : EntityBase, IAggregateRoot
+public partial class User : EntityBase<ulong>, IAggregateRoot
 {
-    public new ulong Id { get; set; }
-
     public string? FirstName { get; set; }
 
     public string? LastName { get; set; }

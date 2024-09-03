@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34902.65
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IMT.App", "src\IMT.App\IMT.App.csproj", "{66D6B811-6BBA-438B-A273-DF162BA402D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IMT.Web", "src\IMT.Web\IMT.Web.csproj", "{66D6B811-6BBA-438B-A273-DF162BA402D9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Thunes", "src\Thunes\Thunes.csproj", "{35A4051E-4CE8-4F9D-A122-887A877E5DEC}"
 EndProject

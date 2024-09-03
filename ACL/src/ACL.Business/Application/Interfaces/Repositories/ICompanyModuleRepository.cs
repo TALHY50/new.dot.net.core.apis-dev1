@@ -1,12 +1,14 @@
 ﻿using ACL.Business.Domain.Entities;
+using Ardalis.SharedKernel;
+using SharedKernel.Main.Application.Interfaces.Repositories;
 
 namespace ACL.Business.Application.Interfaces.Repositories
 {
     /// <inheritdoc/>
-    public interface ICompanyModuleRepository
+    public interface ICompanyModuleRepository : IRepository<CompanyModule>, IExtendedRepositoryBase<CompanyModule>
     {
         /// <inheritdoc/>
-        List<Company>? All();
+        List<CompanyModule>? All();
         /// <inheritdoc/>
         CompanyModule? Find(ulong id);
         /// <inheritdoc/>

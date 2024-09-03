@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Http;
 namespace ACL.Business.Infrastructure.Persistence.Repositories
 {
     /// <inheritdoc/>
-    public class RolePageRepository : IRolePageRepository
+    public class RolePageRepository :EfRepository<RolePage>, IRolePageRepository
     {
         /// <inheritdoc/>
         public ApplicationDbContext Context { get; }
@@ -18,7 +18,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         public static IHttpContextAccessor ContextAccessor { get; private set; }
 
         /// <inheritdoc/>
-        public RolePageRepository(ApplicationDbContext dbContext, IUserRepository userRepository, IHttpContextAccessor httpContextAccessor, IRoleRepository roleRepository, IPageRepository pageRepository)
+        public RolePageRepository(ApplicationDbContext dbContext, IUserRepository userRepository, IHttpContextAccessor httpContextAccessor, IRoleRepository roleRepository, IPageRepository pageRepository):base(dbContext)
         {
             this._userRepository = userRepository;
             this._roleRepository = roleRepository;

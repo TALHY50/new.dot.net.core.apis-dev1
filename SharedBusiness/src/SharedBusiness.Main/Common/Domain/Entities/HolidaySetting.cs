@@ -7,8 +7,6 @@ namespace SharedBusiness.Main.Common.Domain.Entities;
 /// </summary>
 public partial class HolidaySetting : EntityBase<uint>, IAggregateRoot
 {
-    public uint Id { get; set; }
-
     public uint? CountryId { get; set; }
 
     public DateTime Date { get; set; }

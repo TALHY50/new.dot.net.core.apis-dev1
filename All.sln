@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IMT", "IMT", "{6C0E7DDD-68E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4708FC81-108F-495E-9196-396CB7A50872}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IMT.App", "IMT\src\IMT.App\IMT.App.csproj", "{36679457-D641-4746-A338-FB122A49A21A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IMT.Web", "IMT\src\IMT.Web\IMT.Web.csproj", "{36679457-D641-4746-A338-FB122A49A21A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Thunes", "IMT\src\Thunes\Thunes.csproj", "{1781549F-FBFF-4EBB-BBBB-7A6E5EE63F76}"
 EndProject
@@ -37,7 +37,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Admin", "Admin", "{DB4A18EA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E7989FB0-DE0C-4021-87FF-744DEC1D54C3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Admin.App", "Admin\src\Admin.App\Admin.App.csproj", "{9CC758B8-6712-4940-A732-4021C5E42B5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Admin.Web", "Admin\src\Admin.Web\Admin.Web.csproj", "{9CC758B8-6712-4940-A732-4021C5E42B5C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedKernel", "SharedKernel", "{1AE9F41A-6CDF-4CC7-9F05-3A8B86C0574C}"
 EndProject
@@ -51,7 +51,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{548CA471-987
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedBusiness.Main", "SharedBusiness\src\SharedBusiness.Main\SharedBusiness.Main.csproj", "{440D883C-F85F-4F19-A9FE-09508CF713D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ACL.Business", "ACL\src\ACL.Business\ACL.Business.csproj", "{E168F04B-691E-483A-BEE4-62EFCA2BB9BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ACL.Business", "ACL\src\ACL.Business\ACL.Business.csproj", "{E168F04B-691E-483A-BEE4-62EFCA2BB9BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

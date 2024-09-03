@@ -11,7 +11,7 @@ using SharedKernel.Main.Contracts;
 namespace SharedKernel.Main.Presentation;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("")]
 public partial class ApiControllerBase : ControllerBase
 {
     private IMapper _mapper;
