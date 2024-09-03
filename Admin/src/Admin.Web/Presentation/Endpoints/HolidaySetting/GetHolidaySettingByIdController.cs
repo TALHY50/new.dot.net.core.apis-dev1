@@ -7,8 +7,8 @@ using SharedKernel.Main.Application.Interfaces.Services;
 
 namespace Admin.Web.Presentation.Endpoints.HolidaySetting;
 
-public class GetHolidaySettingById(ILogger<GetHolidaySettingById> logger, ICurrentUser currentUser)
-    : HolidaySettingBase(logger, currentUser)
+public class GetHolidaySettingByIdController(ILogger<GetHolidaySettingByIdController> logger, ICurrentUser currentUser)
+    : HolidaySettingBaseController(logger, currentUser)
 {
     [Tags("HolidaySettings")]
     //[Authorize(Policy = "HasPermission")]
