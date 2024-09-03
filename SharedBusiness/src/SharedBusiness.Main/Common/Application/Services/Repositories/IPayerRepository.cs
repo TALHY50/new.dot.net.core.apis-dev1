@@ -1,13 +1,11 @@
-﻿using SharedBusiness.Main.Common.Domain.Entities;
+﻿using Ardalis.SharedKernel;
+using Ardalis.Specification.EntityFrameworkCore;
+using SharedBusiness.Main.Common.Domain.Entities;
+using SharedKernel.Main.Application.Interfaces.Repositories;
 
 namespace SharedBusiness.Main.Common.Application.Services.Repositories
 {
-    public interface IPayerRepository
+    public interface IPayerRepository : IRepository<Payer>, IExtendedRepositoryBase<Payer>
     {
-        Payer? Add(Payer payer);
-        Payer? Update(Payer payer);
-        List<Payer> GetAll();
-        bool Delete(Payer payer);
-        Payer? FindById(uint id);
     }
 }

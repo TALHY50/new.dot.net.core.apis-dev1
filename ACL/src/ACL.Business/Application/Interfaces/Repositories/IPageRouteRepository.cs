@@ -1,10 +1,12 @@
 ﻿using ACL.Business.Contracts.Requests;
 using ACL.Business.Domain.Entities;
+using Ardalis.SharedKernel;
+using SharedKernel.Main.Application.Interfaces.Repositories;
 
 namespace ACL.Business.Application.Interfaces.Repositories
 {
     /// <inheritdoc/>
-    public interface IPageRouteRepository
+    public interface IPageRouteRepository : IRepository<PageRoute>, IExtendedRepositoryBase<PageRoute>
     {
         /// <inheritdoc/>
         PageRoute PreparePageRouteInputData(AclPageRouteRequest request, PageRoute? aclPageRoute = null);

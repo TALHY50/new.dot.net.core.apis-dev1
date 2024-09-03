@@ -1,8 +1,9 @@
+using Ardalis.SharedKernel;
+
 namespace ACL.Business.Domain.Entities;
 
-public class UserSetting
+public class UserSetting : EntityBase<ulong>, IAggregateRoot
 {
-    public uint Id { get; set; }
     public string AppId { get; set; }
     public string AppSecret { get; set; }
 }

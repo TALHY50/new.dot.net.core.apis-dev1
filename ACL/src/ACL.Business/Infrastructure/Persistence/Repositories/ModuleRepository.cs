@@ -7,14 +7,14 @@ using Microsoft.AspNetCore.Http;
 namespace ACL.Business.Infrastructure.Persistence.Repositories
 {
     /// <inheritdoc/>
-    public class ModuleRepository : IModuleRepository
+    public class ModuleRepository : EfRepository<Module>, IModuleRepository
     {
         readonly ApplicationDbContext _dbContext;
         private readonly IUserRepository _userRepository;
         public static IHttpContextAccessor HttpContextAccessor;
 
         /// <inheritdoc/>
-        public ModuleRepository(ApplicationDbContext dbContext, IUserRepository userRepository, IHttpContextAccessor httpContextAccessor)
+        public ModuleRepository(ApplicationDbContext dbContext, IUserRepository userRepository, IHttpContextAccessor httpContextAccessor):base(dbContext)
         {
             this._dbContext = dbContext;
             AppAuth.SetAuthInfo(); // sent object to this class when auth is found

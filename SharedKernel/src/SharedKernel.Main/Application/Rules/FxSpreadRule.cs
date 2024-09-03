@@ -12,7 +12,10 @@ namespace SharedKernel.Main.Application.Rules
     {
         public static IRuleBuilder<T, decimal> FxSpreadRule<T>(this IRuleBuilder<T, decimal> ruleBuilder)
         {
-            var options = ruleBuilder.NotEmpty().WithMessage("Fx Spread must be valid!").WithErrorCode(ApplicationStatusCodes.API_ERROR_BASIC_VALIDATION_FAILED.ToString());
+            var options = ruleBuilder
+                .NotEmpty()
+                .WithMessage("Fx Spread must be valid!")
+                .WithErrorCode(ApplicationStatusCodes.API_ERROR_BASIC_VALIDATION_FAILED.ToString());
             return options;
         }
 

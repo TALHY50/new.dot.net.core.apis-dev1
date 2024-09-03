@@ -1,6 +1,7 @@
 ﻿using ACL.Business.Application.Interfaces.Repositories;
 using ACL.Business.Contracts.Requests;
 using ACL.Business.Contracts.Responses;
+using ACL.Business.Domain.Entities;
 using ACL.Business.Infrastructure.Auth.Auth;
 using ACL.Business.Infrastructure.Persistence.Context;
 using Microsoft.AspNetCore.Http;
@@ -12,7 +13,7 @@ using MessageResponse = SharedKernel.Main.Contracts.MessageResponse;
 namespace ACL.Business.Infrastructure.Persistence.Repositories
 {
     /// <inheritdoc/>
-    public class PasswordRepository : IPasswordRepository
+    public class PasswordRepository : EfRepository<User>,IPasswordRepository
     {
        
         public ScopeResponse ScopeResponse;
@@ -23,7 +24,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         public MessageResponse Response;
         readonly ApplicationDbContext _dbContext;
         public static IHttpContextAccessor HttpContextAccessor;
-        public PasswordRepository(ApplicationDbContext dbContext, ICryptography cryptography, IUserRepository userRepository, IHttpContextAccessor httpContextAccessor)
+        public PasswordRepository(ApplicationDbContext dbContext, ICryptography cryptography, IUserRepository userRepository, IHttpContextAccessor httpContextAccessor):base(dbContext)
         {
 
             this._dbContext = dbContext;

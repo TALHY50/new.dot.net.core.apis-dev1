@@ -1,8 +1,10 @@
+using ACL.Business.Application.Features.UserSettings;
 using ACL.Business.Application.Interfaces.Repositories;
 using ACL.Business.Domain.Services;
 using ACL.Business.Infrastructure.Persistence.Context;
 using ACL.Business.Infrastructure.Persistence.Repositories;
 using DotNetEnv;
+using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -10,19 +12,20 @@ using Microsoft.Extensions.DependencyInjection;
 using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Infrastructure.Services;
 using SharedKernel.Main.Infrastructure.Utilities;
+using System.Reflection;
 
 namespace ACL.Business.Infrastructure.Persistence;
 
 public static class ACLPersistenceDependencyInjection
 {
     public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration, IWebHostEnvironment environment)
-    { 
+    {
         services.AddDbContext<ApplicationDbContext>(options =>
             options.UseMySQL(ConnectionManager.GetDbConnectionString(), options =>
             {
                 options.EnableRetryOnFailure();
             }));
-        
+
         var cacheDriver = Env.GetString("CACHE_DRIVER");
         if (cacheDriver == "redis")
         {
@@ -56,6 +59,9 @@ public static class ACLPersistenceDependencyInjection
         services.AddScoped<IUserGroupRepository, UserGroupRepository>();
         services.AddScoped<IUserGroupRoleRepository, UserGroupRoleRepository>();
         services.AddScoped<IUserUserGroupRepository, UserUserGroupRepository>();
+        // Register IUserSettingRepository with its concrete implementation UserSettingRepository
+        services.AddScoped<IUserSettingRepository, UserSettingRepository>();
+        //services.AddMediatR(Assembly.GetExecutingAssembly());
         return services;
     }
 }

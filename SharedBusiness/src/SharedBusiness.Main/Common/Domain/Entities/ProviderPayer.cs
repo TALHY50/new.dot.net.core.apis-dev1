@@ -1,9 +1,9 @@
-﻿namespace SharedBusiness.Main.Common.Domain.Entities;
+﻿using Ardalis.SharedKernel;
 
-public partial class ProviderPayer
+namespace SharedBusiness.Main.Common.Domain.Entities;
+
+public partial class ProviderPayer : EntityBase<uint>, IAggregateRoot
 {
-    public uint Id { get; set; }
-
     public uint ImtProviderId { get; set; }
 
     public uint ImtCountryId { get; set; }

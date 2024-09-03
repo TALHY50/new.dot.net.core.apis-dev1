@@ -7,8 +7,6 @@ namespace SharedBusiness.Main.Common.Domain.Entities;
 /// </summary>
 public partial class BusinessHoursAndWeekend : EntityBase<uint>, IAggregateRoot
 {
-    public uint Id { get; set; }
-
     /// <summary>
     /// 0 = regular, 1 = special
     /// </summary>

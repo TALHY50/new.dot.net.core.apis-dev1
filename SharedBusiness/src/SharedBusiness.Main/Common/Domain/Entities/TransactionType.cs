@@ -4,8 +4,6 @@ namespace SharedBusiness.Main.Common.Domain.Entities;
 
 public partial class TransactionType : EntityBase<uint>, IAggregateRoot
 {
-    public uint Id { get; set; }
-
     public string? Name { get; set; }
 
     public byte? Status { get; set; }

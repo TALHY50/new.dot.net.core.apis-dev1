@@ -27,11 +27,11 @@ public static class SharedBusinessCommonPersistenceDependencyInjection
         services.AddScoped<IProviderRepository, ProviderRepository>();
         services.AddScoped<ITransactionTypeRepository, TransactionTypeRepository>();
         services.AddScoped<ICorridorRepository, CorridorRepository>();
-        services.AddScoped<ICurrencyRepository, AdminCurrencyRepository>();
+        services.AddScoped<ICurrencyRepository, CurrencyRepository>();
         services.AddScoped<IPayerRepository, PayerRepository>();
         services.AddScoped<ICountryRepository, CountryRepository>();
         services.AddScoped<IServiceMethodRepository, ServiceMethodRepository>();
-        services.AddScoped<IPayerPaymentSpeedRepository, PayerPaymentSpeed>();
+        services.AddScoped<IPayerPaymentSpeedRepository, PayerPaymentSpeedRepository>();
         services.AddScoped<ITaxRateRepository, TaxRateRepository>();
         services.AddScoped<IInstitutionFundRepository, InstitutionFundRepository>();
         services.AddScoped<ITransactionTypeRepository, TransactionTypeRepository>();
@@ -40,7 +40,7 @@ public static class SharedBusinessCommonPersistenceDependencyInjection
         services.AddScoped<IHolidaySettingRepository, HolidaySettingRepository>();
         services.AddScoped<ICountryRepository, CountryRepository>();
         services.AddScoped<IServiceMethodRepository, ServiceMethodRepository>();
-        services.AddScoped<IPayerPaymentSpeedRepository, PayerPaymentSpeed>();
+        services.AddScoped<IPayerPaymentSpeedRepository, PayerPaymentSpeedRepository>();
         services.AddScoped<ITaxRateRepository, TaxRateRepository>();
         services.AddScoped<IInstitutionFundRepository, InstitutionFundRepository>();
         services.AddScoped<ITransactionTypeRepository, TransactionTypeRepository>();
@@ -54,7 +54,7 @@ public static class SharedBusinessCommonPersistenceDependencyInjection
         services.AddScoped<IInstitutionSettingRepository, InstitutionSettingRepository>();
         services.AddScoped<ICountryRepository, CountryRepository>();
         services.AddScoped<IServiceMethodRepository, ServiceMethodRepository>();
-        services.AddScoped<IPayerPaymentSpeedRepository, PayerPaymentSpeed>();
+        services.AddScoped<IPayerPaymentSpeedRepository, PayerPaymentSpeedRepository>();
         services.AddScoped<ITaxRateRepository, TaxRateRepository>();
         services.AddScoped<IInstitutionFundRepository, InstitutionFundRepository>();
         services.AddScoped<ITransactionTypeRepository, TransactionTypeRepository>();

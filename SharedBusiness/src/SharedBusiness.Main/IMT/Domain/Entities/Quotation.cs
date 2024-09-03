@@ -1,8 +1,9 @@
-﻿namespace SharedBusiness.Main.IMT.Domain.Entities;
+﻿using Ardalis.SharedKernel;
 
-public partial class Quotation
+namespace SharedBusiness.Main.IMT.Domain.Entities;
+
+public partial class Quotation :EntityBase<uint>,IAggregateRoot
 {
-    public uint Id { get; set; }
 
     public uint? InstitutionId { get; set; }
 
