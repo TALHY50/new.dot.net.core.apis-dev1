@@ -9,7 +9,7 @@ namespace ACL.Business.Contracts.Requests
         [Required]
         //[ExistsInDatabase<ApplicationDbContext, ICustomUnitOfWork>("Role", "Id")]
         [Range(1, int.MaxValue)]
-		public ulong RoleId { get; set; }
+		public uint RoleId { get; set; }
 		[Required]
         [DefaultValue(new int[] { 1, 2 })]
 		[MinLength(1, ErrorMessage = "Array must contain at least one element.")]

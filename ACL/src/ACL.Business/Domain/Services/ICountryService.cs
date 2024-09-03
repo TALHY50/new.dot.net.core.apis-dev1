@@ -11,10 +11,10 @@ namespace ACL.Business.Domain.Services
         /// <inheritdoc/>
         ScopeResponse Add(AclCountryRequest countryRequest);
         /// <inheritdoc/>
-        ScopeResponse Edit(ulong id, AclCountryRequest countryRequest);
+        ScopeResponse Edit(uint id, AclCountryRequest countryRequest);
         /// <inheritdoc/>
-        ScopeResponse FindById(ulong id);
+        ScopeResponse FindById(uint id);
         /// <inheritdoc/>
-        ScopeResponse DeleteById(ulong id);
+        ScopeResponse DeleteById(uint id);
     }
 }

@@ -1,13 +1,13 @@
-using Admin.App.Presentation.Routes;
+using Admin.Web.Presentation.Routes;
 using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
-using SharedBusiness.Main.Admin.Application.Features.BusinessHourAndWeekends;
-using SharedBusiness.Main.Admin.Application.Features.Countries;
+using SharedBusiness.Main.Admin.Weblication.Features.BusinessHourAndWeekends;
+using SharedBusiness.Main.Admin.Weblication.Features.Countries;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.IMT.Contracts.Contracts.Responses;
 using SharedKernel.Main.Application.Interfaces.Services;
 
-namespace Admin.App.Presentation.Endpoints.BusinessHourAndWeekend;
+namespace Admin.Web.Presentation.Endpoints.BusinessHourAndWeekend;
 
 public class GetBusinessHourAndWeekendById(ILogger<GetBusinessHourAndWeekendById> logger, ICurrentUser currentUser)
     : BusinessHourAndWeekendBase(logger, currentUser)

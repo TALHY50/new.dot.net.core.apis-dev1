@@ -1,4 +1,4 @@
-﻿namespace SharedBusiness.Main.Admin.Application.Features.CurrencyConversionRates
+﻿namespace SharedBusiness.Main.Admin.Weblication.Features.CurrencyConversionRates
 {
     public class CurrencyConversionRateBase
     {

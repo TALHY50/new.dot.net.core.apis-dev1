@@ -1,11 +1,11 @@
-﻿using Admin.App.Presentation.Routes;
+﻿using Admin.Web.Presentation.Routes;
 using Microsoft.AspNetCore.Mvc;
-using SharedBusiness.Main.Admin.Application.Features.Countries;
-using SharedBusiness.Main.Admin.Application.Features.ServiceMethods;
+using SharedBusiness.Main.Admin.Weblication.Features.Countries;
+using SharedBusiness.Main.Admin.Weblication.Features.ServiceMethods;
 using SharedBusiness.Main.Common.Contracts;
 using SharedKernel.Main.Application.Interfaces.Services;
 
-namespace Admin.App.Presentation.Endpoints.ServiceMethods
+namespace Admin.Web.Presentation.Endpoints.ServiceMethods
 {
     public class CreateServiceMethod(ILogger<CreateServiceMethod> logger, ICurrentUser currentUser)
         : ServiceMethodBase(logger, currentUser)

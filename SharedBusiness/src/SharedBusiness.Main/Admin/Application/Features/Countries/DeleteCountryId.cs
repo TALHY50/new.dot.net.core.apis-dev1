@@ -5,7 +5,7 @@ using SharedBusiness.Main.Common.Application.Features.Countries;
 using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedKernel.Main.Contracts;
 
-namespace SharedBusiness.Main.Admin.Application.Features.Countries
+namespace SharedBusiness.Main.Admin.Weblication.Features.Countries
 {
 
     public record DeleteCountryByIdCommand(uint id) : IRequest<ErrorOr<bool>>;

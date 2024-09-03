@@ -10,9 +10,9 @@ using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Presentation;
 using SharedKernel.Main.Presentation.Routes;
-using static Admin.App.Application.Features.Mtts.EndpointCreateMtt;
+using static Admin.Web.Application.Features.Mtts.EndpointCreateMtt;
 
-namespace Admin.App.Application.Features.Institutions
+namespace Admin.Web.Application.Features.Institutions
 {
     public class InstitutionUpdate : ApiControllerBase
     {

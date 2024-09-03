@@ -13,8 +13,8 @@ namespace ACL.Business.Domain.Services
         /// <inheritdoc/>
         ScopeResponse Edit(AclSubModuleRequest subModuleRequest);
         /// <inheritdoc/>
-        ScopeResponse FindById(ulong id);
+        ScopeResponse FindById(uint id);
         /// <inheritdoc/>
-        ScopeResponse DeleteById(ulong id);
+        ScopeResponse DeleteById(uint id);
     }
 }

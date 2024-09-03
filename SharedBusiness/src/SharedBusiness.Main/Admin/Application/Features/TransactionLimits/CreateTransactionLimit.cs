@@ -8,7 +8,7 @@ using SharedKernel.Main.Contracts;
 
 
 
-namespace SharedBusiness.Main.Admin.Application.Features.TransactionLimits
+namespace SharedBusiness.Main.Admin.Weblication.Features.TransactionLimits
 {
     public record CreateTransactionLimitCommand(
          sbyte TransactionType,

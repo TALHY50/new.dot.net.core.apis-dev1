@@ -1,7 +1,7 @@
 ﻿using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Presentation;
 
-namespace Admin.App.Presentation.Endpoints.ServiceMethods
+namespace Admin.Web.Presentation.Endpoints.ServiceMethods
 {
     public class ServiceMethodBase : ApiControllerBase
     {

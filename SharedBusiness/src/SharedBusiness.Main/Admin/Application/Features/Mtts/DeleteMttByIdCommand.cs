@@ -3,11 +3,11 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SharedBusiness.Main.Admin.Application.Features.Mtts;
+using SharedBusiness.Main.Admin.Weblication.Features.Mtts;
 using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedKernel.Main.Contracts;
 
-namespace Admin.App.Application.Features.Mtts
+namespace Admin.Web.Application.Features.Mtts
 {
     [Authorize]
     public record DeleteMttByIdCommand(uint id) : IRequest<ErrorOr<bool>>;

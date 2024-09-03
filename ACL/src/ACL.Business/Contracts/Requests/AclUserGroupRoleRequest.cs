@@ -9,12 +9,12 @@ namespace ACL.Business.Contracts.Requests
         [DefaultValue("10")]
         [Required(ErrorMessage = "User group ID is required")]
         [Range(1, int.MaxValue, ErrorMessage = "User group ID must be a valid integer greater than 0")]
-        public  ulong UserGroupId { get; set; }
+        public  uint UserGroupId { get; set; }
 
 
-        [DefaultValue(new ulong[] { 1, 2 })]
+        [DefaultValue(new uint[] { 1, 2 })]
         [Required(ErrorMessage = "Role IDs are required")]
         [MinLength(1, ErrorMessage = "Exactly one role id is required.")]
-        public required ulong[] RoleIds { get; set; }
+        public required uint[] RoleIds { get; set; }
     }
 }

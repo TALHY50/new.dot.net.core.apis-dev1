@@ -12,14 +12,14 @@ namespace ACL.Business.Domain.Services
         /// <inheritdoc/>
         ScopeResponse AddAclCompanyModule(AclCompanyModuleRequest companyModule);
         /// <inheritdoc/>
-        ScopeResponse EditAclCompanyModule(ulong id, AclCompanyModuleRequest companyModule);
+        ScopeResponse EditAclCompanyModule(uint id, AclCompanyModuleRequest companyModule);
         /// <inheritdoc/>
-        ScopeResponse FindById(ulong id);
+        ScopeResponse FindById(uint id);
         /// <inheritdoc/>
-        ScopeResponse DeleteCompanyModule(ulong id);
+        ScopeResponse DeleteCompanyModule(uint id);
         /// <inheritdoc/>
-        bool IsValidForCreateOrUpdate(ulong companyId, ulong moduleId, ulong id = 0);
+        bool IsValidForCreateOrUpdate(uint companyId, uint moduleId, uint id = 0);
         /// <inheritdoc/>
-        CompanyModule PrepareInputData(AclCompanyModuleRequest request, ulong id = 0, CompanyModule? companyModule = null);
+        CompanyModule PrepareInputData(AclCompanyModuleRequest request, uint id = 0, CompanyModule? companyModule = null);
     }
 }

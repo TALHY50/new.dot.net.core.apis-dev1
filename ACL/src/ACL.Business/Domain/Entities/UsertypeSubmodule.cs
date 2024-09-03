@@ -2,7 +2,7 @@
 
 namespace ACL.Business.Domain.Entities;
 
-public partial class UsertypeSubmodule : EntityBase<ulong>, IAggregateRoot
+public partial class UsertypeSubmodule : EntityBase<uint>, IAggregateRoot
 {
     public byte UserTypeId { get; set; }
 

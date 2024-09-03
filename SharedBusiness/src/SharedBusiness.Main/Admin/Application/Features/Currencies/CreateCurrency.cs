@@ -10,7 +10,7 @@ using SharedKernel.Main.Application.Enums;
 using SharedKernel.Main.Application.Interfaces.Services;
 
 
-namespace SharedBusiness.Main.Admin.Application.Features.Currencies
+namespace SharedBusiness.Main.Admin.Weblication.Features.Currencies
 {
     public record CreateCurrencyCommand(
         string? Code,
@@ -39,7 +39,7 @@ namespace SharedBusiness.Main.Admin.Application.Features.Currencies
         public async Task<ErrorOr<Currency>> Handle(CreateCurrencyCommand request, CancellationToken cancellationToken)
         {
             var now = DateTime.UtcNow;
-            var Currency = new Common.Domain.Entities.Currency
+            var Currency = new Currency
             {
                 Code = request.Code,
                 IsoCode = request.IsoCode,

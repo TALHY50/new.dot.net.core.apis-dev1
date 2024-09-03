@@ -10,7 +10,7 @@ using SharedKernel.Main.Contracts;
 using SharedKernel.Main.Presentation;
 using SharedKernel.Main.Presentation.Routes;
 
-namespace Admin.App.Application.Features.TaxRates
+namespace Admin.Web.Application.Features.TaxRates
 {
     public class UpdateTaxRateController : ApiControllerBase
     {

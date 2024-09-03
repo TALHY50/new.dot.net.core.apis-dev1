@@ -2,7 +2,7 @@
 
 namespace ACL.Business.Domain.Entities
 {
-    public class RefreshToken : EntityBase<ulong>, IAggregateRoot
+    public class RefreshToken : EntityBase<uint>, IAggregateRoot
     {
         public string? Value { get; set; }
         public bool Active { get; set; }

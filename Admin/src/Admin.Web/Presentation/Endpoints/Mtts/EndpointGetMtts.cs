@@ -1,10 +1,11 @@
-﻿using ErrorOr;
+﻿using Admin.Web.Presentation.Routes;
+using ErrorOr;
 using FluentValidation;
 using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using SharedBusiness.Main.Admin.Application.Features.Countries;
-using SharedBusiness.Main.Admin.Application.Features.Mtts;
+using SharedBusiness.Main.Admin.Weblication.Features.Countries;
+using SharedBusiness.Main.Admin.Weblication.Features.Mtts;
 using SharedBusiness.Main.Admin.Contracts.Contracts.Responses;
 using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
@@ -15,13 +16,13 @@ using SharedKernel.Main.Contracts;
 using SharedKernel.Main.Presentation;
 using SharedKernel.Main.Presentation.Routes;
 
-namespace Admin.App.Application.Features.Mtts
+namespace Admin.Web.Application.Features.Mtts
 {
     public class EndpointGetMtts(ILogger<EndpointGetMtts> logger, ICurrentUser currentUser)
       : MttBase(logger, currentUser)
     {
         [Tags("Mtt")]
-        [HttpGet(AdminRoute.AllMttsRouteUrl, Name = AdminRoute.AllMttsRouteName)]
+        [HttpGet(MttRoutes.AllMttsRouteUrl, Name = MttRoutes.AllMttsRouteName)]
         public async Task<IActionResult> Get([FromQuery] PaginatorRequest pageRequest, CancellationToken cancellationToken)
         {
             var query = new GetMttsQuery(PageNumber: pageRequest.page_number, PageSize: pageRequest.page_size);

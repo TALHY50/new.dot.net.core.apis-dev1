@@ -1,4 +1,4 @@
-﻿using Admin.App.Presentation.Routes;
+﻿using Admin.Web.Presentation.Routes;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Common.Application.Features.TransactionTypes;
@@ -6,7 +6,7 @@ using SharedBusiness.Main.IMT.Contracts.Contracts.Responses;
 using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Contracts;
 
-namespace Admin.App.Presentation.Endpoints.TransactionTypes
+namespace Admin.Web.Presentation.Endpoints.TransactionTypes
 {
     public class GetTransactionTypes(ILogger<GetTransactionTypes> logger, ICurrentUser currentUser)
     : TransactionTypeBase(logger, currentUser)

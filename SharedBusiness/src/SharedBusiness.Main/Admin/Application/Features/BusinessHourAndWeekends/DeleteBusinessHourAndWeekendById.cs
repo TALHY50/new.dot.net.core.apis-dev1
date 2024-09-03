@@ -7,7 +7,7 @@ using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Contracts;
 
-namespace SharedBusiness.Main.Admin.Application.Features.BusinessHourAndWeekends
+namespace SharedBusiness.Main.Admin.Weblication.Features.BusinessHourAndWeekends
 {
 
     public record DeleteBusinessHoursAndWeekendByIdCommand(uint id) : IRequest<ErrorOr<bool>>;

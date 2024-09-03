@@ -10,7 +10,7 @@ using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Presentation;
 using SharedKernel.Main.Presentation.Routes;
 
-namespace Admin.App.Application.Features.Institutions
+namespace Admin.Web.Application.Features.Institutions
 {
     public class InstitutionAll : ApiControllerBase
     {
