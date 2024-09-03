@@ -115,4 +115,20 @@ public class GuardAgainstNullUpdate : IGuardAgainstNullUpdate
             updateAction(newValue);
         }
     }
+
+    public void UpdateIfNotNullOrEmpty(Action<System.DateTime> updateAction, System.DateTime newValue)
+    {
+        if (newValue != null)
+        {
+            updateAction(newValue);
+        }
+    }
+
+    public void UpdateIfNotNullOrEmpty(Action<bool> updateAction, bool newValue)
+    {
+        if (newValue != null)
+        {
+            updateAction(newValue);
+        }
+    }
 }
