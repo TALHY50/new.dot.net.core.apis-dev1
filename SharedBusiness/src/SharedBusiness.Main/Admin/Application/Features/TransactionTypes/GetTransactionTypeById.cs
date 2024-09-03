@@ -1,13 +1,13 @@
 ﻿using ErrorOr;
 using FluentValidation;
 using MediatR;
-using SharedBusiness.Main.Admin.Application.Features.Countries;
+using SharedBusiness.Main.Admin.Weblication.Features.Countries;
 using SharedBusiness.Main.Common.Application.Features.TransactionTypes;
 using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedKernel.Main.Contracts;
 
-namespace SharedBusiness.Main.Admin.Application.Features.TransactionTypes
+namespace SharedBusiness.Main.Admin.Weblication.Features.TransactionTypes
 {
     public record GetTransactionTypeByIdQuery(uint id) : IRequest<ErrorOr<TransactionType>>;
     public class GetTransactionTypeByIdQueryValidator : AbstractValidator<GetTransactionTypeByIdQuery>
@@ -32,7 +32,7 @@ namespace SharedBusiness.Main.Admin.Application.Features.TransactionTypes
 
             if (transactionType == null)
             {
-                return Error.NotFound(description: "TransactionType not found!", code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
+                return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), Language.GetMessage("Record not found"));
             }
 
             return transactionType;

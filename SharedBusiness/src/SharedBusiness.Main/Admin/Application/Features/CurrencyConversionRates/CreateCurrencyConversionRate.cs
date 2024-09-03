@@ -3,8 +3,8 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
-using SharedBusiness.Main.Admin.Application.Features.Countries;
-using SharedBusiness.Main.Admin.Application.Features.CurrencyConversionRates;
+using SharedBusiness.Main.Admin.Weblication.Features.Countries;
+using SharedBusiness.Main.Admin.Weblication.Features.CurrencyConversionRates;
 using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.Common.Infrastructure.Persistence.Context;
@@ -13,7 +13,7 @@ using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Application.Rules;
 using SharedKernel.Main.Contracts;
 
-namespace SharedBusiness.Main.Admin.Application.Features.CreateCurrencyConversionRates
+namespace SharedBusiness.Main.Admin.Weblication.Features.CreateCurrencyConversionRates
 {
     //[Authorize]
     public record CreateCurrencyConversionRateCommand(

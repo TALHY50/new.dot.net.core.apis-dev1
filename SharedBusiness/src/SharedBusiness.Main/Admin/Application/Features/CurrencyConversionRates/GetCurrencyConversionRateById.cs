@@ -5,7 +5,7 @@ using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedKernel.Main.Contracts;
 
-namespace SharedBusiness.Main.Admin.Application.Features.CurrencyConversionRates
+namespace SharedBusiness.Main.Admin.Weblication.Features.CurrencyConversionRates
 {
     public record GetCurrencyConversionRateByIdQuery(uint id) : IRequest<ErrorOr<CurrencyConversionRate>>;
 

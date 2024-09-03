@@ -7,7 +7,7 @@ using Microsoft.OpenApi.Models;
 using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Infrastructure.Services;
 
-namespace Admin.App.Presentation;
+namespace Admin.Web.Presentation;
 
 public static class AdminPresentationDependencyInjection
 {
