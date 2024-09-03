@@ -17,5 +17,6 @@ public interface IGuardAgainstNullUpdate
     public void UpdateIfNotNullOrEmpty(Action<decimal> updateAction, decimal newValue);
     public void UpdateIfNotNullOrEmpty(Action<int?> updateAction, int? newValue); 
     public void UpdateIfNotNullOrEmpty(Action<byte> updateAction, byte newValue);
+    public void UpdateIfNotNullOrEmpty(Action<DateTime> updateAction, DateTime newValue);
     public void UpdateIfNotNullOrEmpty(Action<bool> updateAction, bool newValue);
 }

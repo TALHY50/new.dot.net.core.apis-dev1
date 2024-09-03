@@ -116,11 +116,11 @@ public class GuardAgainstNullUpdate : IGuardAgainstNullUpdate
         }
     }
 
-    public void UpdateIfNotNullOrEmpty(ref bool property, bool newValue)
+    public void UpdateIfNotNullOrEmpty(Action<System.DateTime> updateAction, System.DateTime newValue)
     {
-        if (newValue == true)
+        if (newValue != null)
         {
-            property = newValue;
+            updateAction(newValue);
         }
     }
 
@@ -129,6 +129,14 @@ public class GuardAgainstNullUpdate : IGuardAgainstNullUpdate
         if (newValue != null)
         {
             updateAction(newValue);
+        }
+    }
+
+    public void UpdateIfNotNullOrEmpty(ref bool property, bool newValue)
+    {
+        if (newValue == true)
+        {
+            property = newValue;
         }
     }
 }
