@@ -8,10 +8,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ardalis.Specification;
 
 namespace ACL.Business.Infrastructure.Persistence.Repositories
 {
-   public class EfRepository<T> : RepositoryBase<T>, IReadRepository<T>, IRepository<T>, IExtendedRepositoryBase<T> where T : class, IAggregateRoot
+   public class EfRepository<T> : RepositoryBase<T>, IExtendedRepositoryBase<T> where T : class
 {
     private readonly DbContext _dbContext;
     public EfRepository(DbContext dbContext) : base(dbContext)

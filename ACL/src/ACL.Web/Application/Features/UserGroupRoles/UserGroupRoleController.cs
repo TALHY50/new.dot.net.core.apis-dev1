@@ -22,7 +22,7 @@ namespace ACL.Web.Application.Features.UserGroupRoles
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclUserGroupRoleRouteUrl.List, Name = AclRoutesName.AclUserGroupRoleRouteNames.List)]
-        public ScopeResponse Index(ulong userGroupId)
+        public ScopeResponse Index(uint userGroupId)
         {
             return this._userGroupRoleService.GetRolesByUserGroupId(userGroupId);
         }

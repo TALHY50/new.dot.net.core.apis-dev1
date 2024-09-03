@@ -43,14 +43,14 @@ namespace ACL.Web.Application.Features.Modules
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclModuleRouteUrl.View, Name = AclRoutesName.AclModuleRouteNames.View)]
-        public ScopeResponse View(ulong id)
+        public ScopeResponse View(uint id)
         {
             return this._moduleService.FindById(id);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpDelete(AclRoutesUrl.AclModuleRouteUrl.Destroy, Name = AclRoutesName.AclModuleRouteNames.Destroy)]
-        public ScopeResponse Destroy(ulong id)
+        public ScopeResponse Destroy(uint id)
         {
             return this._moduleService.DeleteModule(id);
         }

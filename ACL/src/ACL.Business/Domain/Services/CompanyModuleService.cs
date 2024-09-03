@@ -59,7 +59,7 @@ namespace ACL.Business.Domain.Services
             return this.ScopeResponse;
         }
         /// <inheritdoc/>
-        public ScopeResponse EditAclCompanyModule(ulong id, AclCompanyModuleRequest request)
+        public ScopeResponse EditAclCompanyModule(uint id, AclCompanyModuleRequest request)
         {
             try
             {
@@ -79,7 +79,7 @@ namespace ACL.Business.Domain.Services
             return this.ScopeResponse;
         }
         /// <inheritdoc/>
-        public ScopeResponse FindById(ulong id)
+        public ScopeResponse FindById(uint id)
         {
             try
             {
@@ -98,7 +98,7 @@ namespace ACL.Business.Domain.Services
             return this.ScopeResponse;
         }
         /// <inheritdoc/>
-        public  ScopeResponse DeleteCompanyModule(ulong id)
+        public  ScopeResponse DeleteCompanyModule(uint id)
         {
             var check = base.Find(id) ?? throw new Exception("company module not exist");
             this.ScopeResponse.Data = base.Delete(id);
@@ -107,7 +107,7 @@ namespace ACL.Business.Domain.Services
             return this.ScopeResponse;
         }
         /// <inheritdoc/>
-        public bool IsValidForCreateOrUpdate(ulong companyId, ulong moduleId, ulong id = 0)
+        public bool IsValidForCreateOrUpdate(uint companyId, uint moduleId, uint id = 0)
         {
             if (!CompanyModuleValid(companyId, moduleId, id))
             {
@@ -125,7 +125,7 @@ namespace ACL.Business.Domain.Services
             return true;
         }
         /// <inheritdoc/>
-        public CompanyModule PrepareInputData(AclCompanyModuleRequest request, ulong id = 0, CompanyModule? companyModule = null)
+        public CompanyModule PrepareInputData(AclCompanyModuleRequest request, uint id = 0, CompanyModule? companyModule = null)
         {
             bool valid = IsValidForCreateOrUpdate(request.CompanyId, request.ModuleId);
             CompanyModule aclCompanyModule = new CompanyModule();

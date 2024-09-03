@@ -10,7 +10,7 @@ namespace ACL.Business.Application.Interfaces.Repositories
         /// <inheritdoc/>
         List<RolePage>? All();
         /// <inheritdoc/>
-        RolePage? Find(ulong id);
+        RolePage? Find(uint id);
         /// <inheritdoc/>
         RolePage? Add(RolePage rolePage);
         /// <inheritdoc/>
@@ -18,12 +18,12 @@ namespace ACL.Business.Application.Interfaces.Repositories
         /// <inheritdoc/>
         RolePage? Delete(RolePage rolePage);
         /// <inheritdoc/>
-        PageRoute? Delete(ulong id);
+        PageRoute? Delete(uint id);
         /// <inheritdoc/>
         RolePage[]? AddAll(RolePage[] aclRolePages);
         /// <inheritdoc/>
         RolePage[]? DeleteAll(RolePage[] aclRolePages);
         /// <inheritdoc/>
-        RolePage[]? DeleteAllByRoleId(ulong roleId);
+        RolePage[]? DeleteAllByRoleId(uint roleId);
     }
 }

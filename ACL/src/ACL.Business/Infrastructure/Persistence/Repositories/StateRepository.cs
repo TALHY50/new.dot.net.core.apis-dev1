@@ -25,7 +25,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         }
       
         /// <inheritdoc/>
-        public string ExistByName(ulong? id, string name)
+        public string ExistByName(uint? id, string name)
         {
             var valid = this._dbContext.AclStates.Any(x => x.Name.ToLower() == name.ToLower());
             if (id > 0)
@@ -39,7 +39,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
             return name;
         }
         /// <inheritdoc/>
-        public ulong CountryIdExist(ulong countryId)
+        public uint CountryIdExist(uint countryId)
         {
             var valid = this._dbContext.AclCountries.Any(x => x.Id == countryId);
 
@@ -58,7 +58,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
 
         }
         /// <inheritdoc/>
-        public State? Find(ulong id)
+        public State? Find(uint id)
         {
 
             return this._dbContext.AclStates.Find(id);
@@ -93,7 +93,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
 
         }
         /// <inheritdoc/>
-        public State? Delete(ulong id)
+        public State? Delete(uint id)
         {
 
             var delete = this._dbContext.AclStates.Find(id);

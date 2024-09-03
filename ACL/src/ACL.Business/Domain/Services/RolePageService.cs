@@ -44,7 +44,7 @@ namespace ACL.Business.Domain.Services
             AppAuth.SetAuthInfo(ContextAccessor);
         }
                 /// <inheritdoc/>
-        public async Task<ScopeResponse> GetAllById(ulong id)
+        public async Task<ScopeResponse> GetAllById(uint id)
         {
             List<RolePage>? res = await Context.AclRolePages.Where(x => x.RoleId == id).ToListAsync();
             if (res.Any())
@@ -75,7 +75,7 @@ namespace ACL.Business.Domain.Services
                     this.ScopeResponse.Data = AddAll(check);
                     this.ScopeResponse.StatusCode = ApplicationStatusCodes.API_SUCCESS;
                     this.ScopeResponse.Message = this.MessageResponse.editMessage;
-                    List<ulong>? userIds = this._userRepository.GetUserIdByChangePermission(null, null, req.RoleId);
+                    List<uint>? userIds = this._userRepository.GetUserIdByChangePermission(null, null, req.RoleId);
                     if (userIds != null)
                     {
                         this._userRepository.UpdateUserPermissionVersion(userIds);
@@ -104,7 +104,7 @@ namespace ACL.Business.Domain.Services
             bool roleExist = this._roleRepository.IsExist(req.RoleId);
             if (roleExist)
             {
-                foreach (ulong page in req.PageIds)
+                foreach (uint page in req.PageIds)
                 {
                     bool exists = res.Any(r => r.RoleId == page);
                     bool pageExist = this._pageRepository.IsExist(page);

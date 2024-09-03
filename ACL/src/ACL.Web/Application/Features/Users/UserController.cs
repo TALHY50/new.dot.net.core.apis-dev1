@@ -35,21 +35,21 @@ namespace ACL.Web.Application.Features.Users
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpPut(AclRoutesUrl.AclUserRouteUrl.Edit, Name = AclRoutesName.AclUserRouteNames.Edit)]
-        public async Task<ScopeResponse> Edit(ulong id, AclUserRequest request)
+        public async Task<ScopeResponse> Edit(uint id, AclUserRequest request)
         {
             return await this._userService.Edit(id, request);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpDelete(AclRoutesUrl.AclUserRouteUrl.Destroy, Name = AclRoutesName.AclUserRouteNames.Destroy)]
-        public ScopeResponse Destroy(ulong id)
+        public ScopeResponse Destroy(uint id)
         {
             return this._userService.DeleteById(id);
         }
         /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclUserRouteUrl.View, Name = AclRoutesName.AclUserRouteNames.View)]
-        public ScopeResponse View(ulong id)
+        public ScopeResponse View(uint id)
         {
             return this._userService.FindById(id);
 

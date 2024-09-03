@@ -68,7 +68,7 @@ namespace ACL.Business.Domain.Services
         }
 
         /// <inheritdoc/>
-        public ScopeResponse Edit(ulong id, AclBranchRequest request)
+        public ScopeResponse Edit(uint id, AclBranchRequest request)
         {
             try
             {
@@ -92,7 +92,7 @@ namespace ACL.Business.Domain.Services
             return this.ScopeResponse;
         }
         /// <inheritdoc/>
-        public ScopeResponse Find(ulong id)
+        public ScopeResponse Find(uint id)
         {
             try
             {
@@ -113,7 +113,7 @@ namespace ACL.Business.Domain.Services
         }
 
         /// <inheritdoc/>
-        public new ScopeResponse Delete(ulong id)
+        public new ScopeResponse Delete(uint id)
         {
             var aclCompanyModule = this._repository.Delete(id);
             this.ScopeResponse.StatusCode = aclCompanyModule != null ? ApplicationStatusCodes.API_SUCCESS : ApplicationStatusCodes.GENERAL_FAILURE;

@@ -218,7 +218,7 @@ namespace ACL.TEST
 
         }
 
-        private ulong GetRandomID()
+        private uint GetRandomID()
         {
             //#region Arrange
             //AclCompanyCreateRequest createReq = GetCompanyCreateRequest();
@@ -228,7 +228,7 @@ namespace ACL.TEST
             //#endregion
             //#region Act
 
-            return (ulong)DataCollectors.dbContext.Companies.Where(t => t.Status == 1).Max(t => t.Id);
+            return (uint)DataCollectors.dbContext.Companies.Where(t => t.Status == 1).Max(t => t.Id);
 
             //// Act
             //var ScopeResponse = await controller.CreateCompanyModule(createReq);

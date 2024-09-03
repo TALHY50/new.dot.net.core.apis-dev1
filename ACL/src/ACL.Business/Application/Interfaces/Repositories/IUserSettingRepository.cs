@@ -6,10 +6,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ardalis.Specification;
 
 namespace ACL.Business.Application.Interfaces.Repositories
 {
-    public interface IUserSettingRepository : IRepository<UserSetting>, IExtendedRepositoryBase<UserSetting>
+    public interface IUserSettingRepository : IExtendedRepositoryBase<UserSetting>
     {
     }
 }

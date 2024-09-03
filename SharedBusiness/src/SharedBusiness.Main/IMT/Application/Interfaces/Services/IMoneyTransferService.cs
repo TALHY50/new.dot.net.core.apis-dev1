@@ -11,7 +11,7 @@ namespace SharedBusiness.Main.IMT.Application.Interfaces.Services
     {
         public MoneyTransfer PrepareImtMoneyTransfer(MoneyTransferDTO request, CreateContentQuotationResponse quotation, CreateTransactionResponse transaction);
         public Transaction PrepareImtTransaction(MoneyTransferDTO request, CreateContentQuotationResponse quotation, CreateTransactionResponse transaction);
-        public CreateTransactionResponse CreateTransactionByQuotationId(ulong quotationId, MoneyTransferDTO request);
+        public CreateTransactionResponse CreateTransactionByQuotationId(uint quotationId, MoneyTransferDTO request);
         public CreateTransactionResponse CreateTransactionByExternalId(string invoice_id, MoneyTransferDTO request);
     }
 }
