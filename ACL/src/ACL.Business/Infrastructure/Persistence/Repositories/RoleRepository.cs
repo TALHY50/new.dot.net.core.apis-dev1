@@ -10,13 +10,13 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8604 // Possible null reference argument.
     /// <inheritdoc/>
-    public class RoleRepository : IRoleRepository
+    public class RoleRepository : EfRepository<Role>, IRoleRepository
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly IUserRepository _userRepository;
         public static IHttpContextAccessor HttpContextAccessor;
         private enum RoleIds : ulong { super_super_admin = 1, ADMIN_ROLE = 2  };
-        public RoleRepository(ApplicationDbContext dbContext,IUserRepository userRepository, IHttpContextAccessor httpContextAccessor)
+        public RoleRepository(ApplicationDbContext dbContext,IUserRepository userRepository, IHttpContextAccessor httpContextAccessor):base(dbContext)
         {
             this._userRepository = userRepository;
             this._dbContext = dbContext;

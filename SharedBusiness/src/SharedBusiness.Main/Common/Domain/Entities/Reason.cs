@@ -1,9 +1,9 @@
-﻿namespace SharedBusiness.Main.Common.Domain.Entities;
+﻿using Ardalis.SharedKernel;
 
-public partial class Reason
+namespace SharedBusiness.Main.Common.Domain.Entities;
+
+public partial class Reason : EntityBase<uint>, IAggregateRoot
 {
-    public uint Id { get; set; }
-
     public string? Code { get; set; }
 
     public string? Title { get; set; }

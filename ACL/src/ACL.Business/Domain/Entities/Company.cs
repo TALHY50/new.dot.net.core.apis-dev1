@@ -1,9 +1,9 @@
-﻿namespace ACL.Business.Domain.Entities;
+﻿using Ardalis.SharedKernel;
 
-public partial class Company
+namespace ACL.Business.Domain.Entities;
+
+public partial class Company : EntityBase<ulong>, IAggregateRoot
 {
-    public ulong Id { get; set; }
-
     public string Name { get; set; } = null!;
 
     public string Cname { get; set; } = null!;

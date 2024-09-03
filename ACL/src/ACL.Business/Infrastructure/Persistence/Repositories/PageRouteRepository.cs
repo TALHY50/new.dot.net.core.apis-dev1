@@ -10,7 +10,7 @@ using MessageResponse = SharedKernel.Main.Contracts.MessageResponse;
 namespace ACL.Business.Infrastructure.Persistence.Repositories
 {
     /// <inheritdoc/>
-    public class PageRouteRepository : IPageRouteRepository
+    public class PageRouteRepository :EfRepository<PageRoute>, IPageRouteRepository
     {
         /// <inheritdoc/>
         public ScopeResponse ScopeResponse;
@@ -22,7 +22,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         public static IHttpContextAccessor ContextAccessor { get; private set; }
 
         /// <inheritdoc/>
-        public PageRouteRepository(ApplicationDbContext dbContext, IUserRepository userRepository, IHttpContextAccessor httpContextAccessor)
+        public PageRouteRepository(ApplicationDbContext dbContext, IUserRepository userRepository, IHttpContextAccessor httpContextAccessor):base(dbContext)
         {
             this._userRepository = userRepository;
             this._dbContext = dbContext;

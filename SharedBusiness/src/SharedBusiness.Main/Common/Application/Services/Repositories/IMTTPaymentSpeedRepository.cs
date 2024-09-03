@@ -1,13 +1,10 @@
-﻿using SharedBusiness.Main.Common.Domain.Entities;
+﻿using Ardalis.SharedKernel;
+using SharedBusiness.Main.Common.Domain.Entities;
+using SharedKernel.Main.Application.Interfaces.Repositories;
 
 namespace SharedBusiness.Main.Common.Application.Services.Repositories
 {
-    public interface IMTTPaymentSpeedRepository
+    public interface IMTTPaymentSpeedRepository : IRepository<MttPaymentSpeed>, IExtendedRepositoryBase<MttPaymentSpeed>
     {
-        MttPaymentSpeed? Add(MttPaymentSpeed mttPaymentSpeed);
-        MttPaymentSpeed? Update(MttPaymentSpeed mttPaymentSpeed);
-        bool Delete(MttPaymentSpeed mttPaymentSpeed);
-        MttPaymentSpeed? View(uint id);
-        IEnumerable<MttPaymentSpeed>? GetAll();
     }
 }

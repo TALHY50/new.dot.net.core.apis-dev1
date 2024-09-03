@@ -1,9 +1,11 @@
-﻿using SharedBusiness.Main.Common.Domain.Entities;
+﻿using Ardalis.SharedKernel;
+using SharedBusiness.Main.Common.Domain.Entities;
+using SharedKernel.Main.Application.Interfaces.Repositories;
 using SharedKernel.Main.Application.Interfaces.Services;
 
 namespace SharedBusiness.Main.IMT.Application.Interfaces.Repositories
 {
-    public interface IQuotationRequestRepository : IGenericRepository<QuotationRequest>
+    public interface IQuotationRequestRepository : IRepository<QuotationRequest>, IExtendedRepositoryBase<QuotationRequest>
     {
     }
 }

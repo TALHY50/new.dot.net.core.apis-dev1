@@ -1,8 +1,9 @@
-﻿namespace SharedBusiness.Main.Common.Domain.Entities
+﻿using Ardalis.SharedKernel;
+
+namespace SharedBusiness.Main.Common.Domain.Entities
 {
-    public class InstitutionAppSetting
+    public class InstitutionAppSetting : EntityBase<uint>, IAggregateRoot
     {
-        public uint Id { get; set; }
         public uint InstitutionId { get; set; }
         public string? AppName { get; set; }
         public string? AppId { get; set; }

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Http;
 namespace ACL.Business.Infrastructure.Persistence.Repositories
 {
     /// <inheritdoc/>
-    public class PageRepository : IPageRepository
+    public class PageRepository :EfRepository<Page>, IPageRepository
     {
         private readonly IPageRouteRepository _routeRepository;
         private readonly IUserRepository _userRepository;
@@ -15,7 +15,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         public static IHttpContextAccessor ContextAccessor { get; private set; }
 
         /// <inheritdoc/>
-        public PageRepository(ApplicationDbContext dbContext, IPageRouteRepository routeRepository, IUserRepository userRepository, IHttpContextAccessor httpContextAccessor)
+        public PageRepository(ApplicationDbContext dbContext, IPageRouteRepository routeRepository, IUserRepository userRepository, IHttpContextAccessor httpContextAccessor):base(dbContext)
         {
             this._dbContext = dbContext;
             this._routeRepository = routeRepository;

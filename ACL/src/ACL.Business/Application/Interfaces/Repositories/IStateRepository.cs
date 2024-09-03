@@ -1,9 +1,11 @@
 using ACL.Business.Domain.Entities;
+using Ardalis.SharedKernel;
+using SharedKernel.Main.Application.Interfaces.Repositories;
 
 namespace ACL.Business.Application.Interfaces.Repositories
 {
     /// <inheritdoc/>
-    public interface IStateRepository
+    public interface IStateRepository : IRepository<State>, IExtendedRepositoryBase<State>
     {
         /// <inheritdoc/>
         List<State>? All();

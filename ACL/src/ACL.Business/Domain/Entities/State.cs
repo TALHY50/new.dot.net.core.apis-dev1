@@ -1,8 +1,9 @@
-﻿namespace ACL.Business.Domain.Entities;
+﻿using Ardalis.SharedKernel;
 
-public partial class State
+namespace ACL.Business.Domain.Entities;
+
+public partial class State : EntityBase<ulong>, IAggregateRoot
 {
-    public ulong Id { get; set; }
     public ulong CountryId { get; set; }
     public string Name { get; set; }
     public string Description { get; set; } = null!;

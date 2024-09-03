@@ -1,9 +1,9 @@
-﻿namespace ACL.Business.Domain.Entities;
+﻿using Ardalis.SharedKernel;
 
-public partial class PageRoute
+namespace ACL.Business.Domain.Entities;
+
+public partial class PageRoute : EntityBase<ulong>, IAggregateRoot
 {
-    public ulong Id { get; set; }
-
     public ulong? PageId { get; set; }
 
     public string? RouteName { get; set; }

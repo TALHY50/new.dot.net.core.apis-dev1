@@ -1,12 +1,12 @@
-﻿namespace SharedBusiness.Main.Common.Domain.Entities;
+﻿using Ardalis.SharedKernel;
+
+namespace SharedBusiness.Main.Common.Domain.Entities;
 
 /// <summary>
 /// Type : Master, transaction setup between providers and us, like POS of a payment system
 /// </summary>
-public partial class Mtt
+public partial class Mtt  : EntityBase<uint>, IAggregateRoot
 {
-    public uint Id { get; set; }
-
     public uint? CorridorId { get; set; }
 
     public uint? CurrencyId { get; set; }

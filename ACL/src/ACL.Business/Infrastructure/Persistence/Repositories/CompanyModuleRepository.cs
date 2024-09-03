@@ -7,12 +7,12 @@ using Microsoft.AspNetCore.Http;
 namespace ACL.Business.Infrastructure.Persistence.Repositories
 {
     /// <inheritdoc/>
-    public class CompanyModuleRepository : ICompanyModuleRepository
+    public class CompanyModuleRepository :EfRepository<CompanyModule>, ICompanyModuleRepository
     {
         readonly ApplicationDbContext _dbContext;
         public static IHttpContextAccessor HttpContextAccessor;
         /// <inheritdoc/>
-        public CompanyModuleRepository(ApplicationDbContext dbContext, IHttpContextAccessor httpContextAccessor)
+        public CompanyModuleRepository(ApplicationDbContext dbContext, IHttpContextAccessor httpContextAccessor):base(dbContext)
         {
             this._dbContext = dbContext;
             HttpContextAccessor = httpContextAccessor;
@@ -47,11 +47,11 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         }
 
         /// <inheritdoc/>
-        public List<Company>? All()
+        public List<CompanyModule>? All()
         {
             try
             {
-                return this._dbContext.Companies.ToList();
+                return this._dbContext.CompanyModules.ToList();
             }
             catch (Exception)
             {

@@ -10,13 +10,13 @@ using Microsoft.AspNetCore.Http;
 namespace ACL.Business.Infrastructure.Persistence.Repositories
 {
     /// <inheritdoc/>
-    public class StateRepository : IStateRepository
+    public class StateRepository :EfRepository<State>, IStateRepository
     {
         /// <inheritdoc/>
         public readonly ApplicationDbContext _dbContext;
         public static IHttpContextAccessor HttpContextAccessor;
         /// <inheritdoc/>
-        public StateRepository(ApplicationDbContext dbContext, IHttpContextAccessor httpContextAccessor)
+        public StateRepository(ApplicationDbContext dbContext, IHttpContextAccessor httpContextAccessor):base(dbContext)
         {
             this._dbContext = dbContext;
             HttpContextAccessor = httpContextAccessor;
