@@ -1,4 +1,5 @@
-﻿using ErrorOr;
+﻿using Admin.Web.Presentation.Routes;
+using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -13,13 +14,13 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using Duplicates_HolidaySetting = SharedBusiness.Main.Common.Domain.Entities.HolidaySetting;
 
 
-namespace Admin.Web.Application.Features.HolidaySetting;
+namespace Admin.Web.Presentation.Endpoints.HolidaySetting;
 
 public class GetHolidaySettingByIdController : ApiControllerBase
 {
 
     //[Authorize(Policy = "HasPermission")]
-    [HttpGet(Routes.GetHolidaySettingByIdUrl, Name = Routes.GetHolidaySettingByIdName)]
+    [HttpGet(HolidaySettingRoutes.GetHolidaySettingByIdTemplate, Name = HolidaySettingRoutes.GetHolidaySettingByIdName)]
     public async Task<ActionResult<ErrorOr<Duplicates_HolidaySetting>>> Get(uint id)
     {
         var result = await Mediator.Send(new GetHolidaySettingByIdCommand(id)).ConfigureAwait(false);
