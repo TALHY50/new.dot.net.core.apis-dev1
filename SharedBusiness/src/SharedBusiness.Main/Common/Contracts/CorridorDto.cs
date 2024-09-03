@@ -1,6 +1,4 @@
-﻿using SharedKernel.Main.Application.Enums;
-
-namespace SharedBusiness.Main.IMT.Contracts.Contracts.Responses
+﻿namespace SharedBusiness.Main.Common.Contracts.Responses
 {
     public record CorridorDto
     (

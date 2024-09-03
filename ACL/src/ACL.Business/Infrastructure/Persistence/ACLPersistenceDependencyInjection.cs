@@ -43,12 +43,12 @@ public static class ACLPersistenceDependencyInjection
         services.AddScoped<IStateService, StateService>();
         services.AddScoped<IModuleService, ModuleService>();
         services.AddScoped<ISubModuleService, SubModuleService>();
-        services.AddScoped<IUserService, UserService>();
         services.AddScoped<IUserGroupRoleService, UserGroupRoleService>();
         services.AddScoped<IUserGroupService, UserGroupService>();
         services.AddScoped<ISubModuleService, SubModuleService>();
         services.AddScoped<ISubModuleService, SubModuleService>();
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IUserService, UserService>();
         services.AddScoped<IBranchRepository, BranchRepository>();
         services.AddScoped<IPageService, PageService>();
         services.AddScoped<IPageRepository, PageRepository>();
@@ -61,6 +61,7 @@ public static class ACLPersistenceDependencyInjection
         services.AddScoped<IUserUserGroupRepository, UserUserGroupRepository>();
         // Register IUserSettingRepository with its concrete implementation UserSettingRepository
         services.AddScoped<IUserSettingRepository, UserSettingRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
         //services.AddMediatR(Assembly.GetExecutingAssembly());
         return services;
     }

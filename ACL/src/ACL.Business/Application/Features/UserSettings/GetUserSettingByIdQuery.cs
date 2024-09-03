@@ -1,49 +1,47 @@
-﻿//using ErrorOr;
-//using FluentValidation;
-//using MediatR;
-//using Microsoft.AspNetCore.Authorization;
-//using Microsoft.AspNetCore.Mvc;
-//using SharedBusiness.Main.Admin.Application.Features.Countries;
-//using SharedBusiness.Main.Admin.Application.Features.Mtts;
-//using SharedBusiness.Main.Common.Application.Services.Repositories;
-//using SharedBusiness.Main.Common.Domain.Entities;
-//using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
-//using SharedKernel.Main.Contracts;
-//using SharedKernel.Main.Presentation;
-//using SharedKernel.Main.Presentation.Routes;
+﻿using ACL.Business.Application.Features.Users;
+using ACL.Business.Application.Interfaces.Repositories;
+using ACL.Business.Domain.Entities;
+using ErrorOr;
+using FluentValidation;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using SharedKernel.Main.Contracts;
+using SharedKernel.Main.Presentation;
+using SharedKernel.Main.Presentation.Routes;
 
-//namespace Admin.Web.Application.Features.Mtts
-//{
-//    [Authorize]
-//    public record GetMttByIdQuery(uint id) : IRequest<ErrorOr<Mtt>>;
+namespace ACL.Business.Application.Features.UserSettings
+{
+    [Authorize]
+    public record GetUserSettingByIdQuery(ulong id) : IRequest<ErrorOr<UserSetting>>;
 
-//    public class GetMttByIdQueryValidator : AbstractValidator<GetMttByIdQuery>
-//    {
-//        public GetMttByIdQueryValidator()
-//        {
-//            RuleFor(x => x.id).NotEmpty().WithMessage("Mtt ID is required");
-//        }
-//    }
+    public class GetUserSettingByIdQueryValidator : AbstractValidator<GetUserSettingByIdQuery>
+    {
+        public GetUserSettingByIdQueryValidator()
+        {
+            RuleFor(x => x.id).NotEmpty().WithMessage("User Setting ID is required");
+        }
+    }
 
-//     [ApiExplorerSettings(IgnoreApi = true)]
-//    public class GetMttByIdQueryHandler : MttBase, IRequestHandler<GetMttByIdQuery, ErrorOr<Mtt>>
-//    {
-//        private readonly IMTTRepository _repository;
+    [ApiExplorerSettings(IgnoreApi = true)]
+    public class GetUserSettingByIdQueryHandler : UserSettingBase, IRequestHandler<GetUserSettingByIdQuery, ErrorOr<UserSetting>>
+    {
+        private readonly IUserSettingRepository _repository;
 
-//        public GetMttByIdQueryHandler(IMTTRepository repository)
-//        {
-//            _repository = repository;
-//        }
-//        public async Task<ErrorOr<Mtt>> Handle(GetMttByIdQuery request, CancellationToken cancellationToken)
-//        {
-//            var entity = await _repository.GetByIdAsync(request.id, cancellationToken);
+        public GetUserSettingByIdQueryHandler(IUserSettingRepository repository)
+        {
+            _repository = repository;
+        }
+        public async Task<ErrorOr<UserSetting>> Handle(GetUserSettingByIdQuery request, CancellationToken cancellationToken)
+        {
+            var entity = await _repository.GetByIdAsync(request.id, cancellationToken);
 
-//            if (entity == null)
-//            {
-//                return Error.NotFound(description: "Mtt not found!", code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
-//            }
+            if (entity == null)
+            {
+                return Error.NotFound(description: "User Setting not found!", code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
+            }
 
-//            return entity;
-//        }
-//    }
-//}
+            return entity;
+        }
+    }
+}
