@@ -13,7 +13,7 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using Duplicates_HolidaySetting = SharedBusiness.Main.Common.Domain.Entities.HolidaySetting;
 
 
-namespace Admin.App.Application.Features.HolidaySetting;
+namespace Admin.Web.Application.Features.HolidaySetting;
 
 public class GetHolidaySettingByIdController : ApiControllerBase
 {

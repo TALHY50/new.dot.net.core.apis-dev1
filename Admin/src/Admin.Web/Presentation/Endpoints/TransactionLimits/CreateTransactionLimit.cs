@@ -2,10 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Admin.Application.Features.TransactionLimits;
 using SharedKernel.Main.Application.Interfaces.Services;
-using Admin.App.Presentation.Routes;
+using Admin.Web.Presentation.Routes;
 using SharedBusiness.Main.IMT.Contracts.Contracts.Responses;
 
-namespace Admin.App.Presentation.Endpoints.TransactionLimits
+namespace Admin.Web.Presentation.Endpoints.TransactionLimits
 {
     public class CreateTransactionLimit(ILogger<CreateTransactionLimit> logger, ICurrentUser currentUser) : TransactionLimitBase(logger, currentUser)
     {

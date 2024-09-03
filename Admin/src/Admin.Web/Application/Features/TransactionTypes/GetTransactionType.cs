@@ -9,7 +9,7 @@
 //using SharedKernel.Main.Presentation.Routes;
 //using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
-//namespace Admin.App.Application.Features.TransactionTypes
+//namespace Admin.Web.Application.Features.TransactionTypes
 //{
 //    public class GetTransactionTypeController : ApiControllerBase
 //    {

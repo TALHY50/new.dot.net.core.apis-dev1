@@ -7,7 +7,7 @@ using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Presentation;
 using SharedKernel.Main.Presentation.Routes;
 
-namespace Admin.App.Application.Features.Payers
+namespace Admin.Web.Application.Features.Payers
 {
     public class GetPayerController: ApiControllerBase
     {

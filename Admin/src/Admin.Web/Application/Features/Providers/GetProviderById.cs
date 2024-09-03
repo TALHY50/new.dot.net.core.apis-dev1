@@ -9,9 +9,9 @@ using SharedBusiness.Main.IMT.Application.Interfaces.Repositories;
 using SharedKernel.Main.Contracts;
 using SharedKernel.Main.Presentation;
 using SharedKernel.Main.Presentation.Routes;
-using static Admin.App.Application.Features.Providers.GetProviderController;
+using static Admin.Web.Application.Features.Providers.GetProviderController;
 
-namespace Admin.App.Application.Features.Providers
+namespace Admin.Web.Application.Features.Providers
 {
     public class GetProviderByIdController : ApiControllerBase
     {

@@ -11,10 +11,10 @@
 //using SharedKernel.Main.Contracts;
 //using SharedKernel.Main.Presentation;
 //using SharedKernel.Main.Presentation.Routes;
-//using static Admin.App.Application.Features.Regions.GetRegionByIdController;
+//using static Admin.Web.Application.Features.Regions.GetRegionByIdController;
 
 
-//namespace Admin.App.Application.Features.Regions
+//namespace Admin.Web.Application.Features.Regions
 //{
 //    public class UpdateRegionController : ApiControllerBase
 //    {

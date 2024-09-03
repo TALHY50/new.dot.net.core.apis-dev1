@@ -1,11 +1,11 @@
-﻿using Admin.App.Presentation.Routes;
+﻿using Admin.Web.Presentation.Routes;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Contracts;
 using SharedBusiness.Main.Common.Contracts;
 using SharedBusiness.Main.Common.Application.Features.Currencies;
 using Mapster;
-namespace Admin.App.Presentation.Endpoints.Currencies
+namespace Admin.Web.Presentation.Endpoints.Currencies
 {
     public class GetCurrencies(ILogger<GetCurrencies> logger, ICurrentUser currentUser)
     : CurrencyBase(logger, currentUser)

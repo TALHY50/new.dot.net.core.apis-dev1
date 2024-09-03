@@ -1,4 +1,4 @@
-﻿//using Admin.App.Application.Features.Currencies;
+﻿//using Admin.Web.Application.Features.Currencies;
 //using ErrorOr;
 //using FluentValidation;
 //using MediatR;
@@ -10,7 +10,7 @@
 //using SharedKernel.Main.Presentation;
 //using SharedKernel.Main.Presentation.Routes;
 
-//namespace Admin.App.Application.Features.Corridors
+//namespace Admin.Web.Application.Features.Corridors
 //{
 //    public class CreateCorridorController : ApiControllerBase
 //    {

@@ -1,5 +1,5 @@
 ﻿
-using Admin.App.Presentation.Routes;
+using Admin.Web.Presentation.Routes;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Admin.Application.Features.TransactionLimits;
@@ -7,7 +7,7 @@ using SharedBusiness.Main.IMT.Contracts.Contracts.Responses;
 using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Contracts;
 
-namespace Admin.App.Presentation.Endpoints.TransactionLimits
+namespace Admin.Web.Presentation.Endpoints.TransactionLimits
 {
    
     public class GetTransactionLimit(ILogger<GetTransactionLimit> logger, ICurrentUser currentUser)

@@ -1,4 +1,4 @@
-﻿using Admin.App.Presentation.Routes;
+﻿using Admin.Web.Presentation.Routes;
 using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -7,7 +7,7 @@ using SharedBusiness.Main.IMT.Contracts.Contracts.Responses;
 using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Contracts;
 
-namespace Admin.App.Presentation.Endpoints.Corridors
+namespace Admin.Web.Presentation.Endpoints.Corridors
 {
     public class GetCorridors(ILogger<GetCorridors> logger, ICurrentUser currentUser)
     : CorridorBase(logger, currentUser)

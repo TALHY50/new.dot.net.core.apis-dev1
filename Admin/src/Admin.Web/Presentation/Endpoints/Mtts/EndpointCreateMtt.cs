@@ -1,18 +1,18 @@
 ﻿using ACL.Business.Application.Interfaces.Services;
-using Admin.App.Presentation.Routes;
+using Admin.Web.Presentation.Routes;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Admin.Application.Features.Mtts;
 using SharedBusiness.Main.Admin.Contracts.Contracts.Responses;
 using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Presentation.Routes;
 
-namespace Admin.App.Application.Features.Mtts
+namespace Admin.Web.Application.Features.Mtts
 {
     public class EndpointCreateMtt(ILogger<EndpointCreateMtt> logger, ICurrentUser currentUser)
     : MttBase(logger, currentUser)
     {
         [Tags("Mtt")]
-        [HttpPost(AdminRoute.CreateMttsRouteUrl, Name = AdminRoute.CreateMttsRouteName)]
+        [HttpPost(MttRoutes.CreateMttsRouteUrl, Name = MttRoutes.CreateMttsRouteName)]
 
         public async Task<IActionResult> Create(CreateMttCommand command, CancellationToken cancellationToken)
         {
