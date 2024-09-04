@@ -1,6 +1,9 @@
+using ACL.Business.Application.Features.Auth;
 using ACL.Business.Domain.Entities;
 using ACL.Web.Presentation.Routes;
+using ErrorOr;
 using Microsoft.AspNetCore.Authentication.BearerToken;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -25,12 +28,15 @@ public class LoginController : AuthBaseController
         IOptionsMonitor<BearerTokenOptions> bearerTokenOptions,
         IEmailSender<User> emailSender,
         LinkGenerator linkGenerator,
-        IHttpContextAccessor context)
+        IHttpContextAccessor context,
+        SignInManager<User> signInManager)
         : base(logger, currentUser, serviceProvider, timeProvider, bearerTokenOptions, emailSender, linkGenerator, context)
     {
-        _signInManager = _serviceProvider.GetRequiredService<SignInManager<User>>();
+        _signInManager = signInManager;
+        // _signInManager = _serviceProvider.GetRequiredService<SignInManager<User>>();
     }
 
+    
     [Tags("Auth")]
     [HttpPost(AuthRoutes.LoginTemplate, Name = AuthRoutes.LoginName)]
     public async Task<ActionResult> Login([FromBody] LoginRequest login, [FromQuery] bool? useCookies, [FromQuery] bool? useSessionCookies)
@@ -59,6 +65,41 @@ public class LoginController : AuthBaseController
         }
 
         // The signInManager already produced the needed response in the form of a cookie or bearer token.
-        return Ok();
+        return  Ok();
     }
+    
+    
+    /*
+    [Tags("Auth")]
+    //[Authorize(Policy = "HasPermission")]
+    [HttpPost(AuthRoutes.LoginTemplate, Name = AuthRoutes.LoginName)]
+
+    
+    public async Task<IActionResult> Login1([FromBody] LoginRequest login, [FromQuery] bool? useCookies, [FromQuery] bool? useSessionCookies, CancellationToken cancellationToken)
+    {
+        var command = new LoginCommand(login.Email, login.Password, login.TwoFactorCode, login.TwoFactorRecoveryCode,
+            useCookies, useSessionCookies);
+        _ = Task.Run(
+            () => _logger.LogInformation(
+                "login-request: {Name} {@UserId} {@Request}",
+                nameof(LoginCommand),
+                CurrentUser.UserId,
+                command),
+            cancellationToken);
+        var result = await Mediator.Send(command).ConfigureAwait(false);
+
+        return Ok(result);
+        // return Ok(ToSuccess(response.Value));
+        /*var response = result.Match(
+            result => Ok(result),
+            Problem);
+        _ = Task.Run(
+            () => _logger.LogInformation(
+                "login-response: {Name} {@UserId} {@Response}",
+                nameof(response),
+                CurrentUser.UserId,
+                response),
+            cancellationToken);#1#
+        //return response;
+    }*/
 }
