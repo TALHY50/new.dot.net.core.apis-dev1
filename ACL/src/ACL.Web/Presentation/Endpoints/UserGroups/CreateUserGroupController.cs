@@ -9,7 +9,7 @@ using SharedKernel.Main.Application.Interfaces.Services;
 
 namespace ACL.Web.Presentation.Endpoints.UserGroups
 {
-    public class CreateUserGrpupController(ILogger<CreateUserGrpupController> logger, ICurrentUser currentUser)
+    public class CreateUserGroupController(ILogger<CreateUserGroupController> logger, ICurrentUser currentUser)
     : UserGroupBaseController(logger, currentUser)
     {
         [Tags("UserGroups")]
