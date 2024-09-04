@@ -5,7 +5,6 @@ using SharedKernel.Main.Contracts;
 using SharedBusiness.Main.Common.Contracts;
 using SharedBusiness.Main.Common.Application.Features.Currencies;
 using Mapster;
-using Admin.Web.Presentation.Endpoints.Currencies;
 
 namespace IMT.App.Presentation.Endpoints.Currencies
 {

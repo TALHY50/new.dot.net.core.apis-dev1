@@ -1,18 +1,18 @@
-using ACL.Business.Domain.Services;
-using Microsoft.AspNetCore.Mvc;
-using SharedKernel.Main.Presentation;
+//using ACL.Business.Domain.Services;
+//using Microsoft.AspNetCore.Mvc;
+//using SharedKernel.Main.Presentation;
 
-namespace ACL.Web.Presentation.Endpoints.Users;
+//namespace ACL.Web.Presentation.Endpoints.Users;
 
-[Tags("User")]
-[ApiController]
-public class UserBaseController : ApiControllerBase
-{
-    protected IUserService _userService;
+//[Tags("User")]
+//[ApiController]
+//public class UserBaseController : ApiControllerBase
+//{
+//    protected IUserService _userService;
 
-    public UserBaseController(IUserService userService)
-    {
-        _userService = userService;
-    }
+//    public UserBaseController(IUserService userService)
+//    {
+//        _userService = userService;
+//    }
 
-}
+//}

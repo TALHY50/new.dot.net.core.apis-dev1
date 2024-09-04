@@ -1,6 +1,6 @@
 using Mapster;
+using SharedBusiness.Main.Common.Contracts;
 using SharedBusiness.Main.Common.Domain.Entities;
-using SharedBusiness.Main.IMT.Contracts.Contracts.Responses;
 
 
 namespace SharedBusiness.Main.Common.Presentation.Mapping;

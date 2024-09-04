@@ -1,5 +1,5 @@
-﻿using Admin.App.Presentation.Endpoints.Banks;
-using Admin.App.Presentation.Routes;
+﻿using Admin.Web.Presentation.Endpoints.Banks;
+using Admin.Web.Presentation.Routes;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Common.Application.Features.Banks;

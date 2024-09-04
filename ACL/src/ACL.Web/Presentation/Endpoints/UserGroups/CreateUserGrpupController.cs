@@ -1,4 +1,6 @@
-﻿using ACL.Business.Contracts.Responses;
+﻿using ACL.Business.Application.Features.UserGroups;
+using ACL.Business.Contracts.Responses;
+using ACL.Business.Domain.Entities;
 using ACL.Web.Presentation.Routes;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -14,9 +16,8 @@ namespace ACL.Web.Presentation.Endpoints.UserGroups
         //[Authorize(Policy = "HasPermission")]
         [HttpPost(ACLUserGroupRoutes.CreateACLUserGroupTemplate, Name = ACLUserGroupRoutes.CreateACLUserGroupName)]
 
-        public async Task<IActionResult> Create([FromHeader] uint user_id, [FromBody] object payload, CancellationToken cancellationToken)
+        public async Task<IActionResult> Create(CreateUserGroupCommand command, CancellationToken cancellationToken)
         {
-            var command = new CreateUserGroupCommand(user_id, payload.Minify());
             _ = Task.Run(
                 () => _logger.LogInformation(
                     "create-user-group-request: {Name} {@UserId} {@Request}",
@@ -26,7 +27,7 @@ namespace ACL.Web.Presentation.Endpoints.UserGroups
                 cancellationToken);
             var result = await Mediator.Send(command).ConfigureAwait(false);
             var response = result.Match(
-                token => Ok(ToSuccess(UserGroupDto(token))),
+                token => Ok(ToSuccess(ToDto(token))),
                 Problem);
             _ = Task.Run(
                 () => _logger.LogInformation(
@@ -36,6 +37,18 @@ namespace ACL.Web.Presentation.Endpoints.UserGroups
                     response),
                 cancellationToken);
             return response;
+        }
+
+
+        private UserGroupDto ToDto(Usergroup token)
+        {
+            return new UserGroupDto(
+                token.Id,
+                token.GroupName,
+                token.Category,
+                token.Status,
+                token.CompanyId);
+
         }
     }
 }

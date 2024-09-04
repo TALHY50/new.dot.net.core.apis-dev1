@@ -1,5 +1,5 @@
-﻿using Admin.App.Presentation.Endpoints.PayerPaymentSpeeds;
-using Admin.App.Presentation.Routes;
+﻿using Admin.Web.Presentation.Endpoints.PayerPaymentSpeeds;
+using Admin.Web.Presentation.Routes;
 using Admin.Web.Application.Features.PayerPaymentSpeeds;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Common.Contracts;
