@@ -1,10 +1,9 @@
-﻿using Admin.Web.Presentation.Endpoints.Corridors;
-using Admin.Web.Presentation.Routes;
+﻿using Admin.Web.Presentation.Routes;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Admin.Application.Features.Corridors;
 using SharedKernel.Main.Application.Interfaces.Services;
 
-namespace Admin.App.Presentation.Endpoints.Corridors
+namespace Admin.Web.Presentation.Endpoints.Corridors
 {
     public class DeleteCorridorById(ILogger<DeleteCorridorById> logger, ICurrentUser currentUser)
     : CorridorBaseController(logger, currentUser)

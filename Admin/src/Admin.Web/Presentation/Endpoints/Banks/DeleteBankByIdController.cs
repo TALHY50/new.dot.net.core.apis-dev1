@@ -1,9 +1,10 @@
-﻿using Admin.App.Presentation.Routes;
+﻿using Admin.App.Presentation.Endpoints.Banks;
+using Admin.App.Presentation.Routes;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Admin.Application.Features.Banks;
 using SharedKernel.Main.Application.Interfaces.Services;
 
-namespace Admin.App.Presentation.Endpoints.Banks
+namespace Admin.Web.Presentation.Endpoints.Banks
 {
     public class DeleteBankByIdController(ILogger<DeleteBankByIdController> logger, ICurrentUser currentUser)
     : BankBaseController(logger, currentUser)

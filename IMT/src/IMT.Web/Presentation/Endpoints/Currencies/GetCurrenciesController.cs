@@ -5,7 +5,9 @@ using SharedKernel.Main.Contracts;
 using SharedBusiness.Main.Common.Contracts;
 using SharedBusiness.Main.Common.Application.Features.Currencies;
 using Mapster;
-namespace Admin.Web.Presentation.Endpoints.Currencies
+using Admin.Web.Presentation.Endpoints.Currencies;
+
+namespace IMT.App.Presentation.Endpoints.Currencies
 {
     public class GetCurrenciesController(ILogger<GetCurrenciesController> logger, ICurrentUser currentUser)
     : CurrencyBase(logger, currentUser)
@@ -15,7 +17,7 @@ namespace Admin.Web.Presentation.Endpoints.Currencies
         [HttpGet(CurrencyRoutes.GetCurrencyTemplate, Name = CurrencyRoutes.GetCurrencyName)]
         public async Task<IActionResult> Get([FromQuery] PaginatorRequest pageRequest, CancellationToken cancellationToken)
         {
-            var query = new SharedBusiness.Main.Common.Application.Features.Currencies.GetCurrenciesQuery(PageNumber: pageRequest.page_number, PageSize: pageRequest.page_size);
+            var query = new GetCurrenciesQuery(PageNumber: pageRequest.page_number, PageSize: pageRequest.page_size);
             _ = Task.Run(
                 () => _logger.LogInformation(
                     "get-Currencies: {Name} {@UserId} {@Request}",

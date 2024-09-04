@@ -1,10 +1,11 @@
+using Admin.Web.Presentation.Endpoints.Country;
 using Admin.Web.Presentation.Routes;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Admin.Application.Features.Countries;
 using SharedBusiness.Main.Common.Contracts;
 using SharedKernel.Main.Application.Interfaces.Services;
 
-namespace Admin.Web.Presentation.Endpoints.Country;
+namespace Admin.Web.Presentation.Endpoints.Countries;
 
 public class CreateCountryController(ILogger<CreateCountryController> logger, ICurrentUser currentUser)
     : CountryBase(logger, currentUser)
@@ -12,7 +13,7 @@ public class CreateCountryController(ILogger<CreateCountryController> logger, IC
     [Tags("Countries")]
     //[Authorize(Policy = "HasPermission")]
     [HttpPost(CountryRoutes.CreateCountryTemplate, Name = CountryRoutes.CreateCountryName)]
-  
+
     public async Task<IActionResult> Create(CreateCountryCommand command, CancellationToken cancellationToken)
     {
         _ = Task.Run(
