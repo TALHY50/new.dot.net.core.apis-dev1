@@ -30,7 +30,7 @@ namespace ACL.Business.Application.Features.UserGroupRoles
         public async Task<ErrorOr<List<UsergroupRole?>>> Handle(GetUserGroupRoleByUserGroupIdQuery request, CancellationToken cancellationToken)
         {
             var usergroupRole = _repository.FindByUserGroupId(request.user_group_id);
-            if (usergroupRole == null)
+            if (usergroupRole.Count() == 0)
             {
                 return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), Language.GetMessage("Record not found"));
             }
