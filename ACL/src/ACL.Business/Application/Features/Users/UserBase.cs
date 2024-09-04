@@ -11,11 +11,4 @@ namespace ACL.Business.Application.Features.Users;
 
 public class UserBase : ApiControllerBase
 {
-    public UserBase()
-    {
-
-    }
-    protected UserBase(ILogger<UserBase> logger, ICurrentUser currentUser) : base(logger, currentUser)
-    {
-    }
 }

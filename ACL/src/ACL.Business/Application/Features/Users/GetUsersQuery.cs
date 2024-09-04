@@ -1,6 +1,9 @@
-﻿using ACL.Business.Application.Interfaces.Repositories;
+﻿using ACL.Business.Application.Interfaces;
+using ACL.Business.Application.Interfaces.Repositories;
+using ACL.Business.Contracts.Responses;
 using ACL.Business.Domain.Entities;
 using ACL.Business.Domain.Services;
+using ACL.Business.Infrastructure.Auth.Auth;
 using ErrorOr;
 using FluentValidation;
 using MediatR;
@@ -36,11 +39,11 @@ namespace ACL.Business.Application.Features.Users
     public class GetUsersQueryHandler
       : UserBase, IRequestHandler<GetUsersQuery, ErrorOr<List<User>>>
     {
-        private readonly IUserService _repository;
+        private readonly IUserRepository _userRepository;
 
-        public GetUsersQueryHandler(IUserService repository)
+        public GetUsersQueryHandler(IUserRepository userRepository)
         {
-            _repository = repository;
+            _userRepository = userRepository;
         }
 
         public async Task<ErrorOr<List<User>>> Handle(GetUsersQuery request, CancellationToken cancellationToken)
@@ -49,18 +52,26 @@ namespace ACL.Business.Application.Features.Users
 
             if (request.PageNumber > 0 && request.PageSize > 0)
             {
-                entities = await _repository.ListPaginatedAsync(request.PageNumber, request.PageSize, cancellationToken);
+                entities = await _userRepository.ListPaginatedAsync(request.PageNumber, request.PageSize, cancellationToken);
 
             }
             else
             {
-                entities = await _repository.ListAsync(cancellationToken);
-
+                entities = _userRepository.All().Where(u => (uint)AppAuth.GetAuthInfo().UserId == 0 || (u.CompanyId == (uint)AppAuth.GetAuthInfo().UserId && u.CreatedById == (uint)AppAuth.GetAuthInfo().UserId))?.ToList();
             }
+
+            entities?.ForEach(user =>
+             {
+                 user.Password = "**********";
+                 user.Salt = "**********";
+                 #pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
+                 user.Claims = null;
+                 user.RefreshToken = null;
+             });
 
             if (entities == null)
             {
-                return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), description: "Mtts not found!");
+                return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), description: "User not found!");
             }
 
             return entities;
