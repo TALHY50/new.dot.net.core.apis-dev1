@@ -11,7 +11,8 @@ namespace ACL.Business.Application.Features.RolePages;
 public record UpdateRolePageCommand(
     uint role_id,
     int[] page_ids
-    ) : IRequest<ErrorOr<RolePage[]?>>;
+    ) : IRequest<ErrorOr<bool>>;
+
 
 public class UpdateRolePageCommandValidator : AbstractValidator<UpdateRolePageCommand>
 {
@@ -22,7 +23,7 @@ public class UpdateRolePageCommandValidator : AbstractValidator<UpdateRolePageCo
     }
 }
 
-public class UpdateRolePageCommandHandler : RolePageBase, IRequestHandler<UpdateRolePageCommand, ErrorOr<RolePage[]?>>
+public class UpdateRolePageCommandHandler : RolePageBase, IRequestHandler<UpdateRolePageCommand, ErrorOr<bool>>
 {
     private readonly IRolePageRepository _repository;
     private readonly IRoleRepository _roleRepository;
@@ -39,11 +40,8 @@ public class UpdateRolePageCommandHandler : RolePageBase, IRequestHandler<Update
         _guard = guard;
     }
 
-    public async Task<ErrorOr<RolePage[]?>> Handle(UpdateRolePageCommand command, CancellationToken cancellationToken)
+    public async Task<ErrorOr<bool>> Handle(UpdateRolePageCommand command, CancellationToken cancellationToken)
     {
-        //Initiate return type
-        RolePage[]? insertedRolePageData;
-
         // Get role page by role id
         List<RolePage>? rolePages = _repository.FindByRoleId(command.role_id);
         if (rolePages is null)
@@ -57,7 +55,7 @@ public class UpdateRolePageCommandHandler : RolePageBase, IRequestHandler<Update
             // Delete Previous role page
             _repository.DeleteAll(rolePages.ToArray());
             // insert prepare data
-            insertedRolePageData = _repository.AddAll(rolePagePrepareData);
+            _repository.AddAll(rolePagePrepareData);
             List<uint>? userIds = _userRepository.GetUserIdByChangePermission(null, null, command.role_id);
             if (userIds != null)
             {
@@ -68,7 +66,7 @@ public class UpdateRolePageCommandHandler : RolePageBase, IRequestHandler<Update
         {
             return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), Language.GetMessage("Record not found"));
         }
-        return insertedRolePageData;
+        return true;
     }
 
     public RolePage[] PrepareData(UpdateRolePageCommand req)

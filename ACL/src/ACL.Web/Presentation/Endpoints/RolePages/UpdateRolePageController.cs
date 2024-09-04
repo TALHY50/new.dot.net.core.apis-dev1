@@ -1,5 +1,4 @@
 ﻿using ACL.Business.Application.Features.RolePages;
-using ACL.Business.Contracts.Responses;
 using ACL.Web.Presentation.Routes;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Interfaces.Services;
@@ -28,9 +27,10 @@ public class UpdateRolePageController : RolePageBaseController
                 command),
             cancellationToken);
         var result = await Mediator.Send(command).ConfigureAwait(false);
+
         var response = result.Match(
-            rotePage => Ok(ToSuccess(Mapper.Map<RolePageDto>(rotePage))),
-            Problem);
+                    isSuccess => Ok(ToSuccess(result.Value)),
+                    Problem);
 
         _ = Task.Run(
             () => _logger.LogInformation(

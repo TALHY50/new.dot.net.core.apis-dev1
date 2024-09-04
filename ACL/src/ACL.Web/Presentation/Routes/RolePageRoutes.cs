@@ -20,5 +20,5 @@ public class RolePageRoutes
 
     public const string UpdateRolePageMethod = "PUT";
     public const string UpdateRolePageName = "update_role_page_by_id";
-    public const string UpdateRolePageTemplate = "/role-pages/{id}";
+    public const string UpdateRolePageTemplate = "/role-pages";
 }
