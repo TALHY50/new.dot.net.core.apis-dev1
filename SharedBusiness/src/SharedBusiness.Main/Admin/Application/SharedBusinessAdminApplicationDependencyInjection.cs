@@ -1,7 +1,7 @@
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace SharedBusiness.Main.Admin.Weblication;
+namespace SharedBusiness.Main.Admin.Application;
 
 public static class SharedBusinessAdminApplicationDependencyInjection
 {

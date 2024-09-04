@@ -1,7 +1,7 @@
 using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Presentation;
 
-namespace Admin.Web.Presentation.Endpoints.Country;
+namespace Admin.Web.Presentation.Endpoints.Countries;
 
 public class CountryBase : ApiControllerBase
 {

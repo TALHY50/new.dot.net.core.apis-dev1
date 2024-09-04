@@ -1,6 +1,6 @@
 ﻿using SharedKernel.Main.Application.Enums;
 
-namespace SharedBusiness.Main.IMT.Contracts.Contracts.Responses
+namespace SharedBusiness.Main.Common.Contracts
 {
     public record RegionDto(
         uint id,

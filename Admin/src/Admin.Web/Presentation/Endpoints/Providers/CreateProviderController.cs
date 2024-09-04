@@ -1,11 +1,12 @@
-﻿using Admin.App.Presentation.Routes;
+﻿using Admin.Web.Presentation.Endpoints.Providers;
+using Admin.Web.Presentation.Routes;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Admin.Application.Features.Providers;
 using SharedBusiness.Main.Common.Contracts;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedKernel.Main.Application.Interfaces.Services;
 
-namespace Admin.App.Presentation.Endpoints.Providers
+namespace Admin.Web.Presentation.Endpoints.Providers
 {
     public class CreateProviderController(ILogger<CreateProviderController> logger, ICurrentUser currentUser)
         : ProviderBaseController(logger, currentUser)

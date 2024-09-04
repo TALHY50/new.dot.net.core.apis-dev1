@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Admin.Application.Features.Countries;
 using SharedKernel.Main.Application.Interfaces.Services;
 
-namespace Admin.Web.Presentation.Endpoints.Country;
+namespace Admin.Web.Presentation.Endpoints.Countries;
 
 public class DeleteCountryByIdController(ILogger<DeleteCountryByIdController> logger, ICurrentUser currentUser)
     : CountryBase(logger, currentUser)
@@ -37,5 +37,5 @@ public class DeleteCountryByIdController(ILogger<DeleteCountryByIdController> lo
         return response;
     }
 
- 
+
 }

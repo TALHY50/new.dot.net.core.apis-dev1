@@ -1,4 +1,5 @@
-﻿using Admin.App.Presentation.Routes;
+﻿using Admin.Web.Presentation.Endpoints.PayerPaymentSpeeds;
+using Admin.Web.Presentation.Routes;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Admin.Application.Features.PayerPaymentSpeeds;
@@ -6,7 +7,7 @@ using SharedBusiness.Main.Common.Contracts;
 using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Contracts;
 
-namespace Admin.App.Presentation.Endpoints.PayerPaymentSpeeds
+namespace Admin.Web.Presentation.Endpoints.PayerPaymentSpeeds
 {
     public class GetPayerPaymentSpeedsController(ILogger<GetPayerPaymentSpeedsController> logger, ICurrentUser currentuser)
         : PayerPaymentSpeedBase(logger, currentuser)

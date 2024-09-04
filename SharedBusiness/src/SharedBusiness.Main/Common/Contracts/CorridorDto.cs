@@ -1,4 +1,4 @@
-﻿namespace SharedBusiness.Main.Common.Contracts.Responses
+﻿namespace SharedBusiness.Main.Common.Contracts
 {
     public record CorridorDto
     (

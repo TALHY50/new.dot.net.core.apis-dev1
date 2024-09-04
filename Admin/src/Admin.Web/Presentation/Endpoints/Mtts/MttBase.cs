@@ -1,9 +1,8 @@
-﻿
-using SharedKernel.Main.Application.Interfaces.Services;
+﻿using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Presentation;
 
 
-namespace SharedBusiness.Main.Admin.Application.Features.Mtts
+namespace Admin.Web.Presentation.Endpoints.Mtts
 {
     public class MttBase : ApiControllerBase
     {

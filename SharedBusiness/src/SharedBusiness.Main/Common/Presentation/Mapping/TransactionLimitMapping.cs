@@ -1,9 +1,9 @@
 using Mapster;
+using SharedBusiness.Main.Common.Contracts;
 using SharedBusiness.Main.Common.Domain.Entities;
-using SharedBusiness.Main.IMT.Contracts.Contracts.Responses;
 
 
-namespace Admin.Web.Presentation.Mapping;
+namespace SharedBusiness.Main.Common.Presentation.Mapping;
 
 public class TransactionLimitMapping : IRegister
 {

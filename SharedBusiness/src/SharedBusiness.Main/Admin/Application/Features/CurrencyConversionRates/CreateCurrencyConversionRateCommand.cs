@@ -4,7 +4,6 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 using SharedBusiness.Main.Admin.Application.Features.Countries;
-using SharedBusiness.Main.Admin.Application.Features.CurrencyConversionRates;
 using SharedBusiness.Main.Common.Application.Services.Repositories;
 using SharedBusiness.Main.Common.Domain.Entities;
 using SharedBusiness.Main.Common.Infrastructure.Persistence.Context;
@@ -13,7 +12,7 @@ using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Application.Rules;
 using SharedKernel.Main.Contracts;
 
-namespace SharedBusiness.Main.Admin.Application.Features.CreateCurrencyConversionRates
+namespace SharedBusiness.Main.Admin.Application.Features.CurrencyConversionRates
 {
     //[Authorize]
     public record CreateCurrencyConversionRateCommand(
@@ -49,7 +48,7 @@ namespace SharedBusiness.Main.Admin.Application.Features.CreateCurrencyConversio
                 ExchangeRate = command.exchange_rate, //Exchange rate between currencies
                 FxSpread = command.fx_spread, //Foreign exchange spread
                 CompanyId = 0,
-                Status = (byte) command.status, // 0=inactive, 1=active, 2=pending, 3=rejected 
+                Status = (byte)command.status, // 0=inactive, 1=active, 2=pending, 3=rejected 
                 CreatedById = 1,
                 UpdatedById = 1,
                 CreatedAt = DateTime.UtcNow,

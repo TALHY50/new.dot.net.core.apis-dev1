@@ -1,4 +1,5 @@
-﻿using Admin.App.Presentation.Routes;
+﻿using Admin.Web.Presentation.Endpoints.Banks;
+using Admin.Web.Presentation.Routes;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Common.Application.Features.Banks;
@@ -6,7 +7,7 @@ using SharedBusiness.Main.Common.Contracts;
 using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Contracts;
 
-namespace Admin.App.Presentation.Endpoints.Banks
+namespace Admin.Web.Presentation.Endpoints.Banks
 {
     public class GetBanksController(ILogger<GetBanksController> logger, ICurrentUser currentUser)
     : BankBaseController(logger, currentUser)
