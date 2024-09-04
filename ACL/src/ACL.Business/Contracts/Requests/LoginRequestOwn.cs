@@ -3,7 +3,7 @@ using SharedKernel.Main.Contracts;
 
 namespace ACL.Business.Contracts.Requests
 {
-    public class LoginRequest : Request
+    public class LoginRequestOwn : Request
     {
         [DefaultValue("ssadmin@sipay.com.tr")]
         public string Email { get; set; }

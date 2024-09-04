@@ -3,6 +3,7 @@ using ACL.Business.Infrastructure;
 using ACL.Business.Infrastructure.Middlewares;
 using ACL.Business.Presentation;
 using ACL.Web.Presentation;
+using Microsoft.AspNetCore.Identity;
 using Serilog;
 using SharedKernel.Main.Application;
 using SharedKernel.Main.Infrastructure;
@@ -39,7 +40,8 @@ var app = builder.Build();
                 .AllowAnyMethod()
                 .AllowAnyHeader(); 
         });
-
+    
+    app.MapIdentityApi<IdentityUser>();
     app.Run();
 }
 

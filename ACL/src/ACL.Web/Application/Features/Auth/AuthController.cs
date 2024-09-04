@@ -31,9 +31,9 @@ namespace ACL.Web.Application.Features.Auth
         [AllowAnonymous]
         [HttpPost]
         [Route("login")]
-        public async Task<LoginResponse> Login(LoginRequest request)
+        public async Task<LoginResponse> Login(LoginRequestOwn requestOwn)
         {
-            return await this._login.Execute(request);
+            return await this._login.Execute(requestOwn);
         }
         /// <inheritdoc/>
         [Authorize]

@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -44,8 +45,7 @@ public static class ACLApplicationDependencyInjection
                 options.AddOpenBehavior(typeof(AuthorizationBehaviour<,>));
             });
         }
-        services.AddSingleton<IIdentity, Jwt>();
-        services.AddTransient<ICurrentUser, CurrentUser>();
+      
         services.Configure<ApiBehaviorOptions>(o =>
         {
             o.InvalidModelStateResponseFactory = actionContext =>
@@ -88,12 +88,18 @@ public static class ACLApplicationDependencyInjection
                     ClockSkew = TimeSpan.FromMinutes(0)
                 };
             });
+            
 
         services.AddAuthorization(options =>
         {
             options.AddPolicy("HasPermission", policy =>
                 policy.Requirements.Add(new PermissionAuthorizationRequirement()));
         });
+        services.AddAuthentication()
+            .AddBearerToken(IdentityConstants.BearerScheme);
+        //services.AddAuthorizationBuilder();
+        services.AddSingleton<IIdentity, Jwt>();
+        services.AddTransient<ICurrentUser, CurrentUser>();
         services.AddTransient<ICryptography, Cryptography>();
         services.AddSingleton<IAuthorizationHandler, PermissionAuthorizationHandler>();
         services.AddScoped<IAuthenticationService, AuthenticationService>();

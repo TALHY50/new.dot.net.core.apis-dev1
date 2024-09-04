@@ -13,6 +13,7 @@ using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Infrastructure.Services;
 using SharedKernel.Main.Infrastructure.Utilities;
 using System.Reflection;
+using Microsoft.AspNetCore.Identity;
 
 namespace ACL.Business.Infrastructure.Persistence;
 
@@ -23,9 +24,12 @@ public static class ACLPersistenceDependencyInjection
         services.AddDbContext<ApplicationDbContext>(options =>
             options.UseMySQL(ConnectionManager.GetDbConnectionString(), options =>
             {
+                options.MigrationsAssembly("ACL.Web");
                 options.EnableRetryOnFailure();
             }));
 
+        services.AddIdentityCore<IdentityUser>()
+            .AddEntityFrameworkStores<ApplicationDbContext>().AddApiEndpoints();
         var cacheDriver = Env.GetString("CACHE_DRIVER");
         if (cacheDriver == "redis")
         {
