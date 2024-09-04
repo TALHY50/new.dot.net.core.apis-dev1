@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -108,6 +109,16 @@ public static class ACLApplicationDependencyInjection
         services.AddScoped<SignOut>();
         services.AddScoped<Register>();
         services.AddSingleton<ILocalizationService>(new LocalizationService("SharedKernel.Main.Infrastructure.Resources.en-US", typeof(ACLApplicationDependencyInjection).Assembly, "en-US"));
+
+
+        // For language support 
+        services.AddHttpContextAccessor();
+        // Configure the Language static class
+        var serviceProvider = services.BuildServiceProvider();
+        var httpContextAccessor = serviceProvider.GetService<IHttpContextAccessor>();
+        Language.Configure(httpContextAccessor);
+
+
         return services;
     }
 }
