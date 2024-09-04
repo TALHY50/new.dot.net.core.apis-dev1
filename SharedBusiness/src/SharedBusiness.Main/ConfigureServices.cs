@@ -18,7 +18,7 @@ public static class DependencyInjection
     public static IServiceCollection AddSharedBusinessApplication(this IServiceCollection services)
     {
         Common.Application.SharedBusinessCommonApplicationDependencyInjection.AddSharedBusinessCommonApplication(services);
-        Admin.Weblication.SharedBusinessAdminApplicationDependencyInjection.AddSharedBusinessAdminApplication(services);
+        Admin.Application.SharedBusinessAdminApplicationDependencyInjection.AddSharedBusinessAdminApplication(services);
         IMT.Application.SharedBusinessIMTApplicationDependencyInjection.AddSharedBusinessIMTApplication(services);
         return services;
     }

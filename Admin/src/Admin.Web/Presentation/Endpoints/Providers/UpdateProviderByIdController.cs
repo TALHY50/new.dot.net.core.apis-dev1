@@ -1,5 +1,5 @@
-﻿using Admin.App.Presentation.Endpoints.Providers;
-using Admin.App.Presentation.Routes;
+﻿using Admin.Web.Presentation.Endpoints.Providers;
+using Admin.Web.Presentation.Routes;
 using Admin.Web.Presentation.Routes;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Admin.Application.Features.Providers;

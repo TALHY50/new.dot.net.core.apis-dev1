@@ -1,11 +1,10 @@
-﻿using Admin.Web.Presentation.Endpoints.Corridors;
-using Admin.Web.Presentation.Routes;
+﻿using Admin.Web.Presentation.Routes;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Admin.Application.Features.Corridors;
-using SharedBusiness.Main.Common.Contracts.Responses;
+using SharedBusiness.Main.Common.Contracts;
 using SharedKernel.Main.Application.Interfaces.Services;
 
-namespace Admin.App.Presentation.Endpoints.Corridors
+namespace Admin.Web.Presentation.Endpoints.Corridors
 {
     public class GetCorridorByIdController(ILogger<GetCorridorByIdController> logger, ICurrentUser currentUser)
     : CorridorBaseController(logger, currentUser)

@@ -1,7 +1,7 @@
 ﻿using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Presentation;
 
-namespace Admin.App.Presentation.Endpoints.PayerPaymentSpeeds
+namespace Admin.Web.Presentation.Endpoints.PayerPaymentSpeeds
 {
     public class PayerPaymentSpeedBase : ApiControllerBase
     {

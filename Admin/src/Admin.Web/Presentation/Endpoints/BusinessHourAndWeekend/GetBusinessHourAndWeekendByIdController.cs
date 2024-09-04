@@ -2,9 +2,9 @@ using Admin.Web.Presentation.Routes;
 using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Admin.Application.Features.BusinessHourAndWeekends;
-using SharedBusiness.Main.Admin.Application.Features.Countries;
+using SharedBusiness.Main.Common.Contracts;
 using SharedBusiness.Main.Common.Domain.Entities;
-using SharedBusiness.Main.IMT.Contracts.Contracts.Responses;
+
 using SharedKernel.Main.Application.Interfaces.Services;
 
 namespace Admin.Web.Presentation.Endpoints.BusinessHourAndWeekend;
