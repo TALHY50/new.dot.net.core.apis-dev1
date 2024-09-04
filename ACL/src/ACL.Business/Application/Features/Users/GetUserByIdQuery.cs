@@ -1,4 +1,5 @@
-﻿using ACL.Business.Domain.Entities;
+﻿using ACL.Business.Application.Interfaces.Repositories;
+using ACL.Business.Domain.Entities;
 using ACL.Business.Domain.Services;
 using ErrorOr;
 using FluentValidation;
@@ -12,7 +13,7 @@ using SharedKernel.Main.Presentation.Routes;
 namespace ACL.Business.Application.Features.Users
 {
     [Authorize]
-    public record GetUserByIdQuery(ulong id) : IRequest<ErrorOr<User>>;
+    public record GetUserByIdQuery(uint id) : IRequest<ErrorOr<User>>;
 
     public class GetUserByIdQueryValidator : AbstractValidator<GetUserByIdQuery>
     {
@@ -23,24 +24,44 @@ namespace ACL.Business.Application.Features.Users
     }
 
     [ApiExplorerSettings(IgnoreApi = true)]
-    public class GetUserByIdQueryHandler :  IRequestHandler<GetUserByIdQuery, ErrorOr<User>>
+    public class GetUserByIdQueryHandler : UserBase, IRequestHandler<GetUserByIdQuery, ErrorOr<User>>
     {
-        private readonly IUserService _repository;
+        private readonly IUserRepository _repository;
 
-        public GetUserByIdQueryHandler(IUserService repository)
+        public GetUserByIdQueryHandler(IUserRepository repository)
         {
             _repository = repository;
         }
         public async Task<ErrorOr<User>> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
         {
-            var entity = await _repository.GetByIdAsync(request.id, cancellationToken);
-
-            if (entity == null)
+             try
             {
-                return Error.NotFound(description: "User not found!", code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
+                User? aclUser = _repository.Find(request.id);
+                if (aclUser == null)
+                {
+                    return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), description: "User not found!");
+                }
+                else
+                {
+                    aclUser.Password = "***********";
+                    aclUser.Salt = "***********";
+                    //aclUser.Claims = null;
+                }
+                return aclUser;
+            }
+            catch (Exception ex)
+            {
+               return Error.NotFound(code: ApplicationStatusCodes.GENERAL_FAILURE.ToString(), description: "User not found!");
             }
 
-            return entity;
+            //var entity = await _repository.GetByIdAsync(request.id, cancellationToken);
+
+            //if (entity == null)
+            //{
+            //    return Error.NotFound(description: "User not found!", code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
+            //}
+
+            //return entity;
         }
     }
 }

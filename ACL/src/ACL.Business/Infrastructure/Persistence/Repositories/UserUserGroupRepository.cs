@@ -105,7 +105,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
          
                 this._dbContext.AclUserUsergroups.AddRange(userUserGroups);
                 this._dbContext.SaveChanges();
-                this._dbContext.Entry(userUserGroups).Reload();
+                //this._dbContext.Entry(userUserGroups).Reload();
                 return userUserGroups;
 
         }

@@ -11,6 +11,7 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Infrastructure\Jwt\" />
+	  <Folder Include="Logs\" />
 	  <Folder Include="Presentation\Endpoints\UserSetting\" />
 	  <Folder Include="Presentation\Endpoints\User\" />
 	</ItemGroup>
