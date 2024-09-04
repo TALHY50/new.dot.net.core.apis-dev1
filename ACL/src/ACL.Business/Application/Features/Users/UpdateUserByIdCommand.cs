@@ -55,7 +55,7 @@ namespace ACL.Business.Application.Features.Users
 
 
         [ApiExplorerSettings(IgnoreApi = true)]
-    public class UpdateUserByIdCommandHandler : UserSettingBase, IRequestHandler<UpdateUserByIdCommand, ErrorOr<User>>
+    public class UpdateUserByIdCommandHandler :  IRequestHandler<UpdateUserByIdCommand, ErrorOr<User>>
     {
 
         private readonly IUserService _repository;

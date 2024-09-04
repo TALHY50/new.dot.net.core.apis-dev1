@@ -21,7 +21,7 @@ namespace ACL.Business.Application.Features.UserSettings
     }
 
     [ApiExplorerSettings(IgnoreApi = true)]
-    public class DeleteMttByIdCommandHandler : UserSettingBase, IRequestHandler<DeleteUserSettingByIdCommand, ErrorOr<bool>>
+    public class DeleteMttByIdCommandHandler : IRequestHandler<DeleteUserSettingByIdCommand, ErrorOr<bool>>
     {
         private readonly IUserSettingRepository _repository;
 

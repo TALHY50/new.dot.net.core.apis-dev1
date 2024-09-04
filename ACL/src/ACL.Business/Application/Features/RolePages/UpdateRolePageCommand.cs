@@ -44,16 +44,15 @@ public class UpdateRolePageCommandHandler : RolePageBase, IRequestHandler<Update
     {
         // Get role page by role id
         List<RolePage>? rolePages = _repository.FindByRoleId(command.role_id);
-        if (rolePages is null)
-        {
-            return Error.NotFound(code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString(), Language.GetMessage("Record not found"));
-        }
         // Prepare role page data
         RolePage[]? rolePagePrepareData = PrepareData(command);
         if (rolePagePrepareData.Length > 0)
         {
-            // Delete Previous role page
-            _repository.DeleteAll(rolePages.ToArray());
+            // Delete Previous role page if exit
+            if (rolePages is not null)
+            {
+                _repository.DeleteAll(rolePages.ToArray());
+            }
             // insert prepare data
             _repository.AddAll(rolePagePrepareData);
             List<uint>? userIds = _userRepository.GetUserIdByChangePermission(null, null, command.role_id);
