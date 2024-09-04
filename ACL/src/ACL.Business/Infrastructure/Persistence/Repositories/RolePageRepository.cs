@@ -3,11 +3,12 @@ using ACL.Business.Domain.Entities;
 using ACL.Business.Infrastructure.Auth.Auth;
 using ACL.Business.Infrastructure.Persistence.Context;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace ACL.Business.Infrastructure.Persistence.Repositories
 {
     /// <inheritdoc/>
-    public class RolePageRepository :EfRepository<RolePage>, IRolePageRepository
+    public class RolePageRepository : EfRepository<RolePage>, IRolePageRepository
     {
         /// <inheritdoc/>
         public ApplicationDbContext Context { get; }
@@ -18,7 +19,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         public static IHttpContextAccessor ContextAccessor { get; private set; }
 
         /// <inheritdoc/>
-        public RolePageRepository(ApplicationDbContext dbContext, IUserRepository userRepository, IHttpContextAccessor httpContextAccessor, IRoleRepository roleRepository, IPageRepository pageRepository):base(dbContext)
+        public RolePageRepository(ApplicationDbContext dbContext, IUserRepository userRepository, IHttpContextAccessor httpContextAccessor, IRoleRepository roleRepository, IPageRepository pageRepository) : base(dbContext)
         {
             this._userRepository = userRepository;
             this._roleRepository = roleRepository;
@@ -42,6 +43,10 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
                 throw new Exception();
             }
 
+        }
+        public List<RolePage>? FindByRoleId(uint role_id)
+        {
+            return Context.AclRolePages.Where(x => x.RoleId == role_id).ToList();
         }
         /// <inheritdoc/>
         public RolePage? Find(uint id)
@@ -119,30 +124,16 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         /// <inheritdoc/>
         public RolePage[]? AddAll(RolePage[] aclRolePages)
         {
-            try
-            {
-                Context.AclRolePages.AddRange(aclRolePages);
-                Context.SaveChanges();
-                return aclRolePages;
-            }
-            catch (Exception)
-            {
-                throw new Exception();
-            }
+            Context.AclRolePages.AddRange(aclRolePages);
+            Context.SaveChanges();
+            return aclRolePages;
         }
         /// <inheritdoc/>
         public RolePage[]? DeleteAll(RolePage[] aclRolePages)
         {
-            try
-            {
-                Context.AclRolePages.RemoveRange(aclRolePages);
-                Context.SaveChanges();
-                return aclRolePages;
-            }
-            catch (Exception)
-            {
-                throw new Exception();
-            }
+            Context.AclRolePages.RemoveRange(aclRolePages);
+            Context.SaveChanges();
+            return aclRolePages;
         }
         /// <inheritdoc/>
         public RolePage[]? DeleteAllByRoleId(uint roleId)
