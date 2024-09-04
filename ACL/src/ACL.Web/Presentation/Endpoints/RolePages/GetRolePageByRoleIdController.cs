@@ -2,6 +2,7 @@ using ACL.Business.Application.Features.RolePages;
 using ACL.Business.Contracts.Responses;
 using ACL.Web.Presentation.Routes;
 using ErrorOr;
+using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Interfaces.Services;
 
@@ -24,9 +25,12 @@ public class GetRolePageByRoleIdController(ILogger<GetRolePageByRoleIdController
                 query),
             cancellationToken);
         var result = await Mediator.Send(query).ConfigureAwait(false);
+
         var response = result.Match(
-            rolePages => Ok(ToSuccess(Mapper.Map<RolePageDto>(rolePages))),
-            Problem);
+                rolePages => Ok(ToSuccess(rolePages.Select(rolePage => rolePage.Adapt<RolePageDto>()).ToList())),
+                Problem
+            );
+
         _ = Task.Run(
             () => _logger.LogInformation(
                 "get-role-pages-by-role-id-response: {Name} {@UserId} {@Response}",
