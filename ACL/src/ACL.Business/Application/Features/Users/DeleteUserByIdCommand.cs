@@ -20,7 +20,7 @@ namespace ACL.Business.Application.Features.Users
     }
 
     [ApiExplorerSettings(IgnoreApi = true)]
-    public class DeleteUserByIdCommandHandler : UserBase, IRequestHandler<DeleteUserByIdCommand, ErrorOr<bool>>
+    public class DeleteUserByIdCommandHandler :  IRequestHandler<DeleteUserByIdCommand, ErrorOr<bool>>
     {
         private readonly IUserRepository _repository;
 

@@ -13,9 +13,9 @@ namespace Admin.Web.Presentation.Endpoints.TransactionLimits
         //[Authorize(Policy = "HasPermission")]
         [HttpDelete(TransactionLimitRoutes.DeleteTransactionLimitTemplate, Name = TransactionLimitRoutes.DeleteTransactionLimitName)]
 
-        public async Task<IActionResult> Delete(uint Id, CancellationToken cancellationToken)
+        public async Task<IActionResult> Delete(uint id, CancellationToken cancellationToken)
         {
-            var command = new DeleteTransactionLimitCommand(Id);
+            var command = new DeleteTransactionLimitCommand(id);
             _ = Task.Run(
                 () => _logger.LogInformation(
                     "delete-transactionlimit-by-id-request: {Name} {@UserId} {@Request}",
