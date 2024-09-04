@@ -416,7 +416,7 @@ namespace Notification.App.Infrastructure.Persistence.Migrations
                         .HasColumnName("updated_by_id")
                         .HasDefaultValueSql("'NULL'");
 
-                    b.Property<string>("Username")
+                    b.Property<string>("UserName")
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)")

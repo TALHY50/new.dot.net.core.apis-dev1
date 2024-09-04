@@ -13,6 +13,7 @@ using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Infrastructure.Services;
 using SharedKernel.Main.Infrastructure.Utilities;
 using System.Reflection;
+using ACL.Business.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 
 namespace ACL.Business.Infrastructure.Persistence;
@@ -28,7 +29,8 @@ public static class ACLPersistenceDependencyInjection
                 options.EnableRetryOnFailure();
             }));
 
-        services.AddIdentityCore<IdentityUser>()
+       // services.AddIdentity<User, Role>();
+        services.AddIdentityCore<User>()
             .AddEntityFrameworkStores<ApplicationDbContext>().AddApiEndpoints();
         var cacheDriver = Env.GetString("CACHE_DRIVER");
         if (cacheDriver == "redis")

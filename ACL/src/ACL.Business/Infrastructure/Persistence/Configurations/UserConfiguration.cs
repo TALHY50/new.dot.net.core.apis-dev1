@@ -15,7 +15,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         
             builder.HasKey(e => e.Id).HasName("PRIMARY");
 
-            builder.ToTable("acl_users");
+            builder.ToTable(name:"acl_users");
 
             builder.Property(e => e.Id)
                 .HasColumnType("bigint(20) unsigned")
@@ -48,9 +48,9 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
                 .HasColumnType("int(10) unsigned")
                 .HasColumnName("created_by_id");
             builder.Property(e => e.Dob).HasColumnName("dob");
-            builder.Property(e => e.Email)
+            /*builder.Property(e => e.Email)
                 .HasMaxLength(50)
-                .HasColumnName("email");
+                .HasColumnName("email");*/
             builder.Property(e => e.FirstName)
                 .HasMaxLength(100)
                 .HasColumnName("first_name");
@@ -113,9 +113,9 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
                 .HasComment("USER_TYPE_SS_ADMIN = 0; USER_TYPE_S_ADMIN = 1; USER_TYPE_USER = 2")
                 .HasColumnType("int(10) unsigned")
                 .HasColumnName("user_type");
-            builder.Property(e => e.Username)
+            /*builder.Property(e => e.UserName)
                 .HasMaxLength(20)
-                .HasColumnName("username");
+                .HasColumnName("username");*/
     }
 
 

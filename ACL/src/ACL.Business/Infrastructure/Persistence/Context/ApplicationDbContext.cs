@@ -9,7 +9,7 @@ using Module = ACL.Business.Domain.Entities.Module;
 
 namespace ACL.Business.Infrastructure.Persistence.Context;
 
-public partial class ApplicationDbContext : IdentityDbContext<IdentityUser>
+public partial class ApplicationDbContext : IdentityDbContext<User, Role, uint>
 {
     public ApplicationDbContext()
     {
@@ -19,6 +19,9 @@ public partial class ApplicationDbContext : IdentityDbContext<IdentityUser>
         : base(options)
     {
     }
+    
+    
+    public virtual DbSet<User> AclUsers { get; set; }
 
     public virtual DbSet<Branch> Branches { get; set; }
 
@@ -42,7 +45,6 @@ public partial class ApplicationDbContext : IdentityDbContext<IdentityUser>
 
     public virtual DbSet<SubModule> AclSubModules { get; set; }
 
-    public virtual DbSet<User> AclUsers { get; set; }
 
     public virtual DbSet<UserUsergroup> AclUserUsergroups { get; set; }
 
@@ -81,6 +83,10 @@ public partial class ApplicationDbContext : IdentityDbContext<IdentityUser>
         //modelBuilder
         //    .UseCollation("utf8mb4_general_ci")
         //    .HasCharSet("utf8mb4");
+        modelBuilder.Entity<User>(entity =>
+        {
+            entity.ToTable(name: "acl_users");         
+        });
 
         modelBuilder.Entity<Branch>(entity =>
         {
@@ -384,7 +390,7 @@ public partial class ApplicationDbContext : IdentityDbContext<IdentityUser>
                 .HasColumnName("updated_at");
         });
 
-        modelBuilder.Entity<Role>(entity =>
+        /*modelBuilder.Entity<Role>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
@@ -420,7 +426,7 @@ public partial class ApplicationDbContext : IdentityDbContext<IdentityUser>
                 .HasComment("approve auth ID")
                 .HasColumnType("bigint(20) unsigned")
                 .HasColumnName("updated_by_id");
-        });
+        });*/
 
         modelBuilder.Entity<RolePage>(entity =>
         {
@@ -616,7 +622,7 @@ public partial class ApplicationDbContext : IdentityDbContext<IdentityUser>
                 .HasComment("USER_TYPE_SS_ADMIN = 0; USER_TYPE_S_ADMIN = 1; USER_TYPE_USER = 2")
                 .HasColumnType("int(10) unsigned")
                 .HasColumnName("user_type");
-            entity.Property(e => e.Username)
+            entity.Property(e => e.UserName)
                 .HasMaxLength(20)
                 .HasColumnName("username");
         });*/
@@ -4142,7 +4148,7 @@ public partial class ApplicationDbContext : IdentityDbContext<IdentityUser>
                   CreatedAt = DateTime.Parse("2018-07-10 16:21:24"),
                   UpdatedAt = DateTime.Parse("2021-08-25 05:46:27"),
                   Language = "en-US",
-                  Username = "rajibecbb",
+                  UserName = "rajibecbb",
                   ImgPath = "storage/users/1/2019-04-18-07-49-28-ba4fe9be59df7b82f8243d2126070d76f5305b3e.png",
                   Status = 1,
                   CompanyId = 1,
@@ -4150,11 +4156,6 @@ public partial class ApplicationDbContext : IdentityDbContext<IdentityUser>
                   OtpChannel = 0,
                   CreatedById = 1,
                   Salt = "pNr7R0FzsicCDrMlIwXYVI6zM4rZByVgNCkWRwM4y57Sw+cdKUbTrRZLbV8nccwNlN+DokHXlkxKGvw+7ISPPw==",
-                  Claims = new List<Claim>{new Claim
-                 {
-                     Type = "scope",
-                     Value = "CanReadWeather"
-                 } },
                   RefreshToken = new RefreshToken
                   {
                       Value = null,
@@ -4163,6 +4164,7 @@ public partial class ApplicationDbContext : IdentityDbContext<IdentityUser>
                   },
               }
          );
+         
 
         modelBuilder.Entity<Module>().HasData(
             new Module[]

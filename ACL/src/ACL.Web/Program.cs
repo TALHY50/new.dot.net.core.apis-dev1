@@ -1,4 +1,5 @@
 using ACL.Business.Application;
+using ACL.Business.Domain.Entities;
 using ACL.Business.Infrastructure;
 using ACL.Business.Infrastructure.Middlewares;
 using ACL.Business.Presentation;
@@ -21,7 +22,6 @@ builder.Services.AddACLBusinessInfrastructure(builder.Configuration, builder.Env
 builder.Services.AddACLBusinessPresentation(builder.Configuration, builder.Environment, builder.Host);
 
 builder.Services.AddACLWebPresentation(builder.Configuration, builder.Environment, builder.Host);
-
 var app = builder.Build();
 {
     app.UseAuthentication()
@@ -41,7 +41,7 @@ var app = builder.Build();
                 .AllowAnyHeader(); 
         });
     
-    app.MapIdentityApi<IdentityUser>();
+    app.MapIdentityApi<User>();
     app.Run();
 }
 

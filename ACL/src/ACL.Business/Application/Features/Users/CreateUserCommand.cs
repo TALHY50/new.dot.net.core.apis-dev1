@@ -105,7 +105,7 @@ namespace ACL.Business.Application.Features.Users
                 req.City = command.city;
                 req.Country = (byte)command.country;
                 req.Phone = command.phone;
-                req.Username = command.user_name;
+                req.UserName = command.user_name;
                 req.Language = command.language;
                 req.ImgPath = command.img_path;
                 req.Status = (sbyte)command.status;
@@ -116,7 +116,7 @@ namespace ACL.Business.Application.Features.Users
                 req.CompanyId = (companyId != 0) ? companyId : (uint)AppAuth.GetAuthInfo().CompanyId;
                 //  req.UserType = (companyId == 0) ? uint.Parse(this._config["USER_TYPE_S_ADMIN"]) : uint.Parse(this._config["USER_TYPE_USER"]);
                 req.UserType = (companyId == 0) ? (uint)1 : (uint)2;
-                req.Claims = new Domain.Entities.Claim[] { };
+                //req.Claims = new Domain.Entities.Claim[] { };
             }
             catch (Exception ex)
             {
