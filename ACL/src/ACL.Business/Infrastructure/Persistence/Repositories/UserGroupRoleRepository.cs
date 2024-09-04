@@ -124,5 +124,29 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
             this._dbContext.SaveChanges();
             return delete;
         }
+
+        public List<UsergroupRole>? FindByUserGroupId(uint userGroupId)
+        {
+            return _dbContext.AclUsergroupRoles.Where(x => x.UsergroupId == userGroupId).ToList();
+        }
+
+        public UsergroupRole[]? AddAll(UsergroupRole[] aclUserGroupRoles)
+        {
+            _dbContext.AclUsergroupRoles.AddRange(aclUserGroupRoles);
+            _dbContext.SaveChanges();
+            return aclUserGroupRoles;
+        }
+
+        public UsergroupRole[]? DeleteAll(UsergroupRole[] aclUserGroupRoles)
+        {
+            _dbContext.AclUsergroupRoles.RemoveRange(aclUserGroupRoles);
+            _dbContext.SaveChanges();
+            return aclUserGroupRoles;
+        }
+
+        public bool IsExist(uint id)
+        {
+            return this._dbContext.AclUsergroupRoles.Any(i => i.Id == id);
+        }
     }
 }

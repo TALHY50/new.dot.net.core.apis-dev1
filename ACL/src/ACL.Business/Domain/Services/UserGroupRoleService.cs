@@ -1,6 +1,7 @@
 ﻿using ACL.Business.Application.Interfaces.Repositories;
 using ACL.Business.Contracts.Requests;
 using ACL.Business.Contracts.Responses;
+using ACL.Business.Domain.Entities;
 using ACL.Business.Infrastructure.Auth.Auth;
 using ACL.Business.Infrastructure.Persistence.Context;
 using ACL.Business.Infrastructure.Persistence.Repositories;
@@ -95,6 +96,9 @@ namespace ACL.Business.Domain.Services
             return Task.FromResult(this.ScopeResponse);
         }
 
-
+        public List<UsergroupRole>? FindByUserGroupId(uint userGroupId)
+        {
+            return _dbContext.AclUsergroupRoles.Where(x => x.UsergroupId == userGroupId).ToList();
+        }
     }
 }

@@ -122,7 +122,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
 
         public bool IsExist(uint id)
         {
-            return this._dbContext.AclUserUsergroups.Any(m=> m.Id == id);
+            return this._dbContext.AclUsergroups.Any(m=> m.Id == id);
         }
     }
 }
