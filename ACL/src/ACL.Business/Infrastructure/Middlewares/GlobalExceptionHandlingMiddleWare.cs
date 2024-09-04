@@ -22,32 +22,32 @@ namespace ACL.Business.Infrastructure.Middlewares
             {
                 await _next(context);
 
-                if (context.Response.StatusCode == StatusCodes.Status404NotFound)
-                {
-                    aclResponse.Message = "The requested resource is not found.";
-                    aclResponse.StatusCode = context.Response.StatusCode;
+                //if (context.Response.StatusCode == StatusCodes.Status404NotFound)
+                //{
+                //    aclResponse.Message = "The requested resource is not found.";
+                //    aclResponse.StatusCode = context.Response.StatusCode;
 
-                    var exResult = JsonSerializer.Serialize(aclResponse);
-                    await context.Response.WriteAsync(exResult);
-                }
+                //    var exResult = JsonSerializer.Serialize(aclResponse);
+                //    await context.Response.WriteAsync(exResult);
+                //}
 
-                if (context.Response.StatusCode == StatusCodes.Status405MethodNotAllowed)
-                {
-                    aclResponse.Message = "The requested method not supported.";
-                    aclResponse.StatusCode = context.Response.StatusCode;
+                //if (context.Response.StatusCode == StatusCodes.Status405MethodNotAllowed)
+                //{
+                //    aclResponse.Message = "The requested method not supported.";
+                //    aclResponse.StatusCode = context.Response.StatusCode;
 
-                    var exResult = JsonSerializer.Serialize(aclResponse);
-                    await context.Response.WriteAsync(exResult);
-                }
-                if (context.Response.StatusCode == StatusCodes.Status401Unauthorized)
-                {
-                    throw new Exception("UnAuthorized.");
-                }
+                //    var exResult = JsonSerializer.Serialize(aclResponse);
+                //    await context.Response.WriteAsync(exResult);
+                //}
+                //if (context.Response.StatusCode == StatusCodes.Status401Unauthorized)
+                //{
+                //    throw new Exception("UnAuthorized.");
+                //}
 
-                if (context.Response.StatusCode == StatusCodes.Status403Forbidden)
-                {
-                    throw new Exception("Access Denied.");
-                }
+                //if (context.Response.StatusCode == StatusCodes.Status403Forbidden)
+                //{
+                //    throw new Exception("Access Denied.");
+                //}
             }
             catch (Exception ex)
             {
