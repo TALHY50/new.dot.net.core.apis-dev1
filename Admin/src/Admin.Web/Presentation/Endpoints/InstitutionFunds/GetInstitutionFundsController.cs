@@ -1,4 +1,5 @@
-﻿using Admin.App.Presentation.Routes;
+﻿using Admin.App.Presentation.Endpoints.InstitutionFunds;
+using Admin.App.Presentation.Routes;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Admin.Application.Features.InstitutionFunds;
@@ -6,7 +7,7 @@ using SharedBusiness.Main.Common.Contracts;
 using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Contracts;
 
-namespace Admin.App.Presentation.Endpoints.InstitutionFunds
+namespace Admin.Web.Presentation.Endpoints.InstitutionFunds
 {
     public class GetInstitutionFundsController(ILogger<GetInstitutionFundsController> logger, ICurrentUser currentUser)
         : InstitutionFundBaseController(logger, currentUser)

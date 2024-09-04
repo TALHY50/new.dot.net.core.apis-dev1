@@ -1,10 +1,11 @@
-﻿using Admin.App.Presentation.Routes;
+﻿using Admin.App.Presentation.Endpoints.PayerPaymentSpeeds;
+using Admin.App.Presentation.Routes;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Admin.Application.Features.PayerPaymentSpeeds;
 using SharedBusiness.Main.Common.Contracts;
 using SharedKernel.Main.Application.Interfaces.Services;
 
-namespace Admin.App.Presentation.Endpoints.PayerPaymentSpeeds
+namespace Admin.Web.Presentation.Endpoints.PayerPaymentSpeeds
 {
     public class GetPayerPaymentSpeedByIdController(ILogger<GetPayerPaymentSpeedByIdController> logger, ICurrentUser currentUser)
         : PayerPaymentSpeedBase(logger, currentUser)
