@@ -3,10 +3,12 @@ using ACL.Business.Application.Interfaces.Repositories;
 using ErrorOr;
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using SharedKernel.Main.Contracts;
 
 namespace ACL.Business.Application.Features.Roles
 {
+    //[Authorize]
     public record DeleteRoleByIdCommand(uint id) : IRequest<ErrorOr<bool>>;
 
     public class DeleteRoleByIdCommandValidator : AbstractValidator<DeleteRoleByIdCommand>
