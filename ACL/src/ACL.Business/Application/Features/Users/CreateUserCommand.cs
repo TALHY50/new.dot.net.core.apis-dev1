@@ -24,6 +24,9 @@ using ACL.Business.Contracts.Requests;
 using Microsoft.Extensions.Configuration;
 using System.ComponentModel.Design;
 using System.Security.Claims;
+using ACL.Business.Application.Interfaces.Repositories;
+using ACL.Business.Infrastructure.Persistence.Repositories;
+using SharedKernel.Main.Infrastructure.Cryptography;
 
 namespace ACL.Business.Application.Features.Users
 {
@@ -56,91 +59,116 @@ namespace ACL.Business.Application.Features.Users
         public CreateUserCommandValidator()
         {
             //RuleFor(x => x.status).NotEmpty().IsInEnum();
+            RuleFor(x => x.email).NotEmpty().WithErrorCode(ApplicationStatusCodes.API_ERROR_EMAIL_IS_MISSING_OR_INVALID.ToString()).WithMessage("Email should not empty or invalid!");
+            RuleFor(x => x.password).NotEmpty().WithErrorCode(ApplicationStatusCodes.API_ERROR_INPUT_PARAMETER_INVALID.ToString()).WithMessage("Password should not empty or invalid!");
         }
     }
 
     [ApiExplorerSettings(IgnoreApi = true)]
-    public class CreateUserCommandHandler :  IRequestHandler<CreateUserCommand, ErrorOr<User>>
+    public class CreateUserCommandHandler : UserBase, IRequestHandler<CreateUserCommand, ErrorOr<User>>
     {
         private readonly ICurrentUser _user;
         private readonly ApplicationDbContext _otherDbContext;
-        public static IHttpContextAccessor HttpContextAccessor;
         private readonly ITransactionHandler _transactionHandler;
-        private readonly IUserService _repository;
+        private readonly IUserUserGroupRepository _userUserGroupRepository;
+        private readonly IUserRepository _userRepository;
         private readonly ICryptography _cryptography;
         private readonly IConfiguration _config;
+        private readonly ILogger<CreateUserCommandHandler> _logger;
         // Constructor
         public CreateUserCommandHandler(
             ILogger<CreateUserCommandHandler> logger,
-            ApplicationDbContext dbContext,
-            ITransactionHandler transactionHandler,
-            ICurrentUser user, ApplicationDbContext otherDbContext, ICompanyService companyRepository, IHttpContextAccessor httpContextAccessor, IUserService repository, ICryptography cryptography, IConfiguration config)
+            ApplicationDbContext dbContext, IUserRepository userRepository, IUserUserGroupRepository userUserGroupRepository, ICryptography cryptography, IConfiguration config, ICurrentUser user, ITransactionHandler transactionHandler)
         {
-            _user = user ?? throw new ArgumentNullException(nameof(user));
             _config = config ?? throw new ArgumentNullException(nameof(config));
-            var _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _cryptography = cryptography ?? throw new ArgumentNullException(nameof(cryptography));
-            _otherDbContext = otherDbContext ?? throw new ArgumentNullException(nameof(otherDbContext));
+            _userUserGroupRepository = userUserGroupRepository ?? throw new ArgumentNullException(nameof(userUserGroupRepository));
+            _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+            dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
             _transactionHandler = transactionHandler ?? throw new ArgumentNullException(nameof(transactionHandler));
-            HttpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
-            AppAuth.Initialize(HttpContextAccessor, _otherDbContext);
-            AppAuth.SetAuthInfo(HttpContextAccessor);
         }
         public async Task<ErrorOr<User>> Handle(CreateUserCommand command, CancellationToken cancellationToken)
         {
-            var salt = this._cryptography.GenerateSalt();
-            var companyId = (uint)AppAuth.GetAuthInfo().CompanyId;
-            var req = new User();
-            try
-            {
-                req.FirstName = command.first_name ?? string.Empty;
-                req.LastName = command.last_name ?? string.Empty;
-                req.Email = command.email ?? string.Empty;
-                req.Password = this._cryptography.HashPassword(command.password, salt);
-                req.Avatar = command.avatar ?? string.Empty;
-                req.Dob = command.dob;
-                req.Gender = command.gender;
-                req.Address = command.address;
-                req.City = command.city;
-                req.Country = (byte)command.country;
-                req.Phone = command.phone;
-                req.Username = command.user_name;
-                req.Language = command.language;
-                req.ImgPath = command.img_path;
-                req.Status = (sbyte)command.status;
-                req.Salt = salt;
-                req.CreatedAt = DateTime.Now;
-                req.UpdatedAt = DateTime.Now;
-                req.CreatedById = (uint)AppAuth.GetAuthInfo().UserId;
-                req.CompanyId = (companyId != 0) ? companyId : (uint)AppAuth.GetAuthInfo().CompanyId;
-                //  req.UserType = (companyId == 0) ? uint.Parse(this._config["USER_TYPE_S_ADMIN"]) : uint.Parse(this._config["USER_TYPE_USER"]);
-                req.UserType = (companyId == 0) ? (uint)1 : (uint)2;
-                req.Claims = new Domain.Entities.Claim[] { };
-            }
-            catch (Exception ex)
-            {
+            User? req = PrepareInputData(command);
+            var obj = _userRepository.Add(req);
+            UserUsergroup[] userUserGroups = PrepareDataForUserUserGroups(command, obj?.Id);
+            _userUserGroupRepository.AddRange(userUserGroups);
+            obj.Password = "************";
+            obj.Salt = "************";
+            obj.Claims = null;
+            obj.RefreshToken = null;
+            return obj;
 
-            }
-
-            var result = await _repository.AddAsync(req);
-            return result;
-
-            // var result = await _transactionHandler.ExecuteWithTransactionAsync<User>(
+            //     var result = await _transactionHandler.ExecuteWithTransactionAsync<User>(
             //    async (ct) =>
             //    {
             //        var obj = await _repository.AddAsync(req);
+            //        UserUsergroup[] userUserGroups = PrepareDataForUserUserGroups(command, obj?.Id);
+            //        _userUserGroupRepository.AddRange(userUserGroups);
             //        return obj;
 
             //    }, _otherDbContext, 3, cancellationToken
             //);
 
-            //if (result.IsError)
-            //{
-            //    return result;
-            //}
+            //     if (result.IsError)
+            //     {
+            //         return result;
+            //     }
 
-            //return result.Value;
+            //     return result.Value;
+        }
+
+        public User PrepareInputData(CreateUserCommand request)
+        {
+            var salt = this._cryptography.GenerateSalt();
+            if (_userRepository.IsAclUserEmailExist(request.email))
+            {
+                throw new InvalidOperationException("Email already exist");
+            }
+            return new User
+            {
+                FirstName = request.first_name,
+                LastName = request.last_name,
+                Email = request.email,
+                Password = this._cryptography.HashPassword(request.password, salt),
+                Avatar = request.avatar,
+                Dob = request.dob,
+                Gender = request.gender,
+                Address = request.address,
+                City = request.city,
+                Country = (uint)request.country,
+                Phone = request.phone,
+                Username = request.user_name,
+                Language = request.language,
+                ImgPath = request.img_path,
+                Status = (sbyte)request.status,
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now,
+                CreatedById = (uint)AppAuth.GetAuthInfo().UserId,
+                CompanyId = (uint)AppAuth.GetAuthInfo().CompanyId,
+                //  UserType = ((uint)AppAuth.GetAuthInfo().CompanyId == 0) ? uint.Parse(this._config["USER_TYPE_S_ADMIN"]) : uint.Parse(this._config["USER_TYPE_USER"]),
+                UserType = ((uint)AppAuth.GetAuthInfo().CompanyId == 0) ? (uint)1 : (uint)2,
+                Salt = salt,
+                Claims = new Domain.Entities.Claim[] { }
+            };
+        }
+
+        /// <inheritdoc/>
+        public UserUsergroup[] PrepareDataForUserUserGroups(CreateUserCommand request, uint? user_id)
+        {
+            IList<UserUsergroup> res = new List<UserUsergroup>();
+
+            foreach (uint user_group in request.user_group)
+            {
+                UserUsergroup userUserGroup = new UserUsergroup();
+                userUserGroup.UserId = user_id ?? 0;
+                userUserGroup.UsergroupId = user_group;
+                userUserGroup.CreatedAt = DateTime.Now;
+                userUserGroup.UpdatedAt = DateTime.Now;
+                res.Add(userUserGroup);
+            }
+            return res.ToArray();
         }
     }
 }
