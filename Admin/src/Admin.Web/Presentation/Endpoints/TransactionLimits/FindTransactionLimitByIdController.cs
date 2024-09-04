@@ -13,9 +13,9 @@ namespace Admin.Web.Presentation.Endpoints.TransactionLimits
         [Tags("Transaction Limit")]
         //[Authorize(Policy = "HasPermission")]
         [HttpGet(TransactionLimitRoutes.GetTransactionLimitByIdTemplate, Name = TransactionLimitRoutes.GetTransactionLimitByIdName)]
-        public async Task<IActionResult> GetById(uint Id, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetById(uint id, CancellationToken cancellationToken)
         {
-            var query = new FindTransactionLimitByIdQuery(Id);
+            var query = new FindTransactionLimitByIdQuery(id);
             _ = Task.Run(
                 () => _logger.LogInformation(
                     "get-transactionlimit-by-id-request: {Name} {@UserId} {@Request}",
