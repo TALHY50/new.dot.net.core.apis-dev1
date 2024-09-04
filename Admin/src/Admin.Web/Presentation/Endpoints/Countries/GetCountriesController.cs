@@ -8,7 +8,7 @@ using SharedBusiness.Main.Common.Contracts;
 using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Contracts;
 
-namespace Admin.Web.Presentation.Endpoints.Country;
+namespace Admin.Web.Presentation.Endpoints.Countries;
 
 public class GetCountriesController(ILogger<GetCountriesController> logger, ICurrentUser currentUser)
     : CountryBase(logger, currentUser)
@@ -38,5 +38,6 @@ public class GetCountriesController(ILogger<GetCountriesController> logger, ICur
                 CurrentUser.UserId,
                 response),
             cancellationToken);
-        return response; }
+        return response;
+    }
 }

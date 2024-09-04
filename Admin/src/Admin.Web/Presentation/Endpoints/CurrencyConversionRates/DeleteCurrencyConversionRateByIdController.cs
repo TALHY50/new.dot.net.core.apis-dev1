@@ -1,9 +1,9 @@
 using Admin.Web.Presentation.Routes;
 using Microsoft.AspNetCore.Mvc;
-using SharedBusiness.Main.Admin.Application.Features.CreateCurrencyConversionRates;
+using SharedBusiness.Main.Admin.Application.Features.CurrencyConversionRates;
 using SharedKernel.Main.Presentation;
 
-namespace Admin.Web.Presentation.Endpoints.CreateCurrencyConversionRates;
+namespace Admin.Web.Presentation.Endpoints.CurrencyConversionRates;
 
 public class DeleteCurrencyConversionRateByIdController : ApiControllerBase
 {

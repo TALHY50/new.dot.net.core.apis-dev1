@@ -1,7 +1,7 @@
 ﻿using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Presentation;
 
-namespace Admin.App.Presentation.Endpoints.Providers
+namespace Admin.Web.Presentation.Endpoints.Providers
 {
     public class ProviderBaseController : ApiControllerBase
     {

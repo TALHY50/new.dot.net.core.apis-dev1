@@ -1,10 +1,11 @@
-﻿using Admin.App.Presentation.Routes;
+﻿using Admin.Web.Presentation.Endpoints.InstitutionFunds;
+using Admin.Web.Presentation.Routes;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Admin.Application.Features.InstitutionFunds;
 using SharedBusiness.Main.Common.Contracts;
 using SharedKernel.Main.Application.Interfaces.Services;
 
-namespace Admin.App.Presentation.Endpoints.InstitutionFunds
+namespace Admin.Web.Presentation.Endpoints.InstitutionFunds
 {
     public class UpdateInstitutionFundByIdController : InstitutionFundBaseController
     {

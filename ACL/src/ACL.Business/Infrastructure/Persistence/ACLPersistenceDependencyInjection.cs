@@ -63,6 +63,8 @@ public static class ACLPersistenceDependencyInjection
         services.AddScoped<IUserGroupRepository, UserGroupRepository>();
         services.AddScoped<IUserGroupRoleRepository, UserGroupRoleRepository>();
         services.AddScoped<IUserUserGroupRepository, UserUserGroupRepository>();
+        services.AddScoped<ICompanyRepository, CompanyRepository>();
+
         // Register IUserSettingRepository with its concrete implementation UserSettingRepository
         services.AddScoped<IUserSettingRepository, UserSettingRepository>();
         services.AddScoped<IUserRepository, UserRepository>();

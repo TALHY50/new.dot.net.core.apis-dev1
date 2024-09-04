@@ -59,56 +59,28 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         /// <inheritdoc/>
         public List<UserUsergroup>? All()
         {
-            try
-            {
                 return this._dbContext.AclUserUsergroups.ToList();
-            }
-            catch (Exception)
-            {
-                throw new Exception();
-            }
         }
         /// <inheritdoc/>
         public UserUsergroup? Find(uint id)
         {
-            try
-            {
                 return this._dbContext.AclUserUsergroups.Find(id);
-            }
-            catch (Exception)
-            {
-                throw new Exception();
-            }
         }
         /// <inheritdoc/>
         public UserUsergroup? Update(UserUsergroup userUserGroup)
         {
-            try
-            {
                 this._dbContext.AclUserUsergroups.Update(userUserGroup);
                 this._dbContext.SaveChanges();
                 this._dbContext.Entry(userUserGroup).Reload();
                 return userUserGroup;
-            }
-            catch (Exception)
-            {
-                throw new Exception();
-            }
         }
         /// <inheritdoc/>
         public UserUsergroup? Delete(UserUsergroup userUserGroup)
         {
-            try
-            {
+
                 this._dbContext.AclUserUsergroups.Remove(userUserGroup);
                 this._dbContext.SaveChanges();
                 return userUserGroup;
-            }
-            catch (Exception)
-            {
-                throw new Exception();
-            }
-
         }
         /// <inheritdoc/>
         public UserUsergroup? Delete(uint id)
@@ -130,46 +102,29 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         {
             if (userUserGroups == null || userUserGroups.Length == 0)
                 return null;
-            try
-            {
+         
                 this._dbContext.AclUserUsergroups.AddRange(userUserGroups);
                 this._dbContext.SaveChanges();
+                this._dbContext.Entry(userUserGroups).Reload();
                 return userUserGroups;
-            }
-            catch (Exception)
-            {
-                throw new Exception();
-            }
+
         }
         /// <inheritdoc/>
         public UserUsergroup[]? RemoveRange(UserUsergroup[] userUserGroups)
         {
             if ( userUserGroups.Length == 0)
                 return null;
-            try
-            {
+
                 this._dbContext.AclUserUsergroups.RemoveRange(userUserGroups);
                 this._dbContext.SaveChanges();
                 return userUserGroups;
-            }
-            catch (Exception)
-            {
-                throw new Exception();
-            }
         }
         /// <inheritdoc/>
         public UserUsergroup[]? Where(uint userid)
         {
-            try
-            {
                 return GetAll()
                     .Where(u => u.UserId == userid)
                     .ToArray();
-            }
-            catch (Exception)
-            {
-                throw new Exception();
-            }
         }
 
         public UserUsergroup PrepareDataForInput(uint userGroup, uint userId)
