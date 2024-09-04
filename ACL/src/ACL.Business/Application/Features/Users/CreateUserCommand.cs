@@ -60,7 +60,7 @@ namespace ACL.Business.Application.Features.Users
     }
 
     [ApiExplorerSettings(IgnoreApi = true)]
-    public class CreateUserCommandHandler : UserBase, IRequestHandler<CreateUserCommand, ErrorOr<User>>
+    public class CreateUserCommandHandler :  IRequestHandler<CreateUserCommand, ErrorOr<User>>
     {
         private readonly ICurrentUser _user;
         private readonly ApplicationDbContext _otherDbContext;

@@ -24,7 +24,7 @@ namespace ACL.Business.Application.Features.UserSettings
     }
 
     [ApiExplorerSettings(IgnoreApi = true)]
-    public class GetUserSettingByIdQueryHandler : UserSettingBase, IRequestHandler<GetUserSettingByIdQuery, ErrorOr<UserSetting>>
+    public class GetUserSettingByIdQueryHandler :  IRequestHandler<GetUserSettingByIdQuery, ErrorOr<UserSetting>>
     {
         private readonly IUserSettingRepository _repository;
 
