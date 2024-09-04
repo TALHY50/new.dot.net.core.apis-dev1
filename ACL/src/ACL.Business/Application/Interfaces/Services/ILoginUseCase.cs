@@ -4,7 +4,7 @@ using SharedKernel.Main.Application.Interfaces.Services;
 
 namespace ACL.Business.Application.Interfaces.Services
 {
-    public interface ILoginUseCase : IUseCase<LoginRequest, LoginResponse>
+    public interface ILoginUseCase : IUseCase<LoginRequestOwn, LoginResponse>
     {
     }
 }

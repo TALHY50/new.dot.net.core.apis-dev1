@@ -1,3 +1,5 @@
+using ACL.Business.Infrastructure.Persistence.Context;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.OpenApi.Models;
 
 namespace ACL.Web.Presentation;
@@ -42,6 +44,7 @@ public static class ACLWebDependencyInjection
         });
 
         services.AddHttpContextAccessor();
+        //services.AddIdentityApiEndpoints<IdentityUser>();
         return services;
     }
 }

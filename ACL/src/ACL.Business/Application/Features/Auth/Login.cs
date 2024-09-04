@@ -28,11 +28,11 @@ namespace ACL.Business.Application.Features.Auth
             this._authRepository = authRepository;
             this._cryptography = cryptography;
         }
-        public async Task<LoginResponse> Execute(LoginRequest request)
+        public async Task<LoginResponse> Execute(LoginRequestOwn requestOwn)
         {
             try
             {
-                var user = this._authRepository.FindByEmail(request.Email);
+                var user = this._authRepository.FindByEmail(requestOwn.Email);
                 if (user == null)
                 {
                     var response = new LoginErrorResponse
@@ -42,7 +42,7 @@ namespace ACL.Business.Application.Features.Auth
                     };
                     return response;
                 }
-                if (AreCredentialsValid(request.Password, user))
+                if (AreCredentialsValid(requestOwn.Password, user))
                 {
                     user.RefreshToken = new ACL.Business.Domain.Entities.RefreshToken
                     {

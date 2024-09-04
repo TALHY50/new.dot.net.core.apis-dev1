@@ -103,7 +103,7 @@ namespace ACL.TEST
 
         public static string TestLogin()
         {
-            var loginRequest = new LoginRequest { Email = "ssadmin@sipay.com.tr", Password = "Nop@ss1234" };
+            var loginRequest = new LoginRequestOwn { Email = "ssadmin@sipay.com.tr", Password = "Nop@ss1234" };
             //Arrange
             RestClient restClient = new RestClient(baseUrl);
             // Act
@@ -124,7 +124,7 @@ namespace ACL.TEST
         
         public static string TestLogin(string sadmin)
         {
-            var loginRequest = new LoginRequest { Email = "mahmud@softrobotics.bd", Password = "secret" };
+            var loginRequest = new LoginRequestOwn { Email = "mahmud@softrobotics.bd", Password = "secret" };
             //Arrange
             RestClient restClient = new RestClient(baseUrl);
             // Act

@@ -2,12 +2,14 @@
 using ACL.Business.Domain.Entities;
 using ACL.Business.Infrastructure.Persistence.Migrations;
 using DotNetEnv;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Module = ACL.Business.Domain.Entities.Module;
 
 namespace ACL.Business.Infrastructure.Persistence.Context;
 
-public partial class ApplicationDbContext : DbContext
+public partial class ApplicationDbContext : IdentityDbContext<IdentityUser>
 {
     public ApplicationDbContext()
     {
