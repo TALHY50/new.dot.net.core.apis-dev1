@@ -109,11 +109,11 @@ namespace ACL.Business.Domain.Services
                         FirstName = firstName,
                         LastName = lname,
                         Language = "en-US",
-                        Username = aclCompany.Email,
+                        UserName = aclCompany.Email,
                         CreatedById = (uint)AppAuth.GetAuthInfo().UserId,
                         CompanyId = (uint)aclCompany.Id,
                         Salt = salt,
-                        Claims = new Claim[] { },
+                        //Claims = new Claim[] { },
                         CreatedAt = DateTime.Now,
                         UpdatedAt = DateTime.Now
                     };

@@ -45,7 +45,7 @@ namespace ACL.Business.Application.Features.Users
                 {
                     aclUser.Password = "***********";
                     aclUser.Salt = "***********";
-                    aclUser.Claims = null;
+                    //aclUser.Claims = null;
                 }
                 return aclUser;
             }

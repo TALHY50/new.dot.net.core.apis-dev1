@@ -13,6 +13,7 @@ using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Infrastructure.Services;
 using SharedKernel.Main.Infrastructure.Utilities;
 using System.Reflection;
+using ACL.Business.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 
 namespace ACL.Business.Infrastructure.Persistence;
@@ -28,8 +29,8 @@ public static class ACLPersistenceDependencyInjection
                 options.EnableRetryOnFailure();
             }));
 
-        services.AddIdentityCore<IdentityUser>()
-            .AddEntityFrameworkStores<ApplicationDbContext>().AddApiEndpoints();
+       // services.AddIdentity<User, Role>();
+       services.AddIdentity();
         var cacheDriver = Env.GetString("CACHE_DRIVER");
         if (cacheDriver == "redis")
         {
@@ -69,6 +70,18 @@ public static class ACLPersistenceDependencyInjection
         services.AddScoped<IUserSettingRepository, UserSettingRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
         //services.AddMediatR(Assembly.GetExecutingAssembly());
+        return services;
+    }
+
+    private static IServiceCollection AddIdentity(this IServiceCollection services)
+    {
+        services.AddIdentityCore<User>()
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultTokenProviders()
+            .AddApiEndpoints()
+            .AddSignInManager();
+        services.AddAuthentication().AddCookie(IdentityConstants.ApplicationScheme)
+            .AddBearerToken(IdentityConstants.BearerScheme);
         return services;
     }
 }

@@ -89,6 +89,9 @@ public static class ACLApplicationDependencyInjection
                     ClockSkew = TimeSpan.FromMinutes(0)
                 };
             });
+
+       
+
             
 
         services.AddAuthorization(options =>
@@ -96,8 +99,7 @@ public static class ACLApplicationDependencyInjection
             options.AddPolicy("HasPermission", policy =>
                 policy.Requirements.Add(new PermissionAuthorizationRequirement()));
         });
-        services.AddAuthentication()
-            .AddBearerToken(IdentityConstants.BearerScheme);
+
         //services.AddAuthorizationBuilder();
         services.AddSingleton<IIdentity, Jwt>();
         services.AddTransient<ICurrentUser, CurrentUser>();

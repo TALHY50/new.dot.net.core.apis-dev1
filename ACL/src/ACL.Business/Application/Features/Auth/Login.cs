@@ -52,12 +52,12 @@ namespace ACL.Business.Application.Features.Auth
                     };
                      this._authRepository.UpdateAndSaveAsync(user);
                      string nameIdentifier = user.Id.ToString();
-                     var claim = user.Claims.SingleOrDefault(c => c.Type == "scope");
+                     //var claim = //user.Claims.SingleOrDefault(c => c.Type == "scope");
                      string? scope = null;
-                     if (claim != null)
+                     /*if (claim != null)
                      {
                           scope = string.Join(" ", claim.Value);
-                     }
+                     }*/
 
                      string name = user?.FirstName ?? "";
                      string email = user?.FirstName ?? "";

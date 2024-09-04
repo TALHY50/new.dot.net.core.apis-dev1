@@ -64,12 +64,12 @@ namespace ACL.Business.Application.Features.Auth
                     };
                 }
                 string nameIdentifier = user.Id.ToString();
-                var claim = user.Claims.SingleOrDefault(c => c.Type == "scope");
+               // var claim = user.Claims.SingleOrDefault(c => c.Type == "scope");
                 string? scope = null;
-                if (claim != null)
+                /*if (claim != null)
                 {
                     scope = string.Join(" ", claim.Value);
-                }
+                }*/
                 var newToken = await this._identity.GenerateAccessToken(nameIdentifier, scope);
                 user.RefreshToken.Value = await this._identity.GenerateRefreshToken();
                 user.RefreshToken.Active = true;

@@ -59,7 +59,7 @@ namespace ACL.Business.Application.Features.Auth
                     Salt = salt,
                     FirstName = request.Name,
                     LastName = request.LastName,
-                    Claims = ToClaims(request.Claims),
+                    //Claims = ToClaims(request.Claims),
                     CreatedAt = currentDate,
                     UpdatedAt = currentDate
                 };

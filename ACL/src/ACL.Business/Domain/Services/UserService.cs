@@ -64,7 +64,7 @@ namespace ACL.Business.Domain.Services
                user.Password = "**********";
                user.Salt = "**********";
 #pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
-               user.Claims = null;
+               //user.Claims = null;
                user.RefreshToken = null;
            });
 
@@ -105,7 +105,7 @@ namespace ACL.Business.Domain.Services
                            aclUser.Password = "******************"; // request.Password
                            aclUser.Salt = "******************";
 #pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
-                           aclUser.Claims = null;
+                           //aclUser.Claims = null;
                            aclUser.RefreshToken = null;
                            this.ScopeResponse.Data = aclUser;
                        }
@@ -194,7 +194,7 @@ namespace ACL.Business.Domain.Services
             {
                 aclUser.Password = "***********";
                 aclUser.Salt = "***********";
-                aclUser.Claims = null;
+                //aclUser.Claims = null;
                 this.ScopeResponse.Message = this.MessageResponse.editMessage;
                 this.ScopeResponse.Data = aclUser;
             }
@@ -216,7 +216,7 @@ namespace ACL.Business.Domain.Services
                 {
                     aclUser.Password = "***********";
                     aclUser.Salt = "***********";
-                    aclUser.Claims = null;
+                    //aclUser.Claims = null;
                     this.ScopeResponse.Message = this.MessageResponse.fetchMessage;
                     this.ScopeResponse.Data = aclUser;
                 }
@@ -275,7 +275,7 @@ namespace ACL.Business.Domain.Services
                     City = request.City,
                     Country = request.Country,
                     Phone = request.Phone,
-                    Username = request.UserName,
+                    UserName = request.UserName,
                     Language = request.Language,
                     ImgPath = request.ImgPath,
                     Status = request.Status,
@@ -285,7 +285,7 @@ namespace ACL.Business.Domain.Services
                     CompanyId = (this._companyId != 0) ? this._companyId : (uint)AppAuth.GetAuthInfo().CompanyId,
                     UserType = (this._companyId == 0) ? uint.Parse(this._config["USER_TYPE_S_ADMIN"]) : uint.Parse(this._config["USER_TYPE_USER"]),
                     Salt = salt,
-                    Claims = new Claim[] { }
+                    //Claims = new Claim[] { }
                 };
             }
             else
@@ -306,7 +306,7 @@ namespace ACL.Business.Domain.Services
                 aclUser.Country = request.Country;
                 aclUser.Phone = request.Phone;
                 aclUser.Language = "en-US";
-                aclUser.Username = request.UserName;
+                aclUser.UserName = request.UserName;
                 aclUser.ImgPath = request.ImgPath;
                 aclUser.Status = request.Status;
                 aclUser.UpdatedAt = DateTime.Now;
@@ -316,7 +316,7 @@ namespace ACL.Business.Domain.Services
                 aclUser.CompanyId = (this._companyId != 0) ? this._companyId : (uint)AppAuth.GetAuthInfo().CompanyId;
                 aclUser.UserType = (this._userType != 0) ? this._userType : (uint)AppAuth.GetAuthInfo().UserType;
                 aclUser.Salt = aclUser.Salt;
-                aclUser.Claims = aclUser.Claims;
+                //aclUser.Claims = aclUser.Claims;
             }
             return aclUser;
         }

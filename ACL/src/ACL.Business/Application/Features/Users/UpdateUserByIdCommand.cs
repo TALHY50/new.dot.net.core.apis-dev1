@@ -163,7 +163,7 @@ namespace ACL.Business.Application.Features.Users
             aclUser.Country = (uint)request.country;
             aclUser.Phone = request.phone;
             aclUser.Language = "en-US";
-            aclUser.Username = request.user_name;
+            aclUser.UserName = request.user_name;
             aclUser.ImgPath = request.img_path;
             aclUser.Status = (sbyte)request.status;
             aclUser.UpdatedAt = DateTime.Now;
@@ -173,7 +173,7 @@ namespace ACL.Business.Application.Features.Users
             aclUser.CompanyId = (uint)AppAuth.GetAuthInfo().CompanyId;
             aclUser.UserType = (uint)AppAuth.GetAuthInfo().UserType;
             aclUser.Salt = aclUser.Salt;
-            aclUser.Claims = aclUser.Claims;
+           // aclUser.Claims = aclUser.Claims;
             return aclUser;
         }
 

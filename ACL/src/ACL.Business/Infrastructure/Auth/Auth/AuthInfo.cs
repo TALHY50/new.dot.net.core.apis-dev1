@@ -55,7 +55,7 @@ namespace ACL.Business.Infrastructure.Auth.Auth
                             CompanyId = userFromDb?.CompanyId ?? 0,
                             UserId = uint.Parse(userIdClaim.Value),
                             Email = userFromDb?.Email,
-                            Name = userFromDb?.Username,
+                            Name = userFromDb?.UserName,
                             Phone = userFromDb?.Phone,
                             UserType = userFromDb?.UserType,
                             UserGroupIds = concatenatedIds,

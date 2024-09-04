@@ -1,8 +1,10 @@
 ﻿using Ardalis.SharedKernel;
+using Microsoft.AspNetCore.Identity;
+using SharedKernel.Main.Domain;
 
 namespace ACL.Business.Domain.Entities;
 
-public partial class Role : EntityBase<uint>, IAggregateRoot
+public partial class Role : IdentityRoleEntityBase<uint>, IAggregateRoot
 {
     public string? Title { get; set; }
 
