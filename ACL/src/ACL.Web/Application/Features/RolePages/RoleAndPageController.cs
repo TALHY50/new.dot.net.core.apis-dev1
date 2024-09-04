@@ -27,11 +27,11 @@ namespace ACL.Web.Application.Features.RolePages
             return await this._rolePageService.GetAllById(id);
         }
          /// <inheritdoc/>
-        [Authorize(Policy = "HasPermission")]
-        [HttpPut(AclRoutesUrl.AclRolePageRouteUrl.Edit, Name = AclRoutesName.AclRolePageRouteNames.Edit)]
-        public async Task<ScopeResponse> Update(AclRoleAndPageAssocUpdateRequest req)
-        {
-            return await this._rolePageService.UpdateAll(req);
-        }
+        //[Authorize(Policy = "HasPermission")]
+        //[HttpPut(AclRoutesUrl.AclRolePageRouteUrl.Edit, Name = AclRoutesName.AclRolePageRouteNames.Edit)]
+        //public async Task<ScopeResponse> Update(AclRoleAndPageAssocUpdateRequest req)
+        //{
+        //    return await this._rolePageService.UpdateAll(req);
+        //}
     }
 }
