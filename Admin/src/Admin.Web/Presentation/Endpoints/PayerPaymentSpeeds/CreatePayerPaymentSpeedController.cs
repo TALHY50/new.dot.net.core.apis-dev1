@@ -1,6 +1,6 @@
 ﻿using Admin.App.Presentation.Routes;
-using Admin.Web.Application.Features.PayerPaymentSpeeds;
 using Microsoft.AspNetCore.Mvc;
+using SharedBusiness.Main.Admin.Application.Features.PayerPaymentSpeeds;
 using SharedBusiness.Main.Common.Contracts;
 using SharedKernel.Main.Application.Interfaces.Services;
 
