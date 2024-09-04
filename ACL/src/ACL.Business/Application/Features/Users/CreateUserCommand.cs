@@ -74,7 +74,7 @@ namespace ACL.Business.Application.Features.Users
             ILogger<CreateUserCommandHandler> logger,
             ApplicationDbContext dbContext,
             ITransactionHandler transactionHandler,
-            ICurrentUser user, ApplicationDbContext otherDbContext, ICompanyService companyRepository, IHttpContextAccessor httpContextAccessor, IUserService repository, ICryptography cryptography, IConfiguration config) : base(logger, user)
+            ICurrentUser user, ApplicationDbContext otherDbContext, ICompanyService companyRepository, IHttpContextAccessor httpContextAccessor, IUserService repository, ICryptography cryptography, IConfiguration config)
         {
             _user = user ?? throw new ArgumentNullException(nameof(user));
             _config = config ?? throw new ArgumentNullException(nameof(config));
