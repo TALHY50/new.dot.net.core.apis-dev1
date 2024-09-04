@@ -1,7 +1,7 @@
 ﻿using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Presentation;
 
-namespace Admin.App.Presentation.Endpoints.InstitutionFunds
+namespace Admin.Web.Presentation.Endpoints.InstitutionFunds
 {
     public class InstitutionFundBaseController : ApiControllerBase
     {

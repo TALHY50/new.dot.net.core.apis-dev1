@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ACL.Business.Application.Features.Users;
+namespace ACL.Business.Application.Features.UserSettings;
 
 public class UserSettingBase : ApiControllerBase
 {

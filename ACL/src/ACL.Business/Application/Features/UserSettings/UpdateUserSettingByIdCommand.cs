@@ -16,11 +16,11 @@ using SharedKernel.Main.Contracts;
 using SharedKernel.Main.Presentation;
 using SharedKernel.Main.Presentation.Routes;
 
-namespace Admin.Web.Application.Features.Mtts
+namespace ACL.Business.Application.Features.UserSettings
 {
 
     [Authorize]
-    public record UpdateUserSettingByIdCommand(uint id,string app_id,string app_secret)
+    public record UpdateUserSettingByIdCommand(uint id, string app_id, string app_secret)
       : IRequest<ErrorOr<UserSetting>>;
 
 
@@ -35,14 +35,14 @@ namespace Admin.Web.Application.Features.Mtts
     }
 
     [ApiExplorerSettings(IgnoreApi = true)]
-    public class UpdateUserSettingByIdCommandHandler : UserSettingBase, IRequestHandler<UpdateUserSettingByIdCommand, ErrorOr<UserSetting>>
+    public class UpdateUserSettingByIdCommandHandler :  IRequestHandler<UpdateUserSettingByIdCommand, ErrorOr<UserSetting>>
     {
         private readonly IUserSettingRepository _repository;
         public static IHttpContextAccessor HttpContextAccessor;
-        private readonly ACL.Business.Infrastructure.Persistence.Context.ApplicationDbContext _otherDbContext;
+        private readonly Infrastructure.Persistence.Context.ApplicationDbContext _otherDbContext;
         private readonly IGuardAgainstNullUpdate _guard;
 
-        public UpdateUserSettingByIdCommandHandler(IUserSettingRepository repository, IGuardAgainstNullUpdate guard, IHttpContextAccessor httpContextAccessor, ACL.Business.Infrastructure.Persistence.Context.ApplicationDbContext otherDbContext)
+        public UpdateUserSettingByIdCommandHandler(IUserSettingRepository repository, IGuardAgainstNullUpdate guard, IHttpContextAccessor httpContextAccessor, Infrastructure.Persistence.Context.ApplicationDbContext otherDbContext)
         {
             _repository = repository;
             _guard = guard;
@@ -55,7 +55,7 @@ namespace Admin.Web.Application.Features.Mtts
         public async Task<ErrorOr<UserSetting>> Handle(UpdateUserSettingByIdCommand command, CancellationToken cancellationToken)
         {
             UserSetting? entity = await _repository.GetByIdAsync(command.id, cancellationToken);
-          
+
             if (entity == null)
             {
                 return Error.NotFound(description: "User Setting not found",

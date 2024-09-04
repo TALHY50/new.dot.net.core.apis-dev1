@@ -21,8 +21,8 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
             this._routeRepository = routeRepository;
             this._userRepository = userRepository;
             ContextAccessor = httpContextAccessor;
-            AppAuth.Initialize(ContextAccessor, this._dbContext);
-            AppAuth.SetAuthInfo(ContextAccessor);
+            //AppAuth.Initialize(ContextAccessor, this._dbContext);
+            //AppAuth.SetAuthInfo(ContextAccessor);
         }
 
         /// <inheritdoc/>

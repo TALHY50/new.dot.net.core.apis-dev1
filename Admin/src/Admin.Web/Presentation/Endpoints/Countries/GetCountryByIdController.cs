@@ -5,7 +5,7 @@ using SharedBusiness.Main.Admin.Application.Features.Countries;
 using SharedBusiness.Main.Common.Contracts;
 using SharedKernel.Main.Application.Interfaces.Services;
 
-namespace Admin.Web.Presentation.Endpoints.Country;
+namespace Admin.Web.Presentation.Endpoints.Countries;
 
 public class GetCountryByIdController(ILogger<GetCountryByIdController> logger, ICurrentUser currentUser)
     : CountryBase(logger, currentUser)

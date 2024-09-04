@@ -2,7 +2,7 @@
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Common.Application.Features.TransactionTypes;
-using SharedBusiness.Main.IMT.Contracts.Contracts.Responses;
+using SharedBusiness.Main.Common.Contracts;
 using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Contracts;
 

@@ -1,4 +1,4 @@
-namespace SharedBusiness.Main.IMT.Contracts.Contracts.Responses;
+namespace SharedBusiness.Main.Common.Contracts;
 
 public record BusinessHoursAndWeekendDto(
     uint id, byte HourType, uint? CountryId,

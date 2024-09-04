@@ -1,7 +1,7 @@
 ﻿using Admin.Web.Presentation.Routes;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Admin.Application.Features.TransactionLimits;
-using SharedBusiness.Main.IMT.Contracts.Contracts.Responses;
+using SharedBusiness.Main.Common.Contracts;
 using SharedKernel.Main.Application.Interfaces.Services;
 
 
@@ -12,9 +12,9 @@ namespace Admin.Web.Presentation.Endpoints.TransactionLimits
         [Tags("Transaction Limit")]
         //[Authorize(Policy = "HasPermission")]
         [HttpPut(TransactionLimitRoutes.UpdateTransactionLimitTemplate, Name = TransactionLimitRoutes.UpdateTransactionLimitName)]
-        public async Task<IActionResult> Update(uint Id, UpdateTransactionLimitCommand command, CancellationToken cancellationToken)
+        public async Task<IActionResult> Update(uint id, UpdateTransactionLimitCommand command, CancellationToken cancellationToken)
         {
-            var commandWithId = command with { id = Id };
+            var commandWithId = command with { id = id };
             _ = Task.Run(
                 () => _logger.LogInformation(
                     "update-transactionlimit-by-id-request: {Name} {@UserId} {@Request}",

@@ -1,7 +1,7 @@
 ﻿using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Presentation;
 
-namespace Admin.App.Presentation.Endpoints.Banks
+namespace Admin.Web.Presentation.Endpoints.Banks
 {
     public class BankBaseController : ApiControllerBase
     {

@@ -22,5 +22,8 @@ namespace ACL.Business.Application.Interfaces.Repositories
         Role? Delete(uint id);
         /// <inheritdoc/>
         bool IsExist(uint id);
+        public string ExistByTitle(uint? id, string title);
+        public string ExistByName(uint? id, string name);
+        public bool RoleIdNotToDelete(uint roleId);
     }
 }

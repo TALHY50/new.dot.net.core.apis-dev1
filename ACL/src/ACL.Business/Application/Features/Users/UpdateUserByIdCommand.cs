@@ -4,7 +4,6 @@ using ACL.Business.Domain.Entities;
 using ACL.Business.Domain.Services;
 using ACL.Business.Infrastructure.Auth.Auth;
 using ACL.Business.Infrastructure.Persistence.Context;
-using Admin.Web.Application.Features.Mtts;
 using ErrorOr;
 using FluentValidation;
 using MediatR;
@@ -55,7 +54,7 @@ namespace ACL.Business.Application.Features.Users
 
 
         [ApiExplorerSettings(IgnoreApi = true)]
-    public class UpdateUserByIdCommandHandler : UserSettingBase, IRequestHandler<UpdateUserByIdCommand, ErrorOr<User>>
+    public class UpdateUserByIdCommandHandler :  IRequestHandler<UpdateUserByIdCommand, ErrorOr<User>>
     {
 
         private readonly IUserService _repository;

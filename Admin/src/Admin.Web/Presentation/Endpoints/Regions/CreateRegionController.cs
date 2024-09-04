@@ -1,12 +1,11 @@
-﻿using Admin.App.Presentation.Routes;
-using Admin.Web.Presentation.Endpoints.Regions;
+﻿using Admin.Web.Presentation.Routes;
 using Admin.Web.Presentation.Routes;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Admin.Application.Features.Regions;
-using SharedBusiness.Main.IMT.Contracts.Contracts.Responses;
+using SharedBusiness.Main.Common.Contracts;
 using SharedKernel.Main.Application.Interfaces.Services;
 
-namespace Admin.App.Presentation.Endpoints.Regions
+namespace Admin.Web.Presentation.Endpoints.Regions
 {
     public class CreateRegionController(ILogger<CreateRegionController> logger, ICurrentUser currentUser)
         : RegionBaseController(logger, currentUser)

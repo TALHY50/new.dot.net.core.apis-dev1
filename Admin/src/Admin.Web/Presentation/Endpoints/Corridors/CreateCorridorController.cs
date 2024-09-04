@@ -2,7 +2,7 @@
 using SharedKernel.Main.Application.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Admin.Application.Features.Corridors;
-using SharedBusiness.Main.Common.Contracts.Responses;
+using SharedBusiness.Main.Common.Contracts;
 namespace Admin.Web.Presentation.Endpoints.Corridors
 {
     public class CreateCorridorController(ILogger<CreateCorridorController> logger, ICurrentUser currentUser)

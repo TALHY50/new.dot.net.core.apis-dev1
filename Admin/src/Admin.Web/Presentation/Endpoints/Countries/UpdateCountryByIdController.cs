@@ -4,7 +4,7 @@ using SharedBusiness.Main.Admin.Application.Features.Countries;
 using SharedBusiness.Main.Common.Contracts;
 using SharedKernel.Main.Application.Interfaces.Services;
 
-namespace Admin.Web.Presentation.Endpoints.Country;
+namespace Admin.Web.Presentation.Endpoints.Countries;
 
 public class UpdateCountryByIdController : CountryBase
 {
@@ -31,7 +31,7 @@ public class UpdateCountryByIdController : CountryBase
         var response = result.Match(
             country => Ok(ToSuccess(Mapper.Map<CountryDto>(country))),
             Problem);
-        
+
         _ = Task.Run(
             () => _logger.LogInformation(
                 "update-country-by-id-response: {Name} {@UserId} {@Response}",

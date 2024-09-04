@@ -32,7 +32,7 @@ namespace ACL.Business.Application.Interfaces.Repositories
         User? Delete(User user);
         /// <inheritdoc/>
         User? Delete(uint id);
-
+        public bool IsAclUserEmailExist(string email, uint? isUserId = null);
         List<uint>? GetUserIdByChangePermission(uint? module_id = null, uint? sub_module_id = null, uint? page_id = null, uint? role_id = null, uint? user_group_id = null);
         void UpdateUserPermissionVersion(List<uint> userIds);
 
