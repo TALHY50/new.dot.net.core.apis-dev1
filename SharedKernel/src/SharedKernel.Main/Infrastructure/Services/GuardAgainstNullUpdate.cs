@@ -139,4 +139,12 @@ public class GuardAgainstNullUpdate : IGuardAgainstNullUpdate
             property = newValue;
         }
     }
+
+    public void UpdateIfNotNullOrEmpty(Action<sbyte> updateAction, sbyte newValue)
+    {
+        if (newValue != null)
+        {
+            updateAction(newValue);
+        }
+    }
 }

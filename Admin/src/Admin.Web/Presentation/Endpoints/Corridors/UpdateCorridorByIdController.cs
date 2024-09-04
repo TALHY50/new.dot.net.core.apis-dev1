@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Admin.Application.Features.Corridors;
 using SharedBusiness.Main.Common.Contracts;
-using SharedBusiness.Main.Common.Domain.Entities;
 using SharedKernel.Main.Application.Interfaces.Services;
 
 namespace Admin.Web.Presentation.Endpoints.Corridors

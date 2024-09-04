@@ -1,6 +1,5 @@
 ﻿using Admin.Web.Presentation.Routes;
 using Mapster;
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Admin.Application.Features.Corridors;
 using SharedBusiness.Main.Common.Contracts;

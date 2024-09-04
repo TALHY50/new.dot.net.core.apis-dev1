@@ -1,15 +1,16 @@
-﻿using Admin.Web.Presentation.Routes;
+﻿using Admin.Web.Presentation.Endpoints.Corridors;
+using Admin.Web.Presentation.Routes;
 using Microsoft.AspNetCore.Mvc;
 using SharedBusiness.Main.Admin.Application.Features.Corridors;
 using SharedBusiness.Main.Common.Contracts;
 using SharedKernel.Main.Application.Interfaces.Services;
 
-namespace Admin.Web.Presentation.Endpoints.Corridors
+namespace Admin.App.Presentation.Endpoints.Corridors
 {
     public class GetCorridorByIdController(ILogger<GetCorridorByIdController> logger, ICurrentUser currentUser)
     : CorridorBaseController(logger, currentUser)
     {
-        [Tags("Currencies")]
+        [Tags("Corridors")]
         //[Authorize(Policy = "HasPermission")]
         [HttpGet(CorridorsRoutes.GetCorridorByIdTemplate, Name = CorridorsRoutes.GetCorridorByIdName)]
         public async Task<IActionResult> GetById(uint id, CancellationToken cancellationToken)
