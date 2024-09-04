@@ -36,7 +36,6 @@ namespace SharedBusiness.Main.Admin.Application.Features.TransactionLimits
         }
     }
 
-
     public class CreateTransactionLimitCommandHandler : IRequestHandler<CreateTransactionLimitCommand, ErrorOr<Common.Domain.Entities.TransactionLimit>>
     {
         private readonly ITransactionLimitRepository _repository;
@@ -66,6 +65,13 @@ namespace SharedBusiness.Main.Admin.Application.Features.TransactionLimits
                 UpdatedAt = DateTime.UtcNow,
             };
 
+            bool transactionTypeExist = _repository.IsTransactionTypeExist(request.transaction_type);
+
+            if (!transactionTypeExist)
+            {
+                return Error.NotFound(description: Language.GetMessage("Transaction Type not found"), code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
+            }
+
 
             bool currencyExist =  _repository.IsCurrencyExist(request.currency_id);
 
@@ -73,6 +79,8 @@ namespace SharedBusiness.Main.Admin.Application.Features.TransactionLimits
             {
                 return Error.NotFound(description: Language.GetMessage("Currency not found"), code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
             }
+
+
             var result = await _repository.AddAsync(transactionLimit, cancellationToken);
               
             return result;
