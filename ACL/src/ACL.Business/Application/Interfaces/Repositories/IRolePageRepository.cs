@@ -25,5 +25,7 @@ namespace ACL.Business.Application.Interfaces.Repositories
         RolePage[]? DeleteAll(RolePage[] aclRolePages);
         /// <inheritdoc/>
         RolePage[]? DeleteAllByRoleId(uint roleId);
+        List<RolePage>? FindByRoleId(uint role_id);
+
     }
 }
