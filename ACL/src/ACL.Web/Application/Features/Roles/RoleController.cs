@@ -26,14 +26,14 @@ namespace ACL.Web.Application.Features.Roles
         {
             return this._roleService.GetAll();
         }
-         /// <inheritdoc/>
-        [Authorize(Policy = "HasPermission")]
-        [HttpPost(AclRoutesUrl.AclRoleRouteUrl.Add, Name = AclRoutesName.AclRoleRouteNames.Add)]
-        public ScopeResponse Create(AclRoleRequest objRole)
-        {
-            return this._roleService.Add(objRole);
-        }
-         /// <inheritdoc/>
+        /// <inheritdoc/>
+        //[Authorize(Policy = "HasPermission")]
+        //[HttpPost(AclRoutesUrl.AclRoleRouteUrl.Add, Name = AclRoutesName.AclRoleRouteNames.Add)]
+        //public ScopeResponse Create(AclRoleRequest objRole)
+        //{
+        //    return this._roleService.Add(objRole);
+        //}
+        /// <inheritdoc/>
         [Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclRoleRouteUrl.View, Name = AclRoutesName.AclRoleRouteNames.View)]
         public ScopeResponse View(uint id)
