@@ -35,7 +35,7 @@ namespace ACL.Business.Application.Features.UserSettings
     }
 
     [ApiExplorerSettings(IgnoreApi = true)]
-    public class UpdateUserSettingByIdCommandHandler : UserSettingBase, IRequestHandler<UpdateUserSettingByIdCommand, ErrorOr<UserSetting>>
+    public class UpdateUserSettingByIdCommandHandler :  IRequestHandler<UpdateUserSettingByIdCommand, ErrorOr<UserSetting>>
     {
         private readonly IUserSettingRepository _repository;
         public static IHttpContextAccessor HttpContextAccessor;

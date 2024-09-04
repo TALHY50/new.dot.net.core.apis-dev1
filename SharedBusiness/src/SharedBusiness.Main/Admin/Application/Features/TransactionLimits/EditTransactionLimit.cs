@@ -16,17 +16,17 @@ namespace SharedBusiness.Main.Admin.Application.Features.TransactionLimits
 
      uint id,
 
-     sbyte? transaction_type,
+     sbyte transaction_type,
 
-         int daily_total_number,
+     int daily_total_number,
 
-         decimal daily_total_amount,
+     decimal daily_total_amount,
 
-         int monthly_total_number,
+     int monthly_total_number,
 
-        decimal monthly_total_amount,
+     decimal monthly_total_amount,
 
-        uint currency_id) : IRequest<ErrorOr<TransactionLimit>>;
+     uint currency_id) : IRequest<ErrorOr<TransactionLimit>>;
 
     public class UpdateTransactionLimitCommandValidator : AbstractValidator<UpdateTransactionLimitCommand>
     {
@@ -55,6 +55,22 @@ namespace SharedBusiness.Main.Admin.Application.Features.TransactionLimits
 
         public async Task<ErrorOr<Common.Domain.Entities.TransactionLimit>> Handle(UpdateTransactionLimitCommand command, CancellationToken cancellationToken)
         {
+
+            bool transactionTypeExist = _repository.IsTransactionTypeExist(command.transaction_type);
+
+            if (!transactionTypeExist)
+            {
+                return Error.NotFound(description: Language.GetMessage("Transaction Type not found"), code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
+            }
+
+
+            bool currencyExist = _repository.IsCurrencyExist(command.currency_id);
+
+            if (!currencyExist)
+            {
+                return Error.NotFound(description: Language.GetMessage("Currency not found"), code: ApplicationStatusCodes.API_ERROR_RECORD_NOT_FOUND.ToString());
+            }
+
             Common.Domain.Entities.TransactionLimit? transactionLimit = await _repository.GetByIdAsync(command.id, cancellationToken);
             if (transactionLimit == null)
             {

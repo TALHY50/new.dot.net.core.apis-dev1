@@ -23,7 +23,7 @@ namespace ACL.Business.Application.Features.Users
     }
 
     [ApiExplorerSettings(IgnoreApi = true)]
-    public class GetUserByIdQueryHandler : UserBase, IRequestHandler<GetUserByIdQuery, ErrorOr<User>>
+    public class GetUserByIdQueryHandler :  IRequestHandler<GetUserByIdQuery, ErrorOr<User>>
     {
         private readonly IUserService _repository;
 
