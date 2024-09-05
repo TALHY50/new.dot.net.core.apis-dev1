@@ -12,7 +12,7 @@ namespace Admin.Web.Presentation.Endpoints.Payers
     public class GetPayerByIdController(ILogger<GetPayerByIdController> logger, ICurrentUser currentUser)
     : PayerBaseController(logger, currentUser)
     {
-        [Tags("Currencies")]
+        [Tags("Payers")]
         //[Authorize(Policy = "HasPermission")]
         [HttpGet(PayerRoutes.GetPayerByIdTemplate, Name = PayerRoutes.GetPayerByIdName)]
         public async Task<IActionResult> GetById(uint id, CancellationToken cancellationToken)

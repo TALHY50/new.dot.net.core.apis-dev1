@@ -12,7 +12,5 @@ namespace ACL.Business.Domain.Services
         /// <inheritdoc/>
         Task<ScopeResponse> Update(AclUserGroupRoleRequest userGroupRole);
 
-        List<UsergroupRole>? FindByUserGroupId(uint userGroupId);
-
     }
 }

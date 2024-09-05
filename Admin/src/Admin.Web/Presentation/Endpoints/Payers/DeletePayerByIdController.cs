@@ -10,7 +10,7 @@ namespace Admin.Web.Presentation.Endpoints.Payers
     public class DeletePayerById(ILogger<DeletePayerById> logger, ICurrentUser currentUser)
     : PayerBaseController(logger, currentUser)
     {
-        [Tags("Currencies")]
+        [Tags("Payers")]
         //[Authorize(Policy = "HasPermission")]
         [HttpDelete(PayerRoutes.DeletePayerTemplate, Name = PayerRoutes.DeletePayerName)]
 

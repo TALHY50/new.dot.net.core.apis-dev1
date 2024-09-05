@@ -8,7 +8,7 @@ namespace Admin.Web.Presentation.Endpoints.Corridors
     public class DeleteCorridorById(ILogger<DeleteCorridorById> logger, ICurrentUser currentUser)
     : CorridorBaseController(logger, currentUser)
     {
-        [Tags("Currencies")]
+        [Tags("Corridors")]
         //[Authorize(Policy = "HasPermission")]
         [HttpDelete(CorridorsRoutes.DeleteCorridorTemplate, Name = CorridorsRoutes.DeleteCorridorName)]
 

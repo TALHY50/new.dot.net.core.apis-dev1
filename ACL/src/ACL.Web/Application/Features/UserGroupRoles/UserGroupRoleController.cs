@@ -7,26 +7,26 @@
 
 //namespace ACL.Web.Application.Features.UserGroupRoles
 //{
-//    /// <inheritdoc/>
+//    / <inheritdoc/>
 //    [Authorize]
 //    [Tags("User Group Role")]
 //    [ApiController]
 //    public class UserGroupRoleController : ControllerBase
 //    {
 //        private readonly IUserGroupRoleService _userGroupRoleService;
-//        /// <inheritdoc/>
+//        / <inheritdoc/>
 //        public UserGroupRoleController(IUserGroupRoleService userGroupRoleService)
 //        {
 //            this._userGroupRoleService = userGroupRoleService;
 //        }
-//        /// <inheritdoc/>
+//        / <inheritdoc/>
 //        [Authorize(Policy = "HasPermission")]
 //        [HttpGet(AclRoutesUrl.AclUserGroupRoleRouteUrl.List, Name = AclRoutesName.AclUserGroupRoleRouteNames.List)]
 //        public ScopeResponse Index(uint userGroupId)
 //        {
 //            return this._userGroupRoleService.GetRolesByUserGroupId(userGroupId);
 //        }
-//        /// <inheritdoc/>
+//        / <inheritdoc/>
 //        [Authorize(Policy = "HasPermission")]
 //        [HttpPost(AclRoutesUrl.AclUserGroupRoleRouteUrl.Update, Name = AclRoutesName.AclUserGroupRoleRouteNames.Update)]
 //        public async Task<ScopeResponse> Update(AclUserGroupRoleRequest objUserGroupRole)
