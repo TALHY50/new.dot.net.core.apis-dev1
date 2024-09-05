@@ -2,6 +2,7 @@
 using ACL.Business.Contracts.Responses;
 using ACL.Business.Domain.Entities;
 using ACL.Web.Presentation.Routes;
+using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Contracts;
@@ -26,7 +27,7 @@ namespace ACL.Web.Presentation.Endpoints.Roles
                 cancellationToken);
             var result = await Mediator.Send(query).ConfigureAwait(false);
             var response = result.Match(
-            token => Ok(ToSuccess(ToDto(token))),
+            roles => Ok(ToSuccess(roles.Select(role => role.Adapt<RoleDto>()).ToList())),
             Problem);
 
             _ = Task.Run(
@@ -37,15 +38,6 @@ namespace ACL.Web.Presentation.Endpoints.Roles
                     response),
                 cancellationToken);
             return response;
-        }
-
-        private List<RoleDto> ToDto(List<Role> tokens)
-        {
-            return tokens.Select(token => new RoleDto(
-                token.Id,
-                token.Name,
-                token.Title
-            )).ToList();
         }
     }
 }
