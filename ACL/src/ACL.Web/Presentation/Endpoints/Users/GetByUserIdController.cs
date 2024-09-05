@@ -20,7 +20,7 @@ public class GetByUserIdController : UserBaseController
     public GetByUserIdController(ILogger<UserBaseController> logger, ICurrentUser currentUser) : base(logger, currentUser)
     {
     }
-    [Tags("User")]
+    [Tags("Users")]
     /// <inheritdoc/>
     //[Authorize(Policy = "HasPermission")]
     [HttpGet(AcluserRoutes.GetUserByIdTemplate, Name = AcluserRoutes.GetUserByIdName)]

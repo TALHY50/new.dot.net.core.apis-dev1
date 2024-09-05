@@ -11,7 +11,7 @@ public class GetCompanies : CompanyBase
     public GetCompanies(ICompanyService companyService) : base(companyService)
     {
     }
-    
+    [ApiExplorerSettings(IgnoreApi = true)]
     [Authorize(Policy = "HasPermission")]
     [HttpGet(AclRoutesUrl.AclCompanyRouteUrl.List, Name = AclRoutesName.AclCompanyRouteNames.List)]
     public ScopeResponse Index()

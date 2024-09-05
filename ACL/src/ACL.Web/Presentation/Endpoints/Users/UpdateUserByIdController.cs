@@ -20,7 +20,7 @@ public class UpdateUserByIdController : UserBaseController
     public UpdateUserByIdController(ILogger<UserBaseController> logger, ICurrentUser currentUser) : base(logger, currentUser)
     {
     }
-    [Tags("User")]
+    [Tags("Users")]
     //[Authorize(Policy = "HasPermission")]
     [HttpPut(AcluserRoutes.UpdateUserTemplate, Name = AcluserRoutes.UpdateUserName)]
     [HttpPatch(AcluserRoutes.UpdateUserTemplate, Name = AcluserRoutes.UpdateUserName)]

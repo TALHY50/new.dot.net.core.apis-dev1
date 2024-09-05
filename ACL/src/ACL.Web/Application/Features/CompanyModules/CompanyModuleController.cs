@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ACL.Web.Application.Features.CompanyModules
 {
     /// <inheritdoc/>
+    [ApiExplorerSettings(IgnoreApi = true)]
     [Authorize]
     [Tags("Company Module")]
     [ApiController]

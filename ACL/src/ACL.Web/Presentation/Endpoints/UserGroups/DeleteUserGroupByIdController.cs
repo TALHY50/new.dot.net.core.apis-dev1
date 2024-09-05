@@ -9,7 +9,7 @@ namespace ACL.Web.Presentation.Endpoints.UserGroups
     public class DeleteUserGroupByIdController(ILogger<DeleteUserGroupByIdController> logger, ICurrentUser currentUser)
         : UserGroupBaseController(logger, currentUser)
     {
-        [Tags("UserGroups")]
+        [Tags("Usergroups")]
         //[Authorize(Policy = "HasPermission")]
         [HttpDelete(ACLUserGroupRoutes.DeleteACLUserGroupTemplate, Name = ACLUserGroupRoutes.DeleteACLUserGroupName)]
 

@@ -11,7 +11,7 @@ public class UpdateById : BranchBase
     public UpdateById(IBranchService branchService) : base(branchService)
     {
     }
-    
+    [ApiExplorerSettings(IgnoreApi = true)]
     //[Authorize(Policy = "HasPermission")]
     [HttpPut(AclRoutesUrl.AclBranchRouteUrl.Edit, Name = AclRoutesName.AclBranchRouteNames.Edit)]
     public ScopeResponse Edit(uint id, AclBranchRequest request)

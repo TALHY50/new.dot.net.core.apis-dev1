@@ -10,7 +10,7 @@ namespace ACL.Web.Presentation.Endpoints.Roles
     public class GetRoleByIdController(ILogger<GetRoleByIdController> logger, ICurrentUser currentUser)
     : RoleBaseController(logger, currentUser)
     {
-        [Tags("Role")]
+        [Tags("Roles")]
         //[Authorize(Policy = "HasPermission")]
         [HttpGet(RoleRoutes.GetRoleByIdTemplate, Name = RoleRoutes.GetRoleByIdName)]
         public async Task<IActionResult> GetById(uint id, CancellationToken cancellationToken)
