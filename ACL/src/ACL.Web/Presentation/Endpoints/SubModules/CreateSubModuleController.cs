@@ -8,7 +8,7 @@ namespace ACL.Web.Presentation.Endpoints.SubModules
 {
     public class CreateSubModuleController(ILogger<CreateSubModuleController> logger, ICurrentUser currentUser): SubModuleBaseController(logger, currentUser)
     {
-        [Tags("SubModule")]
+        [Tags("SubModules")]
         //[Authorize(Policy = "HasPermission")]
         [HttpPost(SubModuleRoutes.CreateSubModuleTemplate, Name = SubModuleRoutes.CreateSubModuleName)]
 
