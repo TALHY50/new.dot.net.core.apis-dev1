@@ -21,9 +21,9 @@ namespace ACL.Business.Application.Features.UserGroups
         public UpdateUserGroupByIdCommandValidator()
         {
             RuleFor(x => x.id).NotEmpty().WithMessage("UserGroup Id is required");
-            RuleFor(x => x.group_name).NotEmpty().WithMessage("GroupName Id is required");
-            RuleFor(x => x.category).NotEmpty().WithMessage("Category Id is required");
-            RuleFor(x => x.status).NotEmpty().WithMessage("Status Id is required");
+            RuleFor(x => x.group_name).NotEmpty().WithMessage("GroupName is required");
+            RuleFor(x => x.category).NotEmpty().WithMessage("Category is required");
+            RuleFor(x => x.status).NotEmpty().WithMessage("Status is required");
         }
     }
 
