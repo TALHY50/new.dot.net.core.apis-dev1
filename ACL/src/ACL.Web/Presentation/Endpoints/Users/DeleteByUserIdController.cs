@@ -18,7 +18,7 @@ public class DeleteByUserIdController : UserBaseController
     public DeleteByUserIdController(ILogger<UserBaseController> logger, ICurrentUser currentUser) : base(logger, currentUser)
     {
     }
-    [Tags("User")]
+    [Tags("Users")]
     // [Authorize(Policy = "HasPermission")]
     [HttpDelete(AcluserRoutes.DeleteUserTemplate, Name = AcluserRoutes.DeleteUserName)]
     public async Task<IActionResult> Destroy(uint id,CancellationToken cancellationToken)

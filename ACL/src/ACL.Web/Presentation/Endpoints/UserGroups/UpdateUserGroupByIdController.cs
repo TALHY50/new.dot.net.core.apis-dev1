@@ -14,7 +14,7 @@ namespace ACL.Web.Presentation.Endpoints.UserGroups
         {
         }
 
-        [Tags("UserGroups")]
+        [Tags("Usergroups")]
         //[Authorize(Policy = "HasPermission")]
         [HttpPut(ACLUserGroupRoutes.UpdateACLUserGroupTemplate, Name = ACLUserGroupRoutes.UpdateACLUserGroupName)]
         [HttpPatch(ACLUserGroupRoutes.UpdateACLUserGroupTemplate, Name = ACLUserGroupRoutes.UpdateACLUserGroupName)]

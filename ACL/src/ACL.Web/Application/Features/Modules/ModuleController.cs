@@ -9,7 +9,7 @@ namespace ACL.Web.Application.Features.Modules
 {
     /// <inheritdoc/>
     [Authorize]
-    [Tags("Module")]
+    [Tags("Modules")]
     [ApiController]
     public class ModuleController : ControllerBase
     {
