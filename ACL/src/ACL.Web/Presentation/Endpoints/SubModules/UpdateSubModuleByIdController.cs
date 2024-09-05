@@ -1,27 +1,27 @@
-﻿using ACL.Business.Application.Features.Modules;
+﻿using ACL.Business.Application.Features.SubModules;
 using ACL.Web.Presentation.Routes;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Interfaces.Services;
 
-namespace ACL.Web.Presentation.Endpoints.Modules
+namespace ACL.Web.Presentation.Endpoints.SubModules
 {
-    public class UpdateModuleByIdController : ModuleBaseController
+    public class UpdateSubModuleByIdController : SubModuleBaseController
     {
-        public UpdateModuleByIdController(ILogger<UpdateModuleByIdController> logger, ICurrentUser currentUser) : base(logger, currentUser)
+        public UpdateSubModuleByIdController(ILogger<UpdateSubModuleByIdController> logger, ICurrentUser currentUser) : base(logger, currentUser)
         {
         }
 
-        [Tags("Modules")]
+        [Tags("SubModule")]
         //[Authorize(Policy = "HasPermission")]
-        [HttpPut(ModuleRoutes.UpdateModuleTemplate, Name = ModuleRoutes.UpdateModuleName)]
-        [HttpPatch(ModuleRoutes.UpdateModuleTemplate, Name = ModuleRoutes.UpdateModuleName)]
+        [HttpPut(SubModuleRoutes.UpdateSubModuleTemplate, Name = SubModuleRoutes.UpdateSubModuleName)]
+        [HttpPatch(SubModuleRoutes.UpdateSubModuleTemplate, Name = SubModuleRoutes.UpdateSubModuleName)]
 
-        public async Task<IActionResult> Update(uint id, UpdateModuleCommand command, CancellationToken cancellationToken)
+        public async Task<IActionResult> Update( uint id, UpdateSubModuleCommand command, CancellationToken cancellationToken)
         {
             var commandWithId = command with { id = id };
             _ = Task.Run(
                 () => _logger.LogInformation(
-                    "update-module-request: {Name} {@UserId} {@Request}",
+                    "update-submodule-request: {Name} {@UserId} {@Request}",
                     nameof(command),
                     CurrentUser.UserId,
                     command),
@@ -32,7 +32,7 @@ namespace ACL.Web.Presentation.Endpoints.Modules
 
             _ = Task.Run(
                 () => _logger.LogInformation(
-                    "update-module-response: {Name} {@UserId} {@Response}",
+                    "update-submodule-response: {Name} {@UserId} {@Response}",
                     nameof(response),
                     CurrentUser.UserId,
                     response),

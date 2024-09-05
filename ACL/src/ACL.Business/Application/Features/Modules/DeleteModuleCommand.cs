@@ -19,7 +19,7 @@ namespace ACL.Business.Application.Features.Modules
         }
     }
 
-    public class DeleteModuleCommandHandler : IRequestHandler<DeleteModuleCommand, ErrorOr<bool>>
+    public class DeleteModuleCommandHandler : ModuleBase, IRequestHandler<DeleteModuleCommand, ErrorOr<bool>>
     {
         private readonly IModuleRepository _repository;
 

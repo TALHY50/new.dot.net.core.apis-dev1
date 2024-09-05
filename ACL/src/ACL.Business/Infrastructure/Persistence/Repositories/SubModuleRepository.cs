@@ -93,31 +93,29 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
             return delete;
         }
 
+
         /// <inheritdoc/>
-        public string ExistByName(uint? id, string name)
+        public bool ModuleIdExist(uint moduleId)
         {
-            var valid = this._dbContext.AclSubModules.Any(x => x.Name.ToLower() == name.ToLower());
+            return this._dbContext.AclModules.Any(x => x.Id == moduleId);
+        }
+
+        public bool ExistById(uint? id, uint value)
+        {
             if (id > 0)
             {
-                valid = this._dbContext.AclSubModules.Any(x => x.Name.ToLower() == name.ToLower() && x.Id != id);
+                return this._dbContext.AclSubModules.Any(x => x.Id == value && x.Id != id);
             }
-            if (valid)
-            {
-                throw new InvalidOperationException("Submodule Name does not unique.");
-            }
-            return name;
+            return this._dbContext.AclSubModules.Any(x => x.Id == value);
         }
         /// <inheritdoc/>
-        public uint ModuleIdExist(uint moduleId)
+        public bool ExistByName(uint? id, string name)
         {
-            var valid = this._dbContext.AclModules.Any(x => x.Id == moduleId);
-
-            if (!valid)
+            if (id > 0)
             {
-                throw new Exception("Module Id does not exist.");
+                return this._dbContext.AclSubModules.Any(x => x.Name.ToLower() == name.ToLower() && x.Id != id);
             }
-
-            return moduleId;
+            return this._dbContext.AclSubModules.Any(x => x.Name.ToLower() == name.ToLower());
         }
 
 

@@ -1,4 +1,5 @@
 ﻿
+
 using ACL.Business.Application.Interfaces.Repositories;
 using ACL.Business.Domain.Entities;
 using ErrorOr;
@@ -12,9 +13,9 @@ namespace ACL.Business.Application.Features.Modules
 {
     public record CreateModuleCommand(uint id, string name, string icon, int sequence, string display_name) : IRequest<ErrorOr<Module>>;
 
-    public class CreateCreateModuleCommandValidator : AbstractValidator<CreateModuleCommand>
+    public class CreateModuleCommandValidator : AbstractValidator<CreateModuleCommand>
     {
-        public CreateCreateModuleCommandValidator()
+        public CreateModuleCommandValidator()
         {
             RuleFor(x => x.id).GreaterThan((uint)0).NotEmpty().WithMessage("Id is required");
             RuleFor(x => x.name).NotEmpty().WithMessage("Name is required");
@@ -24,7 +25,7 @@ namespace ACL.Business.Application.Features.Modules
         }
     }
 
-    public class CreateModuleCommandHandler : IRequestHandler<CreateModuleCommand, ErrorOr<Module>>
+    public class CreateModuleCommandHandler : ModuleBase, IRequestHandler<CreateModuleCommand, ErrorOr<Module>>
     {
         private readonly IModuleRepository _repository;
 

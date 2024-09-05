@@ -19,7 +19,7 @@ namespace ACL.Business.Application.Features.Modules
         }
     }
 
-    public class FindModuleByIdQueryHandler : IRequestHandler<FindModuleByIdQuery, ErrorOr<Module>>
+    public class FindModuleByIdQueryHandler : ModuleBase,IRequestHandler<FindModuleByIdQuery, ErrorOr<Module>>
     {
         private readonly IModuleRepository _repository;
 

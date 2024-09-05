@@ -118,7 +118,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
 
         public bool IsExist(uint id)
         {
-            return  Queryable.Any(this._dbContext.AclRoles, x => x.Id == id && x.CompanyId == AppAuth.GetAuthInfo().CompanyId); 
+            return Queryable.Any(this._dbContext.AclRoles, x => x.Id == id);//&& x.CompanyId == AppAuth.GetAuthInfo().CompanyId); 
         }
     }
 }
