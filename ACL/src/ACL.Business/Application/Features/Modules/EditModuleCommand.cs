@@ -26,7 +26,7 @@ namespace ACL.Business.Application.Features.Modules
         }
     }
 
-    public class UpdateModuleCommandHandler : IRequestHandler<UpdateModuleCommand, ErrorOr<Module>>
+    public class UpdateModuleCommandHandler : ModuleBase, IRequestHandler<UpdateModuleCommand, ErrorOr<Module>>
     {
         private readonly IModuleRepository _repository;
         private readonly IGuardAgainstNullUpdate _guard;
