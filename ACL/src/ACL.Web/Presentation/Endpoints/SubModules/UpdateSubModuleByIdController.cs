@@ -11,7 +11,7 @@ namespace ACL.Web.Presentation.Endpoints.SubModules
         {
         }
 
-        [Tags("SubModule")]
+        [Tags("SubModules")]
         //[Authorize(Policy = "HasPermission")]
         [HttpPut(SubModuleRoutes.UpdateSubModuleTemplate, Name = SubModuleRoutes.UpdateSubModuleName)]
         [HttpPatch(SubModuleRoutes.UpdateSubModuleTemplate, Name = SubModuleRoutes.UpdateSubModuleName)]

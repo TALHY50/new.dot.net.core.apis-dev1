@@ -12,7 +12,7 @@ public class UpdateRolePageController : RolePageBaseController
     {
     }
 
-    [Tags("Role Page Association")]
+    [Tags("RolePages")]
     //[Authorize(Policy = "HasPermission")]
     [HttpPut(RolePageRoutes.UpdateRolePageTemplate, Name = RolePageRoutes.UpdateRolePageName)]
     [HttpPatch(RolePageRoutes.UpdateRolePageTemplate, Name = RolePageRoutes.UpdateRolePageName)]
