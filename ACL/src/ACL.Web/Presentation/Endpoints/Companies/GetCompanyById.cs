@@ -13,7 +13,7 @@ public class GetCompanyById : CompanyBase
     }
     
 
-    
+    [ApiExplorerSettings(IgnoreApi = true)]
     [Authorize(Policy = "HasPermission")]
     [HttpGet(AclRoutesUrl.AclCompanyRouteUrl.View, Name = AclRoutesName.AclCompanyRouteNames.View)]
     public ScopeResponse View(uint id)

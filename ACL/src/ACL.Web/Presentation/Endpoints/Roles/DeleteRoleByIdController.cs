@@ -8,7 +8,7 @@ namespace ACL.Web.Presentation.Endpoints.Roles
     public class DeleteRoleById(ILogger<DeleteRoleById> logger, ICurrentUser currentUser)
     : RoleBaseController(logger, currentUser)
     {
-        [Tags("Role")]
+        [Tags("Roles")]
         //[Authorize(Policy = "HasPermission")]
         [HttpDelete(RoleRoutes.DeleteRoleTemplate, Name = RoleRoutes.DeleteRoleName)]
 

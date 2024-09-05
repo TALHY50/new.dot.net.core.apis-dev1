@@ -11,7 +11,7 @@ namespace ACL.Web.Presentation.Endpoints.Roles
     public class CreateRoleController(ILogger<CreateRoleController> logger, ICurrentUser currentUser)
     : RoleBaseController(logger, currentUser)
     {
-        [Tags("Role")]
+        [Tags("Roles")]
         //[Authorize(Policy = "HasPermission")]
         [HttpPost(RoleRoutes.CreateRoleTemplate, Name = RoleRoutes.CreateRoleName)]
 

@@ -1,26 +1,25 @@
-﻿using ACL.Business.Application.Features.UserGroups;
+﻿using ACL.Business.Application.Features.Modules;
+using ACL.Web.Presentation.Endpoints.Modules;
 using ACL.Web.Presentation.Routes;
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Interfaces.Services;
 
 namespace ACL.Web.Presentation.Endpoints.UserGroups
 {
-    public class DeleteUserGroupByIdController(ILogger<DeleteUserGroupByIdController> logger, ICurrentUser currentUser)
-        : UserGroupBaseController(logger, currentUser)
+    public class DeleteModuleByIdController(ILogger<DeleteModuleByIdController> logger, ICurrentUser currentUser): ModuleBaseController(logger, currentUser)
     {
-        [Tags("Usergroups")]
+        [Tags("Module")]
         //[Authorize(Policy = "HasPermission")]
-        [HttpDelete(ACLUserGroupRoutes.DeleteACLUserGroupTemplate, Name = ACLUserGroupRoutes.DeleteACLUserGroupName)]
+        [HttpDelete(ModuleRoutes.DeleteModuleTemplate, Name = ModuleRoutes.DeleteModuleName)]
 
         public async Task<IActionResult> Delete(uint id, CancellationToken cancellationToken)
         {
-            var command = new DeleteUserGroupByIdCommand(id)
+            var command = new DeleteModuleCommand(id)
 ;
             _ = Task.Run(
                 () => _logger.LogInformation(
-                    "delete-user-group-by-id-request: {Name} {@UserId} {@Request}",
-                    nameof(DeleteUserGroupByIdCommand),
+                    "delete-module-by-id-request: {Name} {@UserId} {@Request}",
+                    nameof(DeleteModuleCommand),
                     CurrentUser.UserId,
                     command),
                 cancellationToken);
@@ -30,7 +29,7 @@ namespace ACL.Web.Presentation.Endpoints.UserGroups
                 Problem);
             _ = Task.Run(
                 () => _logger.LogInformation(
-                    "delete-user-group-by-id-response: {Name} {@UserId} {@Response}",
+                    "delete-module-by-id-response: {Name} {@UserId} {@Response}",
                     nameof(response),
                     CurrentUser.UserId,
                     response),

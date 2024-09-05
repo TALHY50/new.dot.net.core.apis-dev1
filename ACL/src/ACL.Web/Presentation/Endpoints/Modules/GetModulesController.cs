@@ -1,43 +1,43 @@
-﻿using ACL.Business.Application.Features.Roles;
+﻿
+using ACL.Business.Application.Features.Modules;
 using ACL.Business.Contracts.Responses;
-using ACL.Business.Domain.Entities;
 using ACL.Web.Presentation.Routes;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Contracts;
 
-namespace ACL.Web.Presentation.Endpoints.Roles
+namespace ACL.Web.Presentation.Endpoints.Modules
 {
-    public class GetRolesController(ILogger<GetRolesController> logger, ICurrentUser currentUser)
-    : RoleBaseController(logger, currentUser)
+    public class GetModulesController(ILogger<GetModulesController> logger, ICurrentUser currentUser) : ModuleBaseController(logger, currentUser)
     {
-        [Tags("Roles")]
+        [Tags("Modules")]
         // [Authorize(Policy = "HasPermission")]
-        [HttpGet(RoleRoutes.GetRoleTemplate, Name = RoleRoutes.GetRoleName)]
+        [HttpGet(ModuleRoutes.GetModuleTemplate, Name = ModuleRoutes.GetModuleName)]
         public async Task<IActionResult> Get([FromQuery] PaginatorRequest pageRequest, CancellationToken cancellationToken)
         {
-            var query = new GetRolesQuery(PageNumber: pageRequest.page_number, PageSize: pageRequest.page_size);
+            var query = new GetModuleQuery(PageNumber: pageRequest.page_number, PageSize: pageRequest.page_size);
             _ = Task.Run(
                 () => _logger.LogInformation(
-                    "get-roles: {Name} {@UserId} {@Request}",
-                    nameof(GetRolesQuery),
+                    "get-modules: {Name} {@UserId} {@Request}",
+                    nameof(GetModuleQuery),
                     CurrentUser.UserId,
                     query),
                 cancellationToken);
             var result = await Mediator.Send(query).ConfigureAwait(false);
             var response = result.Match(
-            roles => Ok(ToSuccess(roles.Select(role => role.Adapt<RoleDto>()).ToList())),
-            Problem);
-
+                     modules => Ok(ToSuccess(modules.Select(module => module.Adapt<ModuleDto>()).ToList())),
+                     Problem
+                 );
             _ = Task.Run(
                 () => _logger.LogInformation(
-                    "get-roles-response: {Name} {@UserId} {@Response}",
+                    "get-module-response: {Name} {@UserId} {@Response}",
                     nameof(response),
                     CurrentUser.UserId,
                     response),
                 cancellationToken);
             return response;
         }
+
     }
 }

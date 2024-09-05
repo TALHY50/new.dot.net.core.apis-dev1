@@ -10,7 +10,7 @@ namespace ACL.Web.Presentation.Endpoints.UserGroupRoles
         public UpdateUserGroupRoleByIdController(ILogger<UserGroupRoleBaseController> logger, ICurrentUser currentUser) : base(logger, currentUser)
         {
         }
-        [Tags("User Group Roles")]
+        [Tags("Usergroup Role Association")]
         //[Authorize(Policy = "HasPermission")]
         [HttpPut(UserGroupRoleRoutes.UpdateUserGroupRoleTemplate, Name = UserGroupRoleRoutes.UpdateUserGroupRoleName)]
         //[HttpPatch(UserGroupRoleRoutes.UpdateUserGroupRoleTemplate, Name = UserGroupRoleRoutes.UpdateUserGroupRoleName)]

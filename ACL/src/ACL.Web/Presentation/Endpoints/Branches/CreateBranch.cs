@@ -12,7 +12,7 @@ public class CreateBranch : BranchBase
     public CreateBranch(IBranchService branchService) : base(branchService)
     {
     }
-    
+    [ApiExplorerSettings(IgnoreApi = true)]
     //[Authorize(Policy = "HasPermission")]
     [HttpPost(AclRoutesUrl.AclBranchRouteUrl.Add, Name = AclRoutesName.AclBranchRouteNames.Add)]
     public ScopeResponse Create(AclBranchRequest request)

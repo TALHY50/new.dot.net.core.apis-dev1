@@ -1,36 +1,33 @@
-﻿using ACL.Business.Application.Features.Roles;
-using ACL.Business.Contracts.Responses;
-using ACL.Business.Domain.Entities;
+﻿
+using ACL.Business.Application.Features.Modules;
 using ACL.Web.Presentation.Routes;
-using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Interfaces.Services;
 
-namespace ACL.Web.Presentation.Endpoints.Roles
+namespace ACL.Web.Presentation.Endpoints.Modules
 {
-    public class GetRoleByIdController(ILogger<GetRoleByIdController> logger, ICurrentUser currentUser)
-    : RoleBaseController(logger, currentUser)
+    public class GetModuleByIdController(ILogger<GetModuleByIdController> logger, ICurrentUser currentUser) : ModuleBaseController(logger, currentUser)
     {
-        [Tags("Roles")]
+        [Tags("Module")]
         //[Authorize(Policy = "HasPermission")]
-        [HttpGet(RoleRoutes.GetRoleByIdTemplate, Name = RoleRoutes.GetRoleByIdName)]
+        [HttpGet(ModuleRoutes.GetModuleByIdTemplate, Name = ModuleRoutes.GetModuleByIdName)]
         public async Task<IActionResult> GetById(uint id, CancellationToken cancellationToken)
         {
-            var query = new GetRoleByIdQuery(id);
+            var query = new FindModuleByIdQuery(id);
             _ = Task.Run(
                 () => _logger.LogInformation(
-                    "get-role-by-id-request: {Name} {@UserId} {@Request}",
-                    nameof(GetRoleByIdQuery),
+                    "get-module-by-id-request: {Name} {@UserId} {@Request}",
+                    nameof(FindModuleByIdQuery),
                     CurrentUser.UserId,
                     query),
                 cancellationToken);
             var result = await Mediator.Send(query).ConfigureAwait(false);
             var response = result.Match(
-            role => Ok(ToSuccess(role.Adapt<RoleDto>())),
-            Problem);
+                        isSuccess => Ok(ToSuccess(result.Value)),
+                        Problem);
             _ = Task.Run(
                 () => _logger.LogInformation(
-                    "get-role-by-id-response: {Name} {@UserId} {@Response}",
+                    "get-module-by-id-response: {Name} {@UserId} {@Response}",
                     nameof(response),
                     CurrentUser.UserId,
                     response),
@@ -38,5 +35,6 @@ namespace ACL.Web.Presentation.Endpoints.Roles
 
             return response;
         }
+     
     }
 }

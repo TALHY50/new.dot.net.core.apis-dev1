@@ -15,7 +15,7 @@ namespace ACL.Web.Presentation.Endpoints.Roles
         {
         }
 
-        [Tags("Role")]
+        [Tags("Roles")]
         //[Authorize(Policy = "HasPermission")]
         [HttpPut(RoleRoutes.UpdateRoleTemplate, Name = RoleRoutes.UpdateRoleName)]
         [HttpPatch(RoleRoutes.UpdateRoleTemplate, Name = RoleRoutes.UpdateRoleName)]

@@ -7,33 +7,34 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ACL.Web.Application.Features.Countries
 {
-     /// <inheritdoc/>
+    /// <inheritdoc/>
+    [ApiExplorerSettings(IgnoreApi = true)]
     [Authorize]
     [Tags("Country")]
     [ApiController]
     public class CountryController : ControllerBase
     {
         private ICountryService _countryService;
-         /// <inheritdoc/>
+        /// <inheritdoc/>
         public CountryController(ICountryService repository)
         {
             this._countryService = repository;
         }
-         /// <inheritdoc/>
+        /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclCountryRouteUrl.List, Name = AclRoutesName.AclCountryRouteNames.List)]
         public ScopeResponse Index()
         {
             return this._countryService.GetAll();
         }
-         /// <inheritdoc/>
+        /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
         [HttpPost(AclRoutesUrl.AclCountryRouteUrl.Add, Name = AclRoutesName.AclCountryRouteNames.Add)]
         public ScopeResponse Create(AclCountryRequest request)
         {
             return this._countryService.Add(request);
         }
-         /// <inheritdoc/>
+        /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
         [HttpGet(AclRoutesUrl.AclCountryRouteUrl.View, Name = AclRoutesName.AclCountryRouteNames.View)]
         public ScopeResponse View(uint id)
@@ -41,7 +42,7 @@ namespace ACL.Web.Application.Features.Countries
             return this._countryService.FindById(id);
 
         }
-         /// <inheritdoc/>
+        /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
         [HttpPut(AclRoutesUrl.AclCountryRouteUrl.Edit, Name = AclRoutesName.AclCountryRouteNames.Edit)]
         public ScopeResponse Edit(uint id, AclCountryRequest request)
@@ -49,7 +50,7 @@ namespace ACL.Web.Application.Features.Countries
             return this._countryService.Edit(id, request);
 
         }
-         /// <inheritdoc/>
+        /// <inheritdoc/>
         //[Authorize(Policy = "HasPermission")]
         [HttpDelete(AclRoutesUrl.AclCountryRouteUrl.Destroy, Name = AclRoutesName.AclCountryRouteNames.Destroy)]
         public ScopeResponse Destroy(uint id)

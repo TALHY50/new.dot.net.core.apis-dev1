@@ -113,9 +113,58 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
                 .HasComment("USER_TYPE_SS_ADMIN = 0; USER_TYPE_S_ADMIN = 1; USER_TYPE_USER = 2")
                 .HasColumnType("int(10) unsigned")
                 .HasColumnName("user_type");
-            /*builder.Property(e => e.UserName)
+            builder.Property(e => e.UserName)
                 .HasMaxLength(20)
-                .HasColumnName("username");*/
+                .HasColumnName("username");
+            
+            builder.Property(e => e.NormalizedUserName)
+                .HasMaxLength(256)
+                .HasColumnName("normalized_user_name");
+
+            builder.Property(e => e.NormalizedEmail)
+                .HasMaxLength(256)
+                .HasColumnName("normalized_email");
+
+            builder.Property(e => e.EmailConfirmed)
+                .HasColumnType("tinyint(1)")
+                .HasColumnName("email_confirmed");
+
+            builder.Property(e => e.PasswordHash)
+                .HasColumnType("longtext")
+                .HasColumnName("password_hash");
+
+            builder.Property(e => e.SecurityStamp)
+                .HasColumnType("longtext")
+                .HasColumnName("security_stamp");
+
+            builder.Property(e => e.ConcurrencyStamp)
+                .HasColumnType("longtext")
+                .HasColumnName("concurrency_stamp");
+
+            builder.Property(e => e.PhoneNumber)
+                .HasColumnType("longtext")
+                .HasColumnName("phone_number");
+
+            builder.Property(e => e.PhoneNumberConfirmed)
+                .HasColumnType("tinyint(1)")
+                .HasColumnName("phone_number_confirmed");
+
+            builder.Property(e => e.TwoFactorEnabled)
+                .HasColumnType("tinyint(1)")
+                .HasColumnName("two_factor_enabled");
+
+            builder.Property(e => e.LockoutEnd)
+                .HasColumnType("datetime")
+                .HasColumnName("lockout_end");
+
+            builder.Property(e => e.LockoutEnabled)
+                .HasColumnType("tinyint(1)")
+                .HasColumnName("lockout_enabled");
+
+            builder.Property(e => e.AccessFailedCount)
+                .HasColumnType("int")
+                .HasColumnName("access_failed_count");
+
     }
 
 
