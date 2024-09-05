@@ -9,7 +9,7 @@ namespace ACL.Web.Presentation.Endpoints.SubModules
 {
     public class DeleteSubModuleByIdController(ILogger<DeleteSubModuleByIdController> logger, ICurrentUser currentUser): SubModuleBaseController(logger, currentUser)
     {
-        [Tags("SubModule")]
+        [Tags("SubModules")]
         //[Authorize(Policy = "HasPermission")]
         [HttpDelete(SubModuleRoutes.DeleteSubModuleTemplate, Name = SubModuleRoutes.DeleteSubModuleName)]
 

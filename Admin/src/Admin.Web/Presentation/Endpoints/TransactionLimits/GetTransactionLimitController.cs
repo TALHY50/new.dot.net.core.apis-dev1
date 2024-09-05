@@ -13,7 +13,7 @@ namespace Admin.Web.Presentation.Endpoints.TransactionLimits
     public class GetTransactionLimitController(ILogger<GetTransactionLimitController> logger, ICurrentUser currentUser)
     : TransactionLimitBaseController(logger, currentUser)
     {
-        [Tags("Transaction Limit")]
+        [Tags("TransactionLimits")]
         // [Authorize(Policy = "HasPermission")]
         [HttpGet(TransactionLimitRoutes.GetTransactionLimitTemplate, Name = TransactionLimitRoutes.GetTransactionLimitName)]
         public async Task<IActionResult> Get([FromQuery] PaginatorRequest pageRequest, CancellationToken cancellationToken)

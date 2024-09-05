@@ -11,6 +11,7 @@ namespace Notification.App.Presentation.Controllers;
 
 public class CreateSmsOutgoingController : ApiControllerBase
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     [HttpPost("/api/notification/outgoing/sms/create")]
     public async Task<ActionResult<ErrorOr<SmsOutgoing>>> Create(CreateSmsOutgoingCommand command)
     {

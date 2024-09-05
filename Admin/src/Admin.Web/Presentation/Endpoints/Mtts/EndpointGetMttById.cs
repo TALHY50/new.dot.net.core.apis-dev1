@@ -19,7 +19,7 @@ namespace Admin.Web.Presentation.Endpoints.Mtts
     public class EndpointGetMttById(ILogger<EndpointGetMttById> logger, ICurrentUser currentUser)
        : MttBase(logger, currentUser)
     {
-        [Tags("Mtt")]
+        [Tags("Mtts")]
         [HttpGet(MttRoutes.ViewMttsRouteUrl, Name = MttRoutes.ViewMttsRouteName)]
         public async Task<IActionResult> GetById(uint id, CancellationToken cancellationToken)
         {

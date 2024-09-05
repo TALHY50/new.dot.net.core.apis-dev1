@@ -11,6 +11,7 @@ namespace Notification.App.Presentation.Controllers;
 
 public class CreateWebEventController : ApiControllerBase
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     [HttpPost("/api/notification/event/web/create")]
     public async Task<ActionResult<ErrorOr<Event>>> Create(CreateWebEventCommand command)
     {

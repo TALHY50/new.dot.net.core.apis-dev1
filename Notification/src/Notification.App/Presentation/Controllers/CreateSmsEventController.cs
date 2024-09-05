@@ -11,6 +11,7 @@ namespace Notification.App.Presentation.Controllers;
 
 public class CreateSmsEventController : ApiControllerBase
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     [HttpPost("/api/notification/event/sms/create")]
     public async Task<ActionResult<ErrorOr<Event>>> Create(CreateSmsEventCommand command)
     {

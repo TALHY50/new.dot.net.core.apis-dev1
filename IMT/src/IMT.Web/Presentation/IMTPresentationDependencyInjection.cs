@@ -13,7 +13,7 @@ public static class IMTPresentationDependencyInjection
                 .AllowAnyHeader()
                 .AllowAnyMethod()));
         
-        services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "Admin API", Version = "v1" }));
+        services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "IMT API", Version = "v1" }));
         services.AddProblemDetails();
         services.AddHealthChecks();
         services.AddHttpContextAccessor();

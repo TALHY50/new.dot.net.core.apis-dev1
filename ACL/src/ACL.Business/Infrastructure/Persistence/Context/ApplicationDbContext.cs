@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using ACL.Business.Domain.Entities;
+using ACL.Business.Infrastructure.Persistence.Configurations;
 using ACL.Business.Infrastructure.Persistence.Migrations;
 using DotNetEnv;
 using Microsoft.AspNetCore.Identity;
@@ -19,8 +20,8 @@ public partial class ApplicationDbContext : IdentityDbContext<User, Role, uint>
         : base(options)
     {
     }
-    
-    
+
+
     public virtual DbSet<User> AclUsers { get; set; }
 
     public virtual DbSet<Branch> Branches { get; set; }
@@ -78,15 +79,233 @@ public partial class ApplicationDbContext : IdentityDbContext<User, Role, uint>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-
+       // modelBuilder.ApplyConfiguration(new UserConfiguration());
         base.OnModelCreating(modelBuilder);
         //modelBuilder
         //    .UseCollation("utf8mb4_general_ci")
         //    .HasCharSet("utf8mb4");
         modelBuilder.Entity<User>(entity =>
         {
-            entity.ToTable(name: "acl_users");         
+            entity.ToTable(name: "acl_users");
         });
+
+        //        modelBuilder.Entity<User>(entity =>
+        //{
+        //    entity.HasKey(e => e.Id).HasName("PRIMARY");
+
+        //    entity.ToTable("acl_users");
+
+        //    // Property Mappings
+        //    entity.Property(e => e.Id)
+        //        .HasColumnType("int")
+        //        .ValueGeneratedOnAdd()
+        //        .HasColumnName("id");
+
+        //    entity.Property(e => e.FirstName)
+        //        .HasMaxLength(100)
+        //        .HasColumnName("first_name")
+        //        .IsUnicode(false);
+
+        //    entity.Property(e => e.LastName)
+        //        .HasMaxLength(100)
+        //        .HasColumnName("last_name")
+        //        .IsUnicode(false);
+
+        //    entity.Property(e => e.Email)
+        //        .HasMaxLength(50)
+        //        .IsRequired()
+        //        .HasColumnName("email")
+        //        .IsUnicode(false);
+
+        //    entity.Property(e => e.Avatar)
+        //        .HasMaxLength(255)
+        //        .HasColumnName("avatar")
+        //        .IsUnicode(false);
+
+        //    entity.Property(e => e.Password)
+        //        .HasMaxLength(255)
+        //        .HasColumnName("password")
+        //        .IsUnicode(false);
+
+        //    entity.Property(e => e.Dob)
+        //        .HasColumnType("datetime(6)")
+        //        .HasColumnName("dob");
+
+        //    entity.Property(e => e.Gender)
+        //        .HasColumnType("tinyint")
+        //        .HasColumnName("gender");
+
+        //    entity.Property(e => e.Address)
+        //        .HasMaxLength(255)
+        //        .HasColumnName("address")
+        //        .IsUnicode(false);
+
+        //    entity.Property(e => e.City)
+        //        .HasMaxLength(100)
+        //        .HasColumnName("city")
+        //        .IsUnicode(false);
+
+        //    entity.Property(e => e.Country)
+        //        .HasColumnType("int")
+        //        .IsRequired()
+        //        .HasColumnName("country");
+
+        //    entity.Property(e => e.Phone)
+        //        .HasMaxLength(20)
+        //        .HasColumnName("phone")
+        //        .IsUnicode(false);
+
+        //    entity.Property(e => e.IsAdminVerified)
+        //        .HasColumnType("tinyint(1)")
+        //        .IsRequired()
+        //        .HasColumnName("is_admin_verified");
+
+        //    entity.Property(e => e.UserType)
+        //        .HasColumnType("tinyint")
+        //        .IsRequired()
+        //        .HasColumnName("user_type");
+
+        //    entity.Property(e => e.RememberToken)
+        //        .HasMaxLength(100)
+        //        .HasColumnName("remember_token")
+        //        .IsUnicode(false);
+
+        //    entity.Property(e => e.RefreshToken)
+        //        .HasMaxLength(255)
+        //        .IsRequired()
+        //        .HasColumnName("refresh_token")
+        //        .IsUnicode(false);
+
+        //    entity.Property(e => e.Salt)
+        //        .HasMaxLength(100)
+        //        .HasColumnName("salt")
+        //        .IsUnicode(false);
+
+        //    entity.Property(e => e.CreatedAt)
+        //        .HasColumnType("datetime")
+        //        .HasColumnName("created_at");
+
+        //    entity.Property(e => e.UpdatedAt)
+        //        .HasColumnType("datetime")
+        //        .HasColumnName("updated_at");
+
+        //    entity.Property(e => e.ActivatedAt)
+        //        .HasColumnType("datetime")
+        //        .HasColumnName("activated_at");
+
+        //    entity.Property(e => e.Language)
+        //        .HasMaxLength(8)
+        //        .IsRequired()
+        //        .HasDefaultValueSql("'en-US'")
+        //        .HasColumnName("language")
+        //        .IsUnicode(false);
+
+        //    //entity.Property(e => e.Username)
+        //    //    .HasMaxLength(20)
+        //    //    .HasColumnName("username")
+        //    //    .IsUnicode(false);
+
+        //    entity.Property(e => e.ImgPath)
+        //        .HasMaxLength(255)
+        //        .HasColumnName("img_path")
+        //        .IsUnicode(false);
+
+        //    //entity.Property(e => e.Claims)
+        //    //    .HasColumnType("text")
+        //    //    .IsRequired()
+        //    //    .HasColumnName("claims");
+
+        //    entity.Property(e => e.Status)
+        //        .HasColumnType("tinyint")
+        //        .HasDefaultValueSql("'1'")
+        //        .IsRequired()
+        //        .HasColumnName("status");
+
+        //    entity.Property(e => e.CompanyId)
+        //        .HasColumnType("int")
+        //        .IsRequired()
+        //        .HasColumnName("company_id");
+
+        //    entity.Property(e => e.PermissionVersion)
+        //        .HasColumnType("int")
+        //        .IsRequired()
+        //        .HasColumnName("permission_version");
+
+        //    entity.Property(e => e.OtpChannel)
+        //        .HasColumnType("tinyint")
+        //        .IsRequired()
+        //        .HasColumnName("otp_channel");
+
+        //    entity.Property(e => e.LoginAt)
+        //        .HasColumnType("datetime")
+        //        .HasColumnName("login_at");
+
+        //    entity.Property(e => e.CreatedById)
+        //        .HasColumnType("int")
+        //        .IsRequired()
+        //        .HasColumnName("created_by_id");
+
+        //    entity.Property(e => e.AuthIdentifier)
+        //        .HasMaxLength(150)
+        //        .HasColumnName("auth_identifier")
+        //        .IsUnicode(false);
+
+        //    entity.Property(e => e.NormalizedUserName)
+        //        .HasMaxLength(256)
+        //        .HasColumnName("NormalizedUserName")
+        //        .IsUnicode(false);
+
+        //    entity.Property(e => e.NormalizedEmail)
+        //        .HasMaxLength(256)
+        //        .HasColumnName("NormalizedEmail")
+        //        .IsUnicode(false);
+
+        //    entity.Property(e => e.EmailConfirmed)
+        //        .HasColumnType("tinyint(1)")
+        //        .IsRequired()
+        //        .HasColumnName("EmailConfirmed");
+
+        //    entity.Property(e => e.PasswordHash)
+        //        .HasColumnType("longtext")
+        //        .HasColumnName("PasswordHash");
+
+        //    entity.Property(e => e.SecurityStamp)
+        //        .HasColumnType("longtext")
+        //        .HasColumnName("SecurityStamp");
+
+        //    entity.Property(e => e.ConcurrencyStamp)
+        //        .HasColumnType("longtext")
+        //        .HasColumnName("ConcurrencyStamp");
+
+        //    entity.Property(e => e.PhoneNumber)
+        //        .HasColumnType("longtext")
+        //        .HasColumnName("PhoneNumber");
+
+        //    entity.Property(e => e.PhoneNumberConfirmed)
+        //        .HasColumnType("tinyint(1)")
+        //        .IsRequired()
+        //        .HasColumnName("PhoneNumberConfirmed");
+
+        //    entity.Property(e => e.TwoFactorEnabled)
+        //        .HasColumnType("tinyint(1)")
+        //        .IsRequired()
+        //        .HasColumnName("TwoFactorEnabled");
+
+        //    entity.Property(e => e.LockoutEnd)
+        //        .HasColumnType("datetime")
+        //        .HasColumnName("LockoutEnd");
+
+        //    entity.Property(e => e.LockoutEnabled)
+        //        .HasColumnType("tinyint(1)")
+        //        .IsRequired()
+        //        .HasColumnName("LockoutEnabled");
+
+        //    entity.Property(e => e.AccessFailedCount)
+        //        .HasColumnType("int")
+        //        .IsRequired()
+        //        .HasColumnName("AccessFailedCount");
+        //});
+
 
         modelBuilder.Entity<Branch>(entity =>
         {
@@ -533,7 +752,7 @@ public partial class ApplicationDbContext : IdentityDbContext<User, Role, uint>
             entity.Property(e => e.UpdatedAt)
                 .HasColumnType("timestamp")
                 .HasColumnName("updated_at");
-            
+
         });
 
         /*modelBuilder.Entity<User>(entity =>
@@ -4171,7 +4390,7 @@ public partial class ApplicationDbContext : IdentityDbContext<User, Role, uint>
                   },
               }
          );
-         
+
 
         modelBuilder.Entity<Module>().HasData(
             new Module[]

@@ -9,6 +9,7 @@ using Thunes.Route;
 
 namespace IMT.App.Application.Features
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     [Tags("Thunes")]
     [ApiController]
     [Route("[controller]")]

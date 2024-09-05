@@ -6,7 +6,7 @@ using Thunes.Route;
 
 namespace IMT.App.Application.Features
 {
-
+    [ApiExplorerSettings(IgnoreApi = true)]
     [ApiController]
     [Tags("Quotation")]
     [Route("[controller]")]

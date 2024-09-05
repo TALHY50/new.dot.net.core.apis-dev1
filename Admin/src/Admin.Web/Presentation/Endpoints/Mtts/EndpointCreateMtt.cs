@@ -9,7 +9,7 @@ namespace Admin.Web.Presentation.Endpoints.Mtts
     public class EndpointCreateMtt(ILogger<EndpointCreateMtt> logger, ICurrentUser currentUser)
     : MttBase(logger, currentUser)
     {
-        [Tags("Mtt")]
+        [Tags("Mtts")]
         [HttpPost(MttRoutes.CreateMttsRouteUrl, Name = MttRoutes.CreateMttsRouteName)]
 
         public async Task<IActionResult> Create(CreateMttCommand command, CancellationToken cancellationToken)

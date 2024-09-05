@@ -9,7 +9,7 @@ namespace Admin.Web.Presentation.Endpoints.PayerPaymentSpeeds
     public class DeletePayerPaymentSpeedByIdController(ILogger<DeletePayerPaymentSpeedByIdController> logger, ICurrentUser currentUser)
         : PayerPaymentSpeedBase(logger, currentUser)
     {
-        [Tags("PayerPaymentSpeeds")]
+        [Tags("PayersPaymentSpeeds")]
         //[Authorize(Policy = "HasPermission")]
         [HttpDelete(PayerPaymentSpeedRoutes.DeletePayerPaymentSpeedTemplate, Name = PayerPaymentSpeedRoutes.DeletePayerPaymentSpeedName)]
 

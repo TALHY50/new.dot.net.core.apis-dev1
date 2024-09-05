@@ -14,7 +14,7 @@ public class UpdateBusinessHourAndWeekendByIdController : BusinessHourAndWeekend
     {
     }
 
-    [Tags("BusinessHourAndWeekends")]
+    [Tags("BusinessHoursAndWeekends")]
     //[Authorize(Policy = "HasPermission")]
     [HttpPut(BusinessHourAndWeekendRoutes.UpdateBusinessHourAndWeekendTemplate, Name = BusinessHourAndWeekendRoutes.UpdateBusinessHourAndWeekendName)]
     [HttpPatch(BusinessHourAndWeekendRoutes.UpdateBusinessHourAndWeekendTemplate, Name = BusinessHourAndWeekendRoutes.UpdateBusinessHourAndWeekendName)]

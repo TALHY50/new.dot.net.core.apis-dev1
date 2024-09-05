@@ -13,7 +13,7 @@ namespace Admin.Web.Presentation.Endpoints.BusinessHourAndWeekend;
 public class GetBusinessHourAndWeekendController(ILogger<GetBusinessHourAndWeekendController> logger, ICurrentUser currentUser)
     : BusinessHourAndWeekendBaseController(logger, currentUser)
 {
-    [Tags("BusinessHourAndWeekends")]
+    [Tags("BusinessHoursAndWeekends")]
     // [Authorize(Policy = "HasPermission")]
     [HttpGet(BusinessHourAndWeekendRoutes.GetBusinessHourAndWeekendTemplate, Name = BusinessHourAndWeekendRoutes.GetBusinessHourAndWeekendName)]
     public async Task<IActionResult> Get([FromQuery] PaginatorRequest pageRequest, CancellationToken cancellationToken)

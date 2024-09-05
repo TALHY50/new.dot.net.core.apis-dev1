@@ -13,6 +13,7 @@ namespace Notification.App.Application.Features.Notifications.Test;
 
 public class TestIndexController : ApiControllerBase
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     [HttpPost("/api/notification/test/index")]
     public async Task<ActionResult<int>> Create(TestIndexCommand command)
     {

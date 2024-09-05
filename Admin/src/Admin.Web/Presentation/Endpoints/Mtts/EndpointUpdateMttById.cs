@@ -9,7 +9,7 @@ namespace Admin.Web.Presentation.Endpoints.Mtts
     public class EndpointUpdateMttById(ILogger<EndpointUpdateMttById> logger, ICurrentUser currentUser)
        : MttBase(logger, currentUser)
     {
-        [Tags("Mtt")]
+        [Tags("Mtts")]
         [HttpPut(MttRoutes.EditMttsRouteUrl, Name = MttRoutes.EditMttsRouteName)]
         public async Task<IActionResult> Update(uint id, UpdateMttByIdCommand command, CancellationToken cancellationToken)
         {

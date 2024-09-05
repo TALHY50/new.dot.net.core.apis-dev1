@@ -16,7 +16,7 @@ namespace Admin.Web.Presentation.Endpoints.Mtts
     public class EndpointDeleteMttById(ILogger<EndpointDeleteMttById> logger, ICurrentUser currentUser)
     : MttBase(logger, currentUser)
     {
-        [Tags("Mtt")]
+        [Tags("Mtts")]
         [HttpDelete(MttRoutes.DeleteMttsRouteUrl, Name = MttRoutes.DeleteMttsRouteName)]
         public async Task<IActionResult> Delete(uint id, CancellationToken cancellationToken)
         {
