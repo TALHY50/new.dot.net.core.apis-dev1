@@ -20,6 +20,6 @@
 
         public const string UpdateModuleMethod = "PUT";
         public const string UpdateModuleName = "update_module_by_id";
-        public const string UpdateModuleTemplate = "/modules";
+        public const string UpdateModuleTemplate = "/modules/{id}";
     }
 }
