@@ -11,7 +11,7 @@ namespace ACL.Web.Presentation.Endpoints.SubModules
 {
     public class GetSubModulesController(ILogger<GetSubModulesController> logger, ICurrentUser currentUser) : SubModuleBaseController(logger, currentUser)
     {
-        [Tags("SubModule")]
+        [Tags("SubModules")]
         // [Authorize(Policy = "HasPermission")]
         [HttpGet(SubModuleRoutes.GetSubModuleTemplate, Name = SubModuleRoutes.GetSubModuleName)]
         public async Task<IActionResult> Get([FromQuery] PaginatorRequest pageRequest, CancellationToken cancellationToken)
