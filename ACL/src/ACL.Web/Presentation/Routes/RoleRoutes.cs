@@ -2,7 +2,7 @@
 {
     public class RoleRoutes
     {
-        public const string Base = "api/v1/";
+        public const string Base = "/";
 
         public const string GetRoleMethod = "GET";
         public const string GetRoleName = "roles";
