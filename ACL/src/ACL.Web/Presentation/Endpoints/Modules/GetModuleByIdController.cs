@@ -8,7 +8,7 @@ namespace ACL.Web.Presentation.Endpoints.Modules
 {
     public class GetModuleByIdController(ILogger<GetModuleByIdController> logger, ICurrentUser currentUser) : ModuleBaseController(logger, currentUser)
     {
-        [Tags("Module")]
+        [Tags("Modules")]
         //[Authorize(Policy = "HasPermission")]
         [HttpGet(ModuleRoutes.GetModuleByIdTemplate, Name = ModuleRoutes.GetModuleByIdName)]
         public async Task<IActionResult> GetById(uint id, CancellationToken cancellationToken)
