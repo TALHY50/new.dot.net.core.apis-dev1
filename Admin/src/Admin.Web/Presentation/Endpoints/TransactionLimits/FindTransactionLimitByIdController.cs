@@ -10,7 +10,7 @@ namespace Admin.Web.Presentation.Endpoints.TransactionLimits
 {
     public class FindTransactionLimitByIdController(ILogger<FindTransactionLimitByIdController> logger, ICurrentUser currentUser) : TransactionLimitBaseController(logger, currentUser)
     {
-        [Tags("Transaction Limit")]
+        [Tags("TransactionLimits")]
         //[Authorize(Policy = "HasPermission")]
         [HttpGet(TransactionLimitRoutes.GetTransactionLimitByIdTemplate, Name = TransactionLimitRoutes.GetTransactionLimitByIdName)]
         public async Task<IActionResult> GetById(uint id, CancellationToken cancellationToken)

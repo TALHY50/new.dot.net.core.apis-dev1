@@ -9,7 +9,7 @@ namespace Admin.Web.Presentation.Endpoints.TransactionLimits
 {
     public class DeleteTransactionLimitController(ILogger<DeleteTransactionLimitController> logger, ICurrentUser currentUser):TransactionLimitBaseController(logger, currentUser)
     {
-        [Tags("Transaction Limit")]
+        [Tags("TransactionLimits")]
         //[Authorize(Policy = "HasPermission")]
         [HttpDelete(TransactionLimitRoutes.DeleteTransactionLimitTemplate, Name = TransactionLimitRoutes.DeleteTransactionLimitName)]
 

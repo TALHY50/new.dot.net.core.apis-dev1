@@ -10,7 +10,7 @@ namespace Admin.Web.Presentation.Endpoints.TransactionLimits
 {
     public class CreateTransactionLimitController(ILogger<CreateTransactionLimitController> logger, ICurrentUser currentUser) : TransactionLimitBaseController(logger, currentUser)
     {
-        [Tags("Transaction Limit")]
+        [Tags("TransactionLimits")]
         //[Authorize(Policy = "HasPermission")]
         [HttpPost(TransactionLimitRoutes.CreateTransactionLimitTemplate, Name = TransactionLimitRoutes.CreateTransactionLimitName)]
         public async Task<IActionResult> Create(CreateTransactionLimitCommand command, CancellationToken cancellationToken)

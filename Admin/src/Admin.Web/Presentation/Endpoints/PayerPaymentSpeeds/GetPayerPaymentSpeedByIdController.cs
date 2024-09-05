@@ -10,7 +10,7 @@ namespace Admin.Web.Presentation.Endpoints.PayerPaymentSpeeds
     public class GetPayerPaymentSpeedByIdController(ILogger<GetPayerPaymentSpeedByIdController> logger, ICurrentUser currentUser)
         : PayerPaymentSpeedBase(logger, currentUser)
     {
-        [Tags("PayerPaymentSpeeds")]
+        [Tags("PayersPaymentSpeeds")]
         //[Authorize(Policy = "HasPermission")]
         [HttpGet(PayerPaymentSpeedRoutes.GetPayerPaymentSpeedByIdTemplate, Name = PayerPaymentSpeedRoutes.GetPayerPaymentSpeedByIdName)]
         public async Task<IActionResult> GetById(uint id, CancellationToken cancellationToken)

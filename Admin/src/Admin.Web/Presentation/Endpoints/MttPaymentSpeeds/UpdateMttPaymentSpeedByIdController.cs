@@ -14,7 +14,7 @@ namespace Admin.Web.Presentation.Endpoints.MttPaymentSpeeds
         {
         }
 
-        [Tags("MttPaymentSpeeds")]
+        [Tags("MttPaymentSpeed")]
         //[Authorize(Policy = "HasPermission")]
         [HttpPut(MttPaymentSpeedRoutes.UpdateMttPaymentSpeedTemplate, Name = MttPaymentSpeedRoutes.UpdateMttPaymentSpeedName)]
         [HttpPatch(MttPaymentSpeedRoutes.UpdateMttPaymentSpeedTemplate, Name = MttPaymentSpeedRoutes.UpdateMttPaymentSpeedName)]

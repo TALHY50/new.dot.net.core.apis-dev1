@@ -13,7 +13,7 @@ namespace Admin.Web.Presentation.Endpoints.MttPaymentSpeeds
     public class GetMttPaymentSpeedsController(ILogger<GetMttPaymentSpeedsController> logger, ICurrentUser currentUser)
         : MttPaymentSpeedBaseController(logger, currentUser)
     {
-        [Tags("MttPaymentSpeeds")]
+        [Tags("MttPaymentSpeed")]
         // [Authorize(Policy = "HasPermission")]
         [HttpGet(MttPaymentSpeedRoutes.GetMttPaymentSpeedTemplate, Name = MttPaymentSpeedRoutes.GetMttPaymentSpeedName)]
         public async Task<IActionResult> Get([FromQuery] PaginatorRequest pageRequest, CancellationToken cancellationToken)

@@ -9,7 +9,7 @@ namespace Admin.Web.Presentation.Endpoints.PayerPaymentSpeeds
     public class CreatePayerPaymentSpeedController(ILogger<CreatePayerPaymentSpeedController> logger, ICurrentUser currentUser)
         : PayerPaymentSpeedBase(logger, currentUser)
     {
-        [Tags("PayerPaymentSpeeds")]
+        [Tags("PayersPaymentSpeeds")]
         //[Authorize(Policy = "HasPermission")]
         [HttpPost(PayerPaymentSpeedRoutes.CreatePayerPaymentSpeedTemplate, Name = PayerPaymentSpeedRoutes.CreatePayerPaymentSpeedName)]
 

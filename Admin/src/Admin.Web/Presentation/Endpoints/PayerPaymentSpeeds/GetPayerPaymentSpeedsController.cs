@@ -12,7 +12,7 @@ namespace Admin.Web.Presentation.Endpoints.PayerPaymentSpeeds
     public class GetPayerPaymentSpeedsController(ILogger<GetPayerPaymentSpeedsController> logger, ICurrentUser currentuser)
         : PayerPaymentSpeedBase(logger, currentuser)
     {
-        [Tags("PayerPaymentSpeeds")]
+        [Tags("PayersPaymentSpeeds")]
         // [Authorize(Policy = "HasPermission")]
         [HttpGet(PayerPaymentSpeedRoutes.GetPayerPaymentSpeedTemplate, Name = PayerPaymentSpeedRoutes.GetPayerPaymentSpeedName)]
         public async Task<IActionResult> Get([FromQuery] PaginatorRequest pageRequest, CancellationToken cancellationToken)
