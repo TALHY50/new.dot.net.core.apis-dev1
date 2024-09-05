@@ -16,7 +16,7 @@ using SharedKernel.Main.Infrastructure.Extensions;
 namespace ACL.Business.Infrastructure.Persistence.Repositories
 {
     /// <inheritdoc/>
-    public class UserRepository :EfRepository<User>, IUserRepository
+    public class UserRepository : EfRepository<User>, IUserRepository
     {
         private uint _companyId;
         private uint _userType;
@@ -27,32 +27,32 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         public IUserUserGroupRepository UserUserGroupRepository;
         // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 #pragma warning disable CS8618
-        private static IHttpContextAccessor _httpContextAccessor;
+        // private static IHttpContextAccessor _httpContextAccessor;
         // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 #pragma warning restore CS8618
 
         private readonly ApplicationDbContext _dbContext;
 
-        public UserRepository(ApplicationDbContext dbContext, IConfiguration config, IDistributedCache distributedCache, ICryptography cryptography, IUserUserGroupRepository userUserGroupRepository, IHttpContextAccessor httpContextAccessor) :base(dbContext)
+        public UserRepository(ApplicationDbContext dbContext, IConfiguration config, IDistributedCache distributedCache, ICryptography cryptography, IUserUserGroupRepository userUserGroupRepository, IHttpContextAccessor httpContextAccessor) : base(dbContext)
         {
 
             this.UserUserGroupRepository = userUserGroupRepository;
             this._config = config;
-            var user = _httpContextAccessor?.HttpContext?.User;
+          //  var user = _httpContextAccessor?.HttpContext?.User;
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8604 // Possible null reference argument.
             this._distributedCache = distributedCache;
             this._dbContext = dbContext;
             this._cryptography = cryptography;
-            _httpContextAccessor = httpContextAccessor;
-            AppAuth.Initialize(_httpContextAccessor, dbContext);
-            AppAuth.SetAuthInfo(_httpContextAccessor);
+          //  _httpContextAccessor = httpContextAccessor;
+         //   AppAuth.Initialize(_httpContextAccessor, dbContext);
+          //  AppAuth.SetAuthInfo(_httpContextAccessor);
             this._companyId = (uint)AppAuth.GetAuthInfo().CompanyId;
 #pragma warning disable CS8629 // Nullable value type may be null.
             this._userType = (uint)AppAuth.GetAuthInfo().UserType;
 #pragma warning restore CS8629 // Nullable value type may be null.
         }
-       
+
         public User? FindByEmail(string email)
         {
             return this._dbContext.AclUsers.FirstOrDefault(m => m.Email == email);
@@ -117,7 +117,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
                 }
             }
 
-            if (! routeNames.Safe().Any())
+            if (!routeNames.Safe().Any())
             {
                 var result = (from userUsergroup in this._dbContext.AclUserUsergroups
                               join usergroup in this._dbContext.AclUsergroups on userUsergroup.UsergroupId equals usergroup.Id
@@ -168,88 +168,43 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
         /// <inheritdoc/>
         public List<User>? All()
         {
-            try
-            {
                 return this._dbContext.AclUsers.ToList();
-            }
-            catch (Exception)
-            {
-                throw new Exception();
-            }
-
         }
         /// <inheritdoc/>
         public User? Find(uint id)
         {
-            try
-            {
                 return Queryable.FirstOrDefault(this._dbContext.AclUsers, x => x.Id == id && x.CreatedById == AppAuth.GetAuthInfo().UserId);
-            }
-            catch (Exception)
-            {
-                throw new Exception();
-            }
         }
         /// <inheritdoc/>
         public User? Add(User user)
         {
-            try
-            {
-                this._dbContext.AclUsers.Add(user);
-                this._dbContext.SaveChanges();
-                this._dbContext.Entry(user).Reload();
-                return user;
-            }
-            catch (Exception)
-            {
-                throw new Exception();
-            }
+            this._dbContext.AclUsers.Add(user);
+            this._dbContext.SaveChanges();
+            this._dbContext.Entry(user).Reload();
+            return user;
         }
         /// <inheritdoc/>
         public User? Update(User user)
         {
-            try
-            {
                 this._dbContext.AclUsers.Update(user);
                 this._dbContext.SaveChanges();
                 this._dbContext.Entry(user).Reload();
                 return user;
-            }
-            catch (Exception)
-            {
-                throw new Exception();
-            }
         }
         /// <inheritdoc/>
         public User? Delete(User user)
         {
-            try
-            {
                 this._dbContext.AclUsers.Remove(user);
                 this._dbContext.SaveChanges();
                 return user;
-            }
-            catch (Exception)
-            {
-                throw new Exception();
-            }
-
         }
         /// <inheritdoc/>
         public User? Delete(uint id)
         {
-            try
-            {
                 var delete = Find(id);
                 this._dbContext.AclUsers.Remove(delete);
                 this._dbContext.SaveChanges();
                 return delete;
-            }
-            catch (Exception)
-            {
-                throw new Exception();
-            }
-
         }
 
         /// <inheritdoc/>
