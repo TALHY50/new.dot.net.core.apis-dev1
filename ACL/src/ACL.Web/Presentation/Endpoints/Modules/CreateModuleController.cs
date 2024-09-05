@@ -8,7 +8,7 @@ namespace ACL.Web.Presentation.Endpoints.Modules
 {
     public class CreateModuleController(ILogger<CreateModuleController> logger, ICurrentUser currentUser): ModuleBaseController(logger, currentUser)
     {
-        [Tags("Module")]
+        [Tags("Modules")]
         //[Authorize(Policy = "HasPermission")]
         [HttpPost(ModuleRoutes.CreateModuleTemplate, Name = ModuleRoutes.CreateModuleName)]
 
