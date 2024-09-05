@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ACL.Web.Application.Features.Auth
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     /// <inheritdoc/>
     [Route("api/v1/auth/")]
     [ApiController]
@@ -36,6 +37,7 @@ namespace ACL.Web.Application.Features.Auth
             return await this._login.Execute(requestOwn);
         }
         /// <inheritdoc/>
+        [ApiExplorerSettings(IgnoreApi = true)]
         [Authorize]
         [AllowAnonymous]
         [HttpPost]

@@ -13,6 +13,7 @@ namespace ACL.Web.Presentation.Endpoints.Auth;
 /// <summary>
 /// 
 /// </summary>
+[ApiExplorerSettings(IgnoreApi = true)]
 public class RegisterController : AuthBaseController
 {
     /// <inheritdoc />
