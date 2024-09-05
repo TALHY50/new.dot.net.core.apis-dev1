@@ -9,6 +9,6 @@ using System.Threading.Tasks;
 
 namespace ACL.Business.Application.Features.Users;
 
-public class UserBase : ApiControllerBase
+public class UserBase
 {
 }
