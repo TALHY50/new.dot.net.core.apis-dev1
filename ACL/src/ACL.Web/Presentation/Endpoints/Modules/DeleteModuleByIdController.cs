@@ -1,24 +1,25 @@
-﻿using Admin.Web.Presentation.Routes;
+﻿using ACL.Business.Application.Features.Modules;
+using ACL.Web.Presentation.Endpoints.Modules;
+using ACL.Web.Presentation.Routes;
 using Microsoft.AspNetCore.Mvc;
-using SharedBusiness.Main.Admin.Application.Features.Corridors;
 using SharedKernel.Main.Application.Interfaces.Services;
 
-namespace Admin.Web.Presentation.Endpoints.Corridors
+namespace ACL.Web.Presentation.Endpoints.UserGroups
 {
-    public class DeleteCorridorById(ILogger<DeleteCorridorById> logger, ICurrentUser currentUser)
-    : CorridorBaseController(logger, currentUser)
+    public class DeleteModuleByIdController(ILogger<DeleteModuleByIdController> logger, ICurrentUser currentUser): ModuleBaseController(logger, currentUser)
     {
-        [Tags("Corridors")]
+        [Tags("Module")]
         //[Authorize(Policy = "HasPermission")]
-        [HttpDelete(CorridorsRoutes.DeleteCorridorTemplate, Name = CorridorsRoutes.DeleteCorridorName)]
+        [HttpDelete(ModuleRoutes.DeleteModuleTemplate, Name = ModuleRoutes.DeleteModuleName)]
 
         public async Task<IActionResult> Delete(uint id, CancellationToken cancellationToken)
         {
-            var command = new DeleteCorridorByIdCommand(id);
+            var command = new DeleteModuleCommand(id)
+;
             _ = Task.Run(
                 () => _logger.LogInformation(
-                    "delete-corridor-by-id-request: {Name} {@UserId} {@Request}",
-                    nameof(DeleteCorridorByIdCommand),
+                    "delete-module-by-id-request: {Name} {@UserId} {@Request}",
+                    nameof(DeleteModuleCommand),
                     CurrentUser.UserId,
                     command),
                 cancellationToken);
@@ -28,7 +29,7 @@ namespace Admin.Web.Presentation.Endpoints.Corridors
                 Problem);
             _ = Task.Run(
                 () => _logger.LogInformation(
-                    "delete-corridor-by-id-response: {Name} {@UserId} {@Response}",
+                    "delete-module-by-id-response: {Name} {@UserId} {@Response}",
                     nameof(response),
                     CurrentUser.UserId,
                     response),

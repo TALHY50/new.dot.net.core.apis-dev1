@@ -20,7 +20,7 @@ namespace ACL.Business.Application.Interfaces.Repositories
         /// <inheritdoc/>
         Module? Delete(uint id);
         /// <inheritdoc/>
-        bool ExistByName(uint id, string name);
+        bool ExistByName(uint? id, string name);
         /// <inheritdoc/>
         bool ExistById(uint? id, uint value);
 

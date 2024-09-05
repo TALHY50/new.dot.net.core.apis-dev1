@@ -10,7 +10,7 @@ namespace Admin.Web.Presentation.Endpoints.InstitutionMtts
     public class DeleteInstitutionMttById(ILogger<DeleteInstitutionMttById> logger, ICurrentUser currentUser)
     : InstitutionMttBaseController(logger, currentUser)
     {
-        [Tags("Currencies")]
+        [Tags("InstitutionMtts")]
         //[Authorize(Policy = "HasPermission")]
         [HttpDelete(InstitutionMttRoutes.DeleteInstitutionMttTemplate, Name = InstitutionMttRoutes.DeleteInstitutionMttName)]
 
