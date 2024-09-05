@@ -390,7 +390,7 @@ public partial class ApplicationDbContext : IdentityDbContext<User, Role, uint>
                 .HasColumnName("updated_at");
         });
 
-        /*modelBuilder.Entity<Role>(entity =>
+        modelBuilder.Entity<Role>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
@@ -426,7 +426,13 @@ public partial class ApplicationDbContext : IdentityDbContext<User, Role, uint>
                 .HasComment("approve auth ID")
                 .HasColumnType("bigint(20) unsigned")
                 .HasColumnName("updated_by_id");
-        });*/
+            entity.Property(e => e.NormalizedName)
+                .HasColumnType("varchar(256)")
+                .HasColumnName("normalized_name");
+            entity.Property(e => e.ConcurrencyStamp)
+                .HasColumnType("longtext")
+                .HasColumnName("concurrency_stamp");
+        });
 
         modelBuilder.Entity<RolePage>(entity =>
         {
@@ -527,6 +533,7 @@ public partial class ApplicationDbContext : IdentityDbContext<User, Role, uint>
             entity.Property(e => e.UpdatedAt)
                 .HasColumnType("timestamp")
                 .HasColumnName("updated_at");
+            
         });
 
         /*modelBuilder.Entity<User>(entity =>
