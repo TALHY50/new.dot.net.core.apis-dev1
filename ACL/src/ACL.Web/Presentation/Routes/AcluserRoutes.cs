@@ -2,7 +2,7 @@
 {
     public class AcluserRoutes
     {
-        public const string Base = "api/v1/";
+        public const string Base = "/";
         public const string Model = "users";
 
         public const string GetUserMethod = "GET";
