@@ -12,7 +12,7 @@ public class CreateCompany : CompanyBase
     public CreateCompany(ICompanyService companyService) : base(companyService)
     {
     }
-    
+    [ApiExplorerSettings(IgnoreApi = true)]
     [Authorize(Policy = "HasPermission")]
     [HttpPost(AclRoutesUrl.AclCompanyRouteUrl.Add, Name = AclRoutesName.AclCompanyRouteNames.Add)]
     public Task<ScopeResponse> Create(AclCompanyCreateRequest request)

@@ -8,7 +8,7 @@ namespace ACL.Web.Application.Features.Passwords
 {
      /// <inheritdoc/>
     //[Authorize]
-    [Tags("Password")]
+    [Tags("Auth")]
     [ApiController]
     public class PasswordController : ControllerBase
     {
