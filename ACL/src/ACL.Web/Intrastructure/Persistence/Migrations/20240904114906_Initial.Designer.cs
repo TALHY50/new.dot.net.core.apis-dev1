@@ -5232,7 +5232,7 @@ namespace ACL.Web.Intrastructure.Persistence.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
 
-                    b.ToTable("AspNetUsers", (string)null);
+                    b.ToTable("acl_users", (string)null);
                 });
 
             modelBuilder.Entity("ACL.Business.Domain.Entities.UserSetting", b =>
