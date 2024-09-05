@@ -9,6 +9,7 @@ namespace Notification.App.Presentation.Controllers;
 
 public class SendSmsController : ApiControllerBase
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     [HttpPost("/api/notification/send/sms")]
     public async Task<ActionResult<ErrorOr.ErrorOr<Result>>> Create(SendSmsCommand command)
     {

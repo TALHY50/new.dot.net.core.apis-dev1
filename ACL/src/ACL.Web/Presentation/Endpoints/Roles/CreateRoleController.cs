@@ -26,7 +26,7 @@ namespace ACL.Web.Presentation.Endpoints.Roles
                 cancellationToken);
             var result = await Mediator.Send(command).ConfigureAwait(false);
             var response = result.Match(
-            token => Ok(ToSuccess(ToDto(token))),
+            role => Ok(ToSuccess(role.Adapt<RoleDto>())),
             Problem);
             _ = Task.Run(
                 () => _logger.LogInformation(
@@ -35,14 +35,6 @@ namespace ACL.Web.Presentation.Endpoints.Roles
                     CurrentUser.UserId,
                     response), cancellationToken);
             return response;
-        }
-
-        private RoleDto ToDto(Role token)
-        {
-            return new RoleDto(
-                token.Id,
-                 token.Name,
-                 token.Title);
         }
     }
 }

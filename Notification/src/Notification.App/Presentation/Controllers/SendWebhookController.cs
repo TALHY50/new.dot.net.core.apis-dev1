@@ -9,6 +9,7 @@ namespace Notification.App.Presentation.Controllers;
 
 public class SendWebhookController : ApiControllerBase
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     [HttpPost("/api/notification/send/webhook")]
     public async Task<ActionResult<ErrorOr.ErrorOr<Result>>> Create(SendWebhookCommand command)
     {

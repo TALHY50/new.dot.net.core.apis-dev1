@@ -13,6 +13,7 @@ namespace Notification.App.Presentation.Controllers;
 
 public class CreateEmailEventController : ApiControllerBase
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     // [Authorize(Policy = "HasPermission")]
     [HttpPost(Routes.CreateEmailEventRoute, Name = Routes.CreateEmailEventRouteName)]
     public async Task<ActionResult<ErrorOr<Event>>> Create(CreateEmailEventCommand command)

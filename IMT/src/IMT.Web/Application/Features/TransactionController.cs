@@ -15,6 +15,7 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace IMT.App.Application.Features
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     [Tags("Thunes")]
     [ApiController]
     [Route("[controller]")]
