@@ -11,7 +11,7 @@ namespace Admin.Web.Presentation.Endpoints.MttPaymentSpeeds
     public class GetMttPaymentSpeedByIdController(ILogger<GetMttPaymentSpeedByIdController> logger, ICurrentUser currentUser)
         : MttPaymentSpeedBaseController(logger, currentUser)
     {
-        [Tags("MttPaymentSpeeds")]
+        [Tags("MttPaymentSpeed")]
         //[Authorize(Policy = "HasPermission")]
         [HttpGet(MttPaymentSpeedRoutes.GetMttPaymentSpeedByIdTemplate, Name = MttPaymentSpeedRoutes.GetMttPaymentSpeedByIdName)]
 

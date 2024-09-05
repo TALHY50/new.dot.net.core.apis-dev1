@@ -13,7 +13,7 @@ namespace Admin.Web.Presentation.Endpoints.PayerPaymentSpeeds
         {
         }
 
-        [Tags("PayerPaymentSpeeds")]
+        [Tags("PayersPaymentSpeeds")]
         //[Authorize(Policy = "HasPermission")]
         [HttpPut(PayerPaymentSpeedRoutes.UpdatePayerPaymentSpeedTemplate, Name = PayerPaymentSpeedRoutes.UpdatePayerPaymentSpeedName)]
         [HttpPatch(PayerPaymentSpeedRoutes.UpdatePayerPaymentSpeedTemplate, Name = PayerPaymentSpeedRoutes.UpdatePayerPaymentSpeedName)]

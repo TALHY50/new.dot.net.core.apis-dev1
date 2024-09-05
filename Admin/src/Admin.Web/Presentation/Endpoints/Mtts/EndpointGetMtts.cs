@@ -21,7 +21,7 @@ namespace Admin.Web.Presentation.Endpoints.Mtts
     public class EndpointGetMtts(ILogger<EndpointGetMtts> logger, ICurrentUser currentUser)
       : MttBase(logger, currentUser)
     {
-        [Tags("Mtt")]
+        [Tags("Mtts")]
         [HttpGet(MttRoutes.AllMttsRouteUrl, Name = MttRoutes.AllMttsRouteName)]
         public async Task<IActionResult> Get([FromQuery] PaginatorRequest pageRequest, CancellationToken cancellationToken)
         {

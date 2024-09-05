@@ -11,7 +11,7 @@ namespace Admin.Web.Presentation.Endpoints.BusinessHourAndWeekend;
 public class DeleteBusinessHourAndWeekendByIdController(ILogger<DeleteBusinessHourAndWeekendByIdController> logger, ICurrentUser currentUser)
     : BusinessHourAndWeekendBaseController(logger, currentUser)
 {
-    [Tags("BusinessHourAndWeekends")]
+    [Tags("BusinessHoursAndWeekends")]
     //[Authorize(Policy = "HasPermission")]
     [HttpDelete(BusinessHourAndWeekendRoutes.DeleteBusinessHourAndWeekendTemplate, Name = BusinessHourAndWeekendRoutes.DeleteBusinessHourAndWeekendName)]
 

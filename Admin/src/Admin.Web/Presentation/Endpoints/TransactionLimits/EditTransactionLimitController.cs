@@ -9,7 +9,7 @@ namespace Admin.Web.Presentation.Endpoints.TransactionLimits
 {
     public class EditTransactionLimitController(ILogger<EditTransactionLimitController> logger, ICurrentUser currentUser) : TransactionLimitBaseController(logger, currentUser)
     {
-        [Tags("Transaction Limit")]
+        [Tags("TransactionLimits")]
         //[Authorize(Policy = "HasPermission")]
         [HttpPut(TransactionLimitRoutes.UpdateTransactionLimitTemplate, Name = TransactionLimitRoutes.UpdateTransactionLimitName)]
         public async Task<IActionResult> Update(uint id, UpdateTransactionLimitCommand command, CancellationToken cancellationToken)

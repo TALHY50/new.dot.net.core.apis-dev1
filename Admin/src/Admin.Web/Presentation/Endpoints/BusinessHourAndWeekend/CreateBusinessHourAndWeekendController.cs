@@ -11,7 +11,7 @@ namespace Admin.Web.Presentation.Endpoints.BusinessHourAndWeekend;
 public class CreateBusinessHourAndWeekendController(ILogger<CreateBusinessHourAndWeekendController> logger, ICurrentUser currentUser)
     : BusinessHourAndWeekendBaseController(logger, currentUser)
 {
-    [Tags("BusinessHourAndWeekends")]
+    [Tags("BusinessHoursAndWeekends")]
     //[Authorize(Policy = "HasPermission")]
     [HttpPost(BusinessHourAndWeekendRoutes.CreateBusinessHourAndWeekendTemplate, Name = BusinessHourAndWeekendRoutes.CreateBusinessHourAndWeekendName)]
 

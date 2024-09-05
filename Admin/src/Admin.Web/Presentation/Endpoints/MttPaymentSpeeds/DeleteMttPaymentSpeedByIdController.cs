@@ -10,7 +10,7 @@ namespace Admin.Web.Presentation.Endpoints.MttPaymentSpeeds
     public class DeleteMttPaymentSpeedByIdController(ILogger<DeleteMttPaymentSpeedByIdController> logger, ICurrentUser currentUser)
         : MttPaymentSpeedBaseController(logger, currentUser)
     {
-        [Tags("MttPaymentSpeeds")]
+        [Tags("MttPaymentSpeed")]
         //[Authorize(Policy = "HasPermission")]
         [HttpDelete(MttPaymentSpeedRoutes.DeleteMttPaymentSpeedTemplate, Name = MttPaymentSpeedRoutes.DeleteMttPaymentSpeedName)]
 
