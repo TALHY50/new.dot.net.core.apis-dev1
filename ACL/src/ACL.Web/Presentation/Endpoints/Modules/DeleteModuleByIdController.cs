@@ -8,7 +8,7 @@ namespace ACL.Web.Presentation.Endpoints.UserGroups
 {
     public class DeleteModuleByIdController(ILogger<DeleteModuleByIdController> logger, ICurrentUser currentUser): ModuleBaseController(logger, currentUser)
     {
-        [Tags("Module")]
+        [Tags("Modules")]
         //[Authorize(Policy = "HasPermission")]
         [HttpDelete(ModuleRoutes.DeleteModuleTemplate, Name = ModuleRoutes.DeleteModuleName)]
 
