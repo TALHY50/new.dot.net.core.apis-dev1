@@ -11,7 +11,7 @@ namespace ACL.Web.Presentation.Endpoints.Modules
 {
     public class GetModulesController(ILogger<GetModulesController> logger, ICurrentUser currentUser) : ModuleBaseController(logger, currentUser)
     {
-        [Tags("Module")]
+        [Tags("Modules")]
         // [Authorize(Policy = "HasPermission")]
         [HttpGet(ModuleRoutes.GetModuleTemplate, Name = ModuleRoutes.GetModuleName)]
         public async Task<IActionResult> Get([FromQuery] PaginatorRequest pageRequest, CancellationToken cancellationToken)
