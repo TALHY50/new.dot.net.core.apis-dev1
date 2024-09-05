@@ -1,44 +1,43 @@
-﻿using ACL.Business.Application.Features.UserGroups;
+﻿
+using ACL.Business.Application.Features.Modules;
 using ACL.Business.Contracts.Responses;
-using ACL.Business.Domain.Entities;
 using ACL.Web.Presentation.Routes;
 using Mapster;
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Contracts;
 
-namespace ACL.Web.Presentation.Endpoints.UserGroups
+namespace ACL.Web.Presentation.Endpoints.Modules
 {
-    public class GetUserGroupsController(ILogger<GetUserGroupsController> logger, ICurrentUser currentUser) 
-        : UserGroupBaseController(logger, currentUser)
+    public class GetModulesController(ILogger<GetModulesController> logger, ICurrentUser currentUser) : ModuleBaseController(logger, currentUser)
     {
-        [Tags("Usergroups")]
+        [Tags("Modules")]
         // [Authorize(Policy = "HasPermission")]
-        [HttpGet(ACLUserGroupRoutes.GetACLUserGroupTemplate, Name = ACLUserGroupRoutes.GetACLUserGroupName)]
+        [HttpGet(ModuleRoutes.GetModuleTemplate, Name = ModuleRoutes.GetModuleName)]
         public async Task<IActionResult> Get([FromQuery] PaginatorRequest pageRequest, CancellationToken cancellationToken)
         {
-            var query = new GetUserGroupsQuery();
+            var query = new GetModuleQuery(PageNumber: pageRequest.page_number, PageSize: pageRequest.page_size);
             _ = Task.Run(
                 () => _logger.LogInformation(
-                    "get-user-groups: {Name} {@UserId} {@Request}",
-                    nameof(GetUserGroupsQuery),
+                    "get-modules: {Name} {@UserId} {@Request}",
+                    nameof(GetModuleQuery),
                     CurrentUser.UserId,
                     query),
                 cancellationToken);
             var result = await Mediator.Send(query).ConfigureAwait(false);
             var response = result.Match(
-            userGroup => Ok(ToSuccess(userGroup.Select(userGroup => userGroup.Adapt<UserGroupDto>()).ToList())),
-            Problem);
-
+                     modules => Ok(ToSuccess(modules.Select(module => module.Adapt<ModuleDto>()).ToList())),
+                     Problem
+                 );
             _ = Task.Run(
                 () => _logger.LogInformation(
-                    "get-user-groups-response: {Name} {@UserId} {@Response}",
+                    "get-module-response: {Name} {@UserId} {@Response}",
                     nameof(response),
                     CurrentUser.UserId,
                     response),
                 cancellationToken);
             return response;
         }
+
     }
 }

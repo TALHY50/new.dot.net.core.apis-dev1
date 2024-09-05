@@ -12,7 +12,7 @@ namespace ACL.Web.Presentation.Endpoints.UserGroups
     public class GetUserGroupByIdController(ILogger<GetUserGroupByIdController> logger, ICurrentUser currentUser) 
         : UserGroupBaseController(logger, currentUser)
     {
-        [Tags("UserGroups")]
+        [Tags("Usergroups")]
         //[Authorize(Policy = "HasPermission")]
         [HttpGet(ACLUserGroupRoutes.GetACLUserGroupByIdTemplate, Name = ACLUserGroupRoutes.GetACLUserGroupByIdName)]
         public async Task<IActionResult> GetById(uint id, CancellationToken cancellationToken)

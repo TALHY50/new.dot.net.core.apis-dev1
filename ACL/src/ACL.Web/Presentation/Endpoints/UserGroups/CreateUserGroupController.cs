@@ -13,7 +13,7 @@ namespace ACL.Web.Presentation.Endpoints.UserGroups
     public class CreateUserGroupController(ILogger<CreateUserGroupController> logger, ICurrentUser currentUser)
     : UserGroupBaseController(logger, currentUser)
     {
-        [Tags("UserGroups")]
+        [Tags("Usergroups")]
         //[Authorize(Policy = "HasPermission")]
         [HttpPost(ACLUserGroupRoutes.CreateACLUserGroupTemplate, Name = ACLUserGroupRoutes.CreateACLUserGroupName)]
 

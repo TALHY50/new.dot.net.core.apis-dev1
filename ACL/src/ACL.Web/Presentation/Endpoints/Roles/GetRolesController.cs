@@ -11,7 +11,7 @@ namespace ACL.Web.Presentation.Endpoints.Roles
     public class GetRolesController(ILogger<GetRolesController> logger, ICurrentUser currentUser)
     : RoleBaseController(logger, currentUser)
     {
-        [Tags("Role")]
+        [Tags("Roles")]
         // [Authorize(Policy = "HasPermission")]
         [HttpGet(RoleRoutes.GetRoleTemplate, Name = RoleRoutes.GetRoleName)]
         public async Task<IActionResult> Get([FromQuery] PaginatorRequest pageRequest, CancellationToken cancellationToken)

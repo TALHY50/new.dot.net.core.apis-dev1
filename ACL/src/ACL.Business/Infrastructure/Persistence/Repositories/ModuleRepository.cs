@@ -37,7 +37,7 @@ namespace ACL.Business.Infrastructure.Persistence.Repositories
             return this._dbContext.AclModules.Any(x => x.Id == value);
         }
         /// <inheritdoc/>
-        public bool ExistByName(uint id, string name)
+        public bool ExistByName(uint? id, string name)
         {
             if (id > 0)
             {

@@ -12,6 +12,7 @@ public class UpdateCompanyById : CompanyBase
     public UpdateCompanyById(ICompanyService companyService) : base(companyService)
     {
     }
+    [ApiExplorerSettings(IgnoreApi = true)]
     [Authorize(Policy = "HasPermission")]
     [HttpPut(AclRoutesUrl.AclCompanyRouteUrl.Edit, Name = AclRoutesName.AclCompanyRouteNames.Edit)]
     public ScopeResponse Edit(uint id, AclCompanyEditRequest request)

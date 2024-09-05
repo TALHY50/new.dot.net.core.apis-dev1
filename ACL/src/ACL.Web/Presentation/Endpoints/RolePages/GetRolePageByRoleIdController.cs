@@ -11,7 +11,7 @@ namespace ACL.Web.Presentation.Endpoints.RolePages;
 public class GetRolePageByRoleIdController(ILogger<GetRolePageByRoleIdController> logger, ICurrentUser currentUser)
     : RolePageBaseController(logger, currentUser)
 {
-    [Tags("Get Role Page By Role ID")]
+    [Tags("Role Page Association")]
     //[Authorize(Policy = "HasPermission")]
     [HttpGet(RolePageRoutes.GetRolePageByRoleIdTemplate, Name = RolePageRoutes.GetRolePageByRoleIdName)]
     public async Task<IActionResult> GetById(uint role_id, CancellationToken cancellationToken)
