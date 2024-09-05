@@ -224,7 +224,7 @@
     public class ImtRoute
     {
         #region Quotation
-        public const string CreateQuotationRouteUrl = "/v1/money-transfer/quotation";
+        public const string CreateQuotationRouteUrl = "/money-transfer/quotation";
         public const string CreateQuotationRouteName = "money_transfer.quotation";
         #endregion Quotation
     }

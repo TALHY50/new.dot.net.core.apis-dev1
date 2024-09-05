@@ -2,6 +2,7 @@
 using ACL.Business.Contracts.Responses;
 using ACL.Business.Domain.Entities;
 using ACL.Web.Presentation.Routes;
+using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SharedKernel.Main.Application.Interfaces.Services;
@@ -31,7 +32,7 @@ namespace ACL.Web.Presentation.Endpoints.UserGroups
             var result = await Mediator.Send(command).ConfigureAwait(false);
 
             var response = result.Match(
-            token => Ok(ToSuccess(ToDto(token))),
+            userGroup => Ok(ToSuccess(userGroup.Adapt<UserGroupDto>())),
             Problem);
 
             _ = Task.Run(
@@ -42,15 +43,6 @@ namespace ACL.Web.Presentation.Endpoints.UserGroups
                     response),
                 cancellationToken);
             return response;
-        }
-        private UserGroupDto ToDto(Usergroup token)
-        {
-            return new UserGroupDto(
-                token.Id,
-                token.GroupName,
-                token.Category,
-                token.Status,
-                token.CompanyId);
         }
     }
 }
