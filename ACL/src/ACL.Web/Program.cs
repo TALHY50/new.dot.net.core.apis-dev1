@@ -2,6 +2,7 @@ using ACL.Business.Application;
 using ACL.Business.Domain.Entities;
 using ACL.Business.Infrastructure;
 using ACL.Business.Infrastructure.Middlewares;
+using ACL.Business.Infrastructure.Middlewares.Extensions;
 using ACL.Business.Presentation;
 using ACL.Web.Presentation;
 using Microsoft.AspNetCore.Identity;
@@ -41,7 +42,23 @@ var app = builder.Build();
                 .AllowAnyHeader(); 
         });
     
-    app.MapIdentityApi<User>();
+    //app.MapIdentityApi<User>();
+    /*app.MapIdentityApiFilterable<User>(new IdentityApiEndpointRouteBuilderOptions()
+    {
+        ExcludeRegisterPost = true,
+        ExcludeLoginPost = true,
+        ExcludeRefreshPost = true,
+        ExcludeConfirmEmailGet = true,
+        ExcludeResendConfirmationEmailPost = true,
+        ExcludeForgotPasswordPost = true,
+        ExcludeResetPasswordPost = true,
+        // setting ExcludeManageGroup to false will disable
+        // 2FA and both Info Actions
+        ExcludeManageGroup = true,
+        Exclude2faPost = true,
+        ExcludegInfoGet = true,
+        ExcludeInfoPost = true,
+    });*/
     app.Run();
 }
 

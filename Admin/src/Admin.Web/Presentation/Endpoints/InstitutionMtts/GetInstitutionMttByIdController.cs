@@ -9,7 +9,7 @@ namespace Admin.Web.Presentation.Endpoints.InstitutionMtts
     public class GetInstitutionMttByIdController(ILogger<GetInstitutionMttByIdController> logger, ICurrentUser currentUser)
     : InstitutionMttBaseController(logger, currentUser)
     {
-        [Tags("Currencies")]
+        [Tags("InstitutionMtts")]
         //[Authorize(Policy = "HasPermission")]
         [HttpGet(InstitutionMttRoutes.GetInstitutionMttByIdTemplate, Name = InstitutionMttRoutes.GetInstitutionMttByIdName)]
         public async Task<IActionResult> GetById(uint id, CancellationToken cancellationToken)

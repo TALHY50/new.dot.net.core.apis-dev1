@@ -9,7 +9,7 @@ using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Contracts;
 
 namespace ACL.Web.Presentation.Endpoints.Auth;
-
+[ApiExplorerSettings(IgnoreApi = true)]
 public class CreateJwtTokenController(ILogger<CreateJwtTokenController> logger, ICurrentUser currentUser)
     : AuthBaseController(logger, currentUser)
 {

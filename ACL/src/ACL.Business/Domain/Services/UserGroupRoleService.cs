@@ -95,10 +95,5 @@ namespace ACL.Business.Domain.Services
 
             return Task.FromResult(this.ScopeResponse);
         }
-
-        public List<UsergroupRole>? FindByUserGroupId(uint userGroupId)
-        {
-            return _dbContext.AclUsergroupRoles.Where(x => x.UsergroupId == userGroupId).ToList();
-        }
     }
 }
