@@ -9,6 +9,7 @@ namespace Notification.App.Presentation.Controllers;
 
 public class SendEmailController : ApiControllerBase
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     [HttpPost("/api/notification/send/email")]
     public async Task<ErrorOr.ErrorOr<Result>> Create(SendEmailCommand command)
     {

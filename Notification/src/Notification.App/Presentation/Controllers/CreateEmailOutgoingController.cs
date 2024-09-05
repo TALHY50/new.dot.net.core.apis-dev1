@@ -11,6 +11,7 @@ namespace Notification.App.Presentation.Controllers;
 
 public class CreateEmailOutgoingController : ApiControllerBase
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     [HttpPost("/api/notification/outgoing/email/create")]
     public async Task<ActionResult<ErrorOr<EmailOutgoing>>> Create(CreateEmailOutgoingCommand command)
     {
