@@ -10,9 +10,9 @@ namespace ACL.Business.Application.Features.SubModules
 {
     public record GetSubModuleQuery(int PageNumber = 0, int PageSize = 0) : IRequest<ErrorOr<List<SubModule>>>;
 
-    public class GetCountriesQueryValidator : AbstractValidator<GetSubModuleQuery>
+    public class GetSubmoduleQueryValidator : AbstractValidator<GetSubModuleQuery>
     {
-        public GetCountriesQueryValidator()
+        public GetSubmoduleQueryValidator()
         {
             RuleFor(x => x.PageNumber)
                 .GreaterThanOrEqualTo(1)

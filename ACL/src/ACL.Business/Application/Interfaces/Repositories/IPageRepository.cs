@@ -21,5 +21,7 @@ namespace ACL.Business.Application.Interfaces.Repositories
         Page? Delete(uint id);
         /// <inheritdoc/>
         bool IsExist(uint id);
+        bool IsModuleIdExist(uint moduleId);
+        bool IsSubModuleIdExist(uint submoduleId);
     }
 }

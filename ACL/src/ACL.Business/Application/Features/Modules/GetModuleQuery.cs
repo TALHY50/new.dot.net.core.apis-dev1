@@ -11,9 +11,9 @@ namespace ACL.Business.Application.Features.Modules
 {
     public record GetModuleQuery(int PageNumber = 0, int PageSize = 0) : IRequest<ErrorOr<List<Module>>>;
 
-    public class GetCountriesQueryValidator : AbstractValidator<GetModuleQuery>
+    public class GetModuleQueryValidator : AbstractValidator<GetModuleQuery>
     {
-        public GetCountriesQueryValidator()
+        public GetModuleQueryValidator()
         {
             RuleFor(x => x.PageNumber)
                 .GreaterThanOrEqualTo(1)
