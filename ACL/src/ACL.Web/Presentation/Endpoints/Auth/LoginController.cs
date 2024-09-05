@@ -2,12 +2,14 @@ using ACL.Business.Application.Features.Auth;
 using ACL.Business.Domain.Entities;
 using ACL.Web.Presentation.Routes;
 using ErrorOr;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.BearerToken;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Microsoft.Net.Http.Headers;
 using SharedKernel.Main.Application.Interfaces.Services;
 
 namespace ACL.Web.Presentation.Endpoints.Auth;
@@ -21,7 +23,7 @@ public class LoginController : AuthBaseController
 
     /// <inheritdoc />
     public LoginController(
-        ILogger<LoginController> logger, 
+        ILogger<LoginController> logger,
         ICurrentUser currentUser,
         IServiceProvider serviceProvider,
         TimeProvider timeProvider,
@@ -30,14 +32,15 @@ public class LoginController : AuthBaseController
         LinkGenerator linkGenerator,
         IHttpContextAccessor context,
         SignInManager<User> signInManager)
-        : base(logger, currentUser, serviceProvider, timeProvider, bearerTokenOptions, emailSender, linkGenerator, context)
+        : base(logger, currentUser, serviceProvider, timeProvider, bearerTokenOptions, emailSender, linkGenerator,
+            context)
     {
         _signInManager = signInManager;
         // _signInManager = _serviceProvider.GetRequiredService<SignInManager<User>>();
     }
 
-    
-    [Tags("Auth")]
+
+    /*[Tags("Auth")]
     [HttpPost(AuthRoutes.LoginTemplate, Name = AuthRoutes.LoginName)]
     public async Task<ActionResult> Login([FromBody] LoginRequest login, [FromQuery] bool? useCookies, [FromQuery] bool? useSessionCookies)
     {
@@ -64,18 +67,22 @@ public class LoginController : AuthBaseController
             return Problem(result.ToString(), statusCode: StatusCodes.Status401Unauthorized);
         }
 
+        var token = await _context.HttpContext.GetTokenAsync(IdentityConstants.BearerScheme, "access_token");
+        var accessToken = Request.Headers[HeaderNames.Authorization];
+
         // The signInManager already produced the needed response in the form of a cookie or bearer token.
         return  Ok();
-    }
-    
-    
-    /*
+    }*/
+
+
+
     [Tags("Auth")]
     //[Authorize(Policy = "HasPermission")]
     [HttpPost(AuthRoutes.LoginTemplate, Name = AuthRoutes.LoginName)]
 
-    
-    public async Task<IActionResult> Login1([FromBody] LoginRequest login, [FromQuery] bool? useCookies, [FromQuery] bool? useSessionCookies, CancellationToken cancellationToken)
+
+    public async Task<IActionResult> Login([FromBody] LoginRequest login, [FromQuery] bool? useCookies,
+        [FromQuery] bool? useSessionCookies, CancellationToken cancellationToken)
     {
         var command = new LoginCommand(login.Email, login.Password, login.TwoFactorCode, login.TwoFactorRecoveryCode,
             useCookies, useSessionCookies);
@@ -87,11 +94,9 @@ public class LoginController : AuthBaseController
                 command),
             cancellationToken);
         var result = await Mediator.Send(command).ConfigureAwait(false);
-
-        return Ok(result);
-        // return Ok(ToSuccess(response.Value));
-        /*var response = result.Match(
-            result => Ok(result),
+        
+        var response = result.Match(
+            result => Ok(),
             Problem);
         _ = Task.Run(
             () => _logger.LogInformation(
@@ -99,7 +104,9 @@ public class LoginController : AuthBaseController
                 nameof(response),
                 CurrentUser.UserId,
                 response),
-            cancellationToken);#1#
-        //return response;
-    }*/
+            cancellationToken);
+        return response;
+    }
 }
+
+

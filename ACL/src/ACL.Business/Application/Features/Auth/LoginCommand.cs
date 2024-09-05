@@ -23,7 +23,7 @@ namespace ACL.Business.Application.Features.Auth
 {
     
 
-    public record LoginCommand(string Email, string Password, string? TwoFactorCode, string? TwoFactorRecoveryCode, bool? useCookies, bool? useSessionCookies) : IRequest<SignInResult>;
+    public record LoginCommand(string Email, string Password, string? TwoFactorCode, string? TwoFactorRecoveryCode, bool? useCookies, bool? useSessionCookies) : IRequest<ErrorOr<SignInResult>>;
 
 
 
@@ -36,7 +36,7 @@ namespace ACL.Business.Application.Features.Auth
         }
     }
     
-    public class LoginCommandHandler :  IRequestHandler<LoginCommand, SignInResult>
+    public class LoginCommandHandler :  IRequestHandler<LoginCommand, ErrorOr<SignInResult>>
     {
         private ILogger<LoginCommandHandler> _logger;
         private ICurrentUser _currentUser;
@@ -74,7 +74,7 @@ namespace ACL.Business.Application.Features.Auth
             _context = context;
             _signInManager = signInManager;
         }
-        public async Task<SignInResult> Handle(LoginCommand command, CancellationToken cancellationToken)
+        public async Task<ErrorOr<SignInResult>> Handle(LoginCommand command, CancellationToken cancellationToken)
         {
             var useCookies = command.useCookies;
             var useSessionCookies = command.useSessionCookies;
@@ -98,11 +98,10 @@ namespace ACL.Business.Application.Features.Auth
 
             if (!result.Succeeded)
             {
-                /*return Error.Unauthorized(code: ApplicationStatusCodes.API_ERROR_AUTHORIZATION_FAILED.ToString(),
-                    "Unauthorized");*/
+                return Error.Unauthorized(code: ApplicationStatusCodes.API_ERROR_AUTHORIZATION_FAILED.ToString(),
+                    "Unauthorized");
             }
-            var info = await _signInManager.GetExternalLoginInfoAsync();
-
+            
             return result;
         }
         
