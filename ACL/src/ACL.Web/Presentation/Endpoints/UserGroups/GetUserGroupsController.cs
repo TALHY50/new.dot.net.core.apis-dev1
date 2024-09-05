@@ -12,7 +12,7 @@ namespace ACL.Web.Presentation.Endpoints.UserGroups
     public class GetUserGroupsController(ILogger<GetUserGroupsController> logger, ICurrentUser currentUser) 
         : UserGroupBaseController(logger, currentUser)
     {
-        [Tags("UserGroups")]
+        [Tags("Usergroups")]
         // [Authorize(Policy = "HasPermission")]
         [HttpGet(ACLUserGroupRoutes.GetACLUserGroupTemplate, Name = ACLUserGroupRoutes.GetACLUserGroupName)]
         public async Task<IActionResult> Get([FromQuery] PaginatorRequest pageRequest, CancellationToken cancellationToken)

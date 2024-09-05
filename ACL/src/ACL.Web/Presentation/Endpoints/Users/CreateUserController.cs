@@ -18,7 +18,7 @@ public class CreateUserController : UserBaseController
     public CreateUserController(ILogger<UserBaseController> logger, ICurrentUser currentUser) : base(logger, currentUser)
     {
     }
-    [Tags("User")]
+    [Tags("Users")]
     /// <inheritdoc/>
     // [Authorize(Policy = "HasPermission")]
     [HttpPost(AcluserRoutes.CreateUserTemplate, Name = AcluserRoutes.CreateUserName)]
