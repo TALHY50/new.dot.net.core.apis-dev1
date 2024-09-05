@@ -1,4 +1,5 @@
-﻿using ACL.Business.Application.Interfaces.Repositories;
+﻿
+using ACL.Business.Application.Interfaces.Repositories;
 using ACL.Business.Domain.Entities;
 using ErrorOr;
 using FluentValidation;
@@ -28,7 +29,7 @@ namespace ACL.Business.Application.Features.Modules
     }
 
 
-    public class GetModuleHandler : IRequestHandler<GetModuleQuery, ErrorOr<List<Module>>>
+    public class GetModuleHandler : ModuleBase, IRequestHandler<GetModuleQuery, ErrorOr<List<Module>>>
     {
         private readonly IModuleRepository _repository;
 

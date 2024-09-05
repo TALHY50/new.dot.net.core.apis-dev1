@@ -148,8 +148,8 @@ namespace ACL.Business.Domain.Services
                     CreatedAt = DateTime.Now
                 };
             }
-            aclSubModule.ModuleId = ModuleIdExist(request.ModuleId);
-            aclSubModule.Name = ExistByName(aclSubModule.Id, request.Name);
+            //aclSubModule.ModuleId = ModuleIdExist(request.ModuleId);
+            //aclSubModule.Name = ExistByName(aclSubModule.Id, request.Name);
             aclSubModule.ControllerName = request.ControllerName;
             aclSubModule.DefaultMethod = request.DefaultMethod;
             aclSubModule.DisplayName = request.DisplayName;

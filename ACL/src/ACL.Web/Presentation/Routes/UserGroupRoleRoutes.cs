@@ -8,7 +8,7 @@
 
         public const string GetUserGroupRoleByUserGroupIdMethod = "GET";
         public const string GetUserGroupRoleByUserGroupIdName = "get_usergroup_role_by_user_group_id";
-        public const string GetUserGroupRoleByUserGroupIdTemplate = "/usergroups/roles/{user_group_id}";
+        public const string GetUserGroupRoleByUserGroupIdTemplate = "/usergroup-roles/{user_group_id}";
 
         //public const string CreateUserGroupRoleMethod = "POST";
         //public const string CreateUserGroupRoleName = "create-user-group-role";
@@ -20,6 +20,6 @@
 
         public const string UpdateUserGroupRoleMethod = "PUT";
         public const string UpdateUserGroupRoleName = "update_usergroup_role";
-        public const string UpdateUserGroupRoleTemplate = "/usergroups/roles";
+        public const string UpdateUserGroupRoleTemplate = "/usergroup-roles";
     }
 }
