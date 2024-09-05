@@ -2,17 +2,17 @@ namespace ACL.Web.Presentation.Routes;
 
 public class AclRoutesUrl
 {
-    public const string Base = "api/v1/";
+    public const string Base = "/";
 
     public class AclAuthRouteUrl
     {
-        public const string Base = "api/v1/";
+        public const string Base = "/";
         public const string Login = Base + "login";
     }
 
     public class WeatherForecastRouteUrl
     {
-        public const string GetWeatherForecast = "api/v1/GetWeatherForecast";
+        public const string GetWeatherForecast = "/GetWeatherForecast";
     }
 
 
