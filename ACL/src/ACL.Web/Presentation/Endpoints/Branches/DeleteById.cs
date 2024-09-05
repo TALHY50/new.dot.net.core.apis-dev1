@@ -10,7 +10,7 @@ public class DeleteById : BranchBase
     public DeleteById(IBranchService branchService) : base(branchService)
     {
     }
-    
+    [ApiExplorerSettings(IgnoreApi = true)]
     //[Authorize(Policy = "HasPermission")]
     [HttpDelete(AclRoutesUrl.AclBranchRouteUrl.Destroy, Name = AclRoutesName.AclBranchRouteNames.Destroy)]
     public ScopeResponse Destroy(uint id)

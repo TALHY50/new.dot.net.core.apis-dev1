@@ -20,7 +20,7 @@ public class GetUsersController : UserBaseController
     public GetUsersController(ILogger<UserBaseController> logger, ICurrentUser currentUser) : base(logger, currentUser)
     {
     }
-    [Tags("User")]
+    [Tags("Users")]
     /// <inheritdoc/>
     //[Authorize(Policy = "HasPermission")]
     [HttpGet(AcluserRoutes.GetUserTemplate, Name = AcluserRoutes.GetUserName)]

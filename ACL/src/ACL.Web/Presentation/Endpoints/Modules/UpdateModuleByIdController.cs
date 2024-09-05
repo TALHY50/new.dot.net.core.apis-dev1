@@ -11,7 +11,7 @@ namespace ACL.Web.Presentation.Endpoints.Modules
         {
         }
 
-        [Tags("Module")]
+        [Tags("Modules")]
         //[Authorize(Policy = "HasPermission")]
         [HttpPut(ModuleRoutes.UpdateModuleTemplate, Name = ModuleRoutes.UpdateModuleName)]
         [HttpPatch(ModuleRoutes.UpdateModuleTemplate, Name = ModuleRoutes.UpdateModuleName)]

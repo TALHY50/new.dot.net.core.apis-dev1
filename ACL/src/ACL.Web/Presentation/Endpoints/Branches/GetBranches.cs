@@ -11,7 +11,7 @@ public class GetBranches : BranchBase
     public GetBranches(IBranchService branchService) : base(branchService)
     {
     }
-    
+    [ApiExplorerSettings(IgnoreApi = true)]
     [Authorize(Policy = "HasPermission")]
     [HttpGet(AclRoutesUrl.AclBranchRouteUrl.List, Name = AclRoutesName.AclBranchRouteNames.List)]
     public ScopeResponse Index()

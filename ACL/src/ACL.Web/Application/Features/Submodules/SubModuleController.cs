@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ACL.Web.Application.Features.Submodules
 {
     /// <inheritdoc/>
+    [ApiExplorerSettings(IgnoreApi = true)]
     [Authorize]
     //[Tags("Sub Module")]
     [ApiController]

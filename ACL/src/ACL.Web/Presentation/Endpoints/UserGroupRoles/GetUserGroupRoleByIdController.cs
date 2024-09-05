@@ -10,7 +10,7 @@ namespace ACL.Web.Presentation.Endpoints.UserGroupRoles
     public class GetUserGroupRoleByIdController(ILogger<GetUserGroupRoleByIdController> logger, ICurrentUser currentUser)
         : UserGroupRoleBaseController(logger, currentUser)
     {
-        [Tags("User Group Roles")]
+        [Tags("Usergroup Role Association")]
         //[Authorize(Policy = "HasPermission")]
         [HttpGet(UserGroupRoleRoutes.GetUserGroupRoleByUserGroupIdTemplate, Name = UserGroupRoleRoutes.GetUserGroupRoleByUserGroupIdName)]
         public async Task<IActionResult> GetById(uint user_group_id, CancellationToken cancellationToken)

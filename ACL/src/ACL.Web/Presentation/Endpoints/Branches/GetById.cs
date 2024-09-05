@@ -10,7 +10,7 @@ public class GetById : BranchBase
     public GetById(IBranchService branchService) : base(branchService)
     {
     }
-    
+    [ApiExplorerSettings(IgnoreApi = true)]
     //[Authorize(Policy = "HasPermission")]
     [HttpGet(AclRoutesUrl.AclBranchRouteUrl.View, Name = AclRoutesName.AclBranchRouteNames.View)]
     public ScopeResponse View(uint id)
