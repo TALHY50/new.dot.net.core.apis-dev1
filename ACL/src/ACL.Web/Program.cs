@@ -1,12 +1,18 @@
 using ACL.Business.Application;
+using ACL.Business.Application.Features.Auth;
+using ACL.Business.Application.Interfaces.Repositories;
+using ACL.Business.Application.Interfaces.Services;
 using ACL.Business.Domain.Entities;
 using ACL.Business.Infrastructure;
 using ACL.Business.Infrastructure.Middlewares;
 using ACL.Business.Infrastructure.Middlewares.Extensions;
+using ACL.Business.Infrastructure.Persistence.Repositories;
 using ACL.Business.Presentation;
 using ACL.Web.Presentation;
+using FastEndpoints;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using SharedKernel.Main.Application;
@@ -25,6 +31,12 @@ builder.Services.AddACLBusinessInfrastructure(builder.Configuration, builder.Env
 builder.Services.AddACLBusinessPresentation(builder.Configuration, builder.Environment, builder.Host);
 
 builder.Services.AddACLWebPresentation(builder.Configuration, builder.Environment, builder.Host);
+builder.Services.AddScoped<IRefreshTokenUseCase, RefreshTokenService>();
+builder.Services.AddScoped<IRefreshTokenUseCase, RefreshTokenService>();
+//builder.Services.AddScoped<IIdentity, IdentityService>(); // Assuming IdentityService implements IIdentity
+builder.Services.AddScoped<IUserRepository, UserRepository>(); // Register your UserRepository
+builder.Services.AddScoped<IUserSettingRepository, UserSettingRepository>(); // Register your UserSettingRepository
+builder.Services.AddScoped<CreateJwtTokenCommandHandler>();
 
 var app = builder.Build();
 {

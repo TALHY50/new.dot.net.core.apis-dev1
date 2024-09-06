@@ -42,7 +42,6 @@ namespace ACL.Business.Application.Features.Auth
         private readonly IAuthenticationService _authenticationService;
         private readonly IUserRepository _userRepository;
         private readonly IUserSettingRepository _userSettingRepository;
-        private readonly IIdentity _identity;
         private readonly IRefreshTokenUseCase _refreshTokenUseCase;
         private readonly CreateJwtTokenCommandHandler _tokenHandler;
 
@@ -51,7 +50,6 @@ namespace ACL.Business.Application.Features.Auth
             IAuthenticationService authenticationService,
             IUserRepository userRepository,
             IUserSettingRepository userSettingRepository,
-            IIdentity identity,
             IRefreshTokenUseCase refreshTokenUseCase,
             CreateJwtTokenCommandHandler tokenHandler)
         {
@@ -59,7 +57,6 @@ namespace ACL.Business.Application.Features.Auth
             _authenticationService = authenticationService;
             _userRepository = userRepository;
             _userSettingRepository = userSettingRepository;
-            _identity = identity;
             _refreshTokenUseCase = refreshTokenUseCase;
             _tokenHandler = tokenHandler;
         }
@@ -68,7 +65,7 @@ namespace ACL.Business.Application.Features.Auth
         {
             try
             {
-                var user =  _userRepository.FindByEmail(command.Email);
+                var user = _userRepository.FindByEmail(command.Email);
                 if (user == null)
                 {
                     return new DataResponse<LoginResultDto>
@@ -78,21 +75,26 @@ namespace ACL.Business.Application.Features.Auth
                     };
                 }
 
-                var setting = await _userRepository.GetByIdAsync(user.Id);
-                if (setting == null)
+                // Call the hardcoded PasswordLogInAsync method
+                var signInResult = await PasswordLogInAsync(command.Email, command.Password);
+
+                if (signInResult != SignInResult.Success)
                 {
                     return new DataResponse<LoginResultDto>
                     {
                         IsSuccess = false,
-                        ErrorMessage = "User settings not found."
+                        ErrorMessage = "Invalid username or password."
                     };
                 }
 
+                // Manually set TokenLifetime
+                var tokenLifetime = 3600; // Example: 1 hour = 3600 seconds
+
                 var createTokenCommand = new CreateJwtTokenCommand(user.Id, new { });
                 var tokenResult = await _tokenHandler.Handle(createTokenCommand, cancellationToken);
+
                 if (tokenResult.IsError)
                 {
-                    // Assuming Errors is a list or there's a method to convert errors to a string
                     var errorMessage = string.Join(", ", tokenResult.Errors.Select(e => e.ToString()));
                     return new DataResponse<LoginResultDto>
                     {
@@ -120,7 +122,7 @@ namespace ACL.Business.Application.Features.Auth
                     {
                         token_type = "Bearer",
                         access_token = refreshTokenResult.AccessToken,
-                        expires_in = 3600,
+                        expires_in = tokenLifetime,
                         refresh_token = refreshTokenResult.RefreshToken
                     }
                 };
@@ -131,13 +133,12 @@ namespace ACL.Business.Application.Features.Auth
                 return new DataResponse<LoginResultDto>
                 {
                     IsSuccess = false,
-                    ErrorMessage = ex.Message
+                    ErrorMessage = "An unexpected error occurred: " + ex.Message
                 };
             }
-
         }
 
-            public async Task<SignInResult> PasswordLogInAsync(string userName, string password)
+        public async Task<SignInResult> PasswordLogInAsync(string userName, string password)
             {
                 // Hardcoded credentials for testing
                 var staticUserName = "testuser@example.com";

@@ -10,13 +10,13 @@ using SharedKernel.Main.Application.Interfaces.Services;
 
 namespace ACL.Business.Application.Features.Auth
 {
-    public class RefreshToken : IRefreshTokenUseCase
+    public class RefreshTokenService : IRefreshTokenUseCase
     {
         private readonly ILogger _logger;
         private readonly IIdentity _identity;
         private readonly IUserRepository _authRepository;
-        public RefreshToken(
-            ILogger<RefreshToken> logger,
+        public RefreshTokenService(
+            ILogger<RefreshTokenService> logger,
             IIdentity identity,
             IUserRepository authRepository)
         {

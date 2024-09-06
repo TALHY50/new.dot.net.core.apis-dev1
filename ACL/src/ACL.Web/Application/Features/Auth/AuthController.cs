@@ -13,13 +13,13 @@ namespace ACL.Web.Application.Features.Auth
     public class AuthController : ControllerBase
     {
         private readonly Login _login;
-        private readonly RefreshToken _refreshToken;
+        private readonly RefreshTokenService _refreshToken;
         private readonly SignOut _signOut;
         private readonly Register _register;
         /// <inheritdoc/>
         public AuthController(
             Login login,
-            RefreshToken refreshToken,
+            RefreshTokenService refreshToken,
             SignOut signOut,
             Register register)
         {

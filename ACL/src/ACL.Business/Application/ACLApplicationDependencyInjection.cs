@@ -24,7 +24,7 @@ using SharedKernel.Main.Application.Interfaces.Services;
 using SharedKernel.Main.Contracts;
 using SharedKernel.Main.Infrastructure.Cryptography;
 using SharedKernel.Main.Infrastructure.Services;
-using RefreshToken = ACL.Business.Application.Features.Auth.RefreshToken;
+using RefreshTokenService = ACL.Business.Application.Features.Auth.RefreshTokenService;
 
 namespace ACL.Business.Application;
 
@@ -107,7 +107,7 @@ public static class ACLApplicationDependencyInjection
         services.AddSingleton<IAuthorizationHandler, PermissionAuthorizationHandler>();
         services.AddScoped<IAuthenticationService, AuthenticationService>();
         services.AddScoped<Login>();
-        services.AddScoped<RefreshToken>();
+        services.AddScoped<RefreshTokenService>();
         services.AddScoped<SignOut>();
         services.AddScoped<Register>();
         services.AddSingleton<ILocalizationService>(new LocalizationService("SharedKernel.Main.Infrastructure.Resources.en-US", typeof(ACLApplicationDependencyInjection).Assembly, "en-US"));
