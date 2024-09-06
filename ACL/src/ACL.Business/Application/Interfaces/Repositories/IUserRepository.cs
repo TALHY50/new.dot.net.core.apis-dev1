@@ -7,7 +7,7 @@ namespace ACL.Business.Application.Interfaces.Repositories
     /// <inheritdoc/>
     public interface IUserRepository : IRepository<User>, IExtendedRepositoryBase<User>
     {
-        User? FindByIdAsync(uint id);
+        User?  FindByIdAsync(uint id);
         /// <inheritdoc/>
         User? FindByEmail(string email);
         /// <inheritdoc/>

@@ -9,12 +9,12 @@ using SharedKernel.Main.Application.Exceptions;
 using SharedKernel.Main.Application.Interfaces.Services;
 
 namespace ACL.Business.Application.Features.Auth
-{ 
+{
     public class RefreshToken : IRefreshTokenUseCase
     {
         private readonly ILogger _logger;
         private readonly IIdentity _identity;
-        private readonly IUserRepository _authRepository; 
+        private readonly IUserRepository _authRepository;
         public RefreshToken(
             ILogger<RefreshToken> logger,
             IIdentity identity,
@@ -38,7 +38,7 @@ namespace ACL.Business.Application.Features.Auth
                 }
                 var userIdString = await this._identity.GetUserIdFromToken(request.AccessToken);
                 var userId = Convert.ToUInt32(userIdString);
-                var user =  this._authRepository.FindByIdAsync(userId);
+                var user = this._authRepository.FindByIdAsync(userId);
                 if (user != null && !user.RefreshToken.Active)
                 {
                     return new RefreshTokenErrorResponse
@@ -64,7 +64,7 @@ namespace ACL.Business.Application.Features.Auth
                     };
                 }
                 string nameIdentifier = user.Id.ToString();
-               // var claim = user.Claims.SingleOrDefault(c => c.Type == "scope");
+                // var claim = user.Claims.SingleOrDefault(c => c.Type == "scope");
                 string? scope = null;
                 /*if (claim != null)
                 {
@@ -74,7 +74,7 @@ namespace ACL.Business.Application.Features.Auth
                 user.RefreshToken.Value = await this._identity.GenerateRefreshToken();
                 user.RefreshToken.Active = true;
                 user.RefreshToken.ExpirationDate = DateTime.UtcNow.AddMinutes(await this._identity.GetRefreshTokenLifetimeInMinutes());
-                 this._authRepository.UpdateAndSaveAsync(user);
+                this._authRepository.UpdateAndSaveAsync(user);
                 var response = new RefreshTokenSuccessResponse
                 {
                     AccessToken = newToken,
