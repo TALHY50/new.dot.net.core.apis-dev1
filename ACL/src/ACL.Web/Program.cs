@@ -5,7 +5,9 @@ using ACL.Business.Infrastructure.Middlewares;
 using ACL.Business.Infrastructure.Middlewares.Extensions;
 using ACL.Business.Presentation;
 using ACL.Web.Presentation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using SharedKernel.Main.Application;
 using SharedKernel.Main.Infrastructure;
@@ -23,6 +25,7 @@ builder.Services.AddACLBusinessInfrastructure(builder.Configuration, builder.Env
 builder.Services.AddACLBusinessPresentation(builder.Configuration, builder.Environment, builder.Host);
 
 builder.Services.AddACLWebPresentation(builder.Configuration, builder.Environment, builder.Host);
+
 var app = builder.Build();
 {
     app.UseAuthentication()

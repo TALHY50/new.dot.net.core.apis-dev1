@@ -1,15 +1,12 @@
 using ACL.Business.Application.Features.Auth;
+using ACL.Business.Contracts.Requests;
 using ACL.Business.Domain.Entities;
 using ACL.Web.Presentation.Routes;
-using ErrorOr;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.BearerToken;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using Microsoft.Net.Http.Headers;
 using SharedKernel.Main.Application.Interfaces.Services;
 
 namespace ACL.Web.Presentation.Endpoints.Auth;
@@ -79,34 +76,35 @@ public class LoginController : AuthBaseController
     [Tags("Auth")]
     //[Authorize(Policy = "HasPermission")]
     [HttpPost(AuthRoutes.LoginTemplate, Name = AuthRoutes.LoginName)]
-
-
-    public async Task<IActionResult> Login([FromBody] LoginRequest login, [FromQuery] bool? useCookies,
-        [FromQuery] bool? useSessionCookies, CancellationToken cancellationToken)
+    public async Task<IActionResult> Login([FromBody] LoginRequestDto login, CancellationToken cancellationToken)
     {
-        var command = new LoginCommand(login.Email, login.Password, login.TwoFactorCode, login.TwoFactorRecoveryCode,
-            useCookies, useSessionCookies);
-        _ = Task.Run(
-            () => _logger.LogInformation(
+        var command = new LoginCommand(login.Email, login.Password);
+
+        _ = Task.Run(() => _logger.LogInformation(
                 "login-request: {Name} {@UserId} {@Request}",
                 nameof(LoginCommand),
-                CurrentUser.UserId,
+                CurrentUser?.UserId, // Handle null cases if not authenticated yet
                 command),
             cancellationToken);
-        var result = await Mediator.Send(command).ConfigureAwait(false);
-        
-        var response = result.Match(
-            result => Ok(),
-            Problem);
-        _ = Task.Run(
-            () => _logger.LogInformation(
-                "login-response: {Name} {@UserId} {@Response}",
-                nameof(response),
-                CurrentUser.UserId,
-                response),
-            cancellationToken);
-        return response;
+
+        try
+        {
+            var result = await Mediator.Send(command).ConfigureAwait(false);
+
+            // If the result is successful, return the login result
+            return Ok(result);
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            _logger.LogWarning("Login failed for user {Email}: {Message}", login.Email, ex.Message);
+
+            // Return 401 Unauthorized with the error message
+            return Unauthorized(new { message = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Unexpected error occurred during login.");
+            return StatusCode(500, "An unexpected error occurred.");
+        }
     }
 }
-
-
