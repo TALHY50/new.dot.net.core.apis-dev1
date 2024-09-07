@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using SharedKernel.Main.Application.Interfaces.Services;
+using SharedKernel.Main.Contracts;
 
 namespace ACL.Web.Presentation.Endpoints.Auth;
 
@@ -54,11 +55,11 @@ public class RegisterController : AuthBaseController
 
     [Tags("Auth")]
     [HttpPost(AuthRoutes.RegisterTemplate, Name = AuthRoutes.RegisterName)]
-    public async Task<ActionResult> Register([FromBody] CreateUserCommand command)
+    public async Task<ActionResult<Response>> Register([FromBody] CreateUserCommand command)
     {
         if (_userRepository.IsAclUserEmailExist(command.email))
         {
-            return BadRequest("Email already exists.");
+            return BadRequest(SharedKernel.Main.Contracts.Response.Failure("Email already exists."));
         }
 
         var salt = _cryptography.GenerateSalt();
@@ -80,7 +81,6 @@ public class RegisterController : AuthBaseController
             Language = command.language,
             ImgPath = command.img_path,
             Status = (sbyte)command.status,
-
             Salt = salt,
             CompanyId = (uint)AppAuth.GetAuthInfo().CompanyId,
             UserType = ((uint)AppAuth.GetAuthInfo().CompanyId == 0) ? (uint)1 : (uint)2, // Admin or User
@@ -95,10 +95,9 @@ public class RegisterController : AuthBaseController
         };
 
         var result = await _userManager.CreateAsync(user, command.password);
-
         if (!result.Succeeded)
         {
-            return CreateValidationProblem(result);
+            return BadRequest(CreateFailureResponse(result));
         }
 
         if (command.user_group != null && command.user_group.Length > 0)
@@ -107,7 +106,19 @@ public class RegisterController : AuthBaseController
             await _userUserGroupRepository.AddRangeAsync(userUserGroups);
         }
 
-        return Ok();
+        var response = new DataResponse<User>
+        {
+            Data = user,
+            IsSuccess = true
+        };
+
+        return Ok(response);
+    }
+
+    private Response CreateFailureResponse(IdentityResult result)
+    {
+        var errorMessage = string.Join("; ", result.Errors.Select(e => e.Description));
+        return SharedKernel.Main.Contracts.Response.Failure(errorMessage);
     }
 
     private ActionResult CreateValidationProblem(IdentityResult result)
