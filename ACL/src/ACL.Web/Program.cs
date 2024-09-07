@@ -10,6 +10,7 @@ using ACL.Business.Infrastructure.Persistence.Repositories;
 using ACL.Business.Presentation;
 using ACL.Web.Presentation;
 using FastEndpoints;
+using IdentityServer4.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,11 +33,28 @@ builder.Services.AddACLBusinessPresentation(builder.Configuration, builder.Envir
 
 builder.Services.AddACLWebPresentation(builder.Configuration, builder.Environment, builder.Host);
 builder.Services.AddScoped<IRefreshTokenUseCase, RefreshTokenService>();
-builder.Services.AddScoped<IRefreshTokenUseCase, RefreshTokenService>();
 //builder.Services.AddScoped<IIdentity, IdentityService>(); // Assuming IdentityService implements IIdentity
 builder.Services.AddScoped<IUserRepository, UserRepository>(); // Register your UserRepository
 builder.Services.AddScoped<IUserSettingRepository, UserSettingRepository>(); // Register your UserSettingRepository
 builder.Services.AddScoped<CreateJwtTokenCommandHandler>();
+
+builder.Services.AddIdentityServer(options =>
+{
+    options.EmitStaticAudienceClaim = true;
+})
+    .AddInMemoryApiResources(IdentityServerConfig.GetApiResources()) // Load API resources
+    .AddInMemoryClients(IdentityServerConfig.GetClients())           // Load clients
+    .AddInMemoryApiScopes(IdentityServerConfig.GetApiScopes())       // Load API scopes
+    .AddDeveloperSigningCredential();  // Developer signing credentials for testing purposes
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("ApiScope", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireClaim("scope", "api1");
+    });
+});
 
 var app = builder.Build();
 {
@@ -56,7 +74,7 @@ var app = builder.Build();
                 .AllowAnyMethod()
                 .AllowAnyHeader(); 
         });
-    
+
     //app.MapIdentityApi<User>();
     /*app.MapIdentityApiFilterable<User>(new IdentityApiEndpointRouteBuilderOptions()
     {
@@ -77,3 +95,43 @@ var app = builder.Build();
     app.Run();
 }
 
+
+
+public static class IdentityServerConfig
+{
+    // Define the API resources
+    public static IEnumerable<ApiResource> GetApiResources()
+    {
+        return new List<ApiResource>
+        {
+            new ApiResource("api1", "My API")
+        };
+    }
+
+    // Define the API scopes
+    public static IEnumerable<ApiScope> GetApiScopes()
+    {
+        return new List<ApiScope>
+        {
+            new ApiScope("api1", "My API")
+        };
+    }
+
+    // Define the clients (e.g., web apps, mobile apps)
+    public static IEnumerable<Client> GetClients()
+    {
+        return new List<Client>
+        {
+            new Client
+            {
+                ClientId = "client1",
+                AllowedGrantTypes = GrantTypes.ClientCredentials,
+                ClientSecrets =
+                {
+                    new Secret("secret".Sha256())
+                },
+                AllowedScopes = { "api1" }
+            }
+        };
+    }
+}

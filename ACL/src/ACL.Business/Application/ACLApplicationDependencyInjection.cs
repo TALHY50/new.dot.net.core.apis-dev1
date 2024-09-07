@@ -90,9 +90,9 @@ public static class ACLApplicationDependencyInjection
                 };
             });
 
-       
+        services.AddTransient<ITokenService, CustomTokenService>();
 
-            
+
 
         services.AddAuthorization(options =>
         {
