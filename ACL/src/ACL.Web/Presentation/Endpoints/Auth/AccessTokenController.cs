@@ -83,6 +83,10 @@ namespace ACL.Web.Presentation.Endpoints.Auth
             var tokenResult = await _tokenHandler.Handle(createTokenCommand, cancellationToken);
 
             var refreshTokenResult = await _refreshTokenUseCase.Execute(new RefreshTokenRequest { AccessToken = tokenResult.Value });
+            if (!refreshTokenResult.IsSuccess)
+            {
+                return BadRequest(SharedKernel.Main.Contracts.Response.Failure(refreshTokenResult.ErrorMessage));
+            }
 
             var response = new DataResponse<LoginResultDto>
             {
